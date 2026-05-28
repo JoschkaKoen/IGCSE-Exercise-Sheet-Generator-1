@@ -1,0 +1,67 @@
+[thinking]
+**My Analysis of this Exam Page**
+
+Okay, let's break this down. First, I see I'm looking at page 4 of an exam, containing question 2 and its sub-questions. The core task is to take the content, understand its structure, and format it into a YAML structure for a system.
+
+My initial step is to identify the questions: 2, 2a, 2b, and 2bi. This is essential for proper organization. I need to output this in a YAML format with the keys: `number`, `type`, and `text`. If there were multiple-choice questions, I'd also include an `options` field, but I see these are all short-answer type.
+
+Now, I'll go through each question individually, making sure to capture the content accurately. Question 2 sets the scene: "A program to calculate the pay of employees working for a company is being designed." I'll extract this as the context.
+
+Next, 2a asks about stepwise refinement. I need to make sure to extract the phrase "Describe stepwise refinement" which follows the introductory context.
+
+Question 2b introduces a bonus calculation scenario involving hours worked and sales value, described in a table. This is important as it sets up the context for the next question. I'll meticulously copy the table format, remembering the table delimiters and alignment, and ensure it renders correctly in the YAML format. I will need to use a latex tabular environment.
+
+Finally, 2bi focuses on white-box testing. It wants me to list two tests with valid data to test different paths. The question provides blank lines for hours, sales, and bonus, which I need to preserve. I'll translate these into properly formatted test descriptions.
+
+I'll then format each question in the YAML format. I need to make sure to avoid double quotes for free-text fields. For all non-empty text fields, I'll use the `|` block scalar. I need to use `\hrulefill` for the horizontal lines in the test cases and remove `\dotfill`. I should also be mindful of the table format in question 2b. I've noted the latex table commands to use in the `text` field.
+
+Finally, I need to double-check everything against the constraints. No double quotes in the wrong places, ensuring all texts are in the block scalar format, and that `\dotfill` has been correctly replaced by `\hrulefill`. I should check the table formatting again to make sure that the latex environment is consistent. No question prefixes at the start of texts and I'm good to go!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program to calculate the pay of employees working for a company is being designed.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Stepwise refinement has been used in the design of the program.
+
+      Describe stepwise refinement.
+  - number: "2b"
+    type: short_answer
+    text: |
+      One of the program modules used to calculate employees' weekly bonus pay has been completed. The amount of bonus pay they receive is based on the number of hours worked and the value of sales made as shown in the table.
+
+      Bonus pay and value of sales are both in dollars.
+
+      \begin{tabular}{|l|l|c|}
+      \hline
+      \textbf{Hours worked} & \textbf{Value of sales} & \textbf{Bonus pay} \\ \hline
+      between 1 and 40 inclusive & 2000 or less & 0 \\ \hline
+      between 1 and 40 inclusive & above 2000 & 50 \\ \hline
+      above 40 & 2000 or less & 10 \\ \hline
+      above 40 & above 2000 & 100 \\ \hline
+      \end{tabular}
+  - number: "2bi"
+    type: short_answer
+    text: |
+      The module is tested using white-box testing.
+
+      State \textbf{two} tests, using valid data, that can be used to test different paths through the program.
+
+      Test one:
+
+      Hours worked \hrulefill
+      Value of sales \hrulefill
+      Bonus pay \hrulefill
+
+      Test two:
+
+      Hours worked \hrulefill
+      Value of sales \hrulefill
+      Bonus pay \hrulefill

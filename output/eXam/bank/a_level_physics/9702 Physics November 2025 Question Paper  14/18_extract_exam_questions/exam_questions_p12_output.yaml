@@ -1,0 +1,39 @@
+questions:
+  - number: "24"
+    type: multiple_choice
+    text: |
+      A transverse progressive wave travels along a string.
+
+      The graph shows the variation with distance of the displacement of the string at time $t = 0$.
+
+      Which graph represents the variation with time of the velocity of point P on the string?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "25"
+    type: multiple_choice
+    text: |
+      Which statement about electromagnetic waves is correct?
+    options:
+      - letter: A
+        text: |
+          A wave of wavelength $5.0 \times 10^{-6}\text{ m}$ is invisible to the human eye.
+      - letter: B
+        text: |
+          They can all travel at different speeds in free space.
+      - letter: C
+        text: |
+          They \textbf{cannot} be polarised.
+      - letter: D
+        text: |
+          They consist of vibrating atoms.

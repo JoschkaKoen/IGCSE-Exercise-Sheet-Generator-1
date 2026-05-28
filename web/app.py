@@ -30,6 +30,7 @@ from .auth_gate import (
 )
 from .routes.account import router as account_router
 from .routes.admin_stats import router as admin_stats_router
+from .routes.dashboard import router as dashboard_router
 from .routes.eXam_open import router as eXam_open_router
 from .routes.eXam_student import router as eXam_student_router
 from .routes.eXam_teacher import router as eXam_teacher_router
@@ -126,6 +127,8 @@ async def site_access_gate(request: Request, call_next):
         "/api/account/auth",
         "/api/account/check",
         "/api/account/logout",
+        "/api/account/change-username",
+        "/api/account/change-password",
     ):
         if not login_disabled and not request.state.site_auth_ok:
             return JSONResponse(
@@ -148,6 +151,7 @@ app.add_middleware(AnalyticsMiddleware)
 
 app.include_router(site_router)
 app.include_router(account_router)
+app.include_router(dashboard_router)
 app.include_router(nl_jobs_router)
 app.include_router(grade_jobs_router)
 app.include_router(eXam_student_router)

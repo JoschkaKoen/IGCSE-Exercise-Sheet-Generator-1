@@ -1,0 +1,46 @@
+[thinking]
+**Exam Page 3 Transcription**
+
+Okay, so the user wants me to transcribe page 3 of this exam paper. Let's see, the questions on this page are numbered "2", "2a", and "2b". The core concept is binary floating-point representation.
+
+Question 2 provides the system specifications: 8 bits for the mantissa, 8 bits for the exponent, and two's complement form for both.
+
+I'll start by transcribing Question 2 in a clean yaml format. Then, I need to format Question 2a and 2b as calculation questions. For 2a, the user wants the largest normalized positive two's complement binary number and its denary equivalent, expressed in powers of 2. I'll include the "Mantissa" and "Exponent" headers, followed by the two 8-bit registers, clearly marked with frame boxes. I should add a denary answer line.
+
+For Question 2b, the task is to calculate the normalized binary floating-point representation of -3.59375. Again, I'll include the "Mantissa" and "Exponent" headers and the 8-bit registers. Remembering what I learned, I can drop the "Working" line and just maintain the open-ended text box since there is no standalone working line below the open-ended prompt. I will keep the registers side-by-side with an `\hfill` separator. I think this will present the register layout clearly. Excellent. That should be a clean and accurate transcription!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Numbers are stored in a computer using binary floating-point representation with:
+
+      \begin{itemize}
+      \item 8 bits for the mantissa
+      \item 8 bits for the exponent
+      \item two's complement form for both the mantissa and the exponent.
+      \end{itemize}
+  - number: "2a"
+    type: calculation
+    text: |
+      Give the largest normalised positive two's complement binary number that can be stored in this system and state its denary equivalent.
+
+      The denary answer should be expressed in terms of powers of 2.
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \hfill \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+
+      Denary \hrulefill
+  - number: "2b"
+    type: calculation
+    text: |
+      Calculate the normalised binary floating-point representation of $-3.59375$ in this system. Show your working.
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \hfill \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}

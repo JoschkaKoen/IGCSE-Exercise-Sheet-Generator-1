@@ -1,0 +1,49 @@
+[thinking]
+**Exam Paper Transcription: Logic Question**
+
+Okay, the user wants me to transcribe page 9 of this exam paper. Let's get this right. The target is to render some YAML to describe a set of questions.
+
+First, I need to transcribe question "8," which involves a logic expression: `Z = (R OR NOT T) XOR (NOT S AND T)`. That's straightforward, I'll generate the YAML for it.
+
+Next, I have "8a," which requests a logic circuit for that expression. The critical constraint here is that the gates must have a maximum of two inputs, and I'm *not* to simplify the expression. I'll make sure to note that in the text and the YAML.
+
+Finally, question "8b" requires a truth table. I'll need to define the table structure. Initially, it looked like R, S, T, and Z, but wait... there's an image. Ah, there's also a "Working space" column. I need to make sure to include that in the table definition. Ok, let's include it.
+
+Now to the table definition itself. Okay, I've got my head around the formatting. Let's make sure I'm formatting it in the correct LaTeX syntax. `c|c|c|c|c` should provide appropriate column spacing for the table. It's five columns: R, S, T, Working Space and Z. I'll double-check that the header row and the data rows are consistent with the number of columns I've specified. Looks good now. I've got the correct table structure.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      Consider the logic expression:
+
+      $$\text{Z} = (\text{R} \text{ OR NOT } \text{T}) \text{ XOR } (\text{NOT } \text{S} \text{ AND } \text{T})$$
+  - number: "8a"
+    type: short_answer
+    text: |
+      Draw a logic circuit for this logic expression.
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+
+      Do \textbf{not} simplify this logic expression.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Complete the truth table from the given logic expression.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{R} & \textbf{S} & \textbf{T} & \textbf{Working space} & \textbf{Z} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}

@@ -1,0 +1,104 @@
+[thinking]
+**Page 13 of the Exam: A Quick Transcription**
+
+Alright, let's get this done. The user wants me to transcribe page 13 of this exam paper.  The questions on this page are 28, 29, 30 and 31.  Let's run through these quickly.
+
+**Question 28:**  This is a double-slit experiment problem, nice. Red light, 680 nm.  The key here is the fringe separation.  We have the distance to the screen (2.4 m) and the distance across five bright fringes (34 mm).  The question is asking for the slit separation, I'll need to use the standard formula for that. The options are A: $8.5 \times 10^{-3}\text{ m}$, B: $2.4 \times 10^{-4}\text{ m}$, C: $1.9 \times 10^{-4}\text{ m}$, and D: $4.8 \times 10^{-5}\text{ m}$.
+
+**Question 29:** Now, we're on to stationary waves on a stretched spring.  There are two particles, P and Q.  The question is about their vibrations.  We have four options to consider: A: They have different frequencies, B: They have the same amplitudes, C: They have different periods, and D: They are always in phase. This is just a conceptual check on my understanding of stationary wave behavior.
+
+**Question 30:**  Ah, diffraction gratings. Green laser light through a grating.  We have 400 lines per mm, and the wavelength is 550 nm. The question is what the highest order diffraction maximum is. The options are A: 4, B: 5, C: 8, and D: 9.  I'll need to use the grating equation here, and make sure to convert units correctly.
+
+**Question 31:**  This is straightforward electricity.  Potential difference V, resistance R, current I, and the question is what equation gives power P. The options are A: $P = V^2 I$, B: $P = \frac{V^2}{I}$, C: $P = V^2 R$, and D: $P = \frac{V^2}{R}$. I can immediately recognize this as standard formulas. The OCR seems to have misinterpreted some of the equations, so I need to check the image and correct this.
+
+Okay, all the questions are now transcribed and ready for the next step.
+
+
+
+[/thinking]
+
+questions:
+  - number: "28"
+    type: multiple_choice
+    text: |
+      A student carries out a double-slit experiment using a laser emitting red light of wavelength of $680\text{ nm}$. The light is incident normally on a double slit.
+
+      The diagram shows part of the pattern of bright fringes visible on a screen at a distance of $2.4\text{ m}$ from the slits. The distance across five bright fringes is measured as $34\text{ mm}$.
+
+      What is the slit separation?
+    options:
+      - letter: A
+        text: |
+          $8.5 \times 10^{-3}\text{ m}$
+      - letter: B
+        text: |
+          $2.4 \times 10^{-4}\text{ m}$
+      - letter: C
+        text: |
+          $1.9 \times 10^{-4}\text{ m}$
+      - letter: D
+        text: |
+          $4.8 \times 10^{-5}\text{ m}$
+  - number: "29"
+    type: multiple_choice
+    text: |
+      The diagram shows a stationary wave on a stretched spring at an instant in time.
+
+      Two particles on the spring, P and Q, are shown.
+
+      Which statement about the vibrations of P and Q is correct?
+    options:
+      - letter: A
+        text: |
+          They have different frequencies.
+      - letter: B
+        text: |
+          They have the same amplitudes.
+      - letter: C
+        text: |
+          They have different periods.
+      - letter: D
+        text: |
+          They are always in phase.
+  - number: "30"
+    type: multiple_choice
+    text: |
+      Green laser light passes through a diffraction grating and forms an interference pattern.
+
+      The diffraction grating contains 400 lines per mm.
+
+      The wavelength of the laser light is $550\text{ nm}$.
+
+      What is the highest order diffraction maximum produced by the grating?
+    options:
+      - letter: A
+        text: |
+          4
+      - letter: B
+        text: |
+          5
+      - letter: C
+        text: |
+          8
+      - letter: D
+        text: |
+          9
+  - number: "31"
+    type: multiple_choice
+    text: |
+      There is a potential difference $V$ across a resistor of resistance $R$. The current in the resistor is $I$.
+
+      Which equation gives the power $P$ dissipated by the resistor?
+    options:
+      - letter: A
+        text: |
+          $P = V^2 I$
+      - letter: B
+        text: |
+          $P = \frac{V^2}{I}$
+      - letter: C
+        text: |
+          $P = V^2 R$
+      - letter: D
+        text: |
+          $P = \frac{V^2}{R}$

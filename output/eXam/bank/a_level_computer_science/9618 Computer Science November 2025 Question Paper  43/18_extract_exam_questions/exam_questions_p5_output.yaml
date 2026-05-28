@@ -1,0 +1,50 @@
+```yaml
+questions:
+  - number: "1bi"
+    type: long_answer
+    text: |
+      Write program code to declare the class \texttt{Board} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      \textbf{Save your program.} \\
+      Copy and paste the program code into part \textbf{1(b)(i)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "1bii"
+    type: long_answer
+    text: |
+      The method \texttt{GetObject()} takes a row number and column number as parameters.
+
+      The method returns the \texttt{BoardObject} stored at the parameter position.
+
+      Write program code for \texttt{GetObject()}
+
+      \begin{tabular}{|l|}
+      \hline
+      \textbf{Save your program.} \\
+      Copy and paste the program code into part \textbf{1(b)(ii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "1biii"
+    type: long_answer
+    text: |
+      The method \texttt{SetObject()} takes \textbf{three} parameters: a \texttt{BoardObject}, row number and column number.
+
+      The method stores the \texttt{BoardObject} parameter in the row, column position in \texttt{TheBoard}
+
+      Write program code for \texttt{SetObject()}
+
+      \begin{tabular}{|l|}
+      \hline
+      \textbf{Save your program.} \\
+      Copy and paste the program code into part \textbf{1(b)(iii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+```

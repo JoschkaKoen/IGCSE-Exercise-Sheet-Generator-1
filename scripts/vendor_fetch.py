@@ -120,9 +120,9 @@ def main() -> int:
         VENDOR_DIR / "tailwind" / "tailwind-play.js",
     )
 
-    # 2. Google Fonts — Outfit + Sora, woff2 only (requires a modern UA)
+    # 2. Google Fonts — Outfit + Sora + Source Serif 4, woff2 only (requires a modern UA)
     mirror_css(
-        "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Sora:wght@500;600;700&display=swap",
+        "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Sora:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap",
         VENDOR_DIR / "google-fonts" / "fonts.css",
         font_subdir="files",
         ua=MODERN_UA,

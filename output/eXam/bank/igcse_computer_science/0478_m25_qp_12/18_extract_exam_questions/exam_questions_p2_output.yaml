@@ -1,0 +1,58 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Complete the sentences about number systems.
+
+      Use the items from the list.
+
+      Some of the items in the list will \textbf{not} be used. You should only use an item once.
+
+      \begin{itemize}
+      \item A
+      \item B
+      \item C
+      \item D
+      \item E
+      \item F
+      \item G
+      \item H
+      \item W
+      \item X
+      \item Y
+      \item Z
+      \item 0
+      \item 1
+      \item 2
+      \item 4
+      \item 8
+      \item 10
+      \item 16
+      \item 127
+      \item 128
+      \item 255
+      \item 256
+      \end{itemize}
+
+      The binary number system is base \underline{\hspace{1.5em}}. The smallest denary number that can be represented as an 8-bit binary number is \underline{\hspace{1.5em}}. The largest denary number that can be represented as an 8-bit binary number is \underline{\hspace{1.5em}}.
+
+      The hexadecimal number system is base \underline{\hspace{1.5em}}. Each hexadecimal digit is equivalent to \underline{\hspace{1.5em}} bits. The numbers 1 to 9 are used and the number 10 is represented by \underline{\hspace{1.5em}}. The hexadecimal number system continues up to the number 15, which is represented by \underline{\hspace{1.5em}}.
+  - number: "1b"
+    type: calculation
+    text: |
+      Two 8-bit binary numbers are given.
+
+      Add the two 8-bit binary numbers using binary addition.
+
+      Give your answer in binary. Show all your working.
+
+      \begin{tabular}{r}
+        1 0 0 1 1 0 1 1 \\
+      + 0 0 0 1 0 0 1 1 \\
+      \hline
+      \end{tabular}
+```

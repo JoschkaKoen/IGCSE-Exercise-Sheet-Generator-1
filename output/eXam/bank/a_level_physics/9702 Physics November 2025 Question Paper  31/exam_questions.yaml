@@ -1,0 +1,462 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'In this experiment, you will investigate oscillations.
+
+
+    You have been provided with a double spring and two single springs.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Slide the double spring and the two single springs onto the longer wooden
+      rod.
+
+
+      Set up the apparatus as shown in Fig. 1.1.'
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: calculation
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use the bosses to fix the wooden rod approximately $55\text{ cm}$ above
+        the bench and parallel to the bench.
+
+
+        Hang a total mass of $270\text{ g}$ from the double spring.
+
+
+        The mass hanging from the double spring is $m$.
+
+
+        Record $m$.
+
+
+        $m = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: '\begin{itemize}
+
+        \item Gently pull the mass down through a short distance. When released, the
+        mass will oscillate.
+
+        \item Take measurements to determine the period $T_1$ of the oscillations.
+
+        \end{itemize}
+
+
+        $T_1 = $ \hrulefill
+
+
+        \begin{itemize}
+
+        \item Remove the mass from the double spring.
+
+        \end{itemize}'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: '\begin{itemize}
+
+      \item Using the shorter wooden rod, hang mass $m$ as shown in Fig. 1.2.
+
+      \item Gently place the hook of the mass hanger near the centre of the shorter
+      rod.
+
+      \item Carefully adjust the position of the mass hanger until the shorter rod
+      is approximately parallel to the bench, as shown in Fig. 1.2.
+
+      \item Gently pull the mass down through a short distance. When released, the
+      mass will oscillate.
+
+      \item Take measurements to determine the period $T_2$ of the oscillations.
+
+      \end{itemize}
+
+
+      $T_2 = $ \hrulefill
+
+
+      \begin{itemize}
+
+      \item Remove the mass.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'Vary $m$. For each value of $m$, determine $T_1$ and $T_2$. Repeat until
+      you have five sets of values of $m$, $T_1$ and $T_2$. Do not use values of $m$
+      less than 200g.
+
+
+      Record your results in a table. Include values of $\sqrt{T_1}$ and $\sqrt{T_2}$
+      in your table.'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1di
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Plot a graph of $\sqrt{T_2}$ on the $y$-axis against $\sqrt{T_1}$ on the
+        $x$-axis.
+      answer_options: []
+      subquestions: []
+    - number: 1dii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Draw the straight line of best fit.
+      answer_options: []
+      subquestions: []
+    - number: 1diii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the gradient and $y$-intercept of this line.
+
+
+        gradient = \hrulefill
+
+        $y$-intercept = \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1e
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'It is suggested that the quantities $\sqrt{T_2}$ and $\sqrt{T_1}$ are related
+      by the equation
+
+
+      $$\sqrt{T_2} = P \sqrt{T_1} + Q$$
+
+
+      where $P$ and $Q$ are constants.
+
+
+      Using your answers in \textbf{(d)(iii)}, determine the values of $P$ and $Q$.
+
+      Give appropriate units.
+
+
+      P = \hrulefill
+
+      Q = \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: In this experiment, you will investigate the deformation of paper cylinders.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'You have been provided with two pieces of paper.
+
+
+      The width of a piece of paper is the length $w$ of the shorter side, as shown
+      in Fig. 2.1.
+
+
+      \begin{itemize}
+
+      \item Select the smaller piece of paper.
+
+      \item Measure and record $w$.
+
+      \end{itemize}
+
+
+      $w =$ \hrulefill cm
+
+
+      \begin{itemize}
+
+      \item Roll the paper into a cylinder and use two paper clips to hold the paper
+      in place, as shown in Fig. 2.2.
+
+      \item The diameter of the cylinder is $d$, as shown in Fig. 2.2.
+
+      \newline
+
+      Adjust the paper and paper clips until $d$ is as close as possible to 7.0 cm.
+
+      \item Measure and record $d$.
+
+      \end{itemize}
+
+
+      $d =$ \hrulefill cm'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Set up the apparatus as shown in Fig. 2.3.
+
+
+      \begin{itemize}
+
+      \item Slide the loop of the upper spring onto the wooden rod.
+
+      \item Hang a mass of 200g from the lower spring.
+
+      \item Adjust the height of the boss until the bottom of the mass is approximately
+      10cm above the bench.
+
+      \item Place the paper cylinder so that the middle of the cylinder is under the
+      mass, as shown in Fig. 2.3.
+
+      \item The length of the springs is $y$, as shown in Fig. 2.3.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Measure and record $y$.
+
+
+        $y = $ \hrulefill cm'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Estimate the percentage uncertainty in your value of $y$. Show your working.
+
+
+        percentage uncertainty = \hrulefill \%'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: By adjusting the height of the boss, lower the mass to squash the middle
+      of the paper cylinder until the bottom of the mass is 2.5 cm above the bench,
+      as shown in Fig. 2.4.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The length of the springs is $p$, as shown in Fig. 2.4.
+
+
+        Measure and record $p$.
+
+
+        $p$ = \hrulefill cm'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate $(y - p)$.
+
+
+        $(y - p)$ = \hrulefill cm'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Using the \textbf{larger} sheet of paper, repeat \textbf{(a)}, \textbf{(b)(i)},
+      \textbf{(c)(i)} and \textbf{(c)(ii)}.
+
+
+      $w = $ \hrulefill cm
+
+
+      $d = $ \hrulefill cm
+
+
+      $y = $ \hrulefill cm
+
+
+      $p = $ \hrulefill cm
+
+
+      $(y - p) = $ \hrulefill cm'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'It is suggested that the relationship between $w$, $y$ and $p$ is
+
+
+      $$w = k(y - p)$$
+
+
+      where $k$ is a constant.'
+    answer_options: []
+    subquestions:
+    - number: 2ei
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Using your data, calculate \textbf{two} values of $k$.
+
+
+        first value of $k = $ \hrulefill
+
+
+        second value of $k = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2eii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Justify the number of significant figures that you have given for your
+        values of $k$.
+      answer_options: []
+      subquestions: []
+  - number: 2f
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'It is suggested that the percentage uncertainty in the values of $k$ is
+      10%.
+
+
+      Using this uncertainty, explain whether your results support the relationship
+      in (e).'
+    answer_options: []
+    subquestions: []
+  - number: 2g
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2gi
+      question_type: long_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe four sources of uncertainty or limitations of the procedure
+        for this experiment.
+
+
+        For any uncertainties in measurement that you describe, you should state the
+        quantity being measured and a reason for the uncertainty.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2gii
+      question_type: long_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe four improvements that could be made to this experiment. You
+        may suggest the use of other apparatus or different procedures.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []

@@ -1,0 +1,58 @@
+[thinking]
+**Exam Page 10 Transcription Analysis**
+
+Okay, so I've been asked to transcribe page 10 of this exam, specifically focusing on question 4 and its sub-parts. First, I need to structure the information, paying close attention to the question hierarchy (4, 4a, 4ai, 4aii, 4b, 4bi, 4bii). I'm given a stub of these question numbers, so I have a framework to work from.
+
+The first thing I notice is that question "4" itself doesn't have an explicit text associated with it, it begins with "4 (a)". Normally, if a question number appears in the stub but has no direct text on the page, I would just assign `text: ''`. I'm going to proceed with this and flag it for review by QA.
+
+Now, let's go through the questions one by one and transcribe them:
+
+*   **4a:** The stem states, "State the value of absolute zero on:".
+*   **4ai:** Here we have "the Celsius temperature scale" followed by a fill-in-the-blank for temperature; that should be formatted as `temperature = \hrulefill ^{\circ}\text{C}` to capture the unit correctly.
+*   **4aii:** Then we have, "the thermodynamic temperature scale. Give a unit with your answer." followed by a similar fill-in-the-blank of `temperature = \hrulefill unit \hrulefill`.
+*   **4b:** This section starts with, "A sample contains a fixed amount of gas. The gas has pressure $p$, volume $V$ and thermodynamic temperature $T$. Fig. 4.1 shows the variation of $pV$ with $kT$ for the sample, where $k$ is the Boltzmann constant." I'm omitting the visual reference to Fig. 4.1, as I'm not dealing with image processing here.
+*   **4bi:** The question is, "State what is indicated about the nature of the gas from the variation shown in Fig. 4.1."
+*   **4bii:** This final sub-question asks, "Determine the number $N$ of molecules of the gas in the sample." followed by a fill-in-the-blank: `$N = \hrulefill$`. I can identify this as a calculation task.
+
+I've carefully checked all instructions and the text itself, including the fill-in-the-blanks with formatting, and have confirmed that the structure follows the parent-child relationship outlined in the stub. I think I'm good to go!
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      State the value of absolute zero on:
+  - number: "4ai"
+    type: short_answer
+    text: |
+      the Celsius temperature scale
+
+      temperature = \hrulefill $^{\circ}\text{C}$
+  - number: "4aii"
+    type: short_answer
+    text: |
+      the thermodynamic temperature scale. Give a unit with your answer.
+
+      temperature = \hrulefill unit \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      A sample contains a fixed amount of gas. The gas has pressure $p$, volume $V$ and thermodynamic temperature $T$.
+
+      Fig. 4.1 shows the variation of $pV$ with $kT$ for the sample, where $k$ is the Boltzmann constant.
+  - number: "4bi"
+    type: short_answer
+    text: |
+      State what is indicated about the nature of the gas from the variation shown in Fig. 4.1.
+  - number: "4bii"
+    type: calculation
+    text: |
+      Determine the number $N$ of molecules of the gas in the sample.
+
+      $N = \hrulefill$

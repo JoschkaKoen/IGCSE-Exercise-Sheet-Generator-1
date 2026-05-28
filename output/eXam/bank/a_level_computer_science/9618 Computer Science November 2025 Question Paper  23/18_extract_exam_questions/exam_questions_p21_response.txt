@@ -1,0 +1,64 @@
+[thinking]
+**My Thought Process: Populating Exam Question YAML**
+
+Okay, let's break this down. I've got a task: page 21 of an exam paper, with four question stubs: 8c, 8ci, 8cii, and 8ciii. My goal is to transform this into YAML format.  I need to populate the `text` fields for each.
+
+First, the analysis stage. I need to examine the content of each of these questions.
+
+*   **8c:** Straightforward. It's about archiving returned book loan records to a new text file. I will strip out the "(c)" prefix.
+*   **8ci:** Also straightforward. It asks for an outline of a meaningful filename format for an archive program. Again, strip out the "(i)".
+*   **8cii:** This is where it gets interesting. It describes a problem to overcome with data items related to loan records. It provides a table of the data, their types, and comments. The text includes a LaTeX table definition. I will have to clean that. I have decided to clean the table to use standard LaTeX. I could use tabular for the table. It is important to remember the question is asking for *an* explanation of *the* problem, so I should be sure to keep the text consistent with the question format.
+*   **8ciii:** This asks about the benefits and drawbacks of storing data items on separate lines in a text file.  The LaTeX code indicates an answer line with a horizontal rule.
+
+Now, let's format each question into the `text` field. I will apply these guidelines: no double quotes for non-empty strings, I will use `|` block scalar. No `\includegraphics`. No `\dotfill`. No subquestion prefixes at the start of text (e.g., strip `(i)`, `(ii)`, `(iii)`, `(c)`). Computer science pseudocode identifiers should be wrapped in `\texttt{...}`.
+
+I will structure it like this:
+
+*   **8c**: The text is simple so I can simply strip the question prefix and assign this to the text.
+*   **8ci**: The same applies here. I will remove the "(i)" and format it.
+*   **8cii**:  I will ensure the LaTeX table is clean, and valid.
+*   **8ciii**: This is where I am mindful of the question format. The answer lines are indicated as a value, so the rules specify they use horizontal rules after the question.
+
+Finally, I'll go back and verify that my formatting adheres to the given constraints, and I'm ready to provide the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      It is decided to mark as unused all records for book loans that have been returned. The data for these records will first be written to a new text file for archive purposes.
+  - number: "8ci"
+    type: short_answer
+    text: |
+      The archive program will automatically generate a meaningful filename each time it is run.
+
+      Outline a meaningful format to use for the filename.
+  - number: "8cii"
+    type: short_answer
+    text: |
+      There is a problem that will need to be overcome before the data items can be written to a text file.
+
+      As a reminder, the data items are:
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+      \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed the book \newline\newline The first three characters of a \texttt{StudentID} represent a tutor ID. Each student has one tutor. \\ \hline
+      \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\ \hline
+      \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not} been returned \\ \hline
+      \end{tabular}
+
+      Explain the problem.
+  - number: "8ciii"
+    type: short_answer
+    text: |
+      One way of storing the data items in a text file is to store each data item on a separate line.
+
+      Identify \textbf{one} benefit and \textbf{one} drawback of this way of storing the data.
+
+      Benefit \hrulefill
+
+      Drawback \hrulefill

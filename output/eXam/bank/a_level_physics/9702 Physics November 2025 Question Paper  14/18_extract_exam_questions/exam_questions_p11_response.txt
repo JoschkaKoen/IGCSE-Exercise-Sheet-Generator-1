@@ -1,0 +1,84 @@
+[thinking]
+**My Approach to Processing These Exam Questions**
+
+Okay, here's how I'm thinking about this. The task is pretty straightforward: I've got to digest some physics questions from page 11 of an exam paper, specifically questions 21, 22, and 23. My output needs to be YAML formatted, adhering to a particular stub and using block scalars for all text fields, no double quotes for strings, making sure my LaTeX is spot on, and of course, omitting the images.
+
+First, I'm diving into question 21. It's about a rubber sample and the hysteresis observed in its force-extension graph. The key here is to identify what the area between the loading and unloading curves actually represents. I'm focusing on the descriptions provided. Once I get the text transcribed, I'll carefully consider the options, eliminating the incorrect ones, and then focus on YAML formatting the text.
+
+Next, I'll tackle question 22. This one deals with springs connected in parallel, with the prompt asking about the elastic potential energy stored in *one* of the springs. The prompt provides variables like $k$, $F$, $x$, and $y$, which is important for understanding the context. I'll need to figure out the relationship between these parameters and the energy in one spring, focusing on the formulas of elastic potential energy for springs and how to combine them for this parallel setup. Again, my focus will be on the question text and the answers, and then formatting the final answer into YAML.
+
+Finally, I'll grab question 23. This is a more direct question, asking for the formula for the spring constant. I'm looking for a basic definition of the spring constant and its relationship to force and extension, just making sure I use the right variables provided.
+
+After each question, I'm ensuring all the textual data, including the problem text and the options, are correctly formatted as YAML, using block scalars. I'll make sure any math expressions are correctly wrapped with `$...$` to ensure they render correctly. Finally, I'm double-checking those option letters and the formatting to make sure it is perfect. With my understanding of these topics, this should be no problem.
+
+
+
+[/thinking]
+
+questions:
+  - number: "21"
+    type: multiple_choice
+    text: |
+      The graph shows the variation in extension with force for a sample of rubber.
+
+      The top line shows the variation in extension as a force is applied.
+
+      The bottom line shows the variation in extension as the force is removed.
+
+      What is represented by the area between the two lines?
+    options:
+      - letter: A
+        text: |
+          the work done as the force is applied
+      - letter: B
+        text: |
+          the work done as the force is applied minus the work done as the force is removed
+      - letter: C
+        text: |
+          the work done as the force is removed
+      - letter: D
+        text: |
+          the work done as the force is removed plus the work done as the force is applied
+
+  - number: "22"
+    type: multiple_choice
+    text: |
+      Two identical springs have the same spring constant $k$. The springs are connected in parallel.
+      The length of the unstretched springs is $x$.
+
+      A force $F$ is applied to the spring combination. The length of the springs is now $y$.
+
+      Both springs are deformed within their limits of proportionality.
+
+      Which expression gives the elastic potential energy stored in \textbf{one} of the springs?
+    options:
+      - letter: A
+        text: |
+          $\frac{1}{4}F(y - x)$
+      - letter: B
+        text: |
+          $\frac{1}{2}F(y - x)$
+      - letter: C
+        text: |
+          $\frac{1}{4}k(y - x)^2$
+      - letter: D
+        text: |
+          $k(y - x)^2$
+
+  - number: "23"
+    type: multiple_choice
+    text: |
+      Which expression gives the formula for the spring constant?
+    options:
+      - letter: A
+        text: |
+          $Fx$
+      - letter: B
+        text: |
+          $2Fx^2$
+      - letter: C
+        text: |
+          $\frac{F}{x}$
+      - letter: D
+        text: |
+          $\frac{F}{x^2}$

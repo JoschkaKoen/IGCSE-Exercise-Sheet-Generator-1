@@ -1,0 +1,39 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A computer system has a dual-core Central Processing Unit (CPU).
+  - number: "3a"
+    type: short_answer
+    text: |
+      State the purpose of the system clock and the Control Unit (CU) in a CPU.
+
+      System clock \hrulefill
+
+      CU \hrulefill
+  - number: "3b"
+    type: short_answer
+    text: |
+      The number of cores in the processor affects the performance of the computer system.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Identify \textbf{one other} feature of a processor that can affect the performance of a computer system \textbf{and} state why it affects the performance.
+
+      Feature \hrulefill
+
+      Reason \hrulefill
+  - number: "3bii"
+    type: short_answer
+    text: |
+      A solid state (flash) memory drive is automatically recognised by the computer when it is plugged into a port in the computer.
+
+      Identify an appropriate type of port to connect the solid state memory drive to the computer.
+
+      Explain how this port provides an automatic connection.
+
+      Port \hrulefill
+
+      Explanation \hrulefill
+```

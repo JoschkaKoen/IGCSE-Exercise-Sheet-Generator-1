@@ -1,0 +1,55 @@
+[thinking]
+**Analyzing Exam Page 4 for Transcription**
+
+Okay, the task is clear: I need to transcribe page 4 of this exam paper. My first step is always to verify the questions against the stub. Let's see... I'm looking at "1c" and, ah, there's a slight wrinkle with "1d." The image shows "(d)", then "(i)", "(ii)", and "(iii)".  Is there a "1d" by itself in the image? No, but the stub *does* include "1d" as a `type: short_answer`.  That's a bit odd.
+
+Let's break this down. The stub has:
+*   `1c`: `type: calculation`
+*   `1d`: `type: short_answer`
+*   `1di`: `type: short_answer`
+*   `1dii`: `type: short_answer`
+*   `1diii`: `type: calculation`
+
+So, "1d" *should* have text associated with it. But where? The image only has the sub-parts.  "1d" seems to be a parent question with only the sub-questions presented in the image. There's no separate question text, or intro text for "(d)" other than the sub-questions.
+
+Now I remember, a missing stem means a stub generation bug. According to the instructions, since the text for "1d" is not visible, I need to emit a `|` block scalar containing `STUB ERROR`. Even though I see "(d)", that is considered a part of the "(i)" text, not part of "1d" by itself.
+
+Just to be absolutely certain, let's verify the content of "1c" and "1d" as they appear in the image, to confirm my understanding:
+*   `1c`: "Change $h$ in the range $10.0\text{ cm} \leqslant h \leqslant 38.0\text{ cm}$ and determine $T$. Repeat until you have six sets of values of $h$ and $T$. Record your results in a table. Include values of $\frac{S}{h}$ and $T^2$ in your table."
+*   `1di`: "Plot a graph of $T^2$ on the $y$-axis against $\frac{S}{h}$ on the $x$-axis."
+*   `1dii`: "Draw the straight line of best fit."
+*   `1diii`: "Determine the gradient and $y$-intercept of this line. gradient = \hrulefill y-intercept = \hrulefill"
+
+Okay, I'm confident now.  Given the stub's definition of "1d" as a `short_answer` type, but its absence in the visible text as a standalone question, I will confidently render `STUB ERROR` for `1d`. I can move on to the actual transcription of the other questions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: calculation
+    text: |
+      Change $h$ in the range $10.0 \text{ cm} \leqslant h \leqslant 38.0 \text{ cm}$ and determine $T$. Repeat until you have six sets of values of $h$ and $T$.
+
+      Record your results in a table. Include values of $\frac{S}{h}$ and $T^2$ in your table.
+  - number: "1d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1di"
+    type: short_answer
+    text: |
+      Plot a graph of $T^2$ on the $y$-axis against $\frac{S}{h}$ on the $x$-axis.
+  - number: "1dii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1diii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+
+      y-intercept = \hrulefill

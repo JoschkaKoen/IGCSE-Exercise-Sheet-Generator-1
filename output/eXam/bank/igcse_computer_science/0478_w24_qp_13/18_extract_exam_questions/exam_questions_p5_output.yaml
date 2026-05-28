@@ -1,0 +1,60 @@
+```yaml
+questions:
+  - number: "2diii"
+    type: short_answer
+    text: |
+      Give \textbf{one} disadvantage of the computer using Unicode instead of ASCII.
+  - number: "2e"
+    type: short_answer
+    text: |
+      The report is broken down into packets to be emailed.
+  - number: "2ei"
+    type: short_answer
+    text: |
+      Circle \textbf{three} items of data that can be found in the packet header.
+
+      \begin{itemize}
+      \item trailer
+      \item originator's address
+      \item payload
+      \item interrupt
+      \item input
+      \item operating system
+      \item destination address
+      \item antivirus
+      \item packet number
+      \end{itemize}
+  - number: "2eii"
+    type: multiple_choice
+    text: |
+      Each packet is sent along a different path from the employee's device to the employer's device.
+
+      Tick ($\checkmark$) \textbf{one} box to show the name of this method of sending packets.
+    options:
+      - letter: A
+        text: |
+          packet networking
+      - letter: B
+        text: |
+          packet circuiting
+      - letter: C
+        text: |
+          packet switching
+      - letter: D
+        text: |
+          packet transferring
+  - number: "2eiii"
+    type: short_answer
+    text: |
+      A hardware device is used to control the path that each packet takes.
+
+      Give the name of this hardware device.
+  - number: "2f"
+    type: short_answer
+    text: |
+      The email data is checked for errors after it has been transmitted, using an echo check and a checksum.
+  - number: "2fi"
+    type: short_answer
+    text: |
+      Explain how the echo check is used to check for errors in the email data.
+```

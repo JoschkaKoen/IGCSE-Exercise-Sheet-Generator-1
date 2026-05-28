@@ -1,0 +1,42 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Two arrays \texttt{Data} and \texttt{Pointer} are accessed by the procedure \texttt{Place()}
+
+      \texttt{Data} and \texttt{Pointer} are both global arrays of type \texttt{INTEGER}
+
+      The contents of these two arrays are shown:
+
+      \begin{tabular}{cc|cc}
+      \multicolumn{2}{c}{\textbf{Data}} & \multicolumn{2}{c}{\textbf{Pointer}} \\
+      1 & \multicolumn{1}{|c|}{1018} & 1 & \multicolumn{1}{|c}{7} \\ \cline{2-2} \cline{4-4}
+      2 & \multicolumn{1}{|c|}{1007} & 2 & \multicolumn{1}{|c}{3} \\ \cline{2-2} \cline{4-4}
+      3 & \multicolumn{1}{|c|}{1010} & 3 & \multicolumn{1}{|c}{1} \\ \cline{2-2} \cline{4-4}
+      4 & \multicolumn{1}{|c|}{1056} & 4 & \multicolumn{1}{|c}{6} \\ \cline{2-2} \cline{4-4}
+      5 & \multicolumn{1}{|c|}{1092} & 5 & \multicolumn{1}{|c}{-1} \\ \cline{2-2} \cline{4-4}
+      6 & \multicolumn{1}{|c|}{1062} & 6 & \multicolumn{1}{|c}{5} \\ \cline{2-2} \cline{4-4}
+      7 & \multicolumn{1}{|c|}{1034} & 7 & \multicolumn{1}{|c}{4} \\ \cline{2-2} \cline{4-4}
+      8 & \multicolumn{1}{|c|}{0} & 8 & \multicolumn{1}{|c}{9} \\ \cline{2-2} \cline{4-4}
+      9 & \multicolumn{1}{|c|}{0} & 9 & \multicolumn{1}{|c}{10} \\ \cline{2-2} \cline{4-4}
+      10 & \multicolumn{1}{|c|}{0} & 10 & \multicolumn{1}{|c}{-1} \\ \cline{2-2} \cline{4-4}
+      \end{tabular}
+
+      Study the pseudocode:
+
+      \begin{alltt}
+      PROCEDURE Place(Value : INTEGER, Start : INTEGER, Unused : INTEGER)
+          DECLARE New, Current, Last : INTEGER
+          CONSTANT NullPointer = -1
+          New <- Unused
+          Last <- NullPointer
+          Current <- Start
+          WHILE Current <> NullPointer AND Data[Current] < Value
+              Last <- Current
+              Current <- Pointer[Current]
+          ENDWHILE
+          Pointer[New] <- Pointer[Last]
+          Pointer[Last] <- New
+          Data[New] <- Value
+      ENDPROCEDURE
+      \end{alltt}

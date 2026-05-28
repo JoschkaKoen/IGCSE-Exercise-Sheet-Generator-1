@@ -1,0 +1,73 @@
+[thinking]
+**Analyzing the YAML Stub for Page 4 of the Exam**
+
+Okay, so I need to populate the YAML stub for page 4 of this exam.  Let's see, the questions are: "1", "1a", "1b", and "1bi".  First thought is that "1" might be a parent question. But wait... reading the instructions. Every entry's stem should be visible. Hmmm, the YAML stub has a field for "1", but there's no visible stem for just "1" on the page itself, which suggests a possible upstream stub generation bug. It's not just a container, according to the provided text. Let's look at the instructions again... "emit a `|` block scalar containing `STUB ERROR`."  Got it.  No guessing, and no filling with context.
+
+Looking at the YAML, question "1" has an empty text field:
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: ""
+  - number: "1a"
+    type: short_answer
+    text: ""
+  - number: "1b"
+    type: short_answer
+    text: ""
+  - number: "1bi"
+    type: calculation
+    text: ""
+```
+
+Okay, so "1a" is "State Newton's law of gravitation." "1b" is about a binary star system. And "1bi" is a calculation using Newton's law of gravitation. Since "1" doesn't have its own stem, it's a `STUB ERROR`.
+
+Alright, I'm going to populate the YAML according to the instructions. I'll flag "1" as a `STUB ERROR`, and then fill in the text for the other questions from the provided text.
+
+So here's what the entries look like:
+
+- For "1", I'll set:
+  `text: |`
+  `  STUB ERROR`
+- For "1a", I'll put:
+  `text: |`
+  `  State Newton’s law of gravitation.`
+- For "1b", I'll put:
+  `text: |`
+  `  A binary star consists of star A, of mass $4.0 \times 10^{30} \text{ kg}$, and star B, of mass $2.0 \times 10^{30} \text{ kg}$, separated by a distance of $3.3 \times 10^{12} \text{ m}$. The stars are both in circular orbit around their common centre of gravity X, as shown in Fig. 1.1.
+
+    The radius $R_{\text{B}}$ of the orbit of star B is double the radius $R_{\text{A}}$ of the orbit of star A.`
+- And finally, for "1bi", I'll put:
+  `text: |`
+  `  Use Newton’s law of gravitation to calculate the magnitude of the gravitational force exerted by each star on the other.
+
+    force = \hrulefill N`
+
+Okay, that should be correct. I've addressed the stub error and completed the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1a"
+    type: short_answer
+    text: |
+      State Newton’s law of gravitation.
+  - number: "1b"
+    type: short_answer
+    text: |
+      A binary star consists of star A, of mass $4.0 \times 10^{30} \text{ kg}$, and star B, of mass $2.0 \times 10^{30} \text{ kg}$, separated by a distance of $3.3 \times 10^{12} \text{ m}$. The stars are both in circular orbit around their common centre of gravity X, as shown in Fig. 1.1.
+
+      The radius $R_{\text{B}}$ of the orbit of star B is double the radius $R_{\text{A}}$ of the orbit of star A.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Use Newton’s law of gravitation to calculate the magnitude of the gravitational force exerted by each star on the other.
+
+      force = \hrulefill N

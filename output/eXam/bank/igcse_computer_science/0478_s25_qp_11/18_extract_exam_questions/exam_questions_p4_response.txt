@@ -1,0 +1,68 @@
+[thinking]
+**My Approach to Populating the YAML for this PDF**
+
+Okay, here's how I'm going to tackle this task. The goal is to generate YAML for each question based on the provided PDF page image/OCR and the question stubs. The important thing is following the rules and constraints. No markdown fences, using block scalars (`|`) for multiline text, `\hrulefill` for those dotted lines, and stripping those pesky prefixes. I'll need to keep tables verbatim with LaTeX `\begin{tabular}` and avoid LaTeX commands like `\includegraphics` and `\dotfill`.
+
+First, I analyze the input. I have to create YAML entries for questions 3, 4, 4a, 4ai, and 4aii. Each question needs a `text` field, and I'll need to build LaTeX tables as specified.
+
+For question 3, I see a content table. It has "Term" and "Definition" columns, with some cells containing text and others with dotted lines indicating blanks to be filled. The instructions say I should use `\hrulefill` within the blank cells of the content table to represent the lines for writing, and keep the table intact using LaTeX. The final table structure should be:
+```latex
+\begin{tabular}{|p{5cm}|p{10cm}|}
+\hline
+\textbf{Term} & \textbf{Definition} \\ \hline
+\hrulefill & This is the smallest component of an image. \\ \hline
+resolution & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+\hrulefill & This is the number of bits used to create each colour in an image. \\ \hline
+\hrulefill & This is additional data that is stored with an image that can provide information such as the time and date the image was taken. \\ \hline
+\end{tabular}
+```
+
+Next, for question 4, I only have the introductory text for context. No formatting needed there.
+
+For question 4a, I strip the "(a)" prefix and simply assign the remaining text to the `text` field.
+
+For question 4ai, I need to strip the "(i)" prefix and then format the numbered answer slots, inserting `\hrulefill` as instructed, and ensuring a blank line after the prompt.
+
+For question 4aii, I strip the "(ii)" prefix. The prompt is followed by dotted lines. According to the instructions, in this case, the dotted lines are implicit in the prompt, so I don't need to do anything further - I'm just leaving it as a single `text` field.
+
+This is my plan. Now, I'm ready to write the YAML!
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      An image is converted to binary to be represented by a computer.
+
+      Complete the table with the missing terms and definition about representing an image.
+
+      \begin{tabular}{|p{5cm}|p{10cm}|}
+      \hline
+      \textbf{Term} & \textbf{Definition} \\ \hline
+      \hrulefill & This is the smallest component of an image. \\ \hline
+      resolution & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+      \hrulefill & This is the number of bits used to create each colour in an image. \\ \hline
+      \hrulefill & This is additional data that is stored with an image that can provide information such as the time and date the image was taken. \\ \hline
+      \end{tabular}
+  - number: "4"
+    type: short_answer
+    text: |
+      A restaurant has an electronic ordering system. The system allows customers to select the food they want to order. The data for the order is transmitted across their network to a computer in the restaurant kitchen.
+  - number: "4a"
+    type: short_answer
+    text: |
+      The data is sent using serial full-duplex data transmission.
+  - number: "4ai"
+    type: short_answer
+    text: |
+      Give \textbf{two} reasons why serial full-duplex is a suitable data transmission method for the data.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4aii"
+    type: short_answer
+    text: |
+      Give \textbf{one} improvement that would be made to the data transmission if parallel transmission is used instead of serial transmission.

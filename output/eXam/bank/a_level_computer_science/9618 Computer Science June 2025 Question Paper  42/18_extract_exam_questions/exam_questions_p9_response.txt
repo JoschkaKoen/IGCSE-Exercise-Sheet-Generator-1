@@ -1,0 +1,81 @@
+[thinking]
+**Page 9 YAML Population**
+
+Okay, so I need to populate the YAML stub for page 9 of this exam.  Let's see, the structure has questions "3", "3a", "3ai", and "3aii".  I'll start by reviewing the actual page content to ensure accurate mapping.
+
+"3" appears to contain the introduction to the question, which involves OOP and the `Animal` class, along with the table that describes that class. I'll include the main introduction and the table here.
+
+The "3a" section, looking at the page, seems to be a structural grouping for parts (i) and (ii), so I can just put an empty string for the text here, as a placeholder.
+
+"3ai" will clearly be the code declaration part, "(a)(i)". The text is to declare the class and the constructor, so I can add that.
+
+"3aii" will contain the method code for `Description()`, which returns a string, so I'll put that in this section.
+
+Now, let's craft the YAML for each part:
+
+*   **"3":** I'll include the question introduction, and the table in LaTeX format. This ensures that the context and the class definition are available in one place.  I'll be careful to format the table correctly.
+*   **"3a":**  I'll set `text: ''` because "3a" is really just the label for the sections that follow.
+*   **"3ai":** I'll include the instructions for declaring the `Animal` class, and its constructor, and provide guidance for language-specific requirements.
+*   **"3aii":**  I'll put the instructions for the `Description()` method, and provide the output format.
+
+I'll also double-check the cell count consistency in the table to be certain it is consistent, for the rendered output.  The single-column tables (for "Save your program...") are correctly structured.  That should be it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program stores data about animals using Object-Oriented Programming (OOP).
+
+      The class \texttt{Animal} stores the data about animals.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Animal}} \\ \hline
+      \texttt{Name : String} & stores the name of the animal \\ \hline
+      \texttt{Sound : String} & stores the sound the animal makes \\ \hline
+      \texttt{Size : Integer} & stores the size of the animal as an integer between 1 (smallest) and 10 (largest) \\ \hline
+      \texttt{Intelligence : Integer} & stores the intelligence of the animal as an integer between 1 (least) and 10 (most) \\ \hline
+      \texttt{Constructor()} & initialises all attributes to its parameter values \\ \hline
+      \texttt{Description()} & returns a string message that contains the data from the attributes \\ \hline
+      \end{tabular}
+  - number: "3a"
+    type: short_answer
+    text: ''
+  - number: "3ai"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Animal} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program as \textbf{Question3\_J25}. \\
+      Copy and paste the program code into part \textbf{3(a)(i)} in the evidence document. \\ \hline
+      \end{tabular}
+  - number: "3aii"
+    type: short_answer
+    text: |
+      The method \texttt{Description()} creates and returns a string of the animal's data in the format:
+
+      \texttt{"The animal's name is " <Name> ", it makes a " <Sound> ", its size is " <Size> " and its intelligence level is " <Intelligence>}
+
+      For example:
+
+      \texttt{The animal's name is Teddy, it makes a Bark, its size is 4 and its intelligence level is 6}
+
+      Write program code for \texttt{Description()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(a)(ii)} in the evidence document. \\ \hline
+      \end{tabular}

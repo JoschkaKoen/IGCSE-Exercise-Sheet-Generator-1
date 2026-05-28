@@ -1,0 +1,120 @@
+[thinking]
+**Analyzing and Structuring Exam Page Content**
+
+Okay, so I've been asked to transcribe page 9 of this exam paper. My initial task is to identify and structure the questions correctly. First, I need to understand the relationship between the question numbers in the stub versus what's visible on the page itself.
+
+Right now, the OCR data gives me the following: I'm looking at '2bii', and then '2c', '2ci', and '2cii'. Now, the text associated with the OCR information is: '2bii: Estimate the percentage uncertainty in your value of *h*. Show your working.' '2bii' has a first part that is: "The height of the raised end of the track above the bench is h..."
+So I need to check the first bullet: "The height of the raised end of the track above the bench is $h$, as shown in Fig. 2.3. Measure and record $h$." I need to find the full context of these questions. Is the '2bi' part on the previous page? It seems to be. And the '2bii' part is: "Estimate the percentage uncertainty in your value of *h*. Show your working."
+I need to be absolutely certain I understand the questions structure.
+
+Let's look more closely at '2c', it seems it has three sub-questions. The page shows: '2c' which is: "Measure and record the diameter *d* of the smaller sphere. *d* = ...". Next, is '2ci' "Calculate 1 - (x/d)^2..." and '2cii' which requires some measurements of time, involving placing a sphere on a track.
+
+Alright, so the mapping looks like this:
+
+'2bii': has the first bullet: "The height of the raised end of the track above the bench is *h*, as shown in Fig. 2.3. Measure and record *h*." And the second part, which is, "(ii) Estimate the percentage uncertainty in your value of *h*. Show your working." It seems the first bullet is actually related to *h*, which is needed for the second part. Let's include the first bullet as part of '2bii' for completeness since it is on the page.
+
+'2c': "Measure and record the diameter *d* of the smaller sphere."
+'2ci': "Calculate 1 - (x/d)^2."
+'2cii': Includes a description about releasing a sphere and measuring time.
+
+So, I need to transcribe it into a clean, structured format, preserving all the details and question types:
+
+'2bii' becomes a composite question, combining the measurement and uncertainty estimation:
+
+```yaml
+  - number: "2bii"
+    type: calculation
+    text: |
+      The height of the raised end of the track above the bench is $h$, as shown in Fig. 2.3.
+
+      Measure and record $h$.
+
+      $h = \hrulefill$
+
+      Estimate the percentage uncertainty in your value of $h$. Show your working.
+
+      percentage uncertainty = \hrulefill \%
+```
+
+'2c' is simple:
+
+```yaml
+  - number: "2c"
+    type: short_answer
+    text: |
+      Measure and record the diameter $d$ of the smaller sphere.
+
+      $d = \hrulefill$
+```
+
+'2ci' is a calculation:
+
+```yaml
+  - number: "2ci"
+    type: calculation
+    text: |
+      Calculate $1 - \left(\frac{x}{d}\right)^2$.
+
+      $1 - \left(\frac{x}{d}\right)^2 = \hrulefill$
+```
+
+'2cii' involves measurements, and a calculation of time:
+
+```yaml
+  - number: "2cii"
+    type: calculation
+    text: |
+      Place the smaller sphere on the track at the raised end.
+
+      Release the sphere.
+
+      The time taken for the sphere to roll along the track into the box is $t$.
+
+      Take measurements to determine $t$.
+
+      $t = \hrulefill$
+```
+
+This arrangement covers everything and reflects the layout on the page perfectly. Perfect. The transcriptions are complete, and everything aligns with the layout of the paper.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2bii"
+    type: calculation
+    text: |
+      The height of the raised end of the track above the bench is $h$, as shown in Fig. 2.3.
+
+      Measure and record $h$.
+
+      $h = \hrulefill$
+
+      Estimate the percentage uncertainty in your value of $h$. Show your working.
+
+      percentage uncertainty = \hrulefill \%
+  - number: "2c"
+    type: short_answer
+    text: |
+      Measure and record the diameter $d$ of the smaller sphere.
+
+      $d = \hrulefill$
+  - number: "2ci"
+    type: calculation
+    text: |
+      Calculate $1 - \left(\frac{x}{d}\right)^2$.
+
+      $1 - \left(\frac{x}{d}\right)^2 = \hrulefill$
+  - number: "2cii"
+    type: calculation
+    text: |
+      Place the smaller sphere on the track at the raised end.
+
+      Release the sphere.
+
+      The time taken for the sphere to roll along the track into the box is $t$.
+
+      Take measurements to determine $t$.
+
+      $t = \hrulefill$

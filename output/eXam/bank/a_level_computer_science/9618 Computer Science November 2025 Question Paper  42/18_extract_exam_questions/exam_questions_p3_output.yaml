@@ -1,0 +1,46 @@
+questions:
+  - number: "1a"
+    type: short_answer
+    text: ''
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Bird} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      All attributes should be private.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program as \textbf{Question1\_N25}.
+
+      Copy and paste the program code into part \textbf{1(a)(i)} in the evidence document.
+  - number: "1aii"
+    type: short_answer
+    text: |
+      The method \texttt{GetSpecies()} returns the species of the bird.
+
+      Write program code for \texttt{GetSpecies()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(a)(ii)} in the evidence document.
+  - number: "1aiii"
+    type: short_answer
+    text: |
+      The method \texttt{GetPosition()} returns a string of the bird's data in the format:
+
+      \texttt{"X = " \& <XPosition> \& " Y = " \& <YPosition>}
+
+      An example string for a bird is:
+
+      \texttt{X = 500.0 Y = 250.0}
+
+      Write program code for \texttt{GetPosition()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(a)(iii)} in the evidence document.

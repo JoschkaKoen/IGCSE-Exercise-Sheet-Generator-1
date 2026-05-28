@@ -1,0 +1,70 @@
+questions:
+  - number: "25"
+    type: multiple_choice
+    text: |
+      A source emits a progressive sound wave in the horizontal direction. The wave travels away from the source in a direction towards the right.
+
+      The graph shows the variation of the displacement of the particles from their equilibrium positions with distance from the source at a particular instant in time. Displacements to the right of the equilibrium positions are shown as positive.
+
+      Position Y represents the displacement of a particle in the sound wave at a particular distance from the source at this instant.
+
+      Which statement about the motion of this particle is correct?
+    options:
+      - letter: A
+        text: |
+          The particle is moving away from the source.
+      - letter: B
+        text: |
+          The particle is moving towards the source.
+      - letter: C
+        text: |
+          The particle is moving upwards.
+      - letter: D
+        text: |
+          The particle is moving downwards.
+  - number: "26"
+    type: multiple_choice
+    text: |
+      Two polarising filters are placed next to each other so that their planes are parallel.
+
+      The first polarising filter has its transmission axis at an angle of $50^\circ$ to the vertical.
+
+      The second polarising filter has its transmission axis at an angle of $20^\circ$ to the vertical. The angle between the transmission axes of the two polarising filters is $30^\circ$.
+
+      A beam of vertically polarised light of intensity $8.0\text{ W}\,\text{m}^{-2}$ is incident normally on the first polarising filter.
+
+      What is the intensity of the light that is transmitted from the second polarising filter?
+    options:
+      - letter: A
+        text: |
+          zero
+      - letter: B
+        text: |
+          $2.5\text{ W}\,\text{m}^{-2}$
+      - letter: C
+        text: |
+          $2.9\text{ W}\,\text{m}^{-2}$
+      - letter: D
+        text: |
+          $6.0\text{ W}\,\text{m}^{-2}$
+  - number: "27"
+    type: multiple_choice
+    text: |
+      A dolphin is swimming at a speed of $16.0\text{ m}\,\text{s}^{-1}$ directly towards a stationary underwater microphone.
+
+      The dolphin emits a sound of frequency $122\text{ kHz}$. The speed of sound in water is $1480\text{ m}\,\text{s}^{-1}$.
+
+      What is the frequency of sound detected by the microphone?
+    options:
+      - letter: A
+        text: |
+          $1300\text{ Hz}$
+      - letter: B
+        text: |
+          $1330\text{ Hz}$
+      - letter: C
+        text: |
+          $121\text{ kHz}$
+      - letter: D
+        text: |
+          $123\text{ kHz}$

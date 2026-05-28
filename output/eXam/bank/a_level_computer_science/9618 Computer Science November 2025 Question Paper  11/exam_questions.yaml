@@ -1,0 +1,780 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: calculation
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Convert the binary number into hexadecimal.
+
+
+        101100111010 \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: calculation
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Convert the denary number into Binary Coded Decimal (BCD).
+
+
+        108 \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1aiii
+      question_type: calculation
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Convert the 12-bit two’s complement binary integer into denary.
+
+
+        Show your working.
+
+
+        111110111100
+
+
+        Denary value \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The following binary addition is performed using 8-bit registers.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Complete the calculation using binary addition.
+
+
+        $$\begin{array}{r} 10110011 \\ + 01111000 \\ \hline \end{array}$$'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Name and describe the error that can occur when binary addition is performed.
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A relational database, \texttt{WORKEXPERIENCE}, stores data about students
+    and the companies where they complete work experience.
+
+
+    Students can complete multiple work experience placements but can only complete
+    one placement at a time.
+
+
+    Students can complete more than one placement at the same company.
+
+
+    Part of the database is shown:
+
+
+    \texttt{STUDENT(StudentID, FirstName, TelephoneNumber, UniversityName)}
+
+
+    \texttt{PLACEMENT(PlacementID, StudentID, CompanyID, StartDate, EndDate, Complete)}
+
+
+    \texttt{COMPANY(CompanyID, CompanyName, MaxStudentsPerPlacement)}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Complete the entity-relationship (E-R) diagram for the database \texttt{WORKEXPERIENCE}.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain why the database \texttt{WORKEXPERIENCE} is in Third Normal Form
+      (3NF).
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Some example data from the \texttt{PLACEMENT} table is shown:
+
+
+      \begin{tabular}{|l|l|l|l|l|l|}
+
+      \hline
+
+      \textbf{PlacementID} & \textbf{StudentID} & \textbf{CompanyID} & \textbf{StartDate}
+      & \textbf{EndDate} & \textbf{Complete} \\ \hline
+
+      PC001 & LDEA01 & MSCM & 01/01/2023 & 12/07/2023 & TRUE \\ \hline
+
+      PC002 & LDEA01 & MSCM & 01/04/2024 & 08/05/2024 & FALSE \\ \hline
+
+      PC003 & ALAU02 & NEAM & 09/03/2020 & 10/03/2021 & FALSE \\ \hline
+
+      PC004 & LOLI75 & GOUZ & 07/06/2018 & 11/09/2018 & TRUE \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write a Structured Query Language (SQL) script to delete all placements
+        that have been completed.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Write an SQL script to return the total number of placements completed
+        by the student with ID LDEA01 at the company with ID NEAM. The total should
+        be given an appropriate name.
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The database tables are repeated here:
+
+
+      \texttt{STUDENT}(\underline{\texttt{StudentID}}, \texttt{FirstName}, \texttt{TelephoneNumber},
+      \texttt{UniversityName})
+
+
+      \texttt{PLACEMENT}(\underline{\texttt{PlacementID}}, \texttt{StudentID}, \texttt{CompanyID},
+      \texttt{StartDate}, \texttt{EndDate}, \texttt{Complete})
+
+
+      \texttt{COMPANY}(\underline{\texttt{CompanyID}}, \texttt{CompanyName}, \texttt{MaxStudentsPerPlacement})
+
+
+      Explain what is meant by referential integrity, and how it applies to this database.'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Draw a logic circuit for the logic expression:
+
+
+      $$X = \text{NOT } ((A \text{ NAND } B) \text{ XOR } (\text{NOT } A \text{ OR
+      } \text{NOT } C))$$'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the logic expression for the following truth table.
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{R} & \textbf{S} & \textbf{T} & \textbf{Q} \\ \hline
+
+      0 & 0 & 0 & 0 \\ \hline
+
+      0 & 0 & 1 & 1 \\ \hline
+
+      0 & 1 & 0 & 0 \\ \hline
+
+      0 & 1 & 1 & 0 \\ \hline
+
+      1 & 0 & 0 & 0 \\ \hline
+
+      1 & 0 & 1 & 0 \\ \hline
+
+      1 & 1 & 0 & 1 \\ \hline
+
+      1 & 1 & 1 & 0 \\ \hline
+
+      \end{tabular}
+
+
+      Q = \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The table shows part of the instruction set for a processor. The processor
+    has one register, the Accumulator (ACC).
+
+
+    \begin{tabular}{|c|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+    \\ \cline{1-2}
+
+    \textbf{Opcode} & \textbf{Operand} & \\ \hline
+
+    AND & \#n / Bn / \&n & Bitwise AND operation of the contents of the ACC with the
+    operand \\ \hline
+
+    AND & <address> & Bitwise AND operation of the contents of the ACC with the contents
+    of <address> \\ \hline
+
+    XOR & \#n / Bn / \&n & Bitwise XOR operation of the contents of the ACC with the
+    operand \\ \hline
+
+    XOR & <address> & Bitwise XOR operation of the contents of the ACC with the contents
+    of <address> \\ \hline
+
+    OR & \#n / Bn / \&n & Bitwise OR operation of the contents of the ACC with the
+    operand \\ \hline
+
+    OR & <address> & Bitwise OR operation of the contents of the ACC with the contents
+    of <address> \\ \hline
+
+    LSL & \#n & Bits in ACC are shifted logically n places to the left. Zeros are
+    introduced on the right-hand end. \\ \hline
+
+    LSR & \#n & Bits in ACC are shifted logically n places to the right. Zeros are
+    introduced on the left-hand end. \\ \hline
+
+    \end{tabular}
+
+
+    \begin{itemize}
+
+    \item <address> can be an absolute or symbolic address
+
+    \item \# denotes a denary number, e.g. \#127
+
+    \item B denotes a binary number, e.g. B10010001
+
+    \item \& denotes a hexadecimal number, e.g. \&4A
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The ACC currently contains the following positive binary integer:
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      0 & 0 & 0 & 1 & 1 & 1 & 1 & 0 \\ \hline
+
+      \end{tabular}
+
+
+      Write a bit manipulation instruction that uses a binary shift to change the
+      contents of the ACC to:
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      0 & 1 & 1 & 1 & 1 & 0 & 0 & 0 \\ \hline
+
+      \end{tabular}
+
+
+      Instruction \hrulefill \hfill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The ACC currently contains the following positive binary integer:
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\ \hline
+      \end{tabular}
+
+
+      Write the contents of the ACC after the instruction \texttt{XOR \&12} is carried
+      out.
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The ACC currently contains the following positive binary integer:
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\ \hline
+      \end{tabular}
+
+
+      Write the contents of the ACC after the instruction \texttt{AND \#63} is carried
+      out.
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+  - number: 4d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The ACC currently contains the following positive binary integer:
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\ \hline
+      \end{tabular}
+
+
+      The current contents of memory are:
+
+
+      \begin{tabular}{cc} \textbf{Address} & \textbf{Data} \\ 98 & 00100100 \\ 99
+      & 00110001 \\ 100 & 00110011 \\ 101 & 10100011 \\ 102 & 10101100 \end{tabular}
+
+
+      Write the contents of the ACC after the instruction \texttt{OR 100} is carried
+      out.
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The Operating System (OS) is responsible for hardware and security management
+    in a computer system.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 5ai
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'State \textbf{two} tasks that are performed by hardware management.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 5aii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'State \textbf{two} tasks that are performed by security management.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe \textbf{one} benefit of using library routines when developing
+        software.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe \textbf{one} drawback of using library routines when developing
+        software.
+      answer_options: []
+      subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} presentation features found in a typical Integrated
+      Development Environment (IDE).
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The processor uses several registers, including the Accumulator (ACC) and
+    the Current Instruction Register (CIR).
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: "Complete the table by describing the role of each register.\n\n\\begin{tabular}{|p{3cm}|p{10cm}|}\n\
+      \\hline\n\\textbf{Register} & \\textbf{Role} \\\\ \\hline\nACC & \\\\\n    &\
+      \ \\\\ \\hline\nCIR & \\\\\n    & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Increasing the number of cores in a processor can affect the performance
+      of a computer.
+
+
+      Describe the drawbacks of increasing the number of cores in a processor.'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'State \textbf{three} differences between Dynamic RAM (DRAM) and Static
+      RAM (SRAM).
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Web browsers use Internet Protocol (IP) addresses.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the table by describing the following types of IP address.
+
+
+      \begin{tabular}{|c|p{10cm}|}
+
+      \hline
+
+      \textbf{Type of IP address} & \textbf{Description} \\ \hline
+
+      Static & \newline\newline \\ \hline
+
+      Public & \newline\newline \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Consider the following IP address:
+
+
+      $$256.0.0.A$$
+
+
+      Circle whether this IP address is IPv4, IPv6 or an invalid IP address.
+
+
+      \begin{center}
+
+      IPv4 \quad\quad IPv6 \quad\quad Invalid
+
+      \end{center}
+
+
+      Justify your choice.'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'A user types a Uniform Resource Locator (URL) into the address bar of a
+      web browser to access a web page.
+
+
+      Explain how the web browser uses the URL to access the web page.'
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A bitmap file is downloaded. The image has a maximum of 256 colours and
+      measures 512 pixels wide by 2048 pixels high.
+    answer_options: []
+    subquestions:
+    - number: 7di
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate an estimate of the file size of the bitmap in kibibytes.
+
+
+        Show your working.
+
+
+        File size of bitmap \hrulefill kibibytes'
+      answer_options: []
+      subquestions: []
+    - number: 7dii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain why the actual file size may be larger than the one calculated
+        in (d)(i).
+      answer_options: []
+      subquestions: []
+    - number: 7diii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how a bitmap image is compressed using run-length encoding (RLE).
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: One ethical consideration for a student connecting their personal computer
+    to the school network is the risk of spreading malware on the network.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Viruses and pharming are examples of malware.
+
+
+      Explain what is meant by a virus and pharming.
+
+
+      Virus \hrulefill
+
+
+      Pharming \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give \textbf{three} other ethical considerations for a student using their
+      personal computer to connect to the school network.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: long_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Describe \textbf{two} social impacts of students using Artificial Intelligence
+      (AI) to complete their homework.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: Describe the differences between a monitoring system and a control system.
+  answer_options: []
+  subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An architect needs a model of a building.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how the model will be printed using a 3D printer.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State why a 3D printer needs a buffer.
+    answer_options: []
+    subquestions: []

@@ -1,0 +1,41 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Numbers are stored in a computer using binary floating-point representation with:
+
+      \begin{itemize}
+      \item 10 bits for the mantissa
+      \item 6 bits for the exponent
+      \item two's complement form for both the mantissa and the exponent.
+      \end{itemize}
+  - number: "1a"
+    type: calculation
+    text: |
+      Calculate the normalised binary floating-point representation of $+201.125$ in this system.
+
+      Show your working.
+
+      \textbf{Mantissa} \qquad \qquad \qquad \qquad \qquad \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \qquad \framebox{$\square\,\square\,\square\,\square\,\square\,\square$}
+  - number: "1b"
+    type: calculation
+    text: |
+      Calculate the denary value of the given normalised binary floating-point number.
+
+      Show your working.
+
+      \textbf{Mantissa} \qquad \qquad \qquad \qquad \qquad \textbf{Exponent}
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      1 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+      \hline
+      \end{tabular}
+      \qquad
+      \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      0 & 0 & 0 & 1 & 0 & 1 \\
+      \hline
+      \end{tabular}

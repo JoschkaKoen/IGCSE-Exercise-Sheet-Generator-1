@@ -1,0 +1,46 @@
+[thinking]
+**Exam Paper Transcription: Logic Question 3**
+
+Okay, so I need to transcribe page 4 of this exam paper. Let's break down question 3. The stub lists "3", "3a", and "3b".  I can see that there isn't a main heading for the entire question 3. It jumps right into "3 (a)".  Therefore, I'll set question 3 to have no text, just an empty text field.
+
+For "3a", I have a truth table question. The logic expression is `X = (A NOR B) NAND (C XOR B)`. The provided table has columns for A, B, C, a "Working space", and X. I'll need to represent this accurately in my output. The working space column is wider, so I will define that column to be 5cm wide in the LaTeX table definition.
+
+Moving onto "3b", it's a logic circuit drawing question: `X = NOT (((A AND B) OR C) AND (C NOR D))`. Since this is a drawing, I should only transcribe the prompt itself, omitting any space for an image or any visual elements. The rules explicitly state to omit images.
+
+Finally, I'll double-check that the math formatting is correct. The expressions use LaTeX notation, which is perfectly formatted in the original and should be identical in my output. All looks good!
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: |
+      Complete the truth table for the following logic expression:
+
+      $$X = (A \text{ NOR } B) \text{ NAND } (C \text{ XOR } B)$$
+
+      \begin{tabular}{|c|c|c|p{5cm}|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}
+  - number: "3b"
+    type: short_answer
+    text: |
+      Draw a logic circuit for the logic expression:
+
+      $$X = \text{NOT } (((A \text{ AND } B) \text{ OR } C) \text{ AND } (C \text{ NOR } D))$$
+```

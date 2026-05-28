@@ -1,0 +1,87 @@
+[thinking]
+**Exam Page 8 Transcription - CPU & FDE Cycle**
+
+Okay, so the user wants me to transcribe page 8 of this exam paper. Let's see what we have. It's all about the Fetch-Decode-Execute (FDE) cycle of a CPU. Question "5" is just a general statement about the CPU performing the FDE cycle. Simple enough.
+
+Then, for "5a," it's asking for the names of *two* registers used in the fetch stage. I need to make sure to include those answer slots – two horizontal lines to fill in the register names.
+
+Next up, "5b" requires a description of what happens during the decode stage. That's a descriptive answer, so no structured format needed, just a blank space.
+
+For "5c," I've got to name *one* register used in the execute stage. Another open-ended answer; I'll just leave a space for the response.
+
+Now, question "5d". This one's about buses and how they transmit data in the FDE cycle. The prompt says to "Circle three buses." Wait a minute, it is a multiple-choice question. I need to provide the choices, in the *correct* order. And there's a specific format; I've got to use `{letter, text}` entries. Okay, let's make sure I list the provided options (A to K) and include them in the answer. The choices are fetch, address, register, execute, data, decode, calculation, central, value, binary, and control.
+
+Finally, "5e" asks about the impact of a CPU upgrade. Specifically, a user's switching from a dual-core with a 2.4 GHz clock speed to another dual-core with a 3.5 GHz clock speed. The user wants an explanation of the *performance* change. I just need a space to fill in the explanation of the CPU performance increase. The clock speed needs to be formatted with math delimiters: $2.4 \text{ GHz}$ and $3.5 \text{ GHz}$.
+
+Okay, I think I've got a handle on the structure of all of these and how to format them correctly.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A central processing unit (CPU) performs the fetch–decode–execute (FDE) cycle.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Give the name of \textbf{two} registers that are used in the fetch stage of the cycle.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5b"
+    type: short_answer
+    text: |
+      Describe what happens at the decode stage of the cycle.
+  - number: "5c"
+    type: short_answer
+    text: |
+      Give \textbf{one} register in the CPU that is used in the execute stage of the cycle.
+  - number: "5d"
+    type: multiple_choice
+    text: |
+      Buses are used in the CPU to transmit data through the FDE cycle.
+
+      Circle \textbf{three} buses that are used in the CPU.
+    options:
+      - letter: A
+        text: |
+          fetch
+      - letter: B
+        text: |
+          address
+      - letter: C
+        text: |
+          register
+      - letter: D
+        text: |
+          execute
+      - letter: E
+        text: |
+          data
+      - letter: F
+        text: |
+          decode
+      - letter: G
+        text: |
+          calculation
+      - letter: H
+        text: |
+          central
+      - letter: I
+        text: |
+          value
+      - letter: J
+        text: |
+          binary
+      - letter: K
+        text: |
+          control
+  - number: "5e"
+    type: short_answer
+    text: |
+      A user changes their CPU from one with a dual core and a clock speed of $2.4 \text{ GHz}$ to one with a dual core and a clock speed of $3.5 \text{ GHz}$.
+
+      Explain the effect this change will have on the performance of the CPU.

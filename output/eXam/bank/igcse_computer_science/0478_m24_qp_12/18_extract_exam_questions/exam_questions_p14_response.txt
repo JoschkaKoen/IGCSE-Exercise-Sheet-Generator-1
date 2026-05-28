@@ -1,0 +1,55 @@
+[thinking]
+**My Thought Process on Parsing Exam Questions**
+
+Okay, here's how I'm approaching this exam question extraction task. First, I need to understand the request: I'm given the content of page 14 of an exam paper, and I need to identify and structure the questions ( specifically 8, 8a, 8ai, 8aii, 8b, 8bi, and 8bii) in YAML format. The output must include the question number, type, and text, and options if it is multiple choice, which it's not here.
+
+Now, let's dive into the content and figure out the hierarchy. Question 8 is the root. The text "8 (a) Hexadecimal can be used to represent binary numbers." indicates question 8a, and so on with the other question parts. It looks like it's a structural outline, with sub-parts and sub-sub-parts. The tricky part is deciding what to put for the main question number (8).
+
+I’ve decided that if `8` has child questions such as `8a`, `8ai`, etc, then I’ll leave the `8` stub as an empty string, like: `text: ''`. Let's use the content to populate the sub-questions `text` field and strip the prefixes (a), (i), (ii), etc, at the start of the text.
+
+So now I’ll populate the text for each question. After carefully reviewing the questions, I decide the `text` field should contain each questions' content. And I need to use the `|` block scalar to handle the multi-line text and avoid unnecessary quoting. So I'll structure it like this:
+
+*   **8**: `text: ''` (empty, the root element)
+*   **8a**: `text: |\n  Hexadecimal can be used to represent binary numbers.`
+*   **8ai**: `text: |\n  Convert the denary number 236 into hexadecimal.`
+*   **8aii**: `text: |\n  Give \textbf{one} benefit of using hexadecimal instead of binary to represent data.`
+*   **8b**: `text: |\n  Two's complement can be used to represent positive and negative binary integers.`
+*   **8bi**: `text: |\n  Convert the two's complement integer 10110111 into denary.\n\nShow all your working.`
+*   **8bii**: `text: |\n  Convert the denary number 45 into an 8-bit two's complement integer.`
+
+I need to double-check against the rules. No double quotes for non-empty strings, use `|` block scalar, no `\dotfill` or standalone dotted lines, no "Working space" headers. Also strip any subquestion prefixes. This seems like the perfect solution. Now, I'm confident that the YAML structure will be correct!
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: ''
+  - number: "8a"
+    type: short_answer
+    text: |
+      Hexadecimal can be used to represent binary numbers.
+  - number: "8ai"
+    type: calculation
+    text: |
+      Convert the denary number 236 into hexadecimal.
+  - number: "8aii"
+    type: short_answer
+    text: |
+      Give \textbf{one} benefit of using hexadecimal instead of binary to represent data.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Two’s complement can be used to represent positive and negative binary integers.
+  - number: "8bi"
+    type: calculation
+    text: |
+      Convert the two’s complement integer 10110111 into denary.
+
+      Show all your working.
+  - number: "8bii"
+    type: calculation
+    text: |
+      Convert the denary number 45 into an 8-bit two’s complement integer.

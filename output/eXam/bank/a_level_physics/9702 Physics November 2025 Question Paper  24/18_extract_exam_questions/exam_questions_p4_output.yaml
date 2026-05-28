@@ -1,0 +1,20 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A child kicks a ball so that it leaves horizontal ground with a velocity of $28\text{ m}\,\text{s}^{-1}$ at an angle of $34^\circ$ to the horizontal, as shown in Fig. 1.1.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Air resistance is negligible. The ball leaves the ground at time $t = 0$.
+  - number: "1ai"
+    type: calculation
+    text: |
+      Calculate the horizontal component $v_{\text{H}}$ and the vertical component $v_{\text{V}}$ of the velocity of the ball immediately after it has left the ground.
+
+      $v_{\text{H}} = \hrulefill \text{ m}\,\text{s}^{-1}$
+      $v_{\text{V}} = \hrulefill \text{ m}\,\text{s}^{-1}$
+  - number: "1aii"
+    type: calculation
+    text: |
+      Show that the ball reaches its maximum height at time $t = 1.6\text{ s}$.

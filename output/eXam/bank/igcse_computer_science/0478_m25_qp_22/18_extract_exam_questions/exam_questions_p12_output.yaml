@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "10"
+    type: long_answer
+    text: |
+      A sports club uses a six-character alphanumeric membership code to identify each member of the club.
+
+      The one-dimensional (1D) array \texttt{MemberID[]} is used to store the unique membership codes for club members.
+
+      The two-dimensional (2D) array \texttt{Name[]} is used to store the names of the club members. The first and last name of each member will be stored in separate array elements.
+
+      The system can store details for a maximum of 1000 members.
+
+      The position of any member's data is the same in both arrays. For example, the data in index 2 of \texttt{MemberID[]} belongs to the member in index 2 of \texttt{Name[]}
+
+      The variable \texttt{NewID} is used to input a new membership code.
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item Provide a menu that offers the choices: inputting a new member, outputting a list of membership codes and first and last names, or stopping.
+      \item Input and validate a response to the menu.
+      \item When inputting a new member, input a new membership code and check that it contains six characters:
+        \begin{itemize}
+        \item If the new code is six characters, check it against all the previously stored membership codes to make sure it is unique.
+        \item If the code is \textbf{not} unique, a new code must be entered and checked.
+        \item If the code is unique, it is stored in the first available space in the appropriate array and the new member is required to enter their first name and last name, which are also stored in the corresponding location of the appropriate array.
+        \end{itemize}
+      \item When outputting a list of membership codes and names, output for each member: their membership code, first name and last name.
+      \item The program will continue until the stop option on the menu is selected.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do \textbf{not} need to declare any arrays, variables or constants; assume this has already been done.
+
+      You do \textbf{not} need to initialise the data in the arrays.
+
+      You do need to initialise any variables or constants used if appropriate.
+
+      All inputs and outputs must contain suitable messages.
+```

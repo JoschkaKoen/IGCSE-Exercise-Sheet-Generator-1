@@ -1,0 +1,55 @@
+[thinking]
+**Transcribing and Analyzing Question 7b**
+
+Okay, so the task at hand is to transcribe and clarify question "7b". The context sets up a loyalty scheme implemented with a text file, "Loyalty.txt". My first thought is to ensure I'm extracting the information precisely. Let's start with the structure of the data: it's comma-separated, like this: `<CustomerID>,<LoyaltyPointsString>,<LastVisitDateString>`. The date format is DDMMYYYY and always eight characters long. A concrete example is provided: `"100123,132,05032025"`. This clarifies that customer 100123 had 132 points as of 05/03/2025. I need to be clear about this.
+
+I'm also noting the rule about loyalty points increasing by 10 if the customer visits on a Monday. Now, the prompt highlights the existence of two key program modules. These are essential for understanding the application. I need to clearly define these.
+
+The core modules are `FindCustomer()` and `MondayCheck()`. `FindCustomer()` takes a `STRING` customer ID and returns the corresponding line of data from "Loyalty.txt". The `MondayCheck()` module seems a bit more complex. It takes a customer ID, calls `FindCustomer()`, extracts the loyalty points, and then *conditionally* increases the points by 10 if it's a Monday. The value returned is an integer representing the updated loyalty points.
+
+I reviewed the table format. The table will have two columns: "Module" and "Description", and the column spec is `|l|p{10cm}|`. The content of the table:
+
+```
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Module} & \textbf{Description} \\ \hline
+\texttt{FindCustomer()} & \begin{itemize}\item called with a parameter of type \texttt{STRING} that represents a customer ID\item returns the line of data read from the text file \texttt{Loyalty.txt} containing the data items for that customer\end{itemize} \\ \hline
+\texttt{MondayCheck()} & \begin{itemize}\item called with a parameter of type \texttt{STRING} that represents the customer ID of a customer\item calls \texttt{FindCustomer()}\item extracts the loyalty points from the string returned by \texttt{FindCustomer()}\item increases the loyalty points for the current customer by 10 if the day visited is a Monday\item returns an integer value representing the loyalty points\end{itemize} \\ \hline
+\end{tabular}
+```
+Finally, I made some minor edits to ensure the correct output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      A text file \texttt{Loyalty.txt} will be used to store the data items for the loyalty scheme.
+
+      The text file \texttt{Loyalty.txt} contains only one line of data for each customer.
+
+      Each data item is separated by a comma:
+
+      \texttt{<CustomerID>,<LoyaltyPointsString>,<LastVisitDateString>}
+
+      \texttt{LastVisitDateString} is always eight characters in length in the format: DDMMYYYY.
+
+      An example of how a line of data will be stored in the text file \texttt{Loyalty.txt} is:
+
+      \texttt{"100123,132,05032025"}
+
+      This example shows that the customer with an ID of 100123 had 132 loyalty points following their last visit to the coffee shop on 05/03/2025.
+
+      If a customer visits the coffee shop on a Monday, the value of their loyalty points is increased by 10.
+
+      The programmer has defined \textbf{two} more program modules:
+
+      \begin{tabular}{|l|p{10cm}|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{FindCustomer()} \newline (is already written) & \begin{itemize}\item called with a parameter of type \texttt{STRING} that represents a customer ID\item returns the line of data read from the text file \texttt{Loyalty.txt} containing the data items for that customer\end{itemize} \\ \hline
+      \texttt{MondayCheck()} & \begin{itemize}\item called with a parameter of type \texttt{STRING} that represents the customer ID of a customer\item calls \texttt{FindCustomer()}\item extracts the loyalty points from the string returned by \texttt{FindCustomer()}\item increases the loyalty points for the current customer by 10 if the day visited is a Monday\item returns an integer value representing the loyalty points\end{itemize} \\ \hline
+      \end{tabular}

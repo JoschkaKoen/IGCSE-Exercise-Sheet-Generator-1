@@ -1,0 +1,54 @@
+[thinking]
+**Populating the YAML Stub for Page 4**
+
+Alright, let's get this exam page 4 YAML stub populated. The task is to translate the question stems and structure into the correct format.
+
+First, section "3": the main question stem. This is straightforward: "HTTP and IMAP are examples of protocols used in the Application Layer of the TCP/IP protocol suite." That's a simple `short_answer` question.
+
+Then "3a": We need the text for "State the purpose of the HTTP and IMAP protocols." plus answer blanks. This also appears as a `short_answer`, with HTTP and IMAP following `\hrulefill`. Following the rule of no extra blank lines in between the values.
+
+Next, "3b": "Describe how files are shared using the BitTorrent protocol." That's a `long_answer` question, easy.
+
+Now, page 4. Question "4" is "Identify one benefit of circuit switching and one benefit of packet switching." Let's check the context again: "4 (a) Identify one benefit of circuit switching and one benefit of packet switching." The OCR is consistent, so this is correct. Question "4" should be a `short_answer` followed by "4a", and they should be split. It seems that "4a" should be:
+"Circuit switching \hrulefill \n Packet switching \hrulefill"
+
+Then, "4b": "Identify two differences between circuit switching and packet switching." This is a `short_answer`, formatted with numbered answer slots, matching the blank lines in the text, so "1. \hrulefill\n2. \hrulefill".
+
+Let's double-check all these, and make sure we have the correct formatting for the "hrulefill" placeholders. This appears correct, and we have addressed any confusion around "4" and "4a".
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      HTTP and IMAP are examples of protocols used in the Application Layer of the TCP/IP protocol suite.
+  - number: "3a"
+    type: short_answer
+    text: |
+      State the purpose of the HTTP and IMAP protocols.
+
+      HTTP \hrulefill
+      IMAP \hrulefill
+  - number: "3b"
+    type: long_answer
+    text: |
+      Describe how files are shared using the BitTorrent protocol.
+  - number: "4"
+    type: short_answer
+    text: |
+      Identify one benefit of circuit switching and one benefit of packet switching.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Circuit switching \hrulefill
+      Packet switching \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      Identify two differences between circuit switching and packet switching.
+
+      1. \hrulefill
+      2. \hrulefill

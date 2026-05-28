@@ -1,0 +1,57 @@
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which of the following is used to validate data on input.
+    options:
+      - letter: A
+        text: |
+          checksum
+      - letter: B
+        text: |
+          double entry check
+      - letter: C
+        text: |
+          type check
+      - letter: D
+        text: |
+          visual check
+  - number: "2"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show a method used to construct a solution to a problem.
+    options:
+      - letter: A
+        text: |
+          abstraction
+      - letter: B
+        text: |
+          structure diagram
+      - letter: C
+        text: |
+          test data
+      - letter: D
+        text: |
+          variable
+  - number: "3"
+    type: short_answer
+    text: |
+      Four logic gates and five logic gate symbols are shown.
+
+      Draw \textbf{one} line to link each logic gate to its correct symbol. \textbf{Not} all logic gate symbols will be used.
+
+      \begin{tabular}{cc}
+      \textbf{Logic gate} & \textbf{Logic gate symbol} \\
+      & \\
+      \framebox{\quad AND \quad} & [Symbol 1] \\
+      & \\
+      \framebox{\quad NAND \quad} & [Symbol 2] \\
+      & \\
+      \framebox{\quad NOR \quad} & [Symbol 3] \\
+      & \\
+      \framebox{\quad XOR \quad} & [Symbol 4] \\
+      & \\
+       & [Symbol 5] \\
+      \end{tabular}
+```

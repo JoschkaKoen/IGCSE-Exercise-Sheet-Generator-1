@@ -1,0 +1,20 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      Draw the symbol for an XOR logic gate.
+
+      XOR logic gate symbol:
+  - number: "8a"
+    type: short_answer
+    text: |
+      Complete the truth table for an XOR logic gate.
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{X} \\ \hline
+      0 & 0 & \\ \hline
+      0 & 1 & \\ \hline
+      1 & 0 & \\ \hline
+      1 & 1 & \\ \hline
+      \end{tabular}

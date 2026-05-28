@@ -1,0 +1,58 @@
+[thinking]
+**Transcribing Questions from an Image**
+
+Okay, so the task is pretty straightforward: I need to pull questions 12 and 13 from the image provided. It seems like the instructions are quite clear about how to handle figures and diagrams – basically, just omit them and transcribe the text. I've got that.
+
+For question 12, it's a multiple-choice question about the acceleration of a falling stone. I'm noting that the answer choices are graphs labeled A, B, C, and D, but since I need to omit the figures, I'll represent the options just by the letters. So, the options will simply be A, B, C, and D.
+
+Question 13 presents a scenario involving a cart, a rock, and momentum/kinetic energy. It's again a multiple-choice, and the core of the problem is a comparison of these two quantities before and after the rock drops into the cart. Since this also has no figures, I need to transcribe the entire text of the question, including the provided options for the answer. I will keep the options in the structure given in the prompt.
+
+
+
+[/thinking]
+
+questions:
+  - number: "12"
+    type: multiple_choice
+    text: |
+      A stone is released from rest and falls a long distance in air.
+
+      Which graph could show the variation with time $t$ of the acceleration $a$ of the stone?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "13"
+    type: multiple_choice
+    text: |
+      An empty cart is moving along a horizontal track at a constant velocity.
+
+      Resistive forces acting on the cart are negligible.
+
+      A heavy rock is dropped vertically into the cart.
+
+      The cart continues to move horizontally with the rock inside.
+
+      How does the momentum and kinetic energy of the cart with the rock inside compare with the momentum and kinetic energy of the empty cart?
+    options:
+      - letter: A
+        text: |
+          The cart with the rock inside has a smaller momentum and a smaller kinetic energy.
+      - letter: B
+        text: |
+          The cart with the rock inside has a smaller momentum and the same kinetic energy.
+      - letter: C
+        text: |
+          The cart with the rock inside has the same momentum and a smaller kinetic energy.
+      - letter: D
+        text: |
+          The cart with the rock inside has the same momentum and the same kinetic energy.

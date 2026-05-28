@@ -1,0 +1,20 @@
+[thinking]
+**Transcribing Question 2b**
+
+Okay, the user wants me to extract and present question "2b" from this document. Alright, let's focus. The context is a spacecraft and thrusters. It appears the user needs the text of the question, and possibly any associated text elements (like captions, if there are any). The instructions are clear: if there's a figure or diagram, just disregard it and transcribe the text itself, including any accompanying labels or headers. So, I need to isolate the relevant text. Here's what I've identified as the question to extract and transcribe:
+
+"Thrusters A and C are now switched off and the spacecraft is stationary. Thruster B is activated at time $t_1$, producing a constant force on the spacecraft until the fuel runs out at time $t_2$. As the fuel is used, the total mass of the spacecraft decreases.
+
+On Fig. 2.2, sketch the variation of speed of the spacecraft with time from $t_1$ to $t_2$."
+
+
+
+[/thinking]
+
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Thrusters A and C are now switched off and the spacecraft is stationary. Thruster B is activated at time $t_1$, producing a constant force on the spacecraft until the fuel runs out at time $t_2$. As the fuel is used, the total mass of the spacecraft decreases.
+
+      On Fig. 2.2, sketch the variation of speed of the spacecraft with time from $t_1$ to $t_2$.

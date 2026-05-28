@@ -1,0 +1,17 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      This flowchart represents an algorithm.
+  - number: "9a"
+    type: short_answer
+    text: |
+      The array \texttt{List[1:5]} used in the flowchart contains this data:
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \texttt{List[1]} & \texttt{List[2]} & \texttt{List[3]} & \texttt{List[4]} & \texttt{List[5]} \\ \hline
+      15 & 17 & 20 & 5 & 9 \\ \hline
+      \end{tabular}
+```

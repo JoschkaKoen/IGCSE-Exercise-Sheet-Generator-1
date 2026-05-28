@@ -1,0 +1,60 @@
+[thinking]
+**Transcribing Page 8 of the Exam: A Breakdown**
+
+Okay, so the task is to transcribe page 8 of the exam. The user wants a transcription, let's get into it. The main question on this page is "3," and I need to break this down into its sub-components. I quickly look at the question numbers, confirming the question is numbered 3, and then subparts a, b, bi, bii, and biii. I need to make sure I get the text for each of those.
+
+I check if "3" has its own explicit text on the page, but it seems like it's just the overarching number or container. It isn't a *text* in the sense of the actual wording of a question. Let's make "3" empty: `text: ''`.
+
+Now I need to start matching the text with the sub-questions. Here's what I'm seeing:
+
+*   "3 (a) Define gravitational field at a point." - This is clearly 3a.
+*   "(b) Fig. 3.1 shows an isolated point mass of mass M." - This is 3b, which also has a sentence with it.
+*   "(i) By considering the force..." - This is 3bi.
+*   "(ii) On Fig. 3.1, draw an arrow..." - This is 3bii.
+*   "(iii) Point Q is at distance..." - And finally, 3biii.
+
+I'm noting that figures 3.1 and 3.2 are included in the description.
+
+I'm focusing on the core text for each part, making sure to preserve the structure and intent. So, I will write the text for each part as follows:
+
+-   `3`: `text: ''`
+-   `3a`: `text: | Define gravitational field at a point.`
+-   `3b`: `text: | Fig. 3.1 shows an isolated point mass of mass $M$. Point P is at distance $x$ from the point mass.`
+-   `3bi`: `text: | By considering the force exerted by the point mass on a test mass of mass $m$ placed at P, derive an equation for the gravitational field strength $g$ at P, in terms of $M$ and $x$. Identify any other symbols you use.`
+-   `3bii`: `text: | On Fig. 3.1, draw an arrow to indicate the direction of the gravitational field at P.`
+-   `3biii`: `text: | Point Q is at distance $\frac{x}{2}$ from the point mass, on the opposite side of the mass from P, as shown in Fig. 3.2. Compare the gravitational field at Q with that at P.`
+
+And that should do it. I'm confident I've captured the essence of each question component accurately, including the math formatting.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: |
+      Define gravitational field at a point.
+  - number: "3b"
+    type: short_answer
+    text: |
+      Fig. 3.1 shows an isolated point mass of mass $M$.
+
+      Point P is at distance $x$ from the point mass.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      By considering the force exerted by the point mass on a test mass of mass $m$ placed at P, derive an equation for the gravitational field strength $g$ at P, in terms of $M$ and $x$. Identify any other symbols you use.
+  - number: "3bii"
+    type: short_answer
+    text: |
+      On Fig. 3.1, draw an arrow to indicate the direction of the gravitational field at P.
+  - number: "3biii"
+    type: short_answer
+    text: |
+      Point Q is at distance $\frac{x}{2}$ from the point mass, on the opposite side of the mass from P, as shown in Fig. 3.2.
+
+      Compare the gravitational field at Q with that at P.

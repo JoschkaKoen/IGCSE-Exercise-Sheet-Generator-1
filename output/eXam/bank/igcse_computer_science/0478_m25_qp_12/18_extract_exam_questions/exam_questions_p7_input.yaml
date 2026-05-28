@@ -1,0 +1,21 @@
+  - number: "3d"
+    type: short_answer
+    text: ""
+  - number: "4"
+    type: short_answer
+    text: ""
+  - number: "4a"
+    type: short_answer
+    text: ""
+  - number: "4ai"
+    type: short_answer
+    text: ""
+  - number: "4aii"
+    type: long_answer
+    text: ""
+  - number: "4b"
+    type: short_answer
+    text: ""
+  - number: "4c"
+    type: short_answer
+    text: ""

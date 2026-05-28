@@ -1,0 +1,31 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A string function \texttt{Compare()} will compare two strings.
+
+      The function will:
+      \begin{itemize}
+      \item take \textbf{four} parameters:
+      \begin{itemize}
+      \item two strings, \texttt{String1} and \texttt{String2}
+      \item a character, \texttt{Position}, to indicate whether \texttt{String1} will be compared with the start (\texttt{'s'}), or the end (\texttt{'e'}) of \texttt{String2}
+      \item a Boolean, \texttt{CaseMatters}, to indicate whether an upper case character and lower case character (for example, \texttt{'A'} and \texttt{'a'}) are regarded as different (\texttt{TRUE}), or as the same (\texttt{FALSE})
+      \end{itemize}
+      \item return \texttt{FALSE} if \texttt{String2} has fewer characters than \texttt{String1}
+      \item return \texttt{TRUE} if the comparison is true, otherwise return \texttt{FALSE}
+      \end{itemize}
+
+      For example:
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \multicolumn{4}{|c|}{\textbf{Parameter}} & \textbf{Return} \\ \cline{1-4}
+      \textbf{String1} & \textbf{String2} & \textbf{CaseMatters} & \textbf{Position} & \textbf{value} \\ \hline
+      \texttt{"Cat"} & \texttt{"Catalogue"} & \texttt{TRUE} & \texttt{'s'} & \texttt{TRUE} \\ \hline
+      \texttt{"CAT"} & \texttt{"Catalogue"} & \texttt{TRUE} & \texttt{'s'} & \texttt{FALSE} \\ \hline
+      \texttt{"CAT"} & \texttt{"Catalogue"} & \texttt{FALSE} & \texttt{'s'} & \texttt{TRUE} \\ \hline
+      \texttt{"Cat"} & \texttt{"Catalogue"} & \texttt{TRUE} & \texttt{'e'} & \texttt{FALSE} \\ \hline
+      \texttt{"GUE"} & \texttt{"Catalogue"} & \texttt{FALSE} & \texttt{'e'} & \texttt{TRUE} \\ \hline
+      \texttt{"Catalogue"} & \texttt{"Cat"} & \texttt{TRUE} & \texttt{'s'} & \texttt{FALSE} \\ \hline
+      \end{tabular}

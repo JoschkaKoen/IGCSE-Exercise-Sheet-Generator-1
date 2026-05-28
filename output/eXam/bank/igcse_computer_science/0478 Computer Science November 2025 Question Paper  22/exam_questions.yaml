@@ -1,0 +1,558 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+
+    The result of the arithmetic operation $4 \wedge 2$ is'
+  answer_options:
+  - letter: A
+    text: '2'
+  - letter: B
+    text: '8'
+  - letter: C
+    text: '16'
+  - letter: D
+    text: '42'
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'This pseudocode algorithm is intended to input a first name from a user and
+    search for it in a two-dimensional (2D) array. If the name is found, the algorithm
+    outputs all the remaining details for that name. The algorithm will continue to
+    allow other names to be entered for searching, until the user input stops it.
+
+
+    \begin{alltt}
+
+    01 DECLARE Contacts : ARRAY[1:500, 1:4] OF REAL
+
+    02 DECLARE Row : INTEGER
+
+    03 DECLARE Column : INTEGER
+
+    04 DECLARE Continue : BOOLEAN
+
+    05 DECLARE Stop : BOOLEAN
+
+    06 DECLARE FirstName : STRING
+
+    07 Continue <- TRUE
+
+    08 Stop <- FALSE
+
+    09 WHILE Continue
+
+    10   Row <- 1
+
+    11   OUTPUT "Enter a first name "
+
+    12   OUTPUT FirstName
+
+    13   REPEAT
+
+    14     IF Contacts[Row, 1] = FirstName
+
+    15     THEN
+
+    16       FOR Column <- 1 TO 4
+
+    17         OUTPUT Contacts[Row, 1]
+
+    18       NEXT Column
+
+    19       Stop <- TRUE
+
+    20     ELSE
+
+    21       Row <- Row + 1
+
+    22     ENDIF
+
+    23   NEXT Stop OR Row > 500
+
+    24   OUTPUT "Search for another name? (Y or N)"
+
+    25   INPUT Answer
+
+    26   IF Answer = ''N'' OR Answer = ''n''
+
+    27   THEN
+
+    28     Continue <- TRUE
+
+    29   ENDIF
+
+    30 ENDWHILE
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Identify the line numbers of \textbf{five} errors in the pseudocode and
+      suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A procedure \texttt{NewData} allows data for new contacts to be entered
+      and stored in the 2D array \texttt{Contacts[]}. A parameter, \texttt{Number},
+      is used to pass values from the main algorithm to the procedure for the number
+      of new contacts. Next, four pieces of contact data for each new contact are
+      entered and stored at the start of the array.
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: "Complete the pseudocode for \\texttt{PROCEDURE NewData}\n\n\\begin{alltt}\n\
+        PROCEDURE NewData(\\underline{\\textbackslash{}hspace\\{15em\\}})\n\n    FOR\
+        \ Row <- 1 TO \\underline{\\textbackslash{}hspace\\{15em\\}}\n\n        FOR\
+        \ Column <- 1 TO 4\n\n            INPUT \\underline{\\textbackslash{}hspace\\\
+        {15em\\}}\n\n            \\underline{\\textbackslash{}hspace\\{25em\\}}\n\n\
+        \            \\underline{\\textbackslash{}hspace\\{25em\\}}\n\nENDPROCEDURE\n\
+        \\end{alltt}"
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the pseudocode to input the number of new contacts and to use procedure
+        \texttt{NewData}. A variable declaration is \textbf{not} required.
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A first name is used as the search key in the algorithm on page 2. If the
+      name is found, all the data for that name is output and the algorithm stops
+      searching.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain why the given algorithm may \textbf{not} always give the expected
+        results.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how you could improve the algorithm so that the search is more
+        likely to find the required results.
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'A program is written that will only accept values between $-99.99$ and $+99.99$,
+    inclusive. The program is to be tested.
+
+
+    The table, when completed, shows appropriate test data that matches the type of
+    test data and purpose of the test data.
+
+
+    Complete the table by inserting the missing information.
+
+
+    \begin{tabular}{|c|c|l|}
+
+    \hline
+
+    \textbf{Test data} & \textbf{Type of test data} & \multicolumn{1}{c|}{\textbf{Purpose
+    of test data}} \\ \hline
+
+    & & \\
+
+    0 & & \hrulefill \\
+
+    & & \hrulefill \\
+
+    & & \\ \hline
+
+    & & \\
+
+    & boundary & \hrulefill \\
+
+    & & \hrulefill \\
+
+    & & \\ \hline
+
+    & & \\
+
+    & & to make sure that the program rejects data that is \\
+
+    & & outside acceptable limits \\
+
+    & & \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A length check is a type of validation check.
+
+
+      State the purpose of a length check.'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'An email address can be validated by checking that it contains an @ symbol.
+
+
+      Write the pseudocode for an algorithm that will allow an email address to be
+      input and check whether or not it contains an @ symbol.
+
+
+      Output a suitable message with the result.
+
+
+      Use the string function \texttt{SUBSTRING(EmailAddress, Start, 1)} in your solution
+      to return a string of length 1 character, starting at position \texttt{Start},
+      where \texttt{EmailAddress} is the identifier representing your input.
+
+
+      You do \textbf{not} need to declare any variables for this algorithm, but variables
+      must be initialised as necessary. Assume there will \textbf{not} be more than
+      one @ symbol in the email address input.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: This flowchart represents an algorithm.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "The first data row of the trace table shows the values currently stored\
+      \ in \\texttt{CodeStore[]}\n\nComplete the trace table for the algorithm, using\
+      \ the input data:\n\n7686, Face, Speed, 432U, Yp79\n\n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\n\
+      \\hline\n\\multicolumn{3}{|c|}{} & \\multicolumn{6}{c|}{\\textbf{CodeStore[]}}\
+      \ & \\\\ \\hline\n\\textbf{Code} & \\textbf{Store} & \\textbf{Count} & \\textbf{}\
+      \ & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{OUTPUT}\
+      \ \\\\ \\hline\n & & & aBcd & 1532 & Face & 63q8 & & & \\\\ \\hline\n & & &\
+      \ & & & & & & \\\\ \\hline\n & & & & & & & & & \\\\ \\hline\n & & & & & & &\
+      \ & & \\\\ \\hline\n & & & & & & & & & \\\\ \\hline\n & & & & & & & & & \\\\\
+      \ \\hline\n & & & & & & & & & \\\\ \\hline\n & & & & & & & & & \\\\ \\hline\n\
+      \ & & & & & & & & & \\\\ \\hline\n & & & & & & & & & \\\\ \\hline\n & & & &\
+      \ & & & & & \\\\ \\hline\n & & & & & & & & & \\\\ \\hline\n & & & & & & & &\
+      \ & \\\\ \\hline\n & & & & & & & & & \\\\ \\hline\n & & & & & & & & & \\\\ \\\
+      hline\n & & & & & & & & & \\\\ \\hline\n & & & & & & & & & \\\\ \\hline\n &\
+      \ & & & & & & & & \\\\ \\hline\n & & & & & & & & & \\\\ \\hline\n & & & & &\
+      \ & & & & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe the processes in the algorithm on page 6.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The algorithm on page 6 requires the array \texttt{CodeStore[]} to be declared
+      as a one-dimensional (1D) string array with six elements that are initially
+      set to the null string \texttt{""}.
+
+
+      Write the pseudocode required to declare and initialise the array \texttt{CodeStore[]}
+
+      You do need to declare any variables used.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Consider the logic expression:
+
+
+    $$\text{X} = (\text{J} \text{ XOR } \text{NOT } \text{K}) \text{ NAND } \text{NOT
+    } \text{L}$$'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Draw a logic circuit for the logic expression.
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+
+      Do \textbf{not} simplify the logic expression.'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table for the given logic expression.
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{J} & \textbf{K} & \textbf{L} & \textbf{Working space} & \textbf{X} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A database table \texttt{WATERFOWL} stores some details of a range of birds
+    found in the UK that live on or near water. The length and wingspan dimensions
+    are in centimetres and the typical lifespan is in years.
+
+
+    \begin{tabular}{|l|l|c|c|c|c|}
+
+    \hline
+
+    \textbf{Species} & \textbf{Family} & \textbf{Length} & \textbf{Wingspan} & \textbf{CoastalHabitat}
+    & \textbf{Lifespan} \\ \hline
+
+    Barnacle goose & Goose & 63.5 & 130.0 & FALSE & 14 \\ \hline
+
+    Bewick’s swan & Swan & 120.2 & 190.5 & TRUE & 8 \\ \hline
+
+    Brent goose & Goose & 58.0 & 94.3 & TRUE & 11 \\ \hline
+
+    Canada goose & Goose & 78.5 & 160.0 & FALSE & 6 \\ \hline
+
+    Eider & Duck & 58.0 & 94.5 & TRUE & 8 \\ \hline
+
+    Goldeneye & Duck & 44.5 & 72.1 & TRUE & 6 \\ \hline
+
+    Goosander & Duck & 63.3 & 90.0 & TRUE & 7 \\ \hline
+
+    Long-tailed duck & Duck & 44.0 & 76.6 & TRUE & 5 \\ \hline
+
+    Mallard & Duck & 59.7 & 90.8 & FALSE & 3 \\ \hline
+
+    Mute swan & Swan & 150.0 & 220.2 & FALSE & 10 \\ \hline
+
+    Pink-footed goose & Goose & 69.6 & 150.0 & TRUE & 8 \\ \hline
+
+    Pintail & Duck & 60.0 & 88.6 & TRUE & 3 \\ \hline
+
+    Smew & Duck & 41.5 & 62.1 & FALSE & 7 \\ \hline
+
+    White-fronted goose & Goose & 71.5 & 140.0 & FALSE & 6 \\ \hline
+
+    Whooper swan & Swan & 150.0 & 230.0 & TRUE & 9 \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of a primary key in a database table.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the table for each of the given data types, to identify \textbf{one}
+      field from the table \texttt{WATERFOWL} that is most likely to use it.
+
+
+      Each field must be different.
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{Data type} & \textbf{Field} \\ \hline
+
+      Boolean & \\ \hline
+
+      Integer & \\ \hline
+
+      Real & \\ \hline
+
+      Text & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give the output that would be produced by the structured query language
+      (SQL) statement:
+
+
+      \begin{alltt}
+
+      SELECT Species, Length, Wingspan
+
+      FROM WATERFOWL
+
+      WHERE Family = "Swan"
+
+      ORDER BY Lifespan;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the SQL statement to list only the species, family and lifespan
+      of all waterfowl whose typical lifespan is at least 10 years, sorted in order
+      of species.
+
+
+      SELECT \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: "A program is required to test the fairness of the random number generator.\n\
+    \nThe one-dimensional (1D) array \\texttt{RandomNumber[]} is used to store 100000\
+    \ random integers.\n\nThe two-dimensional (2D) array \\texttt{CountedNumber[]}\
+    \ is used to store the integers 1 to 10, inclusive, and the frequency of each\
+    \ integer (the number of times each integer was generated).\n\nWrite a program\
+    \ that meets the following requirements:\n\n\\begin{itemize}\n\\item Generate\
+    \ 100000 random integers between 1 and 10, inclusive.\n\\item Store each integer\
+    \ in the appropriate array.\n\\item Calculate the frequency of each of the integers\
+    \ 1 to 10 and store these values in the appropriate array.\n\\item Sort the contents\
+    \ of the counted number array in \\textbf{descending order} of frequency.\n\\\
+    item Calculate the chance of generating each of the integers 1 to 10, rounded\
+    \ to four decimal places.\nUse the formula: chance = frequency / 100000\n\\item\
+    \ Output each of the integers 1 to 10 in the order they are stored in the counted\
+    \ number array, along with the chance of generating them.\n\\end{itemize}\n\n\
+    The following is an example of an algorithm that sorts a 2D array in an ascending\
+    \ order:\n\n\\begin{alltt}\nF <- TRUE\nWHILE F DO\n  F <- FALSE\n  FOR I <- 1\
+    \ TO 9\n    IF A[I, 2] > A[I + 1, 2]\n    THEN\n      T1 <- A[I, 1]\n      T2\
+    \ <- A[I, 2]\n      A[I, 1] <- A[I + 1, 1]\n      A[I, 2] <- A[I + 1, 2]\n   \
+    \   A[I + 1, 1] <- T1\n      A[I + 1, 2] <- T2\n      F <- TRUE\n    ENDIF\n \
+    \ NEXT I\nENDWHILE\n\\end{alltt}\n\nYou must use pseudocode or program code \\\
+    textbf{and} add comments to explain how your code works.\n\nAll arrays, variables\
+    \ or constants used must be declared for this algorithm.\n\nAll inputs and outputs\
+    \ must contain suitable messages."
+  answer_options: []
+  subquestions: []

@@ -1,0 +1,613 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define acceleration.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A rocket is launched vertically from the surface of the Earth.
+
+
+      Fig. 1.1 shows the variation of the velocity of the rocket with time for the
+      first $20\text{ s}$ after its launch.'
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine the acceleration of the rocket.
+
+
+        acceleration = \hrulefill $\text{ms}^{-2}$'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Show that the height of the rocket above the surface of the Earth at a
+        time of $20\text{ s}$ after launch is $3.2\text{ km}$.
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The mass of the rocket in (b) is $2.9 \times 10^6 \text{ kg}$. Assume that
+      this mass remains constant.
+
+
+      For this rocket, from launch to its height at a time of $20\text{ s}$ after
+      launch:'
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'calculate the gain in gravitational potential energy $\Delta E_{\text{P}}$
+
+
+        $\Delta E_{\text{P}} = \hrulefill \text{ J}$'
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'calculate the gain in kinetic energy $\Delta E_{\text{K}}$
+
+
+        $\Delta E_{\text{K}} = \hrulefill \text{ J}$'
+      answer_options: []
+      subquestions: []
+    - number: 1ciii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'determine the average power output of the rocket engines. Assume that
+        resistive forces are negligible.
+
+
+        $\text{power} = \hrulefill \text{ W}$'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Define pressure.
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: long_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how hydrostatic pressure results in an upthrust force acting on
+        a solid object immersed in a liquid.
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A small steel ball of radius $r$ and mass $m$ falls vertically at terminal
+      speed $v$ through oil.
+
+
+      The viscous drag force $D$ that acts on the ball is given by
+
+
+      $$D = 6\pi\eta rv$$
+
+
+      where $\eta$ is a property of the oil called its viscosity.'
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: On Fig. 2.1, draw labelled arrows from the ball to show the directions
+        of the three forces that act on the ball as it falls.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the SI base units of $\eta$.
+
+
+        base units \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The oil in \textbf{(b)} has a density of $920 \text{ kg}\,\text{m}^{-3}$
+      and a viscosity of $4.7$ in SI units.
+
+
+      The steel ball has a mass of $2.4 \times 10^{-3} \text{ kg}$ and a radius of
+      $4.2 \times 10^{-3} \text{ m}$.'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that the upthrust force acting on the ball is $2.8 \times 10^{-3}
+        \text{ N}$.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Determine the terminal speed $v$ of the ball.
+
+
+        $v = $ \hrulefill $\text{ m}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A wire has length $L$ and cross-sectional area $A$. The wire is made from
+    a metal that has Young modulus $E$ and resistivity $\rho$.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define the Young modulus of a material.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'State an expression, in terms of some or all of $L$, $A$, $E$ and $\rho$,
+        for the resistance $R_0$ of the wire.
+
+
+        $R_0 = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Show that the spring constant $k_0$ of the wire is given by
+
+        $$k_0 = \frac{EA}{L}$$'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The wire is stretched, within the limit of proportionality, by a tensile
+      force $F$. Assume that any changes in the cross-sectional area of the wire are
+      negligible.
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 3.1, sketch the variation with $F$ of the resistance $R$ of the
+        wire.
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 3.2, sketch the variation with $F$ of the spring constant $k$
+        of the wire.
+      answer_options: []
+      subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Copper has a resistivity of $1.8 \times 10^{-8} \, \Omega \, \text{m}$ and
+      a Young modulus of $1.3 \times 10^{11} \, \text{Pa}$.
+    answer_options: []
+    subquestions:
+    - number: 3di
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'A copper wire of diameter $1.6 \, \text{mm}$ has a resistance of $0.034
+        \, \Omega$.
+
+
+        Show that the length of the wire is $3.8 \, \text{m}$.'
+      answer_options: []
+      subquestions: []
+    - number: 3dii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Use the equation in \textbf{(b)(ii)} to determine the spring constant
+        of the wire.
+
+
+        spring constant = \hrulefill $\text{N}\,\text{m}^{-1}$'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State what is meant by diffraction of a wave.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A beam of vertically polarised light of wavelength $540 \text{ nm}$ is incident
+      normally on a diffraction grating, as shown in Fig. 4.1.
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The diffraction grating has a line spacing of $5.0 \times 10^{-6} \text{
+        m}$.
+
+
+        The light transmitted by the diffraction grating illuminates a circular screen.
+        The diffraction grating is at the centre X of the circle.
+
+
+        The central bright fringe is formed at point O on the screen and has intensity
+        $I_0$.
+
+
+        P is a point on the screen where the line XP is at a variable angle $\theta$
+        to the line XO. The intensity $I$ of light on the screen at P varies with
+        $\theta$.
+
+
+        Show that the angle $\theta$ at which the first-order bright fringe is formed
+        is $6.2^\circ$.'
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine the value of $\theta$ at which the second-order bright fringe
+        is formed.
+
+
+        $\theta = \hrulefill ^\circ$'
+      answer_options: []
+      subquestions: []
+    - number: 4biii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: On Fig. 4.2, sketch the variation of the intensity $I$ with $\theta$ for
+        values of $\theta$ from $-15^\circ$ to $+15^\circ$.
+      answer_options: []
+      subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A polarising filter is placed in the path of the light beam that is incident
+      on the diffraction grating in Fig. 4.1. The transmission axis of the filter
+      is at $45^\circ$ to the vertical.
+
+
+      Suggest how the variation of intensity with $\theta$ for the light on the screen
+      compares with the answer in \textbf{(b)(iii)}.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State Kirchhoff's first law.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Fig. 5.1 shows a circuit containing a thermistor T that has a negative temperature
+      coefficient.
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The thermistor has resistance $R_0$ at a temperature of $0^\circ\text{C}$.
+
+
+        On Fig. 5.2, sketch a possible variation of the resistance of the thermistor
+        with temperature between $0^\circ\text{C}$ and $100^\circ\text{C}$.'
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: With reference to the current in the cell, explain why the current in
+        resistor R decreases with increasing temperature of the thermistor.
+      answer_options: []
+      subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The electromotive force (e.m.f.) $E$ of the cell in Fig. 5.1 is $1.50\text{
+      V}$. The internal resistance $r$ of the cell is $0.12\ \Omega$.
+
+
+      Resistor R has a resistance of $6.00\ \Omega$.
+
+
+      At a particular temperature of the thermistor, the current in R is $0.200\text{
+      A}$.
+
+
+      For this temperature of the thermistor, determine:'
+    answer_options: []
+    subquestions:
+    - number: 5ci
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'the current in the cell
+
+
+        current = \hrulefill\text{ A}'
+      answer_options: []
+      subquestions: []
+    - number: 5cii
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'the resistance of the thermistor.
+
+
+        resistance = \hrulefill\ \Omega'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The nuclide $^3_1\text{H}$ is an isotope of hydrogen that is called tritium.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 6ai
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the numbers of protons, neutrons and electrons in a neutral
+        atom of tritium.
+
+
+        number of protons = \hrulefill
+
+        number of neutrons = \hrulefill
+
+        number of electrons = \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 6aii
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Draw a labelled diagram to represent a simple model of the arrangement
+        of the protons, neutrons and electrons in a tritium atom.
+      answer_options: []
+      subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Tritium is radioactive and undergoes $\beta^-$ decay to form an isotope
+      of helium (He). Gamma radiation is not emitted during this decay.
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Complete the equation to represent the radioactive decay of tritium.
+
+
+        $$^3_1\text{H} \rightarrow \text{}^{\underline{\hspace{1.5em}}}_{\underline{\hspace{1.5em}}}\text{He}
+        + \text{}^{\underline{\hspace{1.5em}}}_{\underline{\hspace{1.5em}}}\beta +
+        ^0_0\text{X}$$'
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the name of particle X.
+      answer_options: []
+      subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Determine the quark composition of a tritium nucleus.
+    answer_options: []
+    subquestions: []

@@ -1,0 +1,28 @@
+[thinking]
+**Transcribing Question 5biv**
+
+Okay, the user wants me to transcribe question "5biv" from the given page. Let's see... ah, here it is: "(iv) On Fig. 5.2, sketch the variation of V with x between x = 10 pm and x = 110 pm."
+
+Right, I need to strip the subquestion prefix, "(iv)", as per the instruction about removing prefixes like this. So, the text starts with the actual question content. Now let me make sure the math looks good. Let's format this text for proper mathematical rendering and double check the original question: "On Fig. 5.2, sketch the variation of $V$ with $x$ between $x = 10\text{ pm}$ and $x = 110\text{ pm}$." That looks right.
+
+Now, let's verify the YAML stub. Yup, looks like I need to fill in the "text" field. Perfect. Here's what I'll do:
+
+```yaml
+questions:
+  - number: "5biv"
+    type: short_answer
+    text: |
+      On Fig. 5.2, sketch the variation of $V$ with $x$ between $x = 10\text{ pm}$ and $x = 110\text{ pm}$.
+```
+
+Excellent, that should be exactly what's needed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5biv"
+    type: short_answer
+    text: |
+      On Fig. 5.2, sketch the variation of $V$ with $x$ between $x = 10\text{ pm}$ and $x = 110\text{ pm}$.

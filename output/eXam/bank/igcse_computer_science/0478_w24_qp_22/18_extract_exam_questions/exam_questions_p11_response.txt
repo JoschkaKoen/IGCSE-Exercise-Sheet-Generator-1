@@ -1,0 +1,52 @@
+[thinking]
+**My Thought Process: Deconstructing Exam Questions into YAML**
+
+Okay, here's how I'm going to approach this. First, I need to understand what's being asked of me. I'm looking at page 11 of an exam paper and have been tasked with extracting and transcribing the questions, specifically "11c" and "11d", into a YAML format. I'll need to follow the rules of the YAML schema.
+
+Let's begin with question "11c". The text starts with "(c)". I remember the rule: if a subquestion prefix is at the start, I need to strip it and start with the actual prompt. So, I will begin with "The database uses only the data types:". I'll keep the list format. I'll represent the data types using a LaTeX itemize environment: alphanumeric, character, Boolean, integer, real, and date/time. The prompt then asks to complete a table showing fields for the given data types. I'll write the following: "Complete the table to show the fields that could have the given data types. Only **one** field name is required in each box and each field name must be different." I'll construct a `tabular` environment to represent the table: a table with two columns, one for "Field" and one for "Data type," and four rows, each representing a data type: alphanumeric, Boolean, real, and integer.
+
+Now, question "11d". Again, starting with the subquestion prefix, I will strip "(d)" and begin with the statement, "Give the output that would be produced by the structured query language (SQL) statement:". The prompt then presents an SQL code block. I'll represent the SQL code verbatim using the `alltt` environment: I'll include the SQL code as is. I remember that inside the `alltt` environment I don't need to escape `<`, `>`, `&`, `%`, `_`, `#`, or `$`.
+
+Finally, I'll need to format this all in YAML. The prompt is open-ended, therefore no answer line is necessary. I'll make sure there are no double quotes for non-empty strings, I'll use a `|` block scalar for all non-empty text fields, and I won't use any markdown fences in the response. This should produce a valid YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "11c"
+    type: short_answer
+    text: |
+      The database uses only the data types:
+
+      \begin{itemize}
+      \item alphanumeric
+      \item character
+      \item Boolean
+      \item integer
+      \item real
+      \item date/time.
+      \end{itemize}
+
+      Complete the table to show the fields that could have the given data types.
+
+      Only \textbf{one} field name is required in each box and each field name must be different.
+
+      \begin{tabular}{|p{6cm}|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Data type}} \\ \hline
+       & alphanumeric \\ \hline
+       & Boolean \\ \hline
+       & real \\ \hline
+       & integer \\ \hline
+      \end{tabular}
+  - number: "11d"
+    type: short_answer
+    text: |
+      Give the output that would be produced by the structured query language (SQL) statement:
+
+      \begin{alltt}
+      SELECT RoomNo, Type, Guests, Rate$
+      FROM Booking28
+      WHERE Mon <> T;
+      \end{alltt}

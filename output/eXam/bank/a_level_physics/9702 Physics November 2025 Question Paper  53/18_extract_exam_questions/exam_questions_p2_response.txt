@@ -1,0 +1,44 @@
+[thinking]
+**Transcribing and Planning the Experiment**
+
+Okay, so the user wants me to transcribe Question 1. It's a long-answer question, essentially asking for a lab experiment plan. Let's see, the scenario is a steel ball compressing a spring, being released, and its speed, *v*, at point P is measured using a light gate. They're giving me a suggested relationship between *v* and the ball's radius, *r*:  v² = (Ykx²) / (rⁿρ). Here, *k* is the spring constant, *ρ* is the density, and *Y* and *n* are constants we need to determine. I need to make sure I don't miss anything when transcribing this, so I will double check the math formatting.
+
+Now, I need to plan an experiment to test this relationship and figure out those constants. I'm going to need to cover procedure, measurements, variable control, data analysis, and safety. This sounds pretty straightforward - a classic physics experiment. I'll need a diagram too.
+
+Let's begin by formulating a plan.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: long_answer
+    text: |
+      On a bench, a steel ball of radius $r$ is used to compress a spring by a distance $x$. The ball is held at rest in this position, as shown in Fig. 1.1.
+
+      The ball is released and rolls along the bench. At a fixed point P, the ball has speed $v$. The speed of the ball at P is determined using \textbf{one} light gate connected to a timer.
+
+      Several steel balls of different radii are available.
+
+      It is suggested that $v$ is related to $r$ by the relationship
+
+      $$v^2 = \frac{Ykx^2}{r^n\rho}$$
+
+      where $k$ is the spring constant of the spring, $\rho$ is the density of the steel, and $Y$ and $n$ are constants.
+
+      Plan a laboratory experiment to test the relationship between $v$ and $r$.
+
+      Draw a diagram showing the arrangement of your equipment.
+
+      Explain how the results could be used to determine values for $Y$ and $n$.
+
+      In your plan you should include:
+
+      \begin{itemize}
+      \item the procedure to be followed
+      \item the measurements to be taken
+      \item the control of variables
+      \item the analysis of the data
+      \item any safety precautions to be taken.
+      \end{itemize}

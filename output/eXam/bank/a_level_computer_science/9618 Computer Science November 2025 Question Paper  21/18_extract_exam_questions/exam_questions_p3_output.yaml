@@ -1,0 +1,9 @@
+```yaml
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      During the alpha testing stage, an Integrated Development Environment (IDE) is used to help locate an error that has been identified. The IDE report window feature is used to examine the values assigned to variables.
+
+      Explain how \textbf{two} other IDE features are used together with the report window feature to help locate the error.
+```

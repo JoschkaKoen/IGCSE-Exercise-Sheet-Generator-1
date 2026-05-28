@@ -1,0 +1,13 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A bungee jumper of mass $64\text{ kg}$ secures one end of an elastic rope to a bridge. The other end is attached to the bungee jumper. The jumper falls from rest from the bridge and descends into the valley below, as shown in Fig. 3.1.
+
+      Fig. 3.2 shows the variation of the tension $T$ in the rope with the vertical distance $h$ of the jumper below the level of the bridge.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The rope obeys Hooke’s law.
+
+      State Hooke’s law.

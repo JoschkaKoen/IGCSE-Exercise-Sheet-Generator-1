@@ -1,0 +1,44 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Data is sent from an employee's computer to a server. The data is correct when it is sent, but an error is detected when the data is received.
+  - number: "7a"
+    type: long_answer
+    text: |
+      Describe how an error can occur in the data during transmission.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Methods of error detection and correction can be added to make sure that errors are identified after data is transmitted.
+
+      Complete the statements about methods of error detection and correction.
+
+      Use terms from the list. Not all terms need to be used. You should only use each term once.
+
+      \begin{itemize}
+      \item acknowledgement
+      \item automatic repeat query (ARQ)
+      \item binary
+      \item bit
+      \item byte
+      \item calculation
+      \item check digit
+      \item checksum
+      \item correct
+      \item echo check
+      \item error
+      \item even
+      \item incorrect
+      \item negative
+      \item number
+      \item odd
+      \item positive
+      \item timeout
+      \end{itemize}
+
+      A parity check is set to be \underline{\hspace{1.5em}} or \underline{\hspace{1.5em}}. A parity \underline{\hspace{1.5em}} is added to each byte before transmission to make it match the set parity.
+
+      An \underline{\hspace{1.5em}} involves comparing the data sent to the data received back from the receiving device.
+
+      An \underline{\hspace{1.5em}} uses acknowledgement and \underline{\hspace{1.5em}}. The acknowledgement system can be \underline{\hspace{1.5em}} or \underline{\hspace{1.5em}}.

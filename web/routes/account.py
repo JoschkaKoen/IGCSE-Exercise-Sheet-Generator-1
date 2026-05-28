@@ -39,6 +39,7 @@ from ..analytics import track_request_event
 from ..user_auth import (
     apply_cookie,
     clear_cookie,
+    current_user_id,
     validate_password,
     validate_signup_password,
     validate_username,
@@ -64,6 +65,16 @@ class _AuthBody(BaseModel):
 
 class _CheckBody(BaseModel):
     username: str = Field(..., min_length=1, max_length=128)
+
+
+class _ChangeUsernameBody(BaseModel):
+    current_password: str = Field(..., min_length=1, max_length=256)
+    new_username: str = Field(..., min_length=1, max_length=128)
+
+
+class _ChangePasswordBody(BaseModel):
+    current_password: str = Field(..., min_length=1, max_length=256)
+    new_password: str = Field(..., min_length=1, max_length=256)
 
 
 _ALLOWED_SIGNUP_ROLES: Final[frozenset[str]] = frozenset({"student", "teacher"})
@@ -142,6 +153,30 @@ def get_by_id(uid: int) -> dict | None:
     if row is None:
         return None
     return {"id": row["id"], "username": row["username"], "role": row["role"]}
+
+
+def get_full_by_id(uid: int) -> dict | None:
+    """Returns full user row including ``password_hash`` and timestamps.
+
+    Used by the dashboard (created_at, last_login_at) and the change-password /
+    change-username endpoints (password_hash for current-password verification).
+    """
+    with _db_connect() as conn:
+        row = conn.execute(
+            "SELECT id, username, password_hash, role, created_at, last_login_at "
+            "FROM users WHERE id = ?",
+            (uid,),
+        ).fetchone()
+    if row is None:
+        return None
+    return {
+        "id": row["id"],
+        "username": row["username"],
+        "password_hash": row["password_hash"],
+        "role": row["role"],
+        "created_at": row["created_at"],
+        "last_login_at": row["last_login_at"],
+    }
 
 
 def create(username: str, key: str, password_hash: str, *, role: str = "student") -> int | None:
@@ -278,4 +313,89 @@ async def account_auth(request: Request, body: _AuthBody) -> JSONResponse:
 async def account_logout(request: Request) -> JSONResponse:
     response = JSONResponse({"ok": True}, headers=_NO_CACHE_HEADERS)
     clear_cookie(response)
+    return response
+
+
+def _require_current_user(request: Request) -> dict:
+    """Helper for the dashboard settings endpoints. Raises 401 if no valid cookie."""
+    uid = current_user_id(request)
+    if uid is None:
+        raise HTTPException(status_code=401, detail="account.err.not_logged_in")
+    row = get_full_by_id(uid)
+    if row is None:
+        raise HTTPException(status_code=401, detail="account.err.not_logged_in")
+    return row
+
+
+@router.post("/api/account/change-username")
+async def account_change_username(
+    request: Request, body: _ChangeUsernameBody,
+) -> JSONResponse:
+    """Change the current user's display name. Requires the current password."""
+    await enforce_auth_rate_limit(_client_ip(request))
+    user = _require_current_user(request)
+
+    if not verify_password(body.current_password, user["password_hash"]):
+        raise HTTPException(status_code=401, detail="account.err.bad_password")
+
+    display, err = validate_username(body.new_username)
+    if display is None:
+        raise HTTPException(status_code=400, detail=err)
+    new_key = normalize_username_key(display)
+
+    if new_key == normalize_username_key(user["username"]):
+        # No-op rename — still return ok so the UI flashes success.
+        return JSONResponse(
+            {"ok": True, "username": display, "changed": False},
+            headers=_NO_CACHE_HEADERS,
+        )
+
+    try:
+        with _db_connect() as conn:
+            conn.execute(
+                "UPDATE users SET username = ?, username_key = ? WHERE id = ?",
+                (display, new_key, user["id"]),
+            )
+    except sqlite3.IntegrityError:
+        raise HTTPException(status_code=409, detail="account.err.taken") from None
+
+    track_request_event(
+        request, "account_change_username", status="ok",
+    )
+    return JSONResponse(
+        {"ok": True, "username": display, "changed": True},
+        headers=_NO_CACHE_HEADERS,
+    )
+
+
+@router.post("/api/account/change-password")
+async def account_change_password(
+    request: Request, body: _ChangePasswordBody,
+) -> JSONResponse:
+    """Change the current user's password. Requires the current password.
+
+    Re-issues the current browser's cookie so this session stays signed in.
+    Cookies issued for other devices remain valid until they expire — full
+    multi-device logout would require a cookie format change (out of scope).
+    """
+    await enforce_auth_rate_limit(_client_ip(request))
+    user = _require_current_user(request)
+
+    if not verify_password(body.current_password, user["password_hash"]):
+        raise HTTPException(status_code=401, detail="account.err.bad_password")
+
+    err = validate_signup_password(body.new_password)
+    if err is not None:
+        raise HTTPException(status_code=400, detail=err)
+
+    new_hash = hash_password(body.new_password)
+    with _db_connect() as conn:
+        conn.execute(
+            "UPDATE users SET password_hash = ? WHERE id = ?",
+            (new_hash, user["id"]),
+        )
+
+    response = JSONResponse({"ok": True}, headers=_NO_CACHE_HEADERS)
+    apply_cookie(response, request, user["id"])
+    track_request_event(request, "account_change_password", status="ok")
     return response

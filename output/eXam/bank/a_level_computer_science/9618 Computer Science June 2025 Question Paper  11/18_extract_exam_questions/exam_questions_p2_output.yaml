@@ -1,0 +1,13 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Write the logic expressions for the following logic circuit.
+
+      X = \hrulefill
+      Y = \hrulefill
+```

@@ -1,0 +1,27 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A programmer is writing a program using an integrated development environment (IDE).
+  - number: "9a"
+    type: short_answer
+    text: |
+      The program will take data from bar codes as input.
+
+      A bar code includes a check digit.
+
+      Explain how the check digit is used to check for errors in data entry.
+  - number: "9b"
+    type: short_answer
+    text: |
+      The programmer is using a high-level language to write the program.
+  - number: "9bi"
+    type: short_answer
+    text: |
+      Describe what is meant by a high-level language.
+  - number: "9bii"
+    type: short_answer
+    text: |
+      The programmer uses a compiler during the development of the program.
+
+      Describe the benefits of using a compiler when developing the program.

@@ -1,0 +1,78 @@
+[thinking]
+**Exam Page 2: Binary Data Representation**
+
+Okay, so I need to translate this section of the exam into a structured format, likely YAML, for some kind of automated system. Page 2 of this exam is focusing on binary representation of data, which is pretty fundamental. Let's break down the questions:
+
+The first question is a simple statement: "Computers represent different types of data in binary." Easy enough, that's just a short answer.
+
+Then comes the first multiple-choice question, "Tick one box to show the reason why computers use binary to represent data." The options presented are all reasonable; I'll need to make sure the key is correct.
+
+Next, we move into character representation, specifically ASCII. Question "1b" just sets the stage: "One form of data is characters. The American standard code for information interchange (ASCII) denary number for the character 'N' is 78." Straightforward.
+
+"1bi" is another multiple choice: "Tick one box to identify the ASCII denary number for the character 'Q'." These values are likely related.
+
+"1bii" asks for the binary equivalent of ASCII denary number for 'N'. I should be able to do this mentally, but if not, I can easily perform the conversion.
+
+Finally, "1biii" is a longer answer: "Explain how the word 'RED' is represented using a character set." This is where I'll need to explain the concept of encoding each character individually. Each character in "RED" will have a corresponding ASCII value and therefore a binary representation.
+
+Now to craft the YAML. I'm going to structure it with the question number, type (short answer, multiple choice, or long answer), and the text of the question. For multiple choice, I'll need to specify the options as well. It's important to format the question in a way which will be accurately reflected by the system, so the 'bolded' words will need to be written as they appear. I'll need to triple-check the key for the multiple-choice questions. No problem, that's my area.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Computers represent different types of data in binary.
+  - number: "1a"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to show the reason why computers use binary to represent data.
+    options:
+      - letter: A
+        text: |
+          Computers only allow 1s and 0s to be entered.
+      - letter: B
+        text: |
+          Computers are made of switches and gates that can only be on or off.
+      - letter: C
+        text: |
+          Binary does not need to be converted into other forms of data to be displayed.
+      - letter: D
+        text: |
+          Both computers and humans can quickly process binary data.
+  - number: "1b"
+    type: short_answer
+    text: |
+      One form of data is characters.
+
+      The American standard code for information interchange (ASCII) denary number for the character 'N' is 78.
+  - number: "1bi"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to identify the ASCII denary number for the character 'Q'.
+    options:
+      - letter: A
+        text: |
+          81
+      - letter: B
+        text: |
+          80
+      - letter: C
+        text: |
+          79
+      - letter: D
+        text: |
+          77
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Give the binary number for the ASCII denary number for 'N'.
+  - number: "1biii"
+    type: long_answer
+    text: |
+      Explain how the word 'RED' is represented using a character set.
+```

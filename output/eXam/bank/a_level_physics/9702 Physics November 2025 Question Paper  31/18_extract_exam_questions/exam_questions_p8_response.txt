@@ -1,0 +1,66 @@
+[thinking]
+**Transcribing Questions 2b and 2bi**
+
+Okay, the task is to transcribe questions "2b" and "2bi" from the given text. I need to be careful with the formatting, especially since the user is an expert. The stub provides a starting point, so let's start there. I'm looking at the page, and it seems "2b" isn't explicitly labeled as such, but the bulleted list under "(b)(i)" looks promising.
+
+Initially, I see the following text: "(b) (i) • Set up the apparatus as shown in Fig. 2.3." and then a diagram. Following that, there's a sequence of bullet points describing the experimental setup: sliding a loop, hanging a mass, adjusting the boss, placing a cylinder, and the concept of the spring length, *y*.
+
+Now, the stub has distinct "2b" and "2bi" entries. I need to delineate the text appropriately. It seems logical to interpret "2b" as the setup instructions and "2bi" as the measurement of *y*. Therefore:
+
+I'll define `2b` to contain the setup instructions and any relevant context and the subsequent list:
+
+```yaml
+  - number: "2b"
+    type: short_answer
+    text: |
+      Set up the apparatus as shown in Fig. 2.3.
+
+      \begin{itemize}
+      \item Slide the loop of the upper spring onto the wooden rod.
+      \item Hang a mass of 200g from the lower spring.
+      \item Adjust the height of the boss until the bottom of the mass is approximately 10cm above the bench.
+      \item Place the paper cylinder so that the middle of the cylinder is under the mass, as shown in Fig. 2.3.
+      \item The length of the springs is $y$, as shown in Fig. 2.3.
+      \end{itemize}
+```
+
+And then I'll create `2bi`:
+
+```yaml
+  - number: "2bi"
+    type: calculation
+    text: |
+      Measure and record $y$.
+
+      $y = $ \hrulefill cm [1]
+```
+
+The diagram is excluded as per the rules.
+
+I've ensured the text for `2b` is clean and starts with the provided prompt of "Set up the apparatus as shown in Fig. 2.3."
+
+Finally, I will re-check the type and make sure everything is compliant with all of the rules. The `2b` is a *short_answer* question and `2bi` is a *calculation* question. This appears to be the correct and most logical way to interpret the question. Done!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Set up the apparatus as shown in Fig. 2.3.
+
+      \begin{itemize}
+      \item Slide the loop of the upper spring onto the wooden rod.
+      \item Hang a mass of 200g from the lower spring.
+      \item Adjust the height of the boss until the bottom of the mass is approximately 10cm above the bench.
+      \item Place the paper cylinder so that the middle of the cylinder is under the mass, as shown in Fig. 2.3.
+      \item The length of the springs is $y$, as shown in Fig. 2.3.
+      \end{itemize}
+  - number: "2bi"
+    type: calculation
+    text: |
+      Measure and record $y$.
+
+      $y = $ \hrulefill cm [1]

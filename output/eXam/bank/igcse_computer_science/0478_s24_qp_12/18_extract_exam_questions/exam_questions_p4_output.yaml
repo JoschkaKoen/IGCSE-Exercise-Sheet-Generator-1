@@ -1,0 +1,31 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      Binary is a base 2 number system.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Give the name of the number system that is base 16.
+  - number: "3b"
+    type: short_answer
+    text: |
+      Three denary numbers are entered into a computer. The computer converts the numbers and stores them as binary.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Give the binary number that would be stored for each of the denary numbers.
+
+      10 \hrulefill
+      50 \hrulefill
+      201 \hrulefill
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Explain why the data is converted to binary by the computer.
+  - number: "3c"
+    type: calculation
+    text: |
+      The two binary integers 00110000 and 01100110 are added together.
+
+      Add the binary integers using binary addition and show your answer in binary. Show all your working.

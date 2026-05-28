@@ -1,0 +1,21 @@
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Programmers in a software development company take part in live video conferences to discuss their work.
+
+      The live video conferences take place using real-time bit streaming. The video is compressed before it is transmitted.
+  - number: "2a"
+    type: long_answer
+    text: |
+      Explain how data is transferred using real-time bit streaming.
+  - number: "2b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2bi"
+    type: long_answer
+    text: |
+      Explain the reasons why a video is compressed before it is transmitted using real-time bit streaming.
+```

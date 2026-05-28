@@ -1,0 +1,23 @@
+[thinking]
+**Transcribing Question 3c**
+
+Okay, the user wants me to transcribe question "3c" from this exam page. Let's see... I need to pull out the relevant text and format it correctly. Alright, here's what the question describes: Two identical, isolated uniform spheres, X and Y, each with radius R. They are separated by a distance L, which is depicted in Fig. 3.3 (which I don't need to include in the output).
+
+The text continues, detailing that there's a point P located on the line connecting the centers of the spheres, and its position, denoted as *x*, varies from the center of sphere X.  We're given that the gravitational field strength at the surface of each sphere is $g_0$.
+
+The core of the question is this: "On Fig. 3.4, sketch the variation with *x* of the gravitational field *g* at point P between *x* = R and *x* = L - R."  So, it seems we have to represent the field strength variation between the surface of X (x=R) and the surface of Y (x=L-R), as *x* moves.  I need to make sure I format the math and notation properly, as this is for an expert. Alright, let's put this into a properly formatted output, ready for the user's review.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      Two identical isolated uniform spheres X and Y each have radius $R$. The centres of the spheres are separated by distance $L$, as shown in Fig. 3.3.
+
+      Point P lies on the line joining the centres of X and Y, and is at a variable displacement $x$ from the centre of sphere X.
+      The gravitational field strength at the surface of each sphere is $g_0$.
+
+      On Fig. 3.4, sketch the variation with $x$ of the gravitational field $g$ at point P between $x = R$ and $x = L - R$.

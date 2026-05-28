@@ -1,0 +1,45 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      The purpose of this pseudocode algorithm is to carry out a bubble sort to sort, in descending order, 1000 numbers stored in a one-dimensional (1D) array.
+
+      \begin{alltt}
+      01 DECLARE Values : ARRAY[1:1000] OF REAL
+      02 DECLARE Index : CHAR
+      03 DECLARE Stop : BOOLEAN
+      04 DECLARE Hold : REAL
+      05 Stop <- FALSE
+      06 WHILE NOT Stop DO
+      07   Stop <- FALSE
+      08   FOR Index <- 1 TO 50
+      09     IF Values[Index + 1] > Values[Index]
+      10       THEN
+      11         Hold <- Values[Index]
+      12         Values[Index] <- Values[Index + 1]
+      13         Values[Index + 1] <- Hold
+      14         Stop <- FALSE
+      15     ENDIF
+      16   NEXT Index
+      17 NEXT Stop
+      \end{alltt}
+  - number: "3a"
+    type: short_answer
+    text: |
+      Identify the line numbers of \textbf{four} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+
+      Correction
+
+      Error 2 line number \hrulefill
+
+      Correction
+
+      Error 3 line number \hrulefill
+
+      Correction
+
+      Error 4 line number \hrulefill
+
+      Correction

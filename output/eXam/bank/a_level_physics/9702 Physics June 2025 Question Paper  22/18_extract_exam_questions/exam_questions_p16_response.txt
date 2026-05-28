@@ -1,0 +1,60 @@
+[thinking]
+**Transcribing Question 6c**
+
+Okay, the user wants me to transcribe question "6c" from the provided document. Let's see... looking at the page, it's pretty clear: it's question "6c" according to the stub, corresponding to "(c)" on the page.
+
+The text begins: "The variable resistor in (b) is fitted..." and continues describing a setup where a known resistor is replaced with an unknown resistor "X." There's a mention of a galvanometer and "Fig. 6.2." Ah, that means there's a diagram, which I need to omit per the instructions. But I *can* use the figure caption: "Fig. 6.2."
+
+The core of the question: "With reference to ratios of resistances, explain how this circuit can be used to determine the resistance of X." Right, so it's a long-answer question on circuit analysis.
+
+Now, let me assemble the YAML. First pass:
+
+```yaml
+questions:
+  - number: "6c"
+    type: long_answer
+    text: |
+      The variable resistor in (b) is fitted with a scale so that its resistance can be accurately determined.
+      The resistor of resistance $240\,\Omega$ is now replaced by a new resistor X of unknown resistance.
+      A galvanometer is connected as shown in Fig. 6.2.
+
+      Fig. 6.2
+
+      With reference to ratios of resistances, explain how this circuit can be used to determine the resistance of X.
+```
+
+I need to make sure I followed the instructions. No image inclusion, so I'm omitting that, but the caption is present. Looks good. Ah, let's just make sure there are no more details. The diagram itself is labelled with voltages and resistors; "8.0 V", "210 Ω", "430 Ω", "X", and the variable resistor and galvanometer symbols. Not relevant to the transcription, but useful for understanding the circuit. Okay, I'm just transcribing the text.
+
+Refining the YAML, let me format that to be clean:
+
+```yaml
+questions:
+  - number: "6c"
+    type: long_answer
+    text: |
+      The variable resistor in (b) is fitted with a scale so that its resistance can be accurately determined.
+      The resistor of resistance $240\ \Omega$ is now replaced by a new resistor X of unknown resistance.
+      A galvanometer is connected as shown in Fig. 6.2.
+
+      Fig. 6.2
+
+      With reference to ratios of resistances, explain how this circuit can be used to determine the resistance of X.
+```
+
+Alright, that covers everything. Seems complete, and I've followed every instruction. Ready to submit!
+
+
+
+[/thinking]
+
+questions:
+  - number: "6c"
+    type: long_answer
+    text: |
+      The variable resistor in (b) is fitted with a scale so that its resistance can be accurately determined.
+      The resistor of resistance $240\ \Omega$ is now replaced by a new resistor X of unknown resistance.
+      A galvanometer is connected as shown in Fig. 6.2.
+
+      Fig. 6.2
+
+      With reference to ratios of resistances, explain how this circuit can be used to determine the resistance of X.

@@ -1,0 +1,69 @@
+[thinking]
+**Page 20 of the Exam Paper: Breakdown of Questions 9, 9a, and 9b**
+
+Okay, so I'm on page 20, and the task is to transcribe the content. The questions are structured as `9`, `9a`, and `9b`. Let's analyze this carefully, especially given the potential for stub errors.
+
+First, I see question `9`, but there's no actual text body associated with just "9" *before* the start of part (a). The content begins immediately with "9 (a) State Wien’s displacement law."  The structure appears to be:
+
+*   `9`
+*   `9a`
+*   `9b`
+
+The instruction is clear: if a stem entry is missing on the page, it means a stub-generation bug. Therefore, I can't *guess* at what might be missing. Looking at the page again, yes, the number "9" *is* visible, but there's *no* introductory text, no preamble, before the start of (a). Thus, `9` should be flagged as a `STUB ERROR`.
+
+Now, for the actual text:
+
+*   `9a`: "State Wien’s displacement law."
+*   `9b`: "Fig. 9.1 shows the variation with $d^{-2}$ of the radiant flux intensity $F$ observed from a star X, where $d$ is the distance of the observer from the star. Fig. 9.2 shows the variation with wavelength $\lambda$ of the rates of emission $P$ of radiation by star X and the Sun.
+
+The surface temperature of the Sun is $5770\text{ K}$.
+
+State **three** conclusions about star X that can be drawn from this data. The conclusions may be qualitative or quantitative. Use the space for any working.
+
+1.  \hrulefill
+2.  \hrulefill
+3.  \hrulefill"
+
+So, here's what I'll output:
+
+```
+9: STUB ERROR
+9a: State Wien’s displacement law.
+9b: Fig. 9.1 shows the variation with $d^{-2}$ of the radiant flux intensity $F$ observed from a star X, where $d$ is the distance of the observer from the star. Fig. 9.2 shows the variation with wavelength $\lambda$ of the rates of emission $P$ of radiation by star X and the Sun.
+
+The surface temperature of the Sun is $5770\text{ K}$.
+
+State \textbf{three} conclusions about star X that can be drawn from this data. The conclusions may be qualitative or quantitative. Use the space for any working.
+
+1. \hrulefill
+2. \hrulefill
+3. \hrulefill
+```
+
+Done! I've accounted for the potential stub error and transcribed the content accurately.
+
+
+
+[/thinking]
+
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "9a"
+    type: short_answer
+    text: |
+      State Wien’s displacement law.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Fig. 9.1 shows the variation with $d^{-2}$ of the radiant flux intensity $F$ observed from a star X, where $d$ is the distance of the observer from the star. Fig. 9.2 shows the variation with wavelength $\lambda$ of the rates of emission $P$ of radiation by star X and the Sun.
+
+      The surface temperature of the Sun is $5770\text{ K}$.
+
+      State \textbf{three} conclusions about star X that can be drawn from this data. The conclusions may be qualitative or quantitative. Use the space for any working.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

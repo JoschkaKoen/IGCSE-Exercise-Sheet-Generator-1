@@ -1,0 +1,914 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 2
+  text: 'Draw one line from each verification method to indicate whether it is used
+    during data transfer or data entry.
+
+
+    \textbf{Verification Method}
+
+
+    \begin{itemize}
+
+    \item Parity byte check
+
+    \item Checksum
+
+    \item Visual check
+
+    \item Parity block check
+
+    \end{itemize}
+
+
+    \textbf{Use}
+
+
+    \begin{itemize}
+
+    \item Data transfer
+
+    \item Data entry
+
+    \end{itemize}'
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Complete the table by describing each term.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: long_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: '\begin{tabular}{|l|p{10cm}|}
+
+      \hline
+
+      \textbf{Term} & \textbf{Description} \\
+
+      \hline
+
+      Copyright & \\
+
+      & \\
+
+      & \\
+
+      \hline
+
+      Open Source (Initiative) & \\
+
+      & \\
+
+      & \\
+
+      \hline
+
+      Shareware & \\
+
+      & \\
+
+      & \\
+
+      \hline
+
+      Software Licence & \\
+
+      & \\
+
+      & \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the purpose of a code of conduct.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by relative addressing.
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Registers such as the Accumulator (ACC) and the Index Register (IX) are
+        used in the CPU.
+
+
+        Identify \textbf{two} special purpose registers used in the CPU. Do \textbf{not}
+        include the ACC or IX in your answers.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The following table shows part of the instruction set for a processor.
+      The processor has two registers: the ACC and an IX.
+
+
+      \begin{tabular}{|l|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+      \\ \cline{1-2}
+
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+
+      LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+
+      LDD & <address> & Direct addressing. Load the contents of the location at the
+      given address to ACC \\ \hline
+
+      LDI & <address> & Indirect addressing. The address to be used is at the given
+      address. Load the contents of this second address to ACC \\ \hline
+
+      LDX & <address> & Indexed addressing. Form the address from <address> + the
+      contents of the index register. Copy the contents of this calculated address
+      to ACC \\ \hline
+
+      LDR & \#n & Immediate addressing. Load the number n to IX \\ \hline
+
+      \end{tabular}
+
+
+      <address> can be an absolute or symbolic address
+
+      \# denotes a denary number, e.g. \#127
+
+
+      The current contents of the main memory and the index register are shown.
+
+
+      \begin{tabular}{r|c|}
+
+      \multicolumn{1}{c}{\textbf{Address}} & \multicolumn{1}{c}{\textbf{Instruction}}
+      \\ \cline{2-2}
+
+      98 & 8 \\ \cline{2-2}
+
+      99 & 16 \\ \cline{2-2}
+
+      100 & 3 \\ \cline{2-2}
+
+      101 & 98 \\ \cline{2-2}
+
+      102 & 32 \\ \cline{2-2}
+
+      IX & 2 \\ \cline{2-2}
+
+      \end{tabular}
+
+
+      Write the contents of the ACC after each instruction is executed.
+
+
+      \begin{tabular}{|l|c|}
+
+      \hline
+
+      \textbf{Instruction} & \textbf{Value in ACC} \\ \hline
+
+      LDM \#98 & \hrulefill \\ \hline
+
+      LDI 101 & \hrulefill \\ \hline
+
+      LDX 100 & \hrulefill \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'A student buys a new computer. The table shows the specifications of the
+      old computer and the new computer.
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      \textbf{Old computer} & \textbf{New computer} \\ \hline
+
+      1.8 GHz dual core processor & 2.3 GHz dual core processor \\ \hline
+
+      16 MB cache & 32 MB cache \\ \hline
+
+      \end{tabular}
+
+
+      Explain why increasing the clock speed \textbf{and} increasing the cache memory
+      will improve the performance of the computer.
+
+
+      Clock speed \hrulefill
+
+
+      Cache memory \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A relational database, \texttt{SHIPPING}, stores data about the ships in
+    a company and the containers that are carried on the ships.
+
+
+    The database has the following tables:
+
+
+    \texttt{CONTAINER(\underline{ContainerID}, Type, Weight, OwnerName, ShipID)}
+
+
+    \texttt{SHIP(\underline{ShipID}, Type, Capacity, ShipName)}'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the relationship between the two tables. Refer to the primary and
+      foreign keys in your answer.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The table \texttt{CONTAINER} needs an additional field to store the data
+      for the last inspection date.
+
+
+      Write a Structured Query Language (SQL) script to add \textbf{one} field to
+      the table \texttt{CONTAINER} to store the date of last inspection of the container,
+      for example 08/07/2019.'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Write an SQL script to return the number of containers stored in the database
+      for the ship with the name Caledonia.
+    answer_options: []
+    subquestions: []
+  - number: 4d
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the purpose of a developer interface in a Database Management System
+      (DBMS).
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A local area network (LAN) has five computers, one switch and one server.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the characteristics of a LAN.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Complete the following diagram to show how these devices are connected in
+      a star topology.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe how packets are transmitted between two hosts using a star topology.
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Another type of network is a bus network.
+
+
+      Ethernet is used to transmit and receive data between the devices on the bus
+      network.
+
+
+      Describe how collisions are detected and managed on this network.'
+    answer_options: []
+    subquestions: []
+  - number: 5e
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the table by identifying \textbf{one} threat to computer and data
+      security posed by networks and the internet.
+
+
+      Describe the threat and give a method of prevention.
+
+
+      \begin{tabular}{|p{3cm}|p{7cm}|p{3cm}|}
+
+      \hline
+
+      \centering \textbf{Threat} & \centering \textbf{Description} & \centering \textbf{Prevention}
+      \tabularnewline \hline
+
+      & & \\
+
+      & & \\
+
+      & & \\
+
+      & & \\
+
+      & & \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A sound file is compressed by reducing the sampling rate.
+
+
+      State whether this is lossless or lossy compression. Justify your choice.
+
+
+      Type of compression \hrulefill
+
+
+      Justification'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The following table shows some words and corresponding denary values.
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      \textbf{Word} & \textbf{Denary value} \\ \hline
+
+      Computing & 55 \\ \hline
+
+      Science & 56 \\ \hline
+
+      Computers & 57 \\ \hline
+
+      are & 58 \\ \hline
+
+      Brilliant! & 59 \\ \hline
+
+      is & 60 \\ \hline
+
+      Fun! & 61 \\ \hline
+
+      Amazing! & 62 \\ \hline
+
+      \end{tabular}
+
+
+      The following table shows three bytes of data that have been received.
+
+
+      Use the table to find the corresponding words from the binary values received.
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{Binary value} & 00111000 & 00111100 & 00111110 \\ \hline
+
+      \textbf{Word} & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A computer system uses even parity. The least significant (rightmost) bit
+      of each byte is the parity bit.
+    answer_options: []
+    subquestions:
+    - number: 6ci
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Complete the byte by writing the missing parity bit:
+
+
+        \begin{tabular}{cc}
+
+        & parity \\
+
+        & bit \\
+
+        & $\downarrow$ \\
+
+        \hline
+
+        \multicolumn{1}{|c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0}
+        & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1}
+        & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{\underline{\hspace{1.5em}}}
+        \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 6cii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The computer also uses parity block check. The parity block check uses
+        even parity. Computer A transmits four bytes of data to computer B, followed
+        by a parity byte. Computer B receives the following sequence of bytes.
+
+
+        \begin{tabular}{ccccccccc}
+
+        & & & & & & & & parity \\
+
+        & & & & & & & & bit \\
+
+        & & & & & & & & $\downarrow$ \\
+
+        \cline{2-9}
+
+        & \multicolumn{1}{|c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1}
+        & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1}
+        & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} \\
+
+        \cline{2-9}
+
+        & \multicolumn{1}{|c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1}
+        & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0}
+        & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \\
+
+        \cline{2-9}
+
+        & \multicolumn{1}{|c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0}
+        & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0}
+        & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} \\
+
+        \cline{2-9}
+
+        & \multicolumn{1}{|c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1}
+        & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1}
+        & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \\
+
+        \cline{2-9}
+
+        parity byte $\rightarrow$ & \multicolumn{1}{|c|}{1} & \multicolumn{1}{c|}{0}
+        & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0}
+        & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0}
+        \\
+
+        \cline{2-9}
+
+        \end{tabular}
+
+
+        Following transmission, one of the four bytes of data has an error in one
+        of the bits.
+
+
+        Circle the bit that has been altered during the data transfer.'
+      answer_options: []
+      subquestions: []
+  - number: 6d
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A bitmap image has a resolution of 1000 pixels wide by 2000 pixels high.
+      The colour depth is 16 bits.
+
+
+      Calculate an estimate of the file size in megabytes.
+
+
+      Show your working.
+
+
+      File size \underline{\hspace{1.5em}} megabytes'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: "The following binary addition is performed using 8-bit registers.\n\nComplete\
+      \ the calculation using binary addition.\n\n$$\\begin{array}{r}\n  10000111\
+      \ \\\\\n+ 00111001 \\\\\n\\hline\n\\end{array}$$"
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A computer uses the Unicode character set.
+
+
+      State the number of bits used to store \textbf{one} character from the Unicode
+      character set.'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ASCII is another character set. The ASCII value for the character 'h' has
+      the denary value 104.
+    answer_options: []
+    subquestions:
+    - number: 7ci
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write the Binary Coded Decimal (BCD) value for the ASCII character 'h'.
+      answer_options: []
+      subquestions: []
+    - number: 7cii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write the hexadecimal value for the ASCII character 'h'.
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A restaurant accesses software and stores data using cloud computing.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 8ai
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} benefits of storing data using cloud computing.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 8aii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} drawbacks of using cloud computing.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The restaurant uses touchscreens as input devices to allow staff to select
+      items from a menu.
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Explain how a touchscreen converts the point of touch to a selection from
+        the menu.
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The image files that are displayed on the touchscreen have been corrupted.
+
+
+        Identify \textbf{two} examples of utility software that could be used to recover
+        the images.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Consider the following logic circuit:
+
+
+      Write the logic expression for the logic circuit. Do not simplify the expression.
+
+
+      X = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Consider the following logic expression:
+
+
+      $$X = \text{NOT } ((A \text{ NAND } B) \text{ XOR } (\text{NOT } A \text{ OR
+      } \text{NOT } C))$$
+
+
+      A truth table for the logic expression is given:
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{Row number} & \textbf{A} & \textbf{B} & \textbf{C} & \textbf{X} \\ \hline
+
+      1 & 0 & 0 & 0 & 1 \\ \hline
+
+      2 & 0 & 0 & 1 & 0 \\ \hline
+
+      3 & 0 & 1 & 0 & 1 \\ \hline
+
+      4 & 0 & 1 & 1 & 0 \\ \hline
+
+      5 & 1 & 0 & 0 & 1 \\ \hline
+
+      6 & 1 & 0 & 1 & 0 \\ \hline
+
+      7 & 1 & 1 & 0 & 1 \\ \hline
+
+      8 & 1 & 1 & 1 & 1 \\ \hline
+
+      \end{tabular}
+
+
+      There are \textbf{three} errors in the truth table.
+
+
+      Identify the \textbf{three} errors in the truth table by writing the row numbers
+      with an incorrect output.
+
+
+      Error 1 Row number \hrulefill
+
+      Error 2 Row number \hrulefill
+
+      Error 3 Row number \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer is developing a computer program.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: long_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Explain how the programmer can first use an interpreter \textbf{and} then
+      a compiler to develop the computer program.
+
+
+      Interpreter \hrulefill
+
+
+      Compiler \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The programmer releases the program as Free Software.
+
+
+      Describe what is meant by Free Software.'
+    answer_options: []
+    subquestions: []
+  - number: 10c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A user downloads the computer program from the internet.
+
+
+      State what should be included as part of the download to make sure the program
+      is authentic.'
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'An automated system opens doors when a person is detected within 2 metres.
+    The system closes the doors when there is no longer a person within 2 metres.
+
+
+    Identify whether the automated system is an example of a monitoring system or
+    a control system.
+
+
+    Justify your choice.
+
+
+    Monitoring or Control \hrulefill
+
+
+    Justification'
+  answer_options: []
+  subquestions: []

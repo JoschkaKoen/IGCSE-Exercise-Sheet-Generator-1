@@ -1,0 +1,48 @@
+[thinking]
+**My Thought Process on Transcribing the Questions**
+
+Okay, so I need to extract and format questions 2b, 2bi, and 2bii from this document. The user is asking me to present these questions clearly, so let's make sure everything is legible.
+
+First, I see question 2b: it describes a procedure called `NewData` that deals with entering new contact data into a 2D array, `Contacts[]`. The prompt mentions a `Number` parameter. Simple enough.
+
+Then there's 2bi, where I need to transcribe some incomplete pseudocode for that `NewData` procedure. It appears the blanks in the pseudocode are for a candidate to fill. I can't just blindly copy. I need to format it in a way that represents those blanks accurately. I need to make the placeholders in the pseudocode clear, while also following any rules the prompt gives.
+
+I'll start by transcribing the given pseudocode with placeholders represented with `\underline{\hspace{...}}` within the `alltt` environment. I remember the prompt's rules: I need to use `\textbackslash{}` to escape the curly braces `{` and `}` and a backslash, but not `<` or `>`. Also, I have to remember to use `<-` for assignment.
+
+Finally, question 2bii is a free-response question to write pseudocode for inputting the number of new contacts and using the `NewData` procedure. I don't need to put placeholders here, as this is an open question. I can just transcribe that part directly.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      A procedure \texttt{NewData} allows data for new contacts to be entered and stored in the 2D array \texttt{Contacts[]}. A parameter, \texttt{Number}, is used to pass values from the main algorithm to the procedure for the number of new contacts. Next, four pieces of contact data for each new contact are entered and stored at the start of the array.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      Complete the pseudocode for \texttt{PROCEDURE NewData}
+
+      \begin{alltt}
+      PROCEDURE NewData(\underline{\textbackslash{}hspace\{15em\}})
+
+          FOR Row <- 1 TO \underline{\textbackslash{}hspace\{15em\}}
+
+              FOR Column <- 1 TO 4
+
+                  INPUT \underline{\textbackslash{}hspace\{15em\}}
+
+                  \underline{\textbackslash{}hspace\{25em\}}
+
+                  \underline{\textbackslash{}hspace\{25em\}}
+
+      ENDPROCEDURE
+      \end{alltt}
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Write the pseudocode to input the number of new contacts and to use procedure \texttt{NewData}. A variable declaration is \textbf{not} required.
+```

@@ -1,0 +1,92 @@
+[thinking]
+**Page 11 Transcription - My Thinking**
+
+Okay, so I need to transcribe page 11 of this exam paper. The user wants me to render this accurately, so let's break it down question by question. The stub lists "9", "9a", "9ai", "9aii", "9b", and "9c". I'll treat each of those as a section.
+
+*   **Question 9:** This is setting the stage. It describes a storage unit rental company that wants a database table, `StorageUnits`, and specifies the details to be stored: `SizeMetres`, `Position`, `Hoist`, `PriceMonth`, and `StorageID`. Pretty straightforward.
+
+*   **Question 9a:** This looks like it is a heading. The stub lists "9a", "9ai", "9aii". Since there's no actual text for "9a" *itself* on the page, just subsequent sub-questions, and no introduction, I will make it blank. This can be done by using `text: ''`.
+
+*   **Question 9ai:** This asks for the name of the field that would be the primary key. Easy enough.
+
+*   **Question 9aii:** This follows on the previous, asking for the *reason* for choosing that primary key field.
+
+*   **Question 9b:** Now we have a table to complete. I need to identify appropriate data types. The table has a "Field" and "Data type" header, and the left column has field names. So, I will present it using a `tabular` environment in LaTeX format, with the headings and empty cells for the data types. I'll maintain the exact LaTeX table structure, as instructed.
+
+    ```latex
+    \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Field} & \textbf{Data type} \\ \hline
+    SizeMetres & \\ \hline
+    Position & \\ \hline
+    Hoist & \\ \hline
+    StorageID & \\ \hline
+    \end{tabular}
+    ```
+
+*   **Question 9c:** This involves completing an SQL statement. It wants to display the storage code, price, and size for units with a hoist. So, I need to represent the incomplete SQL query. I will use `\texttt` and `\hrulefill` to represent the blanks. It looks safer to write the code like this:
+
+    ```latex
+    \texttt{SELECT} \hrulefill
+
+    \texttt{FROM} \hrulefill
+
+    \texttt{WHERE} \hrulefill ;
+    ```
+
+    That should be perfectly clear and safe, ensuring the structure is rendered correctly.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A storage unit rental company wants to set up a new database table for the storage units that can be rented.
+
+      The table is called \texttt{StorageUnits} and needs to store these details:
+      \begin{itemize}
+      \item \texttt{SizeMetres} – size in square metres
+      \item \texttt{Position} – first, second or third floor
+      \item \texttt{Hoist} – whether there is a hoist available for the transfer of items
+      \item \texttt{PriceMonth} – the price in dollars for a month's rental
+      \item \texttt{StorageID} – the code to identify each storage unit, for example S123
+      \end{itemize}
+  - number: "9a"
+    type: short_answer
+    text: ''
+  - number: "9ai"
+    type: short_answer
+    text: |
+      Give the name of the field that would be used for the primary key.
+  - number: "9aii"
+    type: short_answer
+    text: |
+      State the reason for choosing this field for the primary key.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Complete the table to identify the most appropriate data type for these fields in the table \texttt{StorageUnits}.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Field} & \textbf{Data type} \\ \hline
+      \texttt{SizeMetres} & \\ \hline
+      \texttt{Position} & \\ \hline
+      \texttt{Hoist} & \\ \hline
+      \texttt{StorageID} & \\ \hline
+      \end{tabular}
+  - number: "9c"
+    type: short_answer
+    text: |
+      Complete this structured query language (SQL) statement to display only the storage code, price and size in square metres of all the storage units where there is a hoist available.
+
+      \texttt{SELECT} \hrulefill
+
+      \texttt{FROM} \hrulefill
+
+      \texttt{WHERE} \hrulefill ;
+```

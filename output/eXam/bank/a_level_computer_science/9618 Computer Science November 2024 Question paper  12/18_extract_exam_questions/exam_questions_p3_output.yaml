@@ -1,0 +1,23 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Embedded systems are used in many electronic devices.
+  - number: "2a"
+    type: long_answer
+    text: |
+      Describe the drawbacks of embedded systems.
+  - number: "2b"
+    type: short_answer
+    text: |
+      An embedded system has Dynamic RAM (DRAM).
+
+      Identify \textbf{one} benefit of using DRAM instead of Static RAM (SRAM) in an embedded system.
+  - number: "2c"
+    type: short_answer
+    text: |
+      Give \textbf{two} differences between Erasable Programmable ROM (EPROM) and Electrically Erasable Programmable ROM (EEPROM).
+
+      Difference 1 \hrulefill
+
+      Difference 2 \hrulefill

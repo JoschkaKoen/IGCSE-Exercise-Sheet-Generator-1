@@ -1,0 +1,32 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A logic circuit is to be built to control the automatic opening of a window. The window \textbf{W} opens if the temperature \textbf{T} is too high, the heater \textbf{H} is off, and the air conditioning \textbf{A} is off.
+
+      \begin{tabular}{|l|l|c|}
+      \hline
+      air conditioning \textbf{A} & air conditioning off & 0 \\ \cline{2-3}
+       & air conditioning on & 1 \\ \hline
+      temperature \textbf{T} & \textbf{not} too high & 0 \\ \cline{2-3}
+       & too high & 1 \\ \hline
+      heater \textbf{H} & heater off & 0 \\ \cline{2-3}
+       & heater on & 1 \\ \hline
+      window \textbf{W} & window closed & 0 \\ \cline{2-3}
+       & window open & 1 \\ \hline
+      \end{tabular}
+
+      Complete the truth table for this problem.
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{T} & \textbf{H} & \textbf{W} \\ \hline
+      0 & 0 & 0 & \\ \hline
+      0 & 0 & 1 & \\ \hline
+      0 & 1 & 0 & \\ \hline
+      0 & 1 & 1 & \\ \hline
+      1 & 0 & 0 & \\ \hline
+      1 & 0 & 1 & \\ \hline
+      1 & 1 & 0 & \\ \hline
+      1 & 1 & 1 & \\ \hline
+      \end{tabular}

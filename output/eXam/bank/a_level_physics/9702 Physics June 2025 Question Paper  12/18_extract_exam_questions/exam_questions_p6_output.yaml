@@ -1,0 +1,45 @@
+questions:
+  - number: "12"
+    type: multiple_choice
+    text: |
+      A stone is released from rest and falls a long distance in air.
+
+      Which graph could show the variation with time $t$ of the acceleration $a$ of the stone?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "13"
+    type: multiple_choice
+    text: |
+      An empty cart is moving along a horizontal track at a constant velocity.
+
+      Resistive forces acting on the cart are negligible.
+
+      A heavy rock is dropped vertically into the cart.
+
+      The cart continues to move horizontally with the rock inside.
+
+      How does the momentum and kinetic energy of the cart with the rock inside compare with the momentum and kinetic energy of the empty cart?
+    options:
+      - letter: A
+        text: |
+          The cart with the rock inside has a smaller momentum and a smaller kinetic energy.
+      - letter: B
+        text: |
+          The cart with the rock inside has a smaller momentum and the same kinetic energy.
+      - letter: C
+        text: |
+          The cart with the rock inside has the same momentum and a smaller kinetic energy.
+      - letter: D
+        text: |
+          The cart with the rock inside has the same momentum and the same kinetic energy.

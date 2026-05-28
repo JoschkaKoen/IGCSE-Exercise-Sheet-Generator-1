@@ -1,0 +1,12 @@
+  - number: "8ciii"
+    type: calculation
+    text: ""
+  - number: "8d"
+    type: short_answer
+    text: ""
+  - number: "8di"
+    type: short_answer
+    text: ""
+  - number: "8dii"
+    type: long_answer
+    text: ""

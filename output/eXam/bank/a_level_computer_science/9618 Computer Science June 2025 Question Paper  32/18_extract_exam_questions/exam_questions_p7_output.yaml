@@ -1,0 +1,21 @@
+```yaml
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      Write the Boolean logic expression that corresponds to the given logic circuit as the sum-of-products.
+
+      Z = \hrulefill
+  - number: "7c"
+    type: calculation
+    text: |
+      Use Boolean algebra including De Morgan's laws to simplify the following expression. Show all working.
+
+      $$(\overline{A + B}) \cdot (\overline{A \cdot B + B \cdot C})$$
+
+      Simplified expression \hrulefill
+  - number: "8"
+    type: long_answer
+    text: |
+      Explain what is meant by \textbf{lexical analysis} during program compilation.
+```

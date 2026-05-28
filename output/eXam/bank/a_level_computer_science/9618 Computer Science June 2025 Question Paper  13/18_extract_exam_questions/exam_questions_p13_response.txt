@@ -1,0 +1,47 @@
+[thinking]
+**My Thought Process on Transcribing Question 5b**
+
+Okay, here's what's happening. I'm being asked to transcribe question "5b" from some provided content. First, I need to understand the structure of the question.
+
+Alright, looking at the page, I see that the question provides a table that describes an instruction set for a processor. Specifically, it has one register called the Accumulator (ACC). The table lists the opcodes and operands: AND, XOR, and OR, each with two operand variations: a direct value specified using `#n/Bn/&n` or a memory address `<address>`. Each instruction performs a bitwise operation on the ACC with either the immediate value or the contents of the specified memory address. The text then clarifies that `<address>` can be absolute or symbolic and explains the notation for denary, binary, and hexadecimal numbers using `#`, `B`, and `&`, respectively.
+
+My initial thought was to use LaTeX to represent the table as cleanly as possible. I want to make sure the table is easy to read. I first tried a merged header but that got complicated. A standard `tabular` environment with vertical lines and bold headers seems like the best approach.
+
+I then realized that the `<` and `>` characters in the `<address>` operand would require special handling in LaTeX, so I'm using `\texttt{<address>}` to ensure they are rendered correctly. Also, `#` and `&` require escaping.
+
+Finally, I've constructed the YAML format for the question, including the table in LaTeX. The prompt specifically asks for the *instructions* and not any answers so the code will not emit any answer lines. Now I'm ready to present the transcribed question.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      The table shows part of the instruction set for a processor. The processor has one register: the Accumulator (ACC).
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Opcode} & \textbf{Operand} & \textbf{Explanation} \\ \hline
+      AND & \texttt{\#n/Bn/\&n} & Bitwise AND operation of the contents of ACC with the operand \\ \hline
+      AND & \texttt{<address>} & Bitwise AND operation of the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      XOR & \texttt{\#n/Bn/\&n} & Bitwise XOR operation of the contents of ACC with the operand \\ \hline
+      XOR & \texttt{<address>} & Bitwise XOR operation of the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      OR & \texttt{\#n/Bn/\&n} & Bitwise OR operation of the contents of ACC with the operand \\ \hline
+      OR & \texttt{<address>} & Bitwise OR operation of the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      \end{tabular}
+
+      \texttt{<address>} can be an absolute or a symbolic address
+      \newline
+      \# denotes a denary number, e.g. \#123
+      \newline
+      B denotes a binary number, e.g. B01001010
+      \newline
+      \& denotes a hexadecimal number, e.g. \&4A
+
+      Write the bit manipulation instructions that can be used to set only the most significant bit to 1 in an 8-bit register.
+
+      The instructions need to work on a register that contains any 8-bit binary number.
+```

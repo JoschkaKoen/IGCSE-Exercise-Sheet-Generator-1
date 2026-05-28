@@ -1,0 +1,23 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A banker stores personal data on their work computer.
+  - number: "7a"
+    type: long_answer
+    text: |
+      The banker needs to transfer confidential data across the internet.
+
+      Identify and describe \textbf{one} method of restricting the risks posed by an unauthorised person intercepting the data whilst it is being transferred across the internet.
+
+      Method \hrulefill
+
+      Description
+  - number: "7b"
+    type: long_answer
+    text: |
+      The banker receives confidential data across the internet. The data includes a digital signature.
+
+      Explain how a digital signature can make sure the data has \textbf{not} been changed during transmission.
+```

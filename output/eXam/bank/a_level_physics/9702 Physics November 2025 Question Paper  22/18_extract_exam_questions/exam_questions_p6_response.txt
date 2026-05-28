@@ -1,0 +1,46 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 6**
+
+Okay, so I'm being asked to transcribe page 6 of this exam paper. The requested sections are 2, 2a, 2ai, and 2aii. I need to be precise here, so I'll go through this methodically. First, I'll assess the structure and content of each section.
+
+Looking at question 2, it seems to be the introductory context for the problem, describing a spacecraft with thrusters.  It describes the setup, the forces the thrusters can generate, and the distances involved.  This text seems straightforward to transcribe, and I'll include the diagram description.
+
+Now, for `2a`, this is where things get a little tricky. Based on the stub, I have to account for `2a`, but there's no independent text for it. The text flows directly from the general context into part (a), starting with "(a) (i)". Usually, I'd expect an introductory sentence to precede (i) and (ii).  I need to ensure that the transcription adheres to the specified rules. Since `2a` doesn't have its own stem, this indicates an upstream stub generation bug, so I'll output `STUB ERROR` for `2a`.
+
+Moving on to `2ai`, this describes the specific forces applied by thrusters A and C. It defines the magnitudes and directions, and poses a calculation question about the resultant moment. This looks good, I'll transcribe this next.
+
+Finally, `2aii` asks for a statement and explanation regarding whether the forces from A and C constitute a couple. This is a straightforward conceptual question to which I will be sure to get the correct answer.
+
+So, the transcription will consist of the content of the question itself, and `STUB ERROR` for the stub that has no content.  I'll ensure proper formatting for the mathematical expressions and units within the transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A spacecraft in deep space uses jets of hot gas from its thrusters to change its velocity. Fig. 2.1 shows a side view of the spacecraft and some of its thrusters.
+
+      Thruster A is a distance of $1.6\text{ m}$ leftwards from the centre of gravity of the spacecraft. Thruster C is a distance of $0.40\text{ m}$ upwards from the centre of gravity of the spacecraft.
+
+      Thrusters A and B can produce forces on the spacecraft in the upwards direction only.
+      Thruster C can produce a force on the spacecraft in the leftwards direction only.
+      All the thrusters shown produce forces entirely in the same plane as the centre of gravity.
+  - number: "2a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ai"
+    type: calculation
+    text: |
+      Thruster A is activated, producing a force of $60\text{ N}$ upwards on the spacecraft. Thruster C is also activated, producing a force of $220\text{ N}$ in the leftwards direction on the spacecraft.
+
+      Calculate the resultant moment due to these forces about the centre of gravity.
+
+      resultant moment = \hrulefill $\text{Nm}$
+  - number: "2aii"
+    type: short_answer
+    text: |
+      State and explain whether the forces from A and C are a couple.

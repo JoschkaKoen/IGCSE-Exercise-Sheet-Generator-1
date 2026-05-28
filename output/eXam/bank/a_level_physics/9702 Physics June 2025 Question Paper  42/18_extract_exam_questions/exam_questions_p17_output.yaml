@@ -1,0 +1,17 @@
+questions:
+  - number: "7bii"
+    type: calculation
+    text: |
+      the resistance $R$, in $\text{k}\Omega$
+
+      $R = \hrulefill \text{ k}\Omega$
+  - number: "7biii"
+    type: calculation
+    text: |
+      the time constant $\tau$ of the circuit.
+
+      $\tau = \hrulefill \text{ s}$
+  - number: "7c"
+    type: long_answer
+    text: |
+      Use Fig. 7.2, Fig. 7.3 and your answer in (a) to explain why the variation of $Q$ with $t$ is exponential in nature.

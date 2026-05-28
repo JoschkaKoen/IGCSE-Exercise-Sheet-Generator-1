@@ -1,0 +1,68 @@
+[thinking]
+**Transcribing Exam Page 9**
+
+Okay, the user wants me to transcribe page 9 of this exam paper.  Let's see, the relevant questions on this page are numbered "3bi", "3bii", "3biii", and "3biv".  Right, let's take a look at the OCR and image and break this down.
+
+"3bi" looks to be a straightforward calculation: "Determine the internal energy of the gas in state A."  The answer line is expecting a numerical value followed by "J" - Joules. I'll represent that as `internal energy = \hrulefill J [2]`, and then remove the redundant "[2]".
+
+"3bii" is similar, a calculation for the temperature of the gas in state B: "Determine the temperature of the gas in state B."  Answer line is "temperature = \hrulefill K [1]", again, just removing the redundant "[1]".
+
+For "3biii," we're after the volume of the gas in state C: "Determine the volume of the gas in state C."  The answer line here is "volume = \hrulefill \text{ m}^3 [1]". I'll make sure to render the units correctly in the final output, so I'll write that as `volume = \hrulefill $\text{m}^3$`. Removing the redundant "[1]".
+
+Finally, "3biv" is a short answer question: "On Fig. 3.1, draw two lines, one to represent change X and one to represent change Y. Label your lines X and Y respectively." This one will require a different treatment, it's not a calculation.
+
+Now, let's format these according to the specified rules. I will strip the subquestion prefixes like (i), (ii), (iii), and (iv). Use a pipe block scalar (`|`) for the `text` fields to maintain formatting and line breaks, and for the answer lines use the `\hrulefill` to represent the blank lines. I will also make sure the math is rendered correctly for the final YAML. Now, let's get that YAML written out!
+```yaml
+questions:
+  - number: "3bi"
+    type: calculation
+    text: |
+      Determine the internal energy of the gas in state A.
+
+      internal energy = \hrulefill J
+  - number: "3bii"
+    type: calculation
+    text: |
+      Determine the temperature of the gas in state B.
+
+      temperature = \hrulefill K
+  - number: "3biii"
+    type: calculation
+    text: |
+      Determine the volume of the gas in state C.
+
+      volume = \hrulefill $\text{m}^3$
+  - number: "3biv"
+    type: short_answer
+    text: |
+      On Fig. 3.1, draw two lines, one to represent change X and one to represent change Y. Label your lines X and Y respectively.
+```
+Perfect. I believe that should handle it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3bi"
+    type: calculation
+    text: |
+      Determine the internal energy of the gas in state A.
+
+      internal energy = \hrulefill J
+  - number: "3bii"
+    type: calculation
+    text: |
+      Determine the temperature of the gas in state B.
+
+      temperature = \hrulefill K
+  - number: "3biii"
+    type: calculation
+    text: |
+      Determine the volume of the gas in state C.
+
+      volume = \hrulefill $\text{m}^3$
+  - number: "3biv"
+    type: short_answer
+    text: |
+      On Fig. 3.1, draw two lines, one to represent change X and one to represent change Y. Label your lines X and Y respectively.

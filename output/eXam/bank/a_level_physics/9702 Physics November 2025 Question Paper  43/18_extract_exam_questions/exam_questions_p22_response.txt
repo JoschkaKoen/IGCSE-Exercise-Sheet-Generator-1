@@ -1,0 +1,66 @@
+[thinking]
+**Examining Page 22: Ultrasound Questions**
+
+Okay, so I'm on page 22 of the exam. The user wants me to process the questions here. First, I need to understand the structure. Question "10" is the main header; let's see what's associated with it. Usually, it's just a label, but I'll check. Ah, "10" is a stub with sub-questions "10a," "10b," etc. Since the instructions say "Do NOT add or remove questions," I have to account for "10", even if there's no specific text associated with the main question number. So, I'll set its text field to empty.
+
+Now, let's break down the sub-questions.
+
+*   "10a": This is straightforward: "Define specific acoustic impedance." Easy enough.
+*   "10b": "Explain how ultrasound waves are detected by a piezoelectric crystal." This is a long-answer question, calling for a good explanation of the principle.
+*   "10c": "Table 10.1 shows the specific acoustic impedance Z for body tissue, water, and steel." Right, and it includes a table. Time to parse it out. I'll need to format the table in LaTeX.
+
+    So, the table looks like:
+
+    | material      | $Z / \text{kg}\,\text{m}^{-2}\,\text{s}^{-1}$ |
+    | :------------ | :------------------------------------------- |
+    | body tissue   | $1.38 \times 10^6$                         |
+    | water         | $1.48 \times 10^6$                         |
+    | steel         | $4.04 \times 10^7$                         |
+
+*   "10ci": "Calculate the intensity reflection coefficient for ultrasound incident on a water–steel boundary." Got it. This is a calculation, and they've given a fill-in line for the answer.
+*   "10cii": "Explain, without calculation, what is likely to happen when ultrasound is incident on a body tissue–water boundary." This is another long-answer question.
+
+Now that I've reviewed the questions, it's time to build the YAML structure, ensuring the correct question type for each part. I'll represent "10" with a blank string, "10a" as short answer for the definition, "10b" and "10cii" as long answers, "10c" with the table, and "10ci" as a calculation.
+
+
+
+[/thinking]
+
+questions:
+  - number: "10"
+    type: short_answer
+    text: ''
+  - number: "10a"
+    type: short_answer
+    text: |
+      Define specific acoustic impedance.
+  - number: "10b"
+    type: long_answer
+    text: |
+      Explain how ultrasound waves are detected by a piezoelectric crystal.
+  - number: "10c"
+    type: short_answer
+    text: |
+      Table 10.1 shows the specific acoustic impedance $Z$ for body tissue, water and steel.
+
+      \begin{center}
+      \textbf{Table 10.1}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      material & $Z / \text{kg}\,\text{m}^{-2}\,\text{s}^{-1}$ \\ \hline
+      body tissue & $1.38 \times 10^6$ \\ \hline
+      water & $1.48 \times 10^6$ \\ \hline
+      steel & $4.04 \times 10^7$ \\ \hline
+      \end{tabular}
+      \end{center}
+  - number: "10ci"
+    type: calculation
+    text: |
+      Calculate the intensity reflection coefficient for ultrasound incident on a water–steel boundary.
+
+      intensity reflection coefficient = \hrulefill
+  - number: "10cii"
+    type: long_answer
+    text: |
+      Explain, without calculation, what is likely to happen when ultrasound is incident on a body tissue–water boundary.

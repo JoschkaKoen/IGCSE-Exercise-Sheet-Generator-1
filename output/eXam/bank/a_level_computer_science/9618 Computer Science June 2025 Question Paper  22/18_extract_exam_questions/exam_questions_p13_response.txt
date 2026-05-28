@@ -1,0 +1,130 @@
+[thinking]
+**Page 13 YAML Stub Population: A Detailed Walkthrough**
+
+Okay, the task is to fill in the YAML stub for page 13. Let's see... the first question on this page is "6a". Hmm, that seems to be a parent or placeholder question, and I don't see any explicit text associated with "6a" on the page. I'm supposed to use any text available to populate the stubs, so I should be able to find the relevant text on the page... The instructions say to emit `STUB ERROR` if I can't find the text on the page.
+
+Looking at the page, it starts with "(a)(i) Complete the trace table...". The stub has entries for "6a", "6ai", "6aii", and "6b." Based on the instructions, it sounds like "6a" is either missing, or it's a stub generation error. Let's write `STUB ERROR` for "6a".
+
+Now, "6ai": the text is: `Complete the trace table below by dry running the procedure Place() when it is called by the statement: CALL Place(1043, 2, 8)`. Got it. Let's create a LaTeX table structure for this trace table, with 10 rows:
+
+```latex
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Value} & \textbf{Start} & \textbf{Unused} & \textbf{New} & \textbf{Last} & \textbf{Current} \\ \hline
+ & & & & & \\ \hline
+ & & & & & \\ \hline
+ & & & & & \\ \hline
+ & & & & & \\ \hline
+ & & & & & \\ \hline
+ & & & & & \\ \hline
+ & & & & & \\ \hline
+ & & & & & \\ \hline
+ & & & & & \\ \hline
+\end{tabular}
+```
+
+Next, "6aii":  `Complete the diagram showing the contents of the global arrays Data and Pointer after the procedure Place() has run to completion when called as shown in part (a)(i).` Okay, it's about array contents, so it's a table. The page details the data in the arrays:
+
+```
+Data:
+1: 1018
+2: 1007
+3: 1010
+4: 1056
+5: 1092
+6: 1062
+7: 1034
+8: [blank]
+9: [blank]
+10: [blank]
+
+Pointer:
+1: [blank]
+2: [blank]
+3: [blank]
+4: [blank]
+5: [blank]
+6: [blank]
+7: [blank]
+8: [blank]
+9: [blank]
+10: [blank]
+```
+
+Let's represent this neatly with LaTeX in the form of a table.
+
+I'll use a `tabular` environment and keep it clean:
+
+```latex
+\begin{tabular}{rlcrl}
+\multicolumn{2}{c}{\textbf{Data}} & \quad & \multicolumn{2}{c}{\textbf{Pointer}} \\
+1 & \multicolumn{1}{|l|}{1018} & & 1 & \multicolumn{1}{|l|}{\hspace{2em}} \\
+2 & \multicolumn{1}{|l|}{1007} & & 2 & \multicolumn{1}{|l|}{} \\
+3 & \multicolumn{1}{|l|}{1010} & & 3 & \multicolumn{1}{|l|}{} \\
+4 & \multicolumn{1}{|l|}{1056} & & 4 & \multicolumn{1}{|l|}{} \\
+5 & \multicolumn{1}{|l|}{1092} & & 5 & \multicolumn{1}{|l|}{} \\
+6 & \multicolumn{1}{|l|}{1062} & & 6 & \multicolumn{1}{|l|}{} \\
+7 & \multicolumn{1}{|l|}{1034} & & 7 & \multicolumn{1}{|l|}{} \\
+8 & \multicolumn{1}{|l|}{} & & 8 & \multicolumn{1}{|l|}{} \\
+9 & \multicolumn{1}{|l|}{} & & 9 & \multicolumn{1}{|l|}{} \\
+10 & \multicolumn{1}{|l|}{} & & 10 & \multicolumn{1}{|l|}{} \\
+\end{tabular}
+```
+
+Finally, "6b": The text is: `The
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "6a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6ai"
+    type: short_answer
+    text: |
+      Complete the trace table below by dry running the procedure \texttt{Place()} when it is called by the statement:
+
+      \texttt{CALL Place(1043, 2, 8)}
+
+      \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      \textbf{Value} & \textbf{Start} & \textbf{Unused} & \textbf{New} & \textbf{Last} & \textbf{Current} \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+      \end{tabular}
+  - number: "6aii"
+    type: short_answer
+    text: |
+      Complete the diagram showing the contents of the global arrays \texttt{Data} and \texttt{Pointer} after the procedure \texttt{Place()} has run to completion when called as shown in part (a)(i).
+
+      \begin{tabular}{rlcrl}
+      \multicolumn{2}{c}{\textbf{Data}} & \quad & \multicolumn{2}{c}{\textbf{Pointer}} \\
+      1 & \multicolumn{1}{|l|}{1018} & & 1 & \multicolumn{1}{|l|}{\hspace{2em}} \\
+      2 & \multicolumn{1}{|l|}{1007} & & 2 & \multicolumn{1}{|l|}{} \\
+      3 & \multicolumn{1}{|l|}{1010} & & 3 & \multicolumn{1}{|l|}{} \\
+      4 & \multicolumn{1}{|l|}{1056} & & 4 & \multicolumn{1}{|l|}{} \\
+      5 & \multicolumn{1}{|l|}{1092} & & 5 & \multicolumn{1}{|l|}{} \\
+      6 & \multicolumn{1}{|l|}{1062} & & 6 & \multicolumn{1}{|l|}{} \\
+      7 & \multicolumn{1}{|l|}{1034} & & 7 & \multicolumn{1}{|l|}{} \\
+      8 & \multicolumn{1}{|l|}{} & & 8 & \multicolumn{1}{|l|}{} \\
+      9 & \multicolumn{1}{|l|}{} & & 9 & \multicolumn{1}{|l|}{} \\
+      10 & \multicolumn{1}{|l|}{} & & 10 & \multicolumn{1}{|l|}{} \\
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      The operation carried out by procedure \texttt{Place()} together with the arrays form part of the implementation of an Abstract Data Type (ADT).
+
+      Identify the ADT and state the operation carried out by procedure \texttt{Place()}
+```

@@ -1,0 +1,108 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 20**
+
+Okay, so the task is to transcribe page 20, specifically question "9".  I see the stub has "9", "9a", and "9b".  Let's look at the YAML stub first:
+
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: ""
+  - number: "9a"
+    type: short_answer
+    text: ""
+  - number: "9b"
+    type: calculation
+    text: ""
+```
+
+Now, I'm checking the actual exam page.  "9" is the main question, but the page shows "9 (a) State what is meant by the mass defect of a nucleus."  The stub has "9", which is empty.  My initial thought is to mark it as `STUB ERROR` since there's no explicit stem for "9" separate from "(a)". However, every stub entry should be populated.
+
+But wait, the instruction tells me to *not* remove entries.  And I must populate all `text` fields. So, I need to figure out what the *text* for "9" should be.  If "9" is the parent question, it *could* be empty if there's no introductory text.  I double-checked; there's no text specifically for "9" *before* "(a)".
+
+The page has "9 (a) State what is meant by the mass defect of a nucleus." This *could* mean "9" should be the *parent* question and it's question *9a*.
+
+Let's look at the rules again:  "Empty: `field: ''`." Perfect. It's valid to have an empty string.  So, "9" gets `text: ''`.
+
+Now, question "9a" is straightforward. The text is: "State what is meant by the mass defect of a nucleus."
+
+Finally, "9b". The page reads: "The nuclear fusion reaction for the formation of helium-4 from deuterium is represented by...". The page contains an equation and a table showing masses. This is a calculation question. I need to convert everything into LaTeX. The equation is straightforward. The table will be as follows, the format:
+
+```latex
+\begin{tabular}{|c|c|}
+\hline
+nuclide & nuclide mass/u \\ \hline
+$^2_1\text{H}$ & 2.013553 \\ \hline
+$^4_2\text{He}$ & 4.001505 \\ \hline
+\end{tabular}
+```
+
+The question ends with "Calculate the energy released in the formation of 1.00 mol of helium-4. energy = \hrulefill J".  That's it, that's all, nothing to add.
+
+Therefore, the final output will be:
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: ""
+  - number: "9a"
+    type: short_answer
+    text: |
+      State what is meant by the mass defect of a nucleus.
+  - number: "9b"
+    type: calculation
+    text: |
+      The nuclear fusion reaction for the formation of helium-4 from deuterium is represented by
+
+      $$^2_1\text{H} + ^2_1\text{H} \rightarrow ^4_2\text{He}$$
+
+      Table 9.1 shows the masses of the nuclides involved in this reaction.
+
+      \textbf{Table 9.1}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      nuclide & nuclide mass/u \\ \hline
+      $^2_1\text{H}$ & 2.013553 \\ \hline
+      $^4_2\text{He}$ & 4.001505 \\ \hline
+      \end{tabular}
+
+      Calculate the energy released in the formation of 1.00 mol of helium-4.
+
+      energy = \hrulefill J
+```
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      State what is meant by the mass defect of a nucleus.
+  - number: "9b"
+    type: calculation
+    text: |
+      The nuclear fusion reaction for the formation of helium-4 from deuterium is represented by
+
+      $$^2_1\text{H} + ^2_1\text{H} \rightarrow ^4_2\text{He}$$
+
+      Table 9.1 shows the masses of the nuclides involved in this reaction.
+
+      \textbf{Table 9.1}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      nuclide & nuclide mass/u \\ \hline
+      $^2_1\text{H}$ & 2.013553 \\ \hline
+      $^4_2\text{He}$ & 4.001505 \\ \hline
+      \end{tabular}
+
+      Calculate the energy released in the formation of 1.00 mol of helium-4.
+
+      energy = \hrulefill J

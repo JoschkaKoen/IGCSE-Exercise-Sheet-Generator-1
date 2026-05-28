@@ -1,0 +1,42 @@
+[thinking]
+**Page 2 YAML Stub Construction**
+
+Okay, the user wants me to flesh out the YAML stub for page 2 of the exam. The questions here seem straightforward, focusing on a sorting program and a function to read string data from a file. Let's break this down.
+
+First, I need to craft the text for question "1," which is really just an introductory sentence: "A program sorts string data using different sorting methods." Easy enough.
+
+Then, for question "1a," I need to provide more detail. It's asking for the implementation of a `ReadData()` function. This function has a few constraints: it must read string data from the file `Data.txt`, store the data into a local string array that can hold 45 items, and return this array. The question explicitly states that each data item is on a new line. They also want to include instructions for saving the file as `Question1_N24` and copying it into the evidence document under section "1(a)". I should include that.
+
+I need to make sure I’m adhering to the formatting rules. Inline code tokens like `Data.txt`, `ReadData()`, and `Question1_N24` should use `\texttt{...}`. Bolding should be `\textbf{...}`, and bulleted lists should be created with `\begin{itemize}`. No double quotes for any non-empty strings, I'll use the block scalar `|` for those.
+
+Now, let's start constructing the YAML...
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program sorts string data using different sorting methods.
+  - number: "1a"
+    type: long_answer
+    text: |
+      The text file \texttt{Data.txt} stores string data items. Each data item is on a new line in the text file.
+
+      The function \texttt{ReadData()}:
+
+      \begin{itemize}
+      \item has a local array of strings that can store 45 items
+      \item reads each line of data and stores it in the array
+      \item returns the array.
+      \end{itemize}
+
+      Write program code for the function \texttt{ReadData()}.
+
+      Save your program as \textbf{Question1\_N24}.
+
+      Copy and paste the program code into part \textbf{1(a)} in the evidence document.
+```

@@ -1,0 +1,24 @@
+[thinking]
+**Transcribing the Question**
+
+Okay, the user wants me to transcribe question "8d" from this page. No problem, I can handle that. Let me take a look... Ah, there it is. The question is: "(d) The student wants to replace the CPU to increase the performance of the computer. Explain why a different CPU can increase the performance."
+
+Alright, just to be sure I'm following instructions, let's confirm the rules. I need to strip that initial subquestion prefix, the "(d)". Got it. So that part goes. The text actually starts with the main question.
+
+So, here's what I'll transcribe:
+
+"The student wants to replace the CPU to increase the performance of the computer. Explain why a different CPU can increase the performance."
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "8d"
+    type: long_answer
+    text: |
+      The student wants to replace the CPU to increase the performance of the computer.
+
+      Explain why a different CPU can increase the performance.
+```

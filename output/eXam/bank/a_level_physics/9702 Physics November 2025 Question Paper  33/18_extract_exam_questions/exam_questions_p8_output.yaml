@@ -1,0 +1,23 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the resistance of a light-dependent resistor (LDR) using the light from a light-emitting diode (LED).
+  - number: "2a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ai"
+    type: calculation
+    text: |
+      Using the LED, set up the circuit shown in Fig. 2.1.
+
+      Ensure that the positive terminal of the power supply and the positive terminal of the LED are connected as shown in Fig. 2.1.
+
+      P and Q are crocodile clips. Position P and Q so that there is approximately $10\text{ cm}$ of wire W between P and Q.
+
+      Close the switch. The LED should light.
+
+      Open the switch.
+
+      Using the LDR and ohmmeter, set up a second circuit as shown in Fig. 2.2.

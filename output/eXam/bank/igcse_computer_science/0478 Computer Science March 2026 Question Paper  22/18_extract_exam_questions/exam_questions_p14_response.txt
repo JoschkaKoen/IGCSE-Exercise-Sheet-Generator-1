@@ -1,0 +1,54 @@
+[thinking]
+**Transcribing Question 9: Class Survey Voting Program**
+
+Okay, here's what the user wants. I need to transcribe question 9 from the exam, which is a programming question. The gist of it is designing a program for a class survey voting system, say for figuring out the most popular smartphone. It outlines the data structures to use: a 1D array `\texttt{Options[]}` to hold between 2 and 12 voting options, another 1D array `\texttt{Votes[]}` to store votes from 2 to 1000 users, and finally, a `\texttt{VoteCount[]}` array to tally the votes for each option.
+
+The program has some specific requirements:
+
+`\begin{itemize}`
+`\item` Initialise all arrays before use.
+`\item` Input and validate the number of options and voters.
+`\item` Input each option and store it in `\texttt{Options[]}`.
+`\item` Display options to each voter and get their choice, validating the input and storing it in `\texttt{Votes[]}`.
+`\item` After all votes are in, count the votes for each option and find the most and least popular options.
+`\item` Output the most and least popular options and their vote counts. The program does **\textbf{not}} need to handle ties for most/least popular.
+`\end{itemize}`
+
+The exam specifies using either pseudocode or code, with comments. I should also assume that array, variable, and constant declarations are taken care of, but array initialisation should be done. All inputs and outputs must include suitable messages.
+
+Now I need to turn this into a clear, formatted transcription. Let's make sure the formatting is spot-on using Markdown. The array names get `\texttt{...}` formatting for consistency. The instructions need the bullet points wrapped as a list. Finally, the word "not" needs to be in bold. Now, let's write the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "9"
+    type: long_answer
+    text: |
+      A program is required to enable voting in class surveys, for example to find the most popular smartphone.
+
+      The one-dimensional (1D) array \texttt{Options[]} is used to store between 2 and 12 options on which users can vote.
+
+      The one-dimensional (1D) array \texttt{Votes[]} is used to store the votes of between 2 and 1000 users.
+
+      The one-dimensional (1D) array \texttt{VoteCount[]} is used to store the number of votes for each of the options. The array index represents the option number.
+
+      Write a program for the following requirements:
+
+      \begin{itemize}
+      \item Initialise all the arrays before they are used.
+      \item Input and validate the number of options and the number of voters.
+      \item Input each of the required options and store them in the array \texttt{Options[]}
+      \item Display the list of options for each voter and allow each voter to input their preferred option. Validate this input and store it in the array \texttt{Votes[]}
+      \item Once all the votes have been input, count the number of voters who chose each option and find the most and least popular options.
+      \item Output the most and least popular options as well as the number of voters who selected each of these options.
+      \end{itemize}
+
+      The program does \textbf{not} need to identify if two or more options are the equal most or least popular.
+
+      You must use pseudocode or program code, and add comments to explain how your code works.
+
+      Do \textbf{not} declare arrays, variables or constants for this algorithm; assume this has been done. Initialisation must be carried out as appropriate.
+
+      All inputs and outputs must contain suitable messages.

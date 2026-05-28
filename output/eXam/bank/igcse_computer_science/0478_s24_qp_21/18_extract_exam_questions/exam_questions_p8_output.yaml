@@ -1,0 +1,23 @@
+questions:
+  - number: "6b"
+    type: long_answer
+    text: |
+      Outline the processes involved in the algorithm shown in the flowchart on page 6.
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      Outline why it is useful to store data in a file.
+  - number: "7b"
+    type: short_answer
+    text: |
+      The function \texttt{LENGTH(X)} calculates the length of a string \texttt{X}
+
+      Write the pseudocode statements to:
+      \begin{itemize}
+      \item read the contents of the text file \texttt{Quotation.txt} into an appropriate string variable that has been declared
+      \item output the string in upper case and the length of the string.
+      \end{itemize}

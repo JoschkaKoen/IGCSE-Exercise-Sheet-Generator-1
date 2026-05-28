@@ -1,0 +1,20 @@
+[thinking]
+**Transcribing and Refining a Question**
+
+Okay, so the user wants me to extract question "5biv" from the given page. Let's see... I've got it. The prompt is: "(iv) On Fig. 5.1, sketch the variation of $v$ with $x$."
+
+Right, I need to apply those instructions. The instructions say to strip the subquestion prefix and just keep the actual prompt text. So, the text becomes: "On Fig. 5.1, sketch the variation of $v$ with $x$."
+
+Now, let's make sure there isn't any other contextual information I need to include. There's a graph, Fig. 5.1, with axes labeled 'v / m s^-1' and 'x / cm'. However, the instructions explicitly state that I'm *never* to emit image-inclusion commands. I should omit figures entirely, transcribing *only* the question prompt and any accompanying text labels, captions, or table headers. So, I need to be careful with the labels, captions, and any surrounding text. But for this question, I should only keep the prompt: "On Fig. 5.1, sketch the variation of $v$ with $x$."
+
+That's it. Let's get the YAML set up.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5biv"
+    type: short_answer
+    text: |
+      On Fig. 5.1, sketch the variation of $v$ with $x$.

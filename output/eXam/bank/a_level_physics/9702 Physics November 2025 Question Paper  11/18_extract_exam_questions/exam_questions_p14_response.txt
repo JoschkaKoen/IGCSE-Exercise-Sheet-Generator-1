@@ -1,0 +1,62 @@
+[thinking]
+**Transcribing Exam Questions: A Detailed Approach**
+
+Okay, so I need to transcribe two questions from this exam. Let's get to it. First, question 32, a multiple-choice question on possible particle charges. It's straightforward: a text prompt followed by four numerical options. Easy peasy.
+
+Now, question 33 is where it gets interesting. We're dealing with current-voltage characteristics for a filament lamp and a semiconductor diode, presented graphically. The core of this question is mapping the correct graph to the correct component. I need to make sure the structure is crystal clear. I'll need to represent the table data correctly in the output.
+
+I'm thinking, do I include the table *inside* the question text or in the *options*? I like the clarity of having the table within the question itself so it's directly visible, and then just using the option letters (A, B, C, D) to refer to the corresponding row in that table. That keeps things clean. But I want to make the table as clear as possible. I'll include the table in the question text.
+
+To ensure there's no ambiguity, I should explicitly include the row content within the *options*. Okay, I've got it: I'll include the table in the question text and define the options directly.
+
+So, the plan is:
+1.  **Question Text:**  "The graphs show possible current–voltage ($I–V$) characteristics for a filament lamp and for a semiconductor diode. Which row identifies the $I–V$ graphs for the lamp and for the diode?" *Followed by the table*
+2.  **Options:**
+    *   A: filament lamp: P; semiconductor diode: R
+    *   B: filament lamp: P; semiconductor diode: S
+    *   C: filament lamp: Q; semiconductor diode: R
+    *   D: filament lamp: Q; semiconductor diode: S
+
+This is robust and minimizes the chance of misinterpretation. Perfect.
+
+
+
+[/thinking]
+
+questions:
+  - number: "32"
+    type: multiple_choice
+    text: |
+      What is a possible charge on a particle?
+    options:
+      - letter: A
+        text: |
+          $6.40 \times 10^{-20}\text{ C}$
+      - letter: B
+        text: |
+          $4.00 \times 10^{-19}\text{ C}$
+      - letter: C
+        text: |
+          $1.12 \times 10^{-18}\text{ C}$
+      - letter: D
+        text: |
+          $9.11 \times 10^{-18}\text{ C}$
+  - number: "33"
+    type: multiple_choice
+    text: |
+      The graphs show possible current–voltage ($I–V$) characteristics for a filament lamp and for a semiconductor diode.
+
+      Which row identifies the $I–V$ graphs for the lamp and for the diode?
+    options:
+      - letter: A
+        text: |
+          filament lamp: P; semiconductor diode: R
+      - letter: B
+        text: |
+          filament lamp: P; semiconductor diode: S
+      - letter: C
+        text: |
+          filament lamp: Q; semiconductor diode: R
+      - letter: D
+        text: |
+          filament lamp: Q; semiconductor diode: S

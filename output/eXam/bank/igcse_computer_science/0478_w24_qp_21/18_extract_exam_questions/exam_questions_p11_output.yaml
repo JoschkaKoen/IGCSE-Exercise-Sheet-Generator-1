@@ -1,0 +1,29 @@
+questions:
+  - number: "10c"
+    type: short_answer
+    text: |
+      Write the output from this structured query language (SQL) statement.
+
+      \begin{alltt}
+      SELECT ChNo, WeightKg
+      FROM CheeseStock
+      WHERE SupplierCode = 'ABC';
+      \end{alltt}
+  - number: "10d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "10di"
+    type: short_answer
+    text: |
+      Complete this SQL statement to display only the name of all the cheeses that are out of stock.
+
+      \texttt{SELECT} \hrulefill
+
+      \texttt{FROM} \hrulefill
+
+      \texttt{WHERE} \hrulefill ;
+  - number: "10dii"
+    type: long_answer
+    text: |
+      Explain how \textbf{one} of the lines in your statement in part \textbf{(d)(i)} could be changed to display the same information.

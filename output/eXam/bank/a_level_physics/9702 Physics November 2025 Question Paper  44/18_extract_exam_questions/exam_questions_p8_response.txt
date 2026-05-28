@@ -1,0 +1,57 @@
+[thinking]
+**Analyzing Exam Page 8: Question 3**
+
+Okay, so I'm looking at page 8 of this exam paper and need to transcribe the content related to question 3. The provided stub contains entries for "3," "3a," and "3b." Let's break this down systematically.
+
+First, I see the page starts with what appears to be the main question header, labeled "3," but the immediate textual content begins with "3 (a)". This seems unusual. Typically, "3" would include the main introduction.
+
+I need to confirm the text for each question number. The stub, as I understand it, is structured with:
+
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: ""
+  - number: "3a"
+    type: short_answer
+    text: ""
+  - number: "3b"
+    type: short_answer
+    text: ""
+```
+
+Based on the prompt's instructions, I have to ensure that every stub entry's stem has its own text. It doesn't look like there's a separate stem for "3" other than the starting number.
+
+The question text is "3 (a) With reference to molecular kinetic energy and molecular potential energy, explain what is meant by the internal energy of an ideal gas."
+
+And then for "3 (b)" the text is: "A sample of an ideal gas is initially in state A, at a pressure of $2.0 \times 10^5\text{ Pa}$ and with a volume of $0.016\text{ m}^3$, as shown in Fig. 3.1. In state A, the temperature of the gas is $400\text{ K}$. The gas undergoes two successive changes X and Y. In change X, it is heated at constant volume to a pressure of $4.0 \times 10^5\text{ Pa}$. At the end of change X, the gas is in state B. In change Y, it is then allowed to expand at constant temperature back to its original pressure. At the end of change Y, the gas is in state C."
+
+Crucially, the prompt states: "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess." Since the only text associated with "3" is the number, not the actual question, I'm confident there is no stem text. Therefore, I need to flag "3" as a `STUB ERROR`.
+
+So, based on the prompt's instructions and my analysis, for question number "3" I should enter `STUB ERROR`.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3a"
+    type: short_answer
+    text: |
+      With reference to molecular kinetic energy and molecular potential energy, explain what is meant by the internal energy of an ideal gas.
+  - number: "3b"
+    type: short_answer
+    text: |
+      A sample of an ideal gas is initially in state A, at a pressure of $2.0 \times 10^5 \text{ Pa}$ and with a volume of $0.016 \text{ m}^3$, as shown in Fig. 3.1.
+
+      In state A, the temperature of the gas is $400 \text{ K}$.
+
+      The gas undergoes two successive changes X and Y.
+
+      In change X, it is heated at constant volume to a pressure of $4.0 \times 10^5 \text{ Pa}$. At the end of change X, the gas is in state B.
+
+      In change Y, it is then allowed to expand at constant temperature back to its original pressure. At the end of change Y, the gas is in state C.

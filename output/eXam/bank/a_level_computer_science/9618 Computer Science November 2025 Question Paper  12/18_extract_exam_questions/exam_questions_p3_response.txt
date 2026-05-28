@@ -1,0 +1,67 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 3**
+
+Okay, the task is to generate the YAML stub for page 3 of the exam, and I need to be precise. The questions I need to address are 2b, 3, 3a, 3ai, and 3aii. Let's see... 2b is straightforward: "Describe the purpose of a code of conduct." That's easy, straight into the YAML with a `short_answer` type.
+
+Now, question 3 is a parent question, so let me investigate its children. There isn't a general stem for question `3` or `3a` on the page itself, which is where things become interesting. The instructions specifically state that if a stem is missing, it's a stub-generation bug. However, the existing stub *does* include entries for `3`, `3a`, `3ai`, and `3aii`.
+
+Aha! Upon looking at the structure of the exam I can see that `3` and `3a` are containers, so I can set their text to an empty string `''`.
+
+Now let's move onto the children. Question `3ai` is "State what is meant by relative addressing." `3aii` is asking about identifying two special-purpose registers in the CPU (excluding the ACC and IX), so I'll render the text as given in the exam instructions, and specify the formatting for the two answers.
+
+So, taking into account all of the above, I'll generate the following YAML:
+```yaml
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Describe the purpose of a code of conduct.
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: ''
+  - number: "3ai"
+    type: short_answer
+    text: |
+      State what is meant by relative addressing.
+  - number: "3aii"
+    type: short_answer
+    text: |
+      Registers such as the Accumulator (ACC) and the Index Register (IX) are used in the CPU.
+
+      Identify \textbf{two} special purpose registers used in the CPU. Do \textbf{not} include the ACC or IX in your answers.
+
+      1. \hrulefill
+      2. \hrulefill
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Describe the purpose of a code of conduct.
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: ''
+  - number: "3ai"
+    type: short_answer
+    text: |
+      State what is meant by relative addressing.
+  - number: "3aii"
+    type: short_answer
+    text: |
+      Registers such as the Accumulator (ACC) and the Index Register (IX) are used in the CPU.
+
+      Identify \textbf{two} special purpose registers used in the CPU. Do \textbf{not} include the ACC or IX in your answers.
+
+      1. \hrulefill
+      2. \hrulefill

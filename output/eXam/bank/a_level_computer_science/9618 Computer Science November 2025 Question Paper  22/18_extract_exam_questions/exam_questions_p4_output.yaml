@@ -1,0 +1,51 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A text file \texttt{OldFile.txt} contains IDs, names and email addresses for members of a club. Three information items are stored for each member and each item is stored on a separate line.
+
+      The example shows the information for the first two members in the first six lines of the file:
+
+      \begin{tabular}{|c|l|l|}
+      \hline
+      \textbf{Line in file} & \textbf{Information item} & \textbf{Example data} \\ \hline
+      1 & member 1 ID & \texttt{"AB1234"} \\ \hline
+      2 & member 1 name & \texttt{"Freddie Jones"} \\ \hline
+      3 & member 1 email address & \texttt{"FreddieJ909@Cambridge.org"} \\ \hline
+      4 & member 2 ID & \texttt{"BC2345"} \\ \hline
+      5 & member 2 name & \texttt{"Sue Smith"} \\ \hline
+      6 & member 2 email address & \texttt{"Sue1024@Cambridge.org"} \\ \hline
+      \end{tabular}
+
+      The member ID string is always two letters followed by four digits.
+
+      The file design is to be changed so that information for each user is stored as a single line of the file, with the character '\textbackslash{}' used as a separator between data items.
+
+      For example, the single line for member 1 will be:
+
+      \texttt{"AB1234\textbackslash{}Freddie Jones\textbackslash{}FreddieJ909@Cambridge.org"}
+
+      An algorithm will produce a new file \texttt{NewFile.txt} from the contents of \texttt{OldFile.txt}
+
+      Assume:
+      \begin{itemize}
+      \item \texttt{LineX}, \texttt{LineY} and \texttt{LineZ} are of type \texttt{STRING} and are used to store the three items of information for each member
+      \item \texttt{NewString} is a temporary variable of type \texttt{STRING}
+      \item \texttt{OldFile.txt} exists and contains valid data.
+      \end{itemize}
+  - number: "3a"
+    type: short_answer
+    text: |
+      The algorithm to create the new file is expressed in steps.
+
+      Complete the following numbered steps:
+
+      Step 1 : open the file \underline{\hspace{1.5em}} in \underline{\hspace{1.5em}} \newline
+      Step 2 : open the file \underline{\hspace{1.5em}} in \underline{\hspace{1.5em}} \newline
+      Step 3 : read a line from \underline{\hspace{1.5em}} and store in \underline{\hspace{1.5em}} \newline
+      Step 4 : read a line from \underline{\hspace{1.5em}} and store in \underline{\hspace{1.5em}} \newline
+      Step 5 : read a line from \underline{\hspace{1.5em}} and store in \underline{\hspace{1.5em}} \newline
+      Step 6 : set \texttt{NewString} to \underline{\hspace{1.5em}} \newline
+      Step 7 : write \texttt{NewString} to \underline{\hspace{1.5em}} \newline
+      Step 8 : repeat from step \underline{\hspace{1.5em}} until \underline{\hspace{1.5em}} \newline
+      Step 9 : close both files.

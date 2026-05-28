@@ -1,0 +1,925 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores integers in a stack. The stack is represented as a 1D array
+    of 30 elements with the identifier \texttt{Stack}
+
+
+    The global pointer \texttt{TopOfStack} stores the index of the last element inserted
+    into the stack. \texttt{TopOfStack} is initialised to $-1$'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write program code to declare \texttt{Stack}, initialise each element in
+      the array with a null value and declare and initialise \texttt{TopOfStack}
+
+
+      Save your program as \textbf{Question1\_N25}.
+
+
+      Copy and paste the program code into part \textbf{1(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The function \texttt{Push()} takes an integer parameter. If the stack is
+      full, the function returns \texttt{FALSE}. If the stack is not full, the parameter
+      is inserted into the stack, the pointer is updated and the function returns
+      \texttt{TRUE}
+
+
+      Write the program code for \texttt{Push()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(b)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The function \texttt{Pop()} returns the next integer in the stack and updates
+      the pointer as appropriate. If there is no data in the stack, the function returns
+      the value $-999$.
+
+
+      Write program code for \texttt{Pop()}.
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The main program generates 40 random integers between 0 and 1000 (inclusive)
+      and attempts to insert each one into the stack using the appropriate function.
+      If the return value from the function call indicates the stack is full, no more
+      integers are generated and \texttt{"Stack full"} is output.
+
+
+      Write program code for the main program.
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(d)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1e
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The procedure \texttt{FindValues()}:
+
+
+      \begin{itemize}
+
+      \item pops each integer from the stack until the stack is empty
+
+      \item finds and outputs the largest number that was in the stack in an appropriate
+      message
+
+      \item finds and outputs the smallest number that was in the stack in an appropriate
+      message.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{FindValues()}.
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(e)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1f
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1fi
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Extend the main program to call \texttt{FindValues()}.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(f)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1fii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot(s) into part \textbf{1(f)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores data about trains and train stations using Object-Oriented
+    Programming (OOP).
+
+
+    The class \texttt{Train} stores the data about the trains:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Train}} \\ \hline
+
+    \texttt{TrainIDNumber : String} & stores the train ID number \\ \hline
+
+    \texttt{Route : Integer} & stores the route number the train is travelling \\
+    \hline
+
+    \texttt{Constructor()} & initialises \texttt{TrainIDNumber} and \texttt{Route}
+    to the parameter values \\ \hline
+
+    \texttt{GetTrainIDNumber()} & returns the train ID number \\ \hline
+
+    \texttt{GetRoute()} & returns the route number the train is travelling \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Train} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        All attributes should be private.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program as \textbf{Question2\_N25}. \\
+
+        Copy and paste the program code into part \textbf{2(a)(i)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The methods \texttt{GetTrainIDNumber()} and \texttt{GetRoute()} return
+        the appropriate attribute.
+
+
+        Write program code for \texttt{GetTrainIDNumber()} and \texttt{GetRoute()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{2(a)(ii)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The program is tested with four trains:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{train ID number} & \textbf{route} \\ \hline
+
+      12ADV & 134 \\ \hline
+
+      33ART & 20 \\ \hline
+
+      9FKF & 3 \\ \hline
+
+      21VBC & 24 \\ \hline
+
+      \end{tabular}
+
+
+      Write program code to declare an instance of \texttt{Train} for each of the
+      \textbf{four} trains.
+
+
+      \begin{tabular}{|p{12cm}|}
+
+      \hline
+
+      Save your program. \newline
+
+      \newline
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.
+      \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The class \texttt{Station} stores the data about the stations:
+
+
+      \begin{tabular}{|l|p{7.5cm}|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Station}} \\
+
+      \hline
+
+      \texttt{StationID : String} & stores the station ID \\
+
+      \texttt{NumberPlatforms : Integer} & stores the number of platforms at the station
+      \\
+
+      \texttt{Trains[0:9] : Train} & stores the trains currently at the station platforms
+      \\
+
+      \texttt{NumberTrains : Integer} & stores the number of trains currently at the
+      station platforms \\
+
+      \hline
+
+      \texttt{Constructor()} & initialises \texttt{StationID} and \texttt{NumberPlatforms}
+      to the parameter values, initialises \texttt{Trains} to an empty array and \texttt{NumberTrains}
+      to 0 \\
+
+      \texttt{GetTrains()} & returns a string containing data about the trains currently
+      at the station platforms \\
+
+      \texttt{AddTrain()} & takes a \texttt{Train} parameter and stores it if there
+      is a platform available; each platform can only have one train \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write program code to declare the class \texttt{Station} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        All attributes should be private.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        \begin{tabular}{|p{12cm}|}
+
+        \hline
+
+        Save your program. \newline \newline
+
+        Copy and paste the program code into part \textbf{2(c)(i)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'The method \texttt{AddTrain()} takes a \texttt{Train} parameter. The
+        method compares the attributes \texttt{NumberTrains} and \texttt{NumberPlatforms}
+        to identify if there is a platform available (a platform currently with no
+        train).
+
+
+        The method returns \texttt{FALSE} if there are no platforms available.
+
+
+        If there is a platform available, the method:
+
+        \begin{itemize}
+
+        \item stores the \texttt{Train} parameter in the array \texttt{Trains}
+
+        \item updates the appropriate attribute(s)
+
+        \item returns \texttt{TRUE}
+
+        \end{itemize}
+
+
+        Write program code for \texttt{AddTrain()}
+
+
+        \begin{tabular}{|p{\textwidth}|}
+
+        \hline
+
+        Save your program. \newline \newline
+
+        Copy and paste the program code into part \textbf{2(c)(ii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2ciii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 6
+      text: 'The method \texttt{GetTrains()} returns the string \texttt{"There are
+        no trains"} if there are no trains at the station platforms.
+
+
+        If there are trains at the station platforms, the method returns a string
+        in the format:
+
+
+        \texttt{The trains at station <StationID> are:}
+
+
+        \texttt{<TrainIDNumber> on route number <Route>}
+
+
+        The line \texttt{<TrainIDNumber> on route number <Route>} is repeated for
+        each train at the station platforms.
+
+
+        For example: If the station with the station ID \texttt{"NT1"} has two trains
+        with the train ID numbers \texttt{"48RTG"}, \texttt{"6UFH"}, the method will
+        produce this output:
+
+
+        \texttt{The trains at station NT1 are:}
+
+
+        \texttt{48RTG on route number 43}
+
+
+        \texttt{6UFH on route number 12}
+
+
+        Write program code for \texttt{GetTrains()}
+
+
+        \begin{tabular}{|p{\textwidth}|}
+
+        \hline
+
+        Save your program. \newline \newline
+
+        Copy and paste the program code into part \textbf{2(c)(iii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The program is tested with two stations:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{station ID} & \textbf{\begin{tabular}[c]{@{}l@{}}number of\\ platforms\end{tabular}}
+      \\ \hline
+
+      STH & 2 \\ \hline
+
+      NTH & 1 \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 2di
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code to amend the main program to declare an instance of
+        \texttt{Station} for each of the \textbf{two} stations.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(d)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2dii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'The four trains attempt to stop at the following stations in the order
+        given:
+
+
+        \begin{itemize}
+
+        \item Train 12ADV, station STH
+
+        \item Train 33ART, station STH
+
+        \item Train 9FKF, station STH
+
+        \item Train 21VBC, station NTH
+
+        \end{itemize}
+
+
+        Write program code to amend the main program to:
+
+
+        \begin{itemize}
+
+        \item add each train to the given station using \texttt{AddTrain()}
+
+        \item output \texttt{"Station is full"} for any train where the return value
+        indicates it cannot be added to the station
+
+        \item output the trains at each station using \texttt{GetTrains()}
+
+        \end{itemize}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(d)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2diii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot(s) into part \textbf{2(d)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores records in the 2D array \texttt{HashTable}. Each record
+    is stored at a specific index of the array that is calculated using a hashing
+    algorithm with the record''s key field.
+
+
+    The array has $100 \times 10$ elements. The hashing algorithm uses the key to
+    generate an index between 0 and 99 (inclusive). If two key fields generate the
+    same index, there is a collision. Any records that have a collision are stored
+    in the next space in the same index.
+
+
+    For example: In this table two record keys generated the same hash value of 1.
+    Four record keys generated the same hash value of 3.
+
+
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+
+    \hline
+
+    \textbf{Index} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4}
+    & \textbf{5} & \textbf{...} & \textbf{9} \\ \hline
+
+    \textbf{0} & record & & & & & & & \\ \hline
+
+    \textbf{1} & record & record & & & & & & \\ \hline
+
+    \textbf{2} & & & & & & & & \\ \hline
+
+    \textbf{3} & record & record & record & record & & & & \\ \hline
+
+    \textbf{4} & & & & & & & & \\ \hline
+
+    \textbf{...} & & & & & & & & \\ \hline
+
+    \textbf{99} & & & & & & & & \\ \hline
+
+    \end{tabular}
+
+
+    The program uses Object-Oriented Programming (OOP).'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The class \texttt{Record} stores data about the records:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Record}} \\ \hline
+
+      \texttt{Key : Integer} & stores the integer key field for the data \\ \hline
+
+      \texttt{Data : String} & stores the string data \\ \hline
+
+      \texttt{Constructor()} & initialises \texttt{Key} and \texttt{Data} to its parameter
+      values \\ \hline
+
+      \end{tabular}
+
+
+      The attributes \texttt{Key} and \texttt{Data} are public.
+
+
+      Write program code to declare the class \texttt{Record} and its constructor.
+
+
+      Use your programming language appropriate constructor.
+
+
+      Save your program as \textbf{Question3\_N25}.
+
+
+      Copy and paste the program code into part \textbf{3(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The procedure \texttt{InitialiseHashTable()} initialises each element in
+      the array to an empty or null record.
+
+
+      Write program code to declare the global 2D array \texttt{HashTable} and the
+      procedure \texttt{InitialiseHashTable()}
+
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(b)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The function \texttt{Hash()}:
+
+
+      \begin{itemize}
+
+      \item takes an integer key field as a parameter
+
+      \item calculates and returns the hash value of the key field.
+
+      \end{itemize}
+
+
+      The hash value is the result from the formula: \texttt{key MOD 100}
+
+
+      Write program code for \texttt{Hash()}
+
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The procedure \texttt{InsertData()}:
+
+
+      \begin{itemize}
+
+      \item takes an object of type \texttt{Record} as a parameter
+
+      \item calculates the hash value for the parameter using the appropriate function
+
+      \item stores the parameter in the correct position in \texttt{HashTable}
+
+      \end{itemize}
+
+
+      You can assume there will be no more than 10 objects that generate the same
+      hash value.
+
+
+      Write program code for \texttt{InsertData()}
+
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(d)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 3e
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The file \texttt{"HashTableData.txt"} stores 200 key values and string
+      data items in the format:
+
+
+      \texttt{key,string}
+
+
+      For example, the first row in the text file is:
+
+
+      \texttt{528,permission}
+
+
+      The key is 528 and the string data is \texttt{"permission"}
+
+
+      The procedure \texttt{ReadData()}:
+
+
+      \begin{itemize}
+
+      \item opens the text file and reads each line
+
+      \item splits each line into the key and data
+
+      \item calls \texttt{InsertData()} with an object containing each key and matching
+      data.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{ReadData()}
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      \textbf{Save your program.} \\
+
+      Copy and paste the program code into part \textbf{3(e)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3f
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The function \texttt{GetRecord()}:
+
+
+      \begin{itemize}
+
+      \item takes an integer key field as a parameter
+
+      \item calculates the hash value for the key field using the appropriate function
+
+      \item searches the hash table for the record with the matching key field
+
+      \item returns the data for the record if the record is found
+
+      \item returns \texttt{"Not found"} if the record is not found.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{GetRecord()}
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      \textbf{Save your program.} \\
+
+      Copy and paste the program code into part \textbf{3(f)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3g
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The main program:
+
+
+      \begin{itemize}
+
+      \item calls \texttt{InitialiseHashTable()} and \texttt{ReadData()}
+
+      \item takes \textbf{five} integer key fields as input from the user
+
+      \item calls \texttt{GetRecord()} with each input and outputs the return value.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions:
+    - number: 3gi
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write program code for the main program.
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{3(g)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3gii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Test your program with the following \textbf{five} inputs in the order
+        given:
+
+
+        528
+
+        1128
+
+        1828
+
+        1062
+
+        39
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+        Copy and paste the screenshot(s) into part \textbf{3(g)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []

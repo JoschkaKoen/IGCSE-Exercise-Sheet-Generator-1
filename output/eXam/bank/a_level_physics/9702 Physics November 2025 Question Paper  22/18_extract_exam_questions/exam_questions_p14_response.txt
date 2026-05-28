@@ -1,0 +1,18 @@
+[thinking]
+**Transcribing Question 5**
+
+Okay, so the user wants me to get Question 5 from this exam page. Let's get to it. Looking at the page, here's what I see: Question 5's introductory text, which includes a circuit with a battery, fixed resistors X and Y, and an LDR labeled Z. The battery's got an EMF of 5.0V and an internal resistance of 4.7Ω. They mention currents $I_1$ in X and $I_2$ in Y, and the resistance of X is given as 100Ω. They also note that the LDR's resistance changes with light intensity, and they refer to Fig. 5.2 for that. Since there aren't any actual sub-questions here, as I'll probably find those on the following page, I'll simply transcribe the introductory portion of Question 5, which seems like the right thing to do based on the user's prompt.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      Fig. 5.1 shows a circuit containing a battery, two fixed resistors X and Y, and a light-dependent resistor (LDR) Z.
+
+      The battery has electromotive force (e.m.f.) $5.0\text{ V}$ and internal resistance $4.7\ \Omega$. The current in X is $I_1$ and the current in Y is $I_2$.
+
+      The resistance of X is $100\ \Omega$. The resistance of Z varies with the intensity of light incident on it as shown in Fig. 5.2.

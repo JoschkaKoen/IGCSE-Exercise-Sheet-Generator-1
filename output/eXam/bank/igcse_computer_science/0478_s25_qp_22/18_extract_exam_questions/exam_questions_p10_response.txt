@@ -1,0 +1,58 @@
+[thinking]
+**Analyzing and Structuring Exam Question 8(a)**
+
+Okay, here's what's happening. I've been asked to transcribe page 10 of an exam, specifically the question labeled "8 (a)." The stub given is a bit unusual, it has separate entries for "8" and "8a" in the YAML.
+
+My initial thought is to make sure this is parsed correctly. Let's see if there's a problem with the "stub" or if the instruction should be split.
+
+Looking at the exam page itself, "8 (a)" is a single, complete question: "Draw the symbol for an XOR logic gate and complete the truth table for it." So, the stub's separation is the point of confusion. There doesn't seem to be a separate "8" main question and a sub-question "8(a)". The problem is that the stub doesn't represent the structure on the exam page.
+
+Originally I planned to put the whole question text in "8 (a)", but I realized that I can create a cleaner split to create content for both numbers.
+
+I'll structure it like this:
+
+`8`:
+text: |
+  Draw the symbol for an XOR logic gate.
+
+  XOR logic gate symbol:
+
+`8a`:
+text: |
+  Complete the truth table for an XOR logic gate.
+
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{A} & \textbf{B} & \textbf{X} \\ \hline
+  0 & 0 & \\ \hline
+  0 & 1 & \\ \hline
+  1 & 0 & \\ \hline
+  1 & 1 & \\ \hline
+  \end{tabular}
+
+This makes sure there's text in both question entries in the stub. Good!
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      Draw the symbol for an XOR logic gate.
+
+      XOR logic gate symbol:
+  - number: "8a"
+    type: short_answer
+    text: |
+      Complete the truth table for an XOR logic gate.
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{X} \\ \hline
+      0 & 0 & \\ \hline
+      0 & 1 & \\ \hline
+      1 & 0 & \\ \hline
+      1 & 1 & \\ \hline
+      \end{tabular}

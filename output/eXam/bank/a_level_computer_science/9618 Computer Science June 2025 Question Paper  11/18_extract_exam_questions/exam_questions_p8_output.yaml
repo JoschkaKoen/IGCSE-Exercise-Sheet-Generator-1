@@ -1,0 +1,39 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A company builds and sells furniture to customers. The company stores data about customers, their payment cards and their furniture orders in a database.
+
+      The database, \texttt{FURNITURE}, has the following tables:
+
+      \texttt{CUSTOMER}(\underline{CustomerID}, Name, Phone)
+
+      \texttt{CUSTOMER\_CARD\_DATA}(\underline{CardID}, CustomerID, CardType, CardNumber, EndDate)
+
+      \texttt{ORDER}(\underline{OrderID}, CustomerID, TotalCost, Paid, OrderDate, Complete)
+
+      \texttt{ORDER\_ITEM}(\underline{OrderItemID}, OrderID, Type, Height, Width, Depth, Details)
+
+      The primary keys are underlined in each table.
+
+      The attribute \texttt{Complete} in the table \texttt{ORDER} stores the Boolean value \texttt{TRUE} if the order has been built and \texttt{FALSE} if the order has not been built.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the entity-relationship (E-R) diagram for the database.
+  - number: "5b"
+    type: short_answer
+    text: |
+      Identify one attribute in the table \texttt{CUSTOMER\_CARD\_DATA} that could be a candidate key.
+  - number: "5c"
+    type: short_answer
+    text: |
+      Identify \textbf{two} tables in the database that contain one or more foreign keys.
+      Give \textbf{one} attribute that is a foreign key in each table.
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & \textbf{Table} & \textbf{Foreign key} \\ \hline
+      1 & & \\ \hline
+      2 & & \\ \hline
+      \end{tabular}

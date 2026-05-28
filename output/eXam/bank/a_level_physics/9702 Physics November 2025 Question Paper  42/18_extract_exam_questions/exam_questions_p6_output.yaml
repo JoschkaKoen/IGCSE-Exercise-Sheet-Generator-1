@@ -1,0 +1,35 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: ''
+  - number: "2a"
+    type: short_answer
+    text: |
+      State Newton’s law of gravitation.
+  - number: "2b"
+    type: short_answer
+    text: |
+      One of the basic assumptions of the kinetic theory of gases is that there are no forces exerted between the molecules of the gas except during collisions.
+
+      State \textbf{two} other basic assumptions of the kinetic theory of gases.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      Hydrogen gas consists of molecules that each have a mass of $3.34 \times 10^{-27} \text{ kg}$. Hydrogen may be considered to be an ideal gas.
+
+      A spherical balloon contains $0.0160 \text{ mol}$ of hydrogen gas at a temperature of $282 \text{ K}$. At this temperature, the volume of gas in the balloon is $1.87 \times 10^{-4} \text{ m}^3$.
+  - number: "2ci"
+    type: calculation
+    text: |
+      Determine the pressure of the gas.
+
+      pressure = \hrulefill $\text{Pa}$
+  - number: "2cii"
+    type: calculation
+    text: |
+      Estimate the average separation of the hydrogen molecules in the gas.
+
+      average separation = \hrulefill $\text{m}$

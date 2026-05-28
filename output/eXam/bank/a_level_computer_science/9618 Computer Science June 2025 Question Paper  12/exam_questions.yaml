@@ -1,0 +1,761 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The table has six statements about the Von Neumann model for a computer system.
+    Three of the statements are incorrect.
+
+
+    \begin{tabular}{|c|l|}
+
+    \hline
+
+    \textbf{Statement number} & \textbf{Statement} \\ \hline
+
+    1 & The Program Counter (PC) stores the next instruction to be fetched from memory.
+    \\ \hline
+
+    2 & The Arithmetic and Logic Unit (ALU) performs mathematical and logical operations.
+    \\ \hline
+
+    3 & The Control Unit (CU) sends signals to other components on the data bus. \\
+    \hline
+
+    4 & The Memory Data Register (MDR) transfers data to the memory address stored
+    in the Memory Address Register (MAR). \\ \hline
+
+    5 & The MAR stores an address from memory. \\ \hline
+
+    6 & The Accumulator (ACC) stores the result of calculations. \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: "Complete the table by writing the \\textbf{three} incorrect statement numbers\
+      \ and the corrected statements.\n\n\\begin{tabular}{|c|l|}\n\\hline\n\\textbf{Incorrect\
+      \ statement number} & \\textbf{Corrected statement} \\\\ \\hline\n & \\\\\n\\\
+      hrulefill & \\hrulefill \\\\\n & \\hrulefill \\\\\n & \\hrulefill \\\\ \\hline\n\
+      \ & \\\\\n\\hrulefill & \\hrulefill \\\\\n & \\hrulefill \\\\\n & \\hrulefill\
+      \ \\\\ \\hline\n & \\\\\n\\hrulefill & \\hrulefill \\\\\n & \\hrulefill \\\\\
+      \n & \\hrulefill \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Registers that are used in the Fetch-Execute (F-E) cycle include the PC,
+      MAR, MDR and the ACC.
+
+
+      Identify \textbf{one} other register and describe its role in the Fetch-Execute
+      (F-E) cycle.
+
+
+      Register \hrulefill
+
+
+      Role'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Explain how an interrupt from an input device will be detected and handled
+      in the F-E cycle.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Convert the denary integer 558 into 12-bit binary and hexadecimal.
+
+
+      Binary \hrulefill
+
+      Hexadecimal \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Convert the two's complement binary integer 11100010 into denary.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the smallest and the largest two''s complement binary integers
+        that can be represented in 8 bits.
+
+
+        Smallest \hrulefill
+
+        Largest \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{one} application where Binary Coded Decimal (BCD) is used
+      and justify its use.
+
+
+      Application \hrulefill
+
+      Justification \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A computer program uses a digital camera to read the words on an item.
+
+
+    The program can read the words that are written on the item, translate the words
+    to a chosen language and then output the words as audio. For example, when used
+    in a supermarket, the program can output the words written on the labels on products.
+
+
+    The program uses Artificial Intelligence (AI).'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Explain how AI is used in the computer program described.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State \textbf{two} social benefits of the use of AI in the computer program
+      described.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The computer program is released under a commercial software licence.
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: long_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Describe the features of a commercial software licence.
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: long_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain the reasons why an open source software licence might not be appropriate
+        for the computer program described.
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the logic expressions for the following logic circuit.
+
+
+      X = \hrulefill
+
+      Y = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the truth table for the logic expression:
+
+
+      $$\textbf{X} = \text{NOT }(\textbf{A} \text{ AND } (\textbf{B} \text{ XOR }
+      \textbf{C}))$$
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An online game has a database that stores data about users and the characters
+    each user creates in the game. Each user can create multiple characters and purchase
+    multiple items for each character.
+
+
+    The normalised database has the following design:
+
+
+    \texttt{USER(Username, Password, DateOfBirth)}
+
+
+    \texttt{CHARACTER(CharacterName, CharacterID, Username, Level, Money)}
+
+
+    \texttt{ITEM(ItemName, MinimumLevel, Cost)}
+
+
+    \texttt{CHARACTER\_ITEM(CharacterID, ItemName)}'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain the purpose of the table \texttt{CHARACTER\_ITEM} in the database.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Underline the attribute, or attributes, that form the primary key in each
+      of the tables.
+
+
+      \texttt{USER(Username, Password, DateOfBirth)}
+
+
+      \texttt{CHARACTER(CharacterName, CharacterID, Username, Level, Money)}
+
+
+      \texttt{ITEM(ItemName, MinimumLevel, Cost)}
+
+
+      \texttt{CHARACTER\_ITEM(CharacterID, ItemName)}'
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A Database Management System (DBMS) provides data security.
+    answer_options: []
+    subquestions:
+    - number: 5ci
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Identify \textbf{two} methods the DBMS can use to protect the data in
+        the table \texttt{USER} from unauthorised access.
+
+
+        Explain how each method protects the data.'
+      answer_options: []
+      subquestions: []
+    - number: 5cii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The DBMS also supports data integrity.
+
+
+        Give \textbf{two} ways that a DBMS can support data integrity.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 5d
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 5di
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Write a Structured Query Language (SQL) script to count the number of
+        items purchased by the user with the username "KAT123".
+      answer_options: []
+      subquestions: []
+    - number: 5dii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The following changes need to be made to the character with the ID "0002":
+
+
+        \begin{itemize}
+
+        \item level changed to 3
+
+        \item money changed to 10000.00
+
+        \end{itemize}
+
+
+        Write an SQL script to change the character’s data.'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A company has multiple sites in different cities.
+
+    The company has drivers who deliver products to customers. Each driver can connect
+    to the company''s WAN (Wide Area Network) whilst out of the office using a smartphone.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State \textbf{two} ways that a WAN is different to a LAN (Local Area Network).
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The smartphones use the cell phone network to connect to the WAN.
+
+
+      Explain how data is transmitted using the cell phone network.'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Devices that connect to the WAN have an IP address.
+
+
+      Complete the following description of IP addresses by writing the missing words.
+
+
+      IPv4 is displayed as four groups of 8-bit numbers separated by \underline{\hspace{1.5em}}.
+
+
+      Each IPv4 address is 32 bits.
+
+
+      IPv6 is made of eight groups of 4 \underline{\hspace{1.5em}} numbers separated
+      by colons.
+
+
+      Multiple consecutive groups of \underline{\hspace{1.5em}} can be replaced with
+      a double colon.
+
+
+      Each IPv6 address is \underline{\hspace{1.5em}} bits.
+
+
+      A \underline{\hspace{1.5em}} IP address can change each time the computer connects
+      to a network.
+
+
+      A \underline{\hspace{1.5em}} IP address can only be accessed by other devices
+      in the same LAN and is assigned by the router within the LAN.'
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The main office for the company has four wired computers, one server, two
+      printers, one central switch and a device providing a single point of access
+      for the internet. The network is set up as a star topology.
+
+
+      Draw the topology for the main office network. Label all devices.'
+    answer_options: []
+    subquestions: []
+  - number: 6e
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe the role of a switch in a network.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The following table shows part of the instruction set for a processor. The
+    processor has one register: the Accumulator (ACC).
+
+
+    \begin{tabular}{|l|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+    \\ \hline
+
+    \textbf{Opcode} & \textbf{Operand} & \\ \hline
+
+    LDD & <address> & Direct addressing. Load the contents of the location at the
+    given address to ACC \\ \hline
+
+    LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+
+    STO & <address> & Store the contents of ACC at the given address \\ \hline
+
+    ADD & \#n/Bn/\&n & Add the number n to the ACC \\ \hline
+
+    ADD & <address> & Add the contents of the given address to the ACC \\ \hline
+
+    INC & <register> & Add 1 to the contents of the register (ACC) \\ \hline
+
+    CMP & <address> & Compare the contents of ACC with the contents of <address> \\
+    \hline
+
+    CMP & \#n & Compare the contents of ACC with number n \\ \hline
+
+    JPE & <address> & Following a compare instruction, jump to <address> if the compare
+    was True \\ \hline
+
+    JMP & <address> & Jump to the given address \\ \hline
+
+    END & & Return control to the operating system \\ \hline
+
+    \end{tabular}
+
+
+    ACC denotes Accumulator
+
+    <address> can be an absolute or a symbolic address
+
+    \# denotes a denary number, e.g. \#123
+
+    B denotes a binary number, e.g. B01001010
+
+    \& denotes a hexadecimal number, e.g. \&4A'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The current contents of memory are:
+
+
+      \begin{tabular}{r|l|}
+
+      \cline{2-2}
+
+      \textbf{10} & 12 \\ \cline{2-2}
+
+      \textbf{11} & 11 \\ \cline{2-2}
+
+      \textbf{12} & 10 \\ \cline{2-2}
+
+      \textbf{13} & 22 \\ \cline{2-2}
+
+      \textbf{14} & 22 \\ \cline{2-2}
+
+      ... & \\ \cline{2-2}
+
+      \textbf{100} & LDD 10 \\ \cline{2-2}
+
+      \textbf{101} & ADD 12 \\ \cline{2-2}
+
+      \textbf{102} & STO 11 \\ \cline{2-2}
+
+      \textbf{103} & CMP 14 \\ \cline{2-2}
+
+      \textbf{104} & JPE 107 \\ \cline{2-2}
+
+      \textbf{105} & INC ACC \\ \cline{2-2}
+
+      \textbf{106} & JMP 101 \\ \cline{2-2}
+
+      \textbf{107} & STO 10 \\ \cline{2-2}
+
+      \textbf{108} & END \\ \cline{2-2}
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 7ai
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: "Trace the program currently in memory using the following trace table.\n\
+        \n\\begin{tabular}{|c|c|c|c|c|c|c|}\n\\hline\n\\multirow{2}{*}{\\textbf{Instruction\
+        \ address}} & \\multirow{2}{*}{\\textbf{ACC}} & \\multicolumn{5}{c|}{\\textbf{Memory\
+        \ address}} \\\\ \\cline{3-7}\n & & \\textbf{10} & \\textbf{11} & \\textbf{12}\
+        \ & \\textbf{13} & \\textbf{14} \\\\ \\hline\n & & 12 & 11 & 10 & 22 & 22\
+        \ \\\\ \\hline\n & & & & & & \\\\ \\hline\n & & & & & & \\\\ \\hline\n & &\
+        \ & & & & \\\\ \\hline\n & & & & & & \\\\ \\hline\n & & & & & & \\\\ \\hline\n\
+        \ & & & & & & \\\\ \\hline\n & & & & & & \\\\ \\hline\n & & & & & & \\\\ \\\
+        hline\n & & & & & & \\\\ \\hline\n\\end{tabular}"
+      answer_options: []
+      subquestions: []
+    - number: 7aii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the effect of changing instruction \texttt{LDD 10} in address 100
+        to \texttt{LDM \#10}
+      answer_options: []
+      subquestions: []
+    - number: 7aiii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Identify \textbf{and} describe \textbf{one} mode of addressing \textbf{not}
+        given in the table of instructions in part (a).
+
+
+        Mode of addressing \hrulefill
+
+
+        Description'
+      answer_options: []
+      subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The table shows part of the instruction set for a processor. The processor
+      has one register: the Accumulator (ACC).
+
+
+      \begin{tabular}{|c|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+      \\ \cline{1-2}
+
+      \textbf{Opcode} & \multicolumn{1}{c|}{\textbf{Operand}} & \\ \hline
+
+      \texttt{AND} & \texttt{\#n/Bn/\&n} & Bitwise AND operation of the contents of
+      ACC with the operand \\ \hline
+
+      \texttt{AND} & \texttt{<address>} & Bitwise AND operation of the contents of
+      ACC with the contents of \texttt{<address>} \\ \hline
+
+      \texttt{XOR} & \texttt{\#n/Bn/\&n} & Bitwise XOR operation of the contents of
+      ACC with the operand \\ \hline
+
+      \texttt{XOR} & \texttt{<address>} & Bitwise XOR operation of the contents of
+      ACC with the contents of \texttt{<address>} \\ \hline
+
+      \texttt{OR} & \texttt{\#n/Bn/\&n} & Bitwise OR operation of the contents of
+      ACC with the operand \\ \hline
+
+      \texttt{OR} & \texttt{<address>} & Bitwise OR operation of the contents of ACC
+      with the contents of \texttt{<address>} \\ \hline
+
+      \end{tabular}
+
+
+      \texttt{<address>} can be an absolute or symbolic address
+
+      \texttt{\#} denotes a denary number, e.g. \texttt{\#123}
+
+      \texttt{B} denotes a binary number, e.g. \texttt{B01001010}
+
+      \texttt{\&} denotes a hexadecimal number, e.g. \texttt{\&4A}'
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The ACC currently contains the following binary value.
+
+
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+        \hline
+
+        1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 \\ \hline
+
+        \end{tabular}
+
+
+        Write the result after the instruction \texttt{OR B00001111} is run.
+
+
+        \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The ACC currently contains the following binary value.
+
+
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+        \hline
+
+        0 & 0 & 0 & 1 & 1 & 1 & 0 & 1 \\ \hline
+
+        \end{tabular}
+
+
+        Write the result after the instruction \texttt{XOR \#30} is run.
+
+
+        \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}'
+      answer_options: []
+      subquestions: []

@@ -1,0 +1,27 @@
+```yaml
+questions:
+  - number: "1cii"
+    type: calculation
+    text: |
+      Give the binary number for the given hexadecimal numbers.
+
+      15 \hrulefill
+      2D \hrulefill
+      091 \hrulefill
+  - number: "1d"
+    type: calculation
+    text: |
+      Binary integers can be added together.
+
+      Add the \textbf{two} binary integers using binary addition. Show all your working. Give your answer in binary.
+
+      \begin{tabular}{rcccccccc}
+        & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\
+      + & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+      \hline
+      \end{tabular}
+  - number: "1e"
+    type: calculation
+    text: |
+      Calculate the denary number for the two’s complement binary integer 10001110. Show all your working.
+```

@@ -1,0 +1,101 @@
+[thinking]
+Here's the YAML-formatted summary of my thought process:
+
+```yaml
+summary: |
+  Okay, I need to transcribe page 8 of this exam paper.  The task is to get the questions and options for questions 14 through 17. Let's break this down.
+
+  **Question 14:**  This is about torque. Two forces, each with magnitude *F*, act in opposite directions on a rod, distance *d* from a pivot.  The question is: "What is the torque of this couple about P?"  I can immediately see the answer is not zero. The correct answer must be $2F \times d$.
+
+  **Question 15:**  This seems to involve pressure. A man weighing 600 N is standing on the ground. The question asks for a "reasonable estimate" of the pressure. I'll need to think about the typical area of a human foot, then divide force (weight) by area to estimate the pressure.  The answers are given in Pascal, I should note that.
+
+  **Question 16:**  Upthrust formula, $F = \rho gV$.  The question is about what $\rho$ and $V$ represent.  *rho* is the density of the fluid (water) and *V* is the volume of fluid displaced - so the volume of the block *below* the surface. The options are nicely laid out. It looks like the most accurate representation will be using text, as a table would be overkill. I will clearly indicate that rho is water density and V is the displaced volume. I think I'll make the formatting for the answer using text, as a table would be overkill.
+
+  **Question 17:**  Gravitational potential energy. A 100g object falls 10m.  The question is about the change in gravitational potential energy. I need to remember the formula $PE = mgh$, ensuring I have the correct units.  100g = 0.1 kg. Thus, change in PE is $(0.1kg) * (9.8 m/s^2) * (10m) \approx 10J$. So, $10J$ is the best answer.
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "14"
+    type: multiple_choice
+    text: |
+      Two forces, each of magnitude $F$, act in opposite directions on a rod.
+
+      Each force acts on the rod at a distance $d$ from the pivot P.
+
+      What is the torque of this couple about P?
+    options:
+      - letter: A
+        text: |
+          0
+      - letter: B
+        text: |
+          $F \times d$
+      - letter: C
+        text: |
+          $2F \times d$
+      - letter: D
+        text: |
+          $2F \times 2d$
+  - number: "15"
+    type: multiple_choice
+    text: |
+      A man of weight $600\text{ N}$ stands with both feet flat on the ground.
+
+      What is a reasonable estimate of the pressure exerted on the ground by the weight of the man?
+    options:
+      - letter: A
+        text: |
+          $1 \times 10^0\text{ Pa}$
+      - letter: B
+        text: |
+          $1 \times 10^2\text{ Pa}$
+      - letter: C
+        text: |
+          $1 \times 10^4\text{ Pa}$
+      - letter: D
+        text: |
+          $1 \times 10^6\text{ Pa}$
+  - number: "16"
+    type: multiple_choice
+    text: |
+      The formula for the upthrust on a block of wood partially submerged in water is shown.
+
+      $$F = \rho gV$$
+
+      What do the symbols $\rho$ and $V$ represent?
+    options:
+      - letter: A
+        text: |
+          $\rho$: density of water; $V$: volume of whole block
+      - letter: B
+        text: |
+          $\rho$: density of water; $V$: volume of block below surface of water
+      - letter: C
+        text: |
+          $\rho$: density of wood; $V$: volume of whole block
+      - letter: D
+        text: |
+          $\rho$: density of wood; $V$: volume of block below surface of water
+  - number: "17"
+    type: multiple_choice
+    text: |
+      An object with a mass of $100\text{ g}$ falls a vertical distance of $10\text{ m}$.
+
+      What is the change in the gravitational potential energy of the object?
+    options:
+      - letter: A
+        text: |
+          $1\text{ J}$
+      - letter: B
+        text: |
+          $10\text{ J}$
+      - letter: C
+        text: |
+          $100\text{ J}$
+      - letter: D
+        text: |
+          $10\,000\text{ J}$

@@ -1,0 +1,26 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      State what is meant by the frequency of the oscillations of an oscillating object.
+  - number: "4b"
+    type: short_answer
+    text: |
+      An object is oscillating.
+
+      Fig. 4.1 shows the variation of the acceleration $a$ of the object with its displacement $x$ from the equilibrium position.
+
+      Fig. 4.2 shows the variation of the kinetic energy $E_{\text{K}}$ of the object with time $t$.
+  - number: "4bi"
+    type: short_answer
+    text: |
+      Explain how Fig. 4.2 shows that the period of the oscillations is 0.80 s.
+  - number: "4bii"
+    type: calculation
+    text: |
+      Calculate the angular frequency $\omega$ of the oscillations.
+
+      $\omega = $ \hrulefill $\text{rad}\,\text{s}^{-1}$

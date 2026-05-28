@@ -1,0 +1,50 @@
+[thinking]
+**Exam Page 10: Transcription Task**
+
+Okay, so I need to transcribe page 10 of this exam. The task is pretty straightforward: questions "4" and "4a". Let's see...
+
+Right, question 4 is an introductory section about a cylinder containing an ideal gas undergoing a cyclic process. It gives the initial pressure and volume ($2Y$ and $6X$), and mentions a sequence of states (A, B, C, D) with figures provided. It also refers to a figure showing the internal energy variation with time. I'll need to make sure those figures are clearly referenced.
+
+I'm thinking, since this intro text is part of the question itself, I'll structure this in the YAML as the main text for question 4.
+
+For question 4, I'll create this YAML structure:
+
+```yaml
+  - number: "4"
+    type: short_answer
+    text: |
+      A cylinder contains a fixed mass of an ideal gas at pressure $2Y$ and volume $6X$.
+
+      The gas undergoes a sequence of changes from its initial state A, through states B, C and D, then finally back to its initial state A, as shown in Fig. 4.1.
+
+      Fig. 4.2 shows the variation with time of the internal energy of the gas.
+```
+
+And then, question 4a is simple: it asks for the First Law of Thermodynamics, worth 2 marks. I'll represent this in the YAML like this:
+
+```yaml
+  - number: "4a"
+    type: short_answer
+    text: |
+      State the first law of thermodynamics.
+```
+
+Okay, I've checked for any other details – no options, no image commands, and everything is a short answer, so that should do it. Let me move on to the next section.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A cylinder contains a fixed mass of an ideal gas at pressure $2Y$ and volume $6X$.
+
+      The gas undergoes a sequence of changes from its initial state A, through states B, C and D, then finally back to its initial state A, as shown in Fig. 4.1.
+
+      Fig. 4.2 shows the variation with time of the internal energy of the gas.
+  - number: "4a"
+    type: short_answer
+    text: |
+      State the first law of thermodynamics.

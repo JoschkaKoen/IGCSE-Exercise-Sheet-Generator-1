@@ -1,0 +1,33 @@
+questions:
+  - number: "2biii"
+    type: long_answer
+    text: |
+      Suppliers send invoices to the company for the parts that are used. A new table, \texttt{INVOICE}, stores the data about each invoice and whether it has been paid or not.
+
+      The design for the table \texttt{INVOICE} is shown:
+
+      \texttt{INVOICE(InvoiceID, SupplierID, AmountDue, Paid, DatePaid)}
+
+      The table shows sample data for the table \texttt{INVOICE}.
+
+      \begin{tabular}{|l|l|l|l|l|}
+      \hline
+      \textbf{InvoiceID} & \textbf{SupplierID} & \textbf{AmountDue} & \textbf{Paid} & \textbf{DatePaid} \\ \hline
+      000001 & JK675 & 22.50 & TRUE & 01/01/2024 \\ \hline
+      000002 & WR443 & 358.99 & FALSE & \\ \hline
+      000003 & JK675 & 10.21 & FALSE & \\ \hline
+      \end{tabular}
+
+      Write an SQL script to return the total amount due to the supplier with the ID of JK675 for all the invoices that have not currently been paid.
+  - number: "2c"
+    type: short_answer
+    text: |
+      Complete the table by writing a definition for each of the database terms.
+
+      \begin{tabular}{|c|p{10cm}|}
+      \hline
+      \textbf{Term} & \multicolumn{1}{c|}{\textbf{Definition}} \\ \hline
+      Referential integrity & \newline\newline \\ \hline
+      Candidate key & \newline\newline \\ \hline
+      Tuple & \newline\newline \\ \hline
+      \end{tabular}

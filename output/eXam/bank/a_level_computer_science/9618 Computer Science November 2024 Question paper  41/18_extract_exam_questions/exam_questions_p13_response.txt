@@ -1,0 +1,43 @@
+[thinking]
+**Transcribing Question 3b: Procedure InsertData()**
+
+Okay, so the user wants me to transcribe question "3b" from page 13. Let's get right to it. It looks like it's asking for the text of the question, not the answer. First, let me strip that pesky subquestion prefix, `(b)`. Now, I need to extract the actual text of the question.
+
+The question is about a procedure called `InsertData()`. It takes *five* positive integers as input from the user and inserts them into a linked list. Each piece of data gets inserted at the *front* of the list. That seems straightforward enough, typical linked list insertion.
+
+There's a table describing the steps based on the linked list state. I can see that it's in a LaTeX table format, but let's make it more presentable and ensure it's compile-ready. Let me strip the surrounding latex formatting to make sure the table code is as concise as possible. The states are "not full" and "full". When the list is "not full," the steps are: insert the data at the index pointed to by `FirstEmpty`, change the pointer to the index pointed to by `FirstNode`, and then change the values of `FirstNode` and `FirstEmpty`. If the list is "full", the procedure simply ends. Also, any node at the end of the list has a pointer value of -1.
+
+Finally, the question asks for program code for `InsertData()`. The instructions specify that I need to save the program and then copy and paste the code into part 3(b) of the evidence document. So, the output should be a plain text question and the latex table.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3b"
+    type: long_answer
+    text: |
+      The procedure \texttt{InsertData()} takes \textbf{five} positive integers as input from the user and inserts these into the linked list.
+
+      Each data item is inserted at the front of the linked list.
+
+      The table shows the steps to follow depending on the state of the linked list:
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Linked list state} & \textbf{Steps} \\ \hline
+      not full & insert the data in the index pointed to by \texttt{FirstEmpty} \\
+       & change the pointer to the index pointed to by \texttt{FirstNode} \\
+       & change the values of \texttt{FirstNode} and \texttt{FirstEmpty} \\ \hline
+      full & end the procedure \\ \hline
+      \end{tabular}
+
+      Any node that is at the end of the linked list has a pointer of $-1$.
+
+      Write program code for \texttt{InsertData()}.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(b)} in the evidence document. \\ \hline
+      \end{tabular}

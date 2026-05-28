@@ -1,0 +1,33 @@
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1di"
+    type: calculation
+    text: |
+      It is suggested that the quantities $T_Q$ and $T_P$ are related by the equation
+
+      $$T_Q = A + BT_P$$
+
+      where $A$ and $B$ are constants.
+
+      Using your answers in \textbf{(c)(iii)}, determine the values of $A$ and $B$.
+      Give appropriate units.
+
+      $A = $ \hrulefill
+
+      $B = $ \hrulefill
+  - number: "1dii"
+    type: calculation
+    text: |
+      Theory suggests that
+
+      $$R = F \sin\theta - \frac{2A}{S}$$
+
+      where $R$ is the weight of the rod and $F$ has the value $2.94\text{ N}$.
+
+      Use your answers in \textbf{(a)(i)} and \textbf{(d)(i)} to determine a value for $R$.
+      Give an appropriate unit.
+
+      $R = $ \hrulefill

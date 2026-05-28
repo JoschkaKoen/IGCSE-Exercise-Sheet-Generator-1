@@ -1,0 +1,50 @@
+[thinking]
+**Exam Question Transcription**
+
+Okay, so the user wants me to transcribe some questions from page 17 of this exam.  Let's break this down systematically. I need to make sure the formatting is spot on, which is key to avoid any confusion later on.
+
+First up, "7bii". They want a calculation of "the resistance R, in kΩ".  I'll translate that to:
+
+```
+the resistance $R$, in $\text{k}\Omega$
+
+$R = \hrulefill \text{ k}\Omega$
+```
+
+That looks right; the value on the left and unit on the right. Good. Now, "7biii" requires calculation of "the time constant τ of the circuit."  Easy enough:
+
+```
+the time constant $\tau$ of the circuit.
+
+$\tau = \hrulefill \text{ s}$
+```
+
+Perfect. One blank line between question and response as requested. Finally, "7c" is a long answer question: "Use Fig. 7.2, Fig. 7.3 and your answer in (a) to explain why the variation of Q with t is exponential in nature." No calculation, so no answer line is required. Let's make sure that's formatted clearly:
+
+```
+Use Fig. 7.2, Fig. 7.3 and your answer in (a) to explain why the variation of $Q$ with $t$ is exponential in nature.
+```
+
+Okay, I've checked the formatting rules carefully, especially the placement of the answer lines and units. Now I need to render this as YAML.  Ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7bii"
+    type: calculation
+    text: |
+      the resistance $R$, in $\text{k}\Omega$
+
+      $R = \hrulefill \text{ k}\Omega$
+  - number: "7biii"
+    type: calculation
+    text: |
+      the time constant $\tau$ of the circuit.
+
+      $\tau = \hrulefill \text{ s}$
+  - number: "7c"
+    type: long_answer
+    text: |
+      Use Fig. 7.2, Fig. 7.3 and your answer in (a) to explain why the variation of $Q$ with $t$ is exponential in nature.

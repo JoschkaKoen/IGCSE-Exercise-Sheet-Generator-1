@@ -1,0 +1,23 @@
+questions:
+  - number: "6c"
+    type: calculation
+    text: |
+      The capacitor C has a capacitance of $570\ \mu\text{F}$.
+
+      Use your answer in \textbf{(b)(iv)} to determine the resistance of resistor R.
+
+      resistance = \hrulefill $\Omega$
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      Define magnetic flux density.
+  - number: "7b"
+    type: short_answer
+    text: |
+      A particle of mass $m$ and charge $+Q$ moves at speed $v$ into a region where there is a uniform magnetic field, as shown in Fig. 7.1.
+
+      The uniform magnetic field is into the page and has flux density $B$. The particle enters the region of the field at point Y.

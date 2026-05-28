@@ -1,0 +1,84 @@
+[thinking]
+**Analyzing Exam Question 2g from Page 12**
+
+Okay, so the task is to transcribe questions from page 12 of the exam. The first entry is "2g." Wait, the page starts with "(g) (i)..." so it is likely a sub-question of "(g)". I need to figure out if "2g" is a parent question, a stub error, or simply a non-existent question in the text. Let's check the provided YAML stub for guidance. The stub has entries for "2g," "2gi," and "2gii."
+
+"2g" is listed, but there's no actual text for "2g" itself, just the introduction to the sub-questions. Is this just a missing stem? Maybe "(g)" is the question, but it's directly followed by "(i)". The instructions say, "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it." This feels like the case. Since there's no stem for "2g" and the stub lists it, I'll flag it as `STUB ERROR`.
+
+Now, let's examine "2gi." It asks to describe four sources of uncertainty. I need to make sure the formatting is correct for the answer slots. The instructions require a specific format for numbered answer slots.  It should look like this:
+
+`1. \hrulefill`
+`2. \hrulefill`
+`3. \hrulefill`
+`4. \hrulefill`
+
+And there should be a blank line between the instructions and the first slot. Also, no blank lines between numbered slots.
+
+So "2gi" should look like this:
+
+```yaml
+  - number: "2gi"
+    type: long_answer
+    text: |
+      Describe \textbf{four} sources of uncertainty or limitations of the procedure for this experiment.
+
+      For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+```
+
+Now, onto "2gii." It wants us to describe four improvements. It'll follow the same formatting as "2gi."
+
+```yaml
+  - number: "2gii"
+    type: long_answer
+    text: |
+      Describe \textbf{four} improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+```
+
+Finally, I'm re-confirming that "2g" is a `STUB ERROR`. The text is clear: the stem is missing, and the stub includes the question. I'm going to put `STUB ERROR` in a block scalar.
+```yaml
+  - number: "2g"
+    type: short_answer
+    text: |
+      STUB ERROR
+```
+Done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2g"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2gi"
+    type: long_answer
+    text: |
+      Describe \textbf{four} sources of uncertainty or limitations of the procedure for this experiment.
+
+      For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "2gii"
+    type: long_answer
+    text: |
+      Describe \textbf{four} improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill

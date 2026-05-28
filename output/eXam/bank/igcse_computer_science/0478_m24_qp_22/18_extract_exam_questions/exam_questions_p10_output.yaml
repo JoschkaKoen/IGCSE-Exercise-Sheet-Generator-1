@@ -1,0 +1,24 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      This flowchart represents an algorithm to find the average size of groups of visitors to an attraction.
+
+      Complete the trace table using this data:
+
+      7, 10, 2, 8, 3, 9, 0, 6
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{NumberGroups} & \textbf{Total} & \textbf{GroupSize} & \textbf{Average} & \textbf{OUTPUT} \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+      \end{tabular}

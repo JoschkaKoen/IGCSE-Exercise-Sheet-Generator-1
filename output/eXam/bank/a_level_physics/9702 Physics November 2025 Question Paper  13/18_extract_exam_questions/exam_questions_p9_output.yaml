@@ -1,0 +1,43 @@
+questions:
+  - number: "18"
+    type: multiple_choice
+    text: |
+      A bungee jumper jumps from a platform and is decelerated by an elastic bungee cord, as shown.
+
+      When the jumper makes the jump, his initial gravitational potential energy relative to the ground is converted into his kinetic energy and into elastic potential energy in the cord.
+
+      At which part of the jump are all three types of energy non-zero?
+    options:
+      - letter: A
+        text: |
+          on the platform before the jump
+      - letter: B
+        text: |
+          on the way down before the cord has started to extend
+      - letter: C
+        text: |
+          on the way down as he decelerates
+      - letter: D
+        text: |
+          at the bottom of the jump when he is stationary
+  - number: "19"
+    type: multiple_choice
+    text: |
+      A sailboat is pushed by the wind at a constant velocity $v$ across a lake.
+
+      The force of the wind and the velocity of the sailboat are in the same direction.
+
+      Which additional information is required to determine the work done per unit time by the wind acting on the sailboat?
+    options:
+      - letter: A
+        text: |
+          the force exerted by the wind
+      - letter: B
+        text: |
+          the distance travelled by the sailboat per unit time
+      - letter: C
+        text: |
+          the total energy input to the sailboat by the wind
+      - letter: D
+        text: |
+          the weight of the sailboat

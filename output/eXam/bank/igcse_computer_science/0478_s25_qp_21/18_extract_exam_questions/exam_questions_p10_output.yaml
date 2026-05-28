@@ -1,0 +1,5 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      The flowchart represents an algorithm to calculate grades.

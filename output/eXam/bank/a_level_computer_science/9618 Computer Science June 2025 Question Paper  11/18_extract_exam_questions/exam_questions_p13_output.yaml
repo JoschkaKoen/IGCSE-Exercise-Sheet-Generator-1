@@ -1,0 +1,9 @@
+```yaml
+questions:
+  - number: "7c"
+    type: long_answer
+    text: |
+      The data that is transferred can also be verified using a checksum.
+
+      Explain how data can be verified using a checksum.
+```

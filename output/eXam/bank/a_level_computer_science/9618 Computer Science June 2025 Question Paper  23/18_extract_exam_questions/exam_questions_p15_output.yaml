@@ -1,0 +1,7 @@
+questions:
+  - number: "7aii"
+    type: short_answer
+    text: |
+      The programmer decides to amend the \texttt{UpdateVisit()} module so that loyalty points are further increased if the customer visits the coffee shop the same day of the week as their last visit.
+
+      Write the pseudocode for this condition.

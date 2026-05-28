@@ -1,0 +1,29 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      Denary numbers can also be converted to hexadecimal.
+
+      Give the hexadecimal number for each of the \textbf{three} denary numbers.
+
+      14 \hrulefill
+      100 \hrulefill
+      250 \hrulefill
+  - number: "3d"
+    type: short_answer
+    text: |
+      A binary integer that is stored in a register in the computer has a logical left shift performed on it.
+  - number: "3di"
+    type: short_answer
+    text: |
+      Describe the process of the logical left shift that is performed on the binary integer.
+  - number: "3dii"
+    type: short_answer
+    text: |
+      State what effect this will have on the binary integer.
+  - number: "3e"
+    type: short_answer
+    text: |
+      A negative binary integer needs to be stored in a register in the computer.
+
+      Give the name of the number system that can be used to represent negative binary integers.

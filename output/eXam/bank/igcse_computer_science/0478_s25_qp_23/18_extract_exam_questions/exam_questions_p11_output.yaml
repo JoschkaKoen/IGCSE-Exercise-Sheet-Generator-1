@@ -1,0 +1,26 @@
+```yaml
+questions:
+  - number: "7bi"
+    type: short_answer
+    text: |
+      Write the logic expression for the security system.
+
+      \textbf{A} = \hrulefill
+  - number: "7bii"
+    type: short_answer
+    text: |
+      Complete the truth table for the security system.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{L} & \textbf{M} & \textbf{S} & \textbf{Working space} & \textbf{A} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}
+```

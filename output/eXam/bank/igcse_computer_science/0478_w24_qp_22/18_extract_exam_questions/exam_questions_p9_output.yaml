@@ -1,0 +1,16 @@
+questions:
+  - number: "10"
+    type: long_answer
+    text: |
+      The function \texttt{LENGTH(X)} calculates the length of a string \texttt{X}
+
+      Write the pseudocode statements to:
+
+      \begin{itemize}
+      \item allow a line of text to be input to an appropriate variable
+      \item store this line of text in a text file called \texttt{Main.txt}
+      \item calculate the length of the line of text and output the text in lower case along with its length
+      \item store the lower-case line of text in a text file called \texttt{Lowercase.txt}
+      \end{itemize}
+
+      Make sure that any variables used are declared and that both text files are closed after they have been used.

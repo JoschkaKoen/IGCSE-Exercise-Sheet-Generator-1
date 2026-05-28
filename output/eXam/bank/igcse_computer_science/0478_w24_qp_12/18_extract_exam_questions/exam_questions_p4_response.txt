@@ -1,0 +1,46 @@
+[thinking]
+**Exam Page 4 Transcription Summary**
+
+Okay, so the user wants me to transcribe page 4 of the exam paper. Let's break this down systematically. First, I need to get the questions from the page, which are: "3c", "3d", "3di", "3dii", and "3e".
+
+"3c" involves converting denary numbers to hexadecimal. The question is straightforward: provide the hexadecimal equivalents for the denary values 14, 100, and 250, with blank spaces for the answer. I need to format this properly, including the bolded "three" as specified. I need to make sure I am correctly implementing the formatting rules.
+
+Now, looking at "3d," it introduces the concept of a logical left shift on a binary integer stored in a register. The user may be thinking, that "3d" doesn't contain a question. On the other hand, the user has correctly identified that "3di" is the description of the process, and "3dii" asks about the effect of that shift on the integer's value. I will therefore transcribe these into their own yaml snippets.
+
+Finally, "3e" deals with representing negative binary integers in a register. It asks for the name of the number system employed for this purpose.
+
+I've made sure to double-check the formatting, especially regarding blank lines between questions and answers, as well as the bolded text. I am going to make sure to create the yaml code that accurately represents the data. This looks like a complete and well-formatted transcription now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      Denary numbers can also be converted to hexadecimal.
+
+      Give the hexadecimal number for each of the \textbf{three} denary numbers.
+
+      14 \hrulefill
+      100 \hrulefill
+      250 \hrulefill
+  - number: "3d"
+    type: short_answer
+    text: |
+      A binary integer that is stored in a register in the computer has a logical left shift performed on it.
+  - number: "3di"
+    type: short_answer
+    text: |
+      Describe the process of the logical left shift that is performed on the binary integer.
+  - number: "3dii"
+    type: short_answer
+    text: |
+      State what effect this will have on the binary integer.
+  - number: "3e"
+    type: short_answer
+    text: |
+      A negative binary integer needs to be stored in a register in the computer.
+
+      Give the name of the number system that can be used to represent negative binary integers.

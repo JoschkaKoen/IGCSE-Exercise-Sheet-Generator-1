@@ -1,0 +1,27 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      Data is processed by the central processing unit (CPU) in a computer that has a Von Neumann architecture.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the table with the missing terms and definitions about processing data.
+
+      \begin{tabular}{|p{5cm}|p{8cm}|}
+      \hline
+      \textbf{Term} & \textbf{Definition} \\ \hline
+      current instruction register (CIR) & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+      \hrulefill & This is a processing unit within the CPU that can fetch, decode and execute instructions. \\ \hline
+      \hrulefill & This is a list of all the commands that can be processed by the CPU. \\ \hline
+      cache & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+      accumulator & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: short_answer
+    text: |
+      Identify the component in the CPU that is responsible for decoding an instruction.
+  - number: "5c"
+    type: long_answer
+    text: |
+      Explain how the clock speed can affect the performance of a CPU.

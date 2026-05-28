@@ -1,0 +1,93 @@
+[thinking]
+**Exam Page 9 YAML Stub Completion**
+
+Okay, so I need to populate the YAML stub for exam page 9. The user wants me to translate the exam questions into the appropriate YAML format. Let's break this down.
+
+First, I need to map the question structure. It looks like the questions are organized as follows: `9`, `9a`, `9ai`, `9aii`, `9b`, then we have a new question `10`, with subquestions `10a`, and `10b`.
+
+I'm starting with question 9. The instructions say, "Deep Learning is a form of Machine Learning." That introductory statement feels a bit ambiguous on where to put it in the stub, but my assessment is that `9a` is the most natural fit. So `9` will be left empty since it's only the start of a section.
+
+Now let's translate the questions one by one into the YAML format, let's keep it really clean:
+
+Here is what I'm thinking, in YAML format:
+
+```yaml
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      Deep Learning is a form of Machine Learning.
+  - number: "9ai"
+    type: short_answer
+    text: |
+      State one example where Deep Learning is used.
+  - number: "9aii"
+    type: short_answer
+    text: |
+      Identify how Deep Learning can be made more effective.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Describe the back propagation of errors method in Machine Learning.
+  - number: "10"
+    type: short_answer
+    text: |
+      An exception is an error that may cause a program to halt unexpectedly.
+  - number: "10a"
+    type: short_answer
+    text: |
+      Describe how program termination due to an exception can be avoided.
+  - number: "10b"
+    type: short_answer
+    text: |
+      Identify \textbf{two} possible causes of exceptions.
+
+      1. \hrulefill
+      2. \hrulefill
+```
+
+Okay, now let's make sure I didn't miss anything. Seems good. Done.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      Deep Learning is a form of Machine Learning.
+  - number: "9ai"
+    type: short_answer
+    text: |
+      State \textbf{one} example where Deep Learning is used.
+  - number: "9aii"
+    type: short_answer
+    text: |
+      Identify how Deep Learning can be made more effective.
+  - number: "9b"
+    type: long_answer
+    text: |
+      Describe the back propagation of errors method in Machine Learning.
+  - number: "10"
+    type: short_answer
+    text: |
+      An exception is an error that may cause a program to halt unexpectedly.
+  - number: "10a"
+    type: short_answer
+    text: |
+      Describe how program termination due to an exception can be avoided.
+  - number: "10b"
+    type: short_answer
+    text: |
+      Identify \textbf{two} possible causes of exceptions.
+
+      1. \hrulefill
+      2. \hrulefill
+```

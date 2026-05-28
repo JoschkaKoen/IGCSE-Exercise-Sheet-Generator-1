@@ -1,0 +1,951 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is a reasonable estimate of the weight of an adult human?
+  answer_options:
+  - letter: A
+    text: $7 \times 10^0 \text{ N}$
+  - letter: B
+    text: $7 \times 10^2 \text{ N}$
+  - letter: C
+    text: $7 \times 10^4 \text{ N}$
+  - letter: D
+    text: $7 \times 10^6 \text{ N}$
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What describes a set of data with a high precision?
+  answer_options:
+  - letter: A
+    text: data measured using equipment with small scale divisions
+  - letter: B
+    text: data that is close to the accepted value
+  - letter: C
+    text: data with each value having a low uncertainty
+  - letter: D
+    text: data with repeats that are close to each other
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which physical quantity could have units of $\text{N s}^2 \text{m}^{-1}$?
+  answer_options:
+  - letter: A
+    text: acceleration
+  - letter: B
+    text: force
+  - letter: C
+    text: mass
+  - letter: D
+    text: momentum
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A ball is released from rest. The distance the ball falls and the time the
+    ball takes to fall that distance are both measured.
+
+
+    The percentage uncertainty in the measured distance is negligible. The percentage
+    uncertainty in the measured time is 4\%.
+
+
+    The distance and the time are then used to calculate the acceleration of free
+    fall.
+
+
+    Air resistance is negligible.
+
+
+    What is the percentage uncertainty in the calculated value of the acceleration
+    of free fall?'
+  answer_options:
+  - letter: A
+    text: 2\%
+  - letter: B
+    text: 4\%
+  - letter: C
+    text: 8\%
+  - letter: D
+    text: 16\%
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A car has an initial velocity $u$. The car then moves with constant acceleration
+    $a$ in a straight line through a displacement $d$. The car reaches a final velocity
+    $v$.
+
+
+    Which expression gives the initial velocity $u$ of the car?'
+  answer_options:
+  - letter: A
+    text: $v - ad$
+  - letter: B
+    text: $\sqrt{v^2 - 2ad}$
+  - letter: C
+    text: $v + ad$
+  - letter: D
+    text: $v - \frac{1}{2}ad^2$
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A bicycle brakes so that it undergoes uniform deceleration from a speed of
+    $8 \text{ m s}^{-1}$ to $6 \text{ m s}^{-1}$ over a distance of $7 \text{ m}$.
+
+
+    The deceleration of the bicycle remains constant.
+
+
+    Which further distance will the bicycle travel before coming to rest?'
+  answer_options:
+  - letter: A
+    text: $7 \text{ m}$
+  - letter: B
+    text: $9 \text{ m}$
+  - letter: C
+    text: $16 \text{ m}$
+  - letter: D
+    text: $21 \text{ m}$
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The velocity–time graph for an object is shown.
+
+
+    Which expression gives the total displacement of the object?'
+  answer_options:
+  - letter: A
+    text: $\text{area 1} - \text{area 2}$
+  - letter: B
+    text: $\frac{\text{area 1} + \text{area 2}}{2}$
+  - letter: C
+    text: $\text{area 1} + \text{area 2}$
+  - letter: D
+    text: $\text{area 2} - \text{area 1}$
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which statement describes the weight of an object?
+  answer_options:
+  - letter: A
+    text: It is equal to the mass of the object multiplied by its acceleration.
+  - letter: B
+    text: It is equal to the resultant force when the object falls at terminal (constant)
+      velocity.
+  - letter: C
+    text: It is the force acting on the object due to a gravitational field.
+  - letter: D
+    text: It is the property of the object that resists change in motion.
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is a statement of the principle of conservation of momentum?
+  answer_options:
+  - letter: A
+    text: In an elastic collision, momentum is constant.
+  - letter: B
+    text: Momentum is the product of mass and velocity.
+  - letter: C
+    text: The force acting on a body is proportional to its rate of change of momentum.
+  - letter: D
+    text: The momentum of an isolated system is constant.
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows the view from above of two balls moving along a horizontal
+    frictionless surface before they collide. The momentum of each ball is also shown.
+
+
+    The balls stick together during the collision.
+
+
+    Which vector diagram represents the combined momentum of the balls after the collision?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A skydiver is falling at constant velocity. She then opens her parachute.
+    The graph shows the variation with time of her velocity.
+
+
+    Which statements about the motion of the skydiver are correct?
+
+
+    \begin{enumerate}
+
+    \item The magnitude of the acceleration is maximum at time $t_2$.
+
+    \item The magnitude of the drag force at time $t_1$ equals the magnitude of the
+    drag force at time $t_3$.
+
+    \item The magnitude of the drag force is maximum at time $t_1$.
+
+    \end{enumerate}'
+  answer_options:
+  - letter: A
+    text: 1 and 2
+  - letter: B
+    text: 1 and 3
+  - letter: C
+    text: 2 only
+  - letter: D
+    text: 3 only
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Two different blocks, P and Q, slide towards each other on a horizontal frictionless\
+    \ surface. The blocks have an elastic collision.\n\nThe diagram shows the velocities\
+    \ of the two blocks immediately after the collision.\n\nWhich row gives possible\
+    \ velocities of the two blocks immediately before the collision?\n\n\\begin{tabular}{|c|c|c|}\n\
+    \\hline\n & velocity of P & velocity of Q \\\\\n\\hline\n\\textbf{A} & $10\\text{\
+    \ cm s}^{-1}$ to the right & $60\\text{ cm s}^{-1}$ to the left \\\\\n\\textbf{B}\
+    \ & $50\\text{ cm s}^{-1}$ to the right & zero \\\\\n\\textbf{C} & $20\\text{\
+    \ cm s}^{-1}$ to the left & $70\\text{ cm s}^{-1}$ to the right \\\\\n\\textbf{D}\
+    \ & $60\\text{ cm s}^{-1}$ to the right & $30\\text{ cm s}^{-1}$ to the left \\\
+    \\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: 'velocity of P: $10\text{ cm s}^{-1}$ to the right; velocity of Q: $60\text{
+      cm s}^{-1}$ to the left'
+  - letter: B
+    text: 'velocity of P: $50\text{ cm s}^{-1}$ to the right; velocity of Q: zero'
+  - letter: C
+    text: 'velocity of P: $20\text{ cm s}^{-1}$ to the left; velocity of Q: $70\text{
+      cm s}^{-1}$ to the right'
+  - letter: D
+    text: 'velocity of P: $60\text{ cm s}^{-1}$ to the right; velocity of Q: $30\text{
+      cm s}^{-1}$ to the left'
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which diagram shows a couple?
+  answer_options:
+  - letter: A
+    text: Diagram A
+  - letter: B
+    text: Diagram B
+  - letter: C
+    text: Diagram C
+  - letter: D
+    text: Diagram D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a uniform bar of mass $M$ and length $L$ resting on a pivot
+    at a distance $x$ from end X.
+
+
+    An object of mass $m$ is placed on the bar at distance $y$ from the pivot so that
+    the bar is in equilibrium.
+
+
+    What is an expression for $y$?'
+  answer_options:
+  - letter: A
+    text: $\frac{xM}{m}$
+  - letter: B
+    text: $\frac{M}{m}(L - x)$
+  - letter: C
+    text: $\frac{M}{2m}(L - 2x)$
+  - letter: D
+    text: $\frac{1}{m}(Lm - xM)$
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The mass and volume of an object are varied.
+
+
+    Which two changes, when made together, \textbf{must} increase the density of the
+    object?'
+  answer_options:
+  - letter: A
+    text: decrease mass, decrease volume
+  - letter: B
+    text: decrease mass, increase volume
+  - letter: C
+    text: increase mass, decrease volume
+  - letter: D
+    text: increase mass, increase volume
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'On Earth, a solid object that is fully submerged in a liquid experiences
+    an upthrust $U_{\text{E}}$.
+
+
+    On Mars, the same object, fully submerged in the same liquid, experiences an upthrust
+    $U_{\text{M}}$.
+
+
+    The acceleration of free fall on Mars is $3.7 \text{ m s}^{-2}$.
+
+
+    Assume that the liquid''s density and the object''s volume have the same values
+    on Earth and Mars.
+
+
+    What is the ratio $\frac{U_{\text{M}}}{U_{\text{E}}}$?'
+  answer_options:
+  - letter: A
+    text: '0.38'
+  - letter: B
+    text: '1.0'
+  - letter: C
+    text: '2.7'
+  - letter: D
+    text: '3.6'
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student attempts to derive the formula for kinetic energy $E_{\text{K}}$.
+    She begins by considering an object of mass $m$ that is initially at rest. A constant
+    force $F$ applied to the object causes it to accelerate to final velocity $v$
+    in displacement $s$. The kinetic energy gained by the object is equal to the work
+    done on the object by the force $F$.
+
+
+    Which equation does the student \textbf{not} need in order to derive the formula
+    for $E_{\text{K}}$?'
+  answer_options:
+  - letter: A
+    text: $F = ma$
+  - letter: B
+    text: $W = Fs$
+  - letter: C
+    text: $E = \frac{1}{2}Fs$
+  - letter: D
+    text: $v^2 = u^2 + 2as$
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A ball falls towards the ground from point X. Point X is 2.4 m above the
+    ground.
+
+
+    The ball rebounds from the ground and rises to point Y. Point Y is 1.8 m above
+    the ground.
+
+
+    A single value of the change in height $\Delta h$ is used to calculate the change
+    in gravitational potential energy of the ball from X to Y.
+
+
+    What is the magnitude of $\Delta h$?'
+  answer_options:
+  - letter: A
+    text: 0.6 m
+  - letter: B
+    text: 1.8 m
+  - letter: C
+    text: 2.4 m
+  - letter: D
+    text: 4.2 m
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a block on a slope.
+
+
+    A constant force of 1.8 N in a direction parallel to the slope is exerted on the
+    block. This causes the block to move along the slope at a constant speed.
+
+
+    The block moves a distance of 8.0 m along the slope and gains height $h$. The
+    work done against the frictional force acting on the block is 4.8 J.
+
+
+    The weight of the block is 4.0 N.
+
+
+    What is the value of $h$?'
+  answer_options:
+  - letter: A
+    text: 1.2 m
+  - letter: B
+    text: 2.4 m
+  - letter: C
+    text: 3.6 m
+  - letter: D
+    text: 4.8 m
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The motor of a crane lifts a load of mass 600 kg. The load rises vertically
+    at a constant speed of 12 m per minute.
+
+
+    What is the useful power output of the motor?'
+  answer_options:
+  - letter: A
+    text: 0.12 kW
+  - letter: B
+    text: 1.2 kW
+  - letter: C
+    text: 7.2 kW
+  - letter: D
+    text: 71 kW
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A platform is supported by a spring. A box is placed onto the platform. The
+    diagram shows the spring before and after the box is placed onto it.
+
+
+    What is the term for the quantity marked as $x$?'
+  answer_options:
+  - letter: A
+    text: compression
+  - letter: B
+    text: load
+  - letter: C
+    text: strain
+  - letter: D
+    text: stress
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A copper wire has length $1.7\text{ m}$ and uniform diameter $0.64\text{
+    mm}$.
+
+
+    The Young modulus of copper is $1.2 \times 10^{11}\text{ Pa}$.
+
+
+    What is the spring constant of the wire?'
+  answer_options:
+  - letter: A
+    text: $2.3 \times 10^4\text{ N}\,\text{m}^{-1}$
+  - letter: B
+    text: $9.1 \times 10^4\text{ N}\,\text{m}^{-1}$
+  - letter: C
+    text: $4.5 \times 10^7\text{ N}\,\text{m}^{-1}$
+  - letter: D
+    text: $7.1 \times 10^7\text{ N}\,\text{m}^{-1}$
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The graph shows how the extension of a spring varies with the force used
+    to stretch it.
+
+
+    What is the elastic potential energy of the spring when the extension is $4.0\text{
+    cm}$?'
+  answer_options:
+  - letter: A
+    text: $60\text{ J}$
+  - letter: B
+    text: $120\text{ J}$
+  - letter: C
+    text: $600\text{ J}$
+  - letter: D
+    text: $1200\text{ J}$
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Which row describes a progressive longitudinal wave?\n\n\\begin{tabular}{|c|c|c|c|}\n\
+    \\hline\n & \\begin{tabular}[c]{@{}c@{}}transfers energy in\\\\a direction parallel\\\
+    \\to the oscillations\\end{tabular} & \\begin{tabular}[c]{@{}c@{}}requires a medium\\\
+    \\to travel through\\end{tabular} & \\begin{tabular}[c]{@{}c@{}}always travels\
+    \ at\\\\the same speed\\end{tabular} \\\\ \\hline\n\\textbf{A} & false & false\
+    \ & true \\\\ \\hline\n\\textbf{B} & false & true & true \\\\ \\hline\n\\textbf{C}\
+    \ & true & false & false \\\\ \\hline\n\\textbf{D} & true & true & false \\\\\
+    \ \\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is the phase difference between points P and Q on the progressive wave
+    shown in the diagram?
+  answer_options:
+  - letter: A
+    text: $180^\circ$
+  - letter: B
+    text: $450^\circ$
+  - letter: C
+    text: $540^\circ$
+  - letter: D
+    text: $720^\circ$
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The graph shows the variation of displacement with distance for two progressive
+    waves X and Y of the same type in the same medium.
+
+
+    The intensity of wave X is $I$.
+
+
+    What is the intensity of wave Y?'
+  answer_options:
+  - letter: A
+    text: $0.28I$
+  - letter: B
+    text: $0.53I$
+  - letter: C
+    text: $1.9I$
+  - letter: D
+    text: $3.5I$
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A moving source emits sound of frequency $1200\text{ Hz}$.
+
+
+    A stationary observer hears sound of frequency $960\text{ Hz}$. The speed of the
+    sound is $340\text{ m s}^{-1}$.
+
+
+    What could be the velocity of the source?'
+  answer_options:
+  - letter: A
+    text: $68\text{ m s}^{-1}$ directly away from the observer
+  - letter: B
+    text: $68\text{ m s}^{-1}$ directly towards the observer
+  - letter: C
+    text: $85\text{ m s}^{-1}$ directly away from the observer
+  - letter: D
+    text: $85\text{ m s}^{-1}$ directly towards the observer
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "A light wave passes through a single slit and a diffraction pattern forms.\n\
+    \nWhat happens to the frequency and the speed of the wave when it is diffracted?\n\
+    \n\\begin{tabular}{|c|c|c|}\n\\hline\n & frequency & speed \\\\\n\\hline\n\\textbf{A}\
+    \ & decreases & increases \\\\\n\\textbf{B} & increases & decreases \\\\\n\\textbf{C}\
+    \ & no change & decreases \\\\\n\\textbf{D} & no change & no change \\\\\n\\hline\n\
+    \\end{tabular}"
+  answer_options:
+  - letter: A
+    text: decreases / increases
+  - letter: B
+    text: increases / decreases
+  - letter: C
+    text: no change / decreases
+  - letter: D
+    text: no change / no change
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "The equation $n\\lambda = d \\sin\\theta$ can be used with a diffraction\
+    \ grating to find the wavelength of visible light.\n\nWhich quantity is \\textbf{not}\
+    \ correct for use in this equation?\n\n\\begin{tabular}{|c|c|c|}\n\\hline\n &\
+    \ symbol & quantity \\\\\n\\hline\n\\textbf{A} & $d$ & distance from grating to\
+    \ screen \\\\\n\\textbf{B} & $\\lambda$ & wavelength of light \\\\\n\\textbf{C}\
+    \ & $n$ & order of intensity maximum \\\\\n\\textbf{D} & $\\theta$ & diffraction\
+    \ angle of intensity maximum \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: $d$ / distance from grating to screen
+  - letter: B
+    text: $\lambda$ / wavelength of light
+  - letter: C
+    text: $n$ / order of intensity maximum
+  - letter: D
+    text: $\theta$ / diffraction angle of intensity maximum
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two progressive sound waves move in opposite directions and superpose to
+    form a stationary wave.
+
+
+    Which statement describes an antinode of this stationary wave?'
+  answer_options:
+  - letter: A
+    text: a position where the phase difference between the two waves is always $0^\circ$
+  - letter: B
+    text: a position where the phase difference between the two waves is always $180^\circ$
+  - letter: C
+    text: a position where the stationary wave has maximum amplitude
+  - letter: D
+    text: a position where the stationary wave has minimum amplitude
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student connects two loudspeakers to a signal generator.
+
+
+    As the student walks from P to Q, he notices that the loudness of the sound rises
+    and falls repeatedly.
+
+
+    What causes the loudness of the sound to vary?'
+  answer_options:
+  - letter: A
+    text: diffraction of the sound waves
+  - letter: B
+    text: Doppler shift of the sound waves
+  - letter: C
+    text: interference of the sound waves
+  - letter: D
+    text: reflection of the sound waves
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The current in a resistor of constant resistance is $8.0\text{ mA}$. The
+    power dissipated by the resistor is $P$.
+
+
+    The current in the resistor is increased to $12.0\text{ mA}$.
+
+
+    What is the new power dissipated by the resistor?'
+  answer_options:
+  - letter: A
+    text: $0.44P$
+  - letter: B
+    text: $0.67P$
+  - letter: C
+    text: $1.5P$
+  - letter: D
+    text: $2.3P$
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A piece of wire X has resistivity $\rho$, length $L$ and cross-sectional
+    area $A$. Wire X has a resistance $R$.
+
+
+    A second piece of wire Y is made of a different metal. It has the same resistance
+    as X but has twice the length of X.
+
+
+    Which row gives possible values for the resistivity and the cross-sectional area
+    of Y?
+
+
+    \begin{tabular}{|c|c|c|}
+
+    \hline
+
+    & resistivity & \begin{tabular}{c} cross-sectional \\ area \end{tabular} \\
+
+    \hline
+
+    \textbf{A} & $\frac{1}{2}\rho$ & $\frac{1}{2}A$ \\
+
+    \textbf{B} & $\frac{1}{2}\rho$ & $A$ \\
+
+    \textbf{C} & $\rho$ & $\frac{1}{2}A$ \\
+
+    \textbf{D} & $2\rho$ & $A$ \\
+
+    \hline
+
+    \end{tabular}'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A cell of electromotive force (e.m.f.) $E$ delivers a charge $Q$ to an external
+    circuit.
+
+
+    Which statement is correct?'
+  answer_options:
+  - letter: A
+    text: The energy dissipated in the external circuit is $EQ$.
+  - letter: B
+    text: The energy dissipated within the cell is $EQ$.
+  - letter: C
+    text: The external resistance is $EQ$.
+  - letter: D
+    text: The total energy dissipated in the cell and the external circuit is $EQ$.
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a circuit with a battery of electromotive force (e.m.f.)
+    $60\text{ V}$ and negligible internal resistance, a $20\text{ k}\Omega$ resistor,
+    a thermistor and a voltmeter. The resistance of the thermistor is $20\text{ k}\Omega$.
+
+
+    The temperature of the thermistor decreases, and this causes its resistance to
+    change by $50\%$.
+
+
+    After this change, what is the reading on the voltmeter?'
+  answer_options:
+  - letter: A
+    text: $20\text{ V}$
+  - letter: B
+    text: $24\text{ V}$
+  - letter: C
+    text: $36\text{ V}$
+  - letter: D
+    text: $40\text{ V}$
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A potentiometer circuit is used to determine the electromotive force (e.m.f.)
+    $E_X$ of a cell. The circuit includes a second cell of known e.m.f. $E_0$ and
+    negligible internal resistance, and a uniform resistance wire PQ of known length.
+
+
+    $E_X$ is less than $E_0$.
+
+
+    The movable connection J can be positioned anywhere along the length of the resistance
+    wire.
+
+
+    Which circuit is suitable for determining $E_X$?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: The principles of conservation of which two quantities are associated with
+    Kirchhoff’s first and second laws?
+  answer_options:
+  - letter: A
+    text: '\begin{tabular}{ll} first law: charge & second law: energy \end{tabular}'
+  - letter: B
+    text: '\begin{tabular}{ll} first law: charge & second law: voltage \end{tabular}'
+  - letter: C
+    text: '\begin{tabular}{ll} first law: energy & second law: charge \end{tabular}'
+  - letter: D
+    text: '\begin{tabular}{ll} first law: voltage & second law: charge \end{tabular}'
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An up quark in a hadron changes to a down quark.
+
+
+    The elementary charge is $e$.
+
+
+    What is the magnitude of the change in the charge of the hadron?'
+  answer_options:
+  - letter: A
+    text: $\frac{1}{3} e$
+  - letter: B
+    text: $\frac{2}{3} e$
+  - letter: C
+    text: $e$
+  - letter: D
+    text: zero
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A nucleus of magnesium-23 decays to form a nucleus of sodium-23, emitting
+    a $\beta^+$ particle and particle X.
+
+
+    What is particle X?'
+  answer_options:
+  - letter: A
+    text: an antineutrino
+  - letter: B
+    text: an electron
+  - letter: C
+    text: a neutron
+  - letter: D
+    text: a neutrino
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A nucleus of $^{238}_{92}\text{U}$ decays in stages by emitting $\alpha$-particles
+    and $\beta^-$ particles, eventually forming a nucleus of $^{206}_{82}\text{Pb}$.
+
+
+    How many $\alpha$-particles and how many $\beta^-$ particles are emitted during
+    the decay chain?'
+  answer_options:
+  - letter: A
+    text: 8 $\alpha$-particles and 6 $\beta^-$ particles
+  - letter: B
+    text: 8 $\alpha$-particles and 10 $\beta^-$ particles
+  - letter: C
+    text: 16 $\alpha$-particles and 6 $\beta^-$ particles
+  - letter: D
+    text: 16 $\alpha$-particles and 22 $\beta^-$ particles
+  subquestions: []

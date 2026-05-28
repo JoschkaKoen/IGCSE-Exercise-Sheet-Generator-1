@@ -1,0 +1,69 @@
+[thinking]
+**Transcribing Exam Question 2**
+
+Okay, the task is to transcribe page 9 of the exam paper. Looks like Question 2 is the starting point. I need to break this down into the constituent parts based on the question numbering scheme provided.  First, there's the main introduction, which I'll categorize as "2". Then "2a", "2b", and "2c" are the sub-questions.
+
+Based on the YAML stub, "2" is `short_answer`. I'll put the introduction text there. I'll read through the question and extract the necessary information. The text details a program that reads string data, a linear queue implemented with a global 1D array `Queue`, queue initialization and pointers `QueueHead`, `QueueTail` and `NumberItems`.  Okay, that's straightforward enough. Let's start by transcribing the main introduction for question "2".
+
+Next, I need to transcribe the sub-questions. "2a" wants the declaration and initialization code for `Queue`, `QueueHead`, `QueueTail` and `NumberItems`. I'll format the text with instructions. Let's include the "Save your program as Question2_N25." instruction, and make sure that "Question2_N25" is bold. Also the instructions about copying and pasting into the evidence document.
+
+For "2b", I need to describe the `Enqueue()` function. The question gives the function description including a check for a full queue, the return of a Boolean value, and the insertion process if the queue isn't full and the correct updates. I'll use this description to write the question text.
+
+Finally, "2c" deals with the `Dequeue()` function.  Here, the question describes what happens when the queue is empty, and what happens when the queue is not empty, and the function needs to return a string. The text includes instructions about updating pointers and the element count. I'll write the text for this part, as well.
+
+I should double-check the formatting requirements. The "Save your program as" and "part" text should be bold, according to the images provided, so I will ensure that the YAML reflects the correct formatting. It's bold. Now I'll create the final YAML for the questions.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program reads string data from a text file into a linear queue and then compresses the data.
+
+      The queue is created using the global 1D array \texttt{Queue}. The queue can store up to 100 elements. Each element is initialised to the empty string \texttt{""}
+
+      The queue has two pointers that are global to the program:
+
+      \begin{itemize}
+      \item \texttt{QueueHead} that points to the index of the first element in the queue, initialised to $-1$
+      \item \texttt{QueueTail} that points to the index of the last element in the queue, initialised to $-1$
+      \end{itemize}
+
+      The global variable \texttt{NumberItems} stores the number of elements stored in the queue, initialised to 0
+  - number: "2a"
+    type: long_answer
+    text: |
+      Write program code to declare and initialise \texttt{Queue}, \texttt{QueueHead}, \texttt{QueueTail} and \texttt{NumberItems}
+
+      Save your program as \textbf{Question2\_N25}.
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.
+  - number: "2b"
+    type: long_answer
+    text: |
+      The function \texttt{Enqueue()} takes a string as a parameter. The function checks if the queue is full, and returns Boolean \texttt{FALSE} if the queue is full.
+
+      If the queue is not full, the parameter is inserted into the next position in \texttt{Queue}. The function updates the appropriate pointer(s), updates \texttt{NumberItems} and then returns Boolean \texttt{TRUE}
+
+      Write program code for \texttt{Enqueue()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.
+  - number: "2c"
+    type: long_answer
+    text: |
+      The function \texttt{Dequeue()} returns the string \texttt{"False"} if the queue is empty.
+
+      If the queue is not empty, the function returns the next element in the queue. The function updates the appropriate pointer(s) and updates \texttt{NumberItems}
+
+      Write program code for \texttt{Dequeue()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.
+```

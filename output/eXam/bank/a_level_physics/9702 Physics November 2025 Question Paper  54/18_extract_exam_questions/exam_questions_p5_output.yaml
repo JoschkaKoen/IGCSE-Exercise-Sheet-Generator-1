@@ -1,0 +1,26 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student places a slide with a double slit on a support clamped to the bench as shown in Fig. 2.1.
+
+      The distance between the slide and the screen is $D$.
+
+      The separation $s$ of the slits is determined.
+
+      Light from a laser is incident normally on the double slit. An interference pattern is observed on the screen. The distance $w$ across 10 fringes is measured. The distance $y$ between the centres of adjacent fringes is calculated using the equation
+      $$y = \frac{w}{10}.$$
+
+      The experiment is repeated with slides of different slit separation $s$.
+
+      It is suggested that $y$ and $s$ are related by the equation
+      $$\lambda = \frac{sy}{D}$$
+      where $\lambda$ is the wavelength of the incident light.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A graph is plotted of $y$ on the $y$-axis against $\frac{1}{s}$ on the $x$-axis.
+
+      Determine an expression for the gradient.
+
+      gradient = \hrulefill

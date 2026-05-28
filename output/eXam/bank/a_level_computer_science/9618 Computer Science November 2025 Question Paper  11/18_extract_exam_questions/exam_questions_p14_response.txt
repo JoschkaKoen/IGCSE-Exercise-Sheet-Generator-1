@@ -1,0 +1,51 @@
+[thinking]
+**My Analysis of Exam Question Extraction**
+
+Okay, let's break this down. My task is to digest the request and transform the contents of Page 14 of this exam paper into a structured YAML format. I need to pull out the content associated with questions "8," "8a," "8b," and "8c" and represent them according to a predefined schema.
+
+First, I examined the content of each question, making sure to capture the exact wording.
+
+*   **Question 8** is fairly straightforward; it's a simple ethical consideration as a starting point. It's a "short\_answer" type question, with the text: "One ethical consideration for a student connecting their personal computer to the school network is the risk of spreading malware on the network."
+
+*   **Question 8a** delves into more specifics about malware. It wants explanations of "virus" and "pharming." I see I should format these as labels with a fillable line following. The latex should be like this: `Virus \hrulefill` and `Pharming \hrulefill` for the question's text field, again of type `short_answer`.
+
+*   **Question 8b** asks for three other ethical considerations. I need to make sure I format this properly, with the numbered slots clearly indicated using latex. "Give three other ethical considerations for a student using their personal computer to connect to the school network." followed by `1. \hrulefill`, `2. \hrulefill`, and `3. \hrulefill` within the LaTeX of a "short\_answer" type question.
+
+*   Finally, **Question 8c** shifts focus to the social impacts of AI use in homework. It requires a "long\_answer" with two distinct answers expected. This will be formatted as "Describe two social impacts of students using Artificial Intelligence (AI) to complete their homework." with slots `1. \hrulefill`, and `2. \hrulefill` within the text, also in latex, and type as a "long\_answer".
+
+My next step is to ensure that I avoid any use of double quotes in the final YAML output, particularly within the text fields. This is something I always keep in mind when working with structured data, so I'll be using `|` block scalars to make sure the text fields are represented correctly, so the output adheres to the YAML structure. This means the extracted text of the questions must be correctly formatted to render properly when used.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      One ethical consideration for a student connecting their personal computer to the school network is the risk of spreading malware on the network.
+  - number: "8a"
+    type: short_answer
+    text: |
+      Viruses and pharming are examples of malware.
+
+      Explain what is meant by a virus and pharming.
+
+      Virus \hrulefill
+
+      Pharming \hrulefill
+  - number: "8b"
+    type: short_answer
+    text: |
+      Give \textbf{three} other ethical considerations for a student using their personal computer to connect to the school network.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "8c"
+    type: long_answer
+    text: |
+      Describe \textbf{two} social impacts of students using Artificial Intelligence (AI) to complete their homework.
+
+      1. \hrulefill
+      2. \hrulefill

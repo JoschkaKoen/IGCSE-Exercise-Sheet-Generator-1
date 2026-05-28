@@ -1,0 +1,18 @@
+  - number: "2c"
+    type: short_answer
+    text: ""
+  - number: "2ci"
+    type: calculation
+    text: ""
+  - number: "2cii"
+    type: calculation
+    text: ""
+  - number: "2d"
+    type: short_answer
+    text: ""
+  - number: "2di"
+    type: calculation
+    text: ""
+  - number: "2dii"
+    type: short_answer
+    text: ""

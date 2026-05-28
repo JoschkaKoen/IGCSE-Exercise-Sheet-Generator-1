@@ -1,0 +1,40 @@
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      In a different program, the programmer decides to implement a linked list using an array of records.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      The array is represented in the diagram.
+
+      A pointer value of $-1$ indicates the end of the linked list.
+
+      Complete the pointer field to produce a linked list that is in alphabetical order.
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Index} & \textbf{Data} & \textbf{Pointer} \\ \hline
+      0 & "Neptune" & \\ \hline
+      1 & "Jupiter" & \\ \hline
+      2 & "Saturn" & \\ \hline
+      3 & "Earth" & \\ \hline
+      4 & "Mercury" & \\ \hline
+      5 & "Uranus" & \\ \hline
+      \end{tabular}
+  - number: "2bii"
+    type: short_answer
+    text: |
+      The variable \texttt{StartPointer} contains the index of the first item in the linked list.
+
+      State the value of the variable \texttt{StartPointer}
+  - number: "2c"
+    type: short_answer
+    text: |
+      A third program is also being created to manage a queue.
+
+      Describe \textbf{two} features of a queue.
+
+      Feature one
+
+      Feature two

@@ -1,0 +1,688 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "The composite data type, \\texttt{Car}, is defined in pseudocode as:\n\n\\\
+    begin{alltt}\nTYPE Car\n  DECLARE RegNumber : STRING\n  DECLARE Make : STRING\n\
+    \  DECLARE Model : STRING\n  DECLARE BodyStyle : STRING\n  DECLARE Colour : STRING\n\
+    \  DECLARE IntoStock : DATE\n  DECLARE Price : REAL\nENDTYPE\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The composite data type, \texttt{Car}, is defined.
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write the \textbf{pseudocode} statement to set up a variable for one record
+        of the composite data type, \texttt{Car}.
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the \textbf{pseudocode} statements to assign the following values
+        to the variable set up in part (a)(i):
+
+
+        \begin{itemize}
+
+        \item "Blue" to \texttt{Colour}
+
+        \item 21/10/2025 to \texttt{IntoStock}
+
+        \end{itemize}'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The data type for \texttt{BodyStyle} is changed to an enumerated type, \texttt{Body}.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the \textbf{pseudocode} statement for the type declaration of \texttt{Body}
+        to hold the names of the available choices:
+
+
+        \begin{center}
+
+        Convertible, Hatchback, Saloon, SUV
+
+        \end{center}'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write the new \textbf{pseudocode} statement required to update the declaration
+        of \texttt{BodyStyle} in the definition of \texttt{Car}.
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Numbers are stored in a computer system using binary floating-point representation
+    with:
+
+
+    \begin{itemize}
+
+    \item 10 bits for the mantissa
+
+    \item 6 bits for the exponent
+
+    \item two''s complement form for both the mantissa and the exponent.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Calculate the denary value of the given normalised binary floating-point
+      number.
+
+      Show your working.
+
+
+      \textbf{Mantissa}
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      0 & 1 & 1 & 1 & 1 & 0 & 0 & 1 & 0 & 1 \\
+
+      \hline
+
+      \end{tabular}
+
+
+      \textbf{Exponent}
+
+
+      \begin{tabular}{|c|c|c|c|c|c|}
+
+      \hline
+
+      0 & 0 & 1 & 0 & 1 & 1 \\
+
+      \hline
+
+      \end{tabular}
+
+
+      Denary value \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Calculate the normalised binary floating-point representation of +26.6875
+      in this system.
+
+      Show your working.
+
+
+      \textbf{Mantissa} \qquad \qquad \qquad \qquad \qquad \qquad \textbf{Exponent}
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+      \qquad \framebox{$\square\,\square\,\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: HTTP and IMAP are examples of protocols used in the Application Layer of the
+    TCP/IP protocol suite.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State the purpose of the HTTP and IMAP protocols.
+
+
+      HTTP \hrulefill
+
+      IMAP \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Describe how files are shared using the BitTorrent protocol.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Identify one benefit of circuit switching and one benefit of packet switching.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Circuit switching \hrulefill
+
+      Packet switching \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify two differences between circuit switching and packet switching.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe how interrupt handling is used in low-level scheduling.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'In process management, a process can be in one of three process states:
+      running, ready or blocked.
+
+
+      Complete the table to identify \textbf{one} reason why a process could be in
+      each of the three states.
+
+
+      \begin{tabular}{|c|p{8cm}|}
+
+      \hline
+
+      \textbf{Process state} & \textbf{Reason} \\ \hline
+
+      running & \newline\newline\newline \\ \hline
+
+      ready & \newline\newline\newline \\ \hline
+
+      blocked & \newline\newline\newline \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The diagram shows a logic circuit.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the truth table for the given logic circuit.
+
+      Show your working.
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      \multicolumn{3}{|c|}{} & \multicolumn{4}{c|}{\textbf{Working space}} & \\ \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{P} & \textbf{Q} & \textbf{R}
+      & \textbf{S} & \textbf{Z} \\ \hline
+
+      0 & 0 & 0 & & & & & \\ \hline
+
+      0 & 0 & 1 & & & & & \\ \hline
+
+      0 & 1 & 0 & & & & & \\ \hline
+
+      0 & 1 & 1 & & & & & \\ \hline
+
+      1 & 0 & 0 & & & & & \\ \hline
+
+      1 & 0 & 1 & & & & & \\ \hline
+
+      1 & 1 & 0 & & & & & \\ \hline
+
+      1 & 1 & 1 & & & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Complete the Karnaugh map (K-map) for the Boolean expression:
+
+
+        $$\mathbf{\bar{A}.\bar{B}.C + \bar{A}.B.C + A.\bar{B}.C + A.B.\bar{C}}$$
+
+
+        \begin{tabular}{r|c|c|c|c|}
+
+        \multicolumn{1}{r}{\textbf{A} \textbackslash{} \textbf{BC}} & \multicolumn{1}{c}{\textbf{00}}
+        & \multicolumn{1}{c}{\textbf{01}} & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}}
+        \\
+
+        \cline{2-5}
+
+        \textbf{0} & & & & \\
+
+        \cline{2-5}
+
+        \textbf{1} & & & & \\
+
+        \cline{2-5}
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Draw loop(s) around appropriate group(s) in the K-map to produce an optimal
+        sum-of-products.
+      answer_options: []
+      subquestions: []
+    - number: 6biii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the Boolean expression from your answer to part \textbf{b(ii)} as
+        a simplified sum-of-products. Do \textbf{not} carry out any further simplification.
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Asymmetric encryption is a type of cryptography.
+
+
+      Identify \textbf{one} other type of cryptography.'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'An organisation holds two asymmetric encryption keys, which they intend
+      to use to receive secure transmissions.
+
+
+      Explain how the organisation makes use of the two keys to receive a secure transmission.'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of the optimisation stage in the compilation of a program.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Convert this Reverse Polish Notation (RPN) back to its original infix form:
+
+
+      \texttt{a b - c + c a - * d /}'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The RPN expression:
+
+
+      \texttt{c a / b d - * b +}
+
+
+      is to be evaluated, where:
+
+
+      $a = 3$, $b = 16$, $c = 9$ and $d = 6$.
+
+
+      Show the changing contents of the stack as the RPN expression is evaluated.
+
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X}
+      \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Deep Learning is a form of Machine Learning.
+    answer_options: []
+    subquestions:
+    - number: 9ai
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State \textbf{one} example where Deep Learning is used.
+      answer_options: []
+      subquestions: []
+    - number: 9aii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify how Deep Learning can be made more effective.
+      answer_options: []
+      subquestions: []
+  - number: 9b
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Describe the back propagation of errors method in Machine Learning.
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An exception is an error that may cause a program to halt unexpectedly.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe how program termination due to an exception can be avoided.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} possible causes of exceptions.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 7
+  text: "The table shows assembly language instructions for a processor that has one\
+    \ register, the Accumulator (ACC).\n\n\\begin{tabular}{|c|c|l|l|}\n\\hline\n\\\
+    multicolumn{1}{|c|}{} & \\multicolumn{2}{c|}{\\textbf{Instruction}} & \\multicolumn{1}{c|}{}\
+    \ \\\\ \\cline{2-3}\n\\textbf{Label} & \\textbf{Opcode} & \\textbf{Operand} &\
+    \ \\multicolumn{1}{c|}{\\textbf{Explanation}} \\\\ \\hline\n & \\texttt{LDM} &\
+    \ \\texttt{\\#n} & Load the number n to the ACC \\\\ \\hline\n & \\texttt{LDD}\
+    \ & \\texttt{<address>} & Load the contents of the location at the given address\
+    \ to ACC \\\\ \\hline\n & \\texttt{LDI} & \\texttt{<address>} & \\begin{tabular}[c]{@{}l@{}}The\
+    \ address to be used is at the given address.\\\\ Load the contents of this second\
+    \ address to the ACC.\\end{tabular} \\\\ \\hline\n & \\texttt{ADD} & \\texttt{<address>}\
+    \ & Add the contents of the given address to the ACC \\\\ \\hline\n & \\texttt{SUB}\
+    \ & \\texttt{<address>} & Subtract the contents of the given address from the\
+    \ ACC \\\\ \\hline\n & \\texttt{STO} & \\texttt{<address>} & Store the contents\
+    \ of the ACC at the given address \\\\ \\hline\n\\texttt{<label>:} & & \\texttt{<data>}\
+    \ & Gives a symbolic address \\texttt{<label>} to the memory location with the\
+    \ contents \\texttt{<data>} \\\\ \\hline\n\\multicolumn{4}{|l|}{\\begin{tabular}[c]{@{}l@{}}\\\
+    # denotes a denary number, e.g. \\texttt{\\#123}\\\\ \\texttt{<label>} can be\
+    \ used in place of \\texttt{<address>}\\end{tabular}} \\\\ \\hline\n\\end{tabular}\n\
+    \nThe current contents of memory are:\n\n\\begin{tabular}{|r|c|}\n\\hline\n\\\
+    textbf{Address} & \\textbf{Contents} \\\\ \\hline\n150 & 26 \\\\ \\hline\n300\
+    \ & 86 \\\\ \\hline\n420 & 150 \\\\ \\hline\n\\end{tabular}"
+  answer_options: []
+  subquestions: []
+- number: '12'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The following table shows the global variables used to implement a stack.
+  answer_options: []
+  subquestions:
+  - number: 12a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A stack has been implemented using pseudocode to store a maximum of 100
+      string items using the global variables in the following table:
+
+
+      \begin{tabular}{|c|c|l|c|}
+
+      \hline
+
+      \textbf{Identifier} & \textbf{Data type} & \textbf{Description} & \textbf{Initialisation
+      value} \\ \hline
+
+      Base & INTEGER & pointer for the bottom of the stack & 0 \\ \hline
+
+      Top & INTEGER & pointer for the top of the stack & -1 \\ \hline
+
+      StackArray & STRING & 1D array to implement the stack & [0:99] \\ \hline
+
+      Max & INTEGER & maximum number of items in the stack & 100 \\ \hline
+
+      \end{tabular}
+
+
+      The value of \texttt{Top} is incremented each time a data item is added to the
+      stack and decremented each time a data item is removed. If the stack is full,
+      an appropriate error message is output.'
+    answer_options: []
+    subquestions:
+    - number: 12ai
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: "Complete the \\textbf{pseudocode} for the procedure to add a data item\
+        \ onto the stack.\n\n\\begin{alltt}\nPROCEDURE Push(\\underline{\\hspace{1.5em}})\n\
+        \    IF Top < Max - 1 THEN\n\n        Top <- \\underline{\\hspace{1.5em}}\n\
+        \n        \\underline{\\hspace{1.5em}} <- NewData\n    ELSE\n\n        OUTPUT\
+        \ \\underline{\\hspace{1.5em}}\n    ENDIF\nENDPROCEDURE\n\\end{alltt}"
+      answer_options: []
+      subquestions: []
+    - number: 12aii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write \textbf{pseudocode} to input a new data item and add it to the stack
+        using \texttt{Push()}.
+      answer_options: []
+      subquestions: []
+  - number: 12b
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain the reasons why a stack is used when a recursive algorithm is executed.
+    answer_options: []
+    subquestions: []

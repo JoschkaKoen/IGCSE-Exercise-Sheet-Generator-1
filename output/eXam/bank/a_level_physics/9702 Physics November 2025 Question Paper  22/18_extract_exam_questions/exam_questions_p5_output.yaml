@@ -1,0 +1,33 @@
+questions:
+  - number: "1biii"
+    type: calculation
+    text: |
+      The balloon has weight $19\text{ N}$.
+
+      Calculate the magnitude of the initial acceleration of the balloon.
+
+      acceleration = \hrulefill $\text{ms}^{-2}$
+  - number: "1c"
+    type: calculation
+    text: |
+      A quantity $c$ relating to the motion of the balloon is calculated from three measured quantities $k$, $F$ and $v$ using the formula
+
+      $$c = \frac{2kF}{v^2}$$
+
+      The percentage uncertainties in the measured quantities are given in Table 1.2.
+
+      \textbf{Table 1.2}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      measured quantity & percentage uncertainty \\ \hline
+      $k$ & 5\% \\ \hline
+      $F$ & 3\% \\ \hline
+      $v$ & 4\% \\ \hline
+      \end{tabular}
+
+      The calculated value of $c$ is 1.8.
+
+      Determine the absolute uncertainty in $c$.
+
+      absolute uncertainty = \hrulefill

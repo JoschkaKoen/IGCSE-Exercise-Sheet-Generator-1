@@ -1,0 +1,20 @@
+```yaml
+questions:
+  - number: "7c"
+    type: short_answer
+    text: |
+      Give the output that would be produced by the structured query language (SQL) statement:
+
+      \begin{alltt}
+      SELECT Species, Length, Wingspan
+      FROM WATERFOWL
+      WHERE Family = "Swan"
+      ORDER BY Lifespan;
+      \end{alltt}
+  - number: "7d"
+    type: short_answer
+    text: |
+      Complete the SQL statement to list only the species, family and lifespan of all waterfowl whose typical lifespan is at least 10 years, sorted in order of species.
+
+      SELECT \hrulefill
+```

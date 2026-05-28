@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1a"
+    type: short_answer
+    text: |
+      State \textbf{one} difference between a tebibyte and a gigabyte.
+  - number: "1b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Convert the unsigned binary integer into hexadecimal.
+
+      110001100111
+
+      Answer \hrulefill
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Convert the two's complement binary number into denary.
+
+      100110010111
+
+      Answer \hrulefill
+  - number: "1biii"
+    type: short_answer
+    text: |
+      Convert the Binary Coded Decimal (BCD) into denary.
+
+      010101110011
+
+      Answer \hrulefill
+  - number: "1c"
+    type: calculation
+    text: |
+      Subtract the denary number 23 from the two's complement binary number 01001010
+
+      Perform this calculation using binary subtraction.
+
+      Show your working.
+
+      Answer \hrulefill
+```

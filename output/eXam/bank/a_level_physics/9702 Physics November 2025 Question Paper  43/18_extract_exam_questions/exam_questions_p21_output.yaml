@@ -1,0 +1,7 @@
+questions:
+  - number: "9c"
+    type: short_answer
+    text: |
+      Star X is in a galaxy that is moving away from the Earth.
+
+      Suggest, with a reason, how the line for star X in Fig. 9.2 would appear differently if it had been obtained from data measured on the Earth.

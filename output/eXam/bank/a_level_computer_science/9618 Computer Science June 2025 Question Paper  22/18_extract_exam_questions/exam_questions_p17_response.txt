@@ -1,0 +1,33 @@
+[thinking]
+**Exam Question Transcription**
+
+Okay, so the user wants me to transcribe questions from page 17 of the exam. Let's get this right. It looks like it starts with question 7c, but hold on, there's a preceding "7b" that's apparently been omitted with a large blank space, so "7c" is a direct continuation. I see "7c," "7ci," and "7cii" here.
+
+Alright, the text for "7c" seems to be contextual: "The programmer decides to amend the customer ID; it will be stored as a STRING instead of an INTEGER. This means that the 2D array Loyalty can no longer be used." Wait, is this entire sentence the *entire* question 7c? Yes, looks like it. So, that's really the introduction to (i) and (ii). To make this clear, I'll format that as:
+
+`The programmer decides to amend the customer ID; it will be stored as a \texttt{STRING} instead of an \texttt{INTEGER}. This means that the 2D array \texttt{Loyalty} can no longer be used.`
+
+Then, the actual questions are:
+
+*   "7ci": `Explain why the 2D array \texttt{Loyalty} can no longer be used.`
+*   "7cii": `Explain how a 1D array could be used to store both the loyalty points and the amended customer ID.`
+
+That should be the complete and accurate transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7c"
+    type: short_answer
+    text: |
+      The programmer decides to amend the customer ID; it will be stored as a \texttt{STRING} instead of an \texttt{INTEGER}. This means that the 2D array \texttt{Loyalty} can no longer be used.
+  - number: "7ci"
+    type: short_answer
+    text: |
+      Explain why the 2D array \texttt{Loyalty} can no longer be used.
+  - number: "7cii"
+    type: short_answer
+    text: |
+      Explain how a 1D array could be used to store both the loyalty points and the amended customer ID.

@@ -1,0 +1,753 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "Refer to the \\textbf{insert} for the list of pseudocode functions and operators.\n\
+    \nA program will calculate the tax payable based on the cost of an item.\n\nCalculations\
+    \ will occur at many places in the program and these involve the use of one of\
+    \ three tax rates.\n\nTax rate values represent a percentage. For example, a tax\
+    \ rate value of 5.23 represents 5.23%. In this case, the tax payable on an item\
+    \ costing $100 would be $5.23.\n\nTax rate values are used at several places within\
+    \ the program. One example is given in pseudocode as follows:\n\n\\begin{alltt}\n\
+    HighRate <- FALSE\nCASE OF ItemCost\n  <= 50  : TaxRate <- 3.75  // tax rate of\
+    \ 3.75%\n  <= 200 : TaxRate <- 5.23  // tax rate of 5.23%\n  > 200  : TaxRate\
+    \ <- 6.25  // tax rate of 6.25%\n           HighRate <- TRUE\nENDCASE\nTaxPayable\
+    \ <- ItemCost * TaxRate // tax payable\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The pseudocode contains a logical error.
+
+
+      Identify the error \textbf{and} suggest a correction.
+
+
+      Error \hrulefill
+
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: During the design of the program, tax rate values have been used wherever
+      they are needed as shown in the pseudocode example above. Tax rates do not change
+      while the program runs.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify a more appropriate way of representing the tax rate values in
+        the final program.
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: long_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Describe the benefits of your answer to part (b)(i) with reference to
+        this program.
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give the \textbf{appropriate} data type for the variables in the following
+      table, as used in the pseudocode:
+
+
+      \begin{tabular}{|p{5cm}|p{5cm}|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Variable name}} & \multicolumn{1}{c|}{\textbf{Data
+      type}} \\ \hline
+
+      \texttt{HighRate} & \\ \hline
+
+      \texttt{TaxPayable} & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The final \texttt{CASE} condition (\texttt{> 200}) in the pseudocode example
+      could be replaced with a keyword.
+
+
+      Give the keyword.'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: long_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'A program uses three global integer variables \texttt{HH}, \texttt{MM} and
+    \texttt{SS} to represent the current time in hours, minutes and seconds using
+    the 24-hour clock notation.
+
+
+    Midnight would be represented as 00:00:00 (\texttt{HH:MM:SS}). If the variables
+    \texttt{HH}, \texttt{MM} and \texttt{SS} contained the values 16, 30 and 10 respectively,
+    then the time would be 16:30:10 or just after 4.30 in the afternoon.
+
+
+    A procedure \texttt{Tick()} will be called every second.
+
+    The procedure \texttt{Tick()} will:
+
+    \begin{itemize}
+
+    \item update the value in \texttt{SS} each time it is called
+
+    \item update the values in \texttt{HH} and \texttt{MM} as appropriate
+
+    \item call a procedure \texttt{CheckAlarm()} at the start of each minute
+
+    \item call a procedure \texttt{NewDay()} whenever the time reaches midnight.
+
+    \end{itemize}
+
+
+    Complete the pseudocode for procedure \texttt{Tick()}.
+
+
+    \begin{alltt}
+
+    PROCEDURE Tick()
+
+    \end{alltt}
+
+
+    \begin{alltt}
+
+    ENDPROCEDURE
+
+    \end{alltt}'
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An algorithm will output the \textbf{last} three lines from a text file \texttt{Result.txt}
+
+
+    The lines need to be output in the same order as they appear in the file.
+
+
+    Assume:
+
+    \begin{itemize}
+
+    \item Three variables \texttt{LineX}, \texttt{LineY} and \texttt{LineZ} will store
+    the three lines. These are of type string and all three variables have been initialised
+    to an empty string.
+
+    \item The file exists and contains \textbf{at least} three lines.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The algorithm to output the lines is expressed in eight steps.
+
+
+      Complete the steps.
+
+
+      1. Open the file \hrulefill
+
+      2. Loop until \hrulefill
+
+      3. \hrulefill and store in \texttt{ThisLine}
+
+      4. Assign \texttt{LineY} to \texttt{LineX}
+
+      5. Assign \texttt{LineZ} to \texttt{LineY}
+
+      6. Assign \texttt{ThisLine} to \texttt{LineZ}
+
+      7. After the loop, \hrulefill
+
+      8. Output \texttt{LineX}, \texttt{LineY}, \texttt{LineZ}'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Explain the purpose of steps 4, 5 and 6 in the algorithm from part (a).
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The requirement changes, and the algorithm will now output three lines
+      from the file, starting from a \textbf{given} line number.
+
+
+      The modified algorithm will be implemented as a function which will:
+
+      \begin{itemize}
+
+      \item be called with an integer parameter representing the given line number
+
+      \item output three lines, starting at the given line
+
+      \item return \texttt{TRUE} if the 3 lines are output, or \texttt{FALSE} if it
+      was not possible to output the 3 lines.
+
+      \end{itemize}
+
+
+      Describe the changes that need to be made to \textbf{steps 2 to 8} of the algorithm
+      given in part \textbf{(a)}.'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program includes the following assignment statement:
+
+
+    \begin{alltt}
+
+    Result <- STR_TO_NUM(x) / STR_TO_NUM(y)
+
+    \end{alltt}
+
+
+    When the program evaluates the expression in the statement, it performs a calculation.
+
+
+    Variable \texttt{Result} is of type real and variables \texttt{x} and \texttt{y}
+    are of type string.
+
+
+    Two checks are required before the calculation is performed:
+
+
+    \begin{enumerate}
+
+    \item The two strings represent valid numeric values.
+
+    \item The numeric value of string \texttt{y} is not zero.
+
+    \end{enumerate}'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify the type of error that could occur if these checks are \textbf{not}
+      carried out \textbf{and} state a cause of this error.
+
+
+      Type \hrulefill
+
+
+      Cause \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The designer considers implementing the \textbf{checks and calculation}
+      as a module (a procedure or a function). One reason for this is that the same
+      checks and calculations are performed at several places in the program.
+
+
+      Give \textbf{another} reason why this is a suitable approach \textbf{and} state
+      what is avoided by this approach.
+
+
+      Reason \hrulefill
+
+
+      Avoided \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "The module to perform the checks and calculation will be implemented as\
+      \ a function. The function will need to return both a real and a Boolean value.\
+      \ To achieve this a record type is defined in pseudocode as follows:\n\n\\begin{alltt}\n\
+      TYPE Result\n  DECLARE Done : BOOLEAN\n  DECLARE Value : REAL\nENDTYPE\n\\end{alltt}\n\
+      \nThe function \\texttt{Evaluate()} will:\n\\begin{itemize}\n\\item take two\
+      \ parameters of type string representing the two numeric values\n\\item return\
+      \ a variable of type \\texttt{Result} with the \\texttt{Done} field set to \\\
+      texttt{FALSE} if either of the following applies:\n  \\begin{itemize}\n  \\\
+      item at least one of the strings does \\textbf{not} represent a valid numeric\
+      \ value\n  \\item the numeric value of the string representing value \\texttt{y}\
+      \ is zero\n  \\end{itemize}\n\\item otherwise return a variable of type \\texttt{Result}\
+      \ with the \\texttt{Done} field set to \\texttt{TRUE} and the \\texttt{Value}\
+      \ field assigned the result of the formula (based on the numeric value of the\
+      \ two parameters).\n\\end{itemize}\n\nWrite pseudocode for the function \\texttt{Evaluate()}."
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A software developer follows a program development life cycle. The life cycle
+    divides the development process into various stages.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The following table lists some development activities.
+
+
+      Complete the table by writing the name of the life cycle stage for each activity.
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{Activity} & \textbf{Name of life cycle stage} \\ \hline
+
+      The walkthrough method is used. & \\ \hline
+
+      An algorithm is implemented in a programming language. & \\ \hline
+
+      The client is interviewed about problems with the current system. & \\ \hline
+
+      The program is modified to run on new hardware. & \\ \hline
+
+      Records and file structures are defined. & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The program contains a validation function.
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: "The function will:\n\n\\begin{itemize}\n\\item take an integer value\
+        \ as a parameter\n\\item return \\texttt{TRUE} if the value is within the\
+        \ range 24 to 37, inclusive\n\\item otherwise return \\texttt{FALSE}.\n\\\
+        end{itemize}\n\nComplete the table to define a test plan to thoroughly test\
+        \ the operation of the function.\n\n\\begin{tabular}{|c|c|c|}\n\\hline\n\\\
+        textbf{Type of test data} & \\textbf{Test data value} & \\textbf{Expected\
+        \ result} \\\\ \\hline\nNormal & 30 & \\texttt{TRUE} \\\\ \\hline\n & & \\\
+        \\ \\hline\n & & \\\\ \\hline\n & & \\\\ \\hline\n & & \\\\ \\hline\n\\end{tabular}"
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The function is to be tested on its own. When it is shown to work correctly
+        the function will be combined with other modules and testing will continue.
+
+
+        Identify the type of testing that this represents.'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A factory produces food items. The items must be used within a certain number
+    of days after their production date. The number of days is known as the shelf
+    life. It is different for each type of item but is always a whole number in the
+    range 1 to 21 (inclusive).
+
+
+    The latest date that an item can be used is called the ''use-by'' date.
+
+
+    A program is needed to produce labels which show the ''use-by'' date.
+
+
+    Part of the program is a function \texttt{GetDate()} which will:
+
+    \begin{itemize}
+
+    \item take two parameters: a production date and a value representing the shelf
+    life
+
+    \item return the corresponding ''use-by'' date.
+
+    \end{itemize}
+
+
+    The program contains a global 1D array \texttt{DaysInMonth} of type integer which
+    stores the number of days in each month (index 1 is January):
+
+
+    \begin{tabular}{|c|c|l}
+
+    \cline{1-2}
+
+    \textbf{Index} & \textbf{Value} & \\ \cline{1-2}
+
+    1 & 31 & \\ \cline{1-2}
+
+    2 & 28 & Note: Leap years are \textbf{not} considered \\ \cline{1-2}
+
+    3 & 31 & \\ \cline{1-2}
+
+    4 & 30 & \\ \cline{1-2}
+
+    \dots & \dots & \\ \cline{1-2}
+
+    11 & 30 & \\ \cline{1-2}
+
+    12 & 31 & \\ \cline{1-2}
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'An algorithm uses the array \texttt{DaysInMonth} to calculate a ''use-by''
+      date. An alternative design would involve the use of multiple selection statements.
+
+
+      An array-based technique is often used when there is a large number of different
+      values to check and where no pattern exists.
+
+
+      One advantage of using an array-based technique is the speed of execution compared
+      to the use of multiple selection statements.
+
+
+      Give \textbf{two other} advantages of using an array for this type of operation
+      rather than a solution based on multiple selection statements.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'Complete the pseudocode for the function \texttt{GetDate()}.
+
+
+      Date functions from the \textbf{insert} should be used in your solution.
+
+
+      \begin{alltt}
+
+      FUNCTION GetDate(ProductionDate : DATE, ShelfLife : INTEGER) RETURNS DATE
+
+
+      ENDFUNCTION
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program contains six modules with headers as follows:
+
+
+    \begin{tabular}{|l|}
+
+    \hline
+
+    \multicolumn{1}{|c|}{\textbf{Pseudocode module header}} \\ \hline
+
+    \texttt{PROCEDURE Connect()} \\ \hline
+
+    \texttt{FUNCTION Activate(H1 : STRING, Code : INTEGER) RETURNS BOOLEAN} \\ \hline
+
+    \texttt{FUNCTION Sync(T1 : BOOLEAN, S2 : REAL) RETURNS INTEGER} \\ \hline
+
+    \texttt{PROCEDURE Initialise(BYREF ID : INTEGER, BYVAL CC : INTEGER)} \\ \hline
+
+    \texttt{FUNCTION Reset(RA : STRING) RETURNS INTEGER} \\ \hline
+
+    \texttt{FUNCTION Enable(SA : INTEGER) RETURNS BOOLEAN} \\ \hline
+
+    \end{tabular}
+
+
+    Module \texttt{Connect()} will call either \texttt{Activate()} or \texttt{Sync()}.
+    This is decided at run-time.'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Complete the structure chart for these modules.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain the meaning of the curved arrow symbol used in the diagram in part
+      (a).
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An exam paper has a maximum of 75 marks. One of five pass grades (A to E)
+    is assigned, depending on the mark obtained. The lowest mark for a given grade
+    is known as the grade boundary. For example, if the grade boundary for an A grade
+    is 65 marks, then any candidate who achieves a mark of 65 or above will be awarded
+    an A. A grade of U is awarded for marks below the E grade boundary.
+
+
+    The five grade boundaries are stored in a global 1D array \texttt{GradeBoundary}
+    of type integer.
+
+
+    For example:
+
+
+    \begin{tabular}{|l|l|l|}
+
+    \hline
+
+    \textbf{Element} & \textbf{Value} & \textbf{Comment} \\ \hline
+
+    \texttt{GradeBoundary} & 65 & The minimum mark for an A grade. \\ \hline
+
+    \texttt{GradeBoundary} & 57 & The minimum mark for a B grade. \\ \hline
+
+    \texttt{GradeBoundary} & 43 & The minimum mark for a C grade. \\ \hline
+
+    \texttt{GradeBoundary} & 35 & The minimum mark for a D grade. \\ \hline
+
+    \texttt{GradeBoundary} & 27 & The minimum mark for an E grade. \\ \hline
+
+    \end{tabular}
+
+
+    \vfill
+
+
+    A global 2D array \texttt{Result} of type integer contains candidate marks for
+    the exam. Each row relates to one candidate. Column 1 contains the candidate mark
+    and column 2 contains the unique candidate ID.
+
+
+    For example, for the fourth and fifth candidates:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Element} & \textbf{Mark} \\ \hline
+
+    \texttt{Result[4, 1]} & 56 \\ \hline
+
+    \texttt{Result[5, 1]} & 54 \\ \hline
+
+    \end{tabular}
+
+    \quad
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Element} & \textbf{ID} \\ \hline
+
+    \texttt{Result[4, 2]} & 1074832 \\ \hline
+
+    \texttt{Result[5, 2]} & 2573839 \\ \hline
+
+    \end{tabular}
+
+
+    \vfill
+
+
+    There are more rows in the array than candidates who sit the exam. Any unused
+    rows will be at the end of the array.
+
+
+    Candidate papers that are given a mark within two marks of any grade boundary
+    must be checked.
+
+
+    For example, given the values in the example grade boundaries above, any paper
+    that was awarded between 41 and 45 marks (inclusive) would need to be checked.
+
+
+    A program is being written to identify papers that need to be checked.
+
+
+    The programmer has defined the first program module as follows:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Module} & \textbf{Description} \\ \hline
+
+    \texttt{CheckMark()} & \begin{tabular}[c]{@{}l@{}}\bullet\quad called with a parameter
+    of type integer representing a\\ \quad candidate mark\\ \bullet\quad returns \texttt{TRUE}
+    if the mark is within 2 of any of the five grade\\ \quad boundaries, otherwise
+    returns \texttt{FALSE}\end{tabular} \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: long_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Write pseudocode for module \texttt{CheckMark()}.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: long_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'A second module is defined:
+
+
+      \begin{tabular}{|l|p{12cm}|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}}
+      \\ \hline
+
+      \texttt{CheckAll()} & \begin{itemize}
+
+      \item called with a parameter of type integer representing the number of candidate
+      marks in the \texttt{Result} array
+
+      \item uses \texttt{CheckMark()} to check each candidate mark
+
+      \item for each paper that needs to be checked, write the corresponding candidate
+      ID on a separate line in a new file named \texttt{GRList.txt}
+
+      \item outputs a message with a count of how many papers need to be checked
+
+      \end{itemize} \\ \hline
+
+      \end{tabular}
+
+
+      Write pseudocode for module \texttt{CheckAll()}.
+
+
+      \texttt{CheckMark()} must be used to check each individual mark.'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 19
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The requirement changes. Instead of a new file, the module described in
+      part \textbf{(b)} needs to add the corresponding candidate ID for each paper
+      that needs to be checked to an \textbf{existing} file.
+
+
+      Explain the change that will need to be made to \texttt{CheckAll()}.'
+    answer_options: []
+    subquestions: []

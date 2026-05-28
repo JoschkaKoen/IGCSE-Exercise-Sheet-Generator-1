@@ -1,0 +1,11 @@
+questions:
+  - number: "6e"
+    type: calculation
+    text: |
+      Add the \textbf{two} binary integers using binary addition and give your answer in binary. Show all your working.
+
+      \begin{tabular}{rcccccccc}
+        & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 0 \\
+      + & 0 & 1 & 1 & 0 & 1 & 1 & 1 & 0 \\
+      \hline
+      \end{tabular}

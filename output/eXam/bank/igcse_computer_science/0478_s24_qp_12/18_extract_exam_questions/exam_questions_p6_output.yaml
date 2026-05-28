@@ -1,0 +1,42 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      Instructions are processed by a central processing unit (CPU) in a computer.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the paragraph about fetching an instruction into the CPU to be processed.
+
+      Use the terms from the list.
+
+      Some of the terms in the list will \textbf{not} be used. You should only use a term once.
+
+      \begin{itemize}
+      \item address
+      \item arithmetic logic unit (ALU)
+      \item binary
+      \item control unit (CU)
+      \item current instruction register (CIR)
+      \item data
+      \item denary
+      \item driver
+      \item fetch
+      \item interrupt
+      \item memory address register (MAR)
+      \item memory data register (MDR)
+      \item random access memory (RAM)
+      \item read only memory (ROM)
+      \item secondary storage
+      \item signal
+      \end{itemize}
+
+      The program counter contains the \underline{\hspace{1.5em}} of the next instruction to be processed; this is then sent to the \underline{\hspace{1.5em}} using the address bus. The address is then sent to the \underline{\hspace{1.5em}}.
+
+      Once the address is received, the instruction stored at the location is sent to the \underline{\hspace{1.5em}}, using the \underline{\hspace{1.5em}} bus. The instruction is then sent to the \underline{\hspace{1.5em}} that is built into the \underline{\hspace{1.5em}}.
+  - number: "5b"
+    type: short_answer
+    text: |
+      The CPU uses an instruction set to decode the instruction.
+
+      State what is meant by an instruction set.

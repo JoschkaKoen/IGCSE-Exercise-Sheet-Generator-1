@@ -1,0 +1,21 @@
+  - number: "8"
+    type: short_answer
+    text: ""
+  - number: "8a"
+    type: short_answer
+    text: ""
+  - number: "8ai"
+    type: short_answer
+    text: ""
+  - number: "8aii"
+    type: short_answer
+    text: ""
+  - number: "8b"
+    type: short_answer
+    text: ""
+  - number: "8bi"
+    type: long_answer
+    text: ""
+  - number: "8bii"
+    type: short_answer
+    text: ""

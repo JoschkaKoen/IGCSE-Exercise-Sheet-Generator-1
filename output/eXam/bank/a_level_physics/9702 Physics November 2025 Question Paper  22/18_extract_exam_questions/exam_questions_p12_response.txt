@@ -1,0 +1,42 @@
+[thinking]
+**Transcribing Page 12 of the Exam Paper**
+
+Okay, the user wants me to transcribe page 12 of the exam paper. I see the structure: Question 4, followed by 4a and 4b. Let's get to work and extract the text.
+
+First, I need to look at the OCR and the image data for the page and extract the relevant text. Question 4 introduces the scenario: a laser emitting visible light through a double slit, creating a fringe pattern on a screen. The image (Fig 4.1) apparently shows the setup. The key parameters given are: slit separation ($1.0 \times 10^{-3}\text{ m}$), distance to the screen ($4.8\text{ m}$), and the fringe spacing ($3.3\text{ mm}$).
+
+Now, the problem. The instructions were to split the main question into the question and its parts. Okay, so I should divide the question accordingly:
+
+**Question 4:** "A laser emits visible light of a single frequency in a vacuum. The light is incident normally on a double slit and then forms a pattern of bright and dark fringes on a screen, as shown in Fig. 4.1. The separation of the slits is $1.0 \times 10^{-3}\text{ m}$. The distance from the slits to the screen is $4.8\text{ m}$. The distance between the centres of adjacent dark fringes on the screen is $3.3\text{ mm}$."
+
+**Question 4a:** "Explain how the pattern of bright and dark fringes is formed."
+
+**Question 4b:** "Calculate the frequency of the light emitted by the laser.
+
+frequency = \hrulefill Hz"
+
+Alright, I need to format it properly. Based on the formatting rules, a value followed by an answer line (like here), should be rendered as, `value \hrulefill`. This has to be the output, so the line "frequency = .................................................... Hz [4]" becomes `frequency = \hrulefill Hz`
+
+Now, I'm ready to produce the YAML output that reflects this extracted and formatted information.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A laser emits visible light of a single frequency in a vacuum. The light is incident normally on a double slit and then forms a pattern of bright and dark fringes on a screen, as shown in Fig. 4.1.
+
+      The separation of the slits is $1.0 \times 10^{-3}\text{ m}$. The distance from the slits to the screen is $4.8\text{ m}$. The distance between the centres of adjacent dark fringes on the screen is $3.3\text{ mm}$.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Explain how the pattern of bright and dark fringes is formed.
+  - number: "4b"
+    type: calculation
+    text: |
+      Calculate the frequency of the light emitted by the laser.
+
+      frequency = \hrulefill Hz

@@ -1,0 +1,43 @@
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Numbers are stored in a computer using binary floating-point representation with:
+
+      \begin{itemize}
+      \item 12 bits for the mantissa
+      \item 4 bits for the exponent
+      \item two's complement form for both the mantissa and the exponent.
+      \end{itemize}
+  - number: "2a"
+    type: calculation
+    text: |
+      Calculate the normalised binary floating-point representation of $+124.4375$ in this system.
+      Show your working.
+
+      \textbf{Mantissa} \qquad\qquad\qquad\qquad\qquad\qquad\qquad \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \qquad \framebox{$\square\,\square\,\square\,\square$}
+  - number: "2b"
+    type: calculation
+    text: |
+      Calculate the denary value of the following normalised binary floating-point number.
+      Show your working.
+
+      \textbf{Mantissa} \qquad\qquad\qquad\qquad\qquad\qquad\qquad \textbf{Exponent}
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 \\
+      \hline
+      \end{tabular}
+      \qquad
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      0 & 1 & 1 & 0 \\
+      \hline
+      \end{tabular}
+
+      Denary value \hrulefill
+```

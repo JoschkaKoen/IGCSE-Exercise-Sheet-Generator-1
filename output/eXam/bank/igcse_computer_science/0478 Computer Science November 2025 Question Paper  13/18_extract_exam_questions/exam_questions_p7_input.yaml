@@ -1,0 +1,9 @@
+  - number: "3b"
+    type: short_answer
+    text: ""
+  - number: "3bi"
+    type: long_answer
+    text: ""
+  - number: "3bii"
+    type: long_answer
+    text: ""

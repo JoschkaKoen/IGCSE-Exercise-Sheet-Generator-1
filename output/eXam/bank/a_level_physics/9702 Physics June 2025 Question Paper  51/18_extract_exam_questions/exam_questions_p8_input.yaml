@@ -1,0 +1,15 @@
+  - number: "2civ"
+    type: calculation
+    text: ""
+  - number: "2d"
+    type: short_answer
+    text: ""
+  - number: "2di"
+    type: calculation
+    text: ""
+  - number: "2dii"
+    type: calculation
+    text: ""
+  - number: "2e"
+    type: calculation
+    text: ""

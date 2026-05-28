@@ -1,0 +1,18 @@
+questions:
+  - number: "6bii"
+    type: short_answer
+    text: |
+      The database also has the table \texttt{INVOICE} that stores data about each invoice that is sent to a customer.
+
+      Example data from the table \texttt{INVOICE} is given.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{InvoiceID} & \textbf{DateSent} & \textbf{Amount} & \textbf{Paid} & \textbf{JobID} \\ \hline
+      29262 & 12/12/2023 & 105.20 & Y & 221 \\ \hline
+      26765 & 11/11/2023 & 200.00 & Y & 315 \\ \hline
+      13290 & 02/01/2024 & 50.00 & Y & 315 \\ \hline
+      34090 & 05/02/2024 & 25.95 & N & 569 \\ \hline
+      \end{tabular}
+
+      Write a Structured Query Language (SQL) script to return the total amount of all the invoices sent in the year 2023 that have been paid.

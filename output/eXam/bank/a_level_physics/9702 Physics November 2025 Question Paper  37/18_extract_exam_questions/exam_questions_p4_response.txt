@@ -1,0 +1,50 @@
+[thinking]
+**My Analysis of the Exam Paper Page**
+
+Okay, here's the breakdown. I'm looking at page 4 of the 9702/37/O/N/25 exam paper and I need to extract the questions and format them in YAML. The goal is to get questions 1b, 1c, 1ci, 1cii, and 1ciii.
+
+First, I need to look at the text directly.
+
+*   **1b:** Straightforward: "Change the position of Q and adjust the position of P until the rod is again parallel to the bench. Measure p and q. Repeat until you have six sets of values of p and q. Record your results in a table. Include values of TP and TQ in your table." That's easy enough. No issues there.
+
+*   **1c:** Ah, here's where it gets interesting. I see a stub for `1c`, but looking at the image, there's no actual question text directly associated with `(c)` itself before `(i)`. It's just: "(c) (i) Plot a graph...". So, the instructions are very clear here: if the stub has no text and the stem is not visible, I need to emit a `STUB ERROR`. I have to be careful with these stubs. Even if it *looks* like there should be text, I must stick to the rules.
+
+*   **1ci:** That's: "Plot a graph of TQ on the y-axis against TP on the x-axis." Standard graphing question.
+
+*   **1cii:** "Draw the straight line of best fit." Again, no surprises.
+
+*   **1ciii:** "Determine the gradient and y-intercept of this line. gradient = \hrulefill y-intercept = \hrulefill". This is pretty standard stuff.
+
+Alright, so the LaTeX formatting is simple. Now I need to make sure the YAML is perfect, no double quotes where I shouldn't, and use block scalars for the text fields. I have to remember that this isn't an MCQ so there's no need for an `options` key. And most importantly, I have to be extremely consistent with the `STUB ERROR` in `1c`. Everything looks good, I'm confident with this.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1b"
+    type: calculation
+    text: |
+      Change the position of Q and adjust the position of P until the rod is again parallel to the bench. Measure $p$ and $q$. Repeat until you have six sets of values of $p$ and $q$.
+
+      Record your results in a table. Include values of $T_{\text{P}}$ and $T_{\text{Q}}$ in your table.
+  - number: "1c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Plot a graph of $T_{\text{Q}}$ on the $y$-axis against $T_{\text{P}}$ on the $x$-axis.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1ciii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+
+      $y$-intercept = \hrulefill

@@ -1,0 +1,53 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Two binary numbers are stored in a computer.
+  - number: "2a"
+    type: calculation
+    text: |
+      Add the \textbf{two} binary numbers using binary addition.
+
+      Give your answer in binary. Show all of your working.
+
+      \begin{tabular}{rc}
+        & 11110101 \\
+      + & 00111001 \\
+      \end{tabular}
+  - number: "2b"
+    type: calculation
+    text: |
+      A logic right shift of \textbf{three} places is performed on the binary number 11110101.
+
+      Give the denary number for the binary number that would be stored after the logical shift of \textbf{three} places has occurred. Show all of your working.
+
+      Denary number \hrulefill
+  - number: "3"
+    type: short_answer
+    text: |
+      A programmer uses assembly language to create a program for a coffee machine.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Describe what is meant by assembly language.
+  - number: "3b"
+    type: short_answer
+    text: |
+      Identify the translator needed for assembly language.
+  - number: "3c"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which statement is an advantage of using assembly language.
+    options:
+      - letter: A
+        text: |
+          It is close to human language.
+      - letter: B
+        text: |
+          It is memory efficient.
+      - letter: C
+        text: |
+          It is easy to debug.
+      - letter: D
+        text: |
+          It is machine independent.

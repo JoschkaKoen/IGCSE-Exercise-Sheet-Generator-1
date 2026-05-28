@@ -1,0 +1,82 @@
+[thinking]
+**Page 2 Exam YAML Generation: A Thought Process**
+
+Okay, the task is to generate the YAML stub for page 2 of the exam. Let's break this down systematically, starting with the questions. The structure is:
+
+*   **Question 1:** Deals with the composite record data type, `ClubMember`.
+    *   **1a:** Appears to be a parent container. There isn't explicit text for `1a` itself in the initial text, only sub-parts. Looking at the image, it seems that the questions begin at `(a) (i)`. So, `1a` is really an introduction to the concept but is not text-based and can be handled as an empty parent section.
+        *   **1ai:** Requires pseudocode for setting up a variable for a single record of the `ClubMember` data type.
+        *   **1aii:** Requires pseudocode to assign specific values (Code and FeesPaid) to the variable set up in `1ai`.
+    *   **1b:** Introduces an enumerated data type, `Activity`, to be incorporated into `ClubMember`.
+        *   **1bi:** Requires pseudocode for the type declaration of `Activity` with a list of activities (Badminton, Football, etc.).
+        *   **1bii:** Requires pseudocode for updating the `ClubMember` declaration to include the `Choice` field, linked to the `Activity` enumerated type.
+
+First, I need the pseudocode block for Question `1` itself. This involves defining the `ClubMember` record type with its fields: `Code`, `LastName`, `FirstName`, `Telephone`, `JoinDate`, `Fees`, and `FeesPaid`. I'll write that out now.
+
+```alltt
+TYPE ClubMember
+  DECLARE Code : INTEGER
+  DECLARE LastName : STRING
+  DECLARE FirstName : STRING
+  DECLARE Telephone : STRING
+  DECLARE JoinDate : DATE
+  DECLARE Fees : REAL
+  DECLARE FeesPaid : BOOLEAN
+ENDTYPE
+```
+
+Now, I'm ready to properly format the YAML based on my understanding of the question breakdown. I'll make sure to handle that empty state for question `1a` appropriately and then build the rest.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The composite record data type, \texttt{ClubMember}, is defined in pseudocode as:
+
+      \begin{alltt}
+      TYPE ClubMember
+        DECLARE Code : INTEGER
+        DECLARE LastName : STRING
+        DECLARE FirstName : STRING
+        DECLARE Telephone : STRING
+        DECLARE JoinDate : DATE
+        DECLARE Fees : REAL
+        DECLARE FeesPaid : BOOLEAN
+      ENDTYPE
+      \end{alltt}
+  - number: "1a"
+    type: short_answer
+    text: ''
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Write the pseudocode statement to set up a variable for one record of the composite data type, \texttt{ClubMember}.
+  - number: "1aii"
+    type: short_answer
+    text: |
+      Write the pseudocode statements to assign the following values to the variable set up in part (a)(i):
+
+      \begin{itemize}
+      \item 984632 to \texttt{Code}
+      \item \texttt{TRUE} to \texttt{FeesPaid}
+      \end{itemize}
+  - number: "1b"
+    type: short_answer
+    text: |
+      An enumerated data type, \texttt{Activity}, is required, so that a new field, \texttt{Choice}, can be added to the composite data type, \texttt{ClubMember}, to allow members to choose an activity.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Write the pseudocode statement for the type declaration of \texttt{Activity} to hold the names of the available activities:
+
+      Badminton, Football, Golf, Snooker, Swimming, Tennis.
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Write the new pseudocode statement required to update the declaration of \texttt{Choice} in the definition of \texttt{ClubMember}.
+```

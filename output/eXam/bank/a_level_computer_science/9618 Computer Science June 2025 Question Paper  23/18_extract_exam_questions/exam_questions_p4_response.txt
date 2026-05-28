@@ -1,0 +1,77 @@
+[thinking]
+**Exam Paper Transcription: Page 4 Analysis**
+
+Okay, so I need to transcribe page 4 of this exam paper.  The questions on this page are numbered 2, 2a, and 2ai.  Let's see what's what.
+
+Question 2 is a fairly generic lead-in, mentioning Abstract Data Types (ADTs) in a programmer's work. Fine, nothing concrete yet.
+
+Question 2a then introduces a stack implemented using memory locations 400 to 409. The paper provides a diagram of the current stack state and indicates `TopOfStack`.  I'll translate this diagram into a LaTeX tabular environment for clarity and proper formatting. I’ll make sure the columns align properly and the `TopOfStack` pointer is clearly denoted. I will also make sure the arrows are correctly formed outside of the alltt environment.
+```latex
+\begin{tabular}{c|c|l}
+\textbf{Memory location} & \multicolumn{1}{c}{\textbf{Value}} & \\ \cline{2-2}
+409 & & \\ \cline{2-2}
+408 & & \\ \cline{2-2}
+407 & & \\ \cline{2-2}
+406 & & \\ \cline{2-2}
+405 & & \\ \cline{2-2}
+404 & & \\ \cline{2-2}
+403 & 'P' & $\leftarrow$ \texttt{TopOfStack} \\ \cline{2-2}
+402 & 'X' & \\ \cline{2-2}
+401 & 'D' & \\ \cline{2-2}
+400 & 'B' & \\ \cline{2-2}
+\end{tabular}
+```
+
+Now, onto Question 2ai. This question wants me to complete a table. It presents two questions about the stack, and I need to fill in the answer column. The first question deals with finding the memory location of the oldest item. The second question is about determining how many push operations are needed to bring `TopOfStack` to location 409. I need to be precise, ensuring that any references to variables use the correct formatting and are clearly understood. The table is:
+```latex
+\begin{tabular}{|p{8cm}|p{4cm}|}
+\hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\textbf{Answer}} \\ \hline
+the memory location of the value that has been on the stack for the longest time & \\ \hline
+the number of consecutive \texttt{push} operations that will result in the \texttt{TopOfStack} variable containing 409 & \\ \hline
+\end{tabular}
+```
+All seems in order. I'm ready to begin answering the questions now that I've ensured a correct representation of the existing data, and a clear understanding of what is being asked.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A programmer uses a number of Abstract Data Types (ADT) in the programs that she is developing.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A stack using memory locations 400 to 409 is used in one program.
+
+      The diagram represents the current state of the stack.
+
+      A variable \texttt{TopOfStack} pointer indicates the last value added to the stack.
+
+      \begin{tabular}{c|c|l}
+      \textbf{Memory location} & \multicolumn{1}{c}{\textbf{Value}} & \\ \cline{2-2}
+      409 & & \\ \cline{2-2}
+      408 & & \\ \cline{2-2}
+      407 & & \\ \cline{2-2}
+      406 & & \\ \cline{2-2}
+      405 & & \\ \cline{2-2}
+      404 & & \\ \cline{2-2}
+      403 & 'P' & $\leftarrow$ \texttt{TopOfStack} \\ \cline{2-2}
+      402 & 'X' & \\ \cline{2-2}
+      401 & 'D' & \\ \cline{2-2}
+      400 & 'B' & \\ \cline{2-2}
+      \end{tabular}
+  - number: "2ai"
+    type: short_answer
+    text: |
+      Complete the answer column in the following table:
+
+      \begin{tabular}{|p{8cm}|p{4cm}|}
+      \hline
+      \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\textbf{Answer}} \\ \hline
+      the memory location of the value that has been on the stack for the longest time & \\ \hline
+      the number of consecutive \texttt{push} operations that will result in the \texttt{TopOfStack} variable containing 409 & \\ \hline
+      \end{tabular}

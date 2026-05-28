@@ -1,0 +1,36 @@
+questions:
+  - number: "4b"
+    type: short_answer
+    text: |
+      The pseudocode represents an algorithm to set the appropriate elements of the array to \texttt{TRUE}
+
+      Complete the pseudocode:
+
+      \begin{alltt}
+      DECLARE EasyQ, HardQ : INTEGER
+
+      FOR EasyQ <- \underline{\hspace{3em}} TO 15 STEP \underline{\hspace{3em}}
+
+          FOR HardQ <- 0 TO \underline{\hspace{3em}} STEP \underline{\hspace{3em}}
+
+              CheckTotal[\underline{\hspace{6em}}] <- TRUE
+
+          NEXT HardQ
+
+      NEXT EasyQ
+      \end{alltt}
+  - number: "4c"
+    type: long_answer
+    text: |
+      The array elements have been assigned the required values.
+
+      A module \texttt{ValidateScore()} will take an integer value representing a total score as a parameter. It will return \texttt{TRUE} if the total score is valid, or \texttt{FALSE} if it is not valid.
+
+      Describe the algorithm for \texttt{ValidateScore()} using \textbf{four} steps.
+
+      Do \textbf{not} use pseudocode in your answer.
+
+      Step 1 \hrulefill
+      Step 2 \hrulefill
+      Step 3 \hrulefill
+      Step 4 \hrulefill

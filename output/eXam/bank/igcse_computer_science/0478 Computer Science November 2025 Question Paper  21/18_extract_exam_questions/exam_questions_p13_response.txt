@@ -1,0 +1,38 @@
+[thinking]
+**Populating the YAML Stub for Page 13**
+
+Okay, the task is to fill in the YAML stub for page 13 of the exam. I need to transcribe the questions accurately and ensure proper formatting. Let's see, the questions on this page are numbered 9, 10, 10a, and 10b, each with a different answer type.
+
+First, question 9. It asks about reading a line from a file named "Attendance.txt" and storing it in the variable "StudentAttendance." Right, gotta remember to use the monospace font for code tokens, so it should be `\texttt{Attendance.txt}` and `\texttt{StudentAttendance}`.
+
+Next, question 10 is about variables "Seconds" and "Minutes." Same deal, those need to be rendered as `\texttt{Seconds}` and `\texttt{Minutes}`.
+
+Then, we have question 10a. It wants pseudocode to declare those same variables, `\texttt{Seconds}` and `\texttt{Minutes}`. Also, it’s just “Write pseudocode statements...” – I'll strip the “(a)” prefix.
+
+Finally, question 10b. This one is about a procedure, `\texttt{Time(TotalSeconds)}`, which converts seconds to minutes and seconds. And, I'll remove that prefix too. Gotta make sure the formatting is consistent, with the monospace font for code tokens and no standalone dotted lines. With that, I should be ready to write the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "9"
+    type: long_answer
+    text: |
+      A school stores all the students’ attendance data in a file called \texttt{Attendance.txt}
+
+      Write an algorithm in pseudocode to read a line of text from the file and store this line in the variable \texttt{StudentAttendance}
+  - number: "10"
+    type: short_answer
+    text: |
+      The variables \texttt{Seconds} and \texttt{Minutes} are used in a program. \texttt{Seconds} holds the number of seconds as a whole number and \texttt{Minutes} holds the number of minutes as a whole number.
+  - number: "10a"
+    type: short_answer
+    text: |
+      Write pseudocode statements to declare the variables \texttt{Seconds} and \texttt{Minutes}
+  - number: "10b"
+    type: long_answer
+    text: |
+      The procedure \texttt{Time(TotalSeconds)} takes the number of seconds as a parameter. The procedure converts the value held in the parameter into minutes and seconds and outputs the result.
+
+      Write this procedure in pseudocode.

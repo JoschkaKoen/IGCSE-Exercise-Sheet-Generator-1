@@ -1,0 +1,20 @@
+[thinking]
+**Transcribing Question 4c**
+
+Okay, so the user wants me to handle question "4c" from this page. Let's see... looking at the context, question 4c states: "(c) On Fig. 4.1, sketch the variation with $T$ of the root-mean-square (r.m.s.) speed of the molecules of an ideal gas."
+
+Alright, Fig. 4.1 is a diagram, I can see the axes are: the y-axis is "r.m.s. speed" starting at "0", and the x-axis is "$T$" starting at "0". The question is worth `[2]` marks, and the total for that section is `[Total: 8]`.
+
+Now, to transcribe this correctly according to the prompt, I need to get the YAML correct. The key here is the presence of the figure. The instructions are clear: *never* include image inclusion commands. So, I will omit the figure itself and simply transcribe the question text. I need to make sure to mention the figure label, but only as part of the text.
+
+Therefore, the final transcription is: "On Fig. 4.1, sketch the variation with $T$ of the root-mean-square (r.m.s.) speed of the molecules of an ideal gas." That should do the trick.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4c"
+    type: short_answer
+    text: |
+      On Fig. 4.1, sketch the variation with $T$ of the root-mean-square (r.m.s.) speed of the molecules of an ideal gas.

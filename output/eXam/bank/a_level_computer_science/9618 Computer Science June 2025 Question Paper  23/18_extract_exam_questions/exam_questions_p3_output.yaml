@@ -1,0 +1,18 @@
+```yaml
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The table lists some of the variables used in the program.
+
+      Complete the table by writing the most appropriate data type for each variable.
+
+      \begin{tabular}{|l|p{7cm}|p{3cm}|}
+      \hline
+      \textbf{Variable} & \textbf{Use of variable} & \textbf{Data type} \\ \hline
+      \texttt{MemberCount} & stores how many members have used the sports centre each day & \hrulefill \\ \hline
+      \texttt{TotalTakings} & stores the total amount of money taken each day & \hrulefill \\ \hline
+      \texttt{BookingConfirmed} & stores the state of a booking for an exercise class; a booking is either confirmed or \textbf{not} confirmed & \hrulefill \\ \hline
+      \texttt{MemberDOB} & to calculate when to send an email with a birthday message to a member & \hrulefill \\ \hline
+      \end{tabular}
+```

@@ -1,0 +1,38 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      An employee of a company sells houses. He sends images of the houses to his company.
+  - number: "2a"
+    type: short_answer
+    text: |
+      The employee compresses the image files using lossy compression before sending them. Lossy compression reduces the size of the image files.
+
+      Give \textbf{two} other reductions that lossy compression makes to the images.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      The image data is broken down into packets to be sent across a network to the company.
+
+      The destination internet protocol (IP) address is read by a device in the network. The device uses the IP address to forward the packet towards its correct destination.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      State the name of the device that reads the destination IP address.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Identify the part of the packet where the destination IP address is found.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The IP address has an IPv6 format.
+
+      Give \textbf{three} characteristics of the IPv6 format.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

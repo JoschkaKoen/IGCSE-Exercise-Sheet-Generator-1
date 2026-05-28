@@ -1,0 +1,62 @@
+[thinking]
+**Transcribing the Question and Context**
+
+Okay, so the user wants me to transcribe the text for Question 7. It looks like we're diving into a program designed for a coffee shop's customer loyalty scheme. The core of this question seems to revolve around a module called `FindCustomer()`. Right, I see they're using a global 2D integer array, `Loyalty`, to store customer information: IDs and loyalty points. It's a fairly straightforward setup: 1000 rows (one for each customer, up to a maximum of 1000), and two columns – the customer ID in column 1 and their loyalty points in column 2. Unused rows will have a customer ID of 99999. The array is sorted by customer ID, which is good. That should speed up any searches.
+
+The important bit is the `FindCustomer()` module. Let's make sure I get the description right, as that's probably the focus of the question. Here's what I need to capture verbatim:
+
+```
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Module} & \textbf{Description} \\ \hline
+\texttt{FindCustomer()} & \begin{itemize}
+\item called with parameter of type \texttt{INTEGER} representing a customer ID
+\item searches the \texttt{Loyalty} array for this customer ID
+\item the search will stop as soon as the customer ID is found
+\item the search should efficiently deal with the situation when the customer ID is \textbf{not} stored in the \texttt{Loyalty} array
+\item if the customer ID is found, return an integer value representing the loyalty points, otherwise return -1
+\end{itemize} \\ \hline
+\end{tabular}
+```
+
+That's it, that should be all the relevant information for the transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A program is being developed to implement a customer loyalty scheme for a coffee shop.
+
+      Each customer has a unique customer ID starting at 10001 with this value increasing by one each time a new customer joins the loyalty scheme.
+
+      For example, the third customer who joins the loyalty scheme is given the customer ID 10003
+
+      The loyalty scheme is limited to 1000 customers.
+
+      A customer is awarded a loyalty point every time they buy a coffee.
+
+      The programmer has decided to use a global 2D array \texttt{Loyalty} of type \texttt{INTEGER}. The array \texttt{Loyalty} is made up of 1000 rows and 2 columns. Each row relates to one customer; column 1 contains the unique customer ID and column 2 contains the number of customer loyalty points.
+
+      Rows in the array \texttt{Loyalty} that are not currently being used have the value of Column 1 set to 99999
+
+      The array is sorted in ascending order by customer ID.
+
+      The programmer has defined a program module:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{FindCustomer()} & \begin{tabular}[t]{@{}l@{}}
+      $\bullet$ called with parameter of type \texttt{INTEGER} representing a customer ID \\
+      $\bullet$ searches the \texttt{Loyalty} array for this customer ID \\
+      $\bullet$ the search will stop as soon as the customer ID is found \\
+      $\bullet$ the search should efficiently deal with the situation when the \\
+      \phantom{$\bullet$} customer ID is \textbf{not} stored in the \texttt{Loyalty} array \\
+      $\bullet$ if the customer ID is found, return an integer value representing the \\
+      \phantom{$\bullet$} loyalty points, otherwise return -1
+      \end{tabular} \\ \hline
+      \end{tabular}

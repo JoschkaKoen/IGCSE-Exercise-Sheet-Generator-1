@@ -1,0 +1,37 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      Deep Learning is a form of Machine Learning.
+  - number: "9ai"
+    type: short_answer
+    text: |
+      State \textbf{one} example where Deep Learning is used.
+  - number: "9aii"
+    type: short_answer
+    text: |
+      Identify how Deep Learning can be made more effective.
+  - number: "9b"
+    type: long_answer
+    text: |
+      Describe the back propagation of errors method in Machine Learning.
+  - number: "10"
+    type: short_answer
+    text: |
+      An exception is an error that may cause a program to halt unexpectedly.
+  - number: "10a"
+    type: short_answer
+    text: |
+      Describe how program termination due to an exception can be avoided.
+  - number: "10b"
+    type: short_answer
+    text: |
+      Identify \textbf{two} possible causes of exceptions.
+
+      1. \hrulefill
+      2. \hrulefill
+```

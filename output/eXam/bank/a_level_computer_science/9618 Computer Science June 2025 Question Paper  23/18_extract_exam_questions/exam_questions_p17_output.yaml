@@ -1,0 +1,7 @@
+questions:
+  - number: "7bi"
+    type: long_answer
+    text: |
+      Write pseudocode for module \texttt{MondayCheck()}
+
+      The module \texttt{FindCustomer()} must be used and assume it returns a valid string for the current customer.

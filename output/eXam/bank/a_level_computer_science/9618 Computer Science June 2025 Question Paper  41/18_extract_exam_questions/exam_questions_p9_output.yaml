@@ -1,0 +1,45 @@
+questions:
+  - number: "3d"
+    type: short_answer
+    text: |
+      The recursive procedure \texttt{OutputInOrder()} outputs the data stored in the binary tree in ascending numerical order.
+
+      The procedure takes a \texttt{Node} object as a parameter and then:
+      \begin{itemize}
+      \item checks if the left node is null. If there is a left node, the function calls itself with the left node
+      \item outputs the data of the current node
+      \item checks if the right node is null. If there is a right node, the function calls itself with the right node.
+      \end{itemize}
+
+      Write program code for \texttt{OutputInOrder()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(d)} in the evidence document.
+  - number: "3e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3ei"
+    type: short_answer
+    text: |
+      Write program code to extend the main program to:
+      \begin{itemize}
+      \item create a new object of type \texttt{Tree} with the node containing the data 10 as the first node
+      \item insert the nodes with the values 20, 5, 15 and 7 into the tree in the order given
+      \item call \texttt{OutputInOrder()} with the tree's root node as a parameter.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(e)(i)} in the evidence document.
+  - number: "3eii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{3(e)(ii)} in the evidence document.

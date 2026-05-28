@@ -1,0 +1,28 @@
+[thinking]
+**Transcribing Exam Questions: A Quick Process**
+
+Okay, so the user wants me to extract and format two questions from this exam page. Let's get right to it. I see that the questions are numbered 1biii and 1biv.
+
+For question 1biii, I need to create a YAML representation. The question asks about average output power given work done against resistive forces over a specific time. Easy enough. I'll make sure to include the answer line with the correct unit "W". Let me just double-check the formatting of that unit in the original; yes, it's explicitly printed on the page, so I'll go with `power = \hrulefill \text{ W}`. Done!
+
+Now, 1biv. This is a "state and explain" type question, so it will be a longer answer. The prompt concerns the car's output power when its speed becomes constant. I won't add any specific answer line markers here, since it's an open-ended question. It seems pretty straightforward to represent. Good to go!
+
+
+
+[/thinking]
+
+questions:
+  - number: "1biii"
+    type: calculation
+    text: |
+      Between time $t = 0$ and time $t = 5.8\text{ s}$, the work done against resistive forces is $4.7 \times 10^4\text{ J}$.
+
+      Determine the average output power of the car during this time.
+
+      power = \hrulefill \text{ W}
+  - number: "1biv"
+    type: long_answer
+    text: |
+      At time $t = 5.8\text{ s}$, the speed of the car becomes constant.
+
+      State and explain whether the output power of the car is greater than, less than or the same as the output power just before $t = 5.8\text{ s}$.

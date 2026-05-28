@@ -1,0 +1,25 @@
+```yaml
+questions:
+  - number: "11"
+    type: long_answer
+    text: |
+      Describe when the use of recursion would be beneficial \textbf{and} give an example.
+
+      Description \hrulefill
+      Example \hrulefill
+  - number: "12"
+    type: short_answer
+    text: |
+      An exception can occur when running a program.
+  - number: "12a"
+    type: long_answer
+    text: |
+      Explain what is meant by an exception.
+  - number: "12b"
+    type: short_answer
+    text: |
+      Identify \textbf{one} example of an exception and give \textbf{one} reason why the exception may cause a problem.
+
+      Example \hrulefill
+      Reason \hrulefill
+```

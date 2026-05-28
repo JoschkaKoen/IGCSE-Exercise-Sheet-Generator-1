@@ -1,0 +1,682 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student records himself singing a song for his music project. The recorded
+    sound is converted to binary to be processed by a computer.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} input device the student can use to record the song.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: multiple_choice
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The student uses sound editing software to edit the recorded sound.
+
+
+      Tick ($\checkmark$) \textbf{one} box to show whether sound editing software
+      is an example of application, security, system or utility software.'
+    answer_options:
+    - letter: A
+      text: application software
+    - letter: B
+      text: security software
+    - letter: C
+      text: system software
+    - letter: D
+      text: utility software
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Two binary numbers stored from the recording are 00011001 and 10110100.
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: calculation
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Convert the \textbf{two} binary numbers to denary numbers.
+
+
+        00011001 \hrulefill
+
+        10110100 \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Convert the \textbf{two} binary numbers to hexadecimal numbers.
+
+
+        00011001 \hrulefill
+
+        10110100 \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1ciii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'A logical right shift of two places is performed on the binary number
+        10100100.
+
+
+        Give the binary number that would be stored after the logical shift has taken
+        place.'
+      answer_options: []
+      subquestions: []
+  - number: 1d
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The two’s complement 8-bit binary integer 11001001 is also stored.
+
+
+      Convert the two’s complement 8-bit binary integer to denary. Show all of your
+      working.
+
+
+      Denary value \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1e
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: "The table contains terms and descriptions about the process of converting\
+      \ analogue sound to binary.\n\nComplete the table with the missing term and\
+      \ descriptions.\n\n\\begin{tabular}{|p{4cm}|p{10cm}|}\n\\hline\n\\multicolumn{1}{|c|}{\\\
+      textbf{Term}} & \\multicolumn{1}{c|}{\\textbf{Description}} \\\\ \\hline\n\\\
+      hrulefill & This is the measurement of the height (amplitude) of a sound wave\
+      \ taken at regular time intervals. \\\\ \\hline\nsample rate & \\\\\n & \\\\\
+      \n & \\\\ \\hline\nsample resolution & \\\\\n & \\\\\n & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A company employee is editing a video for the company''s website.
+
+
+    Data is stored in the random access memory (RAM) when the video is edited.
+
+
+    The RAM becomes full and pages of data are transmitted to a partitioned section
+    of the secondary storage to stop the computer from crashing.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the name of the partitioned section of the secondary storage that is
+      used in this process.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The secondary storage is a hard disk drive (HDD). An HDD is an example
+      of magnetic storage.
+
+
+      One feature of magnetic storage is that it uses platters.
+
+
+      Give \textbf{three} other features of magnetic storage.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Give the reasons why an HDD is an example of secondary storage.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer with a Von Neumann architecture has several hardware components.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete the table with the missing terms and descriptions about computer
+      hardware.
+
+
+      \begin{tabular}{|p{4cm}|p{8cm}|}
+
+      \hline
+
+      \hfil \textbf{Term} & \hfil \textbf{Description} \\ \hline
+
+      \hrulefill & This is the address given to a network interface card (NIC) when
+      it is manufactured. \\ \hline
+
+      register & \\ \hline
+
+      clock & \\ \hline
+
+      control unit (CU) & \\ \hline
+
+      \hrulefill & This is a processing unit within the CPU that can fetch, decode
+      and execute instructions. \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Identify \textbf{three} registers that are used in the fetch stage of the
+      fetch–decode–execute (FDE) cycle.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: multiple_choice
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Circle the \textbf{two} buses that are used in the fetch stage of the FDE
+      cycle.
+    answer_options:
+    - letter: A
+      text: binary
+    - letter: B
+      text: control
+    - letter: C
+      text: denary
+    - letter: D
+      text: data
+    - letter: E
+      text: information
+    - letter: F
+      text: hardware
+    - letter: G
+      text: software
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A computer has an operating system.
+
+
+    One function of the operating system is handling interrupts.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the role of the operating system in handling interrupts.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} other functions of an operating system.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Hardware and software interrupts are two types of interrupt.
+    answer_options: []
+    subquestions:
+    - number: 4ci
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} example of a hardware interrupt.
+      answer_options: []
+      subquestions: []
+    - number: 4cii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} example of a software interrupt.
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An online company has a website that allows a user to buy products.
+
+
+    The user types in the uniform resource locator (URL) for the website and this
+    is sent to a domain name server (DNS).'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the role of the DNS.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: multiple_choice
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The website asks a user to input their username and password to log into
+      their account.
+
+
+      The company want to make their login system more secure.
+
+
+      Tick ($\checkmark$) \textbf{one} box to show \textbf{one} other security method
+      that could be added to make the login system more secure.'
+    answer_options:
+    - letter: A
+      text: access levels
+    - letter: B
+      text: firewall
+    - letter: C
+      text: spyware
+    - letter: D
+      text: two-step verification
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The company uses a proxy server to keep the web server safe from distributed
+      denial of service (DDoS) attacks.
+    answer_options: []
+    subquestions:
+    - number: 5ci
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'Complete and annotate a diagram to show how a DDoS attack is carried
+        out on the web server.
+
+
+        \framebox{web server}'
+      answer_options: []
+      subquestions: []
+    - number: 5cii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Identify \textbf{two} tasks that can be performed by a proxy server that
+        are not performed by a firewall.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 5d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The company uses cookies to allow users to keep items in a shopping cart.
+      The items remain in the cart after the user closes their web browser.
+    answer_options: []
+    subquestions:
+    - number: 5di
+      question_type: multiple_choice
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Tick ($\checkmark$) one box to show the type of cookie that is used for
+        this process.
+      answer_options:
+      - letter: A
+        text: dynamic
+      - letter: B
+        text: persistent
+      - letter: C
+        text: session
+      - letter: D
+        text: static
+      subquestions: []
+    - number: 5dii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Give \textbf{three} other ways that the company can use cookies.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 5diii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Cookies are stored by a web browser.
+
+
+        Give \textbf{two} other functions of a web browser.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A weather station uses automated systems to collect and analyse data about
+    the weather.
+
+
+    The automated system uses sensors.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} other component that would be part of the automated system.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'One sensor that is part of the automated system is a temperature sensor.
+
+
+      Give \textbf{one} other sensor that could be part of the automated system.'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: An alert is sent to an employee in the weather office if a temperature above
+      $40^\circ\text{C}$ is detected.
+    answer_options: []
+    subquestions:
+    - number: 6ci
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain how a temperature above $40^\circ\text{C}$ is detected for the
+        alert.
+      answer_options: []
+      subquestions: []
+    - number: 6cii
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The data for the alert is sent using serial simplex data transmission.
+
+
+        Explain how the data is sent using serial simplex data transmission.'
+      answer_options: []
+      subquestions: []
+  - number: 6d
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} advantages to the weather station employees of using
+      an automated weather system.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6e
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} disadvantage to the weather station employees of using
+      an automated weather system.
+    answer_options: []
+    subquestions: []
+  - number: 6f
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The automated weather system is upgraded and given machine learning capabilities.
+    answer_options: []
+    subquestions:
+    - number: 6fi
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Machine learning is part of a branch of computer science.
+
+
+        Identify the name of this branch of computer science.'
+      answer_options: []
+      subquestions: []
+    - number: 6fii
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain how the machine learning capabilities can be used to predict future
+        weather.
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data is sent from an employee's computer to a server. The data is correct
+    when it is sent, but an error is detected when the data is received.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe how an error can occur in the data during transmission.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'Methods of error detection and correction can be added to make sure that
+      errors are identified after data is transmitted.
+
+
+      Complete the statements about methods of error detection and correction.
+
+
+      Use terms from the list. Not all terms need to be used. You should only use
+      each term once.
+
+
+      \begin{itemize}
+
+      \item acknowledgement
+
+      \item automatic repeat query (ARQ)
+
+      \item binary
+
+      \item bit
+
+      \item byte
+
+      \item calculation
+
+      \item check digit
+
+      \item checksum
+
+      \item correct
+
+      \item echo check
+
+      \item error
+
+      \item even
+
+      \item incorrect
+
+      \item negative
+
+      \item number
+
+      \item odd
+
+      \item positive
+
+      \item timeout
+
+      \end{itemize}
+
+
+      A parity check is set to be \underline{\hspace{1.5em}} or \underline{\hspace{1.5em}}.
+      A parity \underline{\hspace{1.5em}} is added to each byte before transmission
+      to make it match the set parity.
+
+
+      An \underline{\hspace{1.5em}} involves comparing the data sent to the data received
+      back from the receiving device.
+
+
+      An \underline{\hspace{1.5em}} uses acknowledgement and \underline{\hspace{1.5em}}.
+      The acknowledgement system can be \underline{\hspace{1.5em}} or \underline{\hspace{1.5em}}.'
+    answer_options: []
+    subquestions: []

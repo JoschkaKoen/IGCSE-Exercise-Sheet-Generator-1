@@ -1,0 +1,45 @@
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program sorts the data in the 1D array \texttt{DataArray} and searches \texttt{DataArray} for specific values.
+
+      \texttt{DataArray} stores 14 integer values and is declared local to the main program.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Write program code to create \texttt{DataArray} and initialise it with the following data values in the order they are written:
+
+      0 3 4 56 67 44 43 32 31 345 45 6 54 1
+
+      Save your program as \textbf{Question2\_J25}.
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.
+  - number: "2b"
+    type: short_answer
+    text: |
+      The function \texttt{InsertionSort()} takes an array of integers as a parameter. The function sorts the data in the array into ascending numerical order using an insertion sort. The function returns the sorted array.
+
+      Write program code for \texttt{InsertionSort()}
+
+      You must \textbf{not} use any inbuilt sorting functions for your programming language.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The procedure \texttt{OutputArray()} takes an array of integers as a parameter. The procedure outputs each element in the array from the first element to the last element. The output is on one line with a space between each number.
+
+      An example output is:
+
+      \texttt{"0 3 4 56 67 44 43 32 31 345 45 6 54 1"}
+
+      Write program code for \texttt{OutputArray()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.
+```

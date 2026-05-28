@@ -1,0 +1,99 @@
+[thinking]
+**YAML Stub Curations for Exam Page 7**
+
+Okay, so I'm tasked with populating the YAML stub for page 7 of this exam. The first thing I'm doing is making sure the question numbering lines up correctly. The page header says "7," which is the *page* number, and the question structure is actually "6", "6a", "6b", "6c". I need to be sure the numbers are correct in the YAML.
+
+It seems question "6" doesn't have a question stem on *this* page; it starts directly with "6a". According to the rules, if a stub entry's stem isn't visible on the page, it means there's a problem upstream, and I must emit `STUB ERROR`. But wait, question "6" is the parent question which starts on the previous page. Since there is no question "6" stem on this page, I will include `text: | \n  STUB ERROR` for question "6".
+
+Now for "6a". The instructions are: "Identify the line numbers of the \textbf{four} errors in the pseudocode and suggest a correction for each error." The layout seems to be "Error 1 line number .........................................", "Correction .................................................................................................................................", which is a short answer. So the YAML for "6a" will be:
+
+```yaml
+  - number: "6a"
+    type: short_answer
+    text: |
+      Identify the line numbers of the \textbf{four} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+
+      Error 2 line number \hrulefill
+
+      Correction \hrulefill
+
+      Error 3 line number \hrulefill
+
+      Correction \hrulefill
+
+      Error 4 line number \hrulefill
+
+      Correction \hrulefill
+```
+
+Next up is "6b", which is a long-answer question: "Explain how you could modify the pseudocode to validate that each input is a single digit. Any code must be fully explained." Here's the YAML:
+
+```yaml
+  - number: "6b"
+    type: long_answer
+    text: |
+      Explain how you could modify the pseudocode to validate that each input is a single digit.
+
+      Any code must be fully explained.
+```
+
+Finally, "6c" is a short-answer question asking about validating a 5-digit number input: "The 5-digit number needs to be entered as a single input. Describe \textbf{one} verification method that could be applied to the input of the 5-digit number." The YAML is:
+
+```yaml
+  - number: "6c"
+    type: short_answer
+    text: |
+      The 5-digit number needs to be entered as a single input.
+
+      Describe \textbf{one} verification method that could be applied to the input of the 5-digit number.
+```
+
+So I think I've got it all correct!
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: short_answer
+    text: |
+      Identify the line numbers of the \textbf{four} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+
+      Error 2 line number \hrulefill
+
+      Correction \hrulefill
+
+      Error 3 line number \hrulefill
+
+      Correction \hrulefill
+
+      Error 4 line number \hrulefill
+
+      Correction \hrulefill
+  - number: "6b"
+    type: long_answer
+    text: |
+      Explain how you could modify the pseudocode to validate that each input is a single digit.
+
+      Any code must be fully explained.
+  - number: "6c"
+    type: short_answer
+    text: |
+      The 5-digit number needs to be entered as a single input.
+
+      Describe \textbf{one} verification method that could be applied to the input of the 5-digit number.
+```

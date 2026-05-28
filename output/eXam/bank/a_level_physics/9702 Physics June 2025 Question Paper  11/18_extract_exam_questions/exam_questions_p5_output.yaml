@@ -1,0 +1,56 @@
+questions:
+  - number: "7"
+    type: multiple_choice
+    text: |
+      Which equation of uniformly accelerated motion can be derived using only the gradient of a velocity–time graph?
+    options:
+      - letter: A
+        text: |
+          $s = \frac{1}{2}(u + v)t$
+      - letter: B
+        text: |
+          $s = ut + \frac{1}{2}at^2$
+      - letter: C
+        text: |
+          $v = u + at$
+      - letter: D
+        text: |
+          $v^2 = u^2 + 2as$
+  - number: "8"
+    type: multiple_choice
+    text: |
+      An object is projected horizontally from a table at time $t = 0$. The object falls in a uniform gravitational field. Air resistance is negligible.
+
+      Graphs P, Q, R and S are velocity–time graphs.
+
+      Which graphs represent the horizontal and vertical components of the velocity of the object?
+    options:
+      - letter: A
+        text: |
+          horizontal: Q, vertical: P
+      - letter: B
+        text: |
+          horizontal: Q, vertical: S
+      - letter: C
+        text: |
+          horizontal: R, vertical: P
+      - letter: D
+        text: |
+          horizontal: R, vertical: S
+  - number: "9"
+    type: multiple_choice
+    text: |
+      What is always conserved in elastic collisions?
+    options:
+      - letter: A
+        text: |
+          total kinetic energy: yes, total velocity: yes
+      - letter: B
+        text: |
+          total kinetic energy: yes, total velocity: no
+      - letter: C
+        text: |
+          total kinetic energy: no, total velocity: yes
+      - letter: D
+        text: |
+          total kinetic energy: no, total velocity: no

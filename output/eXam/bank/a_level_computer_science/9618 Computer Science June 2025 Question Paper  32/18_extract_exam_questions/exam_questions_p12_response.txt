@@ -1,0 +1,156 @@
+[thinking]
+**Analyzing the Exam Page and Question Stub**
+
+Okay, the task is to populate the YAML stub for page 12 of the exam. The stub has entries for questions "12" and "12a." However, upon looking at the page, only "12 (a)" is actually present. I need to be careful here – the instructions are very specific: I should *not* add or remove questions. The stub is curated, and I must return an entry for each stub entry in the correct order, with the correct `number` and `type` values.
+
+The key is this instruction: "Every entry's stem should be visible." If a stem isn't visible, it means an upstream bug generated the stub, and I must emit a `STUB ERROR`.
+
+Now, question "12" is *not* explicitly on the page. "12 (a)" contains the entire question text. Is "12" a parent or just missing? The text in "12 (a)" is "A medical clinic uses objects of the class Patient... Complete the class diagram...". There is no separate question "12."
+
+The stub currently looks like this:
+```yaml
+questions:
+  - number: "12"
+    type: short_answer
+    text: ""
+  - number: "12a"
+    type: short_answer
+    text: ""
+```
+
+Since the stem for "12" is *not* visible, and the rules are clear about this being a stub generation issue, I'm marking "12" as `STUB ERROR`. I can't guess or try to split the text.
+
+So, for "12," I'll set the text to `| STUB ERROR`.
+And for "12a", I'll put the full question text in LaTeX format.
+
+Now, to format "12a" I'll use `alltt` to represent the class diagram as it's the best approach:
+
+Here's the final output I'll provide:
+
+```yaml
+questions:
+  - number: "12"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "12a"
+    type: short_answer
+    text: |
+      \documentclass{article}
+      \usepackage{alltt}
+      \usepackage{tabularx}
+      \usepackage{array}
+
+      \begin{document}
+      A medical clinic uses objects of the class \texttt{Patient} to assign a priority and a doctor to a patient. Some of the attributes required in the class are listed in the table.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Attribute} & \textbf{Data type} & \textbf{Description} \\ \hline
+      \texttt{PatientID} & \texttt{STRING} & Unique identifier of the patient \\ \hline
+      \texttt{Name} & \texttt{STRING} & Patient's full name, surname first \\ \hline
+      \texttt{DoctorID} & \texttt{STRING} & ID of doctor administering treatment \\ \hline
+      \end{tabular}
+
+      Treatment is prioritised with a numeric scale of 1 to 5.
+
+      Complete the class diagram for \texttt{Patient}, to include:
+      \begin{itemize}
+      \item attribute and data type for the date of birth
+      \item attribute and data type for the priority
+      \item methods to assign the patient ID, priority and doctor ID
+      \item methods to return the patient ID, patient date of birth and the priority.
+      \end{itemize}
+
+      \begin{alltt}
+                        Patient
+      ----------------------------------------------------------------
+      PatientID : STRING
+      Name : STRING
+      DateOfBirth : DATE
+      Priority : INTEGER
+      DoctorID : STRING
+      ----------------------------------------------------------------
+      SetPatientID(id : STRING)
+      SetDateOfBirth(dob : DATE)
+      SetPriority(p : INTEGER)
+      SetDoctorID(docID : STRING)
+      GetName() : STRING
+      GetDateOfBirth() : DATE
+      GetPriority() : INTEGER
+      GetDoctorID() : STRING
+      \end{alltt}
+
+      \end{document}
+```
+
+This ensures that the YAML adheres to the instructions and properly addresses the stub error.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "12"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "12a"
+    type: short_answer
+    text: |
+      A medical clinic uses objects of the class \texttt{Patient} to assign a priority and a doctor to a patient. Some of the attributes required in the class are listed in the table.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Attribute} & \textbf{Data type} & \textbf{Description} \\ \hline
+      \texttt{PatientID} & \texttt{STRING} & Unique identifier of the patient \\ \hline
+      \texttt{Name} & \texttt{STRING} & Patient's full name, surname first \\ \hline
+      \texttt{DoctorID} & \texttt{STRING} & ID of doctor administering treatment \\ \hline
+      \end{tabular}
+
+      \newline
+      Treatment is prioritised with a numeric scale of 1 to 5.
+
+      Complete the class diagram for \texttt{Patient}, to include:
+      \begin{itemize}
+      \item attribute and data type for the date of birth
+      \item attribute and data type for the priority
+      \item methods to assign the patient ID, priority and doctor ID
+      \item methods to return the patient ID, patient date of birth and the priority.
+      \end{itemize}
+
+      \begin{alltt}
+                                    Patient
+      ------------------------------------------------------------------
+      PatientID : STRING
+
+      Name : STRING
+
+      ....................................................... : ....................................................................
+
+      ....................................................... : ....................................................................
+
+      DoctorID : STRING
+      ------------------------------------------------------------------
+      ................................................................................................................................
+
+      SetName(FullName : STRING)
+
+      SetDateOfBirth(DOB : DATE)
+
+      ................................................................................................................................
+
+      ................................................................................................................................
+
+      ................................................................................................................................
+
+      GetName()
+
+      ................................................................................................................................
+
+      ................................................................................................................................
+
+      GetDoctorID()
+      \end{alltt}
+```

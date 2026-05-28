@@ -1,0 +1,15 @@
+questions:
+  - number: "4biii"
+    type: calculation
+    text: |
+      Use your answer in (b)(ii) to determine the amount $n$ of gas in the sample.
+
+      $n = \hrulefill \text{ mol}$
+  - number: "4c"
+    type: calculation
+    text: |
+      The root-mean-square (r.m.s.) speed of the molecules of the gas is $1900\text{ m}\,\text{s}^{-1}$ when $pV$ is equal to $270\text{ J}$.
+
+      Determine the mass, in u, of one molecule of the gas, where u is the unified atomic mass unit.
+
+      $\text{mass} = \hrulefill \text{ u}$

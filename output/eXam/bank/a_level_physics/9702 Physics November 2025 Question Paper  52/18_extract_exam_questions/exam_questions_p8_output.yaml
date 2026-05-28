@@ -1,0 +1,22 @@
+questions:
+  - number: "2civ"
+    type: calculation
+    text: |
+      Determine the $y$-intercept of the line of best fit. Include the absolute uncertainty in your answer.
+
+      $y\text{-intercept} = \hrulefill$
+  - number: "2d"
+    type: calculation
+    text: |
+      Using your answers to (a), (c)(iii) and (c)(iv), determine the values of $n$ and $k$. Include the absolute uncertainties in $n$ and $k$. You need not be concerned with units.
+
+      $n = \hrulefill$
+      $k = \hrulefill$
+  - number: "2e"
+    type: calculation
+    text: |
+      Titan is another moon of Saturn. The orbit of Titan has a period of $1.38 \times 10^6\text{ s}$.
+
+      Determine the value of $r$ for Titan.
+
+      $r = \hrulefill\text{ m}$

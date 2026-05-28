@@ -1,0 +1,10 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      Two identical isolated uniform spheres X and Y each have radius $R$. The centres of the spheres are separated by distance $L$, as shown in Fig. 3.3.
+
+      Point P lies on the line joining the centres of X and Y, and is at a variable displacement $x$ from the centre of sphere X.
+      The gravitational field strength at the surface of each sphere is $g_0$.
+
+      On Fig. 3.4, sketch the variation with $x$ of the gravitational field $g$ at point P between $x = R$ and $x = L - R$.

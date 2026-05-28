@@ -1,0 +1,14 @@
+[thinking]
+**Analyzing the Examination Question**
+
+Okay, here we go. The user needs me to transcribe question "6b" from the exam, which is on page 13. I've located the page, and the prompt is straightforward enough: "Write efficient pseudocode for the procedure Sort()". It's worth a solid 8 marks, which means they are looking for a significant, well-structured answer. This is definitely a long-form question, no short responses here. There’s no additional context or hints to consider, it's a blank slate – or rather, a blank space for efficient pseudocode. Time to get to work and deliver that pseudocode for question "6b".
+
+
+
+[/thinking]
+
+questions:
+  - number: "6b"
+    type: long_answer
+    text: |
+      Write efficient pseudocode for the procedure \texttt{Sort()}

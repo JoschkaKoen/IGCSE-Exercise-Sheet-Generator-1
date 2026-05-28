@@ -1,0 +1,31 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      Stand the bottle upright on the bench.
+
+      The height of the water in the bottle is $h$, as shown in Fig. 2.5.
+  - number: "2ci"
+    type: calculation
+    text: |
+      Measure and record $h$.
+
+      $h = \hrulefill$
+
+      The time for the bottle to roll distance $L$ on the rules is $t$.
+      Take measurements to determine $t$.
+
+      $t = \hrulefill$
+  - number: "2cii"
+    type: calculation
+    text: |
+      A value for the acceleration $a$ of the bottle is given by
+      $$a = \frac{2L}{t^2}$$
+
+      Calculate $a$.
+
+      $a = \hrulefill$
+  - number: "2ciii"
+    type: short_answer
+    text: |
+      Justify the number of significant figures that you have given for your value of $a$.

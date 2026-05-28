@@ -1,0 +1,24 @@
+questions:
+  - number: "2civ"
+    type: calculation
+    text: |
+      Determine the $y$-intercept of the line of best fit. Include the absolute uncertainty in your answer.
+
+      $y\text{-intercept} = $ \hrulefill
+  - number: "2d"
+    type: calculation
+    text: |
+      Using your answers to \textbf{(a)}, \textbf{(c)(iii)} and \textbf{(c)(iv)}, determine the values of $\lambda_0$ and $H$. Include appropriate units.
+
+      $\lambda_0 = $ \hrulefill
+      $H = $ \hrulefill
+  - number: "2e"
+    type: calculation
+    text: |
+      Hubble's law suggests that the age $T$ of the universe is related to $H$ by
+
+      $$T = \frac{1}{H}.$$
+
+      Determine a value for $T$. Include the absolute uncertainty in your answer.
+
+      $T = $ \hrulefill $\text{ s}$

@@ -1,0 +1,38 @@
+questions:
+  - number: "32"
+    type: multiple_choice
+    text: |
+      What is a possible charge on a particle?
+    options:
+      - letter: A
+        text: |
+          $6.40 \times 10^{-20}\text{ C}$
+      - letter: B
+        text: |
+          $4.00 \times 10^{-19}\text{ C}$
+      - letter: C
+        text: |
+          $1.12 \times 10^{-18}\text{ C}$
+      - letter: D
+        text: |
+          $9.11 \times 10^{-18}\text{ C}$
+
+  - number: "33"
+    type: multiple_choice
+    text: |
+      The graphs show possible current–voltage ($I\text{--}V$) characteristics for a filament lamp and for a semiconductor diode.
+
+      Which row identifies the $I\text{--}V$ graphs for the lamp and for the diode?
+    options:
+      - letter: A
+        text: |
+          filament lamp: P, semiconductor diode: R
+      - letter: B
+        text: |
+          filament lamp: P, semiconductor diode: S
+      - letter: C
+        text: |
+          filament lamp: Q, semiconductor diode: R
+      - letter: D
+        text: |
+          filament lamp: Q, semiconductor diode: S

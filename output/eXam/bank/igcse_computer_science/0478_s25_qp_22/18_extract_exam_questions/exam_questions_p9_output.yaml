@@ -1,0 +1,7 @@
+questions:
+  - number: "7b"
+    type: long_answer
+    text: |
+      Explain how you would alter the flowchart in \textbf{7(a)} so that it will individually store each accepted value as it is entered and then output all the numbers, one after the other, outside of the loop that inputs values.
+
+      You may include program statements or flowchart symbols in your answer, but they must be fully explained.

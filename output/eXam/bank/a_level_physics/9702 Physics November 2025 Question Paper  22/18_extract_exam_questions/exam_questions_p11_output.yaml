@@ -1,0 +1,27 @@
+questions:
+  - number: "3bii"
+    type: calculation
+    text: |
+      Calculate the extension of the spring.
+
+      extension = \hrulefill m
+  - number: "3c"
+    type: short_answer
+    text: |
+      A second identical spring with the same spring constant of $250\text{ N}\,\text{m}^{-1}$ is now also connected to the pulley, as shown in Fig. 3.3.
+  - number: "3ci"
+    type: calculation
+    text: |
+      The tension in the cable is kept the same. The pulley is again in equilibrium.
+
+      Determine the extension of the springs.
+
+      extension = \hrulefill m
+  - number: "3cii"
+    type: calculation
+    text: |
+      The elastic potential energy stored in the spring in Fig. 3.1 is $E_1$. The total elastic potential energy stored in the two springs in Fig. 3.3 is $E_2$.
+
+      Calculate the ratio $\frac{E_1}{E_2}$.
+
+      ratio = \hrulefill

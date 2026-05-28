@@ -1,0 +1,623 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: multiple_choice
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) \textbf{one} box to show which statement about data
+      storage is correct.
+    answer_options:
+    - letter: A
+      text: One bit equals four nibbles.
+    - letter: B
+      text: One byte equals 16 bits.
+    - letter: C
+      text: One exbibyte (EiB) equals $1024 \times 1024$ tebibytes (TiB).
+    - letter: D
+      text: One mebibyte (MiB) equals $1024 \times 1024$ gibibytes (GiB).
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'An image file has a resolution of $1024 \text{ pixels high} \times 1024
+      \text{ pixels wide}$. The colour depth is two bytes.
+
+
+      Calculate the file size of the image. Give the answer in MiB. Show your working.
+
+
+      file size of image \hrulefill MiB'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A user accesses a website using a web browser.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Two functions of a web browser are to provide an address bar and to store
+      cookies.
+
+
+      Give \textbf{three} other functions of a web browser.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The user enters a uniform resource locator (URL) into the address bar of
+      the web browser.
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The URL is converted into an internet protocol (IP) address.
+
+
+        Describe the purpose of an IP address.'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain how a URL is converted to an IP address.
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The website stores cookies on the user's computer.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by a cookie.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{one} example of how a website can use a session cookie and
+        \textbf{one} example of how a website can use a persistent cookie.
+
+
+        Each example must be different.
+
+
+        session cookie \hrulefill
+
+
+        persistent cookie \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A drone is used to search for lost animals. The drone is a flying device that
+    can be autonomous or operated using a remote control.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The drone is a robot.
+
+
+      Give \textbf{two} characteristics of the drone that identify it as a robot.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The drone has a built-in system to stop it from crashing into objects, for
+      example a tree. The system uses sensors and a microprocessor.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify \textbf{one} sensor that could be built into the drone to detect
+        if it is near an object.
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by a microprocessor.
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Explain how the sensor and microprocessor work together to stop the drone
+        crashing into an object.
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The drone has a digital camera that records a video while the drone is
+      flying.
+
+
+      The drone can be connected to a computer using a universal serial bus (USB)
+      interface to transfer the video recorded by the digital camera.'
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by a USB interface.
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how a USB interface is used to transmit data.
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: long_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Draw and annotate a diagram or diagrams to show:
+
+
+    \begin{itemize}
+
+    \item the contents and structure of a data packet
+
+    \item how a data packet is transmitted across a network.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student stores their schoolwork on secondary storage devices. They store
+    their schoolwork on their home computer and on cloud storage.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} characteristics of secondary storage.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The home computer has a magnetic storage device, and the cloud storage
+      uses solid-state (flash memory) storage.
+
+
+      Complete the description of how magnetic hard disk drives and solid-state drives
+      (SSD) read data.
+
+
+      Use terms from the list. \textbf{Not} all terms need to be used. You should
+      only use a term once.
+
+
+      \begin{itemize}
+
+      \item control
+
+      \item electromagnetic field
+
+      \item flow
+
+      \item loss
+
+      \item NOR gates
+
+      \item opened
+
+      \item pits and lands
+
+      \item platters
+
+      \item ports
+
+      \item remove
+
+      \item sectors
+
+      \item XOR gates
+
+      \end{itemize}
+
+
+      A hard disk has several platters. Each platter is split into tracks and \underline{\hspace{1.5em}}.
+      To read data, the read/write head moves over the platters to the position where
+      data starts. The \underline{\hspace{1.5em}} indicates if the data is a 1 or
+      a 0.
+
+
+      A solid-state drive uses NAND gates or \underline{\hspace{1.5em}}. It is made
+      of transistors that work as floating gates and \underline{\hspace{1.5em}} gates.
+      The gates control the \underline{\hspace{1.5em}} of electrons to memory cells.'
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 5ci
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by cloud storage.
+      answer_options: []
+      subquestions: []
+    - number: 5cii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain the advantages to the student of storing their data on cloud storage
+        instead of storing the data locally on their home computer.
+      answer_options: []
+      subquestions: []
+    - number: 5ciii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain the advantages to the student of storing their data locally on
+        their home computer instead of using cloud storage.
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Convert the denary number 150 into an 8-bit binary number.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Convert the hexadecimal number F08 into a 12-bit binary number.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the 8-bit binary value after a logical binary shift left of two places
+      is performed on the binary number 00110101.
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Convert the two's complement binary integer 01110101 into denary.
+    answer_options: []
+    subquestions: []
+  - number: 6e
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: "Add the \\textbf{two} binary integers using binary addition and give your\
+      \ answer in binary. Show all your working.\n\n\\begin{tabular}{rcccccccc}\n\
+      \  & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 0 \\\\\n+ & 0 & 1 & 1 & 0 & 1 & 1 & 1 & 0 \\\
+      \\\n\\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data is transmitted between a computer and a printer using a wired connection.
+    The computer transmits the data to the printer. The printer transmits data and
+    interrupts to the computer.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State whether the method of transmission should be serial or parallel.
+      Justify your choice.
+
+
+      method of transmission \hrulefill
+
+
+      justification'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State whether the method of transmission should be simplex, half-duplex
+      or full-duplex. Justify your answer.
+
+
+      method of transmission \hrulefill
+
+
+      justification'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The transmitted data may contain an error.
+    answer_options: []
+    subquestions:
+    - number: 7ci
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} way in which an error can occur during data transmission.
+      answer_options: []
+      subquestions: []
+    - number: 7cii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The computer and printer agree to use automatic repeat query (ARQ).
+
+
+        Explain how ARQ using negative acknowledgement is used to establish that data
+        is received without error.'
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer has system software and application software.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain how system software is different to application software.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'One type of system software is an operating system. One function of an
+      operating system is to manage peripherals.
+
+
+      Describe the operating system function managing peripherals.'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: long_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "Complete the table by giving \\textbf{two} examples of software security\
+      \ solutions and explain how each protects a computer against threats.\n\n\\\
+      begin{tabular}{|p{4cm}|p{10cm}|}\n\\hline\n\\textbf{security solution} & \\\
+      textbf{explanation} \\\\ \\hline\n & \\\\\n & \\\\ \\hline\n & \\\\\n & \\\\\
+      \ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Define the terms firmware and operating system.
+
+
+      firmware \hrulefill
+
+
+      operating system \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer is writing a program using an integrated development environment
+    (IDE).
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The program will take data from bar codes as input.
+
+
+      A bar code includes a check digit.
+
+
+      Explain how the check digit is used to check for errors in data entry.'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The programmer is using a high-level language to write the program.
+    answer_options: []
+    subquestions:
+    - number: 9bi
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe what is meant by a high-level language.
+      answer_options: []
+      subquestions: []
+    - number: 9bii
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The programmer uses a compiler during the development of the program.
+
+
+        Describe the benefits of using a compiler when developing the program.'
+      answer_options: []
+      subquestions: []

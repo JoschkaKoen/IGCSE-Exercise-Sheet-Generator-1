@@ -1,0 +1,31 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A student has an electronic calculator. The calculator has a screen that displays the result of calculations.
+
+      The calculator has 8-bit registers.
+  - number: "1a"
+    type: short_answer
+    text: |
+      State the highest denary number that could be stored in a single 8-bit register.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Denary numbers are typed into the calculator. They are converted to binary numbers and stored in the 8-bit registers.
+
+      The student types in the denary number 23 and the denary number 168.
+
+      Give the 8-bit binary numbers that are stored in the registers for these \textbf{two} denary numbers.
+
+      23 \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+
+      168 \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+  - number: "1c"
+    type: short_answer
+    text: |
+      The result of a calculation that is stored in a register is the binary number 00001011
+
+      Give the denary number that will be displayed on the screen for this binary number.
+
+      00001011 \hrulefill

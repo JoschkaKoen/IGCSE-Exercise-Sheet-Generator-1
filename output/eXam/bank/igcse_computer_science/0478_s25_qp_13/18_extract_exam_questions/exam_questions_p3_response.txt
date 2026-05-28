@@ -1,0 +1,22 @@
+questions:
+  - number: "1cii"
+    type: calculation
+    text: |
+      Convert the \textbf{two} binary numbers to hexadecimal numbers.
+
+      00011001 \hrulefill
+      10110100 \hrulefill
+  - number: "1ciii"
+    type: calculation
+    text: |
+      A logical right shift of two places is performed on the binary number 10100100.
+
+      Give the binary number that would be stored after the logical shift has taken place.
+  - number: "1d"
+    type: calculation
+    text: |
+      The two’s complement 8-bit binary integer 11001001 is also stored.
+
+      Convert the two’s complement 8-bit binary integer to denary. Show all of your working.
+
+      Denary value \hrulefill

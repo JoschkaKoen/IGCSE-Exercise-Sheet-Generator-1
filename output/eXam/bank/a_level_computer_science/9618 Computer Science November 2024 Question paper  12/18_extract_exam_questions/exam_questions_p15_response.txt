@@ -1,0 +1,42 @@
+[thinking]
+**Transcribing Question 8bii**
+
+Okay, so the task is to transcribe question "8bii" from the provided page. Let's take a look. Ah, here it is: "Explain how bit manipulation can be used to test whether the binary number stored in the ACC represents an odd denary number. Write the bit manipulation instruction that will be used. Explanation ... Instruction ..."
+
+Right, so first, strip off that subquestion prefix: `(ii)`. Now, let's format this correctly. The key is to recognize those answer lines. We're looking at: "Explanation \hrulefill" and "Instruction \hrulefill". Perfect, that's straightforward.
+
+Hmm, I should probably use `\texttt{ACC}` to denote that it is a register name. However, the original text does not use the `\texttt` format, so I will stick to what is provided. The instructions specify one horizontal fill rule after each of "Explanation" and "Instruction" for the answer areas, so that's precisely what I'll do.
+
+So here's the transcription:
+
+```yaml
+questions:
+  - number: "8bii"
+    type: short_answer
+    text: |
+      Explain how bit manipulation can be used to test whether the binary number stored in the ACC represents an odd denary number.
+
+      Write the bit manipulation instruction that will be used.
+
+      Explanation \hrulefill
+
+      Instruction \hrulefill
+```
+
+Done. That should be a clean and accurate transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8bii"
+    type: short_answer
+    text: |
+      Explain how bit manipulation can be used to test whether the binary number stored in the ACC represents an odd denary number.
+
+      Write the bit manipulation instruction that will be used.
+
+      Explanation \hrulefill
+
+      Instruction \hrulefill

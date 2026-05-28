@@ -1,0 +1,115 @@
+[thinking]
+**Transcribing and Structuring the Board Description**
+
+Okay, so the task is to transcribe question "1b" from this page. I see the question describes a board and how objects are placed on it.  It looks like the user wants this formatted nicely, probably for a document or something similar.  First, let's strip the "(b)" prefix; we don't need it. The core of the question describes how board objects are arranged in a 2D array. I'll summarize that description starting from "The board objects are placed..." as the prompt. It's a 10x10 grid, 0-indexed for both rows and columns.  Each position can hold a "BoardObject", initialized with "Code = '-'" and "Value = 0". The example given shows an element in row 1, column 3, and I'll represent that visually.
+
+Now, for formatting, I'll use LaTeX for clear representation. I'll describe it:
+```latex
+      The board objects are placed on a board that is represented by a 0-indexed 2D array:
+
+      \begin{itemize}
+      \item the board is a 10 x 10 grid
+      \item each position on the board is identified by a row and column number
+      \item rows are numbered 0 to 9
+      \item columns are numbered 0 to 9
+      \item board objects can be placed at a row and column position
+      \item each board position is initialised with an empty \texttt{BoardObject}, an empty \texttt{BoardObject} has \texttt{Code = "-"} and \texttt{Value = 0}
+      \end{itemize}
+
+      For example, the element highlighted in the given board is in row 1 and column 3.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{Row} & \multicolumn{10}{c|}{\textbf{Column}} \\ \cline{2-11}
+       & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+      0 & & & & & & & & & & \\ \hline
+      1 & & & & $\bullet$ & & & & & & \\ \hline
+      2 & & & & & & & & & & \\ \hline
+      3 & & & & & & & & & & \\ \hline
+      4 & & & & & & & & & & \\ \hline
+      5 & & & & & & & & & & \\ \hline
+      6 & & & & & & & & & & \\ \hline
+      7 & & & & & & & & & & \\ \hline
+      8 & & & & & & & & & & \\ \hline
+      9 & & & & & & & & & & \\ \hline
+      \end{tabular}
+
+      The class \texttt{Board} stores the data about the board and where the board objects are placed.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Board}} \\ \hline
+      \texttt{TheBoard : ARRAY[0:9, 0:9] of BoardObject} & stores the board contents as a 2D array of \\
+       & 10 x 10 elements of type \texttt{BoardObject} \\ \hline
+      \texttt{Constructor()} & initialises each of \texttt{TheBoard} elements to \\
+       & an empty \texttt{BoardObject} with \texttt{Code = "-"} \\
+       & and \texttt{Value = 0} \\ \hline
+      \texttt{GetObject()} & takes a row and column number as \\
+       & parameters and returns the \texttt{BoardObject} \\
+       & at the row, column position \\ \hline
+      \texttt{SetObject()} & takes a \texttt{BoardObject}, row number and \\
+       & column number as parameters. Stores the \\
+       & \texttt{BoardObject} in \texttt{TheBoard} at the given \\
+       & row, column position \\ \hline
+      \texttt{DisplayBoard()} & outputs the code of each \texttt{BoardObject} \\
+       & stored in \texttt{TheBoard}, one row at a time \\ \hline
+      \end{tabular}
+```
+Now, there is also the definition of the `Board` class. It has an array called `TheBoard` to store the board contents, a constructor to initialize the elements to empty `BoardObjects`, `GetObject` to access a
+
+
+[/thinking]
+
+questions:
+  - number: "1b"
+    type: short_answer
+    text: |
+      The board objects are placed on a board that is represented by a 0-indexed 2D array:
+
+      \begin{itemize}
+      \item the board is a 10 x 10 grid
+      \item each position on the board is identified by a row and column number
+      \item rows are numbered 0 to 9
+      \item columns are numbered 0 to 9
+      \item board objects can be placed at a row and column position
+      \item each board position is initialised with an empty \texttt{BoardObject}, an empty \texttt{BoardObject} has \texttt{Code = "-"} and \texttt{Value = 0}
+      \end{itemize}
+
+      For example, the element highlighted in the given board is in row 1 and column 3.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{Row} & \multicolumn{10}{c|}{\textbf{Column}} \\ \cline{2-11}
+       & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+      0 & & & & & & & & & & \\ \hline
+      1 & & & & $\bullet$ & & & & & & \\ \hline
+      2 & & & & & & & & & & \\ \hline
+      3 & & & & & & & & & & \\ \hline
+      4 & & & & & & & & & & \\ \hline
+      5 & & & & & & & & & & \\ \hline
+      6 & & & & & & & & & & \\ \hline
+      7 & & & & & & & & & & \\ \hline
+      8 & & & & & & & & & & \\ \hline
+      9 & & & & & & & & & & \\ \hline
+      \end{tabular}
+
+      The class \texttt{Board} stores the data about the board and where the board objects are placed.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Board}} \\ \hline
+      \texttt{TheBoard : ARRAY[0:9, 0:9] of BoardObject} & stores the board contents as a 2D array of \\
+       & 10 x 10 elements of type \texttt{BoardObject} \\ \hline
+      \texttt{Constructor()} & initialises each of \texttt{TheBoard} elements to \\
+       & an empty \texttt{BoardObject} with \texttt{Code = "-"} \\
+       & and \texttt{Value = 0} \\ \hline
+      \texttt{GetObject()} & takes a row and column number as \\
+       & parameters and returns the \texttt{BoardObject} \\
+       & at the row, column position \\ \hline
+      \texttt{SetObject()} & takes a \texttt{BoardObject}, row number and \\
+       & column number as parameters. Stores the \\
+       & \texttt{BoardObject} in \texttt{TheBoard} at the given \\
+       & row, column position \\ \hline
+      \texttt{DisplayBoard()} & outputs the code of each \texttt{BoardObject} \\
+       & stored in \texttt{TheBoard}, one row at a time \\ \hline
+      \end{tabular}

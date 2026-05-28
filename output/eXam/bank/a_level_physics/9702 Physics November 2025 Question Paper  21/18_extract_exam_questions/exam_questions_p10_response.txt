@@ -1,0 +1,48 @@
+[thinking]
+**Analyzing and Structuring Exam Question Transcription**
+
+Okay, so I've been tasked with transcribing page 10 of this exam and need to get the structure right, ensuring I adhere to the format, "number", "type", "text", "options." I see the main question header is "4," and it's followed by "4 (a)", "4 (b)", and "4 (bi)". The stub shows "4", "4a", "4b", and "4bi", each as "short_answer" except "4bi" which is "calculation," I need to carefully interpret the relationships here.
+
+My initial thought is to map them out based on the question text I'm given, let's break this down: "4 (a) State what is meant by diffraction of a wave."  The numbering suggests that "4" might be the main question and "4 (a)" is a sub-question. However, there's no preamble text before "(a)". My usual process is to check the OCR and verify what is the best strategy.
+
+Since "4" is listed in the stub, I have to ensure I handle it in the appropriate manner. I have to decide how to handle the empty text/ question introduction. Usually, I'd check the structure, but since there is no overall text I am going to map based on standard best practice.
+
+Given that "4" exists in the stub, and there's no introductory text *before* the first sub-question "4 (a)," my instinct is to leave "4" empty. Specifically, it should be `text: ''`. Let's confirm my understanding based on the text.
+
+So, for "4a" then, it's pretty clear that it should contain "State what is meant by diffraction of a wave." Let's map this: `4a: text: | State what is meant by diffraction of a wave.`.
+
+Now, let's map the other sub-questions based on the text provided:
+
+*   **4b**: This will be "A beam of vertically polarised light of wavelength $540 \text{ nm}$ is incident normally on a diffraction grating, as shown in Fig. 4.1."
+*   **4bi**: This is "The diffraction grating has a line spacing of $5.0 \times 10^{-6} \text{ m}$. The light transmitted by the diffraction grating illuminates a circular screen. The diffraction grating is at the centre X of the circle. The central bright fringe is formed at point O on the screen and has intensity $I_0$. P is a point on the screen where the line XP is at a variable angle $\theta$ to the line XO. The intensity $I$ of light on the screen at P varies with $\theta$. Show that the angle $\theta$ at which the first-order bright fringe is formed is $6.2^\circ$."
+
+Finally, double-checking "4," my initial assessment to leave it empty (`text: ''`) is correct, as there is no overarching contextual text before the sub-questions. It's safe to proceed with the transcription, and now I'm certain in the structure.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      State what is meant by diffraction of a wave.
+  - number: "4b"
+    type: short_answer
+    text: |
+      A beam of vertically polarised light of wavelength $540 \text{ nm}$ is incident normally on a diffraction grating, as shown in Fig. 4.1.
+  - number: "4bi"
+    type: calculation
+    text: |
+      The diffraction grating has a line spacing of $5.0 \times 10^{-6} \text{ m}$.
+
+      The light transmitted by the diffraction grating illuminates a circular screen. The diffraction grating is at the centre X of the circle.
+
+      The central bright fringe is formed at point O on the screen and has intensity $I_0$.
+
+      P is a point on the screen where the line XP is at a variable angle $\theta$ to the line XO. The intensity $I$ of light on the screen at P varies with $\theta$.
+
+      Show that the angle $\theta$ at which the first-order bright fringe is formed is $6.2^\circ$.

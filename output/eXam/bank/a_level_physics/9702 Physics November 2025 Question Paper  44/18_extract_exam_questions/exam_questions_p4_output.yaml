@@ -1,0 +1,21 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1a"
+    type: short_answer
+    text: |
+      State Newton’s law of gravitation.
+  - number: "1b"
+    type: short_answer
+    text: |
+      A binary star consists of star A, of mass $4.0 \times 10^{30} \text{ kg}$, and star B, of mass $2.0 \times 10^{30} \text{ kg}$, separated by a distance of $3.3 \times 10^{12} \text{ m}$. The stars are both in circular orbit around their common centre of gravity X, as shown in Fig. 1.1.
+
+      The radius $R_{\text{B}}$ of the orbit of star B is double the radius $R_{\text{A}}$ of the orbit of star A.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Use Newton’s law of gravitation to calculate the magnitude of the gravitational force exerted by each star on the other.
+
+      force = \hrulefill N

@@ -1,0 +1,25 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The mass of the rocket in (b) is $2.9 \times 10^6 \text{ kg}$. Assume that this mass remains constant.
+
+      For this rocket, from launch to its height at a time of $20\text{ s}$ after launch:
+  - number: "1ci"
+    type: calculation
+    text: |
+      calculate the gain in gravitational potential energy $\Delta E_{\text{P}}$
+
+      $\Delta E_{\text{P}} = \hrulefill \text{ J}$
+  - number: "1cii"
+    type: calculation
+    text: |
+      calculate the gain in kinetic energy $\Delta E_{\text{K}}$
+
+      $\Delta E_{\text{K}} = \hrulefill \text{ J}$
+  - number: "1ciii"
+    type: calculation
+    text: |
+      determine the average power output of the rocket engines. Assume that resistive forces are negligible.
+
+      $\text{power} = \hrulefill \text{ W}$

@@ -1,0 +1,29 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: ''
+  - number: "1ai"
+    type: calculation
+    text: |
+      Convert the binary number into hexadecimal.
+
+      101100111010 \hrulefill
+  - number: "1aii"
+    type: calculation
+    text: |
+      Convert the denary number into Binary Coded Decimal (BCD).
+
+      108 \hrulefill
+  - number: "1aiii"
+    type: calculation
+    text: |
+      Convert the 12-bit two’s complement binary integer into denary.
+
+      Show your working.
+
+      111110111100
+
+      Denary value \hrulefill

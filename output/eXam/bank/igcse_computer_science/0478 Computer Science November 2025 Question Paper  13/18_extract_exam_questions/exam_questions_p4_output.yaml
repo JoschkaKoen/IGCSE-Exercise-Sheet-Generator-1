@@ -1,0 +1,36 @@
+```yaml
+questions:
+  - number: "1e"
+    type: short_answer
+    text: |
+      The air-conditioning system uses a temperature sensor and a microprocessor to keep the temperature of the room at a constant level.
+  - number: "1ei"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) one box to show whether the sensor is an example of an input, output, process or storage device.
+    options:
+      - letter: A
+        text: |
+          input
+      - letter: B
+        text: |
+          output
+      - letter: C
+        text: |
+          process
+      - letter: D
+        text: |
+          storage
+  - number: "1eii"
+    type: long_answer
+    text: |
+      The temperature sensor continuously sends analogue data to the microprocessor. This data is then converted to digital.
+
+      Explain how the microprocessor keeps the temperature of the room at a constant level.
+  - number: "1f"
+    type: long_answer
+    text: |
+      The air-conditioning system is an example of an embedded system.
+
+      Explain why the air-conditioning system is an embedded system.
+```

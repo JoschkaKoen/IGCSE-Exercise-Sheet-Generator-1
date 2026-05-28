@@ -1,0 +1,17 @@
+questions:
+  - number: "9b"
+    type: short_answer
+    text: |
+      Complete the Backus-Naur Form (BNF) for \texttt{<upper>} and \texttt{<passcode>}.
+
+      \texttt{<upper> ::= } \hrulefill
+
+      \texttt{<passcode> ::= } \hrulefill
+  - number: "9c"
+    type: short_answer
+    text: |
+      A character can be an upper, a lower or a digit.
+
+      The rules for passcode have been changed so that the third character may also be selected from upper and the final character may be repeated one or more times.
+
+      Complete the syntax diagram for passcode to show these changes.

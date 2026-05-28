@@ -49,9 +49,9 @@ EXAM_ROOT_BY_KEY = {
     "igcse_business_studies": IGCSE_BUSINESS_STUDIES_EXAM_DIR,
     "igcse_economics": IGCSE_ECONOMICS_EXAM_DIR,
     "a_level_physics": A_LEVEL_PHYSICS_EXAM_DIR,
+    "a_level_computer_science": A_LEVEL_COMPUTER_SCIENCE_EXAM_DIR,
     "a_level_biology": A_LEVEL_BIOLOGY_EXAM_DIR,
     "a_level_chemistry": A_LEVEL_CHEMISTRY_EXAM_DIR,
-    "a_level_computer_science": A_LEVEL_COMPUTER_SCIENCE_EXAM_DIR,
     "a_level_business": A_LEVEL_BUSINESS_EXAM_DIR,
     "a_level_economics": A_LEVEL_ECONOMICS_EXAM_DIR,
 }
@@ -68,9 +68,9 @@ SYLLABUS_CODE_BY_KEY = {
     "igcse_business_studies": "0450",
     "igcse_economics": "0455",
     "a_level_physics": "9702",
+    "a_level_computer_science": "9618",
     "a_level_biology": "9700",
     "a_level_chemistry": "9701",
-    "a_level_computer_science": "9618",
     "a_level_business": "9609",
     "a_level_economics": "9708",
 }
@@ -123,9 +123,9 @@ PAGE_HEADER_BY_EXAM = {
     "igcse_business_studies": "IGCSE Business Studies",
     "igcse_economics": "IGCSE Economics",
     "a_level_physics": "A-Level Physics",
+    "a_level_computer_science": "A-Level Computer Science",
     "a_level_biology": "A-Level Biology",
     "a_level_chemistry": "A-Level Chemistry",
-    "a_level_computer_science": "A-Level Computer Science",
     "a_level_business": "A-Level Business",
     "a_level_economics": "A-Level Economics",
 }

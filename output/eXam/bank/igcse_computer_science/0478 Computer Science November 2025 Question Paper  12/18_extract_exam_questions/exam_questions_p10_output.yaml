@@ -1,0 +1,22 @@
+questions:
+  - number: "7c"
+    type: long_answer
+    text: |
+      The smart speaker has machine learning capabilities.
+
+      Explain how the smart speaker can use machine learning to improve the voice command input.
+  - number: "7d"
+    type: short_answer
+    text: |
+      The smart speaker is an example of an embedded system.
+
+      Explain why the smart speaker is an embedded system.
+  - number: "7e"
+    type: short_answer
+    text: |
+      The music and audio books that are played by the smart speaker are stored in cloud storage.
+
+      Give \textbf{two} advantages of storing the music and audio books in cloud storage.
+
+      1. \hrulefill
+      2. \hrulefill

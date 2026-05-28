@@ -1,0 +1,49 @@
+[thinking]
+**Page 9 Transcription and Refinement**
+
+Okay, here's the deal. I need to transcribe page 9 of this exam paper. It looks like it covers a few related questions, and I need to make sure the formatting is spot-on. I've got to ensure the LaTeX is perfect because, well, the details matter in this field.
+
+First, we have question 3bi. It’s asking about the pressure calculation using $\Delta h$. Specifically, I need to state the liquid property that’s used, along with gravitational field strength, to calculate the pressure. Nothing too tricky here, just a clear statement is needed.
+
+Next up, 3bii. This one focuses on the constant volume gas thermometer, which is interesting. I must detail two disadvantages of using it for temperature measurement, which I can do without too much thought.
+
+Then, there's 3biii. It wants a single situation where using this type of thermometer *would* be appropriate. That's a different angle. I'll need to consider its strengths to provide an appropriate example.
+
+Finally, 3biv is a calculation. We're given some level readings on a scale: $2.31\text{ cm}$ at level X, $8.69\text{ cm}$ at $0^{\circ}\text{C}$ for level Y, and $7.83\text{ cm}$ at an unknown temperature $\theta$ also for level Y. I need to figure out the value of $\theta$ in $^\circ\text{C}$. The formating of the answer section has to be good. I'll need to make sure the formatting for the LaTeX rendering is perfect. I think I'll use `$\theta = $ \hrulefill $^{\circ}\text{C}$` for the answer space.
+
+I need to transcribe the questions in a clean and well formatted manner.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3bi"
+    type: short_answer
+    text: |
+      The value of $\Delta h$ can be used to calculate the pressure of the gas. In order to do this, the gravitational field strength is used, along with a property of the liquid.
+
+      State the property of the liquid that is used to calculate the pressure.
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Before the measurement of $\Delta h$ can be made, the glass bulb needs to reach thermal equilibrium with the environment for which the temperature is to be measured.
+
+      State \textbf{two} disadvantages of using a constant volume gas thermometer to measure temperature.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3biii"
+    type: short_answer
+    text: |
+      Suggest \textbf{one} situation in which a constant volume gas thermometer would be an appropriate type of thermometer to choose for measuring temperature.
+  - number: "3biv"
+    type: calculation
+    text: |
+      Level X aligns with $2.31\text{ cm}$ on the scale. At $0\text{ }^\circ\text{C}$, level Y aligns with $8.69\text{ cm}$.
+
+      At temperature $\theta$, level Y aligns with $7.83\text{ cm}$ on the scale.
+
+      Determine a value for $\theta$ in $^\circ\text{C}$.
+
+      $\theta = $ \hrulefill $^{\circ}\text{C}$

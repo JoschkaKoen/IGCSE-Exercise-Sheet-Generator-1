@@ -1,0 +1,79 @@
+[thinking]
+**Processing Questions 11b and 11c**
+
+Alright, let's break this down. First, I need to analyze the input: page 13 of this PDF contains two short-answer questions, 11b and 11c. The goal is to extract the text from the questions.
+
+For question 11b, it appears to be asking for a completion of a diagram related to a linked list implementation. I recognize the familiar setup: a `RootPtr` and `FreePtr`, and a table representing the linked list nodes stored in an array. The array has indices, left pointers, data, and right pointers. It's essentially visualizing a linked list structure within an array. To represent this, LaTeX is the obvious choice. I'll need to define the `RootPtr` and `FreePtr` boxes using `\framebox`, and then describe the array in tabular format, carefully labeling the columns.
+
+Now, question 11c. This one is asking me to complete pseudocode for a search function. The text describes a search algorithm within a binary tree implemented using a 1D array of records, with each record holding left, data, and right pointers. I see the provided pseudocode with several dotted lines, ready to be filled in. I'll need to carefully translate the question's descriptions into the appropriate pseudocode syntax. I need to make sure I get the comparison logic correct and understand when to return the current pointer, or move left/right within the binary search logic. It should be a pretty straightforward completion of the algorithm. I'll use `alltt` environment for the pseudocode, and `\hrulefill` for the dotted lines, and no double quotes for free-text fields. Seems like a simple case of mapping the logic to the pseudocode format.
+
+
+
+[/thinking]
+
+questions:
+  - number: "11b"
+    type: short_answer
+    text: |
+      A user-defined record structure is used to store the nodes of the linked list in part (a).
+
+      Complete the diagram, using your answer for part (a).
+
+      \textbf{RootPtr}
+      \framebox[1.5cm]{\strut 0}
+
+      \textbf{FreePtr}
+      \framebox[1.5cm]{\strut \quad}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Index} & \textbf{LeftPtr} & \textbf{Data} & \textbf{RightPtr} \\ \hline
+      \textbf{0} & & Red & \\ \hline
+      \textbf{1} & & Green & \\ \hline
+      \textbf{2} & & Yellow & \\ \hline
+      \textbf{3} & & Blue & \\ \hline
+      \textbf{4} & & Orange & \\ \hline
+      \textbf{5} & & Indigo & \\ \hline
+      \textbf{6} & & Violet & \\ \hline
+      \textbf{7} & & & \\ \hline
+      \end{tabular}
+  - number: "11c"
+    type: short_answer
+    text: |
+      The linked list in part (a) is implemented using a 1D array of records. Each record contains a left pointer, data and a right pointer.
+
+      The following pseudocode represents a function that searches for an element in the array of records \texttt{BinTree}. It returns the index of the record if the element is found, or it returns a null pointer if the element is not found.
+
+      Complete the pseudocode for the function.
+
+      \begin{alltt}
+      FUNCTION SearchTree(Item : STRING) \hrulefill
+
+          NowPtr <- \hrulefill
+
+          WHILE NowPtr <> -1
+
+              IF \hrulefill THEN
+
+                  NowPtr <- BinTree[NowPtr].LeftPtr
+
+              ELSE
+
+                  IF BinTree[NowPtr].Data < Item THEN
+
+                      \hrulefill
+
+                  ELSE
+
+                      RETURN NowPtr
+
+                  ENDIF
+
+              ENDIF
+
+          ENDWHILE
+
+          RETURN NowPtr
+
+      ENDFUNCTION
+      \end{alltt}

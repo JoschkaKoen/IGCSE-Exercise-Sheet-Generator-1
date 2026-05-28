@@ -1,0 +1,8 @@
+questions:
+  - number: "12c"
+    type: short_answer
+    text: |
+      Describe \textbf{two} ways in which the performance of a sort routine is affected by the data to be sorted.
+
+      1. \hrulefill
+      2. \hrulefill

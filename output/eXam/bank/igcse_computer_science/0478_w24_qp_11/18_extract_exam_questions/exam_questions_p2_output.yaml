@@ -1,0 +1,41 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The size of a file can be measured using different units.
+  - number: "1a"
+    type: multiple_choice
+    text: |
+      Tick $(\checkmark)$ \textbf{one} box to show which of these is \textbf{not} a unit of measurement for a file.
+    options:
+      - letter: A
+        text: |
+          bit
+      - letter: B
+        text: |
+          bot
+      - letter: C
+        text: |
+          nibble
+      - letter: D
+        text: |
+          byte
+  - number: "1b"
+    type: short_answer
+    text: |
+      The size of a file can be reduced by compressing it.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Give \textbf{two} types of compression that can be used to reduce the size of a file.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Give \textbf{three} benefits of reducing the size of a file for storage and transmission.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

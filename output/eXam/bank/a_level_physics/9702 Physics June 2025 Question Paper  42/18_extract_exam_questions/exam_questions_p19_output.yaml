@@ -1,0 +1,27 @@
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      Resistor R has resistance $45\,\Omega$.
+
+      Assume that there is no p.d. across the diode when it is conducting.
+  - number: "8bi"
+    type: calculation
+    text: |
+      Determine the peak power $P_0$ in the resistor.
+
+      $P_0 = $ \hrulefill W
+  - number: "8bii"
+    type: short_answer
+    text: |
+      On Fig. 8.3, sketch the variation of the power $P$ in the resistor with $t$ between $t = 0$ and $t = 2T$.
+  - number: "8biii"
+    type: long_answer
+    text: |
+      Use the answer in \textbf{(b)(ii)} to explain why the mean power in the resistor is $\frac{1}{4} P_0$.
+  - number: "8biv"
+    type: calculation
+    text: |
+      Use the information in \textbf{(b)(iii)} to determine the r.m.s. value of $V_{\text{OUT}}$.
+
+      r.m.s. voltage = \hrulefill V

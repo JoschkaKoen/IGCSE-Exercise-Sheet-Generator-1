@@ -1,0 +1,27 @@
+questions:
+  - number: "1c"
+    type: calculation
+    text: |
+      Change $h$ in the range $10.0 \text{ cm} \leqslant h \leqslant 38.0 \text{ cm}$ and determine $T$. Repeat until you have six sets of values of $h$ and $T$.
+
+      Record your results in a table. Include values of $\frac{S}{h}$ and $T^2$ in your table.
+  - number: "1d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1di"
+    type: short_answer
+    text: |
+      Plot a graph of $T^2$ on the $y$-axis against $\frac{S}{h}$ on the $x$-axis.
+  - number: "1dii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1diii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+
+      y-intercept = \hrulefill

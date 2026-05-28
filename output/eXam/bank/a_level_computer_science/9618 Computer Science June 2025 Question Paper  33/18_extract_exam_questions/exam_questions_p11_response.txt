@@ -1,0 +1,37 @@
+[thinking]
+**My Approach to Extracting and Formatting Exam Questions**
+
+Okay, so I've been given page 11 of an exam paper. My job is to grab questions "9b" and "9c" and get them into a YAML format. I need to be careful with the output; it's got to be clean and accurate. Specifically, I know that I need to include: `number`, `type`, and `text` for each question, and I also know that if I were to see multiple choice questions I need to include `options`. Since these questions are short answer, I don't need to add `options`.
+
+For question "9b," the printed text deals with Backus-Naur Form (BNF) and wants me to complete the definitions for `<upper>` and `<passcode>`. The text is displayed using dotted lines. I immediately realize that I can't just copy those dots directly. I need to represent the intent of those lines which indicate there is some information missing which the user will write to fill in the blanks. I will use `\hrulefill` to represent that blank space. I will also make sure to use `\texttt{...}` to display the BNF code. So I'll structure it like this:
+
+```
+<upper> ::= \hrulefill
+<passcode> ::= \hrulefill
+```
+
+For question "9c," it's about modifying the rules for a passcode and completing a syntax diagram, but since I'm not supposed to include images, I just need to transcribe the textual part of the question. I should be able to just grab the relevant sentences.
+
+Finally, I need to format everything into YAML. I'm going to make sure to use block scalars (`|`) for the `text` field so that I don't need to worry about escaping special characters. I also remember that I'm supposed to avoid double quotes for free-text strings where possible. I'll stick to using `\texttt{...}` for code-like snippets like `<upper>` and `<passcode>` in the YAML output to stay consistent.
+
+
+
+[/thinking]
+
+questions:
+  - number: "9b"
+    type: short_answer
+    text: |
+      Complete the Backus-Naur Form (BNF) for \texttt{<upper>} and \texttt{<passcode>}.
+
+      \texttt{<upper> ::= } \hrulefill
+
+      \texttt{<passcode> ::= } \hrulefill
+  - number: "9c"
+    type: short_answer
+    text: |
+      A character can be an upper, a lower or a digit.
+
+      The rules for passcode have been changed so that the third character may also be selected from upper and the final character may be repeated one or more times.
+
+      Complete the syntax diagram for passcode to show these changes.

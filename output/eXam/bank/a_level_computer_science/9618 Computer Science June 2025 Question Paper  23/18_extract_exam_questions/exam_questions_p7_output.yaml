@@ -1,0 +1,18 @@
+```yaml
+questions:
+  - number: "3"
+    type: long_answer
+    text: |
+      A programmer has been asked to create a module \texttt{RollDice()} to simulate multiple rolls of a dice. This module will be used as part of a program for a game.
+
+      The module will:
+
+      step 1 – take a positive integer parameter representing the number of times the dice will be rolled
+      step 2 – simulate \textbf{one} roll of the dice by generating a random integer between 1 and 6 inclusive
+      step 3 – output the integer generated
+      step 4 – repeat, as required from \textbf{step 2}
+      step 5 – calculate the average value of the random integers generated
+      step 6 – return the average value.
+
+      Write pseudocode for the module \texttt{RollDice()}
+```

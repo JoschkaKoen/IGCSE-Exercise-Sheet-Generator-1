@@ -1,0 +1,23 @@
+questions:
+  - number: "1bii"
+    type: calculation
+    text: |
+      Calculate the period of rotation of the small cog.
+
+      period = \hrulefill s
+  - number: "1biii"
+    type: calculation
+    text: |
+      Show that the distance moved by point X on the chain during one full rotation of the small cog is $0.24\text{ m}$.
+  - number: "1biv"
+    type: calculation
+    text: |
+      Use the information in \textbf{(b)(iii)} to determine the angle through which the large cog rotates during one full rotation of the small cog.
+
+      angle = \hrulefill rad
+  - number: "1c"
+    type: long_answer
+    text: |
+      The chain of the bicycle in \textbf{(b)} is moved onto a smaller cog fixed to the rear wheel. The speed of the bicycle does not change.
+
+      Explain, without calculation, the effect of this change on the angular speed of the pedals.

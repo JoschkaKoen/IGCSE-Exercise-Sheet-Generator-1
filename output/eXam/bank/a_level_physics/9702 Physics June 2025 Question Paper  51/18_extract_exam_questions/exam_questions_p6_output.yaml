@@ -1,0 +1,38 @@
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      Values of $n$, $\frac{1}{n}$ and $I$ are given in Table 2.1.
+
+      \textbf{Table 2.1}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      $n$ & $\frac{1}{n}$ & $I / \mu\text{A}$ & $\frac{1}{I} / 10^3\text{A}^{-1}$ \\ \hline
+      5 & 0.200 & $455 \pm 5$ & \\ \hline
+      6 & 0.167 & $525 \pm 5$ & \\ \hline
+      7 & 0.143 & $580 \pm 5$ & \\ \hline
+      8 & 0.125 & $635 \pm 5$ & \\ \hline
+      9 & 0.111 & $685 \pm 5$ & \\ \hline
+      11 & 0.0909 & $765 \pm 5$ & \\ \hline
+      \end{tabular}
+
+      Calculate and record values of $\frac{1}{I} / 10^3\text{A}^{-1}$ in Table 2.1. Include the absolute uncertainties in $\frac{1}{I}$.
+  - number: "2c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Plot a graph of $\frac{1}{I} / 10^3\text{A}^{-1}$ against $\frac{1}{n}$. Include error bars for $\frac{1}{I}$.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit and a worst acceptable straight line on your graph. Label both lines.
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Determine the gradient of the line of best fit. Include the absolute uncertainty in your answer.
+
+      gradient = \hrulefill

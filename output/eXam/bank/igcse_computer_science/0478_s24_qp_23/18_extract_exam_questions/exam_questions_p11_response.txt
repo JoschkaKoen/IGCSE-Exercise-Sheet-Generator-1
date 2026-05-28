@@ -1,0 +1,55 @@
+[thinking]
+**Transcribing SQL Question 8c**
+
+Okay, the user wants me to transcribe question "8c" from the provided page. Let's take a look. It's asking for a SQL statement. The instructions are: "Complete the SQL statement to display only the ID and model of all the aircraft that are airworthy."
+
+Alright, I see the incomplete SQL code. It says: "SELECT ID, ............................................................................................................................" followed by three lines of dots, and then a semicolon and "[4]".
+
+First, I need to clean up the presentation. I'll get rid of the "(c)" subquestion prefix. I'll summarize it as: "Complete the SQL statement to display only the ID and model of all the aircraft that are airworthy." Now, let's think about the output.
+
+Since this is SQL code, I should use a code formatting, like `\texttt{SELECT ID,}`. The format guide shows: "A value followed by an answer line (e.g. `10010011 ........`) -> `10010011 \hrulefill` — value, space, fill rule."
+
+So, I'll represent the missing SQL code with `\hrulefill` for the answer lines. Following the format guide and the provided lines of dots, I'll represent it as:
+`SELECT ID, \hrulefill`
+`\hrulefill`
+`\hrulefill`
+`\hrulefill ;`
+
+Now, let's make sure that `SELECT ID,` is wrapped in the `\texttt{}` tags, as it's code, so it's `\texttt{SELECT ID,}`.
+
+Let me double check the spacing. It looks right:
+
+`\texttt{SELECT ID,} \hrulefill`
+`\hrulefill`
+`\hrulefill`
+`\hrulefill ;`
+
+Perfect, this matches the visual layout on the page. I'm confident I can represent this correctly as YAML now:
+
+```yaml
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      Complete the SQL statement to display only the ID and model of all the aircraft that are airworthy.
+
+      \texttt{SELECT ID,} \hrulefill
+      \hrulefill
+      \hrulefill
+      \hrulefill ;
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      Complete the SQL statement to display only the ID and model of all the aircraft that are airworthy.
+
+      \texttt{SELECT ID,} \hrulefill
+      \hrulefill
+      \hrulefill
+      \hrulefill ;

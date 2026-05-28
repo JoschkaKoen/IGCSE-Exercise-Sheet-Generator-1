@@ -1,0 +1,38 @@
+```yaml
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      A database table called \texttt{Booking28} stores details of hotel rooms and bookings for the week beginning Monday 7 July 2025.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{RoomNo} & \textbf{Type} & \textbf{Guests} & \textbf{Rate\$} & \textbf{Mon} & \textbf{Tue} & \textbf{Wed} & \textbf{Thu} & \textbf{Fri} & \textbf{Sat} & \textbf{Sun} \\ \hline
+      101D & Double & 2 & 99.99 & T & T & T & T & F & T & T \\ \hline
+      102D & Double & 2 & 99.99 & T & T & T & F & T & T & T \\ \hline
+      103F & Family & 4 & 150.00 & T & T & T & T & T & T & T \\ \hline
+      104S & Single & 1 & 72.50 & F & T & T & F & T & T & T \\ \hline
+      105S & Single & 1 & 72.50 & F & T & T & F & T & T & T \\ \hline
+      106T & Twin & 2 & 120.00 & T & T & T & T & F & T & T \\ \hline
+      201F & Family & 4 & 160.00 & F & F & T & T & T & T & T \\ \hline
+      202D & Double & 2 & 120.00 & T & F & T & T & T & T & T \\ \hline
+      203T & Twin & 2 & 120.00 & T & F & T & T & T & T & T \\ \hline
+      204T & Twin & 2 & 125.00 & T & F & T & F & T & T & T \\ \hline
+      205S & Single & 1 & 79.99 & T & F & T & T & F & T & T \\ \hline
+      301D & Double & 2 & 200.00 & F & T & T & F & F & T & T \\ \hline
+      302T & Twin & 2 & 200.00 & T & T & T & T & F & T & T \\ \hline
+      303P & Suite & 4 & 500.00 & T & T & T & T & F & T & T \\ \hline
+      304P & Suite & 6 & 700.00 & F & F & F & F & T & T & T \\ \hline
+      \end{tabular}
+  - number: "11a"
+    type: short_answer
+    text: |
+      State the number of fields and records in this database table.
+
+      Fields \hrulefill
+      Records \hrulefill
+  - number: "11b"
+    type: short_answer
+    text: |
+      State the reason why the \texttt{Type} field would not be suitable as a primary key.
+```

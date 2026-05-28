@@ -1,0 +1,20 @@
+questions:
+  - number: "2eiii"
+    type: short_answer
+    text: |
+      Test your program with the following input data for \textbf{four} fences:
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Height} & \textbf{Risk} \\ \hline
+      152 & 5 \\ \hline
+      121 & 1 \\ \hline
+      130 & 3 \\ \hline
+      145 & 4 \\ \hline
+      \end{tabular}
+
+      Take a screenshot of the output.
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{2(e)(iii)} in the evidence document.

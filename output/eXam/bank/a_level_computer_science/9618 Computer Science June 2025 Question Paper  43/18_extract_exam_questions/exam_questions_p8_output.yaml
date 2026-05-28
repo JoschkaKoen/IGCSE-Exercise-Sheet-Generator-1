@@ -1,0 +1,55 @@
+```yaml
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      The class \texttt{LinkedList} stores the linked list.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{LinkedList}} \\ \hline
+      \texttt{HeadNode : Node} & stores the first node in the linked list \\ \hline
+      \texttt{Constructor()} & initialises \texttt{HeadNode} to a null value \\
+      \texttt{InsertNode()} & creates a new node using its integer parameter. Sets this \\
+      & node as the new head node and updates \texttt{NextNode} \\
+      \texttt{RemoveNode()} & finds the first node that contains its integer parameter and \\
+      & removes this node from the linked list \\
+      \texttt{Traverse()} & concatenates and returns the integer data in each node in \\
+      & the linked list \\ \hline
+      \end{tabular}
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{LinkedList} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(b)(i)} in the evidence document. \\ \hline
+      \end{tabular}
+  - number: "3bii"
+    type: short_answer
+    text: |
+      The method \texttt{InsertNode()}:
+
+      \begin{itemize}
+      \item takes an integer as a parameter
+      \item creates a new node with the parameter as the integer data
+      \item uses the new node's method \texttt{SetNextNode()} to store the current \texttt{HeadNode} as the next node
+      \item replaces \texttt{HeadNode} with the current node.
+      \end{itemize}
+
+      Write program code for \texttt{InsertNode()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(b)(ii)} in the evidence document. \\ \hline
+      \end{tabular}
+```

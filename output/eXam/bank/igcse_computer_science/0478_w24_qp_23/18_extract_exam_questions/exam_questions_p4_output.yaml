@@ -1,0 +1,38 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      An incomplete algorithm has been written in pseudocode to count the number of values stored in an array and to find their average.
+
+      Values have been stored in the array starting at \texttt{A[1]}
+
+      All the values to be counted are non-zero.
+
+      A value of zero in the array indicates there are no more values stored.
+
+      \begin{alltt}
+      01 DECLARE A : ARRAY[1:50] OF INTEGER
+      02 DECLARE C : INTEGER
+      03 DECLARE W : INTEGER
+      04 DECLARE X : INTEGER
+      05 W <- 0
+      06 C <- \hrulefill
+      07 WHILE A[C] <> 0
+      08     W <- \hrulefill
+      09     C <- C + 1
+      10 ENDWHILE
+      11 X <- \hrulefill
+      \end{alltt}
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the given pseudocode algorithm.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Write pseudocode to display, with suitable messages:
+
+      \begin{itemize}
+      \item the number of values stored in the array
+      \item the average of those values stored.
+      \end{itemize}

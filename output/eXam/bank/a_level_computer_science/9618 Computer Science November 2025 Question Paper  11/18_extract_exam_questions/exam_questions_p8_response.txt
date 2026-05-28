@@ -1,0 +1,46 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      The table shows part of the instruction set for a processor. The processor has one register, the Accumulator (ACC).
+
+      \begin{tabular}{|c|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      AND & \#n / Bn / \&n & Bitwise AND operation of the contents of the ACC with the operand \\ \hline
+      AND & <address> & Bitwise AND operation of the contents of the ACC with the contents of <address> \\ \hline
+      XOR & \#n / Bn / \&n & Bitwise XOR operation of the contents of the ACC with the operand \\ \hline
+      XOR & <address> & Bitwise XOR operation of the contents of the ACC with the contents of <address> \\ \hline
+      OR & \#n / Bn / \&n & Bitwise OR operation of the contents of the ACC with the operand \\ \hline
+      OR & <address> & Bitwise OR operation of the contents of the ACC with the contents of <address> \\ \hline
+      LSL & \#n & Bits in ACC are shifted logically n places to the left. Zeros are introduced on the right-hand end. \\ \hline
+      LSR & \#n & Bits in ACC are shifted logically n places to the right. Zeros are introduced on the left-hand end. \\ \hline
+      \end{tabular}
+
+      \begin{itemize}
+      \item <address> can be an absolute or symbolic address
+      \item \# denotes a denary number, e.g. \#127
+      \item B denotes a binary number, e.g. B10010001
+      \item \& denotes a hexadecimal number, e.g. \&4A
+      \end{itemize}
+  - number: "4a"
+    type: short_answer
+    text: |
+      The ACC currently contains the following positive binary integer:
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      0 & 0 & 0 & 1 & 1 & 1 & 1 & 0 \\ \hline
+      \end{tabular}
+
+      Write a bit manipulation instruction that uses a binary shift to change the contents of the ACC to:
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      0 & 1 & 1 & 1 & 1 & 0 & 0 & 0 \\ \hline
+      \end{tabular}
+
+      Instruction \hrulefill \hfill [1]
+```

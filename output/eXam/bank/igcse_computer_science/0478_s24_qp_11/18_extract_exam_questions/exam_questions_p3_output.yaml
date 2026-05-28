@@ -1,0 +1,40 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      The binary number 10100011 is stored in random access memory (RAM).
+
+      A logical left shift of \textbf{three} places is performed on the binary number.
+  - number: "3a"
+    type: calculation
+    text: |
+      Give the 8-bit binary number that will be stored after the shift has taken place.
+  - number: "3b"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which statement about a logical left shift of \textbf{two} places is correct.
+    options:
+      - letter: A
+        text: |
+          It would divide the binary number by 2.
+      - letter: B
+        text: |
+          It would multiply the binary number by 2.
+      - letter: C
+        text: |
+          It would divide the binary number by 4.
+      - letter: D
+        text: |
+          It would multiply the binary number by 4.
+  - number: "3c"
+    type: calculation
+    text: |
+      10100011 can be stored as a two's complement integer.
+
+      Convert the two's complement integer 10100011 to denary. Show all your working.
+  - number: "3d"
+    type: calculation
+    text: |
+      The binary number is measured as a byte because it has 8 bits.
+
+      State how many bytes there are in a kibibyte (KiB).

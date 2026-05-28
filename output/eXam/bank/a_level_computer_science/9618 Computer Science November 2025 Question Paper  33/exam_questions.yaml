@@ -1,0 +1,472 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An enumerated data type, \texttt{Spectrum}, is required to hold the names
+    of colours.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: An enumerated data type, \texttt{Spectrum}, is required to hold the names
+      of colours.
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the \textbf{pseudocode} statement for the type declaration of \texttt{Spectrum}
+        to hold the names of the colours available:
+
+
+        Red, Orange, Yellow, Green, Blue, Indigo, Violet.'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Identify \textbf{two} characteristics of the list of values given in
+        an enumerated data type declaration.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: '\texttt{ColourData} is a composite data type to store definitions of colours.
+
+
+      Write \textbf{pseudocode} statements to declare \texttt{ColourData} to hold
+      the following fields:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{Field} & \textbf{Example data} \\ \hline
+
+      ColourCode & XYZ12345 \\ \hline
+
+      Colour & Red \\ \hline
+
+      Wavelength & 650 \\ \hline
+
+      Frequency & 4.62 \\ \hline
+
+      PrimaryColour & Yes \\ \hline
+
+      \end{tabular}
+
+
+      Use the most appropriate data type in each case, including the enumerated data
+      type \texttt{Spectrum} from part a(i).'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Numbers are stored in a computer system using binary floating-point representation
+    with:
+
+
+    \begin{itemize}
+
+    \item 12 bits for the mantissa
+
+    \item 4 bits for the exponent
+
+    \item two''s complement form for both the mantissa and the exponent
+
+    \item 2 bytes in total.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Outline the effect of changing the number of bits used to store the mantissa
+      to 10 bits, in this system.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe \textbf{one} example of a situation that could cause an overflow
+      to occur and the consequences of such an overflow.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: long_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Describe how packet switching is used to pass messages across a network. Do
+    \textbf{not} include checking for completeness and resending packets in your answer.
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: long_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'Identify \textbf{and} describe \textbf{three} protocols that are used in
+    the Application Layer of the TCP/IP protocol suite.
+
+
+    Protocol 1 \hrulefill
+
+
+    Description \hrulefill
+
+
+    Protocol 2 \hrulefill
+
+
+    Description \hrulefill
+
+
+    Protocol 3 \hrulefill
+
+
+    Description \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of multi-tasking.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how an operating system ensures that multi-tasking operates efficiently.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The Karnaugh map (K-map) represents a logic circuit with four inputs.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: "$$\n\\begin{tabular}{cc|c|c|c|c}\n\\multicolumn{2}{c}{} & \\multicolumn{4}{c}{\\\
+      textbf{AB}} \\\\\n\\multicolumn{2}{c}{} & \\multicolumn{1}{c}{\\textbf{00}}\
+      \ & \\multicolumn{1}{c}{\\textbf{01}} & \\multicolumn{1}{c}{\\textbf{11}} &\
+      \ \\multicolumn{1}{c}{\\textbf{10}} \\\\\n\\cline{3-6}\n\\textbf{CD} & \\textbf{00}\
+      \ & 0 & 0 & 0 & 0 \\\\\n\\cline{3-6}\n & \\textbf{01} & 1 & 1 & 1 & 0 \\\\\n\
+      \\cline{3-6}\n & \\textbf{11} & 0 & 1 & 1 & 1 \\\\\n\\cline{3-6}\n & \\textbf{10}\
+      \ & 0 & 0 & 1 & 1 \\\\\n\\cline{3-6}\n\\end{tabular}\n$$"
+    answer_options: []
+    subquestions:
+    - number: 6ai
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Draw loop(s) around appropriate group(s) in the K-map to produce an optimal
+        sum-of-products.
+      answer_options: []
+      subquestions: []
+    - number: 6aii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the Boolean expression from your answer to part \textbf{a(i)} as
+        a simplified sum-of-products. Do \textbf{not} carry out any further simplification.
+      answer_options: []
+      subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Simplify the following expression using De Morgan’s laws and Boolean algebra.
+
+
+      Show all the stages in your simplification.
+
+
+      $$X = \overline{A+B+C} + \overline{\overline{B}+C}$$'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Outline the process of optimisation during the compilation of a program.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Write the Reverse Polish Notation (RPN) for the given infix expression:
+
+
+      $$((6 + 12) / (16 - 10)) * 18$$'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The RPN expression
+
+
+      $$\text{c a - b d + * b c + /}$$
+
+
+      is to be evaluated, where:
+
+
+      $$\text{a} = 4, \text{b} = 12, \text{c} = 24 \text{ and } \text{d} = 6.$$
+
+
+      Show the changing contents of the stack as the RPN expression is evaluated.
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      & & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: calculation
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: 'Calculate the shortest distance between the \textbf{Start} node and each
+    of the nodes in the graph using Dijkstra''s algorithm.
+
+
+    Show your working on the graph or in the working space. Write your answers in
+    the table provided.
+
+
+    Answers:
+
+
+    \begin{tabular}{|c|c|c|c|c|c|}
+
+    \hline
+
+    \textbf{T} & \textbf{V} & \textbf{W} & \textbf{X} & \textbf{Y} & \textbf{Z} \\
+    \hline
+
+    & & & & & \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '9'
+  question_type: long_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'A company requires a digital certificate to ensure the authenticity of its
+    online communications.
+
+
+    Outline the process followed to acquire a digital certificate.'
+  answer_options: []
+  subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A stack, \texttt{StackArray}, is to be implemented using pseudocode, to store
+    a maximum of 100 string items in an appropriate array. Declarations are required
+    so that the stack has a beginning, an end and a maximum size. An array is also
+    required to store the data.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Write \textbf{pseudocode} to declare the variables, constant and array required
+      to implement the stack.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Write \textbf{pseudocode} for a procedure to initialise the top and bottom
+      pointers of the stack to appropriate values.
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: long_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'Describe when the use of recursion would be beneficial \textbf{and} give
+    an example.
+
+
+    Description \hrulefill
+
+    Example \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '12'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An exception can occur when running a program.
+  answer_options: []
+  subquestions:
+  - number: 12a
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain what is meant by an exception.
+    answer_options: []
+    subquestions: []
+  - number: 12b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{one} example of an exception and give \textbf{one} reason
+      why the exception may cause a problem.
+
+
+      Example \hrulefill
+
+      Reason \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '13'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 7
+  text: "The table shows assembly language instructions for a processor that has one\
+    \ register, the Accumulator (ACC).\n\n\\begin{tabular}{|c|c|l|p{7.5cm}|}\n\\hline\n\
+    \\textbf{Label} & \\multicolumn{2}{c|}{\\textbf{Instruction}} & \\multicolumn{1}{c|}{\\\
+    textbf{Explanation}} \\\\\n\\cline{2-3}\n & \\textbf{Opcode} & \\textbf{Operand}\
+    \ & \\\\\n\\hline\n & \\texttt{LDM} & \\texttt{\\#n} & Load the number n to the\
+    \ ACC \\\\\n\\hline\n & \\texttt{LDD} & \\texttt{<address>} & Load the contents\
+    \ of the location at the given address to the ACC \\\\\n\\hline\n & \\texttt{LDI}\
+    \ & \\texttt{<address>} & The address to be used is at the given address. \\newline\
+    \ Load the contents of this second address to the ACC \\\\\n\\hline\n & \\texttt{ADD}\
+    \ & \\texttt{<address>} & Add the contents of the given address to the ACC \\\\\
+    \n\\hline\n & \\texttt{ADD} & \\texttt{\\#n} & Add the number n to the ACC \\\\\
+    \n\\hline\n & \\texttt{SUB} & \\texttt{<address>} & Subtract the contents of the\
+    \ given address from the ACC \\\\\n\\hline\n & \\texttt{SUB} & \\texttt{\\#n}\
+    \ & Subtract the number n from the ACC \\\\\n\\hline\n & \\texttt{STO} & \\texttt{<address>}\
+    \ & Store the contents of the ACC at the given address \\\\\n\\hline\n\\texttt{<label>:}\
+    \ & & \\texttt{<data>} & Gives a symbolic address \\texttt{<label>} to the memory\
+    \ location with the contents \\texttt{<data>} \\\\\n\\hline\n\\multicolumn{4}{|l|}{\\\
+    # denotes a denary number, e.g. \\#123} \\\\\n\\multicolumn{4}{|l|}{\\texttt{<label>}\
+    \ can be used in place of \\texttt{<address>}} \\\\\n\\hline\n\\end{tabular}\n\
+    \n\\vspace{1em}\n\nThe current contents of memory are:\n\n\\begin{tabular}{|c|c|}\n\
+    \\hline\n\\textbf{Address} & \\textbf{Contents} \\\\\n\\hline\n563 & 125 \\\\\n\
+    \\hline\n899 & 63 \\\\\n\\hline\n\\end{tabular}"
+  answer_options: []
+  subquestions: []

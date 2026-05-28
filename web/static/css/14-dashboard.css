@@ -1,0 +1,253 @@
+/* Per-user dashboard styles.
+ *
+ * Sections inherit `.glass-panel` from 03-core-ui.css. This file only carries
+ * the dashboard-specific extras: section titles, cost grid, settings forms,
+ * activity chart frame.
+ */
+
+.dashboard-section-title {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 0.85rem;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Cost summary ---------- */
+.dashboard-cost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.85rem;
+}
+.dashboard-cost-cell {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.9rem;
+  padding: 0.85rem 1rem;
+}
+.dashboard-cost-cell-total {
+  background: linear-gradient(140deg, rgba(34, 211, 238, 0.12), rgba(99, 102, 241, 0.10));
+  border-color: rgba(34, 211, 238, 0.28);
+}
+.dashboard-cost-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(148, 163, 184);
+}
+.dashboard-cost-value {
+  margin-top: 0.35rem;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: rgb(226, 232, 240);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Download links inside job tables ---------- */
+.dashboard-dl-link {
+  color: rgb(103, 232, 249);
+  text-decoration: underline;
+  margin-right: 0.75rem;
+  white-space: nowrap;
+}
+.dashboard-dl-link:hover {
+  color: rgb(165, 243, 252);
+}
+.dashboard-dl-link:last-child {
+  margin-right: 0;
+}
+
+/* ---------- eXam activity sub-blocks ---------- */
+.dashboard-subblock {
+  margin-top: 1.25rem;
+}
+.dashboard-subblock:first-child {
+  margin-top: 0;
+}
+.dashboard-subblock-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: rgb(226, 232, 240);
+  margin-bottom: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.dashboard-subblock-link {
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: rgb(103, 232, 249);
+  text-decoration: underline;
+}
+
+.dashboard-test-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dashboard-test-list li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.dashboard-test-list li:last-child {
+  border-bottom: none;
+}
+.dashboard-test-list a {
+  color: rgb(226, 232, 240);
+  font-weight: 500;
+}
+.dashboard-test-list a:hover {
+  text-decoration: underline;
+}
+.dashboard-test-meta {
+  color: rgb(100, 116, 139);
+  font-size: 0.82rem;
+}
+
+.dashboard-practice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.6rem;
+}
+.dashboard-practice-cell {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0.7rem;
+  padding: 0.65rem 0.85rem;
+}
+.dashboard-practice-subject {
+  font-weight: 500;
+  color: rgb(226, 232, 240);
+  margin-bottom: 0.2rem;
+}
+.dashboard-practice-stats {
+  display: flex;
+  gap: 0.85rem;
+  font-size: 0.82rem;
+  color: rgb(148, 163, 184);
+}
+
+.dashboard-chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+/* ---------- Profile + settings ---------- */
+.dashboard-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+.dashboard-profile-grid dt {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(100, 116, 139);
+  margin-bottom: 0.15rem;
+}
+.dashboard-profile-grid dd {
+  color: rgb(226, 232, 240);
+  font-weight: 500;
+}
+
+.dashboard-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.dashboard-settings-form {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.9rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.dashboard-input {
+  width: 100%;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(2, 6, 23, 0.85);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  color: rgb(226, 232, 240);
+}
+.dashboard-input::placeholder {
+  color: rgb(100, 116, 139);
+}
+.dashboard-input:focus {
+  outline: none;
+  border-color: rgba(34, 211, 238, 0.45);
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.18);
+}
+.dashboard-submit {
+  align-self: flex-start;
+  background: linear-gradient(140deg, rgba(34, 211, 238, 0.85), rgba(99, 102, 241, 0.75));
+  color: white;
+  border: none;
+  border-radius: 0.65rem;
+  padding: 0.5rem 1.1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.dashboard-submit:hover {
+  filter: brightness(1.1);
+}
+.dashboard-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.dashboard-form-err {
+  color: rgb(252, 165, 165);
+  font-size: 0.82rem;
+  margin: 0;
+}
+.dashboard-form-ok {
+  color: rgb(110, 231, 183);
+  font-size: 0.82rem;
+  margin: 0;
+}
+.dashboard-form-note {
+  color: rgb(100, 116, 139);
+  font-size: 0.75rem;
+  margin: 0.25rem 0 0;
+}
+
+/* ---------- Logout ---------- */
+.dashboard-logout-row {
+  margin-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1rem;
+}
+.dashboard-logout {
+  background: transparent;
+  border: 1px solid rgba(252, 165, 165, 0.35);
+  color: rgb(252, 165, 165);
+  border-radius: 0.65rem;
+  padding: 0.45rem 1rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.dashboard-logout:hover {
+  background: rgba(252, 165, 165, 0.08);
+}
+
+/* ---------- Expired marker ---------- */
+.dashboard-expired {
+  color: rgb(100, 116, 139);
+  font-style: italic;
+}

@@ -1,0 +1,13 @@
+questions:
+  - number: "9bi"
+    type: long_answer
+    text: |
+      Explain, with reference to photons, why $V_{\text{S}}$ depends on the frequency of the incident electromagnetic radiation.
+  - number: "9bii"
+    type: long_answer
+    text: |
+      State \textbf{three} quantitative conclusions that can be drawn from the results in Fig. 9.2 and Fig. 9.3. Use the space for any working.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

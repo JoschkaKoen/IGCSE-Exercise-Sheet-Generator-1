@@ -1,0 +1,33 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The procedure \texttt{OutputLinkedList()} outputs the data in the linked list in order by following the pointers from \texttt{FirstNode}.
+  - number: "3ci"
+    type: long_answer
+    text: |
+      Write program code for \texttt{OutputLinkedList()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document.
+  - number: "3cii"
+    type: long_answer
+    text: |
+      Amend the main program to call \texttt{InsertData()} and then \texttt{OutputLinkedList()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence document.
+  - number: "3ciii"
+    type: short_answer
+    text: |
+      Test your program with the test data:
+
+      5 \quad 1 \quad 2 \quad 3 \quad 8
+
+      Take a screenshot of the output.
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{3(c)(iii)} in the evidence document.

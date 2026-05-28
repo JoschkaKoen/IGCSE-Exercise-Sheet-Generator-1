@@ -1,0 +1,19 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      Describe the differences between a monitoring system and a control system.
+  - number: "10"
+    type: short_answer
+    text: |
+      An architect needs a model of a building.
+  - number: "10a"
+    type: short_answer
+    text: |
+      Explain how the model will be printed using a 3D printer.
+  - number: "10b"
+    type: short_answer
+    text: |
+      State why a 3D printer needs a buffer.
+```

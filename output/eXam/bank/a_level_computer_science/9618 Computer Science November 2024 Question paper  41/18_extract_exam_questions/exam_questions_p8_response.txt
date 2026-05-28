@@ -1,0 +1,50 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      The class \texttt{Fence} stores data about the fences. Each fence has a height in cm and a risk number.
+
+      The risk is a whole number between 1 and 5 inclusive. A risk of 1 means the fence is the easiest type to jump. A risk of 5 means the fence is the hardest type to jump.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Fence}} \\ \hline
+      \texttt{Height : INTEGER} & stores the height of the fence in cm \newline the height is between 70 and 180 inclusive \\ \hline
+      \texttt{Risk : INTEGER} & stores the risk as a whole number between 1 and 5 inclusive \\ \hline
+      \texttt{Constructor()} & initialises \texttt{Height} and \texttt{Risk} to its parameter values \\ \hline
+      \texttt{GetHeight()} & returns the height of the fence \\ \hline
+      \texttt{GetRisk()} & returns the risk of the fence \\ \hline
+      \end{tabular}
+  - number: "2ci"
+    type: long_answer
+    text: |
+      Write program code to declare the class \texttt{Fence}, its constructor and get methods.
+
+      Use your programming language's appropriate constructor.
+
+      All attributes must be private.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \newline \newline Copy and paste the program code into part \textbf{2(c)(i)} in the evidence document. \\ \hline
+      \end{tabular}
+  - number: "2cii"
+    type: long_answer
+    text: |
+      The array \texttt{Course} stores \textbf{four} \texttt{Fence} objects. The user inputs the height and risk for each fence, and these are validated before each fence is created.
+
+      Amend the main program to:
+
+      \begin{itemize}
+      \item declare the local array \texttt{Course}
+      \item take as input the data for \textbf{four} fences from the user
+      \item loop the input until both the height and risk are valid for each fence
+      \item create an instance of \texttt{Fence} for each of the \textbf{four} valid fences and store each instance in the array.
+      \end{itemize}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \newline \newline Copy and paste the program code into part \textbf{2(c)(ii)} in the evidence document. \\ \hline
+      \end{tabular}

@@ -1,0 +1,56 @@
+[thinking]
+**Exam Page 12: Structuring the Questions**
+
+Okay, here's what I've got. The user wants me to transcribe page 12 of the exam. My initial thought is to break down each question by looking at its structure. Question "5" is the main container, so I need to make sure I represent that correctly. I need to make sure to represent the question appropriately, and I will start by seeing how each item is structured.
+
+I see a nested structure: "5", then "5a", "5b", and within "5b", there's "5bi", "5bii", and "5biii". The first instinct is to see if "5" itself has any text, but it's just the main question number. Since the stub implies "5" is `short_answer` it must be a header, with no question. I think an empty string for the text part would be correct here: `text: ''`.
+
+I am seeing how the structure will look like, and I am parsing the text appropriately.
+
+"5a" is straightforward; it's a definition: "Define electric potential at a point."
+
+"5b" is more complex. I'm focusing on the text: "A hydrogen atom may be considered to consist of a proton and an electron separated by a distance of 120 pm... The two particles may be considered as point charges. Point P lies on the line joining the electron and the proton and is at a variable distance $x$ from the proton." I need to remember that "Fig. 5.1" refers to an image, which I will need to omit.
+
+For the sub-questions within "5b":
+- "5bi" requires me to "Show that the electric potential $V$ at point P when $x = 10\text{ pm}$ is equal to 130 V."
+- "5bii" asks to "Calculate, to two significant figures, $V$ when $x = 30\text{ pm}$."
+- "5biii" is asking to "On Fig. 5.1, draw a cross ($\times$) at one position, other than infinity, where the electric potential is zero."
+
+And now, I am going to omit the image referenced and transcribe everything.
+
+I'm ready to write out the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: short_answer
+    text: |
+      Define electric potential at a point.
+  - number: "5b"
+    type: short_answer
+    text: |
+      A hydrogen atom may be considered to consist of a proton and an electron separated by a distance of $120\text{ pm}$, as shown in Fig. 5.1.
+
+      The two particles may be considered as point charges.
+
+      Point P lies on the line joining the electron and the proton and is at a variable distance $x$ from the proton.
+  - number: "5bi"
+    type: calculation
+    text: |
+      Show that the electric potential $V$ at point P when $x = 10\text{ pm}$ is equal to $130\text{ V}$.
+  - number: "5bii"
+    type: calculation
+    text: |
+      Calculate, to two significant figures, $V$ when $x = 30\text{ pm}$.
+
+      $V = $ \hrulefill $\text{V}$
+  - number: "5biii"
+    type: short_answer
+    text: |
+      On Fig. 5.1, draw a cross ($\times$) at one position, other than infinity, where the electric potential is zero.

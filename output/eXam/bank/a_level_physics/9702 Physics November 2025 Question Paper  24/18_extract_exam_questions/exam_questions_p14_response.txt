@@ -1,0 +1,45 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 14**
+
+Okay, so I'm presented with a task of transcribing page 14 of an exam paper. The specific questions on this page are: "6", "6a", "6ai", "6aii", and "6aiii". Let's get to work and structure this correctly.
+
+First, I need to map each question to the appropriate yaml format. Question 6 is straightforward. It's a short answer question, and the text reads, "Fig. 6.1 shows four alpha particles W, X, Y and Z moving towards a gold nucleus that is in thin gold foil." That's easy enough.
+
+Next, we have "6a". This looks like a parent question to (i), (ii), and (iii). The question structure dictates that I need to provide an introductory text for `6a`, even if that text is implicit. Now, the text for `6ai` starts with "The paths of particles X and Z are shown," and includes the instruction to complete Fig 6.1. However, since there isn't independent text for 6a, I will leave it empty.
+
+Now, let's look at `6ai`.  This is a short answer question. The text requires me to complete Figure 6.1 and is clearly about alpha particle paths. I need to complete this entry with the appropriate text.
+
+Following on, `6aii` also looks simple: "Describe what may be inferred about the structure of an atom from the path of particle X." Again, a short answer with a clear, concise question.
+
+Finally, `6aiii` is: "When a beam containing many alpha particles is incident on thin gold foil, nearly all of the alpha particles follow paths that are similar to the path of particle Z. Describe what may be inferred from this about the structure of an atom." A short answer regarding atomic structure, this seems quite straightforward.
+
+Therefore, the final mapping of each question looks like this.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Fig. 6.1 shows four alpha particles W, X, Y and Z moving towards a gold nucleus that is in thin gold foil.
+  - number: "6a"
+    type: short_answer
+    text: ''
+  - number: "6ai"
+    type: short_answer
+    text: |
+      The paths of particles X and Z are shown.
+
+      Complete Fig. 6.1 to show possible paths for particles W and Y.
+  - number: "6aii"
+    type: short_answer
+    text: |
+      Describe what may be inferred about the structure of an atom from the path of particle X.
+  - number: "6aiii"
+    type: short_answer
+    text: |
+      When a beam containing many alpha particles is incident on thin gold foil, nearly all of the alpha particles follow paths that are similar to the path of particle Z.
+
+      Describe what may be inferred from this about the structure of an atom.

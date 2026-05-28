@@ -1,0 +1,33 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      Assume that the force in \textbf{(b)(ii)} is the only force on the electrons.
+  - number: "2ci"
+    type: calculation
+    text: |
+      Calculate the speed of the orbiting electrons.
+
+      speed = \hrulefill $\text{ms}^{-1}$
+  - number: "2cii"
+    type: calculation
+    text: |
+      Calculate the period of the orbit of the electrons.
+
+      period = \hrulefill $\text{s}$
+  - number: "2d"
+    type: short_answer
+    text: |
+      In practice, the orbit of each electron is affected by the presence of the other electron.
+  - number: "2di"
+    type: calculation
+    text: |
+      For the position of one of the electrons, determine the ratio
+
+      $$\frac{\text{electric field strength due to the other electron}}{\text{electric field strength due to the nucleus}}$$
+
+      ratio = \hrulefill
+  - number: "2dii"
+    type: short_answer
+    text: |
+      Use your answer in \textbf{(d)(i)} to suggest and explain how the orbit of the electron is affected by the presence of the other electron.

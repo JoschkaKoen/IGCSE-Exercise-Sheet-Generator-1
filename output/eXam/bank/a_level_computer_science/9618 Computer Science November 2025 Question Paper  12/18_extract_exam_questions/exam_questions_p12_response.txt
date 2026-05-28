@@ -1,0 +1,76 @@
+[thinking]
+**Page 12 Analysis: Handling Question Stems**
+
+Okay, the task is to transcribe page 12 of the exam paper, paying close attention to the question structure and handling any potential "STUB ERROR" scenarios. The page seems to have question 7, and then sub-questions 7(a), 7b, and 7c, where 7c is followed by 7ci and 7cii.
+
+First, I need to figure out how to represent the parent question 7.  The prompt states that if a stub entry's stem is not visible on the page, it signals a stub-generation bug. Question "7" is present, but its stem appears to be non-existent because the sub-question "7(a)" immediately follows. Because there is no independent stem for "7" separate from "7a", and the number "7" has no separate text before "7(a)", I should mark it as a `STUB ERROR`. I'll represent it with: `text: | STUB ERROR`. I am using a block scalar, so I can include this text as is.
+
+Now, let's look at "7(a)". The text for this question is straightforward: "The following binary addition is performed using 8-bit registers. Complete the calculation using binary addition." I'll also include the binary addition problem itself, formatted using a LaTeX array for clarity and readability. I think this will be well-received, because it is exactly what is in the prompt, with a clearer format:
+
+```latex
+$$\begin{array}{r}
+  10000111 \\
++ 00111001 \\
+\hline
+\end{array}$$
+```
+
+Next is "7b". The text for this question is: "A computer uses the Unicode character set. State the number of bits used to store \textbf{one} character from the Unicode character set."
+
+Then, for "7c", the text says: "ASCII is another character set. The ASCII value for the character 'h' has the denary value 104."  This looks like an introduction to 7ci and 7cii.
+
+For "7ci", the text is: "Write the Binary Coded Decimal (BCD) value for the ASCII character 'h'."
+
+Finally, for "7cii", the text states: "Write the hexadecimal value for the ASCII character 'h'."
+
+Because question "7" does not have any text, it is, in effect, a stub error. Let me represent the `7` node to be something like:
+
+```
+number: "7"
+type: short_answer
+text: |
+  STUB ERROR
+```
+I am pretty sure this is the right approach. Let's make sure it's consistent with how the structure is handled.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: calculation
+    text: |
+      The following binary addition is performed using 8-bit registers.
+
+      Complete the calculation using binary addition.
+
+      $$\begin{array}{r}
+        10000111 \\
+      + 00111001 \\
+      \hline
+      \end{array}$$
+  - number: "7b"
+    type: short_answer
+    text: |
+      A computer uses the Unicode character set.
+
+      State the number of bits used to store \textbf{one} character from the Unicode character set.
+  - number: "7c"
+    type: short_answer
+    text: |
+      ASCII is another character set. The ASCII value for the character 'h' has the denary value 104.
+  - number: "7ci"
+    type: short_answer
+    text: |
+      Write the Binary Coded Decimal (BCD) value for the ASCII character 'h'.
+  - number: "7cii"
+    type: short_answer
+    text: |
+      Write the hexadecimal value for the ASCII character 'h'.
+```

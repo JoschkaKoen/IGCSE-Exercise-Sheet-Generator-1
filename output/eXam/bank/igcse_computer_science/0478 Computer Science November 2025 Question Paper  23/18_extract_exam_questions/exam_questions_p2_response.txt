@@ -1,0 +1,67 @@
+[thinking]
+**My Thought Process: Deconstructing Exam Questions into Structured YAML**
+
+Okay, let's break this down. The task is to take exam questions from a specific page and convert them into a structured YAML format. I need to be precise and follow the provided schema. The goal is a clean, reliable, and easily parsed output.
+
+First, I need to analyze the input. I'm given "Page 2" of an exam paper, which suggests multiple questions. The questions are numbered "1", "2", and "3", and I must generate YAML output that accurately reflects the questions and their expected answers.
+
+Next, I'll tackle each question individually.
+
+*   **Question 1:** This is a `short_answer` type. The text says, "Give \textbf{three} ways of creating a maintainable program." I'll need to use YAML for this. I'll include the question as a `text` field and provide numbered answer slots (1, 2, 3) using `\hrulefill` as the scaffolding for each slot to create a visual separation, since it's common in LaTeX-based document questions.
+
+*   **Question 2:** This is a matching type question. It provides descriptions and programming techniques. Because it is a matching task, I'll represent the relationships in a LaTeX table format, to show these visually. I'll create a table with two columns: "Description" and "Programming technique." Each row will contain the prompt with a matching space beside it to write the correct matching answer. I'll make sure the table is clean and uses standard LaTeX commands to prevent unexpected compilation errors. I will go with a standard tabular to make sure the format is robust and clear.
+
+*   **Question 3:** It's a `multiple_choice` question. The question is: "Tick ($\checkmark$) one box to identify the most appropriate data type to store \texttt{'M'}". The options are A: integer, B: char, C: real, and D: Boolean. So I will ensure the YAML format includes the text of the question, the options, and representation of a tick. Since ticks will be outputted as LaTeX, I'll ensure they are also included as a LaTeX symbol (`\checkmark`).
+
+Finally, I'll review everything. I have to make sure I am following all the constraints, such as no double quotes for strings, the usage of the pipe (`|`) for block scalars, no `\includegraphics`, no `\dotfill`, and of course the correct YAML structure. I also need to ensure the final output is readable and will render correctly within the intended environment.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Give \textbf{three} ways of creating a maintainable program.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "2"
+    type: short_answer
+    text: |
+      \textbf{Four} descriptions of programming techniques and \textbf{five} programming techniques are given.
+
+      Draw \textbf{one} line from each description to the relevant technique. \textbf{Not} all techniques will be used.
+
+      \begin{tabular}{p{7cm}p{5cm}}
+      \textbf{Description} & \textbf{Programming technique} \\
+      & \\
+      adding up a set of numbers & output \\
+      & \\
+      displaying the result of a calculation & selection \\
+      & \\
+      executing a set of instructions based on a condition & totalling \\
+      & \\
+      executing the same set of instructions multiple times & iteration \\
+      & \\
+      & counting \\
+      \end{tabular}
+  - number: "3"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to identify the most appropriate data type to store \texttt{'M'}
+    options:
+      - letter: A
+        text: |
+          integer
+      - letter: B
+        text: |
+          char
+      - letter: C
+        text: |
+          real
+      - letter: D
+        text: |
+          Boolean

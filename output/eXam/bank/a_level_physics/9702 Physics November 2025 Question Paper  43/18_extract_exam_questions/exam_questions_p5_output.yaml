@@ -1,0 +1,41 @@
+questions:
+  - number: "1bi"
+    type: short_answer
+    text: |
+      State an expression, in terms of $R$ and $\omega$, for the speed $v$ of the ball.
+
+      v = \hrulefill
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Determine an expression, in terms of $v$ and $\omega$, for the centripetal acceleration of the ball.
+
+      centripetal acceleration = \hrulefill
+  - number: "1c"
+    type: short_answer
+    text: |
+      The ball in (b) is in the position shown in Fig. 1.1, such that line OB is at an angle $\theta$ to the line OP.
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Determine an expression, in terms of $R$ and $\theta$, for the displacement $x$ of the shadow from P.
+
+      x = \hrulefill
+  - number: "1cii"
+    type: short_answer
+    text: |
+      The value of $\theta$ is zero at time $t = 0$.
+
+      State an expression for $\theta$ in terms of $\omega$ and $t$.
+
+      $\theta = \hrulefill$
+  - number: "1ciii"
+    type: short_answer
+    text: |
+      Use your answers in (c)(i) and (c)(ii) to show that $x$ is given by
+
+      $$x = R \sin \omega t.$$
+  - number: "1civ"
+    type: long_answer
+    text: |
+      Explain, with reference to the equation in (c)(iii), why the motion of the shadow of the ball on the screen may be modelled as simple harmonic.

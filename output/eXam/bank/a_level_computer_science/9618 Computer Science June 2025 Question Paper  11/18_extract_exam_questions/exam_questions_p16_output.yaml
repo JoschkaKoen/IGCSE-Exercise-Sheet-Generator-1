@@ -1,0 +1,23 @@
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      The table shows part of the instruction set for a processor. The processor has one register: the Accumulator (ACC).
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      \texttt{AND} & \texttt{\#n/Bn/\&n} & Bitwise AND operation of the contents of ACC with the operand \\ \hline
+      \texttt{AND} & \texttt{<address>} & Bitwise AND operation of the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      \texttt{XOR} & \texttt{\#n/Bn/\&n} & Bitwise XOR operation of the contents of ACC with the operand \\ \hline
+      \texttt{XOR} & \texttt{<address>} & Bitwise XOR operation of the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      \texttt{OR} & \texttt{\#n/Bn/\&n} & Bitwise OR operation of the contents of ACC with the operand \\ \hline
+      \texttt{OR} & \texttt{<address>} & Bitwise OR operation of the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      \texttt{LSL} & \texttt{\#n} & Bits in ACC are shifted logically n places to the left. Zeros are introduced on the right-hand end \\ \hline
+      \texttt{LSR} & \texttt{\#n} & Bits in ACC are shifted logically n places to the right. Zeros are introduced on the left-hand end \\ \hline
+      \multicolumn{3}{|l|}{\texttt{<address>} can be an absolute or symbolic address} \\
+      \multicolumn{3}{|l|}{\# denotes a denary number, e.g. \#123} \\
+      \multicolumn{3}{|l|}{B denotes a binary number, e.g. B01001010} \\
+      \multicolumn{3}{|l|}{\& denotes a hexadecimal number, e.g. \&4A} \\ \hline
+      \end{tabular}

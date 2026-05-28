@@ -1,0 +1,7 @@
+```yaml
+questions:
+  - number: "4d"
+    type: short_answer
+    text: |
+      Describe the purpose of a developer interface in a Database Management System (DBMS).
+```

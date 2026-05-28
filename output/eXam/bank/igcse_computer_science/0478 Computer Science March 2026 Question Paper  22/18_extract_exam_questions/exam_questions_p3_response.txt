@@ -1,0 +1,35 @@
+[thinking]
+**My Algorithm-Generation Task**
+
+Okay, so the user wants me to essentially translate their prompt for question "2c" into some well-formatted pseudocode. They've provided the requirements, and I need to output it in a way that's clear and meets their specifications. The core of the problem is validating 20 numbers, making sure they are negative, without declaring any arrays or variables, apparently.
+
+Here's my thought process:
+
+First, I need to interpret the question. It seems they want the *algorithm* itself described, not executable code. That means I should focus on the *logic* flow, using pseudocode-style descriptions of actions rather than the syntax of a specific programming language.
+
+Next, I have to ensure that the array, `NegNumbers[]` is referenced correctly. I'll need to wrap that in a code-style format. The negative check will be the main operation here.
+
+I need to make the prompt and response messages as clear and informative as possible.
+
+Here's how I envision structuring it, reflecting the bulleted requirements as a numbered list in LaTeX. Here's how I will output the information in the requested YAML format:
+
+
+
+[/thinking]
+
+questions:
+  - number: "2c"
+    type: long_answer
+    text: |
+      Write the pseudocode for an algorithm to perform a validation check on each number as it is input to meet the following criteria:
+
+      \begin{itemize}
+      \item Input 20 numbers, one at a time.
+      \item If a number is negative, store it in the current element of array \texttt{NegNumbers[]}
+      \item If a number is \textbf{not} negative, ask for it to be input again until a negative number is input.
+      \item When all 20 negative numbers have been stored, output a message to state the check has been completed.
+      \end{itemize}
+
+      Use appropriate input prompts and output messages to make the requirements clear to the user.
+
+      Do \textbf{not} declare any arrays or variables for this algorithm.

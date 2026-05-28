@@ -1,0 +1,77 @@
+[thinking]
+**My Analysis of the Exam Page**
+
+Okay, here's what I'm looking at: I've got the second page of an exam paper to process. My task is to take the content, understand the questions and sub-questions, and then output it in YAML format, with the `text` and `options` populated for any multiple-choice questions.
+
+First, I need to break down the structure of the questions. There are two main questions, labeled "1" and "2", each with sub-questions "a", "b", and "c".
+
+*   **Question 1** is about software, starting with the general statement: "Different types of software can be run on a computer." Then sub-questions delve into specifics:
+    *   1a: asking for a definition of "software". Straightforward.
+    *   1b: presents an MCQ about utility software, with options for spreadsheet, anti-virus, web browser, and database. I need to make sure this is formatted correctly for the YAML output, particularly the use of the newline character and the tick symbol.
+    *   1c: requires identifying the type of software that manages inputs and outputs.
+
+*   **Question 2** is about data storage, starting with the stem: "Data storage can be measured using different units of measurement." Again, sub-questions follow:
+    *   2a: asks for the smallest unit of data measurement.
+    *   2b: a simple numerical question about nibbles and bytes.
+    *   2c: is a more involved calculation, asking to calculate the file size of a sound effect in kibibytes (KiB), given its duration, sample rate, and sample resolution. It also indicates where the answer should be written: "Answer \hrulefill \text{ KiB}". I'll have to make sure this formatting for the answer line is replicated correctly.
+
+Now, I'm thinking about the YAML formatting requirements. I need to strip those sub-question prefixes like "(a)", "(b)", and "(c)" from the text. I also know I can't use double quotes for free-text fields, so I'll be using the `|` block scalar. For the MCQ (question 1b), I'll have to format the `text` field appropriately, including the newline characters and formatting the tick symbol correctly. I'll need a proper `options` section with `letter` and `text` sub-fields for each choice. For question 2c, I'll format the text, including the answer line, taking care to follow the given prompt ("Answer ..................................................... KiB"). I'll probably render this to the user, with the prompt "Answer \hrulefill \text{ KiB}".
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Different types of software can be run on a computer.
+  - number: "1a"
+    type: short_answer
+    text: |
+      State what is meant by software.
+  - number: "1b"
+    type: multiple_choice
+    text: |
+      Utility software is one type of software that can be run on a computer.
+
+      Tick ($\checkmark$) \textbf{one} box to show which software is an example of utility software.
+    options:
+      - letter: A
+        text: |
+          spreadsheet
+      - letter: B
+        text: |
+          anti-virus
+      - letter: C
+        text: |
+          web browser
+      - letter: D
+        text: |
+          database
+  - number: "1c"
+    type: short_answer
+    text: |
+      Identify the type of software that manages inputs and outputs for the computer.
+  - number: "2"
+    type: short_answer
+    text: |
+      Data storage can be measured using different units of measurement.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Identify the name of the smallest unit of measurement of data.
+  - number: "2b"
+    type: short_answer
+    text: |
+      State how many nibbles there are in 2 bytes.
+  - number: "2c"
+    type: calculation
+    text: |
+      A 10 second sound effect is recorded for a movie.
+
+      It is recorded with a sample rate of 22,016 Hz and a sample resolution of 8 bits.
+
+      Calculate the file size of the sound effect in kibibytes (KiB). Show all your working.
+
+      Answer \hrulefill \text{ KiB}

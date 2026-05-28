@@ -1,0 +1,899 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Define gravitational potential at a point.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Mars is a planet that may be considered to be an isolated uniform sphere
+      of radius $3.4 \times 10^6 \text{ m}$.
+
+
+      A satellite of mass $122 \text{ kg}$ is in orbit around Mars at a constant height
+      of $1.7 \times 10^6 \text{ m}$ above the surface of the planet.
+
+
+      The height of the orbit is increased to $6.8 \times 10^6 \text{ m}$ above the
+      surface. This increases the gravitational potential energy of the satellite
+      by $5.1 \times 10^8 \text{ J}$.'
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Show that the mass of Mars is $6.4 \times 10^{23} \text{ kg}$.
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the gravitational potential $\phi$ at the surface of Mars.
+        Give a unit with your answer.
+
+
+        $\phi = \hrulefill \text{ unit } \hrulefill$'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The satellite in \textbf{(b)} is moved to an orbit in which the satellite
+      remains at the same point above the surface of Mars.
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The orbit has a period of 25 hours.
+
+
+        State what can be deduced from this about the rotation of Mars on its axis.'
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State \textbf{one} other feature of this orbit.
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A helium atom may be modelled as a nucleus surrounded by two electrons in
+    diametrically opposite circular orbits, each of radius $170\text{ pm}$, as shown
+    in Fig. 2.1.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State Coulomb’s law.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'State the charge on the nucleus, in terms of the elementary charge $e$.
+
+
+        $\text{charge} = \hrulefill e$'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that the electric force between the nucleus and one of the electrons
+        is $1.6 \times 10^{-8}\text{ N}$.
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Assume that the force in \textbf{(b)(ii)} is the only force on the electrons.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the speed of the orbiting electrons.
+
+
+        speed = \hrulefill $\text{ms}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the period of the orbit of the electrons.
+
+
+        period = \hrulefill $\text{s}$'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: In practice, the orbit of each electron is affected by the presence of the
+      other electron.
+    answer_options: []
+    subquestions:
+    - number: 2di
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'For the position of one of the electrons, determine the ratio
+
+
+        $$\frac{\text{electric field strength due to the other electron}}{\text{electric
+        field strength due to the nucleus}}$$
+
+
+        ratio = \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2dii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Use your answer in \textbf{(d)(i)} to suggest and explain how the orbit
+        of the electron is affected by the presence of the other electron.
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Define specific latent heat.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain why, for a substance, the specific latent heat of vaporisation is
+      usually greater than the specific latent heat of fusion.
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'An ice cube of mass $37.0\text{ g}$ at temperature $0.0^\circ\text{C}$
+      is placed in a beaker containing water of mass $208\text{ g}$ at temperature
+      $26.4^\circ\text{C}$.
+
+
+      When all the ice has melted, and all the water in the beaker has reached thermal
+      equilibrium, the final temperature of all the water is $10.3^\circ\text{C}$.
+
+
+      The specific heat capacity of water is $4.18\text{ J}\,\text{g}^{-1}\,^\circ\text{C}^{-1}$.
+
+
+      The beaker has negligible specific heat capacity and is perfectly insulated
+      from the surroundings.
+
+
+      Determine a value, to three significant figures, for the specific latent heat
+      of fusion of water.
+
+
+      specific latent heat of fusion = \hrulefill $\text{J}\,\text{g}^{-1}$'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 4ai
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: State what is meant by the internal energy of a system.
+      answer_options: []
+      subquestions: []
+    - number: 4aii
+      question_type: long_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain why the internal energy of an ideal gas is directly proportional
+        to the thermodynamic temperature of the gas.
+      answer_options: []
+      subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "A sample of an ideal gas at thermodynamic temperature $T$ has internal\
+      \ energy $U$.\n\nThe gas is compressed so that its temperature increases to\
+      \ $3T$.\nDuring this compression, work $W$ is done on the gas.\n\nThe gas is\
+      \ then cooled at constant volume so that its temperature decreases to $2T$.\n\
+      \nComplete Table 4.1 to show, in terms of some or all of $W$, $T$ and $U$, the\
+      \ work done on the gas, the thermal energy supplied to the gas and the increase\
+      \ in internal energy of the gas for each of the two processes.\n\n\\textbf{Table\
+      \ 4.1}\n\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n & work done on gas & \\begin{tabular}{c}\
+      \ thermal energy \\\\ supplied to gas \\end{tabular} & \\begin{tabular}{c} increase\
+      \ in internal \\\\ energy of gas \\end{tabular} \\\\ \\hline\ncompression &\
+      \ $+W$ & & \\\\ \\hline\ncooling & & & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A cuboidal block floats in a liquid with its base horizontal, as shown in
+    Fig. 5.1.
+
+
+    The base of the block is at a depth $h$ below the surface of the liquid.
+
+
+    The block is displaced downwards by a small distance and then released so that
+    it oscillates.
+
+
+    Fig. 5.2 shows the variation with $h$ of the acceleration $a$ of the block.
+
+
+    Fig. 5.3 shows the variation with $h$ of the kinetic energy $E_{\text{K}}$ of
+    the block.'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 5ai
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine the amplitude of the oscillations.
+
+
+        amplitude = \hrulefill m'
+      answer_options: []
+      subquestions: []
+    - number: 5aii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what the line in Fig. 5.2 shows about the nature of the oscillations.
+      answer_options: []
+      subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'State \textbf{three} other quantitative conclusions that can be drawn from
+      Fig. 5.2 and Fig. 5.3 about the block and its oscillations. Use the space for
+      any working.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: On Fig. 5.4, sketch the variation with $h$ of the potential energy $E_{\text{P}}$
+      of the oscillations.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Fig. 6.1 shows a circuit that rectifies an alternating input voltage $V_{\text{IN}}$
+    and produces an output voltage $V_{\text{OUT}}$ across a resistor R.
+
+
+    The four terminals of the rectification circuit are labelled W, X, Y and Z.
+
+    A capacitor C is connected in parallel with resistor R.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 6ai
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by rectification.
+      answer_options: []
+      subquestions: []
+    - number: 6aii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the purpose of capacitor C.
+      answer_options: []
+      subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Fig. 6.2 shows the variations with time $t$ of the potential differences
+      (p.d.s) $V_{\text{IN}}$ and $V_{\text{OUT}}$.
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The variation of $V_{\text{IN}}$ with $t$ can be represented by
+
+
+        $$V_{\text{IN}} = A \cos Bt$$
+
+
+        where $A$ and $B$ are constants.
+
+
+        Determine the values of $A$ and $B$. Give a unit with your answer for $A$.
+
+
+        $A = $ \hrulefill unit \hrulefill
+
+
+        $B = $ \hrulefill $\text{rad}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Determine the type of rectification produced by the circuit in Fig. 6.1.
+      answer_options: []
+      subquestions: []
+    - number: 6biii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: On Fig. 6.3, draw the circuit diagram for the components inside the rectification
+        circuit.
+      answer_options: []
+      subquestions: []
+    - number: 6biv
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Determine a value for the time constant for the discharge of the capacitor
+        C through the resistor R in Fig. 6.1.
+
+
+        time constant = \hrulefill s'
+      answer_options: []
+      subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The capacitor C has a capacitance of $570\ \mu\text{F}$.
+
+
+      Use your answer in \textbf{(b)(iv)} to determine the resistance of resistor
+      R.
+
+
+      resistance = \hrulefill $\Omega$'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Define magnetic flux density.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A particle of mass $m$ and charge $+Q$ moves at speed $v$ into a region
+      where there is a uniform magnetic field, as shown in Fig. 7.1.
+
+
+      The uniform magnetic field is into the page and has flux density $B$. The particle
+      enters the region of the field at point Y.'
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'State an expression, in terms of some or all of $m$, $Q$, $B$ and $v$,
+        for the magnetic force $F$ that acts on the particle when it is at point Y.
+
+
+        $F = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 7.1, draw an arrow at point Y to indicate the direction of the
+        force in \textbf{(b)(i)}.
+      answer_options: []
+      subquestions: []
+    - number: 7biii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 7.1, draw a line to show a possible path for the particle through
+        the region of the magnetic field.
+      answer_options: []
+      subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 7ci
+      question_type: long_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain how an electric field can be used with the magnetic field to ensure
+        that the particle in \textbf{(b)} now passes through point Z.
+      answer_options: []
+      subquestions: []
+    - number: 7cii
+      question_type: calculation
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Derive an expression for $v$ in terms of $B$ and the electric field strength
+        $E$.
+
+
+        $v = \hrulefill$'
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by the de Broglie wavelength.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Calculate the de Broglie wavelength of an electron moving at a speed of
+      $4.9 \times 10^7 \text{ m s}^{-1}$.
+
+
+      wavelength = \hrulefill m'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State \textbf{one} similarity and \textbf{one} difference between an electron
+      and a positron.
+
+
+      similarity: \hrulefill
+
+
+      difference: \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: An electron moving at a speed of $4.9 \times 10^7 \text{ m s}^{-1}$ collides
+      with a positron that is travelling at the same speed in the opposite direction.
+      As a result of the collision, two gamma-ray photons are produced.
+    answer_options: []
+    subquestions:
+    - number: 8di
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the name of this type of reaction.
+      answer_options: []
+      subquestions: []
+    - number: 8dii
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: State what happens to the electron and to the positron.
+      answer_options: []
+      subquestions: []
+    - number: 8diii
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Explain why two gamma-ray photons are produced, rather than just one.
+      answer_options: []
+      subquestions: []
+    - number: 8div
+      question_type: calculation
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that the kinetic energy of the electron before the collision is $1.1
+        \times 10^{-15}\text{ J}$.
+      answer_options: []
+      subquestions: []
+    - number: 8dv
+      question_type: calculation
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Use the information in \textbf{(d)(iv)} to determine, to three significant
+        figures, the wavelength associated with the gamma radiation emitted in the
+        collision.
+
+
+        wavelength = \hrulefill \text{ m}'
+      answer_options: []
+      subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 18
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define activity of a radioactive sample.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: long_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain why the variation with time of the activity of a radioactive sample
+      is exponential in nature.
+    answer_options: []
+    subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A sample contains a single radioactive isotope that decays to form a stable
+      isotope.
+
+
+      The sample has an activity of $180\text{ Bq}$ at time $t = 0$.
+
+      At a time $8.4\text{ minutes}$ later, the activity is $120\text{ Bq}$.'
+    answer_options: []
+    subquestions:
+    - number: 9ci
+      question_type: calculation
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the decay constant, in $\text{min}^{-1}$, of the radioactive
+        isotope.
+
+
+        decay constant = \hrulefill $\text{min}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 9cii
+      question_type: calculation
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use your answer in \textbf{(c)(i)} to determine the half-life, in $\text{min}$,
+        of the radioactive isotope.
+
+
+        half-life = \hrulefill $\text{min}$'
+      answer_options: []
+      subquestions: []
+    - number: 9ciii
+      question_type: short_answer
+      page: 19
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: On Fig. 9.1, sketch the variation of the activity $A$ of the sample with
+        $t$ for values of $t$ between $t = 0$ and $t = 24\text{ min}$.
+      answer_options: []
+      subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 20
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State Hubble’s law.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A star in a distant galaxy emits radiation that has a maximum intensity
+      of emission at a wavelength of $4.62 \times 10^{-7}\text{ m}$.
+
+
+      Observations of the galaxy made on the Earth detect the maximum intensity of
+      emission from the star at a wavelength of $4.91 \times 10^{-7}\text{ m}$.'
+    answer_options: []
+    subquestions:
+    - number: 10bi
+      question_type: short_answer
+      page: 20
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain why the observed wavelength and the emitted wavelength have different
+        values.
+      answer_options: []
+      subquestions: []
+    - number: 10bii
+      question_type: calculation
+      page: 20
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the speed of the star relative to the Earth.
+
+
+        speed = \hrulefill $\text{m}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 10biii
+      question_type: short_answer
+      page: 20
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The wavelength of maximum intensity of emission is used to determine
+        a value for the surface temperature of the star.
+
+
+        Explain how the temperature determined using the observed wavelength compares
+        with the true value of temperature determined using the emitted wavelength.'
+      answer_options: []
+      subquestions: []
+  - number: 10c
+    question_type: calculation
+    page: 21
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A value for the Hubble constant is $2.3 \times 10^{-18} \text{ s}^{-1}$.
+
+
+      Use your answer in \textbf{(b)(ii)} to determine the distance of the star in
+      \textbf{(b)} from the Earth.
+
+
+      distance = \hrulefill \text{ m}'
+    answer_options: []
+    subquestions: []

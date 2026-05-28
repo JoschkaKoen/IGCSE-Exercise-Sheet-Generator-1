@@ -1,0 +1,29 @@
+questions:
+  - number: "1aii"
+    type: long_answer
+    text: |
+      The methods \texttt{GetCode()} and \texttt{GetValue()} return the appropriate attribute.
+
+      Write program code for \texttt{GetCode()} and \texttt{GetValue()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{1(a)(ii)} in the evidence document.
+  - number: "1aiii"
+    type: long_answer
+    text: |
+      The table shows the code and value of \textbf{five} board objects. The table has the variable identifier where each of the objects are stored.
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Variable identifier} & \textbf{Code} & \textbf{Value} \\ \hline
+      Object1 & "A" & 2 \\ \hline
+      Object2 & "B" & 3 \\ \hline
+      Object3 & "C" & 5 \\ \hline
+      Object4 & "D" & 2 \\ \hline
+      Object5 & "E" & 7 \\ \hline
+      \end{tabular}
+
+      Write program code for the main program to instantiate each of the \textbf{five} board objects and store them in the variables with the identifiers given.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{1(a)(iii)} in the evidence document.

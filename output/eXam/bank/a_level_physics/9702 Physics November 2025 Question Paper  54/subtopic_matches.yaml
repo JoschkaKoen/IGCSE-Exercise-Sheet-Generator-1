@@ -1,0 +1,15 @@
+subject_key: a_level_physics
+paper_stem: 9702 Physics November 2025 Question Paper  54
+model: qwen3.6-plus
+matched_at: '2026-05-28T05:25:36Z'
+matches:
+  '1': ['12.1']
+  2a: ['8.3']
+  2b: ['1.3', '8.3']
+  2ci: ['8.3']
+  2cii: ['8.3']
+  2ciii: ['1.3']
+  2d: ['1.3']
+  2ei: ['8.3']
+  2eii: ['1.3']
+  2f: ['8.3', '1.3']

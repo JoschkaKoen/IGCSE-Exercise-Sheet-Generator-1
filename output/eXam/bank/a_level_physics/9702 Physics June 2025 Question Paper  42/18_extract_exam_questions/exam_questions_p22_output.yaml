@@ -1,0 +1,28 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      Radioactive decay is a spontaneous process.
+  - number: "10a"
+    type: short_answer
+    text: |
+      State the meaning, in this context, of the term spontaneous.
+  - number: "10b"
+    type: short_answer
+    text: |
+      Two radioactive isotopes X and Y each decay to form a stable isotope.
+      A sample initially contains only atoms of isotope X. At this time, its activity is $4A$.
+      Another sample initially contains only atoms of Y. At this time, its activity is $A$.
+
+      Fig. 10.1 shows the variation of the activity of each sample with time $t$ between $t = 0$ and $t = 6T$.
+  - number: "10bi"
+    type: short_answer
+    text: |
+      Complete Table 10.1 to give expressions, in terms of either or both of $A$ and $T$, for the quantities indicated for each of the samples.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      sample & half-life & decay constant & initial activity & initial number of nuclei \\ \hline
+      X & & & $4A$ & \\ \hline
+      Y & & & $A$ & \\ \hline
+      \end{tabular}

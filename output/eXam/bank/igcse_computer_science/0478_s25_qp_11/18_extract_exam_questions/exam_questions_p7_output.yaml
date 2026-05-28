@@ -1,0 +1,40 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Data can be encrypted using asymmetric encryption.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the paragraph about asymmetric encryption.
+
+      Use the terms from the list.
+
+      Some of the terms in the list will not be used. You may use a term more than once.
+
+      \begin{itemize}
+      \item algorithm
+      \item binary
+      \item cipher text
+      \item compression
+      \item error
+      \item hardware
+      \item hexadecimal
+      \item meaningless
+      \item plain text
+      \item private
+      \item public
+      \item readable
+      \item transmission
+      \item unreadable
+      \end{itemize}
+
+      Data is encrypted using an encryption key. This is a type of \underline{\hspace{1.5em}} that scrambles the \underline{\hspace{1.5em}} and turns it into \underline{\hspace{1.5em}}. This makes the data \underline{\hspace{1.5em}}.
+
+      A \underline{\hspace{1.5em}} key is used to encrypt the data. This key cannot be used to decrypt the data. A \underline{\hspace{1.5em}} key is used to decrypt the data. Any device is able to request the \underline{\hspace{1.5em}} key, but only your device knows the \underline{\hspace{1.5em}} key.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Data can also be encrypted using symmetric encryption.
+
+      Give \textbf{one} reason why a person would use asymmetric encryption instead of symmetric encryption.

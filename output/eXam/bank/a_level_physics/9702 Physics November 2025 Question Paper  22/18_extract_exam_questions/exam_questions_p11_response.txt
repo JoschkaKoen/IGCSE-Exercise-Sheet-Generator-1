@@ -1,0 +1,46 @@
+[thinking]
+**Examining the Requested Questions**
+
+Okay, so the user wants me to extract and format specific questions from page 11 of this exam. Let's see... the questions are numbered "3bii", "3c", "3ci", and "3cii." I need to make sure I get the text and answer lines correct for each.
+
+First, "3bii": I see this is a calculation problem that asks for the spring extension. The answer requires a numerical value with the unit "m", so the formatted output should include `extension = \hrulefill m`.
+
+Next, "3c": This is a descriptive question, setting the stage. It describes adding a second spring. Since Fig 3.3 is an image, that won't be included. The formatted output should just be the text, which is: `A second identical spring with the same spring constant of $250\text{ N}\,\text{m}^{-1}$ is now also connected to the pulley, as shown in Fig. 3.3.`
+
+Now, for "3ci": I need to be careful with the context here. The text starts with a general statement that the tension in the cable is kept the same and the pulley is in equilibrium. Then it asks for the extension of the springs. So, I will include those initial sentences as well as the question and the answer line. The formatted version will include  `The tension in the cable is kept the same. The pulley is again in equilibrium. Determine the extension of the springs. extension = \hrulefill m`.
+
+Finally, "3cii": Another calculation. It asks us to calculate the ratio of elastic potential energies. So, I'll need to capture the definitions of $E_1$ and $E_2$ and the question that asks for the ratio. So, the formatted version will look like `The elastic potential energy stored in the spring in Fig. 3.1 is $E_1$. The total elastic potential energy stored in the two springs in Fig. 3.3 is $E_2$. Calculate the ratio $\frac{E_1}{E_2}$. ratio = \hrulefill`.
+
+I've checked the units ("m" for extension, no units for the ratio) and ensured all the required text is captured with the correct answer line format. I am ready to render the formatted output, it all appears correct.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3bii"
+    type: calculation
+    text: |
+      Calculate the extension of the spring.
+
+      extension = \hrulefill m
+  - number: "3c"
+    type: short_answer
+    text: |
+      A second identical spring with the same spring constant of $250\text{ N}\,\text{m}^{-1}$ is now also connected to the pulley, as shown in Fig. 3.3.
+  - number: "3ci"
+    type: calculation
+    text: |
+      The tension in the cable is kept the same. The pulley is again in equilibrium.
+
+      Determine the extension of the springs.
+
+      extension = \hrulefill m
+  - number: "3cii"
+    type: calculation
+    text: |
+      The elastic potential energy stored in the spring in Fig. 3.1 is $E_1$. The total elastic potential energy stored in the two springs in Fig. 3.3 is $E_2$.
+
+      Calculate the ratio $\frac{E_1}{E_2}$.
+
+      ratio = \hrulefill

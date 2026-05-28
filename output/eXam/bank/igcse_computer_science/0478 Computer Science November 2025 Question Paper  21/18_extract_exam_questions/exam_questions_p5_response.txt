@@ -1,0 +1,36 @@
+[thinking]
+**Transcribing the Question and Context**
+
+Okay, so the user wants me to handle question number five from this page. No problem, I understand. It looks like it's a diagram completion question. The instructions are clear: transcribe the question prompt and the accompanying text, but I should omit the diagram itself. I also won't use any image-inclusion commands. I know the drill.
+
+Let me take a look. Here's the prompt:
+
+"A hotel booking system is an example of a computer system that is made up of sub-systems.
+
+The booking system:
+* allows the user to select the room type and the number of nights required
+* displays the types of rooms available to the user as pictures or as a list.
+
+Complete the structure diagram for the given parts of the hotel booking system."
+
+That should be it. I've got the text ready to go.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A hotel booking system is an example of a computer system that is made up of sub-systems.
+
+      The booking system:
+      \begin{itemize}
+      \item allows the user to select the room type and the number of nights required
+      \item displays the types of rooms available to the user as pictures or as a list.
+      \end{itemize}
+
+      Complete the structure diagram for the given parts of the hotel booking system.
+```

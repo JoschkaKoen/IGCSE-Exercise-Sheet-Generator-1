@@ -1,0 +1,42 @@
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      The class \texttt{Parrot} inherits from the class \texttt{Animal}
+
+      \texttt{Parrot} inherits the attributes from \texttt{Animal} and overrides the \texttt{Description()} method. The additional attributes and methods in the class \texttt{Parrot} are:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Parrot}} \\ \hline
+      \texttt{WingSpan : Integer} & the width of the parrot's wings to the nearest cm \\ \hline
+      \texttt{NumberWords : Integer} & the number of words the parrot can speak \\ \hline
+      \texttt{Constructor()} & calls the parent constructor using its parameter values; initialises \texttt{WingSpan} and \texttt{NumberWords} to its parameter values \\ \hline
+      \texttt{ChangeNumberWords()} & takes an integer parameter and adds this to the number currently in \texttt{NumberWords} \\ \hline
+      \end{tabular}
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Parrot}, its constructor and the method \texttt{ChangeNumberWords()}
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(b)(i)} in the evidence document.
+  - number: "3bii"
+    type: short_answer
+    text: |
+      The method \texttt{Description()} in the class \texttt{Parrot} creates and returns a string of the animal's data in the format:
+
+      \texttt{"The animal's name is " <Name> ", it makes a " <Sound> ", its size is " <Size> " and its intelligence level is " <Intelligence> ". It has a wingspan of " <WingSpan> "cm and can say " <NumberWords> " words."}
+
+      For example:
+
+      \texttt{The animal's name is Chewie, it makes a Squawk, its size is 1 and its intelligence level is 10. It has a wingspan of 30cm and can say 29 words.}
+
+      Write program code for \texttt{Description()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(b)(ii)} in the evidence document.

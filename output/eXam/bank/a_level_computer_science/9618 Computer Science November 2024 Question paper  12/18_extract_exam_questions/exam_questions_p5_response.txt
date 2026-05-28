@@ -1,0 +1,28 @@
+[thinking]
+**My Analysis of the Exam Question Extraction Task**
+
+Okay, here's how I'm approaching this. The task is to extract and format specific questions from page 5 of an exam paper. I'm given two specific questions: "3b" and "3c." My output needs to be in YAML format, adhering to a predefined schema. So, I need to reliably identify and transcribe the text for those questions.
+
+First, I need to locate the questions on the page. The labels will be my key. Then, I’ll transcribe the text associated with each question, making sure to preserve any relevant details, like the marks allocated, though the marks aren't explicitly required in a separate field. I need to make sure to be aware of the context. For "3b", it mentions a monitor resolution and two ports (VGA and HDMI), and asks about the benefits of using HDMI. "3c" focuses on Operating System process management.
+
+Next is formatting. The desired YAML format dictates how I represent the questions. This means using a block scalar (`|`) for the text of each question, which is good. Also, any math notation must be wrapped in `$` symbols; like turning  `2560 \times 1600` into `$2560 \times 1600$`. I need to ensure that the final YAML doesn't contain any irrelevant elements; no image includes and no subquestion prefixes. This is straightforward. It's really just a matter of careful transcription and applying the specified formatting rules. I'm ready to proceed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3b"
+    type: long_answer
+    text: |
+      The student needs to connect the computer to a monitor that has a screen resolution of $2560 \times 1600$ pixels. The monitor also has built-in speakers.
+
+      The computer has a Video Graphics Array (VGA) port and a High Definition Multimedia Interface (HDMI) port.
+
+      Explain the benefits of connecting the monitor to the computer using the HDMI port instead of the VGA port.
+  - number: "3c"
+    type: long_answer
+    text: |
+      The computer has an Operating System (OS). One of the key management tasks of the OS is process management.
+
+      Describe the process management tasks performed by an OS.

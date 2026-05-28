@@ -1,0 +1,35 @@
+questions:
+  - number: "2d"
+    type: calculation
+    text: |
+      Using the \textbf{larger} sheet of paper, repeat \textbf{(a)}, \textbf{(b)(i)}, \textbf{(c)(i)} and \textbf{(c)(ii)}.
+
+      $w = $ \hrulefill cm
+
+      $d = $ \hrulefill cm
+
+      $y = $ \hrulefill cm
+
+      $p = $ \hrulefill cm
+
+      $(y - p) = $ \hrulefill cm
+  - number: "2e"
+    type: short_answer
+    text: |
+      It is suggested that the relationship between $w$, $y$ and $p$ is
+
+      $$w = k(y - p)$$
+
+      where $k$ is a constant.
+  - number: "2ei"
+    type: calculation
+    text: |
+      Using your data, calculate \textbf{two} values of $k$.
+
+      first value of $k = $ \hrulefill
+
+      second value of $k = $ \hrulefill
+  - number: "2eii"
+    type: short_answer
+    text: |
+      Justify the number of significant figures that you have given for your values of $k$.

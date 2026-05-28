@@ -1,0 +1,44 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A computer stores images and text files.
+  - number: "3a"
+    type: short_answer
+    text: |
+      One of the images is a bitmapped image.
+
+      Complete the table by writing the answer for each statement.
+
+      \begin{tabular}{|p{5cm}|p{5cm}|}
+      \hline
+      \textbf{Statement} & \textbf{Answer} \\ \hline
+      the term for the smallest element that makes up an image & \\ \hline
+      the largest number of different colours that can be represented with a bit depth of 8 bits & \\ \hline
+      the term for the dots per inch (dpi) when an image is displayed & \\ \hline
+      \end{tabular}
+  - number: "3b"
+    type: short_answer
+    text: |
+      The text in the files is stored using the Unicode character set.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Give \textbf{two} advantages of using the Unicode character set instead of using the ASCII character set.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3bii"
+    type: calculation
+    text: |
+      The Unicode character '❮' has the binary value: 0010 0111 0110 1110
+
+      Convert the binary value for the character '❮' into denary.
+  - number: "3biii"
+    type: calculation
+    text: |
+      The Unicode character '⅀' has the hexadecimal value 2140
+
+      Convert the hexadecimal code for the character '⅀' into denary.
+```

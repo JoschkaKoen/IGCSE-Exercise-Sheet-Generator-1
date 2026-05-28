@@ -1,0 +1,52 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      An algorithm has been written in pseudocode to generate a random integer between 1 and 100 inclusive and store the value in \texttt{N}. The user enters a guess for the number and the algorithm indicates whether the guess is higher or lower than the random number. The algorithm outputs the number of guesses when the user has correctly guessed the random number.
+
+      \begin{alltt}
+      01 Counter <- 0
+      02 N <- ROUND(RANDOM() * 99, 1) + 1
+      03 REPEAT
+      04   OUTPUT "Please enter a guess"
+      05   INPUT G
+      06   IF G > N
+      07     THEN
+      08       OUTPUT "The number is lower than your guess"
+      09     ELSE
+      10       IF G < N
+      11         THEN
+      12           OUTPUT "The number is lower than your guess"
+      13       ENDIF
+      14       Counter <- Counter + 1
+      15   ENDIF
+      16 UNTIL G = N
+      17 OUTPUT "Well done, you took ", Guess, " attempts"
+      \end{alltt}
+  - number: "6a"
+    type: short_answer
+    text: |
+      Identify the line numbers of the \textbf{four} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+
+      Error 2 line number \hrulefill
+
+      Correction \hrulefill
+
+      Error 3 line number \hrulefill
+
+      Correction \hrulefill
+
+      Error 4 line number \hrulefill
+
+      Correction \hrulefill
+  - number: "6b"
+    type: short_answer
+    text: |
+      Identify \textbf{one} method to make the algorithm maintainable. 
+      Give an example.
+```

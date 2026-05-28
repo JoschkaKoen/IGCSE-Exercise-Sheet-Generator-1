@@ -1,0 +1,18 @@
+  - number: "3"
+    type: short_answer
+    text: ""
+  - number: "3a"
+    type: short_answer
+    text: ""
+  - number: "3b"
+    type: long_answer
+    text: ""
+  - number: "4"
+    type: short_answer
+    text: ""
+  - number: "4a"
+    type: short_answer
+    text: ""
+  - number: "4b"
+    type: short_answer
+    text: ""

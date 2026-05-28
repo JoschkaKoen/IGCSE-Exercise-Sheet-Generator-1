@@ -1,0 +1,22 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      Some example data from the \texttt{PLACEMENT} table is shown:
+
+      \begin{tabular}{|l|l|l|l|l|l|}
+      \hline
+      \textbf{PlacementID} & \textbf{StudentID} & \textbf{CompanyID} & \textbf{StartDate} & \textbf{EndDate} & \textbf{Complete} \\ \hline
+      PC001 & LDEA01 & MSCM & 01/01/2023 & 12/07/2023 & TRUE \\ \hline
+      PC002 & LDEA01 & MSCM & 01/04/2024 & 08/05/2024 & FALSE \\ \hline
+      PC003 & ALAU02 & NEAM & 09/03/2020 & 10/03/2021 & FALSE \\ \hline
+      PC004 & LOLI75 & GOUZ & 07/06/2018 & 11/09/2018 & TRUE \\ \hline
+      \end{tabular}
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Write a Structured Query Language (SQL) script to delete all placements that have been completed.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Write an SQL script to return the total number of placements completed by the student with ID LDEA01 at the company with ID NEAM. The total should be given an appropriate name.

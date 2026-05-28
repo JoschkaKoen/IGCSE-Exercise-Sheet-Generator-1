@@ -1,0 +1,6 @@
+  - number: "5d"
+    type: multiple_choice
+    text: ""
+  - number: "5e"
+    type: short_answer
+    text: ""

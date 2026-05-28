@@ -1,0 +1,44 @@
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      Building materials are sold in bags. A new database table called \texttt{BuildStock} has been set up to store details about the materials for sale. Part of this table is given.
+
+      \begin{tabular}{|c|l|c|c|c|c|}
+      \hline
+      \textbf{MtNo} & \textbf{Name} & \textbf{InStock} & \textbf{WeightKg} & \textbf{PricePerBag} & \textbf{NumberBags} \\ \hline
+      MT01 & Builders sand & Yes & 50 & 4.50 & 50 \\ \hline
+      MT02 & Sharp sand & Yes & 25 & 3.50 & 21 \\ \hline
+      MT03 & Red sand & No & 50 & 2.75 & 0 \\ \hline
+      MT04 & Cement & No & 25 & 6.85 & 0 \\ \hline
+      MT05 & Chippings & Yes & 50 & 35.00 & 50 \\ \hline
+      MT06 & Cobbles & No & 75 & 67.35 & 0 \\ \hline
+      MT07 & Pebbles small & Yes & 50 & 34.50 & 3 \\ \hline
+      MT08 & Pebbles medium & Yes & 25 & 25.50 & 10 \\ \hline
+      MT12 & Pebbles large & Yes & 75 & 62.75 & 20 \\ \hline
+      MT15 & Washed gravel & Yes & 50 & 12.75 & 12 \\ \hline
+      MT16 & Pea gravel & Yes & 100 & 15.95 & 24 \\ \hline
+      \end{tabular}
+  - number: "11a"
+    type: short_answer
+    text: |
+      Write the output from this structured query language (SQL) statement.
+
+      \begin{alltt}
+      SELECT MtNo, Name
+      FROM BuildStock
+      WHERE WeightKg = 75
+      ORDER BY PricePerBag;
+      \end{alltt}
+  - number: "11bi"
+    type: short_answer
+    text: |
+      Complete this SQL statement to display only the names of all the materials that are out of stock.
+
+      \texttt{SELECT} \hrulefill
+      \texttt{FROM} \hrulefill
+      \texttt{WHERE} \hrulefill
+  - number: "11bii"
+    type: long_answer
+    text: |
+      Explain how another SQL statement using a different field could be used to display the same information.

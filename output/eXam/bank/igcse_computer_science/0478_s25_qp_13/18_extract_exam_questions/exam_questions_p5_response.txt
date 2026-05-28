@@ -1,0 +1,54 @@
+[thinking]
+**My Analysis of a Cambridge IGCSE Question Structure**
+
+Okay, here's how I'm going to approach this. I've received an OCR'd snippet from a Cambridge IGCSE exam paper with a set of questions, specifically "2", "2a", "2b", and "2c". My primary objective is to transform this raw text into a YAML formatted structure.
+
+First, I need to understand the intent and structure of these questions. "2" appears to be the introductory context or stem for the subsequent sub-questions. I need to make a judgement call: shall the context stand alone in "2" or be included, as well, in subquestions? In this case, I'll make "2" a block that contains the context.
+
+Next, I need to extract the core text from each question, paying close attention to any formatting or specific instructions. I see that questions "2a", "2b", and "2c" all have prefixes like "(a)", "(b)", and "(c)". I'll need to remove these prefixes to present the questions clearly.
+
+For question "2b", there's an interesting requirement. It specifically calls for three features, and I'll need to provide numbered slots with `\hrulefill` as blank lines. This is important to ensure the output aligns with the expected format.
+
+Finally, I'll review and apply constraints such as:
+
+*   Avoiding double quotes for non-empty strings and using the `|` block scalar instead.
+*   Replacing any `\dotfill` or standalone dotted lines with the proper `\hrulefill`.
+*   Ensure the numbered slots are formatted as intended.
+*   Stripping subquestion prefixes.
+*   No Markdown fences in the output.
+
+With this plan in place, I can systematically process the text, parse the question structure, and output the desired YAML structure as efficiently as possible.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A company employee is editing a video for the company's website.
+
+      Data is stored in the random access memory (RAM) when the video is edited.
+
+      The RAM becomes full and pages of data are transmitted to a partitioned section of the secondary storage to stop the computer from crashing.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Give the name of the partitioned section of the secondary storage that is used in this process.
+  - number: "2b"
+    type: short_answer
+    text: |
+      The secondary storage is a hard disk drive (HDD). An HDD is an example of magnetic storage.
+
+      One feature of magnetic storage is that it uses platters.
+
+      Give \textbf{three} other features of magnetic storage.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      Give the reasons why an HDD is an example of secondary storage.

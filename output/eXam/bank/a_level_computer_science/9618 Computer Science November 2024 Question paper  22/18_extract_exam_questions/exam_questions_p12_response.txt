@@ -1,0 +1,79 @@
+[thinking]
+**Transcribing Question 6 for a Sandwich Shop Program**
+
+Okay, the user wants me to transcribe question 6 from this page. I see the question describes a shop's "daily special" sandwich, which involves selecting two fillings and one bread type. The focus is on generating this special randomly.
+
+The text includes pseudocode and tables that describe how the sandwich ingredients are stored. I need to capture this information accurately. First, there's a declaration for a `Filling` array (strings, size 35), and another for a `Bread` array (strings, size 10). I'll transcribe these, representing the code declarations, being careful with the syntax.
+
+I'll represent the table data for the `Filling` and `Bread` arrays using LaTeX `\begin{tabular}` environments for clarity and readability. It's important to present this data in a structured format.
+
+I'll pay attention to the formatting. I'll represent inline code, like the `Special()` procedure, using `\texttt{}` and pseudocode array declarations, with the `\begin{alltt}` environment, because these are all single-line declarations. That will keep the code distinct. I think that is a good choice.
+
+Now, I'll draft the question text, ensuring that all the critical elements—the shop description, array declarations, the tables, and the crucial details about unused array elements and the `Special()` procedure—are included. It will be important to emphasise to the user that they must take unused array elements into consideration when writing their solutions. I must make sure that it's all accurately transcribed. I'll include an example output to illustrate the desired functionality.
+
+I'll make sure to get all the important bits, and format the text properly so that it is easily understood.
+It is an accurate and complete transcription of the question, and the tables are represented in a proper format. I am confident that this is a correct representation.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A shop sells sandwiches and snacks. The owner chooses a 'daily special' sandwich which is displayed on a board outside the shop. Each 'daily special' has two different fillings and is made with one type of bread.
+
+      The owner wants a program to randomly choose the 'daily special' sandwich.
+
+      The program designer decides to store the possible sandwich fillings in a 1D array of type string.
+
+      The array is declared in pseudocode as follows:
+
+      \begin{alltt}
+      DECLARE Filling : ARRAY [1:35] OF STRING
+      \end{alltt}
+
+      Each element contains the name of one filling.
+
+      An example of the first five elements is as follows:
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Index} & \textbf{Element value} \\ \hline
+      1 & "Cheese" \\ \hline
+      2 & "Onion" \\ \hline
+      3 & "Salmon" \\ \hline
+      4 & "Anchovies" \\ \hline
+      5 & "Peanut Butter" \\ \hline
+      \end{tabular}
+
+      \vfill
+
+      A second 1D array stores the possible bread used:
+
+      \begin{alltt}
+      DECLARE Bread : ARRAY [1:10] OF STRING
+      \end{alltt}
+
+      Each element contains the name of one type of bread.
+
+      An example of the first three elements is as follows:
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Index} & \textbf{Element value} \\ \hline
+      1 & "White" \\ \hline
+      2 & "Brown" \\ \hline
+      3 & "Pitta" \\ \hline
+      \end{tabular}
+
+      Both arrays may contain unused elements. The value of these will be an empty string and they may occur anywhere in each array.
+
+      A procedure \texttt{Special()} will output a message giving the 'daily special' sandwich made from \textbf{two} randomly selected different fillings and \textbf{one} randomly selected bread.
+
+      Unused array elements must \textbf{not} be used when creating the 'daily special' sandwich.
+
+      Using the above examples, the output could be:
+
+      \texttt{"The daily special is Cheese and Onion on Brown bread."}

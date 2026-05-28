@@ -1,0 +1,40 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      The equation of state for an ideal gas may be written as
+
+      $$pVA = NBT$$
+
+      where $p$ is the pressure of the gas, $V$ is the volume of the gas, $A$ is the Avogadro constant, $B$ is another constant and $N$ is the number of molecules of the gas.
+  - number: "4ai"
+    type: short_answer
+    text: |
+      State the meaning, in the equation, of the symbol $T$.
+  - number: "4aii"
+    type: short_answer
+    text: |
+      Identify the constant $B$.
+  - number: "4b"
+    type: short_answer
+    text: |
+      The product $pV$ for an ideal gas is also given by
+
+      $$pV = \frac{1}{3} Nm \langle c^2 \rangle$$
+  - number: "4bi"
+    type: short_answer
+    text: |
+      State the meanings, in this equation, of the symbols $m$ and $\langle c^2 \rangle$.
+
+      $m$: \hrulefill
+
+      $\langle c^2 \rangle$: \hrulefill
+  - number: "4bii"
+    type: calculation
+    text: |
+      Use the equations in (a) and (b) to derive an expression, in terms of $A$, $B$ and $T$, for the mean kinetic energy $E_{\text{K}}$ of a molecule of the gas.
+
+      $E_{\text{K}} =$ \hrulefill

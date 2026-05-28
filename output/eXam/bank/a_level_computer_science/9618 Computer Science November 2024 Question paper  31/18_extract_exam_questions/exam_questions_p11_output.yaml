@@ -1,0 +1,25 @@
+```yaml
+questions:
+  - number: "10a"
+    type: short_answer
+    text: |
+      Complete the Backus-Naur Form (BNF) for the given syntax diagrams.
+
+      \texttt{<operator> ::=} \hrulefill
+
+      \texttt{<label> ::=} \hrulefill
+
+      \texttt{<equation> ::=} \hrulefill
+  - number: "10b"
+    type: short_answer
+    text: |
+      A new syntax rule, \textbf{password}, is required. It must begin with a letter or a symbol, followed by a digit and end with one or two symbols.
+  - number: "10bi"
+    type: short_answer
+    text: |
+      Draw a syntax diagram for \textbf{password}.
+  - number: "10bii"
+    type: short_answer
+    text: |
+      Write the BNF for \textbf{password}.
+```

@@ -1,0 +1,15 @@
+questions:
+  - number: "8"
+    type: calculation
+    text: |
+      Calculate the shortest distance between the \textbf{Start} node and each of the nodes in the graph using Dijkstra's algorithm.
+
+      Show your working on the graph or in the working space. Write your answers in the table provided.
+
+      Answers:
+
+      \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      \textbf{T} & \textbf{V} & \textbf{W} & \textbf{X} & \textbf{Y} & \textbf{Z} \\ \hline
+      & & & & & \\ \hline
+      \end{tabular}

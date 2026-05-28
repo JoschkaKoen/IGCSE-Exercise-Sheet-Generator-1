@@ -1,0 +1,31 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A program contains a global 1D array \texttt{Data} containing 20 elements of type \texttt{INTEGER}
+
+      A global string \texttt{NumString} represents a sequence of three-digit numbers, separated by commas.
+      For example:
+
+      \texttt{"101,456,219,754,328"}
+
+      The string contains at least \textbf{four} three-digit numbers. The total number of three-digit numbers in the string is unknown.
+
+      A procedure \texttt{Store()} will:
+      \begin{itemize}
+      \item extract one three-digit number at a time from \texttt{NumString}
+      \item convert each of the three-digit numbers extracted to an integer and assign this to the next array element, starting from index 1
+      \item end when all three-digit numbers have been stored, or when the array is full.
+      \end{itemize}
+
+      Complete the pseudocode for \texttt{Store()}
+
+      All local variables used must be declared.
+
+      \begin{alltt}
+      PROCEDURE Store()
+      \end{alltt}
+
+      \begin{alltt}
+      ENDPROCEDURE
+      \end{alltt}

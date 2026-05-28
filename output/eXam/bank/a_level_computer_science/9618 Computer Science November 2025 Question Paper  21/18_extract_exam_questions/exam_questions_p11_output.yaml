@@ -1,0 +1,11 @@
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      A module \texttt{Generate()} will take an integer value representing an original number and return an integer value representing a new number which includes the check digit.
+
+      The original number is always at least three digits in length.
+
+      Write pseudocode for the module \texttt{Generate()}
+
+      Assume that the parameter is valid.

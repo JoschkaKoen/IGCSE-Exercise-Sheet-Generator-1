@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      Amend the main program.
+  - number: "1di"
+    type: long_answer
+    text: |
+      Amend the main program to:
+
+      \begin{itemize}
+      \item repeatedly take a row position as input until it is between 0 and 9 inclusive
+      \item repeatedly take a column position as input until it is between 0 and 9 inclusive
+      \item use the appropriate method(s) to identify if there is an object in the array position input
+      \item output "Miss" if there is an empty \texttt{BoardObject} in that position
+      \item output the \texttt{Code} and \texttt{Value} if there is a non-empty \texttt{BoardObject} in that position.
+      \end{itemize}
+
+      All outputs must include appropriate messages.
+
+      Save your program.
+
+      Copy and paste the program code into part 1(d)(i) in the evidence document.
+  - number: "1dii"
+    type: long_answer
+    text: |
+      Test your program by entering this test data in the order given:
+
+      \begin{tabular}{ll}
+      Row position first input: & 10 \\
+      Row position second input: & 4 \\
+      Column position first input: & -1 \\
+      Column position second input: & 5 \\
+      \end{tabular}
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part 1(d)(ii) in the evidence document.
+```

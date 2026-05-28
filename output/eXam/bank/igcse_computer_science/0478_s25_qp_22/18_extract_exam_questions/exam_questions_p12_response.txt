@@ -1,0 +1,47 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A database table, \texttt{CapitalCity}, stores data about capital cities from around the world.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Field} & \textbf{Description} \\ \hline
+      \texttt{Identification} & a unique identifier \\ \hline
+      \texttt{Name} & the name of the city \\ \hline
+      \texttt{Country} & the name of the country in which the city is located \\ \hline
+      \texttt{Continent} & the name of the continent in which the city is located \\ \hline
+      \texttt{Population} & the number of people living in the city \\ \hline
+      \texttt{Founded} & the year the city was founded \\ \hline
+      \texttt{AverageIncome} & average income of the city's population, in \$, rounded to 2 decimal places \\ \hline
+      \texttt{Subway} & whether or not the city has an underground railway system \\ \hline
+      \end{tabular}
+  - number: "9a"
+    type: short_answer
+    text: |
+      Complete the table by writing \textbf{one} appropriate field from \texttt{CapitalCity} for each data type.
+
+      Each field must be different.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Data type} & \textbf{Field} \\ \hline
+      Boolean & \hrulefill \\ \hline
+      integer & \hrulefill \\ \hline
+      real & \hrulefill \\ \hline
+      text & \hrulefill \\ \hline
+      \end{tabular}
+  - number: "9b"
+    type: short_answer
+    text: |
+      Complete the structured query language (SQL) statement to list only the name, country and population of all the cities in \texttt{CapitalCity} from the continent of Asia.
+
+      \begin{alltt}
+      SELECT \hrulefill
+
+      \hrulefill CapitalCity
+
+      WHERE \hrulefill = \hrulefill ;
+      \end{alltt}
+```

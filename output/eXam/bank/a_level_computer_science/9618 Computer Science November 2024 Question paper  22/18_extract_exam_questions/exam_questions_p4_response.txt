@@ -1,0 +1,49 @@
+[thinking]
+**Analyzing the Exam Page and Conceal Function**
+
+Okay, so I'm looking at page 4 of this exam. The task is pretty straightforward; I need to tackle questions "2" and "2a". It's a classic string manipulation problem, nothing too complex.
+
+The gist of Question 2 is about concealing bank card numbers. The goal is to replace all characters in a string, *except* the last four, with asterisks. The card numbers are guaranteed to be strings between 10 and 20 characters in length. The function to implement this is called `Conceal()`. They give a few illustrative examples, which is always helpful for clarifying the desired behavior. I'm noting the `\texttt{ }` formatting to make sure it is accurate for the final output.
+
+Question 2a focuses on the function's specifications. The input to `Conceal()` is a numeric string (representing the card number), and the output is a modified string where asterisks hide most of the original number. The ultimate objective is to provide the pseudocode for this function. They've provided the function's purpose again, and the specific formatting.
+
+Now, I need to translate this understanding into code. Let's see...
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program is being developed to process bank card information.
+
+      When a card number is displayed, all the characters \textbf{except} the last four are replaced with the asterisk character '*'.
+
+      Card numbers are stored as strings. The strings are between 10 and 20 characters in length.
+
+      The function \texttt{Conceal()} will take a string representing a card number and return a modified string.
+
+      Example strings:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Original string} & \textbf{Modified string} \\ \hline
+      \texttt{"1234567890"} & \texttt{"******7890"} \\ \hline
+      \texttt{"1234567897652"} & \texttt{"*********7652"} \\ \hline
+      \texttt{"1234567890123456"} & \texttt{"************3456"} \\ \hline
+      \end{tabular}
+  - number: "2a"
+    type: long_answer
+    text: |
+      The function \texttt{Conceal()} will:
+
+      \begin{itemize}
+      \item take a numeric string as a parameter representing the card number
+      \item return a string in which the asterisk character replaces all except the last four characters of the card number parameter.
+      \end{itemize}
+
+      Write pseudocode for the function \texttt{Conceal()}.
+```

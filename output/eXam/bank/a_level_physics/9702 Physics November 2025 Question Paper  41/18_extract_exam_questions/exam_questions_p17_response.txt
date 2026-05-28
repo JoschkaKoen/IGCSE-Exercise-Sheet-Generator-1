@@ -1,0 +1,36 @@
+[thinking]
+**Processing Exam Questions**
+
+Okay, so the user wants me to extract and format some questions from page 17 of an exam. Specifically, they've identified questions "7bii", "7biii", and "7biv". Let's get this done efficiently.
+
+First, I need to interpret the question types. Based on the formatting and content, "7bii" and "7biii" look like straightforward calculations, while "7biv" is clearly a long-answer question involving an explanation based on Lenz's Law. I will confirm this by scanning the accompanying text to ensure these are not multiple-choice.
+
+Now, let's look at the image provided. I'll need to extract the exact wording of each question, along with the formatting information (especially the units and the answer spaces, i.e., the hrulefills).
+
+After carefully reviewing the question text, I need to format it appropriately. I'll need to strip the "(ii)", "(iii)", and "(iv)" prefixes from the sub-questions to keep the YAML clean and standard. For the calculation questions, the answer field needs to include `\text{ m}^2` and `\text{ m}\,\text{s}^{-1}`. I also need to ensure that the instruction regarding the use of the previous sub-question answer is in the formatted answer (e.g. in 7biii, using "(b)(ii)" answer). The long answer question gets the full text.
+
+Finally, I'll structure the information into a YAML format. I'll use the following structure: a top-level `questions` key, and then a list of individual question dictionaries. Each question will have a `number` field (e.g., "7bii"), a `type` field (either "calculation" or "long_answer"), and a `text` field containing the question text. Because these are not multiple-choice, no `options` field is required.
+
+With this structure in mind, I can produce the necessary YAML output for the user. I'll verify the formatting and make sure everything is in order before delivering the final result. I am now confident that the provided YAML is perfect, and I'll proceed accordingly.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7bii"
+    type: calculation
+    text: |
+      Determine the area of flux cut by the wings in a time of $15\text{ s}$.
+
+      $\text{area} = \hrulefill \text{ m}^2$
+  - number: "7biii"
+    type: calculation
+    text: |
+      Use your answer in \textbf{(b)(ii)} to determine the speed $v$ of the aircraft.
+
+      $v = \hrulefill \text{ m}\,\text{s}^{-1}$
+  - number: "7biv"
+    type: long_answer
+    text: |
+      Use Lenz’s law of electromagnetic induction to explain which of the wingtips P and Q is at the higher induced potential.

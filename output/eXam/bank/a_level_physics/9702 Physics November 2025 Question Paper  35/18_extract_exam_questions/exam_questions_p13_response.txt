@@ -1,0 +1,66 @@
+[thinking]
+**Analyzing and Structuring Exam Questions**
+
+Okay, so the user wants me to handle page 13 of this exam paper. My first task is to understand the structure of the questions on that page. The stub initially presents "2g", "2gi", and "2gii" but the page shows a clear "(g)(i)" and "(g)(ii)" structure. "2g" is a bit ambiguous, so I need to figure out its role. Let's delve in.
+
+I'm seeing that "2g" isn't explicitly written on the page as a standalone question. It looks like "2g" is the overarching identifier for both "(g)(i)" and "(g)(ii)". The questions are basically asking about uncertainties and improvements to an experiment. I'm inferring that "2g" might be a parent question or just a stub identifier. The stub seems to indicate it should exist. The OCR agrees. So, it looks like "2g" itself has no explicit text, and just serves as a section header or a grouping label in the database. I'll set its text to empty in the YAML: `text: ''`.
+
+Now for the sub-questions. "(g)(i)" asks about uncertainties and limitations, specifically describing four sources, stating the quantity and a reason for the uncertainty. Let's write the text for that section. I'll make sure to use the prompt guidelines and format with numbered, ruled answer slots. I'll bold the critical part of "four" since that's a key requirement. So, that will be:
+
+```yaml
+    text: |
+      Describe \textbf{four} sources of uncertainty or limitations of the procedure for this experiment.
+
+      For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+```
+
+Next, "(g)(ii)" requests four suggested improvements. This is similar to "(g)(i)", and the format should also be consistent. I'll structure this one following the same pattern, again highlighting that four improvements are needed:
+
+```yaml
+    text: |
+      Describe \textbf{four} improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+```
+
+Finally, the YAML for "2g" is:
+```yaml
+    text: ''
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "2g"
+    type: short_answer
+    text: ''
+  - number: "2gi"
+    type: long_answer
+    text: |
+      Describe \textbf{four} sources of uncertainty or limitations of the procedure for this experiment.
+
+      For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "2gii"
+    type: long_answer
+    text: |
+      Describe \textbf{four} improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill

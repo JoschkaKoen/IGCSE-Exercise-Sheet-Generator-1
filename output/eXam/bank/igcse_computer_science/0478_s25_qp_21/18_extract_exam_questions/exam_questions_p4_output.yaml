@@ -1,0 +1,22 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A telephone number with 13 characters is input. The first character is a ‘+’, followed by a 2-digit country code, for example:
+
+      +20xxxxxxxxxx where 20 is the country code and x is a digit between 0 and 9 inclusive.
+
+      The algorithm includes checks for the country codes: 44 for the UK and 20 for Egypt.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Write an algorithm using pseudocode to:
+
+      \begin{itemize}
+      \item input the telephone number
+      \item extract the 2-digit country code
+      \item output the matching country
+      \item output ‘Unknown’ if there is no matching country.
+      \end{itemize}
+```

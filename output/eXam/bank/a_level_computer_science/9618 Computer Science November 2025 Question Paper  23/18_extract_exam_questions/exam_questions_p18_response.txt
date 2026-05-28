@@ -1,0 +1,50 @@
+[thinking]
+**Transcribing Question 8: Library Loan Management**
+
+Okay, so the task is to transcribe question 8, which focuses on a library book loan management program. My initial assessment is that it defines a data structure and a module to handle loan status. I need to make sure I capture the essence of the question accurately.
+
+First, I need to get the tables correct. The first table defines the record type for a loan. I have to be careful with the LaTeX. I see the record has fields for `StudentID`, `BookID`, and `OnLoan`, with clear descriptions. The `StudentID` is a string, and importantly, the first three characters represent a tutor ID, a detail I mustn't miss. I'll make sure to use `\texttt{}` for the code style, so it's clear. The `OnLoan` field is a boolean, and is `TRUE` when the book is *not* returned, which is important. I'll make the formatting clear, using `p{}` columns to control widths to ensure readability. I'll make sure I'm precise with the spacing and newline characters in the LaTeX, so the final rendering is clean and accurate. I'll make sure I'm consistent with the use of the `\texttt{}` command.
+
+The second table describes the program module `LoanStatus()`. It takes two `STRING` parameters: `StudentID` and `BookID`. I must ensure I capture that the module outputs a message about the loan status, and a warning if the record isn't found. The LaTeX for this will be straightforward, again using `\texttt{}` and `\begin{itemize}`.
+
+Next, I need to make sure I don't miss any of the additional text. The programmer is using a global array `Loan` to store 8000 loan records. This is important context, especially since there are more elements than books. Unused elements are indicated by an empty `StudentID` string, and importantly, they may occur anywhere in the array. This could impact how a search or iteration would be implemented in the program.
+
+Now, let's assemble the YAML.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A program is being developed to manage student book loans from a college library.
+
+      The programmer has defined a record type to define each loan.
+
+      The data items are:
+
+      \begin{tabular}{|p{2.5cm}|p{2.5cm}|p{8cm}|}
+      \hline
+      \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+      \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed the book \newline\newline The first three characters of a \texttt{StudentID} represent a tutor ID. Each student has one tutor. \\ \hline
+      \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\ \hline
+      \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not} been returned \\ \hline
+      \end{tabular}
+
+      \vspace{1em}
+
+      The programmer has defined a global array \texttt{Loan} to store 8000 loan records.
+
+      There are more elements in the array than books in the library. Unused elements have the \texttt{StudentID} set to an empty string. These may occur anywhere in the array.
+
+      The programmer has defined a program module:
+
+      \begin{tabular}{|p{3cm}|p{10cm}|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{LoanStatus()} & \begin{itemize} \item called with two parameters of type \texttt{STRING} representing a \texttt{StudentID} and a \texttt{BookID} \item outputs a message saying whether a given loan has been returned or not \item outputs a warning message if a record of the given loan is \textbf{not} found \end{itemize} \\ \hline
+      \end{tabular}
+```

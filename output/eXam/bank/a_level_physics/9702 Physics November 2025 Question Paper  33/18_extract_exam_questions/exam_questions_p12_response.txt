@@ -1,0 +1,87 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 12**
+
+Okay, so I'm tasked with transcribing page 12 of this exam paper. My initial thought is to go through each question and make sure I understand the structure. The user is giving me information to use to transcribe. 
+
+The first thing I see is that I need to deal with a question labelled "2g". The immediate thought is that it might be a parent question or a typo, so I need to check the page itself. Looking at the page, I can see questions (g)(i) and (g)(ii). The question's structure in the provided stub appears to be 2g, 2gi and 2gii. I'm going to look at the text to ensure the page matches the expectations.
+
+Here's what I'm seeing on the page: (g)(i) is "Describe four sources of uncertainty or limitations of the procedure for this experiment..." and (g)(ii) asks to "Describe four improvements that could be made to this experiment...". I am expecting to see "2g" as a parent.
+
+Hmm, "2g" is listed in the stub, but it doesn't seem to have any actual text on the page. The questions start immediately with "(g)(i)". Is there a parent text for "2g"? It looks like there isn't. I'm noting that "(g)" is merely a prefix, not a question itself. I suspect "2g" is more of a placeholder or perhaps a stub issue. The instructions say that if I can't find the stem of a stub entry on the page, I need to emit a `| STUB ERROR` block scalar so QA can address the issue.
+
+Alright, the exam question is question 2, as the numbering and total mark (20) are typical of question 2 in a 9702/33 paper.
+
+Let's double-check again that there's no actual question text for "2g". Nope, nothing. It goes straight to "(g)(i)". So, I'm confident in writing `STUB ERROR` for `2g`. I'm double checking, just to be sure. Yup, that's what I will be doing.
+
+Therefore, for `2g`, I'm going to transcribe:
+
+```yaml
+  - number: "2g"
+    type: short_answer
+    text: |
+      STUB ERROR
+```
+
+Now, let's move on to `2gi`. I'm going to format the question accordingly. I see the question text is: "Describe **four** sources of uncertainty or limitations of the procedure for this experiment. For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty." There are numbered slots on the page: "1 ........................................................................................................................................" etc. The instructions are telling me to put these slots on separate lines using `\hrulefill` after the digit and period. 
+
+So, it's:
+
+```yaml
+  - number: "2gi"
+    type: long_answer
+    text: |
+      Describe \textbf{four} sources of uncertainty or limitations of the procedure for this experiment.
+
+      For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+```
+
+Next, for `2gii`, it asks to "Describe **four** improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures."  The formatting is the same, so:
+
+```yaml
+  - number: "2gii"
+    type: long_answer
+    text: |
+      Describe \textbf{four} improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+```
+
+Just to be absolutely sure, I'm confirming that "2g" is indeed a stub error since there's no question text for it beyond the sub-questions. Yes, that's correct. So, the `STUB ERROR` is appropriate.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2g"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2gi"
+    type: long_answer
+    text: |
+      Describe \textbf{four} sources of uncertainty or limitations of the procedure for this experiment.
+
+      For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "2gii"
+    type: long_answer
+    text: |
+      Describe \textbf{four} improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill

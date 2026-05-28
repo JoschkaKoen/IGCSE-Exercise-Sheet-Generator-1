@@ -1,0 +1,57 @@
+[thinking]
+**Exam Page 8 Transcription Process**
+
+Okay, the task is to transcribe page 8 of this exam. Let's break down the questions. First, I need to make sure I have the text for each question stem and then the question details for each of the sub-questions.
+
+Question "3" sets the stage: "A wire has length $L$ and cross-sectional area $A$. The wire is made from a metal that has Young modulus $E$ and resistivity $\rho$." That's the introduction.
+
+Next is "3a": "Define the Young modulus of a material." Pretty straightforward.
+
+Now "3b"... hang on. The stub says "3b" is a short-answer question, but *there's no explicit question text on the page for "3b" itself.* I need to check the rules. The instructions explicitly state that if a stub entry doesn't have a visible stem on the page, I must output `STUB ERROR`. I won't guess. The main text for question 3b appears in the sub-questions, "(i)" and "(ii)." So, I'll transcribe "3b" as `STUB ERROR`.
+
+"3bi" says: "State an expression, in terms of some or all of $L$, $A$, $E$ and $\rho$, for the resistance $R_0$ of the wire.  $R_0 = $ \hrulefill". This seems simple enough to transcribe.
+
+"3bii" follows: "Show that the spring constant $k_0$ of the wire is given by  $k_0 = \frac{EA}{L}$." This should be an easy copy and paste.
+
+Finally, "3c" introduces an extension: "The wire is stretched, within the limit of proportionality, by a tensile force $F$. Assume that any changes in the cross-sectional area of the wire are negligible." and finally:
+
+"3ci": "On Fig. 3.1, sketch the variation with $F$ of the resistance $R$ of the wire." This is probably some plot on Fig 3.1. I would need the figure to proceed further.
+
+So, for each, I'll format the text as a YAML block, starting with the question and then the requested YAML format.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A wire has length $L$ and cross-sectional area $A$. The wire is made from a metal that has Young modulus $E$ and resistivity $\rho$.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Define the Young modulus of a material.
+  - number: "3b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3bi"
+    type: short_answer
+    text: |
+      State an expression, in terms of some or all of $L$, $A$, $E$ and $\rho$, for the resistance $R_0$ of the wire.
+
+      $R_0 = $ \hrulefill
+  - number: "3bii"
+    type: calculation
+    text: |
+      Show that the spring constant $k_0$ of the wire is given by
+      $$k_0 = \frac{EA}{L}$$
+  - number: "3c"
+    type: short_answer
+    text: |
+      The wire is stretched, within the limit of proportionality, by a tensile force $F$. Assume that any changes in the cross-sectional area of the wire are negligible.
+  - number: "3ci"
+    type: short_answer
+    text: |
+      On Fig. 3.1, sketch the variation with $F$ of the resistance $R$ of the wire.

@@ -22,22 +22,36 @@
   </div>
 
   <p class="mx-auto mt-6 max-w-lg text-center text-[0.95rem] leading-relaxed text-slate-400">
-    {{ t('workspace.hero.subtitle') }}
-    <span class="subject-badge subject-badge-igcse-computer-science">Computer Science</span>
-    <span class="subject-badge subject-badge-igcse-physics">Physics</span>
-    <span class="subject-badge subject-badge-igcse-chemistry">Chemistry</span>
-    <span class="subject-badge subject-badge-igcse-mathematics">Mathematics</span>
-    <span class="subject-badge subject-badge-igcse-biology">Biology</span>
-    <span class="subject-badge subject-badge-igcse-business-studies">Business Studies</span>
-    <span class="subject-badge subject-badge-igcse-economics">Economics</span>
-    <span class="subject-badge subject-badge-a-level-physics">A-Level Physics</span>
-    <span class="subject-badge subject-badge-a-level-biology">A-Level Biology</span>
-    <span class="subject-badge subject-badge-a-level-chemistry">A-Level Chemistry</span>
-    <span class="subject-badge subject-badge-a-level-computer-science">A-Level CS</span>
-    <span class="subject-badge subject-badge-a-level-business">A-Level Business</span>
-    <span class="subject-badge subject-badge-a-level-economics">A-Level Economics</span>
-    {{ t('workspace.hero.subtitle_tail') }}
+    {{ t('workspace.hero.subtitle') }} {{ t('workspace.hero.subtitle_tail') }}
   </p>
+
+  <div class="mx-auto mt-5 max-w-2xl">
+    <div class="mb-2 flex items-center gap-3">
+      <span class="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-slate-500">{{ t('library.level.igcse') }}</span>
+      <span class="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent" aria-hidden="true"></span>
+    </div>
+    <div class="flex flex-wrap justify-center gap-1.5">
+      <span class="subject-badge subject-badge-igcse-computer-science">Computer Science</span>
+      <span class="subject-badge subject-badge-igcse-physics">Physics</span>
+      <span class="subject-badge subject-badge-igcse-chemistry">Chemistry</span>
+      <span class="subject-badge subject-badge-igcse-mathematics">Mathematics</span>
+      <span class="subject-badge subject-badge-igcse-biology">Biology</span>
+      <span class="subject-badge subject-badge-igcse-business-studies">Business Studies</span>
+      <span class="subject-badge subject-badge-igcse-economics">Economics</span>
+    </div>
+    <div class="mt-4 mb-2 flex items-center gap-3">
+      <span class="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-slate-500">{{ t('library.level.a_level') }}</span>
+      <span class="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent" aria-hidden="true"></span>
+    </div>
+    <div class="flex flex-wrap justify-center gap-1.5">
+      <span class="subject-badge subject-badge-a-level-computer-science">A-Level CS</span>
+      <span class="subject-badge subject-badge-a-level-physics">A-Level Physics</span>
+      <span class="subject-badge subject-badge-a-level-chemistry">A-Level Chemistry</span>
+      <span class="subject-badge subject-badge-a-level-biology">A-Level Biology</span>
+      <span class="subject-badge subject-badge-a-level-business">A-Level Business</span>
+      <span class="subject-badge subject-badge-a-level-economics">A-Level Economics</span>
+    </div>
+  </div>
   </div>
 
   <!-- Form + result panel (side-by-side on landing page when result is ready) -->
@@ -68,6 +82,10 @@
 
     <div class="hero-collapse mt-3.5">
     <!-- Example prompts (fill textarea on click) -->
+    <div class="mb-3 flex items-center gap-3">
+      <span class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">{{ t('library.level.igcse') }}</span>
+      <span class="h-px flex-1 bg-gradient-to-r from-white/18 to-transparent" aria-hidden="true"></span>
+    </div>
     <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-violet-500/20
@@ -132,6 +150,21 @@
         <span class="block text-[0.68rem] leading-snug text-rose-300/70">{{ t('workspace.quick_fill.papers_jun_2025_p11_12') }}</span>
         <span class="block text-[0.65rem] leading-snug text-rose-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
+    </div>
+    <div class="mt-6 mb-3 flex items-center gap-3">
+      <span class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">{{ t('library.level.a_level') }}</span>
+      <span class="h-px flex-1 bg-gradient-to-r from-white/18 to-transparent" aria-hidden="true"></span>
+    </div>
+    <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <button type="button"
+              class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-violet-500/20
+                     px-3 py-2 text-left text-xs transition hover:border-violet-500/40"
+              style="background: linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(109,40,217,0.04) 100%);"
+              data-prompt="A-Level CS: Ex. 1, 3, 5 from June 2021 paper 11 and Ex. 2, 4, 6 from June 2021 paper 21">
+        <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-violet-300">A-Level CS</span>
+        <span class="block text-[0.68rem] leading-snug text-violet-300/70">{{ t('workspace.quick_fill.papers_jun_2021_p11_21') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-violet-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
+      </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-cyan-500/20
                      px-3 py-2 text-left text-xs transition hover:border-cyan-500/40"
@@ -140,15 +173,6 @@
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-cyan-300">A-Level Physics</span>
         <span class="block text-[0.68rem] leading-snug text-cyan-300/70">{{ t('workspace.quick_fill.papers_jun_2023_p21_41') }}</span>
         <span class="block text-[0.65rem] leading-snug text-cyan-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
-      </button>
-      <button type="button"
-              class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-emerald-500/20
-                     px-3 py-2 text-left text-xs transition hover:border-emerald-500/40"
-              style="background: linear-gradient(135deg, rgba(16,185,129,0.18) 0%, rgba(5,150,105,0.04) 100%);"
-              data-prompt="A-Level Biology: Ex. 1-5 from June 2024 paper 11 and Ex. 1-5 from June 2024 paper 21">
-        <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-emerald-300">A-Level Biology</span>
-        <span class="block text-[0.68rem] leading-snug text-emerald-300/70">{{ t('workspace.quick_fill.papers_jun_2024_p11_21') }}</span>
-        <span class="block text-[0.65rem] leading-snug text-emerald-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-slate-400/20
@@ -160,13 +184,13 @@
         <span class="block text-[0.65rem] leading-snug text-slate-200/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
-              class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-violet-500/20
-                     px-3 py-2 text-left text-xs transition hover:border-violet-500/40"
-              style="background: linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(109,40,217,0.04) 100%);"
-              data-prompt="A-Level CS: Ex. 1, 3, 5 from June 2021 paper 11 and Ex. 2, 4, 6 from June 2021 paper 21">
-        <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-violet-300">A-Level CS</span>
-        <span class="block text-[0.68rem] leading-snug text-violet-300/70">{{ t('workspace.quick_fill.papers_jun_2021_p11_21') }}</span>
-        <span class="block text-[0.65rem] leading-snug text-violet-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
+              class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-emerald-500/20
+                     px-3 py-2 text-left text-xs transition hover:border-emerald-500/40"
+              style="background: linear-gradient(135deg, rgba(16,185,129,0.18) 0%, rgba(5,150,105,0.04) 100%);"
+              data-prompt="A-Level Biology: Ex. 1-5 from June 2024 paper 11 and Ex. 1-5 from June 2024 paper 21">
+        <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-emerald-300">A-Level Biology</span>
+        <span class="block text-[0.68rem] leading-snug text-emerald-300/70">{{ t('workspace.quick_fill.papers_jun_2024_p11_21') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-emerald-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-amber-500/20

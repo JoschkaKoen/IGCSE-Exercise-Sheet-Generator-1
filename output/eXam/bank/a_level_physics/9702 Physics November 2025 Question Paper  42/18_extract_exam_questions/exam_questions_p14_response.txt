@@ -1,0 +1,101 @@
+[thinking]
+**Examining the Transcription Task**
+
+Okay, so I'm being asked to transcribe page 14 of an exam paper. The user wants me to render the content into a structured format, and the questions are numbered 6, 6a, 6b, 6bi, 6bii, and 6biii. My first step is to carefully examine the structure of the page and identify each question's text.
+
+The main question, numbered "6", is the first item. Since "6" doesn't have any standalone text of its own, but proceeds directly to "(a)", I'm going to need to adhere closely to the instructions. The rule states: "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess." Therefore, even though I might typically assume a parent question like "6" with no text could be represented as an empty string, the instructions are clear: *STUB ERROR*.
+
+Now, let's proceed with the individual questions. Question "6a" is easy, it's just a definition question. "6b" has the introductory text about a conducting sphere. I need to capture that. "6bi" is a drawing question, so I'll transcribe the prompt, knowing that in the actual rendering there will be a figure 6.1. Then "6bii" and "6biii" are calculation questions, so I'll be sure to include the "calculate" prompt and the answer field.
+
+Therefore, for each item I'm going to create a YAML representation, using "number", "type", and "text" fields. Here's what I've got:
+
+*   "6": Should be:
+
+    ```yaml
+    number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+    ```
+
+*   "6a":
+    ```yaml
+    number: "6a"
+    type: short_answer
+    text: |
+      Define electric field at a point.
+    ```
+
+*   "6b":
+    ```yaml
+    number: "6b"
+    type: short_answer
+    text: |
+      An isolated conducting sphere in a vacuum has a capacitance of $69\text{ pF}$.
+      The charge on the sphere is $+83\text{ pC}$.
+    ```
+
+*   "6bi":
+    ```yaml
+    number: "6bi"
+    type: short_answer
+    text: |
+      On Fig. 6.1, draw field lines to represent the electric field outside the sphere due to the charge on the sphere.
+    ```
+
+*   "6bii":
+    ```yaml
+    number: "6bii"
+    type: calculation
+    text: |
+      Calculate the electric potential at the surface of the sphere.
+
+      electric potential = \hrulefill V
+    ```
+
+*   "6biii":
+    ```yaml
+    number: "6biii"
+    type: calculation
+    text: |
+      Determine the radius of the sphere.
+
+      radius = \hrulefill m
+    ```
+
+And that should do the trick. I've followed the instructions precisely, included the "STUB ERROR" for the missing stem, and properly transcribed all questions and their sub-items.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: short_answer
+    text: |
+      Define electric field at a point.
+  - number: "6b"
+    type: short_answer
+    text: |
+      An isolated conducting sphere in a vacuum has a capacitance of $69\text{ pF}$.
+      The charge on the sphere is $+83\text{ pC}$.
+  - number: "6bi"
+    type: short_answer
+    text: |
+      On Fig. 6.1, draw field lines to represent the electric field outside the sphere due to the charge on the sphere.
+  - number: "6bii"
+    type: calculation
+    text: |
+      Calculate the electric potential at the surface of the sphere.
+
+      electric potential = \hrulefill V
+  - number: "6biii"
+    type: calculation
+    text: |
+      Determine the radius of the sphere.
+
+      radius = \hrulefill m

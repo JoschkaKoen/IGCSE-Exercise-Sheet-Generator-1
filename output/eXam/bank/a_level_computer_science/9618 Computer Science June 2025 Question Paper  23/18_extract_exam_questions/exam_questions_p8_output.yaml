@@ -1,0 +1,33 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A programmer is developing a new stock control program for a shop owner to produce sales reports.
+  - number: "4a"
+    type: long_answer
+    text: |
+      A text file \texttt{Sales.txt} stores strings representing the number of items sold.
+
+      The file contains 52 lines, each representing the number of items sold in each week of the year.
+
+      For example:
+
+      \begin{tabular}{cc}
+      \textbf{File line number} & \textbf{File data} \\
+      1 & "350" \\
+      2 & "502" \\
+      3 & "434" \\
+      \vdots & \vdots \\
+      49 & "492" \\
+      50 & "872" \\
+      51 & "772" \\
+      52 & "201" \\
+      \end{tabular}
+
+      The example shows that 502 items were sold in week 2.
+
+      The owner requires a module to output all week numbers where the number of items sold is greater than 500.
+
+      Describe an algorithm that produces the required module.
+
+      Do \textbf{not} include pseudocode statements in your answer.

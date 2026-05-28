@@ -1,0 +1,48 @@
+[thinking]
+**Transcribing Exam Questions: A YAML Approach**
+
+Okay, so the user wants me to pull out some questions from page 5 of the exam. Let me see... the questions are numbered "1c", "1ci", and "1cii." Let's take a look. "1c" is just an introductory sentence, actually: "The satellite in (b) is moved to an orbit in which the satellite remains at the same point above the surface of Mars." Then, "1ci" asks about the Mars' rotation given a 25-hour orbit. And finally, "1cii" wants a "one other feature" of the orbit.
+
+Alright, let's transcribe those into YAML. I'll make sure to preserve the format, as I know that's important to the user. I'll include the introductory text for "1c" as the question text. I'll also add that the answer to 1cii must be only one feature.
+
+Here is the YAML I'll generate:
+
+```yaml
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The satellite in \textbf{(b)} is moved to an orbit in which the satellite remains at the same point above the surface of Mars.
+  - number: "1ci"
+    type: short_answer
+    text: |
+      The orbit has a period of 25 hours.
+
+      State what can be deduced from this about the rotation of Mars on its axis.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      State \textbf{one} other feature of this orbit.
+```
+
+That should be exactly what the user is looking for.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The satellite in \textbf{(b)} is moved to an orbit in which the satellite remains at the same point above the surface of Mars.
+  - number: "1ci"
+    type: short_answer
+    text: |
+      The orbit has a period of 25 hours.
+
+      State what can be deduced from this about the rotation of Mars on its axis.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      State \textbf{one} other feature of this orbit.

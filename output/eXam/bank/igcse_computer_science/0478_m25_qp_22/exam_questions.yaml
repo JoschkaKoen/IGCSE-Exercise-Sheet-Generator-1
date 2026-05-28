@@ -1,0 +1,563 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+
+    A standard method of solution used to find a piece of data in an array is a'
+  answer_options:
+  - letter: A
+    text: bubble sort.
+  - letter: B
+    text: counting routine.
+  - letter: C
+    text: linear search.
+  - letter: D
+    text: selection search.
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+
+    The pseudocode to store a hotel name held in the variable \texttt{Name} to a text
+    file is'
+  answer_options:
+  - letter: A
+    text: \texttt{READFILE Hotels.txt, Name}
+  - letter: B
+    text: \texttt{WRITEFILE Hotels.txt, Name}
+  - letter: C
+    text: \texttt{WRITEFILE Name, Hotels.txt}
+  - letter: D
+    text: \texttt{STOREFILE Hotels.txt, Name}
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: '\textbf{Four} development life cycle stages and \textbf{five} descriptions
+    are shown.
+
+
+    Draw \textbf{one} line from each stage to the most appropriate description.
+
+    \textbf{Not} all descriptions will be used.
+
+
+    \begin{tabular}{cc}
+
+    \textbf{Stage} & \textbf{Description} \\
+
+    & \\
+
+    \framebox{testing} & \framebox{identifying the problem and requirements} \\
+
+    & \\
+
+    \framebox{analysis} & \framebox{reviewing the final solution to suggest further
+    developments} \\
+
+    & \\
+
+    \framebox{coding} & \framebox{making sure the program code works as expected}
+    \\
+
+    & \\
+
+    \framebox{design} & \framebox{using structure diagrams, flowcharts and pseudocode
+    to plan the solution} \\
+
+    & \\
+
+    & \framebox{using a programming language to create the solution} \\
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A presence check is a type of validation check.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of a presence check.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A value input into a computer system must be an integer.
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify the validation check used to test whether the value input meets
+        this requirement.
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: Write the pseudocode for an algorithm to allow a number to be input into
+        an appropriate variable and check whether the number is an integer. If the
+        number is an integer, it is accepted. If the number is \textbf{not} an integer,
+        an error message is output. Re-input of the number is required until a valid
+        number is input.
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'A program is written to only accept data that contains more than 9 characters.
+    The program needs to be tested. The table, when completed, shows appropriate test
+    data that matches the type of test data and the purpose of the test data.
+
+
+    Complete the table by inserting the missing information.
+
+
+    \begin{tabular}{|c|c|c|}
+
+    \hline
+
+    \textbf{Test data} & \textbf{Type of test data} & \textbf{Purpose of test data}
+    \\ \hline
+
+    & & \\
+
+    ABC & \hrulefill & \hrulefill \\
+
+    & & \\ \hline
+
+    & & \\
+
+    \hrulefill & Boundary & \hrulefill \\
+
+    & & \\ \hline
+
+    & & \\
+
+    \hrulefill & \hrulefill & to make sure that the program accepts data \\
+
+    & & that is an appropriate length \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'This pseudocode algorithm is intended to allow 1000 positive integers to
+    be input and stored in a one-dimensional (1D) array. The integers are added together
+    as they are input and the highest value is identified. At the end of the algorithm,
+    the highest number, the total and the average of the numbers are output.
+
+
+    \begin{alltt}
+
+    01 DECLARE Numbers : ARRAY[1:1000] OF INTEGER
+
+    02 DECLARE Highest : STRING
+
+    03 DECLARE Count : INTEGER
+
+    04 DECLARE Total : INTEGER
+
+    05 Highest <- 1500
+
+    06 Total <- 0
+
+    07 FOR Count <- 1 TO 1000
+
+    08     INPUT Numbers[Count]
+
+    09     Total <- Total + Count
+
+    10     IF Numbers[Count] > Total
+
+    11         THEN
+
+    12             Highest <- Numbers[Count]
+
+    13     ENDIF
+
+    14 NEXT Count
+
+    15 OUTPUT "The highest number is ", Highest
+
+    16 OUTPUT "The total is ", Total
+
+    17 OUTPUT "The average is ", Average / 1000
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Identify the line numbers of \textbf{five} errors in the pseudocode and
+      suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Write the pseudocode statement to output the average of the numbers, rounded
+      to \textbf{two} decimal places.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Explain how you could change the corrected algorithm so that it also finds
+      the smallest number that was input and outputs its value at the end.
+
+
+      Any code used must be fully explained.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: This flowchart represents an algorithm.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: "Complete the trace table for the input data:\n\nY, 7, S, 9, Y, 5, M, 12,\
+      \ Y, 25, D, 5, N, 10, A, 6\n\n\\begin{tabular}{|c|c|c|c|c|}\n\\hline\n\\textbf{Answer}\
+      \ & \\textbf{Value1} & \\textbf{Operator} & \\textbf{Value2} & \\textbf{OUTPUT}\
+      \ \\\\ \\hline\n &  &  &  &  \\\\ \\hline\n &  &  &  &  \\\\ \\hline\n &  &\
+      \  &  &  \\\\ \\hline\n &  &  &  &  \\\\ \\hline\n &  &  &  &  \\\\ \\hline\n\
+      \ &  &  &  &  \\\\ \\hline\n &  &  &  &  \\\\ \\hline\n &  &  &  &  \\\\ \\\
+      hline\n &  &  &  &  \\\\ \\hline\n &  &  &  &  \\\\ \\hline\n &  &  &  &  \\\
+      \\ \\hline\n &  &  &  &  \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of the algorithm on \textbf{page 6}.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: There are problems with the given algorithm. If the lower-case letter 'y'
+      is entered for \texttt{Answer}, the algorithm stops and if a lower-case letter
+      is entered for \texttt{Operator}, the algorithm gives an incorrect output.
+    answer_options: []
+    subquestions:
+    - number: 7ci
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain how you would change the algorithm to prevent the problems described.
+      answer_options: []
+      subquestions: []
+    - number: 7cii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify \textbf{one} more error related to inputs when the algorithm
+        is run.
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A database table, \texttt{MajorCity}, stores some details about a number
+    of cities from around the world.
+
+
+    \begin{tabular}{|c|c|c|c|c|c|}
+
+    \hline
+
+    \textbf{Code} & \textbf{City} & \textbf{Capital} & \textbf{Country} & \textbf{Continent}
+    & \textbf{Population} \\ \hline
+
+    ASY6 & Abu Dhabi & TRUE & United Arab Emirates & Asia & 1,566,999 \\ \hline
+
+    EUY3 & Amsterdam & TRUE & Netherlands & Europe & 1,174,025 \\ \hline
+
+    ASY1 & Beijing & TRUE & China & Asia & 21,766,214 \\ \hline
+
+    SAY1 & Buenos Aires & TRUE & Argentina & South America & 15,490,415 \\ \hline
+
+    AFY1 & Cairo & TRUE & Egypt & Africa & 22,183,200 \\ \hline
+
+    EUN1 & Frankfurt & FALSE & Germany & Europe & 796,437 \\ \hline
+
+    ASY3 & Jakarta & TRUE & Indonesia & Asia & 11,248,839 \\ \hline
+
+    ASN3 & Karachi & FALSE & Pakistan & Asia & 17,236,230 \\ \hline
+
+    ASY4 & Kuala Lumpur & TRUE & Malaysia & Asia & 8,621,724 \\ \hline
+
+    AFN2 & Lagos & FALSE & Nigeria & Africa & 15,945,912 \\ \hline
+
+    SAY2 & Lima & TRUE & Peru & South America & 11,206,000 \\ \hline
+
+    EUY1 & London & TRUE & UK & Europe & 9,648,110 \\ \hline
+
+    EUY4 & Madrid & TRUE & Spain & Europe & 6,751,374 \\ \hline
+
+    ASN2 & Mumbai & FALSE & India & Asia & 21,296,516 \\ \hline
+
+    NAN1 & New York City & FALSE & USA & North America & 7,888,121 \\ \hline
+
+    EUY2 & Paris & TRUE & France & Europe & 11,206,000 \\ \hline
+
+    ASN1 & Shanghai & FALSE & China & Asia & 29,210,808 \\ \hline
+
+    ASY5 & Singapore & TRUE & Singapore & Asia & 6,080,859 \\ \hline
+
+    AUN1 & Sydney & FALSE & Australia & Australia & 5,120,894 \\ \hline
+
+    ASY2 & Tokyo & TRUE & Japan & Asia & 37,194,104 \\ \hline
+
+    NAN2 & Toronto & FALSE & Canada & North America & 6,371,958 \\ \hline
+
+    EUN2 & Valencia & FALSE & Spain & Europe & 838,301 \\ \hline
+
+    SAN1 & Valencia & FALSE & Venezuela & South America & 1,983,445 \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State the number of fields and records in this database table.
+
+
+      Fields \hrulefill
+
+      Records \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify the field in the database table that is most suitable to be the
+      primary key \textbf{and} give \textbf{one} reason for your choice.
+
+
+      Primary key field \hrulefill
+
+
+      Reason \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give the output from the structured query language (SQL) statement:
+
+
+      \begin{alltt}
+
+      SELECT City, Country, Population
+
+      FROM MajorCity
+
+      WHERE Continent = "South America"
+
+      ORDER BY Population;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the SQL statement to list only the code, city, country and continent
+      of all the cities in the database table that are capital cities.
+
+
+      SELECT \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Consider this logic expression:
+
+
+    $$\mathbf{Z = (A \text{ NAND } B) \text{ XOR } (NOT (NOT } \mathbf{B \text{ NAND
+    } C))}$$'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Draw a logic circuit for this logic expression.
+
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+
+
+      Do \textbf{not} simplify the logic expression.'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table from the given logic expression.
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Z} \\ \hline
+
+      0 & 0 & 0 & \\ \hline
+
+      0 & 0 & 1 & \\ \hline
+
+      0 & 1 & 0 & \\ \hline
+
+      0 & 1 & 1 & \\ \hline
+
+      1 & 0 & 0 & \\ \hline
+
+      1 & 0 & 1 & \\ \hline
+
+      1 & 1 & 0 & \\ \hline
+
+      1 & 1 & 1 & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: "A sports club uses a six-character alphanumeric membership code to identify\
+    \ each member of the club.\n\nThe one-dimensional (1D) array \\texttt{MemberID[]}\
+    \ is used to store the unique membership codes for club members.\n\nThe two-dimensional\
+    \ (2D) array \\texttt{Name[]} is used to store the names of the club members.\
+    \ The first and last name of each member will be stored in separate array elements.\n\
+    \nThe system can store details for a maximum of 1000 members.\n\nThe position\
+    \ of any member's data is the same in both arrays. For example, the data in index\
+    \ 2 of \\texttt{MemberID[]} belongs to the member in index 2 of \\texttt{Name[]}\n\
+    \nThe variable \\texttt{NewID} is used to input a new membership code.\n\nWrite\
+    \ a program that meets the following requirements:\n\n\\begin{itemize}\n\\item\
+    \ Provide a menu that offers the choices: inputting a new member, outputting a\
+    \ list of membership codes and first and last names, or stopping.\n\\item Input\
+    \ and validate a response to the menu.\n\\item When inputting a new member, input\
+    \ a new membership code and check that it contains six characters:\n  \\begin{itemize}\n\
+    \  \\item If the new code is six characters, check it against all the previously\
+    \ stored membership codes to make sure it is unique.\n  \\item If the code is\
+    \ \\textbf{not} unique, a new code must be entered and checked.\n  \\item If the\
+    \ code is unique, it is stored in the first available space in the appropriate\
+    \ array and the new member is required to enter their first name and last name,\
+    \ which are also stored in the corresponding location of the appropriate array.\n\
+    \  \\end{itemize}\n\\item When outputting a list of membership codes and names,\
+    \ output for each member: their membership code, first name and last name.\n\\\
+    item The program will continue until the stop option on the menu is selected.\n\
+    \\end{itemize}\n\nYou must use pseudocode or program code \\textbf{and} add comments\
+    \ to explain how your code works.\n\nYou do \\textbf{not} need to declare any\
+    \ arrays, variables or constants; assume this has already been done.\n\nYou do\
+    \ \\textbf{not} need to initialise the data in the arrays.\n\nYou do need to initialise\
+    \ any variables or constants used if appropriate.\n\nAll inputs and outputs must\
+    \ contain suitable messages."
+  answer_options: []
+  subquestions: []

@@ -1,0 +1,61 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      The hash value is calculated from the key field using the formula: \texttt{Key MOD 200}
+
+      The function \texttt{CalculateHash()} takes a key field as a parameter and calculates and returns the hash value for the key field.
+
+      Write program code for \texttt{CalculateHash()}
+
+      \textbf{Save your program.}
+
+      \textbf{Copy and paste the program code into part 2(c) in the evidence document.}
+  - number: "2d"
+    type: short_answer
+    text: |
+      The procedure \texttt{InsertIntoHash()}:
+
+      \begin{itemize}
+      \item takes a record of type \texttt{NewRecord} as a parameter
+      \item uses \texttt{CalculateHash()} to calculate the hash value for the key field in the record
+      \item checks if the hash value index in \texttt{HashTable} currently stores an empty record
+        \begin{itemize}
+        \item if the index stores an empty record, store the parameter in this index
+        \item if the index does not store an empty record, store the parameter in \texttt{Spare}
+        \end{itemize}
+      \end{itemize}
+
+      You can assume there will always be enough space in \texttt{Spare} to store any collisions.
+
+      Write program code for \texttt{InsertIntoHash()}
+
+      \textbf{Save your program.}
+
+      \textbf{Copy and paste the program code into part 2(d) in the evidence document.}
+  - number: "2e"
+    type: short_answer
+    text: |
+      The text file \texttt{HashData.txt} stores up to 200 rows of data to be stored into the hash table. Each row contains three integer numbers separated by commas.
+
+      The first number is the key field, the second number is item 1 and the third number is item 2.
+
+      For example:
+
+      The first row in the text file contains: \texttt{646, 12, 568}
+
+      The key field is 646, item 1 is 12 and item 2 is 568
+
+      The procedure \texttt{CreateHashTable()}:
+
+      \begin{itemize}
+      \item opens the file \texttt{HashData.txt}
+      \item creates a record for each row of data in the file
+      \item calls \texttt{InsertIntoHash()} with each record.
+      \end{itemize}
+
+      Write program code for \texttt{CreateHashTable()}
+
+      \textbf{Save your program.}
+
+      \textbf{Copy and paste the program code into part 2(e) in the evidence document.}

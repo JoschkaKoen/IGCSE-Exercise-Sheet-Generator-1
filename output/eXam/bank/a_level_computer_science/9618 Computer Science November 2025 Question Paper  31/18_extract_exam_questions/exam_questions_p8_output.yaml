@@ -1,0 +1,34 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: ''
+  - number: "8a"
+    type: short_answer
+    text: |
+      Outline the purpose of lexical analysis during the compilation of a program.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Write the Reverse Polish Notation (RPN) for the given infix expression:
+
+      $(2 - 6) * (13 + 7) / 5$
+  - number: "8c"
+    type: short_answer
+    text: |
+      The RPN expression:
+
+      \texttt{d a b + * c a - /}
+
+      is to be evaluated, where:
+
+      $a = 6$, $b = 12$, $c = 15$ and $d = 5$.
+
+      Show the changing contents of the stack as the RPN expression is evaluated.
+
+      \begin{tabular}{ccccccccc}
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} \\
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} \\
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} \\
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} \\
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad}
+      \end{tabular}

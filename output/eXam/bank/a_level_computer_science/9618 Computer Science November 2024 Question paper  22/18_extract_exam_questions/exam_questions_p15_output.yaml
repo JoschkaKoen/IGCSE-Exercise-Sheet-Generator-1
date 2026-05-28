@@ -1,0 +1,42 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A coffee shop runs a computerised loyalty card system.
+
+      Customers are issued with a loyalty card with their name together with a unique customer ID.
+
+      Loyalty points are added to their card each time they spend money at the shop.
+
+      The following information is stored for each customer: ID, name, home address, email address, mobile phone number, date of birth, number of points, date of last visit and amount of money spent at last visit.
+
+      A new module will generate a personalised email message to each loyalty card customer who has not visited the coffee shop in the last three months. The message will include a unique voucher code which can be used to authorise a discount if the customer goes to the shop within the next two weeks.
+  - number: "7a"
+    type: short_answer
+    text: |
+      Identify \textbf{three} items of customer information that will be used by the new module \textbf{and} justify your choices.
+
+      Item 1 \hrulefill
+      Justification \hrulefill
+
+      Item 2 \hrulefill
+      Justification \hrulefill
+
+      Item 3 \hrulefill
+      Justification \hrulefill
+  - number: "7b"
+    type: short_answer
+    text: |
+      Identify the computational thinking skill that you needed to use to answer part (a).
+  - number: "7c"
+    type: short_answer
+    text: |
+      It is decided to adopt a formal program development life cycle model for the development of the new module.
+
+      The analysis of the new module is complete and the project moves on to the design stage. During this stage all the necessary algorithms and module designs will be defined.
+
+      State \textbf{three other} items that will be defined for the new module during the design stage.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

@@ -1,0 +1,53 @@
+[thinking]
+**Examining the Exam Page Structure**
+
+Okay, so the task is to transcribe page 10 of an exam paper, specifically the questions "2c", "2ci", "2cii", and "2ciii".  I need to make sure I map these stubs correctly to the content on the page, taking into account the formatting and question types.
+
+First, I had to clarify how the stubs map to the actual questions.  The page begins with (c)(i), but the stubs are just "2c," "2ci," etc.  Is "2c" a standalone instruction or a part of (c)(i)? The text provided indicates that "2c" corresponds to the first part of the instruction and subsequent parts belong to later entries.
+
+I've examined the layout and realized the first item might be:
+
+-   **"2c" (short_answer):**  It seems like I can extract the initial instructions related to setting up the experiment. This includes setting the bottle upright and indicating the definition of height h. The diagram reference (Fig. 2.5) should be included without including the image.
+-   **"2ci" (calculation):** The second part, which relates to measurement of h and t.
+-   **"2cii" (calculation):** Calculate acceleration a.
+-   **"2ciii" (short_answer):** Explain the number of significant figures in the acceleration.
+
+This breakdown adheres to the requirement of one entry per stub, ensuring the correct question type is applied. I had to verify that the visual cue of (c)(i) was used as the hint to determine the structure of question 2c, 2ci, 2cii and 2ciii. This seems like the most logical mapping.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      Stand the bottle upright on the bench.
+
+      The height of the water in the bottle is $h$, as shown in Fig. 2.5.
+  - number: "2ci"
+    type: calculation
+    text: |
+      Measure and record $h$.
+
+      $h = $ \hrulefill
+
+      The time for the bottle to roll distance $L$ on the rules is $t$.
+
+      Take measurements to determine $t$.
+
+      $t = $ \hrulefill
+  - number: "2cii"
+    type: calculation
+    text: |
+      A value for the acceleration $a$ of the bottle is given by
+
+      $$a = \frac{2L}{t^2}$$
+
+      Calculate $a$.
+
+      $a = $ \hrulefill
+  - number: "2ciii"
+    type: short_answer
+    text: |
+      Justify the number of significant figures that you have given for your value of $a$.

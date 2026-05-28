@@ -1,0 +1,13 @@
+questions:
+  - number: "10bii"
+    type: calculation
+    text: |
+      Determine, in terms of $T$, the time at which the two samples will have equal activities.
+
+      time = \hrulefill $T$
+  - number: "10c"
+    type: long_answer
+    text: |
+      A radiation detector is placed near to one of the samples in (b).
+
+      Explain why the count rate measured by the detector is less than the activity of the sample.

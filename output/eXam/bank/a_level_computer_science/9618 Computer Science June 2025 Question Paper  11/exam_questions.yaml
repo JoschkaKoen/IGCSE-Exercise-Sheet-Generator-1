@@ -1,0 +1,701 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the logic expressions for the following logic circuit.
+
+
+      X = \hrulefill
+
+      Y = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the truth table for the following logic circuit.
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{X} \\ \hline
+
+      0 & 0 & 0 & \\ \hline
+
+      0 & 0 & 1 & \\ \hline
+
+      0 & 1 & 0 & \\ \hline
+
+      0 & 1 & 1 & \\ \hline
+
+      1 & 0 & 0 & \\ \hline
+
+      1 & 0 & 1 & \\ \hline
+
+      1 & 1 & 0 & \\ \hline
+
+      1 & 1 & 1 & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Programmers in a software development company take part in live video conferences
+    to discuss their work.
+
+
+    The live video conferences take place using real-time bit streaming. The video
+    is compressed before it is transmitted.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Explain how data is transferred using real-time bit streaming.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: long_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Explain the reasons why a video is compressed before it is transmitted
+        using real-time bit streaming.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Identify whether the lossy or lossless compression method is more appropriate
+        for real-time bit streaming. Justify your answer.
+
+
+        Compression method \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: "The video conference is accessed over the internet.\n\nComplete the table\
+      \ by stating how modems \\textbf{and} dedicated lines are used when data is\
+      \ transmitted over the internet.\n\n\\begin{tabular}{|l|p{10cm}|}\n\\hline\n\
+      \\textbf{Hardware} & \\textbf{Use} \\\\ \\hline\nmodems & \\\\\n       & \\\\\
+      \ \\hline\ndedicated lines & \\\\\n                & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer stores images and text files.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'One of the images is a bitmapped image.
+
+
+      Complete the table by writing the answer for each statement.
+
+
+      \begin{tabular}{|p{5cm}|p{5cm}|}
+
+      \hline
+
+      \textbf{Statement} & \textbf{Answer} \\ \hline
+
+      the term for the smallest element that makes up an image & \\ \hline
+
+      the largest number of different colours that can be represented with a bit depth
+      of 8 bits & \\ \hline
+
+      the term for the dots per inch (dpi) when an image is displayed & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The text in the files is stored using the Unicode character set.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} advantages of using the Unicode character set instead
+        of using the ASCII character set.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The Unicode character ''❮'' has the binary value: 0010 0111 0110 1110
+
+
+        Convert the binary value for the character ''❮'' into denary.'
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The Unicode character ''⅀'' has the hexadecimal value 2140
+
+
+        Convert the hexadecimal code for the character ''⅀'' into denary.'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A shop installs a new system that allows users to purchase items without
+    going through a manual checkout.
+
+
+    The new system:
+
+    \begin{itemize}
+
+    \item identifies customers when they enter the shop and matches them to their
+    account
+
+    \item prevents a customer from walking through the automatic barriers if they
+    do not have an account
+
+    \item automatically detects the items that a customer has taken from a shelf and
+    charges these to the customer''s account.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The new system uses digital cameras and Artificial Intelligence (AI) to
+      identify the customers.
+
+
+      Explain how the new system uses AI to identify each customer.'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The new system uses sensors to identify the items taken from a shelf.
+
+
+      Identify \textbf{one} type of sensor that can be used in this new system.
+
+
+      State how the sensor can be used to identify the items taken from a shelf.
+
+
+      Sensor \hrulefill
+
+
+      Use \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A company builds and sells furniture to customers. The company stores data
+    about customers, their payment cards and their furniture orders in a database.
+
+
+    The database, \texttt{FURNITURE}, has the following tables:
+
+
+    \texttt{CUSTOMER}(\underline{CustomerID}, Name, Phone)
+
+
+    \texttt{CUSTOMER\_CARD\_DATA}(\underline{CardID}, CustomerID, CardType, CardNumber,
+    EndDate)
+
+
+    \texttt{ORDER}(\underline{OrderID}, CustomerID, TotalCost, Paid, OrderDate, Complete)
+
+
+    \texttt{ORDER\_ITEM}(\underline{OrderItemID}, OrderID, Type, Height, Width, Depth,
+    Details)
+
+
+    The primary keys are underlined in each table.
+
+
+    The attribute \texttt{Complete} in the table \texttt{ORDER} stores the Boolean
+    value \texttt{TRUE} if the order has been built and \texttt{FALSE} if the order
+    has not been built.'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Complete the entity-relationship (E-R) diagram for the database.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify one attribute in the table \texttt{CUSTOMER\_CARD\_DATA} that could
+      be a candidate key.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: "Identify \\textbf{two} tables in the database that contain one or more\
+      \ foreign keys.\nGive \\textbf{one} attribute that is a foreign key in each\
+      \ table.\n\n\\begin{tabular}{|c|c|c|}\n\\hline\n & \\textbf{Table} & \\textbf{Foreign\
+      \ key} \\\\ \\hline\n1 & & \\\\ \\hline\n2 & & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain the reasons why the data in the table \texttt{ORDER\_ITEM} cannot
+      be stored in the table \texttt{ORDER}
+    answer_options: []
+    subquestions: []
+  - number: 5e
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Write an Structured Query Language (SQL) script to output the customer
+      ID, the customer''s name and the total cost of the customer''s orders that have
+      not been paid.
+
+
+      The output of the total cost must have an appropriate title.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer is buying a new computer.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The programmer is considering the following two computers:
+
+
+      \begin{tabular}{|p{3cm}|p{8cm}|}
+
+      \hline
+
+      Computer 1 & Quad-core 2.2 GHz processor \newline 16-bit architecture \newline
+      1 GB Random Access Memory (RAM) \newline 500 GB magnetic hard disk \\ \hline
+
+      Computer 2 & Dual-core 3.8 GHz processor \newline 32-bit architecture \newline
+      2 GB RAM \newline 500 GB solid state drive (SSD) \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 6ai
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Computer 1 has a magnetic hard disk.
+
+
+        Complete the description of the principal operation of a magnetic hard disk
+        by writing the missing words.
+
+
+        The magnetic hard disk has one or more \underline{\hspace{1.5em}} that can
+        be magnetised. These are mounted on a \underline{\hspace{1.5em}} and rotate
+        at high speed.
+
+
+        A \underline{\hspace{1.5em}} is moved across the surface on an arm.
+
+
+        When data is read, the changes in the \underline{\hspace{1.5em}} produce a
+        change in the electric current.'
+      answer_options: []
+      subquestions: []
+    - number: 6aii
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The two computers have different amounts of RAM.
+
+
+        Explain how different amounts of RAM affect the performance of a computer.'
+      answer_options: []
+      subquestions: []
+    - number: 6aiii
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The two computers have different bus widths.
+
+
+        Explain how different bus widths affect the performance of a computer.'
+      answer_options: []
+      subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Both computers have an Operating System (OS).
+
+
+      Describe the purpose of an OS in a computer.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A banker stores personal data on their work computer.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The banker needs to transfer confidential data across the internet.
+
+
+      Identify and describe \textbf{one} method of restricting the risks posed by
+      an unauthorised person intercepting the data whilst it is being transferred
+      across the internet.
+
+
+      Method \hrulefill
+
+
+      Description'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The banker receives confidential data across the internet. The data includes
+      a digital signature.
+
+
+      Explain how a digital signature can make sure the data has \textbf{not} been
+      changed during transmission.'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: long_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The data that is transferred can also be verified using a checksum.
+
+
+      Explain how data can be verified using a checksum.'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The following table shows part of the instruction set for a processor. The
+    processor has two registers: the Accumulator (ACC) and an Index Register (IX).'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: '\begin{tabular}{|l|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+      \\ \cline{1-2}
+
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+
+      LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+
+      LDD & \texttt{<address>} & Direct addressing. Load the contents of the location
+      at the given address to ACC \\ \hline
+
+      LDI & \texttt{<address>} & Indirect addressing. The address to be used is at
+      the given address. Load the contents of this second address to ACC \\ \hline
+
+      INC & \texttt{<register>} & Add 1 to the contents of the register (ACC or IX)
+      \\ \hline
+
+      STO & \texttt{<address>} & Store the contents of ACC at the given address \\
+      \hline
+
+      ADD & \#n/Bn/\&n & Add the number n to the ACC \\ \hline
+
+      DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC
+      or IX) \\ \hline
+
+      JMP & \texttt{<address>} & Jump to the given address \\ \hline
+
+      CMP & \texttt{<address>} & Compare the contents of ACC with the contents of
+      \texttt{<address>} \\ \hline
+
+      JPE & \texttt{<address>} & Following a compare instruction, jump to \texttt{<address>}
+      if the compare was True \\ \hline
+
+      END & & Return control to the operating system \\ \hline
+
+      \end{tabular}
+
+
+      \begin{itemize}
+
+      \item ACC denotes Accumulator
+
+      \item \texttt{<address>} can be an absolute or a symbolic address
+
+      \item \# denotes a denary number, e.g. \#123
+
+      \item B denotes a binary number, e.g. B01001010
+
+      \item \& denotes a hexadecimal number, e.g. \&4A
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The table shows part of the instruction set for a processor. The processor
+      has one register: the Accumulator (ACC).
+
+
+      \begin{tabular}{|l|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+      \\ \cline{1-2}
+
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+
+      \texttt{AND} & \texttt{\#n/Bn/\&n} & Bitwise AND operation of the contents of
+      ACC with the operand \\ \hline
+
+      \texttt{AND} & \texttt{<address>} & Bitwise AND operation of the contents of
+      ACC with the contents of \texttt{<address>} \\ \hline
+
+      \texttt{XOR} & \texttt{\#n/Bn/\&n} & Bitwise XOR operation of the contents of
+      ACC with the operand \\ \hline
+
+      \texttt{XOR} & \texttt{<address>} & Bitwise XOR operation of the contents of
+      ACC with the contents of \texttt{<address>} \\ \hline
+
+      \texttt{OR} & \texttt{\#n/Bn/\&n} & Bitwise OR operation of the contents of
+      ACC with the operand \\ \hline
+
+      \texttt{OR} & \texttt{<address>} & Bitwise OR operation of the contents of ACC
+      with the contents of \texttt{<address>} \\ \hline
+
+      \texttt{LSL} & \texttt{\#n} & Bits in ACC are shifted logically n places to
+      the left. Zeros are introduced on the right-hand end \\ \hline
+
+      \texttt{LSR} & \texttt{\#n} & Bits in ACC are shifted logically n places to
+      the right. Zeros are introduced on the left-hand end \\ \hline
+
+      \multicolumn{3}{|l|}{\texttt{<address>} can be an absolute or symbolic address}
+      \\
+
+      \multicolumn{3}{|l|}{\# denotes a denary number, e.g. \#123} \\
+
+      \multicolumn{3}{|l|}{B denotes a binary number, e.g. B01001010} \\
+
+      \multicolumn{3}{|l|}{\& denotes a hexadecimal number, e.g. \&4A} \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Write the bit manipulation instruction that can be used to set the least
+        significant bit to 1 in an 8-bit register. All other bits must remain unchanged.
+
+
+        The instruction needs to work on a register that contains any 8-bit binary
+        number.'
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The ACC currently contains the following binary value.
+
+
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+        \hline
+
+        0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+
+        \hline
+
+        \end{tabular}
+
+
+        Write the result after the instruction \texttt{XOR \&FE} is run.
+
+
+        \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}'
+      answer_options: []
+      subquestions: []
+    - number: 8biii
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The ACC currently contains the following binary value.
+
+
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+        \hline
+
+        0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 \\
+
+        \hline
+
+        \end{tabular}
+
+
+        Write the result after the instruction \texttt{LSR \#5} is run.
+
+
+        \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}'
+      answer_options: []
+      subquestions: []

@@ -1,0 +1,36 @@
+[thinking]
+**Transcribing and Analyzing SQL Questions**
+
+Okay, here's what the user wants me to do: I need to pull out questions 6b and 6c from this document and provide a transcription of them. Seems straightforward enough. First, question 6b. Alright, the question asks me to write an SQL script to insert a new product into a table called `\texttt{PRODUCT}`. The information provided is the product ID (002323), the product name (‘Blue ball point 2mm’), quantity per box (50), cost per box ($5.00), and the supplier ID (SFX223). This is worth four marks.
+
+Next up, question 6c. This one's a bit more involved. It describes a table `\texttt{ORDER}` with a `\texttt{Collected}` attribute. This attribute stores a Boolean value – `\texttt{TRUE}` if an order has been collected and `\texttt{FALSE}` otherwise. The core of this question is to write an SQL script that returns the customer name for each customer who has uncollected orders. It also requires including the count of uncollected orders for each customer. The example output is formatted as a table, and they've shown me how it should look in the output. The example table output uses a `\begin{tabular}{|c|c|}` format, so I'll be sure to use that in the response too. The columns of the table are `\texttt{CustomerName}` and `\texttt{NotCollected}`. This is another four marks. I just need to make sure the transcription accurately reflects these details. Let's see if I can get these YAML definitions correct.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      A new product needs to be entered into the database. The product has the ID 002323, the product name ‘Blue ball point 2mm’, there are 50 in a box, the product costs $5.00 and the supplier has the ID SFX223.
+
+      Write a Structured Query Language (SQL) script to enter the new product into the table \texttt{PRODUCT}.
+  - number: "6c"
+    type: short_answer
+    text: |
+      The attribute \texttt{Collected} in the table \texttt{ORDER} stores the Boolean value \texttt{TRUE} if the order has been collected and \texttt{FALSE} if the order has not been collected.
+
+      Write an SQL script to return the customer name for each customer that has orders they have not collected. Include the number of orders each customer has not collected with an appropriate title.
+
+      An example output might be:
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{CustomerName} & \textbf{NotCollected} \\ \hline
+      Jack Wright & 2 \\ \hline
+      Lin Cho & 1 \\ \hline
+      Santaya Yui & 1 \\ \hline
+      \end{tabular}
+```

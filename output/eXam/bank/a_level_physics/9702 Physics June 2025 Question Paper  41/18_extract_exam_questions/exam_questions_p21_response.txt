@@ -1,0 +1,34 @@
+[thinking]
+**My Analysis of Question 10c**
+
+Okay, so the user wants me to extract and format question "10c" from this page. No problem, this should be straightforward. First, I need to verify that I'm looking at the correct question, and the stub confirms it's indeed "10c". Now, let's dissect the text.
+
+The core of the question seems to be about applying the Hubble constant, which is given as  `$2.3 \times 10^{-18} \text{ s}^{-1}$`. I see that the question requires me to use the answer from part **(b)(ii)** to calculate the distance of a star mentioned in **(b)**. It's a standard astrophysics calculation, which will likely involve velocity and the Hubble constant.
+
+Now, I need to format this properly. I need to strip the "(c)" prefix, that's easy enough. I will format the Hubble constant using LaTeX math formatting and use a block scalar for the text. I'll need to remember to correctly format the references to other parts of the question as `\textbf{(b)(ii)}` and `\textbf{(b)}`. And finally, the answer line is `distance = \hrulefill m`. Let's put that all together in a YAML format to make the output structured. Here's my resulting YAML:
+
+```yaml
+questions:
+  - number: "10c"
+    type: calculation
+    text: |
+      A value for the Hubble constant is $2.3 \times 10^{-18} \text{ s}^{-1}$.
+
+      Use your answer in \textbf{(b)(ii)} to determine the distance of the star in \textbf{(b)} from the Earth.
+
+      distance = \hrulefill \text{ m}
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "10c"
+    type: calculation
+    text: |
+      A value for the Hubble constant is $2.3 \times 10^{-18} \text{ s}^{-1}$.
+
+      Use your answer in \textbf{(b)(ii)} to determine the distance of the star in \textbf{(b)} from the Earth.
+
+      distance = \hrulefill \text{ m}

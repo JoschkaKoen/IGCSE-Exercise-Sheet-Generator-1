@@ -1,0 +1,66 @@
+[thinking]
+**Question 4: Time's Up!**
+
+Okay, so the user wants me to transcribe Question 4 from that exam paper. Let's get to it. First, I need to read the question carefully. Alright, it's about a global integer variable called `Tick`, which is incremented every millisecond. The value is read-only, which makes sense. No overflow worries either, which is a key assumption.
+
+Now, there's some example pseudocode to illustrate the usage of `Tick`. It shows how to measure a 40-second interval using a `Start` variable to capture the initial value of `Tick` and then waiting until `Tick` has increased by 40,000 milliseconds (40 seconds). Wait, the OCR is wrong! I need to correct that. It's an assignment, not a comparison. I'll make sure the `Start <- Tick` is in the code.
+
+The core of the question seems to be designing a timing program. It needs a `Timer()` procedure that takes minutes and seconds as input, calculates the elapsed time based on `Tick`, and provides warnings at specified intervals. Specifically, it should output a warning 30 seconds before the total time and then a final message when the time is up. They provide a `CALL Timer(5, 45)` example which helps to understand the expected behavior, printing a "30 seconds to go" warning, and finally, "The time is up!" message.
+
+Okay, I think I've got the essence of it. Let's make sure this is formatted correctly for the user. I'll get this transcribed accurately, paying attention to the details of the pseudocode and the requirements of the `Timer()` procedure.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: long_answer
+    text: |
+      A global integer variable \texttt{Tick} is always incremented every millisecond (1000 times per second) regardless of the other programs running.
+
+      The value of \texttt{Tick} can be read by any program but the value should not be changed.
+
+      Assume that the value of \texttt{Tick} does not overflow.
+
+      As an example, the following pseudocode algorithm would output "Goodbye" 40 seconds after outputting "Hello".
+
+      \begin{alltt}
+      DECLARE Start : INTEGER
+
+      OUTPUT "Hello"
+      Start <- Tick
+
+      REPEAT
+        //do nothing
+      UNTIL Tick = Start + 40000
+
+      OUTPUT "Goodbye"
+      \end{alltt}
+
+      A program is needed to help a user to time an event such as boiling an egg.
+
+      The time taken for the event is known as the elapsed time.
+
+      The program contains a procedure \texttt{Timer()} which will:
+
+      \begin{itemize}
+      \item take two integer values representing an elapsed time in minutes and seconds
+      \item use the value of variable \texttt{Tick} to calculate the elapsed time
+      \item output a warning message 30 seconds before the elapsed time is up
+      \item output a final message when the total time has elapsed.
+      \end{itemize}
+
+      For example, to set an alarm for 5 minutes and 45 seconds the program makes the following call:
+
+      \begin{alltt}
+      CALL Timer(5, 45)
+      \end{alltt}
+
+      When 5 minutes and 15 seconds have elapsed, the program will output:
+
+      "30 seconds to go"
+
+      When 5 minutes and 45 seconds have elapsed, the program will output:
+
+      "The time is up!"

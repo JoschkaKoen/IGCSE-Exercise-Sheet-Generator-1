@@ -1,0 +1,30 @@
+[thinking]
+**Processing Question 7c**
+
+Okay, so the user wants me to extract and format question 7c from this document. Let's see... looking at the page, I can see that this is a subquestion denoted by the `(c)` prefix. Right, I need to strip that prefix for the final formatted output. The actual text of the question is, "The data that is transferred can also be verified using a checksum. Explain how data can be verified using a checksum." Seems straightforward enough. The following line indicates the marks awarded are `[3]` which is vital to keep track of, as is the type, a `long_answer` question, indicated by the dotted lines which suggest a longer response is required. No markers on the writing space here, so it's a completely open-ended response.
+
+Now, let's assemble this into the correct YAML structure. I'll need to create a `questions` section, and then a dictionary with the question details. I'll need a `number` field (7c), a `type` field (`long_answer`), and the main `text` field, which will contain the question itself and any supplementary text from the following lines. That format is now prepared.
+```yaml
+questions:
+  - number: "7c"
+    type: long_answer
+    text: |
+      The data that is transferred can also be verified using a checksum.
+
+      Explain how data can be verified using a checksum.
+```
+That should be perfect. I've correctly extracted and formatted the question, ready for output.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7c"
+    type: long_answer
+    text: |
+      The data that is transferred can also be verified using a checksum.
+
+      Explain how data can be verified using a checksum.
+```

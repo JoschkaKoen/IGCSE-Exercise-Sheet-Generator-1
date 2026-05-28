@@ -1,0 +1,597 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define acceleration.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'In an experiment, two objects A and B are released from the side of a building,
+      as shown in Fig. 1.1.
+
+
+      Object A is released from rest at a height of $14\text{ m}$ above the horizontal
+      ground.
+
+      Object B is released with an initial upwards vertical velocity $u$ at a height
+      of $3.6\text{ m}$ above the ground.
+
+      Both objects take the same time to reach the ground and they do not collide
+      with each other.
+
+      Air resistance is negligible.'
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the time taken for object A to reach the ground.
+
+
+        time = \hrulefill s'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Use your answer in (b)(i) to calculate $u$.
+
+
+        u = \hrulefill \text{ m}\,\text{s}^{-1}'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: In a second experiment, object B is released from the same height and given
+      the same initial speed as in (b) but at a release angle $\theta$ to the vertical,
+      as shown in Fig. 1.2.
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: State and explain whether the time taken for object B to reach the ground
+        is less than, the same as or greater than the time in (b)(i).
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: By considering energy, state and explain the effect of the change in release
+        angle on the speed at which B reaches the ground.
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State the principle of moments.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Three objects A, B and C are placed on a horizontal beam. The beam is in
+      equilibrium, as shown in Fig. 2.1.
+
+
+      The beam is uniform and has length $6.0\text{ m}$.
+
+      The pivot is at the midpoint of the beam.
+
+      Object A has mass $60\text{ kg}$ and is at one end of the beam.
+
+      Object B has mass $45\text{ kg}$ and is at a distance $x$ from the pivot.
+
+      Object C has mass $80\text{ kg}$ and is at the other end of the beam.
+
+
+      Calculate $x$.
+
+
+      $x = \hrulefill \text{ m}$'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The beam is $0.80\text{ m}$ above horizontal ground.
+
+
+      Object A is removed and replaced by a spring connected to the ground and the
+      beam, as shown in Fig. 2.2.
+
+
+      After the change, the beam is again horizontal and in equilibrium. The positions
+      of B and C are unchanged.
+
+
+      The spring has an unstretched length of $0.59\text{ m}$ and obeys Hooke’s law.'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Calculate the spring constant of the spring.
+
+
+        spring constant = \hrulefill $\text{N}\,\text{m}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the elastic potential energy of the spring.
+
+
+        elastic potential energy = \hrulefill $\text{J}$'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define power.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'An electric car is powered by a motor. The car is travelling at a constant
+      speed of $35\text{ m}\,\text{s}^{-1}$ along a straight horizontal road, as shown
+      in Fig. 3.1.
+
+
+      There is a total resistive force of $1750\text{ N}$ acting on the car.'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the power transmitted to the wheels of the car by the motor.
+
+
+        $\text{power} = \hrulefill \text{ W}$'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the useful work done by the motor when the car travels a distance
+        of $17\text{ km}$.
+
+
+        $\text{work done} = \hrulefill \text{ J}$'
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The potential difference (p.d.) across the motor has a constant value
+        of $600\text{ V}$ and the motor has an efficiency of $85\%$.
+
+
+        Calculate the current in the motor.
+
+
+        current = \hrulefill\text{ A}'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The car in \textbf{(b)} now reaches a slope, as shown in Fig. 3.2.
+
+
+      The car continues down the slope at the same speed as in \textbf{(b)}.
+
+
+      State and explain the effect, if any, of the slope on:'
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: long_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: the air resistance acting on the car
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: long_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: the current in the motor.
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State the principle of superposition.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Light of wavelength $7.2 \times 10^{-7} \text{ m}$ is incident normally
+      on a double slit, as shown in Fig. 4.1.
+
+
+      A screen is at a distance $D$ from the double slit. The double slit and the
+      screen are parallel.
+
+
+      The separation of the slits in the double-slit arrangement is $0.16 \text{ mm}$.
+      The resulting interference pattern on the screen contains nine dark fringes,
+      as shown in Fig. 4.2.'
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The distance between the centres of the first and ninth dark fringes
+        is $3.2\text{ cm}$.
+
+
+        Calculate $D$.
+
+
+        $D = \hrulefill \text{ m}$'
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The slit separation is now gradually decreased from $0.16\text{ mm}$
+        to $0.04\text{ mm}$. The distance between the centres of adjacent dark fringes
+        is $x$.
+
+
+        On Fig. 4.3, sketch the variation of $x$ with slit separation.'
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Use the definitions of speed $v$, frequency $f$ and wavelength $\lambda$
+      to derive the wave equation
+
+
+      $$v = f\lambda.$$'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A source of sound waves of frequency $236\text{ Hz}$ is travelling at a
+      constant velocity of $20\text{ m}\,\text{s}^{-1}$.
+
+
+      A stationary observer has a microphone connected to a cathode-ray oscilloscope
+      (CRO). The microphone detects the sound waves as the source moves directly towards
+      the observer.
+
+
+      The resulting trace on the CRO is shown in Fig. 5.1.
+
+
+      Fig. 5.1
+
+
+      The time-base on the CRO is set to $1.0\text{ ms}\,\text{div}^{-1}$.'
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the frequency of the sound waves detected by the microphone.
+
+
+        frequency = \hrulefill Hz'
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the speed of the sound in air.
+
+
+        speed of sound = \hrulefill $\text{ms}^{-1}$'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A nichrome wire X of length $45\text{ cm}$ and cross-sectional area $4.7
+    \times 10^{-7}\text{ m}^2$ is connected into the circuit shown in Fig. 6.1.
+
+
+    The resistance of X is $1.1\ \Omega$. The cell has electromotive force (e.m.f.)
+    $1.3\text{ V}$ and negligible internal resistance.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 6ai
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate the current in X.
+
+
+        current = \hrulefill A'
+      answer_options: []
+      subquestions: []
+    - number: 6aii
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The number density of charge carriers (electrons) in nichrome is $8.5
+        \times 10^{28}\text{ m}^{-3}$.
+
+
+        Calculate the average drift speed of the charge carriers in X.
+
+
+        average drift speed = \hrulefill $\text{ms}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 6aiii
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Calculate the resistivity of the nichrome.
+
+
+        resistivity = \hrulefill $\Omega\text{m}$'
+      answer_options: []
+      subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Wire Y is identical to wire X. Wire Y is added to the circuit in parallel
+      with wire X, as shown in Fig. 6.2.
+
+
+      State and explain the effect, if any, of this change on:'
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: long_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: the reading on the ammeter
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: long_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: the average drift speed of the charge carriers in X.
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Nitrogen-12 ($^{12}_{7}\text{N}$) is an unstable isotope of nitrogen that
+      decays by the emission of radiation to carbon-12 ($^{12}_{6}\text{C}$).
+
+
+      Complete the full nuclear equation for the decay, including all the particles
+      involved.
+
+
+      $$^{12}_{7}\text{N} \rightarrow$$'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Hydrogen-1 ($^{1}_{1}\text{H}$) is an isotope of hydrogen. An atom of hydrogen-1
+      comprises a proton with an orbiting electron.
+
+
+      An antiparticle equivalent of hydrogen-1 comprises an antiproton with an orbiting
+      positron. The antiquarks in the antiproton are the antiparticles of the quarks
+      in a proton.'
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'State the charge on the positron in terms of the elementary charge $e$.
+
+
+        charge = \hrulefill $e$'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the group (class) of fundamental particle to which the positron
+        belongs.
+      answer_options: []
+      subquestions: []
+    - number: 7biii
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: "In Table 7.1, state the flavour and charge of the three antiquarks that\
+        \ comprise the antiproton.\n\n\\textbf{Table 7.1}\n\n\\begin{tabular}{|c|c|}\n\
+        \\hline\nflavour & charge/$e$ \\\\ \\hline\n & \\\\ \\hline\n & \\\\ \\hline\n\
+        \ & \\\\ \\hline\n\\end{tabular}"
+      answer_options: []
+      subquestions: []

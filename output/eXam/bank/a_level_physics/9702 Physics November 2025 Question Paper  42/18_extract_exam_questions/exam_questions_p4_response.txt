@@ -1,0 +1,63 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 4**
+
+Alright, let's get this exam page structured properly. The user wants me to populate the YAML stub for page 4, which includes four questions: "1", "1a", "1ai", and "1aii". Seems straightforward enough. First, I'll go through the text and extract the content for each question.
+
+Question "1" is a simple statement about the Earth's radius, so I'll create a YAML entry with that text. For "1a", I need to include the descriptive text about Cambridge's location and its circular motion. I'll make sure to get all of that. "1ai" is a calculation where the radius is given to show, and "1aii" is a direct calculation of the speed.
+
+Now to structure the YAML. The base structure is already there: it outlines `number`, `type` and `text`. I'll fill in the `text` fields with the extracted content for each question. I'll use multiline strings with `|` for the text content to make it readable, and preserve any LaTeX formatting.
+
+I need to make sure to pay attention to the LaTeX formatting. The unit for the speed should be `m\,s^{-1}` and not just `ms^{-1}`.
+
+Let's do a quick review, I've got the questions populated in the correct `type` with the correct `number`. The `text` contents look great. I'm all set.
+
+Here's the final YAML:
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The Earth may be considered as a uniform sphere of radius $6.37 \times 10^6\text{ m}$.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Cambridge is at a point on the Earth’s surface that has a latitude of $52.2^\circ$ north of the Equator, as shown in Fig. 1.1.
+
+      As the Earth spins on its axis, Cambridge moves in a circle that is parallel to the Equator but with a smaller radius.
+  - number: "1ai"
+    type: calculation
+    text: |
+      Show that the radius of the circle around which Cambridge moves is $3.90 \times 10^6\text{ m}$.
+  - number: "1aii"
+    type: calculation
+    text: |
+      Calculate the speed at which Cambridge moves around the circle.
+
+      $\text{speed} = \hrulefill \text{ m}\,\text{s}^{-1}$
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The Earth may be considered as a uniform sphere of radius $6.37 \times 10^6\text{ m}$.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Cambridge is at a point on the Earth’s surface that has a latitude of $52.2^\circ$ north of the Equator, as shown in Fig. 1.1.
+
+      As the Earth spins on its axis, Cambridge moves in a circle that is parallel to the Equator but with a smaller radius.
+  - number: "1ai"
+    type: calculation
+    text: |
+      Show that the radius of the circle around which Cambridge moves is $3.90 \times 10^6\text{ m}$.
+  - number: "1aii"
+    type: calculation
+    text: |
+      Calculate the speed at which Cambridge moves around the circle.
+
+      $\text{speed} = \hrulefill \text{ m}\,\text{s}^{-1}$

@@ -1,0 +1,37 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      An input must be an integer between 10 and 95, inclusive.
+  - number: "4a"
+    type: short_answer
+    text: |
+      An input must be an integer between 10 and 95, inclusive.
+  - number: "4ai"
+    type: short_answer
+    text: |
+      State the type of validation check to test if the input meets this requirement.
+  - number: "4aii"
+    type: short_answer
+    text: |
+      Suggest suitable abnormal and extreme test data for an integer between 10 and 95 inclusive, and give a reason for each of your choices.
+
+      Abnormal test data \hrulefill
+      Reason \hrulefill
+
+      Extreme test data \hrulefill
+      Reason \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      A password system requires all new passwords to contain at least 12 characters.
+  - number: "4bi"
+    type: short_answer
+    text: |
+      State the type of validation check to test that the password meets this requirement.
+  - number: "4bii"
+    type: long_answer
+    text: |
+      Write the pseudocode to allow a new password to be entered and to ensure that it contains at least 12 characters. The password is re-input until it meets this requirement. Use an appropriate error message for inputs that do not \textbf{not} meet the requirement.
+
+      You do \textbf{not} need to declare any variables for this algorithm.

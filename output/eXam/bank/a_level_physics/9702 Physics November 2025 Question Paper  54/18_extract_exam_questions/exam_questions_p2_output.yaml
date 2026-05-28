@@ -1,0 +1,35 @@
+questions:
+  - number: "1"
+    type: long_answer
+    text: |
+      Fig. 1.1 shows a horizontal turntable.
+
+      Point C is at the centre of the turntable. Point P is a distance $r$ from the centre.
+
+      Fig. 1.2 shows a side view of a d.c. motor attached to the turntable with a belt.
+
+      The motor is used to rotate the turntable at frequency $f_0$. The motor is switched off and the turntable continues to rotate at frequency $f_0$.
+
+      A sphere of adhesive putty of mass $m$ is dropped onto the turntable at point P. The frequency of the turntable is now $f$.
+
+      It is suggested that $f$ is related to $m$ by the relationship
+
+      $$\frac{Kf_0}{f} = \beta K + mr^2$$
+
+      where $\beta$ and $K$ are constants.
+
+      Plan a laboratory experiment to test the relationship between $f$ and $m$.
+
+      Draw a diagram showing the arrangement of your equipment.
+
+      Explain how the results could be used to determine values for $\beta$ and $K$.
+
+      In your plan you should include:
+
+      \begin{itemize}
+      \item the procedure to be followed
+      \item the measurements to be taken
+      \item the control of variables
+      \item the analysis of the data
+      \item any safety precautions to be taken.
+      \end{itemize}

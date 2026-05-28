@@ -1,0 +1,61 @@
+[thinking]
+**Exam Paper Page 2 Analysis**
+
+Okay, so I'm being asked to transcribe page 2 of this exam paper. Let's break down what we have here. The structure of the questions is a little unconventional, which is interesting.
+
+First, there's Question 1 – a straightforward multiple-choice question on verification checks. The options are standard, testing the candidate's understanding of why verification is applied. Choice C is the correct answer; verification is done to ensure no errors have been introduced during input.
+
+Then comes Question 2, which seems a bit more involved. The prompt is broken down into `2`, `2a`, `2ai`, `2aii`, and `2b`. Initially, it looks like `2` might be an introductory stem for the entire section, but on closer inspection, it seems to be more of a parent to the other sub-questions. There's no separate text for the overarching "2" prompt; it jumps straight into "2 (a)." It seems the question directly under "2" is "2 (a)".
+
+Therefore, `text: ''` seems the most appropriate for "2".
+
+The text for "2a" is "Identify the type of validation check in each description. Each check must be different." The child questions, "2ai", "2aii", and "2b" are as follows:
+- "2ai" is, "A check to make sure that data input follows a set pattern such as two letters followed by three numbers."
+- "2aii" is, "A check to make sure that only whole numbers can be input."
+- "2b" is, "Explain the reasons why validation checks are necessary when data is input."
+
+I've made sure to clarify the text for each part of Question 2, including the parent.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to identify the reason for applying a verification check to input data.
+    options:
+      - letter: A
+        text: |
+          To make sure that all the data is in the correct range.
+      - letter: B
+        text: |
+          To make sure that all the data is accurate.
+      - letter: C
+        text: |
+          To make sure that no errors have been introduced during input.
+      - letter: D
+        text: |
+          To make sure that all the data is of the correct length.
+  - number: "2"
+    type: short_answer
+    text: ''
+  - number: "2a"
+    type: short_answer
+    text: |
+      Identify the type of validation check in each description. Each check must be different.
+  - number: "2ai"
+    type: short_answer
+    text: |
+      A check to make sure that data input follows a set pattern such as two letters followed by three numbers.
+  - number: "2aii"
+    type: short_answer
+    text: |
+      A check to make sure that only whole numbers can be input.
+  - number: "2b"
+    type: short_answer
+    text: |
+      Explain the reasons why validation checks are necessary when data is input.
+```

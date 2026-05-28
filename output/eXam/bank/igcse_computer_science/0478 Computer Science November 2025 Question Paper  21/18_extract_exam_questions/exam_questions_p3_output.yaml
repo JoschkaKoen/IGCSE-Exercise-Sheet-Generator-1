@@ -1,0 +1,25 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A restaurant offers a fixed priced menu. A meal for an adult costs $9.99 and a meal for a child costs $6.99.
+
+      If there are 6 or more people at a table, a 15% discount is applied to the total cost of the order.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Write an algorithm in pseudocode to:
+
+      \begin{itemize}
+      \item input the number of adults and the number of children at a table
+      \item calculate the total cost of the order with the discount, if this applies
+      \item output the final cost of the order.
+      \end{itemize}
+  - number: "4b"
+    type: short_answer
+    text: |
+      The final cost of the order after the discount may have more than 2 decimal places.
+
+      Write a pseudocode statement to set the final cost of the order to 2 decimal places. You do \textbf{not} need to rewrite the whole algorithm.
+```

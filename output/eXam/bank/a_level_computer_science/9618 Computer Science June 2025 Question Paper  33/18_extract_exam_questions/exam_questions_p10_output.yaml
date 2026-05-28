@@ -1,0 +1,9 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      Several syntax diagrams are shown.
+  - number: "9a"
+    type: short_answer
+    text: |
+      State why \texttt{JJ90} is not a valid passcode for the given syntax diagrams.

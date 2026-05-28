@@ -1,0 +1,52 @@
+```yaml
+questions:
+  - number: "8a"
+    type: short_answer
+    text: |
+      The current contents of memory are shown:
+
+      \begin{tabular}{r|l|}
+      \multicolumn{1}{c}{\textbf{Address}} & \multicolumn{1}{c}{\textbf{Data}} \\
+      \cline{2-2}
+      19 & 25 \\
+      \cline{2-2}
+      20 & 23 \\
+      \cline{2-2}
+      21 & 2 \\
+      \cline{2-2}
+      22 & 4 \\
+      \cline{2-2}
+      23 & 15 \\
+      \cline{2-2}
+      24 & 50 \\
+      \cline{2-2}
+      25 & 22 \\
+      \cline{2-2}
+      \end{tabular}
+
+      The current contents of the ACC and IX are shown:
+
+      \begin{tabular}{r|l|}
+      \cline{2-2}
+      \textbf{ACC} & 50 \\
+      \cline{2-2}
+      \textbf{IX} & 20 \\
+      \cline{2-2}
+      \end{tabular}
+
+      Complete the table by writing the content of the ACC and the IX after each set of instructions has run.
+
+      \begin{tabular}{|c|l|p{4cm}|p{4cm}|}
+      \hline
+      & \textbf{Instructions} & \centering\textbf{ACC content} & \centering\textbf{IX content} \tabularnewline
+      \hline
+      \textbf{1} & \begin{tabular}[c]{@{}l@{}}\texttt{LDM \#19}\\\texttt{DEC ACC}\end{tabular} & & \tabularnewline
+      \hline
+      \textbf{2} & \begin{tabular}[c]{@{}l@{}}\texttt{LDD 23}\\\texttt{ADD 19}\end{tabular} & & \tabularnewline
+      \hline
+      \textbf{3} & \begin{tabular}[c]{@{}l@{}}\texttt{LDI 25}\\\texttt{INC ACC}\end{tabular} & & \tabularnewline
+      \hline
+      \textbf{4} & \begin{tabular}[c]{@{}l@{}}\texttt{LDR \#21}\\\texttt{LDX 2}\end{tabular} & & \tabularnewline
+      \hline
+      \end{tabular}
+```

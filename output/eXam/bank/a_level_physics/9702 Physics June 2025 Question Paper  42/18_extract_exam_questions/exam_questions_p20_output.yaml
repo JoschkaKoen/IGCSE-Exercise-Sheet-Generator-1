@@ -1,0 +1,18 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      State what is meant by the photoelectric effect.
+  - number: "9b"
+    type: short_answer
+    text: |
+      The photoelectric effect is investigated in two stages using the circuit shown in Fig. 9.1.
+
+      The polished metal plate Y is illuminated with electromagnetic radiation of frequency $f$ and constant power.
+
+      In stage 1 of the investigation, frequency $f$ is set to a constant value of $2.5 \times 10^{15}\text{ Hz}$. The current $I$ in the ammeter is varied by adjusting the potentiometer P. Fig. 9.2 shows the variation of $I$ with the voltmeter reading $V$. There is a value $V_{\text{S}}$ of $V$ at which the current just falls to zero.
+
+      In stage 2 of the investigation, stage 1 is repeated for different values of frequency. As frequency $f$ is varied, the voltmeter reading $V_{\text{S}}$ at which the current just falls to zero is measured. Fig. 9.3 shows the variation of $V_{\text{S}}$ with $f$.

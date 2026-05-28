@@ -1,0 +1,51 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Data types can be defined using pseudocode.
+
+      The composite record data type, \texttt{Departure}, is used to represent flights from Cambridge Airport and is defined in pseudocode as:
+
+      \begin{alltt}
+      TYPE Departure
+        DECLARE FlightNumber : STRING
+        DECLARE Destination : STRING
+        DECLARE FlightDate : DATE
+        DECLARE Gate : STRING
+        DECLARE Airline : STRING
+      ENDTYPE
+      \end{alltt}
+
+      A variable, \texttt{Flight1}, is declared in pseudocode as:
+
+      \begin{alltt}
+      DECLARE Flight1 : Departure
+      \end{alltt}
+  - number: "1a"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} to store the following details to \texttt{Flight1}:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Field} & \textbf{Data} \\ \hline
+      \texttt{FlightNumber} & SB2789 \\ \hline
+      \texttt{Destination} & Dublin \\ \hline
+      \texttt{FlightDate} & 30/07/2025 \\ \hline
+      \texttt{Gate} & N03 \\ \hline
+      \texttt{Airline} & Cambridge Airways \\ \hline
+      \end{tabular}
+  - number: "1b"
+    type: short_answer
+    text: |
+      The data type for \texttt{Gate} is changed to an enumerated data type, \texttt{GateID}.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Write a \textbf{pseudocode} statement to declare \texttt{GateID} to hold the identity codes for the airport gates:
+
+      N01, N02, N03, W01, W02, W03, W04
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Write the new \textbf{pseudocode} statement required to replace the declaration of \texttt{Gate} in \texttt{Departure}.

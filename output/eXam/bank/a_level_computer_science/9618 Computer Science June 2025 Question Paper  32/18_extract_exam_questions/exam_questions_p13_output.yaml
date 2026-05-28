@@ -1,0 +1,57 @@
+```yaml
+questions:
+  - number: "12b"
+    type: short_answer
+    text: ''
+  - number: "12bi"
+    type: short_answer
+    text: |
+      Identify the object-oriented programming (OOP) term described as ‘an occurrence of an object’.
+  - number: "12bii"
+    type: short_answer
+    text: |
+      Describe what is meant by the OOP term \textbf{polymorphism}.
+  - number: "13"
+    type: short_answer
+    text: |
+      The pseudocode algorithm below uses random file access to copy 50 records from a live file \texttt{CurrentResults.dat} to a stored file \texttt{StoredResults.dat} one record at a time. It uses the user-defined type \texttt{StudentResult}.
+
+      \begin{alltt}
+      TYPE StudentResult
+        DECLARE LastName : STRING
+        DECLARE FirstName : STRING
+        DECLARE ExamGrade : STRING
+      ENDTYPE
+      \end{alltt}
+
+      If any grades are missing in \texttt{CurrentResults.dat}, the text \texttt{"Missing grade"} is added to the \texttt{ExamGrade} field in \texttt{StoredResults.dat}
+
+      Complete this file handling pseudocode algorithm.
+
+      \begin{alltt}
+      DECLARE Grade : StudentResult
+      DECLARE Position : INTEGER
+
+      \hrulefill
+
+      OPENFILE "StoredResults.dat" FOR RANDOM
+
+      \hrulefill
+
+        SEEK "CurrentResults.dat", Position
+        GETRECORD "CurrentResults.dat", Grade
+        IF Grade.ExamGrade = "" THEN
+
+      \hrulefill
+
+        ENDIF
+
+      \hrulefill
+
+      \hrulefill
+
+      NEXT Position
+      CLOSEFILE "CurrentResults.dat"
+      CLOSEFILE "StoredResults.dat"
+      \end{alltt}
+```

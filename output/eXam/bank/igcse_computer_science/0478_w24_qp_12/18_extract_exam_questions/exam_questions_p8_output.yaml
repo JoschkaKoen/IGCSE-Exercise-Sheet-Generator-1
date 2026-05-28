@@ -1,0 +1,26 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A student enters the uniform resource locator (URL) for a web page into their tablet computer.
+  - number: "7a"
+    type: short_answer
+    text: |
+      State what is meant by a URL.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Identify \textbf{two} different parts of a URL.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7c"
+    type: short_answer
+    text: |
+      The student enters the URL into a piece of software that then displays the web page.
+
+      Identify the name of this software.
+  - number: "7d"
+    type: long_answer
+    text: |
+      Draw and annotate a diagram to show how the web page is located and retrieved to be displayed on the student's tablet computer.

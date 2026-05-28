@@ -1,0 +1,28 @@
+[thinking]
+**Exam Page 7 Transcription**
+
+Okay, so I need to transcribe page 7 of this exam. The user's asked for a very precise rendering of the questions. Let's see, it's a mix of short and long answer questions. I've got to be careful with the formatting, especially the YAML, to make sure it's structured correctly.
+
+First, I have question `3b`, which is a short answer question asking for an explanation of two data transmission methods. Then, within that, I see `3bi`, which is *Serial full-duplex*, and `3bii`, *Parallel half-duplex*. I'll need to remember to remove those initial `(i)` and `(ii)` prefixes from the actual text of `3bi` and `3bii`.
+
+I think I have the YAML structure figured out. For the main question (`3b`), I'll use a `short_answer` type and include the introductory text within the `text` field. The sub-questions (`3bi` and `3bii`) will be `long_answer` types. I need to make sure I'm using block scalars for the text, with the necessary line breaks. I'll make sure to double-check my use of quotes, or lack thereof, within the YAML. I think I've got this now. Let's build the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      Packets can be sent across a network using different methods of data transmission.
+
+      Explain how data is transmitted in the \textbf{two} given methods of data transmission.
+  - number: "3bi"
+    type: long_answer
+    text: |
+      Serial full-duplex
+  - number: "3bii"
+    type: long_answer
+    text: |
+      Parallel half-duplex

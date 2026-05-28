@@ -1,0 +1,83 @@
+[thinking]
+**My Analysis of Exam Question Page 8**
+
+Okay, here's how I'm approaching this. First, I need to understand the request. The input is page 8 of an exam paper. I need to extract and format questions "4" and "4a" into a YAML structure, which will include `number`, `type`, and `text` fields. If they are multiple choice, I will include an `options` field as well.
+
+Let's start with question "4." It's a `short_answer` type, asking me to study an algorithm presented as pseudocode. Right, I know I need to wrap that pseudocode within `\begin{alltt}...\end{alltt}` to format it correctly for LaTeX. I'm going to carefully transcribe the pseudocode, paying close attention to the assignment arrows, confirming they are left arrows: `<-`. I'll present it exactly as it appears in the image. So, let's write:
+```latex
+Study the algorithm:
+
+\begin{alltt}
+DECLARE Chars : ARRAY[1:4] OF CHAR
+DECLARE I, J : INTEGER
+DECLARE Key : CHAR
+I <- 2
+Chars[1] <- 'D'
+Chars[2] <- 'T'
+Chars[3] <- 'H'
+Chars[4] <- 'R'
+WHILE I <= 4                                //Outer loop
+    Key <- Chars[I]
+    J <- I - 1
+    WHILE J >= 0 AND Chars[J] > Key         //Inner loop
+        Chars[J + 1] <- Chars[J]
+        J <- J - 1
+    ENDWHILE
+    Chars[J + 1] <- Key
+    I <- I + 1
+ENDWHILE
+\end{alltt}
+```
+
+Now, let's move on to question "4a." It's also a `short_answer` question. The question discusses the loop structure in the algorithm. So, I need to transcribe the provided text precisely, including the LaTeX formatting. It includes two answer lines. I should represent the lines of the question text with `\hrulefill`. I should also notice that a blank line also exists between the two lines, representing the space between the two justification lines. I need to transcribe:
+
+`The outer loop structure used in the algorithm is \textbf{not} the most appropriate one to use.`
+
+`State the type of loop structure that would be the most appropriate to use and justify why it is the most appropriate.`
+
+`Loop structure \hrulefill`
+
+`Justification \hrulefill`
+
+And finally, I'll format the output into the required YAML format. I will be sure to use block scalars (`|`) for the text fields and double-check the LaTeX syntax for correctness. Also, no double quotes for the free-text fields. Done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      Study the algorithm:
+
+      \begin{alltt}
+      DECLARE Chars : ARRAY[1:4] OF CHAR
+      DECLARE I, J : INTEGER
+      DECLARE Key : CHAR
+      I <- 2
+      Chars[1] <- 'D'
+      Chars[2] <- 'T'
+      Chars[3] <- 'H'
+      Chars[4] <- 'R'
+      WHILE I <= 4                                //Outer loop
+          Key <- Chars[I]
+          J <- I - 1
+          WHILE J >= 0 AND Chars[J] > Key         //Inner loop
+              Chars[J + 1] <- Chars[J]
+              J <- J - 1
+          ENDWHILE
+          Chars[J + 1] <- Key
+          I <- I + 1
+      ENDWHILE
+      \end{alltt}
+  - number: "4a"
+    type: short_answer
+    text: |
+      The outer loop structure used in the algorithm is \textbf{not} the most appropriate one to use.
+
+      State the type of loop structure that would be the most appropriate to use and justify why it is the most appropriate.
+
+      Loop structure \hrulefill
+
+      Justification \hrulefill

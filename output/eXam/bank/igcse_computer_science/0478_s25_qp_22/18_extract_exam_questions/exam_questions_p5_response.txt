@@ -1,0 +1,36 @@
+```yaml
+questions:
+  - number: "5a"
+    type: short_answer
+    text: |
+      Identify the line numbers of \textbf{five} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+      Correction \hrulefill
+
+      Error 2 line number \hrulefill
+      Correction \hrulefill
+
+      Error 3 line number \hrulefill
+      Correction \hrulefill
+
+      Error 4 line number \hrulefill
+      Correction \hrulefill
+
+      Error 5 line number \hrulefill
+      Correction \hrulefill
+  - number: "5b"
+    type: short_answer
+    text: |
+      Write the pseudocode statement that will output the average height rounded to \textbf{one} decimal place.
+  - number: "5c"
+    type: long_answer
+    text: |
+      Explain how you could change the corrected algorithm so that it will also:
+      \begin{itemize}
+      \item find the height of the tallest person.
+      \item output the height of the tallest person at the end of the algorithm.
+      \end{itemize}
+
+      Any program statements used must be fully explained.
+```

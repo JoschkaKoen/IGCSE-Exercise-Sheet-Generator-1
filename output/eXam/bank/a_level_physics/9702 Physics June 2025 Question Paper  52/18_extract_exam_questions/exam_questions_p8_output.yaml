@@ -1,0 +1,30 @@
+questions:
+  - number: "2civ"
+    type: calculation
+    text: |
+      Determine the $y$-intercept of the line of best fit. Include the absolute uncertainty in your answer.
+
+      $y\text{-intercept} = \hrulefill$
+  - number: "2d"
+    type: short_answer
+    text: |
+      Using your answers to (a), (c)(iii) and (c)(iv), determine the values of $E$ and $C$. Include appropriate units.
+  - number: "2di"
+    type: calculation
+    text: |
+      Data: $A = (2.2 \pm 0.2)\text{ mF}$
+
+      $E = \hrulefill$
+      $C = \hrulefill$
+  - number: "2dii"
+    type: calculation
+    text: |
+      Determine the percentage uncertainty in your value of $C$.
+
+      percentage uncertainty = \hrulefill \%
+  - number: "2e"
+    type: calculation
+    text: |
+      The experiment is repeated with 10 capacitors, each of capacitance $C$, connected in parallel between P and Q. Determine the maximum potential difference $V$ between P and Q.
+
+      $V = \hrulefill \text{ V}$

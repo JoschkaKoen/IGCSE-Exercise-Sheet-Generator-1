@@ -1,0 +1,412 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'In this experiment, you will investigate the equilibrium of a wooden rod.
+
+
+    Some of the apparatus has been set up for you.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Complete the set-up of the apparatus as shown in Fig. 1.2.
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: calculation
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Fig. 1.1 shows the rod with two eyes.
+
+
+        The distance between the two eyes on the rod is $S$.
+
+
+        Measure and record $S$.
+
+
+        $S = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The moment of the force about the eye due to mass P is $T_{\text{P}}$.
+
+
+        The moment of the force about the eye due to mass Q is $T_{\text{Q}}$.
+
+
+        The values of $T_{\text{P}}$ and $T_{\text{Q}}$ are given by:
+
+
+        $$T_{\text{P}} = 5Wp \quad \text{and} \quad T_{\text{Q}} = 7Wq$$
+
+
+        where $W$ has the value $0.0981\text{ N}$.
+
+
+        Calculate $T_{\text{P}}$ and $T_{\text{Q}}$.
+
+
+        $T_{\text{P}} = \hrulefill$
+
+        $T_{\text{Q}} = \hrulefill$'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'Change the position of Q and adjust the position of P until the rod is
+      again parallel to the bench. Measure $p$ and $q$. Repeat until you have six
+      sets of values of $p$ and $q$.
+
+
+      Record your results in a table. Include values of $T_{\text{P}}$ and $T_{\text{Q}}$
+      in your table.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Plot a graph of $T_{\text{Q}}$ on the $y$-axis against $T_{\text{P}}$
+        on the $x$-axis.
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Draw the straight line of best fit.
+      answer_options: []
+      subquestions: []
+    - number: 1ciii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the gradient and $y$-intercept of this line.
+
+
+        gradient = \hrulefill
+
+
+        $y$-intercept = \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1di
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'It is suggested that the quantities $T_Q$ and $T_P$ are related by the
+        equation
+
+
+        $$T_Q = A + B T_P$$
+
+
+        where $A$ and $B$ are constants.
+
+
+        Using your answers in \textbf{(c)(iii)}, determine the values of $A$ and $B$.
+
+        Give appropriate units.
+
+
+        $A = \hrulefill$
+
+
+        $B = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 1dii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Theory suggests that
+
+
+        $$R = F \sin\theta - \frac{2A}{S}$$
+
+
+        where $R$ is the weight of the rod and $F$ has the value $2.94\text{ N}$.
+
+
+        Use your answers in \textbf{(a)(i)} and \textbf{(d)(i)} to determine a value
+        for $R$.
+
+        Give an appropriate unit.
+
+
+        $R = \hrulefill$'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'You may not need to use all of the materials provided.
+
+
+    In this experiment, you will investigate the rolling of a plastic bottle.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'You are provided with a plastic bottle with a cap, as shown in Fig. 2.1.
+
+
+      The diameter of the base of the bottle is $d$.'
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Measure and record $d$.
+
+
+        $d = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Estimate the percentage uncertainty in your value of $d$. Show your working.
+
+
+        percentage uncertainty = \hrulefill \%'
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Set up the apparatus as shown in Fig. 2.2.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Stand the bottle upright on the bench.
+
+
+      The height of the water in the bottle is $h$, as shown in Fig. 2.5.'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Measure and record $h$.
+
+
+        $h = \hrulefill$
+
+
+        The time for the bottle to roll distance $L$ on the rules is $t$.
+
+        Take measurements to determine $t$.
+
+
+        $t = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'A value for the acceleration $a$ of the bottle is given by
+
+        $$a = \frac{2L}{t^2}$$
+
+
+        Calculate $a$.
+
+
+        $a = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 2ciii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Justify the number of significant figures that you have given for your
+        value of $a$.
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: '* Pour approximately half the water from the bottle into the beaker.
+
+      * Repeat \textbf{(c)(i)} and \textbf{(c)(ii)}.
+
+
+      $h = \hrulefill$
+
+
+      $t = \hrulefill$
+
+
+      $a = \hrulefill$'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'It is suggested that the relationship between $a$ and $h$ is
+
+
+      $$a = \frac{kd\sqrt{\pi h}}{2}$$
+
+
+      where $k$ is a constant.
+
+
+      Using your data, calculate \textbf{two} values of $k$.
+
+
+      first value of $k = \hrulefill$
+
+
+      second value of $k = \hrulefill$'
+    answer_options: []
+    subquestions: []
+  - number: 2f
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'It is suggested that the percentage uncertainty in the values of $k$ is
+      15%.
+
+
+      Using this uncertainty, explain whether your results support the relationship
+      in (e).'
+    answer_options: []
+    subquestions: []
+  - number: 2g
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2gi
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe \textbf{four} sources of uncertainty or limitations of the procedure
+        for this experiment.
+
+
+        For any uncertainties in measurement that you describe, you should state the
+        quantity being measured and a reason for the uncertainty.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2gii
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe \textbf{four} improvements that could be made to this experiment.
+        You may suggest the use of other apparatus or different procedures.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []

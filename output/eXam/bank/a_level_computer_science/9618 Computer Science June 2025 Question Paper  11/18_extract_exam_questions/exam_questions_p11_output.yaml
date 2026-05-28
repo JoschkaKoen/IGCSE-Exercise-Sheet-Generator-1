@@ -1,0 +1,15 @@
+```yaml
+questions:
+  - number: "6aiii"
+    type: long_answer
+    text: |
+      The two computers have different bus widths.
+
+      Explain how different bus widths affect the performance of a computer.
+  - number: "6b"
+    type: long_answer
+    text: |
+      Both computers have an Operating System (OS).
+
+      Describe the purpose of an OS in a computer.
+```

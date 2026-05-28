@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The function \texttt{Pop()} returns the next item from the stack.
+
+      The function returns \texttt{"-1"} if the stack is empty.
+
+      Write program code for \texttt{Pop()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.
+  - number: "1d"
+    type: short_answer
+    text: |
+      The text file \texttt{StackData.txt} stores numbers and mathematical operators. Each number and operator are on a new line in the text file.
+
+      The mathematical operators used in this program are:
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{mathematical operator} & \textbf{meaning} \\ \hline
+      + & addition \\ \hline
+      -- & subtraction \\ \hline
+      / & division \\ \hline
+      * & multiplication \\ \hline
+      \^{} & power of \\ \hline
+      \end{tabular}
+
+      The procedure \texttt{ReadData()}:
+
+      \begin{itemize}
+      \item takes a string filename as a parameter
+      \item opens the file and reads in each line of data
+      \item uses the \texttt{Push()} function to insert each line of data onto the stack
+      \item outputs \texttt{"Stack full"} if any data cannot be stored on the stack because the stack is full
+      \item uses exception handling when opening and reading from the text file.
+      \end{itemize}
+
+      The procedure needs to work for a file that contains an unknown number of lines.
+
+      Write program code for \texttt{ReadData()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(d)} in the evidence document.
+```

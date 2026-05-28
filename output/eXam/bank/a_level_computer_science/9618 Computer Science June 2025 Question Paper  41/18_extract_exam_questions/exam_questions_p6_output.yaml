@@ -1,0 +1,33 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program stores data in a binary tree that is designed using Object-Oriented Programming (OOP).
+
+      The tree stores data in ascending numerical order, for example:
+
+      The class \texttt{Node} stores data about the nodes.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Node}} \\
+      \hline
+      \texttt{NodeData : Integer} & stores the node's integer data \\
+      \hline
+      \texttt{LeftNode : Node} & stores the node that is stored to the left of the current node, or a null value if there is no node to the left \\
+      \hline
+      \texttt{RightNode : Node} & stores the node that is stored to the right of the current node, or a null value if there is no node to the right \\
+      \hline
+      \texttt{Constructor()} & initialises \texttt{NodeData} to its parameter value; initialises \texttt{LeftNode} and \texttt{RightNode} to a null value \\
+      \hline
+      \texttt{GetLeft()} & returns \texttt{LeftNode} \\
+      \hline
+      \texttt{GetRight()} & returns \texttt{RightNode} \\
+      \hline
+      \texttt{GetData()} & returns \texttt{NodeData} \\
+      \hline
+      \texttt{SetLeft()} & takes an object of type \texttt{Node} as a parameter and stores it in \texttt{LeftNode} \\
+      \hline
+      \texttt{SetRight()} & takes an object of type \texttt{Node} as a parameter and stores it in \texttt{RightNode} \\
+      \hline
+      \end{tabular}

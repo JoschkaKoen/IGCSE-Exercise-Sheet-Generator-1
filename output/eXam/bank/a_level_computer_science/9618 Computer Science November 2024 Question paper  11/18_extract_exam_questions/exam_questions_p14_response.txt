@@ -1,0 +1,37 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, here's what the task boils down to: the user, being the expert they are, wants me to pull out questions 8, 8a, and 8b from a specific page and present them in a clear format. This isn't about me understanding the underlying concepts; it's about accurate transcription.
+
+So, the first question, question 8, is: "A computer designed using the Von Neumann model for a computer system contains general purpose registers and special purpose registers." Straightforward enough.
+
+Next, we have question 8a, which dives into a specific register: "Describe the purpose of the Status Register (SR)." No room for ambiguity there.
+
+Finally, question 8b asks for a comparison: "Identify two differences between general purpose registers and special purpose registers." And, of course, the format requires two distinct slots for the differences:
+1.  \hrulefill
+2.  \hrulefill
+
+That should cover everything the user needs. Now to present it properly.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A computer designed using the Von Neumann model for a computer system contains general purpose registers and special purpose registers.
+  - number: "8a"
+    type: short_answer
+    text: |
+      Describe the purpose of the Status Register (SR).
+  - number: "8b"
+    type: short_answer
+    text: |
+      Identify \textbf{two} differences between general purpose registers and special purpose registers.
+
+      1. \hrulefill
+      2. \hrulefill
+```

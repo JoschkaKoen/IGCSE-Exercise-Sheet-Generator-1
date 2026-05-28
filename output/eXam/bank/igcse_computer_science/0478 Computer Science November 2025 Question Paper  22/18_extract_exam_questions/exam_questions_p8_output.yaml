@@ -1,0 +1,12 @@
+questions:
+  - number: "5b"
+    type: long_answer
+    text: |
+      Describe the processes in the algorithm on page 6.
+  - number: "5c"
+    type: short_answer
+    text: |
+      The algorithm on page 6 requires the array \texttt{CodeStore[]} to be declared as a one-dimensional (1D) string array with six elements that are initially set to the null string \texttt{""}.
+
+      Write the pseudocode required to declare and initialise the array \texttt{CodeStore[]}
+      You do need to declare any variables used.

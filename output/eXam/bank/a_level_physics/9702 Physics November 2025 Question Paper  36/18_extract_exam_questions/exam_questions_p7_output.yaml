@@ -1,0 +1,18 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the tension in a string.
+  - number: "2a"
+    type: calculation
+    text: |
+      Set up the apparatus as shown in Fig. 2.1.
+
+      \begin{itemize}
+      \item The mass hanger and masses should have a total mass $M$ of $0.400\text{ kg}$.
+      \item The distance between the two lower nails is $d$, as shown in Fig. 2.1.
+      \end{itemize}
+
+      Measure and record $d$.
+
+      $d = $ \hrulefill $\text{ cm}$

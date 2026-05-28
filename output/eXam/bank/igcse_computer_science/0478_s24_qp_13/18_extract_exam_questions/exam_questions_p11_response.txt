@@ -1,0 +1,45 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A printer runs out of ink and needs a new ink cartridge. An interrupt is sent and a message is generated to notify the user that the ink cartridge is empty.
+  - number: "9a"
+    type: short_answer
+    text: |
+      Complete the paragraph about the use of an interrupt in this process.
+
+      Use the terms from the list.
+
+      Some of the terms in the list will \textbf{not} be used. You should only use a term once.
+
+      \begin{itemize}
+      \item binary
+      \item clock
+      \item computer
+      \item data
+      \item error
+      \item fetch–decode–execute cycle
+      \item hexadecimal
+      \item higher
+      \item interrupt queue
+      \item interrupt service routine (ISR)
+      \item lower
+      \item printer
+      \item priority level
+      \item secondary storage
+      \item sorting
+      \item transmission
+      \end{itemize}
+
+      The \underline{\hspace{1.5em}} sends an interrupt to the \underline{\hspace{1.5em}}. The interrupt is given a \underline{\hspace{1.5em}}. The processor completes its current \underline{\hspace{1.5em}} and checks the \underline{\hspace{1.5em}} to see if there is an interrupt with \underline{\hspace{1.5em}} priority than the current task. If there is, it stores the current task and fetches the interrupt. It then calls the \underline{\hspace{1.5em}}, which is a sequence of instructions that handles the interrupt. The interrupt is handled, which generates a message to the user to notify them that the ink cartridge is empty.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Handling interrupts is one function of an operating system.
+
+      Give \textbf{two} functions of an operating system that relate to memory.
+
+      1. \hrulefill
+      2. \hrulefill
+```

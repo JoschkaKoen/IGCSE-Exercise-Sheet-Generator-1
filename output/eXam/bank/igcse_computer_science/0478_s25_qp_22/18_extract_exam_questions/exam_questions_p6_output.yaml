@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      This pseudocode is an algorithm.
+
+      \begin{alltt}
+      DECLARE Word : STRING
+      DECLARE V1 : INTEGER
+      DECLARE V2 : INTEGER
+      DECLARE Number : INTEGER
+      DECLARE Index : INTEGER
+      DECLARE L1 : CHAR
+      DECLARE L2 : CHAR
+      DECLARE Continue : BOOLEAN
+      INPUT Number
+      FOR Index <- 1 TO Number
+          INPUT Word
+          Continue <- TRUE
+          V1 <- 1
+          V2 <- LENGTH(Word)
+          WHILE Continue = TRUE AND V1 < V2 DO
+              L1 <- SUBSTRING(Word, V1, 1)
+              L2 <- SUBSTRING(Word, V2, 1)
+              IF L1 <> L2
+              THEN
+                  Continue <- FALSE
+              ELSE
+                  V1 <- V1 + 1
+                  V2 <- V2 - 1
+              ENDIF
+          ENDWHILE
+          IF Continue = TRUE
+          THEN
+              OUTPUT "Successful"
+          ELSE
+              OUTPUT "NOT successful"
+          ENDIF
+      NEXT Index
+      \end{alltt}
+```

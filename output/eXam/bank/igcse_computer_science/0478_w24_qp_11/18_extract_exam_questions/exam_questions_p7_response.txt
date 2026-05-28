@@ -1,0 +1,46 @@
+[thinking]
+**Exam Page 7 Transcription & Formatting**
+
+Okay, so the user wants me to transcribe and format page 7 of this exam paper. Let's see, the questions on this page are all related to data transmission methods. It looks like the core question revolves around the company choosing parallel full-duplex transmission.
+
+First, I need to represent the context statement accurately. Right, that's just a statement, so:
+
+`The company decides to use parallel full-duplex data transmission to send the data across the network.`
+
+Now for question 4bi, which asks for an explanation of *why* this method was chosen. Since it's an open-ended explanation, there are no specific answer lines required.
+
+Next, 4bii wants *two* drawbacks of using this method. I'll need to remember to represent that with numbered slots. Something like this:
+
+`1. \hrulefill`
+`2. \hrulefill`
+
+Finally, 4biii asks for *one* alternative method. Ah, wait a minute, the instructions say that short answer questions with no expected length, need no answer line. The marks are the key to the solution. So, no explicit answer line is needed.
+
+Alright, let's make sure the bolding is correct for the instructions for 4bii and 4biii. Yes, the instruction says "Give **two** drawbacks..." and "Give **one** other method...". Looks good.
+
+Now, time to get this transcribed into the right YAML format.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4b"
+    type: short_answer
+    text: |
+      The company decides to use parallel full-duplex data transmission to send the data across the network.
+  - number: "4bi"
+    type: long_answer
+    text: |
+      Explain the reasons why the company have chosen this method of data transmission.
+  - number: "4bii"
+    type: short_answer
+    text: |
+      Give \textbf{two} drawbacks of the company using this method of data transmission.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4biii"
+    type: short_answer
+    text: |
+      Give \textbf{one} other method of data transmission the company could have chosen.

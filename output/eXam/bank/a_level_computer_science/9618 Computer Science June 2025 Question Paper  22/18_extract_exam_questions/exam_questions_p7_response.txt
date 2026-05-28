@@ -1,0 +1,25 @@
+[thinking]
+**Transcribing Question 4: A Flowchart Challenge**
+
+Okay, here's what the user's asking: I need to pull Question 4 from the source material and present it to them. It's a short-answer question, and it sounds like a classic flowchart exercise. The task involves completing a program flowchart that represents an algorithm. The algorithm details these steps: it ingests 100 integer values sequentially, stores them in an array named `Number`, and then outputs the contents of that array in reverse order. The question specifically mentions that variable declarations aren't needed, which streamlines things a bit. So, it is time to transcribe it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      An algorithm will:
+
+      \begin{itemize}
+      \item input 100 integer values, one value at a time
+      \item store the first value input into the first location of the array \texttt{Number}
+      \item store the next input value in the next unused location of the array \texttt{Number}
+      \item output the contents of \texttt{Number} array in the opposite sequence to that in which the values were input.
+      \end{itemize}
+
+      Complete the program flowchart to represent the algorithm.
+
+      Variable declarations are \textbf{not} required.

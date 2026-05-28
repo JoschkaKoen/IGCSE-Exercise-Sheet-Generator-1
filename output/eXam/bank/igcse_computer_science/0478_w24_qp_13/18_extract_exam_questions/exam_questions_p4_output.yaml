@@ -1,0 +1,39 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      An employee has a report that they need to email to their employer.
+
+      The employee compresses the report file before emailing it.
+  - number: "2a"
+    type: short_answer
+    text: |
+      State the effect the compression has on the report file.
+  - number: "2b"
+    type: short_answer
+    text: |
+      Give \textbf{two} benefits of compressing the report file before emailing it.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      The employee decides to use lossless compression to compress the file.
+
+      Explain why lossy compression is \textbf{not} suitable.
+  - number: "2d"
+    type: short_answer
+    text: |
+      When the employee enters the email address, the computer uses Unicode to convert the email address to binary.
+  - number: "2di"
+    type: short_answer
+    text: |
+      State what Unicode is an example of.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      Give \textbf{two} advantages of the computer using Unicode instead of American standard code for information interchange (ASCII).
+
+      1. \hrulefill
+      2. \hrulefill

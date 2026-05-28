@@ -1,0 +1,52 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The composite data type, \texttt{Car}, is defined in pseudocode as:
+
+      \begin{alltt}
+      TYPE Car
+        DECLARE RegNumber : STRING
+        DECLARE Make : STRING
+        DECLARE Model : STRING
+        DECLARE BodyStyle : STRING
+        DECLARE Colour : STRING
+        DECLARE IntoStock : DATE
+        DECLARE Price : REAL
+      ENDTYPE
+      \end{alltt}
+  - number: "1a"
+    type: short_answer
+    text: |
+      The composite data type, \texttt{Car}, is defined.
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Write the \textbf{pseudocode} statement to set up a variable for one record of the composite data type, \texttt{Car}.
+  - number: "1aii"
+    type: short_answer
+    text: |
+      Write the \textbf{pseudocode} statements to assign the following values to the variable set up in part (a)(i):
+
+      \begin{itemize}
+      \item "Blue" to \texttt{Colour}
+      \item 21/10/2025 to \texttt{IntoStock}
+      \end{itemize}
+  - number: "1b"
+    type: short_answer
+    text: |
+      The data type for \texttt{BodyStyle} is changed to an enumerated type, \texttt{Body}.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Write the \textbf{pseudocode} statement for the type declaration of \texttt{Body} to hold the names of the available choices:
+
+      \begin{center}
+      Convertible, Hatchback, Saloon, SUV
+      \end{center}
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Write the new \textbf{pseudocode} statement required to update the declaration of \texttt{BodyStyle} in the definition of \texttt{Car}.
+```

@@ -1,0 +1,5 @@
+questions:
+  - number: "9ciii"
+    type: short_answer
+    text: |
+      On Fig. 9.1, sketch the variation of the activity $A$ of the sample with $t$ for values of $t$ between $t = 0$ and $t = 24\text{ min}$.

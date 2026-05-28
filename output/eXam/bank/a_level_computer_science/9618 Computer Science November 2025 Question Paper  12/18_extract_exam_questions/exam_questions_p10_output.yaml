@@ -1,0 +1,41 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: ''
+  - number: "6a"
+    type: short_answer
+    text: |
+      A sound file is compressed by reducing the sampling rate.
+
+      State whether this is lossless or lossy compression. Justify your choice.
+
+      Type of compression \hrulefill
+
+      Justification
+  - number: "6b"
+    type: short_answer
+    text: |
+      The following table shows some words and corresponding denary values.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Word} & \textbf{Denary value} \\ \hline
+      Computing & 55 \\ \hline
+      Science & 56 \\ \hline
+      Computers & 57 \\ \hline
+      are & 58 \\ \hline
+      Brilliant! & 59 \\ \hline
+      is & 60 \\ \hline
+      Fun! & 61 \\ \hline
+      Amazing! & 62 \\ \hline
+      \end{tabular}
+
+      The following table shows three bytes of data that have been received.
+
+      Use the table to find the corresponding words from the binary values received.
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Binary value} & 00111000 & 00111100 & 00111110 \\ \hline
+      \textbf{Word} & & & \\ \hline
+      \end{tabular}

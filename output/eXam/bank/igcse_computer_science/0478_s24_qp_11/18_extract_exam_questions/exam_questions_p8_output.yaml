@@ -1,0 +1,23 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A farmer uses an automated robot to plant seeds in the field.
+  - number: "8a"
+    type: short_answer
+    text: |
+      State what is meant by the robot being automated.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Give \textbf{three} characteristics of a robot.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "8c"
+    type: long_answer
+    text: |
+      The robot plants seeds and stops when it reaches a fence. It then turns and continues planting seeds. The robot uses sensors and a microprocessor to know when it reaches a fence.
+
+      Explain how the robot uses sensors and a microprocessor to know it has reached a fence.

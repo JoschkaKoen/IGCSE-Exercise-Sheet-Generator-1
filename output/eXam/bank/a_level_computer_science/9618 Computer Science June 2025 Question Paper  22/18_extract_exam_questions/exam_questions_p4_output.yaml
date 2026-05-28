@@ -1,0 +1,44 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program to calculate the pay of employees working for a company is being designed.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Stepwise refinement has been used in the design of the program.
+
+      Describe stepwise refinement.
+  - number: "2b"
+    type: short_answer
+    text: |
+      One of the program modules used to calculate employees' weekly bonus pay has been completed. The amount of bonus pay they receive is based on the number of hours worked and the value of sales made as shown in the table.
+
+      Bonus pay and value of sales are both in dollars.
+
+      \begin{tabular}{|l|l|c|}
+      \hline
+      \textbf{Hours worked} & \textbf{Value of sales} & \textbf{Bonus pay} \\ \hline
+      between 1 and 40 inclusive & 2000 or less & 0 \\ \hline
+      between 1 and 40 inclusive & above 2000 & 50 \\ \hline
+      above 40 & 2000 or less & 10 \\ \hline
+      above 40 & above 2000 & 100 \\ \hline
+      \end{tabular}
+  - number: "2bi"
+    type: short_answer
+    text: |
+      The module is tested using white-box testing.
+
+      State \textbf{two} tests, using valid data, that can be used to test different paths through the program.
+
+      Test one:
+
+      Hours worked \hrulefill
+      Value of sales \hrulefill
+      Bonus pay \hrulefill
+
+      Test two:
+
+      Hours worked \hrulefill
+      Value of sales \hrulefill
+      Bonus pay \hrulefill

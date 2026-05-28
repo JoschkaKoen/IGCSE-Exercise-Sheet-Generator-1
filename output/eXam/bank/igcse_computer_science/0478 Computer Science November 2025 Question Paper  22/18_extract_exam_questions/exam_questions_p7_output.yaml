@@ -1,0 +1,35 @@
+questions:
+  - number: "5a"
+    type: short_answer
+    text: |
+      The first data row of the trace table shows the values currently stored in \texttt{CodeStore[]}
+
+      Complete the trace table for the algorithm, using the input data:
+
+      7686, Face, Speed, 432U, Yp79
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      \multicolumn{3}{|c|}{} & \multicolumn{6}{c|}{\textbf{CodeStore[]}} & \\ \hline
+      \textbf{Code} & \textbf{Store} & \textbf{Count} & \textbf{[1]} & \textbf{[2]} & \textbf{[3]} & \textbf{[4]} & \textbf{[5]} & \textbf{[6]} & \textbf{OUTPUT} \\ \hline
+       & & & aBcd & 1532 & Face & 63q8 & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+       & & & & & & & & & \\ \hline
+      \end{tabular}

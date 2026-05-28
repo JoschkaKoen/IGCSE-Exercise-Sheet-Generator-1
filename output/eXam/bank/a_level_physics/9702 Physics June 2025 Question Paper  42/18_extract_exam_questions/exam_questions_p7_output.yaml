@@ -1,0 +1,23 @@
+questions:
+  - number: "2bi"
+    type: short_answer
+    text: |
+      Fig. 2.3 is a copy of Fig. 2.2 without the labels but with two magnetic field lines shown.
+
+      On Fig. 2.3, label the magnetic poles with the letters N and S to indicate which one is the magnetic N pole and which one is the magnetic S pole.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      On Fig. 2.3, draw field lines to represent the Earth’s magnetic field outside the Earth.
+  - number: "2c"
+    type: short_answer
+    text: |
+      An observer moves around the surface of the Earth.
+  - number: "2ci"
+    type: long_answer
+    text: |
+      Use your answer in (a)(ii) to explain why the observed gravitational field of the Earth does not vary around the surface.
+  - number: "2cii"
+    type: long_answer
+    text: |
+      With reference to your answer in (b)(ii), describe how the observed magnetic field of the Earth varies around the surface.

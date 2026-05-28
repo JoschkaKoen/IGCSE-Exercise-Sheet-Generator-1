@@ -1,0 +1,31 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A wire has length $L$ and cross-sectional area $A$. The wire is made from a metal that has Young modulus $E$ and resistivity $\rho$.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Define the Young modulus of a material.
+  - number: "3b"
+    type: short_answer
+    text: ''
+  - number: "3bi"
+    type: short_answer
+    text: |
+      State an expression, in terms of some or all of $L$, $A$, $E$ and $\rho$, for the resistance $R_0$ of the wire.
+
+      $R_0 = \hrulefill$
+  - number: "3bii"
+    type: calculation
+    text: |
+      Show that the spring constant $k_0$ of the wire is given by
+      $$k_0 = \frac{EA}{L}$$
+  - number: "3c"
+    type: short_answer
+    text: |
+      The wire is stretched, within the limit of proportionality, by a tensile force $F$. Assume that any changes in the cross-sectional area of the wire are negligible.
+  - number: "3ci"
+    type: short_answer
+    text: |
+      On Fig. 3.1, sketch the variation with $F$ of the resistance $R$ of the wire.

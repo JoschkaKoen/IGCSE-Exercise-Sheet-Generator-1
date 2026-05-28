@@ -1,0 +1,86 @@
+[thinking]
+**My Approach to Extracting and Formatting Exam Questions**
+
+Okay, so I've been tasked with extracting specific questions from an exam paper, specifically "2d," "2di," "2dii," and "2diii," and formatting them into YAML. The requested format is a structure with `number`, `type`, and `text` keys, and `options` for multiple choice, though these are all short answer questions.
+
+My first step is to carefully analyze the content of the relevant page. Question 2d presents a scenario involving testing a program with two stations. It includes a table that lists station IDs and the number of platforms:
+
+```
+\begin{tabular}{|l|l|}
+\hline
+\textbf{station ID} & \textbf{number of platforms} \\ \hline
+STH & 2 \\ \hline
+NTH & 1 \\ \hline
+\end{tabular}
+```
+
+Then, I need to look at what sub-questions are asked:
+
+*   **2di** asks for program code to declare an instance of `\texttt{Station}` for each station mentioned in 2d. The instructions note to save the program and copy/paste it into the evidence document. The marks are indicated as `[2]`.
+
+*   **2dii** provides more context. It describes four trains attempting to stop at these stations. It specifies the order (Train 12ADV at STH, 33ART at STH, 9FKF at STH, 21VBC at NTH) and instructs me to amend the main program to:
+    *   Add each train to the given station using `\texttt{AddTrain()}`.
+    *   Output `"Station is full"` if a train can't be added to the station.
+    *   Output the trains at each station using `\texttt{GetTrains()}`. Again, it reminds me to save, copy, and paste code. The marks are `[4]`.
+
+*   Finally, **2diii** instructs me to test the program, take a screenshot of the output, save the program, and copy/paste the screenshot into the evidence. The mark is `[2]`.
+
+Now, onto formatting the questions into YAML. I'll make sure to use `|` block scalars for the `text` fields to preserve formatting, and to correctly handle the required markup (e.g., `\texttt{Station}`, `\textbf{2(d)(i)}`, etc.) as specified. I'll strip any subquestion prefixes (like the "(i)", "(ii)", and "(iii)" that begin each question's text) and ensure that no double quotes are included around string fields. I'll recheck the table from 2d, making sure it's valid within the format guidelines, and also ensure the lists from 2dii are transcribed correctly. The instruction blocks ("Save your program...") are part of the text, so these will be included as well.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      The program is tested with two stations:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{station ID} & \textbf{\begin{tabular}[c]{@{}l@{}}number of\\ platforms\end{tabular}} \\ \hline
+      STH & 2 \\ \hline
+      NTH & 1 \\ \hline
+      \end{tabular}
+  - number: "2di"
+    type: short_answer
+    text: |
+      Write program code to amend the main program to declare an instance of \texttt{Station} for each of the \textbf{two} stations.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(d)(i)} in the evidence document.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      The four trains attempt to stop at the following stations in the order given:
+
+      \begin{itemize}
+      \item Train 12ADV, station STH
+      \item Train 33ART, station STH
+      \item Train 9FKF, station STH
+      \item Train 21VBC, station NTH
+      \end{itemize}
+
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item add each train to the given station using \texttt{AddTrain()}
+      \item output \texttt{"Station is full"} for any train where the return value indicates it cannot be added to the station
+      \item output the trains at each station using \texttt{GetTrains()}
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(d)(ii)} in the evidence document.
+  - number: "2diii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{2(d)(iii)} in the evidence document.

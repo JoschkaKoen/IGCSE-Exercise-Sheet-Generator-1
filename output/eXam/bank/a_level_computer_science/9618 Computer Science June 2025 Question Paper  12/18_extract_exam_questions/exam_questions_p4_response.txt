@@ -1,0 +1,53 @@
+[thinking]
+**My Thought Process: Populating the YAML Stub**
+
+Okay, let's break this down. I've got a PDF page with OCR text and a partial YAML structure (a "stub") that needs filling. My goal is to extract the relevant text from the page for each question, format it according to very specific rules, and slot it into the stub. No markdown fences, no double quotes where not necessary, and using block scalars for the text.
+
+First, I looked at the overall structure. It's question "2" and its sub-questions: "2a", "2b", "2bi", "2bii", and "2c". I understand that I need to ensure the stem of each stub entry is visible in the output. If it isn't, I need to emit a STUB ERROR. But, for "2", since it is the parent of the other questions, and there's no stand-alone text for it on the page, the best course of action is to make it an empty string. I check the type for each question, since it's short answer, calculation, etc., that should be obvious.
+
+Next, I worked through the questions individually.
+
+*   **2a:** This is a calculation, "Convert the denary integer 558..." I'll keep the text, and I need to include the scaffolding they want: "Binary \\hrulefill" and "Hexadecimal \\hrulefill". I need to put the text in a block scalar `|` so I don't need to put quotes around it, which is good.
+*   **2b:** This is another parent question, so I assign an empty string. I check the child questions.
+*   **2bi:** "Convert the two's complement binary integer 11100010 into denary." This is a calculation question. I just need the instruction. I don't need to include the dotted lines, since it's an open-ended calculation.
+*   **2bii:** This is a short answer, "Write the smallest and the largest two's complement binary integers...". I have to include the scaffolding: "Smallest \\hrulefill" and "Largest \\hrulefill".
+*   **2c:** "Give one application where Binary Coded Decimal (BCD) is used...". This is a short answer. Again, I need to strip the sub-question prefix like the `(c)` and include the specific scaffolding provided in the prompt. I see that "one" is bolded, so I will ensure that is preserved: "Give **one** application...". I include the scaffolding "Application \\hrulefill" and "Justification \\hrulefill".
+
+Finally, I do a thorough review, checking the formatting: I should use block scalar `|` for text, and empty strings `''` where a text field is to be empty. And finally, I double-check to make sure there are no markdown fences. I confirm the LaTeX formatting is correct (e.g., `\textbf{one}`). Also, I check spacing to make sure there is one blank line between the instruction and the first value/slot, and no blank lines between consecutive values. Okay, I think I'm good to go!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: ''
+  - number: "2a"
+    type: calculation
+    text: |
+      Convert the denary integer 558 into 12-bit binary and hexadecimal.
+
+      Binary \hrulefill
+      Hexadecimal \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: ''
+  - number: "2bi"
+    type: calculation
+    text: |
+      Convert the two's complement binary integer 11100010 into denary.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Write the smallest and the largest two's complement binary integers that can be represented in 8 bits.
+
+      Smallest \hrulefill
+      Largest \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      Give \textbf{one} application where Binary Coded Decimal (BCD) is used and justify its use.
+
+      Application \hrulefill
+      Justification \hrulefill

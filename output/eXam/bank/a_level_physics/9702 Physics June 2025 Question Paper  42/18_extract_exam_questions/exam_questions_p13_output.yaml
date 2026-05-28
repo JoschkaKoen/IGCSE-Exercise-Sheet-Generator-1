@@ -1,0 +1,5 @@
+questions:
+  - number: "5biv"
+    type: short_answer
+    text: |
+      On Fig. 5.1, sketch the variation of $v$ with $x$.

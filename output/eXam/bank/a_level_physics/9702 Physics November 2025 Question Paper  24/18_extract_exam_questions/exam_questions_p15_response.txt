@@ -1,0 +1,66 @@
+[thinking]
+**Exam Question Transcription**
+
+Okay, so the user wants me to transcribe specific questions from page 15 of this exam. The requested questions are labeled "6b," "6c," "6ci," and "6cii." Let's break this down.
+
+First, let's look at question "6b". I need to translate the text "State the mass and the charge, in terms of the atomic mass unit u and the elementary charge e, of an alpha particle. mass = ............................................................ u charge = ............................................................ e [2]" into a YAML format. The output should be like:
+```yaml
+State the mass and the charge, in terms of the atomic mass unit $u$ and the elementary charge $e$, of an alpha particle.
+
+mass = \hrulefill $u$
+charge = \hrulefill $e$
+```
+But, the unit comes after the fill-in-the-blank line, so the formatting should be `mass = \hrulefill u` and `charge = \hrulefill e`. Thus the YAML is:
+
+```yaml
+State the mass and the charge, in terms of the atomic mass unit $u$ and the elementary charge $e$, of an alpha particle.
+
+mass = \hrulefill u
+charge = \hrulefill e
+```
+
+Now, question "6c" is about two types of hadrons and the composition of hadrons in alpha particles. I just need to transcribe the text: "There are two types of hadron. The hadrons that are in alpha particles are each composed of three quarks." into YAML:
+```yaml
+There are two types of hadron.
+The hadrons that are in alpha particles are each composed of three quarks.
+```
+
+Next is "6ci," which is simply: "State the name of this type of hadron." Again, a straightforward translation:
+```yaml
+State the name of this type of hadron.
+```
+
+Finally, we have "6cii": "Show, by reference to their constituent quarks, that the hadrons in an alpha particle have charges of either zero or +1e." Also straight forward:
+```yaml
+Show, by reference to their constituent quarks, that the hadrons in an alpha particle have charges of either zero or $+1e$.
+```
+
+I should double-check these against the formatting rules. I remember the subquestion labels such as (i), (ii), etc, should be stripped, and the actual instruction should be the start. And I recall when a value is followed by an answer line (e.g., 10010011 ........), I need to write `10010011 \hrulefill` meaning value, space, then fill rule. In this case, that means I use `mass = \hrulefill u` and `charge = \hrulefill e`.
+
+Alright, I think I've got it. I'll construct the YAML accordingly.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      State the mass and the charge, in terms of the atomic mass unit $u$ and the elementary charge $e$, of an alpha particle.
+
+      mass = \hrulefill $u$
+      charge = \hrulefill $e$
+  - number: "6c"
+    type: short_answer
+    text: |
+      There are two types of hadron.
+      The hadrons that are in alpha particles are each composed of three quarks.
+  - number: "6ci"
+    type: short_answer
+    text: |
+      State the name of this type of hadron.
+  - number: "6cii"
+    type: short_answer
+    text: |
+      Show, by reference to their constituent quarks, that the hadrons in an alpha particle have charges of either zero or $+1e$.

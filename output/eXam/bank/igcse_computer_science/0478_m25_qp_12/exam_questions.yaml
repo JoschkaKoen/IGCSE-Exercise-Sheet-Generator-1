@@ -1,0 +1,674 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'Complete the sentences about number systems.
+
+
+      Use the items from the list.
+
+
+      Some of the items in the list will \textbf{not} be used. You should only use
+      an item once.
+
+
+      \begin{itemize}
+
+      \item A
+
+      \item B
+
+      \item C
+
+      \item D
+
+      \item E
+
+      \item F
+
+      \item G
+
+      \item H
+
+      \item W
+
+      \item X
+
+      \item Y
+
+      \item Z
+
+      \item 0
+
+      \item 1
+
+      \item 2
+
+      \item 4
+
+      \item 8
+
+      \item 10
+
+      \item 16
+
+      \item 127
+
+      \item 128
+
+      \item 255
+
+      \item 256
+
+      \end{itemize}
+
+
+      The binary number system is base \underline{\hspace{1.5em}}. The smallest denary
+      number that can be represented as an 8-bit binary number is \underline{\hspace{1.5em}}.
+      The largest denary number that can be represented as an 8-bit binary number
+      is \underline{\hspace{1.5em}}.
+
+
+      The hexadecimal number system is base \underline{\hspace{1.5em}}. Each hexadecimal
+      digit is equivalent to \underline{\hspace{1.5em}} bits. The numbers 1 to 9 are
+      used and the number 10 is represented by \underline{\hspace{1.5em}}. The hexadecimal
+      number system continues up to the number 15, which is represented by \underline{\hspace{1.5em}}.'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: "Two 8-bit binary numbers are given.\n\nAdd the two 8-bit binary numbers\
+      \ using binary addition.\n\nGive your answer in binary. Show all your working.\n\
+      \n\\begin{tabular}{r}\n  1 0 0 1 1 0 1 1 \\\\\n+ 0 0 0 1 0 0 1 1 \\\\\n\\hline\n\
+      \\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: multiple_choice
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Binary addition can result in overflow.
+
+
+      Tick (\checkmark) \textbf{one} box to show the correct definition of overflow
+      in binary addition.'
+    answer_options:
+    - letter: A
+      text: The answer has created a negative number that cannot be represented in
+        binary addition.
+    - letter: B
+      text: The answer is the result of a logical shift that cannot be performed in
+        binary addition.
+    - letter: C
+      text: The answer is too large to represent in the number of bits available.
+    - letter: D
+      text: The answer is too small to represent in the number of bits available.
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An artist creates an image on a computer.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by the colour depth of an image.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the relationship between the resolution of the image and the file
+      size of the image.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The artist compresses the image file before uploading it to their website.
+      Users can download the image file from the website to print as a poster.
+
+
+      The image file is compressed using lossless compression.'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: long_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain the reasons why the artist chose lossless compression instead
+        of lossy compression to compress this image file.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Identify one lossless method of compressing an image.
+
+
+        Describe your chosen method.
+
+
+        Method \hrulefill
+
+        Description'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The artist emails the image file to their friends.
+    answer_options: []
+    subquestions:
+    - number: 2di
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: Explain how a file is broken down into packets and transmitted over a
+        network.
+      answer_options: []
+      subquestions: []
+    - number: 2dii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The packets can use many different methods of data transmission to travel.
+
+
+        Complete and annotate the diagram to show the difference between serial full-duplex
+        transmission between two computers and parallel simplex transmission between
+        two computers.
+
+
+        Serial full-duplex transmission:
+
+
+        \begin{tabular}{|c|c|}
+
+        \hline
+
+        Computer 1 & Computer 2 \\
+
+        \hline
+
+        \end{tabular}
+
+
+        \vspace{4em}
+
+
+        Parallel simplex transmission:
+
+
+        \begin{tabular}{|c|c|}
+
+        \hline
+
+        Computer 1 & Computer 2 \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer has a central processing unit (CPU), memory and secondary storage.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The computer has a Von Neumann architecture.
+
+
+      Circle \textbf{three} registers that are found in the Von Neumann architecture.
+
+
+      \begin{itemize}
+
+      \item accumulator
+
+      \item arithmetic register
+
+      \item binary counter
+
+      \item binary register
+
+      \item control register
+
+      \item current data register
+
+      \item current instruction register
+
+      \item data counter
+
+      \item instruction counter
+
+      \item logical register
+
+      \item program counter
+
+      \item storage register
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of the CPU in the computer.
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Computer A has a $2.1\text{ GHz}$ quad-core processor.
+
+
+      Computer B has a $2.5\text{ GHz}$ dual-core processor.
+
+
+      Computer C has a $5.2\text{ GHz}$ single-core processor.'
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Identify which computer is most likely to execute more instructions simultaneously.
+
+
+        Justify your answer.
+
+
+        Computer \hrulefill
+
+
+        Justification'
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain why Computer C can execute more instructions per second than Computer
+        B.
+      answer_options: []
+      subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'All three computers have the same instruction set.
+
+
+      Define the term instruction set.'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An automated teller machine (ATM) is a device where a person inserts their
+    bank card and can request to withdraw money. The ATM also allows the person to
+    check how much money they have in their bank account.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A sensor is used to detect when a person stands within 1 metre of the ATM.
+      When a person is detected, a welcome message is displayed on the screen.
+    answer_options: []
+    subquestions:
+    - number: 4ai
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify an appropriate sensor for the ATM to use to detect a person.
+      answer_options: []
+      subquestions: []
+    - number: 4aii
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Describe the role of the microprocessor in detecting the person.
+      answer_options: []
+      subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the features of the ATM that identify it as an embedded system.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The ATM has a touch screen and a keypad.
+
+
+      The ATM may need to be used by people who are unable to see.
+
+
+      Identify \textbf{one} other input device and \textbf{one} other output device
+      that can be built into the ATM to help people who are unable to see.
+
+
+      Input \hrulefill
+
+      Output \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer is connected to a network.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The computer has a network interface card (NIC) that has a media access
+      control (MAC) address.
+    answer_options: []
+    subquestions:
+    - number: 5ai
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'One purpose of the NIC is to provide the computer with a MAC address.
+
+
+        Describe the other purposes of the NIC.'
+      answer_options: []
+      subquestions: []
+    - number: 5aii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Identify \textbf{three} characteristics of a MAC address.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The network allocates an internet protocol (IP) address to the computer.
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: multiple_choice
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Tick (\checkmark) \textbf{one} box to identify a valid IPv4 address.
+      answer_options:
+      - letter: A
+        text: 110:255:2:1
+      - letter: B
+        text: 1.30.2FF.A9
+      - letter: C
+        text: 3.162.74.3
+      - letter: D
+        text: 8.0.257.6.8
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify the device in a network that can automatically assign an IP address
+        to a computer, each time the computer connects to the network.
+      answer_options: []
+      subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A user accesses the world wide web using a web browser.
+    answer_options: []
+    subquestions:
+    - number: 5ci
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Define the term world wide web.
+      answer_options: []
+      subquestions: []
+    - number: 5cii
+      question_type: long_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'The uniform resource locator (URL) for a website includes the protocol
+        hypertext transfer protocol secure (HTTPS).
+
+
+        Explain how HTTPS makes the transmission of data secure.'
+      answer_options: []
+      subquestions: []
+    - number: 5ciii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The protocol is one part of a URL.
+
+
+        Give the other \textbf{two} parts of a URL.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A search engine uses artificial intelligence (AI) to identify the most relevant
+    web pages for the user.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'One characteristic of AI is the ability to learn.
+
+
+      Identify \textbf{three} other characteristics of AI.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The search engine uses machine learning.
+
+
+      Explain how machine learning is used by the search engine.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Programs can be written in a high-level language or a low-level language.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Machine code is one type of low-level language.
+
+
+      Identify \textbf{one} other type of low-level language.
+
+
+      Identify the translator that is needed for the type of low-level language you
+      have identified.
+
+
+      Type of low-level language \hrulefill
+
+      Translator \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'A high-level language can be translated into a low-level language, using
+      a compiler or an interpreter.
+
+
+      Describe the advantages of using an interpreter instead of a compiler during
+      software development.'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Integrated development environments (IDEs) provide translators.
+
+
+      Identify \textbf{three} other common functions of an IDE.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []

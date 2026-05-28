@@ -1,0 +1,37 @@
+questions:
+  - number: "22"
+    type: multiple_choice
+    text: |
+      Two springs X and Y stretch elastically. The graphs show the variation with extension $x$ of the force $F$ applied to each spring.
+
+      Which statement is correct?
+    options:
+      - letter: A
+        text: |
+          When each spring is given the same extension, the energy stored in Y is 4 times the energy stored in X.
+      - letter: B
+        text: |
+          When each spring is given the same extension, the energy stored in Y is 8 times the energy stored in X.
+      - letter: C
+        text: |
+          When the same force is applied to each spring, the energy stored in Y is 4 times the energy stored in X.
+      - letter: D
+        text: |
+          When the same force is applied to each spring, the energy stored in Y is 8 times the energy stored in X.
+  - number: "23"
+    type: multiple_choice
+    text: |
+      Which phrase describes the strain at the elastic limit on a stress–strain graph?
+    options:
+      - letter: A
+        text: |
+          the maximum strain below which Hooke’s law is obeyed
+      - letter: B
+        text: |
+          the maximum strain below which the deformation is plastic
+      - letter: C
+        text: |
+          the minimum strain above which Hooke’s law is obeyed
+      - letter: D
+        text: |
+          the minimum strain above which the deformation is plastic

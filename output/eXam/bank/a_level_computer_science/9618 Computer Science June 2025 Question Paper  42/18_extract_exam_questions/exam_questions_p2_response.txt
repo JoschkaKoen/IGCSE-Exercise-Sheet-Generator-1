@@ -1,0 +1,31 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program reads data from a text file and stores it in a stack. The stack \texttt{Stack} is stored as a 1D array of up to 20 elements. The pointer \texttt{TopOfStack} stores the index of the last element stored in the stack.
+  - number: "1a"
+    type: short_answer
+    text: |
+      \texttt{Stack} is a global array of strings with all elements initialised to \texttt{"-1"}
+
+      \texttt{TopOfStack} is a global variable initialised to \texttt{-1}
+
+      Write program code to declare and initialise \texttt{Stack} and \texttt{TopOfStack}
+
+      Save your program as \textbf{Question1\_J25}.
+
+      Copy and paste the program code into part \textbf{1(a)} in the evidence document.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The function \texttt{Push()} takes a string parameter and attempts to store it on the stack.
+
+      The function returns \texttt{-1} if the stack is full.
+
+      The function returns \texttt{1} if the parameter is successfully pushed onto the stack.
+
+      Write program code for \texttt{Push()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(b)} in the evidence document.

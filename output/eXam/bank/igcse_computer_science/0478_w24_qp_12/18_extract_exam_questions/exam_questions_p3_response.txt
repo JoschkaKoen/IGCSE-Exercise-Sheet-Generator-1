@@ -1,0 +1,44 @@
+```yaml
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      The sound effect file is compressed for storage.
+  - number: "2di"
+    type: short_answer
+    text: |
+      State what is meant by file compression.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      Give \textbf{one} benefit of compressing the file for storage.
+  - number: "3"
+    type: short_answer
+    text: |
+      A user enters data that is hexadecimal into a computer system. The data is converted to binary to be processed by the computer.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Give similarities and differences between hexadecimal and binary.
+  - number: "3ai"
+    type: short_answer
+    text: |
+      Give \textbf{one} similarity between hexadecimal and binary.
+  - number: "3aii"
+    type: short_answer
+    text: |
+      Give \textbf{two} differences between hexadecimal and binary.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3b"
+    type: short_answer
+    text: |
+      Data that is denary can also be converted to binary.
+
+      Give the binary number for each of the \textbf{three} denary numbers.
+
+      15 \hrulefill
+      180 \hrulefill
+      235 \hrulefill
+```

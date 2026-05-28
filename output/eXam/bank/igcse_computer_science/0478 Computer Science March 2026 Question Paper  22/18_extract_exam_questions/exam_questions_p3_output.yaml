@@ -1,0 +1,16 @@
+questions:
+  - number: "2c"
+    type: long_answer
+    text: |
+      Write the pseudocode for an algorithm to perform a validation check on each number as it is input to meet the following criteria:
+
+      \begin{itemize}
+      \item Input 20 numbers, one at a time.
+      \item If a number is negative, store it in the current element of array \texttt{NegNumbers[]}
+      \item If a number is \textbf{not} negative, ask for it to be input again until a negative number is input.
+      \item When all 20 negative numbers have been stored, output a message to state the check has been completed.
+      \end{itemize}
+
+      Use appropriate input prompts and output messages to make the requirements clear to the user.
+
+      Do \textbf{not} declare any arrays or variables for this algorithm.

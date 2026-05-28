@@ -1,0 +1,25 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program stores integers in a stack. The stack is represented as a 1D array of 30 elements with the identifier \texttt{Stack}
+
+      The global pointer \texttt{TopOfStack} stores the index of the last element inserted into the stack. \texttt{TopOfStack} is initialised to $-1$
+  - number: "1a"
+    type: short_answer
+    text: |
+      Write program code to declare \texttt{Stack}, initialise each element in the array with a null value and declare and initialise \texttt{TopOfStack}
+
+      Save your program as \textbf{Question1\_N25}.
+
+      Copy and paste the program code into part \textbf{1(a)} in the evidence document.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The function \texttt{Push()} takes an integer parameter. If the stack is full, the function returns \texttt{FALSE}. If the stack is not full, the parameter is inserted into the stack, the pointer is updated and the function returns \texttt{TRUE}
+
+      Write the program code for \texttt{Push()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(b)} in the evidence document.

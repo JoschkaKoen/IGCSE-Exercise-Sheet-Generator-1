@@ -1,0 +1,95 @@
+[thinking]
+**Analyzing and Populating YAML for Exam Page 10, Question 3c**
+
+Okay, the task is to fill in the YAML stub for exam page 10, specifically question 3c. I see that the stub has entries for `3c`, `3ci`, and `3cii`. Initially, I'm checking if `3c` is a parent question or if it's a potential stub error. The page content starts with "(c) (i)", immediately followed by the problem statement.
+
+The important thing to clarify is whether there's a standalone "3c" section. Based on the page, the text starts directly with the (i) sub-question. If there was a separate section, it would have been labeled in the text on the page as `3c`. So, I need to figure out what to do with the `3c` stub entry. The rule says I shouldn't guess, and if there's no corresponding text I should put `STUB ERROR`. But the letter `(c)` *is* visible, though the first actual text refers to `(i)`.
+
+I've examined the page to confirm that the introductory text "The main program creates..." is part of the `(i)` sub-question and not a separate section. I also confirmed from the OCR text, this is the case. Since there's no independent text for `3c`, but the stub *does* have it, my best and safest approach here is to make `3c` an empty string to satisfy the rules. There is no stub error.
+
+So, here's how I will fill the YAML, after confirming the stub has this structure:
+
+```yaml
+  - number: "3c"
+    type: short_answer
+    text: ''
+  - number: "3ci"
+    type: short_answer
+    text: |
+      The main program creates a new \texttt{LinkedList} object and uses the appropriate method to insert \textbf{five} nodes with the following integer data values in the order given:
+
+      10 \quad 20 \quad 30 \quad 40 \quad 50
+
+      The main program then:
+      \begin{itemize}
+      \item calls \texttt{Traverse()}
+      \item removes the node containing the integer data 30 using \texttt{RemoveNode()}
+      \item calls \texttt{Traverse()}
+      \end{itemize}
+
+      Write program code for the main program.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3cii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the screenshot into part \textbf{3(c)(ii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: short_answer
+    text: ''
+  - number: "3ci"
+    type: short_answer
+    text: |
+      The main program creates a new \texttt{LinkedList} object and uses the appropriate method to insert \textbf{five} nodes with the following integer data values in the order given:
+
+      10 \quad 20 \quad 30 \quad 40 \quad 50
+
+      The main program then:
+      \begin{itemize}
+      \item calls \texttt{Traverse()}
+      \item removes the node containing the integer data 30 using \texttt{RemoveNode()}
+      \item calls \texttt{Traverse()}
+      \end{itemize}
+
+      Write program code for the main program.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3cii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the screenshot into part \textbf{3(c)(ii)} in the evidence document. \\
+      \hline
+      \end{tabular}

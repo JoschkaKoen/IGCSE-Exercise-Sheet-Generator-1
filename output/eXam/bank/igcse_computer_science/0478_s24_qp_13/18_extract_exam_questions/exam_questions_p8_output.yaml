@@ -1,0 +1,26 @@
+questions:
+  - number: "7d"
+    type: short_answer
+    text: |
+      The company uses a proxy server to help protect the web server and the network from cyber security threats.
+  - number: "7di"
+    type: short_answer
+    text: |
+      Give \textbf{three} cyber security threats that the proxy server can help protect against.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "7dii"
+    type: short_answer
+    text: |
+      Identify \textbf{two} functions of the proxy server that can be used to help protect the web server and the network.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7e"
+    type: long_answer
+    text: |
+      Customers access the company's web pages that are stored on the web server.
+
+      Describe how the web pages are located, retrieved and displayed on a customer's computer.

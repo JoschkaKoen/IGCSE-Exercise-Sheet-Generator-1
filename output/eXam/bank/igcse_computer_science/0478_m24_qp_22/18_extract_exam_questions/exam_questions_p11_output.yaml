@@ -1,0 +1,50 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A storage unit rental company wants to set up a new database table for the storage units that can be rented.
+
+      The table is called \texttt{StorageUnits} and needs to store these details:
+      \begin{itemize}
+      \item \texttt{SizeMetres} – size in square metres
+      \item \texttt{Position} – first, second or third floor
+      \item \texttt{Hoist} – whether there is a hoist available for the transfer of items
+      \item \texttt{PriceMonth} – the price in dollars for a month's rental
+      \item \texttt{StorageID} – the code to identify each storage unit, for example S123
+      \end{itemize}
+  - number: "9a"
+    type: short_answer
+    text: ''
+  - number: "9ai"
+    type: short_answer
+    text: |
+      Give the name of the field that would be used for the primary key.
+  - number: "9aii"
+    type: short_answer
+    text: |
+      State the reason for choosing this field for the primary key.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Complete the table to identify the most appropriate data type for these fields in the table \texttt{StorageUnits}.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Field} & \textbf{Data type} \\ \hline
+      \texttt{SizeMetres} & \\ \hline
+      \texttt{Position} & \\ \hline
+      \texttt{Hoist} & \\ \hline
+      \texttt{StorageID} & \\ \hline
+      \end{tabular}
+  - number: "9c"
+    type: short_answer
+    text: |
+      Complete this structured query language (SQL) statement to display only the storage code, price and size in square metres of all the storage units where there is a hoist available.
+
+      \texttt{SELECT} \hrulefill
+
+      \texttt{FROM} \hrulefill
+
+      \texttt{WHERE} \hrulefill ;
+```

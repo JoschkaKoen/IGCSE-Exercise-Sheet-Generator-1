@@ -1,0 +1,54 @@
+[thinking]
+**Processing the Transcription Request**
+
+Okay, the user wants me to transcribe questions 2ciii and 2d from the provided image. Let's break this down systematically. First, I need to get the LaTeX formatting right, ensuring it's clear and unambiguous for anyone working with the document.
+
+For question 2ciii, the core task is calculating 'y' given the equation:  `y = \sqrt{x^2 + \frac{d^2}{4}}`. The final answer will be provided with the fill in the blank as `y = \hrulefill \text{ cm}`.
+
+So, here's how I'll format the complete 2ciii section:
+
+```latex
+Calculate $y$, where
+$$y = \sqrt{x^2 + \frac{d^2}{4}}.$$
+
+y = \hrulefill \text{ cm}
+```
+
+Now, let's look at question 2d. It involves a procedure with multiple steps. It begins with "Add slotted masses to the mass hanger so that the total mass $M$ is $0.700\text{ kg}$." Then it instructs to repeat (b), (c)(i), and (c)(iii). The expected output will be three values corresponding to force ($T$), distance ($x$), and another distance ($y$), each with the usual fill in the blank lines. Here is the LaTeX for this section.
+
+```latex
+\begin{itemize}
+\item Add slotted masses to the mass hanger so that the total mass $M$ is $0.700\text{ kg}$.
+\item Repeat (b), (c)(i) and (c)(iii).
+\end{itemize}
+
+T = \hrulefill \text{ N}
+x = \hrulefill \text{ cm}
+y = \hrulefill \text{ cm}
+```
+
+I'll review the rules to make sure I've got it right. A value goes before the fill-in with a space, as in `y = \hrulefill \text{ cm}`. And I need to be careful with consecutive values, no blank lines between them. No empty text. I also need to be mindful of using the `|` block scalar for non-empty text fields and no double quotes. I think that covers all the bases. I am confident that these transcriptions are correct.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Calculate $y$, where
+      $$y = \sqrt{x^2 + \frac{d^2}{4}}.$$
+
+      y = \hrulefill \text{ cm}
+  - number: "2d"
+    type: calculation
+    text: |
+      \begin{itemize}
+      \item Add slotted masses to the mass hanger so that the total mass $M$ is $0.700\text{ kg}$.
+      \item Repeat (b), (c)(i) and (c)(iii).
+      \end{itemize}
+
+      T = \hrulefill \text{ N}
+      x = \hrulefill \text{ cm}
+      y = \hrulefill \text{ cm}

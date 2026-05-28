@@ -1,0 +1,24 @@
+subject_key: a_level_physics
+paper_stem: 9702 Physics November 2025 Question Paper  35
+model: qwen3.6-plus
+matched_at: '2026-05-28T05:24:17Z'
+matches:
+  1ai: ['1.1']
+  1aii: ['4.1']
+  1b: ['4.2']
+  1ci: ['4.2']
+  1cii: ['4.2']
+  1ciii: ['4.2']
+  1di: ['4.2']
+  1dii: ['4.2']
+  2ai: ['1.1']
+  2aii: ['1.3']
+  2b: []
+  2ci: ['1.1']
+  2cii: ['2.1']
+  2ciii: ['1.3']
+  2d: ['2.1']
+  2e: ['1.3']
+  2f: ['1.3']
+  2gi: ['1.3']
+  2gii: ['1.3']

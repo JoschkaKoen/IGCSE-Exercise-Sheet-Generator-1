@@ -1,0 +1,13 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      In a second experiment, object B is released from the same height and given the same initial speed as in (b) but at a release angle $\theta$ to the vertical, as shown in Fig. 1.2.
+  - number: "1ci"
+    type: long_answer
+    text: |
+      State and explain whether the time taken for object B to reach the ground is less than, the same as or greater than the time in (b)(i).
+  - number: "1cii"
+    type: long_answer
+    text: |
+      By considering energy, state and explain the effect of the change in release angle on the speed at which B reaches the ground.

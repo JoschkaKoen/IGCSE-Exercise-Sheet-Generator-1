@@ -1,0 +1,30 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A security system has both a floodlight (very bright light) and an audio alarm.
+
+      The data from multiple sensors is analysed and used to:
+      \begin{itemize}
+      \item turn on the floodlight
+      \item sound the audio alarm.
+      \end{itemize}
+
+      Sensors can be used to detect:
+      \begin{itemize}
+      \item if doors are open
+      \item the external daylight level
+      \item if people are detected within a set distance.
+      \end{itemize}
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the table to identify the most appropriate type of sensor for each scenario.
+
+      \begin{tabular}{|p{8cm}|p{6cm}|}
+      \hline
+      \textbf{Scenario} & \textbf{Type of sensor} \\ \hline
+      A door is open. & \hrulefill \\ \hline
+      The external daylight level is below a set amount. & \hrulefill \\ \hline
+      A person is detected within 2 metres. & \hrulefill \\ \hline
+      \end{tabular}

@@ -1,0 +1,705 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'Give \textbf{three} ways of creating a maintainable program.
+
+
+    1. \hrulefill
+
+    2. \hrulefill
+
+    3. \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: '\textbf{Four} descriptions of programming techniques and \textbf{five} programming
+    techniques are given.
+
+
+    Draw \textbf{one} line from each description to the relevant technique. \textbf{Not}
+    all techniques will be used.
+
+
+    \begin{tabular}{p{7cm}p{5cm}}
+
+    \textbf{Description} & \textbf{Programming technique} \\
+
+    & \\
+
+    adding up a set of numbers & output \\
+
+    & \\
+
+    displaying the result of a calculation & selection \\
+
+    & \\
+
+    executing a set of instructions based on a condition & totalling \\
+
+    & \\
+
+    executing the same set of instructions multiple times & iteration \\
+
+    & \\
+
+    & counting \\
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) \textbf{one} box to identify the most appropriate data
+    type to store \texttt{'M'}
+  answer_options:
+  - letter: A
+    text: integer
+  - letter: B
+    text: char
+  - letter: C
+    text: real
+  - letter: D
+    text: Boolean
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Tickets for a theme park are booked online. An adult ticket costs $12.99 and
+    a child ticket costs $7.99. A booking fee of $1.99 is added to the total cost
+    of each booking.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Write an algorithm in pseudocode to:
+
+
+      \begin{itemize}
+
+      \item input the number of adult tickets for a booking
+
+      \item input the number of child tickets for a booking
+
+      \item calculate and output the total cost of the booking using an appropriate
+      message.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Each booking must have at least one adult ticket.
+
+
+      Explain how the algorithm could be changed to repeatedly ask for the number
+      of adult tickets if the number input is less than 1.
+
+
+      Any code used must be fully explained.'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: "The theme park has rules for a person to be able to go on a ride.\n\nA\
+      \ person can go on a ride ($X = 1$) only if they:\n\\begin{itemize}\n\\item\
+      \ are 1.4 metres tall or over\n\\item are 12 years old or over\n\\item do not\
+      \ have a medical condition.\n\\end{itemize}\n\n\\begin{tabular}{|c|l|c|}\n\\\
+      hline\n\\textbf{Input} & \\textbf{Description} & \\textbf{Binary value} \\\\\
+      \ \\hline\n\\textbf{A} & under 1.4 metres & 0 \\\\ \\cline{2-3}\n & 1.4 metres\
+      \ or over & 1 \\\\ \\hline\n\\textbf{B} & under 12 years old & 0 \\\\ \\cline{2-3}\n\
+      \ & 12 years old or over & 1 \\\\ \\hline\n\\textbf{C} & does \\textbf{not}\
+      \ have a medical condition & 0 \\\\ \\cline{2-3}\n & has a medical condition\
+      \ & 1 \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions:
+    - number: 4ci
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the logic expression for this problem.
+
+
+        $X = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 4cii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Complete the truth table for this problem.
+
+
+        \begin{tabular}{|c|c|c|c|c|}
+
+        \hline
+
+        \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X}
+        \\ \hline
+
+        0 & 0 & 0 & & \\ \hline
+
+        0 & 0 & 1 & & \\ \hline
+
+        0 & 1 & 0 & & \\ \hline
+
+        0 & 1 & 1 & & \\ \hline
+
+        1 & 0 & 0 & & \\ \hline
+
+        1 & 0 & 1 & & \\ \hline
+
+        1 & 1 & 0 & & \\ \hline
+
+        1 & 1 & 1 & & \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program has been written in pseudocode to input five numbers between 1
+    and 900 inclusive and store the highest number and the lowest number entered.
+
+
+    \begin{alltt}
+
+    01 Lowest <- 900
+
+    02 Highest <- 1
+
+    03 FOR Count <- 1 TO 5
+
+    04   INPUT Number
+
+    05   IF Number < Lowest
+
+    06   THEN
+
+    07     Lowest <- Number
+
+    08   ELSE
+
+    09     IF Number > Highest
+
+    10     THEN
+
+    11       Highest <- Number
+
+    12     ENDIF
+
+    13   ENDIF
+
+    14 NEXT Count
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the trace table for the algorithm using the following numbers:
+
+
+      563, 21, 376, 99, 400
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{Count} & \textbf{Number} & \textbf{Lowest} & \textbf{Highest} \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The algorithm does \textbf{not} work correctly.
+
+
+      State the reason why the algorithm does \textbf{not} work as expected and explain
+      how the algorithm could be corrected.
+
+
+      Any code used must be fully explained.
+
+
+      Reason \hrulefill
+
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The algorithm uses the one-dimensional (1D) array \texttt{ClassList} that
+      contains the following data:
+
+
+      \textbf{ClassList}
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
+
+      Henil & Sven & Ella & Asia & Ridwan \\ \hline
+
+      \end{tabular}
+
+
+      \newline\newline
+
+      Complete the table by writing the output from the flowchart when each of the
+      given names are input.
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      \textbf{Name} & \textbf{OUTPUT} \\ \hline
+
+      Ridwan & \hrulefill \\ \hline
+
+      Yan & \hrulefill \\ \hline
+
+      Ella & \hrulefill \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the standard method of solution used by the flowchart.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Write the algorithm in pseudocode.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An algorithm has been written in pseudocode to:
+
+
+    \begin{itemize}
+
+    \item input a whole number between 1 and 255 inclusive
+
+    \item convert the input to an 8-bit binary number
+
+    \item store each bit of the binary number in an array.
+
+    \end{itemize}
+
+
+    For example, if the denary number 127 was input, the binary number 01111111 would
+    be stored in the array.
+
+
+    \begin{alltt}
+
+    01 DECLARE BinaryArray : ARRAY[1:8] OF INTEGER
+
+    02 DECLARE DenaryNumber : CHAR
+
+    03 OUTPUT "Please enter a whole number between 1 and 255 inclusive "
+
+    04 INPUT DenaryNumber
+
+    05 FOR Count <- 7 TO 1 STEP -1
+
+    06      BinaryArray[Count] <- MOD(DenaryNumber,3)
+
+    07      DenaryNumber <- DIV(DenaryNumber,2)
+
+    08 NEXT Count
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Identify the line numbers of the \textbf{three} errors in the pseudocode
+      and suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify \textbf{one} programming technique used in the algorithm.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 7ci
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The algorithm can accept a number between 1 and 255 inclusive as input.
+
+        Two validation checks that could be applied to \texttt{DenaryNumber} are a
+        presence check and a type check.
+
+
+        Identify \textbf{one} other validation check that could be applied to \texttt{DenaryNumber}'
+      answer_options: []
+      subquestions: []
+    - number: 7cii
+      question_type: long_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write the pseudocode to implement the validation check you identified
+        in (c)(i).
+
+
+        You do \textbf{not} need to rewrite the whole algorithm.'
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A school has set up a database table \texttt{EquipmentLoan} to record details
+    of school equipment loaned to students.
+
+
+    \begin{tabular}{|l|l|l|l|l|}
+
+    \hline
+
+    \textbf{EquipmentID} & \textbf{Description} & \textbf{Name} & \textbf{DateLoaned}
+    & \textbf{Returned} \\ \hline
+
+    Cam01 & Digital camera & James & 23/04/2025 & No \\ \hline
+
+    Cam04 & Digital camera & Amir & 12/03/2025 & Yes \\ \hline
+
+    Gra02 & Graphics tablet & Nikita & 27/04/2025 & No \\ \hline
+
+    Tab01 & Tablet & Holly & 18/03/2025 & Yes \\ \hline
+
+    Ext01 & External Hard drive & Hussein & 27/04/2025 & Yes \\ \hline
+
+    Cam02 & Digital camera & Emily & 10/04/2025 & Yes \\ \hline
+
+    Tri01 & Tripod & Emily & 10/04/2025 & Yes \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 8ai
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the name of the field that is most appropriate to be the primary
+        key.
+      answer_options: []
+      subquestions: []
+    - number: 8aii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the reason for choosing this field for the primary key.
+      answer_options: []
+      subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the structured query language (SQL) statement to list equipment
+      \textbf{not} returned. The list must contain only the descriptions and student
+      names.
+
+
+      \begin{alltt}
+
+      SELECT \hrulefill
+
+      FROM \hrulefill
+
+      WHERE \hrulefill ;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The variables \texttt{Name}, \texttt{Age} and \texttt{Found} are used in
+    a computer program.
+
+    \texttt{Name} holds the name of a person. \texttt{Age} holds the age of a person
+    as a whole number.
+
+    \texttt{Found} holds a flag that can be set to \texttt{TRUE} or \texttt{FALSE}'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Write pseudocode statements to declare the variables \texttt{Name}, \texttt{Age}
+      and \texttt{Found}
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The procedure \texttt{StoreData(Name)} stores the name of a person in the
+      file \texttt{People.txt}
+    answer_options: []
+    subquestions:
+    - number: 9bi
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'Write pseudocode statements to:
+
+
+        \begin{itemize}
+
+        \item define the procedure with the parameter
+
+        \item store the name of the person in the file.
+
+        \end{itemize}'
+      answer_options: []
+      subquestions: []
+    - number: 9bii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the pseudocode that uses the procedure \texttt{StoreData()} to store
+        the name ‘Suella’ in the file \texttt{People.txt}
+      answer_options: []
+      subquestions: []
+- number: '10'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'A number game has two players. Random whole numbers are generated for each
+    player. The numbers are compared and players are given points based on the result
+    of the comparison.
+
+
+    The two-dimensional (2D) array \texttt{NumberGenerated[]} stores each number generated
+    for each player. The first dimension stores the player number and the second dimension
+    stores the random whole numbers generated.
+
+
+    The game is played as follows:
+
+
+    \begin{itemize}
+
+    \item 100 random whole numbers between 1 and 6 inclusive are generated for player
+    1 and stored in the array.
+
+    \item 100 random whole numbers between 1 and 6 inclusive are generated for player
+    2 and stored in the array.
+
+    \item The first number generated for each player is compared and the player with
+    the higher number is awarded 2 points. If the two numbers are the same, both players
+    are awarded 1 point each.
+
+    \item The comparisons repeat for all 100 numbers generated.
+
+    \item The player with the higher total number of points is output as the winner.
+
+    \item If the players have the same total number of points, a new random whole
+    number is generated for each player and compared. This is repeated until one player
+    has a higher number than the other player. 2 points are added to that player''s
+    total number of points, making this player the winner.
+
+    \end{itemize}
+
+
+    Write a program that meets the following requirements:
+
+
+    \begin{itemize}
+
+    \item input and validate the names of the two players
+
+    \item generate 100 random whole numbers between 1 and 6 inclusive for each player
+    and store them in the array \texttt{NumberGenerated[]}
+
+    \item calculate and store the total number of points for each player
+
+    \item output the name and total number of points for each player in descending
+    order of total number of points.
+
+    \end{itemize}
+
+
+    You must use pseudocode or program code \textbf{and} add comments to explain how
+    your code works.
+
+
+    You do not need to declare any arrays or variables; assume that this has already
+    been done.
+
+
+    All outputs must contain suitable messages.'
+  answer_options: []
+  subquestions: []

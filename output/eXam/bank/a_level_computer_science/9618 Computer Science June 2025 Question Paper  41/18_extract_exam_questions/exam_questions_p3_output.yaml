@@ -1,0 +1,54 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The main program:
+
+      \begin{itemize}
+      \item attempts to store each of the integers 1 to 25 (inclusive) in the queue in ascending numerical order using \texttt{Enqueue()}
+      \item outputs the integer that was passed to \texttt{Enqueue()} and "Successful" if it was stored in the queue, or "Unsuccessful" if it was not stored in the queue.
+      \end{itemize}
+
+      For example:
+      \begin{itemize}
+      \item if the integer 5 is passed to \texttt{Enqueue()} and is stored in the queue, the output will be: "5 Successful"
+      \item if the integer 23 is passed to \texttt{Enqueue()} and is not stored in the queue, the output will be: "23 Unsuccessful"
+      \end{itemize}
+
+      Write program code for the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.
+  - number: "1d"
+    type: short_answer
+    text: |
+      The function \texttt{Dequeue()} returns -1 if the queue is empty. If the queue is not empty, the function returns the next item in the queue, updates the appropriate pointers and updates \texttt{NumberItems}
+
+      Write program code for \texttt{Dequeue()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(d)} in the evidence document.
+  - number: "1e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ei"
+    type: short_answer
+    text: |
+      Write program code to extend the main program to call \texttt{Dequeue()} twice and output the return value each time.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(e)(i)} in the evidence document.
+  - number: "1eii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{1(e)(ii)} in the evidence document.

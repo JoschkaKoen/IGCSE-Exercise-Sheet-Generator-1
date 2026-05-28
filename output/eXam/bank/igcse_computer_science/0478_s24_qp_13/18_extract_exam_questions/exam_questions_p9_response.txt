@@ -1,0 +1,54 @@
+[thinking]
+**Exam Page 9: CPU Questions - YAML Generation**
+
+Okay, so I need to process page 9 of this exam paper and represent the questions in YAML format. The user wants a clean, structured representation, which I'm familiar with given my expertise.
+
+Here's the breakdown: I've got a series of questions related to the Central Processing Unit (CPU) and its components. They start with an introductory statement for question 8, followed by a series of sub-questions: 8a, 8b, 8bi, 8bii, and 8c. My job is to transform these into a YAML structure. I understand the requirements; they want each question clearly delineated by a `number`, `type` (which will be `short_answer` here), and the `text` of the question itself.
+
+I've got the questions. I need to strip the sub-question prefixes like "(a)", "(b)", "(i)", "(ii)", and "(c)" from the start of the question text within the YAML. I need to format question 8bii, where the response requires three specific registers, using a numbered format with LaTeX hrulefill:
+
+```latex
+1. \hrulefill
+2. \hrulefill
+3. \hrulefill
+```
+
+And ensuring one blank line after the prompt.
+
+Now, I'm ready to craft the YAML output based on the instructions. I know exactly how to structure the YAML for these short-answer questions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A student has a computer that has a central processing unit (CPU).
+  - number: "8a"
+    type: short_answer
+    text: |
+      Describe the role of the CPU in the computer.
+  - number: "8b"
+    type: short_answer
+    text: |
+      The CPU contains registers.
+  - number: "8bi"
+    type: short_answer
+    text: |
+      State the purpose of a register.
+  - number: "8bii"
+    type: short_answer
+    text: |
+      Give \textbf{three} registers that are built into the CPU.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "8c"
+    type: short_answer
+    text: |
+      One component in the CPU is the arithmetic logic unit (ALU).
+
+      Describe the purpose of the ALU.

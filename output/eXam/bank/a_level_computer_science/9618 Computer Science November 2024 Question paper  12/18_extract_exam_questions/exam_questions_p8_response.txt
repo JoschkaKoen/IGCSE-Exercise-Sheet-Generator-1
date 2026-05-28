@@ -1,0 +1,44 @@
+[thinking]
+**My Analysis of the Exam Question Extraction Task**
+
+Okay, so I've got page 8 of an exam paper here. My primary goal is to extract specific questions and format them into YAML according to a provided stub structure. I need to focus on questions "6", "6a", "6b", and "6bi".  The output needs to be YAML and the key is to ensure it aligns with the structure.
+
+First, I need to thoroughly examine the page content to identify and isolate those four specific questions.  This involves recognizing the question numbering and any associated introductory text. I see that Question 6 is about a company using a relational database for customer, employee, and repair job data.
+
+Now, I'll need to meticulously extract each question's text. For Question 6, I'll pull the opening statement.  For 6a, I need to strip the "(a)" prefix. For Question 6b, I need to extract that whole block about employees and the database schema, including the table names.  I'll need to format the table names as code, using the LaTeX `\texttt{...}` formatting, and I'll carefully handle the LaTeX formatting of the list. Question 6bi needs the initial “(i)” prefix removed and formatted into its own block of text.
+
+Then, I have to ensure the formatting matches the YAML stub. So, for the free-text fields, I'll need to use the `|` block scalar to avoid any issues with double quotes. I will need to properly escape any LaTeX-specific elements that are present. The LaTeX list should be formatted with `\begin{itemize}` and `\item` with a blank line on either side.
+
+Finally, I'll double-check everything against the constraints. I'll make sure there are no `\includegraphics` or standalone dotted lines, and that CS pseudocode and database table names are wrapped in `\texttt{...}`. I'll escape the underscores, because those are important, like in `LOGIN\_DATA` and `JOB\_EMPLOYEE`. After this review, the YAML output should be complete.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A company uses a relational database to store data about its customers, employees and the individual repair jobs that customers have booked.
+  - number: "6a"
+    type: long_answer
+    text: |
+      Explain the benefits of using a relational database instead of a file-based approach.
+  - number: "6b"
+    type: short_answer
+    text: |
+      The company decides which employees will work on each repair job. An employee can log into the database to access information about their repair jobs.
+
+      The database is normalised and includes these tables:
+
+      \begin{itemize}
+      \item \texttt{CUSTOMER} stores personal data about each customer
+      \item \texttt{EMPLOYEE} stores personal data about each employee
+      \item \texttt{LOGIN\_DATA} stores the username and password for each employee
+      \item \texttt{JOB} stores the data about each repair job
+      \item \texttt{JOB\_EMPLOYEE} stores the employees that are working on each repair job.
+      \end{itemize}
+  - number: "6bi"
+    type: long_answer
+    text: |
+      Identify each relationship between the database tables \textbf{and} explain how each relationship can be implemented in the normalised database.

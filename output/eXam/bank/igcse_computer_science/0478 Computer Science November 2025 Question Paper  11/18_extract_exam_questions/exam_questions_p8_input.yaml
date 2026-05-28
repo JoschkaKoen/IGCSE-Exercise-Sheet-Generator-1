@@ -1,0 +1,15 @@
+  - number: "4d"
+    type: short_answer
+    text: ""
+  - number: "4di"
+    type: short_answer
+    text: ""
+  - number: "4dii"
+    type: short_answer
+    text: ""
+  - number: "4diii"
+    type: short_answer
+    text: ""
+  - number: "4div"
+    type: long_answer
+    text: ""

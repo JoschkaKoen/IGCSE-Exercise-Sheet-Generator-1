@@ -1,0 +1,83 @@
+[thinking]
+**Transcribing Exam Page 3: Floating-Point Representation**
+
+Okay, so the user wants me to render page 3 of this exam paper. Looks like this page focuses on binary floating-point representation. I need to transcribe the content, including the questions and their instructions, while ensuring the formatting is correct, especially regarding the math.
+
+First up, Question 2. This is the introductory text, defining the system: 12 bits for the mantissa, 4 for the exponent, both in two's complement. I'll represent that as:
+
+```yaml
+  - number: "2"
+    type: short_answer
+    text: |
+      Numbers are stored in a computer system using binary floating-point representation with:
+
+      \begin{itemize}
+      \item 12 bits for the mantissa
+      \item 4 bits for the exponent
+      \item two's complement form for both the mantissa and the exponent.
+      \end{itemize}
+```
+
+Then, Question 2a.  It's asking for the normalised floating-point representation of a positive binary number. The number is `0.00000001110101101`.  I need to include the boxes for the mantissa (12 bits) and exponent (4 bits).  So it is:
+
+```yaml
+  - number: "2a"
+    type: calculation
+    text: |
+      Write the normalised floating-point representation of the following positive binary number using this system.
+
+      $$0.00000001110101101$$
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \hfill \framebox{$\square\,\square\,\square\,\square$}
+```
+
+And finally, Question 2b. This is the one where we calculate the representation of a decimal number, specifically `-76.1875`.  I'll present the information and the boxes in a similar format:
+
+```yaml
+  - number: "2b"
+    type: calculation
+    text: |
+      Calculate the normalised binary floating-point representation of $-76.1875$ in this system. Show your working.
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \hfill \framebox{$\square\,\square\,\square\,\square$}
+```
+
+I've made sure to wrap the binary number in display math ( `$$...$$` ) and the decimal number in inline math ( `$...$` ) for proper rendering.  The 'working' line has been dropped.  Let's review this to make sure everything's correct and that I haven't missed anything, and then I can present it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Numbers are stored in a computer system using binary floating-point representation with:
+
+      \begin{itemize}
+      \item 12 bits for the mantissa
+      \item 4 bits for the exponent
+      \item two's complement form for both the mantissa and the exponent.
+      \end{itemize}
+  - number: "2a"
+    type: calculation
+    text: |
+      Write the normalised floating-point representation of the following positive binary number using this system.
+
+      $$0.00000001110101101$$
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \hfill \framebox{$\square\,\square\,\square\,\square$}
+  - number: "2b"
+    type: calculation
+    text: |
+      Calculate the normalised binary floating-point representation of $-76.1875$ in this system. Show your working.
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \hfill \framebox{$\square\,\square\,\square\,\square$}

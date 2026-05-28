@@ -1,0 +1,96 @@
+[thinking]
+**My Process for Extracting and Formatting Exam Questions**
+
+Okay, so I've been tasked with processing page 13 of an exam paper and extracting the questions, specifically sections "7", "7a", "7ai", "7aii", "7b", "7bi", and "7bii". My immediate goal is to generate YAML output, populating the `text` fields for each question accurately.
+
+First, I need to analyze the input. I know the structure, so I'm expecting these specific sub-questions within section 7. My next step is to actually look at the image and OCR the text associated with each of those questions.
+
+Now that I have the text for each question, I'll need to format it according to a specific set of guidelines. This means stripping things like "(a)", "(i)", etc., from the beginning of the question text. I’ll make sure to handle the slots in question 7bi correctly; it needs to look like a numbered list with horizontal rules: "1. \hrulefill" and "2. \hrulefill". I’ll need to ensure there is a blank line prior to the first slot, and no blank lines between subsequent slots.
+
+I'm working with the assumption that short answer questions won't have the standalone markers, and that block scalars `|` will be used for all non-empty text fields.
+
+Here's how I envision building the YAML for each question:
+
+For question 7, the YAML will be pretty straightforward. It’ll specify the number and a `short_answer` type.  The text will go into the `text` field:
+
+```yaml
+number: "7"
+type: short_answer
+text: |
+  Data is transmitted using the internet.
+```
+
+I’ll do the same for 7a, 7ai, 7b, etc., ensuring that for an open-ended question, I'll properly format the 'text' field.
+For example, for 7ai:
+
+```yaml
+number: "7ai"
+type: short_answer
+text: |
+  State the purpose of encrypting data.
+```
+And 7aii:
+```yaml
+number: "7aii"
+type: long_answer
+text: |
+  Describe the differences between symmetric and asymmetric encryption.
+```
+For the numbered slots in 7bi, I'll include the horizontal rules in the formatting:
+
+```yaml
+number: "7bi"
+type: short_answer
+text: |
+  Identify \textbf{two} items of data contained in a packet header.
+
+  1. \hrulefill
+  2. \hrulefill
+```
+
+And finally, for 7bii:
+```yaml
+number: "7bii"
+type: short_answer
+text: |
+  Give the purpose of a router in the packet-switching process.
+```
+
+Finally, I’ll need to review the generated YAML against several constraints. No double quotes in the free-text fields. No `\dotfill` – it’s `\hrulefill` only! The numbered slots must be formatted precisely as I described. No subquestion prefixes allowed. And, finally, I want to make sure there are no markdown fences around the output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Data is transmitted using the internet.
+  - number: "7a"
+    type: short_answer
+    text: |
+      The data is encrypted before transmission.
+  - number: "7ai"
+    type: short_answer
+    text: |
+      State the purpose of encrypting data.
+  - number: "7aii"
+    type: long_answer
+    text: |
+      Describe the differences between symmetric and asymmetric encryption.
+  - number: "7b"
+    type: short_answer
+    text: |
+      The data is transmitted using packet switching.
+  - number: "7bi"
+    type: short_answer
+    text: |
+      Identify \textbf{two} items of data contained in a packet header.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7bii"
+    type: short_answer
+    text: |
+      Give the purpose of a router in the packet-switching process.

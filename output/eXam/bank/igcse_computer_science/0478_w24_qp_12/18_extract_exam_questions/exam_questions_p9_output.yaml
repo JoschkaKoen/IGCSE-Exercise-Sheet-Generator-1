@@ -1,0 +1,67 @@
+```yaml
+questions:
+  - number: "7e"
+    type: short_answer
+    text: |
+      The data for the web page is transmitted using the secure socket layer (SSL) protocol.
+
+      Complete the paragraph about the SSL protocol.
+
+      Use only terms from the list.
+
+      \textbf{Not} all terms need to be used. Some terms may be used more than once.
+
+      \begin{itemize}
+      \item encrypted
+      \item file server
+      \item hypertext markup language (HTML)
+      \item hypertext transfer protocol (HTTP)
+      \item operating system
+      \item search engine
+      \item unencrypted
+      \item URL
+      \item web browser
+      \item web server
+      \end{itemize}
+
+      The \underline{\hspace{1.5em}} asks the \underline{\hspace{1.5em}} to identify itself. The \underline{\hspace{1.5em}} sends back its digital certificate. The \underline{\hspace{1.5em}} authenticates the digital certificate. If it is authentic, \underline{\hspace{1.5em}} data transmission begins.
+  - number: "8"
+    type: short_answer
+    text: |
+      A robot vacuum cleaner uses sensors to navigate around obstacles in a room.
+  - number: "8a"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which sensor would be the most suitable for this purpose.
+    options:
+      - letter: A
+        text: |
+          proximity
+      - letter: B
+        text: |
+          flow
+      - letter: C
+        text: |
+          pressure
+      - letter: D
+        text: |
+          level
+  - number: "8b"
+    type: short_answer
+    text: |
+      An expert system can be used to diagnose an error with a robot vacuum cleaner.
+
+      Circle \textbf{three} components that are part of an expert system.
+
+      \begin{itemize}
+      \item knowledge base
+      \item operating system
+      \item firewall
+      \item server
+      \item printer
+      \item actuator
+      \item inference engine
+      \item rule base
+      \item encryption
+      \end{itemize}
+```

@@ -1,0 +1,25 @@
+questions:
+  - number: "8b"
+    type: long_answer
+    text: |
+      A new module will store the contents of the \texttt{Character} array in a text file.
+
+      The module is defined as follows:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{Save()} & $\bullet$ form a string from each record with fields separated by the character '\^{}' \\
+                      & $\bullet$ write each string to a separate line of the new file named \texttt{SaveFile.txt} \\ \hline
+      \end{tabular}
+
+      Complete the pseudocode for module \texttt{Save()}.
+
+      \begin{alltt}
+      PROCEDURE Save()
+
+
+
+
+      ENDPROCEDURE
+      \end{alltt}

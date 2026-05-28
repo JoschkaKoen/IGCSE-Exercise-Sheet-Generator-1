@@ -1,0 +1,614 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) \textbf{one} box to identify the type of test to only
+    check for the largest or smallest acceptable value.
+  answer_options:
+  - letter: A
+    text: normal test data
+  - letter: B
+    text: abnormal test data
+  - letter: C
+    text: extreme test data
+  - letter: D
+    text: boundary test data
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Four requirements for validating inputs and \textbf{five} types of validation
+    check are given.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Draw \textbf{one} line from each requirement to the most appropriate validation
+      check. \textbf{Not} all validation checks will be used.
+
+
+      \textbf{Requirement}
+
+
+      \begin{itemize}
+
+      \item Date of birth must be between 01/01/1900 and 01/01/2010.
+
+      \item Name has been entered.
+
+      \item Password has exactly 12 characters.
+
+      \item Student ID must contain 2 letters followed by a 4-digit number.
+
+      \end{itemize}
+
+
+      \textbf{Validation check}
+
+
+      \begin{itemize}
+
+      \item length check
+
+      \item format check
+
+      \item range check
+
+      \item check digit
+
+      \item presence check
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Identify and describe \textbf{one} verification check that could be applied
+      when a new password is input into a system.
+
+
+      Verification check \hrulefill
+
+
+      Description'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: long_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: "The following pseudocode algorithm uses a count-controlled loop to read in\
+    \ 10 names and store them in the array \\texttt{Names[]}\n\n\\begin{alltt}\nFOR\
+    \ Count <- 1 TO 10\n    OUTPUT \"Please enter a name\"\n    INPUT Name\n    Names[Count]\
+    \ <- Name\nNEXT Count\n\\end{alltt}\n\nRewrite the algorithm in pseudocode, using\
+    \ a condition-controlled loop instead of a count-controlled loop."
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A telephone number with 13 characters is input. The first character is a
+    ‘+’, followed by a 2-digit country code, for example:
+
+
+    +20xxxxxxxxxx where 20 is the country code and x is a digit between 0 and 9 inclusive.
+
+
+    The algorithm includes checks for the country codes: 44 for the UK and 20 for
+    Egypt.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Write an algorithm using pseudocode to:
+
+
+      \begin{itemize}
+
+      \item input the telephone number
+
+      \item extract the 2-digit country code
+
+      \item output the matching country
+
+      \item output ‘Unknown’ if there is no matching country.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Explain how you could change the algorithm to repeatedly prompt for the
+      telephone number until the number entered is 13 characters in length.
+
+
+      Any code used must be fully explained.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Two library routines used in programming are \texttt{MOD} and \texttt{DIV}.
+
+
+    State the purpose of each of the library routines.
+
+    Give \textbf{one} example pseudocode statement for each of the library routines.
+
+
+    MOD purpose \hrulefill
+
+    Example pseudocode \hrulefill
+
+    DIV purpose \hrulefill
+
+    Example pseudocode \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An algorithm has been written in pseudocode to generate a random integer
+    between 1 and 100 inclusive and store the value in \texttt{N}. The user enters
+    a guess for the number and the algorithm indicates whether the guess is higher
+    or lower than the random number. The algorithm outputs the number of guesses when
+    the user has correctly guessed the random number.
+
+
+    \begin{alltt}
+
+    01 Counter <- 0
+
+    02 N <- ROUND(RANDOM() * 99, 1) + 1
+
+    03 REPEAT
+
+    04   OUTPUT "Please enter a guess"
+
+    05   INPUT G
+
+    06   IF G > N
+
+    07     THEN
+
+    08       OUTPUT "The number is lower than your guess"
+
+    09     ELSE
+
+    10       IF G < N
+
+    11         THEN
+
+    12           OUTPUT "The number is lower than your guess"
+
+    13       ENDIF
+
+    14       Counter <- Counter + 1
+
+    15   ENDIF
+
+    16 UNTIL G = N
+
+    17 OUTPUT "Well done, you took ", Guess, " attempts"
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Identify the line numbers of the \textbf{four} errors in the pseudocode
+      and suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      Error 4 line number \hrulefill
+
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{one} method to make the algorithm maintainable.
+
+      Give an example.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Consider the logic expression:
+
+
+    $$X = (A \text{ AND } B) \text{ XOR } (B \text{ OR NOT } C)$$'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Draw a logic circuit for this logic expression.
+
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+
+
+      Do \textbf{not} simplify the logic expression.'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table for the given logic expression.
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A bus company has set up a new database table called \texttt{BUS} to store
+    details of the buses leaving the main bus terminal.
+
+
+    \begin{tabular}{|l|l|c|l|c|c|}
+
+    \hline
+
+    \textbf{RouteID} & \textbf{Destination} & \textbf{Stops} & \textbf{Driver} & \textbf{Time}
+    & \textbf{Return} \\ \hline
+
+    BC01 & Town Centre & 10 & B Smith & 9:00 & Yes \\ \hline
+
+    BC02 & The Fountain & 5 & A Patel & 9:10 & Yes \\ \hline
+
+    BC03 & The Palace & 9 & B Hayes & 9:28 & No \\ \hline
+
+    BC04 & City Park & 12 & W Gao & 9:55 & Yes \\ \hline
+
+    BC05 & City Mall & 9 & R Hussein & 10:10 & No \\ \hline
+
+    BC06 & Swan Lake & 14 & S Clarke & 10:33 & No \\ \hline
+
+    BC07 & Guildhall Square & 7 & J Page & 11:34 & No \\ \hline
+
+    BC08 & Sunset Quay & 6 & A Patel & 12:01 & Yes \\ \hline
+
+    BC10 & Fort Worthington & 15 & E Carr & 12:01 & Yes \\ \hline
+
+    BC12 & The Observatory & 18 & B Smith & 13:27 & No \\ \hline
+
+    BC14 & East Seaport & 11 & B Scott & 14:07 & No \\ \hline
+
+    BC15 & The Football Ground & 12 & J Page & 14:46 & Yes \\ \hline
+
+    BC19 & The Cricket Ground & 11 & B Hayes & 15:14 & No \\ \hline
+
+    BC23 & Temple Ruins & 14 & W Gao & 16:16 & No \\ \hline
+
+    BC27 & The University & 9 & A Patel & 16:45 & No \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 8ai
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify \textbf{one} appropriate data type for the field \texttt{Return}
+      answer_options: []
+      subquestions: []
+    - number: 8aii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the reason for the data type chosen.
+      answer_options: []
+      subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the output from the structured query language (SQL) statement:
+
+
+      \begin{alltt}
+
+      SELECT RouteID, Destination, Time
+
+      FROM BUS
+
+      WHERE Driver = "A Patel";
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the SQL statement to display only the destination of the buses
+      that have a return.
+
+
+      \texttt{SELECT} \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The variables \texttt{A} and \texttt{B} are used in a program. \texttt{A}
+    holds a whole number and \texttt{B} holds text.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Write pseudocode statements to declare the variables \texttt{A} and \texttt{B}
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The function \texttt{Odds(X)} returns ‘Odd’ if the value of \texttt{X}
+      is an odd number and returns ‘Even’ if the value of \texttt{X} is an even number.
+
+
+      Write pseudocode statements to:
+
+      \begin{itemize}
+
+      \item define the function
+
+      \item call the function using parameter \texttt{A} and store the return item
+      in variable \texttt{B}
+
+      \end{itemize}
+
+
+      Function definition \hrulefill
+
+
+      Function call \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The flowchart represents an algorithm to calculate grades.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the trace table for the algorithm, using the input data:
+
+
+      21, 46, 63, 91, 12
+
+
+      \begin{tabular}{|p{3cm}|p{3cm}|p{6cm}|}
+
+      \hline
+
+      \centering \textbf{Score} & \centering \textbf{Grade} & \centering \textbf{OUTPUT}
+      \tabularnewline \hline
+
+      & & \tabularnewline \hline
+
+      & & \tabularnewline \hline
+
+      & & \tabularnewline \hline
+
+      & & \tabularnewline \hline
+
+      & & \tabularnewline \hline
+
+      & & \tabularnewline \hline
+
+      & & \tabularnewline \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Explain how the flowchart can be changed to produce the correct output.
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'The one-dimensional (1D) array \texttt{CompetitorName[]} contains the names
+    of 25 competitors in a tournament that includes five events.
+
+
+    Another two-dimensional (2D) array \texttt{CompetitorScore[]} contains the points
+    scored by each competitor in the five events. The first dimension of this array
+    contains the index of the competitor from \texttt{CompetitorName[]} and the second
+    dimension contains their scores.
+
+
+    Each competitor receives a score out of 100 for each event. These scores are manually
+    entered into \texttt{CompetitorScore[]}
+
+
+    Medals are awarded to the competitor or the competitors who have:
+
+
+    \begin{itemize}
+
+    \item the highest points scored in each of the five events
+
+    \item the highest total points scored for all five events.
+
+    \end{itemize}
+
+
+    The one-dimensional (1D) array \texttt{Points[]} stores the total number of points
+    scored for each competitor.
+
+
+    Write a program that meets the following requirements:
+
+
+    \begin{itemize}
+
+    \item takes as input, valid scores (between 0 and 100), for each competitor in
+    each of the five events
+
+    \item calculates the highest points scored for each event
+
+    \item outputs the names of the competitors who receive a medal for the highest
+    points scored
+
+    \item calculates the highest total points scored for the five events
+
+    \item outputs the names of the competitors with the highest total points scored
+    for the five events.
+
+    \end{itemize}
+
+
+    You must use pseudocode or program code \textbf{and} add comments to explain how
+    your code works.
+
+
+    You do \textbf{not} need to declare any arrays or variables.
+
+
+    All inputs and outputs must contain suitable messages.'
+  answer_options: []
+  subquestions: []

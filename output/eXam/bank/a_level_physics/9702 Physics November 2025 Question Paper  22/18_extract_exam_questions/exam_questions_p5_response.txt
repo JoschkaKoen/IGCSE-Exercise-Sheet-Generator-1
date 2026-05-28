@@ -1,0 +1,46 @@
+[thinking]
+**Processing the Exam Questions**
+
+Okay, here's what I've got. The user wants me to transcribe and format two physics questions from an image. First up, question "1biii": it's asking for the initial acceleration of a balloon given its weight, which is 19 N. The answer requires a numerical value with the unit "ms^{-2}" and the formatting is `acceleration = \hrulefill \text{ ms}^{-2}`. Makes sense.
+
+Then, there's question "1c." This one's a bit more involved. It presents a formula: $c = \frac{2kF}{v^2}$. We are told that 'c' is calculated from three measured quantities, k, F, and v. Table 1.2 is provided, detailing the percentage uncertainties for each of the measured quantities: k has 5%, F has 3%, and v has 4% uncertainty. The calculated value of 'c' itself is 1.8. The goal is to determine the absolute uncertainty in 'c'. The answer requires a numerical value and is formatted as `absolute uncertainty = \hrulefill`.
+
+I've already made a note to ensure the LaTeX formatting is correct, especially for the table. It's important to keep the table properly formatted with both vertical and horizontal lines. It looks like the original table was good, but I've double checked. Now, I'll construct the YAML output, making sure to follow all the given instructions regarding formatting and the use of block scalars. No double quotes! The YAML should be clean and precise, just like any good physics problem.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1biii"
+    type: calculation
+    text: |
+      The balloon has weight $19\text{ N}$.
+
+      Calculate the magnitude of the initial acceleration of the balloon.
+
+      acceleration = \hrulefill $\text{ms}^{-2}$
+  - number: "1c"
+    type: calculation
+    text: |
+      A quantity $c$ relating to the motion of the balloon is calculated from three measured quantities $k$, $F$ and $v$ using the formula
+
+      $$c = \frac{2kF}{v^2}$$
+
+      The percentage uncertainties in the measured quantities are given in Table 1.2.
+
+      \textbf{Table 1.2}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      measured quantity & percentage uncertainty \\ \hline
+      $k$ & 5\% \\ \hline
+      $F$ & 3\% \\ \hline
+      $v$ & 4\% \\ \hline
+      \end{tabular}
+
+      The calculated value of $c$ is 1.8.
+
+      Determine the absolute uncertainty in $c$.
+
+      absolute uncertainty = \hrulefill

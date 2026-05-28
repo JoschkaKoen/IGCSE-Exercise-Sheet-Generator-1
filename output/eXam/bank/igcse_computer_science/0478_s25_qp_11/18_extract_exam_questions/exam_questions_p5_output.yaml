@@ -1,0 +1,40 @@
+questions:
+  - number: "4b"
+    type: short_answer
+    text: |
+      A checksum is used to check the data for errors after transmission.
+  - number: "4bi"
+    type: long_answer
+    text: |
+      Describe the process of the checksum error detection method.
+  - number: "4bii"
+    type: short_answer
+    text: |
+      Identify \textbf{one} other error detection method that could be used to check for errors in the data.
+  - number: "4c"
+    type: short_answer
+    text: |
+      A customer can also order food from home using the internet. The data for their order is broken down into packets and transmitted across the internet to the computer in the restaurant kitchen.
+  - number: "4ci"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which item would \textbf{not} be included in a packet's header.
+    options:
+      - letter: A
+        text: |
+          destination address
+      - letter: B
+        text: |
+          originator's address
+      - letter: C
+        text: |
+          packet number
+      - letter: D
+        text: |
+          payload
+  - number: "4cii"
+    type: short_answer
+    text: |
+      The packets of data may need to be reordered when they arrive at the computer in the restaurant kitchen.
+
+      Explain why the packets of data may need to be reordered.

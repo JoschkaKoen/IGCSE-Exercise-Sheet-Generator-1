@@ -1,0 +1,38 @@
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      Values of $n$ and the two measured values of the maximum potential difference $V_1$ and $V_2$ are given in Table 2.1.
+
+      \textbf{Table 2.1}
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      $n$ & $V_1/\text{V}$ & $V_2/\text{V}$ & $V/\text{V}$ & $\frac{1}{V}/\text{V}^{-1}$ \\ \hline
+      2 & 4.30 & 4.20 & & \\ \hline
+      3 & 3.65 & 3.75 & & \\ \hline
+      4 & 3.30 & 3.20 & & \\ \hline
+      5 & 2.85 & 2.95 & & \\ \hline
+      6 & 2.65 & 2.55 & & \\ \hline
+      7 & 2.30 & 2.40 & & \\ \hline
+      \end{tabular}
+
+      Calculate and record values of $V/\text{V}$ and $\frac{1}{V}/\text{V}^{-1}$ in Table 2.1. Include the absolute uncertainties in $V$ and $\frac{1}{V}$.
+  - number: "2c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Plot a graph of $\frac{1}{V}/\text{V}^{-1}$ against $n$. Include error bars for $\frac{1}{V}$.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit and a worst acceptable straight line on your graph. Label both lines.
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Determine the gradient of the line of best fit. Include the absolute uncertainty in your answer.
+
+      gradient = \hrulefill

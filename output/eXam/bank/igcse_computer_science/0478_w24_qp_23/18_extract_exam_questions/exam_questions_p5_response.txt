@@ -1,0 +1,39 @@
+```yaml
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      Meaningful identifiers have \textbf{not} been used in this algorithm.
+
+      Suggest suitable meaningful identifiers for:
+
+      The array
+
+      A \hrulefill
+
+      The variables
+
+      C \hrulefill
+      X \hrulefill
+      W \hrulefill
+  - number: "7"
+    type: long_answer
+    text: |
+      A programmer is testing a program that requires a positive value between 1 and 100 inclusive to be entered. The range check in the program is to be tested.
+
+      Identify \textbf{three} different types of test data to be used.
+
+      For each type of test data, give an example of the value(s) to be used and the expected outcome.
+
+      Type 1 \hrulefill
+      Example \hrulefill
+      Outcome \hrulefill
+
+      Type 2 \hrulefill
+      Example \hrulefill
+      Outcome \hrulefill
+
+      Type 3 \hrulefill
+      Example \hrulefill
+      Outcome \hrulefill
+```

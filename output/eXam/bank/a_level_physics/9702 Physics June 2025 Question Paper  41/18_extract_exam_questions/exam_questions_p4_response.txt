@@ -1,0 +1,47 @@
+[thinking]
+**Analyzing the Structure of Question "1"**
+
+Okay, so I need to transcribe page 4 of this exam paper. My initial focus is on the structure of question "1." It seems straightforward, but I need to be precise.  "1" appears to be the main question number. However, the questions on this page are structured as `1`, `1a`, `1b`, `1bi`, and `1bii`.  Let's break this down.
+
+"1" itself is a short_answer question and is in the stub. Based on the layout, it looks like there's no actual text associated with "1" besides the question number itself. So, I will set `text: ''` for question "1".
+
+"1a" is "Define gravitational potential at a point."  That's clear enough.
+
+Now, "1b" presents more of a contextual challenge. It says: "Mars is a planet that may be considered to be an isolated uniform sphere of radius $3.4 \times 10^6\text{ m}$. A satellite of mass $122\text{ kg}$ is in orbit around Mars at a constant height of $1.7 \times 10^6\text{ m}$ above the surface of the planet. The height of the orbit is increased to $6.8 \times 10^6\text{ m}$ above the surface. This increases the gravitational potential energy of the satellite by $5.1 \times 10^8\text{ J}$." This text provides the crucial context for sub-questions "1bi" and "1bii," which are calculations.
+
+"1bi" is "Show that the mass of Mars is $6.4 \times 10^{23}\text{ kg}$."  Simple.
+
+Finally, "1bii" is "Calculate the gravitational potential $\phi$ at the surface of Mars. Give a unit with your answer. $\phi = \hrulefill \text{ unit } \hrulefill$." The format is important here. I'll need to represent that blank space accurately and determine whether the 'unit' should have a colon or not. Considering the exam format, I will use `\phi = \hrulefill \text{ unit } \hrulefill`.
+
+In summary, I'll transcribe "1" as empty, and use the text for `1a`, `1b`, `1bi`, and `1bii` as described above. Now, let's get to work!
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Define gravitational potential at a point.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Mars is a planet that may be considered to be an isolated uniform sphere of radius $3.4 \times 10^6 \text{ m}$.
+
+      A satellite of mass $122 \text{ kg}$ is in orbit around Mars at a constant height of $1.7 \times 10^6 \text{ m}$ above the surface of the planet.
+
+      The height of the orbit is increased to $6.8 \times 10^6 \text{ m}$ above the surface. This increases the gravitational potential energy of the satellite by $5.1 \times 10^8 \text{ J}$.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Show that the mass of Mars is $6.4 \times 10^{23} \text{ kg}$.
+  - number: "1bii"
+    type: calculation
+    text: |
+      Calculate the gravitational potential $\phi$ at the surface of Mars. Give a unit with your answer.
+
+      $\phi = \hrulefill \text{ unit } \hrulefill$

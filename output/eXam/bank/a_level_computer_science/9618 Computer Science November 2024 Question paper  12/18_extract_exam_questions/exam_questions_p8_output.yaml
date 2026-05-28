@@ -1,0 +1,27 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A company uses a relational database to store data about its customers, employees and the individual repair jobs that customers have booked.
+  - number: "6a"
+    type: long_answer
+    text: |
+      Explain the benefits of using a relational database instead of a file-based approach.
+  - number: "6b"
+    type: short_answer
+    text: |
+      The company decides which employees will work on each repair job. An employee can log into the database to access information about their repair jobs.
+
+      The database is normalised and includes these tables:
+
+      \begin{itemize}
+      \item \texttt{CUSTOMER} stores personal data about each customer
+      \item \texttt{EMPLOYEE} stores personal data about each employee
+      \item \texttt{LOGIN\_DATA} stores the username and password for each employee
+      \item \texttt{JOB} stores the data about each repair job
+      \item \texttt{JOB\_EMPLOYEE} stores the employees that are working on each repair job.
+      \end{itemize}
+  - number: "6bi"
+    type: long_answer
+    text: |
+      Identify each relationship between the database tables \textbf{and} explain how each relationship can be implemented in the normalised database.

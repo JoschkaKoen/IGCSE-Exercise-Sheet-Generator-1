@@ -1,0 +1,33 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A shop sells pens to customers. Customers place an order with the shop and collect the items the next day. The shop uses a database to store the information about the orders.
+
+      The database contains the following tables:
+
+      \texttt{CUSTOMER}(\underline{\texttt{CustomerID}}, \texttt{CustomerName}, \texttt{Email})
+
+      \texttt{ORDER}(\underline{\texttt{OrderID}}, \texttt{CustomerID}, \texttt{Date}, \texttt{Collected})
+
+      \texttt{ORDER\_PRODUCT}(\underline{\texttt{OrderID}}, \underline{\texttt{ProductID}}, \texttt{Quantity})
+
+      \texttt{PRODUCT}(\underline{\texttt{ProductID}}, \texttt{ProductName}, \texttt{QuantityInBox}, \texttt{Cost}, \texttt{SupplierID})
+
+      \texttt{SUPPLIER}(\underline{\texttt{SupplierID}}, \texttt{SupplierName}, \texttt{SupplierEmail})
+
+      The primary keys are underlined.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the entity-relationship (E-R) diagram for the database.
+
+      \begin{tabular}{ccc}
+      \framebox{\quad \texttt{CUSTOMER} \quad} & \qquad\qquad & \framebox{\quad \texttt{ORDER} \quad} \\
+      & & \\
+      & & \\
+      \framebox{\quad \texttt{SUPPLIER} \quad} & & \framebox{\quad \texttt{ORDER\_PRODUCT} \quad} \\
+      & & \\
+      & & \\
+      & \framebox{\quad \texttt{PRODUCT} \quad} & \\
+      \end{tabular}

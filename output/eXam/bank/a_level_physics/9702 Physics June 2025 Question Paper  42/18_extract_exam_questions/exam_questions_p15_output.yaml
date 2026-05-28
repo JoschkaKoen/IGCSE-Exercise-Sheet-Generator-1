@@ -1,0 +1,17 @@
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      Many electrons are now accelerated from rest from plate X to plate Y in Fig. 6.1. When the electrons hit plate Y, the absorption of their kinetic energies results in the emission of electromagnetic waves.
+  - number: "6ci"
+    type: calculation
+    text: |
+      Show that the minimum wavelength of these electromagnetic waves is $21\text{ pm}$.
+  - number: "6cii"
+    type: short_answer
+    text: |
+      State the region of the electromagnetic spectrum that contains these waves.
+  - number: "6ciii"
+    type: long_answer
+    text: |
+      Explain how these electromagnetic waves may be used to form images of internal body structures.

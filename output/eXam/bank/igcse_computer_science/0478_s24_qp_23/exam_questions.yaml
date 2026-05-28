@@ -1,0 +1,591 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+
+    This flowchart symbol'
+  answer_options:
+  - letter: A
+    text: represents a subroutine.
+  - letter: B
+    text: represents a decision.
+  - letter: C
+    text: represents an input/output.
+  - letter: D
+    text: represents a terminator.
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Four logic gate symbols and five logic functions are shown.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Draw \textbf{one} line to link each logic gate symbol to the appropriate
+      logic function.
+
+
+      \textbf{Not} all logic functions will be used.
+
+
+      \begin{itemize}
+
+      \item AND
+
+      \item XOR
+
+      \item NOT
+
+      \item NAND
+
+      \item OR
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table for this logic circuit.
+
+
+      \begin{tabular}{|c|c|c|p{8cm}|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \centering \textbf{Working space} & \textbf{Z}
+      \\ \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Describe the characteristics of the string and char data types and give an
+    example of each.
+
+
+    String \hrulefill
+
+
+    Example \hrulefill
+
+
+    Char \hrulefill
+
+
+    Example \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'This pseudocode algorithm is intended to allow data for up to 50 people to
+    be entered and stored in a two-dimensional (2D) array. The data is their last
+    name, first name and the city in which they live.
+
+
+    \begin{alltt}
+
+    01 DECLARE People : ARRAY[1:50, 1:3] OF REAL
+
+    02 DECLARE Count : INTEGER
+
+    03 DECLARE Response : CHAR
+
+    04 DECLARE Continue : BOOLEAN
+
+    05 FOR I <- 1 TO 50
+
+    06     FOR J <- 1 TO 3
+
+    07         People[I, J] <- ""
+
+    08     NEXT J
+
+    09 NEXT I
+
+    10 Count <- 100
+
+    11 Continue <- TRUE
+
+    12 CASE OF
+
+    13     OUTPUT "Enter the last name"
+
+    14     INPUT People[Count, 1]
+
+    15     OUTPUT "Enter the first name"
+
+    16     INPUT People[Count, 2]
+
+    17     OUTPUT "Enter the city"
+
+    18     INPUT People[Count, 3]
+
+    19     OUTPUT "Do you want to enter another name (Y or N)?"
+
+    20     INPUT Response
+
+    21     IF Response = ''N''
+
+    22         THEN
+
+    23             Continue <- FALSE
+
+    24         ELSE
+
+    25             Count <- Count + 1
+
+    26     ENDIF
+
+    27 UNTIL NOT Count
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Identify the line numbers of the \textbf{four} errors in the pseudocode
+      and suggest corrections.
+
+
+      Error 1 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      \hrulefill
+
+
+      Error 4 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Write the pseudocode that you could add to the end of this algorithm to
+      output the contents of the array. Make sure that the output ends when the data
+      in the array ends.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Explain how you could alter the original corrected algorithm to make sure
+      that the number of elements being added to the array does not exceed the maximum
+      size of the array (50 elements).
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The flowchart represents an algorithm.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "Complete the trace table for the input data:\n\n10, 30, 18, 8, 25, 12,\
+      \ 17, 2, 50, 15, 5\n\n\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n\\hline\n\\textbf{L}\
+      \ & \\textbf{S} & \\textbf{T} & \\textbf{A} & \\textbf{Limit} & \\textbf{Count}\
+      \ & \\textbf{Value} & \\textbf{OUTPUT} \\\\ \\hline\n & & & & & & & \\\\ \\\
+      hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & &\
+      \ & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n\
+      \ & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\
+      \\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & &\
+      \ & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\\
+      hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Outline the purpose of the algorithm.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain why the identifiers \texttt{L}, \texttt{S}, \texttt{T} and \texttt{A}
+      may \textbf{not} be appropriate to use as identifiers and how they could be
+      improved.
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State a more appropriate identifier for each of the variables \texttt{L},
+      \texttt{S}, \texttt{T} and \texttt{A}.
+
+
+      \begin{tabular}{|c|p{6cm}|}
+
+      \hline
+
+      \textbf{Original identifier} & \textbf{Improved identifier} \\ \hline
+
+      \texttt{L} & \\ \hline
+
+      \texttt{S} & \\ \hline
+
+      \texttt{T} & \\ \hline
+
+      \texttt{A} & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program is to be written that will accept integers that are between the
+    values of 1 and 80 inclusive.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give examples of normal, abnormal and extreme test data that could be used
+      to make sure the program only accepts valid data.
+
+
+      Normal test data \hrulefill
+
+      Abnormal test data \hrulefill
+
+      Extreme test data \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe what is meant by extreme test data.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The string operation \texttt{SUBSTRING(FullText, X, Y)} returns a string from
+    \texttt{FullText} beginning at position \texttt{X} that is \texttt{Y} characters
+    long. The first character in \texttt{FullText} is in position 1.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Write the pseudocode statements to:
+
+
+      \begin{itemize}
+
+      \item store the string ``IGCSE Computer Science at Cambridge'''' in \texttt{FullText}
+
+      \item extract and display the words ``Computer Science'''' from the string and
+      store it in a suitable variable
+
+      \item output the original string in upper case.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Write the pseudocode statements to:
+
+
+      \begin{itemize}
+
+      \item store the content of the variable you created in part \textbf{(a)} to
+      a text file named \texttt{"Subjects.txt"}
+
+      \item close the text file at the end of the algorithm.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A database table called \texttt{Hangar1} stores details of a collection of
+    historic aircraft at a museum.
+
+
+    \begin{tabular}{|c|l|l|c|c|c|}
+
+    \hline
+
+    \textbf{ID} & \textbf{Make} & \textbf{Model} & \textbf{Year} & \textbf{Engines}
+    & \textbf{Airworthy} \\ \hline
+
+    JM1 & Hawker Siddeley & Nimrod & 1966 & 4 & Y \\ \hline
+
+    JM2 & Douglas & DC-10 & 1970 & 3 & Y \\ \hline
+
+    JM3 & Aérospatiale-BAC & Concorde & 1973 & 4 & N \\ \hline
+
+    PB1 & De Havilland & DH-9 & 1918 & 1 & Y \\ \hline
+
+    PB2 & Hawker & Fury & 1935 & 1 & Y \\ \hline
+
+    PB3 & Hawker & Nimrod & 1934 & 1 & Y \\ \hline
+
+    PM1 & Fieseler & Storch & 1942 & 1 & N \\ \hline
+
+    PM2 & Hawker & Hurricane & 1942 & 1 & Y \\ \hline
+
+    PM3 & Supermarine & Spitfire & 1942 & 1 & N \\ \hline
+
+    PM4 & Douglas & C-47 Dakota & 1942 & 2 & N \\ \hline
+
+    PS1 & Boeing & 314 Clipper & 1936 & 4 & N \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State the number of fields and records in the database table.
+
+
+      Fields \hrulefill
+
+      Records \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Give the output that would be produced by the structured query language
+      (SQL) statement:
+
+
+      \begin{alltt}
+
+      SELECT Model, Year, Engines
+
+      FROM Hangar1
+
+      WHERE Engines > 1
+
+      ORDER BY Year;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the SQL statement to display only the ID and model of all the
+      aircraft that are airworthy.
+
+
+      \texttt{SELECT ID,} \hrulefill
+
+      \hrulefill
+
+      \hrulefill
+
+      \hrulefill ;'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'A one-dimensional (1D) array \texttt{Teams[]} contains the names of 10 football
+    teams in a local league.
+
+    A two-dimensional (2D) array \texttt{Results[]} stores, for each team, the total
+    number of:
+
+
+    \begin{itemize}
+
+    \item games won
+
+    \item games drawn
+
+    \item games lost
+
+    \item points.
+
+    \end{itemize}
+
+
+    The position of any team''s data is the same in both arrays. For example the data
+    in index 3 of \texttt{Results[]} belongs to the team in index 3 of \texttt{Teams[]}
+
+
+    The array data will be used to find the current leader of the league.
+
+
+    The variable \texttt{Played} stores the number of games played by each team. Each
+    team plays the same number of games.
+
+
+    Write a program that meets the following requirements:
+
+
+    \begin{itemize}
+
+    \item allows the number of games played to be input and stored, with a maximum
+    of 18 games
+
+    \item allows the names of the teams to be input and stored
+
+    \item allows the number of games won, drawn and lost to be input and stored for
+    each team
+
+    \item validates the number of games played and the number of games won, drawn
+    or lost against the number of games played
+
+    \item calculates and stores the number of points for each team using three points
+    for a win and one point for a draw; there are no points for a loss
+
+    \item sorts the array \texttt{Results[]} into descending order of number of points,
+    ensuring the corresponding parallel array \texttt{Teams[]} is kept in the same
+    order
+
+    \item determines how many teams have the highest number of points
+
+    \item outputs the name(s) of the winning team(s) along with the number of points
+    achieved.
+
+    \end{itemize}
+
+
+    You must use pseudocode or program code \textbf{and} add comments to explain how
+    your code works.
+
+
+    You do \textbf{not} need to declare any arrays, variables or constants; you may
+    assume that this has already been done.
+
+
+    All inputs and outputs must contain suitable messages.'
+  answer_options: []
+  subquestions: []

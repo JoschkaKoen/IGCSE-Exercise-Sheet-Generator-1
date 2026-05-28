@@ -1,0 +1,56 @@
+[thinking]
+**Examining Page 8: A Detailed Transcription**
+
+Okay, so the task is to transcribe page 8 of this exam paper. Let's break down these questions methodically. I'm seeing a multi-part question, starting with a descriptive setup:
+
+**Question 3:** "A wire has length *L* and cross-sectional area *A*. The wire is made from a metal that has Young modulus *E* and resistivity *ρ*." This sets the stage. We're dealing with a wire's physical properties here: length, area, material, and some material properties.
+
+**Question 3a:** "Define the Young modulus of a material." A straightforward definition question. I'll need to provide the standard definition of Young's modulus.
+
+**Question 3b:** This is where things get a bit interesting. It looks like it is empty. My intuition is that 3b is the parent, so let's check its children.
+
+**Question 3bi:** "State an expression, in terms of some or all of *L*, *A*, *E* and *ρ*, for the resistance *R₀* of the wire." This is a standard resistivity and resistance relationship question. I'll need to recall the relevant formula, and there is a placeholder for the answer: `R_0 = \hrulefill`.
+
+**Question 3bii:** "Show that the spring constant *k₀* of the wire is given by $$k₀ = \frac{EA}{L}$$". This involves relating Young's modulus, the wire's geometry, and its behavior as a spring. I'll need to derive the spring constant formula from the principles of elasticity and Hooke's Law.
+
+**Question 3c:** "The wire is stretched, within the limit of proportionality, by a tensile force *F*. Assume that any changes in the cross-sectional area of the wire are negligible." This introduces the concept of tensile force and sets a limit for the question. We are working within the elastic region.
+
+**Question 3ci:** "On Fig. 3.1, sketch the variation with *F* of the resistance *R* of the wire." This is a graphical analysis question. I will need to consider how the resistance of the wire changes as the wire is stretched, assuming a constant volume. The prompt references a Figure 3.1, which I don't have, but I know it involves a sketch.
+
+Therefore, my structure for the transcription is: 3, 3a, 3b, 3bi, 3bii, 3c, 3ci, with appropriate YAML formatting. Each section will be carefully and accurately transcribed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A wire has length $L$ and cross-sectional area $A$. The wire is made from a metal that has Young modulus $E$ and resistivity $\rho$.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Define the Young modulus of a material.
+  - number: "3b"
+    type: short_answer
+    text: ''
+  - number: "3bi"
+    type: short_answer
+    text: |
+      State an expression, in terms of some or all of $L$, $A$, $E$ and $\rho$, for the resistance $R_0$ of the wire.
+
+      $R_0 = \hrulefill$
+  - number: "3bii"
+    type: calculation
+    text: |
+      Show that the spring constant $k_0$ of the wire is given by
+      $$k_0 = \frac{EA}{L}$$
+  - number: "3c"
+    type: short_answer
+    text: |
+      The wire is stretched, within the limit of proportionality, by a tensile force $F$. Assume that any changes in the cross-sectional area of the wire are negligible.
+  - number: "3ci"
+    type: short_answer
+    text: |
+      On Fig. 3.1, sketch the variation with $F$ of the resistance $R$ of the wire.

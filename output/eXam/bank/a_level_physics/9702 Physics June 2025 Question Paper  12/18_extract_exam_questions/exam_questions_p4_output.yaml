@@ -1,0 +1,66 @@
+questions:
+  - number: "5"
+    type: multiple_choice
+    text: |
+      Radio waves can be used to measure the distance between Earth and the planet Jupiter.
+
+      A pulse of radio waves is emitted from the surface of Earth. The pulse reflects from the surface of Jupiter and is detected again on Earth.
+
+      The time between emitting and receiving the pulse is 3960 s.
+
+      What is the distance between Earth and Jupiter?
+    options:
+      - letter: A
+        text: |
+          $5.94 \times 10^8 \text{ km}$
+      - letter: B
+        text: |
+          $1.19 \times 10^9 \text{ km}$
+      - letter: C
+        text: |
+          $5.94 \times 10^{11} \text{ km}$
+      - letter: D
+        text: |
+          $1.19 \times 10^{12} \text{ km}$
+
+  - number: "6"
+    type: multiple_choice
+    text: |
+      The graph shows the variation with time of the velocity of a car.
+
+      Which statement is correct?
+    options:
+      - letter: A
+        text: |
+          The car accelerates for 2 s, then stops for 4 s and then reverses.
+      - letter: B
+        text: |
+          The car accelerates at $12 \text{ m s}^{-2}$ for 2 s.
+      - letter: C
+        text: |
+          The car travels a distance of 36 m in the first 4 s.
+      - letter: D
+        text: |
+          The car travels a distance of 48 m in the last 4 s.
+
+  - number: "7"
+    type: multiple_choice
+    text: |
+      A solid object of mass 1.0 kg falls vertically downwards in a vacuum.
+
+      When the speed of the object is $60 \text{ m s}^{-1}$, an additional constant force of 50 N suddenly starts to act vertically upwards on the object.
+
+      What is the speed of the object 2.0 s after the additional force starts to act?
+    options:
+      - letter: A
+        text: |
+          $20 \text{ m s}^{-1}$
+      - letter: B
+        text: |
+          $40 \text{ m s}^{-1}$
+      - letter: C
+        text: |
+          $80 \text{ m s}^{-1}$
+      - letter: D
+        text: |
+          $100 \text{ m s}^{-1}$

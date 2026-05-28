@@ -1,0 +1,69 @@
+[thinking]
+**Exam Page 21 Transcription**
+
+Okay, the user wants me to transcribe page 21 of the exam. Let's break this down. The questions on this page are numbered "9c", "9ci", "9cii", and "9d". First, I need to extract the content for each part.
+
+I've identified that "9c" is actually the introductory text for part (c).  Let's grab that: "The star Sirius has a radius of $1.19 \times 10^9 \text{ m}$ and loses mass due to nuclear fusion at a rate of $1.09 \times 10^{11} \text{ kg s}^{-1}$. Assume that the power of the radiation emitted by the star is equal to the power released by this process."
+
+Now, "9ci" is the first sub-question. It's a calculation, asking to determine the luminosity of Sirius, and it needs a unit. The provided format for the answer is: "luminosity = \hrulefill unit \hrulefill".
+
+"9cii" is another calculation, this time asking to determine the surface temperature of Sirius based on the answer to "9ci". The answer format is "surface temperature = \hrulefill K".
+
+Finally, "9d" is a long-answer question, and it's asking for an explanation of how cosmologists use standard candles to estimate the distance to a galaxy.
+
+I need to format this as YAML, so let's construct that now. I'll make sure to strip the sub-question prefixes like "(c)", "(i)", etc., but keep the numbers. I'll use block scalars for the text fields and double-check all the math formatting and make sure not to include double quotes for the non-empty strings. I'll make sure there are no superfluous keys, no extra double quotes, and that the answer fields are set up correctly. I will also double check the formatting of the math, so the numbers in scientific notation are properly spaced.
+
+Here's the YAML I will use:
+
+```yaml
+questions:
+  - number: "9c"
+    type: short_answer
+    text: |
+      The star Sirius has a radius of $1.19 \times 10^9 \text{ m}$ and loses mass due to nuclear fusion at a rate of $1.09 \times 10^{11} \text{ kg s}^{-1}$. Assume that the power of the radiation emitted by the star is equal to the power released by this process.
+  - number: "9ci"
+    type: calculation
+    text: |
+      Determine a value for the luminosity of Sirius. Give a unit with your answer.
+
+      luminosity = \hrulefill unit \hrulefill
+  - number: "9cii"
+    type: calculation
+    text: |
+      Use your answer in (c)(i) to determine the surface temperature of Sirius.
+
+      surface temperature = \hrulefill K
+  - number: "9d"
+    type: long_answer
+    text: |
+      Explain how cosmologists use standard candles to estimate the distance of a galaxy from the Earth.
+```
+```
+```
+I've reviewed the format, the math formatting is correct, and I'm ready to proceed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "9c"
+    type: short_answer
+    text: |
+      The star Sirius has a radius of $1.19 \times 10^9 \text{ m}$ and loses mass due to nuclear fusion at a rate of $1.09 \times 10^{11} \text{ kg s}^{-1}$. Assume that the power of the radiation emitted by the star is equal to the power released by this process.
+  - number: "9ci"
+    type: calculation
+    text: |
+      Determine a value for the luminosity of Sirius. Give a unit with your answer.
+
+      luminosity = \hrulefill unit \hrulefill
+  - number: "9cii"
+    type: calculation
+    text: |
+      Use your answer in (c)(i) to determine the surface temperature of Sirius.
+
+      surface temperature = \hrulefill K
+  - number: "9d"
+    type: long_answer
+    text: |
+      Explain how cosmologists use standard candles to estimate the distance of a galaxy from the Earth.

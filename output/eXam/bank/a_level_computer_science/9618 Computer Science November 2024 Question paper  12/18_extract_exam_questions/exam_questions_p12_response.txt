@@ -1,0 +1,83 @@
+[thinking]
+**Transcribing the Instruction Set Table**
+
+Okay, the task is to transcribe Question 8, specifically the instruction set table.  Let's get this right, given this is likely a processor instruction set, precision is key.
+
+My initial thought is to represent this as a LaTeX table. A simple `tabular` environment seems like the best approach.  I need to determine the column structure.  The table clearly has two main columns for the instruction (Opcode and Operand) and a third for the Explanation. It seems best to make this a three-column table from the outset, rather than trying to merge the "Instruction" header row later.
+
+The header row needs to span two columns for "Instruction" and one for "Explanation." I'll use `\multicolumn` for that. The LaTeX table will begin with:
+
+```latex
+\begin{tabular}{|l|l|p{10cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+\textbf{Opcode} & \textbf{Operand} & \\ \hline
+```
+
+Now, the important part: transcribing the data.  I'll start with the first row: `LDM`, `#n`, and the explanation. I'll need to carefully format the explanation, especially if it includes line breaks. I'll include the contents as follows:
+
+```latex
+LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+```
+
+I will then continue through the remainder of the rows:
+
+```latex
+LDD & \texttt{<address>} & Direct addressing. Load the contents of the location at the given address to ACC \\ \hline
+LDI & \texttt{<address>} & Indirect addressing. The address to be used is at the given address. \newline Load the contents of this second address to ACC \\ \hline
+LDX & \texttt{<address>} & Indexed addressing. Form the address from \texttt{<address>} + the contents of the index register. Copy the contents of this calculated address to ACC \\ \hline
+LDR & \#n & Immediate addressing. Load the number n to IX \\ \hline
+ADD & \#n/Bn/\&n & Add the number n to the ACC \\ \hline
+ADD & \texttt{<address>} & Add the contents of the given address to the ACC \\ \hline
+SUB & \#n/Bn/\&n & Subtract the number n from the ACC \\ \hline
+SUB & \texttt{<address>} & Subtract the contents of the given address from the ACC \\ \hline
+INC & \texttt{<register>} & Add 1 to the contents of the register (ACC or IX) \\ \hline
+DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC or IX) \\ \hline
+\end{tabular}
+```
+
+Now, I'll add the clarifying notes below the table. The information provided about `<address>`, `#`, `B`, and `&` is crucial for understanding the table:
+
+```latex
+\texttt{<address>} can be an absolute or a symbolic address \\
+\# denotes a denary number, e.g. \#123 \\
+B denotes a binary number, e.g. B01001010 \\
+\& denotes a hexadecimal number, e.g. \&4A
+```
+
+I must double-check the data for accuracy before finalizing. The information looks correct; everything is transcribed accurately and formatted for LaTeX.  That should be it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      The following table shows part of the instruction set for a processor. The processor has two registers, the Accumulator (ACC) and the Index Register (IX).
+
+      \begin{tabular}{|r|l|p{9cm}|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      LDM & \texttt{\#n} & Immediate addressing. Load the number n to ACC \\ \hline
+      LDD & \texttt{<address>} & Direct addressing. Load the contents of the location at the given address to ACC \\ \hline
+      LDI & \texttt{<address>} & Indirect addressing. The address to be used is at the given address. \newline Load the contents of this second address to ACC \\ \hline
+      LDX & \texttt{<address>} & Indexed addressing. Form the address from \texttt{<address>} + the contents of the index register. Copy the contents of this calculated address to ACC \\ \hline
+      LDR & \texttt{\#n} & Immediate addressing. Load the number n to IX \\ \hline
+      ADD & \texttt{\#n/Bn/\&n} & Add the number n to the ACC \\ \hline
+      ADD & \texttt{<address>} & Add the contents of the given address to the ACC \\ \hline
+      SUB & \texttt{\#n/Bn/\&n} & Subtract the number n from the ACC \\ \hline
+      SUB & \texttt{<address>} & Subtract the contents of the given address from the ACC \\ \hline
+      INC & \texttt{<register>} & Add 1 to the contents of the register (ACC or IX) \\ \hline
+      DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC or IX) \\ \hline
+      \end{tabular}
+
+      \texttt{<address>} can be an absolute or a symbolic address
+      \newline
+      \# denotes a denary number, e.g. \#123
+      \newline
+      B denotes a binary number, e.g. B01001010
+      \newline
+      \& denotes a hexadecimal number, e.g. \&4A

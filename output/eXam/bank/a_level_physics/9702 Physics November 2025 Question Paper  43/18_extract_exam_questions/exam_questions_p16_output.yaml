@@ -1,0 +1,24 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: ''
+  - number: "7a"
+    type: short_answer
+    text: |
+      State Faraday’s law of electromagnetic induction.
+  - number: "7b"
+    type: short_answer
+    text: |
+      An aircraft is flying horizontally at constant speed $v$ through the Earth’s magnetic field, as shown in Fig. 7.1.
+
+      At the location of the aircraft, the vertical component of the Earth’s magnetic field is $38\ \mu\text{T}$ towards the ground.
+
+      The distance between the wingtips P and Q of the aircraft is $68\text{ m}$.
+
+      As the aircraft moves through the magnetic field, an electromotive force (e.m.f.) of $0.54\text{ V}$ is induced between the wingtips P and Q.
+  - number: "7bi"
+    type: calculation
+    text: |
+      Calculate the magnetic flux cut by the wings of the aircraft in a time of $15\text{ s}$. Give a unit with your answer.
+
+      magnetic flux = \hrulefill unit \hrulefill

@@ -1,0 +1,41 @@
+[thinking]
+**Analyzing the Exam Question for Transcription**
+
+Okay, so I'm being asked to transcribe page 5 of this exam paper. The specific questions are labeled "2" and "2a". It's a physics problem, looking at electrical circuits, and I see there's a diagram, Fig 2.1, but I won't be transcribing the image itself.
+
+First, let's look at question 2. It describes a student investigating a circuit with a battery, a resistor Z, and 'n' resistors, each with resistance R, connected in parallel. The total current 'I' is measured, and the experiment is repeated with a changing 'n'. The suggested equation relating I and n is:  `E = I(R/n + Z)`, where E is the electromotive force. It's a fairly standard setup for exploring how parallel resistance affects total current.
+
+Now, question 2a. This is where it gets interesting – we're looking at graphical analysis. A graph of 1/I against 1/n is being plotted, and the challenge is to determine expressions for the gradient and y-intercept. This suggests a linearization of the equation to extract the desired expressions.
+
+I need to make sure the transcription adheres to the specified formatting rules. No double quotes for non-empty string fields, math needs to be wrapped properly, and the answer lines should remain as given: `gradient = \hrulefill` and `y-intercept = \hrulefill`. Also, I'll strip the subquestion prefix "(a)" from question 2a, to maintain consistency. I'm going to split the text to make sure the questions are distinct. Now, I'm ready to produce the YAML output that accurately represents the information provided and fulfills the user's requirements.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student investigates an electrical circuit.
+
+      The circuit is set up as shown in Fig. 2.1.
+
+      A battery of negligible internal resistance is connected to a resistor of resistance $Z$. Five resistors, each of resistance $R$, are connected in parallel between P and Q.
+
+      The switch is closed. The total current $I$ in the circuit is measured using the ammeter.
+
+      The experiment is then repeated by changing the number $n$ of resistors, each of resistance $R$, connected in parallel between P and Q.
+
+      It is suggested that $I$ and $n$ are related by the equation
+      $$E = I \left(\frac{R}{n} + Z\right)$$
+      where $E$ is the electromotive force (e.m.f.) of the battery.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A graph is plotted of $\frac{1}{I}$ on the $y$-axis against $\frac{1}{n}$ on the $x$-axis.
+
+      Determine expressions for the gradient and $y$-intercept.
+
+      gradient = \hrulefill
+      y-intercept = \hrulefill

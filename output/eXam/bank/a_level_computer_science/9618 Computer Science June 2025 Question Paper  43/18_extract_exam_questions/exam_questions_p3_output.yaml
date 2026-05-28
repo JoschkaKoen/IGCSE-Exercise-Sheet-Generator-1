@@ -1,0 +1,46 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The function \texttt{Dequeue()}:
+
+      \begin{itemize}
+      \item returns the next item in the queue, if the queue is \textbf{not} empty
+      \item returns $-1$ if the queue is empty
+      \item updates the pointers where appropriate.
+      \end{itemize}
+
+      Write program code for \texttt{Dequeue()}
+  - number: "1d"
+    type: short_answer
+    text: |
+      The text file \texttt{QueueData.txt} stores positive integers. Each integer is on a new line in the file.
+
+      The procedure \texttt{CreateQueue()}:
+
+      \begin{itemize}
+      \item opens the file \texttt{QueueData.txt}
+      \item reads in each line from the text file and uses \texttt{Enqueue()} to insert each line into the queue
+      \item outputs \texttt{"Queue full"} if any item cannot be inserted into the queue
+      \item uses exception handling when opening and reading from the text file.
+      \end{itemize}
+
+      The procedure needs to work for a file that contains an unknown number of lines.
+
+      Write program code for \texttt{CreateQueue()}
+  - number: "1e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ei"
+    type: short_answer
+    text: |
+      The main program needs extending to call \texttt{CreateQueue()}. The main program then adds together all of the integers stored in the queue, using \texttt{Dequeue()} to access each integer. The total is then output.
+
+      Write program code to extend the main program.
+  - number: "1eii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).

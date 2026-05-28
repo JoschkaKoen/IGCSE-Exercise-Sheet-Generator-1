@@ -1,0 +1,82 @@
+```yaml
+questions:
+  - number: "3a"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Node} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program as \textbf{Question3\_J25}. \\
+      Copy and paste the program code into part \textbf{3(a)(i)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3ai"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Node} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program as \textbf{Question3\_J25}. \\
+      Copy and paste the program code into part \textbf{3(a)(i)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3aii"
+    type: short_answer
+    text: |
+      Write program code for the \textbf{three} get methods.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(a)(ii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3aiii"
+    type: short_answer
+    text: |
+      The method \texttt{SetLeft()} takes an object of type \texttt{Node} as a parameter. The method stores the parameter in the attribute \texttt{LeftNode}
+
+      The method \texttt{SetRight()} takes an object of type \texttt{Node} as a parameter. The method stores the parameter in the attribute \texttt{RightNode}
+
+      Write program code for \texttt{SetLeft()} and \texttt{SetRight()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(a)(iii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3b"
+    type: short_answer
+    text: |
+      Write the main program to declare \textbf{five} objects of type \texttt{Node} :
+
+      \begin{itemize}
+      \item Node 1 with the data 10
+      \item Node 2 with the data 20
+      \item Node 3 with the data 5
+      \item Node 4 with the data 15
+      \item Node 5 with the data 7
+      \end{itemize}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(b)} in the evidence document. \\
+      \hline
+      \end{tabular}
+```

@@ -1,0 +1,7 @@
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      The requirement changes. Instead of a new file, the module described in part \textbf{(b)} needs to add the corresponding candidate ID for each paper that needs to be checked to an \textbf{existing} file.
+
+      Explain the change that will need to be made to \texttt{CheckAll()}.

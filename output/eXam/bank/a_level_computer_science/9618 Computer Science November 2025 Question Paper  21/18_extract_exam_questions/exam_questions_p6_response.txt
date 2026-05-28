@@ -1,0 +1,26 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A program contains a global 1D array \texttt{Number} consisting of 20 elements of type \texttt{REAL}
+
+      A procedure \texttt{Store()} will input a sequence of up to 20 real values, one value at a time. These values will be assigned to elements of the array using four steps:
+
+      Step 1: store the first value in the sequence in the first element of the array
+      Step 2: check each subsequent value input. If this value is larger than the previous value input, then assign the value to the next array element, otherwise go to \textbf{step 4}
+      Step 3: repeat from \textbf{step 2} unless the array is full
+      Step 4: output the count of the number of values stored in the array together with a suitable message.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Complete the pseudocode for \texttt{Store()}
+
+      All variables used in the algorithm must be declared.
+
+      \begin{alltt}
+      PROCEDURE Store()
+      \end{alltt}
+
+      \begin{alltt}
+      ENDPROCEDURE
+      \end{alltt}

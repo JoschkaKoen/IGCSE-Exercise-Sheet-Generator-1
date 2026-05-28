@@ -1,0 +1,24 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Define the radian.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The rear wheel and the pedals of a bicycle are connected by a chain that passes around two cogs (toothed wheels), as shown in Fig. 1.1.
+
+      The small cog has a radius of $0.038\text{ m}$ and is fixed to the rear wheel so that it rotates with it.
+      The large cog has a radius of $0.15\text{ m}$ and is fixed to the pedals so that it rotates with them.
+      The rear wheel has a radius of $0.46\text{ m}$.
+
+      The bicycle is being pedalled so that it moves in a straight line at a constant speed of $17\text{ m}\,\text{s}^{-1}$.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Calculate the angular speed of the rear wheel.
+
+      angular speed = \hrulefill $\text{rad}\,\text{s}^{-1}$

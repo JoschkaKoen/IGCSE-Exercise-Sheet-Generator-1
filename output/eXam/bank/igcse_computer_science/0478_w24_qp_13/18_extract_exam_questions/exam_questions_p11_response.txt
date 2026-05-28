@@ -1,0 +1,18 @@
+[thinking]
+**Analyzing the Question and Structuring the Response**
+
+Okay, so I need to process a specific question, question number 7, from the provided material. The task is straightforward: I'm asked to extract the question's text, which is about the purpose of an Integrated Development Environment (IDE) in the context of computer programming. The user, being an expert, doesn't need a basic explanation of what an IDE *is*; I should focus on the *purpose*. The question implies a longer-form, open-ended response, indicated by the dotted lines beneath it.
+
+The important thing is that the "rules" specify that I don't need to actually reproduce those dotted lines in my output. The open-ended format itself is the indication of the question's structure; the marks allocated for the question imply the space the student should fill. Given that, all I need to do is provide the question text itself. I'll represent this properly in YAML format for clarity.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: long_answer
+    text: |
+      A computer programmer uses an integrated development environment (IDE) when creating a computer program.
+
+      Explain the purpose of the IDE.

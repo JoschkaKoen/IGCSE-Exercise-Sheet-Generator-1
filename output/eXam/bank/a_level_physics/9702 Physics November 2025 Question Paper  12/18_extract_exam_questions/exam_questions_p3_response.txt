@@ -1,0 +1,134 @@
+[thinking]
+**Analyzing and Translating Physics Exam Questions**
+
+Okay, here's the breakdown of my process. I've been given a set of multiple-choice physics questions from an exam paper (9702/12/O/N/25, page 3). My job is to ingest these questions, correctly format them, and output the result as clean YAML, ready for further processing.
+
+First, I need to methodically transcribe the questions and their associated multiple-choice options. I'm taking extreme care to accurately reproduce the text, including any LaTeX math that's present. For instance, in question 1, I make a note about the format of the numerical values and powers of ten, making sure I capture it precisely as presented on the page, and handle the nuances of inline LaTeX properly.
+
+I'm transcribing each question's text field carefully, and, more importantly, I'm noting each option and its associated letter. I will make sure the LaTeX math is wrapped correctly in dollar signs. For Question 3, I am careful to make the units display correctly in the text field.
+
+I'm making sure that for complex questions like 4, I include the extra information and formatting for that question. I'm also ensuring that the equations in questions 5 and 6 are displayed properly in the YAML.
+
+Once I have all the information transcribed, I'll format the output as YAML. I'm going to use block scalars (`|`) for the `text` and option `text` fields to make sure that the formatting is retained. I also will double-check that the LaTeX math is correctly wrapped in `$...$` tags within the YAML structure. Finally, I will ensure that the option letters are simple, such as `letter: A`. This YAML output will serve as a structured representation of the exam questions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      What is a reasonable estimate of the weight of an adult human?
+    options:
+      - letter: A
+        text: |
+          $7 \times 10^0 \text{ N}$
+      - letter: B
+        text: |
+          $7 \times 10^2 \text{ N}$
+      - letter: C
+        text: |
+          $7 \times 10^4 \text{ N}$
+      - letter: D
+        text: |
+          $7 \times 10^6 \text{ N}$
+  - number: "2"
+    type: multiple_choice
+    text: |
+      What describes a set of data with a high precision?
+    options:
+      - letter: A
+        text: |
+          data measured using equipment with small scale divisions
+      - letter: B
+        text: |
+          data that is close to the accepted value
+      - letter: C
+        text: |
+          data with each value having a low uncertainty
+      - letter: D
+        text: |
+          data with repeats that are close to each other
+  - number: "3"
+    type: multiple_choice
+    text: |
+      Which physical quantity could have units of $\text{N s}^2 \text{m}^{-1}$?
+    options:
+      - letter: A
+        text: |
+          acceleration
+      - letter: B
+        text: |
+          force
+      - letter: C
+        text: |
+          mass
+      - letter: D
+        text: |
+          momentum
+  - number: "4"
+    type: multiple_choice
+    text: |
+      A ball is released from rest. The distance the ball falls and the time the ball takes to fall that distance are both measured.
+
+      The percentage uncertainty in the measured distance is negligible. The percentage uncertainty in the measured time is 4\%.
+
+      The distance and the time are then used to calculate the acceleration of free fall.
+
+      Air resistance is negligible.
+
+      What is the percentage uncertainty in the calculated value of the acceleration of free fall?
+    options:
+      - letter: A
+        text: |
+          2\%
+      - letter: B
+        text: |
+          4\%
+      - letter: C
+        text: |
+          8\%
+      - letter: D
+        text: |
+          16\%
+  - number: "5"
+    type: multiple_choice
+    text: |
+      A car has an initial velocity $u$. The car then moves with constant acceleration $a$ in a straight line through a displacement $d$. The car reaches a final velocity $v$.
+
+      Which expression gives the initial velocity $u$ of the car?
+    options:
+      - letter: A
+        text: |
+          $v - ad$
+      - letter: B
+        text: |
+          $\sqrt{v^2 - 2ad}$
+      - letter: C
+        text: |
+          $v + ad$
+      - letter: D
+        text: |
+          $v - \frac{1}{2}ad^2$
+  - number: "6"
+    type: multiple_choice
+    text: |
+      A bicycle brakes so that it undergoes uniform deceleration from a speed of $8 \text{ m s}^{-1}$ to $6 \text{ m s}^{-1}$ over a distance of $7 \text{ m}$.
+
+      The deceleration of the bicycle remains constant.
+
+      Which further distance will the bicycle travel before coming to rest?
+    options:
+      - letter: A
+        text: |
+          $7 \text{ m}$
+      - letter: B
+        text: |
+          $9 \text{ m}$
+      - letter: C
+        text: |
+          $16 \text{ m}$
+      - letter: D
+        text: |
+          $21 \text{ m}$

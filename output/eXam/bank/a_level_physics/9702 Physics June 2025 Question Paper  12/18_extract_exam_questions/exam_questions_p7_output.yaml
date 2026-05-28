@@ -1,0 +1,45 @@
+questions:
+  - number: "14"
+    type: multiple_choice
+    text: |
+      A wooden block is held stationary in a container of water using a string that is attached to both the wooden block and the bottom of the container.
+
+      The wooden block has mass $m$ and volume $V$. The water has density $\rho$. The acceleration of free fall is $g$.
+
+      What is the magnitude of the force acting on the block due to the tension in the string?
+    options:
+      - letter: A
+        text: |
+          $\rho gV$
+      - letter: B
+        text: |
+          $mg + \rho gV$
+      - letter: C
+        text: |
+          $mg$
+      - letter: D
+        text: |
+          $\rho gV - mg$
+  - number: "15"
+    type: multiple_choice
+    text: |
+      A square shop sign of uniform density has mass $2.4\text{ kg}$ and sides of length $0.86\text{ m}$.
+
+      The sign is supported by a hinge along its top edge.
+
+      There is friction in the hinge so that the sign hangs from it in equilibrium at an angle of $15^\circ$ to the vertical, as shown.
+
+      What is the moment about the hinge of the weight of the sign?
+    options:
+      - letter: A
+        text: |
+          $2.6\text{ N}\,\text{m}$
+      - letter: B
+        text: |
+          $4.0\text{ N}\,\text{m}$
+      - letter: C
+        text: |
+          $5.2\text{ N}\,\text{m}$
+      - letter: D
+        text: |
+          $9.8\text{ N}\,\text{m}$

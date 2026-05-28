@@ -1,0 +1,7 @@
+questions:
+  - number: "4b"
+    type: long_answer
+    text: |
+      Once the program has been completed, it is tested using the walkthrough method.
+
+      Describe the walkthrough method and explain how it can be used to identify errors.

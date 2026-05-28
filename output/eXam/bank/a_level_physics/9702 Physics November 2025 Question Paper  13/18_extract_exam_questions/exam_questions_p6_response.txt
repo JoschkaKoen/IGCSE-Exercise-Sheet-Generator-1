@@ -1,0 +1,99 @@
+[thinking]
+**Transcribing Exam Questions: A Physics Expert's Perspective**
+
+Okay, so the user wants me to transcribe questions 8, 9, and 10 from this exam page. No problem, let's break them down.
+
+For question 8, it's about a falling sphere and forces. The user wants me to capture the text of the questions and the diagrams. The question asks about forces at a point P on the velocity-time graph (which isn't provided). Since I can't include the graph itself, I need to focus on how the options describing the forces would look.  I can't use images; I must describe the force diagrams, since the user is an expert. The key is that the sphere is accelerating downwards at point P. This means the weight (downward force) must be greater than the air resistance (upward force). I need to represent the options in a way that captures these force relationships:
+
+*   **Option A:**  | air resistance force equal to weight
+*   **Option B:**  | no air resistance, only weight
+*   **Option C:**  | air resistance force less than weight
+*   **Option D:**  | air resistance force greater than weight
+
+That's the best way to capture the force diagrams without the images.
+
+Now, for question 9, the core concept is the conservation of momentum. It's a straightforward conceptual question:
+
+*   **Question 9:** "In which situation is total linear momentum **always** conserved?"
+    *   **Option A:** "in all collisions between two objects"
+    *   **Option B:** "in collisions between two objects moving at equal and opposite velocity"
+    *   **Option C:** "in collisions between two objects that form an isolated system"
+    *   **Option D:** "in collisions between two objects with the same mass"
+
+The key here is *isolated system*. So it's Option C.
+
+Finally, question 10. It's a classic elastic collision problem:
+
+*   **Question 10:** "An object of mass $m$ moving with velocity $9.0\text{ m}\,\text{s}^{-1}$ has a head-on elastic collision with a stationary object of mass $2m$. After the collision, both objects are moving. No external forces act on the system. What is the velocity of the object of mass $2m$ after the collision?"
+
+I need to transcribe the options accurately, using the correct units. I'll represent them like this:
+
+*   **Option A:** | $-6.0\text{ m}\,\text{s}^{-1}$
+*   **Option B:** | $-3.0\text{ m}\,\text{s}^{-1}$
+*   **Option C:** | $4.5\text{ m}\,\text{s}^{-1}$
+*   **Option D:** | $6.0\text{ m}\,\text{s}^{-1}$
+
+I've ensured consistent formatting for the units ($\text{m}\,\text{s}^{-1}$). I've got a strong grasp of these questions. All set.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: multiple_choice
+    text: |
+      A sphere falls from rest through the air. The graph shows the variation with time of the sphere’s velocity.
+
+      Which diagram shows the forces acting on the sphere when it is at the velocity corresponding to point P on the graph?
+    options:
+      - letter: A
+        text: |
+          upward air resistance equal to downward weight
+      - letter: B
+        text: |
+          no air resistance, only downward weight
+      - letter: C
+        text: |
+          upward air resistance less than downward weight
+      - letter: D
+        text: |
+          upward air resistance greater than downward weight
+  - number: "9"
+    type: multiple_choice
+    text: |
+      In which situation is total linear momentum \textbf{always} conserved?
+    options:
+      - letter: A
+        text: |
+          in all collisions between two objects
+      - letter: B
+        text: |
+          in collisions between two objects moving at equal and opposite velocity
+      - letter: C
+        text: |
+          in collisions between two objects that form an isolated system
+      - letter: D
+        text: |
+          in collisions between two objects with the same mass
+  - number: "10"
+    type: multiple_choice
+    text: |
+      An object of mass $m$ moving with velocity $9.0\text{ m}\,\text{s}^{-1}$ has a head-on elastic collision with a stationary object of mass $2m$.
+
+      After the collision, both objects are moving. No external forces act on the system.
+
+      What is the velocity of the object of mass $2m$ after the collision?
+    options:
+      - letter: A
+        text: |
+          $-6.0\text{ m}\,\text{s}^{-1}$
+      - letter: B
+        text: |
+          $-3.0\text{ m}\,\text{s}^{-1}$
+      - letter: C
+        text: |
+          $4.5\text{ m}\,\text{s}^{-1}$
+      - letter: D
+        text: |
+          $6.0\text{ m}\,\text{s}^{-1}$

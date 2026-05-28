@@ -1,0 +1,31 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the equilibrium of forces.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Assemble the apparatus as shown in Fig. 1.1.
+  - number: "1ai"
+    type: calculation
+    text: |
+      Adjust the height of the upper boss so that the wooden strip is parallel to the bench.
+
+      The distance between hole S and the lower nail is $W$.
+
+      Measure and record $W$.
+
+      $W = \hrulefill$
+
+      The distance between the two nails is $N$.
+
+      Measure and record $N$.
+
+      $N = \hrulefill$
+
+      The length of the coiled part of the spring is $L$, as shown in Fig. 1.1.
+
+      Measure and record $L$.
+
+      $L = \hrulefill$

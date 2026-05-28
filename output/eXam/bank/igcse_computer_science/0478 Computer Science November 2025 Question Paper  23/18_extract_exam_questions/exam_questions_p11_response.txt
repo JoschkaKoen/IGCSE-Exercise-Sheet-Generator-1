@@ -1,0 +1,30 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      The variables \texttt{Name}, \texttt{Age} and \texttt{Found} are used in a computer program.
+      \texttt{Name} holds the name of a person. \texttt{Age} holds the age of a person as a whole number.
+      \texttt{Found} holds a flag that can be set to \texttt{TRUE} or \texttt{FALSE}
+  - number: "9a"
+    type: short_answer
+    text: |
+      Write pseudocode statements to declare the variables \texttt{Name}, \texttt{Age} and \texttt{Found}
+  - number: "9b"
+    type: short_answer
+    text: |
+      The procedure \texttt{StoreData(Name)} stores the name of a person in the file \texttt{People.txt}
+  - number: "9bi"
+    type: long_answer
+    text: |
+      Write pseudocode statements to:
+
+      \begin{itemize}
+      \item define the procedure with the parameter
+      \item store the name of the person in the file.
+      \end{itemize}
+  - number: "9bii"
+    type: short_answer
+    text: |
+      Write the pseudocode that uses the procedure \texttt{StoreData()} to store the name ‘Suella’ in the file \texttt{People.txt}
+```

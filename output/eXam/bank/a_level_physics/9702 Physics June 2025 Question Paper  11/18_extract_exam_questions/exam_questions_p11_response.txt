@@ -1,0 +1,103 @@
+[thinking]
+**My Analysis of the Exam Questions**
+
+Okay, the user wants me to transcribe questions 23, 24, 25, and 26 from the exam page. Let's get to it.
+
+**Question 23:** This one deals with the Young modulus of a metal wire. The text gives me the length, `L`, and diameter, `d`, of the wire, along with its spring constant, `k`.  I need to figure out the Young modulus. I quickly recalled the formula: `E = (stress) / (strain) = (F/A) / (ΔL/L) = (F L) / (A ΔL)`. Since force equals spring constant times extension, `F = k ΔL`, I can substitute and get  `E = (k L) / A`. The area `A` is `πd²/4` for a circle, so `E = (k L) / (πd²/4) = (4 k L) / (π d²)`. I had to confirm my calculation against the options provided. It turns out that the correct answer is option D, which is `4kL / (πd²)`.
+
+**Question 24:** This question involves the Doppler effect.  An aircraft is emitting a sound at 30 Hz and moving towards/away from a stationary observer. The observer hears a frequency of 20 Hz. The speed of sound in air is given as 330 m/s. The question asks for the speed and direction of the aircraft. The options are presented in a table. I will need to use the Doppler effect formula. I'll need to remember the formula relating the observed frequency, the source frequency, the speed of sound, and the velocity of the source. The observed frequency being lower than the source frequency indicates the source is moving *away* from the observer. Now I need to calculate the speed, which is a bit of algebra... the answer will either be A: `110 m/s away` or C: `165 m/s away`.
+
+**Question 25:** This is a conceptual question about the differences between longitudinal and transverse waves. The question asks which statement is *correct*. I'll need to consider each of the options, comparing and contrasting the properties of longitudinal and transverse waves. Option A looks incorrect. I need to be careful. Option C needs to be examined carefully too. Option D is a key difference. I'll have to choose the one that's the most accurate representation of their properties.
+
+**Question 26:** This question relates to wave phase.  A diagram is included, showing a transverse wave on a stretched string. I need to find which point on the string is 270 degrees out of phase with point X. The diagram will be key, as I have to visualize phase differences on a wave.  270 degrees represents 3/4 of a wavelength. I need to visually identify the point on the wave that corresponds to that phase difference relative to X. A, B, C, and D are the options.
+
+
+
+[/thinking]
+
+questions:
+  - number: "23"
+    type: multiple_choice
+    text: |
+      A uniform metal wire of length $L$ and diameter $d$ has spring constant $k$.
+
+      What is the Young modulus of the metal?
+    options:
+      - letter: A
+        text: |
+          $\frac{\pi d^2}{4kL}$
+      - letter: B
+        text: |
+          $\frac{\pi d^2}{kL}$
+      - letter: C
+        text: |
+          $\frac{kL}{\pi d^2}$
+      - letter: D
+        text: |
+          $\frac{4kL}{\pi d^2}$
+
+  - number: "24"
+    type: multiple_choice
+    text: |
+      An aircraft produces a sound at a frequency of $30.0\text{ Hz}$.
+
+      The speed of sound in air is $330\text{ m}\,\text{s}^{-1}$.
+
+      The aircraft is directly in front of the stationary observer and travels in a straight line towards or away from the observer.
+
+      The observer hears the sound from the aircraft at a frequency of $20.0\text{ Hz}$.
+
+      What is the speed and direction of the aircraft?
+    options:
+      - letter: A
+        text: |
+          $110\text{ m}\,\text{s}^{-1}$ away from observer
+      - letter: B
+        text: |
+          $110\text{ m}\,\text{s}^{-1}$ towards observer
+      - letter: C
+        text: |
+          $165\text{ m}\,\text{s}^{-1}$ away from observer
+      - letter: D
+        text: |
+          $165\text{ m}\,\text{s}^{-1}$ towards observer
+
+  - number: "25"
+    type: multiple_choice
+    text: |
+      Which statement about longitudinal and transverse wave motion for a progressive wave is correct?
+    options:
+      - letter: A
+        text: |
+          All transverse and longitudinal waves require a medium for propagation.
+      - letter: B
+        text: |
+          All transverse waves travel at the same speed, but longitudinal waves can travel at different speeds.
+      - letter: C
+        text: |
+          In both transverse waves and longitudinal waves, a particle with zero displacement has a maximum speed.
+      - letter: D
+        text: |
+          In a longitudinal wave there is a net movement of particles in the direction of travel of the wave, but there is no net movement of particles in a transverse wave.
+
+  - number: "26"
+    type: multiple_choice
+    text: |
+      The diagram shows a progressive transverse wave on a stretched string at one instant in time.
+
+      One point on the string is labelled X.
+
+      Which point on the string is $270^\circ$ out of phase with X?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

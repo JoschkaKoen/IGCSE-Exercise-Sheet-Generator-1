@@ -1,0 +1,43 @@
+[thinking]
+**Transcribing Page 8 of the Exam**
+
+Okay, so I need to transcribe page 8. The instructions are clear – stick to the stubs provided and don't introduce any new questions or delete any.  Let's see. The first thing I notice is question "3."  It looks like this is the main question number, but it doesn't have any associated text in the actual question; it just introduces the "3a" question. The stub *does* include a "3" entry, with `text: ""`.  At first I thought maybe it's a stub error. But, since I must follow the stub exactly and not remove the entry, I'll transcribe "3" as `text: ''`.
+
+Now, on to the actual questions on the page.
+
+*   **3a** is straightforward: "Define specific latent heat." So, for "3a", I will include: `text: | Define specific latent heat.`.
+*   **3b** is "Explain why, for a substance, the specific latent heat of vaporisation is usually greater than the specific latent heat of fusion." I'll transcribe that as `text: | Explain why, for a substance, the specific latent heat of vaporisation is usually greater than the specific latent heat of fusion.`.
+*   **3c** is a calculation. It includes a word problem with the setup "An ice cube of mass $37.0\text{ g}$ at temperature $0.0^\circ\text{C}$ is placed in a beaker containing water of mass $208\text{ g}$ at temperature $26.4^\circ\text{C}$.  When all the ice has melted, and all the water in the beaker has reached thermal equilibrium, the final temperature of all the water is $10.3^\circ\text{C}$. The specific heat capacity of water is $4.18\text{ J}\,\text{g}^{-1}\,^\circ\text{C}^{-1}$. The beaker has negligible specific heat capacity and is perfectly insulated from the surroundings. Determine a value, to three significant figures, for the specific latent heat of fusion of water. specific latent heat of fusion = \hrulefill $\text{J}\,\text{g}^{-1}$." I'll ensure to include all the data and the hrulefill as well:  `text: | An ice cube of mass $37.0\text{ g}$ at temperature $0.0^\circ\text{C}$ is placed in a beaker containing water of mass $208\text{ g}$ at temperature $26.4^\circ\text{C}$. When all the ice has melted, and all the water in the beaker has reached thermal equilibrium, the final temperature of all the water is $10.3^\circ\text{C}$. The specific heat capacity of water is $4.18\text{ J}\,\text{g}^{-1}\,^\circ\text{C}^{-1}$. The beaker has negligible specific heat capacity and is perfectly insulated from the surroundings. Determine a value, to three significant figures, for the specific latent heat of fusion of water. specific latent heat of fusion = \hrulefill $\text{J}\,\text{g}^{-1}$`.
+
+I will be sure to double-check the text formatting and units. Since question "3" has no specific text other than being a prefix to the next question, `text: ''` is correct and follows instructions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: |
+      Define specific latent heat.
+  - number: "3b"
+    type: long_answer
+    text: |
+      Explain why, for a substance, the specific latent heat of vaporisation is usually greater than the specific latent heat of fusion.
+  - number: "3c"
+    type: calculation
+    text: |
+      An ice cube of mass $37.0\text{ g}$ at temperature $0.0^\circ\text{C}$ is placed in a beaker containing water of mass $208\text{ g}$ at temperature $26.4^\circ\text{C}$.
+
+      When all the ice has melted, and all the water in the beaker has reached thermal equilibrium, the final temperature of all the water is $10.3^\circ\text{C}$.
+
+      The specific heat capacity of water is $4.18\text{ J}\,\text{g}^{-1}\,^\circ\text{C}^{-1}$.
+
+      The beaker has negligible specific heat capacity and is perfectly insulated from the surroundings.
+
+      Determine a value, to three significant figures, for the specific latent heat of fusion of water.
+
+      specific latent heat of fusion = \hrulefill $\text{J}\,\text{g}^{-1}$

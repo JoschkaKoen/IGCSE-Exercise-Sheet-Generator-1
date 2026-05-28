@@ -1,0 +1,45 @@
+[thinking]
+**Exam Page 16 Transcription Process**
+
+Okay, so I'm transcribing page 16 of this exam. The first thing I'm noticing is question "7".  It seems to be the main question number, but there's no accompanying text beyond "7 (a)".  That's a bit unusual.  I need to figure out if "7" should have some sort of general stem, be marked as an error, or just be left blank. The instructions mention a possible "STUB ERROR" if I can't find a stem, but there's definitely *something* at "7(a)".
+
+Let's look more closely at the OCR data. I can clearly see "7 (a) State Faraday’s law...". "7" itself appears to be just a label.  "7a", "7b" and "7bi" follow. Since the instructions say a missing stem indicates a stub generation bug, my initial thought is to set "7" to `STUB ERROR`. But, if "7" is just a label, I might be able to leave it empty.
+
+Let's get the text for the sub-questions and come back to this. "7a" is straightforward, "State Faraday's law of electromagnetic induction."  "7b" describes an aircraft in a magnetic field with some associated values: Earth's magnetic field strength, wingtip distance, and induced EMF.  The text describes the scenario around Fig 7.1. Then there's "7bi," which is a calculation: "Calculate the magnetic flux...". It also provides space for the response: `magnetic flux = \hrulefill unit \hrulefill`.
+
+Now, back to the "7" conundrum. It looks like it is fine to leave it empty. It's really just a label. I'll represent it as `text: ''`.
+
+So, here's how the transcription will look:
+
+For "7a", the text will be a short answer question, with the text describing Faraday's law. For "7b", it'll be a short answer question that gives the text describing the aircraft in a magnetic field. Then "7bi" will be a calculation question, with the accompanying response line.
+
+That should be good to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: ''
+  - number: "7a"
+    type: short_answer
+    text: |
+      State Faraday’s law of electromagnetic induction.
+  - number: "7b"
+    type: short_answer
+    text: |
+      An aircraft is flying horizontally at constant speed $v$ through the Earth’s magnetic field, as shown in Fig. 7.1.
+
+      At the location of the aircraft, the vertical component of the Earth’s magnetic field is $38\ \mu\text{T}$ towards the ground.
+
+      The distance between the wingtips P and Q of the aircraft is $68\text{ m}$.
+
+      As the aircraft moves through the magnetic field, an electromotive force (e.m.f.) of $0.54\text{ V}$ is induced between the wingtips P and Q.
+  - number: "7bi"
+    type: calculation
+    text: |
+      Calculate the magnetic flux cut by the wings of the aircraft in a time of $15\text{ s}$. Give a unit with your answer.
+
+      magnetic flux = \hrulefill unit \hrulefill

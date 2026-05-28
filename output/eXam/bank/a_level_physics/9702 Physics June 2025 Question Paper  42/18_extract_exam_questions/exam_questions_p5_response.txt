@@ -1,0 +1,72 @@
+[thinking]
+**Exam Paper Page 5: My Approach**
+
+Okay, so I need to transcribe page 5 of this exam paper. It looks like it's focused on rotational motion, likely related to gears and bicycle mechanics – an interesting application of physics. Let's break down these questions and get them formatted properly.
+
+First, `1bii`: I need to calculate the period of rotation for the small cog. Straightforward enough, just a matter of applying the relevant formula and units. The provided YAML should look like this:
+
+```yaml
+1bii:
+  text: |
+    Calculate the period of rotation of the small cog.
+
+    period = \hrulefill s
+```
+
+Next, `1biii`. This is a "show that" question, which means I'll need to demonstrate the steps leading to the given distance of $0.24\text{ m}$ for the movement of point X on the chain. I'll need to show all my working here. The YAML for this is:
+
+```yaml
+1biii:
+  text: |
+    Show that the distance moved by point X on the chain during one full rotation of the small cog is $0.24\text{ m}$.
+```
+
+Now, `1biv` hinges on the previous result. It's asking me to use the information from the previous part to determine the angle through which the large cog rotates during one full rotation of the small cog. It looks like I will need to use radians for my answer.
+
+```yaml
+1biv:
+  text: |
+    Use the information in \textbf{(b)(iii)} to determine the angle through which the large cog rotates during one full rotation of the small cog.
+
+    angle = \hrulefill rad
+```
+
+Finally, `1c` is a conceptual question, no calculation is required. I'll need to explain the effect on the angular speed of the pedals when the chain is moved to a smaller cog on the rear wheel, while maintaining constant bicycle speed. I'll need to think about the relationship between gear ratio, angular speed, and linear speed here. The YAML should be:
+
+```yaml
+1c:
+  text: |
+    The chain of the bicycle in \textbf{(b)} is moved onto a smaller cog fixed to the rear wheel. The speed of the bicycle does not change.
+
+    Explain, without calculation, the effect of this change on the angular speed of the pedals.
+```
+
+That should be it, all questions are now correctly formatted, and I'm ready to proceed with the transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1bii"
+    type: calculation
+    text: |
+      Calculate the period of rotation of the small cog.
+
+      period = \hrulefill s
+  - number: "1biii"
+    type: calculation
+    text: |
+      Show that the distance moved by point X on the chain during one full rotation of the small cog is $0.24\text{ m}$.
+  - number: "1biv"
+    type: calculation
+    text: |
+      Use the information in \textbf{(b)(iii)} to determine the angle through which the large cog rotates during one full rotation of the small cog.
+
+      angle = \hrulefill rad
+  - number: "1c"
+    type: long_answer
+    text: |
+      The chain of the bicycle in \textbf{(b)} is moved onto a smaller cog fixed to the rear wheel. The speed of the bicycle does not change.
+
+      Explain, without calculation, the effect of this change on the angular speed of the pedals.

@@ -1,0 +1,23 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Fig. 6.1 shows a circuit that rectifies an alternating input voltage $V_{\text{IN}}$ and produces an output voltage $V_{\text{OUT}}$ across a resistor R.
+
+      The four terminals of the rectification circuit are labelled W, X, Y and Z.
+      A capacitor C is connected in parallel with resistor R.
+  - number: "6a"
+    type: short_answer
+    text: ''
+  - number: "6ai"
+    type: short_answer
+    text: |
+      State what is meant by rectification.
+  - number: "6aii"
+    type: short_answer
+    text: |
+      State the purpose of capacitor C.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Fig. 6.2 shows the variations with time $t$ of the potential differences (p.d.s) $V_{\text{IN}}$ and $V_{\text{OUT}}$.

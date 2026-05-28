@@ -1,0 +1,71 @@
+[thinking]
+**Exam Page 8: Question 2f Analysis**
+
+Okay, the task is to fill in the YAML stub for page 8 of this exam. The first question on this page is labeled as `(f) (i)`. Let's analyze.
+
+Initially, I see that the stub has entries like `2f`, `2fi`, `2fii`, and `2fiii`. But wait, does the question `2f` even exist on this page, or is it a parent label with no explicit text? The page starts with `(f) (i)`, not `2f` directly. My first instinct is to check if `2f` is a stub error.
+
+Following the instructions, I need to verify that *every* stub entry's stem is explicitly present on the page. If it's not, it's flagged as a stub generation bug, and I need to output `STUB ERROR`.
+
+Okay, so I have to verify where `2f`'s stem is, and it seems like it's a parent question label without distinct text on this page. Looking closely at the text, the beginning of the page is `(f) (i)`. It starts with `(f) (i)` which reads "The procedure PrintSpare() outputs...". So `2f` isn't visible on the page, only `(f) (i)` which is part of it. The rule says "Do NOT guess."
+
+Let's check the OCR to make sure. I confirm that `2f` has no text of its own. Is it supposed to be an empty field or a "STUB ERROR"?
+
+I'm supposed to flag any missing stem as a stub error. So, since the stem for `2f` isn't present, and instead it begins at `(f) (i)`, I need to mark `2f` as `STUB ERROR`. I can't find its stem, per the rule.
+
+I need to confirm that `2fi`, `2fii` and `2fiii` are subquestions that are present in the text, and I verify:
+
+-   `2fi`: This is about writing code for `PrintSpare()` and pasting into the evidence.
+-   `2fii`: This is the main program calling the procedure, also code and pasting.
+-   `2fiii`: Is testing the program and pasting a screenshot.
+
+Okay, I'm confident. The correct approach is to populate `2f` with `STUB ERROR` since its stem isn't found on the page.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2f"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2fi"
+    type: short_answer
+    text: |
+      The procedure \texttt{PrintSpare()} outputs the key field of each element in the array \texttt{Spare} that does not contain an empty record.
+
+      Write program code for \texttt{PrintSpare()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{2(f)(i)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "2fii"
+    type: short_answer
+    text: |
+      The main program should call the procedure to initialise the arrays, call the procedure to create the hash table and then call the procedure to output the contents of the array \texttt{Spare}
+
+      Write program code for the main program.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{2(f)(ii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "2fiii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the screenshot into part \textbf{2(f)(iii)} in the evidence document. \\
+      \hline
+      \end{tabular}

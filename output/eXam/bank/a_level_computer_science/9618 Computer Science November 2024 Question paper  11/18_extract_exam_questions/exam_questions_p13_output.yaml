@@ -1,0 +1,27 @@
+```yaml
+questions:
+  - number: "6"
+    type: long_answer
+    text: |
+      A car park system uses a camera to record the registration number of each car as it enters and leaves the car park.
+
+      Explain how artificial intelligence is used in the car park system to identify the car's registration number.
+  - number: "7"
+    type: short_answer
+    text: |
+      Software is distributed with a licence.
+  - number: "7a"
+    type: short_answer
+    text: |
+      Give \textbf{two} benefits of distributing software using a shareware software licence.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7b"
+    type: short_answer
+    text: |
+      Give \textbf{two} benefits of distributing software using a commercial software licence.
+
+      1. \hrulefill
+      2. \hrulefill
+```

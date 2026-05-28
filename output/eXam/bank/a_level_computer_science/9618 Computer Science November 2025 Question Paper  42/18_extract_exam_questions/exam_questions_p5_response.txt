@@ -1,0 +1,104 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 5**
+
+Okay, time to tackle the YAML stub for page 5. The questions are `1c`, `1ci`, and `1cii`.  First thought, `1c`... is it a separate question or just a section header?  Let's check the page itself. It starts with "(c) (i) The main program needs to: ...".  Aha, so `1c` isn't a standalone question; it looks like it's the parent element.  
+
+Wait a minute, the instructions explicitly state to look for each stub entry's stem on the page. If it's missing, emit `STUB ERROR`. I need to ensure the stem is visible. If `1c` doesn't have its own text, that indicates a stub-generation bug.
+
+Okay, let's confirm.  The OCR confirms: "(c) (i) The main program needs to:". So,  `1c` is just the section header before "(c) (i)" and "(ii)". There's no separate prompt for `1c` itself.
+
+The prompt says to check the OCR for "evidence". I must ensure the stem is there. It's not. I'm going to mark `1c` as `STUB ERROR`.  We have a clear stub error here, and according to the instructions I need to flag it.
+
+Now, on to `1ci`.  The LaTeX for that section is:
+```latex
+The main program needs to:
+
+\begin{itemize}
+\item output a message that includes the species and current X position and Y position for each bird
+\item prompt the user to select one of the birds to move and take this as an input
+\item prompt the user to enter the direction the bird has been travelling and take this as an input
+\item prompt the user to enter the time to the nearest minute that the bird has been travelling and take this as an input
+\item call the appropriate method to update the chosen bird's position
+\item output an update on the bird's new position
+\end{itemize}
+
+Each input needs to repeat until valid data is entered. All outputs must be meaningful.
+
+Write program code to amend the main program.
+
+Save your program.
+
+Copy and paste the program code into part \textbf{1(c)(i)} in the evidence document.
+```
+
+And for `1cii`:
+```latex
+Test your program \textbf{four} times to meet these criteria:
+
+Test 1: The Cockatiel travels north for 60 minutes.
+
+Test 2: The Macaw travels south for 30 minutes.
+
+Test 3: The Cockatiel travels west for 30 minutes.
+
+Test 4: The Macaw travels east for 60 minutes.
+
+Take a screenshot of the output(s).
+
+Save your program.
+
+Copy and paste the screenshot(s) into part \textbf{1(c)(ii)} in the evidence document.
+```
+
+I'll make sure to include all of that, especially the "Save your program. Copy and paste..." instructions.  So, I have `1ci` and `1cii` populated. The `1c` I'm definitely going with `STUB ERROR`. Good, everything is covered.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ci"
+    type: short_answer
+    text: |
+      The main program needs to:
+
+      \begin{itemize}
+      \item output a message that includes the species and current X position and Y position for each bird
+      \item prompt the user to select one of the birds to move and take this as an input
+      \item prompt the user to enter the direction the bird has been travelling and take this as an input
+      \item prompt the user to enter the time to the nearest minute that the bird has been travelling and take this as an input
+      \item call the appropriate method to update the chosen bird's position
+      \item output an update on the bird's new position
+      \end{itemize}
+
+      Each input needs to repeat until valid data is entered. All outputs must be meaningful.
+
+      Write program code to amend the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)(i)} in the evidence document.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Test your program \textbf{four} times to meet these criteria:
+
+      Test 1: The Cockatiel travels north for 60 minutes.
+
+      Test 2: The Macaw travels south for 30 minutes.
+
+      Test 3: The Cockatiel travels west for 30 minutes.
+
+      Test 4: The Macaw travels east for 60 minutes.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{1(c)(ii)} in the evidence document.
+```

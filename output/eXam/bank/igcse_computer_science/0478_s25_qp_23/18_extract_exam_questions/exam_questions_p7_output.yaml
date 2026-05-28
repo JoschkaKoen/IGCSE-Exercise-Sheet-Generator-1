@@ -1,0 +1,36 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A computer store uses a database table \texttt{COMPONENT} to store the stock details of a range of components needed to build computer systems.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the table by giving appropriate data types for each field.
+
+      Only the data types: text, character, Boolean, integer, real, date/time are available in this database.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Field} & \textbf{Data type} & \textbf{Description} \\ \hline
+      \texttt{ID} & & unique identifier \\ \hline
+      \texttt{Name} & & component name \\ \hline
+      \texttt{Description} & & component description \\ \hline
+      \texttt{Price} & & selling price of component to 2 decimal places \\ \hline
+      \texttt{NumberAvailable} & & number in stock \\ \hline
+      \texttt{MinimumLevel} & & level at which the component is reordered \\ \hline
+      \texttt{ReOrdered} & & whether or not the component has been reordered \\ \hline
+      \texttt{DateOrdered} & & the date the component was reordered \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: short_answer
+    text: |
+      Complete the structured query language (SQL) statement to list only the unique identifier, component name and reorder date of all the components that have been reordered.
+
+      \begin{alltt}
+      SELECT \hrulefill
+
+      FROM \hrulefill
+
+      WHERE \hrulefill ;
+      \end{alltt}

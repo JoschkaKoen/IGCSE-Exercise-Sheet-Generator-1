@@ -1,0 +1,60 @@
+[thinking]
+**Examining the Exam Page Content**
+
+Okay, so I'm presented with page 10 of an exam paper. The user wants me to extract and structure the questions from this page. I'm seeing a structured problem, and I need to break it down. Let's get started.
+
+First, there's a main stem, question "4". It describes a ball dropping, colliding with the ground, and bouncing back up. They give us the mass of the ball (0.25 kg), the contact time (0.18 s), the speed just before impact (5.2 m/s), and the speed just after (3.6 m/s). Air resistance is negligible.
+
+Then we have "4a", which asks if the collision is elastic or inelastic, requiring an explanation. This is straightforward enough.
+
+Now, we get to "4b". Here's where it gets a little tricky. There's no separate text explicitly labeled "4b." However, we do have "(b) (i)" and "(b) (ii)" following it. Since the stub entries include one for "4b" but no text, and following the instructions, I'll indicate a stub error for "4b." This is because the stub structure expects a question stem, but the visible text just jumps directly into the sub-questions. I'll use `STUB ERROR`.
+
+"4bi" asks for the change in momentum.
+
+"4bii" then asks for the average force during the collision.
+
+Let me double check all the info to make sure the data is accurate.
+```
+```
+```
+```
+```
+```
+```
+```
+```
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A small ball is dropped from rest from height $h_1$ above the ground and falls vertically downwards. The ball collides with the ground and bounces back vertically upwards, reaching a maximum height $h_2$. Fig. 4.1 shows the ball just before and just after hitting the ground.
+
+      The ball has mass $0.25\text{ kg}$ and is in contact with the ground for a time of $0.18\text{ s}$.
+      Just before the ball hits the ground, it has speed $5.2\text{ m}\,\text{s}^{-1}$. Just after it leaves the ground, it has speed $3.6\text{ m}\,\text{s}^{-1}$.
+      Air resistance acting on the ball is negligible.
+  - number: "4a"
+    type: long_answer
+    text: |
+      State and explain whether the collision is elastic or inelastic.
+  - number: "4b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "4bi"
+    type: calculation
+    text: |
+      Calculate the change in momentum of the ball during the collision with the ground.
+
+      change in momentum = \hrulefill $\text{kg}\,\text{m}\,\text{s}^{-1}$
+  - number: "4bii"
+    type: calculation
+    text: |
+      Determine the average force on the ball during the collision with the ground.
+
+      force = \hrulefill $\text{N}$

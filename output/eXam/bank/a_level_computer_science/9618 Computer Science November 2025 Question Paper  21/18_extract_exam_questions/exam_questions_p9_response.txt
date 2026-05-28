@@ -1,0 +1,32 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 9**
+
+Okay, time to get this YAML stub for page 9 of the exam populated. I need to handle questions "5bi" and "5bii" specifically. Let's break down the process.
+
+First, let's establish the context. The page starts with "(b) The pseudocode does not use the most appropriate loop construct." Alright, got it.
+
+For "5bi", I need to address *(i)* "Explain why this is not the most appropriate loop construct." The context of "(b)" is important here. It's best to include that in the question text for clarity. Therefore, I'll set the text for "5bi" to: "The pseudocode does not use the most appropriate loop construct.\n\nExplain why this is not the most appropriate loop construct."
+
+Now, "5bii". The prompt is *(ii)* "Suggest and justify a more appropriate loop construct that could be used." I need to consider the format. It looks like it is structured with "Construct" and "Justification". I've got to make sure the YAML reflects this. The format is a single line for "Construct" and then an open-ended area for "Justification".
+
+So, I'm going to set the text for "5bii" to: "Suggest and justify a more appropriate loop construct that could be used.\n\nConstruct \hrulefill\n\nJustification". Done. I've removed the extraneous formatting marks. This will allow for the candidate to correctly format their answer. Perfect. I think I'm ready to move onto the next question!
+
+
+
+[/thinking]
+
+questions:
+  - number: "5bi"
+    type: short_answer
+    text: |
+      The pseudocode does not use the most appropriate loop construct.
+
+      Explain why this is not the most appropriate loop construct.
+  - number: "5bii"
+    type: short_answer
+    text: |
+      Suggest and justify a more appropriate loop construct that could be used.
+
+      Construct \hrulefill
+
+      Justification

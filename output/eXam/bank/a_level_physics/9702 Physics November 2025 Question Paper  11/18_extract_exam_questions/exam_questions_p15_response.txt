@@ -1,0 +1,65 @@
+[thinking]
+**Transcribing Questions 34 and 35**
+
+Okay, the user wants me to transcribe two multiple-choice physics questions. I can see the structure immediately. Question 34 involves a circuit diagram and asks for the resistance of a labeled resistor. It's straightforward: a battery, cells, current, EMF, and resistance values are provided. I'll need to capture the diagram accurately, of course, but the text itself is clear. The options are A: 0.40 Ω, B: 0.80 Ω, C: 2.0 Ω, and D: 2.8 Ω. I'll make sure to get the units correct.
+
+Question 35 is a bit more involved. It also involves a circuit, this time with a battery and an internal resistance 'r' connected to a resistor 'R'. A second resistor, identical to R, is connected in parallel. The question asks how the potential difference across 'r' and the ammeter current change. This is classic circuit analysis stuff. The options are presented in a table format with the rows labeled A, B, C, and D, and each row describes the changes: 'decreases, decreases', 'decreases, increases', 'increases, decreases', and 'increases, increases'. I see that these are the standard options. I'll make sure to transcribe the table correctly, including the bolded row labels, the structure and the information in the cells. It's a common way to pose these types of questions. I need to make sure I represent this clearly. I'll use the format A, B, C, D as the final options. This should be a clean and accurate transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "34"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit containing a battery and cells with negligible internal resistance.
+
+      Some values of current, electromotive force (e.m.f.) and resistance are shown.
+
+      One resistor is labelled P.
+
+      What is the resistance of resistor P?
+    options:
+      - letter: A
+        text: |
+          $0.40\,\Omega$
+      - letter: B
+        text: |
+          $0.80\,\Omega$
+      - letter: C
+        text: |
+          $2.0\,\Omega$
+      - letter: D
+        text: |
+          $2.8\,\Omega$
+  - number: "35"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit with a battery connected to a resistor R. The battery has an internal resistance represented by resistor r.
+
+      A second resistor, identical to R, is connected in parallel with R.
+
+      Which row describes the changes to the potential difference (p.d.) across r and the current shown on the ammeter when the second resistor is connected?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & p.d. across r & \begin{tabular}{c} current shown \\ on ammeter \end{tabular} \\ \hline
+      \textbf{A} & decreases & decreases \\ \hline
+      \textbf{B} & decreases & increases \\ \hline
+      \textbf{C} & increases & decreases \\ \hline
+      \textbf{D} & increases & increases \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

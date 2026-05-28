@@ -1,0 +1,9 @@
+questions:
+  - number: "10c"
+    type: calculation
+    text: |
+      A value for the Hubble constant is $2.3 \times 10^{-18} \text{ s}^{-1}$.
+
+      Use your answer in \textbf{(b)(ii)} to determine the distance of the star in \textbf{(b)} from the Earth.
+
+      distance = \hrulefill \text{ m}

@@ -1,0 +1,45 @@
+[thinking]
+**Examining Page 12: A Physics Problem**
+
+Okay, the task is to transcribe page 12 of this exam paper. My first thought is to dive straight into the questions and their structure. The main question, labeled "5", seems to be a container. Usually, "5" sets the stage but doesn't necessarily have its own text, but let's be sure. Looking closer, there is a clear subdivision structure using "5a", "5b", and then further subdivisions with "5bi", "5bii", and "5biii".
+
+"5" itself is empty. So, that part is simple. Now let's see what each of the subdivisions asks. "5a" requires a definition: "Define electric potential at a point." That's straightforward enough. Now for the meatier part, "5b" and its sub-parts involve a specific problem dealing with a hydrogen atom's configuration, including a proton and an electron separated by 120 pm. Point P is a variable distance *x* from the proton, along the line connecting the two.
+
+"5bi" is a problem to show that the electric potential, V, at a certain point with a distance of x = 10 pm equals 130 V. "5bii" asks for the calculation of V at x = 30 pm, with the prompt for a numerical answer. Finally, "5biii" is a visual question, I must mark a location (excluding infinity) on Fig 5.1 where the electric potential is zero.
+
+Now, translating this into code, I can see clearly how the questions map onto the stub that I am creating. "5" doesn't need text, while the others are very clearly laid out. I need to be careful with the LaTeX. The units pm (picometers) are important for clarity. I can leave a placeholder for the diagram, but it will need to be present and labeled. All of that is clear. Looks like a solid physics question.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: short_answer
+    text: |
+      Define electric potential at a point.
+  - number: "5b"
+    type: short_answer
+    text: |
+      A hydrogen atom may be considered to consist of a proton and an electron separated by a distance of $120\text{ pm}$, as shown in Fig. 5.1.
+
+      The two particles may be considered as point charges.
+
+      Point P lies on the line joining the electron and the proton and is at a variable distance $x$ from the proton.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      Show that the electric potential $V$ at point P when $x = 10\text{ pm}$ is equal to $130\text{ V}$.
+  - number: "5bii"
+    type: calculation
+    text: |
+      Calculate, to two significant figures, $V$ when $x = 30\text{ pm}$.
+
+      $V = \hrulefill \text{ V}$
+  - number: "5biii"
+    type: short_answer
+    text: |
+      On Fig. 5.1, draw a cross ($\times$) at one position, other than infinity, where the electric potential is zero.

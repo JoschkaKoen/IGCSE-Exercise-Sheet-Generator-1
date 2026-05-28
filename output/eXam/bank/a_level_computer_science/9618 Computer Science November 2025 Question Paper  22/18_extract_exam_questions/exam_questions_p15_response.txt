@@ -1,0 +1,27 @@
+[thinking]
+**Transcribing Exam Question 8a**
+
+Okay, the user wants me to handle question "8a" from page 15 of the exam. Let me quickly examine the layout. I see the question prefix is indeed `(a)`. The question text is "Write pseudocode for module `CountLoans()`". The page seems to be set up as expected with the dotted lines for the pseudocode, and I note the "[7]" mark at the bottom right indicating the points allocated.
+
+Now, let's apply the appropriate formatting rules. First, I need to strip the subquestion prefix, so I'll remove the `(a)` at the start. Then, I need to remember not to include standalone dotted lines as the prompt is open-ended. Finally, and this is crucial for the presentation of the answer, I must wrap inline code tokens, like the module name, in `\texttt{...}`.  So, `CountLoans()` will become `\texttt{CountLoans()}`.
+
+Alright, that information is sufficient to build the YAML. Here's what I've got:
+
+```yaml
+questions:
+  - number: "8a"
+    type: short_answer
+    text: |
+      Write pseudocode for module \texttt{CountLoans()}
+```
+That should be precisely what's needed. I'm ready to move on.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8a"
+    type: short_answer
+    text: |
+      Write pseudocode for module \texttt{CountLoans()}

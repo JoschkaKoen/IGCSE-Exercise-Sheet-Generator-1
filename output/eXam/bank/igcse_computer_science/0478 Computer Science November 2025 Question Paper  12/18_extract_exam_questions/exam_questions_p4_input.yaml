@@ -1,0 +1,21 @@
+  - number: "2"
+    type: short_answer
+    text: ""
+  - number: "2a"
+    type: calculation
+    text: ""
+  - number: "2b"
+    type: calculation
+    text: ""
+  - number: "3"
+    type: short_answer
+    text: ""
+  - number: "3a"
+    type: short_answer
+    text: ""
+  - number: "3b"
+    type: short_answer
+    text: ""
+  - number: "3c"
+    type: multiple_choice
+    text: ""

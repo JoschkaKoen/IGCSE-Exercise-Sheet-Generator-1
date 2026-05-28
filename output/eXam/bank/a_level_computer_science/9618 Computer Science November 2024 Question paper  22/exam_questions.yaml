@@ -1,0 +1,751 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program has been developed and released for general use. After a few months
+    of use an error is detected where under certain circumstances it outputs an unexpected
+    value.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The error in the program needs to be corrected.
+
+
+      Identify the stage of the program development life cycle that this correction
+      is made in.'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: long_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The program contains a function \texttt{Lookup()}. After investigation,
+      it is found that this is the function that sometimes returns an incorrect value.
+
+
+      An Integrated Development Environment (IDE) is used to help locate the error.
+
+
+      The IDE features of watch window, single stepping and breakpoint will be used.
+
+
+      Explain these features including the order that they will be used in to locate
+      the error in \texttt{Lookup()}.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'To solve the error a programmer decides to create a new module.
+
+
+      The design of the new module has been completed and the module is being coded.
+
+
+      Identify \textbf{two} features of an IDE that will help during the coding of
+      this new module.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The new module referred to in part (c) introduces \textbf{three} new variables.
+
+
+      Complete the following table by giving the appropriate data type for each.
+
+
+      \begin{tabular}{|l|l|l|}
+
+      \hline
+
+      \textbf{Variable name} & \textbf{Used to store} & \textbf{Data type} \\ \hline
+
+      \texttt{Name} & A customer name. & \hrulefill \\ \hline
+
+      \texttt{Index} & An array index. & \hrulefill \\ \hline
+
+      \texttt{Result} & The result of the division of any two non-zero numbers. &
+      \hrulefill \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is being developed to process bank card information.
+
+
+    When a card number is displayed, all the characters \textbf{except} the last four
+    are replaced with the asterisk character ''*''.
+
+
+    Card numbers are stored as strings. The strings are between 10 and 20 characters
+    in length.
+
+
+    The function \texttt{Conceal()} will take a string representing a card number
+    and return a modified string.
+
+
+    Example strings:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Original string} & \textbf{Modified string} \\ \hline
+
+    \texttt{"1234567890"} & \texttt{"******7890"} \\ \hline
+
+    \texttt{"1234567897652"} & \texttt{"*********7652"} \\ \hline
+
+    \texttt{"1234567890123456"} & \texttt{"************3456"} \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The function \texttt{Conceal()} will:
+
+
+      \begin{itemize}
+
+      \item take a numeric string as a parameter representing the card number
+
+      \item return a string in which the asterisk character replaces all except the
+      last four characters of the card number parameter.
+
+      \end{itemize}
+
+
+      Write pseudocode for the function \texttt{Conceal()}.'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The requirements have been changed. \texttt{Conceal()} will now be written
+      as a procedure which will process 100 card numbers each time it is called.
+
+
+      The card numbers will be stored in a 2D array \texttt{CardNumber}. The original
+      string will be stored in column one and the modified string in column two.'
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write pseudocode to declare the array.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The new procedure \texttt{Conceal()} will write the modified string to
+        the corresponding element in column two.
+
+
+        The array \texttt{CardNumber} is passed as a parameter to the new procedure
+        \texttt{Conceal()}.
+
+
+        Identify how this parameter should be specified in the new procedure header.'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program uses a stack to hold up to 60 numeric values.
+
+    The stack is implemented using two integer variables and a 1D array.
+
+
+    The array is declared in pseudocode as shown:
+
+
+    \begin{alltt}
+
+    DECLARE ThisStack : ARRAY[1:60] OF REAL
+
+    \end{alltt}
+
+
+    The stack operates as follows:
+
+
+    \begin{itemize}
+
+    \item Global variable \texttt{SP} acts as a stack pointer that points to the next
+    available stack location. The value of \texttt{SP} represents an array index.
+
+    \item Global variable \texttt{OnStack} represents the number of values currently
+    on the stack.
+
+    \item The stack grows upwards from array element index 1.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Give the initial values that should be assigned to the two variables.
+
+
+        SP \hrulefill
+
+        OnStack \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: long_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain why it is not necessary to initialise the array elements before
+        the stack is used.
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "A function to add a value to \\texttt{ThisStack} is expressed in pseudocode\
+      \ as shown.\nThe function will return a value to indicate whether the operation\
+      \ was successful or not.\n\nComplete the pseudocode by filling in the gaps.\n\
+      \n\\begin{alltt}\nFUNCTION Push(ThisValue : REAL) RETURNS BOOLEAN\n\n  DECLARE\
+      \ ReturnValue : BOOLEAN\n\n  IF ................................................\
+      \ THEN\n\n    RETURN ................................................ // stack\
+      \ is already full\n\n  ENDIF\n\n  ................................................\
+      \ <- ThisValue\n\n  SP <- ................................................\n\
+      \n  OnStack <- OnStack + 1\n\n  RETURN TRUE\n\nENDFUNCTION\n\\end{alltt}"
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: long_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: "A global integer variable \\texttt{Tick} is always incremented every millisecond\
+    \ (1000 times per second) regardless of the other programs running.\n\nThe value\
+    \ of \\texttt{Tick} can be read by any program but the value should not be changed.\n\
+    \nAssume that the value of \\texttt{Tick} does not overflow.\n\nAs an example,\
+    \ the following pseudocode algorithm would output \"Goodbye\" 40 seconds after\
+    \ outputting \"Hello\".\n\n\\begin{alltt}\nDECLARE Start : INTEGER\n\nOUTPUT \"\
+    Hello\"\nStart <- Tick\n\nREPEAT\n  //do nothing\nUNTIL Tick = Start + 40000\n\
+    \nOUTPUT \"Goodbye\"\n\\end{alltt}\n\nA program is needed to help a user to time\
+    \ an event such as boiling an egg.\n\nThe time taken for the event is known as\
+    \ the elapsed time.\n\nThe program contains a procedure \\texttt{Timer()} which\
+    \ will:\n\n\\begin{itemize}\n\\item take two integer values representing an elapsed\
+    \ time in minutes and seconds\n\\item use the value of variable \\texttt{Tick}\
+    \ to calculate the elapsed time\n\\item output a warning message 30 seconds before\
+    \ the elapsed time is up\n\\item output a final message when the total time has\
+    \ elapsed.\n\\end{itemize}\n\nFor example, to set an alarm for 5 minutes and 45\
+    \ seconds the program makes the following call:\n\n\\begin{alltt}\nCALL Timer(5,\
+    \ 45)\n\\end{alltt}\n\nWhen 5 minutes and 15 seconds have elapsed, the program\
+    \ will output:\n\n\"30 seconds to go\"\n\nWhen 5 minutes and 45 seconds have elapsed,\
+    \ the program will output:\n\n\"The time is up!\""
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "A program contains a global 1D array \\texttt{Data} with 100 elements of\
+    \ type \\texttt{INTEGER}.\n\nThe program contains a function \\texttt{Process()}\
+    \ expressed in pseudocode as follows:\n\n\\begin{alltt}\nFUNCTION Process(Number\
+    \ : INTEGER, Label : STRING) RETURNS STRING\n    DECLARE Index, Count : INTEGER\n\
+    \    DECLARE ReturnValue : STRING\n\n    Count <- INT(100 / Number)\n    Index\
+    \ <- Data[Number]\n\n    CASE OF (Index MOD 2)\n        0 : ReturnValue <- TO_UPPER(RIGHT(Label,\
+    \ Count))\n        1 : ReturnValue <- \"*****\"\n    ENDCASE\n\n    RETURN ReturnValue\n\
+    ENDFUNCTION\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Run-time errors can be generated in different ways. For example, a run-time
+      error will be generated if a function is called with invalid parameters.
+
+
+      The pseudocode contains three statements that could generate a run-time error.
+
+
+      Write the three statements \textbf{and} explain how each could generate a run-time
+      error.
+
+
+      Statement 1 \hrulefill
+
+
+      Explanation \hrulefill
+
+
+      Statement 2 \hrulefill
+
+
+      Explanation \hrulefill
+
+
+      Statement 3 \hrulefill
+
+
+      Explanation \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'One type of run-time error can cause a program to stop responding (''freezing'').
+
+
+      Identify a particular type of programming construct that can generate this type
+      of error \textbf{and} explain why it occurs.
+
+
+      Construct \hrulefill
+
+
+      Explanation \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The function \texttt{Process()} contains a selection construct using a
+      \texttt{CASE} structure.
+
+
+      Write pseudocode using a single selection construct with the same functionality
+      \textbf{without} using a \texttt{CASE} structure.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A shop sells sandwiches and snacks. The owner chooses a ''daily special''
+    sandwich which is displayed on a board outside the shop. Each ''daily special''
+    has two different fillings and is made with one type of bread.
+
+
+    The owner wants a program to randomly choose the ''daily special'' sandwich.
+
+
+    The program designer decides to store the possible sandwich fillings in a 1D array
+    of type string.
+
+
+    The array is declared in pseudocode as follows:
+
+
+    \begin{alltt}
+
+    DECLARE Filling : ARRAY [1:35] OF STRING
+
+    \end{alltt}
+
+
+    Each element contains the name of one filling.
+
+
+    An example of the first five elements is as follows:
+
+
+    \begin{tabular}{|c|l|}
+
+    \hline
+
+    \textbf{Index} & \textbf{Element value} \\ \hline
+
+    1 & "Cheese" \\ \hline
+
+    2 & "Onion" \\ \hline
+
+    3 & "Salmon" \\ \hline
+
+    4 & "Anchovies" \\ \hline
+
+    5 & "Peanut Butter" \\ \hline
+
+    \end{tabular}
+
+
+    \vfill
+
+
+    A second 1D array stores the possible bread used:
+
+
+    \begin{alltt}
+
+    DECLARE Bread : ARRAY [1:10] OF STRING
+
+    \end{alltt}
+
+
+    Each element contains the name of one type of bread.
+
+
+    An example of the first three elements is as follows:
+
+
+    \begin{tabular}{|c|l|}
+
+    \hline
+
+    \textbf{Index} & \textbf{Element value} \\ \hline
+
+    1 & "White" \\ \hline
+
+    2 & "Brown" \\ \hline
+
+    3 & "Pitta" \\ \hline
+
+    \end{tabular}
+
+
+    Both arrays may contain unused elements. The value of these will be an empty string
+    and they may occur anywhere in each array.
+
+
+    A procedure \texttt{Special()} will output a message giving the ''daily special''
+    sandwich made from \textbf{two} randomly selected different fillings and \textbf{one}
+    randomly selected bread.
+
+
+    Unused array elements must \textbf{not} be used when creating the ''daily special''
+    sandwich.
+
+
+    Using the above examples, the output could be:
+
+
+    \texttt{"The daily special is Cheese and Onion on Brown bread."}'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: long_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'Complete the pseudocode for the procedure \texttt{Special()}.
+
+
+      Assume that both arrays are global.
+
+
+      \begin{alltt}
+
+      PROCEDURE Special()
+
+      \end{alltt}
+
+
+      \begin{alltt}
+
+      ENDPROCEDURE
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The owner decides that some combinations of fillings do not go well together.
+      For example, anchovies and peanut butter.
+
+
+      Describe how the design could be changed to prevent certain combinations being
+      selected.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A coffee shop runs a computerised loyalty card system.
+
+
+    Customers are issued with a loyalty card with their name together with a unique
+    customer ID.
+
+
+    Loyalty points are added to their card each time they spend money at the shop.
+
+
+    The following information is stored for each customer: ID, name, home address,
+    email address, mobile phone number, date of birth, number of points, date of last
+    visit and amount of money spent at last visit.
+
+
+    A new module will generate a personalised email message to each loyalty card customer
+    who has not visited the coffee shop in the last three months. The message will
+    include a unique voucher code which can be used to authorise a discount if the
+    customer goes to the shop within the next two weeks.'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Identify \textbf{three} items of customer information that will be used
+      by the new module \textbf{and} justify your choices.
+
+
+      Item 1 \hrulefill
+
+      Justification \hrulefill
+
+
+      Item 2 \hrulefill
+
+      Justification \hrulefill
+
+
+      Item 3 \hrulefill
+
+      Justification \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the computational thinking skill that you needed to use to answer
+      part (a).
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'It is decided to adopt a formal program development life cycle model for
+      the development of the new module.
+
+
+      The analysis of the new module is complete and the project moves on to the design
+      stage. During this stage all the necessary algorithms and module designs will
+      be defined.
+
+
+      State \textbf{three other} items that will be defined for the new module during
+      the design stage.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: long_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Part of the coffee shop program contains three program modules as follows:
+
+
+      \begin{itemize}
+
+      \item Module \texttt{Init()} has no parameters and returns a Boolean.
+
+      \item Module \texttt{Reset()} takes a string as a parameter and returns an Integer.
+
+      \item Module \texttt{Check()} repeatedly calls \texttt{Init()} followed by \texttt{Reset()}.
+
+      \end{itemize}
+
+
+      Draw a structure chart to represent the relationship between the \textbf{three}
+      modules, including all parameters and return values.'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 18
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "A program is being developed to implement a game for up to six players.\n\
+    \nDuring the game, each player assembles a team of characters. At the start of\
+    \ the game there are 45 characters available.\n\nEach character has four attributes,\
+    \ as follows:\n\n\\begin{tabular}{|l|l|l|}\n\\hline\n\\textbf{Attribute} & \\\
+    textbf{Examples} & \\textbf{Comment} \\\\ \\hline\nPlayer & 0, 1, 3 & The player\
+    \ the character is assigned to. \\\\ \\hline\nRole & Builder, Teacher, Doctor\
+    \ & The job that the character will perform in the game. \\\\ \\hline\nName &\
+    \ Bill, Lee, Farah, Mo & The name of the character. Several characters may perform\
+    \ the same role, but they will each have a unique name. \\\\ \\hline\nLevel &\
+    \ 14, 23, 76 & The skill level of the character. An integer in the range 0 to\
+    \ 100 inclusive. \\\\ \\hline\n\\end{tabular}\n\nThe programmer has defined a\
+    \ record type to define each character.\n\nThe record type definition is shown\
+    \ in pseudocode as follows:\n\n\\begin{alltt}\nTYPE CharacterType\n  DECLARE Player\
+    \ : INTEGER\n  DECLARE Role : STRING\n  DECLARE Name : STRING\n  DECLARE Level\
+    \ : INTEGER\nENDTYPE\n\\end{alltt}\n\nThe \\texttt{Player} field indicates the\
+    \ player to which the character is assigned (1 to 6). The field value is 0 if\
+    \ the character is \\textbf{not} assigned to any player.\n\nThe programmer has\
+    \ defined a global array to store the character data as follows:\n\n\\begin{alltt}\n\
+    DECLARE Character : ARRAY[1:45] OF CharacterType\n\\end{alltt}\n\nAt the start\
+    \ of the game all record fields are initialised, and all \\texttt{Player} field\
+    \ values are set to 0\n\nThe programmer has defined a program module as follows:\n\
+    \n\\begin{tabular}{|l|l|}\n\\hline\n\\textbf{Module} & \\textbf{Description} \\\
+    \\ \\hline\nAssign() & \\begin{tabular}[c]{@{}l@{}}• called with two parameters:\\\
+    \\ \\quad \\(\\circ\\) an integer representing a player\\\\ \\quad \\(\\circ\\\
+    ) a string representing a character role\\\\ • search the \\texttt{Character}\
+    \ array for an unassigned character with the\\\\ \\quad required role\\\\ • If\
+    \ found, assign the character to the given player and output a confirmation\\\\\
+    \ \\quad message, for example:\\\\ \\quad \\texttt{\"Bill the Builder has been\
+    \ assigned to player 3\"}\\\\ • If no unassigned character with the required role\
+    \ is found, output a suitable\\\\ \\quad message.\\end{tabular} \\\\ \\hline\n\
+    \\end{tabular}"
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: long_answer
+    page: 19
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Write pseudocode for module \texttt{Assign()}.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: long_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: "A new module will store the contents of the \\texttt{Character} array in\
+      \ a text file.\n\nThe module is defined as follows:\n\n\\begin{tabular}{|l|l|}\n\
+      \\hline\n\\textbf{Module} & \\textbf{Description} \\\\ \\hline\n\\texttt{Save()}\
+      \ & $\\bullet$ form a string from each record with fields separated by the character\
+      \ '\\^{}' \\\\\n                & $\\bullet$ write each string to a separate\
+      \ line of the new file named \\texttt{SaveFile.txt} \\\\ \\hline\n\\end{tabular}\n\
+      \nComplete the pseudocode for module \\texttt{Save()}.\n\n\\begin{alltt}\nPROCEDURE\
+      \ Save()\n\nENDPROCEDURE\n\\end{alltt}"
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: long_answer
+    page: 21
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: "The program is changed and the record type definition is modified as follows:\n\
+      \n\\begin{alltt}\nTYPE CharacterType\n    DECLARE Player : INTEGER\n    DECLARE\
+      \ Role : STRING\n    DECLARE Name : STRING\n    DECLARE Level : INTEGER\n  \
+      \  DECLARE Status : BOOLEAN\nENDTYPE\n\\end{alltt}\n\nDescribe how the additional\
+      \ Boolean field may be stored with the rest of the fields on one line of a text\
+      \ file."
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: long_answer
+    page: 21
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The save operation is to be extended so that multiple files may be saved
+      as the game progresses. This will allow the user to restore the game from any
+      saved position. The filename must reflect the sequence in which the files are
+      saved.
+
+
+      Describe a method that would allow multiple files to be saved \textbf{and} give
+      an example of \textbf{two} consecutive filenames.
+
+
+      Method \hrulefill
+
+
+      Example \hrulefill'
+    answer_options: []
+    subquestions: []

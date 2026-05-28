@@ -1,0 +1,44 @@
+[thinking]
+**Page 9 Transcription Thoughts**
+
+Okay, so the task is to transcribe page 9 of this exam paper into a YAML format. I need to make sure I get the structure and formatting right.
+
+First, I see the questions. Question 11 is about recursion: when it's beneficial and an example. It's a long answer format, and the prompt uses "Description" and "Example" labels with dotted lines. I need to convert that into YAML using `Description \hrulefill` and `Example \hrulefill` which is similar to the format of a worked example.
+
+Next, there's question 12, a short answer statement about exceptions. Then question 12a, a long answer asking to explain what an exception *is*. I'll need to strip the "(a)" prefix since it's a sub-question.
+
+Finally, 12b is another short answer asking for *one* example of an exception and *one* reason it could cause a problem. It follows the same label with dotted line format: "Example" and "Reason". I'll use `Example \hrulefill` and `Reason \hrulefill` here. Again, I need to strip the "(b)" prefix.
+
+I'm double-checking the formatting guidelines to be absolutely sure. It looks like the labels (Description, Example, Reason) followed by the horizontal rule (`\hrulefill`) is the correct approach. And no blank lines between values and answer lines, but here they are labels within the question so one new line is okay. It looks like a single newline is the correct format, as per the worked example.
+
+Alright, I'm confident in the formatting rules now, and I'm ready to write the YAML based on these structures.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "11"
+    type: long_answer
+    text: |
+      Describe when the use of recursion would be beneficial \textbf{and} give an example.
+
+      Description \hrulefill
+      Example \hrulefill
+  - number: "12"
+    type: short_answer
+    text: |
+      An exception can occur when running a program.
+  - number: "12a"
+    type: long_answer
+    text: |
+      Explain what is meant by an exception.
+  - number: "12b"
+    type: short_answer
+    text: |
+      Identify \textbf{one} example of an exception and give \textbf{one} reason why the exception may cause a problem.
+
+      Example \hrulefill
+      Reason \hrulefill
+```

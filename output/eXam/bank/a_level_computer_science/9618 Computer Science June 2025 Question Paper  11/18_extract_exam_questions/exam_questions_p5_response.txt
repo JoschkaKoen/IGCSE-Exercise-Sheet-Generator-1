@@ -1,0 +1,77 @@
+[thinking]
+**Transcribing Questions for a Document**
+
+Okay, so the user wants me to extract and format two specific questions, 2bii and 2c, from this source material. Let's get to it.
+
+For question 2bii, it seems straightforward. The task is to identify whether lossy or lossless compression is better for real-time bit streaming, and then *justify* the answer. I'll need to create a section for that, with a clear place to input the choice of compression method. I'll use `\hrulefill` as the scaffolding for where the student will provide their answer. So I'll write:
+
+```latex
+Identify whether the lossy or lossless compression method is more appropriate for real-time bit streaming. Justify your answer.
+
+Compression method \hrulefill
+```
+
+Now, onto question 2c. This involves a table about modems and dedicated lines used for video conferencing over the internet. The instructions are to create a *content* table, which means the cells need to have actual values or labels (which I think it has). The "Use" column is left blank for the candidate to fill in.  I'm going to start with a table environment and specify the columns. First, I'll define the columns; I want a fixed-width left column for "Hardware" and a wider column for the "Use". Initially, I will use `p{...}` in the column specifier for the "Use" column.
+
+I'll iterate on the design to make it as clean and readable as possible. I'll start with this:
+
+```latex
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\textbf{Hardware} & \textbf{Use} \\ \hline
+modems & \\ & \\ \hline
+dedicated lines & \\ & \\ \hline
+\end{tabular}
+```
+I'll try a simpler version to make it more compact:
+
+```latex
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Hardware} & \textbf{Use} \\ \hline
+modems & \\
+& \\ \hline
+dedicated lines & \\
+& \\ \hline
+\end{tabular}
+```
+Finally, I will decide to simply use a fixed width, and keep the table as simple and clean as possible:
+
+```latex
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Hardware} & \textbf{Use} \\ \hline
+modems & \\ \hline
+dedicated lines & \\ \hline
+\end{tabular}
+```
+This looks good, and should render correctly. I'm all set with both questions now.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "2bii"
+    type: long_answer
+    text: |
+      Identify whether the lossy or lossless compression method is more appropriate for real-time bit streaming. Justify your answer.
+
+      Compression method \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      The video conference is accessed over the internet.
+
+      Complete the table by stating how modems \textbf{and} dedicated lines are used when data is transmitted over the internet.
+
+      \begin{tabular}{|l|p{10cm}|}
+      \hline
+      \textbf{Hardware} & \textbf{Use} \\ \hline
+      modems & \\
+             & \\ \hline
+      dedicated lines & \\
+                      & \\ \hline
+      \end{tabular}
+```

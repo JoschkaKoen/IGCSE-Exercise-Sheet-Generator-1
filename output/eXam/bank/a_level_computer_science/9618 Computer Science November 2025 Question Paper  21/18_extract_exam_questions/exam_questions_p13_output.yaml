@@ -1,0 +1,24 @@
+```yaml
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      A structure chart is used to document a different part of the program.
+
+      This part of the program contains six modules:
+
+      \begin{tabular}{|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Pseudocode module header}} \\ \hline
+      \texttt{PROCEDURE Setup()} \\ \hline
+      \texttt{PROCEDURE Restart(H1 : STRING, C1 : INTEGER)} \\ \hline
+      \texttt{FUNCTION Modify(B1 : BOOLEAN) RETURNS INTEGER} \\ \hline
+      \texttt{PROCEDURE Final(T1 : INTEGER)} \\ \hline
+      \texttt{PROCEDURE Update(BYREF R2 : STRING)} \\ \hline
+      \texttt{FUNCTION Confirm() RETURNS BOOLEAN} \\ \hline
+      \end{tabular}
+
+      Module \texttt{Setup} will repeatedly call \textbf{three} of the modules.
+
+      Complete the structure chart to document the information given in the table.
+```

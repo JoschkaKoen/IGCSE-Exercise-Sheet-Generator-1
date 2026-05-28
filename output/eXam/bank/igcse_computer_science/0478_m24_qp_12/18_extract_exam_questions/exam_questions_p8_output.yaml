@@ -1,0 +1,9 @@
+```yaml
+questions:
+  - number: "4"
+    type: long_answer
+    text: |
+      A student enters a uniform resource locator (URL) into their web browser.
+
+      Draw and annotate a diagram to show the process from the user entering the URL to the web browser displaying the web page.
+```

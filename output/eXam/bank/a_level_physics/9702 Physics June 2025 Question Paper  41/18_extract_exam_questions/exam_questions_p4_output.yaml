@@ -1,0 +1,26 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Define gravitational potential at a point.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Mars is a planet that may be considered to be an isolated uniform sphere of radius $3.4 \times 10^6 \text{ m}$.
+
+      A satellite of mass $122 \text{ kg}$ is in orbit around Mars at a constant height of $1.7 \times 10^6 \text{ m}$ above the surface of the planet.
+
+      The height of the orbit is increased to $6.8 \times 10^6 \text{ m}$ above the surface. This increases the gravitational potential energy of the satellite by $5.1 \times 10^8 \text{ J}$.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Show that the mass of Mars is $6.4 \times 10^{23} \text{ kg}$.
+  - number: "1bii"
+    type: calculation
+    text: |
+      Calculate the gravitational potential $\phi$ at the surface of Mars. Give a unit with your answer.
+
+      $\phi = \hrulefill \text{ unit } \hrulefill$

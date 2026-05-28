@@ -1,0 +1,38 @@
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      The function \texttt{Bubble()} takes an array of strings as a parameter and sorts the data into ascending alphabetical order, using a bubble sort. The bubble sort uses \texttt{CompareStrings()} to compare each string.
+
+      The function returns the sorted list.
+  - number: "1di"
+    type: long_answer
+    text: |
+      Write program code for \texttt{Bubble()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(d)(i)} in the evidence document.
+  - number: "1dii"
+    type: long_answer
+    text: |
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item call \texttt{Bubble()} with the unsorted array as a parameter
+      \item call \texttt{FormatArray()} with the sorted array and output the returned string.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(d)(ii)} in the evidence document.
+  - number: "1diii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output.
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{1(d)(iii)} in the evidence document.

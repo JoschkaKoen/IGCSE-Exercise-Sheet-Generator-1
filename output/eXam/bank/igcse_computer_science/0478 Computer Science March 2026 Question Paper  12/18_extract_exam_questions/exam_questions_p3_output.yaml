@@ -1,0 +1,33 @@
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      The user enters a uniform resource locator (URL) into the address bar of the web browser.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      The URL is converted into an internet protocol (IP) address.
+
+      Describe the purpose of an IP address.
+  - number: "2bii"
+    type: long_answer
+    text: |
+      Explain how a URL is converted to an IP address.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The website stores cookies on the user's computer.
+  - number: "2ci"
+    type: short_answer
+    text: |
+      State what is meant by a cookie.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Give \textbf{one} example of how a website can use a session cookie and \textbf{one} example of how a website can use a persistent cookie.
+
+      Each example must be different.
+
+      session cookie \hrulefill
+
+      persistent cookie \hrulefill

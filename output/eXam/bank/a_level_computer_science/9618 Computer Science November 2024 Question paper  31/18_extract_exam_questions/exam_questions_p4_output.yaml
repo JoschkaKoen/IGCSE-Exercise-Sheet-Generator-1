@@ -1,0 +1,26 @@
+```yaml
+questions:
+  - number: "4"
+    type: long_answer
+    text: |
+      The TCP/IP protocol may be viewed as a stack that contains four layers: Application, Transport, Internet, Link.
+
+      Describe how the layers of the TCP/IP protocol stack interact with each other.
+  - number: "5"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5a"
+    type: long_answer
+    text: |
+      Explain what is meant by a hashing algorithm in the context of file access.
+  - number: "5b"
+    type: short_answer
+    text: |
+      The use of a hashing algorithm can result in the same storage location being identified for more than one record.
+
+      Outline \textbf{two} methods of overcoming this issue.
+
+      1. \hrulefill
+      2. \hrulefill
+```

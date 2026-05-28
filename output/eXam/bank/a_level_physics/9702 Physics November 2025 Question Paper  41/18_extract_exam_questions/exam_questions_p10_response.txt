@@ -1,0 +1,92 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 10**
+
+Okay, so the task is to transcribe page 10 of this exam paper. My job is to take each question and its sub-questions and convert them into a structured format. Let's break this down systematically.
+
+First, there's question "4". It seems like a top-level heading. I'll need to figure out if it actually has any specific text. Given the structure of the other questions, it looks like it's just a root node for the sub-questions, so I will leave it empty.
+
+Next up, question "4a". Ah, it asks, "State the value of absolute zero on:". That's the main stem for this section. Then, we have:
+
+*   **4ai**: "the Celsius temperature scale. temperature = \hrulefill °C". I need to preserve the formatting here, especially the degree symbol and the Celsius unit.
+*   **4aii**: "the thermodynamic temperature scale. Give a unit with your answer. temperature = \hrulefill unit \hrulefill". This requires me to include a blank space for the unit, so it's `temperature = \hrulefill unit \hrulefill`.
+
+Now onto "4b". It's a bit more involved. It starts with: "A sample contains a fixed amount of gas. The gas has pressure *p*, volume *V* and thermodynamic temperature *T*. Fig. 4.1 shows the variation of *pV* with *kT* for the sample, where *k* is the Boltzmann constant.". I need to keep that full description, including the mention of the figure, even though I'm not including the figure itself.
+
+Then come the sub-questions:
+
+*   **4bi**: "State what is indicated about the nature of the gas from the variation shown in Fig. 4.1."
+*   **4bii**: "Determine the number *N* of molecules of the gas in the sample. *N* = \hrulefill". This looks straightforward. I need to make sure the answer line is present and formatted with `\hrulefill`.
+
+Now, before I commit, I need to double-check my YAML formatting rules. Avoid double quotes for any non-empty string fields and ensure the answer lines are formatted correctly with the `\hrulefill` placeholder. I am using the `|` block scalar notation for multi-line text to ensure proper formatting and escaping. I will use the following structure:
+```yaml
+4:
+  text: ''
+4a:
+  text: |
+    State the value of absolute zero on:
+4ai:
+  text: |
+    the Celsius temperature scale
+
+    temperature = \hrulefill $^{\circ}\text{C}$
+4aii:
+  text: |
+    the thermodynamic temperature scale. Give a unit with your answer.
+
+    temperature = \hrulefill unit \hrulefill
+4b:
+  text: |
+    A sample contains a fixed amount of gas. The gas has pressure $p$, volume $V$ and thermodynamic temperature $T$.
+
+    Fig. 4.1 shows the variation of $pV$ with $kT$ for the sample, where $k$ is the Boltzmann constant.
+4bi:
+  text: |
+    State what is indicated about the nature of the gas from the variation shown in Fig. 4.1.
+4bii:
+  text: |
+    Determine the number $N$ of molecules of the gas in the sample.
+
+    $N = \hrulefill$
+```
+This should accurately represent the questions and their formatting.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      State the value of absolute zero on:
+  - number: "4ai"
+    type: short_answer
+    text: |
+      the Celsius temperature scale
+
+      temperature = \hrulefill $^{\circ}\text{C}$
+  - number: "4aii"
+    type: short_answer
+    text: |
+      the thermodynamic temperature scale. Give a unit with your answer.
+
+      temperature = \hrulefill unit \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      A sample contains a fixed amount of gas. The gas has pressure $p$, volume $V$ and thermodynamic temperature $T$.
+
+      Fig. 4.1 shows the variation of $pV$ with $kT$ for the sample, where $k$ is the Boltzmann constant.
+  - number: "4bi"
+    type: short_answer
+    text: |
+      State what is indicated about the nature of the gas from the variation shown in Fig. 4.1.
+  - number: "4bii"
+    type: calculation
+    text: |
+      Determine the number $N$ of molecules of the gas in the sample.
+
+      $N = \hrulefill$

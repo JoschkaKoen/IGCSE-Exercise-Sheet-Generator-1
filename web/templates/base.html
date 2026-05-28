@@ -241,22 +241,16 @@
             </a>
           </nav>
           {# Account widget — sibling of the nav bar so it reads as a separate
-             control. Pill when logged out, @username chip + popover when in. #}
+             control. Pill when logged out, @username chip linking to the
+             per-user dashboard when in. (Logout moved into /dashboard's
+             Profile section.) #}
           <div class="site-header-account-slot">
             {% if current_user %}
-              <span class="site-header-account-wrap">
-                <button type="button" class="site-header-account-chip"
-                        aria-haspopup="menu" aria-expanded="false"
-                        aria-label="@{{ current_user.username }}">
-                  <span class="site-header-account-dot" aria-hidden="true"></span>
-                  <span class="site-header-account-name nav-pill-label">@{{ current_user.username }}</span>
-                </button>
-                <div class="site-header-account-popover" role="menu" hidden>
-                  <button type="button" role="menuitem" data-account-logout>
-                    {{ t('account.menu.logout') if t else 'Log out' }}
-                  </button>
-                </div>
-              </span>
+              <a href="/dashboard" class="site-header-account-chip"
+                 aria-label="@{{ current_user.username }} — {{ t('dashboard.title') if t else 'Dashboard' }}">
+                <span class="site-header-account-dot" aria-hidden="true"></span>
+                <span class="site-header-account-name nav-pill-label">@{{ current_user.username }}</span>
+              </a>
             {% else %}
               <button type="button" data-account-open
                       aria-label="{{ t('account.button') if t else 'Account' }}"

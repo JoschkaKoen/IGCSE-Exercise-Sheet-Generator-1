@@ -1,0 +1,26 @@
+questions:
+  - number: "2e"
+    type: short_answer
+    text: |
+      It is suggested that the relationship between $y$, $T$ and $x$ is
+
+      $$ky = Tx$$
+
+      where $k$ is a constant.
+  - number: "2ei"
+    type: calculation
+    text: |
+      Using your data, calculate \textbf{two} values of $k$.
+
+      first value of $k =$ \hrulefill
+      second value of $k =$ \hrulefill
+  - number: "2eii"
+    type: long_answer
+    text: |
+      Justify the number of significant figures that you have given for your values of $k$.
+  - number: "2f"
+    type: long_answer
+    text: |
+      It is suggested that the percentage uncertainty in the values of $k$ is 20\%.
+
+      Using this uncertainty, explain whether your results support the relationship in (e).

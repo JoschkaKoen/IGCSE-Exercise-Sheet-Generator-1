@@ -1,0 +1,54 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Different types of software can be run on a computer.
+  - number: "1a"
+    type: short_answer
+    text: |
+      State what is meant by software.
+  - number: "1b"
+    type: multiple_choice
+    text: |
+      Utility software is one type of software that can be run on a computer.
+
+      Tick ($\checkmark$) \textbf{one} box to show which software is an example of utility software.
+    options:
+      - letter: A
+        text: |
+          spreadsheet
+      - letter: B
+        text: |
+          anti-virus
+      - letter: C
+        text: |
+          web browser
+      - letter: D
+        text: |
+          database
+  - number: "1c"
+    type: short_answer
+    text: |
+      Identify the type of software that manages inputs and outputs for the computer.
+  - number: "2"
+    type: short_answer
+    text: |
+      Data storage can be measured using different units of measurement.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Identify the name of the smallest unit of measurement of data.
+  - number: "2b"
+    type: short_answer
+    text: |
+      State how many nibbles there are in 2 bytes.
+  - number: "2c"
+    type: calculation
+    text: |
+      A 10 second sound effect is recorded for a movie.
+
+      It is recorded with a sample rate of 22,016 Hz and a sample resolution of 8 bits.
+
+      Calculate the file size of the sound effect in kibibytes (KiB). Show all your working.
+
+      Answer \hrulefill \text{ KiB}

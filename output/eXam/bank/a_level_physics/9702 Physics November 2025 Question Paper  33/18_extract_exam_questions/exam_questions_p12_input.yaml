@@ -1,0 +1,9 @@
+  - number: "2g"
+    type: short_answer
+    text: ""
+  - number: "2gi"
+    type: long_answer
+    text: ""
+  - number: "2gii"
+    type: long_answer
+    text: ""

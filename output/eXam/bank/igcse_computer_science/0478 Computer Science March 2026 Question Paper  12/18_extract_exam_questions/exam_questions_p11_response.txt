@@ -1,0 +1,37 @@
+[thinking]
+**Transcribing and Formatting a Binary Addition Problem**
+
+Okay, so the user wants me to handle question "6e" from the page. I see the subquestion is labeled `(e)`. The task is to add two binary integers and present the answer in binary, showing all the working. Right, the actual problem is:
+
+```
+  0 0 0 1 1 0 1 0
++ 0 1 1 0 1 1 1 0
+```
+
+Now, how best to format this for clarity and presentation? Since it is a straightforward binary addition, I'm thinking a LaTeX `tabular` environment will give the cleanest result. It will nicely align the columns. Let's try this:
+
+```latex
+\begin{tabular}{rcccccccc}
+  & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 0 \\
++ & 0 & 1 & 1 & 0 & 1 & 1 & 1 & 0 \\
+\hline
+\end{tabular}
+```
+
+Okay, let's take a look. This is really clean and easy to read. Yep, the spacing is perfect! This compiles without any errors and presents the addition nicely. Alright, now it's time to build the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6e"
+    type: calculation
+    text: |
+      Add the \textbf{two} binary integers using binary addition and give your answer in binary. Show all your working.
+
+      \begin{tabular}{rcccccccc}
+        & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 0 \\
+      + & 0 & 1 & 1 & 0 & 1 & 1 & 1 & 0 \\
+      \hline
+      \end{tabular}

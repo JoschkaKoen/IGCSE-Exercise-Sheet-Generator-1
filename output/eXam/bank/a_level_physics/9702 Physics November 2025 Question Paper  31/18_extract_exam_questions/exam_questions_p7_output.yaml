@@ -1,0 +1,28 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the deformation of paper cylinders.
+  - number: "2a"
+    type: calculation
+    text: |
+      You have been provided with two pieces of paper.
+
+      The width of a piece of paper is the length $w$ of the shorter side, as shown in Fig. 2.1.
+
+      \begin{itemize}
+      \item Select the smaller piece of paper.
+      \item Measure and record $w$.
+      \end{itemize}
+
+      $w =$ \hrulefill cm
+
+      \begin{itemize}
+      \item Roll the paper into a cylinder and use two paper clips to hold the paper in place, as shown in Fig. 2.2.
+      \item The diameter of the cylinder is $d$, as shown in Fig. 2.2.
+      \newline
+      Adjust the paper and paper clips until $d$ is as close as possible to 7.0 cm.
+      \item Measure and record $d$.
+      \end{itemize}
+
+      $d =$ \hrulefill cm

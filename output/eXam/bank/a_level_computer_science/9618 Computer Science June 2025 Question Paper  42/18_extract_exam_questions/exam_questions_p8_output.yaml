@@ -1,0 +1,44 @@
+questions:
+  - number: "2f"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2fi"
+    type: short_answer
+    text: |
+      The procedure \texttt{PrintSpare()} outputs the key field of each element in the array \texttt{Spare} that does not contain an empty record.
+
+      Write program code for \texttt{PrintSpare()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{2(f)(i)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "2fii"
+    type: short_answer
+    text: |
+      The main program should call the procedure to initialise the arrays, call the procedure to create the hash table and then call the procedure to output the contents of the array \texttt{Spare}
+
+      Write program code for the main program.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{2(f)(ii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "2fiii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the screenshot into part \textbf{2(f)(iii)} in the evidence document. \\
+      \hline
+      \end{tabular}

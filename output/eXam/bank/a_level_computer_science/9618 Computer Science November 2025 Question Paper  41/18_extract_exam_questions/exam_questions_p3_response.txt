@@ -1,0 +1,88 @@
+[thinking]
+**Transcribing Page 3 of the Cambridge Exam Paper**
+
+Okay, the task is to transcribe page 3 of this Cambridge exam paper. Let's see... the questions are numbered 1c, 1d, 1e, and... Ah, here's where it gets interesting: 1f. But the stub lists "1f", "1fi", and "1fii". Let me verify what's printed on the page:
+
+*   Okay, (f) (i) is on the page. It reads: "Extend the main program to call FindValues()". So, this matches with "1fi" from the stub, or is it "1f" ? Let's check the stub. The stub has 1f, 1fi, 1fii. If the stub has both 1f and 1fi, something's up. It's "(f) (i)" as a single question.
+
+*   Now the critical question: is "1f" a stub error, or is it a parent entry? Wait, let me check the stub error rules. The rule says that if I cannot find a stub entry's stem on this page, it's a bug, so mark as "STUB ERROR". Don't guess.
+
+*   Is there a standalone "(f)" entry? No. The page shows "(f) (i)", not just "(f)". So, "1f" is missing. I should write `STUB ERROR` for "1f". Right, no guessing.
+
+*   Now, I can transcribe the questions.
+
+*   1c is about writing the code for `Pop()`.
+
+*   1d is about the main program and generating random integers.
+
+*   1e is about `FindValues()`.
+
+*   Ah, and then we have "1f" and "1fi". But, 1f is not here, so mark it as STUB ERROR. 1fi has the code for extending the main program.
+
+*   Finally, 1fii involves testing and a screenshot.
+
+*   Let me double-check my logic on "1f". Yes, there is no separate "1f" question, only "(f)(i)". So "1f" is definitely a STUB ERROR. Alright, I'm ready to transcribe!
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The function \texttt{Pop()} returns the next integer in the stack and updates the pointer as appropriate. If there is no data in the stack, the function returns the value $-999$.
+
+      Write program code for \texttt{Pop()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.
+  - number: "1d"
+    type: short_answer
+    text: |
+      The main program generates 40 random integers between 0 and 1000 (inclusive) and attempts to insert each one into the stack using the appropriate function. If the return value from the function call indicates the stack is full, no more integers are generated and \texttt{"Stack full"} is output.
+
+      Write program code for the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(d)} in the evidence document.
+  - number: "1e"
+    type: short_answer
+    text: |
+      The procedure \texttt{FindValues()}:
+
+      \begin{itemize}
+      \item pops each integer from the stack until the stack is empty
+      \item finds and outputs the largest number that was in the stack in an appropriate message
+      \item finds and outputs the smallest number that was in the stack in an appropriate message.
+      \end{itemize}
+
+      Write program code for \texttt{FindValues()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(e)} in the evidence document.
+  - number: "1f"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1fi"
+    type: short_answer
+    text: |
+      Extend the main program to call \texttt{FindValues()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(f)(i)} in the evidence document.
+  - number: "1fii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{1(f)(ii)} in the evidence document.

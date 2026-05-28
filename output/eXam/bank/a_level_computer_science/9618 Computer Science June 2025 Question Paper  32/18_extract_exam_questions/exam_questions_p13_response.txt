@@ -1,0 +1,74 @@
+[thinking]
+**Populating the YAML Stub for Page 13**
+
+Okay, the task is to fill in the YAML stub for page 13 of the exam. Let's break this down. First, I need to address the parent question, `12b`. The text says I need to make sure every entry's stem is visible. Looking at the exam page, `(b)` is definitely visible, preceding the sub-questions `(i)` and `(ii)`. So, `12b` *exists*. Although `12b` doesn't have any standalone text, the `(b)` marker itself functions as its stem. According to the instructions, this isn't a "STUB ERROR" situation; therefore, since `12b` has no distinct content, I'll set its text to an empty string: `text: ''`.
+
+Now, moving onto the sub-questions:
+
+*   For `12bi`, the text is straightforward: "Identify the object-oriented programming (OOP) term described as 'an occurrence of an object'."
+*   For `12bii`, we have: "Describe what is meant by the OOP term **polymorphism**."
+
+Now I'm looking at the core of the problem, the pseudocode section for question 13. I need to transcribe the algorithm into the stub. I'll need to pay close attention to the formatting. The instructions explicitly mention wrapping multi-line code in `\begin{alltt}...\end{alltt}`. The key is to correctly place those `\hrulefill` lines that separate the key parts of the code. The algorithm is shown to contain lines in pseudocode that have dotted lines; these are to be represented by the `\hrulefill` command. Since the pseudocode is within `\begin{alltt}...\end{alltt}`, I'm going to include the `\hrulefill` commands within the alltt environment.
+I've verified that the structure of the `alltt` block will correspond exactly to the layout presented in the exam paper by placing `\hrulefill` at each of the demarcations.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "12b"
+    type: short_answer
+    text: ''
+  - number: "12bi"
+    type: short_answer
+    text: |
+      Identify the object-oriented programming (OOP) term described as ‘an occurrence of an object’.
+  - number: "12bii"
+    type: short_answer
+    text: |
+      Describe what is meant by the OOP term \textbf{polymorphism}.
+  - number: "13"
+    type: short_answer
+    text: |
+      The pseudocode algorithm below uses random file access to copy 50 records from a live file \texttt{CurrentResults.dat} to a stored file \texttt{StoredResults.dat} one record at a time. It uses the user-defined type \texttt{StudentResult}.
+
+      \begin{alltt}
+      TYPE StudentResult
+        DECLARE LastName : STRING
+        DECLARE FirstName : STRING
+        DECLARE ExamGrade : STRING
+      ENDTYPE
+      \end{alltt}
+
+      If any grades are missing in \texttt{CurrentResults.dat}, the text \texttt{"Missing grade"} is added to the \texttt{ExamGrade} field in \texttt{StoredResults.dat}
+
+      Complete this file handling pseudocode algorithm.
+
+      \begin{alltt}
+      DECLARE Grade : StudentResult
+      DECLARE Position : INTEGER
+
+      \hrulefill
+
+      OPENFILE "StoredResults.dat" FOR RANDOM
+
+      \hrulefill
+
+        SEEK "CurrentResults.dat", Position
+        GETRECORD "CurrentResults.dat", Grade
+        IF Grade.ExamGrade = "" THEN
+
+      \hrulefill
+
+        ENDIF
+
+      \hrulefill
+
+      \hrulefill
+
+      NEXT Position
+      CLOSEFILE "CurrentResults.dat"
+      CLOSEFILE "StoredResults.dat"
+      \end{alltt}
+```

@@ -1,0 +1,28 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A program is developed to satisfy a specific customer requirement.
+
+      The project follows a program development life cycle model. This model divides the development process into several different stages.
+  - number: "5a"
+    type: short_answer
+    text: |
+      The table lists some of the development activities.
+
+      Complete the table by writing the name of the life cycle stage for each activity:
+
+      \begin{tabular}{|p{8cm}|p{6cm}|}
+      \hline
+      \textbf{Activity} & \textbf{Name of life cycle stage} \\ \hline
+      a structure chart is produced & \\ \hline
+      a program is modified to allow it to run on new hardware & \\ \hline
+      the programmer identifies the customer's requirements & \\ \hline
+      an Integrated Development Environment (IDE) provides context-sensitive help such as 'auto-complete' & \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: short_answer
+    text: |
+      Alpha and beta testing has been completed. The final testing stage is carried out by the customer.
+
+      Identify this final testing stage.

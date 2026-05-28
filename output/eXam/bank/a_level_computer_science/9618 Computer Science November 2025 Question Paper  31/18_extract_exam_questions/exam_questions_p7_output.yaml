@@ -1,0 +1,45 @@
+```yaml
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      Complete the Karnaugh map (K-map) for the Boolean expression:
+
+      $$\overline{\mathbf{A}}.\mathbf{B}.\mathbf{C} + \overline{\mathbf{A}}.\overline{\mathbf{B}}.\overline{\mathbf{C}} + \mathbf{A}.\overline{\mathbf{B}}.\mathbf{C} + \mathbf{A}.\mathbf{B}.\overline{\mathbf{C}}$$
+  - number: "6bi"
+    type: short_answer
+    text: |
+      Complete the Karnaugh map (K-map) for the Boolean expression:
+
+      $$\overline{\mathbf{A}}.\mathbf{B}.\mathbf{C} + \overline{\mathbf{A}}.\overline{\mathbf{B}}.\overline{\mathbf{C}} + \mathbf{A}.\overline{\mathbf{B}}.\mathbf{C} + \mathbf{A}.\mathbf{B}.\overline{\mathbf{C}}$$
+
+      \begin{tabular}{cc|c|c|c|c|}
+      & \multicolumn{5}{c}{\textbf{BC}} \\
+      \textbf{A} & & \textbf{00} & \textbf{01} & \textbf{11} & \textbf{10} \\
+      \cline{2-6}
+      & \textbf{0} & & & & \\
+      \cline{2-6}
+      & \textbf{1} & & & & \\
+      \cline{2-6}
+      \end{tabular}
+  - number: "6bii"
+    type: short_answer
+    text: |
+      Draw loop(s) around appropriate group(s) in the K-map to produce an optimal sum-of-products.
+  - number: "6biii"
+    type: short_answer
+    text: |
+      Write the Boolean expression from your answer to part \textbf{b(ii)} as a simplified sum-of-products. Do \textbf{not} carry out any further simplification.
+  - number: "7"
+    type: short_answer
+    text: |
+      Identify one Artificial Intelligence (AI) algorithm to find the shortest distance between two points on a graph.
+  - number: "7a"
+    type: short_answer
+    text: |
+      Identify one Artificial Intelligence (AI) algorithm to find the shortest distance between two points on a graph.
+  - number: "7b"
+    type: long_answer
+    text: |
+      Describe Deep Learning.
+```

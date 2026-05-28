@@ -1,0 +1,16 @@
+questions:
+  - number: "8biii"
+    type: short_answer
+    text: |
+      Complete Table 8.1 to show the energy differences from the ground state, and the energies of the levels up to $n = 4$, in the hydrogen atom. Use the space for any working.
+
+      \textbf{Table 8.1}
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      level & \begin{tabular}{c}(energy difference \\ from $n = 1$)/eV\end{tabular} & energy/eV \\ \hline
+      $n = 4$ & & \\ \hline
+      $n = 3$ & & \\ \hline
+      $n = 2$ & 10.2 & \\ \hline
+      $n = 1$ & 0.0 & $-13.6$ \\ \hline
+      \end{tabular}

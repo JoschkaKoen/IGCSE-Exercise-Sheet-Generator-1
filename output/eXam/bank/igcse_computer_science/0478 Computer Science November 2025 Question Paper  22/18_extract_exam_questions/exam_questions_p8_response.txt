@@ -1,0 +1,23 @@
+[thinking]
+**Exam Question Transcription**
+
+Okay, so the user wants me to transcribe two questions from page 8 of the exam. Let's get this right. First up is question 5b. It's a long-answer question, and the text says, "Describe the processes in the algorithm on page 6." Simple enough. I just need to remember to remove the prefix "(b) ".
+
+Next, question 5c. This one's a short-answer. The text states, "The algorithm on page 6 requires the array `CodeStore[]` to be declared as a one-dimensional (1D) string array with six elements that are initially set to the null string `""`. Write the pseudocode required to declare and initialise the array `CodeStore[]` You do need to declare any variables used." Let me double check that to make sure it's accurate... Yes, that's correct. Okay, I need to wrap `CodeStore[]` in `\texttt{CodeStore[]}` and `""` in `\texttt{""}` to ensure proper formatting for display. I think I've got it. I'm ready to transcribe these questions as requested.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5b"
+    type: long_answer
+    text: |
+      Describe the processes in the algorithm on page 6.
+  - number: "5c"
+    type: short_answer
+    text: |
+      The algorithm on page 6 requires the array \texttt{CodeStore[]} to be declared as a one-dimensional (1D) string array with six elements that are initially set to the null string \texttt{""}.
+
+      Write the pseudocode required to declare and initialise the array \texttt{CodeStore[]}
+      You do need to declare any variables used.

@@ -1,0 +1,917 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program reads data from a text file and stores it in a stack. The stack
+    \texttt{Stack} is stored as a 1D array of up to 20 elements. The pointer \texttt{TopOfStack}
+    stores the index of the last element stored in the stack.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: '\texttt{Stack} is a global array of strings with all elements initialised
+      to \texttt{"-1"}
+
+
+      \texttt{TopOfStack} is a global variable initialised to \texttt{-1}
+
+
+      Write program code to declare and initialise \texttt{Stack} and \texttt{TopOfStack}
+
+
+      Save your program as \textbf{Question1\_J25}.
+
+
+      Copy and paste the program code into part \textbf{1(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The function \texttt{Push()} takes a string parameter and attempts to store
+      it on the stack.
+
+
+      The function returns \texttt{-1} if the stack is full.
+
+
+      The function returns \texttt{1} if the parameter is successfully pushed onto
+      the stack.
+
+
+      Write program code for \texttt{Push()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(b)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The function \texttt{Pop()} returns the next item from the stack.
+
+
+      The function returns \texttt{"-1"} if the stack is empty.
+
+
+      Write program code for \texttt{Pop()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The text file \texttt{StackData.txt} stores numbers and mathematical operators.
+      Each number and operator are on a new line in the text file.
+
+
+      The mathematical operators used in this program are:
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      \textbf{mathematical operator} & \textbf{meaning} \\ \hline
+
+      + & addition \\ \hline
+
+      -- & subtraction \\ \hline
+
+      / & division \\ \hline
+
+      * & multiplication \\ \hline
+
+      \^{} & power of \\ \hline
+
+      \end{tabular}
+
+
+      The procedure \texttt{ReadData()}:
+
+
+      \begin{itemize}
+
+      \item takes a string filename as a parameter
+
+      \item opens the file and reads in each line of data
+
+      \item uses the \texttt{Push()} function to insert each line of data onto the
+      stack
+
+      \item outputs \texttt{"Stack full"} if any data cannot be stored on the stack
+      because the stack is full
+
+      \item uses exception handling when opening and reading from the text file.
+
+      \end{itemize}
+
+
+      The procedure needs to work for a file that contains an unknown number of lines.
+
+
+      Write program code for \texttt{ReadData()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(d)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1e
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'The values stored in the stack are used to perform mathematical operations.
+
+
+      A total is initialised to the first value in the stack. The first value in the
+      stack will always be a number.
+
+
+      The next value will be a mathematical operator and the next value will be the
+      number to apply to the calculation. This is repeated until there are no values
+      left in the stack. There will always be a number following a mathematical operator.
+
+
+      For example, the contents of a stack are:
+
+
+      \begin{tabular}{|c|l}
+
+      \cline{1-1}
+
+      10 & $\longleftarrow$ TopOfStack \\ \cline{1-1}
+
+      + & \\ \cline{1-1}
+
+      3 & \\ \cline{1-1}
+
+      $-$ & \\ \cline{1-1}
+
+      2 & \\ \cline{1-1}
+
+      \end{tabular}
+
+
+      The total is initialised to the first value in the stack: 10
+
+
+      total = 10
+
+
+      The next two values are: + 3
+
+
+      total = 10 + 3 = 13
+
+
+      The next two values are: $-$ 2
+
+
+      total = 13 $-$ 2 = 11
+
+
+      The final total is 11 and this is returned.
+
+
+      Write program code for the function \texttt{Calculate()} to:
+
+      \begin{itemize}
+
+      \item take each value from the stack
+
+      \item calculate and return the final total.
+
+      \end{itemize}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(e)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1f
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1fi
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code to extend the main program to:
+
+
+        \begin{itemize}
+
+        \item take a filename as input from the user
+
+        \item call \texttt{ReadData()} with the input filename
+
+        \item call \texttt{Calculate()}
+
+        \item output the final total.
+
+        \end{itemize}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(f)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1fii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Test your program twice with the file names:
+
+
+        \texttt{StackData.txt}
+
+        \texttt{SecondStack.txt}
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{1(f)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores data in a 1D array of records, \texttt{HashTable}. The array
+    has space for 200 records. Each data item is stored in a specific index of the
+    array that is calculated using an algorithm. The index is calculated from the
+    key field using the formula: \texttt{Key MOD 200}
+
+
+    If two key fields generate the same index, there is a collision. Any records that
+    have a collision are stored in a second array, \texttt{Spare}. This array has
+    space for 100 records. When a collision is detected, the record is stored in the
+    next free space in \texttt{Spare}.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: "The pseudocode record format is:\n\n\\begin{alltt}\nTYPE NewRecord\n  \
+      \  DECLARE Key : INTEGER\n    DECLARE Item1 : INTEGER\n    DECLARE Item2 : INTEGER\n\
+      ENDTYPE\n\\end{alltt}\n\nWrite program code to declare the record type \\texttt{NewRecord}\n\
+      \nIf your chosen programming language does not support record formats, a class\
+      \ can be used instead.\n\nSave your program as \\textbf{Question2\\_J25}.\n\n\
+      Copy and paste the program code into part \\textbf{2(a)} in the evidence document."
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Write program code to declare the global arrays \texttt{HashTable} and
+        \texttt{Spare}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(b)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'An empty record has the integer $-1$ stored in each field.
+
+
+        The procedure \texttt{Initialise()} stores an empty record in each element
+        in \texttt{HashTable} and \texttt{Spare}
+
+
+        Write program code for \texttt{Initialise()}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(b)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The hash value is calculated from the key field using the formula: \texttt{Key
+      MOD 200}
+
+
+      The function \texttt{CalculateHash()} takes a key field as a parameter and calculates
+      and returns the hash value for the key field.
+
+
+      Write program code for \texttt{CalculateHash()}
+
+
+      \textbf{Save your program.}
+
+
+      \textbf{Copy and paste the program code into part 2(c) in the evidence document.}'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "The procedure \\texttt{InsertIntoHash()}:\n\n\\begin{itemize}\n\\item takes\
+      \ a record of type \\texttt{NewRecord} as a parameter\n\\item uses \\texttt{CalculateHash()}\
+      \ to calculate the hash value for the key field in the record\n\\item checks\
+      \ if the hash value index in \\texttt{HashTable} currently stores an empty record\n\
+      \  \\begin{itemize}\n  \\item if the index stores an empty record, store the\
+      \ parameter in this index\n  \\item if the index does not store an empty record,\
+      \ store the parameter in \\texttt{Spare}\n  \\end{itemize}\n\\end{itemize}\n\
+      \nYou can assume there will always be enough space in \\texttt{Spare} to store\
+      \ any collisions.\n\nWrite program code for \\texttt{InsertIntoHash()}\n\n\\\
+      textbf{Save your program.}\n\n\\textbf{Copy and paste the program code into\
+      \ part 2(d) in the evidence document.}"
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The text file \texttt{HashData.txt} stores up to 200 rows of data to be
+      stored into the hash table. Each row contains three integer numbers separated
+      by commas.
+
+
+      The first number is the key field, the second number is item 1 and the third
+      number is item 2.
+
+
+      For example:
+
+
+      The first row in the text file contains: \texttt{646, 12, 568}
+
+
+      The key field is 646, item 1 is 12 and item 2 is 568
+
+
+      The procedure \texttt{CreateHashTable()}:
+
+
+      \begin{itemize}
+
+      \item opens the file \texttt{HashData.txt}
+
+      \item creates a record for each row of data in the file
+
+      \item calls \texttt{InsertIntoHash()} with each record.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{CreateHashTable()}
+
+
+      \textbf{Save your program.}
+
+
+      \textbf{Copy and paste the program code into part 2(e) in the evidence document.}'
+    answer_options: []
+    subquestions: []
+  - number: 2f
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2fi
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The procedure \texttt{PrintSpare()} outputs the key field of each element
+        in the array \texttt{Spare} that does not contain an empty record.
+
+
+        Write program code for \texttt{PrintSpare()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{2(f)(i)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2fii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The main program should call the procedure to initialise the arrays,
+        call the procedure to create the hash table and then call the procedure to
+        output the contents of the array \texttt{Spare}
+
+
+        Write program code for the main program.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{2(f)(ii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2fiii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the screenshot into part \textbf{2(f)(iii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores data about animals using Object-Oriented Programming (OOP).
+
+
+    The class \texttt{Animal} stores the data about animals.
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Animal}} \\ \hline
+
+    \texttt{Name : String} & stores the name of the animal \\ \hline
+
+    \texttt{Sound : String} & stores the sound the animal makes \\ \hline
+
+    \texttt{Size : Integer} & stores the size of the animal as an integer between
+    1 (smallest) and 10 (largest) \\ \hline
+
+    \texttt{Intelligence : Integer} & stores the intelligence of the animal as an
+    integer between 1 (least) and 10 (most) \\ \hline
+
+    \texttt{Constructor()} & initialises all attributes to its parameter values \\
+    \hline
+
+    \texttt{Description()} & returns a string message that contains the data from
+    the attributes \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Animal} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program as \textbf{Question3\_J25}. \\
+
+        Copy and paste the program code into part \textbf{3(a)(i)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The method \texttt{Description()} creates and returns a string of the
+        animal''s data in the format:
+
+
+        \texttt{"The animal''s name is " <Name> ", it makes a " <Sound> ", its size
+        is " <Size> " and its intelligence level is " <Intelligence>}
+
+
+        For example:
+
+
+        \texttt{The animal''s name is Teddy, it makes a Bark, its size is 4 and its
+        intelligence level is 6}
+
+
+        Write program code for \texttt{Description()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(a)(ii)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The class \texttt{Parrot} inherits from the class \texttt{Animal}
+
+
+      \texttt{Parrot} inherits the attributes from \texttt{Animal} and overrides the
+      \texttt{Description()} method. The additional attributes and methods in the
+      class \texttt{Parrot} are:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Parrot}} \\ \hline
+
+      \texttt{WingSpan : Integer} & the width of the parrot''s wings to the nearest
+      cm \\ \hline
+
+      \texttt{NumberWords : Integer} & the number of words the parrot can speak \\
+      \hline
+
+      \texttt{Constructor()} & calls the parent constructor using its parameter values;
+      initialises \texttt{WingSpan} and \texttt{NumberWords} to its parameter values
+      \\ \hline
+
+      \texttt{ChangeNumberWords()} & takes an integer parameter and adds this to the
+      number currently in \texttt{NumberWords} \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Parrot}, its constructor
+        and the method \texttt{ChangeNumberWords()}
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{3(b)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The method \texttt{Description()} in the class \texttt{Parrot} creates
+        and returns a string of the animal''s data in the format:
+
+
+        \texttt{"The animal''s name is " <Name> ", it makes a " <Sound> ", its size
+        is " <Size> " and its intelligence level is " <Intelligence> ". It has a wingspan
+        of " <WingSpan> "cm and can say " <NumberWords> " words."}
+
+
+        For example:
+
+
+        \texttt{The animal''s name is Chewie, it makes a Squawk, its size is 1 and
+        its intelligence level is 10. It has a wingspan of 30cm and can say 29 words.}
+
+
+        Write program code for \texttt{Description()}
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{3(b)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The class \texttt{Wolf} inherits from the class \texttt{Animal}
+
+
+      \texttt{Wolf} inherits the attributes from \texttt{Animal} and overrides the
+      \texttt{Description()} method. The additional attributes and methods in the
+      class \texttt{Wolf} are:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Wolf}} \\ \hline
+
+      \texttt{TerritorySize : Integer} & stores the size of the area where the wolf
+      lives, to the nearest square mile \\ \hline
+
+      \texttt{Constructor()} & calls the parent constructor using its parameter values;
+      initialises \texttt{TerritorySize} to its parameter value \\ \hline
+
+      \texttt{SetTerritorySize()} & takes an integer parameter and adds this to the
+      number currently in \texttt{TerritorySize} \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Wolf}, its constructor
+        and the method \texttt{SetTerritorySize()}
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{3(c)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The method \texttt{Description()} in the class \texttt{Wolf} creates
+        and returns a string of the animal''s data in the format:
+
+
+        \texttt{"The animal''s name is " <Name> ", it makes a " <Sound> ", its size
+        is " <Size> " and its intelligence level is " <Intelligence> ". Its territory
+        is " <TerritorySize> " square miles."}
+
+
+        For example:
+
+
+        \texttt{The animal''s name is Nighteyes, it makes a Howl, its size is 8 and
+        its intelligence level is 7. Its territory is 100 square miles.}
+
+
+        Write program code for \texttt{Description()}
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The main program declares instances of the classes for \textbf{three} animals:
+
+
+      \begin{itemize}
+
+      \item A parrot with the name ‘Chewie’; it makes a ‘Squawk’ sound. Its size is
+      1, intelligence is 10, wingspan is 30 cm and it can say 29 words.
+
+      \item A wolf with the name ‘Nighteyes’; it makes a ‘Howl’ sound. Its size is
+      8, intelligence is 7 and its territory is 100 square miles.
+
+      \item An animal that is a horse with the name ‘Copper’; it makes a ‘Neigh’ sound.
+      Its size is 10 and its intelligence is 6.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions:
+    - number: 3di
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code for the main program.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(d)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3dii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The main program also needs to:
+
+
+        \begin{itemize}
+
+        \item decrease the territory for the wolf Nighteyes by 20 square miles
+
+        \item increase the number of words the parrot Chewie can say by 2 words
+
+        \item output the description for all \textbf{three} animals.
+
+        \end{itemize}
+
+
+        Write program code to extend the main program.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(d)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3diii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{3(d)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []

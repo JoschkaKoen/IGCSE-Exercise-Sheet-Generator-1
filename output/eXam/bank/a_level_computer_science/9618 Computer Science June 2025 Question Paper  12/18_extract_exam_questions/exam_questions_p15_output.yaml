@@ -1,0 +1,35 @@
+```yaml
+questions:
+  - number: "7ai"
+    type: short_answer
+    text: |
+      Trace the program currently in memory using the following trace table.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|}
+      \hline
+      \multirow{2}{*}{\textbf{Instruction address}} & \multirow{2}{*}{\textbf{ACC}} & \multicolumn{5}{c|}{\textbf{Memory address}} \\ \cline{3-7}
+       & & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{13} & \textbf{14} \\ \hline
+       & & 12 & 11 & 10 & 22 & 22 \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+      \end{tabular}
+  - number: "7aii"
+    type: short_answer
+    text: |
+      State the effect of changing instruction \texttt{LDD 10} in address 100 to \texttt{LDM \#10}
+  - number: "7aiii"
+    type: short_answer
+    text: |
+      Identify \textbf{and} describe \textbf{one} mode of addressing \textbf{not} given in the table of instructions in part (a).
+
+      Mode of addressing \hrulefill
+
+      Description
+```

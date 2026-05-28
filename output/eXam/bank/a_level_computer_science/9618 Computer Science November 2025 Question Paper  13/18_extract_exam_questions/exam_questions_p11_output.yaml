@@ -1,0 +1,30 @@
+```yaml
+questions:
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the table by writing the contents of the ACC after the execution of each instruction.
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Current contents of the ACC} & \textbf{Instruction} & \textbf{Contents of the ACC after the execution of the instruction} \\ \hline
+      0000 1111 & AND 101 & \\ \hline
+      0000 0000 & LDM \#100 & \\ \hline
+      0000 0001 & XOR \&F1 & \\ \hline
+      0001 0001 & CMP 101 & \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: long_answer
+    text: |
+      The Von Neumann model for a computer system uses registers.
+
+      Describe the role of the Memory Address Register (MAR) and Memory Data Register (MDR) in the fetch-execute (F-E) cycle.
+  - number: "6c"
+    type: short_answer
+    text: |
+      Assembly language instructions are grouped.
+
+      Complete each statement by writing the name of the appropriate instruction group.
+
+      Loading data into the accumulator is an example of an instruction in the \underline{\hspace{1.5em}} group. Incrementing the index register is an example of an instruction in the \underline{\hspace{1.5em}} group. Branching to another address is an example of an instruction in the \underline{\hspace{1.5em}} group.
+```

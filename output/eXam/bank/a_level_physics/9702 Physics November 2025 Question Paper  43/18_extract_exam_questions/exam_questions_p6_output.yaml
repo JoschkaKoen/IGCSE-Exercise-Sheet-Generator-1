@@ -1,0 +1,29 @@
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      The circular motion of the ball in Fig. 1.1 has a diameter of $0.46\text{ m}$ and an angular speed of $1.9\text{ rad}\,\text{s}^{-1}$.
+
+      For the simple harmonic motion of the shadow of the ball in Fig. 1.1, calculate:
+  - number: "1di"
+    type: calculation
+    text: |
+      the amplitude
+
+      amplitude = \hrulefill $\text{m}$
+  - number: "1dii"
+    type: calculation
+    text: |
+      the period
+
+      period = \hrulefill $\text{s}$
+  - number: "1diii"
+    type: calculation
+    text: |
+      the maximum acceleration.
+
+      maximum acceleration = \hrulefill $\text{m}\,\text{s}^{-2}$
+  - number: "1e"
+    type: short_answer
+    text: |
+      On Fig. 1.1, draw, and label with the letter A, the position of the shadow on the screen when the shadow has its maximum positive acceleration.

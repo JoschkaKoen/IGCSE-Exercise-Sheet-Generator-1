@@ -1,0 +1,37 @@
+questions:
+  - number: "39"
+    type: multiple_choice
+    text: |
+      Which statement explains why alpha-particles have discrete energies, but beta-particles have a continuous range of energies?
+    options:
+      - letter: A
+        text: |
+          Beta-particles have a much smaller mass than alpha-particles which means beta-particles can be emitted with a larger range of velocities.
+      - letter: B
+        text: |
+          Only alpha-particles experience repulsion from the nucleus which is dependent on the number of protons in the nucleus.
+      - letter: C
+        text: |
+          Only beta-particles are emitted with another lepton and some energy is transferred to the other lepton.
+      - letter: D
+        text: |
+          Only the energy of alpha-particles is discrete because the composition of alpha-particles is always the same.
+  - number: "40"
+    type: multiple_choice
+    text: |
+      A hadron consists of antiquarks that are all identical.
+
+      What is a possible value, in terms of the elementary charge $e$, for the charge on the hadron?
+    options:
+      - letter: A
+        text: |
+          $0e$
+      - letter: B
+        text: |
+          $+1e$
+      - letter: C
+        text: |
+          $+2e$
+      - letter: D
+        text: |
+          $+3e$

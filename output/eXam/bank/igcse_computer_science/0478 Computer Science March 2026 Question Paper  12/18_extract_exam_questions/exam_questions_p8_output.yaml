@@ -1,0 +1,39 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A student stores their schoolwork on secondary storage devices. They store their schoolwork on their home computer and on cloud storage.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Give \textbf{two} characteristics of secondary storage.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5b"
+    type: short_answer
+    text: |
+      The home computer has a magnetic storage device, and the cloud storage uses solid-state (flash memory) storage.
+
+      Complete the description of how magnetic hard disk drives and solid-state drives (SSD) read data.
+
+      Use terms from the list. \textbf{Not} all terms need to be used. You should only use a term once.
+
+      \begin{itemize}
+      \item control
+      \item electromagnetic field
+      \item flow
+      \item loss
+      \item NOR gates
+      \item opened
+      \item pits and lands
+      \item platters
+      \item ports
+      \item remove
+      \item sectors
+      \item XOR gates
+      \end{itemize}
+
+      A hard disk has several platters. Each platter is split into tracks and \underline{\hspace{1.5em}}. To read data, the read/write head moves over the platters to the position where data starts. The \underline{\hspace{1.5em}} indicates if the data is a 1 or a 0.
+
+      A solid-state drive uses NAND gates or \underline{\hspace{1.5em}}. It is made of transistors that work as floating gates and \underline{\hspace{1.5em}} gates. The gates control the \underline{\hspace{1.5em}} of electrons to memory cells.

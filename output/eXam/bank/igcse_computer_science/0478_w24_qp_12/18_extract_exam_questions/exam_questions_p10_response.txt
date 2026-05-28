@@ -1,0 +1,18 @@
+[thinking]
+**Transcribing Question 8c**
+
+Okay, the user wants me to get question "8c" transcribed from this document. Let's see... looking at the page now. Alright, the question is: "(c) Explain how the robot vacuum cleaner can make use of machine learning." The instruction is to strip out the "(c)" prefix because it's a subquestion identifier at the start of the text. So, that leaves me with, "Explain how the robot vacuum cleaner can make use of machine learning." Got it.
+
+The marks allocated for this are `[3]`. There are those dotted lines beneath the question, but that's just standard for an open-ended question. The rule is to ignore those, since the prompt and marks convey the information needed.
+
+Time to structure the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8c"
+    type: long_answer
+    text: |
+      Explain how the robot vacuum cleaner can make use of machine learning.

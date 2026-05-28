@@ -1,0 +1,34 @@
+[thinking]
+**My Thought Process on Question 7b**
+
+Okay, let's break this down. I'm looking at question 7b from page 17 of an exam. It's a short-answer question and the task is to populate the 'text' field. The question itself is about structure charts.
+
+First, I need to transcribe the question. I see that it starts with "(b) A structure chart is used to document..." I need to remember to strip that prefix, as per the instructions, which say to remove any subquestion prefix. So, I'm left with the main part of the prompt.
+
+Now, I need to format this for proper output. The question describes a program with five modules and some program notes. The notes are a clear use case for an unordered list. I need to remember to format the bullet points correctly. The instructions are very specific: unordered lists should be rendered with `\begin{itemize}`. Module names are code tokens, so it makes sense to wrap them with `\texttt{...}` to make the distinction. I'll do this for all the module names: Setup, Restart, Confirm, Modify, and Update. And the types of parameters and return values, like "string", "integer", and "Boolean", it's best to wrap them also.
+
+So, I'm going to draft some LaTeX. I'll include the program notes within an itemize environment. I'll make sure to use `\texttt{}` correctly for module names. I'll also add a concluding sentence to make the instructions unambiguous. It is a drawing question, so there is no need to add any separate answer placeholders.
+
+Now, I should double check that I am adhering to any constraints. The instructions mention that there are no image inclusion commands allowed, so that's good. And the instructions mention that YAML block scalars are being used. So I am happy that the formatting should be correct. Let's see if this gets graded correctly.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      A structure chart is used to document a different part of the program, made up of five modules.
+
+      Program notes:
+      \begin{itemize}
+      \item module \texttt{Setup} calls either module \texttt{Restart}, or module \texttt{Confirm}
+      \item module \texttt{Confirm} takes a string as a parameter and returns an integer
+      \item module \texttt{Modify} has no parameters and returns a Boolean
+      \item module \texttt{Update} takes a string as a parameter
+      \item module \texttt{Restart} repeatedly calls module \texttt{Update} followed by module \texttt{Modify}
+      \item module \texttt{Restart} takes a string as a parameter that is passed by reference.
+      \end{itemize}
+
+      Draw a structure chart to represent the relationship between the \textbf{five} modules, including all parameters and return values.

@@ -1,0 +1,39 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Data in a computer system is represented in binary.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Put one tick ($\checkmark$) in each row to identify the minimum number of bits used to store each example of data.
+
+      \begin{tabular}{|l|c|c|c|c|c|c|c|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Example of data}} & \multicolumn{7}{c|}{\textbf{Number of bits}} \\ \cline{2-8}
+      & \textbf{4} & \textbf{8} & \textbf{16} & \textbf{24} & \textbf{32} & \textbf{64} & \textbf{128} \\ \hline
+      the hexadecimal value F139 & & & & & & & \\ \hline
+      16\,000\,000 unique amplitude values & & & & & & & \\ \hline
+      an IPv4 address & & & & & & & \\ \hline
+      256 unique colours & & & & & & & \\ \hline
+      an IPv6 address & & & & & & & \\ \hline
+      the denary value 65\,000 & & & & & & & \\ \hline
+      \end{tabular}
+  - number: "2b"
+    type: calculation
+    text: |
+      Convert the denary number $-108$ into a 12-bit two's complement binary number.
+  - number: "2c"
+    type: calculation
+    text: |
+      A three-place arithmetic shift to the right is performed on the following two's complement negative integer.
+
+      Show the result of this arithmetic shift.
+
+      10010011 \hrulefill
+  - number: "2d"
+    type: calculation
+    text: |
+      Convert the following positive binary integer into hexadecimal.
+
+      1110001100111011 \hrulefill

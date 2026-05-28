@@ -1,0 +1,83 @@
+[thinking]
+**Transcribing Physics Questions**
+
+Okay, here's what I've got. The user wants me to pull out and transcribe three physics questions. Let me see... First, question 17. The core concept here seems to be gravitational potential energy. The question asks which two quantities are *sufficient* to calculate the change in gravitational potential energy of a falling object in a uniform gravitational field. The choices are: mass and acceleration of free fall; mass and change in vertical displacement; weight and acceleration of free fall; and weight and change in vertical displacement. I'd lean towards mass and displacement or weight and displacement here.
+
+Now, for question 18. This one's about work done against friction. We have a box pushed across a rough surface from X to Y and then from Y to Z. The work done from X to Y is 150 J, and from Y to Z it's 200 J. Then an identical box is moved directly from X to Z. The magnitude of the frictional force is constant. The question asks for the *extra* work done against friction when moving the box along the path X-Y-Z compared to the direct path X-Z. This screams a direct comparison of work done, likely related to the distance traveled. I'll need to figure out the total work done on path X-Y-Z and compare it to the hypothetical X-Z.
+
+Finally, question 19. This is a momentum and kinetic energy problem. A car's momentum changes from *p1* to *p2*. The question is: what's the *increase* in kinetic energy? I'm going to have to think about the relationship between momentum, kinetic energy, and mass. The options provided are all algebraic expressions involving *p1*, *p2*, and *m*. Specifically, options A: (p2^2 - p1^2) / (2m), B: ((p2 - p1)^2) / (2m), C: (p2 - p1) / (2m), and D: (p1 - p2) / (2m). I see option A is correctly rendered from the image. Now, let's see which of these represents that change. I'll have to consider how those two values are related and look to match the answer.
+
+
+
+[/thinking]
+
+questions:
+  - number: "17"
+    type: multiple_choice
+    text: |
+      An object is falling in a uniform gravitational field.
+
+      Which two quantities are sufficient to calculate the change in gravitational potential energy?
+    options:
+      - letter: A
+        text: |
+          mass and acceleration of free fall
+      - letter: B
+        text: |
+          mass and change in vertical displacement
+      - letter: C
+        text: |
+          weight and acceleration of free fall
+      - letter: D
+        text: |
+          weight and change in vertical displacement
+
+  - number: "18"
+    type: multiple_choice
+    text: |
+      The points X, Y and Z are on a rough, horizontal surface.
+
+      A box P is pushed across the surface from X to Y and then from Y to Z.
+
+      The distance from X to Y is 3.0 m. The work done against the frictional force in moving the box from X to Y is 150 J.
+
+      The work done against the frictional force in moving the box from Y to Z is 200 J.
+
+      An identical box Q is pushed in a straight line from X to Z.
+
+      The magnitude of the frictional force between the boxes and the surface is constant.
+
+      How much extra work is done against the frictional force in moving P than Q?
+    options:
+      - letter: A
+        text: |
+          100 J
+      - letter: B
+        text: |
+          250 J
+      - letter: C
+        text: |
+          350 J
+      - letter: D
+        text: |
+          600 J
+
+  - number: "19"
+    type: multiple_choice
+    text: |
+      The momentum of a car of mass $m$ increases from $p_1$ to $p_2$.
+
+      What is the increase in the kinetic energy of the car?
+    options:
+      - letter: A
+        text: |
+          $\frac{(p_2^2 - p_1^2)}{2m}$
+      - letter: B
+        text: |
+          $\frac{(p_2 - p_1)^2}{2m}$
+      - letter: C
+        text: |
+          $\frac{p_2 - p_1}{2m}$
+      - letter: D
+        text: |
+          $\frac{p_1 - p_2}{2m}$

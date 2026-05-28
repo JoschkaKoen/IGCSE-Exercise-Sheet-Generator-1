@@ -1,0 +1,72 @@
+[thinking]
+**My Analysis of the Exam Page**
+
+Okay, let's break this down. I need to process page 8 of an exam paper. My task is to extract the content for questions "3c", "3ci", "3cii", and "3ciii" and then format the information into YAML according to the defined schema. Seems straightforward.
+
+First, I'll identify the content associated with each sub-question. For 3c, the text states "The class `Tree` stores the tree." This is then followed by a table describing the `Tree` class. I'll need to capture both the text and the table. I'll represent this table in LaTeX format, specifically using the `tabular` environment for its clarity and flexibility. I should make sure the styling of the table is clean and readable, keeping in mind the visual style of the context. Let's make it a simple tabular environment. I'll also use `\texttt{}` to properly format the class and method names within the LaTeX.
+
+For 3ci, the question asks for the code for the `Tree` class and its constructor. I need to remember to only include the constructor and class declaration, excluding the other methods, and to make it clear that the user is expected to write the code. I'll also pay attention to the note about Python and comments. I'll remove the "(i)" prefix from the content as I format it, to keep it clean.
+
+3cii is similar, but this time focusing on `GetRootNode()`. Again, I'll remove the prefix and explicitly note that the user needs to provide the code.
+
+For 3ciii, it's about the `Insert()` method and its logic. The explanation given is essentially the algorithm. I'll capture the description, format it clearly using bullet points for the insertion steps, and, again, remove the "iii" prefix.
+
+Finally, regarding code-related tokens like `Tree`, `GetRootNode()`, `Insert()`, and `FirstNode`, I'll format these using `\texttt{}` throughout the extracted text and the final YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The class \texttt{Tree} stores the tree.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Tree}} \\ \hline
+      \texttt{FirstNode : Node} & stores the root node in the tree \\ \hline
+      \texttt{Constructor()} & initialises \texttt{FirstNode} to its parameter value \\ \hline
+      \texttt{GetRootNode()} & returns the node stored in \texttt{FirstNode} \\ \hline
+      \texttt{Insert()} & stores its parameter node in the correct position in the tree \\ \hline
+      \end{tabular}
+  - number: "3ci"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Tree} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document.
+  - number: "3cii"
+    type: short_answer
+    text: |
+      Write program code for \texttt{GetRootNode()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence document.
+  - number: "3ciii"
+    type: short_answer
+    text: |
+      The method \texttt{Insert()} takes a node as a parameter and then searches the tree to find the position to insert the new node by:
+
+      \begin{itemize}
+      \item checking whether the node's data is less than or greater than the root node's data
+      \item moving to the left node if the data is less than the root node's data
+      \item moving to the right node if the data is greater than or equal to the root node's data
+      \item repeating until the final position of the node is found and stores the node in that position.
+      \end{itemize}
+
+      Write program code for \texttt{Insert()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(iii)} in the evidence document.

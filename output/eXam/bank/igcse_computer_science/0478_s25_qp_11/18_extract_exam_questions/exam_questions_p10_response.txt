@@ -1,0 +1,43 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      Each employee in a finance company has a computer and an electronic account.
+  - number: "9a"
+    type: long_answer
+    text: |
+      Each computer has an operating system. One function of the operating system is to manage memory.
+
+      Describe the role of the operating system in managing memory.
+  - number: "9b"
+    type: short_answer
+    text: |
+      The finance company is concerned that a hacker may perform a brute-force attack to gain access to an employee's account.
+  - number: "9bi"
+    type: short_answer
+    text: |
+      Describe how the hacker would perform the brute-force attack.
+  - number: "9bii"
+    type: short_answer
+    text: |
+      Give \textbf{three} cyber security solutions that could be used to help prevent a brute-force attack from being successful.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "9c"
+    type: short_answer
+    text: |
+      The company uses a digital currency to purchase a new car.
+  - number: "9ci"
+    type: short_answer
+    text: |
+      State what is meant by a digital currency.
+  - number: "9cii"
+    type: short_answer
+    text: |
+      The digital currency uses a process that involves a digital ledger. The ledger has time stamped transactions that cannot be altered.
+
+      Give the name of this process.
+```

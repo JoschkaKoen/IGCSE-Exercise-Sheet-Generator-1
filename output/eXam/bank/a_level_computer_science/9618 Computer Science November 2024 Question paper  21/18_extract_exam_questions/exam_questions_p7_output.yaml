@@ -1,0 +1,16 @@
+```yaml
+questions:
+  - number: "3c"
+    type: long_answer
+    text: |
+      The requirement changes, and the algorithm will now output three lines from the file, starting from a \textbf{given} line number.
+
+      The modified algorithm will be implemented as a function which will:
+      \begin{itemize}
+      \item be called with an integer parameter representing the given line number
+      \item output three lines, starting at the given line
+      \item return \texttt{TRUE} if the 3 lines are output, or \texttt{FALSE} if it was not possible to output the 3 lines.
+      \end{itemize}
+
+      Describe the changes that need to be made to \textbf{steps 2 to 8} of the algorithm given in part \textbf{(a)}.
+```

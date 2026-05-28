@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A database table, \texttt{MajorCity}, stores some details about a number of cities from around the world.
+
+      \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      \textbf{Code} & \textbf{City} & \textbf{Capital} & \textbf{Country} & \textbf{Continent} & \textbf{Population} \\ \hline
+      ASY6 & Abu Dhabi & TRUE & United Arab Emirates & Asia & 1,566,999 \\ \hline
+      EUY3 & Amsterdam & TRUE & Netherlands & Europe & 1,174,025 \\ \hline
+      ASY1 & Beijing & TRUE & China & Asia & 21,766,214 \\ \hline
+      SAY1 & Buenos Aires & TRUE & Argentina & South America & 15,490,415 \\ \hline
+      AFY1 & Cairo & TRUE & Egypt & Africa & 22,183,200 \\ \hline
+      EUN1 & Frankfurt & FALSE & Germany & Europe & 796,437 \\ \hline
+      ASY3 & Jakarta & TRUE & Indonesia & Asia & 11,248,839 \\ \hline
+      ASN3 & Karachi & FALSE & Pakistan & Asia & 17,236,230 \\ \hline
+      ASY4 & Kuala Lumpur & TRUE & Malaysia & Asia & 8,621,724 \\ \hline
+      AFN2 & Lagos & FALSE & Nigeria & Africa & 15,945,912 \\ \hline
+      SAY2 & Lima & TRUE & Peru & South America & 11,206,000 \\ \hline
+      EUY1 & London & TRUE & UK & Europe & 9,648,110 \\ \hline
+      EUY4 & Madrid & TRUE & Spain & Europe & 6,751,374 \\ \hline
+      ASN2 & Mumbai & FALSE & India & Asia & 21,296,516 \\ \hline
+      NAN1 & New York City & FALSE & USA & North America & 7,888,121 \\ \hline
+      EUY2 & Paris & TRUE & France & Europe & 11,206,000 \\ \hline
+      ASN1 & Shanghai & FALSE & China & Asia & 29,210,808 \\ \hline
+      ASY5 & Singapore & TRUE & Singapore & Asia & 6,080,859 \\ \hline
+      AUN1 & Sydney & FALSE & Australia & Australia & 5,120,894 \\ \hline
+      ASY2 & Tokyo & TRUE & Japan & Asia & 37,194,104 \\ \hline
+      NAN2 & Toronto & FALSE & Canada & North America & 6,371,958 \\ \hline
+      EUN2 & Valencia & FALSE & Spain & Europe & 838,301 \\ \hline
+      SAN1 & Valencia & FALSE & Venezuela & South America & 1,983,445 \\ \hline
+      \end{tabular}
+  - number: "8a"
+    type: short_answer
+    text: |
+      State the number of fields and records in this database table.
+
+      Fields \hrulefill
+      Records \hrulefill
+```

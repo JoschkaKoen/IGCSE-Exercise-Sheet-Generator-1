@@ -1,0 +1,27 @@
+questions:
+  - number: "1b"
+    type: calculation
+    text: |
+      Change the position of Q and adjust the position of P until the rod is again parallel to the bench. Measure $p$ and $q$. Repeat until you have six sets of values of $p$ and $q$.
+
+      Record your results in a table. Include values of $T_{\text{P}}$ and $T_{\text{Q}}$ in your table.
+  - number: "1c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Plot a graph of $T_{\text{Q}}$ on the $y$-axis against $T_{\text{P}}$ on the $x$-axis.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1ciii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+
+      $y$-intercept = \hrulefill

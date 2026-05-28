@@ -1,0 +1,27 @@
+questions:
+  - number: "5a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5ai"
+    type: calculation
+    text: |
+      Determine the amplitude of the oscillations.
+
+      amplitude = \hrulefill m
+  - number: "5aii"
+    type: short_answer
+    text: |
+      State what the line in Fig. 5.2 shows about the nature of the oscillations.
+  - number: "5b"
+    type: short_answer
+    text: |
+      State \textbf{three} other quantitative conclusions that can be drawn from Fig. 5.2 and Fig. 5.3 about the block and its oscillations. Use the space for any working.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "5c"
+    type: short_answer
+    text: |
+      On Fig. 5.4, sketch the variation with $h$ of the potential energy $E_{\text{P}}$ of the oscillations.

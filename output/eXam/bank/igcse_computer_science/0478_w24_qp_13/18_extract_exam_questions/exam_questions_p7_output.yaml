@@ -1,0 +1,26 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      An instruction is fetched from random access memory (RAM) into the memory data register (MDR) to be decoded.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Identify \textbf{two} other registers that are used in the fetch stage of the cycle.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3b"
+    type: short_answer
+    text: |
+      Complete and annotate the diagram to show how the data is decoded once it has been fetched into the MDR.
+
+      \begin{center}
+      \begin{tabular}{|c|}
+      \hline
+      \quad \\
+      MDR \\
+      \quad \\
+      \hline
+      \end{tabular}
+      \end{center}

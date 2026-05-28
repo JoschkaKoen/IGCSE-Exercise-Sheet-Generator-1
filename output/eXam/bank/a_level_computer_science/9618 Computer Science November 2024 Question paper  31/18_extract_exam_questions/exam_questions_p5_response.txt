@@ -1,0 +1,54 @@
+[thinking]
+**Analyzing and Populating YAML Stub for Exam Page 5**
+
+Okay, so I've been tasked with completing the YAML stub for page 5 of this exam. The first thing I'm doing is carefully examining the questions. Question "6" seems a bit peculiar right off the bat. It's listed in the stub, but usually, this is just a placeholder for the main question text. I'm checking the document to see if "6" has any stem text, or if it is directly asking (a) and (b).
+
+Looking at the page, it immediately starts with "6 (a) Describe..." and then "(b) Write pseudocode...".  My initial thought is that "6" might be a placeholder, but the stub already has entries for "6", "6a", and "6b."  The key is that the rule says if the stem isn't visible, it's a STUB ERROR, and I shouldn't guess.
+
+Right. I need to be precise.  "6" itself *doesn't* seem to have any text preceding "6 (a)".  There's no introductory stem.  I can't find the text for "6" anywhere on the page, so I need to flag it. I'm going to set `text: |` with `STUB ERROR` for number "6" because there is no text there, and the instructions tell me to do so.
+
+Now, for "6a", that's straightforward. The question reads, "Describe the user-defined data type set." I'll add that text. And, checking the format in the PDF, I need to make sure to represent bold text; the word "set" is bold in the original document, so I'll render that appropriately.
+
+For "6b", the question asks, "Write pseudocode statements to declare the set data type, SymbolSet, to hold the following set of mathematical operators, using the variable Operators: + - * / ^." I need to remember that I'm supposed to include the pseudocode part in bold.  Also, let's include those operators with proper formatting for clarity; for this, I'm choosing to write them in math mode.
+
+So, in summary, I'm generating the stub like this, applying the rule about the "STUB ERROR".
+```yaml
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: long_answer
+    text: |
+      Describe the user-defined data type \texttt{set}.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} statements to declare the set data type, \texttt{SymbolSet}, to hold the following set of mathematical operators, using the variable \texttt{Operators}.
+
+      $$+ \quad - \quad * \quad / \quad \wedge$$
+```
+I am all set.
+
+
+
+[/thinking]
+
+
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: long_answer
+    text: |
+      Describe the user-defined data type \textbf{set}.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} statements to declare the set data type, \texttt{SymbolSet}, to hold the following set of mathematical operators, using the variable \texttt{Operators}.
+
+      $$+ \quad - \quad * \quad / \quad \wedge$$
+```

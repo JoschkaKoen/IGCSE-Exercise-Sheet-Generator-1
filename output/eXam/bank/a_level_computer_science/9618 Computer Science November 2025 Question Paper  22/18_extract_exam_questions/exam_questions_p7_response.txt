@@ -1,0 +1,68 @@
+[thinking]
+**Transcribing Questions 4b and 4c**
+
+Okay, it looks like I need to transcribe questions 4b and 4c. Let's start with 4b. The goal is to complete some pseudocode that sets array elements to TRUE. They want me to use `\begin{alltt}...\end{alltt}` for the pseudocode block and indicate fill-in-the-blanks with `\underline{\hspace{3em}}` or something similar, avoiding math mode commands. The assignment arrow should be ASCII, so `<-`. After a moment, I decided to format the pseudocode as follows:
+
+```latex
+DECLARE EasyQ, HardQ : INTEGER
+
+FOR EasyQ <- \underline{\hspace{3em}} TO 15 STEP \underline{\hspace{3em}}
+
+    FOR HardQ <- 0 TO \underline{\hspace{3em}} STEP \underline{\hspace{3em}}
+
+        CheckTotal[\underline{\hspace{6em}}] <- TRUE
+
+    NEXT HardQ
+
+NEXT EasyQ
+```
+
+Now for 4c. This one asks for an algorithm description for `ValidateScore()` using four steps, *without* pseudocode.  It looks like I need to provide the algorithm in the numbered answer slots/steps format they provide. They also say to leave a blank line between the instruction prompt and the first slot, and none between the slots, and to put a period after the number. The format is `Step N \hrulefill`. I confirm that the `\hrulefill` is enough, so I format the four steps as:
+
+```
+Step 1 \hrulefill
+Step 2 \hrulefill
+Step 3 \hrulefill
+Step 4 \hrulefill
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "4b"
+    type: short_answer
+    text: |
+      The pseudocode represents an algorithm to set the appropriate elements of the array to \texttt{TRUE}
+
+      Complete the pseudocode:
+
+      \begin{alltt}
+      DECLARE EasyQ, HardQ : INTEGER
+
+      FOR EasyQ <- \underline{\hspace{3em}} TO 15 STEP \underline{\hspace{3em}}
+
+          FOR HardQ <- 0 TO \underline{\hspace{3em}} STEP \underline{\hspace{3em}}
+
+              CheckTotal[\underline{\hspace{6em}}] <- TRUE
+
+          NEXT HardQ
+
+      NEXT EasyQ
+      \end{alltt}
+  - number: "4c"
+    type: long_answer
+    text: |
+      The array elements have been assigned the required values.
+
+      A module \texttt{ValidateScore()} will take an integer value representing a total score as a parameter. It will return \texttt{TRUE} if the total score is valid, or \texttt{FALSE} if it is not valid.
+
+      Describe the algorithm for \texttt{ValidateScore()} using \textbf{four} steps.
+
+      Do \textbf{not} use pseudocode in your answer.
+
+      Step 1 \hrulefill
+      Step 2 \hrulefill
+      Step 3 \hrulefill
+      Step 4 \hrulefill

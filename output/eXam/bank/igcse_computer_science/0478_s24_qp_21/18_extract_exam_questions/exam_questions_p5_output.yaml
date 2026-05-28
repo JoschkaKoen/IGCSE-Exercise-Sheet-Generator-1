@@ -1,0 +1,19 @@
+questions:
+  - number: "4c"
+    type: long_answer
+    text: |
+      Explain how you should alter the original corrected algorithm to make sure that all the numbers entered are between 1 and 500 inclusive. If any numbers fall outside these limits, a replacement value is requested and entered.
+
+      You do \textbf{not} need to re-write the algorithm.
+  - number: "5"
+    type: short_answer
+    text: |
+      Write the pseudocode statements to perform this task:
+      \begin{itemize}
+      \item accept the input of a whole number from 1 to 4 inclusive
+      \item use a \texttt{CASE} statement to:
+        \begin{itemize}
+        \item output the number (1 to 4 inclusive) that was entered
+        \item output the word ``ERROR'' if a 1 to 4 inclusive number was \textbf{not} entered.
+        \end{itemize}
+      \end{itemize}

@@ -1,0 +1,41 @@
+```yaml
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      A text file \texttt{Loyalty.txt} will be used to store the data items for the loyalty scheme. The data items for each customer will be stored on a separate line of the text file where each data item is separated by a comma:
+
+      \texttt{<CustomerID>,<Points>}
+
+      The contents of the text file \texttt{Loyalty.txt} will always be stored in ascending order by customer ID.
+
+      When the data items are read from or written to the text file \texttt{Loyalty.txt}, they may need to be converted to the appropriate data type.
+
+      Each customer has a unique customer ID starting at \texttt{"100001"} with this value increasing by one each time a new customer joins the loyalty scheme.
+
+      When a customer joins the loyalty scheme, they are assigned the next customer ID and value of points is set to 0.
+
+      For example, if the loyalty scheme has 204 customers and a new customer joins the loyalty scheme, the following line is added to the text file \texttt{Loyalty.txt}:
+
+      \texttt{"100205,0"}
+
+      You can assume that the number of customers in the loyalty scheme will never be more than 9000.
+
+      The programmer has defined a program module as follows:
+
+      \begin{tabular}{|l|p{10cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      \texttt{AddNewCustomers()} & \begin{itemize}
+      \item called with an integer parameter representing the number of new customers to be added to the loyalty scheme
+      \item adds a new line, containing the required information, to the text file \texttt{Loyalty.txt} for each customer added to the loyalty scheme
+      \item outputs each new customer ID added to the loyalty scheme
+      \end{itemize} \\ \hline
+      \end{tabular}
+  - number: "7bi"
+    type: long_answer
+    text: |
+      Write pseudocode for module \texttt{AddNewCustomers()}
+
+      Assume that there is at least \textbf{one} customer already in the loyalty scheme.
+```

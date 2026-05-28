@@ -1,0 +1,27 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A computer programmer uses assembly language to create a computer program for an embedded system in a washing machine.
+  - number: "6a"
+    type: short_answer
+    text: |
+      State what is meant by an embedded system.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Give the name of the translator that will be used for the program.
+  - number: "6c"
+    type: short_answer
+    text: |
+      The washing machine needs to display error codes on a small screen if there is a problem with the washing machine.
+
+      The error codes are stored as binary. The binary numbers are too long to be displayed on the washing machine.
+
+      State how the error codes could be reduced in length to be displayed on the screen.
+  - number: "6d"
+    type: short_answer
+    text: |
+      Give \textbf{one} benefit to the programmer of using assembly language to write the program.
+```

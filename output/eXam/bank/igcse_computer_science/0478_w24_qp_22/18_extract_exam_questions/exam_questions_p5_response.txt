@@ -1,0 +1,50 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 5**
+
+Okay, so I need to get this YAML stub for page 5 of the exam filled out. Let's see, the questions are: 4b (continuation of a previous question), question 5 (an introductory sentence), 5a, 5b, and question 6. I've got to ensure the YAML structure is correct for each.
+
+First, I need to check the question numbers against the stub to make sure there are no discrepancies. Looks like the stub covers all the questions on the page: 4b, 5, 5a, 5b and 6 are all present. Perfect.
+
+Now for each question, I must populate its YAML entry. So for question `4b`, it's a long answer. It seems to have a preamble, so let's check it. Right, the text is: "A bubble sort algorithm can be written to include features that make it more efficient. Explain why the corrected bubble sort algorithm is efficient."
+
+For question `5`, that is the introduction. The intro is: "Analysis is one stage in the program development life cycle."
+
+For `5a`, a short answer is required, and the question is: "State one other stage in the program development life cycle." I have made the word 'one' bold, to highlight that only one is required.
+
+`5b` is a long answer, and the question is "Describe the analysis stage of the program development life cycle."
+
+For `6`, another short answer is needed, with the instruction: "Outline one type of verification check that could be used when inputting data." I've made the word 'one' bold, to highlight that only one is required.
+
+I need to make sure the subquestion labels are stripped from the beginning of the text of the questions. The rules for the page state that subquestion labels should be removed.
+
+Now I'll just refine the YAML entries, ensuring that the `number`, `type`, and `text` fields are correctly formatted. Each YAML entry is structured correctly.
+
+Right, all YAML entries are now complete, structured correctly, and the question text has been sanitized!
+
+
+
+[/thinking]
+
+questions:
+  - number: "4b"
+    type: long_answer
+    text: |
+      A bubble sort algorithm can be written to include features that make it more efficient.
+
+      Explain why the corrected bubble sort algorithm is efficient.
+  - number: "5"
+    type: short_answer
+    text: |
+      Analysis is one stage in the program development life cycle.
+  - number: "5a"
+    type: short_answer
+    text: |
+      State \textbf{one} other stage in the program development life cycle.
+  - number: "5b"
+    type: long_answer
+    text: |
+      Describe the analysis stage of the program development life cycle.
+  - number: "6"
+    type: short_answer
+    text: |
+      Outline \textbf{one} type of verification check that could be used when inputting data.

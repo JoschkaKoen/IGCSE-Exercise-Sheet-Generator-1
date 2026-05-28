@@ -1,0 +1,36 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 8**
+
+Okay, the task is to fill in the YAML stub for page 8 of this exam. The structure is already defined: we have entries for "9" (long_answer), "10" (short_answer), "10a" (short_answer), and "10b" (short_answer). Right, let's look at the actual questions.
+
+Question 9 is about digital certificates and outlines the process for acquiring one. I'll need to remember all the steps for that.
+
+Question 10 is about implementing a stack, specifically `\texttt{StackArray}`, using pseudocode, storing up to 100 strings in an array. This is straightforward. It breaks down into parts. Question 10a asks for pseudocode to declare the necessary variables, constants, and the array itself. Easy. I have to make sure I format the code correctly. Question 10b requires pseudocode for a procedure to initialize the top and bottom pointers.
+
+Alright, nothing tricky there. It's standard stack implementation stuff. Time to create the YAML, taking all the requirements into account.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "9"
+    type: long_answer
+    text: |
+      A company requires a digital certificate to ensure the authenticity of its online communications.
+
+      Outline the process followed to acquire a digital certificate.
+  - number: "10"
+    type: short_answer
+    text: |
+      A stack, \texttt{StackArray}, is to be implemented using pseudocode, to store a maximum of 100 string items in an appropriate array. Declarations are required so that the stack has a beginning, an end and a maximum size. An array is also required to store the data.
+  - number: "10a"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} to declare the variables, constant and array required to implement the stack.
+  - number: "10b"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} for a procedure to initialise the top and bottom pointers of the stack to appropriate values.
+```

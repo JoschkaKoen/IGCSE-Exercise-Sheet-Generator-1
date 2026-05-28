@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: ''
+  - number: "7a"
+    type: short_answer
+    text: |
+      Draw the symbol for a NOR logic gate and complete the truth table for it.
+
+      NOR logic gate symbol:
+
+      \newline
+      \newline
+      \newline
+      \newline
+
+      Truth table:
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{Z} \\ \hline
+      0 & 0 & \\ \hline
+      0 & 1 & \\ \hline
+      1 & 0 & \\ \hline
+      1 & 1 & \\ \hline
+      \end{tabular}
+  - number: "7b"
+    type: short_answer
+    text: |
+      Consider the rules given in the following table:
+
+      \begin{tabular}{|c|c|l|}
+      \hline
+      \textbf{Input} & \textbf{Binary value} & \textbf{Description} \\ \hline
+      \textbf{L} & 0 & dark \\ \cline{2-3}
+       & 1 & light \\ \hline
+      \textbf{M} & 0 & no motion detected \\ \cline{2-3}
+       & 1 & motion detected \\ \hline
+      \textbf{S} & 0 & no sound detected \\ \cline{2-3}
+       & 1 & sound detected \\ \hline
+      \end{tabular}
+
+      A security system uses sensors to sound an alarm if an intruder is detected.
+
+      The alarm sounding is represented by the output $A = 1$.
+
+      The alarm sounds if it is dark and if either motion or sound or both motion and sound are detected.
+```

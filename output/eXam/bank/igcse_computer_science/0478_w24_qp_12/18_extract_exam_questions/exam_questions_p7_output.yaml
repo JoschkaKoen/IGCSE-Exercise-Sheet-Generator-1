@@ -1,0 +1,33 @@
+```yaml
+questions:
+  - number: "5bii"
+    type: short_answer
+    text: |
+      Explain why serial simplex is the most appropriate method of data transmission for this purpose.
+  - number: "5biii"
+    type: short_answer
+    text: |
+      The data is checked for errors after it has been transmitted to the stock control system.
+
+      Give \textbf{two} error detection methods that could be used for this purpose.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "6"
+    type: short_answer
+    text: |
+      The table contains names and descriptions of components in a central processing unit (CPU).
+
+      Complete the table by giving the missing component names and descriptions.
+
+      \begin{tabular}{|p{6cm}|p{9cm}|}
+      \hline
+      \textbf{Component name} & \textbf{Description} \\ \hline
+      \hrulefill & sends signals to manage the flow of data through the CPU \\ \hline
+      program counter & \newline \newline \newline \\ \hline
+      \hrulefill & stores the address of the data that is about to be fetched from random access memory (RAM) into the CPU \\ \hline
+      \hrulefill & transmits data between the RAM and the CPU \\ \hline
+      accumulator & \newline \newline \newline \\ \hline
+      \hrulefill & stores an instruction when it is being decoded \\ \hline
+      \end{tabular}
+```

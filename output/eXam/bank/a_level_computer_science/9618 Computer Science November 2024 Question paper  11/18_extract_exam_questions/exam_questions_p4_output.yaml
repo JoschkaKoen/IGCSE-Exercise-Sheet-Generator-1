@@ -1,0 +1,35 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A shop repairs electronic devices, for example mobile phones and tablet computers. The shop owner stores the data about the repairs using a file-based approach.
+  - number: "2a"
+    type: long_answer
+    text: |
+      Give \textbf{one} limitation of using a file-based approach to store the data \textbf{and} explain how a relational database addresses this limitation.
+
+      Limitation \hrulefill
+
+      Explanation \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      The shop owner creates a relational database called \texttt{FIXIT}.
+
+      The database stores data about the customers and the devices for repair.
+
+      Some devices need new parts that are ordered from suppliers.
+
+      The database \texttt{FIXIT} is designed to include the following tables:
+
+      \texttt{PART(PartID, Description, Price, SupplierID)}
+
+      \texttt{CUSTOMER(CustomerID, FirstName, LastName, ContactNumber)}
+
+      \texttt{REPAIR(RepairNumber, StartDate, EndDate, CustomerID, Device)}
+
+      \texttt{REPAIR\_PART(PartID, RepairNumber, Quantity)}
+  - number: "2bi"
+    type: short_answer
+    text: |
+      Complete the entity-relationship (E-R) diagram for the given tables.

@@ -1,0 +1,57 @@
+[thinking]
+**Analyzing a Potentially Erroneous Exam Question Stub**
+
+Okay, the task is to transcribe questions from page 6 of this exam. The instructions specifically mention question "1d". However, the initial stub indicates "1d", "1di", and "1dii". My first instinct is to verify this on the actual page. Upon inspection, the page presents "(d) (i)" and "(ii)", but there's no standalone "1d" text. I'm immediately concerned. Is "1d" a parent question, or is this a stub generation error?
+
+Let's look at the stub itself: it lists "1d" as `short_answer` with empty text, followed by "1di" and "1dii", both as `calculation` type questions. The page has text "(d) (i) It is suggested that...". Is this text supposed to be the "1d" text? It's the only lead on where to find "1d".
+
+The instructions also state, "Do NOT add or remove questions... If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it." Ah, so "1d" is a stub entry, but its stem is not *visibly* present on the page, separate from "1di". I have a clear directive here: I must write `STUB ERROR` for "1d" to flag the problem.
+
+Just to be sure, I'll examine the full context. "1di" details the equations and asks to determine the values of A and B, referencing a previous question. "1dii" provides another equation and asks to determine a value for R, again using previous answers. The content of "1di" and "1dii" are fully described by what is on the page. Therefore, "1d" must be an error. The only sensible option is to mark "1d" with `STUB ERROR`.
+
+Here's the finalized stub entry for "1d":
+
+```yaml
+  - number: "1d"
+    type: short_answer
+    text: |
+      STUB ERROR
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1di"
+    type: calculation
+    text: |
+      It is suggested that the quantities $T_Q$ and $T_P$ are related by the equation
+
+      $$T_Q = A + BT_P$$
+
+      where $A$ and $B$ are constants.
+
+      Using your answers in \textbf{(c)(iii)}, determine the values of $A$ and $B$.
+      Give appropriate units.
+
+      $A = $ \hrulefill
+
+      $B = $ \hrulefill
+  - number: "1dii"
+    type: calculation
+    text: |
+      Theory suggests that
+
+      $$R = F \sin\theta - \frac{2A}{S}$$
+
+      where $R$ is the weight of the rod and $F$ has the value $2.94\text{ N}$.
+
+      Use your answers in \textbf{(a)(i)} and \textbf{(d)(i)} to determine a value for $R$.
+      Give an appropriate unit.
+
+      $R = $ \hrulefill

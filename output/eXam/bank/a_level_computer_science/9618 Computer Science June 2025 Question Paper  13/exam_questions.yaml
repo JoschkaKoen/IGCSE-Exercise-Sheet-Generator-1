@@ -1,0 +1,780 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student paints a picture in an art class.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The student takes a photograph of the picture using a digital camera. The
+      digital camera creates an image with a resolution of 2 million pixels and uses
+      a bit depth of 16 bits.
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: calculation
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the file size of the image created by the digital camera in
+        megabytes (MB).
+
+
+        Show your working.
+
+
+        Answer \hrulefill MB'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: long_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'The student takes a second photograph with a lower bit depth.
+
+
+        Explain the effect of decreasing the bit depth on the image and on the image
+        file.
+
+
+        Effect on image
+
+
+        Effect on image file'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'A teacher records an audio file of the student playing the piano during
+      a music lesson.
+
+
+      Complete the table by giving the term for each description about sound representation
+      on a computer.
+
+
+      \begin{tabular}{|p{7cm}|p{7cm}|}
+
+      \hline
+
+      \textbf{Description} & \textbf{Term} \\
+
+      \hline
+
+      the number of times the amplitude is measured per time interval & \\
+
+      \hline
+
+      the number of bits used to store each amplitude measurement & \\
+
+      \hline
+
+      the type of sound wave before it is recorded by a computer & \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The student types a report on a computer in a history lesson.
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The computer uses the Unicode character set.
+
+
+        Give \textbf{two} characteristics of the Unicode character set.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Some of the school''s computers use the extended ASCII character set.
+
+
+        The table gives some characters from the extended ASCII character set, their
+        denary, 8-bit binary and hexadecimal numbers.
+
+
+        Complete the table by filling in the missing numbers.
+
+
+        \begin{tabular}{|c|c|c|c|}
+
+        \hline
+
+        \textbf{Character} & \textbf{Denary} & \textbf{8-bit Binary} & \textbf{Hexadecimal}
+        \\
+
+        \hline
+
+        ! & 33 & & 21 \\
+
+        \hline
+
+        L & & 01001100 & 4C \\
+
+        \hline
+
+        \"u & 252 & 11111100 & \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer has a processor.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The processor has a Control Unit (CU) and system clock.
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: long_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how the CU and the system clock work together.
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: long_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'The processor runs the Fetch-Execute (F-E) cycle.
+
+
+        Write the stages of the F-E cycle using register transfer notation.'
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The computer has cache memory.
+
+
+      Describe one benefit of the computer using cache memory.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The computer connects to a monitor using a High Definition Multimedia Interface
+      (HDMI) cable that connects into an HDMI port.
+
+
+      Explain how HDMI provides connection to peripheral devices.'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer is writing a program in a high-level language.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the description of compilers and interpreters by writing the missing
+      words.
+
+
+      A compiler checks all the code before attempting to translate the program. If
+      any errors are found, they are all reported at the same time and the program
+      does not translate or run. If there are no errors found, the compiler produces
+      \underline{\hspace{1.5em}} which can run without access to the \underline{\hspace{1.5em}}.
+
+
+      An interpreter translates one line of code and then runs it, before moving to
+      the next line of code. If the line of code has an error, the interpreter \underline{\hspace{1.5em}}
+      and displays the error. The programmer can correct the error \underline{\hspace{1.5em}}
+      and then the interpreter continues translating from that point.'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "The programmer needs to keep the program files secure on their computer\
+      \ and during electronic data transmission over the internet. The files are protected\
+      \ by a password.\n\nComplete the table by identifying \\textbf{one} other method\
+      \ of keeping the files secure during electronic data transmission \\textbf{and}\
+      \ \\textbf{one} other method of keeping the files secure on the computer.\n\n\
+      State how each method protects the data.\n\nThe methods must be different.\n\
+      \n\\begin{tabular}{|l|p{4cm}|p{6cm}|}\n\\hline\n & \\textbf{Method} & \\textbf{How\
+      \ the method protects the data} \\\\ \\hline\n\\textbf{during transmission}\
+      \ & & \\\\\n & & \\\\ \\hline\n\\textbf{on the computer} & & \\\\\n & & \\\\\
+      \ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The computer program allows users to play a game in a virtual world. Users
+      can play the game from any computer with internet access using a web browser.
+      The game allows users to interact with other users.
+
+
+      Explain the reasons why the statement ''This computer game uses a client-server
+      model'' is correct.'
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe the possible consequences of the programmer \textbf{not} joining
+      a professional ethical body.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Write the logic expressions for the following logic circuit.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'X = \hrulefill
+
+
+      Y = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the truth table for the logic expression:
+
+
+      $$\textbf{X} = (\textbf{A} \text{ OR } \textbf{B}) \text{ XOR } (\textbf{B}
+      \text{ OR } \textbf{C}) \text{ XOR } (\text{NOT } \textbf{A} \text{ NAND } \textbf{C})$$
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The following table shows part of the instruction set for a processor. The
+    processor has two registers: the Accumulator (ACC) and an Index Register (IX).
+
+
+    \begin{tabular}{|l|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+    \\ \hline
+
+    \textbf{Opcode} & \textbf{Operand} & \\ \hline
+
+    LDM & \texttt{\#n} & Immediate addressing. Load the number n to ACC \\ \hline
+
+    STO & \texttt{<address>} & Store the contents of ACC at the given address \\ \hline
+
+    ADD & \texttt{\#n/Bn/\&n} & Add the number n to the ACC \\ \hline
+
+    ADD & \texttt{<address>} & Add the contents of the given address to the ACC \\
+    \hline
+
+    SUB & \texttt{<address>} & Subtract the contents of the given address from the
+    ACC \\ \hline
+
+    SUB & \texttt{\#n/Bn/\&n} & Subtract the number n from the ACC \\ \hline
+
+    DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC
+    or IX) \\ \hline
+
+    JMP & \texttt{<address>} & Jump to the given address \\ \hline
+
+    CMP & \texttt{<address>} & Compare the contents of ACC with the contents of \texttt{<address>}
+    \\ \hline
+
+    CMP & \texttt{\#n} & Compare the contents of ACC with number n \\ \hline
+
+    JPE & \texttt{<address>} & Following a compare instruction, jump to \texttt{<address>}
+    if the compare was True \\ \hline
+
+    END & & Return control to the operating system \\ \hline
+
+    \end{tabular}
+
+
+    ACC denotes Accumulator
+
+    \newline
+
+    \texttt{<address>} can be an absolute or a symbolic address
+
+    \newline
+
+    \# denotes a denary number, e.g. \#123
+
+    \newline
+
+    B denotes a binary number, e.g. B01001010
+
+    \newline
+
+    \& denotes a hexadecimal number, e.g. \&4A'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The current contents of memory are:
+
+
+      \begin{tabular}{r|l|}
+
+      \cline{2-2}
+
+      \textbf{Address} & \textbf{Instruction} \\ \cline{2-2}
+
+      \textbf{50} & 47 \\ \cline{2-2}
+
+      \textbf{51} & 48 \\ \cline{2-2}
+
+      \textbf{52} & 49 \\ \cline{2-2}
+
+      \textbf{53} & 50 \\ \cline{2-2}
+
+      ... & \\ \cline{2-2}
+
+      \textbf{500} & LDM \#50 \\ \cline{2-2}
+
+      \textbf{501} & DEC ACC \\ \cline{2-2}
+
+      \textbf{502} & CMP 51 \\ \cline{2-2}
+
+      \textbf{503} & JPE 505 \\ \cline{2-2}
+
+      \textbf{504} & JMP 501 \\ \cline{2-2}
+
+      \textbf{505} & STO 50 \\ \cline{2-2}
+
+      \textbf{506} & SUB \#10 \\ \cline{2-2}
+
+      \textbf{507} & STO 51 \\ \cline{2-2}
+
+      \textbf{508} & END \\ \cline{2-2}
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 5ai
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: "Trace the program currently in memory using the following trace table.\n\
+        \n\\begin{tabular}{|c|c|c|c|c|c|}\n\\hline\n\\textbf{Instruction address}\
+        \ & \\textbf{ACC} & \\multicolumn{4}{c|}{\\textbf{Memory address}} \\\\ \\\
+        cline{3-6}\n & & \\textbf{50} & \\textbf{51} & \\textbf{52} & \\textbf{53}\
+        \ \\\\ \\hline\n & & 47 & 48 & 49 & 50 \\\\ \\hline\n & & & & & \\\\ \\hline\n\
+        \ & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n\
+        \ & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n\
+        \ & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n\
+        \ & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n\
+        \\end{tabular}"
+      answer_options: []
+      subquestions: []
+    - number: 5aii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: "Complete the table by identifying and describing \\textbf{two} modes\
+        \ of addressing that are not used in the program in part (a).\n\n\\begin{tabular}{|p{5cm}|p{10cm}|}\n\
+        \\hline\n\\textbf{Mode of addressing} & \\textbf{Description} \\\\ \\hline\n\
+        \ & \\newline \\newline \\newline \\\\ \\hline\n & \\newline \\newline \\\
+        newline \\\\ \\hline\n\\end{tabular}"
+      answer_options: []
+      subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The table shows part of the instruction set for a processor. The processor
+      has one register: the Accumulator (ACC).
+
+
+      \begin{tabular}{|l|l|l|}
+
+      \hline
+
+      \textbf{Opcode} & \textbf{Operand} & \textbf{Explanation} \\ \hline
+
+      AND & \texttt{\#n/Bn/\&n} & Bitwise AND operation of the contents of ACC with
+      the operand \\ \hline
+
+      AND & \texttt{<address>} & Bitwise AND operation of the contents of ACC with
+      the contents of \texttt{<address>} \\ \hline
+
+      XOR & \texttt{\#n/Bn/\&n} & Bitwise XOR operation of the contents of ACC with
+      the operand \\ \hline
+
+      XOR & \texttt{<address>} & Bitwise XOR operation of the contents of ACC with
+      the contents of \texttt{<address>} \\ \hline
+
+      OR & \texttt{\#n/Bn/\&n} & Bitwise OR operation of the contents of ACC with
+      the operand \\ \hline
+
+      OR & \texttt{<address>} & Bitwise OR operation of the contents of ACC with the
+      contents of \texttt{<address>} \\ \hline
+
+      \end{tabular}
+
+
+      \texttt{<address>} can be an absolute or a symbolic address
+
+      \newline
+
+      \# denotes a denary number, e.g. \#123
+
+      \newline
+
+      B denotes a binary number, e.g. B01001010
+
+      \newline
+
+      \& denotes a hexadecimal number, e.g. \&4A
+
+
+      Write the bit manipulation instructions that can be used to set only the most
+      significant bit to 1 in an 8-bit register.
+
+
+      The instructions need to work on a register that contains any 8-bit binary number.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A shop sells pens to customers. Customers place an order with the shop and
+    collect the items the next day. The shop uses a database to store the information
+    about the orders.
+
+
+    The database contains the following tables:
+
+
+    \texttt{CUSTOMER}(\underline{\texttt{CustomerID}}, \texttt{CustomerName}, \texttt{Email})
+
+
+    \texttt{ORDER}(\underline{\texttt{OrderID}}, \texttt{CustomerID}, \texttt{Date},
+    \texttt{Collected})
+
+
+    \texttt{ORDER\_PRODUCT}(\underline{\texttt{OrderID}}, \underline{\texttt{ProductID}},
+    \texttt{Quantity})
+
+
+    \texttt{PRODUCT}(\underline{\texttt{ProductID}}, \texttt{ProductName}, \texttt{QuantityInBox},
+    \texttt{Cost}, \texttt{SupplierID})
+
+
+    \texttt{SUPPLIER}(\underline{\texttt{SupplierID}}, \texttt{SupplierName}, \texttt{SupplierEmail})
+
+
+    The primary keys are underlined.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the entity-relationship (E-R) diagram for the database.
+
+
+      \begin{tabular}{ccc}
+
+      \framebox{\quad \texttt{CUSTOMER} \quad} & \qquad\qquad & \framebox{\quad \texttt{ORDER}
+      \quad} \\
+
+      & & \\
+
+      & & \\
+
+      \framebox{\quad \texttt{SUPPLIER} \quad} & & \framebox{\quad \texttt{ORDER\_PRODUCT}
+      \quad} \\
+
+      & & \\
+
+      & & \\
+
+      & \framebox{\quad \texttt{PRODUCT} \quad} & \\
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'A new product needs to be entered into the database. The product has the
+      ID 002323, the product name ‘Blue ball point 2mm’, there are 50 in a box, the
+      product costs $5.00 and the supplier has the ID SFX223.
+
+
+      Write a Structured Query Language (SQL) script to enter the new product into
+      the table \texttt{PRODUCT}.'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The attribute \texttt{Collected} in the table \texttt{ORDER} stores the
+      Boolean value \texttt{TRUE} if the order has been collected and \texttt{FALSE}
+      if the order has not been collected.
+
+
+      Write an SQL script to return the customer name for each customer that has orders
+      they have not collected. Include the number of orders each customer has not
+      collected with an appropriate title.
+
+
+      An example output might be:
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      \textbf{CustomerName} & \textbf{NotCollected} \\ \hline
+
+      Jack Wright & 2 \\ \hline
+
+      Lin Cho & 1 \\ \hline
+
+      Santaya Yui & 1 \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The shop uses a Database Management System (DBMS).
+    answer_options: []
+    subquestions:
+    - number: 6di
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'One feature provided by a DBMS is a data dictionary.
+
+
+        The data dictionary stores the attribute names, table names, foreign keys
+        and primary keys in the database.
+
+
+        Identify \textbf{three} other items stored in a data dictionary.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 6dii
+      question_type: long_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The DBMS provides a developer interface.
+
+
+        Explain how a database designer can make use of the developer interface.'
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 17
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A computer can perform logical and arithmetic shifts.
+    answer_options: []
+    subquestions:
+    - number: 7ai
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show the result of a logical left shift of 2 places on the two's complement
+        binary integer 11001010
+      answer_options: []
+      subquestions: []
+    - number: 7aii
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show the result of an arithmetic right shift of 3 places on the two's
+        complement binary integer 10011110
+      answer_options: []
+      subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: "Complete the following binary addition. Show your working. Include any\
+      \ overflow bit(s).\n\n$$\\begin{array}{rcccccccc}\n  & 1 & 1 & 1 & 1 & 0 & 1\
+      \ & 0 & 1 \\\\\n+ & 1 & 0 & 1 & 1 & 0 & 0 & 0 & 1 \\\\\n\\hline\n\\end{array}$$"
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Subtract the binary number 00011110 from the binary number 01100100 using
+      binary subtraction. Show your working.
+    answer_options: []
+    subquestions: []

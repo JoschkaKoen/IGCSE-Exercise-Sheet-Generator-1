@@ -1,0 +1,98 @@
+[thinking]
+**Page 11 Transcription: Analysis & Formatting**
+
+Okay, so the task is to transcribe page 11 of this exam paper. First, I need to understand how the questions are structured. The stub has `2g`, `2gi`, and `2gii`.  `2g` seems like a parent question, but I need to confirm its content.
+
+Looking at the page, I see `(g) (i)` and `(g) (ii)`.  Now, the initial stub contained `2g`, `2gi`, `2gii`. Let me check the page for the associated text for each.
+
+`(g) (i)` reads: "Describe four sources of uncertainty or limitations of the procedure for this experiment. For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty."  This looks like a standard question format. Then there's an associated slot for the answer.
+
+`(g) (ii)` asks: "Describe four improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures." Similar to `(i)`, there is an associated slot for the answer.
+
+But, where is `2g`? Usually, the format is prefix `(g)` with a parent question. Based on the stub, `2g` is supposed to be a question. The text in the stub for `2g` is empty. The `(g)` seems to simply prefix `(i)` and `(ii)`. This means that `2g` is the parent, so let's check the prompt.
+
+The prompt states: "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it."
+
+Okay, the stem for `2g` is *not* present.  It's just the prefix of the question numbers. The text for `2g` is missing. So, based on the prompt, it appears that `STUB ERROR` is exactly what I should write for `2g`. Good to know for future instances where the stub is missing the stem.
+
+Now to format the actual content from the page.
+
+For `2gi`, the prompt asks to "Describe four sources of uncertainty". The page has:
+```
+1 ........................................................................................................................................
+...........................................................................................................................................
+2 ........................................................................................................................................
+...........................................................................................................................................
+3 ........................................................................................................................................
+...........................................................................................................................................
+4 ........................................................................................................................................
+...........................................................................................................................................
+```
+
+This is for the answer slots! So I should format it as:
+```latex
+1. \hrulefill
+2. \hrulefill
+3. \hrulefill
+4. \hrulefill
+```
+
+And for `2gii`, which asks to "Describe four improvements", the layout is identical so I will use the same format:
+```latex
+1. \hrulefill
+2. \hrulefill
+3. \hrulefill
+4. \hrulefill
+```
+
+So it looks like I'm done. I'll summarize what I found into a format that the user can use. The final result should look something like this:
+
+```yaml
+questions:
+  - number: "2g"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2gi"
+    type: long_answer
+    text: |
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "2gii"
+    type: long_answer
+    text: |
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "2g"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2gi"
+    type: long_answer
+    text: |
+      Describe four sources of uncertainty or limitations of the procedure for this experiment. For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "2gii"
+    type: long_answer
+    text: |
+      Describe four improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill

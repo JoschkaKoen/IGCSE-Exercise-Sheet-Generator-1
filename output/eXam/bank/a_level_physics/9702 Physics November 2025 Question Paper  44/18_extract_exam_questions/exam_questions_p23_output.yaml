@@ -1,0 +1,17 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "10a"
+    type: short_answer
+    text: |
+      State what is meant by redshift.
+  - number: "10b"
+    type: long_answer
+    text: |
+      Explain how observations of redshift lead to the idea that the universe is expanding.
+  - number: "10c"
+    type: long_answer
+    text: |
+      Explain how Hubble’s law leads to the Big Bang theory of the origin of the universe.

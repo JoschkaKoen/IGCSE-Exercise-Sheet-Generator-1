@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "9b"
+    type: short_answer
+    text: |
+      Identify the temperature range used.
+  - number: "9c"
+    type: short_answer
+    text: |
+      Complete the trace table for the \textbf{corrected} algorithm using this data:
+
+      34.22, 36.1, 37.4, 38.0, 999, –1
+
+      \begin{tabular}{|p{4cm}|p{6cm}|}
+      \hline
+      \textbf{Temperature} & \textbf{OUTPUT} \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+      \end{tabular}
+```

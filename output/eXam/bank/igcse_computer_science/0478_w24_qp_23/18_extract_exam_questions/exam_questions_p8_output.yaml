@@ -1,0 +1,55 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      An algorithm has been written in pseudocode to check that a password meets a set of rules.
+
+      \begin{alltt}
+      01 OUTPUT "Please enter password "
+      02 INPUT Password
+      03 Accept <- TRUE
+      04 IF LENGTH(Password) < 8 OR LENGTH(Password) > 20
+      05 THEN
+      06    Accept <- FALSE
+      07 ENDIF
+      08 IF LCASE(Password) = Password OR UCASE(Password) = Password
+      09 THEN
+      10    Accept <- FALSE
+      11 ENDIF
+      12 Index <- 1
+      13 Found <- FALSE
+      14 WHILE NOT Found AND Accept AND Index < LENGTH(Password)
+      15    IF SUBSTRING(Password, Index, 1) = '!'
+      16    THEN
+      17       Found <- TRUE
+      18    ENDIF
+      19    Index <- Index + 1
+      20 ENDWHILE
+      21 IF NOT Found
+      22 THEN
+      23    Accept <- FALSE
+      24 ENDIF
+      25 IF Accept
+      26 THEN
+      27    OUTPUT "Accepted"
+      28 ELSE
+      29    OUTPUT "Rejected"
+      30 ENDIF
+      \end{alltt}
+  - number: "10a"
+    type: short_answer
+    text: |
+      Complete the three trace tables using the data shown for each one.
+
+      \textbf{Data: MYWORD}
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{Password} & \textbf{Accept} & \textbf{Index} & \textbf{Found} & \textbf{OUTPUT} \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+      \end{tabular}

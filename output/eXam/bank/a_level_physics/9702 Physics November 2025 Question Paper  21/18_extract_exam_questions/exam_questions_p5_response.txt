@@ -1,0 +1,46 @@
+[thinking]
+**Exam Page 5 Transcription - Refined**
+
+Okay, so I need to transcribe page 5 of this exam. The task is to pull out the content of questions "1c", "1ci", "1cii", and "1ciii". Let's get to it.
+
+First, I need to look at the image of the questions. I can see the structure and I know I need to be careful about those subquestion prefixes.
+
+For "1c", the text is: "The mass of the rocket in (b) is $2.9 \times 10^6 \text{ kg}$. Assume that this mass remains constant. For this rocket, from launch to its height at a time of $20\text{ s}$ after launch:". I need to remove the "(c)" prefix. That's straightforward.
+
+Then, for "1ci", the instruction is: "calculate the gain in gravitational potential energy $\Delta E_{\text{P}}$. $\Delta E_{\text{P}} = \hrulefill \text{ J}$". I'm going to strip the "(i)" prefix here.
+
+"1cii" is next, where it says: "calculate the gain in kinetic energy $\Delta E_{\text{K}}$. $\Delta E_{\text{K}} = \hrulefill \text{ J}$". Again, the "(ii)" prefix has to go.
+
+Finally, for "1ciii" I have: "determine the average power output of the rocket engines. Assume that resistive forces are negligible. $\text{power} = \hrulefill \text{ W}$". The prefix "(iii)" needs to be removed from this one as well.
+
+I should make sure I have all the text right, including the LaTeX. I think I have this set up right for the transcription. Now I am ready to process this output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The mass of the rocket in (b) is $2.9 \times 10^6 \text{ kg}$. Assume that this mass remains constant.
+
+      For this rocket, from launch to its height at a time of $20\text{ s}$ after launch:
+  - number: "1ci"
+    type: calculation
+    text: |
+      calculate the gain in gravitational potential energy $\Delta E_{\text{P}}$
+
+      $\Delta E_{\text{P}} = \hrulefill \text{ J}$
+  - number: "1cii"
+    type: calculation
+    text: |
+      calculate the gain in kinetic energy $\Delta E_{\text{K}}$
+
+      $\Delta E_{\text{K}} = \hrulefill \text{ J}$
+  - number: "1ciii"
+    type: calculation
+    text: |
+      determine the average power output of the rocket engines. Assume that resistive forces are negligible.
+
+      $\text{power} = \hrulefill \text{ W}$

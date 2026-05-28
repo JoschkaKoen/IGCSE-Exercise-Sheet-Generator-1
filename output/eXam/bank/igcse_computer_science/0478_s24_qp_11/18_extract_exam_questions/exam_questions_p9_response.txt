@@ -1,0 +1,42 @@
+[thinking]
+**My Approach to Extracting and Formatting Exam Questions**
+
+Okay, so I've been given a task: I need to process page 9 of an exam paper. My goal is to extract questions "8d", "8e", and "8f" and then meticulously format them into YAML according to a predefined schema. I need to be exact here, because formatting errors could lead to issues later on.
+
+First, I break down the process. I start by parsing the request – I'm extracting three specific questions and need to output them as a structured YAML file. Then I work question by question.
+
+For question "8d," I initially grab the text, which is "(d) Give two advantages of the farmer using an automated robot to plant seeds." I need to clean up the text. I remove the prefix "(d) " leaving me with the core prompt.
+
+Now, let's format it. The instructions are very specific about the format. It requires numbered answer slots for this type of question. I'm asked to include the word "two" in bold, meaning I need to use the LaTeX formatting: `\textbf{two}`. And crucially, I need to use `\hrulefill` for the answer slots, ensuring each one occupies its own visual line in the rendered output. I need to remember the instructions specify to put a blank line between the instruction prompt and the first slot, and to have no blank lines between slots. So, my YAML structure will be a `text` key with a block scalar (`|`) that includes the prompt and then the numbered slots, properly formatted and on separate lines. I'm confident that this accurately represents the YAML output expected.
+
+Next up, I process "8e". The approach is the same as with "8d" – I extract the text "(e) Give two disadvantages of the farmer using an automated robot to plant seeds.", clean it up, make sure "two" is in bold, then format it using a `text` key and block scalar. I make sure to include the numbered slots as requested. It's a repetition of the same process, so I can ensure consistency between the outputs.
+
+Finally, question "8f". The text is "(f) The robot is adapted to have machine learning capabilities. Explain how this will improve the robot.". Again, I need to remove the "(f) ". This is an open-ended question, not a multiple-choice or numbered answer situation. I need to note that there is no indication of answer slots here. Given the instructions, the `text` field will hold the question, which is formatted as a block scalar, and includes the prompt, all of which will be on separate lines.
+
+Before I say I'm done, I need to run a quick checklist against the constraints. I double-check that I'm using `|` for all non-empty text fields, which is essential to the block scalar style and maintains formatting. I confirm that I haven't accidentally used double quotes for strings. I know I haven't added an `options` key to non-MCQ questions. Most importantly, I confirm that all my LaTeX formatting is correct, especially the `\textbf{...}` tags. If all of these things check out, then I can move on, knowing I've generated the correct YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8d"
+    type: short_answer
+    text: |
+      Give \textbf{two} advantages of the farmer using an automated robot to plant seeds.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8e"
+    type: short_answer
+    text: |
+      Give \textbf{two} disadvantages of the farmer using an automated robot to plant seeds.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8f"
+    type: long_answer
+    text: |
+      The robot is adapted to have machine learning capabilities.
+
+      Explain how this will improve the robot.

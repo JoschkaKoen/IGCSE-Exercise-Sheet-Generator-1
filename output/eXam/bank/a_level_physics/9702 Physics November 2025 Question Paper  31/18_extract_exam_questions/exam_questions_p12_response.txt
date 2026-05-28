@@ -1,0 +1,44 @@
+[thinking]
+**Analyzing Exam Question Transcription**
+
+Okay, so I'm tasked with transcribing questions from page 12 of this exam. The initial cue is `2g`, but the page presents `(g) (i)` and `(g) (ii)`. The stub has `2g`, `2gi`, and `2gii`.  The immediate concern is whether `2g` is a parent question, a stub error, or simply absent.  I need to reconcile what's in the YAML stub with what's actually visible.
+
+I checked for the parent text associated with `2g`, but it doesn't exist separately from the `(g)(i)` prompt. The stub's YAML shows `2g` as a `short_answer` type with empty text, which is the key here. The problem is that the stub has an entry for `2g`, but there's no corresponding "stem" (question text) visible on the page.
+
+The instructions specifically state: "Every entry's stem should be visible. If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess." Therefore, `2g` is a **STUB ERROR**.  No need to guess, I need to flag it.
+
+Next, `2gi`. The stub's `text` field needs to contain the `(g)(i)` text: "Describe four sources of uncertainty or limitations of the procedure for this experiment. For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty."  The page shows four numbered answer slots, so I have to translate the visible slots as numbered answer slots.
+
+The same approach applies to `2gii`: The stub's `text` field will contain "(g)(ii) Describe four improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures."  Again, the page presents numbered slots, so these will be included in the YAML as such.
+
+I'm now confident I can construct the YAML correctly, flagging the identified stub error and transcribing the questions and answer slots accurately.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2g"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2gi"
+    type: long_answer
+    text: |
+      Describe four sources of uncertainty or limitations of the procedure for this experiment.
+
+      For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "2gii"
+    type: long_answer
+    text: |
+      Describe four improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill

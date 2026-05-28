@@ -1,0 +1,42 @@
+questions:
+  - number: "6d"
+    type: short_answer
+    text: |
+      The clothing company uses cookies to store customer details.
+
+      Complete the statements about cookies.
+
+      Use terms from the list. Not all terms need to be used. You should only use a term once.
+
+      \begin{itemize}
+      \item asymmetric
+      \item DNS
+      \item dynamic
+      \item persistent
+      \item session
+      \item static
+      \item symmetric
+      \item user
+      \item utility software
+      \item web browser
+      \end{itemize}
+
+      Cookies are stored and managed by the \underline{\hspace{1.5em}}.
+
+      \underline{\hspace{1.5em}} cookies are temporary files that are created when a user visits a web page.
+
+      \underline{\hspace{1.5em}} cookies are permanent files that are created when a user visits a web page.
+  - number: "7"
+    type: short_answer
+    text: |
+      A house has a smart speaker that can take voice commands as input. A person in the house can tell the smart speaker to play music or audio books.
+  - number: "7a"
+    type: long_answer
+    text: |
+      The smart speaker cannot be described as a robot.
+
+      Explain why the smart speaker is not a robot.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Identify the input device that allows voice commands to be used as input.

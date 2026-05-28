@@ -1,0 +1,27 @@
+  - number: "3c"
+    type: multiple_choice
+    text: ""
+  - number: "4"
+    type: short_answer
+    text: ""
+  - number: "4a"
+    type: long_answer
+    text: ""
+  - number: "4b"
+    type: short_answer
+    text: ""
+  - number: "4c"
+    type: short_answer
+    text: ""
+  - number: "4ci"
+    type: short_answer
+    text: ""
+  - number: "4cii"
+    type: short_answer
+    text: ""
+  - number: "5"
+    type: short_answer
+    text: ""
+  - number: "5a"
+    type: long_answer
+    text: ""

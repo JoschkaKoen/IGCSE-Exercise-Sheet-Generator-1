@@ -1,0 +1,12 @@
+  - number: "6bi"
+    type: calculation
+    text: ""
+  - number: "6bii"
+    type: short_answer
+    text: ""
+  - number: "6biii"
+    type: short_answer
+    text: ""
+  - number: "6biv"
+    type: calculation
+    text: ""

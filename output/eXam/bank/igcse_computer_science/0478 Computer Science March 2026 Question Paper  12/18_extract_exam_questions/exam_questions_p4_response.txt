@@ -1,0 +1,47 @@
+[thinking]
+**Exam Paper Page 4 - Analysis and Transcription**
+
+Okay, so the user wants me to transcribe and essentially 'think through' page 4 of this exam paper. Let's break down the questions. I see it's question "3" and it's all about drones. Seems like a pretty straightforward application of robotics concepts, which is right up my alley.
+
+First, the introductory text describes the scenario: a drone searching for lost animals. Then we get into the meat of the questions:
+
+*   **"3a"**: This one is asking about the drone's robotic characteristics. I need to identify *two* specific features that classify it as a robot. Hmm, easy enough. I'll need to think about what defines a robot in this context – autonomous operation, perhaps? Or programmed responses?
+
+*   **"3b"**: Now this introduces a safety system, using sensors and a microprocessor to avoid collisions.
+
+*   **"3bi"**: This is asking me to pinpoint *one* specific sensor that would enable the drone to detect nearby objects. Ultrasound, maybe? Infrared? A camera with object recognition? I'll need to consider the specific practicalities of drone flight and the environment it's operating in.
+
+*   **"3bii"**: This one is defining "microprocessor". I'll need to articulate what a microprocessor *is* and what it *does* in simple terms. This is basic computer architecture, pretty fundamental stuff.
+
+Alright, now I'll just double-check the formatting to make sure I've got the structure right, and then it's YAML time.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A drone is used to search for lost animals. The drone is a flying device that can be autonomous or operated using a remote control.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The drone is a robot.
+
+      Give \textbf{two} characteristics of the drone that identify it as a robot.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3b"
+    type: short_answer
+    text: |
+      The drone has a built-in system to stop it from crashing into objects, for example a tree. The system uses sensors and a microprocessor.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Identify \textbf{one} sensor that could be built into the drone to detect if it is near an object.
+  - number: "3bii"
+    type: short_answer
+    text: |
+      State what is meant by a microprocessor.

@@ -1,0 +1,17 @@
+```yaml
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      A linked list of nodes is used to store an ordered list of strings. Each node consists of the data, a left pointer and a right pointer.
+  - number: "11a"
+    type: short_answer
+    text: |
+      The linked list will be organised as a binary tree.
+
+      0 is used to represent a null pointer.
+
+      Complete the binary tree, including null pointers, to show how the data will be organised after the following strings have been added:
+
+      Aa, Mm, Ss, Xx
+```

@@ -1,0 +1,46 @@
+[thinking]
+**Transcribing Question 11: A Programming Challenge**
+
+Okay, the user wants me to transcribe Question 11 from the exam. It's a long-answer programming question, and the task is to reproduce it precisely. Let's get to it.
+
+Here's the text of the question. It seems to be a game design problem: A one-player game utilizes a 2D array, called `Grid[]`, to track a secret cell the player needs to find within 10 moves. The grid is 5x5. The game setup involves placing an 'X' randomly in a cell (excluding `Grid[1,1]`) and emptying the other cells. The player begins in the top-left cell. The player has 10 moves.
+
+During gameplay, the player can move one cell left, right, up, or down, with all moves needing to stay within the grid's boundaries. The win condition is reaching the 'X' within the 10-move limit and will prompt "You Win". The loss condition is using all 10 moves without finding the 'X', and prompts "You Lose".
+
+The task is to write a program that meets these requirements, using pseudocode or actual code, with explanatory comments. It also states that I don't need to declare any arrays or variables, as they are assumed to have already been done. All inputs and outputs must include informative messages.
+
+Now, let me double-check the accompanying image... Ah, it's a diagram illustrating the 5x5 grid with a "Start Grid[1,1]" label pointing to the top-left cell. But since the instructions say to exclude images, I'll omit that diagram. I can still describe it if the summary needs clarity.
+
+Alright, that covers the text. Now, let's craft the YAML for this.
+
+
+
+[/thinking]
+
+questions:
+  - number: "11"
+    type: long_answer
+    text: |
+      A one-player game uses the two-dimensional (2D) array \texttt{Grid[]} to store the location of a secret cell to be found by the player in 10 moves. Each row and column has 5 cells.
+
+      At the start of the game:
+      \begin{itemize}
+      \item The program places an 'X' in a random cell (\textbf{not} in \texttt{Grid[1,1]}) and empties all the other cells in the grid.
+      \item The player starts at the top left of the grid.
+      \item The player has 10 moves.
+      \end{itemize}
+
+      During the game:
+      \begin{itemize}
+      \item The player can move left, right, up or down by one cell and the move must be within the grid.
+      \item ``You Win'' is displayed if the player moves to the cell with 'X' and has played 10 moves or less.
+      \item ``You Lose'' is displayed if the player has made 10 moves without finding the 'X'.
+      \end{itemize}
+
+      Write a program that meets these requirements.
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do \textbf{not} need to declare any arrays or variables; you may assume that this has already been done.
+
+      All inputs and outputs must contain suitable messages.

@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A computer programmer is learning about the importance of acting ethically at work.
+  - number: "5a"
+    type: long_answer
+    text: |
+      Explain the reasons why the computer programmer needs to act ethically towards colleagues and the public.
+
+      Colleagues \hrulefill
+
+      The public \hrulefill
+  - number: "5b"
+    type: short_answer
+    text: |
+      The programmer writes a program to be used in a business. The source code of the program can be modified by the business. The business pays the programmer for the maintenance and security updates.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      Identify \textbf{one} suitable type of software licence for the program \textbf{and} describe the reasons for your choice.
+
+      Type of software licence \hrulefill
+
+      Reasons for choice \hrulefill
+  - number: "5bii"
+    type: short_answer
+    text: |
+      Explain the reasons why the programmer should copyright their program.
+```

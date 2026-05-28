@@ -1,0 +1,30 @@
+questions:
+  - number: "1aii"
+    type: calculation
+    text: |
+      \begin{itemize}
+      \item Gently pull the mass down through a short distance. When released, the mass will oscillate.
+      \item Take measurements to determine the period $T_1$ of the oscillations.
+      \end{itemize}
+
+      $T_1 = $ \hrulefill
+
+      \begin{itemize}
+      \item Remove the mass from the double spring.
+      \end{itemize}
+  - number: "1b"
+    type: calculation
+    text: |
+      \begin{itemize}
+      \item Using the shorter wooden rod, hang mass $m$ as shown in Fig. 1.2.
+      \item Gently place the hook of the mass hanger near the centre of the shorter rod.
+      \item Carefully adjust the position of the mass hanger until the shorter rod is approximately parallel to the bench, as shown in Fig. 1.2.
+      \item Gently pull the mass down through a short distance. When released, the mass will oscillate.
+      \item Take measurements to determine the period $T_2$ of the oscillations.
+      \end{itemize}
+
+      $T_2 = $ \hrulefill
+
+      \begin{itemize}
+      \item Remove the mass.
+      \end{itemize}

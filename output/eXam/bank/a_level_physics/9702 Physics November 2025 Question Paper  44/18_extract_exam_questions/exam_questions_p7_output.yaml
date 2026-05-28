@@ -1,0 +1,15 @@
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      A molecule of hydrogen gas consists of two hydrogen atoms, each of nucleon number 1.
+      A molecule of oxygen gas consists of two oxygen atoms, each of nucleon number 16.
+
+      Assume that hydrogen and oxygen both behave as ideal gases.
+
+      A sample of hydrogen gas is at the same temperature as a sample of oxygen gas.
+
+      For the two samples, determine the ratio
+      $$\frac{\text{root-mean-square (r.m.s.) speed of hydrogen molecules}}{\text{root-mean-square (r.m.s.) speed of oxygen molecules}}$$
+
+      ratio = \hrulefill

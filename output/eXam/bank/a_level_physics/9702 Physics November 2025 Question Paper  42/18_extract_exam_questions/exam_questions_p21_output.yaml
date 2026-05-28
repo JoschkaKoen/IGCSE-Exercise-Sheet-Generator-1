@@ -1,0 +1,21 @@
+questions:
+  - number: "9c"
+    type: short_answer
+    text: |
+      The star Sirius has a radius of $1.19 \times 10^9 \text{ m}$ and loses mass due to nuclear fusion at a rate of $1.09 \times 10^{11} \text{ kg s}^{-1}$. Assume that the power of the radiation emitted by the star is equal to the power released by this process.
+  - number: "9ci"
+    type: calculation
+    text: |
+      Determine a value for the luminosity of Sirius. Give a unit with your answer.
+
+      luminosity = \hrulefill unit \hrulefill
+  - number: "9cii"
+    type: calculation
+    text: |
+      Use your answer in (c)(i) to determine the surface temperature of Sirius.
+
+      surface temperature = \hrulefill K
+  - number: "9d"
+    type: long_answer
+    text: |
+      Explain how cosmologists use standard candles to estimate the distance of a galaxy from the Earth.

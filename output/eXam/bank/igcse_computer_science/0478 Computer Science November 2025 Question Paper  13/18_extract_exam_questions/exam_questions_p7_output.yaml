@@ -1,0 +1,15 @@
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      Packets can be sent across a network using different methods of data transmission.
+
+      Explain how data is transmitted in the \textbf{two} given methods of data transmission.
+  - number: "3bi"
+    type: long_answer
+    text: |
+      Serial full-duplex
+  - number: "3bii"
+    type: long_answer
+    text: |
+      Parallel half-duplex

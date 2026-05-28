@@ -1,0 +1,604 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The flowchart shows an algorithm used for quality control on a biscuit production
+    line.
+
+
+    The weight of each biscuit is entered into the variable \texttt{Weight}. If the
+    weight of the biscuit is between 16.2 and 17.2 grammes, inclusive, the pass counter
+    is incremented by 1. Otherwise, the reject counter is incremented by 1. The process
+    continues until --1 is entered, after which, the totals for pass and reject counters
+    are output.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Complete this flowchart.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Explain how you would alter the flowchart in \textbf{1(a)} so that it calculates
+      and outputs the average weight of only the biscuits that passed the weight check.
+
+
+      You may include program statements or flowchart symbols in your answer, but
+      they must be fully explained.'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: '\textbf{Three} uses of arithmetic operators and \textbf{four} results are
+    shown.
+
+
+    Draw \textbf{one} line from each use of arithmetic operator to the correct result.
+
+    \textbf{Not} all results will be used.
+
+
+    \begin{tabular}{lcl}
+
+    \textbf{Use of arithmetic operator} & \quad \quad \quad & \textbf{Result} \\
+
+    & & \\
+
+    & & \framebox{\makebox[5em]{5}} \\
+
+    \framebox{\makebox[10em]{\texttt{355 DIV 10}}} & & \\
+
+    & & \framebox{\makebox[5em]{355}} \\
+
+    \framebox{\makebox[10em]{\texttt{355 / 10}}} & & \\
+
+    & & \framebox{\makebox[5em]{35}} \\
+
+    \framebox{\makebox[10em]{\texttt{355 MOD 10}}} & & \\
+
+    & & \framebox{\makebox[5em]{35.5}} \\
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The purpose of this pseudocode algorithm is to carry out a bubble sort to
+    sort, in descending order, 1000 numbers stored in a one-dimensional (1D) array.
+
+
+    \begin{alltt}
+
+    01 DECLARE Values : ARRAY[1:1000] OF REAL
+
+    02 DECLARE Index : CHAR
+
+    03 DECLARE Stop : BOOLEAN
+
+    04 DECLARE Hold : REAL
+
+    05 Stop <- FALSE
+
+    06 WHILE NOT Stop DO
+
+    07   Stop <- FALSE
+
+    08   FOR Index <- 1 TO 50
+
+    09     IF Values[Index + 1] > Values[Index]
+
+    10       THEN
+
+    11         Hold <- Values[Index]
+
+    12         Values[Index] <- Values[Index + 1]
+
+    13         Values[Index + 1] <- Hold
+
+    14         Stop <- FALSE
+
+    15     ENDIF
+
+    16   NEXT Index
+
+    17 NEXT Stop
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Identify the line numbers of \textbf{four} errors in the pseudocode and
+      suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+
+      Correction
+
+
+      Error 2 line number \hrulefill
+
+
+      Correction
+
+
+      Error 3 line number \hrulefill
+
+
+      Correction
+
+
+      Error 4 line number \hrulefill
+
+
+      Correction'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The swap section in lines 11 to 13 of the existing code are to be changed
+      to a call statement for a procedure. This procedure will include two parameters
+      representing the indexes of the array elements to be swapped.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: "Complete the pseudocode for \\texttt{PROCEDURE Swap}\n\n\\begin{alltt}\n\
+        PROCEDURE Swap(\\hrulefill)\n\n    DECLARE Hold : REAL\n\n    Hold <- Values[\\\
+        hrulefill]\n\n    \\hrulefill\n\n    \\hrulefill\n\nENDPROCEDURE\n\\end{alltt}"
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the pseudocode to transfer control to \texttt{PROCEDURE Swap}
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain the difference between global variables and the variable declared
+      in \textbf{3(b)(i)}.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An input must be an integer between 10 and 95, inclusive.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: An input must be an integer between 10 and 95, inclusive.
+    answer_options: []
+    subquestions:
+    - number: 4ai
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the type of validation check to test if the input meets this requirement.
+      answer_options: []
+      subquestions: []
+    - number: 4aii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Suggest suitable abnormal and extreme test data for an integer between
+        10 and 95 inclusive, and give a reason for each of your choices.
+
+
+        Abnormal test data \hrulefill
+
+        Reason \hrulefill
+
+
+        Extreme test data \hrulefill
+
+        Reason \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A password system requires all new passwords to contain at least 12 characters.
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the type of validation check to test that the password meets this
+        requirement.
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: long_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'Write the pseudocode to allow a new password to be entered and to ensure
+        that it contains at least 12 characters. The password is re-input until it
+        meets this requirement. Use an appropriate error message for inputs that do
+        not \textbf{not} meet the requirement.
+
+
+        You do \textbf{not} need to declare any variables for this algorithm.'
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer store uses a database table \texttt{COMPONENT} to store the stock
+    details of a range of components needed to build computer systems.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the table by giving appropriate data types for each field.
+
+
+      Only the data types: text, character, Boolean, integer, real, date/time are
+      available in this database.
+
+
+      \begin{tabular}{|l|l|l|}
+
+      \hline
+
+      \textbf{Field} & \textbf{Data type} & \textbf{Description} \\ \hline
+
+      \texttt{ID} & & unique identifier \\ \hline
+
+      \texttt{Name} & & component name \\ \hline
+
+      \texttt{Description} & & component description \\ \hline
+
+      \texttt{Price} & & selling price of component to 2 decimal places \\ \hline
+
+      \texttt{NumberAvailable} & & number in stock \\ \hline
+
+      \texttt{MinimumLevel} & & level at which the component is reordered \\ \hline
+
+      \texttt{ReOrdered} & & whether or not the component has been reordered \\ \hline
+
+      \texttt{DateOrdered} & & the date the component was reordered \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the structured query language (SQL) statement to list only the
+      unique identifier, component name and reorder date of all the components that
+      have been reordered.
+
+
+      \begin{alltt}
+
+      SELECT \hrulefill
+
+
+      FROM \hrulefill
+
+
+      WHERE \hrulefill ;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "This pseudocode represents an algorithm.\n\n\\begin{alltt}\nDECLARE Store\
+    \ : ARRAY[1:100] OF CHAR\nDECLARE Word : STRING\nDECLARE Index : INTEGER\nDECLARE\
+    \ Letter : CHAR\nINPUT Word\nFOR Index <- 1 TO LENGTH(Word)\n  Letter <- SUBSTRING(Word,\
+    \ Index, 1)\n  CASE OF Letter\n    'A' : Letter <- \"\"\n    'E' : Letter <- \"\
+    \"\n    'I' : Letter <- \"\"\n    'O' : Letter <- \"\"\n    'U' : Letter <- \"\
+    \"\n  ENDCASE\n  Store[Index] <- Letter\nNEXT Index\nFOR Index <- 1 TO LENGTH(Word)\n\
+    \  IF Store[Index] <> \"\"\n  THEN\n    OUTPUT Store[Index]\n  ENDIF\nNEXT Index\n\
+    \\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete the trace table for the algorithm, using input data: COMPUTER
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      \multicolumn{3}{|c|}{} & \multicolumn{8}{c|}{Store[]} & \\ \hline
+
+      \textbf{Word} & \textbf{Index} & \textbf{Letter} & \textbf{} & \textbf{} & \textbf{}
+      & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{OUTPUT}
+      \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      & & & & & & & & & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe the processes in the algorithm.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Draw the symbol for a NOR logic gate and complete the truth table for it.
+
+
+      NOR logic gate symbol:
+
+
+      \newline
+
+      \newline
+
+      \newline
+
+      \newline
+
+
+      Truth table:
+
+
+      \begin{tabular}{|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{Z} \\ \hline
+
+      0 & 0 & \\ \hline
+
+      0 & 1 & \\ \hline
+
+      1 & 0 & \\ \hline
+
+      1 & 1 & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: "Consider the rules given in the following table:\n\n\\begin{tabular}{|c|c|l|}\n\
+      \\hline\n\\textbf{Input} & \\textbf{Binary value} & \\textbf{Description} \\\
+      \\ \\hline\n\\textbf{L} & 0 & dark \\\\ \\cline{2-3}\n & 1 & light \\\\ \\hline\n\
+      \\textbf{M} & 0 & no motion detected \\\\ \\cline{2-3}\n & 1 & motion detected\
+      \ \\\\ \\hline\n\\textbf{S} & 0 & no sound detected \\\\ \\cline{2-3}\n & 1\
+      \ & sound detected \\\\ \\hline\n\\end{tabular}\n\nA security system uses sensors\
+      \ to sound an alarm if an intruder is detected.\n\nThe alarm sounding is represented\
+      \ by the output $A = 1$.\n\nThe alarm sounds if it is dark and if either motion\
+      \ or sound or both motion and sound are detected."
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the logic expression for the security system.
+
+
+        \textbf{A} = \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Complete the truth table for the security system.
+
+
+        \begin{tabular}{|c|c|c|c|c|}
+
+        \hline
+
+        \textbf{L} & \textbf{M} & \textbf{S} & \textbf{Working space} & \textbf{A}
+        \\ \hline
+
+        0 & 0 & 0 & & \\ \hline
+
+        0 & 0 & 1 & & \\ \hline
+
+        0 & 1 & 0 & & \\ \hline
+
+        0 & 1 & 1 & & \\ \hline
+
+        1 & 0 & 0 & & \\ \hline
+
+        1 & 0 & 1 & & \\ \hline
+
+        1 & 1 & 0 & & \\ \hline
+
+        1 & 1 & 1 & & \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: "A collector needs a video library system for a collection of videos stored\
+    \ on 4K Blu-ray discs, standard Blu-ray discs, DVD, or as digital downloads.\n\
+    \nThe two-dimensional (2D) array \\texttt{Video[]} is used to store, for each\
+    \ video item, the title, the format of the video (4K Blu-ray disc, standard Blu-ray\
+    \ disc, DVD, or digital download), the year it was released stored as a string\
+    \ and a storage code to represent where the video can be found in the collection,\
+    \ for example:\n\n\\begin{alltt}\nVideo[1,1] is \"Macbeth\"\nVideo[1,2] is \"\
+    digital download\"\nVideo[1,3] is \"2015\"\nVideo[1,4] is \"DG276\"\n\\end{alltt}\n\
+    \nThe two-dimensional (2D) array \\texttt{Results[]} is used to store the results\
+    \ of a search to find a specific video. The search uses the video title, and if\
+    \ the video is found, its data is copied from the array \\texttt{Video[]} to the\
+    \ array \\texttt{Results[]}. The search continues and if other videos with the\
+    \ same title are found, this data is also copied to the array \\texttt{Results[]}.\
+    \ The search ends when the end of the data is reached.\n\nWrite a program that\
+    \ meets the following requirements:\n\n\\begin{itemize}\n\\item The video library\
+    \ array needs to be initialised with the null string (\"\"), allowing for up to\
+    \ 10000 records. The array \\texttt{Results[]} must be initialised before every\
+    \ search with the null string and must be able to hold up to 20 search results\
+    \ with the same title.\n\\item Create a menu to add a new video to the library\
+    \ to search for an existing video by title, or to stop, with validation of the\
+    \ input.\n\\item When the user enters a new video, the following data is stored\
+    \ in the first available location of the relevant array:\n  \\begin{itemize}\n\
+    \  \\item video title\n  \\item format (4K Blu-ray disc, standard Blu-ray disc,\
+    \ DVD, digital download)\n  \\item year of release as string\n  \\item storage\
+    \ code.\n  \\end{itemize}\n\\item Allow input of data for another video if required.\n\
+    \\item When searching for an existing video, if a match is found, transfer all\
+    \ the data for that video into the array \\texttt{Results[]}, and continue to\
+    \ search until all videos with the same title have been found.\n\\item Output\
+    \ the results from the array \\texttt{Results[]}\n\\item If the video title is\
+    \ not found, output a suitable message.\n\\item The system returns to the menu\
+    \ after completing the input or the output, until the user chooses to stop.\n\\\
+    end{itemize}\n\nYou must use pseudocode or program code and add comments to explain\
+    \ how your code works.\n\nYou do \\textbf{not} need to declare any arrays, variables\
+    \ or constants. You may assume that this has already been done.\n\nAll inputs\
+    \ and outputs must contain suitable messages."
+  answer_options: []
+  subquestions: []

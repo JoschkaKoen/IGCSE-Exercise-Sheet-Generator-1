@@ -1,0 +1,59 @@
+[thinking]
+**My Approach to Populating the Exam Question YAML**
+
+Okay, so I've got this exam paper fragment, specifically page 3, and I need to extract and structure the questions into a YAML format. My process is pretty straightforward, but I need to be precise.
+
+First, I'm analyzing the request. The input is a scanned page with these "stub" questions – 2b, 2bi, 2bii, 2c, 2ci, and 2cii – and the desired output is a YAML file. I need to treat each question carefully.
+
+Next, I'll transcribe each question accurately. For example:
+
+*   **2b:** I'll extract the core text: "Each ticket number is stored as a binary number in the ticket machine." That's easy enough.
+*   **2bi:** This one asks for hexadecimal to binary conversion. I need to be careful to get the text exactly right, including the key instructions, like the instruction to convert *two* ticket numbers. I'll make sure to drop extraneous elements like the "Working space" and its dotted lines, just keeping the relevant instructions.
+*   **2bii:** This is a "give two reasons" question. Again, accuracy is key with what I pull from the text and to keep things as a direct representation of the prompt.
+*   **2c, 2ci, 2cii:** Similar process, making sure to capture the specific details, such as conversion instructions from hex to denary, and the instruction to convert a number of examples.
+
+Finally, I'll pay attention to the YAML format. It's important to use block scalar (`|`) for the `text` fields. No unnecessary double quotes around strings. If it's not a multiple-choice question, no `options` key is needed. I'll meticulously check the LaTeX formatting: `\textbf{two}`, `\hrulefill`, and I need to make sure the spacing is correct; a single blank line between the instruction and the slots or values, and a single newline between consecutive slots or values, etc. With this structured approach, I should be able to create a clean, accurate YAML representation of these exam questions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Each ticket number is stored as a binary number in the ticket machine.
+  - number: "2bi"
+    type: calculation
+    text: |
+      Two ticket numbers are 14B and 97A.
+
+      Convert the \textbf{two} ticket numbers from hexadecimal to binary.
+
+      14B \hrulefill
+      97A \hrulefill
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Give \textbf{two} reasons why the ticket number is displayed as hexadecimal instead of binary.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      The ticket numbers could also be represented as denary.
+  - number: "2ci"
+    type: calculation
+    text: |
+      Convert the \textbf{two} ticket numbers from hexadecimal to denary.
+
+      02C \hrulefill
+      10B \hrulefill
+  - number: "2cii"
+    type: calculation
+    text: |
+      Convert the \textbf{two} denary numbers into hexadecimal.
+
+      109 \hrulefill
+      415 \hrulefill

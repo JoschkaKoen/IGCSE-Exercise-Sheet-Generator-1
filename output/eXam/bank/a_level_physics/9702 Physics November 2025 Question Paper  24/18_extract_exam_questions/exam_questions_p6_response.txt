@@ -1,0 +1,41 @@
+[thinking]
+**Exam Paper Page 6: Question Transcription**
+
+Okay, so the task is to transcribe page 6 of this exam paper. Let's break down what's needed. The page is focused on Question 2 and its sub-questions, "2a" and "2b". It looks like Question "2" is the introduction to the setup for the following questions, so all three are related.
+
+First, I need to transcribe the content for Question 2. It describes a scenario: a square metal sheet with non-uniform density, a thin wooden rod fixed at its centre, and a labeled corner X. The rod has negligible mass and the sheet has a mass of 2.8 kg. This rod is supported so that the metal sheet is in a vertical orientation.
+
+Next, I need to transcribe Question 2a. It asks for the definition of the torque of a couple. Straightforward enough, I know exactly what's being asked here.
+
+Finally, I have Question 2b. The setup involves the rod being supported such that it can rotate freely, and the sheet hangs in equilibrium with point X vertically above the rod (referencing Fig. 2.2, which, of course, I am not seeing here). The question itself asks to draw a line on Fig. 2.2 indicating the possible range of positions for the centre of gravity of the metal sheet. This requires a strong understanding of how the centre of gravity behaves in a system.
+
+Now that I have the questions and context clear, it's time to format it, as YAML:
+
+*   For "2", I'll provide the introductory text describing the physical setup.
+*   For "2a", I'll put the definition request of the torque of a couple.
+*   For "2b", I'll include the equilibrium condition and the drawing request, with the crucial detail about the centre of gravity.
+
+I'm using YAML block scalars to preserve the formatting of the text. I'll double check the content for each part and ensure each is correct. Looks good to me. No options are needed here, as all are short-answer questions. The YAML should be clean, without unnecessary double quotes for strings.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Fig. 2.1 shows a square metal sheet of non-uniform density, with a thin wooden rod fixed at its centre. One of the corners of the sheet is labelled X.
+
+      The rod has negligible mass. The mass of the metal sheet is $2.8 \text{ kg}$.
+      The rod is supported so that the rod is horizontal and the metal sheet is vertical.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Define the torque of a couple.
+  - number: "2b"
+    type: short_answer
+    text: |
+      When the rod is supported in such a way that it can rotate freely within its support, the sheet hangs in equilibrium with point X vertically above the rod, as shown in Fig. 2.2.
+
+      On Fig. 2.2, draw a line to indicate the range of possible positions for the centre of gravity of the metal sheet.

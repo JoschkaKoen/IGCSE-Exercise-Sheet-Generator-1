@@ -1,0 +1,63 @@
+[thinking]
+**Examining the Exam Paper**
+
+Okay, so the user wants me to transcribe page 5 of this exam paper. Let's see, the questions are structured as follows: First, "3b", which introduces part (b). Then there's "3bi," asking me to complete the pseudocode for `PROCEDURE Swap`. After that, "3bii" wants me to write pseudocode to transfer control to `PROCEDURE Swap`. Finally, there's "3c," which requires an explanation of the difference between global variables and the variable declared in 3(b)(i).
+
+Let's break this down. For "3b", it seems the code snippet on lines 11 to 13 needs to be replaced with a call to the procedure. This procedure will take two parameters representing the indices of the array elements to be swapped.
+
+Now, for "3bi". I need to complete the pseudocode for `PROCEDURE Swap`. The format seems straightforward:
+```latex
+PROCEDURE Swap(\hrulefill)
+
+    DECLARE Hold : REAL
+
+    Hold <- Values[\hrulefill]
+
+    \hrulefill
+
+    \hrulefill
+
+ENDPROCEDURE
+```
+
+Given the structure of the `alltt` environment, I can easily use `\hrulefill` for the fill-in lines. The directive explicitly states I *should not* escape `<`, `>`, `&`, `%`, `_`, `#`, or `$`. I should only escape `{` and `}` with `\{` and `\}` respectively.  So, I can directly insert `\hrulefill`.
+
+Now "3bii" asks for the pseudocode to *call* the `PROCEDURE Swap`. This is an open-ended question.
+
+Finally, "3c" requires a straightforward explanation of the difference between global and local variables. That's a classic.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      The swap section in lines 11 to 13 of the existing code are to be changed to a call statement for a procedure. This procedure will include two parameters representing the indexes of the array elements to be swapped.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Complete the pseudocode for \texttt{PROCEDURE Swap}
+
+      \begin{alltt}
+      PROCEDURE Swap(\hrulefill)
+
+          DECLARE Hold : REAL
+
+          Hold <- Values[\hrulefill]
+
+          \hrulefill
+
+          \hrulefill
+
+      ENDPROCEDURE
+      \end{alltt}
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Write the pseudocode to transfer control to \texttt{PROCEDURE Swap}
+  - number: "3c"
+    type: long_answer
+    text: |
+      Explain the difference between global variables and the variable declared in \textbf{3(b)(i)}.

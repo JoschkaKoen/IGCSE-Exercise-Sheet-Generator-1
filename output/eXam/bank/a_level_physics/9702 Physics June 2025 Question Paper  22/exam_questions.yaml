@@ -1,0 +1,571 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Table 1.1 lists some physical quantities. Identify with ticks ($\checkmark$)
+      which quantities are vectors and which are scalars.
+
+
+      \textbf{Table 1.1}
+
+
+      \begin{tabular}{|c|c|c|}
+
+      \hline
+
+      quantity & scalar & vector \\ \hline
+
+      acceleration & & \\ \hline
+
+      displacement & & \\ \hline
+
+      gravitational potential energy & & \\ \hline
+
+      speed & & \\ \hline
+
+      temperature & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A constant resultant force $F$ acts on a car of mass $m$. The car moves
+      from rest with constant acceleration $a$ along horizontal ground. When the car
+      has displacement $s$, the speed of the car is $v$.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: long_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Using the concept of work done on the car, show that the kinetic energy
+        $E_{\text{K}}$ of the car is given by the equation
+
+
+        $$E_{\text{K}} = \frac{1}{2}mv^2$$'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The mass of the car is $920\text{ kg}$. At time $t = 0$, the car is at
+        rest. At time $t = 5.8\text{ s}$, its velocity is $17\text{ m}\,\text{s}^{-1}$.
+
+
+        Calculate the kinetic energy of the car at time $t = 5.8\text{ s}$.
+
+
+        kinetic energy = \hrulefill J'
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Between time $t = 0$ and time $t = 5.8\text{ s}$, the work done against
+        resistive forces is $4.7 \times 10^4\text{ J}$.
+
+
+        Determine the average output power of the car during this time.
+
+
+        power = \hrulefill \text{ W}'
+      answer_options: []
+      subquestions: []
+    - number: 1biv
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'At time $t = 5.8\text{ s}$, the speed of the car becomes constant.
+
+
+        State and explain whether the output power of the car is greater than, less
+        than or the same as the output power just before $t = 5.8\text{ s}$.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define the moment of a force about a point.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A tree of mass $270\text{ kg}$ grows out of sloping ground and is supported
+      by a post, as shown in Fig. 2.1.
+
+
+      The ground applies a total force $R$ on the tree at point Q.
+
+      The centre of gravity of the tree is a horizontal distance of $1.2\text{ m}$
+      from Q.
+
+      The post applies a force $F$ of $1800\text{ N}$ perpendicular to the line PQ.
+      The line of action of $F$ passes through point P at an angle $\theta$ to the
+      vertical. P is a horizontal distance of $1.6\text{ m}$ from Q.
+
+      The tree is in equilibrium and all forces act on the tree in the same plane.'
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: By taking moments about point Q, show that $\theta$ is $25^\circ$.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: On Fig. 2.2, draw a labelled scale vector triangle to represent the forces
+        acting on the tree. The weight of the tree has been drawn to scale.
+      answer_options: []
+      subquestions: []
+    - number: 2biii
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The tree exerts a pressure of $150\text{ kPa}$ on the top of the post.
+
+
+        Determine the surface area of the tree in contact with the post.
+
+
+        area = \hrulefill $\text{m}^2$'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Two progressive water waves X and Y travel along a straight line from point
+    A to point B. The variation of displacement of the waves with distance from A
+    at an instant in time is shown in Fig. 3.1.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'State the amplitude of wave X.
+
+
+      amplitude = \hrulefill $\text{cm}$'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Both waves have frequency $16\text{ Hz}$.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the speed of wave X.
+
+
+        speed = \hrulefill $\text{m}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State and explain whether X and Y are coherent.
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Wave X and wave Y superpose to form a resultant wave.
+
+
+      On Fig. 3.2, sketch the variation of displacement of the resultant wave with
+      distance from A at the instant of time shown in Fig. 3.1.'
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The intensity of wave X is $I_X$. The intensity of wave Y is $I_Y$.
+
+
+      Use Fig. 3.1 to determine the ratio $\frac{I_X}{I_Y}$.
+
+
+      ratio = \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A small ball is dropped from rest from height $h_1$ above the ground and
+    falls vertically downwards. The ball collides with the ground and bounces back
+    vertically upwards, reaching a maximum height $h_2$. Fig. 4.1 shows the ball just
+    before and just after hitting the ground.
+
+
+    The ball has mass $0.25\text{ kg}$ and is in contact with the ground for a time
+    of $0.18\text{ s}$.
+
+    Just before the ball hits the ground, it has speed $5.2\text{ m}\,\text{s}^{-1}$.
+    Just after it leaves the ground, it has speed $3.6\text{ m}\,\text{s}^{-1}$.
+
+    Air resistance acting on the ball is negligible.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State and explain whether the collision is elastic or inelastic.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the change in momentum of the ball during the collision with
+        the ground.
+
+
+        change in momentum = \hrulefill $\text{kg}\,\text{m}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the average force on the ball during the collision with the
+        ground.
+
+
+        force = \hrulefill $\text{N}$'
+      answer_options: []
+      subquestions: []
+  - number: 4c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Calculate the ratio $\frac{h_2}{h_1}$.
+
+
+      ratio = \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define the Young modulus.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A wire of unstretched length $0.81\text{ m}$ is made of a metal with Young
+      modulus $95\text{ GPa}$. The wire obeys Hooke's law and has a constant cross-sectional
+      area. Fig. 5.1 shows the force–extension graph for the wire.
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: calculation
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Determine the cross-sectional area of the wire.
+
+
+        area = \hrulefill $\text{m}^2$'
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The extension of the wire is initially $2.0 \times 10^{-3}\text{ m}$.
+
+
+        Determine the work done to increase the extension of the wire to $3.0 \times
+        10^{-3}\text{ m}$.
+
+
+        work done = \hrulefill \text{ J}'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define electric potential difference across a component.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A circuit contains four resistors and a battery of electromotive force (e.m.f.)
+      $8.0\text{ V}$ with negligible internal resistance. When the variable resistor
+      has resistance $R$, the currents in the circuit are $0.030\text{ A}$, $I_1$
+      and $I_2$, as shown in Fig. 6.1.
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the charge passing through the battery in a time of $4.0\text{
+        minutes}$.
+
+
+        $\text{charge} = \hrulefill \text{ C}$'
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate $I_1$.
+
+
+        $I_1 = \hrulefill \text{ A}$'
+      answer_options: []
+      subquestions: []
+    - number: 6biii
+      question_type: calculation
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate $I_2$.
+
+
+        $I_2 = \hrulefill \text{ A}$'
+      answer_options: []
+      subquestions: []
+    - number: 6biv
+      question_type: calculation
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine $R$.
+
+
+        $R = \hrulefill \ \Omega$'
+      answer_options: []
+      subquestions: []
+  - number: 6c
+    question_type: long_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The variable resistor in (b) is fitted with a scale so that its resistance
+      can be accurately determined.
+
+      The resistor of resistance $240\ \Omega$ is now replaced by a new resistor X
+      of unknown resistance.
+
+      A galvanometer is connected as shown in Fig. 6.2.
+
+
+      Fig. 6.2
+
+
+      With reference to ratios of resistances, explain how this circuit can be used
+      to determine the resistance of X.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 17
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by a fundamental particle.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A nucleus X has 14 nucleons and $p$ protons. The ratio of charge to mass
+      for nucleus X is $4.1 \times 10^7 \text{ C kg}^{-1}$.
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: calculation
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Determine $p$.
+
+
+        $p = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Nucleus X undergoes $\beta^-$ decay to form nucleus Z.
+
+
+        Complete the equation representing this decay.
+
+
+        $$\text{}^{14}_{\dots\dots}\text{X} \rightarrow \text{}^{\dots\dots}_{\dots\dots}\text{Z}
+        + \text{}^{\dots\dots}_{\dots\dots}\dots\dots + \text{}^{\dots\dots}_{\dots\dots}\dots\dots$$'
+      answer_options: []
+      subquestions: []
+  - number: 7c
+    question_type: long_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A sample of a radioactive substance emits particles that are positively
+      charged and have a continuous range of kinetic energies.
+
+
+      State and explain whether the nuclei in the sample are undergoing $\alpha$-decay,
+      $\beta^+$ decay or $\beta^-$ decay.'
+    answer_options: []
+    subquestions: []

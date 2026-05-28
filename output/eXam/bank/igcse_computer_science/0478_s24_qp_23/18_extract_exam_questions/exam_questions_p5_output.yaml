@@ -1,0 +1,11 @@
+```yaml
+questions:
+  - number: "4b"
+    type: long_answer
+    text: |
+      Write the pseudocode that you could add to the end of this algorithm to output the contents of the array. Make sure that the output ends when the data in the array ends.
+  - number: "4c"
+    type: long_answer
+    text: |
+      Explain how you could alter the original corrected algorithm to make sure that the number of elements being added to the array does not exceed the maximum size of the array (50 elements).
+```

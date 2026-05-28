@@ -1,0 +1,66 @@
+[thinking]
+**Examining the Exam Paper: Page 10, Question 4**
+
+Alright, the user wants me to transcribe page 10 of the exam paper, specifically question 4 and its sub-questions. Let's break this down systematically. I see a structure: "4", "4a", "4ai", "4aii", "4b", "4bi", and "4bii". I need to accurately identify and format the text for each part.
+
+My initial thought is to consider "4" as the main header or perhaps empty if its sub-questions contain introductory information. I'll need to figure this out as I delve deeper.
+
+Let's begin:
+
+*   **4:** Since the first actual question is "4(a)", I'll keep this empty. There is no general header for 4.
+*   **4a:** This introduces the equation of state for an ideal gas. I'll transcribe: "The equation of state for an ideal gas may be written as $$pVA = NBT$$ where $p$ is the pressure of the gas, $V$ is the volume of the gas, $A$ is the Avogadro constant, $B$ is another constant and $N$ is the number of molecules of the gas."
+*   **4ai:** Straightforward, this asks to define 'T': "State the meaning, in the equation, of the symbol $T$."
+*   **4aii:** It asks for an identification: "Identify the constant $B$."
+*   **4b:** Now, onto the second part, which begins with: "The product $pV$ for an ideal gas is also given by  $$pV = \frac{1}{3} Nm \langle c^2 \rangle$$"
+*   **4bi:** I must now understand the meaning of the symbols in this equation: "State the meanings, in this equation, of the symbols $m$ and $\langle c^2 \rangle$.
+    $m$: \hrulefill
+    $\langle c^2 \rangle$: \hrulefill"
+*   **4bii:** The final part requires me to derive something based on what came before: "Use the equations in (a) and (b) to derive an expression, in terms of $A$, $B$ and $T$, for the mean kinetic energy $E_{\text{K}}$ of a molecule of the gas.
+    $E_{\text{K}} =$ \hrulefill"
+
+I've also double-checked the math formatting, and I'm ready to accurately format the text.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      The equation of state for an ideal gas may be written as
+
+      $$pVA = NBT$$
+
+      where $p$ is the pressure of the gas, $V$ is the volume of the gas, $A$ is the Avogadro constant, $B$ is another constant and $N$ is the number of molecules of the gas.
+  - number: "4ai"
+    type: short_answer
+    text: |
+      State the meaning, in the equation, of the symbol $T$.
+  - number: "4aii"
+    type: short_answer
+    text: |
+      Identify the constant $B$.
+  - number: "4b"
+    type: short_answer
+    text: |
+      The product $pV$ for an ideal gas is also given by
+
+      $$pV = \frac{1}{3} Nm \langle c^2 \rangle$$
+  - number: "4bi"
+    type: short_answer
+    text: |
+      State the meanings, in this equation, of the symbols $m$ and $\langle c^2 \rangle$.
+
+      $m$: \hrulefill
+
+      $\langle c^2 \rangle$: \hrulefill
+  - number: "4bii"
+    type: calculation
+    text: |
+      Use the equations in (a) and (b) to derive an expression, in terms of $A$, $B$ and $T$, for the mean kinetic energy $E_{\text{K}}$ of a molecule of the gas.
+
+      $E_{\text{K}} =$ \hrulefill

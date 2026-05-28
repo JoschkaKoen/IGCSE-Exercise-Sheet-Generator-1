@@ -1,0 +1,62 @@
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+      A standard method of solution used to find a piece of data in an array is a
+    options:
+      - letter: A
+        text: |
+          bubble sort.
+      - letter: B
+        text: |
+          counting routine.
+      - letter: C
+        text: |
+          linear search.
+      - letter: D
+        text: |
+          selection search.
+  - number: "2"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+      The pseudocode to store a hotel name held in the variable \texttt{Name} to a text file is
+    options:
+      - letter: A
+        text: |
+          \texttt{READFILE Hotels.txt, Name}
+      - letter: B
+        text: |
+          \texttt{WRITEFILE Hotels.txt, Name}
+      - letter: C
+        text: |
+          \texttt{WRITEFILE Name, Hotels.txt}
+      - letter: D
+        text: |
+          \texttt{STOREFILE Hotels.txt, Name}
+  - number: "3"
+    type: short_answer
+    text: |
+      \textbf{Four} development life cycle stages and \textbf{five} descriptions are shown.
+
+      Draw \textbf{one} line from each stage to the most appropriate description.
+      \textbf{Not} all descriptions will be used.
+
+      \begin{tabular}{cc}
+      \textbf{Stage} & \textbf{Description} \\
+      & \\
+      \framebox{testing} & \framebox{identifying the problem and requirements} \\
+      & \\
+      \framebox{analysis} & \framebox{reviewing the final solution to suggest further developments} \\
+      & \\
+      \framebox{coding} & \framebox{making sure the program code works as expected} \\
+      & \\
+      \framebox{design} & \framebox{using structure diagrams, flowcharts and pseudocode to plan the solution} \\
+      & \\
+      & \framebox{using a programming language to create the solution} \\
+      \end{tabular}
+```

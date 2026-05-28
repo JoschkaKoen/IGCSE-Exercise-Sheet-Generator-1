@@ -1,0 +1,53 @@
+[thinking]
+**Transcribing Page 2 of the Exam: A Breakdown**
+
+Okay, so I'm tasked with transcribing page 2 of this exam. Let's see... first, I need to get a handle on the structure. I've got two main questions, "1" and "2". Question "1" is a multiple-choice question, and I've got the text "Tick (\checkmark) one box to complete this sentence. This flowchart symbol represents...". It's pretty straightforward; I'll need to define the options.
+
+Now, question "2" looks like it has a sub-question "2a". I need to be careful here - is "2" a separate question in its own right, or just an intro? Looking at the text, it appears "2" is the introduction to "2a". The page has: `2 (a) Four logic gate symbols and five logic functions are shown. Draw one line to link each logic gate symbol to the appropriate logic function. Not all logic functions will be used.` So, "2" acts as an introduction to the task described in "2a". That’s important to note.
+
+So let’s break down the text for each question. Question "1" is a multiple-choice: "Tick one box to complete this sentence. This flowchart symbol...". And then the options are: "A represents a subroutine.", "B represents a decision.", "C represents an input/output.", "D represents a terminator.".
+
+For "2", the introductory text is simple enough: "Four logic gate symbols and five logic functions are shown." And "2a" has the main instruction: "Draw one line to link each logic gate symbol to the appropriate logic function. Not all logic functions will be used.". It then lists the logic functions: "AND", "XOR", "NOT", "NAND", "OR". Alright, I think I've got a handle on the structure now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+      This flowchart symbol
+    options:
+      - letter: A
+        text: |
+          represents a subroutine.
+      - letter: B
+        text: |
+          represents a decision.
+      - letter: C
+        text: |
+          represents an input/output.
+      - letter: D
+        text: |
+          represents a terminator.
+  - number: "2"
+    type: short_answer
+    text: |
+      Four logic gate symbols and five logic functions are shown.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Draw \textbf{one} line to link each logic gate symbol to the appropriate logic function.
+
+      \textbf{Not} all logic functions will be used.
+
+      \begin{itemize}
+      \item AND
+      \item XOR
+      \item NOT
+      \item NAND
+      \item OR
+      \end{itemize}

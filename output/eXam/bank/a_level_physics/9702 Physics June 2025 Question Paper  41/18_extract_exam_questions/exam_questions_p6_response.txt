@@ -1,0 +1,41 @@
+[thinking]
+**Exam Page 6: Transcription Thoughts**
+
+Okay, the task is to transcribe page 6 of this exam. I see the main question is numbered "2", and it looks like it's a short answer question related to a helium atom model. The prompt starts by asking for a description of the model which includes a nucleus surrounded by two electrons in diametrically opposite circular orbits, each with a radius of 170 picometers.
+
+Next, there's "2a", which is straightforward. It's asking for a statement of Coulomb's Law. That's a simple one.
+
+"2b" is a parent header for (i) and (ii), but it doesn't seem to have its own specific text on the page. I initially thought I might need to represent it as an empty string or placeholder. However, I need to make sure I am accounting for the instructions to render every stem. Upon further inspection of the page, the stem "(b)" is clearly visible as part of the structure "(b) (i)". Therefore, it seems appropriate to represent "2b" with `text: ''`.
+
+Now, "2bi" asks for the charge on the nucleus in terms of the elementary charge, 'e'. The format indicates it should be `charge = \hrulefill e`.
+
+Finally, "2bii" requires a calculation: showing that the electric force between the nucleus and one of the electrons is $1.6 \times 10^{-8} \text{ N}$.
+
+I've reviewed the structure, confirmed the content for each sub-question, and I'm ready to proceed with transcribing each section into the YAML format as requested. Let's make sure I'm following the instructions precisely by confirming again the "2b" doesn't need to be populated with text because the instructions indicated I should not emit "STUB ERROR" if I cannot find a stub entry's stem, so the "2b" can be empty.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A helium atom may be modelled as a nucleus surrounded by two electrons in diametrically opposite circular orbits, each of radius $170\text{ pm}$, as shown in Fig. 2.1.
+  - number: "2a"
+    type: short_answer
+    text: |
+      State Coulomb’s law.
+  - number: "2b"
+    type: short_answer
+    text: ''
+  - number: "2bi"
+    type: short_answer
+    text: |
+      State the charge on the nucleus, in terms of the elementary charge $e$.
+
+      $\text{charge} = \hrulefill e$
+  - number: "2bii"
+    type: calculation
+    text: |
+      Show that the electric force between the nucleus and one of the electrons is $1.6 \times 10^{-8}\text{ N}$.

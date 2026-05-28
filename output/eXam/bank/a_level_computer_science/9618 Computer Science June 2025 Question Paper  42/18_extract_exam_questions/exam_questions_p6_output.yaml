@@ -1,0 +1,50 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program stores data in a 1D array of records, \texttt{HashTable}. The array has space for 200 records. Each data item is stored in a specific index of the array that is calculated using an algorithm. The index is calculated from the key field using the formula: \texttt{Key MOD 200}
+
+      If two key fields generate the same index, there is a collision. Any records that have a collision are stored in a second array, \texttt{Spare}. This array has space for 100 records. When a collision is detected, the record is stored in the next free space in \texttt{Spare}.
+  - number: "2a"
+    type: short_answer
+    text: |
+      The pseudocode record format is:
+
+      \begin{alltt}
+      TYPE NewRecord
+          DECLARE Key : INTEGER
+          DECLARE Item1 : INTEGER
+          DECLARE Item2 : INTEGER
+      ENDTYPE
+      \end{alltt}
+
+      Write program code to declare the record type \texttt{NewRecord}
+
+      If your chosen programming language does not support record formats, a class can be used instead.
+
+      Save your program as \textbf{Question2\_J25}.
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.
+  - number: "2b"
+    type: short_answer
+    text: ''
+  - number: "2bi"
+    type: short_answer
+    text: |
+      Write program code to declare the global arrays \texttt{HashTable} and \texttt{Spare}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(b)(i)} in the evidence document.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      An empty record has the integer $-1$ stored in each field.
+
+      The procedure \texttt{Initialise()} stores an empty record in each element in \texttt{HashTable} and \texttt{Spare}
+
+      Write program code for \texttt{Initialise()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(b)(ii)} in the evidence document.

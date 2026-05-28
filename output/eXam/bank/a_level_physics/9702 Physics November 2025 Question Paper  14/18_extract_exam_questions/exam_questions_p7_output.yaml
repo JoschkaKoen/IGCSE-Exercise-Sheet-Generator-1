@@ -1,0 +1,39 @@
+questions:
+  - number: "13"
+    type: multiple_choice
+    text: |
+      A uniform rod is attached by a hinge at one end to a wall. The other end of the rod is supported by a wire so that the rod is horizontal and in equilibrium.
+
+      Which arrow shows the direction of the force on the rod from the hinge?
+    options:
+      - letter: A
+        text: |
+          an arrow pointing vertically upwards
+      - letter: B
+        text: |
+          an arrow pointing vertically downwards
+      - letter: C
+        text: |
+          an arrow pointing diagonally downwards and to the left
+      - letter: D
+        text: |
+          an arrow pointing diagonally upwards and to the right
+  - number: "14"
+    type: multiple_choice
+    text: |
+      A couple is applied to a tap, as shown.
+
+      What is the torque of the couple?
+    options:
+      - letter: A
+        text: |
+          $\frac{Fd}{2}$
+      - letter: B
+        text: |
+          $Fd$
+      - letter: C
+        text: |
+          $2Fd$
+      - letter: D
+        text: |
+          $4Fd$

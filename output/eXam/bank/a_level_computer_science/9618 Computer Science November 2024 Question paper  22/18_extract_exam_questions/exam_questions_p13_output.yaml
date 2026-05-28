@@ -1,0 +1,17 @@
+```yaml
+questions:
+  - number: "6a"
+    type: long_answer
+    text: |
+      Complete the pseudocode for the procedure \texttt{Special()}.
+
+      Assume that both arrays are global.
+
+      \begin{alltt}
+      PROCEDURE Special()
+      \end{alltt}
+
+      \begin{alltt}
+      ENDPROCEDURE
+      \end{alltt}
+```

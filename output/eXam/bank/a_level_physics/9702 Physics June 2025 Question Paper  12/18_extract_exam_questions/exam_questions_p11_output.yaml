@@ -1,0 +1,49 @@
+questions:
+  - number: "24"
+    type: multiple_choice
+    text: |
+      A teacher removes the turntable from a microwave oven and places a bar of chocolate in the oven. She then switches the oven on for a short time.
+
+      A stationary wave is formed in the oven.
+
+      When the chocolate is removed, the teacher observes that there are two small sections of melted chocolate $6.0\text{ cm}$ apart with unmelted chocolate in between.
+
+      Each section of melted chocolate is located at an antinode.
+
+      Assume that the speed of the microwaves is $3.0 \times 10^8\text{ m}\,\text{s}^{-1}$.
+
+      What is the frequency of the microwaves emitted by the oven?
+    options:
+      - letter: A
+        text: |
+          $25\text{ MHz}$
+      - letter: B
+        text: |
+          $50\text{ MHz}$
+      - letter: C
+        text: |
+          $2.5\text{ GHz}$
+      - letter: D
+        text: |
+          $5.0\text{ GHz}$
+  - number: "25"
+    type: multiple_choice
+    text: |
+      A sound wave travels from the left to the right.
+
+      The graph shows the variation of the displacement to the right of particles in the sound wave with distance, at one instant.
+
+      Which letter represents the centre of a compression?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

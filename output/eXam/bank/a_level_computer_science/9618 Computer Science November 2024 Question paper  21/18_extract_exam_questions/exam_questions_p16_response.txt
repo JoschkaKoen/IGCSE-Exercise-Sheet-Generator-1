@@ -1,0 +1,57 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      An exam paper has a maximum of 75 marks. One of five pass grades (A to E) is assigned, depending on the mark obtained. The lowest mark for a given grade is known as the grade boundary. For example, if the grade boundary for an A grade is 65 marks, then any candidate who achieves a mark of 65 or above will be awarded an A. A grade of U is awarded for marks below the E grade boundary.
+
+      The five grade boundaries are stored in a global 1D array \texttt{GradeBoundary} of type integer.
+
+      For example:
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Element} & \textbf{Value} & \textbf{Comment} \\ \hline
+      \texttt{GradeBoundary[1]} & 65 & The minimum mark for an A grade. \\ \hline
+      \texttt{GradeBoundary[2]} & 57 & The minimum mark for a B grade. \\ \hline
+      \texttt{GradeBoundary[3]} & 43 & The minimum mark for a C grade. \\ \hline
+      \texttt{GradeBoundary[4]} & 35 & The minimum mark for a D grade. \\ \hline
+      \texttt{GradeBoundary[5]} & 27 & The minimum mark for an E grade. \\ \hline
+      \end{tabular}
+
+      \vfill
+
+      A global 2D array \texttt{Result} of type integer contains candidate marks for the exam. Each row relates to one candidate. Column 1 contains the candidate mark and column 2 contains the unique candidate ID.
+
+      For example, for the fourth and fifth candidates:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Element} & \textbf{Mark} \\ \hline
+      \texttt{Result[4, 1]} & 56 \\ \hline
+      \texttt{Result[5, 1]} & 54 \\ \hline
+      \end{tabular}
+      \quad
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Element} & \textbf{ID} \\ \hline
+      \texttt{Result[4, 2]} & 1074832 \\ \hline
+      \texttt{Result[5, 2]} & 2573839 \\ \hline
+      \end{tabular}
+
+      \vfill
+
+      There are more rows in the array than candidates who sit the exam. Any unused rows will be at the end of the array.
+
+      Candidate papers that are given a mark within two marks of any grade boundary must be checked.
+
+      For example, given the values in the example grade boundaries above, any paper that was awarded between 41 and 45 marks (inclusive) would need to be checked.
+
+      A program is being written to identify papers that need to be checked.
+
+      The programmer has defined the first program module as follows:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{CheckMark()} & \begin{tabular}[c]{@{}l@{}}\bullet\quad called with a parameter of type integer representing a\\ \quad candidate mark\\ \bullet\quad returns \texttt{TRUE} if the mark is within 2 of any of the five grade\\ \quad boundaries, otherwise returns \texttt{FALSE}\end{tabular} \\ \hline
+      \end{tabular}

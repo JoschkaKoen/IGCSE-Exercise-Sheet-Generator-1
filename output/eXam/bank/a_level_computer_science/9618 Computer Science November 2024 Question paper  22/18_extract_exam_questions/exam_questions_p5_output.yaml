@@ -1,0 +1,21 @@
+```yaml
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      The requirements have been changed. \texttt{Conceal()} will now be written as a procedure which will process 100 card numbers each time it is called.
+
+      The card numbers will be stored in a 2D array \texttt{CardNumber}. The original string will be stored in column one and the modified string in column two.
+  - number: "2bi"
+    type: long_answer
+    text: |
+      Write pseudocode to declare the array.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      The new procedure \texttt{Conceal()} will write the modified string to the corresponding element in column two.
+
+      The array \texttt{CardNumber} is passed as a parameter to the new procedure \texttt{Conceal()}.
+
+      Identify how this parameter should be specified in the new procedure header.
+```

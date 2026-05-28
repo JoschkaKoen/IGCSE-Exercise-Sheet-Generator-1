@@ -1,0 +1,100 @@
+[thinking]
+**Transcription of Page 9 - Question 7a**
+
+Okay, the task is to transcribe page 9, which the stub indicates contains question 7 and 7a. First, I need to make sure I understand the scope of the questions on the page. I see "(a) Complete the tables, using the flowchart, for the given data:" This looks like 7a, and it starts directly on the page, without a main question stem "7". I need to check the stub. The stub has entries for both `7` and `7a`. Given the page's format, it's highly likely that the main question "7" stem is *not* on this page. Let's see if the stem exists on page 8. Since there's no question 7 stem here, and the stub should only include questions with stems on the page, the missing stem for question 7 means it's a STUB ERROR. I have to make a note to flag that issue. So, for `7`, I'm going to emit `STUB ERROR`. For `7a`, I'll transcribe.
+
+Now for 7a: The question reads, "Complete the tables, using the flowchart, for the given data:".  I'll strip the "(a)" prefix because that's part of the instructions. The rules say to strip subquestion prefixes like (a).
+
+Next, I see the instruction "Input data: 20", followed by a table. The table has headers "Count", "Number", "Value", and "Output" and then a series of empty rows. This is a trace table, and while the candidate will fill in values, there is existing "content" in the form of headers. Therefore, I will transcribe this table as a "Content Table" and keep the LaTeX tabular environment as is. I have to remember that this is important because it is a trace table! After counting the empty rows in the table, there are ten. I'll translate the table into LaTeX:
+
+```latex
+Input data: 20
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Count} & \textbf{Number} & \textbf{Value} & \textbf{Output} \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+\end{tabular}
+```
+
+Then there is an additional set of "Input data: 110" and another table that looks *exactly* the same, so it will be the same LaTeX:
+
+```latex
+Input data: 110
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Count} & \textbf{Number} & \textbf{Value} & \textbf{Output} \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+\end{tabular}
+```
+
+Finally, I need to confirm the `STUB ERROR` for `7`. Since the question stem for `7` is indeed *not* on this page, the rule applies: emit `STUB ERROR`. I'm ready to mark the transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      Complete the tables, using the flowchart, for the given data:
+
+      Input data: 20
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Count} & \textbf{Number} & \textbf{Value} & \textbf{Output} \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+      \end{tabular}
+
+      \vspace{1em}
+
+      Input data: 110
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Count} & \textbf{Number} & \textbf{Value} & \textbf{Output} \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+      \end{tabular}

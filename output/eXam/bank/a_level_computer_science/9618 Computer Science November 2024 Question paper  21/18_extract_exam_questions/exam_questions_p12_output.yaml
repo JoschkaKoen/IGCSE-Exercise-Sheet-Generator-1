@@ -1,0 +1,44 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A factory produces food items. The items must be used within a certain number of days after their production date. The number of days is known as the shelf life. It is different for each type of item but is always a whole number in the range 1 to 21 (inclusive).
+
+      The latest date that an item can be used is called the 'use-by' date.
+
+      A program is needed to produce labels which show the 'use-by' date.
+
+      Part of the program is a function \texttt{GetDate()} which will:
+      \begin{itemize}
+      \item take two parameters: a production date and a value representing the shelf life
+      \item return the corresponding 'use-by' date.
+      \end{itemize}
+
+      The program contains a global 1D array \texttt{DaysInMonth} of type integer which stores the number of days in each month (index 1 is January):
+
+      \begin{tabular}{|c|c|l}
+      \cline{1-2}
+      \textbf{Index} & \textbf{Value} & \\ \cline{1-2}
+      1 & 31 & \\ \cline{1-2}
+      2 & 28 & Note: Leap years are \textbf{not} considered \\ \cline{1-2}
+      3 & 31 & \\ \cline{1-2}
+      4 & 30 & \\ \cline{1-2}
+      \dots & \dots & \\ \cline{1-2}
+      11 & 30 & \\ \cline{1-2}
+      12 & 31 & \\ \cline{1-2}
+      \end{tabular}
+  - number: "6a"
+    type: short_answer
+    text: |
+      An algorithm uses the array \texttt{DaysInMonth} to calculate a 'use-by' date. An alternative design would involve the use of multiple selection statements.
+
+      An array-based technique is often used when there is a large number of different values to check and where no pattern exists.
+
+      One advantage of using an array-based technique is the speed of execution compared to the use of multiple selection statements.
+
+      Give \textbf{two other} advantages of using an array for this type of operation rather than a solution based on multiple selection statements.
+
+      1. \hrulefill
+      2. \hrulefill
+```

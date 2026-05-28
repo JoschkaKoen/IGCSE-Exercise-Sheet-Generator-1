@@ -1,0 +1,16 @@
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      It is decided to introduce a system of fines for books that have been borrowed for too long.
+
+      Two new requirements are defined:
+
+      \begin{enumerate}
+      \item Each loan has a maximum length, represented as a number of days.
+      \item Each book in the library will be assigned one of three categories. Each category has a different maximum loan length.
+      \end{enumerate}
+
+      Record structure and program design changes are needed to meet these two requirements.
+
+      Outline the changes that are necessary to meet the \textbf{two} requirements.

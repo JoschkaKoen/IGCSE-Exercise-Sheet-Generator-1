@@ -1,0 +1,55 @@
+[thinking]
+**My YAML-Generating Process**
+
+Alright, let's break this down. My task is to take this exam page and turn it into a YAML structure for processing. The expectation is questions "4", "4a", and "4b", each with `number`, `type`, `text`, and potentially `options`. Let's get to it.
+
+First, I need to analyze the text carefully. Question "4" seems to be the introduction to the setup. Normally, that intro is part of either "4" itself or "4a", so I need to check the format. Looking at the skeleton, it looks like "4" is `short_answer`. Okay, so the preamble itself will be transcribed under "4".
+
+Moving on to "4a", it's marked as `long_answer`. This means it needs the text, but no answer space. I just need the question text itself. Done.
+
+Now, "4b". It's a `short_answer` type. It has the question text, and then answer lines that I have to format correctly. The prompt says "Identify one type of sensor" and then "State how the sensor can be used..." I need to format these as:
+
+```latex
+Sensor \hrulefill
+
+Use \hrulefill
+```
+
+Based on the prompt for generating, I don't need two lines under "Use", as it only suggests that "Use" is a space to write a response.
+
+Okay, I've got all the pieces. I'll need to remember to double-check my LaTeX formatting, block scalars, and to avoid double quotes when I'm putting it all together in the final YAML format. Time to create the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A shop installs a new system that allows users to purchase items without going through a manual checkout.
+
+      The new system:
+      \begin{itemize}
+      \item identifies customers when they enter the shop and matches them to their account
+      \item prevents a customer from walking through the automatic barriers if they do not have an account
+      \item automatically detects the items that a customer has taken from a shelf and charges these to the customer's account.
+      \end{itemize}
+  - number: "4a"
+    type: long_answer
+    text: |
+      The new system uses digital cameras and Artificial Intelligence (AI) to identify the customers.
+
+      Explain how the new system uses AI to identify each customer.
+  - number: "4b"
+    type: short_answer
+    text: |
+      The new system uses sensors to identify the items taken from a shelf.
+
+      Identify \textbf{one} type of sensor that can be used in this new system.
+
+      State how the sensor can be used to identify the items taken from a shelf.
+
+      Sensor \hrulefill
+
+      Use \hrulefill

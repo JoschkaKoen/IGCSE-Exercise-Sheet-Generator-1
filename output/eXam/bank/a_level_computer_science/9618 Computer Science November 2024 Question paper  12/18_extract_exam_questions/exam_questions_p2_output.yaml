@@ -1,0 +1,32 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1a"
+    type: short_answer
+    text: |
+      Complete the truth table for the logic expression:
+
+      $$\text{X} = (\text{A XOR B}) \text{ NAND } (\text{A AND } (\text{B XOR C}))$$
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}
+  - number: "1b"
+    type: short_answer
+    text: |
+      Draw the logic circuit for the logic expression:
+
+      $$\text{W} = \text{P NAND } ((\text{Q OR NOT R}) \text{ XOR } (\text{P XOR Q}))$$
+```

@@ -1,0 +1,566 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A toy store gives each of the toys it sells a unique code. The codes are
+    3-digit hexadecimal codes, for example A4B.
+
+
+    A computer is used to store a database of the codes. The computer has 12-bit registers.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the largest hexadecimal number that can be stored in a 12-bit register.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the largest denary number that can be stored in a 12-bit register.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Two toys have the hexadecimal codes 429 and 1A3.
+
+
+      Convert the \textbf{two} hexadecimal codes to 12-bit binary numbers.
+
+
+      429 \hrulefill
+
+      1A3 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Two binary numbers that are stored in the registers are 100010100001 and
+      011100001011.
+
+
+      Convert the \textbf{two} binary numbers to hexadecimal numbers.
+
+
+      100010100001 \hrulefill
+
+      011100001011 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1e
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The hexadecimal code for each toy is stored in a barcode that is displayed
+      on each toy.
+
+
+      Each time a customer buys a toy, the barcode is scanned and the amount of stock
+      stored in the database for that toy is reduced by 1.
+
+
+      An item of hardware is used in this system to receive the hexadecimal code from
+      the barcode scanner and find it in the database. The item of hardware is built
+      into a single chip.'
+    answer_options: []
+    subquestions:
+    - number: 1ei
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify the name of the item of hardware.
+      answer_options: []
+      subquestions: []
+    - number: 1eii
+      question_type: multiple_choice
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Tick ($\checkmark$) \textbf{one} box to show whether a barcode scanner
+        is a type of input, output, process or storage device.
+      answer_options:
+      - letter: A
+        text: input
+      - letter: B
+        text: output
+      - letter: C
+        text: process
+      - letter: D
+        text: storage
+      subquestions: []
+    - number: 1eiii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The barcode scanner contains a sensor.
+
+
+        Identify the type of sensor that the barcode scanner could contain.'
+      answer_options: []
+      subquestions: []
+    - number: 1eiv
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'A backup of the database is made at the end of each day using optical
+        storage.
+
+
+        Describe how the database is written to the optical storage.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Two binary numbers are stored in a computer.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "Add the \\textbf{two} binary numbers using binary addition.\n\nGive your\
+      \ answer in binary. Show all of your working.\n\n\\begin{tabular}{rc}\n  & 11110101\
+      \ \\\\\n+ & 00111001 \\\\\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'A logic right shift of \textbf{three} places is performed on the binary
+      number 11110101.
+
+
+      Give the denary number for the binary number that would be stored after the
+      logical shift of \textbf{three} places has occurred. Show all of your working.
+
+
+      Denary number \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer uses assembly language to create a program for a coffee machine.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe what is meant by assembly language.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the translator needed for assembly language.
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: multiple_choice
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) \textbf{one} box to show which statement is an advantage
+      of using assembly language.
+    answer_options:
+    - letter: A
+      text: It is close to human language.
+    - letter: B
+      text: It is memory efficient.
+    - letter: C
+      text: It is easy to debug.
+    - letter: D
+      text: It is machine independent.
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer with a Von Neumann architecture has a central processing unit (CPU)
+    that performs the fetch–decode–execute (FDE) cycle.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete and annotate the diagram to show how instructions are decoded
+      and executed.
+
+
+      control unit (CU)
+
+
+      arithmetic logic unit (ALU)'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The CPU is dual core and has a processor speed of $2.4\text{ GHz}$.
+
+
+      Describe what is meant by a core.'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Explain \textbf{two} ways that the performance of the CPU could be increased.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A computer system has a mouse.
+
+
+    An interrupt is sent to the CPU every time a button on the mouse is clicked.'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the name of this type of interrupt.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The interrupt is placed in a queue.
+
+
+      Explain how the interrupt is serviced after it is placed in the queue.'
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The mouse is connected using a universal serial bus (USB) connection.
+    answer_options: []
+    subquestions:
+    - number: 5ci
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how data is sent using the USB connection.
+      answer_options: []
+      subquestions: []
+    - number: 5cii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} benefits of using a USB connection for this purpose.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 5ciii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} drawback of using a USB connection for this purpose.
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An online clothing company has a homepage at the uniform resource locator
+    (URL)
+
+    https://www.cieclothes.com/index.html'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Write down the \textbf{three} different parts of the URL shown by the labels
+      a, b and c.
+
+
+      https://www.cieclothes.com/index.html
+
+
+      a \hrulefill
+
+
+      b \hrulefill
+
+
+      c \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The web pages are stored on a web server. A proxy server is used to stop
+      distributed denial of service (DDoS) attacks on the web server.
+
+
+      Describe how the proxy server can stop a DDoS attack reaching a web server.'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: "Customers use the website to buy clothing from the company.\n\nComplete\
+      \ the table with the missing terms and descriptions about retrieving and displaying\
+      \ web pages.\n\n\\begin{tabular}{|p{5cm}|p{9cm}|}\n\\hline\n\\multicolumn{1}{|c|}{\\\
+      textbf{Term}} & \\multicolumn{1}{c|}{\\textbf{Description}} \\\\ \\hline\nhypertext\
+      \ markup language (HTML) & \\newline\\newline\\newline \\\\ \\hline\ndomain\
+      \ name server (DNS) & \\newline\\newline\\newline \\\\ \\hline\n & It is a numerical\
+      \ address used to locate the web server. \\\\ \\hline\n & It is a secure protocol\
+      \ that can be used to transmit data sent to and received from a web server.\
+      \ \\\\ \\hline\n & It is a piece of software that is used to display web pages.\
+      \ \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The clothing company uses cookies to store customer details.
+
+
+      Complete the statements about cookies.
+
+
+      Use terms from the list. Not all terms need to be used. You should only use
+      a term once.
+
+
+      \begin{itemize}
+
+      \item asymmetric
+
+      \item DNS
+
+      \item dynamic
+
+      \item persistent
+
+      \item session
+
+      \item static
+
+      \item symmetric
+
+      \item user
+
+      \item utility software
+
+      \item web browser
+
+      \end{itemize}
+
+
+      Cookies are stored and managed by the \underline{\hspace{1.5em}}.
+
+
+      \underline{\hspace{1.5em}} cookies are temporary files that are created when
+      a user visits a web page.
+
+
+      \underline{\hspace{1.5em}} cookies are permanent files that are created when
+      a user visits a web page.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A house has a smart speaker that can take voice commands as input. A person
+    in the house can tell the smart speaker to play music or audio books.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The smart speaker cannot be described as a robot.
+
+
+      Explain why the smart speaker is not a robot.'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the input device that allows voice commands to be used as input.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The smart speaker has machine learning capabilities.
+
+
+      Explain how the smart speaker can use machine learning to improve the voice
+      command input.'
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The smart speaker is an example of an embedded system.
+
+
+      Explain why the smart speaker is an embedded system.'
+    answer_options: []
+    subquestions: []
+  - number: 7e
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The music and audio books that are played by the smart speaker are stored
+      in cloud storage.
+
+
+      Give \textbf{two} advantages of storing the music and audio books in cloud storage.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7f
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The data for the music and audio books needs to be checked for errors after
+      being transmitted from the cloud.
+    answer_options: []
+    subquestions:
+    - number: 7fi
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how errors may occur in the data during transmission.
+      answer_options: []
+      subquestions: []
+    - number: 7fii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} error detection methods that could be used to check
+        for errors in the data after transmission.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []

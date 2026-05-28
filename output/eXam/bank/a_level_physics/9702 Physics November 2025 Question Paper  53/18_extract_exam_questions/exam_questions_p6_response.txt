@@ -1,0 +1,59 @@
+[thinking]
+**Transcription and Error Detection**
+
+Okay, the task is to transcribe page 6 of an exam paper. I see the requested questions are "2b", "2c", "2ci", "2cii", and "2ciii".  Let's start by working through each of these items.
+
+First, "2b" involves a table (Table 2.1) with values of *d* and λ, and I need to calculate the corresponding values for *d/c* and their associated uncertainties. The value of *c* is given as 3.00 x 10<sup>5</sup> km s<sup>-1</sup>, which is standard. I'll need to remember to propagate those uncertainties in the calculation of *d/c*.
+
+Next, "2c" is listed, but there's no actual text for the question "2c" itself on the page. I see (i), (ii), and (iii) listed below it. After checking the provided text and comparing it to the image, it's clear "2c" is a stub entry. It's listed in the questions, but the question text is the parenthetical "(c) (i) Plot a graph...".  So, to flag this, I'll need to indicate it as a stub error.
+
+Following that, "2ci" requires plotting a graph of λ versus *d/c*, including error bars.  Then, "2cii" will be about drawing lines of best fit and worst acceptable fit, and labeling those lines on the graph. Finally, "2ciii" involves determining the gradient of the line of best fit and its uncertainty.
+
+So, the plan is: transcribe the table and calculate *d/c*, mark "2c" as a stub error, and then transcribe the text for "2ci", "2cii", and "2ciii". Let's get to work.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      Values of $d$ and $\lambda$ are given in Table 2.1.
+
+      \begin{center}
+      \textbf{Table 2.1}
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      $d / 10^{21}\text{ km}$ & $\frac{d}{c} / 10^{15}\text{ s}$ & $\lambda / \text{nm}$ \\ \hline
+      $0.48 \pm 0.12$ & & $658.4$ \\ \hline
+      $1.04 \pm 0.12$ & & $661.2$ \\ \hline
+      $1.45 \pm 0.12$ & & $664.2$ \\ \hline
+      $1.80 \pm 0.12$ & & $665.7$ \\ \hline
+      $2.85 \pm 0.12$ & & $672.4$ \\ \hline
+      $3.75 \pm 0.12$ & & $678.2$ \\ \hline
+      \end{tabular}
+      \end{center}
+
+      The value of $c$ is $3.00 \times 10^5\text{ km}\,\text{s}^{-1}$.
+
+      Calculate and record values of $\frac{d}{c} / 10^{15}\text{ s}$ in Table 2.1. Include the absolute uncertainties in $\frac{d}{c}$.
+  - number: "2c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Plot a graph of $\lambda / \text{nm}$ against $\frac{d}{c} / 10^{15}\text{ s}$. Include error bars for $\frac{d}{c}$.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit and a worst acceptable straight line on your graph. Label both lines.
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Determine the gradient of the line of best fit. Include the absolute uncertainty in your answer.
+
+      gradient = \hrulefill

@@ -1,0 +1,12 @@
+  - number: "3c"
+    type: short_answer
+    text: ""
+  - number: "3ci"
+    type: long_answer
+    text: ""
+  - number: "3cii"
+    type: long_answer
+    text: ""
+  - number: "3ciii"
+    type: short_answer
+    text: ""

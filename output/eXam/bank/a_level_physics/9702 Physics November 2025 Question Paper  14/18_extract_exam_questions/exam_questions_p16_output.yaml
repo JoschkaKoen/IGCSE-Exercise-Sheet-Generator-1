@@ -1,0 +1,43 @@
+questions:
+  - number: "35"
+    type: multiple_choice
+    text: |
+      A wire carries a current of 5.6 A.
+
+      What is the number of conduction electrons that pass a point on the wire in a time of 20 s?
+    options:
+      - letter: A
+        text: |
+          $1.8 \times 10^{18}$
+      - letter: B
+        text: |
+          $2.2 \times 10^{19}$
+      - letter: C
+        text: |
+          $3.5 \times 10^{19}$
+      - letter: D
+        text: |
+          $7.0 \times 10^{20}$
+  - number: "36"
+    type: multiple_choice
+    text: |
+      Four resistors of resistance $R$, $2R$, $3R$ and $4R$ are connected to form a network.
+
+      A battery of negligible internal resistance and a voltmeter are connected to the resistor network as shown.
+
+      The voltmeter reading is 2 V.
+
+      What is the electromotive force (e.m.f.) of the battery?
+    options:
+      - letter: A
+        text: |
+          2 V
+      - letter: B
+        text: |
+          4 V
+      - letter: C
+        text: |
+          6 V
+      - letter: D
+        text: |
+          10 V

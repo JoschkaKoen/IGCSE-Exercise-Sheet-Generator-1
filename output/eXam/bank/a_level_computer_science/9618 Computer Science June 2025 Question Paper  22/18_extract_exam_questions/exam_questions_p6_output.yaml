@@ -1,0 +1,9 @@
+questions:
+  - number: "3"
+    type: long_answer
+    text: |
+      An algorithm is designed to generate and output two unique random integers. Each integer value is between $-10$ and $10$ inclusive.
+
+      If both integers output are negative, a third random integer between $30$ and $35$ inclusive will be generated and output.
+
+      Write pseudocode for this algorithm.

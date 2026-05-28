@@ -1,0 +1,27 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A spacecraft in deep space uses jets of hot gas from its thrusters to change its velocity. Fig. 2.1 shows a side view of the spacecraft and some of its thrusters.
+
+      Thruster A is a distance of $1.6\text{ m}$ leftwards from the centre of gravity of the spacecraft. Thruster C is a distance of $0.40\text{ m}$ upwards from the centre of gravity of the spacecraft.
+
+      Thrusters A and B can produce forces on the spacecraft in the upwards direction only.
+      Thruster C can produce a force on the spacecraft in the leftwards direction only.
+      All the thrusters shown produce forces entirely in the same plane as the centre of gravity.
+  - number: "2a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ai"
+    type: calculation
+    text: |
+      Thruster A is activated, producing a force of $60\text{ N}$ upwards on the spacecraft. Thruster C is also activated, producing a force of $220\text{ N}$ in the leftwards direction on the spacecraft.
+
+      Calculate the resultant moment due to these forces about the centre of gravity.
+
+      resultant moment = \hrulefill $\text{Nm}$
+  - number: "2aii"
+    type: short_answer
+    text: |
+      State and explain whether the forces from A and C are a couple.

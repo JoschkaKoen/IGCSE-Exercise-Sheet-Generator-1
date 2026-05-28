@@ -1,0 +1,33 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      The structure chart shows part of a program design:
+  - number: "7a"
+    type: short_answer
+    text: |
+      Explain the meaning of the curved arrow symbol in this structure chart.
+  - number: "7b"
+    type: short_answer
+    text: |
+      The program designer has noted that:
+
+      \begin{itemize}
+      \item Count is the number of elements in an array
+      \item T1 is a value representing the number of elements in an array that have been modified
+      \item Key is of type \texttt{STRING}
+      \end{itemize}
+
+      Write the pseudocode module headers for analyse, update and sort.
+
+      Analyse:
+
+      \hrulefill
+
+      Update:
+
+      \hrulefill
+
+      Sort:
+
+      \hrulefill

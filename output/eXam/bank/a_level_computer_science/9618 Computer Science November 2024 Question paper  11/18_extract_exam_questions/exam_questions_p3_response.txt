@@ -1,0 +1,14 @@
+[thinking]
+**Transcribing Question 1d**
+
+Okay, so the user wants me to extract and present question "1d" from the provided document. I see the text and I understand I need to remove the "(d) " prefix. My focus is purely on the question itself. Therefore, I need to transcribe: "State one reason why binary addition and subtraction can result in overflow." I also recognize a standalone dotted answer line below it, so that doesn't need to be considered. I'm ready to present the user with the cleaned-up question.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      State one reason why binary addition and subtraction can result in overflow.

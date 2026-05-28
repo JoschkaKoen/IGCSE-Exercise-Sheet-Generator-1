@@ -1,0 +1,587 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) \textbf{one} box to show which of the following is used
+    to validate data on input.
+  answer_options:
+  - letter: A
+    text: checksum
+  - letter: B
+    text: double entry check
+  - letter: C
+    text: type check
+  - letter: D
+    text: visual check
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) \textbf{one} box to show a method used to construct a
+    solution to a problem.
+  answer_options:
+  - letter: A
+    text: abstraction
+  - letter: B
+    text: structure diagram
+  - letter: C
+    text: test data
+  - letter: D
+    text: variable
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: "Four logic gates and five logic gate symbols are shown.\n\nDraw \\textbf{one}\
+    \ line to link each logic gate to its correct symbol. \\textbf{Not} all logic\
+    \ gate symbols will be used.\n\n\\begin{tabular}{cc}\n\\textbf{Logic gate} & \\\
+    textbf{Logic gate symbol} \\\\\n& \\\\\n\\framebox{\\quad AND \\quad} & [Symbol\
+    \ 1] \\\\\n& \\\\\n\\framebox{\\quad NAND \\quad} & [Symbol 2] \\\\\n& \\\\\n\\\
+    framebox{\\quad NOR \\quad} & [Symbol 3] \\\\\n& \\\\\n\\framebox{\\quad XOR \\\
+    quad} & [Symbol 4] \\\\\n& \\\\\n & [Symbol 5] \\\\\n\\end{tabular}"
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'Complete the paragraph about databases. Use terms from the list. You may
+    need to use a term more than once. Some of the terms in the list will \textbf{not}
+    be used.
+
+
+    \begin{itemize}
+
+    \item fields
+
+    \item comments
+
+    \item columns
+
+    \item constant
+
+    \item key
+
+    \item table
+
+    \item primary key
+
+    \item program
+
+    \item records
+
+    \item rows
+
+    \item scripts
+
+    \item database
+
+    \item validation
+
+    \item variable
+
+    \end{itemize}
+
+
+    Database tables consist of \underline{\hspace{1.5em}} and \underline{\hspace{1.5em}}.
+
+    \newline
+
+    Rows are \underline{\hspace{1.5em}}.
+
+    \newline
+
+    \underline{\hspace{1.5em}} are fields.
+
+    \newline
+
+    Structured query language (SQL) \underline{\hspace{1.5em}} are used to query data.
+
+    \newline
+
+    A \underline{\hspace{1.5em}} uniquely identifies a record.'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: long_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'One stage of the program development life cycle is the analysis stage.
+
+
+    Identify and describe \textbf{two} other stages of the program development life
+    cycle.
+
+
+    Stage \hrulefill
+
+
+    Description
+
+
+    Stage \hrulefill
+
+
+    Description'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An incomplete algorithm has been written in pseudocode to count the number
+    of values stored in an array and to find their average.
+
+
+    Values have been stored in the array starting at \texttt{A}
+
+
+    All the values to be counted are non-zero.
+
+
+    A value of zero in the array indicates there are no more values stored.
+
+
+    \begin{alltt}
+
+    01 DECLARE A : ARRAY[1:50] OF INTEGER
+
+    02 DECLARE C : INTEGER
+
+    03 DECLARE W : INTEGER
+
+    04 DECLARE X : INTEGER
+
+    05 W <- 0
+
+    06 C <- \hrulefill
+
+    07 WHILE A[C] <> 0
+
+    08     W <- \hrulefill
+
+    09     C <- C + 1
+
+    10 ENDWHILE
+
+    11 X <- \hrulefill
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Complete the given pseudocode algorithm.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Write pseudocode to display, with suitable messages:
+
+
+      \begin{itemize}
+
+      \item the number of values stored in the array
+
+      \item the average of those values stored.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Meaningful identifiers have \textbf{not} been used in this algorithm.
+
+
+      Suggest suitable meaningful identifiers for:
+
+
+      The array
+
+
+      A \hrulefill
+
+
+      The variables
+
+
+      C \hrulefill
+
+      X \hrulefill
+
+      W \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: long_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 9
+  text: 'A programmer is testing a program that requires a positive value between
+    1 and 100 inclusive to be entered. The range check in the program is to be tested.
+
+
+    Identify \textbf{three} different types of test data to be used.
+
+
+    For each type of test data, give an example of the value(s) to be used and the
+    expected outcome.
+
+
+    Type 1 \hrulefill
+
+    Example \hrulefill
+
+    Outcome \hrulefill
+
+
+    Type 2 \hrulefill
+
+    Example \hrulefill
+
+    Outcome \hrulefill
+
+
+    Type 3 \hrulefill
+
+    Example \hrulefill
+
+    Outcome \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: "A logic circuit is to be built to control the automatic opening of a window.\
+    \ The window \\textbf{W} opens if the temperature \\textbf{T} is too high, the\
+    \ heater \\textbf{H} is off, and the air conditioning \\textbf{A} is off.\n\n\\\
+    begin{tabular}{|l|l|c|}\n\\hline\nair conditioning \\textbf{A} & air conditioning\
+    \ off & 0 \\\\ \\cline{2-3}\n & air conditioning on & 1 \\\\ \\hline\ntemperature\
+    \ \\textbf{T} & \\textbf{not} too high & 0 \\\\ \\cline{2-3}\n & too high & 1\
+    \ \\\\ \\hline\nheater \\textbf{H} & heater off & 0 \\\\ \\cline{2-3}\n & heater\
+    \ on & 1 \\\\ \\hline\nwindow \\textbf{W} & window closed & 0 \\\\ \\cline{2-3}\n\
+    \ & window open & 1 \\\\ \\hline\n\\end{tabular}\n\nComplete the truth table for\
+    \ this problem.\n\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n\\textbf{A} & \\textbf{T}\
+    \ & \\textbf{H} & \\textbf{W} \\\\ \\hline\n0 & 0 & 0 & \\\\ \\hline\n0 & 0 &\
+    \ 1 & \\\\ \\hline\n0 & 1 & 0 & \\\\ \\hline\n0 & 1 & 1 & \\\\ \\hline\n1 & 0\
+    \ & 0 & \\\\ \\hline\n1 & 0 & 1 & \\\\ \\hline\n1 & 1 & 0 & \\\\ \\hline\n1 &\
+    \ 1 & 1 & \\\\ \\hline\n\\end{tabular}"
+  answer_options: []
+  subquestions: []
+- number: '9'
+  question_type: long_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'A flowchart checks that values stored in three variables are identical.
+
+    If they are different, the highest value is stored in all three variables.
+
+
+    Identify \textbf{four} errors in the flowchart and suggest a correction for each
+    error. You may label each error on the diagram with the corresponding error number.
+
+
+    Error 1 \hrulefill
+
+    Correction \hrulefill
+
+
+    Error 2 \hrulefill
+
+    Correction \hrulefill
+
+
+    Error 3 \hrulefill
+
+    Correction \hrulefill
+
+
+    Error 4 \hrulefill
+
+    Correction \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An algorithm has been written in pseudocode to check that a password meets
+    a set of rules.
+
+
+    \begin{alltt}
+
+    01 OUTPUT "Please enter password "
+
+    02 INPUT Password
+
+    03 Accept <- TRUE
+
+    04 IF LENGTH(Password) < 8 OR LENGTH(Password) > 20
+
+    05 THEN
+
+    06    Accept <- FALSE
+
+    07 ENDIF
+
+    08 IF LCASE(Password) = Password OR UCASE(Password) = Password
+
+    09 THEN
+
+    10    Accept <- FALSE
+
+    11 ENDIF
+
+    12 Index <- 1
+
+    13 Found <- FALSE
+
+    14 WHILE NOT Found AND Accept AND Index < LENGTH(Password)
+
+    15    IF SUBSTRING(Password, Index, 1) = ''!''
+
+    16    THEN
+
+    17       Found <- TRUE
+
+    18    ENDIF
+
+    19    Index <- Index + 1
+
+    20 ENDWHILE
+
+    21 IF NOT Found
+
+    22 THEN
+
+    23    Accept <- FALSE
+
+    24 ENDIF
+
+    25 IF Accept
+
+    26 THEN
+
+    27    OUTPUT "Accepted"
+
+    28 ELSE
+
+    29    OUTPUT "Rejected"
+
+    30 ENDIF
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "Complete the three trace tables using the data shown for each one.\n\n\\\
+      textbf{Data: MYWORD}\n\n\\begin{tabular}{|c|c|c|c|c|}\n\\hline\n\\textbf{Password}\
+      \ & \\textbf{Accept} & \\textbf{Index} & \\textbf{Found} & \\textbf{OUTPUT}\
+      \ \\\\ \\hline\n & & & & \\\\ \\hline\n & & & & \\\\ \\hline\n & & & & \\\\\
+      \ \\hline\n & & & & \\\\ \\hline\n & & & & \\\\ \\hline\n & & & & \\\\ \\hline\n\
+      \\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: State the rules that the password must meet.
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Building materials are sold in bags. A new database table called \texttt{BuildStock}
+    has been set up to store details about the materials for sale. Part of this table
+    is given.
+
+
+    \begin{tabular}{|c|l|c|c|c|c|}
+
+    \hline
+
+    \textbf{MtNo} & \textbf{Name} & \textbf{InStock} & \textbf{WeightKg} & \textbf{PricePerBag}
+    & \textbf{NumberBags} \\ \hline
+
+    MT01 & Builders sand & Yes & 50 & 4.50 & 50 \\ \hline
+
+    MT02 & Sharp sand & Yes & 25 & 3.50 & 21 \\ \hline
+
+    MT03 & Red sand & No & 50 & 2.75 & 0 \\ \hline
+
+    MT04 & Cement & No & 25 & 6.85 & 0 \\ \hline
+
+    MT05 & Chippings & Yes & 50 & 35.00 & 50 \\ \hline
+
+    MT06 & Cobbles & No & 75 & 67.35 & 0 \\ \hline
+
+    MT07 & Pebbles small & Yes & 50 & 34.50 & 3 \\ \hline
+
+    MT08 & Pebbles medium & Yes & 25 & 25.50 & 10 \\ \hline
+
+    MT12 & Pebbles large & Yes & 75 & 62.75 & 20 \\ \hline
+
+    MT15 & Washed gravel & Yes & 50 & 12.75 & 12 \\ \hline
+
+    MT16 & Pea gravel & Yes & 100 & 15.95 & 24 \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 11a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Write the output from this structured query language (SQL) statement.
+
+
+      \begin{alltt}
+
+      SELECT MtNo, Name
+
+      FROM BuildStock
+
+      WHERE WeightKg = 75
+
+      ORDER BY PricePerBag;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+  - number: 11bi
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete this SQL statement to display only the names of all the materials
+      that are out of stock.
+
+
+      \texttt{SELECT} \hrulefill
+
+      \texttt{FROM} \hrulefill
+
+      \texttt{WHERE} \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 11bii
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain how another SQL statement using a different field could be used
+      to display the same information.
+    answer_options: []
+    subquestions: []
+- number: '12'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'Members of a litter picking group complete a litter pick every month. Members''
+    names are stored in one-dimensional (1D) array \texttt{PickerName[]}
+
+
+    Each member stores the weight of the litter they have picked in another one-dimensional
+    (1D) array \texttt{PickedWeight[]}
+
+    The weights are in kilograms with one decimal place, for example 8.4
+
+
+    The position of each member''s data in the two arrays is the same. For example,
+    the member stored at index 10 in \texttt{PickerName[]} and at index 10 in \texttt{PickedWeight[]}
+    is the same.
+
+
+    Every month, there is a small prize awarded to the members of the group who have
+    the two heaviest weights. Certificates are awarded to all members with a pick
+    weight of over three kilograms.
+
+
+    Write a program that meets the following requirements:
+
+
+    \begin{itemize}
+
+    \item allows the weight of members'' picks to be input and validated
+
+    \item sorts the arrays \texttt{PickedWeight[]} and \texttt{PickerName[]} in descending
+    order of weight
+
+    \item outputs the member names and the pick weights of the members with the two
+    heaviest picks and identifies them as "Best in Group" and "Second best in Group"
+
+    \item stores the names of all the members who will receive a certificate in the
+    array \texttt{PickerCertificate[]}
+
+    \item outputs a message stating the number of certificates to be printed.
+
+    \end{itemize}
+
+
+    You must use pseudocode or program code \textbf{and} add comments to explain how
+    your code works.
+
+
+    You do \textbf{not} need to declare any arrays or variables; you may assume that
+    this has already been done.
+
+
+    All inputs and outputs must contain suitable messages.
+
+
+    You do \textbf{not} need to initialise the data in the array \texttt{PickerName[]}'
+  answer_options: []
+  subquestions: []

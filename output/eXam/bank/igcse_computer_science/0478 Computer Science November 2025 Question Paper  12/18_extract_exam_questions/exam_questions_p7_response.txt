@@ -1,0 +1,26 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      An online clothing company has a homepage at the uniform resource locator (URL)
+      https://www.cieclothes.com/index.html
+  - number: "6a"
+    type: short_answer
+    text: |
+      Write down the \textbf{three} different parts of the URL shown by the labels a, b and c.
+
+      https://www.cieclothes.com/index.html
+
+      a \hrulefill
+
+      b \hrulefill
+
+      c \hrulefill
+  - number: "6b"
+    type: long_answer
+    text: |
+      The web pages are stored on a web server. A proxy server is used to stop distributed denial of service (DDoS) attacks on the web server.
+
+      Describe how the proxy server can stop a DDoS attack reaching a web server.
+```

@@ -1,0 +1,48 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 3**
+
+Okay, the user wants me to handle page 3 of this exam. I see the questions are about embedded systems and memory types. I'll need to generate the YAML structure for each question. No problem, this is straightforward. Let's make sure the formatting is spot-on.
+
+Question "2": "Embedded systems are used in many electronic devices." - short answer type. Got it.
+
+Question "2a": "Describe the drawbacks of embedded systems." - a longer response is required here, a long answer.
+
+For "2b": "An embedded system has Dynamic RAM (DRAM). Identify one benefit of using DRAM instead of Static RAM (SRAM) in an embedded system." - this is also a short answer question, focusing on a single point. I'll bold "one" as per the user's requirements to highlight the instruction.
+
+Finally, question "2c": "Give two differences between Erasable Programmable ROM (EPROM) and Electrically Erasable Programmable ROM (EEPROM)." - This one needs two distinct answers. I'll need to structure the YAML to include the answer lines following the "Difference 1" and "Difference 2" labels. I just need to remember to follow the rule that says "a value followed by an answer line (e.g. `10010011 ........`) -> `10010011 \hrulefill` — value, space, fill rule." With the one blank line between the instruction and the first value, and no blank lines between values.
+
+So, I'll format that as:
+```yaml
+      Difference 1 \hrulefill
+
+      Difference 2 \hrulefill
+```
+Yes, clean and adheres to the rules. I'm all set!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Embedded systems are used in many electronic devices.
+  - number: "2a"
+    type: long_answer
+    text: |
+      Describe the drawbacks of embedded systems.
+  - number: "2b"
+    type: short_answer
+    text: |
+      An embedded system has Dynamic RAM (DRAM).
+
+      Identify \textbf{one} benefit of using DRAM instead of Static RAM (SRAM) in an embedded system.
+  - number: "2c"
+    type: short_answer
+    text: |
+      Give \textbf{two} differences between Erasable Programmable ROM (EPROM) and Electrically Erasable Programmable ROM (EEPROM).
+
+      Difference 1 \hrulefill
+
+      Difference 2 \hrulefill

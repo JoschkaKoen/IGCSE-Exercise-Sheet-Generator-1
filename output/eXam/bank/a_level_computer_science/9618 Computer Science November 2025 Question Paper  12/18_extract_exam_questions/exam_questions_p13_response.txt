@@ -1,0 +1,61 @@
+[thinking]
+**Page 13 of the Exam: A Transcription Challenge**
+
+Okay, so the user wants me to transcribe page 13 of this exam paper. Right, let's break this down. The first question, labeled "8," is about a restaurant using cloud computing. Easy enough: "A restaurant accesses software and stores data using cloud computing." Now, sub-question "8a" is just a placeholder, so I'll render `text: ''`. Thankfully the prompt clarified to use `text: ''` for empty text. "8ai" asks for *two* benefits of cloud data storage, followed by two slots. "8aii" is the mirror image, asking for *two* drawbacks, also with two slots. That seems straightforward.
+
+"8b" is about touchscreens, specifically for item selection in the restaurant. "8bi" requires an explanation of how the touchscreen translates touch into a menu selection – a longer answer, no specific marker count on that one. Finally, "8bii" presents a scenario of corrupted image files and asks for *two* examples of utility software to recover them. Again, two slots.
+
+I should double-check how these numbered slots render. They're formatted as:
+
+```yaml
+      1. \hrulefill
+      2. \hrulefill
+```
+
+Alright, I've got a handle on the structure and formatting. Time to generate that YAML.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A restaurant accesses software and stores data using cloud computing.
+  - number: "8a"
+    type: short_answer
+    text: ''
+  - number: "8ai"
+    type: short_answer
+    text: |
+      Give \textbf{two} benefits of storing data using cloud computing.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8aii"
+    type: short_answer
+    text: |
+      Give \textbf{two} drawbacks of using cloud computing.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8b"
+    type: short_answer
+    text: |
+      The restaurant uses touchscreens as input devices to allow staff to select items from a menu.
+  - number: "8bi"
+    type: long_answer
+    text: |
+      Explain how a touchscreen converts the point of touch to a selection from the menu.
+  - number: "8bii"
+    type: short_answer
+    text: |
+      The image files that are displayed on the touchscreen have been corrupted.
+
+      Identify \textbf{two} examples of utility software that could be used to recover the images.
+
+      1. \hrulefill
+      2. \hrulefill
+```

@@ -1,0 +1,499 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+
+    A validation check to make sure that an email address contains an ''@'' sign is
+    a'
+  answer_options:
+  - letter: A
+    text: range check.
+  - letter: B
+    text: visual check.
+  - letter: C
+    text: presence check.
+  - letter: D
+    text: format check.
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: \textbf{Four} descriptions of programming concepts and \textbf{five} programming
+    concepts are shown.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "Draw \\textbf{one} line to link each description to the most appropriate\
+      \ programming concept.\n\n\\textbf{Not} all programming concepts will be used.\n\
+      \n\\begin{tabular}{ll}\n\\textbf{Description} & \\textbf{Programming concept}\
+      \ \\\\\na subroutine that may \\textbf{not} return a value & function \\\\\n\
+      \ & \\\\\na value that is declared and used within a specific procedure & procedure\
+      \ \\\\\n & \\\\\na value that a procedure expects you to supply when it is called\
+      \ & parameter \\\\\n & \\\\\na subroutine that will always return a value &\
+      \ global variable \\\\\n & \\\\\n & local variable \\\\\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Write the pseudocode to use a procedure named \texttt{Average} that passes
+      the values 25 and 50 to the procedure.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Outline the role of procedures and functions in creating a program that
+      is easier to maintain.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'State what is meant by the data types integer and real.
+
+    Give an example of each.
+
+
+    Integer \hrulefill
+
+
+    Example \hrulefill
+
+
+    Real \hrulefill
+
+
+    Example \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'This pseudocode algorithm is intended to allow, at random, between 1 and
+    20 values to be entered and totalled. The total and average of the entered values
+    are output at the end of the algorithm.
+
+
+    \begin{alltt}
+
+    01 DECLARE Loop : STRING
+
+    02 DECLARE Limit : INTEGER
+
+    03 DECLARE Value : REAL
+
+    04 DECLARE Total : REAL
+
+    05 Total <- 0
+
+    06 Limit <- ROUND(RANDOM() * 19,0) + 1
+
+    07 IF Loop <- 1 TO Limit
+
+    08     OUTPUT "Enter a number"
+
+    09     INPUT Loop
+
+    10     Total <- Total * Value
+
+    11 NEXT Loop
+
+    12 OUTPUT "The total of the numbers entered is ", Total
+
+    13 OUTPUT "The average of the numbers entered is ", Total / Limit
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Identify the line numbers of \textbf{four} errors in the pseudocode and
+      suggest corrections.
+
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 4 line number \hrulefill
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Write the pseudocode statement that would output the average calculated
+      in line 13 of the algorithm rounded to \textbf{one} decimal place.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Explain how you should alter the original corrected algorithm to make sure
+      that all the numbers entered are between 1 and 500 inclusive. If any numbers
+      fall outside these limits, a replacement value is requested and entered.
+
+
+      You do \textbf{not} need to re-write the algorithm.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: "Write the pseudocode statements to perform this task:\n\\begin{itemize}\n\
+    \\item accept the input of a whole number from 1 to 4 inclusive\n\\item use a\
+    \ \\texttt{CASE} statement to:\n  \\begin{itemize}\n  \\item output the number\
+    \ (1 to 4 inclusive) that was entered\n  \\item output the word ``ERROR'' if a\
+    \ 1 to 4 inclusive number was \\textbf{not} entered.\n  \\end{itemize}\n\\end{itemize}"
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The flowchart represents an algorithm.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: "Complete the trace table for the input data:\n\n7, 47, 50, 52, 60, 80,\
+      \ 63, 70\n\n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}\n\\hline\n\\multicolumn{2}{|c|}{}\
+      \ & \\multicolumn{7}{c|}{\\textbf{Numbers}} & \\multicolumn{4}{c|}{} \\\\ \\\
+      hline\n\\textbf{Limit} & \\textbf{Count} & \\textbf{} & \\textbf{} & \\textbf{}\
+      \ & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{Flag} & \\\
+      textbf{Swap} & \\textbf{Result} & \\textbf{OUTPUT} \\\\ \\hline\n & & & & &\
+      \ & & & & & & & \\\\ \\hline\n & & & & & & & & & & & & \\\\ \\hline\n & & &\
+      \ & & & & & & & & & \\\\ \\hline\n & & & & & & & & & & & & \\\\ \\hline\n &\
+      \ & & & & & & & & & & & \\\\ \\hline\n & & & & & & & & & & & & \\\\ \\hline\n\
+      \ & & & & & & & & & & & & \\\\ \\hline\n & & & & & & & & & & & & \\\\ \\hline\n\
+      \ & & & & & & & & & & & & \\\\ \\hline\n & & & & & & & & & & & & \\\\ \\hline\n\
+      \\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Outline the processes involved in the algorithm shown in the flowchart on
+      page 6.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Outline why it is useful to store data in a file.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The function \texttt{LENGTH(X)} calculates the length of a string \texttt{X}
+
+
+      Write the pseudocode statements to:
+
+      \begin{itemize}
+
+      \item read the contents of the text file \texttt{Quotation.txt} into an appropriate
+      string variable that has been declared
+
+      \item output the string in upper case and the length of the string.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Consider the logic expression:
+
+
+    $$\text{Z} = (\text{R} \text{ OR NOT } \text{T}) \text{ XOR } (\text{NOT } \text{S}
+    \text{ AND } \text{T})$$'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Draw a logic circuit for this logic expression.
+
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+
+
+      Do \textbf{not} simplify this logic expression.'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table from the given logic expression.
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{R} & \textbf{S} & \textbf{T} & \textbf{Working space} & \textbf{Z} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A database table called \texttt{SoftDrinks} stores details of the soft drinks
+    sold by a small shop.
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Example data}}
+    \\ \hline
+
+    \texttt{Name} & Cola \\ \hline
+
+    \texttt{Supplier} & Cambridge Beverages \\ \hline
+
+    \texttt{Container} & Can \\ \hline
+
+    \texttt{SizeCl} & 330 \\ \hline
+
+    \texttt{NumberInStock} & 30 \\ \hline
+
+    \texttt{ReorderLevel} & 15 \\ \hline
+
+    \texttt{Reordered} & Yes \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State whether any of the given fields would be suitable as a primary key
+      and give a reason for your answer.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete the structured query language (SQL) statement to return the number
+      of cans the shop has in stock.
+
+
+      \begin{alltt}
+
+      SELECT \underline{\hspace{1.5em}} ( \underline{\hspace{1.5em}} )
+
+
+      FROM \underline{\hspace{1.5em}}
+
+
+      WHERE \underline{\hspace{1.5em}} = \underline{\hspace{1.5em}} ;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'The one-dimensional (1D) array \texttt{Clubs[]} is used to store the names
+    of 12 cricket clubs in a local sports league.
+
+
+    The two-dimensional (2D) array \texttt{Statistics[]} is used to store, for each
+    cricket club, the number of:
+
+    \begin{itemize}
+
+    \item matches won
+
+    \item matches drawn
+
+    \item matches lost.
+
+    \end{itemize}
+
+
+    The 1D array \texttt{Points[]} is used to store the total number of points each
+    cricket club has been awarded.
+
+
+    The position of any cricket club''s data is the same in all three arrays. For
+    example, the data in index 2 of \texttt{Statistics[]} and index 2 of \texttt{Points[]}
+    belongs to the cricket club in index 2 of \texttt{Clubs[]}
+
+
+    The variable \texttt{Matches} stores the number of matches played by each team.
+    Each team plays the same number of matches.
+
+
+    Points are awarded for:
+
+    \begin{itemize}
+
+    \item a win -- 12 points
+
+    \item a draw -- 5 points
+
+    \item a loss -- 0 points.
+
+    \end{itemize}
+
+
+    Write a program that meets the following requirements:
+
+    \begin{itemize}
+
+    \item allows the number of matches played to be input and stored, with a maximum
+    of 22 matches
+
+    \item validates the number of matches played
+
+    \item allows the names of the cricket clubs to be input and stored
+
+    \item allows the number of matches won, drawn and lost to be input and stored
+    for each team
+
+    \item validates the number of matches won, drawn or lost against the number of
+    matches played
+
+    \item asks the user to re-enter the number of matches won, drawn or lost if the
+    total does not match the number of matches played
+
+    \item calculates and stores the total number of points for each club
+
+    \item finds the cricket club or clubs with the highest number of points
+
+    \item outputs the name or names of the winning club or clubs, the number of wins
+    and the total number of points awarded.
+
+    \end{itemize}
+
+
+    You must use pseudocode or program code \textbf{and} add comments to explain how
+    your code works.
+
+
+    You do \textbf{not} need to declare any arrays or variables; you may assume that
+    this has already been done.
+
+
+    All inputs and outputs must contain suitable messages.'
+  answer_options: []
+  subquestions: []

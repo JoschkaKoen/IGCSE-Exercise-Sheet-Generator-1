@@ -1,0 +1,29 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Define acceleration.
+  - number: "1b"
+    type: short_answer
+    text: |
+      In an experiment, two objects A and B are released from the side of a building, as shown in Fig. 1.1.
+
+      Object A is released from rest at a height of $14\text{ m}$ above the horizontal ground.
+      Object B is released with an initial upwards vertical velocity $u$ at a height of $3.6\text{ m}$ above the ground.
+      Both objects take the same time to reach the ground and they do not collide with each other.
+      Air resistance is negligible.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Calculate the time taken for object A to reach the ground.
+
+      time = \hrulefill s
+  - number: "1bii"
+    type: calculation
+    text: |
+      Use your answer in (b)(i) to calculate $u$.
+
+      u = \hrulefill \text{ m}\,\text{s}^{-1}

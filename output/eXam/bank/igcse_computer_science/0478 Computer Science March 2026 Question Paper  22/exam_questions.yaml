@@ -1,0 +1,553 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) \textbf{one} box to identify the reason for applying a
+    verification check to input data.
+  answer_options:
+  - letter: A
+    text: To make sure that all the data is in the correct range.
+  - letter: B
+    text: To make sure that all the data is accurate.
+  - letter: C
+    text: To make sure that no errors have been introduced during input.
+  - letter: D
+    text: To make sure that all the data is of the correct length.
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Identify the type of validation check in each description. Each check must
+      be different.
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: A check to make sure that data input follows a set pattern such as two
+        letters followed by three numbers.
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: A check to make sure that only whole numbers can be input.
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain the reasons why validation checks are necessary when data is input.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Write the pseudocode for an algorithm to perform a validation check on
+      each number as it is input to meet the following criteria:
+
+
+      \begin{itemize}
+
+      \item Input 20 numbers, one at a time.
+
+      \item If a number is negative, store it in the current element of array \texttt{NegNumbers[]}
+
+      \item If a number is \textbf{not} negative, ask for it to be input again until
+      a negative number is input.
+
+      \item When all 20 negative numbers have been stored, output a message to state
+      the check has been completed.
+
+      \end{itemize}
+
+
+      Use appropriate input prompts and output messages to make the requirements clear
+      to the user.
+
+
+      Do \textbf{not} declare any arrays or variables for this algorithm.'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: long_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'The program development life cycle is split into a number of stages.
+
+
+    Describe what happens during the analysis and design stages of the program development
+    life cycle.
+
+
+    analysis \hrulefill
+
+
+    design \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) \textbf{one} box to identify which of the following does
+    \textbf{not} help to create a maintainable program.
+  answer_options:
+  - letter: A
+    text: Use meaningful identifiers for variable names.
+  - letter: B
+    text: Remove blank lines to make the program code shorter.
+  - letter: C
+    text: Use procedures and functions.
+  - letter: D
+    text: Use the commenting feature provided by the programming languages.
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'This pseudocode algorithm is intended to sort 200 names in ascending order,
+    using a bubble sort. The last names and first names are stored in separate columns
+    of a two-dimensional (2D) array. The last names are stored in column 1 of the
+    array.
+
+
+    \begin{alltt}
+
+    01 // The array Names[] has already been declared as
+
+    02 // ARRAY[1:200, 1:2] OF STRING and it is already populated
+
+    03 DECLARE Row : STRING
+
+    04 DECLARE Temp1 : STRING
+
+    05 DECLARE Temp2 : STRING
+
+    06 DECLARE Swap : BOOLEAN
+
+    07 Swap <- FALSE
+
+    08 WHILE NOT Swap DO
+
+    09   Swap <- FALSE
+
+    10   FOR Row <- 2 TO 199
+
+    11     IF Names[Row, 1] > Names[Row + 1, 1]
+
+    12       THEN
+
+    13         Temp1 <- Names[Row, 1]
+
+    14         Temp2 <- Names[Row, 2]
+
+    15         Names[Row, 1] <- Names[Row + 1, 1]
+
+    16         Names[Row, 1] <- Names[Row + 1, 2]
+
+    17         Names[Row + 1, 1] <- Temp1
+
+    18         Names[Row + 1, 2] <- Temp2
+
+    19         Swap <- FALSE
+
+    20     ENDIF
+
+    21   NEXT Column
+
+    22 ENDWHILE
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Identify the line numbers of five errors in the pseudocode and suggest
+      corrections.
+
+
+      error 1 line number \hrulefill
+
+
+      correction \hrulefill
+
+
+      error 2 line number \hrulefill
+
+
+      correction \hrulefill
+
+
+      error 3 line number \hrulefill
+
+
+      correction \hrulefill
+
+
+      error 4 line number \hrulefill
+
+
+      correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Write the pseudocode for an algorithm, using nested iteration, to output
+      the contents of \texttt{Names[]}
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe a possible problem with the algorithm that could mean the names
+      are not sorted accurately.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: This flowchart represents an algorithm.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: "Complete the trace table for the algorithm, using the given sentence.\n\
+      \nNote: the start position of the sentence is index 1.\n\n\\begin{tabular}{|l|c|c|c|c|c|}\n\
+      \\hline\n\\textbf{Sentence} & \\textbf{SentLength} & \\textbf{LetterNo} & \\\
+      textbf{Start} & \\textbf{Word} & \\textbf{OUTPUT} \\\\ \\hline\nComputing is\
+      \ fun & 16 & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\\
+      hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\\
+      hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\\
+      hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\\
+      hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\\
+      hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain the purpose of the algorithm shown by the flowchart.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'As currently written, the algorithm may be difficult to understand if it
+      was used as a program.
+
+
+      Identify \textbf{three} improvements that could be made to the algorithm to
+      make it more user friendly.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Consider the logic expression:
+
+
+    $$X = (\text{A NAND NOT B) XOR (A NOR C)}$$'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Draw a logic circuit for this logic expression.
+
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+
+
+      Do \textbf{not} simplify the logic expression.'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table from the given logic expression.
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{X} \\ \hline
+
+      0 & 0 & 0 & \hrulefill \\ \hline
+
+      0 & 0 & 1 & \hrulefill \\ \hline
+
+      0 & 1 & 0 & \hrulefill \\ \hline
+
+      0 & 1 & 1 & \hrulefill \\ \hline
+
+      1 & 0 & 0 & \hrulefill \\ \hline
+
+      1 & 0 & 1 & \hrulefill \\ \hline
+
+      1 & 1 & 0 & \hrulefill \\ \hline
+
+      1 & 1 & 1 & \hrulefill \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A database table \texttt{NATIONAL\_TREES} stores details of the national
+    trees of some countries from around the world.
+
+
+    \begin{tabular}{|l|l|l|l|l|}
+
+    \hline
+
+    \textbf{IDCode} & \textbf{Country} & \textbf{Continent} & \textbf{CommonName}
+    & \textbf{ScientificName} \\ \hline
+
+    EU121 & Albania & Europe & Olive & Olea europaea \\ \hline
+
+    OC235 & Australia & Oceania & Golden wattle & Acacia pycnantha \\ \hline
+
+    NO126 & The Bahamas & North America & Lignum vitae & Guaiacum sanctum \\ \hline
+
+    AS534 & Bangladesh & Asia & Mango tree & Mangifera indica \\ \hline
+
+    SO326 & Brazil & South America & Brazilwood & Caesalpinia echinata \\ \hline
+
+    NO124 & Canada & North America & Maple & Acer \\ \hline
+
+    EU321 & Cyprus & Europe & Golden oak & Quercus alnifolia \\ \hline
+
+    NA456 & Dominican Republic & North America & West Indian mahogany & Swietenia
+    mahagoni \\ \hline
+
+    EU652 & Finland & Europe & Silver birch & Betula pendula \\ \hline
+
+    AS222 & India & Asia & Indian banyan & Ficus benghalensis \\ \hline
+
+    NO232 & Jamaica & North America & Blue mahoe & Talipariti elatum \\ \hline
+
+    AF875 & Madagascar & Africa & Baobab & Adansonia \\ \hline
+
+    OC123 & New Zealand & Oceania & Silver fern & Cyathea dealbata \\ \hline
+
+    AS498 & Philippines & Asia & Narra & Pterocarpus indicus \\ \hline
+
+    AF501 & South Africa & Africa & Real yellowwood & Podocarpus latifolius \\ \hline
+
+    SO522 & Venezuela & South America & Araguaney & Tabebuia chrysantha \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State the number of fields and records in this database table.
+
+
+      fields \hrulefill
+
+      records \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The data in both \texttt{IDCode} and \texttt{Country} fields are unique
+      in the database table.
+
+
+      State \textbf{one} reason why \texttt{IDCode} would make a better primary key
+      than \texttt{Country}'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give the output that would be produced by the structured query language
+      (SQL) statement:
+
+
+      \begin{alltt}
+
+      SELECT IDCode, Country, CommonName
+
+      FROM NATIONAL_TREES
+
+      WHERE Continent = "Europe";
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete the SQL statement to list only the country, common name and scientific
+      name of the national trees listed for North America, in alphabetical order of
+      their common names.
+
+
+      \begin{alltt}
+
+      SELECT \hrulefill
+
+      \newline
+
+      FROM \hrulefill
+
+      \newline
+
+      WHERE \hrulefill
+
+      \newline
+
+      \hrulefill ;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: long_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'A program is required to enable voting in class surveys, for example to find
+    the most popular smartphone.
+
+
+    The one-dimensional (1D) array \texttt{Options[]} is used to store between 2 and
+    12 options on which users can vote.
+
+
+    The one-dimensional (1D) array \texttt{Votes[]} is used to store the votes of
+    between 2 and 1000 users.
+
+
+    The one-dimensional (1D) array \texttt{VoteCount[]} is used to store the number
+    of votes for each of the options. The array index represents the option number.
+
+
+    Write a program for the following requirements:
+
+
+    \begin{itemize}
+
+    \item Initialise all the arrays before they are used.
+
+    \item Input and validate the number of options and the number of voters.
+
+    \item Input each of the required options and store them in the array \texttt{Options[]}
+
+    \item Display the list of options for each voter and allow each voter to input
+    their preferred option. Validate this input and store it in the array \texttt{Votes[]}
+
+    \item Once all the votes have been input, count the number of voters who chose
+    each option and find the most and least popular options.
+
+    \item Output the most and least popular options as well as the number of voters
+    who selected each of these options.
+
+    \end{itemize}
+
+
+    The program does \textbf{not} need to identify if two or more options are the
+    equal most or least popular.
+
+
+    You must use pseudocode or program code, and add comments to explain how your
+    code works.
+
+
+    Do \textbf{not} declare arrays, variables or constants for this algorithm; assume
+    this has been done. Initialisation must be carried out as appropriate.
+
+
+    All inputs and outputs must contain suitable messages.'
+  answer_options: []
+  subquestions: []

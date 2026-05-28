@@ -1,0 +1,50 @@
+questions:
+  - number: "39"
+    type: multiple_choice
+    text: |
+      The number of electrons in a neutral atom of an isotope of plutonium, $^{239}_{94}\text{Pu}$, is changed to produce a charged atom (ion) W.
+
+      W has an overall charge of $+1.6 \times 10^{-19}\text{ C}$.
+
+      How many protons, neutrons and electrons are in W?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & protons & neutrons & electrons \\
+      \hline
+      \textbf{A} & 94 & 145 & 93 \\
+      \textbf{B} & 94 & 145 & 95 \\
+      \textbf{C} & 238 & 94 & 239 \\
+      \textbf{D} & 239 & 94 & 238 \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "40"
+    type: multiple_choice
+    text: |
+      Which particle is a lepton?
+    options:
+      - letter: A
+        text: |
+          meson
+      - letter: B
+        text: |
+          positron
+      - letter: C
+        text: |
+          proton
+      - letter: D
+        text: |
+          quark

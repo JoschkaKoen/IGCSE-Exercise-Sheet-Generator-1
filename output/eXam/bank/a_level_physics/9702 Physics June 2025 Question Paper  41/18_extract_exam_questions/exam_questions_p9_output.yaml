@@ -1,0 +1,37 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: ''
+  - number: "4ai"
+    type: short_answer
+    text: |
+      State what is meant by the internal energy of a system.
+  - number: "4aii"
+    type: long_answer
+    text: |
+      Explain why the internal energy of an ideal gas is directly proportional to the thermodynamic temperature of the gas.
+  - number: "4b"
+    type: short_answer
+    text: |
+      A sample of an ideal gas at thermodynamic temperature $T$ has internal energy $U$.
+
+      The gas is compressed so that its temperature increases to $3T$.
+      During this compression, work $W$ is done on the gas.
+
+      The gas is then cooled at constant volume so that its temperature decreases to $2T$.
+
+      Complete Table 4.1 to show, in terms of some or all of $W$, $T$ and $U$, the work done on the gas, the thermal energy supplied to the gas and the increase in internal energy of the gas for each of the two processes.
+
+      \textbf{Table 4.1}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & work done on gas & \begin{tabular}{c} thermal energy \\ supplied to gas \end{tabular} & \begin{tabular}{c} increase in internal \\ energy of gas \end{tabular} \\ \hline
+      compression & $+W$ & & \\ \hline
+      cooling & & & \\ \hline
+      \end{tabular}
+```

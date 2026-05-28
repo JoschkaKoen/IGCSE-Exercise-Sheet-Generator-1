@@ -1,0 +1,73 @@
+[thinking]
+**Page 5 YAML Stub Population**
+
+Okay, so I need to populate the YAML stub for page 5 of this exam.  The prompt is pretty specific – I need to ensure every stub entry is accounted for, and if an entry's stem isn't visible on the page, it's a STUB ERROR.  No guessing allowed!
+
+First, I see the top-level question, `3b`.  Looking at the stub, it has sub-questions `3bi`, `3bii`, and `3biii`.  The real question is, is `3b` itself a parent question *with* text, or is it a grouping without text? The prompt says the stub is curated for this page, so if I don't see the text it's an error. But "(b)" *is* visible as part of the "(b) (i)" label.
+
+Let's check the image.  Ah, "(b) (i) Complete the Karnaugh map..." is the start.  There's no standalone "(b)" heading. So `3b` is a structural grouping and *doesn't* have its own text. I'll set `3b` to `text: ''`.
+
+Moving on to `3bi`, the text is "Complete the Karnaugh map (K-map) for the given truth table."  I'll need to represent the K-map visually. Let's make this into a LaTeX table:
+
+I'll use a `\begin{tabular}` environment to represent the K-map. I need to make sure the labels are in the right places, and the layout looks good. I think this simpler version is the better approach:
+
+```latex
+\begin{tabular}{r|c|c|c|c|}
+\multicolumn{1}{r}{\textbf{CD} \quad \textbf{AB}} & \multicolumn{1}{c}{\textbf{00}} & \multicolumn{1}{c}{\textbf{01}} & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}} \\
+\cline{2-5}
+\textbf{00} & & & & \\
+\cline{2-5}
+\textbf{01} & & & & \\
+\cline{2-5}
+\textbf{11} & & & & \\
+\cline{2-5}
+\textbf{10} & & & & \\
+\cline{2-5}
+\end{tabular}
+```
+
+That looks clean and accurate.
+
+Next, `3bii`: "Draw loop(s) around appropriate group(s) in the K-map to produce an optimal sum-of-products." That should be straightforward.
+
+Finally, `3biii`: "Write the Boolean logic expression from your answer to part (b)(ii) as the simplified sum-of-products."  It also gives `Z = \hrulefill` at the end.
+
+Just to be absolutely certain, let's revisit `3b`. Again, since the label "(b)" is part of "(b) (i)" on the image, the prompt's instructions indicate that `3b` doesn't have its own text. It acts as a structural header. So, `text: ''` is correct for `3b`.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "3b"
+    type: short_answer
+    text: ''
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Complete the Karnaugh map (K-map) for the given truth table.
+
+      \begin{tabular}{r|c|c|c|c|}
+      \multicolumn{1}{r}{\textbf{CD} \quad \textbf{AB}} & \multicolumn{1}{c}{\textbf{00}} & \multicolumn{1}{c}{\textbf{01}} & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}} \\
+      \cline{2-5}
+      \textbf{00} & & & & \\
+      \cline{2-5}
+      \textbf{01} & & & & \\
+      \cline{2-5}
+      \textbf{11} & & & & \\
+      \cline{2-5}
+      \textbf{10} & & & & \\
+      \cline{2-5}
+      \end{tabular}
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Draw loop(s) around appropriate group(s) in the K-map to produce an optimal sum-of-products.
+  - number: "3biii"
+    type: short_answer
+    text: |
+      Write the Boolean logic expression from your answer to part \textbf{(b)(ii)} as the simplified sum-of-products.
+
+      \textbf{Z} = \hrulefill
+```

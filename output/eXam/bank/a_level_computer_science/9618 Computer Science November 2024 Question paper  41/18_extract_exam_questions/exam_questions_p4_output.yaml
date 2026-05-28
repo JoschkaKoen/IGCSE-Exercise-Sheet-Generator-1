@@ -1,0 +1,31 @@
+questions:
+  - number: "1c"
+    type: long_answer
+    text: |
+      The function \texttt{CompareStrings()}:
+
+      \begin{itemize}
+      \item takes two strings as parameters
+      \item compares each string, one character at a time, to identify which string comes first alphabetically. If the first two characters are the same, the second character of each string is compared. This continues until the two characters are different.
+      \end{itemize}
+
+      The function:
+
+      \begin{itemize}
+      \item returns 1 if the first parameter comes before the second alphabetically
+      \item returns 2 if the second parameter comes before the first alphabetically.
+      \end{itemize}
+
+      Write program code for \texttt{CompareStrings()}.
+
+      Assume that all strings are in lower case.
+
+      Assume that a difference between two strings will always be identified before the end of one string is reached.
+
+      Do \textbf{not} use an in-built string comparison function.
+
+      The strings must be compared one character at a time.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.

@@ -1,0 +1,65 @@
+[thinking]
+**Analyzing and Structuring Exam Page 13**
+
+Okay, so the user wants me to transcribe page 13 of an exam. The stub provided includes "2g", "2gi", and "2gii". My immediate thought is, let's break this down systematically. First, I need to understand how the questions are structured. There is an empty container or intro question `2g`, and two sub-questions. Let's look at the actual page to confirm.
+
+Ah, confirmed. The page starts directly with "(g) (i)" and "(g) (ii)". There is no introductory text associated with the parent question `2g`. Good to know! The stub includes `2g`, so I will set its text to an empty string because there is no introduction or instructions.
+
+Now, let's address the individual questions. "(g) (i)" asks for four sources of uncertainty or limitations, with each answer to include the measured quantity and a reason. The OCR confirms this text. The YAML formatting will reflect this with:
+
+```yaml
+text: |
+  Describe \textbf{four} sources of uncertainty or limitations of the procedure for this experiment.
+
+  For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+  1. \hrulefill
+  2. \hrulefill
+  3. \hrulefill
+  4. \hrulefill
+```
+
+Similarly, question "(g) (ii)" requests four improvements for the experiment. I'll construct the YAML for that as follows:
+
+```yaml
+text: |
+  Describe \textbf{four} improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+  1. \hrulefill
+  2. \hrulefill
+  3. \hrulefill
+  4. \hrulefill
+```
+
+Finally, I need to make sure I am following the instructions for numbered slots precisely, with each slot on its own line and separated by a single newline. Also, no blank line between slots.
+
+I think I've got it. "2g" is empty. "2gi" and "2gii" are formatted to include both the instructions and the fill-in slots with numbered hrulefills. I'm ready to proceed with transcribing this page accurately.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2g"
+    type: short_answer
+    text: ''
+  - number: "2gi"
+    type: long_answer
+    text: |
+      Describe \textbf{four} sources of uncertainty or limitations of the procedure for this experiment.
+
+      For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "2gii"
+    type: long_answer
+    text: |
+      Describe \textbf{four} improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill

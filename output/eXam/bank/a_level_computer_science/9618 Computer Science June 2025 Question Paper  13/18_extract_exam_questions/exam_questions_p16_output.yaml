@@ -1,0 +1,23 @@
+questions:
+  - number: "6d"
+    type: short_answer
+    text: |
+      The shop uses a Database Management System (DBMS).
+  - number: "6di"
+    type: short_answer
+    text: |
+      One feature provided by a DBMS is a data dictionary.
+
+      The data dictionary stores the attribute names, table names, foreign keys and primary keys in the database.
+
+      Identify \textbf{three} other items stored in a data dictionary.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "6dii"
+    type: long_answer
+    text: |
+      The DBMS provides a developer interface.
+
+      Explain how a database designer can make use of the developer interface.

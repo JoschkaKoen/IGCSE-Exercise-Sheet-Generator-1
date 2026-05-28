@@ -1,0 +1,33 @@
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3bi"
+    type: calculation
+    text: |
+      Determine the unstretched length of the rope.
+
+      length = \hrulefill m
+  - number: "3bii"
+    type: calculation
+    text: |
+      Determine the spring constant $k$ of the rope.
+
+      $k$ = \hrulefill $\text{N}\,\text{m}^{-1}$
+  - number: "3c"
+    type: short_answer
+    text: |
+      For the position of the bungee jumper at a distance of $120\text{ m}$ below the bridge:
+  - number: "3ci"
+    type: calculation
+    text: |
+      show that the loss of gravitational potential energy since leaving the bridge is $75\text{ kJ}$
+  - number: "3cii"
+    type: calculation
+    text: |
+      show that the elastic potential energy in the rope is $75\text{ kJ}$.
+  - number: "3d"
+    type: short_answer
+    text: |
+      Explain what can be deduced from the information in \textbf{(c)} about the speed of the bungee jumper when at a distance of $120\text{ m}$ below the bridge.

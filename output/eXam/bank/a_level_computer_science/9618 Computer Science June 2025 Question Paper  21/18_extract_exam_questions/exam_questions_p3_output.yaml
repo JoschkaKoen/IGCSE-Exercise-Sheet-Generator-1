@@ -1,0 +1,7 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      Decomposition has been used to design the program to help the shop manager control the stock.
+
+      Describe decomposition.

@@ -1,0 +1,90 @@
+[thinking]
+**Analyzing and Transcribing Exam Question 1**
+
+Okay, so I need to transcribe page 2 of this exam paper. The stub gives me "1", "1a", and "1b". This indicates a main question and two sub-questions, a very standard structure. Let's see what we've got.
+
+First, I see Question 1 is, *really*, "1 (a) Complete the sentences about number systems." which leads me to deduce that "1" is the overarching umbrella for the question, "1a" is the first sub-question, and "1b" is the second. Let me quickly check if Question 1 itself has any standalone text or if it’s just a container. Since "1a" starts right away with, "Complete the sentences about number systems.", it seems unlikely that "1" has its *own* separate instruction.
+
+Okay, let's look at the structure again. The stub has:
+- "1"
+- "1a"
+- "1b"
+
+Since "1" is listed, let's see if there is a general introduction. No, "1 (a)" is the first thing. So the main instructions are in "1a". So I think "1" will be a placeholder or maybe an empty container. I should confirm this. Let's make "1" empty for now. `text: ''`. I'm going to set it's `type` to `short_answer`.
+
+Now "1a" looks like a fill-in-the-blanks about number systems, with a list of items to use. I'll need to capture all the text, including the instructions and the list. I'm going to transcribe everything, formatting it so it's readable. I must get the whole question and list.
+
+Now let's see the next sub-question. Okay, "1b" is about binary addition, and the format is provided using a table. Let's see... it wants the sum of two 8-bit binary numbers. I'll need to capture the binary numbers and represent it using LaTeX's table environment so it looks correct.
+```latex
+\begin{tabular}{r}
+  1 0 0 1 1 0 1 1 \\
++ 0 0 0 1 0 0 1 1 \\
+\hline
+\end{tabular}
+```
+Yeah, that's clean and clear.
+
+Okay, so I can confirm that "1" doesn't need its own text. Everything is covered under "1a" and "1b". It should be fine to set the "1"'s text as empty.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Complete the sentences about number systems.
+
+      Use the items from the list.
+
+      Some of the items in the list will \textbf{not} be used. You should only use an item once.
+
+      \begin{itemize}
+      \item A
+      \item B
+      \item C
+      \item D
+      \item E
+      \item F
+      \item G
+      \item H
+      \item W
+      \item X
+      \item Y
+      \item Z
+      \item 0
+      \item 1
+      \item 2
+      \item 4
+      \item 8
+      \item 10
+      \item 16
+      \item 127
+      \item 128
+      \item 255
+      \item 256
+      \end{itemize}
+
+      The binary number system is base \underline{\hspace{1.5em}}. The smallest denary number that can be represented as an 8-bit binary number is \underline{\hspace{1.5em}}. The largest denary number that can be represented as an 8-bit binary number is \underline{\hspace{1.5em}}.
+
+      The hexadecimal number system is base \underline{\hspace{1.5em}}. Each hexadecimal digit is equivalent to \underline{\hspace{1.5em}} bits. The numbers 1 to 9 are used and the number 10 is represented by \underline{\hspace{1.5em}}. The hexadecimal number system continues up to the number 15, which is represented by \underline{\hspace{1.5em}}.
+  - number: "1b"
+    type: calculation
+    text: |
+      Two 8-bit binary numbers are given.
+
+      Add the two 8-bit binary numbers using binary addition.
+
+      Give your answer in binary. Show all your working.
+
+      \begin{tabular}{r}
+        1 0 0 1 1 0 1 1 \\
+      + 0 0 0 1 0 0 1 1 \\
+      \hline
+      \end{tabular}
+```

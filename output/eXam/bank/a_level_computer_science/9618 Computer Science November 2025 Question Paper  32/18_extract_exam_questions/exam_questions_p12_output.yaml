@@ -1,0 +1,46 @@
+questions:
+  - number: "12"
+    type: short_answer
+    text: |
+      The following table shows the global variables used to implement a stack.
+  - number: "12a"
+    type: short_answer
+    text: |
+      A stack has been implemented using pseudocode to store a maximum of 100 string items using the global variables in the following table:
+
+      \begin{tabular}{|c|c|l|c|}
+      \hline
+      \textbf{Identifier} & \textbf{Data type} & \textbf{Description} & \textbf{Initialisation value} \\ \hline
+      Base & INTEGER & pointer for the bottom of the stack & 0 \\ \hline
+      Top & INTEGER & pointer for the top of the stack & -1 \\ \hline
+      StackArray & STRING & 1D array to implement the stack & [0:99] \\ \hline
+      Max & INTEGER & maximum number of items in the stack & 100 \\ \hline
+      \end{tabular}
+
+      The value of \texttt{Top} is incremented each time a data item is added to the stack and decremented each time a data item is removed. If the stack is full, an appropriate error message is output.
+  - number: "12ai"
+    type: short_answer
+    text: |
+      Complete the \textbf{pseudocode} for the procedure to add a data item onto the stack.
+
+      \begin{alltt}
+      PROCEDURE Push(\underline{\hspace{1.5em}})
+          IF Top < Max - 1 THEN
+
+              Top <- \underline{\hspace{1.5em}}
+
+              \underline{\hspace{1.5em}} <- NewData
+          ELSE
+
+              OUTPUT \underline{\hspace{1.5em}}
+          ENDIF
+      ENDPROCEDURE
+      \end{alltt}
+  - number: "12aii"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} to input a new data item and add it to the stack using \texttt{Push()}.
+  - number: "12b"
+    type: long_answer
+    text: |
+      Explain the reasons why a stack is used when a recursive algorithm is executed.

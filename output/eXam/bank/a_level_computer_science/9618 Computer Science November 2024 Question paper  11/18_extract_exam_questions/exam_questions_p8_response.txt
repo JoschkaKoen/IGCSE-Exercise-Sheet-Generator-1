@@ -1,0 +1,41 @@
+[thinking]
+**Page 8 Exam Question Breakdown**
+
+Okay, so I'm on page 8, and the task is to essentially transcribe the questions. It looks like we have a few parts to this. First, I need to format each question, ensuring the question number and type are correct.
+
+Let's see, question `3c` is a short answer asking me to identify two disadvantages of using DRAM over SRAM. I need to make sure to emphasize "two" as that is important. I need to output it in a yaml-formatted block. I'll need two blank lines for the answers.
+
+Then comes `3d`, which is also a short answer. It sets the scene: a computer stores temperature sensor data every five seconds on an optical disc using a reader/writer. No answers needed here, it's just context.
+
+Next is `3di`, a long answer question, which wants me to describe the principle operation of that optical disc reader/writer. I know that like the back of my hand. I'll need to generate a YAML block for that one, too.
+
+Finally, `3dii`, another long answer. This asks me to explain the use of a buffer when writing data to the optical disc. I'm going to have to make sure to clearly write out the use of the buffer.
+
+The formatting is key. I've double-checked the rules for stripping prefixes like "(i)," "(ii)," etc., from the question text and I've ensured that each section is correctly represented in the YAML format. It all looks clean and ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      Identify \textbf{two} disadvantages of using Dynamic RAM (DRAM) instead of Static RAM (SRAM) in a computer system.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3d"
+    type: short_answer
+    text: |
+      The computer system is used to store data received from a temperature sensor every five seconds. The data is stored on an optical disc using an optical disc reader/writer.
+  - number: "3di"
+    type: long_answer
+    text: |
+      Describe the principal operation of an optical disc reader/writer.
+  - number: "3dii"
+    type: long_answer
+    text: |
+      The computer uses a buffer when writing data to the optical disc.
+
+      Explain the use of a buffer when writing data to the optical disc.

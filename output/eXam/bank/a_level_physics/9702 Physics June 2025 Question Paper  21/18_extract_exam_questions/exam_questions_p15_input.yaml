@@ -1,0 +1,9 @@
+  - number: "6b"
+    type: short_answer
+    text: ""
+  - number: "6bi"
+    type: long_answer
+    text: ""
+  - number: "6bii"
+    type: long_answer
+    text: ""

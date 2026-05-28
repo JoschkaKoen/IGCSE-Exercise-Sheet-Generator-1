@@ -1,0 +1,39 @@
+[thinking]
+**Analyzing Exam Page 12: Structuring Questions 5, 5a, 5b, and 5bi**
+
+Okay, so I need to transcribe page 12 of this exam. The task seems straightforward, but I need to make sure I structure these questions correctly. The questions are labeled "5", "5a", "5b", and "5bi". I'm seeing "5 (a) Define the Young modulus." which throws me for a loop initially. I need to figure out what each of these numbers represents in the larger scheme.
+
+I'm thinking, is "5" the main question, or just a section label? Is there an implied parent question? No, there isn't any text before "5 (a)", so "5" isn't a parent. The yaml stub provided is my guide.
+
+Let me break down the structure: I have a stub with entries for 5, 5a, 5b, and 5bi. Okay, the instructions are clear: if there is no text provided, let the text be empty, if there is a problem:  `emit a | block scalar containing STUB ERROR`.
+The structure makes the following assignment clear:
+*   "5": It's appearing that there's nothing explicitly before question "5 (a)", I should leave it empty in the yaml: `text: ''`.
+*   "5a": The text is literally "Define the Young modulus", so that's easy to transcribe with `text: |` `Define the Young modulus.`
+*   "5b": This is the description of the wire problem, with the force-extension graph. Let's make it the following text: `text: |` `A wire of unstretched length $0.81\text{ m}$ is made of a metal with Young modulus $95\text{ GPa}$. The wire obeys Hooke's law and has a constant cross-sectional area. Fig. 5.1 shows the force--extension graph for the wire.`
+*   "5bi": This is the calculation: "Determine the cross-sectional area of the wire." So, I need to transcribe this and set up the answer placeholder: `text: |` `Determine the cross-sectional area of the wire.`  and `area = \hrulefill \text{ m}^2`.
+
+I'll double-check "5" again. Since there is no actual text preceding "5a" and also I have the instructions to follow, "5" should definitely be empty.
+So, I'm now certain of the structure. I should proceed with transcribing based on these assessments.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: short_answer
+    text: |
+      Define the Young modulus.
+  - number: "5b"
+    type: short_answer
+    text: |
+      A wire of unstretched length $0.81\text{ m}$ is made of a metal with Young modulus $95\text{ GPa}$. The wire obeys Hooke's law and has a constant cross-sectional area. Fig. 5.1 shows the force–extension graph for the wire.
+  - number: "5bi"
+    type: calculation
+    text: |
+      Determine the cross-sectional area of the wire.
+
+      area = \hrulefill $\text{m}^2$

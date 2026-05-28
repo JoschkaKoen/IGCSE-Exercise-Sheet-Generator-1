@@ -1,0 +1,64 @@
+[thinking]
+**Exam Question Transcription & Refinement**
+
+Okay, so the user wants me to extract and format the questions from this exam page image. Let's break this down systematically. First, I need to read through the questions and identify the various parts. Looks like we've got a few sub-questions within a larger question structure.
+
+I see questions labeled as `1bi`, `1bii`, `1c`, `1ci`, `1cii`, `1ciii`, and `1civ`. Each needs to be extracted and formatted, keeping in mind that some questions have a bit of context or instructions provided. I need to output the question text and a placeholder for the answer, using YAML format. It also seems like I need to remove the subquestion prefixes like `(i)`, `(ii)`, and `(c)`.
+
+Here's my thought process for each question:
+
+*   `1bi`: This is pretty straightforward. I need to pull out "State an expression, in terms of $R$ and $\omega$, for the speed $v$ of the ball." and add `$v = $ \hrulefill`.
+*   `1bii`: Similar to the previous one, I need to extract "Determine an expression, in terms of $v$ and $\omega$, for the centripetal acceleration of the ball." and add  `$\text{centripetal acceleration} = $ \hrulefill`.
+*   `1c`: This is a contextual statement. I need to strip the initial "(c) " and keep "The ball in **(b)** is in the position shown in Fig. 1.1, such that line OB is at an angle $\theta$ to the line OP."
+*   `1ci`: For this one, I need to take out "(i) " and format it as text: "Determine an expression, in terms of $R$ and $\theta$, for the displacement $x$ of the shadow from P." and add `$x = $ \hrulefill`.
+*   `1cii`: Here, I need to strip the "(ii) " and handle the two parts: "The value of $\theta$ is zero at time $t = 0$. State an expression for $\theta$ in terms of $\omega$ and $t$." and add `$\theta = $ \hrulefill`.
+*   `1ciii`: I need to remove the "(iii) " prefix and keep "Use your answers in **(c)(i)** and **(c)(ii)** to show that $x$ is given by $$x = R \sin \omega t$$".
+*   `1civ`: Finally, for `1civ`, I take out the "(iv) " prefix and keep "Explain, with reference to the equation in **(c)(iii)**, why the motion of the shadow of the ball on the screen may be modelled as simple harmonic."
+
+Now, I will need to ensure that the YAML format is correct, specifically, no double quotes for non-empty string fields and use the `|` block scalar. Okay, I think I'm ready to write the YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1bi"
+    type: short_answer
+    text: |
+      State an expression, in terms of $R$ and $\omega$, for the speed $v$ of the ball.
+
+      $v = $ \hrulefill
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Determine an expression, in terms of $v$ and $\omega$, for the centripetal acceleration of the ball.
+
+      $\text{centripetal acceleration} = $ \hrulefill
+  - number: "1c"
+    type: short_answer
+    text: |
+      The ball in \textbf{(b)} is in the position shown in Fig. 1.1, such that line OB is at an angle $\theta$ to the line OP.
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Determine an expression, in terms of $R$ and $\theta$, for the displacement $x$ of the shadow from P.
+
+      $x = $ \hrulefill
+  - number: "1cii"
+    type: short_answer
+    text: |
+      The value of $\theta$ is zero at time $t = 0$.
+
+      State an expression for $\theta$ in terms of $\omega$ and $t$.
+
+      $\theta = $ \hrulefill
+  - number: "1ciii"
+    type: short_answer
+    text: |
+      Use your answers in \textbf{(c)(i)} and \textbf{(c)(ii)} to show that $x$ is given by
+
+      $$x = R \sin \omega t$$
+  - number: "1civ"
+    type: long_answer
+    text: |
+      Explain, with reference to the equation in \textbf{(c)(iii)}, why the motion of the shadow of the ball on the screen may be modelled as simple harmonic.

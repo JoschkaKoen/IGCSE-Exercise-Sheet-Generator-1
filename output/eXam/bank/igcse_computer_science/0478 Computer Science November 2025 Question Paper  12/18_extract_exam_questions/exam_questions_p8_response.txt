@@ -1,0 +1,17 @@
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      Customers use the website to buy clothing from the company.
+
+      Complete the table with the missing terms and descriptions about retrieving and displaying web pages.
+
+      \begin{tabular}{|p{5cm}|p{9cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Term}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      hypertext markup language (HTML) & \newline\newline\newline \\ \hline
+      domain name server (DNS) & \newline\newline\newline \\ \hline
+       & It is a numerical address used to locate the web server. \\ \hline
+       & It is a secure protocol that can be used to transmit data sent to and received from a web server. \\ \hline
+       & It is a piece of software that is used to display web pages. \\ \hline
+      \end{tabular}

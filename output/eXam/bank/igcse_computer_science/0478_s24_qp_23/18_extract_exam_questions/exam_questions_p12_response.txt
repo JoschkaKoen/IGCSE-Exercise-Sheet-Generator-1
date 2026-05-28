@@ -1,0 +1,38 @@
+questions:
+  - number: "9"
+    type: long_answer
+    text: |
+      A one-dimensional (1D) array \texttt{Teams[]} contains the names of 10 football teams in a local league.
+      A two-dimensional (2D) array \texttt{Results[]} stores, for each team, the total number of:
+
+      \begin{itemize}
+      \item games won
+      \item games drawn
+      \item games lost
+      \item points.
+      \end{itemize}
+
+      The position of any team's data is the same in both arrays. For example the data in index 3 of \texttt{Results[]} belongs to the team in index 3 of \texttt{Teams[]}
+
+      The array data will be used to find the current leader of the league.
+
+      The variable \texttt{Played} stores the number of games played by each team. Each team plays the same number of games.
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item allows the number of games played to be input and stored, with a maximum of 18 games
+      \item allows the names of the teams to be input and stored
+      \item allows the number of games won, drawn and lost to be input and stored for each team
+      \item validates the number of games played and the number of games won, drawn or lost against the number of games played
+      \item calculates and stores the number of points for each team using three points for a win and one point for a draw; there are no points for a loss
+      \item sorts the array \texttt{Results[]} into descending order of number of points, ensuring the corresponding parallel array \texttt{Teams[]} is kept in the same order
+      \item determines how many teams have the highest number of points
+      \item outputs the name(s) of the winning team(s) along with the number of points achieved.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do \textbf{not} need to declare any arrays, variables or constants; you may assume that this has already been done.
+
+      All inputs and outputs must contain suitable messages.

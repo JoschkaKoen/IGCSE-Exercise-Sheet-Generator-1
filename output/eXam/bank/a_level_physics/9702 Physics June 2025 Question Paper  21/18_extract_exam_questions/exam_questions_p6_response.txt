@@ -1,0 +1,42 @@
+[thinking]
+**Analyzing Exam Page 6: A Question of Structure**
+
+Okay, the task is to transcribe page 6 of the exam. The first question is number "2," but the structure is a bit tricky. The user's provided stub includes entries for "2," "2a," and "2b". However, after examining the page, "2" itself doesn't appear to have any independent text. It's simply the numerical prefix for the following questions, "2 (a)" and "2 (b)."
+
+The stub contains an entry for "2" with no accompanying text and the rules are clear: "Every entry's stem should be visible. If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess." Therefore, since the original stub has entry "2" and it doesn't have an independent text stem on the exam page, and the rules are very specific on this point, I need to flag this as a potential error in the stub. I will use `STUB ERROR`.
+
+I reviewed the page and confirmed that "2" doesn't have its own question. The question "2a" states "State the principle of moments" and the question "2b" is a calculation problem: "Three objects A, B and C are placed on a horizontal beam... Calculate x." I'll transcribe those accordingly, paying attention to the formatting of the equations and the inclusion of the diagram information.
+
+So, here's what I'll do:
+- For "2," I'll set its text to `STUB ERROR`.
+- For "2a", I'll set its text field to "State the principle of moments."
+- For "2b", I'll set the text field to the complete text of the calculation problem, including the diagram references and the x=hrulefill m at the end.
+I'll double-check everything one last time to make sure that the structure matches the page and that I've applied the instructions correctly. I'll make sure the stems are represented accurately, and that I'm flagging the stub error appropriately.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2a"
+    type: short_answer
+    text: |
+      State the principle of moments.
+  - number: "2b"
+    type: calculation
+    text: |
+      Three objects A, B and C are placed on a horizontal beam. The beam is in equilibrium, as shown in Fig. 2.1.
+
+      The beam is uniform and has length $6.0\text{ m}$.
+      The pivot is at the midpoint of the beam.
+      Object A has mass $60\text{ kg}$ and is at one end of the beam.
+      Object B has mass $45\text{ kg}$ and is at a distance $x$ from the pivot.
+      Object C has mass $80\text{ kg}$ and is at the other end of the beam.
+
+      Calculate $x$.
+
+      $x = \hrulefill \text{ m}$

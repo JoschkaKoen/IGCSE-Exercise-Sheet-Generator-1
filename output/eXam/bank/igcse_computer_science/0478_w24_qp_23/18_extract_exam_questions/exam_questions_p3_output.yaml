@@ -1,0 +1,46 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      Complete the paragraph about databases. Use terms from the list. You may need to use a term more than once. Some of the terms in the list will \textbf{not} be used.
+
+      \begin{itemize}
+      \item fields
+      \item comments
+      \item columns
+      \item constant
+      \item key
+      \item table
+      \item primary key
+      \item program
+      \item records
+      \item rows
+      \item scripts
+      \item database
+      \item validation
+      \item variable
+      \end{itemize}
+
+      Database tables consist of \underline{\hspace{1.5em}} and \underline{\hspace{1.5em}}.
+      \newline
+      Rows are \underline{\hspace{1.5em}}.
+      \newline
+      \underline{\hspace{1.5em}} are fields.
+      \newline
+      Structured query language (SQL) \underline{\hspace{1.5em}} are used to query data.
+      \newline
+      A \underline{\hspace{1.5em}} uniquely identifies a record.
+  - number: "5"
+    type: long_answer
+    text: |
+      One stage of the program development life cycle is the analysis stage.
+
+      Identify and describe \textbf{two} other stages of the program development life cycle.
+
+      Stage \hrulefill
+
+      Description
+
+      Stage \hrulefill
+
+      Description

@@ -1,0 +1,5 @@
+questions:
+  - number: "7a"
+    type: long_answer
+    text: |
+      Write pseudocode for module \texttt{CustomerOrder()}

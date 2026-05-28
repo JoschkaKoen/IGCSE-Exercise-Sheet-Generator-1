@@ -1,0 +1,32 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: ''
+  - number: "2a"
+    type: calculation
+    text: |
+      Convert the denary integer 558 into 12-bit binary and hexadecimal.
+
+      Binary \hrulefill
+      Hexadecimal \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: ''
+  - number: "2bi"
+    type: calculation
+    text: |
+      Convert the two's complement binary integer 11100010 into denary.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Write the smallest and the largest two's complement binary integers that can be represented in 8 bits.
+
+      Smallest \hrulefill
+      Largest \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      Give \textbf{one} application where Binary Coded Decimal (BCD) is used and justify its use.
+
+      Application \hrulefill
+      Justification \hrulefill

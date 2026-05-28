@@ -1,0 +1,19 @@
+questions:
+  - number: "5c"
+    type: calculation
+    text: |
+      The size of a sound file is 4096 mebibytes (MiB).
+
+      Give the size of the file in gibibytes (GiB).
+  - number: "6"
+    type: short_answer
+    text: |
+      A computer game is programmed to use artificial intelligence (AI) to create the movements and actions of the computer-controlled characters in the game.
+  - number: "6a"
+    type: long_answer
+    text: |
+      Describe what is meant by AI.
+  - number: "6b"
+    type: long_answer
+    text: |
+      Explain how the AI can be used to improve the movements and actions of the computer-controlled characters.

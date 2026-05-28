@@ -1,0 +1,9 @@
+questions:
+  - number: "5bii"
+    type: calculation
+    text: |
+      The extension of the wire is initially $2.0 \times 10^{-3}\text{ m}$.
+
+      Determine the work done to increase the extension of the wire to $3.0 \times 10^{-3}\text{ m}$.
+
+      work done = \hrulefill \text{ J}

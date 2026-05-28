@@ -1,0 +1,55 @@
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A computer program is designed to simulate horses doing show jumping. In show jumping, horses jump over obstacles called fences. A horse successfully jumps a fence if it does not knock the fence down.
+
+      The program is written using Object-Oriented Programming (OOP).
+
+      The class \texttt{Horse} stores data about the horses.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Horse}} \\ \hline
+      \texttt{Name : STRING} & stores the name given to the horse \\
+      \texttt{MaxFenceHeight : INTEGER} & stores the maximum height in cm that the horse can jump, for example 132 \\
+      \texttt{PercentageSuccess : INTEGER} & stores the percentage chance of a horse not knocking down a fence, for example 70 represents a 70\% chance of jumping a fence successfully \\ \hline
+      \texttt{Constructor()} & initialises \texttt{Name}, \texttt{MaxFenceHeight} and \texttt{PercentageSuccess} to its parameter values \\
+      \texttt{GetName()} & returns the name of the horse \\
+      \texttt{GetMaxFenceHeight()} & returns the maximum height the horse can jump \\
+      \texttt{Success()} & calculates and returns the percentage chance of a horse successfully jumping a specific fence \\ \hline
+      \end{tabular}
+  - number: "2a"
+    type: short_answer
+    text: |
+      The class \texttt{Horse} stores data about the horses.
+  - number: "2ai"
+    type: long_answer
+    text: |
+      Write program code to declare the class \texttt{Horse} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language's appropriate constructor.
+
+      All attributes must be private. If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program as \textbf{Question2\_N24}. \\
+      Copy and paste the program code into part \textbf{2(a)(i)} in the evidence document. \\ \hline
+      \end{tabular}
+  - number: "2aii"
+    type: long_answer
+    text: |
+      The get methods \texttt{GetName()} and \texttt{GetMaxFenceHeight()} each return the relevant attribute.
+
+      Write program code for the get methods.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{2(a)(ii)} in the evidence document. \\ \hline
+      \end{tabular}
+```

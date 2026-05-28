@@ -1,0 +1,32 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      An artist creates an image on a computer.
+  - number: "2a"
+    type: short_answer
+    text: |
+      State what is meant by the colour depth of an image.
+  - number: "2b"
+    type: short_answer
+    text: |
+      Describe the relationship between the resolution of the image and the file size of the image.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The artist compresses the image file before uploading it to their website. Users can download the image file from the website to print as a poster.
+
+      The image file is compressed using lossless compression.
+  - number: "2ci"
+    type: long_answer
+    text: |
+      Explain the reasons why the artist chose lossless compression instead of lossy compression to compress this image file.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Identify one lossless method of compressing an image.
+
+      Describe your chosen method.
+
+      Method \hrulefill
+      Description

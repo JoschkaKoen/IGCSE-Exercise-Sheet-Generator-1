@@ -1,0 +1,7 @@
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      Logical shifts are performed on binary integers.
+
+      State the mathematical effect of a right shift of \textbf{four} places on a positive binary integer.

@@ -1,0 +1,44 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      Oxygen-15 ($^{15}_{8}\text{O}$) is radioactive and has a half-life of 2.04 minutes.
+
+      The decay of oxygen-15 produces positrons. For this reason, oxygen-15 is sometimes used as a tracer in positron emission tomography (PET scanning).
+  - number: "8a"
+    type: short_answer
+    text: |
+      State what is meant by a tracer.
+  - number: "8b"
+    type: short_answer
+    text: |
+      The equation for the decay of oxygen-15 is
+
+      $$^{15}_{8}\text{O} \to {^{P}_{Q}\text{X}} + {^{R}_{S}\beta^+} + \text{Z}$$
+
+      where $\text{X}$ is the nucleus formed during the decay and $\text{Z}$ is another particle.
+  - number: "8bi"
+    type: short_answer
+    text: |
+      State the values of the integers $P$, $Q$, $R$ and $S$.
+
+      $P = $ \hrulefill $R = $ \hrulefill
+
+      $Q = $ \hrulefill $S = $ \hrulefill
+  - number: "8bii"
+    type: short_answer
+    text: |
+      State the name of particle $\text{Z}$.
+  - number: "8c"
+    type: short_answer
+    text: ''
+  - number: "8ci"
+    type: short_answer
+    text: |
+      Define the activity of a sample.
+  - number: "8cii"
+    type: calculation
+    text: |
+      Calculate the decay constant of oxygen-15. Give a unit with your answer.
+
+      decay constant = \hrulefill unit \hrulefill

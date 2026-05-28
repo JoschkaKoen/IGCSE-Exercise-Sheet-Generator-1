@@ -1,0 +1,16 @@
+[thinking]
+**Transcribing Question 7aii**
+
+Okay, the user wants me to transcribe question "7aii" from this page. Let's see... Ah, there it is. The prefix for this subquestion is indeed `(ii)`. Alright, let's parse the text. It looks like it's asking for pseudocode related to a modification of an `UpdateVisit()` module. The programmer wants to add logic to increase loyalty points if a customer visits the coffee shop on the same day of the week as their previous visit. Got it. No answer markers; this is a straight pseudocode writing prompt. I'll remember to format the module name as `\texttt{UpdateVisit()}` as specified, and I can start generating the response.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7aii"
+    type: short_answer
+    text: |
+      The programmer decides to amend the \texttt{UpdateVisit()} module so that loyalty points are further increased if the customer visits the coffee shop the same day of the week as their last visit.
+
+      Write the pseudocode for this condition.

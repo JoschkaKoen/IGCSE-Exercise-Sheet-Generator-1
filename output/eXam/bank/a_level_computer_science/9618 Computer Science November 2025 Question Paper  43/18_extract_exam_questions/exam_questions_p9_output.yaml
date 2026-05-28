@@ -1,0 +1,50 @@
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program reads string data from a text file into a linear queue and then compresses the data.
+
+      The queue is created using the global 1D array \texttt{Queue}. The queue can store up to 100 elements. Each element is initialised to the empty string \texttt{""}
+
+      The queue has two pointers that are global to the program:
+
+      \begin{itemize}
+      \item \texttt{QueueHead} that points to the index of the first element in the queue, initialised to $-1$
+      \item \texttt{QueueTail} that points to the index of the last element in the queue, initialised to $-1$
+      \end{itemize}
+
+      The global variable \texttt{NumberItems} stores the number of elements stored in the queue, initialised to 0
+  - number: "2a"
+    type: long_answer
+    text: |
+      Write program code to declare and initialise \texttt{Queue}, \texttt{QueueHead}, \texttt{QueueTail} and \texttt{NumberItems}
+
+      Save your program as \textbf{Question2\_N25}.
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.
+  - number: "2b"
+    type: long_answer
+    text: |
+      The function \texttt{Enqueue()} takes a string as a parameter. The function checks if the queue is full, and returns Boolean \texttt{FALSE} if the queue is full.
+
+      If the queue is not full, the parameter is inserted into the next position in \texttt{Queue}. The function updates the appropriate pointer(s), updates \texttt{NumberItems} and then returns Boolean \texttt{TRUE}
+
+      Write program code for \texttt{Enqueue()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.
+  - number: "2c"
+    type: long_answer
+    text: |
+      The function \texttt{Dequeue()} returns the string \texttt{"False"} if the queue is empty.
+
+      If the queue is not empty, the function returns the next element in the queue. The function updates the appropriate pointer(s) and updates \texttt{NumberItems}
+
+      Write program code for \texttt{Dequeue()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.
+```

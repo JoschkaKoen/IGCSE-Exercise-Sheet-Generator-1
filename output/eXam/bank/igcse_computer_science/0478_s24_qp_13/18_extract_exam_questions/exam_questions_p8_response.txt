@@ -1,0 +1,75 @@
+[thinking]
+**Exam Page 8: Proxy Servers and Web Page Retrieval**
+
+Okay, so I've been tasked with creating the YAML stub for page 8 of this exam.  Let's break down the questions. The context, question "7d," is a preamble setting the stage. So, it's: "The company uses a proxy server to help protect the web server and the network from cyber security threats."
+
+Now, we've got the actual questions.
+
+*   **7di**: This is a straightforward short answer; it's asking for *three* cyber security threats a proxy server can help with. I'll need to remember those classic threat types. The YAML will include numbered blanks:
+
+    ```yaml
+    number: "7di"
+    type: short_answer
+    text: |
+      Give \textbf{three} cyber security threats that the proxy server can help protect against.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+    ```
+
+*   **7dii**: This is another short answer, but here, the focus is *two* functions of the proxy server used for protection.  I need to think about how proxies actually operate and how they act as a security barrier.
+
+    ```yaml
+    number: "7dii"
+    type: short_answer
+    text: |
+      Identify \textbf{two} functions of the proxy server that can be used to help protect the web server and the network.
+
+      1. \hrulefill
+      2. \hrulefill
+    ```
+
+*   **7e**: This is a long answer question, but it's pretty standard in its core. It requires a description of the end-to-end process of web page retrieval.  I need to cover how a customer locates, retrieves, and displays a web page. This means the DNS resolution, the HTTP request, the server's response, the web page's delivery, and the browser's rendering. I have to make sure to cover each step.
+
+    ```yaml
+    number: "7e"
+    type: long_answer
+    text: |
+      Customers access the company's web pages that are stored on the web server.
+
+      Describe how the web pages are located, retrieved and displayed on a customer's computer.
+    ```
+
+It seems pretty straightforward. The YAML is ready and complete!
+
+
+
+[/thinking]
+
+questions:
+  - number: "7d"
+    type: short_answer
+    text: |
+      The company uses a proxy server to help protect the web server and the network from cyber security threats.
+  - number: "7di"
+    type: short_answer
+    text: |
+      Give \textbf{three} cyber security threats that the proxy server can help protect against.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "7dii"
+    type: short_answer
+    text: |
+      Identify \textbf{two} functions of the proxy server that can be used to help protect the web server and the network.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7e"
+    type: long_answer
+    text: |
+      Customers access the company's web pages that are stored on the web server.
+
+      Describe how the web pages are located, retrieved and displayed on a customer's computer.

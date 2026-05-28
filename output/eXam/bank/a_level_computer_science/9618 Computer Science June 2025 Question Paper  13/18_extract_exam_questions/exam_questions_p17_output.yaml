@@ -1,0 +1,30 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: ''
+  - number: "7a"
+    type: short_answer
+    text: |
+      A computer can perform logical and arithmetic shifts.
+  - number: "7ai"
+    type: short_answer
+    text: |
+      Show the result of a logical left shift of 2 places on the two's complement binary integer 11001010
+  - number: "7aii"
+    type: short_answer
+    text: |
+      Show the result of an arithmetic right shift of 3 places on the two's complement binary integer 10011110
+  - number: "7b"
+    type: calculation
+    text: |
+      Complete the following binary addition. Show your working. Include any overflow bit(s).
+
+      $$\begin{array}{rcccccccc}
+        & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 \\
+      + & 1 & 0 & 1 & 1 & 0 & 0 & 0 & 1 \\
+      \hline
+      \end{array}$$
+  - number: "7c"
+    type: calculation
+    text: |
+      Subtract the binary number 00011110 from the binary number 01100100 using binary subtraction. Show your working.

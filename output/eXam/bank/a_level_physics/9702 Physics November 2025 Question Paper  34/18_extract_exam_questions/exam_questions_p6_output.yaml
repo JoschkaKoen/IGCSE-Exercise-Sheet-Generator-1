@@ -1,0 +1,16 @@
+questions:
+  - number: "1d"
+    type: calculation
+    text: |
+      It is suggested that the quantities $L$ and $Z$ are related by the equation
+
+      $$L = aZ + b$$
+
+      where $a$ and $b$ are constants.
+
+      Use your answers in \textbf{(c)(iii)} to determine the values of $a$ and $b$.
+      Give appropriate units.
+
+      $a =$ \hrulefill
+      $b =$ \hrulefill
+```

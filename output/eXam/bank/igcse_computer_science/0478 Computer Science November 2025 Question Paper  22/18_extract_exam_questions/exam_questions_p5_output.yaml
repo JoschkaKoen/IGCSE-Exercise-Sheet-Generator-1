@@ -1,0 +1,22 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      A length check is a type of validation check.
+
+      State the purpose of a length check.
+  - number: "4b"
+    type: short_answer
+    text: |
+      An email address can be validated by checking that it contains an @ symbol.
+
+      Write the pseudocode for an algorithm that will allow an email address to be input and check whether or not it contains an @ symbol.
+
+      Output a suitable message with the result.
+
+      Use the string function \texttt{SUBSTRING(EmailAddress, Start, 1)} in your solution to return a string of length 1 character, starting at position \texttt{Start}, where \texttt{EmailAddress} is the identifier representing your input.
+
+      You do \textbf{not} need to declare any variables for this algorithm, but variables must be initialised as necessary. Assume there will \textbf{not} be more than one @ symbol in the email address input.

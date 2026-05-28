@@ -1,0 +1,62 @@
+[thinking]
+**Transcribing the SQL Question**
+
+Okay, so the task is to transcribe question "10d".  Right, let's look at the page. Ah, here it is: "Complete this SQL statement to find the contract numbers of the subscribers that take both the news and sports services."  The raw SQL is shown:
+
+```
+SELECT .....................................................................................................................................
+FROM Contract
+WHERE .......................................................... AND ................................................................. ;
+```
+
+I need to format this properly. I could use `\begin{alltt}...\end{alltt}`, or just use regular text with `\hrulefill` or underlines, but the instructions *explicitly* say to use the `alltt` environment for multi-line code or programming-language answers.  Since this is technically a fill-in-the-blank SQL statement, `alltt` it is.
+
+Let's start by presenting the question, followed by the formatted SQL:
+
+```latex
+Complete this SQL statement to find the contract numbers of the subscribers that take both the news and sports services.
+
+\begin{alltt}
+SELECT \hrulefill
+
+FROM Contract
+
+WHERE \hrulefill AND \hrulefill ;
+\end{alltt}
+```
+
+Now, let me double-check how `\hrulefill` works inside `alltt`. The rules are: don't escape most characters, but escape `{` as `\{` and `}` as `\}`.  Good, `\hrulefill` is a command and shouldn't be touched.
+
+Okay, let's keep it clean. This matches the original format, replacing the ellipses with `\hrulefill`:
+
+```latex
+Complete this SQL statement to find the contract numbers of the subscribers that take both the news and sports services.
+
+\begin{alltt}
+SELECT \hrulefill
+
+FROM Contract
+
+WHERE \hrulefill AND \hrulefill ;
+\end{alltt}
+```
+
+This should be perfect.
+
+
+
+[/thinking]
+
+questions:
+  - number: "10d"
+    type: short_answer
+    text: |
+      Complete this SQL statement to find the contract numbers of the subscribers that take both the news and sports services.
+
+      \begin{alltt}
+      SELECT \hrulefill
+
+      FROM Contract
+
+      WHERE \hrulefill AND \hrulefill ;
+      \end{alltt}

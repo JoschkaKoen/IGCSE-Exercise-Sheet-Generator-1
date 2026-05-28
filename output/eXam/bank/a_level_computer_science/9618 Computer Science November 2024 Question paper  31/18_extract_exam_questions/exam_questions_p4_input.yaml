@@ -1,0 +1,12 @@
+  - number: "4"
+    type: long_answer
+    text: ""
+  - number: "5"
+    type: short_answer
+    text: ""
+  - number: "5a"
+    type: long_answer
+    text: ""
+  - number: "5b"
+    type: short_answer
+    text: ""

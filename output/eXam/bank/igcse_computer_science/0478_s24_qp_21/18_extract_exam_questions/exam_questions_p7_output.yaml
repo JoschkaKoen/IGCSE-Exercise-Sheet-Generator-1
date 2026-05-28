@@ -1,0 +1,23 @@
+questions:
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the trace table for the input data:
+
+      7, 47, 50, 52, 60, 80, 63, 70
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{} & \multicolumn{7}{c|}{\textbf{Numbers}} & \multicolumn{4}{c|}{} \\ \hline
+      \textbf{Limit} & \textbf{Count} & \textbf{[1]} & \textbf{[2]} & \textbf{[3]} & \textbf{[4]} & \textbf{[5]} & \textbf{[6]} & \textbf{[7]} & \textbf{Flag} & \textbf{Swap} & \textbf{Result} & \textbf{OUTPUT} \\ \hline
+       & & & & & & & & & & & & \\ \hline
+       & & & & & & & & & & & & \\ \hline
+       & & & & & & & & & & & & \\ \hline
+       & & & & & & & & & & & & \\ \hline
+       & & & & & & & & & & & & \\ \hline
+       & & & & & & & & & & & & \\ \hline
+       & & & & & & & & & & & & \\ \hline
+       & & & & & & & & & & & & \\ \hline
+       & & & & & & & & & & & & \\ \hline
+       & & & & & & & & & & & & \\ \hline
+      \end{tabular}

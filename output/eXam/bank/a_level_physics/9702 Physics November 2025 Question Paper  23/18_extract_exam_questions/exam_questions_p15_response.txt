@@ -1,0 +1,22 @@
+[thinking]
+**Transcribing Question 6c: Quark Composition of Tritium**
+
+Okay, the user wants me to transcribe question "6c" from this page. Let me take a look. Ah, here we are: "(c) Determine the quark composition of a tritium nucleus." It's worth two marks, and part of a total question worth nine marks. Alright, pretty straightforward. Time to get this into YAML format.
+
+Here's the plan. I'll structure it like this:
+
+`number: "6c"` - Specifies the question number.
+`type: short_answer` - Indicates it's a short answer question.
+`text: |` - This signifies the start of the question text.
+`  Determine the quark composition of a tritium nucleus.` -  And here's the question itself, verbatim.
+Done. That should be a clean and accurate transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      Determine the quark composition of a tritium nucleus.

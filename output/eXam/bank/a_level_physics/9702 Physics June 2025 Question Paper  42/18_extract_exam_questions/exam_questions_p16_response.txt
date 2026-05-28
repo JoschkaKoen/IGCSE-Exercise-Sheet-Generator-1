@@ -1,0 +1,44 @@
+[thinking]
+**Exam Question Transcription: Capacitor Discharge**
+
+Okay, so the user wants me to transcribe the questions from page 16 of the exam. Alright, let's dive in. The questions are numbered 7, 7a, 7b, and 7bi. My initial thought is to make sure I get the format right.
+
+First, I see question 7 is more of a setup, or stem. It introduces a circuit with a capacitor, initial voltage, switch, and discharge process. Importantly, it tells me that figure 7.2 shows *Q* vs. *V<sub>C</sub>* and figure 7.3 shows *I* vs. *V<sub>R</sub>* during discharge. I need to keep that context in mind for the sub-questions.
+
+Then comes question 7a, which is straightforward: "State the relationship between *V<sub>C</sub>* and *V<sub>R</sub>*."  Should be a relatively simple answer, probably Kirchhoff's Voltage Law at play.
+
+Next, 7b is a bit open-ended. It just says "Determine:".  I'll need to look at what 7b(i) requires to be precise about what this means.
+
+And finally, 7bi, which asks me to determine the capacitance, *C*, in microfarads. The answer space for *C* is there, so that's helpful. This implies a calculation, probably using the information given in the main stem with figures 7.2 and 7.3. I see the format for the answer is a good practice.
+
+I've made sure to capture the questions exactly, paying attention to the formatting. I believe the transcript is complete.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Fig. 7.1 shows a circuit containing a capacitor of capacitance $C$ and a resistor of resistance $R$.
+
+      Initially, the switch is open and the potential difference (p.d.) across the capacitor is $12\text{ V}$.
+
+      The switch is closed at time $t = 0$ and the capacitor discharges through the resistor.
+
+      Fig. 7.2 shows the variation of the charge $Q$ on the capacitor with the p.d. $V_C$ across the capacitor as the capacitor discharges. Fig. 7.3 shows the variation of the current $I$ in the resistor with the p.d. $V_R$ across the resistor as the capacitor discharges.
+  - number: "7a"
+    type: short_answer
+    text: |
+      State the relationship between $V_C$ and $V_R$.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Determine:
+  - number: "7bi"
+    type: calculation
+    text: |
+      the capacitance $C$, in $\mu\text{F}$
+
+      $C =$ \hrulefill $\mu\text{F}$

@@ -1,0 +1,25 @@
+questions:
+  - number: "3biii"
+    type: calculation
+    text: |
+      The potential difference (p.d.) across the motor has a constant value of $600\text{ V}$ and the motor has an efficiency of $85\%$.
+
+      Calculate the current in the motor.
+
+      current = \hrulefill\text{ A}
+  - number: "3c"
+    type: short_answer
+    text: |
+      The car in \textbf{(b)} now reaches a slope, as shown in Fig. 3.2.
+
+      The car continues down the slope at the same speed as in \textbf{(b)}.
+
+      State and explain the effect, if any, of the slope on:
+  - number: "3ci"
+    type: long_answer
+    text: |
+      the air resistance acting on the car
+  - number: "3cii"
+    type: long_answer
+    text: |
+      the current in the motor.

@@ -1,0 +1,55 @@
+[thinking]
+**Analyzing the Exam Question Structure**
+
+Okay, so I'm being asked to transcribe page 20 of this exam paper. My initial focus is on the structure of question 9. The YAML stub gives me a hint, but the page itself is where the answer lies. I see the main question number is "9", followed by "9a" and "9b". The stub suggests there should be a corresponding entry for each, like this:
+
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: ""
+  - number: "9a"
+    type: short_answer
+    text: ""
+  - number: "9b"
+    type: short_answer
+    text: ""
+```
+
+My initial thought is that "9" is a placeholder or a header, and that's usually the case, sometimes, it's just a grouping label, but it doesn't normally have independent text associated with it. But I should confirm. I have to be thorough here. Looking at the page, the text shows that "9" is just the question's number next to "(a)" : "9 (a) State Wien’s displacement law.".
+
+So, "9" doesn't have an independent stem. The instructions are clear: if an entry is in the stub but its stem isn't visible on the page, that means a stub generation bug, and I must emit a `STUB ERROR`. I have to be really, really precise here, no guessing.
+
+Let's double-check again that "9" doesn't have its own stem. Okay, "9" isn't followed by a question, "9" is merely labelling that the following is question (a). Therefore, I should write `STUB ERROR` for question "9".
+
+For "9a", the text on the page is: "9 (a) State Wien’s displacement law.". So I will enter this as the `text` for "9a".
+
+For "9b", the text reads: "(b) Fig. 9.1 shows the variation with $d^{-2}$ of the radiant flux intensity $F$ observed from a star X, where $d$ is the distance of the observer from the star. Fig. 9.2 shows the variation with wavelength $\lambda$ of the rates of emission $P$ of radiation by star X and the Sun. The surface temperature of the Sun is $5770\text{ K}$. State **three** conclusions about star X that can be drawn from this data. The conclusions may be qualitative or quantitative. Use the space for any working. 1. \hrulefill 2. \hrulefill 3. \hrulefill". This will be the text for "9b".
+
+Just to be absolutely sure, I'm going back to question "9". No stem. It is a stub error. `STUB ERROR` it is.
+
+
+
+[/thinking]
+
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "9a"
+    type: short_answer
+    text: |
+      State Wien’s displacement law.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Fig. 9.1 shows the variation with $d^{-2}$ of the radiant flux intensity $F$ observed from a star X, where $d$ is the distance of the observer from the star. Fig. 9.2 shows the variation with wavelength $\lambda$ of the rates of emission $P$ of radiation by star X and the Sun.
+
+      The surface temperature of the Sun is $5770\text{ K}$.
+
+      State \textbf{three} conclusions about star X that can be drawn from this data. The conclusions may be qualitative or quantitative. Use the space for any working.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

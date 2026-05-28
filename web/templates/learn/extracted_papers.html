@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ subject_display }} — {{ t('learn.extracted.title') }}{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="/static/css/15-learn-extracted.css" />{% endblock %}
+{% block content %}
+<header class="mb-6 max-w-3xl">
+  <p class="text-xs text-slate-500">
+    <a href="/learn" class="hover:text-slate-300">{{ t('learn.hero.title') }}</a>
+    <span aria-hidden="true"> / </span>
+    <a href="/learn/extracted" class="hover:text-slate-300">{{ t('learn.extracted.title') }}</a>
+    <span aria-hidden="true"> / </span>
+    <span class="text-slate-300">{{ subject_display }}</span>
+  </p>
+  <h1 class="mt-2 font-display text-2xl font-semibold text-white sm:text-3xl">
+    {{ subject_display }}
+  </h1>
+  <p class="mt-2 text-sm text-slate-400">
+    {{ t('learn.extracted.papers_for') }}
+  </p>
+</header>
+
+{% if not papers %}
+<p class="text-sm text-slate-400">{{ t('learn.extracted.no_papers') }}</p>
+{% else %}
+<ul class="vq-paper-list">
+  {% for p in papers %}
+  <li>
+    <a href="/learn/extracted/{{ subject }}/{{ p | urlencode }}" class="vq-paper-link">
+      <span class="vq-paper-name">{{ p }}</span>
+      <svg class="vq-paper-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

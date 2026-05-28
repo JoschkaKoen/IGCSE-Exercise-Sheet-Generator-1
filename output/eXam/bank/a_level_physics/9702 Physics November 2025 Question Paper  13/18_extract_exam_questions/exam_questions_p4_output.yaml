@@ -1,0 +1,43 @@
+questions:
+  - number: "5"
+    type: multiple_choice
+    text: |
+      A goods train passes through a station at a constant speed of $10\text{ m}\,\text{s}^{-1}$ at time $t = 0$. An express train is at rest at the station. The express train leaves the station with a uniform acceleration of $0.5\text{ m}\,\text{s}^{-2}$ just as the goods train goes past. Both trains move in the same direction on straight, parallel tracks.
+
+      At which time $t$ does the express train overtake the goods train?
+    options:
+      - letter: A
+        text: |
+          $6\text{ s}$
+      - letter: B
+        text: |
+          $10\text{ s}$
+      - letter: C
+        text: |
+          $20\text{ s}$
+      - letter: D
+        text: |
+          $40\text{ s}$
+  - number: "6"
+    type: multiple_choice
+    text: |
+      A ball is held above the ground and released. It falls to the ground and bounces several times.
+
+      The graph shows the variation with time $t$ of the velocity $v$ of the ball.
+
+      Four points on the graph are labelled P, Q, R and S.
+
+      Which statement is \textbf{not} correct?
+    options:
+      - letter: A
+        text: |
+          The area under line PQ represents the initial height of the ball.
+      - letter: B
+        text: |
+          The collisions of the ball with the ground are inelastic.
+      - letter: C
+        text: |
+          The gradient of the line RS represents the acceleration due to free fall.
+      - letter: D
+        text: |
+          The maximum upwards velocity of the ball is reached at point P.

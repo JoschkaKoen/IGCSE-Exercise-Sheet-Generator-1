@@ -1,0 +1,401 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: In this experiment, you will investigate the equilibrium of forces.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Assemble the apparatus as shown in Fig. 1.1.
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: calculation
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Adjust the height of the upper boss so that the wooden strip is parallel
+        to the bench.
+
+
+        The distance between hole S and the lower nail is $W$.
+
+
+        Measure and record $W$.
+
+
+        $W = \hrulefill$
+
+
+        The distance between the two nails is $N$.
+
+
+        Measure and record $N$.
+
+
+        $N = \hrulefill$
+
+
+        The length of the coiled part of the spring is $L$, as shown in Fig. 1.1.
+
+
+        Measure and record $L$.
+
+
+        $L = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate $Z$, where
+
+
+        $$Z = \frac{W}{\sqrt{(N^2 + W^2)}}.$$
+
+
+        $Z = \hrulefill$'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'Change $W$ by moving the lower nail to another hole in the wooden strip.
+      Adjust the height of the upper boss so that the wooden strip is parallel to
+      the bench.
+
+
+      Measure and record $W$, $N$ and $L$. Repeat until you have six sets of values.
+
+      Record your results in a table. Include values of $Z$ in your table.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Plot a graph of $L$ on the $y$-axis against $Z$ on the $x$-axis.
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Draw the straight line of best fit.
+      answer_options: []
+      subquestions: []
+    - number: 1ciii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the gradient and $y$-intercept of this line.
+
+
+        gradient = \hrulefill
+
+        $y$-intercept = \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1d
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'It is suggested that the quantities $L$ and $Z$ are related by the equation
+
+
+      $$L = aZ + b$$
+
+
+      where $a$ and $b$ are constants.
+
+
+      Use your answers in \textbf{(c)(iii)} to determine the values of $a$ and $b$.
+
+      Give appropriate units.
+
+
+      $a =$ \hrulefill
+
+      $b =$ \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: In this experiment, you will investigate the motion of a sphere rolling along
+    a track.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'You are provided with a length of plastic channel. When the channel is
+      positioned with its open side at the top, it forms a track with a pair of rails
+      along which a sphere can roll.
+
+
+      The distance between the rails is $x$.
+
+
+      Measure and record $x$.
+
+
+      $x =$ \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Set up the apparatus as shown in Fig. 2.2.
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'You are provided with two spheres.
+
+
+        Place the smaller sphere on the track. If necessary, adjust the position of
+        the wooden block until the sphere is able to roll along the full length of
+        the track and into the box.
+
+
+        Secure the block to the track with a small piece of adhesive putty as shown
+        in Fig. 2.3. \textbf{The block and track must remain in these positions for
+        the rest of the experiment.}'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The height of the raised end of the track above the bench is $h$, as
+        shown in Fig. 2.3.
+
+
+        Measure and record $h$.
+
+
+        $h = \hrulefill$
+
+
+        Estimate the percentage uncertainty in your value of $h$. Show your working.
+
+
+        percentage uncertainty = \hrulefill \%'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Measure and record the diameter $d$ of the smaller sphere.
+
+
+      $d = \hrulefill$'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate $1 - \left(\frac{x}{d}\right)^2$.
+
+
+        $1 - \left(\frac{x}{d}\right)^2 = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Place the smaller sphere on the track at the raised end.
+
+
+        Release the sphere.
+
+
+        The time taken for the sphere to roll along the track into the box is $t$.
+
+
+        Take measurements to determine $t$.
+
+
+        $t = \hrulefill$'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Repeat \textbf{(c)} using the larger sphere.
+
+
+      $d = $ \hrulefill
+
+
+      $1 - \left(\frac{x}{d}\right)^2 = $ \hrulefill
+
+
+      $t = $ \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'It is suggested that the relationship between $t$, $h$, $x$ and $d$ is
+
+
+      $$t^2 h = k \left( 5 + \frac{2}{1 - \left(\frac{x}{d}\right)^2} \right)$$
+
+
+      where $k$ is a constant.'
+    answer_options: []
+    subquestions:
+    - number: 2ei
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Using your data, calculate \textbf{two} values of $k$.
+
+
+        first value of $k = $ \hrulefill
+
+
+        second value of $k = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2eii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Justify the number of significant figures that you have given for your
+        values of $k$.
+      answer_options: []
+      subquestions: []
+  - number: 2f
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'It is suggested that the percentage uncertainty in the values of $k$ is
+      30\%.
+
+
+      Using this uncertainty, explain whether your results support the relationship
+      in \textbf{(e)}.'
+    answer_options: []
+    subquestions: []
+  - number: 2g
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2gi
+      question_type: long_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe \textbf{four} sources of uncertainty or limitations of the procedure
+        for this experiment.
+
+
+        For any uncertainties in measurement that you describe, you should state the
+        quantity being measured and a reason for the uncertainty.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2gii
+      question_type: long_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe \textbf{four} improvements that could be made to this experiment.
+        You may suggest the use of other apparatus or different procedures.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []

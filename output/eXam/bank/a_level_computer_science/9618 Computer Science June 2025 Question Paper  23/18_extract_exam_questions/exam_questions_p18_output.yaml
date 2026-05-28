@@ -1,0 +1,24 @@
+questions:
+  - number: "7bii"
+    type: short_answer
+    text: |
+      A date is stored in \texttt{LastVisitDateString} in the format:
+
+      DDMMYYYY
+
+      DD is a 2-digit string
+      MM is a 2-digit string
+      YYYY is a 4-digit string.
+
+      For example, the date 03/09/2024 is stored as \texttt{"03092024"}
+
+      An algorithm is needed to convert the string stored in \texttt{LastVisitDateString} to data type \texttt{DATE} which is then stored in the variable \texttt{LastVisitDate}.
+
+      Complete the pseudocode for this algorithm:
+
+      Assume that \texttt{LastVisitDateString} has been declared and contains valid data.
+
+      \begin{alltt}
+      DECLARE DayInt, MonthInt, YearInt : INTEGER
+      DECLARE LastVisitDate : DATE
+      \end{alltt}

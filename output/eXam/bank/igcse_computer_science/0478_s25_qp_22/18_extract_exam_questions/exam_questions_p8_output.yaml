@@ -1,0 +1,11 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      The flowchart shows an algorithm that is used to input 50 numbers. Each number is stored in the variable \texttt{Value} when it is input. Any number input that is less than or equal to $-20$ or greater than or equal to 50 is rejected and re-input. The accepted numbers are added together as they are entered and the total and average of these numbers are output at the end of the algorithm.
+  - number: "7a"
+    type: short_answer
+    text: |
+      Complete the flowchart.
+```

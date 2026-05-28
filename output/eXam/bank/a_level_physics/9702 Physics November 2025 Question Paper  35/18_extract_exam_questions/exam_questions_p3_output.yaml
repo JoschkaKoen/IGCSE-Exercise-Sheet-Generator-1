@@ -1,0 +1,17 @@
+questions:
+  - number: "1aii"
+    type: calculation
+    text: |
+      The moment of the force about the eye due to mass P is $T_{\text{P}}$.
+
+      The moment of the force about the eye due to mass Q is $T_{\text{Q}}$.
+
+      The values of $T_{\text{P}}$ and $T_{\text{Q}}$ are given by:
+      $$T_{\text{P}} = 5Wp \quad \text{and} \quad T_{\text{Q}} = 7Wq$$
+      where $W$ has the value $0.0981\text{ N}$.
+
+      Calculate $T_{\text{P}}$ and $T_{\text{Q}}$.
+
+      $T_{\text{P}} = $ \hrulefill
+
+      $T_{\text{Q}} = $ \hrulefill

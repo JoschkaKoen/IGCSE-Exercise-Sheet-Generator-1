@@ -1,0 +1,46 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program is being developed to help the manager of a shop control the stock.
+  - number: "1a"
+    type: short_answer
+    text: |
+      An identifier table has been used during the design stage.
+
+      Complete the identifier table:
+
+      \begin{tabular}{|l|p{4.5cm}|p{3cm}|p{3cm}|}
+      \hline
+      \textbf{Example value} & \textbf{Explanation} & \textbf{Variable name} & \textbf{Data type} \\ \hline
+      \texttt{"Fruit"} & a category of stock that is sold in the shop & & \\ \hline
+      \texttt{20/02/2025} & when an item was sold & & \\ \hline
+      \texttt{12.67} & the cost of an item & & \\ \hline
+      \texttt{TRUE} & to indicate if an item is in stock & & \\ \hline
+      \end{tabular}
+  - number: "1b"
+    type: short_answer
+    text: |
+      A module \texttt{Sales()} is part of the stock control program.
+
+      The table contains pseudocode extracts from the module \texttt{Sales()}
+
+      Each extract may include all or part of:
+
+      \begin{itemize}
+      \item assignment
+      \item selection
+      \item iteration (repetition).
+      \end{itemize}
+
+      Complete the table by placing one or more ticks (\checkmark) in each row:
+
+      \begin{tabular}{|p{6cm}|c|c|c|}
+      \hline
+      \textbf{Pseudocode extract} & \textbf{Assignment} & \textbf{Selection} & \textbf{Iteration} \\ \hline
+      \texttt{Result <- CalculateTotal()} & & & \\ \hline
+      \texttt{WHILE IsClosed} & & & \\ \hline
+      \texttt{REPEAT} \newline \texttt{\quad INPUT Value} \newline \texttt{UNTIL Sales[4] > Value} & & & \\ \hline
+      \texttt{IF Sales[Current] <= 150 THEN} \newline \texttt{\quad Discount <- TRUE} \newline \texttt{ENDIF} & & & \\ \hline
+      \texttt{CASE OF Option} & & & \\ \hline
+      \end{tabular}

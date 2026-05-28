@@ -1,0 +1,60 @@
+[thinking]
+**My Analysis of Exam Page 8**
+
+Okay, let's break this down. My task is to process page 8 of this exam and convert the questions into a specific YAML format. I'm focusing on extracting the core questions: 8, 8a, 8b, and 8c. The input is straightforward; the output needs to adhere to a rigid YAML schema.
+
+First, I need to identify the question stems and sub-questions. Question 8 is a preamble: "A farmer uses an automated robot to plant seeds in the field." This clearly sets the scene. Then, I have the sub-questions, 8a, 8b, and 8c, which each require their own processing.
+
+Now, for each question, I need to format it according to the requirements.
+
+*   **Question 8:** This is a short statement. The type will be "short\_answer" and the text will be the stem itself: "A farmer uses an automated robot to plant seeds in the field."
+
+*   **Question 8a:** This, too, is a short answer question. I need to strip the prefix "(a)" and include the prompt. So the type is "short\_answer" and the text is "State what is meant by the robot being automated."
+
+*   **Question 8b:** This is also a "short\_answer" question but requires structured answers. I need to present it as a prompt asking for "three characteristics of a robot," and include numbered slots to structure the responses using LaTeX. This will render as:
+
+    ```latex
+    Give \textbf{three} characteristics of a robot.
+
+    1. \hrulefill
+    2. \hrulefill
+    3. \hrulefill
+    ```
+
+*   **Question 8c:**  This is a "long\_answer" question. It requires a more in-depth response. The prompt presents the context about the robot using sensors and a microprocessor. I need to take the entire text and retain it, so the type will be "long\_answer" and the text will be presented in LaTeX with the prompt:
+
+    ```latex
+    The robot plants seeds and stops when it reaches a fence. It then turns and continues planting seeds. The robot uses sensors and a microprocessor to know when it reaches a fence.
+
+    Explain how the robot uses sensors and a microprocessor to know it has reached a fence.
+    ```
+
+I need to make sure I'm following the constraints meticulously. Specifically: no double quotes around strings, using `|` for multi-line strings, avoiding standalone dotted lines and `\dotfill`, ensuring correct numbering and spacing for the slots in 8b, stripping question prefixes, and not adding an `options` key because there are no multiple choice questions. I'm all set!
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A farmer uses an automated robot to plant seeds in the field.
+  - number: "8a"
+    type: short_answer
+    text: |
+      State what is meant by the robot being automated.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Give \textbf{three} characteristics of a robot.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "8c"
+    type: long_answer
+    text: |
+      The robot plants seeds and stops when it reaches a fence. It then turns and continues planting seeds. The robot uses sensors and a microprocessor to know when it reaches a fence.
+
+      Explain how the robot uses sensors and a microprocessor to know it has reached a fence.

@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A student has a smartwatch.
+  - number: "4a"
+    type: short_answer
+    text: |
+      The smartwatch has built-in input and output devices.
+
+      Identify \textbf{two} input devices that can be built into the smartwatch.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      Identify \textbf{one} output device that can be built into the smartwatch.
+  - number: "4c"
+    type: short_answer
+    text: |
+      The smartwatch has read only memory (ROM).
+
+      Explain why the smartwatch needs ROM.
+  - number: "4d"
+    type: short_answer
+    text: |
+      The smartwatch uses a text message application that receives data from cloud storage.
+  - number: "4di"
+    type: short_answer
+    text: |
+      Describe what is meant by cloud storage.
+  - number: "4dii"
+    type: long_answer
+    text: |
+      Explain \textbf{two} benefits of the application using cloud storage.
+
+      1. \hrulefill
+
+      2. \hrulefill
+```

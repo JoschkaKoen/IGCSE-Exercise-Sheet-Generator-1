@@ -1,0 +1,97 @@
+[thinking]
+**Transcribing the Pseudocode Algorithm**
+
+Okay, so the task is clear: I need to take Question 5, which is a description of an algorithm, and transcribe it. Specifically, it involves a pseudocode algorithm for storing and processing data about people's names and heights. The algorithm's purpose is to allow 500 entries, then find the shortest person and calculate the average height.
+
+First, I identified the algorithm's functionality: it takes names and heights as input, stores them in arrays, calculates the total height, finds the shortest person, and outputs the shortest person's name and height, along with the average height.
+
+I need to make sure I get the details right. It's using two one-dimensional arrays, `Names[]` and `Heights[]`, with a one-to-one correspondence between the entries (same index). The algorithm goes through the following steps:
+
+*   **Input:** For each person, it requests the name and height (in cm).
+*   **Storage:** The data is then stored in the `Names` and `Heights` arrays.
+*   **Total:** It calculates the total height of all individuals.
+*   **Shortest:** The algorithm finds the shortest person.
+*   **Output:** Finally, it outputs the name and height of the shortest person and the average height.
+
+Now, I'll transcribe the pseudocode itself, paying close attention to the arrow assignment operator, ensuring it is the standard `<-`. It's crucial not to introduce LaTeX commands within the `alltt` environment, I must use plain ASCII. I'll make sure it's properly formatted and readable.
+
+Here's the pseudocode:
+
+```alltt
+01 DECLARE Names : ARRAY[1:500] OF REAL
+02 DECLARE Heights : ARRAY[1:500] OF REAL
+03 DECLARE Shortest : REAL
+04 DECLARE Total : REAL
+05 DECLARE Counter : INTEGER
+06 DECLARE Index : INTEGER
+07 Shortest <- 500
+08 Index <- 0
+09 Total <- 100
+10 FOR Counter <- 1 TO 500
+11     INPUT Names[Index]
+12     INPUT Heights[Counter]
+13     Total <- Counter + Heights[Counter]
+14     IF Heights[Counter] < Shortest
+15         THEN
+16             Shortest <- Heights[Counter]
+17             Index <- Counter
+18     ENDIF
+19 NEXT Counter
+20 OUTPUT "The shortest height is ", Heights
+21 OUTPUT "The shortest person is ", Names[Index]
+22 OUTPUT "The average height is ", Total / 500
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      This pseudocode algorithm should allow 500 names of people and their heights to be entered and stored in two one-dimensional (1D) arrays. The name of a person and the height of that person are in the same index in both the \texttt{Names[]} and the \texttt{Heights[]} arrays.
+
+      The algorithm performs as follows:
+
+      \begin{itemize}
+      \item at the start, the following data is entered:
+        \begin{itemize}
+        \item name of person
+        \item height of person in cm
+        \end{itemize}
+      \item the data is stored in the relevant arrays
+      \item the heights of the people are totalled
+      \item the shortest person is found
+      \item at the end, the following is output:
+        \begin{itemize}
+        \item name of shortest person
+        \item height of shortest person
+        \item average height of all 500 people.
+        \end{itemize}
+      \end{itemize}
+
+      \begin{alltt}
+      01 DECLARE Names : ARRAY[1:500] OF REAL
+      02 DECLARE Heights : ARRAY[1:500] OF REAL
+      03 DECLARE Shortest : REAL
+      04 DECLARE Total : REAL
+      05 DECLARE Counter : INTEGER
+      06 DECLARE Index : INTEGER
+      07 Shortest <- 500
+      08 Index <- 0
+      09 Total <- 100
+      10 FOR Counter <- 1 TO 500
+      11     INPUT Names[Index]
+      12     INPUT Heights[Counter]
+      13     Total <- Counter + Heights[Counter]
+      14     IF Heights[Counter] < Shortest
+      15     THEN
+      16         Shortest <- Heights[Counter]
+      17         Index <- Counter
+      18     ENDIF
+      19 NEXT Counter
+      20 OUTPUT "The shortest height is ", Heights
+      21 OUTPUT "The shortest person is ", Names[Index]
+      22 OUTPUT "The average height is ", Total / 500
+      \end{alltt}

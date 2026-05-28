@@ -1,0 +1,32 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      The processor uses several registers, including the Accumulator (ACC) and the Current Instruction Register (CIR).
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the table by describing the role of each register.
+
+      \begin{tabular}{|p{3cm}|p{10cm}|}
+      \hline
+      \textbf{Register} & \textbf{Role} \\ \hline
+      ACC & \\
+          & \\ \hline
+      CIR & \\
+          & \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      Increasing the number of cores in a processor can affect the performance of a computer.
+
+      Describe the drawbacks of increasing the number of cores in a processor.
+  - number: "6c"
+    type: short_answer
+    text: |
+      State \textbf{three} differences between Dynamic RAM (DRAM) and Static RAM (SRAM).
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

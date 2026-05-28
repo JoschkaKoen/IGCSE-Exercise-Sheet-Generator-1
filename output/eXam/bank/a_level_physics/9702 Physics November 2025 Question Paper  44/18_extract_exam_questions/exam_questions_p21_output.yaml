@@ -1,0 +1,19 @@
+questions:
+  - number: "8ciii"
+    type: calculation
+    text: |
+      Determine the rate at which positrons are produced in a sample of oxygen-15 that has a mass of $2.85 \times 10^{-6} \text{ kg}$.
+
+      rate = \hrulefill $\text{s}^{-1}$
+  - number: "8d"
+    type: short_answer
+    text: |
+      The particles that are emitted from the body and detected outside it during PET scanning are not positrons but another type of particle.
+  - number: "8di"
+    type: short_answer
+    text: |
+      State the name of the particles that are detected.
+  - number: "8dii"
+    type: long_answer
+    text: |
+      Explain how these particles are formed inside the body.

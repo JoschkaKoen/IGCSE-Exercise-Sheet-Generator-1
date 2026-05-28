@@ -1,0 +1,143 @@
+[thinking]
+**Analyzing the YAML Stub for Exam Page 5**
+
+Okay, so I'm tasked with populating the YAML stub for page 5 of this exam.  Let's see, the questions on this page are listed, and immediately, I spot something.  Question "2d" is in the stub, but it's not immediately apparent on the page itself.  It looks like it jumps straight into "(d) (i)". Is "2d" a parent question, a stub error, or something else?
+
+Looking closer, the actual page has "(d) (i)", "(ii)", and then "(e)". The YAML stub has "2d", "2di", "2dii", and "2e."  A quick check shows no explicit "(d)" question at all. It starts at "(d) (i)".  The stub *should* have corresponding stems visible on the page.
+
+Hmm.  I remember the instructions: "Every entry's stem should be visible." And if it isn't, "this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR`." Okay, so the instructions are clear: *do not guess*. I need to determine if "2d" is visible.  It isn't, there is no `(d)` question, just `(d)(i)`.
+
+I can see in the stub's YAML entry for 2di, there is this text:
+```yaml
+text: |
+  The main program needs extending to:
+```
+and then the specific requirements.
+
+Alright, so if the stub has "2d" but there is no explicit question with that label, and the page immediately starts with "(d) (i)", then "2d" *must* be a stub error. This means I'll need to emit `STUB ERROR`.
+
+I will go ahead and populate the YAML as follows:
+
+```yaml
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2di"
+    type: short_answer
+    text: |
+      The main program needs extending to:
+
+      \begin{itemize}
+      \item output the content of the unsorted array using \texttt{OutputArray()}
+      \item sort the array using \texttt{InsertionSort()}
+      \item output the content of the sorted array using \texttt{OutputArray()}
+      \end{itemize}
+
+      Write program code to extend the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(d)(i)} in the evidence document.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{2(d)(ii)} in the evidence document.
+  - number: "2e"
+    type: short_answer
+    text: |
+      The function \texttt{Search()} performs a binary search to find \texttt{ItemToFind} in \texttt{DataArray}
+
+      The function takes \textbf{two} parameters:
+
+      \begin{itemize}
+      \item \texttt{DataArray}, an array of integers
+      \item \texttt{ItemToFind}, an integer to find in \texttt{DataArray}
+      \end{itemize}
+
+      The function returns:
+
+      \begin{itemize}
+      \item the index of \texttt{ItemToFind} if it is in \texttt{DataArray}
+      \item -1 if \texttt{ItemToFind} is not in \texttt{DataArray}
+      \end{itemize}
+
+      Write program code for \texttt{Search()}
+
+      You must \textbf{not} use any inbuilt searching functions for your programming language.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)} in the evidence document.
+```
+
+I'll double-check this: question "2d" *is* a stub error because there's no corresponding question on the page. Therefore, I will output `STUB ERROR`. Done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2di"
+    type: short_answer
+    text: |
+      The main program needs extending to:
+
+      \begin{itemize}
+      \item output the content of the unsorted array using \texttt{OutputArray()}
+      \item sort the array using \texttt{InsertionSort()}
+      \item output the content of the sorted array using \texttt{OutputArray()}
+      \end{itemize}
+
+      Write program code to extend the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(d)(i)} in the evidence document.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{2(d)(ii)} in the evidence document.
+  - number: "2e"
+    type: short_answer
+    text: |
+      The function \texttt{Search()} performs a binary search to find \texttt{ItemToFind} in \texttt{DataArray}
+
+      The function takes \textbf{two} parameters:
+
+      \begin{itemize}
+      \item \texttt{DataArray}, an array of integers
+      \item \texttt{ItemToFind}, an integer to find in \texttt{DataArray}
+      \end{itemize}
+
+      The function returns:
+
+      \begin{itemize}
+      \item the index of \texttt{ItemToFind} if it is in \texttt{DataArray}
+      \item -1 if \texttt{ItemToFind} is not in \texttt{DataArray}
+      \end{itemize}
+
+      Write program code for \texttt{Search()}
+
+      You must \textbf{not} use any inbuilt searching functions for your programming language.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)} in the evidence document.

@@ -1,0 +1,13 @@
+```yaml
+questions:
+  - number: "5d"
+    type: long_answer
+    text: |
+      A Database Management System (DBMS) is used to maintain and manage the database.
+
+      Describe \textbf{two} ways in which the DBMS can be used to ensure the security of the customer data.
+
+      1. \hrulefill
+
+      2. \hrulefill
+```

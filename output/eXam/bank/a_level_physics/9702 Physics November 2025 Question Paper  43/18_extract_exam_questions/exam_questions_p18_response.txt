@@ -1,0 +1,50 @@
+[thinking]
+**Analyzing Exam Page 18: Question 8 Structure**
+
+Okay, so the user wants me to transcribe page 18 of the exam. The questions listed are 8, 8a, 8b, and 8bi. Let's see... looking at the structure, I see a potential issue right away.  Question 8 is listed as a short answer in the stub, but there's no independent text for question 8. Instead, the page immediately starts with "8 (a) State what is meant by a photon." and then "8 (b) A stationary nucleus of uranium-238...". The stub entries are "8", "8a", "8b" and "8bi". "8bi" is definitely a calculation and "8a" seems straightforward, as does "8b".
+
+I'm supposed to make sure every entry's "stem" is visible. If it's not, it's a stub-generation bug. There's no text specifically for "8". "8" just seems to be the numerical header for the question cluster. The rule is very clear: *if I can't find the stub's text on the page, then this is an upstream bug and I must emit `STUB ERROR`*. I'm not supposed to guess!
+
+So I check the YAML stub again: `questions: - number: "8", type: short_answer, text: ""` and there is no text. Bingo! That confirms it. The stub has an entry for "8" but there's no actual content *separate* from 8a and 8b.
+
+Therefore, question 8 is a stub error. I'll flag it as such, as instructed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "8a"
+    type: short_answer
+    text: |
+      State what is meant by a photon.
+  - number: "8b"
+    type: short_answer
+    text: |
+      A stationary nucleus of uranium-238 ($^{238}_{92}\text{U}$) undergoes alpha decay to produce a nucleus of thorium-234 ($^{234}_{90}\text{Th}$). The kinetic energy of the emitted alpha particle is $4.200\text{ MeV}$. A gamma-ray photon is also emitted during the decay.
+
+      Assume that the rebound kinetic energy of the thorium nucleus is negligible.
+
+      Table 8.1 shows the masses of the nuclides involved in the decay reaction. The mass of the uranium-238 nuclide is missing.
+
+      \textbf{Table 8.1}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      nuclide & nuclide mass/u \\ \hline
+      $^{4}_{2}\alpha$ & 4.000407 \\ \hline
+      $^{234}_{90}\text{Th}$ & 233.915174 \\ \hline
+      $^{238}_{92}\text{U}$ & \\ \hline
+      \end{tabular}
+
+      The total energy released in the decay of the nucleus of uranium-238 is $4.274\text{ MeV}$.
+  - number: "8bi"
+    type: calculation
+    text: |
+      Calculate the mass, in u, of the uranium-238 nuclide. Give your answer to five decimal places.
+
+      mass = \hrulefill u

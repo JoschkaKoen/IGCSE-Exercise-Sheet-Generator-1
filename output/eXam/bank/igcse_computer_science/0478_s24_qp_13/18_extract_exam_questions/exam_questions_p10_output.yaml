@@ -1,0 +1,9 @@
+```yaml
+questions:
+  - number: "8d"
+    type: long_answer
+    text: |
+      The student wants to replace the CPU to increase the performance of the computer.
+
+      Explain why a different CPU can increase the performance.
+```

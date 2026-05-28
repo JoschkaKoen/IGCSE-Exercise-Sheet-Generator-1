@@ -1,0 +1,37 @@
+questions:
+  - number: "1b"
+    type: short_answer
+    text: |
+      The function \texttt{FormatArray()} takes an array of strings as a parameter. It concatenates the contents of the array into one string with a space between each array element. The function returns the concatenated string.
+  - number: "1bi"
+    type: long_answer
+    text: |
+      Write program code for \texttt{FormatArray()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(b)(i)} in the evidence document.
+  - number: "1bii"
+    type: long_answer
+    text: |
+      The main program:
+      \begin{itemize}
+      \item calls \texttt{ReadData()} and stores the returned array
+      \item calls \texttt{FormatArray()} with the returned array and outputs the returned string.
+      \end{itemize}
+
+      Write program code for the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(b)(ii)} in the evidence document.
+  - number: "1biii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output.
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{1(b)(iii)} in the evidence document.

@@ -1,0 +1,30 @@
+questions:
+  - number: "2civ"
+    type: calculation
+    text: |
+      Determine the $y$-intercept of the line of best fit. Include the absolute uncertainty in your answer.
+
+      $y\text{-intercept} = \hrulefill$
+  - number: "2d"
+    type: short_answer
+    text: |
+      The e.m.f. $E$ of the battery is determined twice during the experiment. The values obtained are $5.6\text{ V}$ and $6.0\text{ V}$.
+  - number: "2di"
+    type: calculation
+    text: |
+      Using your answers to \textbf{(a)}, \textbf{(c)(iii)} and \textbf{(c)(iv)}, determine the values of $R$ and $Z$. Include appropriate units.
+
+      $R = \hrulefill$
+      $Z = \hrulefill$
+  - number: "2dii"
+    type: calculation
+    text: |
+      Determine the percentage uncertainty in your value of $R$.
+
+      percentage uncertainty = \hrulefill \%
+  - number: "2e"
+    type: calculation
+    text: |
+      The experiment is repeated with 20 resistors, each of resistance $R$, connected in parallel between P and Q. Determine the total current $I$ in the circuit.
+
+      $I = \hrulefill \text{ A}$

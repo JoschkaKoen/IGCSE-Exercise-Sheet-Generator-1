@@ -1,0 +1,47 @@
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      The table shows assembly language instructions for a processor that has one register, the Accumulator (ACC).
+
+      \begin{tabular}{|l|l|l|l|}
+      \hline
+      \textbf{Label} & \textbf{Opcode} & \textbf{Operand} & \textbf{Explanation} \\ \hline
+       & LDM & \#n & Load the number n to ACC \\ \hline
+       & LDD & \texttt{<address>} & Load the contents of the location at the given address to the ACC \\ \hline
+       & LDI & \texttt{<address>} & The address to be used is at the given address. Load the contents of this second address to the ACC \\ \hline
+       & ADD & \texttt{<address>} & Add the contents of the given address to the ACC \\ \hline
+       & SUB & \texttt{<address>} & Subtract the contents of the given address from the ACC \\ \hline
+       & STO & \texttt{<address>} & Store the contents of the ACC at the given address \\ \hline
+      \texttt{<label>:} & & \texttt{<data>} & Gives a symbolic address \texttt{<label>} to the memory location with contents \texttt{<data>} \\ \hline
+      \end{tabular}
+
+      \# denotes a denary number, e.g. \#123
+      \texttt{<label>} can be used in place of \texttt{<address>}
+  - number: "11a"
+    type: short_answer
+    text: |
+      Write \textbf{assembly language} code, using \textbf{only} the given instruction set to:
+
+      \begin{itemize}
+      \item store the denary value 100 as a named constant
+      \item subtract the constant from the value contained in address 632
+      \item store the result in variable \texttt{Answer}.
+      \end{itemize}
+
+      Show the initialisation of the constant and \texttt{Answer} in the table provided.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Label} & \textbf{Contents} \\ \hline
+       &  \\ \hline
+       &  \\ \hline
+       &  \\ \hline
+       &  \\ \hline
+      \end{tabular}
+  - number: "11b"
+    type: short_answer
+    text: |
+      The address 632 contains the value 45.
+
+      State the value of \texttt{Answer} after the code described in part \textbf{(a)} has executed.

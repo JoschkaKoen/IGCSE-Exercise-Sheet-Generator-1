@@ -1,0 +1,54 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Data can be measured in bits.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Give the name of the data storage measurement that is equal to 8 bits.
+  - number: "1b"
+    type: short_answer
+    text: |
+      State how many bits there are in a kibibyte (KiB).
+  - number: "1c"
+    type: short_answer
+    text: |
+      Give the name of the data storage measurement that is equal to 1024 gibibytes (GiB).
+  - number: "1d"
+    type: calculation
+    text: |
+      A 16-bit colour image has a resolution of 512 pixels wide by 512 pixels high.
+
+      Calculate the file size of the image in kibibytes (KiB). Show all your working.
+
+      Answer \hrulefill KiB
+  - number: "2"
+    type: short_answer
+    text: |
+      Data can be transmitted from one device to another.
+  - number: "2a"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) one box to show which of the terms is \textbf{not} a method for transmitting data.
+    options:
+      - letter: A
+        text: |
+          serial
+      - letter: B
+        text: |
+          simplex
+      - letter: C
+        text: |
+          parallel
+      - letter: D
+        text: |
+          parity
+  - number: "2b"
+    type: short_answer
+    text: |
+      Data is broken down into smaller units to be transmitted from one device to another.
+
+      Give the name of the unit that data is broken down into.
+```

@@ -1,0 +1,18 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      Give the \textbf{appropriate} data type for the variables in the following table, as used in the pseudocode:
+
+      \begin{tabular}{|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Variable name}} & \multicolumn{1}{c|}{\textbf{Data type}} \\ \hline
+      \texttt{HighRate} & \\ \hline
+      \texttt{TaxPayable} & \\ \hline
+      \end{tabular}
+  - number: "1d"
+    type: short_answer
+    text: |
+      The final \texttt{CASE} condition (\texttt{> 200}) in the pseudocode example could be replaced with a keyword.
+
+      Give the keyword.

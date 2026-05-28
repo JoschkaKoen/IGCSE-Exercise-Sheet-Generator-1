@@ -1,0 +1,69 @@
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Which quantity is a vector?
+    options:
+      - letter: A
+        text: |
+          pressure
+      - letter: B
+        text: |
+          temperature
+      - letter: C
+        text: |
+          weight
+      - letter: D
+        text: |
+          work
+  - number: "2"
+    type: multiple_choice
+    text: |
+      Four students, \textbf{A}, \textbf{B}, \textbf{C} and \textbf{D}, have completed an experiment to determine the acceleration of free fall, $g$. Each student repeated the experiment three times. The determined values of $g$ are shown in the table.
+
+      Which set of results has a high precision and a low accuracy?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & \multicolumn{3}{c|}{acceleration of free fall / $\text{m}\,\text{s}^{-2}$} \\
+      \cline{2-4}
+       & experiment 1 & experiment 2 & experiment 3 \\
+      \hline
+      \textbf{A} & 7.2 & 9.4 & 8.3 \\
+      \textbf{B} & 9.5 & 9.8 & 10.2 \\
+      \textbf{C} & 9.8 & 9.8 & 9.9 \\
+      \textbf{D} & 10.1 & 10.2 & 10.1 \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "3"
+    type: multiple_choice
+    text: |
+      The diameter of a ball is measured as $(5.26 \pm 0.02)\text{ cm}$.
+
+      What is the absolute uncertainty in the volume of the ball?
+    options:
+      - letter: A
+        text: |
+          $0.29\text{ cm}^3$
+      - letter: B
+        text: |
+          $0.87\text{ cm}^3$
+      - letter: C
+        text: |
+          $1.1\text{ cm}^3$
+      - letter: D
+        text: |
+          $7.0\text{ cm}^3$

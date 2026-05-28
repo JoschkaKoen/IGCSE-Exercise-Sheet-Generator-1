@@ -1,0 +1,30 @@
+```yaml
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      The table shows part of the instruction set for a processor. The processor has one register: the Accumulator (ACC).
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Opcode} & \textbf{Operand} & \textbf{Explanation} \\ \hline
+      AND & \texttt{\#n/Bn/\&n} & Bitwise AND operation of the contents of ACC with the operand \\ \hline
+      AND & \texttt{<address>} & Bitwise AND operation of the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      XOR & \texttt{\#n/Bn/\&n} & Bitwise XOR operation of the contents of ACC with the operand \\ \hline
+      XOR & \texttt{<address>} & Bitwise XOR operation of the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      OR & \texttt{\#n/Bn/\&n} & Bitwise OR operation of the contents of ACC with the operand \\ \hline
+      OR & \texttt{<address>} & Bitwise OR operation of the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      \end{tabular}
+
+      \texttt{<address>} can be an absolute or a symbolic address
+      \newline
+      \# denotes a denary number, e.g. \#123
+      \newline
+      B denotes a binary number, e.g. B01001010
+      \newline
+      \& denotes a hexadecimal number, e.g. \&4A
+
+      Write the bit manipulation instructions that can be used to set only the most significant bit to 1 in an 8-bit register.
+
+      The instructions need to work on a register that contains any 8-bit binary number.
+```

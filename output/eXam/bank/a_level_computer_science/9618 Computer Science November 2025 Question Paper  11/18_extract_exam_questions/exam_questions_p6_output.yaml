@@ -1,0 +1,13 @@
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      The database tables are repeated here:
+
+      \texttt{STUDENT}(\underline{\texttt{StudentID}}, \texttt{FirstName}, \texttt{TelephoneNumber}, \texttt{UniversityName})
+
+      \texttt{PLACEMENT}(\underline{\texttt{PlacementID}}, \texttt{StudentID}, \texttt{CompanyID}, \texttt{StartDate}, \texttt{EndDate}, \texttt{Complete})
+
+      \texttt{COMPANY}(\underline{\texttt{CompanyID}}, \texttt{CompanyName}, \texttt{MaxStudentsPerPlacement})
+
+      Explain what is meant by referential integrity, and how it applies to this database.

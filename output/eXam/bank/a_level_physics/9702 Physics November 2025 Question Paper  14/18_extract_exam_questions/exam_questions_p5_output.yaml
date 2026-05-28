@@ -1,0 +1,75 @@
+questions:
+  - number: "7"
+    type: multiple_choice
+    text: |
+      How can the acceleration of an object be determined?
+    options:
+      - letter: A
+        text: |
+          from the area under a displacement–time graph
+      - letter: B
+        text: |
+          from the area under a velocity–time graph
+      - letter: C
+        text: |
+          from the gradient of a displacement–time graph
+      - letter: D
+        text: |
+          from the gradient of a velocity–time graph
+  - number: "8"
+    type: multiple_choice
+    text: |
+      The acceleration of free fall on the Earth is different to the acceleration of free fall on the Moon.
+
+      How do the mass and weight of an object on the Earth compare to its mass and weight on the Moon?
+    options:
+      - letter: A
+        text: |
+          different mass, different weight
+      - letter: B
+        text: |
+          different mass, same weight
+      - letter: C
+        text: |
+          same mass, different weight
+      - letter: D
+        text: |
+          same mass, same weight
+  - number: "9"
+    type: multiple_choice
+    text: |
+      A sphere moves vertically downwards at terminal (constant) velocity in a liquid.
+
+      Which statement about the magnitude of the upthrust acting on the sphere is correct?
+    options:
+      - letter: A
+        text: |
+          It is proportional to the acceleration of free fall.
+      - letter: B
+        text: |
+          It is equal to the weight of the sphere.
+      - letter: C
+        text: |
+          It is proportional to the density of the sphere.
+      - letter: D
+        text: |
+          It is proportional to the square of the radius of the sphere.
+  - number: "10"
+    type: multiple_choice
+    text: |
+      An object of mass $2.0 \text{ kg}$ is travelling at a speed of $3.0 \text{ m s}^{-1}$ on a horizontal frictionless surface. This object collides head-on with a stationary object of mass $1.0 \text{ kg}$. The two objects stick together on impact.
+
+      How much kinetic energy is lost on impact?
+    options:
+      - letter: A
+        text: |
+          zero
+      - letter: B
+        text: |
+          $2.0 \text{ J}$
+      - letter: C
+        text: |
+          $2.4 \text{ J}$
+      - letter: D
+        text: |
+          $3.0 \text{ J}$

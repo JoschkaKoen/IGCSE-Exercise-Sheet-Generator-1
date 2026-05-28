@@ -1,0 +1,19 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Totalling and counting are standard methods of solution.
+
+      Numbers are input. The number 9999.9 is the last number to be input and is ignored.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Write an algorithm in pseudocode to total the numbers input and to output the total.
+      You do \textbf{not} need to validate the input.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Write an algorithm in pseudocode to count and output the number of input values that are
+      greater than 100. You do \textbf{not} need to validate the input.
+```

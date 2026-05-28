@@ -1,0 +1,34 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      Consider this logic expression:
+
+      $$\mathbf{Z = (A \text{ NAND } B) \text{ XOR } (NOT (NOT } \mathbf{B \text{ NAND } C))}$$
+  - number: "9a"
+    type: short_answer
+    text: |
+      Draw a logic circuit for this logic expression.
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+
+      Do \textbf{not} simplify the logic expression.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Complete the truth table from the given logic expression.
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Z} \\ \hline
+      0 & 0 & 0 & \\ \hline
+      0 & 0 & 1 & \\ \hline
+      0 & 1 & 0 & \\ \hline
+      0 & 1 & 1 & \\ \hline
+      1 & 0 & 0 & \\ \hline
+      1 & 0 & 1 & \\ \hline
+      1 & 1 & 0 & \\ \hline
+      1 & 1 & 1 & \\ \hline
+      \end{tabular}
+```

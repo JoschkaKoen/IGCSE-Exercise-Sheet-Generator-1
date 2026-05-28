@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      The instruction set also includes these bit manipulation instructions:
+
+      \begin{tabular}{|c|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      AND & \#n/Bn/\&n & Bitwise AND operation of the contents of ACC with the operand \\ \hline
+      AND & <address> & Bitwise AND operation of the contents of ACC with the contents of <address> \\ \hline
+      XOR & \#n/Bn/\&n & Bitwise XOR operation of the contents of ACC with the operand \\ \hline
+      XOR & <address> & Bitwise XOR operation of the contents of ACC with the contents of <address> \\ \hline
+      OR & \#n/Bn/\&n & Bitwise OR operation of the contents of ACC with the operand \\ \hline
+      OR & <address> & Bitwise OR operation of the contents of ACC with the contents of <address> \\ \hline
+      LSL & \#n & Bits in ACC are shifted logically n places to the left. Zeros are introduced on the right-hand end \\ \hline
+      LSR & \#n & Bits in ACC are shifted logically n places to the right. Zeros are introduced on the left-hand end. \\ \hline
+      \end{tabular}
+
+      \begin{itemize}
+      \item <address> can be an absolute or a symbolic address
+      \item \# denotes a denary number, e.g. \#123
+      \item B denotes a binary number, e.g. B01001010
+      \item \& denotes a hexadecimal number, e.g. \&4A
+      \end{itemize}
+
+      The current content of the ACC is shown:
+
+      \begin{tabular}{l|c|c|c|c|c|c|c|c|}
+      \cline{2-9}
+      \textbf{ACC} & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 \\ \cline{2-9}
+      \end{tabular}
+  - number: "8bi"
+    type: short_answer
+    text: |
+      The table has three sets of instructions. The binary number 10011010 is reloaded into the ACC before each set of instructions is run.
+
+      Complete the table by writing the content of the ACC after each set of instructions has run.
+
+      \begin{tabular}{|c|l|c|}
+      \hline
+      & \textbf{Instructions} & \textbf{ACC content} \\ \hline
+      \textbf{1} & LSL \#2 & \\ \hline
+      \textbf{2} & ADD \#5 \newline AND \#30 & \\ \hline
+      \textbf{3} & OR B11110010 \newline INC ACC & \\ \hline
+      \end{tabular}
+```

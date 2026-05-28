@@ -1,0 +1,17 @@
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      One type of run-time error can cause a program to stop responding ('freezing').
+
+      Identify a particular type of programming construct that can generate this type of error \textbf{and} explain why it occurs.
+
+      Construct \hrulefill
+
+      Explanation \hrulefill
+  - number: "5c"
+    type: long_answer
+    text: |
+      The function \texttt{Process()} contains a selection construct using a \texttt{CASE} structure.
+
+      Write pseudocode using a single selection construct with the same functionality \textbf{without} using a \texttt{CASE} structure.

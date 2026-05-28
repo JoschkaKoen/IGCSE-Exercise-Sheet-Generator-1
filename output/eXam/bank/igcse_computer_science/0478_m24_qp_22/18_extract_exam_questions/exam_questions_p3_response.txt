@@ -1,0 +1,44 @@
+[thinking]
+**Transcribing Exam Page 3**
+
+Okay, so the user wants me to handle page 3 of this exam paper. My task is to transcribe the content, understanding the structure and specific requirements. Let me break this down.
+
+First, I need to represent the overarching prompt, identified as question "3". It describes the context: we're dealing with standard methods like linear search and bubble sort, and we have an array, `Values[1:50]`, already populated with fifty numbers. I'll represent this concisely using YAML format for clarity and structure, since it's the most reliable way to make structured notes.
+
+```yaml
+  - number: "3"
+    type: short_answer
+    text: |
+      A linear search and a bubble sort are standard methods of solution.
+      Fifty numbers are already stored in the array \texttt{Values[1:50]}
+```
+
+Next, question "3a" asks for an algorithm written in pseudocode. Specifically, it involves taking a number input, `MyNumber`, and using a linear search to check for its presence in the `Values` array. The output should be either the position of the number if found, or the message `"Not found"` if it's not present. Again, I'll encode this using YAML.
+
+```yaml
+  - number: "3a"
+    type: long_answer
+    text: |
+      Write an algorithm in pseudocode to input a number, \texttt{MyNumber}, and use a linear search to test if that number is stored in the array. If the number is found in the array, the position in the array is output. If the number is not found in the array, ``Not found'' is output.
+```
+
+I'll also remember to adhere to the requested output format. The exam requires using `"Not found"` if the number is not present in the array. I can use this consistently.
+
+Alright, with that done, I'm confident I've captured the essence of page 3 accurately.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A linear search and a bubble sort are standard methods of solution.
+      Fifty numbers are already stored in the array \texttt{Values[1:50]}
+  - number: "3a"
+    type: long_answer
+    text: |
+      Write an algorithm in pseudocode to input a number, \texttt{MyNumber}, and use a linear search to test if that number is stored in the array. If the number is found in the array, the position in the array is output. If the number is not found in the array, "Not found" is output.
+```

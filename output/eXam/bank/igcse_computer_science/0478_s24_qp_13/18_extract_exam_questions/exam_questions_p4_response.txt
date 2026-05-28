@@ -1,0 +1,52 @@
+[thinking]
+**Analysis and Transcription of Exam Questions**
+
+Okay, so I've got page 4 of this exam paper in front of me. My task is to extract specific questions and format them according to the given YAML schema. Seems straightforward enough. The target questions are "3d," "3e," and "4." I need to transcribe those and make sure they conform to the output format's constraints.
+
+First up, question "3d". It's a `short_answer` type, asking me to identify two other uses of hexadecimal in computer science. I'll translate the latex formatting to preserve the bolding of "two". Now, I'll need numbered answer slots, which I can render in LaTeX using numbered lines with `\hrulefill`.
+
+Next, question "3e". This is a `calculation` question, dealing with two's complement 8-bit integers. Specifically, I have to calculate the two's complement representation for -25. The format requires open-ended space for working, which I can just represent with dotted lines ("Standalone dotted answer line(s) below an open-ended prompt -> Nothing"). No specific marker required.
+
+Finally, question "4". Another `short_answer` problem, this one's a table-completion task about secondary storage. The table has statements about storage types. I'll need to reconstruct the table in LaTeX, with columns for "type of secondary storage" and "statement." I'll use `\begin{tabular}{|l|l|}` for the table structure, the left column will use dotted lines `\hrulefill` as it requires blank space to be filled in with the answer. I'll make sure to add `\hline` to have the right table borders.
+
+Before submitting, I'll check my transcription against the formatting rules. No double quotes for strings, use the pipe symbol (`|`) for multiline text, no `\dotfill` or `\includegraphics` commands, and make sure that all math is wrapped in `$...$`. And, I need to make sure the negative values, like $-25$ are formatted to be `-25`. Let's use `-25` instead of the alternative forms. Looks like I should be good to go.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "3d"
+    type: short_answer
+    text: |
+      Identify \textbf{two} other ways that hexadecimal is used in computer science.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3e"
+    type: calculation
+    text: |
+      The health value for a character in the computer game can sometimes be a negative value. The negative values are stored as two’s complement 8-bit integers.
+
+      A character has a health value of $-25$.
+
+      Calculate the two’s complement 8-bit integer for $-25$. Show all your working.
+  - number: "4"
+    type: short_answer
+    text: |
+      The table contains statements about types of secondary storage.
+
+      Complete the table by writing the correct type of secondary storage for each statement.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{type of secondary storage} & \textbf{statement} \\ \hline
+      \hrulefill & Pits and lands are created on a reflective surface. \\ \hline
+      \hrulefill & NAND or NOR technology is used. \\ \hline
+      \hrulefill & Platters are spun that are divided into tracks and sectors. \\ \hline
+      \hrulefill & Electromagnets are used to read and write data. \\ \hline
+      \hrulefill & Transistors are used as control gates and floating gates. \\ \hline
+      \hrulefill & A red or blue laser is used to read and write data. \\ \hline
+      \end{tabular}
+```

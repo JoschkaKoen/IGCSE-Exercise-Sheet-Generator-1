@@ -1,0 +1,36 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program stores data for a board game using Object-Oriented Programming (OOP). The game has objects that are placed on the board. Each object has a string code (for example "A") and an integer value (for example, 2).
+
+      The class \texttt{BoardObject} stores the data about the objects that can be placed on the board:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{BoardObject}} \\ \hline
+      \texttt{Code : String} & stores the board object's code \\
+      \texttt{Value : Integer} & stores the integer value of the board object \\ \hline
+      \texttt{Constructor()} & initialises the attributes to the parameter values \\
+      \texttt{GetCode()} & returns \texttt{Code} \\
+      \texttt{GetValue()} & returns \texttt{Value} \\ \hline
+      \end{tabular}
+  - number: "1a"
+    type: short_answer
+    text: |
+      A class declaration can be used to declare a record. If the programming language used does not support arrays, a list can be used instead.
+  - number: "1ai"
+    type: long_answer
+    text: |
+      Write program code to declare the class \texttt{BoardObject} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program as \textbf{Question1\_N25}.
+
+      Copy and paste the program code into part \textbf{1(a)(i)} in the evidence document.

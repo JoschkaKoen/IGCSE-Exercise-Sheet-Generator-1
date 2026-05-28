@@ -1,0 +1,100 @@
+[thinking]
+**Exam Page 14 Transcription**
+
+Okay, so the user wants me to transcribe page 14 of this exam paper. Let's break down each part and make sure it's clear and properly formatted. I'm going to structure this so it's easy to read and use LaTeX commands where appropriate for code and clarity. This is straightforward; let's get it done.
+
+First, section "3c": We have:
+
+```yaml
+  - number: "3c"
+    type: short_answer
+    text: |
+      The procedure \texttt{OutputLinkedList()} outputs the data in the linked list in order by following the pointers from \texttt{FirstNode}.
+```
+
+Simple enough. That sets the stage. Next up, "3ci": This is where we get into the coding.
+
+```yaml
+  - number: "3ci"
+    type: long_answer
+    text: |
+      Write program code for \texttt{OutputLinkedList()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document.
+```
+
+Okay, the candidate needs to write the code for the `OutputLinkedList()` procedure, save it, and then copy it into the specified section of the evidence document. Let's make sure it's clear about the saving and pasting.
+
+Now, "3cii": this one involves modifying the main program.
+
+```yaml
+  - number: "3cii"
+    type: long_answer
+    text: |
+      Amend the main program to call \texttt{InsertData()} and then \texttt{OutputLinkedList()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence document.
+```
+
+The candidate needs to amend the main program to call `InsertData()` *and then* `OutputLinkedList()`, save, and paste again. Making sure that the order of the calls is explicitly stated is important.
+
+Finally, "3ciii": This is the testing section.
+
+```yaml
+  - number: "3ciii"
+    type: short_answer
+    text: |
+      Test your program with the test data:
+
+      5 \quad 1 \quad 2 \quad 3 \quad 8
+
+      Take a screenshot of the output.
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{3(c)(iii)} in the evidence document.
+```
+
+Here, the candidate runs the program with the specified test data (5, 1, 2, 3, 8), takes a screenshot of the output, saves the program, and pastes the screenshot into the correct part of the evidence document. It's a comprehensive test of the linked list output functionality. I think that's all. Let me double check... Yep, everything seems clear. It should be easy to follow.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The procedure \texttt{OutputLinkedList()} outputs the data in the linked list in order by following the pointers from \texttt{FirstNode}.
+  - number: "3ci"
+    type: long_answer
+    text: |
+      Write program code for \texttt{OutputLinkedList()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document.
+  - number: "3cii"
+    type: long_answer
+    text: |
+      Amend the main program to call \texttt{InsertData()} and then \texttt{OutputLinkedList()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence document.
+  - number: "3ciii"
+    type: short_answer
+    text: |
+      Test your program with the test data:
+
+      5 \quad 1 \quad 2 \quad 3 \quad 8
+
+      Take a screenshot of the output.
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{3(c)(iii)} in the evidence document.

@@ -1,0 +1,36 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A computer uses both random access memory (RAM) and secondary storage.
+  - number: "5a"
+    type: short_answer
+    text: |
+      State the purpose of secondary storage.
+  - number: "5b"
+    type: short_answer
+    text: |
+      One type of secondary storage is optical.
+
+      Circle \textbf{three} examples of optical storage.
+
+      \begin{itemize}
+      \item read only memory (ROM)
+      \item secure digital (SD) card
+      \item compact disk (CD)
+      \item hard disk drive (HDD)
+      \item digital versatile disk (DVD)
+      \item Blu-ray disk
+      \item universal serial bus (USB) drive
+      \item solid-state drive (SSD)
+      \end{itemize}
+  - number: "5c"
+    type: long_answer
+    text: |
+      Explain why a computer needs RAM.
+  - number: "5d"
+    type: long_answer
+    text: |
+      The computer processes instructions using the fetch–decode–execute (FDE) cycle.
+
+      Draw and annotate a diagram to show the process of the fetch stage of the FDE cycle.

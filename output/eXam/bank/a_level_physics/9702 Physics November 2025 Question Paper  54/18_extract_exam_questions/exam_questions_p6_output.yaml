@@ -1,0 +1,40 @@
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      Values of $s$ and $w$ are given in Table 2.1.
+
+      \begin{center}
+      \textbf{Table 2.1}
+      \newline
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      $s / \text{mm}$ & $\frac{1}{s} / \text{mm}^{-1}$ & $w / \text{mm}$ & $y / \text{mm}$ \\ \hline
+      $0.18 \pm 0.01$ & & $33.0$ & \\ \hline
+      $0.21 \pm 0.01$ & & $28.9$ & \\ \hline
+      $0.24 \pm 0.01$ & & $25.1$ & \\ \hline
+      $0.27 \pm 0.01$ & & $22.6$ & \\ \hline
+      $0.31 \pm 0.01$ & & $19.6$ & \\ \hline
+      $0.38 \pm 0.01$ & & $15.9$ & \\ \hline
+      \end{tabular}
+      \end{center}
+
+      Calculate and record values of $\frac{1}{s} / \text{mm}^{-1}$ and $y / \text{mm}$ in Table 2.1. Include the absolute uncertainties in $\frac{1}{s}$.
+  - number: "2c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Plot a graph of $y / \text{mm}$ against $\frac{1}{s} / \text{mm}^{-1}$. Include error bars for $\frac{1}{s}$.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit and a worst acceptable straight line on your graph. Label both lines.
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Determine the gradient of the line of best fit. Include the absolute uncertainty in your answer.
+
+      gradient = \hrulefill

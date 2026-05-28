@@ -1,0 +1,57 @@
+[thinking]
+**My Approach to Extracting and Formatting Exam Questions**
+
+Okay, so I've been given a specific task: to process an exam paper, specifically page 8, and extract questions "4", "4a", and "4b". The desired output is a YAML file adhering to a pre-defined schema, so I need to translate these questions into a suitable format. My thought process is structured, almost like an algorithm.
+
+First, I need to analyze the request itself to understand the input and the required output format. I know the input is text from the exam paper, the questions I need to isolate, and the goal is YAML output.
+
+Now for question "4". I need to transcribe it carefully, noting the nuances of the text. It contains an assignment statement involving a string-to-number conversion and a division. There's a `Result <- STR_TO_NUM(x) / STR_TO_NUM(y)` calculation, and importantly, the question specifies type information (real, string). The question also describes two crucial checks that are required before a calculation. I will use the LaTeX formatting for the code block. I'll double-check and make sure that the assignment arrow is correct.
+
+Next, I'll transcribe "4a". This one asks about error types and causes, specifically if checks *aren't* carried out. The text includes some fill-in lines: "Type .........................................................................................................................................." and "Cause .......................................................................................................................................". I immediately recognize the need to use `\hrulefill` instead of the dots, as per the rules I've learned. The rules say "A value followed by an answer line (e.g. `10010011 ........`) -> `10010011 \hrulefill`". Therefore, I use: `Type \hrulefill` and `Cause \hrulefill`.
+
+Finally, question "4b" is about designing the checks and calculation as a module (procedure or function) and asks for another reason why this is a suitable approach, and what is avoided. This will require some careful thought to answer completely. The questions use `\textbf{...}` for emphasis. I need to be precise and concise. The answer lines also use the `\hrulefill` format: `Reason \hrulefill` and `Avoided \hrulefill`.
+
+Before finalizing my output, I need to format check. This is crucial for adhering to the YAML schema. Specifically: free-text fields should not be double-quoted. Code should be wrapped in `\texttt{...}` for inline code and `\begin{alltt}...\end{alltt}` for code blocks. I must use `\hrulefill` where appropriate, rather than `\dotfill`. And I should watch out for sub-question prefixes like "(a)" or "(b)" at the start of any text. That should be it. My goal is to create the perfect YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A program includes the following assignment statement:
+
+      \begin{alltt}
+      Result <- STR_TO_NUM(x) / STR_TO_NUM(y)
+      \end{alltt}
+
+      When the program evaluates the expression in the statement, it performs a calculation.
+
+      Variable \texttt{Result} is of type real and variables \texttt{x} and \texttt{y} are of type string.
+
+      Two checks are required before the calculation is performed:
+
+      \begin{enumerate}
+      \item The two strings represent valid numeric values.
+      \item The numeric value of string \texttt{y} is not zero.
+      \end{enumerate}
+  - number: "4a"
+    type: short_answer
+    text: |
+      Identify the type of error that could occur if these checks are \textbf{not} carried out \textbf{and} state a cause of this error.
+
+      Type \hrulefill
+
+      Cause \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      The designer considers implementing the \textbf{checks and calculation} as a module (a procedure or a function). One reason for this is that the same checks and calculations are performed at several places in the program.
+
+      Give \textbf{another} reason why this is a suitable approach \textbf{and} state what is avoided by this approach.
+
+      Reason \hrulefill
+
+      Avoided \hrulefill

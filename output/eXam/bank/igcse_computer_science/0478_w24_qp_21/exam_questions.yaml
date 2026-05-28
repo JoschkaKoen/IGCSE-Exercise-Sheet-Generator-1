@@ -1,0 +1,669 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) \textbf{one} box to show which check is used for verification
+    when data is input.
+  answer_options:
+  - letter: A
+    text: length check
+  - letter: B
+    text: range check
+  - letter: C
+    text: type check
+  - letter: D
+    text: visual check
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) \textbf{one} box to identify which option is used to show
+    the inputs and output of a Boolean expression.
+  answer_options:
+  - letter: A
+    text: flowchart
+  - letter: B
+    text: trace table
+  - letter: C
+    text: truth table
+  - letter: D
+    text: variable
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Four operators and \textbf{three} types of operator are shown.
+
+
+    Draw \textbf{one or more} lines from each operator to its correct operator type.
+
+
+    \textbf{Operators}
+
+    \begin{itemize}
+
+    \item \texttt{>=}
+
+    \item \texttt{AND}
+
+    \item \texttt{DIV}
+
+    \item \texttt{+}
+
+    \end{itemize}
+
+
+    \textbf{Operator types}
+
+    \begin{itemize}
+
+    \item Boolean
+
+    \item Arithmetic
+
+    \item Logical
+
+    \end{itemize}'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'Identify \textbf{three} stages of the program development life cycle from
+    the following list of words.
+
+
+    \begin{itemize}
+
+    \item analysis
+
+    \item decomposition
+
+    \item design
+
+    \item input
+
+    \item pseudocode
+
+    \item testing
+
+    \item variable
+
+    \end{itemize}
+
+
+    1. \hrulefill
+
+    2. \hrulefill
+
+    3. \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: long_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'Describe \textbf{three} methods that are used to design and construct a solution
+    to a problem.
+
+
+    Method 1 \hrulefill
+
+
+    Method 2 \hrulefill
+
+
+    Method 3 \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An incomplete algorithm has been written in pseudocode to count the number
+    of zeros stored in an array and total the non-zero values.
+
+
+    \begin{alltt}
+
+    01 DECLARE A[1:50] : INTEGER
+
+    02 DECLARE C : INTEGER
+
+    03 DECLARE I : INTEGER
+
+    04 DECLARE T : INTEGER
+
+    05 I <- 0
+
+    06 \hrulefill
+
+    07 FOR C <- 1 TO 50
+
+    08     IF A[C] \hrulefill
+
+    09     THEN
+
+    10         T <- T + 1
+
+    11     ELSE
+
+    12         I <- I + A[C]
+
+    13     ENDIF
+
+    14 \hrulefill
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Complete the given pseudocode algorithm.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Write the pseudocode to display, with suitable messages, the number of zeros
+      stored in the array and the total of the non-zero values.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Meaningful identifiers have not been used in the algorithm. Suggest suitable
+      meaningful identifiers for:
+
+
+      The array:
+
+
+      A \hrulefill
+
+
+      The variables:
+
+
+      T \hrulefill
+
+      C \hrulefill
+
+      I \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Consider the logic circuit:'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Write a logic expression for the given logic circuit. Do not attempt to
+      simplify the logic expression.
+
+
+      W = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table from the given logic circuit.
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{Working space} & \textbf{W} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A programmer is designing a program to check the length of a password and
+    to check if the password input is the same as the stored password.
+
+
+    The program requirements are:
+
+    \begin{itemize}
+
+    \item input the password, \texttt{Password}
+
+    \item check if there are at least 8 characters in the password
+
+    \item check that the password is \textbf{not} the same as the stored password
+    \texttt{OldPass}
+
+    \item output ‘accepted’ if both tests are completed successfully
+
+    \item otherwise, output ‘rejected’.
+
+    \end{itemize}
+
+
+    Use the variable names given.'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Complete the flowchart for the program.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The accepted password, \texttt{Password}, is to be written to the file
+      \texttt{MyPassword.txt}
+
+
+      Write pseudocode to:
+
+
+      \begin{itemize}
+
+      \item open the file
+
+      \item write the accepted password to the file
+
+      \item close the file.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain why the accepted password needs to be stored in a file.
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An algorithm has been written in pseudocode to check if a temperature is
+    in a given range.
+
+    The temperature values used in the algorithm are correct.
+
+
+    \begin{alltt}
+
+    01 REPEAT
+
+    02     OUTPUT "Please enter temperature "
+
+    03     INPUT Temp
+
+    04     IF Temperature = 999
+
+    05     THEN
+
+    06         IF Temperature > 38.0
+
+    07         THEN
+
+    08             OUTPUT "Temperature too high"
+
+    09         ENDIF
+
+    10         IF Temperature < 35.0
+
+    11         THEN
+
+    12             OUTPUT "Temperature too low"
+
+    13         ENDIF
+
+    14         IF Temperature >= 35.0 OR Temperature <= 38.0
+
+    15         THEN
+
+    16             OUTPUT "Temperature normal"
+
+    17         ENDIF
+
+    18     ENDIF
+
+    19 WHILE Temperature = 999
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Identify the line numbers of \textbf{four} errors in the pseudocode and
+      suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 4 line number \hrulefill
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Identify the temperature range used.
+    answer_options: []
+    subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: "Complete the trace table for the \\textbf{corrected} algorithm using this\
+      \ data:\n\n34.22, 36.1, 37.4, 38.0, 999, –1\n\n\\begin{tabular}{|p{4cm}|p{6cm}|}\n\
+      \\hline\n\\textbf{Temperature} & \\textbf{OUTPUT} \\\\ \\hline\n & \\\\ \\hline\n\
+      \ & \\\\ \\hline\n & \\\\ \\hline\n & \\\\ \\hline\n & \\\\ \\hline\n & \\\\\
+      \ \\hline\n & \\\\ \\hline\n & \\\\ \\hline\n & \\\\ \\hline\n & \\\\ \\hline\n\
+      \ & \\\\ \\hline\n & \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A shop that sells cheese has set up a new database table called \texttt{CheeseStock}
+    to store details of the cheeses available for sale. Part of this table is given.
+
+
+    \begin{tabular}{|c|l|c|c|c|c|}
+
+    \hline
+
+    \textbf{ChNo} & \textbf{Name} & \textbf{InStock} & \textbf{SupplierCode} & \textbf{PricePerKg}
+    & \textbf{WeightKg} \\ \hline
+
+    CH01 & American & Yes & XYZ & 4.50 & 20.0 \\ \hline
+
+    CH02 & Brie & Yes & XYZ & 7.50 & 21.0 \\ \hline
+
+    CH03 & Burrata & No & IMP & 13.75 & 0.0 \\ \hline
+
+    CH04 & Camembert & No & ABC & 16.85 & 0.0 \\ \hline
+
+    CH05 & Cheddar & Yes & ABC & 5.00 & 50.0 \\ \hline
+
+    CH06 & Comté & No & SPC & 7.35 & 0.0 \\ \hline
+
+    CH07 & Cottage & Yes & XYZ & 4.50 & 3.0 \\ \hline
+
+    CH08 & Cream & Yes & XYZ & 5.50 & 6.5 \\ \hline
+
+    CH12 & Emmental & Yes & IMP & 2.75 & 1.5 \\ \hline
+
+    CH15 & Feta & Yes & IMP & 12.75 & 12.0 \\ \hline
+
+    CH16 & Fontina & Yes & SPC & 15.99 & 1.2 \\ \hline
+
+    CH17 & Gorgonzola & Yes & SPC & 15.25 & 0.3 \\ \hline
+
+    CH19 & Gouda & Yes & SPC & 7.99 & 2.5 \\ \hline
+
+    CH21 & Gruyère & No & SPC & 16.75 & 0.0 \\ \hline
+
+    CH22 & Halloumi & Yes & IMP & 4.75 & 15.0 \\ \hline
+
+    CH23 & Havarti & No & SPC & 6.75 & 0.0 \\ \hline
+
+    CH27 & Manchego & No & IMP & 13.99 & 0.0 \\ \hline
+
+    CH30 & Manouri & No & IMP & 18.50 & 0.0 \\ \hline
+
+    CH31 & Mascarpone & No & SPC & 12.99 & 0.0 \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the number of records in this part of the database table.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 10bi
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the name of the field that would be used for the primary key.
+      answer_options: []
+      subquestions: []
+    - number: 10bii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the reason for choosing this field for the primary key.
+      answer_options: []
+      subquestions: []
+  - number: 10c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the output from this structured query language (SQL) statement.
+
+
+      \begin{alltt}
+
+      SELECT ChNo, WeightKg
+
+      FROM CheeseStock
+
+      WHERE SupplierCode = ''ABC'';
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+  - number: 10d
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 10di
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Complete this SQL statement to display only the name of all the cheeses
+        that are out of stock.
+
+
+        \texttt{SELECT} \hrulefill
+
+
+        \texttt{FROM} \hrulefill
+
+
+        \texttt{WHERE} \hrulefill ;'
+      answer_options: []
+      subquestions: []
+    - number: 10dii
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how \textbf{one} of the lines in your statement in part \textbf{(d)(i)}
+        could be changed to display the same information.
+      answer_options: []
+      subquestions: []
+- number: '11'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'A running club has 200 members who compete in a 1-kilometre running competition
+    every month.
+
+    Members’ names are stored in the one-dimensional (1D) array \texttt{MemberName[]}
+
+    Each member’s time, in seconds, for the 1-kilometre run will be stored in another
+    one-dimensional (1D) array \texttt{MemberTime[]}
+
+    The position of each member’s data in the two arrays is the same. For example,
+    the member stored at index 10 in \texttt{MemberName[]} and at index 10 in \texttt{MemberTime[]}
+    is the same.
+
+
+    The running club awards a small prize to the members who have the top three times.
+
+    The club also awards certificates to all members with a time under 240 seconds.
+
+
+    Write a program that meets the following requirements:
+
+
+    \begin{itemize}
+
+    \item allows members’ times to be input twice and verifies that the inputs match
+
+    \item sorts the arrays \texttt{MemberTime[]} and \texttt{MemberName[]} in ascending
+    order of time
+
+    \item outputs the member names and times of the members with the top three times
+    and identifies them as First, Second and Third
+
+    \item stores the names of all the members who will receive a certificate in the
+    array \texttt{MemberCertificate[]}
+
+    \item outputs a message stating the number of certificates to be printed.
+
+    \end{itemize}
+
+
+    You must use pseudocode or program code \textbf{and} add comments to explain how
+    your code works.
+
+
+    You do not need to initialise the data in the array \texttt{MemberName[]}
+
+
+    You do not need to declare any arrays or variables; you may assume that this has
+    already been done.
+
+
+    All inputs and outputs must contain suitable messages.'
+  answer_options: []
+  subquestions: []

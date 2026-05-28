@@ -1,0 +1,30 @@
+[thinking]
+**Transcribing Questions 2bii and 2biii**
+
+Okay, the task is straightforward: transcribe questions 2bii and 2biii. Let's get right to it. Looking at the provided page, I can see the structure.
+
+First, question 2bii: "On Fig. 2.2, draw a labelled scale vector triangle to represent the forces acting on the tree. The weight of the tree has been drawn to scale." Alright, that's simple enough. I'll need to remember to specify the figure reference, "Fig. 2.2", even though I'm omitting the image itself based on the instructions. This is a drawing question, so I'll transcribe the text exactly as it appears. I'm following the explicit instruction: "Never emit \includegraphics{...} or any other image-inclusion command. If the question contains a figure, diagram, illustration, or photo, omit it entirely — transcribe only the question prompt and any accompanying text labels, captions, or table headers."
+
+Now for question 2biii: "The tree exerts a pressure of 150 kPa on the top of the post. Determine the surface area of the tree in contact with the post. area = .................................................... m2 [2]"
+
+Okay, I'll transcribe this verbatim, including the pressure value. I need to make sure to represent the units correctly, using LaTeX notation for clarity and the answer space with a filled line. It seems the space is asking for $\text{m}^2$. I should represent this using LaTeX. So it will be: "The tree exerts a pressure of $150\text{ kPa}$ on the top of the post. Determine the surface area of the tree in contact with the post. area = \hrulefill $\text{m}^2$"
+
+Finally, I will double check the YAML formatting. I will be using `|` for non-empty text, and avoid double quotes. And there's no `options` key, since this isn't multiple choice.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2bii"
+    type: short_answer
+    text: |
+      On Fig. 2.2, draw a labelled scale vector triangle to represent the forces acting on the tree. The weight of the tree has been drawn to scale.
+  - number: "2biii"
+    type: calculation
+    text: |
+      The tree exerts a pressure of $150\text{ kPa}$ on the top of the post.
+
+      Determine the surface area of the tree in contact with the post.
+
+      area = \hrulefill $\text{m}^2$

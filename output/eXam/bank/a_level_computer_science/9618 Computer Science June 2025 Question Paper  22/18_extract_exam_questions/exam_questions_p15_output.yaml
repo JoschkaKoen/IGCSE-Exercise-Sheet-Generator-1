@@ -1,0 +1,5 @@
+questions:
+  - number: "7a"
+    type: long_answer
+    text: |
+      Write efficient pseudocode for module \texttt{FindCustomer()}

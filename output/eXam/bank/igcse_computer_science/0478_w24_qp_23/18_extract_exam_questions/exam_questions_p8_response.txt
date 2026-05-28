@@ -1,0 +1,117 @@
+[thinking]
+**Transcription and Formatting of Password Algorithm Question**
+
+Okay, so the task is to transcribe questions 10 and 10a from this provided page. Question 10 presents a pseudocode algorithm for checking password rules, and 10a asks me to complete three trace tables based on given data. However, the document only displays the pseudocode and one dataset ("MYWORD") and a trace table structure. I'll need to transcribe what's here precisely, noting any formatting details.
+
+First, let's get that pseudocode down. I'll use the `\begin{alltt}...\end{alltt}` environment, because, you know, we always keep the verbatim environment. I need to pay close attention to the assignment operators and indentation for the `\begin{alltt}` environment. I remember that we are instructed to use the ASCII arrow `<-` for assignment (never math commands). I see that in this pseudocode, `<-` is used throughout, so that's the correct symbol to use. The indentation looks consistent, so I'll make sure it's accurate during the transcription process. Let me double-check the line numbers, and indentation.
+
+```alltt
+01 OUTPUT "Please enter password "
+02 INPUT Password
+03 Accept <- TRUE
+04 IF LENGTH(Password) < 8 OR LENGTH(Password) > 20
+05 THEN
+06    Accept <- FALSE
+07 ENDIF
+08 IF LCASE(Password) = Password OR UCASE(Password) = Password
+09 THEN
+10    Accept <- FALSE
+11 ENDIF
+12 Index <- 1
+13 Found <- FALSE
+14 WHILE NOT Found AND Accept AND Index < LENGTH(Password)
+15    IF SUBSTRING(Password, Index, 1) = '!'
+16    THEN
+17       Found <- TRUE
+18    ENDIF
+19    Index <- Index + 1
+20 ENDWHILE
+21 IF NOT Found
+22 THEN
+23    Accept <- FALSE
+24 ENDIF
+25 IF Accept
+26 THEN
+27    OUTPUT "Accepted"
+28 ELSE
+29    OUTPUT "Rejected"
+30 ENDIF
+```
+
+Now, onto Question 10a. It asks for three trace tables, but only one is provided: one with "Data: MYWORD" and an empty table. I'm going to represent it as a `tabular` environment, because it has headers and empty rows for candidates to fill in, which is the standard format for trace tables. Let's make sure the formatting matches the source; this table will have five columns (Password, Accept, Index, Found, OUTPUT) and I'll need to create the table structure with the correct number of rows. There's a header row and five empty rows below it. I'll make sure to get the table correct.
+
+```latex
+\textbf{Data: MYWORD}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Password} & \textbf{Accept} & \textbf{Index} & \textbf{Found} & \textbf{OUTPUT} \\ \hline
+ & & & & \\ \hline
+ & & & & \\ \hline
+ & & & & \\ \hline
+ & & & & \\ \hline
+ & & & & \\ \hline
+\end{tabular}
+```
+
+Okay, the work is done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      An algorithm has been written in pseudocode to check that a password meets a set of rules.
+
+      \begin{alltt}
+      01 OUTPUT "Please enter password "
+      02 INPUT Password
+      03 Accept <- TRUE
+      04 IF LENGTH(Password) < 8 OR LENGTH(Password) > 20
+      05 THEN
+      06    Accept <- FALSE
+      07 ENDIF
+      08 IF LCASE(Password) = Password OR UCASE(Password) = Password
+      09 THEN
+      10    Accept <- FALSE
+      11 ENDIF
+      12 Index <- 1
+      13 Found <- FALSE
+      14 WHILE NOT Found AND Accept AND Index < LENGTH(Password)
+      15    IF SUBSTRING(Password, Index, 1) = '!'
+      16    THEN
+      17       Found <- TRUE
+      18    ENDIF
+      19    Index <- Index + 1
+      20 ENDWHILE
+      21 IF NOT Found
+      22 THEN
+      23    Accept <- FALSE
+      24 ENDIF
+      25 IF Accept
+      26 THEN
+      27    OUTPUT "Accepted"
+      28 ELSE
+      29    OUTPUT "Rejected"
+      30 ENDIF
+      \end{alltt}
+  - number: "10a"
+    type: short_answer
+    text: |
+      Complete the three trace tables using the data shown for each one.
+
+      \textbf{Data: MYWORD}
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{Password} & \textbf{Accept} & \textbf{Index} & \textbf{Found} & \textbf{OUTPUT} \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+       & & & & \\ \hline
+      \end{tabular}

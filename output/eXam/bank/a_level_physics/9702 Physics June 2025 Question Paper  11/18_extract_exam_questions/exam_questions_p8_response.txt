@@ -1,0 +1,70 @@
+questions:
+  - number: "14"
+    type: multiple_choice
+    text: |
+      A uniform cylinder of weight $25.0\text{ N}$ is suspended from a newton meter.
+
+      The cylinder is fully submerged in water, as shown.
+
+      The reading on the newton meter is $10.0\text{ N}$.
+
+      The water is replaced by a liquid with a density 10\% greater than the density of water. The cylinder remains fully submerged.
+
+      What is the new reading on the newton meter?
+    options:
+      - letter: A
+        text: |
+          $8.5\text{ N}$
+      - letter: B
+        text: |
+          $9.0\text{ N}$
+      - letter: C
+        text: |
+          $11.0\text{ N}$
+      - letter: D
+        text: |
+          $11.5\text{ N}$
+  - number: "15"
+    type: multiple_choice
+    text: |
+      A student balances a $30\text{ cm}$ ruler on a fulcrum set at the $15\text{ cm}$ mark. She then places a $50\text{ g}$ mass on the $23\text{ cm}$ mark and a $20\text{ g}$ mass on the $11\text{ cm}$ mark, as shown.
+
+      Which mass should she place on the $7\text{ cm}$ mark to restore the balance?
+    options:
+      - letter: A
+        text: |
+          $30\text{ g}$
+      - letter: B
+        text: |
+          $40\text{ g}$
+      - letter: C
+        text: |
+          $47\text{ g}$
+      - letter: D
+        text: |
+          $133\text{ g}$
+  - number: "16"
+    type: multiple_choice
+    text: |
+      A submarine is at a depth of $130\text{ m}$ below the surface of the sea.
+
+      The pressure on the submarine due to the sea water is $p$.
+
+      The submarine sinks to a depth of $260\text{ m}$ below the surface.
+
+      Assume that the density of sea water is constant.
+
+      What is the \textbf{difference} between the pressures on the submarine due to the sea water at the two depths?
+    options:
+      - letter: A
+        text: |
+          $0$
+      - letter: B
+        text: |
+          $0.5p$
+      - letter: C
+        text: |
+          $p$
+      - letter: D
+        text: |
+          $2p$

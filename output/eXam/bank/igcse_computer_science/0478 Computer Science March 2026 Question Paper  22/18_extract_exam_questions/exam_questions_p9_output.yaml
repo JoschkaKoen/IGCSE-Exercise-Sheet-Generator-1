@@ -1,0 +1,35 @@
+```yaml
+questions:
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the trace table for the algorithm, using the given sentence.
+
+      Note: the start position of the sentence is index 1.
+
+      \begin{tabular}{|l|c|c|c|c|c|}
+      \hline
+      \textbf{Sentence} & \textbf{SentLength} & \textbf{LetterNo} & \textbf{Start} & \textbf{Word} & \textbf{OUTPUT} \\ \hline
+      Computing is fun & 16 & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      Explain the purpose of the algorithm shown by the flowchart.
+```

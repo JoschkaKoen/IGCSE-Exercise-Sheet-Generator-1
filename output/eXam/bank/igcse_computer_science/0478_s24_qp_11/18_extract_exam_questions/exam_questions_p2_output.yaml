@@ -1,0 +1,53 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A student has a portable tablet computer.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Identify \textbf{two} input devices that could be built into the portable tablet computer.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "1b"
+    type: short_answer
+    text: |
+      Identify \textbf{one} output device that could be built into the portable tablet computer.
+  - number: "1c"
+    type: short_answer
+    text: |
+      Identify \textbf{one} type of storage device that could be built into the portable tablet computer.
+  - number: "2"
+    type: short_answer
+    text: |
+      Hypertext markup language (HTML) colour codes can be represented as hexadecimal.
+  - number: "2a"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which statement about the hexadecimal number system is incorrect.
+    options:
+      - letter: A
+        text: |
+          It uses the values 0 to 9 and A to F.
+      - letter: B
+        text: |
+          It can be used as a shorter representation of binary.
+      - letter: C
+        text: |
+          It is a base 10 system.
+      - letter: D
+        text: |
+          It can be used to represent error codes.
+  - number: "2b"
+    type: calculation
+    text: |
+      Denary numbers can be converted to hexadecimal.
+
+      Convert the \textbf{three} denary numbers to hexadecimal.
+
+      20 \hrulefill
+      32 \hrulefill
+      165 \hrulefill
+```

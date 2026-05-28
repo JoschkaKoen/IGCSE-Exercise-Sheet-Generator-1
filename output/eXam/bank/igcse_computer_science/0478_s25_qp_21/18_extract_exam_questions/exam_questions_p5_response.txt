@@ -1,0 +1,48 @@
+[thinking]
+**My Task: Transcribing and Formatting Questions**
+
+Okay, so I see the user wants me to extract and format two specific questions from this provided page. First up is question 4b, which is a long-answer question. The instructions are clear: explain how to modify an algorithm to ensure a telephone number is 13 characters long, with a requirement to fully explain any code used.
+
+Next, I need to extract question 5. It's a short-answer question concerning the MOD and DIV library routines. My primary goal is to accurately transcribe the question while adhering to the user's specific formatting requests. The user wants the question structured to allow for answers specifying the purpose of each routine, as well as an example pseudocode statement for each. There are also instructions on the spacing and line breaks.
+
+I've already started to double-check the formatting, and as I re-read, I'm noting the use of horizontal rules, specifically the `\hrulefill` command in LaTeX, to visually represent the answer spaces. I also see that there are dotted lines under the labels. I need to make sure the structure is preserved. Let's make sure the formatting is correct:
+
+```latex
+Two library routines used in programming are MOD and DIV.
+
+State the purpose of each of the library routines.
+Give \textbf{one} example pseudocode statement for each of the library routines.
+
+MOD purpose \hrulefill
+Example pseudocode \hrulefill
+DIV purpose \hrulefill
+Example pseudocode \hrulefill
+```
+
+With that formatting checked, I will now transcribe the questions properly, and then I will be ready to report back to the user with the YAML structure of the information they requested.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "4b"
+    type: long_answer
+    text: |
+      Explain how you could change the algorithm to repeatedly prompt for the telephone number until the number entered is 13 characters in length.
+
+      Any code used must be fully explained.
+  - number: "5"
+    type: short_answer
+    text: |
+      Two library routines used in programming are \texttt{MOD} and \texttt{DIV}.
+
+      State the purpose of each of the library routines.
+      Give \textbf{one} example pseudocode statement for each of the library routines.
+
+      MOD purpose \hrulefill
+      Example pseudocode \hrulefill
+      DIV purpose \hrulefill
+      Example pseudocode \hrulefill
+```

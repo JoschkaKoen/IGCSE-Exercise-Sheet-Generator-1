@@ -1,0 +1,15 @@
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      A second module is defined:
+
+      \begin{tabular}{|p{3.5cm}|p{8.5cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      \texttt{LoansPerTutor()} & \begin{itemize} \item called with a parameter of type \texttt{STRING} representing a tutor ID (as a reminder, the first three characters of a \texttt{StudentID} represent a tutor ID) \item returns an integer value representing the number of books currently on loan to students who have the given tutor \end{itemize} \\ \hline
+      \end{tabular}
+
+      Reminder: unused elements have the \texttt{StudentID} set to an empty string. These may occur anywhere in the array.
+
+      Write pseudocode for the module \texttt{LoansPerTutor()}

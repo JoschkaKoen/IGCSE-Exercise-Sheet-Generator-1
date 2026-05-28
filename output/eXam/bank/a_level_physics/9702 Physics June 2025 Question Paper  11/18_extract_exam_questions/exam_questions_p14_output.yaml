@@ -1,0 +1,43 @@
+questions:
+  - number: "35"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit containing a thermistor, a fixed resistor and a battery.
+
+      The graph shows the $I-V$ characteristics of both components.
+
+      The battery has an e.m.f. of $12\text{ V}$ and negligible internal resistance.
+
+      What is the current in the fixed resistor?
+    options:
+      - letter: A
+        text: |
+          $0.36\text{ mA}$
+      - letter: B
+        text: |
+          $0.40\text{ mA}$
+      - letter: C
+        text: |
+          $0.48\text{ mA}$
+      - letter: D
+        text: |
+          $0.80\text{ mA}$
+  - number: "36"
+    type: multiple_choice
+    text: |
+      Two resistors of resistances $R_1$ and $R_2$ are connected in parallel.
+
+      What is the combined resistance between X and Y?
+    options:
+      - letter: A
+        text: |
+          $R_1 + R_2$
+      - letter: B
+        text: |
+          $\frac{R_1 R_2}{R_1 + R_2}$
+      - letter: C
+        text: |
+          $\frac{R_1 + R_2}{R_1 R_2}$
+      - letter: D
+        text: |
+          $\frac{R_1}{R_2}$

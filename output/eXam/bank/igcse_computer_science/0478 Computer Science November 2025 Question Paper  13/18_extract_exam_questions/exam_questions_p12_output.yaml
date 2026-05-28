@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "6c"
+    type: long_answer
+    text: |
+      The computer game is programmed using a high-level language.
+
+      Explain \textbf{one} difference between a high-level language and a low-level language.
+  - number: "6d"
+    type: short_answer
+    text: |
+      The programmer uses translators to translate the high-level language source code into machine code.
+
+      Identify the name of the translator that would be used for each of the statements. Each name may be used more than once.
+  - number: "6di"
+    type: short_answer
+    text: |
+      Translates and executes the source code one line at a time.
+  - number: "6dii"
+    type: short_answer
+    text: |
+      Translates the source code and will not execute it if errors are found. It instead produces a full report of the errors in the source code.
+  - number: "6diii"
+    type: short_answer
+    text: |
+      Translates the source code and produces an executable file.
+  - number: "6div"
+    type: short_answer
+    text: |
+      Stops execution of the machine code where an error is found and will resume execution of the machine code once the error is fixed.
+```

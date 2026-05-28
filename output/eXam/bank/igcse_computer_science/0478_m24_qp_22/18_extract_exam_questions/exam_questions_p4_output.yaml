@@ -1,0 +1,13 @@
+questions:
+  - number: "3b"
+    type: long_answer
+    text: |
+      Write an algorithm in pseudocode to sort the array \texttt{Values[1:50]} into ascending order using a bubble sort.
+  - number: "4"
+    type: short_answer
+    text: |
+      Identify \textbf{three} data types used in programming.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

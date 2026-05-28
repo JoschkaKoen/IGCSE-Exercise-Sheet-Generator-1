@@ -1,0 +1,40 @@
+[thinking]
+**Exam Page 19 Transcription**
+
+Okay, so I need to transcribe page 19 of this exam. Let's get to it. The user wants a clean LaTeX rendering of the questions and answers. I need to make sure I get the format right, especially the fill-in-the-blank spaces.
+
+Looking at the content, I see three questions to format: "8bii", "8biii", and "8c".
+
+*   **8bii:** This is straightforward. It's asking to determine the wavelength of gamma radiation. I'll format it like this: `Determine a value for the wavelength of the gamma radiation emitted during the decay of the uranium-238 nucleus.` `wavelength = \hrulefill \text{ m}`. Making sure the units are clearly specified and that `\hrulefill` is used correctly to represent the blank space.
+
+*   **8biii:** This is a conceptual question about the impact of the thorium nucleus's recoil. I'll reformat this in LaTeX, noting the use of *bold* to highlight a negative: `In practice, the rebound kinetic energy of the thorium nucleus is \textbf{not} negligible.` `Explain, without further calculation, how your answer in \textbf{(b)(ii)} compares with the true wavelength of gamma radiation emitted during the decay of the uranium-238 nucleus.`
+
+*   **8c:** Finally, this question focuses on why cobalt-60 decay doesn't result in a single gamma wavelength. I'll format this carefully too, keeping the negative in bold: `Gamma radiation emitted during the decay of a sample of uranium-238 has a single wavelength.` `Nuclei of cobalt-60 ($^{60}_{27}\text{Co}$) decay by beta emission, and also emit gamma radiation in the process.` `Suggest why there is \textbf{not} a single wavelength for the gamma radiation emitted during the decay of a sample of cobalt-60.`
+
+Okay, I think I've got a good LaTeX representation of these questions. Time to render it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8bii"
+    type: calculation
+    text: |
+      Determine a value for the wavelength of the gamma radiation emitted during the decay of the uranium-238 nucleus.
+
+      wavelength = \hrulefill $\text{m}$
+  - number: "8biii"
+    type: long_answer
+    text: |
+      In practice, the rebound kinetic energy of the thorium nucleus is \textbf{not} negligible.
+
+      Explain, without further calculation, how your answer in \textbf{(b)(ii)} compares with the true wavelength of gamma radiation emitted during the decay of the uranium-238 nucleus.
+  - number: "8c"
+    type: long_answer
+    text: |
+      Gamma radiation emitted during the decay of a sample of uranium-238 has a single wavelength.
+
+      Nuclei of cobalt-60 ($^{60}_{27}\text{Co}$) decay by beta emission, and also emit gamma radiation in the process.
+
+      Suggest why there is \textbf{not} a single wavelength for the gamma radiation emitted during the decay of a sample of cobalt-60.

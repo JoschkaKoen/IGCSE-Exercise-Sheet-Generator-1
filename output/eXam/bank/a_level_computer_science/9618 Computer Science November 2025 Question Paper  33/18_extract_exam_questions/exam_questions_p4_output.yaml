@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "4"
+    type: long_answer
+    text: |
+      Identify \textbf{and} describe \textbf{three} protocols that are used in the Application Layer of the TCP/IP protocol suite.
+
+      Protocol 1 \hrulefill
+
+      Description \hrulefill
+
+      Protocol 2 \hrulefill
+
+      Description \hrulefill
+
+      Protocol 3 \hrulefill
+
+      Description \hrulefill
+  - number: "5"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5a"
+    type: short_answer
+    text: |
+      State the purpose of multi-tasking.
+  - number: "5b"
+    type: long_answer
+    text: |
+      Explain how an operating system ensures that multi-tasking operates efficiently.
+```

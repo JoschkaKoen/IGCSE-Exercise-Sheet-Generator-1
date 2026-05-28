@@ -1,0 +1,37 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A student’s computer has primary storage. One example of primary storage is random access memory (RAM).
+  - number: "7a"
+    type: short_answer
+    text: |
+      Identify \textbf{one} other example of primary storage.
+  - number: "7b"
+    type: long_answer
+    text: |
+      Explain why RAM is an example of primary storage and \textbf{not} secondary storage.
+  - number: "7c"
+    type: long_answer
+    text: |
+      The student is editing a large video file for a project and during this process the RAM becomes full. This makes the computer crash.
+
+      Describe how virtual memory could be used in this process to stop the computer crashing.
+  - number: "7d"
+    type: short_answer
+    text: |
+      The computer uses solid-state (flash memory) storage.
+  - number: "7di"
+    type: short_answer
+    text: |
+      Give \textbf{two} features of solid-state (flash memory) storage.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7dii"
+    type: short_answer
+    text: |
+      Give \textbf{two} examples of solid-state (flash memory) storage.
+
+      1. \hrulefill
+      2. \hrulefill

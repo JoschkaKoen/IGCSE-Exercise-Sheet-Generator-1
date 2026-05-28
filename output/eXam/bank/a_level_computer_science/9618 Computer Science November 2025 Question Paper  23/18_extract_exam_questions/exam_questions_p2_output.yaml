@@ -1,0 +1,46 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A user requires a program that implements complex data encryption to a recognised international standard. A programmer has started the design of the program.
+  - number: "1a"
+    type: short_answer
+    text: |
+      The programmer decides to use a library routine to provide part of the solution. One reason for this is that library routines may perform functions that the programmer is unable to program themselves.
+
+      State \textbf{three} other benefits of using library routines in the development of the program.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "1b"
+    type: short_answer
+    text: |
+      The programmer has identified a different part of the algorithm that would be appropriate to implement as a subroutine (a procedure or a function); no suitable library routine exists for this part.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      State \textbf{two} reasons why the programmer may decide to use a subroutine.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "1bii"
+    type: short_answer
+    text: |
+      A function header in pseudocode is defined as:
+
+      \begin{alltt}
+      FUNCTION Pass2(Count : INTEGER) RETURNS BOOLEAN
+      \end{alltt}
+
+      Complete the table by describing the terms used in the function header.
+
+      The first row has been completed.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Term} & \textbf{Description} \\ \hline
+      \texttt{Pass2} & the name of the function \\ \hline
+      \texttt{Count} &  \\ \hline
+      \texttt{BOOLEAN} &  \\ \hline
+      \end{tabular}

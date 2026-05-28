@@ -1,0 +1,32 @@
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      An echo check is used to check for errors after the image has been transmitted.
+
+      Draw and annotate a diagram to show how the echo check would detect any errors.
+  - number: "2e"
+    type: short_answer
+    text: |
+      The image data is encrypted using symmetric encryption.
+  - number: "2ei"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) one box to show the correct statement about symmetric encryption.
+    options:
+      - letter: A
+        text: |
+          Encrypted text is known as plain text.
+      - letter: B
+        text: |
+          The most secure form of encryption.
+      - letter: C
+        text: |
+          The encryption key is shared with any device receiving the encrypted data.
+      - letter: D
+        text: |
+          Two different keys are used.
+  - number: "2eii"
+    type: short_answer
+    text: |
+      Give one other type of encryption that could be used.

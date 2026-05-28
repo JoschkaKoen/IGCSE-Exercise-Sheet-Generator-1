@@ -1,0 +1,18 @@
+[thinking]
+**Transcribing Question 3biii**
+
+Okay, so the user wants me to transcribe question "3biii" from the provided page. I need to make sure I get this right. First, I see the prefix `(iii)` attached to the start of the text. I'll need to strip that out; that's just a sub-question marker, not part of the core prompt.
+
+Now, let's look at the actual text: "A processor is currently executing a program. The processor receives an interrupt. Explain how the processor manages the current program and the interrupt." Alright, it's a straightforward question about interrupt handling, fairly standard stuff. It's a long-answer question, and I can see the layout of the page confirms this. There are no explicitly provided answer lines or markers on the page which should be rendered, as it's an open-ended prompt. Just the question itself will do. No need to overthink this. I'll make sure to get the question down verbatim, minus the prefix, and then I'm done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3biii"
+    type: long_answer
+    text: |
+      A processor is currently executing a program. The processor receives an interrupt.
+
+      Explain how the processor manages the current program and the interrupt.

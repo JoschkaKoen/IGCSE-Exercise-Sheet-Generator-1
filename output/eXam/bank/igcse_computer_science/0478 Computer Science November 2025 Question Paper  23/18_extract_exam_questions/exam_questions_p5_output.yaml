@@ -1,0 +1,55 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A program has been written in pseudocode to input five numbers between 1 and 900 inclusive and store the highest number and the lowest number entered.
+
+      \begin{alltt}
+      01 Lowest <- 900
+      02 Highest <- 1
+      03 FOR Count <- 1 TO 5
+      04   INPUT Number
+      05   IF Number < Lowest
+      06   THEN
+      07     Lowest <- Number
+      08   ELSE
+      09     IF Number > Highest
+      10     THEN
+      11       Highest <- Number
+      12     ENDIF
+      13   ENDIF
+      14 NEXT Count
+      \end{alltt}
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the trace table for the algorithm using the following numbers:
+
+      563, 21, 376, 99, 400
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Count} & \textbf{Number} & \textbf{Lowest} & \textbf{Highest} \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: short_answer
+    text: |
+      The algorithm does \textbf{not} work correctly.
+
+      State the reason why the algorithm does \textbf{not} work as expected and explain how the algorithm could be corrected.
+
+      Any code used must be fully explained.
+
+      Reason \hrulefill
+
+      Correction \hrulefill

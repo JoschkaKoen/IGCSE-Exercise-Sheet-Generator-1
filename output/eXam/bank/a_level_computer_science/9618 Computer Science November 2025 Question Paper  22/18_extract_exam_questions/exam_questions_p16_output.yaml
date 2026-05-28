@@ -1,0 +1,25 @@
+```yaml
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      As a reminder, a global array \texttt{Loan} stores 7000 loan records with data items for each loan record:
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+      \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed the book \\ \hline
+      \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\ \hline
+      \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not} been returned \\ \hline
+      \end{tabular}
+
+      A new module is defined:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{NewLoan()} & $\bullet$ called with two parameters of type \texttt{STRING} representing a \texttt{StudentID} and a \texttt{BookID} \\
+       & $\bullet$ searches the array for an unused loan record \\
+       & $\bullet$ if found, updates the loan record and returns \texttt{TRUE}, otherwise returns \texttt{FALSE} \\ \hline
+      \end{tabular}
+```

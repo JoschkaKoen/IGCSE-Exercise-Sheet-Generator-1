@@ -1,0 +1,121 @@
+[thinking]
+**Transcription Task and Question Verification**
+
+Okay, so the task is to transcribe four physics questions (14, 15, 16, and 17) from an image. I've broken down each question, including the text and options, and ensured the LaTeX formatting is rendered accurately. I initially wrestled a bit with formatting the options for question 15, but I think I've arrived at a clear representation that keeps the tabular structure. I double-checked each question to be confident. Specifically, for question 15, the text introduces a table to define the options in a 2x2 grid, but I represented the options below for clarity. I also carefully reviewed the LaTeX equations to ensure accurate rendering. Let's go through the questions:
+
+*   **Question 14:** Involves a bar on a pivot. The problem presents a uniform bar with mass *M* and length *L* on a pivot at distance *x* from end *X*. A mass *m* is placed at distance *y* from the pivot, putting it in equilibrium. The task is to find an expression for *y*. The options are:
+
+    *   A: `$\frac{xM}{m}$`
+    *   B: `$\frac{M}{m}(L - x)$`
+    *   C: `$\frac{M}{2m}(L - 2x)$`
+    *   D: `$\frac{1}{m}(Lm - xM)$`
+
+*   **Question 15:** Focuses on density changes. It explores how changes in mass and volume impact density. Specifically, the questions asks "Which two changes, when made together, **must** increase the density of the object?"
+    *   A: `decrease mass, decrease volume`
+    *   B: `decrease mass, increase volume`
+    *   C: `increase mass, decrease volume`
+    *   D: `increase mass, increase volume`
+
+*   **Question 16:** Deals with buoyancy on Earth and Mars. This question discusses an object experiencing upthrust in a liquid on both Earth (*U<sub>E</sub>*) and Mars (*U<sub>M</sub>*). I'm given the acceleration due to gravity on Mars (3.7 m s<sup>-2</sup>), and I must assume the liquid's density and object volume are the same on both planets. The question asks for the ratio *U<sub>M</sub>/U<sub>E</sub>*. The choices are:
+
+    *   A: `0.38`
+    *   B: `1.0`
+    *   C: `2.7`
+    *   D: `3.6`
+
+*   **Question 17:** Focuses on the derivation of kinetic energy. The question sets up a scenario where a student is trying to derive the kinetic energy formula (*E<sub>K</sub>*) using an object of mass *m* at rest, a force *F* causing acceleration to a final velocity *v* over a displacement *s*. It asks which equation is *not* needed in this derivation. The available equations are:
+
+    *   A: `$F = ma$`
+    *   B: `$W = Fs$`
+    *   C: `$E = \frac{1}{2}Fs$`
+    *   D: `$v^2 = u^2 + 2as$`
+
+
+
+[/thinking]
+
+questions:
+  - number: "14"
+    type: multiple_choice
+    text: |
+      The diagram shows a uniform bar of mass $M$ and length $L$ resting on a pivot at a distance $x$ from end X.
+
+      An object of mass $m$ is placed on the bar at distance $y$ from the pivot so that the bar is in equilibrium.
+
+      What is an expression for $y$?
+    options:
+      - letter: A
+        text: |
+          $\frac{xM}{m}$
+      - letter: B
+        text: |
+          $\frac{M}{m}(L - x)$
+      - letter: C
+        text: |
+          $\frac{M}{2m}(L - 2x)$
+      - letter: D
+        text: |
+          $\frac{1}{m}(Lm - xM)$
+  - number: "15"
+    type: multiple_choice
+    text: |
+      The mass and volume of an object are varied.
+
+      Which two changes, when made together, \textbf{must} increase the density of the object?
+    options:
+      - letter: A
+        text: |
+          decrease mass, decrease volume
+      - letter: B
+        text: |
+          decrease mass, increase volume
+      - letter: C
+        text: |
+          increase mass, decrease volume
+      - letter: D
+        text: |
+          increase mass, increase volume
+  - number: "16"
+    type: multiple_choice
+    text: |
+      On Earth, a solid object that is fully submerged in a liquid experiences an upthrust $U_{\text{E}}$.
+
+      On Mars, the same object, fully submerged in the same liquid, experiences an upthrust $U_{\text{M}}$.
+
+      The acceleration of free fall on Mars is $3.7 \text{ m s}^{-2}$.
+
+      Assume that the liquid's density and the object's volume have the same values on Earth and Mars.
+
+      What is the ratio $\frac{U_{\text{M}}}{U_{\text{E}}}$?
+    options:
+      - letter: A
+        text: |
+          0.38
+      - letter: B
+        text: |
+          1.0
+      - letter: C
+        text: |
+          2.7
+      - letter: D
+        text: |
+          3.6
+  - number: "17"
+    type: multiple_choice
+    text: |
+      A student attempts to derive the formula for kinetic energy $E_{\text{K}}$. She begins by considering an object of mass $m$ that is initially at rest. A constant force $F$ applied to the object causes it to accelerate to final velocity $v$ in displacement $s$. The kinetic energy gained by the object is equal to the work done on the object by the force $F$.
+
+      Which equation does the student \textbf{not} need in order to derive the formula for $E_{\text{K}}$?
+    options:
+      - letter: A
+        text: |
+          $F = ma$
+      - letter: B
+        text: |
+          $W = Fs$
+      - letter: C
+        text: |
+          $E = \frac{1}{2}Fs$
+      - letter: D
+        text: |
+          $v^2 = u^2 + 2as$

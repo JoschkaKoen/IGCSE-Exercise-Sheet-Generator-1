@@ -1,0 +1,12 @@
+  - number: "10c"
+    type: short_answer
+    text: ""
+  - number: "10d"
+    type: short_answer
+    text: ""
+  - number: "10di"
+    type: short_answer
+    text: ""
+  - number: "10dii"
+    type: long_answer
+    text: ""

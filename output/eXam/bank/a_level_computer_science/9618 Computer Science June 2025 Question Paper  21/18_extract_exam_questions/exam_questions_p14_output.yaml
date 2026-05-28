@@ -1,0 +1,57 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A program is being developed to implement a customer loyalty scheme for a coffee shop.
+
+      The programmer has decided that the following data items need to be stored for each customer:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Data item} & \textbf{Description} \\ \hline
+      customer ID & a unique six-digit string \\ \hline
+      points & an integer value that is increased by one for every cup of coffee the customer orders \\ \hline
+      \end{tabular}
+
+      \newline
+      When a customer visits the shop and orders coffee, the scheme operates as follows:
+
+      \begin{itemize}
+      \item The total number of points is increased by the number of coffees ordered.
+      \item If just one cup of coffee is ordered and the number of points goes above 10, then:
+      \begin{itemize}
+      \item the cup of coffee they have just ordered is given to them free of charge
+      \item the number of points is reduced by 11.
+      \end{itemize}
+      \item If the order is for multiple coffees and the number of points goes above 10, then:
+      \begin{itemize}
+      \item they get one coffee free of charge for every 11 points
+      \item the number of points is reduced by 11 for each free coffee.
+      \end{itemize}
+      \end{itemize}
+
+      For example, the:
+
+      \begin{itemize}
+      \item customer currently has 9 points
+      \item customer orders 16 cups of coffee
+      \item total number of points now becomes 25
+      \item customer gets 2 free coffees and now has 3 points left.
+      \end{itemize}
+
+      The programmer has defined a program module that is called every time a customer places an order:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{CustomerOrder()} & 
+      \begin{tabular}{l}
+      $\bullet$ called with two integer parameters: \\
+      \quad $\circ$ the number of coffees ordered \\
+      \quad $\circ$ the current number of points \\
+      $\bullet$ output a suitable message giving the number of free coffees \\
+      $\bullet$ return a value for the new points total.
+      \end{tabular} \\ \hline
+      \end{tabular}
+```

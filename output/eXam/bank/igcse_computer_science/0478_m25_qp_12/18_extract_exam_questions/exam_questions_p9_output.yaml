@@ -1,0 +1,28 @@
+questions:
+  - number: "5bii"
+    type: short_answer
+    text: |
+      Identify the device in a network that can automatically assign an IP address to a computer, each time the computer connects to the network.
+  - number: "5c"
+    type: short_answer
+    text: |
+      A user accesses the world wide web using a web browser.
+  - number: "5ci"
+    type: short_answer
+    text: |
+      Define the term world wide web.
+  - number: "5cii"
+    type: long_answer
+    text: |
+      The uniform resource locator (URL) for a website includes the protocol hypertext transfer protocol secure (HTTPS).
+
+      Explain how HTTPS makes the transmission of data secure.
+  - number: "5ciii"
+    type: short_answer
+    text: |
+      The protocol is one part of a URL.
+
+      Give the other \textbf{two} parts of a URL.
+
+      1. \hrulefill
+      2. \hrulefill

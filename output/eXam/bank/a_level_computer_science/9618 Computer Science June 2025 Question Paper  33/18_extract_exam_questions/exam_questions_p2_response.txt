@@ -1,0 +1,28 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A programmer is writing a program to manage a video library. They require a user-defined data type.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} statements to declare the composite data type \texttt{VideoLibrary} to hold data about each video in the collection. This data includes:
+
+      \begin{itemize}
+      \item identity code (any combination of letters and numbers)
+      \item title
+      \item year released
+      \item date purchased
+      \item format (for example DVD, Blu-ray, 4K, MP4)
+      \item running time (minutes)
+      \end{itemize}
+
+      Use the most appropriate data type in each case.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Identify \textbf{one} field in \texttt{VideoLibrary} that could be an efficient enumerated data type and give a reason for your choice.
+
+      Field \hrulefill
+
+      Reason \hrulefill

@@ -1,0 +1,39 @@
+questions:
+  - number: "37"
+    type: multiple_choice
+    text: |
+      A cell is connected in series with an ammeter and a variable resistor. A voltmeter is used to measure the p.d. across the variable resistor. The resistance of the variable resistor is varied, and the p.d. and the current are recorded.
+
+      The graph shows the variation with current of the p.d. across the variable resistor.
+
+      What is the internal resistance of the cell?
+    options:
+      - letter: A
+        text: |
+          $0.050\ \Omega$
+      - letter: B
+        text: |
+          $1.6\ \Omega$
+      - letter: C
+        text: |
+          $20\ \Omega$
+      - letter: D
+        text: |
+          $23\ \Omega$
+  - number: "38"
+    type: multiple_choice
+    text: |
+      Which list contains only fundamental particles?
+    options:
+      - letter: A
+        text: |
+          antineutrinos, baryons, neutrons, electrons
+      - letter: B
+        text: |
+          mesons, electrons, neutrinos, protons
+      - letter: C
+        text: |
+          positrons, quarks, hadrons, protons
+      - letter: D
+        text: |
+          quarks, positrons, neutrinos, leptons

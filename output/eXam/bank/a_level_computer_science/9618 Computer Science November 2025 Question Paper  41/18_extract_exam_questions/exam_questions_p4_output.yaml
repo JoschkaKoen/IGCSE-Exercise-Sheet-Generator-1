@@ -1,0 +1,52 @@
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program stores data about trains and train stations using Object-Oriented Programming (OOP).
+
+      The class \texttt{Train} stores the data about the trains:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Train}} \\ \hline
+      \texttt{TrainIDNumber : String} & stores the train ID number \\ \hline
+      \texttt{Route : Integer} & stores the route number the train is travelling \\ \hline
+      \texttt{Constructor()} & initialises \texttt{TrainIDNumber} and \texttt{Route} to the parameter values \\ \hline
+      \texttt{GetTrainIDNumber()} & returns the train ID number \\ \hline
+      \texttt{GetRoute()} & returns the route number the train is travelling \\ \hline
+      \end{tabular}
+  - number: "2a"
+    type: short_answer
+    text: ''
+  - number: "2ai"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Train} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      All attributes should be private.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program as \textbf{Question2\_N25}. \\
+      Copy and paste the program code into part \textbf{2(a)(i)} in the evidence document. \\ \hline
+      \end{tabular}
+  - number: "2aii"
+    type: short_answer
+    text: |
+      The methods \texttt{GetTrainIDNumber()} and \texttt{GetRoute()} return the appropriate attribute.
+
+      Write program code for \texttt{GetTrainIDNumber()} and \texttt{GetRoute()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{2(a)(ii)} in the evidence document. \\ \hline
+      \end{tabular}
+```

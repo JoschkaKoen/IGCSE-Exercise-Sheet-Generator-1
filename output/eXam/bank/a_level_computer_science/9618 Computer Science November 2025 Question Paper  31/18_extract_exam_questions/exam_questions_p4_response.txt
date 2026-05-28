@@ -1,0 +1,49 @@
+[thinking]
+**Transcribing Page 4 of the Exam Paper**
+
+Okay, so the task is to transcribe page 4 of the exam paper. The user wants a transcription in a specific format. Let's start with question 3, which appears to be the main section on this page. First, I need to check the structure. "3" is the main question number, but there's no standalone text associated with "3" itself. This seems odd, but let's see if this is intended, or a stub error. Based on the instructions, it looks like this is intentional. The instructions say the stub is curated for the page and that a missing stem indicates a bug, so in this case, a missing stem means an empty text. It just starts with "3 (a)". So, for "3", I'll set `text: ''`.
+
+Now, let's move on to transcribing the actual questions.
+
+*   **3a:** The text is straightforward: "Explain why protocols are essential for communication between computer systems."
+*   **3b:** This one's a bit more involved. It states: "POP3 is an email communication protocol. Identify and describe **two** other communication protocols that are used when sending or receiving emails." Then, it includes slots for "Protocol 1" and "Description", followed by "Protocol 2" and "Description", all separated by `\hrulefill`. We're definitely dealing with a short answer format here. I need to make sure the formatting of those lines is exactly as it appears in the image, as this is critical for the visual presentation and renderer. The line breaks and formatting are important.
+
+*   **3c:** This question reads: "Describe **two** ways in which packet switching ensures a complete message is received when passing messages across a network." Similar to the previous question, there are numbered slots for the answers, and the instructions say to use `\hrulefill`. The formatting is very important. Again, this is a short answer question. I'll need to pay close attention to the visual spacing and line breaks.
+
+I'll write each question in the correct YAML format. I need to remember the specific instruction: "Numbered answer slots (e.g. 1 ____\\newline 2 ____\\newline 3 ____) | One per line with \\hrulefill, each on its own YAML line so the renderer puts each on its own visual line and the rule fills the cell width after N. : 1. \\hrulefill newline 2. \\hrulefill newline 3. \\hrulefill. ALWAYS leave one blank line between the instruction prompt and the first numbered slot — Give three reasons:\\n\\n1. \\hrulefill\\n2. \\hrulefill\\n3. \\hrulefill. NEVER leave a blank line between consecutive slots. The period after the digit is mandatory (1. not 1)."
+
+I'll double check the empty text for "3" again to make sure that's correct, since there is no text. Yes, an empty string `text: ''` is correct for "3". Done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: |
+      Explain why protocols are essential for communication between computer systems.
+  - number: "3b"
+    type: short_answer
+    text: |
+      POP3 is an email communication protocol.
+
+      Identify and describe \textbf{two} other communication protocols that are used when sending or receiving emails.
+
+      Protocol 1 \hrulefill
+
+      Description \hrulefill
+
+      Protocol 2 \hrulefill
+
+      Description \hrulefill
+  - number: "3c"
+    type: short_answer
+    text: |
+      Describe \textbf{two} ways in which packet switching ensures a complete message is received when passing messages across a network.
+
+      1. \hrulefill
+      2. \hrulefill

@@ -1,0 +1,41 @@
+questions:
+  - number: "4b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "4bi"
+    type: short_answer
+    text: |
+      Use Fig. 4.1 and Fig. 4.2 to determine the general expression for the internal energy $U$ of the gas when it has pressure $p$ and volume $V$.
+
+      $U = \hrulefill$
+  - number: "4bii"
+    type: short_answer
+    text: |
+      An ideal gas at thermodynamic temperature $T$ contains $N$ molecules.
+
+      Use your answer in \textbf{(b)(i)} and the equation of state for an ideal gas to deduce an expression for $U$ in terms of $N$ and $T$. Identify any other symbols you use.
+
+      $U = \hrulefill$
+  - number: "4c"
+    type: short_answer
+    text: |
+      Determine expressions, in terms of $X$ and $Y$, for the work $W$ done on the gas during:
+  - number: "4ci"
+    type: short_answer
+    text: |
+      change AB
+
+      $W = \hrulefill$
+  - number: "4cii"
+    type: short_answer
+    text: |
+      change CD.
+
+      $W = \hrulefill$
+  - number: "4d"
+    type: short_answer
+    text: |
+      Use your answers in \textbf{(c)} and the first law of thermodynamics to determine an expression, in terms of $X$ and $Y$, for the net thermal energy $Q$ supplied to the gas during one full cycle ABCDA. Explain your reasoning.
+
+      $Q = \hrulefill$

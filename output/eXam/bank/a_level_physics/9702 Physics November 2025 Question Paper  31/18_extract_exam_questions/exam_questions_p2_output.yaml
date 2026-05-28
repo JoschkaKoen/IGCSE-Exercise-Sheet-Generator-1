@@ -1,0 +1,25 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate oscillations.
+
+      You have been provided with a double spring and two single springs.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Slide the double spring and the two single springs onto the longer wooden rod.
+
+      Set up the apparatus as shown in Fig. 1.1.
+  - number: "1ai"
+    type: calculation
+    text: |
+      Use the bosses to fix the wooden rod approximately $55\text{ cm}$ above the bench and parallel to the bench.
+
+      Hang a total mass of $270\text{ g}$ from the double spring.
+
+      The mass hanging from the double spring is $m$.
+
+      Record $m$.
+
+      $m = \hrulefill$

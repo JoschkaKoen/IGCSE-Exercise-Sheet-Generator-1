@@ -1,0 +1,29 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A small ball is dropped from rest from height $h_1$ above the ground and falls vertically downwards. The ball collides with the ground and bounces back vertically upwards, reaching a maximum height $h_2$. Fig. 4.1 shows the ball just before and just after hitting the ground.
+
+      The ball has mass $0.25\text{ kg}$ and is in contact with the ground for a time of $0.18\text{ s}$.
+      Just before the ball hits the ground, it has speed $5.2\text{ m}\,\text{s}^{-1}$. Just after it leaves the ground, it has speed $3.6\text{ m}\,\text{s}^{-1}$.
+      Air resistance acting on the ball is negligible.
+  - number: "4a"
+    type: long_answer
+    text: |
+      State and explain whether the collision is elastic or inelastic.
+  - number: "4b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "4bi"
+    type: calculation
+    text: |
+      Calculate the change in momentum of the ball during the collision with the ground.
+
+      change in momentum = \hrulefill $\text{kg}\,\text{m}\,\text{s}^{-1}$
+  - number: "4bii"
+    type: calculation
+    text: |
+      Determine the average force on the ball during the collision with the ground.
+
+      force = \hrulefill $\text{N}$

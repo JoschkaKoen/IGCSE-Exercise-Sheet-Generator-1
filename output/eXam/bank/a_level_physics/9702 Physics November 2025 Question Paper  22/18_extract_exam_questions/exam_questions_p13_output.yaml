@@ -1,0 +1,7 @@
+questions:
+  - number: "4c"
+    type: short_answer
+    text: |
+      The double slit is removed. A second laser is placed beside the first laser. The second laser produces visible light of a different frequency from that of the first laser. The beams of light from the two lasers overlap on the screen.
+
+      Explain why a steady pattern of bright and dark fringes is \textbf{not} formed on the screen.

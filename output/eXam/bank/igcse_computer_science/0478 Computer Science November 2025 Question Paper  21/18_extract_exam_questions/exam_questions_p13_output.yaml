@@ -1,0 +1,21 @@
+questions:
+  - number: "9"
+    type: long_answer
+    text: |
+      A school stores all the students’ attendance data in a file called \texttt{Attendance.txt}
+
+      Write an algorithm in pseudocode to read a line of text from the file and store this line in the variable \texttt{StudentAttendance}
+  - number: "10"
+    type: short_answer
+    text: |
+      The variables \texttt{Seconds} and \texttt{Minutes} are used in a program. \texttt{Seconds} holds the number of seconds as a whole number and \texttt{Minutes} holds the number of minutes as a whole number.
+  - number: "10a"
+    type: short_answer
+    text: |
+      Write pseudocode statements to declare the variables \texttt{Seconds} and \texttt{Minutes}
+  - number: "10b"
+    type: long_answer
+    text: |
+      The procedure \texttt{Time(TotalSeconds)} takes the number of seconds as a parameter. The procedure converts the value held in the parameter into minutes and seconds and outputs the result.
+
+      Write this procedure in pseudocode.

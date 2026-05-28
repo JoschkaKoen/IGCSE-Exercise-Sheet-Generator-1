@@ -1,0 +1,38 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Web browsers use Internet Protocol (IP) addresses.
+  - number: "7a"
+    type: short_answer
+    text: |
+      Complete the table by describing the following types of IP address.
+
+      \begin{tabular}{|c|p{10cm}|}
+      \hline
+      \textbf{Type of IP address} & \textbf{Description} \\ \hline
+      Static & \newline\newline \\ \hline
+      Public & \newline\newline \\ \hline
+      \end{tabular}
+  - number: "7b"
+    type: short_answer
+    text: |
+      Consider the following IP address:
+
+      $$256.0.0.A$$
+
+      Circle whether this IP address is IPv4, IPv6 or an invalid IP address.
+
+      \begin{center}
+      IPv4 \quad\quad IPv6 \quad\quad Invalid
+      \end{center}
+
+      Justify your choice.
+  - number: "7c"
+    type: long_answer
+    text: |
+      A user types a Uniform Resource Locator (URL) into the address bar of a web browser to access a web page.
+
+      Explain how the web browser uses the URL to access the web page.
+```

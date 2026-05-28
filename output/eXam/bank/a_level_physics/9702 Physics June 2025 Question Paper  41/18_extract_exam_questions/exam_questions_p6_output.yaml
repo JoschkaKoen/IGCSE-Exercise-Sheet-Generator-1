@@ -1,0 +1,22 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A helium atom may be modelled as a nucleus surrounded by two electrons in diametrically opposite circular orbits, each of radius $170\text{ pm}$, as shown in Fig. 2.1.
+  - number: "2a"
+    type: short_answer
+    text: |
+      State Coulomb’s law.
+  - number: "2b"
+    type: short_answer
+    text: ''
+  - number: "2bi"
+    type: short_answer
+    text: |
+      State the charge on the nucleus, in terms of the elementary charge $e$.
+
+      $\text{charge} = \hrulefill e$
+  - number: "2bii"
+    type: calculation
+    text: |
+      Show that the electric force between the nucleus and one of the electrons is $1.6 \times 10^{-8}\text{ N}$.

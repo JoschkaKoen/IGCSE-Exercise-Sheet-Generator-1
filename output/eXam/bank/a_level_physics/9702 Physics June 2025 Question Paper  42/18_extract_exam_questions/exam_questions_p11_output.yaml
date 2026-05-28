@@ -1,0 +1,5 @@
+questions:
+  - number: "4c"
+    type: short_answer
+    text: |
+      On Fig. 4.1, sketch the variation with $T$ of the root-mean-square (r.m.s.) speed of the molecules of an ideal gas.

@@ -1,0 +1,85 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 16**
+
+Okay, the task is to fill in the YAML stub for page 16 of this exam.  Let's see, question 8 is the primary focus. I need to make sure I get the structure right for the sub-questions (8a, 8b, etc.) and accurately represent the question text.
+
+First, I need to check if there's any text associated with just "8" itself. Often, the main question number has a stem, but sometimes it doesn't and then only has subparts, or in some cases it is a stub error. Looking at the page, there's no stand-alone text for "8", just the subsequent sub-questions. Therefore, the "text" field for "8" will be empty (or left out if it's the stub's fault). The stub is:
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: ""
+  - number: "8a"
+    type: short_answer
+    text: ""
+  - number: "8b"
+    type: calculation
+    text: ""
+  - number: "8c"
+    type: short_answer
+    text: ""
+  - number: "8d"
+    type: short_answer
+    text: ""
+  - number: "8di"
+    type: short_answer
+    text: ""
+  - number: "8dii"
+    type: short_answer
+    text: ""
+```
+
+Now to fill out the text for the rest:
+
+*   For "8a," it's a short answer: `text: |  State what is meant by the de Broglie wavelength.`
+
+*   "8b" is a calculation: `text: |  Calculate the de Broglie wavelength of an electron moving at a speed of $4.9 \times 10^7 \text{ m s}^{-1}$. wavelength = \hrulefill m`.
+
+*   "8c" requires both a similarity and a difference. The exam format uses prompts. Let's make sure the YAML matches: `text: |  State \textbf{one} similarity and \textbf{one} difference between an electron and a positron. similarity: \hrulefill  difference: \hrulefill`.
+
+*   "8d" is the context-setting paragraph: `text: |  An electron moving at a speed of $4.9 \times 10^7 \text{ m s}^{-1}$ collides with a positron that is travelling at the same speed in the opposite direction. As a result of the collision, two gamma-ray photons are produced.`
+
+*   "8di" is a straightforward "name this reaction" question: `text: |  State the name of this type of reaction.`
+
+*   And "8dii" asks about the outcome of the electron/positron interaction: `text: |  State what happens to the electron and to the positron.`
+
+This should give the stub the correct format with the appropriate questions. I hope the text is sufficient to represent what is on the page.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: ''
+  - number: "8a"
+    type: short_answer
+    text: |
+      State what is meant by the de Broglie wavelength.
+  - number: "8b"
+    type: calculation
+    text: |
+      Calculate the de Broglie wavelength of an electron moving at a speed of $4.9 \times 10^7 \text{ m s}^{-1}$.
+
+      wavelength = \hrulefill m
+  - number: "8c"
+    type: short_answer
+    text: |
+      State \textbf{one} similarity and \textbf{one} difference between an electron and a positron.
+
+      similarity: \hrulefill
+
+      difference: \hrulefill
+  - number: "8d"
+    type: short_answer
+    text: |
+      An electron moving at a speed of $4.9 \times 10^7 \text{ m s}^{-1}$ collides with a positron that is travelling at the same speed in the opposite direction. As a result of the collision, two gamma-ray photons are produced.
+  - number: "8di"
+    type: short_answer
+    text: |
+      State the name of this type of reaction.
+  - number: "8dii"
+    type: short_answer
+    text: |
+      State what happens to the electron and to the positron.

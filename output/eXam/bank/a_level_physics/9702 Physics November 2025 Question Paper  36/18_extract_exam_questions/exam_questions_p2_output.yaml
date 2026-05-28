@@ -1,0 +1,28 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the phase difference between the oscillations of two mass–spring systems.
+  - number: "1a"
+    type: calculation
+    text: |
+      Assemble the apparatus as shown in Fig. 1.1.
+
+      Fig. 1.1
+
+      \begin{itemize}
+      \item Mass A and mass B are each $200\text{ g}$.
+      \item Add a mass $z$ of $40\text{ g}$ to mass B.
+      \end{itemize}
+
+      Record the value of $z$.
+
+      $z = \hrulefill \text{ g}$
+
+      \begin{itemize}
+      \item $M$ is given by $M = 200\text{ g} + z$.
+      \end{itemize}
+
+      Calculate $M$.
+
+      $M = \hrulefill \text{ g}$

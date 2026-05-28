@@ -1,0 +1,39 @@
+[thinking]
+**Transcribing Question 15**
+
+Okay, the user wants me to extract and format Question 15 from the image. Let's get this right. First, I need to represent the question as a structured object. I'll start with the basic information: It's a multiple-choice question, and the number is 15. The core of the question is a physics problem involving a uniform beam and equilibrium. I'll transcribe the text, making sure to preserve the mathematical notation correctly, especially lengths and weights, and the diagram reference. Now, about the text itself, It's about a uniform beam resting on supports X and Y. The beam's length is 20.0 m and its weight is 200 N. A man, weighing 700 N, stands on the beam, 6.0 m from support X. The system is in equilibrium. The actual question? Determining the contact force of support X on the beam.
+
+Now, for the multiple-choice options, I'll transcribe these as well, ensuring that the units are included, and the values are accurate. I should also put these in LaTeX math format.
+
+Finally, I need to ensure the final output adheres to the formatting guidelines, which includes the use of block scalars for the text fields and no double quotes for strings. Math should be wrapped in `$...$`, and no image inclusion commands will be used. Essentially, I'm aiming for a clean, concise, and mathematically accurate representation of the question ready for any expert in the subject.
+
+
+
+[/thinking]
+
+questions:
+  - number: "15"
+    type: multiple_choice
+    text: |
+      A uniform beam rests on two supports, X and Y, as shown.
+
+      The beam has length $20.0\text{ m}$ and weight $200\text{ N}$.
+
+      A man of weight $700\text{ N}$ stands on the beam at a distance of $6.0\text{ m}$ from support X.
+
+      The beam is in equilibrium.
+
+      What is the contact force of support X on the beam?
+    options:
+      - letter: A
+        text: |
+          $310\text{ N}$
+      - letter: B
+        text: |
+          $450\text{ N}$
+      - letter: C
+        text: |
+          $590\text{ N}$
+      - letter: D
+        text: |
+          $900\text{ N}$

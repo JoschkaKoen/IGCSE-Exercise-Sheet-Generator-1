@@ -1,0 +1,81 @@
+[thinking]
+**Page 9 YAML Stub Population - Analysis & Implementation**
+
+Okay, the task is to generate the YAML stub for page 9 of the exam, and the system flagged a "3b" entry as a potential issue. My first thought is to verify whether "3b" is a parent or stub entry with a mistake.
+
+The page kicks off with "(b) (i) Determine the unstretched length of the rope," and "(ii) Determine the spring constant k of the rope." There's no immediately apparent "3b" parent question or text. I need to be careful here; the instructions are specific.
+
+Reviewing the provided YAML stub structure, I see the following entries: "3b", "3bi", "3bii", "3c", "3ci", "3cii", and "3d." Ah, "3b" *is* present in the stub, yet it's absent from the visible page text. This strongly indicates a potential stub generation bug upstream – exactly what I need to investigate. I should not guess the content. I recall the explicit rule: if the stem of a stub entry isn't found, emit a `|` block scalar containing `STUB ERROR`.
+
+Okay, I need to check one more time. The actual question text starts at "(b) (i)", meaning that "(b)" isn't a text in itself, and it has no stem. This aligns with the "no visible stem" condition.
+
+I need to confirm the approach is correct by comparing to the rule: "Every entry's stem should be visible. If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess." This is what the system tells me to do. It's a bug that needs to be escalated, not ignored.
+
+Okay, let's look at the images to be sure. Yep, the image confirms: The page begins with "(b) (i)". There is no "3b" text.
+
+Therefore, for the "3b" entry, I will write `STUB ERROR`.
+
+Now, the remaining entries are pretty straightforward. I'll translate the page text directly into the YAML entries. Here's how I will populate the YAML:
+
+*   **3b:**
+    `STUB ERROR`
+*   **3bi:**
+    text: |
+        Determine the unstretched length of the rope.
+        length = \hrulefill m
+*   **3bii:**
+    text: |
+        Determine the spring constant $k$ of the rope.
+        $k$ = \hrulefill $\text{N}\,\text{m}^{-1}$
+*   **3c:**
+    text: |
+        For the position of the bungee jumper at a distance of $120\text{ m}$ below the bridge:
+*   **3ci:**
+    text: |
+        show that the loss of gravitational potential energy since leaving the bridge is $75\text{ kJ}$
+*   **3cii:**
+    text: |
+        show that the elastic potential energy in the rope is $75\text{ kJ}$.
+*   **3d:**
+    text: |
+        Explain what can be deduced from the information in \textbf{(c)} about the speed of the bungee jumper when at a distance of $120\text{ m}$ below the bridge.
+
+That should be it. I'm confident in this approach.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3bi"
+    type: calculation
+    text: |
+      Determine the unstretched length of the rope.
+
+      length = \hrulefill m
+  - number: "3bii"
+    type: calculation
+    text: |
+      Determine the spring constant $k$ of the rope.
+
+      $k$ = \hrulefill $\text{N}\,\text{m}^{-1}$
+  - number: "3c"
+    type: short_answer
+    text: |
+      For the position of the bungee jumper at a distance of $120\text{ m}$ below the bridge:
+  - number: "3ci"
+    type: calculation
+    text: |
+      show that the loss of gravitational potential energy since leaving the bridge is $75\text{ kJ}$
+  - number: "3cii"
+    type: calculation
+    text: |
+      show that the elastic potential energy in the rope is $75\text{ kJ}$.
+  - number: "3d"
+    type: short_answer
+    text: |
+      Explain what can be deduced from the information in \textbf{(c)} about the speed of the bungee jumper when at a distance of $120\text{ m}$ below the bridge.

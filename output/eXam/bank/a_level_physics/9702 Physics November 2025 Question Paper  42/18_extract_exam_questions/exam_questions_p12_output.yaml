@@ -1,0 +1,15 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A steel ball on the end of a thin string oscillates with small oscillations, as shown in Fig. 5.1.
+  - number: "5a"
+    type: short_answer
+    text: |
+      The displacement of the centre of the ball from its equilibrium position is $x$.
+
+      Fig. 5.2 shows the variation with $x$ of the acceleration $a$ of the ball.
+  - number: "5ai"
+    type: short_answer
+    text: |
+      Explain how Fig. 5.2 shows that the oscillations of the ball are simple harmonic.

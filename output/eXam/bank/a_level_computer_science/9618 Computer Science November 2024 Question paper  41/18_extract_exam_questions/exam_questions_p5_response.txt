@@ -1,0 +1,59 @@
+[thinking]
+**My Approach to Processing the Exam Page**
+
+Okay, here's how I'm thinking about this. The request is to process page 5 of an exam paper. I'm expecting to see questions labeled 1d, 1di, 1dii, and 1diii. The final output needs to be in YAML format, with fields for the question `number`, `type` (which I'll need to infer), and `text`. If it's a multiple-choice question, there will also be an `options` field, but I don't see any here, so I won't have to worry about that.
+
+Let's break down the content of the page:
+
+*   **Question 1d:** This is the main question, setting the context. It describes a `\texttt{Bubble()}` function that sorts an array of strings alphabetically using a `\texttt{CompareStrings()}` comparison function and returns the sorted list. This section just provides background, so I will likely mark this question as type "Description".
+
+*   **Question 1di:** Now we're getting into the code. This is where the student needs to write the `\texttt{Bubble()}` function. I'll flag this as a "Code" question. The instructions are clear: "Write program code for `\texttt{Bubble()}`".
+
+*   **Question 1dii:** The student needs to modify the main program to call `\texttt{Bubble()}` and then `\texttt{FormatArray()}`. This is another code-writing task, so this will also be marked as "Code". It describes the use of an unsorted array and the output of the sorted array as a returned string from another function.
+
+*   **Question 1diii:** This is a testing question. The student is asked to test their program and take a screenshot of the output. This I'll consider a "Screenshot" or "Output" type question.
+
+I have to format the output as YAML, using a block scalar (`|`) for the `text` fields. I'll make sure to wrap any inline code snippets within `\texttt{...}`. I also need to strip the sub-question prefixes like "(i)", "(ii)", and "(iii)" and I will use `\textbf{...}` for any bolded text. I'll remember the `\begin{itemize}` for any bulleted lists. Time to create the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      The function \texttt{Bubble()} takes an array of strings as a parameter and sorts the data into ascending alphabetical order, using a bubble sort. The bubble sort uses \texttt{CompareStrings()} to compare each string.
+
+      The function returns the sorted list.
+  - number: "1di"
+    type: long_answer
+    text: |
+      Write program code for \texttt{Bubble()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(d)(i)} in the evidence document.
+  - number: "1dii"
+    type: long_answer
+    text: |
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item call \texttt{Bubble()} with the unsorted array as a parameter
+      \item call \texttt{FormatArray()} with the sorted array and output the returned string.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(d)(ii)} in the evidence document.
+  - number: "1diii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output.
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{1(d)(iii)} in the evidence document.

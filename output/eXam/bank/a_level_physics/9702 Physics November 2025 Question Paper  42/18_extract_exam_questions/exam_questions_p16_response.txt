@@ -1,0 +1,54 @@
+[thinking]
+**Page 16 Transcription: Examining Question 7 and its Sub-Parts**
+
+Okay, so I need to transcribe page 16 of this exam. The main question, number 7, deals with an alternating voltage and its characteristics. Let's break this down systematically.
+
+First, I see question 7 itself, which defines the alternating voltage *V* as a function of time *t*:  *V* = 18cos(40π*t*), where *V* is in Volts and *t* is in seconds. I'll make sure to render that equation properly with LaTeX formatting in the YAML.
+
+Next is question 7a, which seems to be a preamble, essentially setting the stage for the subsequent parts. Nothing too complex there, just a label.
+
+Then, there's 7ai, which is a calculation. I need to "show that the period is 0.050 s." This implies a proof or derivation is required to demonstrate the period. I'll need to remember to correctly format it as a `calculation` type, so it renders appropriately.
+
+Following that is 7aii, another calculation, asking me to "determine the root-mean-square (r.m.s.) voltage." This is going to involve applying the relevant formula, and importantly, I need to include the answer space: "r.m.s. voltage = ______ V." I must format the answer area correctly, keeping in mind the visual representation on the actual exam page.
+
+Next, comes question 7b. It requires me to "sketch the variation of *V* with *t* for values of *t* from *t* = 0 to *t* = 100 ms" on a given figure (Fig. 7.1). This indicates a graphical component, and I'll need to ensure the correct prompt is in there.
+
+Finally, 7c presents an additional question involving rectification. The prompt states that "The alternating voltage is rectified to produce an output voltage across a load resistor R, as shown in Fig. 7.2." I will need to take into account that Fig 7.2 is omitted from my text.
+
+I've made sure to adhere to the formatting rules, using block scalar notation and appropriate LaTeX math mode, along with `\hrulefill`. I think I've captured everything accurately. Time to proceed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      An alternating voltage $V$ varies with time $t$ according to
+
+      $$V = 18 \cos 40\pi t$$
+
+      where $V$ is in $\text{V}$ and $t$ is in $\text{s}$.
+  - number: "7a"
+    type: short_answer
+    text: |
+      For the alternating voltage:
+  - number: "7ai"
+    type: calculation
+    text: |
+      show that the period is $0.050\text{ s}$
+  - number: "7aii"
+    type: calculation
+    text: |
+      determine the root-mean-square (r.m.s.) voltage.
+
+      r.m.s. voltage = \hrulefill $\text{V}$
+  - number: "7b"
+    type: short_answer
+    text: |
+      On Fig. 7.1, sketch the variation of $V$ with $t$ for values of $t$ from $t = 0$ to $t = 100\text{ ms}$.
+  - number: "7c"
+    type: short_answer
+    text: |
+      The alternating voltage is rectified to produce an output voltage across a load resistor R, as shown in Fig. 7.2.

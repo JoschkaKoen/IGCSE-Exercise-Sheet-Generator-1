@@ -1,0 +1,128 @@
+[thinking]
+**Analyzing and Formulating the Solution for Question 1e**
+
+Okay, so the user wants me to transcribe question "1e" from the page. Let me take a look. Ah, here it is. It begins with the statement: "The values stored in the stack are used to perform mathematical operations." Got it.
+
+Now, let's break down the information presented. There's a description of how the stack is used to do math. A diagram helps illustrate this, showing a stack with the values 10, +, 3, -, and 2, with an arrow indicating "TopOfStack" pointing to 10. There's also an example calculation demonstrated.
+
+The task is to write program code for a function `Calculate()` that takes values from the stack, calculates the final total, and returns it. It's worth [7] marks. Okay, I can do this.
+
+I'll start by crafting a LaTeX representation of that stack diagram. I think a `tabular` environment will work best for this, creating something that visually represents the stack's content:
+
+```latex
+\begin{tabular}{|c|}
+\hline
+10 \\ \hline
++ \\ \hline
+3 \\ \hline
+– \\ \hline
+2 \\ \hline
+\end{tabular} $\longleftarrow$ TopOfStack
+```
+
+Wait, the arrow points to the cell with 10 (the top).
+
+Now, let's structure the text logically, I'll put it into YAML for clarity.
+
+```yaml
+questions:
+  - number: "1e"
+    type: short_answer
+    text: |
+      The values stored in the stack are used to perform mathematical operations.
+
+      A total is initialised to the first value in the stack. The first value in the stack will always be a number.
+
+      The next value will be a mathematical operator and the next value will be the number to apply to the calculation. This is repeated until there are no values left in the stack. There will always be a number following a mathematical operator.
+
+      For example, the contents of a stack are:
+
+      \begin{tabular}{|c|l}
+      \cline{1-1}
+      10 & $\longleftarrow$ TopOfStack \\ \cline{1-1}
+      + & \\ \cline{1-1}
+      3 & \\ \cline{1-1}
+      $-$ & \\ \cline{1-1}
+      2 & \\ \cline{1-1}
+      \end{tabular}
+
+      The total is initialised to the first value in the stack: 10
+
+      total = 10
+
+      The next two values are: + 3
+
+      total = 10 + 3 = 13
+
+      The next two values are: $-$ 2
+
+      total = 13 $-$ 2 = 11
+
+      The final total is 11 and this is returned.
+
+      Write program code for the function \texttt{Calculate()} to:
+      \begin{itemize}
+      \item take each value from the stack
+      \item calculate and return the final total.
+      \end{itemize}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{1(e)} in the evidence document.
+```
+
+I just need to ensure the diagram is correct, so let me quickly double-check that the table's column specification in the LaTeX code is consistent. `\begin{tabular}{|c|l}` has two columns, but each row has either one or two cells, so it works. The rows are like this: `10 & $\longleftarrow$ TopOfStack \\ \cline{1-1}`, `+ & \\ \cline{1-1}`, etc. Perfect!
+
+Now I can refine the text to make sure it precisely matches the page's format, starting with "The values stored in the stack are used to perform mathematical operations." as the beginning of the sub-question. With the `(e)` prefix removed, it's just this statement.
+
+Finally, I'll transcribe it using YAML.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1e"
+    type: short_answer
+    text: |
+      The values stored in the stack are used to perform mathematical operations.
+
+      A total is initialised to the first value in the stack. The first value in the stack will always be a number.
+
+      The next value will be a mathematical operator and the next value will be the number to apply to the calculation. This is repeated until there are no values left in the stack. There will always be a number following a mathematical operator.
+
+      For example, the contents of a stack are:
+
+      \begin{tabular}{|c|l}
+      \cline{1-1}
+      10 & $\longleftarrow$ TopOfStack \\ \cline{1-1}
+      + & \\ \cline{1-1}
+      3 & \\ \cline{1-1}
+      $-$ & \\ \cline{1-1}
+      2 & \\ \cline{1-1}
+      \end{tabular}
+
+      The total is initialised to the first value in the stack: 10
+
+      total = 10
+
+      The next two values are: + 3
+
+      total = 10 + 3 = 13
+
+      The next two values are: $-$ 2
+
+      total = 13 $-$ 2 = 11
+
+      The final total is 11 and this is returned.
+
+      Write program code for the function \texttt{Calculate()} to:
+      \begin{itemize}
+      \item take each value from the stack
+      \item calculate and return the final total.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(e)} in the evidence document.
+```

@@ -1,0 +1,28 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Two parallel metal plates X and Y are separated by a distance of $0.041 \text{ m}$, as shown in Fig. 6.1.
+
+      There is a vacuum between the plates. An electron is at rest at the centre of plate X.
+
+      A potential difference (p.d.) of $58 \text{ kV}$ is applied across the plates. This causes the electron to accelerate towards plate Y.
+  - number: "6a"
+    type: short_answer
+    text: |
+      On Fig. 6.1, use the symbols $+$ and $-$ to indicate which of plates X and Y is the positive plate and which is the negative plate.
+  - number: "6b"
+    type: short_answer
+    text: ''
+  - number: "6bi"
+    type: calculation
+    text: |
+      Calculate the electric field strength $E$ between the plates. Give a unit with your answer.
+
+      $E = \hrulefill \text{ unit } \hrulefill$
+  - number: "6bii"
+    type: calculation
+    text: |
+      Determine the acceleration of the electron.
+
+      $\text{acceleration} = \hrulefill \text{ m}\,\text{s}^{-2}$

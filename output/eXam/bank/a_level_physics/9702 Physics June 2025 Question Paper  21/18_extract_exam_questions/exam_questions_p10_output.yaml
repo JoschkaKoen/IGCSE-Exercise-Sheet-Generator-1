@@ -1,0 +1,16 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      State the principle of superposition.
+  - number: "4b"
+    type: short_answer
+    text: |
+      Light of wavelength $7.2 \times 10^{-7} \text{ m}$ is incident normally on a double slit, as shown in Fig. 4.1.
+
+      A screen is at a distance $D$ from the double slit. The double slit and the screen are parallel.
+
+      The separation of the slits in the double-slit arrangement is $0.16 \text{ mm}$. The resulting interference pattern on the screen contains nine dark fringes, as shown in Fig. 4.2.

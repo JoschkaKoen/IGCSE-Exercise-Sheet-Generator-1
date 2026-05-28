@@ -1,0 +1,35 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      Compilers and interpreters are used to translate programs written in a high-level language into a low-level language.
+  - number: "8a"
+    type: short_answer
+    text: |
+      State \textbf{two} disadvantages of using a compiler compared to an interpreter during program development.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8b"
+    type: long_answer
+    text: |
+      Explain how a programmer benefits from using program libraries during program development.
+  - number: "8c"
+    type: short_answer
+    text: |
+      A programmer is developing an Operating System (OS).
+
+      Identify \textbf{two} types of software licence the programmer can use to allow other people to edit and redistribute the OS.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8d"
+    type: short_answer
+    text: |
+      Memory management is one key management task performed by an OS.
+
+      Give \textbf{three} other key management tasks that are performed by an OS.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

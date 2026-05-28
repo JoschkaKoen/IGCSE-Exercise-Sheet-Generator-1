@@ -1,0 +1,118 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, here's what the user's requesting. My goal is to extract and format two multiple-choice physics questions from the provided image, as concisely as possible, following instructions to omit image inclusion commands, figures, diagrams, illustrations, or photos.
+
+First, I identified Question 10. The prompt describes two balls colliding on a frictionless surface, giving the momentum of each before the collision. The balls stick together, and the task is to identify the vector diagram showing the combined momentum *after* the collision. The options (A, B, C, D) are represented by diagrams, which I need to omit. I will replace the diagrams with the options as simple letters:
+
+```yaml
+Question 10:
+  type: multiple_choice
+  text: |
+    The diagram shows the view from above of two balls moving along a horizontal frictionless surface before they collide. The momentum of each ball is also shown.
+
+    The balls stick together during the collision.
+
+    Which vector diagram represents the combined momentum of the balls after the collision?
+  options:
+    - letter: A
+      text: |
+        A
+    - letter: B
+      text: |
+        B
+    - letter: C
+      text: |
+        C
+    - letter: D
+      text: |
+        D
+```
+
+Next, I tackled Question 11. This one involves a skydiver with a velocity-time graph showing her descent before and after parachute deployment. The question asks which statements about the skydiver's motion are correct. The statements are:
+
+1.  The magnitude of the acceleration is maximum at time *t*2.
+2.  The magnitude of the drag force at time *t*1 equals the magnitude of the drag force at time *t*3.
+3.  The magnitude of the drag force is maximum at time *t*1.
+
+The provided options are combinations of these statements. Here's how I'll represent that:
+
+```yaml
+Question 11:
+  type: multiple_choice
+  text: |
+    A skydiver is falling at constant velocity. She then opens her parachute. The graph shows the variation with time of her velocity.
+
+    Which statements about the motion of the skydiver are correct?
+
+    1. The magnitude of the acceleration is maximum at time $t_2$.
+    2. The magnitude of the drag force at time $t_1$ equals the magnitude of the drag force at time $t_3$.
+    3. The magnitude of the drag force is maximum at time $t_1$.
+  options:
+    - letter: A
+      text: |
+        1 and 2
+    - letter: B
+      text: |
+        1 and 3
+    - letter: C
+      text: |
+        2 only
+    - letter: D
+      text: |
+        3 only
+```
+
+I've double-checked the transcriptions to ensure accuracy and that I have followed the instructions to omit any image references. The YAML structure will keep everything organized for the user, and I'm confident this is exactly what's being asked.
+
+
+
+[/thinking]
+
+questions:
+  - number: "10"
+    type: multiple_choice
+    text: |
+      The diagram shows the view from above of two balls moving along a horizontal frictionless surface before they collide. The momentum of each ball is also shown.
+
+      The balls stick together during the collision.
+
+      Which vector diagram represents the combined momentum of the balls after the collision?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "11"
+    type: multiple_choice
+    text: |
+      A skydiver is falling at constant velocity. She then opens her parachute. The graph shows the variation with time of her velocity.
+
+      Which statements about the motion of the skydiver are correct?
+
+      \begin{enumerate}
+      \item The magnitude of the acceleration is maximum at time $t_2$.
+      \item The magnitude of the drag force at time $t_1$ equals the magnitude of the drag force at time $t_3$.
+      \item The magnitude of the drag force is maximum at time $t_1$.
+      \end{enumerate}
+    options:
+      - letter: A
+        text: |
+          1 and 2
+      - letter: B
+        text: |
+          1 and 3
+      - letter: C
+        text: |
+          2 only
+      - letter: D
+        text: |
+          3 only

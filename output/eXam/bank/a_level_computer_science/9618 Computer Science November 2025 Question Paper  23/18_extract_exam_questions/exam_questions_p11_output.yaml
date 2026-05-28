@@ -1,0 +1,27 @@
+questions:
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the trace table by dry running the procedure when it is called in the statement:
+
+      \texttt{CALL Process(1)}
+
+      \begin{tabular}{|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{Index} & \textbf{CaseVar} & \textbf{Count} & \textbf{Num[1]} & \textbf{Num[2]} & \textbf{Num[3]} & \textbf{Num[4]} \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      & & & & & & \\ \hline
+      \end{tabular}

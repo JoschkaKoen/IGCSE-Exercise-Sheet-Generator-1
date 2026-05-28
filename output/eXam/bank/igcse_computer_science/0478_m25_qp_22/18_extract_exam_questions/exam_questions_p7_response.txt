@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "7a"
+    type: short_answer
+    text: |
+      Complete the trace table for the input data:
+
+      Y, 7, S, 9, Y, 5, M, 12, Y, 25, D, 5, N, 10, A, 6
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{Answer} & \textbf{Value1} & \textbf{Operator} & \textbf{Value2} & \textbf{OUTPUT} \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+       &  &  &  &  \\ \hline
+      \end{tabular}
+  - number: "7b"
+    type: short_answer
+    text: |
+      State the purpose of the algorithm on \textbf{page 6}.
+  - number: "7c"
+    type: short_answer
+    text: |
+      There are problems with the given algorithm. If the lower-case letter 'y' is entered for \texttt{Answer}, the algorithm stops and if a lower-case letter is entered for \texttt{Operator}, the algorithm gives an incorrect output.
+  - number: "7ci"
+    type: long_answer
+    text: |
+      Explain how you would change the algorithm to prevent the problems described.
+  - number: "7cii"
+    type: short_answer
+    text: |
+      Identify \textbf{one} more error related to inputs when the algorithm is run.
+```

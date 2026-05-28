@@ -1,0 +1,43 @@
+[thinking]
+**Examining the Exam Page**
+
+Okay, so I'm being asked to handle page 11 of this exam paper. Let's break down what's being requested. The user has specifically requested the transcription and formatting of three questions: "2dii", "2e", and "2f". I need to extract the content, paying close attention to the formatting and any LaTeX that might be involved.
+
+"2dii", or actually (ii) on the page, is a straightforward short answer question. It's asking the student to "Justify the number of significant figures that you have given for your values of k." It's worth one mark, so the answer should be concise and well-reasoned.
+
+Next is "2e", labeled as (e) on the page. This is a longer response question with only one mark. It's asking the students to discuss the percentage uncertainty in their values of *k*, and explain whether their results support the relationship described previously in part (d). I'll have to make sure to present this as a long-answer question for the user to ensure the correct formatting.
+
+Finally, "2f", or (f) on the page. This one looks like a calculation. It presents the formula:  `k = hc/eλ` and provides the values for *h*, *c*, and *e*. The student must use their *second* value of *k* to calculate λ, the wavelength, and it specifically requests the final answer to be in meters. I need to make sure I include the correct answer line format which is `λ = \hrulefill \text{ m}`.
+
+I've checked the image, verified the questions, and started refining the LaTeX formatting for each question, paying close attention to the formatting rules, to ensure it adheres to the specifications. I will convert the text of each question, ensuring the necessary formatting and structure, especially for the equation in 2f, so it's ready to be presented. There's also no need for quotes around non-empty strings. Everything's ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2dii"
+    type: short_answer
+    text: |
+      Justify the number of significant figures that you have given for your values of $k$.
+  - number: "2e"
+    type: long_answer
+    text: |
+      It is suggested that the percentage uncertainty in the values of $k$ is 5%.
+
+      Using this uncertainty, explain whether your results support the relationship in \textbf{(d)}.
+  - number: "2f"
+    type: calculation
+    text: |
+      It is suggested that
+
+      $$k = \frac{hc}{e\lambda}$$
+
+      where $h$ is $6.63 \times 10^{-34} \text{ Js}$,
+      $c$ is $3.00 \times 10^8 \text{ ms}^{-1}$,
+      $e$ is $1.60 \times 10^{-19} \text{ C}$ and
+      $\lambda$ is the wavelength of the light emitted by the LED.
+
+      Use your second value of $k$ to determine $\lambda$.
+
+      $\lambda = $ \hrulefill $\text{ m}$

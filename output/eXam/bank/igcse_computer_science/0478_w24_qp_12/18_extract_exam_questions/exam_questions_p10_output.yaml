@@ -1,0 +1,5 @@
+questions:
+  - number: "8c"
+    type: long_answer
+    text: |
+      Explain how the robot vacuum cleaner can make use of machine learning.

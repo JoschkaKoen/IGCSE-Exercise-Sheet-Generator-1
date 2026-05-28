@@ -1,0 +1,52 @@
+[thinking]
+**Transcribing Questions for Analysis**
+
+Okay, so the user wants me to extract and present questions 31 and 32 from this image. It seems like they're building a resource, maybe a practice quiz or something. I'll make sure to get all the details right.
+
+First up, question 31. It's a multiple-choice question focused on wave interference, specifically about coherence. I've got to transcribe the question text accurately. The prompt goes: "Two light sources are used to produce an interference pattern. Interference fringes appear when the two sources emit waves that are coherent. What is meant by coherent waves?" Simple enough. The options are: A) The two waves are emitted with the same frequency. B) The two waves are emitted with constant phase difference. C) The two waves are emitted with the same intensity. D) The two waves are emitted with zero phase difference. It's a standard conceptual question on the conditions for observable interference.
+
+Now for question 32. This one involves an *I-V* graph. The prompt itself is asking me to identify the component the graph describes. The text reads: "Which component has the $I\text{--}V$ graph shown?" The options are: A) filament lamp B) metallic conductor at constant temperature C) resistor of fixed resistance D) semiconductor diode. The user knows the context - I don't need the graph itself since it's implied. From that, I know this is a standard application of circuit analysis, relating the graph to component behavior. I'm ready to present these questions now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "31"
+    type: multiple_choice
+    text: |
+      Two light sources are used to produce an interference pattern.
+
+      Interference fringes appear when the two sources emit waves that are coherent.
+
+      What is meant by coherent waves?
+    options:
+      - letter: A
+        text: |
+          The two waves are emitted with the same frequency.
+      - letter: B
+        text: |
+          The two waves are emitted with constant phase difference.
+      - letter: C
+        text: |
+          The two waves are emitted with the same intensity.
+      - letter: D
+        text: |
+          The two waves are emitted with zero phase difference.
+  - number: "32"
+    type: multiple_choice
+    text: |
+      Which component has the $I\text{--}V$ graph shown?
+    options:
+      - letter: A
+        text: |
+          filament lamp
+      - letter: B
+        text: |
+          metallic conductor at constant temperature
+      - letter: C
+        text: |
+          resistor of fixed resistance
+      - letter: D
+        text: |
+          semiconductor diode

@@ -1,0 +1,27 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Reduced Instruction Set Computers (RISC) is a type of processor.
+
+      Identify \textbf{four} features of a RISC processor.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: long_answer
+    text: |
+      Describe circuit switching as a method of data transmission.
+  - number: "3b"
+    type: short_answer
+    text: |
+      State \textbf{one} benefit and \textbf{one} drawback of circuit switching as a method of data transmission.
+
+      Benefit \hrulefill
+
+      Drawback \hrulefill

@@ -1,0 +1,33 @@
+questions:
+  - number: "2d"
+    type: calculation
+    text: |
+      The distance between the slide and the screen is measured several times:
+
+      $$\text{0.929 m} \quad \text{0.918 m} \quad \text{0.913 m} \quad \text{0.918 m} \quad \text{0.927 m}$$
+
+      Determine the mean distance $D$. Include the absolute uncertainty.
+
+      $D = \hrulefill \text{ m}$
+  - number: "2e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ei"
+    type: calculation
+    text: |
+      Using your answers to \textbf{(a)}, \textbf{(c)(iii)} and \textbf{(d)}, determine the value of $\lambda$. Include an appropriate unit.
+
+      $\lambda = \hrulefill$
+  - number: "2eii"
+    type: calculation
+    text: |
+      Determine the percentage uncertainty in $\lambda$.
+
+      percentage uncertainty in $\lambda = \hrulefill \%$
+  - number: "2f"
+    type: calculation
+    text: |
+      The experiment is repeated. Determine the slit separation $s$ that gives a value of $y$ of $(0.500 \pm 0.005) \text{ cm}$. Include the absolute uncertainty.
+
+      $s = \hrulefill \text{ m}$

@@ -1,0 +1,36 @@
+[thinking]
+**Transcribing and Formatting Physics Questions**
+
+Okay, so the user wants me to extract and format some physics questions from an image. My first step is to identify and transcribe each question accurately. I've got:
+
+*   `3biv`: "Explain whether the work done on the block is positive or negative." – Straightforward enough.
+*   `3bv`: "Use the first law of thermodynamics to determine, to three significant figures, a value for the specific heat capacity of aluminium. Explain your reasoning. Give a unit with your answer." – Now, this one needs some careful formatting. They've provided an answer line in the original, so I need to present that correctly. I'll need to remember to capture that. It's: `specific heat capacity = ................................... unit .............. [3]`. I'm going to start with a placeholder for the numerical answer and unit. I'll format this into something like: `specific heat capacity = \hrulefill \quad \text{unit} \quad \hrulefill`.
+
+Let's refine that. According to the prompt:
+"A value followed by an answer line (e.g. `10010011 ........`) -> `10010011 \hrulefill`"
+Okay, so the format here is exactly right, I can use:
+`specific heat capacity = \hrulefill \quad \text{unit} \quad \hrulefill`
+
+*   `3c`: "Without further calculation, suggest with a reason how doubling the pressure in (b) is likely to affect the answer in (b)(v)." – That's a conceptually interesting question, but easy to transcribe.
+
+Now, all that's left is to structure this into YAML format.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3biv"
+    type: long_answer
+    text: |
+      Explain whether the work done on the block is positive or negative.
+  - number: "3bv"
+    type: calculation
+    text: |
+      Use the first law of thermodynamics to determine, to three significant figures, a value for the specific heat capacity of aluminium. Explain your reasoning. Give a unit with your answer.
+
+      specific heat capacity = \hrulefill \quad \text{unit} \quad \hrulefill
+  - number: "3c"
+    type: short_answer
+    text: |
+      Without further calculation, suggest with a reason how doubling the pressure in \textbf{(b)} is likely to affect the answer in \textbf{(b)(v)}.

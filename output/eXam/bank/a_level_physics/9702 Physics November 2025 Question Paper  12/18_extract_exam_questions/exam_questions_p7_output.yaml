@@ -1,0 +1,85 @@
+questions:
+  - number: "14"
+    type: multiple_choice
+    text: |
+      The diagram shows a uniform bar of mass $M$ and length $L$ resting on a pivot at a distance $x$ from end X.
+
+      An object of mass $m$ is placed on the bar at distance $y$ from the pivot so that the bar is in equilibrium.
+
+      What is an expression for $y$?
+    options:
+      - letter: A
+        text: |
+          $\frac{xM}{m}$
+      - letter: B
+        text: |
+          $\frac{M}{m}(L - x)$
+      - letter: C
+        text: |
+          $\frac{M}{2m}(L - 2x)$
+      - letter: D
+        text: |
+          $\frac{1}{m}(Lm - xM)$
+  - number: "15"
+    type: multiple_choice
+    text: |
+      The mass and volume of an object are varied.
+
+      Which two changes, when made together, \textbf{must} increase the density of the object?
+    options:
+      - letter: A
+        text: |
+          decrease mass, decrease volume
+      - letter: B
+        text: |
+          decrease mass, increase volume
+      - letter: C
+        text: |
+          increase mass, decrease volume
+      - letter: D
+        text: |
+          increase mass, increase volume
+  - number: "16"
+    type: multiple_choice
+    text: |
+      On Earth, a solid object that is fully submerged in a liquid experiences an upthrust $U_{\text{E}}$.
+
+      On Mars, the same object, fully submerged in the same liquid, experiences an upthrust $U_{\text{M}}$.
+
+      The acceleration of free fall on Mars is $3.7 \text{ m s}^{-2}$.
+
+      Assume that the liquid's density and the object's volume have the same values on Earth and Mars.
+
+      What is the ratio $\frac{U_{\text{M}}}{U_{\text{E}}}$?
+    options:
+      - letter: A
+        text: |
+          0.38
+      - letter: B
+        text: |
+          1.0
+      - letter: C
+        text: |
+          2.7
+      - letter: D
+        text: |
+          3.6
+  - number: "17"
+    type: multiple_choice
+    text: |
+      A student attempts to derive the formula for kinetic energy $E_{\text{K}}$. She begins by considering an object of mass $m$ that is initially at rest. A constant force $F$ applied to the object causes it to accelerate to final velocity $v$ in displacement $s$. The kinetic energy gained by the object is equal to the work done on the object by the force $F$.
+
+      Which equation does the student \textbf{not} need in order to derive the formula for $E_{\text{K}}$?
+    options:
+      - letter: A
+        text: |
+          $F = ma$
+      - letter: B
+        text: |
+          $W = Fs$
+      - letter: C
+        text: |
+          $E = \frac{1}{2}Fs$
+      - letter: D
+        text: |
+          $v^2 = u^2 + 2as$

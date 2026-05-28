@@ -1,0 +1,673 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Numbers are stored in a computer using binary floating-point representation
+    with:
+
+
+    \begin{itemize}
+
+    \item 10 bits for the mantissa
+
+    \item 6 bits for the exponent
+
+    \item two''s complement form for both the mantissa and the exponent.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Calculate the normalised binary floating-point representation of $+201.125$
+      in this system.
+
+
+      Show your working.
+
+
+      \textbf{Mantissa} \qquad \qquad \qquad \qquad \qquad \textbf{Exponent}
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+      \qquad \framebox{$\square\,\square\,\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Calculate the denary value of the given normalised binary floating-point
+      number.
+
+
+      Show your working.
+
+
+      \textbf{Mantissa} \qquad \qquad \qquad \qquad \qquad \textbf{Exponent}
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      1 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+
+      \hline
+
+      \end{tabular}
+
+      \qquad
+
+      \begin{tabular}{|c|c|c|c|c|c|}
+
+      \hline
+
+      0 & 0 & 0 & 1 & 0 & 1 \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Reduced Instruction Set Computers (RISC) is a type of processor.
+
+
+    Identify \textbf{four} features of a RISC processor.
+
+
+    1. \hrulefill
+
+    2. \hrulefill
+
+    3. \hrulefill
+
+    4. \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe circuit switching as a method of data transmission.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State \textbf{one} benefit and \textbf{one} drawback of circuit switching
+      as a method of data transmission.
+
+
+      Benefit \hrulefill
+
+
+      Drawback \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: long_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'The TCP/IP protocol may be viewed as a stack that contains four layers: Application,
+    Transport, Internet, Link.
+
+
+    Describe how the layers of the TCP/IP protocol stack interact with each other.'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain what is meant by a hashing algorithm in the context of file access.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The use of a hashing algorithm can result in the same storage location
+      being identified for more than one record.
+
+
+      Outline \textbf{two} methods of overcoming this issue.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe the user-defined data type \textbf{set}.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Write \textbf{pseudocode} statements to declare the set data type, \texttt{SymbolSet},
+      to hold the following set of mathematical operators, using the variable \texttt{Operators}.
+
+
+      $$+ \quad - \quad * \quad / \quad \wedge$$'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The truth table for a logic circuit is shown.
+
+
+    \begin{tabular}{|c|c|c|c|c|}
+
+    \hline
+
+    \multicolumn{4}{|c|}{\textbf{INPUT}} & \textbf{OUTPUT} \\
+
+    \hline
+
+    \textbf{A} & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{T} \\
+
+    \hline
+
+    0 & 0 & 0 & 0 & 0 \\
+
+    \hline
+
+    0 & 0 & 0 & 1 & 1 \\
+
+    \hline
+
+    0 & 0 & 1 & 0 & 0 \\
+
+    \hline
+
+    0 & 0 & 1 & 1 & 1 \\
+
+    \hline
+
+    0 & 1 & 0 & 0 & 0 \\
+
+    \hline
+
+    0 & 1 & 0 & 1 & 0 \\
+
+    \hline
+
+    0 & 1 & 1 & 0 & 0 \\
+
+    \hline
+
+    0 & 1 & 1 & 1 & 0 \\
+
+    \hline
+
+    1 & 0 & 0 & 0 & 0 \\
+
+    \hline
+
+    1 & 0 & 0 & 1 & 1 \\
+
+    \hline
+
+    1 & 0 & 1 & 0 & 0 \\
+
+    \hline
+
+    1 & 0 & 1 & 1 & 1 \\
+
+    \hline
+
+    1 & 1 & 0 & 0 & 0 \\
+
+    \hline
+
+    1 & 1 & 0 & 1 & 1 \\
+
+    \hline
+
+    1 & 1 & 1 & 0 & 0 \\
+
+    \hline
+
+    1 & 1 & 1 & 1 & 1 \\
+
+    \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Write the Boolean logic expression that corresponds to the given truth
+      table as the sum-of-products.
+
+
+      \textbf{T} = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the Karnaugh map (K-map) for the given truth table.
+
+
+      \begin{tabular}{r|c|c|c|c|}
+
+      \multicolumn{1}{r}{\textbf{CD} \textbackslash \ \textbf{AB}} & \multicolumn{1}{c}{\textbf{00}}
+      & \multicolumn{1}{c}{\textbf{01}} & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}}
+      \\
+
+      \cline{2-5}
+
+      \textbf{00} & & & & \\
+
+      \cline{2-5}
+
+      \textbf{01} & & & & \\
+
+      \cline{2-5}
+
+      \textbf{11} & & & & \\
+
+      \cline{2-5}
+
+      \textbf{10} & & & & \\
+
+      \cline{2-5}
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Draw loop(s) around appropriate group(s) in the K-map to produce an optimal
+      sum-of-products.
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 7di
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the Boolean logic expression from your answer to part (c) as the
+        simplified sum-of-products.
+
+
+        \textbf{T} = \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7dii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use Boolean algebra to write your answer to part (d)(i) in its simplest
+        form.
+
+
+        \textbf{T} = \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Describe the process of \textbf{segmentation} for memory management.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain what is meant by \textbf{disk thrashing}.
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A veterinary surgery wants to create a class for individual pets.
+
+    Some of the attributes required in the class are listed in the table.
+
+
+    \begin{tabular}{|l|l|l|}
+
+    \hline
+
+    \textbf{Attribute} & \textbf{Data type} & \textbf{Description} \\ \hline
+
+    \texttt{PetID} & \texttt{STRING} & unique ID assigned at registration \\ \hline
+
+    \texttt{PetType} & \texttt{STRING} & type of pet assigned at registration \\ \hline
+
+    \texttt{OwnerTelephone} & \texttt{STRING} & telephone number of owner assigned
+    at registration \\ \hline
+
+    \texttt{DateRegistered} & \texttt{DATE} & date of registration \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State \textbf{one} reason why the attributes would be declared as \texttt{PRIVATE}.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete the class diagram for \texttt{Pet}, to include:
+
+
+      \begin{itemize}
+
+      \item an attribute and data type for the name of the pet
+
+      \item an attribute and data type for the name of the owner
+
+      \item a method to create a \texttt{Pet} object and set attributes at the time
+      of registration
+
+      \item a method to assign a pet ID
+
+      \item a method to assign the date of registration
+
+      \item a method to return the pet name
+
+      \item a method to return the owner''s telephone number.
+
+      \end{itemize}
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Pet}} \\ \hline
+
+      \texttt{PetID : STRING} \\
+
+      \texttt{PetType : STRING} \\
+
+      \texttt{OwnerTelephone : STRING} \\
+
+      \texttt{DateRegistered : DATE} \\
+
+      \hrulefill\ : \hrulefill\ \\
+
+      \hrulefill\ : \hrulefill\ \\ \hline
+
+      \\
+
+      \hrulefill\ \\
+
+      \hrulefill\ \\
+
+      \hrulefill\ \\
+
+      \hrulefill\ \\
+
+      \hrulefill\ \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Several syntax diagrams are shown.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the Backus-Naur Form (BNF) for the given syntax diagrams.
+
+
+      \texttt{<operator> ::=} \hrulefill
+
+
+      \texttt{<label> ::=} \hrulefill
+
+
+      \texttt{<equation> ::=} \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A new syntax rule, \textbf{password}, is required. It must begin with a
+      letter or a symbol, followed by a digit and end with one or two symbols.
+    answer_options: []
+    subquestions:
+    - number: 10bi
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Draw a syntax diagram for \textbf{password}.
+      answer_options: []
+      subquestions: []
+    - number: 10bii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the BNF for \textbf{password}.
+      answer_options: []
+      subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The following diagram shows an ordered binary tree.
+  answer_options: []
+  subquestions:
+  - number: 11a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'A linked list of nodes is used to store the data. Each node consists of
+      a left pointer, the data and a right pointer.
+
+
+      $-1$ is used to represent a null pointer.
+
+
+      Complete this linked list to represent the given binary tree.'
+    answer_options: []
+    subquestions: []
+  - number: 11b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'A user-defined record structure is used to store the nodes of the linked
+      list in part (a).
+
+
+      Complete the diagram, using your answer for part (a).
+
+
+      \textbf{RootPtr}
+
+      \framebox[1.5cm]{\strut 0}
+
+
+      \textbf{FreePtr}
+
+      \framebox[1.5cm]{\strut \quad}
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{Index} & \textbf{LeftPtr} & \textbf{Data} & \textbf{RightPtr} \\ \hline
+
+      \textbf{0} & & Red & \\ \hline
+
+      \textbf{1} & & Green & \\ \hline
+
+      \textbf{2} & & Yellow & \\ \hline
+
+      \textbf{3} & & Blue & \\ \hline
+
+      \textbf{4} & & Orange & \\ \hline
+
+      \textbf{5} & & Indigo & \\ \hline
+
+      \textbf{6} & & Violet & \\ \hline
+
+      \textbf{7} & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 11c
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "The linked list in part (a) is implemented using a 1D array of records.\
+      \ Each record contains a left pointer, data and a right pointer.\n\nThe following\
+      \ pseudocode represents a function that searches for an element in the array\
+      \ of records \\texttt{BinTree}. It returns the index of the record if the element\
+      \ is found, or it returns a null pointer if the element is not found.\n\nComplete\
+      \ the pseudocode for the function.\n\n\\begin{alltt}\nFUNCTION SearchTree(Item\
+      \ : STRING) \\hrulefill\n\n    NowPtr <- \\hrulefill\n\n    WHILE NowPtr <>\
+      \ -1\n\n        IF \\hrulefill THEN\n\n            NowPtr <- BinTree[NowPtr].LeftPtr\n\
+      \n        ELSE\n\n            IF BinTree[NowPtr].Data < Item THEN\n\n      \
+      \          \\hrulefill\n\n            ELSE\n\n                RETURN NowPtr\n\
+      \n            ENDIF\n\n        ENDIF\n\n    ENDWHILE\n\n    RETURN NowPtr\n\n\
+      ENDFUNCTION\n\\end{alltt}"
+    answer_options: []
+    subquestions: []

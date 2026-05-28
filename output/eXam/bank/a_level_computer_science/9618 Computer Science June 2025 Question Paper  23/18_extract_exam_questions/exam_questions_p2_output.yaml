@@ -1,0 +1,44 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program is being developed for the management of a sports centre.
+  - number: "1a"
+    type: short_answer
+    text: |
+      The programmer developing the software decides to use modules (procedures or functions) and local variables. They also decide not to use global variables.
+  - number: "1ai"
+    type: short_answer
+    text: |
+      State \textbf{two} reasons why the programmer decides to use modules.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "1aii"
+    type: short_answer
+    text: |
+      State \textbf{one} difference between local and global variables.
+  - number: "1aiii"
+    type: short_answer
+    text: |
+      State \textbf{two} benefits of using local variables.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "1b"
+    type: short_answer
+    text: |
+      The pseudocode design contains a number of expressions.
+
+      Complete each pseudocode expression so that it evaluates to the value shown.
+
+      Refer to the insert for the list of pseudocode functions and operators.
+
+      \begin{tabular}{|l|c|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Expression}} & \textbf{Evaluates to} \\ \hline
+      \underline{\hspace{6em}}(68) & \texttt{'D'} \\ \hline
+      \underline{\hspace{6em}}(04/02/2025) & 2 \\ \hline
+      \underline{\hspace{6em}}TRUE & FALSE \\ \hline
+      \underline{\hspace{6em}}(\underline{\hspace{6em}}("Court1.4Upper", \underline{\hspace{2em}}, \underline{\hspace{2em}})) & 1.4 \\ \hline
+      \end{tabular}

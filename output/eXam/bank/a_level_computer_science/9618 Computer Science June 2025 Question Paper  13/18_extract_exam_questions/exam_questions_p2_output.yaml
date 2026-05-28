@@ -1,0 +1,45 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A student paints a picture in an art class.
+  - number: "1a"
+    type: short_answer
+    text: |
+      The student takes a photograph of the picture using a digital camera. The digital camera creates an image with a resolution of 2 million pixels and uses a bit depth of 16 bits.
+  - number: "1ai"
+    type: calculation
+    text: |
+      Calculate the file size of the image created by the digital camera in megabytes (MB).
+
+      Show your working.
+
+      Answer \hrulefill MB
+  - number: "1aii"
+    type: long_answer
+    text: |
+      The student takes a second photograph with a lower bit depth.
+
+      Explain the effect of decreasing the bit depth on the image and on the image file.
+
+      Effect on image
+
+      Effect on image file
+  - number: "1b"
+    type: short_answer
+    text: |
+      A teacher records an audio file of the student playing the piano during a music lesson.
+
+      Complete the table by giving the term for each description about sound representation on a computer.
+
+      \begin{tabular}{|p{7cm}|p{7cm}|}
+      \hline
+      \textbf{Description} & \textbf{Term} \\
+      \hline
+      the number of times the amplitude is measured per time interval & \\
+      \hline
+      the number of bits used to store each amplitude measurement & \\
+      \hline
+      the type of sound wave before it is recorded by a computer & \\
+      \hline
+      \end{tabular}

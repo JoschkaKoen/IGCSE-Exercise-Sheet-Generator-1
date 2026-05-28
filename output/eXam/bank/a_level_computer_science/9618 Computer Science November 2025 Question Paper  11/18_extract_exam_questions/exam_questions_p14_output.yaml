@@ -1,0 +1,30 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      One ethical consideration for a student connecting their personal computer to the school network is the risk of spreading malware on the network.
+  - number: "8a"
+    type: short_answer
+    text: |
+      Viruses and pharming are examples of malware.
+
+      Explain what is meant by a virus and pharming.
+
+      Virus \hrulefill
+
+      Pharming \hrulefill
+  - number: "8b"
+    type: short_answer
+    text: |
+      Give \textbf{three} other ethical considerations for a student using their personal computer to connect to the school network.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "8c"
+    type: long_answer
+    text: |
+      Describe \textbf{two} social impacts of students using Artificial Intelligence (AI) to complete their homework.
+
+      1. \hrulefill
+      2. \hrulefill

@@ -1,0 +1,17 @@
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      The accepted password, \texttt{Password}, is to be written to the file \texttt{MyPassword.txt}
+
+      Write pseudocode to:
+
+      \begin{itemize}
+      \item open the file
+      \item write the accepted password to the file
+      \item close the file.
+      \end{itemize}
+  - number: "8c"
+    type: long_answer
+    text: |
+      Explain why the accepted password needs to be stored in a file.

@@ -1,0 +1,48 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 8**
+
+Okay, time to tackle the YAML for page 8 of the exam. The target here is question "4," or rather, "4 (a)". Let me see, the stub already has two entries: one labeled "4" and another "4a," both with `type: short_answer` and empty `text` fields. That's a good start.
+
+I'm glancing at the page now. It's laid out as "4 (a) Write the logic expressions for the following logic circuit." then a logic circuit diagram. Below that, we have lines for the answers: "X = ...", "Y = ...", each marked with "[2]".
+
+The presence of both "4" and "4a" in the stub is interesting. Usually, "4" would be the overarching question stem or introduction. But in this case, "4 (a)" seems to be the *entire* question. So, should I put the instructions in "4" and the answer lines in "4a," or is it best to treat "4" as empty? Hmm… let's see.
+
+I think it's cleaner to split it out. The instruction is the question itself. So I should structure the YAML like this:
+
+For `number: "4"`:
+
+```yaml
+number: "4"
+text: |
+  Write the logic expressions for the following logic circuit.
+```
+
+And for `number: "4a"`:
+
+```yaml
+number: "4a"
+text: |
+  X = \hrulefill
+  
+  Y = \hrulefill
+```
+
+Yes, that makes perfect sense. This structure keeps the instructions separate from the answer spaces, maintaining clarity and consistency with the way we set these things up. Splitting it like this is clean and matches the usual pattern. Alright, I'm happy with this solution, I'll commit this.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      Write the logic expressions for the following logic circuit.
+  - number: "4a"
+    type: short_answer
+    text: |
+      X = \hrulefill
+
+      Y = \hrulefill
+```

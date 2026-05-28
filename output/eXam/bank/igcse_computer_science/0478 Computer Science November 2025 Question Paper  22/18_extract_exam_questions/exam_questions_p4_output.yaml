@@ -1,0 +1,40 @@
+```yaml
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      A first name is used as the search key in the algorithm on page 2. If the name is found, all the data for that name is output and the algorithm stops searching.
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Explain why the given algorithm may \textbf{not} always give the expected results.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Explain how you could improve the algorithm so that the search is more likely to find the required results.
+  - number: "3"
+    type: short_answer
+    text: |
+      A program is written that will only accept values between $-99.99$ and $+99.99$, inclusive. The program is to be tested.
+
+      The table, when completed, shows appropriate test data that matches the type of test data and purpose of the test data.
+
+      Complete the table by inserting the missing information.
+
+      \begin{tabular}{|c|c|l|}
+      \hline
+      \textbf{Test data} & \textbf{Type of test data} & \multicolumn{1}{c|}{\textbf{Purpose of test data}} \\ \hline
+      & & \\
+      0 & & \hrulefill \\
+      & & \hrulefill \\
+      & & \\ \hline
+      & & \\
+      & boundary & \hrulefill \\
+      & & \hrulefill \\
+      & & \\ \hline
+      & & \\
+      & & to make sure that the program rejects data that is \\
+      & & outside acceptable limits \\
+      & & \\ \hline
+      \end{tabular}
+```

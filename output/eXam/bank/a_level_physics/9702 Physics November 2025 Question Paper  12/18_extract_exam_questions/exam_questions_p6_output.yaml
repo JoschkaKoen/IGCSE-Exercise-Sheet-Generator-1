@@ -1,0 +1,50 @@
+questions:
+  - number: "12"
+    type: multiple_choice
+    text: |
+      Two different blocks, P and Q, slide towards each other on a horizontal frictionless surface. The blocks have an elastic collision.
+
+      The diagram shows the velocities of the two blocks immediately after the collision.
+
+      Which row gives possible velocities of the two blocks immediately before the collision?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & velocity of P & velocity of Q \\
+      \hline
+      \textbf{A} & $10\text{ cm s}^{-1}$ to the right & $60\text{ cm s}^{-1}$ to the left \\
+      \textbf{B} & $50\text{ cm s}^{-1}$ to the right & zero \\
+      \textbf{C} & $20\text{ cm s}^{-1}$ to the left & $70\text{ cm s}^{-1}$ to the right \\
+      \textbf{D} & $60\text{ cm s}^{-1}$ to the right & $30\text{ cm s}^{-1}$ to the left \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          velocity of P: $10\text{ cm s}^{-1}$ to the right; velocity of Q: $60\text{ cm s}^{-1}$ to the left
+      - letter: B
+        text: |
+          velocity of P: $50\text{ cm s}^{-1}$ to the right; velocity of Q: zero
+      - letter: C
+        text: |
+          velocity of P: $20\text{ cm s}^{-1}$ to the left; velocity of Q: $70\text{ cm s}^{-1}$ to the right
+      - letter: D
+        text: |
+          velocity of P: $60\text{ cm s}^{-1}$ to the right; velocity of Q: $30\text{ cm s}^{-1}$ to the left
+  - number: "13"
+    type: multiple_choice
+    text: |
+      Which diagram shows a couple?
+    options:
+      - letter: A
+        text: |
+          Diagram A
+      - letter: B
+        text: |
+          Diagram B
+      - letter: C
+        text: |
+          Diagram C
+      - letter: D
+        text: |
+          Diagram D

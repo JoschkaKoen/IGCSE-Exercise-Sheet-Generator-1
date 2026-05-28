@@ -1,0 +1,20 @@
+questions:
+  - number: "5d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5di"
+    type: short_answer
+    text: |
+      Write a Structured Query Language (SQL) script to count the number of items purchased by the user with the username "KAT123".
+  - number: "5dii"
+    type: short_answer
+    text: |
+      The following changes need to be made to the character with the ID "0002":
+
+      \begin{itemize}
+      \item level changed to 3
+      \item money changed to 10000.00
+      \end{itemize}
+
+      Write an SQL script to change the character’s data.

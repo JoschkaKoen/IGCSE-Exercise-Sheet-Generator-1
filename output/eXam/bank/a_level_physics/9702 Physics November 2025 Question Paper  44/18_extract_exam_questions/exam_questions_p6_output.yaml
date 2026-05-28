@@ -1,0 +1,31 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2a"
+    type: short_answer
+    text: |
+      The equation of state for an ideal gas may be expressed as
+
+      $$pV = NkT$$
+  - number: "2ai"
+    type: short_answer
+    text: |
+      State the meaning of each of the symbols in this equation.
+
+      $p$: \hrulefill
+
+      $V$: \hrulefill
+
+      $N$: \hrulefill
+
+      $k$: \hrulefill
+
+      $T$: \hrulefill
+  - number: "2aii"
+    type: calculation
+    text: |
+      Using the equation of state, derive an expression for the average translational kinetic energy $E_{\text{K}}$ of a particle in the gas in terms of some or all of $N$, $k$ and $T$.
+
+      $E_{\text{K}} = \hrulefill$

@@ -1,0 +1,48 @@
+[thinking]
+**My Thought Process: Deconstructing an Exam Question Page**
+
+Okay, here's what I'm thinking as I process this exam paper page. First, the objective is clear: I need to extract and format specific exam questions (specifically "3", "3a", "3b", "3bi", "3bii", and "3c") from page 4, then convert them into valid YAML, matching a defined schema.
+
+My approach is systematic. I begin by parsing the page content, identifying each question and its associated sub-parts. I'm focusing on the structural components: the main question stem, and each of the sub-questions.
+
+Next, I meticulously format each identified question, checking it against some formatting rules. The crucial part here is stripping unnecessary prefixes like "(a)", "(b)", etc. and ensure that any formatting elements are correctly handled. For instance, the "working space" markers and their associated dotted lines should be dropped. The output should be clean. Where a value has an associated answer line (`value \hrulefill`), I'm keeping that in the text. I'm making a mental note to avoid double quotes for non-empty strings.
+
+Once the questions are parsed and formatted, I draft the YAML structure. This is where I structure the questions under a "questions" key. The `number`, `type`, and `text` keys are created for each question. I carefully insert the formatted questions into the `text` field, ensuring the multi-line strings use the `|` block scalar.
+
+Finally, a review is required. I'm double-checking the YAML against the constraints and rules: no markdown fences, valid YAML, no unnecessary keys like `options`, no `\dotfill`, no `\textit{(working space)}`, and that all subquestion prefixes have been stripped. I'm also confirming that the answer lines are formatted correctly, with a single blank line between the instructions and the first value, and no blank lines between subsequent values. I'm confident that the output is perfect.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      Binary is a base 2 number system.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Give the name of the number system that is base 16.
+  - number: "3b"
+    type: short_answer
+    text: |
+      Three denary numbers are entered into a computer. The computer converts the numbers and stores them as binary.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Give the binary number that would be stored for each of the denary numbers.
+
+      10 \hrulefill
+      50 \hrulefill
+      201 \hrulefill
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Explain why the data is converted to binary by the computer.
+  - number: "3c"
+    type: calculation
+    text: |
+      The two binary integers 00110000 and 01100110 are added together.
+
+      Add the binary integers using binary addition and show your answer in binary. Show all your working.

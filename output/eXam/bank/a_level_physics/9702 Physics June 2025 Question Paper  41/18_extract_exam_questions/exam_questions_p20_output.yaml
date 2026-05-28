@@ -1,0 +1,30 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: ''
+  - number: "10a"
+    type: short_answer
+    text: |
+      State Hubble’s law.
+  - number: "10b"
+    type: short_answer
+    text: |
+      A star in a distant galaxy emits radiation that has a maximum intensity of emission at a wavelength of $4.62 \times 10^{-7}\text{ m}$.
+
+      Observations of the galaxy made on the Earth detect the maximum intensity of emission from the star at a wavelength of $4.91 \times 10^{-7}\text{ m}$.
+  - number: "10bi"
+    type: short_answer
+    text: |
+      Explain why the observed wavelength and the emitted wavelength have different values.
+  - number: "10bii"
+    type: calculation
+    text: |
+      Calculate the speed of the star relative to the Earth.
+
+      speed = \hrulefill $\text{m}\,\text{s}^{-1}$
+  - number: "10biii"
+    type: short_answer
+    text: |
+      The wavelength of maximum intensity of emission is used to determine a value for the surface temperature of the star.
+
+      Explain how the temperature determined using the observed wavelength compares with the true value of temperature determined using the emitted wavelength.

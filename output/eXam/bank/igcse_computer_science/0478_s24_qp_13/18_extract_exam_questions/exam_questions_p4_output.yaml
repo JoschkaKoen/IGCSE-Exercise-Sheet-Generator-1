@@ -1,0 +1,35 @@
+```yaml
+questions:
+  - number: "3d"
+    type: short_answer
+    text: |
+      Identify \textbf{two} other ways that hexadecimal is used in computer science.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3e"
+    type: calculation
+    text: |
+      The health value for a character in the computer game can sometimes be a negative value. The negative values are stored as two’s complement 8-bit integers.
+
+      A character has a health value of $-25$.
+
+      Calculate the two’s complement 8-bit integer for $-25$. Show all your working.
+  - number: "4"
+    type: short_answer
+    text: |
+      The table contains statements about types of secondary storage.
+
+      Complete the table by writing the correct type of secondary storage for each statement.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{type of secondary storage} & \textbf{statement} \\ \hline
+      \hrulefill & Pits and lands are created on a reflective surface. \\ \hline
+      \hrulefill & NAND or NOR technology is used. \\ \hline
+      \hrulefill & Platters are spun that are divided into tracks and sectors. \\ \hline
+      \hrulefill & Electromagnets are used to read and write data. \\ \hline
+      \hrulefill & Transistors are used as control gates and floating gates. \\ \hline
+      \hrulefill & A red or blue laser is used to read and write data. \\ \hline
+      \end{tabular}
+```

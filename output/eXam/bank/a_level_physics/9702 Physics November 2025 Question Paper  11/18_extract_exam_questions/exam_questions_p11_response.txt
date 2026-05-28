@@ -1,0 +1,74 @@
+[thinking]
+**Processing the Questions**
+
+Okay, so I'm being asked to extract and format two multiple-choice questions from this data. The first question, number 23, deals with a force-extension graph for a rubber band. I need to note the question text: "The diagram shows a force–extension graph for a rubber band as the band is extended and then the stretching force is decreased to zero. What can be deduced from the graph?" Then, I need to list the options: A) "The rubber band does not return to its original length when the force is decreased to zero," B) "The rubber band obeys Hooke’s law for the extensions shown," C) "The rubber band remains elastic for the extensions shown," and D) "The shaded area represents the work done in extending the rubber band." I'm not seeing the actual graph, but that's fine; I'll transcribe the information as instructed.
+
+Now, for question 24, it's a bit more involved because it presents a table. The question is: "Which row is correct for sound waves?" and then the table follows, and I'll represent it in LaTeX format. I considered a couple of different ways to handle this, because the options are effectively rows of the table: include the table in the text, and just use the row labels (A, B, C, D) as the options; or embed the options inside the options field as a string. However, since the question implicitly shows A, B, C and D as options, it seems best to just state A, B, C and D as options. So, I will proceed with the following table in LaTeX format:
+```latex
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & can travel in a vacuum & can be polarised & can diffract through a gap \\ \hline
+\textbf{A} & no & no & yes \\ \hline
+\textbf{B} & yes & no & no \\ \hline
+\textbf{C} & no & yes & no \\ \hline
+\textbf{D} & no & yes & yes \\ \hline
+\end{tabular}
+```
+And then the options:
+- A: `A`
+- B: `B`
+- C: `C`
+- D: `D`
+
+I just double-checked that formatting; that seems clear and clean. Perfect.
+
+
+
+[/thinking]
+
+questions:
+  - number: "23"
+    type: multiple_choice
+    text: |
+      The diagram shows a force–extension graph for a rubber band as the band is extended and then the stretching force is decreased to zero.
+
+      What can be deduced from the graph?
+    options:
+      - letter: A
+        text: |
+          The rubber band does \textbf{not} return to its original length when the force is decreased to zero.
+      - letter: B
+        text: |
+          The rubber band obeys Hooke’s law for the extensions shown.
+      - letter: C
+        text: |
+          The rubber band remains elastic for the extensions shown.
+      - letter: D
+        text: |
+          The shaded area represents the work done in extending the rubber band.
+  - number: "24"
+    type: multiple_choice
+    text: |
+      Which row is correct for sound waves?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & \begin{tabular}{c} can travel \\ in a vacuum \end{tabular} & \begin{tabular}{c} can be \\ polarised \end{tabular} & \begin{tabular}{c} can diffract \\ through a gap \end{tabular} \\ \hline
+      \textbf{A} & no & no & yes \\ \hline
+      \textbf{B} & yes & no & no \\ \hline
+      \textbf{C} & no & yes & no \\ \hline
+      \textbf{D} & no & yes & yes \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

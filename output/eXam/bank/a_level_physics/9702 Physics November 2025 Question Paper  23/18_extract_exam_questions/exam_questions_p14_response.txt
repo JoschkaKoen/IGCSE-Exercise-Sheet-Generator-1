@@ -1,0 +1,64 @@
+[thinking]
+**Page 14 Exam Transcription: Question Breakdown**
+
+Okay, so the task is to transcribe page 14 of this exam. The questions are numbered 6, 6a, and 6b, with sub-questions branching off. Let's break this down systematically.
+
+First, Question 6 sets the scene: "The nuclide $^3_1\text{H}$ is an isotope of hydrogen that is called tritium." Simple enough.
+
+Now, 6a. It seems like a heading rather than a question with specific text, as there isn't any text immediately following it, before (i). Thus, `6a` should probably have an empty string assigned as the value for the `text` attribute. Then, let's look at 6ai: "Determine the numbers of protons, neutrons and electrons in a neutral atom of tritium." This has three answer lines: "number of protons = \hrulefill", "number of neutrons = \hrulefill", and "number of electrons = \hrulefill".  Next up is 6aii: "Draw a labelled diagram to represent a simple model of the arrangement of the protons, neutrons and electrons in a tritium atom."
+
+Moving on to 6b, we have: "Tritium is radioactive and undergoes $\beta^-$ decay to form an isotope of helium (He). Gamma radiation is not emitted during this decay." Question 6bi then asks us to "Complete the equation to represent the radioactive decay of tritium." The provided equation is:
+
+$$\text{}^3_1\text{H} \rightarrow \text{}^{......}_{......}\text{He} + \text{}^{......}_{......}\beta + \text{}^0_0\text{X}$$
+
+We need to make sure the $\beta$ decay part is accurately represented.  The actual equation, with the missing numbers for the beta particle is correctly formatted with the superscript, and the subscript.  Finally, 6bii asks us to "State the name of particle X."
+
+Okay, let's recap, and verify the structure for each part:
+- **6**: A short answer question defining tritium.
+- **6a**: An empty string (heading).
+- **6ai**: Determine numbers of protons, neutrons, and electrons, with answer lines.
+- **6aii**: Drawing a labeled diagram.
+- **6b**: Description of Beta decay.
+- **6bi**: Complete the radioactive decay equation.
+- **6bii**: Identify particle X.
+
+The LaTeX is correct and consistent with the formatting rules of the exam. The structure is now clear, and the transcription should be straightforward.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      The nuclide $^3_1\text{H}$ is an isotope of hydrogen that is called tritium.
+  - number: "6a"
+    type: short_answer
+    text: ''
+  - number: "6ai"
+    type: short_answer
+    text: |
+      Determine the numbers of protons, neutrons and electrons in a neutral atom of tritium.
+
+      number of protons = \hrulefill
+      number of neutrons = \hrulefill
+      number of electrons = \hrulefill
+  - number: "6aii"
+    type: short_answer
+    text: |
+      Draw a labelled diagram to represent a simple model of the arrangement of the protons, neutrons and electrons in a tritium atom.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Tritium is radioactive and undergoes $\beta^-$ decay to form an isotope of helium (He). Gamma radiation is not emitted during this decay.
+  - number: "6bi"
+    type: short_answer
+    text: |
+      Complete the equation to represent the radioactive decay of tritium.
+
+      $$\text{}^3_1\text{H} \rightarrow \text{}^{......}_{......}\text{He} + \text{}^{......}_{......}\beta + \text{}^0_0\text{X}$$
+  - number: "6bii"
+    type: short_answer
+    text: |
+      State the name of particle X.

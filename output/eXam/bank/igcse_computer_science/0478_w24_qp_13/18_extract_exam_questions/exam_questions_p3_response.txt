@@ -1,0 +1,66 @@
+[thinking]
+**My Task: Transcribing and Formatting Questions**
+
+Okay, so I need to extract and format three questions: 1cii, 1d, and 1e, specifically for a user who is an expert, so I need to be precise and clear.
+
+First, **1cii**: This one is straightforward. The user wants the binary equivalents of hexadecimal numbers. The prompt is: "Give the binary number for the given hexadecimal numbers." Then there are three values: 15, 2D, and 091. The desired output format is a simple LaTeX table, omitting any "working space" markers. I will construct the LaTeX:
+
+```latex
+Give the binary number for the given hexadecimal numbers.
+
+15 \hrulefill
+2D \hrulefill
+091 \hrulefill
+```
+
+Next up, **1d**: This is a binary addition problem. The prompt is: "Binary integers can be added together.\n\nAdd the two binary integers using binary addition. Show all your working. Give your answer in binary." The integers are:
+
+```
+  1 1 1 0 0 0 1 1
++ 1 1 0 0 1 1 0 0
+-----------------
+```
+
+I need to represent this in a visually clear format, something LaTeX-friendly for an expert user. A `tabular` environment will work well to maintain column alignment. I need to make sure the number of columns lines up. Looking at the binary strings, they each have 9 digits (including the plus sign which effectively takes up a space in this layout), so the LaTeX code will be:
+
+```latex
+\begin{tabular}{rcccccccc}
+  & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\
++ & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+\hline
+\end{tabular}
+```
+
+Finally, **1e**: This is about calculating the denary equivalent of a two's complement binary number: "Calculate the denary number for the two’s complement binary integer 10001110. Show all your working." No specific answer line is indicated, just dotted lines. So, for the final formatted output, I need only display the text.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1cii"
+    type: calculation
+    text: |
+      Give the binary number for the given hexadecimal numbers.
+
+      15 \hrulefill
+      2D \hrulefill
+      091 \hrulefill
+  - number: "1d"
+    type: calculation
+    text: |
+      Binary integers can be added together.
+
+      Add the \textbf{two} binary integers using binary addition. Show all your working. Give your answer in binary.
+
+      \begin{tabular}{rcccccccc}
+        & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\
+      + & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+      \hline
+      \end{tabular}
+  - number: "1e"
+    type: calculation
+    text: |
+      Calculate the denary number for the two’s complement binary integer 10001110. Show all your working.
+```

@@ -1,0 +1,60 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program is written to perform different individual processes using arrays.
+  - number: "3a"
+    type: short_answer
+    text: |
+      A 1D array stores 10 integers.
+  - number: "3ai"
+    type: long_answer
+    text: |
+      A recursive function \texttt{RecursiveCount()} takes three parameters:
+
+      \begin{itemize}
+      \item \texttt{ArrayCopy}, an array of integers
+      \item \texttt{NumberElements}, the number of elements in the array of integers
+      \item \texttt{DataToFind}, an integer data to find in the array.
+      \end{itemize}
+
+      The function counts and returns the number of times \texttt{DataToFind} is in \texttt{ArrayCopy}
+
+      The recursive algorithm:
+
+      \begin{itemize}
+      \item returns 0 if there are no elements in \texttt{ArrayCopy}
+      \item compares the first element in \texttt{ArrayCopy} with \texttt{DataToFind}
+        \begin{itemize}
+        \item if the element matches, the function returns 1 added to the return value from a recursive call (passing the array without the first element)
+        \item if the element does not match, the function returns the return value from a recursive call (passing the array without the first element).
+        \end{itemize}
+      \end{itemize}
+
+      Write program code for \texttt{RecursiveCount()}
+
+      Save your program as \textbf{Question3\_N25}.
+
+      Copy and paste the program code into part \textbf{3(a)(i)} in the evidence document.
+  - number: "3aii"
+    type: long_answer
+    text: |
+      The main program stores the following data in a 1D array of integers in the order given:
+
+      0 5 1 2 5 9 9 6 5 0
+
+      The main program calls \texttt{RecursiveCount()} with the parameters:
+
+      \begin{itemize}
+      \item 0 as the data to find
+      \item 10 as the number of elements
+      \item the array of 10 integers.
+      \end{itemize}
+
+      The return value is output.
+
+      Write program code for the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(a)(ii)} in the evidence document.

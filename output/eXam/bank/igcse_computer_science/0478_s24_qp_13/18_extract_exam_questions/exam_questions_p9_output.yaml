@@ -1,0 +1,31 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A student has a computer that has a central processing unit (CPU).
+  - number: "8a"
+    type: short_answer
+    text: |
+      Describe the role of the CPU in the computer.
+  - number: "8b"
+    type: short_answer
+    text: |
+      The CPU contains registers.
+  - number: "8bi"
+    type: short_answer
+    text: |
+      State the purpose of a register.
+  - number: "8bii"
+    type: short_answer
+    text: |
+      Give \textbf{three} registers that are built into the CPU.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "8c"
+    type: short_answer
+    text: |
+      One component in the CPU is the arithmetic logic unit (ALU).
+
+      Describe the purpose of the ALU.

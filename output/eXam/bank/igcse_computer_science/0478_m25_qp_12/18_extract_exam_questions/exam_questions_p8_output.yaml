@@ -1,0 +1,44 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A computer is connected to a network.
+  - number: "5a"
+    type: short_answer
+    text: |
+      The computer has a network interface card (NIC) that has a media access control (MAC) address.
+  - number: "5ai"
+    type: short_answer
+    text: |
+      One purpose of the NIC is to provide the computer with a MAC address.
+
+      Describe the other purposes of the NIC.
+  - number: "5aii"
+    type: short_answer
+    text: |
+      Identify \textbf{three} characteristics of a MAC address.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "5b"
+    type: short_answer
+    text: |
+      The network allocates an internet protocol (IP) address to the computer.
+  - number: "5bi"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to identify a valid IPv4 address.
+    options:
+      - letter: A
+        text: |
+          110:255:2:1
+      - letter: B
+        text: |
+          1.30.2FF.A9
+      - letter: C
+        text: |
+          3.162.74.3
+      - letter: D
+        text: |
+          8.0.257.6.8

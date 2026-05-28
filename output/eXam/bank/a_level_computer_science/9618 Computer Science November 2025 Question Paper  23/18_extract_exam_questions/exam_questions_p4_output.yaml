@@ -1,0 +1,43 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program contains a global 1D array of type \texttt{STRING} containing 65 elements.
+
+      An existing text file is used to store the data in the array. Only non-blank elements (those that do not contain an empty string) are written to the text file.
+
+      An algorithm will:
+      \begin{itemize}
+      \item write the first element of the array as a new line in the text file
+      \item continue until all elements have been written, each to a new line of the text file.
+      \end{itemize}
+  - number: "2a"
+    type: long_answer
+    text: |
+      Stepwise refinement is applied to the algorithm.
+
+      Describe up to \textbf{six} steps for this algorithm that could be used to produce pseudocode.
+
+      Do \textbf{not} use pseudocode statements in your answer.
+
+      Step 1 \hrulefill
+
+      Step 2 \hrulefill
+
+      Step 3 \hrulefill
+
+      Step 4 \hrulefill
+
+      Step 5 \hrulefill
+
+      Step 6 \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      Iteration is one programming construct.
+
+      Identify \textbf{one} other programming construct that will be required when the algorithm from part \textbf{(a)} is converted into pseudocode and explain how it is used.
+
+      Construct \hrulefill
+
+      Use \hrulefill

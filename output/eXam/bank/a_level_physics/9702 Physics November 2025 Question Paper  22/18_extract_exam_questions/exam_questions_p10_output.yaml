@@ -1,0 +1,23 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A spring is fixed at one end and attached to the frame of a pulley at the other end. A cable is passed around the wheel of the pulley. The spring is stretched to a fixed length using the cable and pulley.
+
+      Fig. 3.1 shows the view from above of the spring, cable and pulley.
+
+      The spring obeys Hooke’s law and has a spring constant $k$ of $250\text{ N}\,\text{m}^{-1}$. A force $F$ acts on the spring. The tension in the cable is $T$. The pulley is in equilibrium.
+  - number: "3a"
+    type: short_answer
+    text: |
+      On Fig. 3.2, draw labelled arrows to show the directions of the forces acting on the pulley.
+  - number: "3b"
+    type: short_answer
+    text: |
+      The force $F$ is $110\text{ N}$.
+  - number: "3bi"
+    type: calculation
+    text: |
+      Determine $T$.
+
+      $T = $ \hrulefill $\text{ N}$

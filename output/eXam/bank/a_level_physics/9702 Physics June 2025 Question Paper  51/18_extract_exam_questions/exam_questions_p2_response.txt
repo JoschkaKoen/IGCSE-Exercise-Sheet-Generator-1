@@ -1,0 +1,42 @@
+[thinking]
+**Analyzing the Physics Exam Question**
+
+Okay, so the user wants me to transcribe Question 1 from this physics exam page. Let's break it down. It seems like a classic experimental design question. The setup describes a thin coil with cross-sectional area *A* and length *l*, connected to a resistor *S* and terminals. An alternating voltage with peak value *E* and frequency *f* is applied, and the peak potential difference *V* across the resistor is measured using an oscilloscope.
+
+The core of the question is this suggested relationship: `(ES)/V = (KAN^2 f)/l`, where *N* is the number of turns and *K* is the constant we need to determine. They're asking for a plan to test this relationship experimentally. We need to design a lab experiment. The question specifically wants a diagram of the equipment setup, and a detailed explanation of how to determine *K* from the data.
+
+Crucially, the prompt outlines the required components of the plan: the procedure, measurements, controlled variables, data analysis, and any necessary safety precautions. This is a pretty standard experimental design format, covering the core elements of a well-executed lab investigation. Right, time to start crafting a response that meets these requirements. Let's prepare a solid YAML for this, covering all the bases.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: long_answer
+    text: |
+      Fig. 1.1 shows a thin coil of cross-sectional area $A$ and length $l$ connected to a resistor of resistance $S$ and two terminals.
+
+      An alternating voltage is applied to the terminals. The peak value of the alternating voltage is $E$ and the frequency is $f$. The peak value of the potential difference $V$ across the resistor is determined using an oscilloscope.
+
+      It is suggested that $V$ is related to $f$ by the relationship
+
+      $$\frac{ES}{V} = \frac{KAN^2 f}{l}$$
+
+      where $N$ is the number of turns on the coil and $K$ is a constant.
+
+      Plan a laboratory experiment to test the relationship between $V$ and $f$.
+
+      Draw a diagram showing the arrangement of your equipment.
+
+      Explain how the results could be used to determine a value for $K$.
+
+      In your plan you should include:
+
+      \begin{itemize}
+      \item the procedure to be followed
+      \item the measurements to be taken
+      \item the control of variables
+      \item the analysis of the data
+      \item any safety precautions to be taken.
+      \end{itemize}

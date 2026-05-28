@@ -1,0 +1,17 @@
+questions:
+  - number: "7bii"
+    type: calculation
+    text: |
+      Determine the area of flux cut by the wings in a time of $15\text{ s}$.
+
+      $\text{area} = \hrulefill \text{ m}^2$
+  - number: "7biii"
+    type: calculation
+    text: |
+      Use your answer in \textbf{(b)(ii)} to determine the speed $v$ of the aircraft.
+
+      $v = \hrulefill \text{ m}\,\text{s}^{-1}$
+  - number: "7biv"
+    type: long_answer
+    text: |
+      Use Lenz’s law of electromagnetic induction to explain which of the wingtips P and Q is at the higher induced potential.

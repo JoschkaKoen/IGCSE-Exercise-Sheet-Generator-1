@@ -1,0 +1,59 @@
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete the description of abstraction.
+
+      Abstraction is part of the analysis stage of the development life cycle. Abstraction means
+    options:
+      - letter: A
+        text: |
+          testing the solution to the problem.
+      - letter: B
+        text: |
+          writing a program using program code.
+      - letter: C
+        text: |
+          defining the sub-systems that make up the problem.
+      - letter: D
+        text: |
+          removing details from the problem that are not relevant.
+  - number: "2"
+    type: short_answer
+    text: |
+      A fence measuring 2 metres in height and 20 metres in length needs painting. The area of the fence needs to be calculated so that enough paint for the job is purchased.
+
+      After the task is decomposed, there are three component parts: input, process and output.
+
+      \textbf{Three} component parts and \textbf{four} example descriptions are shown.
+
+      Draw \textbf{one} line from each component part to the most appropriate relevant description.
+      \textbf{Not} all descriptions will be used.
+
+      \begin{tabular}{cc}
+      \textbf{Component part} & \textbf{Description} \\
+       & \\
+       & \framebox{the height of the fence \quad the length of the fence} \\
+      \framebox{process} & \\
+       & \framebox{The amount of paint required is 40 square metres.} \\
+      \framebox{output} & \\
+       & \framebox{the colour of the paint} \\
+      \framebox{input} & \\
+       & \framebox{The area of fence is calculated as 40 square metres.} \\
+      \end{tabular}
+  - number: "3"
+    type: short_answer
+    text: |
+      A range check is used to validate that the input temperature is an integer between $-100$ and $0$, inclusive.
+
+      Suggest suitable normal, abnormal, extreme and boundary test data to test if this validation check is working correctly.
+
+      Normal test data \hrulefill
+
+      Abnormal test data \hrulefill
+
+      Extreme test data \hrulefill
+
+      Boundary test data \hrulefill
+```

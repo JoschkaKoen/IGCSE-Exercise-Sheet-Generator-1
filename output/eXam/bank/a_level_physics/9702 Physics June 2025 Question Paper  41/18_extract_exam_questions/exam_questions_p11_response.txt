@@ -1,0 +1,49 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 11**
+
+Okay, so the task is to transcribe page 11 of this exam paper. The user wants a transcription in a specific format, and I'm seeing the question numbers are: "5a", "5ai", "5aii", "5b", and "5c". My first instinct is to get a handle on the structure of the questions. I can see the stub is providing these entries, but let's check the page and make sure they are correct.
+
+Looking at the page, I see "(a) (i)" and "(ii)", but no standalone "5a" label with its own accompanying text. Okay, wait, there's a specific instruction: "Every entry's stem should be visible. If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess." So, no guessing.
+
+Let's look more closely. "5ai" corresponds to "(a) (i)", specifically, "Determine the amplitude of the oscillations." "5aii" corresponds to "(a) (ii)", which reads, "State what the line in Fig. 5.2 shows about the nature of the oscillations." The core issue is "5a". The instruction is clear: if the stem isn't *visible* on the page, flag it. There's no text associated with "(a)" on its own; it's just part of "(a) (i)". Thus, even though "(a)" is visible, it's not a standalone "5a." So I must include the error. I'll include the yaml as per the given requirements to flag the missing stub:
+
+```yaml
+  - number: "5a"
+    type: short_answer
+    text: |
+      STUB ERROR
+```
+
+Now, onto the remaining questions. "5ai" is clear: "Determine the amplitude of the oscillations." and has a space for an answer. "5aii": "State what the line in Fig. 5.2 shows about the nature of the oscillations." Then, "5b": "State \textbf{three} other quantitative conclusions that can be drawn from Fig. 5.2 and Fig. 5.3 about the block and its oscillations. Use the space for any working." with space for the responses. Finally, "5c": "On Fig. 5.4, sketch the variation with $h$ of the potential energy $E_{\text{P}}$ of the oscillations." The instruction is to omit the figure itself, so I'll just transcribe the prompt. Okay, everything seems straightforward now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5ai"
+    type: calculation
+    text: |
+      Determine the amplitude of the oscillations.
+
+      amplitude = \hrulefill m
+  - number: "5aii"
+    type: short_answer
+    text: |
+      State what the line in Fig. 5.2 shows about the nature of the oscillations.
+  - number: "5b"
+    type: short_answer
+    text: |
+      State \textbf{three} other quantitative conclusions that can be drawn from Fig. 5.2 and Fig. 5.3 about the block and its oscillations. Use the space for any working.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "5c"
+    type: short_answer
+    text: |
+      On Fig. 5.4, sketch the variation with $h$ of the potential energy $E_{\text{P}}$ of the oscillations.

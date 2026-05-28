@@ -1,0 +1,896 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State Newton’s law of gravitation.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A binary star consists of star A, of mass $4.0 \times 10^{30} \text{ kg}$,
+      and star B, of mass $2.0 \times 10^{30} \text{ kg}$, separated by a distance
+      of $3.3 \times 10^{12} \text{ m}$. The stars are both in circular orbit around
+      their common centre of gravity X, as shown in Fig. 1.1.
+
+
+      The radius $R_{\text{B}}$ of the orbit of star B is double the radius $R_{\text{A}}$
+      of the orbit of star A.'
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Use Newton’s law of gravitation to calculate the magnitude of the gravitational
+        force exerted by each star on the other.
+
+
+        force = \hrulefill N'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate the centripetal acceleration of star A.
+
+
+        acceleration = \hrulefill $\text{ms}^{-2}$'
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Use your answer in \textbf{(b)(ii)} to determine the period of the orbit
+        of star A.
+
+
+        period = \hrulefill $\text{s}$'
+      answer_options: []
+      subquestions: []
+    - number: 1biv
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: "By placing a tick ($\\checkmark$) in each row, complete Table 1.1 to\
+        \ show how the quantities indicated for star B compare with the same quantities\
+        \ for star A.\n\n\\textbf{Table 1.1}\n\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n\
+        \ & B less than A & B equal to A & B greater than A \\\\ \\hline\ncentripetal\
+        \ acceleration & & & \\\\ \\hline\nlinear speed & & & \\\\ \\hline\nperiod\
+        \ & & & \\\\ \\hline\n\\end{tabular}"
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The equation of state for an ideal gas may be expressed as
+
+
+      $$pV = NkT$$'
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'State the meaning of each of the symbols in this equation.
+
+
+        $p$: \hrulefill
+
+
+        $V$: \hrulefill
+
+
+        $N$: \hrulefill
+
+
+        $k$: \hrulefill
+
+
+        $T$: \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Using the equation of state, derive an expression for the average translational
+        kinetic energy $E_{\text{K}}$ of a particle in the gas in terms of some or
+        all of $N$, $k$ and $T$.
+
+
+        $E_{\text{K}} = \hrulefill$'
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A molecule of hydrogen gas consists of two hydrogen atoms, each of nucleon
+      number 1.
+
+      A molecule of oxygen gas consists of two oxygen atoms, each of nucleon number
+      16.
+
+
+      Assume that hydrogen and oxygen both behave as ideal gases.
+
+
+      A sample of hydrogen gas is at the same temperature as a sample of oxygen gas.
+
+
+      For the two samples, determine the ratio
+
+      $$\frac{\text{root-mean-square (r.m.s.) speed of hydrogen molecules}}{\text{root-mean-square
+      (r.m.s.) speed of oxygen molecules}}$$
+
+
+      ratio = \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: With reference to molecular kinetic energy and molecular potential energy,
+      explain what is meant by the internal energy of an ideal gas.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A sample of an ideal gas is initially in state A, at a pressure of $2.0
+      \times 10^5 \text{ Pa}$ and with a volume of $0.016 \text{ m}^3$, as shown in
+      Fig. 3.1.
+
+
+      In state A, the temperature of the gas is $400 \text{ K}$.
+
+
+      The gas undergoes two successive changes X and Y.
+
+
+      In change X, it is heated at constant volume to a pressure of $4.0 \times 10^5
+      \text{ Pa}$. At the end of change X, the gas is in state B.
+
+
+      In change Y, it is then allowed to expand at constant temperature back to its
+      original pressure. At the end of change Y, the gas is in state C.'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the internal energy of the gas in state A.
+
+
+        internal energy = \hrulefill J'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine the temperature of the gas in state B.
+
+
+        temperature = \hrulefill K'
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine the volume of the gas in state C.
+
+
+        volume = \hrulefill $\text{m}^3$'
+      answer_options: []
+      subquestions: []
+    - number: 3biv
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: On Fig. 3.1, draw two lines, one to represent change X and one to represent
+        change Y. Label your lines X and Y respectively.
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by the frequency of the oscillations of an oscillating
+      object.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'An object is oscillating.
+
+
+      Fig. 4.1 shows the variation of the acceleration $a$ of the object with its
+      displacement $x$ from the equilibrium position.
+
+
+      Fig. 4.2 shows the variation of the kinetic energy $E_{\text{K}}$ of the object
+      with time $t$.'
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Explain how Fig. 4.2 shows that the period of the oscillations is 0.80
+        s.
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the angular frequency $\omega$ of the oscillations.
+
+
+        $\omega = $ \hrulefill $\text{rad}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 4biii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Apart from the period, frequency and angular frequency of the oscillations,
+        determine \textbf{three} other conclusions about the object and its oscillations
+        that may be drawn from Fig. 4.1 and Fig. 4.2. The conclusions may be qualitative
+        or quantitative. Use the space below for any working.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 4biv
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Describe the interchange between kinetic energy and potential energy during
+        the oscillations. Numerical values are \textbf{not} required.
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain why the electric potential near an isolated proton is positive.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'An isolated metal sphere is positively charged and has radius $R$, as shown
+      in Fig. 5.1.
+
+
+      Line XY passes through the centre of the sphere.
+
+      Point P lies on line XY at a variable displacement $x$ from the centre of the
+      sphere.
+
+      Point Q is at a fixed position that is not on line XY.
+
+
+      The electric field strength at the surface of the sphere is $E_0$.'
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 5.1, draw an arrow at point Q to show the direction of the electric
+        field at that point.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: On Fig. 5.2, sketch the variation of the electric field $E$ with $x$ for
+        values of $x$ between $x = -3R$ and $x = 3R$. Do \textbf{not} include the
+        region inside the sphere between $x = -R$ and $x = R$.
+      answer_options: []
+      subquestions: []
+  - number: 5c
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The proton and the electron in a hydrogen atom are separated by a distance
+      of $5.3 \times 10^{-11}\text{ m}$.
+
+
+      Calculate the electric potential energy of the proton and the electron.
+
+
+      electric potential energy = \hrulefill J'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Fig. 6.1 shows part of a bridge rectifier circuit that can be used for rectification
+    of an alternating input voltage $V_{\text{IN}}$.
+
+
+    Fig. 6.1
+
+
+    The circuit contains four diodes, one of which is shown.
+
+    The rectified output voltage $V_{\text{OUT}}$ is applied across load resistor
+    R.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 6ai
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by rectification.
+      answer_options: []
+      subquestions: []
+    - number: 6aii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the name of the type of rectification produced by a bridge rectifier
+        circuit.
+      answer_options: []
+      subquestions: []
+    - number: 6aiii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Complete the circuit in Fig. 6.1 by drawing the three missing diodes inside
+        the dashed circles.
+      answer_options: []
+      subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The input voltage varies with time $t$ according to the equation
+
+
+      $$V_{\text{IN}} = 34 \sin 18t$$
+
+
+      where $V_{\text{IN}}$ is in V and $t$ is in s.'
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: calculation
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Show that the period of the input voltage is 0.35 s.
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: calculation
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate the root-mean-square (r.m.s.) input voltage.
+
+
+        r.m.s. voltage = \hrulefill V'
+      answer_options: []
+      subquestions: []
+    - number: 6biii
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: On Fig. 6.2, sketch the variation of $V_{\text{OUT}}$ with $t$ from $t
+        = 0$ to $t = 0.35\text{ s}$.
+      answer_options: []
+      subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Resistor R has a resistance of $56\text{ k}\Omega$. A capacitor of capacitance
+      $12\text{ }\mu\text{F}$ is connected into the circuit of Fig. 6.1 in order to
+      smooth the output voltage.
+    answer_options: []
+    subquestions:
+    - number: 6ci
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 6.1, draw the capacitor correctly connected into the circuit.
+      answer_options: []
+      subquestions: []
+    - number: 6cii
+      question_type: calculation
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the time constant of the smoothing circuit.
+
+
+        time constant = \hrulefill \text{ s}'
+      answer_options: []
+      subquestions: []
+    - number: 6ciii
+      question_type: calculation
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'During each discharge cycle, the time for which the capacitor is discharging
+        is $0.14\text{ s}$.
+
+
+        Determine the minimum value of the smoothed output voltage.
+
+
+        minimum voltage = \hrulefill \text{ V}'
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 18
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State Lenz’s law of electromagnetic induction.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A helicopter hovering in stationary equilibrium has four rotors, each of
+      length $12\text{ m}$, as shown in the view from above in Fig. 7.1.
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: calculation
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The vertical component of the Earth’s magnetic field at the helicopter
+        is downwards with a flux density of $0.047\text{ m/T}$.
+
+
+        The rotors each rotate in a horizontal plane in the direction shown with a
+        frequency of $85\text{ Hz}$.
+
+
+        Calculate the magnetic flux $\Phi$ cut by rotor OX during one complete rotation.
+        Give a unit with your answer.
+
+
+        $\Phi =$ \hrulefill unit \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: calculation
+      page: 19
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the magnitude of the electromotive force (e.m.f.) induced across
+        the length of rotor OX.
+
+
+        e.m.f. = \hrulefill\ \text{V}'
+      answer_options: []
+      subquestions: []
+    - number: 7biii
+      question_type: long_answer
+      page: 19
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Use Lenz’s law to explain whether end O or end X of the rotor is at the
+        higher potential.
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 20
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Oxygen-15 ($^{15}_{8}\text{O}$) is radioactive and has a half-life of 2.04
+    minutes.
+
+
+    The decay of oxygen-15 produces positrons. For this reason, oxygen-15 is sometimes
+    used as a tracer in positron emission tomography (PET scanning).'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State what is meant by a tracer.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The equation for the decay of oxygen-15 is
+
+
+      $$^{15}_{8}\text{O} \to {^{P}_{Q}\text{X}} + {^{R}_{S}\beta^+} + \text{Z}$$
+
+
+      where $\text{X}$ is the nucleus formed during the decay and $\text{Z}$ is another
+      particle.'
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: short_answer
+      page: 20
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'State the values of the integers $P$, $Q$, $R$ and $S$.
+
+
+        $P = $ \hrulefill $R = $ \hrulefill
+
+
+        $Q = $ \hrulefill $S = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: short_answer
+      page: 20
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the name of particle $\text{Z}$.
+      answer_options: []
+      subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 8ci
+      question_type: short_answer
+      page: 20
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Define the activity of a sample.
+      answer_options: []
+      subquestions: []
+    - number: 8cii
+      question_type: calculation
+      page: 20
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the decay constant of oxygen-15. Give a unit with your answer.
+
+
+        decay constant = \hrulefill unit \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 8ciii
+      question_type: calculation
+      page: 21
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Determine the rate at which positrons are produced in a sample of oxygen-15
+        that has a mass of $2.85 \times 10^{-6} \text{ kg}$.
+
+
+        rate = \hrulefill $\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 21
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The particles that are emitted from the body and detected outside it during
+      PET scanning are not positrons but another type of particle.
+    answer_options: []
+    subquestions:
+    - number: 8di
+      question_type: short_answer
+      page: 21
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the name of the particles that are detected.
+      answer_options: []
+      subquestions: []
+    - number: 8dii
+      question_type: long_answer
+      page: 21
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how these particles are formed inside the body.
+      answer_options: []
+      subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 22
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 22
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State what is meant by the photoelectric effect.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 22
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The photoelectric effect is investigated using two clean metal plates.
+      One plate is made from metal X and the other is made from metal Y.
+
+
+      Metal X has work function energy $\Phi$. Metal Y has work function energy $2\Phi$.
+
+      Metal X has threshold frequency $F$.
+
+
+      State expressions, in terms of either or both of $\Phi$ and $F$, for'
+    answer_options: []
+    subquestions:
+    - number: 9bi
+      question_type: short_answer
+      page: 22
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'the threshold frequency of metal Y
+
+
+        threshold frequency = \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 9bii
+      question_type: short_answer
+      page: 22
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'the Planck constant.
+
+
+        Planck constant = \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 22
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The maximum kinetic energy $E_{\text{K}}$ of photoelectrons is determined
+      for each of the plates in (b) for different frequencies $f$ of incident radiation.
+
+
+      On Fig. 9.1, sketch the variation of $E_{\text{K}}$ with $f$ for each plate.
+      Label your lines X and Y to identify which line relates to which plate.'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 23
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 23
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State what is meant by redshift.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: long_answer
+    page: 23
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain how observations of redshift lead to the idea that the universe
+      is expanding.
+    answer_options: []
+    subquestions: []
+  - number: 10c
+    question_type: long_answer
+    page: 23
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how Hubble’s law leads to the Big Bang theory of the origin of the
+      universe.
+    answer_options: []
+    subquestions: []

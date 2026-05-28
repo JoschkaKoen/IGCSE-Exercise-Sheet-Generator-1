@@ -1,0 +1,57 @@
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2di"
+    type: short_answer
+    text: |
+      The main program needs extending to:
+
+      \begin{itemize}
+      \item output the content of the unsorted array using \texttt{OutputArray()}
+      \item sort the array using \texttt{InsertionSort()}
+      \item output the content of the sorted array using \texttt{OutputArray()}
+      \end{itemize}
+
+      Write program code to extend the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(d)(i)} in the evidence document.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{2(d)(ii)} in the evidence document.
+  - number: "2e"
+    type: short_answer
+    text: |
+      The function \texttt{Search()} performs a binary search to find \texttt{ItemToFind} in \texttt{DataArray}
+
+      The function takes \textbf{two} parameters:
+
+      \begin{itemize}
+      \item \texttt{DataArray}, an array of integers
+      \item \texttt{ItemToFind}, an integer to find in \texttt{DataArray}
+      \end{itemize}
+
+      The function returns:
+
+      \begin{itemize}
+      \item the index of \texttt{ItemToFind} if it is in \texttt{DataArray}
+      \item -1 if \texttt{ItemToFind} is not in \texttt{DataArray}
+      \end{itemize}
+
+      Write program code for \texttt{Search()}
+
+      You must \textbf{not} use any inbuilt searching functions for your programming language.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)} in the evidence document.

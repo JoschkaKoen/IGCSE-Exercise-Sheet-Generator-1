@@ -1,0 +1,92 @@
+[thinking]
+**My Analysis of Exam Question 11**
+
+Okay, so I'm presented with page 11 of an exam paper and need to extract the information from questions 11, 11a, and 11b.  I'll output this as YAML, with the `number`, `type`, and `text` for each question, including an `options` field if it's multiple choice, but it's all short answer here.
+
+First, Question 11. It's a short answer question. The text contains introductory material, and a table of assembly language instructions for a processor with a single Accumulator (ACC) register.  I need to transcribe that. I'll represent the table in LaTeX `tabular` format. Let's see... the table has Label, Opcode, Operand, and Explanation columns.  Here's the LaTeX I'll generate:
+
+```latex
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Label} & \textbf{Opcode} & \textbf{Operand} & \textbf{Explanation} \\ \hline
+ & LDM & \#n & Load the number n to ACC \\ \hline
+ & LDD & \texttt{<address>} & Load the contents of the location at the given address to the ACC \\ \hline
+ & LDI & \texttt{<address>} & The address to be used is at the given address. Load the contents of this second address to the ACC \\ \hline
+ & ADD & \texttt{<address>} & Add the contents of the given address to the ACC \\ \hline
+ & SUB & \texttt{<address>} & Subtract the contents of the given address from the ACC \\ \hline
+ & STO & \texttt{<address>} & Store the contents of the ACC at the given address \\ \hline
+\texttt{<label>:} & & \texttt{<data>} & Gives a symbolic address \texttt{<label>} to the memory location with contents \texttt{<data>} \\ \hline
+\end{tabular}
+
+\# denotes a denary number, e.g. \#123
+\texttt{<label>} can be used in place of \texttt{<address>}
+```
+
+Next, Question 11a. Again, short answer. It asks to write assembly language code using *only* the provided instructions to: store a denary value (100) as a named constant, subtract that constant from the value at address 632, and store the result in a variable named `Answer`.  There's also a table provided for initialization, which I'll include within the question text as another LaTeX `tabular`:
+
+```latex
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Label} & \textbf{Contents} \\ \hline
+ & \\ \hline
+ & \\ \hline
+ & \\ \hline
+ & \\ \hline
+\end{tabular}
+```
+
+Finally, Question 11b.  Also short answer. It states that address 632 contains the value 45 and asks for the value of `Answer` after the code from part (a) is executed.
+
+I'll make sure to use `\texttt{Answer}` for the variable name and `\texttt{<address>}` or just `<address>` to keep the LaTeX clean and consistent and use `\texttt{<label>}` in the table.  Okay, I think I have a solid understanding of the question and how to represent it effectively.
+
+
+
+[/thinking]
+
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      The table shows assembly language instructions for a processor that has one register, the Accumulator (ACC).
+
+      \begin{tabular}{|l|l|l|l|}
+      \hline
+      \textbf{Label} & \textbf{Opcode} & \textbf{Operand} & \textbf{Explanation} \\ \hline
+       & LDM & \#n & Load the number n to ACC \\ \hline
+       & LDD & \texttt{<address>} & Load the contents of the location at the given address to the ACC \\ \hline
+       & LDI & \texttt{<address>} & The address to be used is at the given address. Load the contents of this second address to the ACC \\ \hline
+       & ADD & \texttt{<address>} & Add the contents of the given address to the ACC \\ \hline
+       & SUB & \texttt{<address>} & Subtract the contents of the given address from the ACC \\ \hline
+       & STO & \texttt{<address>} & Store the contents of the ACC at the given address \\ \hline
+      \texttt{<label>:} & & \texttt{<data>} & Gives a symbolic address \texttt{<label>} to the memory location with contents \texttt{<data>} \\ \hline
+      \end{tabular}
+
+      \# denotes a denary number, e.g. \#123
+      \texttt{<label>} can be used in place of \texttt{<address>}
+  - number: "11a"
+    type: short_answer
+    text: |
+      Write \textbf{assembly language} code, using \textbf{only} the given instruction set to:
+
+      \begin{itemize}
+      \item store the denary value 100 as a named constant
+      \item subtract the constant from the value contained in address 632
+      \item store the result in variable \texttt{Answer}.
+      \end{itemize}
+
+      Show the initialisation of the constant and \texttt{Answer} in the table provided.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Label} & \textbf{Contents} \\ \hline
+       &  \\ \hline
+       &  \\ \hline
+       &  \\ \hline
+       &  \\ \hline
+      \end{tabular}
+  - number: "11b"
+    type: short_answer
+    text: |
+      The address 632 contains the value 45.
+
+      State the value of \texttt{Answer} after the code described in part \textbf{(a)} has executed.

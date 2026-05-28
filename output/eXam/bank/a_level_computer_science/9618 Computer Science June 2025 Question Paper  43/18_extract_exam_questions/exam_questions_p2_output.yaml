@@ -1,0 +1,39 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program reads data from a text file and stores it in a queue. The linear queue \texttt{Queue} is stored as a 1D array of up to 50 elements. The queue has the following pointers:
+
+      \begin{itemize}
+      \item \texttt{HeadPointer} – this stores the index of the first element in the queue, initialised to -1
+      \item \texttt{TailPointer} – this stores the index of the last element in the queue, initialised to -1
+      \end{itemize}
+  - number: "1a"
+    type: short_answer
+    text: |
+      \texttt{Queue} is a global array of 50 integers with all elements initialised to -1 in the main program.
+
+      The \textbf{two} pointers are declared as global variables and initialised to -1
+
+      Write program code to declare and initialise \texttt{Queue}, \texttt{HeadPointer} and \texttt{TailPointer}
+
+      Save your program as \textbf{Question1\_J25}.
+
+      Copy and paste the program code into part 1(a) in the evidence document.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The function \texttt{Enqueue()}:
+
+      \begin{itemize}
+      \item takes an integer parameter to store in the next position in the queue
+      \item returns \texttt{FALSE} if the queue is full and the parameter cannot be stored in the queue
+      \item returns \texttt{TRUE} if the parameter is stored in the queue
+      \item updates the pointers where appropriate.
+      \end{itemize}
+
+      Write program code for \texttt{Enqueue()}
+
+      Save your program.
+
+      Copy and paste the program code into part 1(b) in the evidence document.

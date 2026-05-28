@@ -1,0 +1,95 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, here's what the user needs. They've asked me to transcribe questions 36 and 37 from an image. I see this is a physics context, likely related to electricity and circuits. I need to make sure I format this correctly, omitting the diagrams as instructed.
+
+For question 36, it's about a potentiometer circuit used to determine the electromotive force (e.m.f.) of a cell, *E<sub>X</sub>*. There's a known e.m.f., *E<sub>0</sub>*, and a uniform resistance wire. *E<sub>X</sub>* is less than *E<sub>0</sub>*, and we have a movable connection, *J*. The question asks which circuit diagram is suitable for determining *E<sub>X</sub>*. The response needs to provide the question and the option letters, A, B, C, and D, which represent the circuit diagrams. I understand I just need to provide the letters.
+
+So, here's how I will represent question 36:
+
+**Question 36:**
+
+A potentiometer circuit is used to determine the electromotive force (e.m.f.) $E_X$ of a cell. The circuit includes a second cell of known e.m.f. $E_0$ and negligible internal resistance, and a uniform resistance wire PQ of known length.
+
+$E_X$ is less than $E_0$.
+
+The movable connection J can be positioned anywhere along the length of the resistance wire.
+
+Which circuit is suitable for determining $E_X$?
+
+`options:`
+
+`- letter: A`
+  `- letter: B`
+  `- letter: C`
+  `- letter: D`
+
+For question 37, it's about Kirchhoff's laws. It asks which two quantities are conserved by the first and second laws. The answer choices are presented in a table format, so I'll structure the options accordingly. It's a multiple-choice question.
+
+**Question 37:**
+
+The principles of conservation of which two quantities are associated with Kirchhoff’s first and second laws?
+
+`options:`
+
+`- letter: A`
+  `text: |`
+    `first law: charge, second law: energy`
+`- letter: B`
+  `text: |`
+    `first law: charge, second law: voltage`
+`- letter: C`
+  `text: |`
+    `first law: energy, second law: charge`
+`- letter: D`
+  `text: |`
+    `first law: voltage, second law: charge`
+
+I've ensured I've transcribed all information required, adhering to the instruction about omitting diagrams. The answers are formatted clearly for the user. I'm ready to proceed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "36"
+    type: multiple_choice
+    text: |
+      A potentiometer circuit is used to determine the electromotive force (e.m.f.) $E_X$ of a cell. The circuit includes a second cell of known e.m.f. $E_0$ and negligible internal resistance, and a uniform resistance wire PQ of known length.
+
+      $E_X$ is less than $E_0$.
+
+      The movable connection J can be positioned anywhere along the length of the resistance wire.
+
+      Which circuit is suitable for determining $E_X$?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+
+  - number: "37"
+    type: multiple_choice
+    text: |
+      The principles of conservation of which two quantities are associated with Kirchhoff’s first and second laws?
+    options:
+      - letter: A
+        text: |
+          \begin{tabular}{ll} first law: charge & second law: energy \end{tabular}
+      - letter: B
+        text: |
+          \begin{tabular}{ll} first law: charge & second law: voltage \end{tabular}
+      - letter: C
+        text: |
+          \begin{tabular}{ll} first law: energy & second law: charge \end{tabular}
+      - letter: D
+        text: |
+          \begin{tabular}{ll} first law: voltage & second law: charge \end{tabular}

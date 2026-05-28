@@ -1,0 +1,138 @@
+[thinking]
+**My Analysis of the Exam Page**
+
+Okay, I see the user wants me to transcribe page 12 of this exam paper. Looks like it covers a range of topics; here's a rundown of the questions:
+
+*   **Question 27:** Straightforward. It's a multiple-choice question on the wavelength of green light within the electromagnetic spectrum. We need to recall the typical wavelength range associated with visible light and pick the closest option.
+
+*   **Question 28:** Another multiple-choice, this time on wave polarization. I need to remember which types of waves can be polarized (transverse waves) and which options fit that criteria. Sound waves, I recall, are longitudinal and thus cannot be polarized.
+
+*   **Question 29:** A wave superposition problem. Two waves with differing amplitudes are traveling in opposite directions. The core here is calculating the maximum and minimum amplitude of the resulting combined wave, which will be affected by constructive and destructive interference respectively, then expressing that as a ratio.
+
+*   **Question 30:** Diffraction grating problem! I need to apply the diffraction grating equation ($d \sin \theta = n \lambda$) to find the angle of diffraction for the second-order maximum. We've got the wavelength and the grating line density. Careful conversion of units is essential, especially from lines per millimeter to a more usable unit.
+
+*   **Question 31:** This looks like a standing wave problem in a closed-open tube. We're given the fundamental frequency (first harmonic), and the speed of sound. The relationship between frequency, speed, and wavelength in a tube will allow me to determine the length of the tube.
+
+*   **Question 32:** Finally, a definition question. It is testing the understanding of electrical resistance. It's simply a matter of knowing Ohm's Law and its mathematical expression in relation to resistance. So that's essentially a question testing a formula!
+
+I'll format this into YAML now so it can be used for the next process.
+
+
+
+[/thinking]
+
+questions:
+  - number: "27"
+    type: multiple_choice
+    text: |
+      Which wavelength of electromagnetic radiation in free space could be green light?
+    options:
+      - letter: A
+        text: |
+          $4.9 \times 10^{-9}\text{ m}$
+      - letter: B
+        text: |
+          $6.6 \times 10^{-9}\text{ m}$
+      - letter: C
+        text: |
+          $5.5 \times 10^{-7}\text{ m}$
+      - letter: D
+        text: |
+          $8.6 \times 10^{-7}\text{ m}$
+  - number: "28"
+    type: multiple_choice
+    text: |
+      Which group contains only waves that can be polarised?
+    options:
+      - letter: A
+        text: |
+          infrared waves, radio waves, sound waves
+      - letter: B
+        text: |
+          visible light waves, microwaves, radio waves
+      - letter: C
+        text: |
+          visible light waves, radio waves, sound waves
+      - letter: D
+        text: |
+          microwaves, visible light waves, sound waves
+  - number: "29"
+    type: multiple_choice
+    text: |
+      One wave has an amplitude of $2A$. A second wave has an amplitude of $\frac{A}{2}$. The waves are otherwise identical.
+
+      The two waves travel in opposite directions and overlap.
+
+      What is the ratio $\frac{\text{maximum amplitude of combined wave}}{\text{minimum amplitude of combined wave}}$?
+    options:
+      - letter: A
+        text: |
+          $\frac{3}{2}$
+      - letter: B
+        text: |
+          $\frac{5}{3}$
+      - letter: C
+        text: |
+          $\frac{5}{2}$
+      - letter: D
+        text: |
+          $4$
+  - number: "30"
+    type: multiple_choice
+    text: |
+      Light of wavelength $680\text{ nm}$ is incident normally on a diffraction grating with $450\text{ lines mm}^{-1}$.
+
+      What is the angle of diffraction of the second-order maximum in the diffraction pattern that is produced?
+    options:
+      - letter: A
+        text: |
+          $1.8^\circ$
+      - letter: B
+        text: |
+          $3.5^\circ$
+      - letter: C
+        text: |
+          $18^\circ$
+      - letter: D
+        text: |
+          $38^\circ$
+  - number: "31"
+    type: multiple_choice
+    text: |
+      A hollow tube is closed at one end and open at the other.
+
+      A stationary sound wave of the lowest possible frequency, $820\text{ Hz}$, is produced in the tube.
+
+      The speed of sound in air is $330\text{ m s}^{-1}$.
+
+      What is the length of the tube?
+    options:
+      - letter: A
+        text: |
+          $10\text{ cm}$
+      - letter: B
+        text: |
+          $20\text{ cm}$
+      - letter: C
+        text: |
+          $40\text{ cm}$
+      - letter: D
+        text: |
+          $160\text{ cm}$
+  - number: "32"
+    type: multiple_choice
+    text: |
+      Which expression gives the definition of resistance?
+    options:
+      - letter: A
+        text: |
+          current divided by potential difference
+      - letter: B
+        text: |
+          current multiplied by potential difference
+      - letter: C
+        text: |
+          potential difference divided by current
+      - letter: D
+        text: |
+          resistivity multiplied by length

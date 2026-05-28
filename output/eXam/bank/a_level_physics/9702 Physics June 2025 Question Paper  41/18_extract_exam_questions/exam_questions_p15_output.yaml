@@ -1,0 +1,29 @@
+questions:
+  - number: "7bi"
+    type: short_answer
+    text: |
+      State an expression, in terms of some or all of $m$, $Q$, $B$ and $v$, for the magnetic force $F$ that acts on the particle when it is at point Y.
+
+      $F = \hrulefill$
+  - number: "7bii"
+    type: short_answer
+    text: |
+      On Fig. 7.1, draw an arrow at point Y to indicate the direction of the force in \textbf{(b)(i)}.
+  - number: "7biii"
+    type: short_answer
+    text: |
+      On Fig. 7.1, draw a line to show a possible path for the particle through the region of the magnetic field.
+  - number: "7c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7ci"
+    type: long_answer
+    text: |
+      Explain how an electric field can be used with the magnetic field to ensure that the particle in \textbf{(b)} now passes through point Z.
+  - number: "7cii"
+    type: calculation
+    text: |
+      Derive an expression for $v$ in terms of $B$ and the electric field strength $E$.
+
+      $v = \hrulefill$

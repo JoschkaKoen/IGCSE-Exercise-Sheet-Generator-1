@@ -1,0 +1,39 @@
+questions:
+  - number: "31"
+    type: multiple_choice
+    text: |
+      Two light sources are used to produce an interference pattern.
+
+      Interference fringes appear when the two sources emit waves that are coherent.
+
+      What is meant by coherent waves?
+    options:
+      - letter: A
+        text: |
+          The two waves are emitted with the same frequency.
+      - letter: B
+        text: |
+          The two waves are emitted with constant phase difference.
+      - letter: C
+        text: |
+          The two waves are emitted with the same intensity.
+      - letter: D
+        text: |
+          The two waves are emitted with zero phase difference.
+  - number: "32"
+    type: multiple_choice
+    text: |
+      Which component has the $I\text{--}V$ graph shown?
+    options:
+      - letter: A
+        text: |
+          filament lamp
+      - letter: B
+        text: |
+          metallic conductor at constant temperature
+      - letter: C
+        text: |
+          resistor of fixed resistance
+      - letter: D
+        text: |
+          semiconductor diode

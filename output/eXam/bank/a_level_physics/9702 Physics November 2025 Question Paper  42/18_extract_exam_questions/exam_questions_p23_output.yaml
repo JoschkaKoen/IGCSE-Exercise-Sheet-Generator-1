@@ -1,0 +1,15 @@
+questions:
+  - number: "10bii"
+    type: calculation
+    text: |
+      Determine the linear attenuation coefficient $\mu$ of material Q.
+
+      $\mu = $ \hrulefill $\text{cm}^{-1}$
+  - number: "10biii"
+    type: short_answer
+    text: |
+      Use the information in (b)(i) to suggest why the X-rays emerging from the structure form an image that has poor contrast.
+  - number: "10c"
+    type: long_answer
+    text: |
+      Explain how X-rays are used in computed tomography (CT) scanning to produce a three-dimensional image of an internal structure.

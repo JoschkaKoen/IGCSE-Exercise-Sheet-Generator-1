@@ -1,0 +1,63 @@
+[thinking]
+**Analyzing Exam Page 14: Nuclide Tritium**
+
+Okay, so I've been asked to transcribe page 14 of this exam.  Let's break down these questions.  We're starting with question 6, which introduces tritium, the isotope $^3_1\text{H}$.  The goal here is to carefully represent this question set in a way that aligns with the structure of the exam.
+
+Immediately, I'm noting the hierarchical structure: 6, 6a, 6ai, 6aii, 6b, 6bi, and 6bii.  Question 6 itself provides the basic definition of tritium. It's a "short_answer" type.
+
+Now, for 6a, the stub indicates a "short_answer" type, but it appears there's no explicit text beyond the question number itself.  However, this parent question contains the sub-questions "6ai" and "6aii". Let's represent this as `text: ''`.
+
+Question 6ai requires determining the numbers of protons, neutrons, and electrons in a neutral tritium atom. It's also a "short_answer" type and includes a template for the answers:
+
+    number of protons = \hrulefill
+    number of neutrons = \hrulefill
+    number of electrons = \hrulefill
+
+Next, 6aii asks for a labeled diagram representing a simple model of the atom, again, it's "short_answer" and has a diagram component.
+
+Now we move on to 6b, still "short_answer". This part discusses tritium's radioactive decay into an isotope of helium (He) via $\beta^-$ decay.  It also mentions that gamma radiation is not emitted in this process.
+
+6bi then asks us to complete the equation for this decay.  The equation should look like:
+$$^3_1\text{H} \rightarrow \text{}^{\underline{\hspace{1.5em}}}_{\underline{\hspace{1.5em}}}\text{He} + \text{}^{\underline{\hspace{1.5em}}}_{\underline{\hspace{1.5em}}}\beta + ^0_0\text{X}$$
+Finally, 6bii asks for the name of particle X, also a "short_answer".
+
+I've made sure to double-check the stub to make sure that each question part is accurately represented with its correct type and content.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      The nuclide $^3_1\text{H}$ is an isotope of hydrogen that is called tritium.
+  - number: "6a"
+    type: short_answer
+    text: ''
+  - number: "6ai"
+    type: short_answer
+    text: |
+      Determine the numbers of protons, neutrons and electrons in a neutral atom of tritium.
+
+      number of protons = \hrulefill
+      number of neutrons = \hrulefill
+      number of electrons = \hrulefill
+  - number: "6aii"
+    type: short_answer
+    text: |
+      Draw a labelled diagram to represent a simple model of the arrangement of the protons, neutrons and electrons in a tritium atom.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Tritium is radioactive and undergoes $\beta^-$ decay to form an isotope of helium (He). Gamma radiation is not emitted during this decay.
+  - number: "6bi"
+    type: short_answer
+    text: |
+      Complete the equation to represent the radioactive decay of tritium.
+
+      $$^3_1\text{H} \rightarrow \text{}^{\underline{\hspace{1.5em}}}_{\underline{\hspace{1.5em}}}\text{He} + \text{}^{\underline{\hspace{1.5em}}}_{\underline{\hspace{1.5em}}}\beta + ^0_0\text{X}$$
+  - number: "6bii"
+    type: short_answer
+    text: |
+      State the name of particle X.

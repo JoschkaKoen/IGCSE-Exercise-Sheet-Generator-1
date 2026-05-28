@@ -1,0 +1,92 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 7**
+
+Okay, I need to populate the YAML stub for page 7 of this exam. The questions here are numbered 6, 6a, 6b, and 6c, even though the page header says "7."  I'm assuming the main question 6 is probably on the previous page, and these are subparts. Let's check the stub. It includes entries for "6," "6a," "6b," and "6c."
+
+First, is there a question 6 stem on *this* page? No, the page starts directly with "(a)".  Wait a second. The rule says, "Every entry's stem should be visible." And specifically, "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess."
+
+So, the rule is clear: since question "6" has no stem on *this* page, I need to write `STUB ERROR` for that entry.  I'll double-check that there's *definitely* no question 6 text on this page. Nope, it starts directly with "(a)".
+
+Alright, I'm ready to write the YAML:
+
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: short_answer
+    text: |
+      The algorithm uses the one-dimensional (1D) array \texttt{ClassList} that contains the following data:
+
+      \textbf{ClassList}
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
+      Henil & Sven & Ella & Asia & Ridwan \\ \hline
+      \end{tabular}
+
+      \newline\newline
+      Complete the table by writing the output from the flowchart when each of the given names are input.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Name} & \textbf{OUTPUT} \\ \hline
+      Ridwan & \hrulefill \\ \hline
+      Yan & \hrulefill \\ \hline
+      Ella & \hrulefill \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      Identify the standard method of solution used by the flowchart.
+  - number: "6c"
+    type: long_answer
+    text: |
+      Write the algorithm in pseudocode.
+```
+
+I'm making sure to include the provided LaTeX tables for 6a, and that they are properly formatted.  The formatting looks correct to me now. Finally, the rule for `STUB ERROR`: "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it." Yes, question 6's stem is *not* on this page.  Therefore, `STUB ERROR` is correct for "6". The stub should be generated as above.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: short_answer
+    text: |
+      The algorithm uses the one-dimensional (1D) array \texttt{ClassList} that contains the following data:
+
+      \textbf{ClassList}
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
+      Henil & Sven & Ella & Asia & Ridwan \\ \hline
+      \end{tabular}
+
+      \newline\newline
+      Complete the table by writing the output from the flowchart when each of the given names are input.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Name} & \textbf{OUTPUT} \\ \hline
+      Ridwan & \hrulefill \\ \hline
+      Yan & \hrulefill \\ \hline
+      Ella & \hrulefill \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      Identify the standard method of solution used by the flowchart.
+  - number: "6c"
+    type: long_answer
+    text: |
+      Write the algorithm in pseudocode.

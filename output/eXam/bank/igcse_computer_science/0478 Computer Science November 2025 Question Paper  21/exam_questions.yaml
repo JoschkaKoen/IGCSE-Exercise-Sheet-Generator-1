@@ -1,0 +1,549 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Four descriptions of structured query language (SQL) keywords and \textbf{five}
+    SQL keywords are given.
+
+
+    Draw \textbf{one} line from each description to its matching keyword.
+
+    \textbf{Not} all SQL keywords will be used.
+
+
+    \textbf{Description}
+
+    \begin{itemize}
+
+    \item identifies the database table
+
+    \item sets the condition
+
+    \item sorts the results
+
+    \item returns the number of records
+
+    \end{itemize}
+
+
+    \textbf{SQL keywords}
+
+    \begin{itemize}
+
+    \item \texttt{ORDER BY}
+
+    \item \texttt{COUNT}
+
+    \item \texttt{WHERE}
+
+    \item \texttt{SUM}
+
+    \item \texttt{FROM}
+
+    \end{itemize}'
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'Identify \textbf{three} different types of test data that can be used to
+    test a program.
+
+
+    1. \hrulefill
+
+    2. \hrulefill
+
+    3. \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) one box to identify the operator that returns the quotient
+    of a calculation with the fractional part discarded.
+  answer_options:
+  - letter: A
+    text: /
+  - letter: B
+    text: \texttt{DIV}
+  - letter: C
+    text: \^{}
+  - letter: D
+    text: \texttt{MOD}
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A restaurant offers a fixed priced menu. A meal for an adult costs $9.99
+    and a meal for a child costs $6.99.
+
+
+    If there are 6 or more people at a table, a 15% discount is applied to the total
+    cost of the order.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Write an algorithm in pseudocode to:
+
+
+      \begin{itemize}
+
+      \item input the number of adults and the number of children at a table
+
+      \item calculate the total cost of the order with the discount, if this applies
+
+      \item output the final cost of the order.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The final cost of the order after the discount may have more than 2 decimal
+      places.
+
+
+      Write a pseudocode statement to set the final cost of the order to 2 decimal
+      places. You do \textbf{not} need to rewrite the whole algorithm.'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: "The restaurant offers a discount on a meal if the person ordering is either\
+      \ a student or is 65 years or older. The discount ($X = 1$) can only be given\
+      \ if the amount of the order is \\$20.00 or over.\n\n\\begin{tabular}{|c|l|c|}\n\
+      \\hline\nrule A & a student & 0 \\\\ \\cline{2-3}\n       & not a student &\
+      \ 1 \\\\ \\hline\nrule B & under 65 years old & 0 \\\\ \\cline{2-3}\n      \
+      \ & 65 years or older & 1 \\\\ \\hline\nrule C & under \\$20.00 & 0 \\\\ \\\
+      cline{2-3}\n       & \\$20.00 or over & 1 \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions:
+    - number: 4ci
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the logic expression for this problem.
+      answer_options: []
+      subquestions: []
+    - number: 4cii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Draw a logic circuit for this logic expression.
+
+
+        Each logic gate must have a maximum of \textbf{two} inputs.
+
+        Do \textbf{not} simplify this logic expression.'
+      answer_options: []
+      subquestions: []
+  - number: 4d
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Draw the NAND logic gate symbol \textbf{and} complete the truth table for
+      it.
+
+
+      NAND logic gate symbol:
+
+
+      Truth table:
+
+
+      \begin{tabular}{|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{X} \\ \hline
+
+      0 & 0 & \\ \hline
+
+      0 & 1 & \\ \hline
+
+      1 & 0 & \\ \hline
+
+      1 & 1 & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'A hotel booking system is an example of a computer system that is made up
+    of sub-systems.
+
+
+    The booking system:
+
+    \begin{itemize}
+
+    \item allows the user to select the room type and the number of nights required
+
+    \item displays the types of rooms available to the user as pictures or as a list.
+
+    \end{itemize}
+
+
+    Complete the structure diagram for the given parts of the hotel booking system.'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Identify the line numbers of the \textbf{four} errors in the pseudocode
+      and suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      Error 4 line number \hrulefill
+
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Explain how you could modify the pseudocode to validate that each input
+      is a single digit.
+
+
+      Any code must be fully explained.'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The 5-digit number needs to be entered as a single input.
+
+
+      Describe \textbf{one} verification method that could be applied to the input
+      of the 5-digit number.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "Complete the tables, using the flowchart, for the given data:\n\nInput\
+      \ data: 20\n\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n\\textbf{Count} & \\textbf{Number}\
+      \ & \\textbf{Value} & \\textbf{Output} \\\\ \\hline\n & & & \\\\ \\hline\n &\
+      \ & & \\\\ \\hline\n & & & \\\\ \\hline\n & & & \\\\ \\hline\n & & & \\\\ \\\
+      hline\n & & & \\\\ \\hline\n & & & \\\\ \\hline\n & & & \\\\ \\hline\n & & &\
+      \ \\\\ \\hline\n & & & \\\\ \\hline\n\\end{tabular}\n\n\\vspace{1em}\n\nInput\
+      \ data: 110\n\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n\\textbf{Count} & \\textbf{Number}\
+      \ & \\textbf{Value} & \\textbf{Output} \\\\ \\hline\n & & & \\\\ \\hline\n &\
+      \ & & \\\\ \\hline\n & & & \\\\ \\hline\n & & & \\\\ \\hline\n & & & \\\\ \\\
+      hline\n & & & \\\\ \\hline\n & & & \\\\ \\hline\n & & & \\\\ \\hline\n & & &\
+      \ \\\\ \\hline\n & & & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of the algorithm on page 8. A copy of the algorithm is
+      provided for you on page 11.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State a suitable data type for the variable \texttt{Count}
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Write the algorithm in pseudocode. A copy of the algorithm is provided for
+      you on page 11.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A school has set up a database table \texttt{SchoolTrip} to record details
+    of students that will go on a school trip.
+
+
+    \begin{tabular}{|l|l|l|l|l|}
+
+    \hline
+
+    \textbf{StudentID} & \textbf{StudentName} & \textbf{ParentName} & \textbf{Permission}
+    & \textbf{DateReceived} \\ \hline
+
+    STU147 & Amir & Mr Akar & True & 03/03/2025 \\ \hline
+
+    STU348 & Filip & Mrs Johnson & True & 04/03/2025 \\ \hline
+
+    STU274 & Matthew & Mr Smith & False & \\ \hline
+
+    STU873 & Jafar & Mr Al-Saigh & True & 21/03/2025 \\ \hline
+
+    STU221 & Hussein & Mr Alkasab & True & 28/02/2025 \\ \hline
+
+    STU553 & Julie & Mrs Jones & True & 25/02/2025 \\ \hline
+
+    STU213 & Julie & Mr Smith & False & \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the reason why \texttt{ParentName} is not appropriate as the primary
+      key.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the name of the field that should be the primary key.
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The database only uses these data types:
+
+
+      \begin{itemize}
+
+      \item text
+
+      \item character
+
+      \item Boolean
+
+      \item integer
+
+      \item real
+
+      \item date/time
+
+      \end{itemize}
+
+
+      Complete the table to show the most appropriate data type for each field. Each
+      data type must be different.
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Data type}}
+      \\ \hline
+
+      \texttt{ParentName} & \\ \hline
+
+      \texttt{Permission} & \\ \hline
+
+      \texttt{DateReceived} & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the structured query language (SQL) statement to display only
+      the names of the students who do not have permission to go on the trip.
+
+
+      SELECT \hrulefill
+
+      FROM \hrulefill
+
+      WHERE \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: long_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'A school stores all the students’ attendance data in a file called \texttt{Attendance.txt}
+
+
+    Write an algorithm in pseudocode to read a line of text from the file and store
+    this line in the variable \texttt{StudentAttendance}'
+  answer_options: []
+  subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The variables \texttt{Seconds} and \texttt{Minutes} are used in a program.
+    \texttt{Seconds} holds the number of seconds as a whole number and \texttt{Minutes}
+    holds the number of minutes as a whole number.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Write pseudocode statements to declare the variables \texttt{Seconds} and
+      \texttt{Minutes}
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: long_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The procedure \texttt{Time(TotalSeconds)} takes the number of seconds as
+      a parameter. The procedure converts the value held in the parameter into minutes
+      and seconds and outputs the result.
+
+
+      Write this procedure in pseudocode.'
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: long_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: "The scores for each competitor in an archery competition are recorded.\n\n\
+    The one-dimensional (1D) array \\texttt{CompetitorName[]} is used to store the\
+    \ names of the competitors.\n\nThe maximum number of competitors is 30.\n\nThere\
+    \ are 10 rounds in the competition with a maximum score of 30 per round.\n\nThe\
+    \ two-dimensional (2D) array \\texttt{CompetitorScore[]} stores the score in each\
+    \ of the 10 rounds for each competitor.\n\nThe first index of the array \\texttt{CompetitorScore[]}\
+    \ is the same as the index of the competitor in \\texttt{CompetitorName[]}\n\n\
+    After the 10 rounds have been completed, the highest score and the lowest score\
+    \ for each competitor are discarded.\n\nThe overall score for each competitor\
+    \ is the total of the remaining 8 scores (after discarding the highest and lowest\
+    \ scores).\n\nA competitor with an overall score of 210 or more moves onto the\
+    \ next competition. A competitor with an overall score between 180 and 209 inclusive\
+    \ becomes a reserve competitor. A competitor with an overall score below 180 does\
+    \ not qualify.\n\nWrite a program that meets the following requirements:\n\n\\\
+    begin{itemize}\n\\item inputs the total score (out of 30) for each competitor\
+    \ in each round\n\\item validates each input is between 0 and 30 inclusive\n\\\
+    item calculates the overall score for each competitor discarding the highest and\
+    \ lowest scores\n\\item outputs the name of each competitor and if they move onto\
+    \ the next competition, are a reserve or do not qualify\n\\item calculates and\
+    \ outputs the number of competitors who:\n  \\begin{itemize}\n  \\item have qualified\
+    \ for the next competition\n  \\item are reserve competitors\n  \\item do not\
+    \ qualify.\n  \\end{itemize}\n\\end{itemize}\n\nYou must use pseudocode or program\
+    \ code \\textbf{and} add comments to explain how your code works.\n\nYou do \\\
+    textbf{not} need to declare any arrays or variables; assume that this has already\
+    \ been done.\n\nAll inputs and outputs must contain suitable messages."
+  answer_options: []
+  subquestions: []

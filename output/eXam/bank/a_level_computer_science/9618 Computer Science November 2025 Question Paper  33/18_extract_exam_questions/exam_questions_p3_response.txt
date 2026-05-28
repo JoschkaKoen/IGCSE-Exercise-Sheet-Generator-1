@@ -1,0 +1,26 @@
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Numbers are stored in a computer system using binary floating-point representation with:
+
+      \begin{itemize}
+      \item 12 bits for the mantissa
+      \item 4 bits for the exponent
+      \item two's complement form for both the mantissa and the exponent
+      \item 2 bytes in total.
+      \end{itemize}
+  - number: "2a"
+    type: long_answer
+    text: |
+      Outline the effect of changing the number of bits used to store the mantissa to 10 bits, in this system.
+  - number: "2b"
+    type: long_answer
+    text: |
+      Describe \textbf{one} example of a situation that could cause an overflow to occur and the consequences of such an overflow.
+  - number: "3"
+    type: long_answer
+    text: |
+      Describe how packet switching is used to pass messages across a network. Do \textbf{not} include checking for completeness and resending packets in your answer.
+```

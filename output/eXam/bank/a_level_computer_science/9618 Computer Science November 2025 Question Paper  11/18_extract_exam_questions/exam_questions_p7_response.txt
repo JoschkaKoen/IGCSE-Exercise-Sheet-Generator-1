@@ -1,0 +1,75 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 7: Logic Circuit Questions**
+
+Okay, the task is to generate the YAML stub for page 7 of this exam, specifically for question 3. The questions are broken down into sub-questions, starting with "3 (a) Draw a logic circuit...". I need to understand how this is structured in the stub. So, question "3" seems to be the parent, and then we have "3a" and "3b" as sub-questions.
+
+Now, the crucial part: does "3" itself have any text associated with it, or is it just a container for the sub-questions? Let me review the page content. Nope, there's no introductory text for question 3 itself, it immediately jumps into 3(a). Sometimes the parent is empty, or sometimes we add a placeholder. I'll note that.
+
+Alright, let's look at how to define the fields.
+
+For "3", since there's no introductory text, it's safe to say that `text: ''` is appropriate. We could also potentially leave `text:` completely empty, but I'll err on the side of explicit definition.
+
+Now, for "3a", the text will be:
+```yaml
+text: |
+  Draw a logic circuit for the logic expression:
+
+  $X = \text{NOT } ((A \text{ NAND } B) \text{ XOR } (\text{NOT } A \text{ OR } \text{NOT } C))$
+```
+
+And for "3b", the text will be:
+```yaml
+text: |
+  Write the logic expression for the following truth table.
+
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  \textbf{R} & \textbf{S} & \textbf{T} & \textbf{Q} \\ \hline
+  0 & 0 & 0 & 0 \\ \hline
+  0 & 0 & 1 & 1 \\ \hline
+  0 & 1 & 0 & 0 \\ \hline
+  0 & 1 & 1 & 0 \\ \hline
+  1 & 0 & 0 & 0 \\ \hline
+  1 & 0 & 1 & 0 \\ \hline
+  1 & 1 & 0 & 1 \\ \hline
+  1 & 1 & 1 & 0 \\ \hline
+  \end{tabular}
+
+  Q = \hrulefill
+```
+
+Just to be absolutely certain, I'll go back and re-confirm that "3" indeed doesn't have any introductory text before "3(a)", and it does not. So using `text: ''` is the correct approach.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: |
+      Draw a logic circuit for the logic expression:
+
+      $$X = \text{NOT } ((A \text{ NAND } B) \text{ XOR } (\text{NOT } A \text{ OR } \text{NOT } C))$$
+  - number: "3b"
+    type: short_answer
+    text: |
+      Write the logic expression for the following truth table.
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{R} & \textbf{S} & \textbf{T} & \textbf{Q} \\ \hline
+      0 & 0 & 0 & 0 \\ \hline
+      0 & 0 & 1 & 1 \\ \hline
+      0 & 1 & 0 & 0 \\ \hline
+      0 & 1 & 1 & 0 \\ \hline
+      1 & 0 & 0 & 0 \\ \hline
+      1 & 0 & 1 & 0 \\ \hline
+      1 & 1 & 0 & 1 \\ \hline
+      1 & 1 & 1 & 0 \\ \hline
+      \end{tabular}
+
+      Q = \hrulefill

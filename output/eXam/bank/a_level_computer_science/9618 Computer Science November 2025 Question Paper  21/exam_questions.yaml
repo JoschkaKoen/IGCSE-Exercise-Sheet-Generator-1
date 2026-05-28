@@ -1,0 +1,707 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Refer to the \textbf{insert} for the list of pseudocode functions and operators.
+
+
+    A program is being developed to meet a particular customer requirement.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The program contains these variables:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Data type}}
+      \\ \hline
+
+      \texttt{MyChar} & \texttt{CHAR} \\ \hline
+
+      \texttt{MyString} & \texttt{STRING} \\ \hline
+
+      \texttt{MyInt} & \texttt{INTEGER} \\ \hline
+
+      \texttt{MyDOB} & \texttt{DATE} \\ \hline
+
+      \end{tabular}
+
+
+      Complete the table by filling in the gaps using functions and/or operators from
+      the \textbf{insert}.
+
+
+      Each expression must be valid.
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Expression}} \\ \hline
+
+      \texttt{MyString <- ''X''} \underline{\hspace{1.5em}} \texttt{MyString} \\ \hline
+
+      \texttt{MyChar <-} \underline{\hspace{1.5em}} \texttt{("ABCD",} \underline{\hspace{1.5em}}
+      \texttt{,} \underline{\hspace{1.5em}} \texttt{)} \\ \hline
+
+      \texttt{MyString <-} \underline{\hspace{1.5em}} \texttt{(} \underline{\hspace{1.5em}}
+      \texttt{(MyDOB))} \\ \hline
+
+      \texttt{MyInt <-} \underline{\hspace{1.5em}} \texttt{(} \underline{\hspace{1.5em}}
+      \texttt{(MyString) / 2)} \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Different test methods will be used at different stages of the program
+      development.
+
+
+      Complete the table by identifying the test method that matches the test description.
+
+
+      The first row has been completed for you.
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Test description}} & \multicolumn{1}{c|}{\textbf{Test
+      method}} \\ \hline
+
+      carried out as soon as a program module has been coded & alpha \\ \hline
+
+      carried out as program modules are being combined & \underline{\hspace{1.5em}}
+      \\ \hline
+
+      completed by the developers without referring to the code & \underline{\hspace{1.5em}}
+      \\ \hline
+
+      completed by the customer & \underline{\hspace{1.5em}} \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'During the alpha testing stage, an Integrated Development Environment (IDE)
+      is used to help locate an error that has been identified. The IDE report window
+      feature is used to examine the values assigned to variables.
+
+
+      Explain how \textbf{two} other IDE features are used together with the report
+      window feature to help locate the error.'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: '\texttt{Data} is a global 1D array containing 30 elements of type \texttt{STRING}
+
+
+    An algorithm will output:
+
+    \begin{itemize}
+
+    \item all non-blank elements (elements that do not contain an empty string)
+
+    \item the final total of the number of elements output.
+
+    \end{itemize}
+
+
+    Complete the program flowchart to represent the algorithm:'
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is needed to manage individual rentals in a car-hire business.
+
+
+    The data items for each rental will be held in a record structure of type \texttt{RentalRecord}
+
+    The programmer has started to define the items that will be needed:
+
+
+    \begin{tabular}{|l|l|l|}
+
+    \hline
+
+    \textbf{Item} & \textbf{Example value} & \textbf{Comment} \\ \hline
+
+    RentalID & "AB1234" & a unique alpha-numeric value \\ \hline
+
+    CarID & 241 & a numeric value used as an array index \\ \hline
+
+    DisCode & ''S'' & a letter indicating the type of discount offered \\ \hline
+
+    Start & 13/06/2025 & when the rental starts \\ \hline
+
+    Duration & 7 & the number of days of the rental \\ \hline
+
+    Completed & FALSE & TRUE when the car is returned and the rental charge paid \\
+    \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 3ai
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Write pseudocode to declare the record structure for type \texttt{RentalRecord}
+    answer_options: []
+    subquestions: []
+  - number: 3aii
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A 1D array \texttt{Rental} containing 500 elements is used to store the
+      data for all rental records.
+
+
+      Write pseudocode to declare the \texttt{Rental} array.'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'State \textbf{three} benefits of using an array of records to store the
+      data for all rentals.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program contains a global 1D array \texttt{Number} consisting of 20 elements
+    of type \texttt{REAL}
+
+
+    A procedure \texttt{Store()} will input a sequence of up to 20 real values, one
+    value at a time. These values will be assigned to elements of the array using
+    four steps:
+
+
+    Step 1: store the first value in the sequence in the first element of the array
+
+    Step 2: check each subsequent value input. If this value is larger than the previous
+    value input, then assign the value to the next array element, otherwise go to
+    \textbf{step 4}
+
+    Step 3: repeat from \textbf{step 2} unless the array is full
+
+    Step 4: output the count of the number of values stored in the array together
+    with a suitable message.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Complete the pseudocode for \texttt{Store()}
+
+
+      All variables used in the algorithm must be declared.
+
+
+      \begin{alltt}
+
+      PROCEDURE Store()
+
+      \end{alltt}
+
+
+      \begin{alltt}
+
+      ENDPROCEDURE
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+  - number: 4bi
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The requirements of the program change:
+
+
+      \begin{itemize}
+
+      \item the number of values in the sequence is unknown, but may be higher than
+      20
+
+      \item the values will need to be accessed by another program as data.
+
+      \end{itemize}
+
+
+      The data will be stored in a text file instead of an array.
+
+
+      Give \textbf{two} benefits of using a text file instead of an array.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4bii
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State any change that will need to be made before each value is written
+      to the file.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "A program is being designed in pseudocode.\n\nThe program contains the following\
+    \ declaration for the global array \\texttt{MyData}:\n\n\\begin{alltt}\nDECLARE\
+    \ MyData : ARRAY[1:10000] OF STRING\n\\end{alltt}\n\nA function \\texttt{FindFirst()}\
+    \ is written to search the array for a given string and to return the index of\
+    \ the first element where that string is found, or to return -1 if the string\
+    \ is \\textbf{not} found.\n\nThe function is written in pseudocode as shown:\n\
+    \n\\begin{alltt}\nFUNCTION FindFirst(SearchString : STRING) RETURNS INTEGER\n\
+    \  DECLARE Index, FoundAt : INTEGER\n  FoundAt <- -1\n  FOR Index <- 1 TO 10000\n\
+    \    IF MyData[Index] = SearchString THEN // outer conditional clause\n      IF\
+    \ FoundAt = -1 THEN             // inner conditional clause\n        FoundAt <-\
+    \ Index\n      ENDIF\n    ENDIF\n  NEXT Index\n  RETURN FoundAt\nENDFUNCTION\n\
+    \\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 5ai
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Comment on why the programmer chose -1 as the initial value of \texttt{FoundAt}
+    answer_options: []
+    subquestions: []
+  - number: 5aii
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Explain the purpose of the \textbf{outer} conditional clause.
+    answer_options: []
+    subquestions: []
+  - number: 5aiii
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The \textbf{inner} conditional clause ensures that only the index of the
+      \textbf{first} matching element, if any, is returned.
+
+
+      Explain how this clause works.'
+    answer_options: []
+    subquestions: []
+  - number: 5bi
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The pseudocode does not use the most appropriate loop construct.
+
+
+      Explain why this is not the most appropriate loop construct.'
+    answer_options: []
+    subquestions: []
+  - number: 5bii
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Suggest and justify a more appropriate loop construct that could be used.
+
+
+      Construct \hrulefill
+
+
+      Justification'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Students are learning about a simple check digit method for data validation.
+    In this method, a single check digit is appended to the end of an original number
+    to give a new number.
+
+
+    The students are studying a method which:
+
+    \begin{itemize}
+
+    \item calculates the sum of all the digits in the original number
+
+    \item uses integer division to calculate the remainder when the sum is divided
+    by 10
+
+    \item uses the remainder as the check digit
+
+    \item appends the check digit to the original number, creating the new number.
+
+    \end{itemize}
+
+
+    For example:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    original number & 4162 \\ \hline
+
+    sum of all digits & $4 + 1 + 6 + 2 = 13$ \\ \hline
+
+    remainder when the sum is divided by 10 using integer division & 3 \\ \hline
+
+    new number & 41623 \\ \hline
+
+    \end{tabular}
+
+
+    \newline
+
+    The method described can be used to detect single-digit errors. For example, if
+    the new number is incorrectly input as 41633, then the check digit does not match
+    and the input will be rejected.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'An incorrect attempt was made to enter 41623. The \textbf{first two} digits
+      were entered incorrectly; the \textbf{last three} digits were entered correctly.
+
+
+      When this number was tested, the check digit was found to be correct and the
+      input was accepted.
+
+
+      Identify an example of the incorrect attempt to enter 41623 and explain why
+      this number would \textbf{not} be rejected.
+
+
+      Number \hrulefill
+
+      Explanation \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'A module \texttt{Generate()} will take an integer value representing an
+      original number and return an integer value representing a new number which
+      includes the check digit.
+
+
+      The original number is always at least three digits in length.
+
+
+      Write pseudocode for the module \texttt{Generate()}
+
+
+      Assume that the parameter is valid.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: There are several different ways to express an algorithm during the design
+    of a program.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'One part of the program contains an algorithm which is represented by a
+      state-transition diagram.
+
+
+      The table shows the inputs, outputs and states for the algorithm:
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{Current state} & \textbf{Input} & \textbf{Output} & \textbf{Next state}
+      \\ \hline
+
+      S1 & A2 & X2 & S3 \\ \hline
+
+      S1 & A1 & X1 & S2 \\ \hline
+
+      S2 & A4 & X4 & S5 \\ \hline
+
+      S3 & A1 & & S3 \\ \hline
+
+      S3 & A3 & X3 & S2 \\ \hline
+
+      S3 & A2 & X4 & S4 \\ \hline
+
+      S4 & A1 & X1 & S4 \\ \hline
+
+      S4 & A3 & & S2 \\ \hline
+
+      S4 & A4 & X4 & S5 \\ \hline
+
+      \end{tabular}
+
+
+      Complete the state-transition diagram to represent the information given in
+      the table.'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'A structure chart is used to document a different part of the program.
+
+
+      This part of the program contains six modules:
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Pseudocode module header}} \\ \hline
+
+      \texttt{PROCEDURE Setup()} \\ \hline
+
+      \texttt{PROCEDURE Restart(H1 : STRING, C1 : INTEGER)} \\ \hline
+
+      \texttt{FUNCTION Modify(B1 : BOOLEAN) RETURNS INTEGER} \\ \hline
+
+      \texttt{PROCEDURE Final(T1 : INTEGER)} \\ \hline
+
+      \texttt{PROCEDURE Update(BYREF R2 : STRING)} \\ \hline
+
+      \texttt{FUNCTION Confirm() RETURNS BOOLEAN} \\ \hline
+
+      \end{tabular}
+
+
+      Module \texttt{Setup} will repeatedly call \textbf{three} of the modules.
+
+
+      Complete the structure chart to document the information given in the table.'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is being developed to manage student book loans from a college
+    library. Students may borrow up to five books at a time from the library.
+
+
+    The programmer has defined a record type to define each loan.
+
+
+    The record data items are:
+
+
+    \begin{tabular}{|l|l|l|}
+
+    \hline
+
+    \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+
+    \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed
+    the book \\ \hline
+
+    \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\
+    \hline
+
+    \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not}
+    been returned \\ \hline
+
+    \end{tabular}
+
+
+    The programmer has defined a global array \texttt{Loan} to store 5000 loan records.
+
+
+    There are more elements in the array than books in the library. Unused elements
+    have the \texttt{StudentID} set to an empty string. These may occur anywhere in
+    the array.
+
+
+    The programmer has defined the first program module:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Module} & \textbf{Description} \\ \hline
+
+    \texttt{OKToBorrow()} & \begin{tabular}[c]{@{}l@{}} $\bullet$ called with a parameter
+    of type \texttt{STRING} representing a\\ \quad \texttt{StudentID}\\ $\bullet$
+    search the array for loan records for the specified student\\ $\bullet$ output
+    a suitable message to say whether the student may, or\\ \quad may not, borrow
+    another book\end{tabular} \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Write efficient pseudocode for the module \texttt{OKToBorrow()}
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'A second module is defined:
+
+
+      \begin{tabular}{|c|l|}
+
+      \hline
+
+      \textbf{Module} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+
+      \texttt{ReturnBook()} & \begin{tabular}[c]{@{}l@{}}• called with two parameters
+      of type \texttt{STRING} representing a\\ \quad \texttt{StudentID} and a \texttt{BookID}\\
+      • searches the array for the relevant loan record\\ • when found, sets \texttt{OnLoan}
+      to \texttt{FALSE} and returns \texttt{TRUE}\\ • if a loan record is \textbf{not}
+      found, or the book has already been\\ \quad returned, then returns \texttt{FALSE}\end{tabular}
+      \\ \hline
+
+      \end{tabular}
+
+
+      Write efficient pseudocode for the module \texttt{ReturnBook()}
+
+
+      Assume that each student is only allowed to borrow each book only once. That
+      means that there will be no more than one loan record for a given combination
+      of student and book.'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'It is decided to introduce a system of fines for books that have been borrowed
+      for too long.
+
+
+      Two new requirements are defined:
+
+
+      \begin{enumerate}
+
+      \item Each loan has a maximum length, represented as a number of days.
+
+      \item Each book in the library will be assigned one of three categories. Each
+      category has a different maximum loan length.
+
+      \end{enumerate}
+
+
+      Record structure and program design changes are needed to meet these two requirements.
+
+
+      Outline the changes that are necessary to meet the \textbf{two} requirements.'
+    answer_options: []
+    subquestions: []

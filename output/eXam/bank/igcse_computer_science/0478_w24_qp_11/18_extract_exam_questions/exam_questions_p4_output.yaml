@@ -1,0 +1,31 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A user enters text into a computer system, using a keyboard.
+
+      An American standard code for information interchange (ASCII) character set is used to convert the text to binary.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Identify \textbf{one} other character set that could be used to convert the text to binary.
+  - number: "3b"
+    type: short_answer
+    text: |
+      The character 'A' is represented by the denary ASCII number 65.
+
+      The character 'm' is represented by the denary ASCII number 109.
+  - number: "3bi"
+    type: calculation
+    text: |
+      Convert the \textbf{two} denary ASCII numbers to binary.
+
+      65 \hrulefill
+      109 \hrulefill
+  - number: "3bii"
+    type: calculation
+    text: |
+      Convert the \textbf{two} denary ASCII numbers to hexadecimal.
+
+      65 \hrulefill
+      109 \hrulefill

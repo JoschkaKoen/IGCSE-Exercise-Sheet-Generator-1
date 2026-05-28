@@ -1,0 +1,104 @@
+questions:
+  - number: "26"
+    type: multiple_choice
+    text: |
+      For a progressive transverse wave, what describes the term diffraction?
+    options:
+      - letter: A
+        text: |
+          the change in observed frequency of a wave due to a movement of the wave source
+      - letter: B
+        text: |
+          the spreading of a wave as it passes through a gap or around an obstacle
+      - letter: C
+        text: |
+          when oscillations of a wave are confined to one plane
+      - letter: D
+        text: |
+          the resultant displacement of two waves is equal to the sum of the displacements of the individual waves when the waves meet
+  - number: "27"
+    type: multiple_choice
+    text: |
+      An aircraft flies at a velocity $v_s$ directly away from a stationary observer.
+
+      The aircraft emits a sound of constant frequency.
+
+      The speed of sound in air is $v$.
+
+      The frequency of the sound heard by the observer on the ground is $500\text{ Hz}$.
+
+      The speed of the aircraft is increased so that it flies away from the observer at a greater velocity.
+
+      The observer now hears a sound of frequency $250\text{ Hz}$.
+
+      Which expression gives the new velocity of the aircraft?
+    options:
+      - letter: A
+        text: |
+          $2(v + v_s)$
+      - letter: B
+        text: |
+          $\frac{v + v_s}{2}$
+      - letter: C
+        text: |
+          $2v_s + v$
+      - letter: D
+        text: |
+          $2v_s - v$
+  - number: "28"
+    type: multiple_choice
+    text: |
+      What may be observed with light waves but \textbf{not} with sound waves?
+    options:
+      - letter: A
+        text: |
+          diffraction
+      - letter: B
+        text: |
+          interference
+      - letter: C
+        text: |
+          polarisation
+      - letter: D
+        text: |
+          reflection
+  - number: "29"
+    type: multiple_choice
+    text: |
+      A wire is fixed at both ends and is vibrated by a source of frequency $f$. A stationary wave is formed on the wire with a total of two antinodes.
+
+      The frequency of the source is increased to $3f$ and a new stationary wave is formed.
+
+      What is the total number of antinodes on the new wave?
+    options:
+      - letter: A
+        text: |
+          $4$
+      - letter: B
+        text: |
+          $5$
+      - letter: C
+        text: |
+          $6$
+      - letter: D
+        text: |
+          $9$
+  - number: "30"
+    type: multiple_choice
+    text: |
+      A parallel beam of red light of wavelength $700\text{ nm}$ is incident normally on a diffraction grating that has $400\text{ lines per millimetre}$.
+
+      What is the total number of intensity maxima from the grating?
+    options:
+      - letter: A
+        text: |
+          $6$
+      - letter: B
+        text: |
+          $7$
+      - letter: C
+        text: |
+          $8$
+      - letter: D
+        text: |
+          $9$

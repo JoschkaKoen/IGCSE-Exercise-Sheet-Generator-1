@@ -1,0 +1,35 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Data is transmitted between a computer and a printer using a wired connection. The computer transmits the data to the printer. The printer transmits data and interrupts to the computer.
+  - number: "7a"
+    type: short_answer
+    text: |
+      State whether the method of transmission should be serial or parallel. Justify your choice.
+
+      method of transmission \hrulefill
+
+      justification
+  - number: "7b"
+    type: short_answer
+    text: |
+      State whether the method of transmission should be simplex, half-duplex or full-duplex. Justify your answer.
+
+      method of transmission \hrulefill
+
+      justification
+  - number: "7c"
+    type: short_answer
+    text: |
+      The transmitted data may contain an error.
+  - number: "7ci"
+    type: short_answer
+    text: |
+      Give \textbf{one} way in which an error can occur during data transmission.
+  - number: "7cii"
+    type: short_answer
+    text: |
+      The computer and printer agree to use automatic repeat query (ARQ).
+
+      Explain how ARQ using negative acknowledgement is used to establish that data is received without error.

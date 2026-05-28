@@ -1,0 +1,15 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A hotel booking system is an example of a computer system that is made up of sub-systems.
+
+      The booking system:
+      \begin{itemize}
+      \item allows the user to select the room type and the number of nights required
+      \item displays the types of rooms available to the user as pictures or as a list.
+      \end{itemize}
+
+      Complete the structure diagram for the given parts of the hotel booking system.
+```

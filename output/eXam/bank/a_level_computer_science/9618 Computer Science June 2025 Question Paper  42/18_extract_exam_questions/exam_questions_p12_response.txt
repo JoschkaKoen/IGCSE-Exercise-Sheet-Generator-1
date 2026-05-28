@@ -1,0 +1,45 @@
+questions:
+  - number: "3d"
+    type: short_answer
+    text: |
+      The main program declares instances of the classes for \textbf{three} animals:
+
+      \begin{itemize}
+      \item A parrot with the name ‘Chewie’; it makes a ‘Squawk’ sound. Its size is 1, intelligence is 10, wingspan is 30 cm and it can say 29 words.
+      \item A wolf with the name ‘Nighteyes’; it makes a ‘Howl’ sound. Its size is 8, intelligence is 7 and its territory is 100 square miles.
+      \item An animal that is a horse with the name ‘Copper’; it makes a ‘Neigh’ sound. Its size is 10 and its intelligence is 6.
+      \end{itemize}
+  - number: "3di"
+    type: short_answer
+    text: |
+      Write program code for the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(d)(i)} in the evidence document.
+  - number: "3dii"
+    type: short_answer
+    text: |
+      The main program also needs to:
+
+      \begin{itemize}
+      \item decrease the territory for the wolf Nighteyes by 20 square miles
+      \item increase the number of words the parrot Chewie can say by 2 words
+      \item output the description for all \textbf{three} animals.
+      \end{itemize}
+
+      Write program code to extend the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(d)(ii)} in the evidence document.
+  - number: "3diii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{3(d)(iii)} in the evidence document.

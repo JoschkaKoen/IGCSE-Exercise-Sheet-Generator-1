@@ -1,0 +1,32 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      The management and scheduling of processes are tasks carried out by an operating system.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Identify \textbf{three} process states.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "5b"
+    type: long_answer
+    text: |
+      Describe the function of the shortest job first scheduling routine \textbf{and} give a benefit of this routine.
+
+      Function
+
+      Benefit
+  - number: "6"
+    type: short_answer
+    text: ''
+  - number: "6a"
+    type: short_answer
+    text: |
+      Describe the structure of a graph as used in an Artificial Intelligence (AI) system.
+  - number: "6b"
+    type: long_answer
+    text: |
+      Explain how supervised learning and unsupervised learning differ from each other.

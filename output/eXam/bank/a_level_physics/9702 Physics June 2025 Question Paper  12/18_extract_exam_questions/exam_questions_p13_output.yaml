@@ -1,0 +1,83 @@
+questions:
+  - number: "29"
+    type: multiple_choice
+    text: |
+      A student uses a diffraction grating to determine the wavelength of visible light from a source.
+
+      The diffraction grating has 300 lines per mm. The student measures the angle $\theta$ of each order $n$ of the intensity maxima. A graph of $n$ against $\sin \theta$ is plotted. The line of best fit for the plotted points is shown and has gradient $G$.
+
+      Which expression represents the wavelength, in m, of the visible light in terms of $G$?
+    options:
+      - letter: A
+        text: |
+          $3 \times 10^5 G$
+      - letter: B
+        text: |
+          $3.3 \times 10^{-6} G$
+      - letter: C
+        text: |
+          $\frac{3.3 \times 10^{-6}}{G}$
+      - letter: D
+        text: |
+          $\frac{300}{G}$
+  - number: "30"
+    type: multiple_choice
+    text: |
+      Two waves meet.
+
+      What is \textbf{not} a necessary condition for the waves to produce a stationary wave?
+    options:
+      - letter: A
+        text: |
+          They must be of the same type.
+      - letter: B
+        text: |
+          They must have the same period.
+      - letter: C
+        text: |
+          They must have the same wavelength.
+      - letter: D
+        text: |
+          They must travel in the same direction.
+  - number: "31"
+    type: multiple_choice
+    text: |
+      Light of a single wavelength is incident normally on a double slit. Interference fringes are observed on a screen.
+
+      The distance from the double slit to the screen is $0.60\text{ m}$ and the fringe separation is $1.8\text{ mm}$.
+
+      The distance from the double slit to the screen increases by $0.90\text{ m}$.
+
+      What is the new fringe separation?
+    options:
+      - letter: A
+        text: |
+          $1.2\text{ mm}$
+      - letter: B
+        text: |
+          $2.7\text{ mm}$
+      - letter: C
+        text: |
+          $4.5\text{ mm}$
+      - letter: D
+        text: |
+          $5.4\text{ mm}$
+  - number: "32"
+    type: multiple_choice
+    text: |
+      A wire is made from a metal of constant resistivity. There is a constant current in the wire.
+
+      Which statement about the potential difference across the wire is correct?
+    options:
+      - letter: A
+        text: |
+          It is directly proportional to the length of the wire.
+      - letter: B
+        text: |
+          It is inversely proportional to the length of the wire.
+      - letter: C
+        text: |
+          It is directly proportional to the diameter of the wire.
+      - letter: D
+        text: |
+          It is inversely proportional to the diameter of the wire.

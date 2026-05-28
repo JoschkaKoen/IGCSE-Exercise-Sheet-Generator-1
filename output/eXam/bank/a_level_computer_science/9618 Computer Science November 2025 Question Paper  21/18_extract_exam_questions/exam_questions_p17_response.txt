@@ -1,0 +1,29 @@
+[thinking]
+**Analyzing Question 8c: Fine System Implementation**
+
+Okay, so the user wants me to tackle question "8c" from this page. I see the context - looks like it follows up on 8b, though that's not present in this snippet. The prompt itself is straightforward; we're establishing a system of fines for overdue library books.
+
+My initial thought is to analyze the core requirements: First, a maximum loan length in days for each loan. Secondly, books are categorized into three groups, each with its loan limit. Right away, this screams *database design* changes and, consequently, some modifications to the program's logic. I need to clearly outline what alterations are necessary to the existing data structures and the procedures that manage them.
+
+I need to focus on what would be the most robust and maintainable method. It would be efficient to represent this in a structured and well-defined way. Let's see... a YAML representation might be the cleanest way to encapsulate that information, which I can then elaborate upon.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      It is decided to introduce a system of fines for books that have been borrowed for too long.
+
+      Two new requirements are defined:
+
+      \begin{enumerate}
+      \item Each loan has a maximum length, represented as a number of days.
+      \item Each book in the library will be assigned one of three categories. Each category has a different maximum loan length.
+      \end{enumerate}
+
+      Record structure and program design changes are needed to meet these two requirements.
+
+      Outline the changes that are necessary to meet the \textbf{two} requirements.

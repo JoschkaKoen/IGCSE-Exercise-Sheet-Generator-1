@@ -1,0 +1,66 @@
+[thinking]
+**Examining the Exam Page**
+
+Okay, so I'm looking at page 14 of this exam paper and need to transcribe the content. The questions are labeled 6, 6a, 6b, 6bi, and 6bii. Let's break this down logically. Question 6 is the main stem. It looks like it deals with capacitors connected in series or parallel, with a supply voltage, charges, and potential differences.
+
+I need to figure out the best way to structure this. Question 6 seems like the introductory section describing the setup. Then 6a looks like it's a table relating the charges and potential differences for series and parallel configurations.  So, I'll place the introduction within question `6`. The text states: "Two parallel plate capacitors $C_1$ and $C_2$ are connected to a supply that has a potential difference (p.d.) $V_S$. The capacitors may be connected in series or in parallel. The supply provides charge $Q_S$ and the plates of the two capacitors acquire charges $Q_1$ and $Q_2$ respectively. The p.d.s across the plates of the capacitors are $V_1$ and $V_2$ respectively."
+
+Next, I'll transcribe `6a` as the table-completion part. This includes the table itself, where I need to relate $Q_S$, $Q_1$, $Q_2$ and $V_S$, $V_1$, $V_2$ in series and parallel. The text and table layout look like this: "Complete Table 6.1 to indicate how $Q_S$, $Q_1$ and $Q_2$ relate to each other, and how $V_S$, $V_1$ and $V_2$ relate to each other, for series and parallel connections of the capacitors to the supply.
+
+\textbf{Table 6.1}
+
+\begin{tabular}{|c|c|c|}
+\hline
+ & relationship between charges & relationship between p.d.s \\ \hline
+series & & \\ \hline
+parallel & & \\ \hline
+\end{tabular}"
+
+Then, question `6b` states "An isolated capacitor of capacitance $470\ \mu\text{F}$ stores $19\text{ mJ}$ of energy."
+
+`6bi` is a calculation question, asking to calculate the p.d. The format should be "Calculate the p.d. across the capacitor. p.d. = \hrulefill V".
+
+And `6bii` also a calculation question, which asks to calculate the charge: "Calculate the charge on the capacitor. charge = \hrulefill C".
+
+I've made sure to organize everything neatly, separating the introduction from the table completion, and then defining each subsequent question, keeping in mind proper formatting and question types, and I've ensured everything is correctly transcribed and logically structured.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Two parallel plate capacitors $C_1$ and $C_2$ are connected to a supply that has a potential difference (p.d.) $V_S$. The capacitors may be connected in series or in parallel.
+
+      The supply provides charge $Q_S$ and the plates of the two capacitors acquire charges $Q_1$ and $Q_2$ respectively. The p.d.s across the plates of the capacitors are $V_1$ and $V_2$ respectively.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete Table 6.1 to indicate how $Q_S$, $Q_1$ and $Q_2$ relate to each other, and how $V_S$, $V_1$ and $V_2$ relate to each other, for series and parallel connections of the capacitors to the supply.
+
+      \textbf{Table 6.1}
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & relationship between charges & relationship between p.d.s \\ \hline
+      series & & \\ \hline
+      parallel & & \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      An isolated capacitor of capacitance $470\ \mu\text{F}$ stores $19\text{ mJ}$ of energy.
+  - number: "6bi"
+    type: calculation
+    text: |
+      Calculate the p.d. across the capacitor.
+
+      p.d. = \hrulefill V
+  - number: "6bii"
+    type: calculation
+    text: |
+      Calculate the charge on the capacitor.
+
+      charge = \hrulefill C

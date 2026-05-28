@@ -1,0 +1,31 @@
+questions:
+  - number: "2f"
+    type: short_answer
+    text: |
+      The main program needs extending to call \texttt{Search()} with the sorted array \textbf{four} times:
+
+      \begin{itemize}
+      \item the first time to find the index of the integer 0
+      \item the second time to find the index of the integer 345
+      \item the third time to find the index of the integer 67
+      \item the fourth time to find the index of the integer 2
+      \end{itemize}
+
+      If the integer is found in the array, output an appropriate message that includes the index.
+      If the integer is not found, output that it was not found.
+  - number: "2fi"
+    type: short_answer
+    text: |
+      Write program code to extend the main program.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{2(f)(i)} in the evidence document.
+  - number: "2fii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+      Copy and paste the screenshot into part \textbf{2(f)(ii)} in the evidence document.

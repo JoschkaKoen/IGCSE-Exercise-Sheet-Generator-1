@@ -1,0 +1,56 @@
+[thinking]
+**Page 2 Exam YAML Generation**
+
+Okay, here's what I'm thinking. The task is to generate the YAML stub for page 2 of this exam, which contains questions 1, 1a, 1b, and 1c. Let's break down each question and then translate them into the correct YAML format.
+
+First, I need to look at each question individually:
+
+*   **Question 1:** The question describes a student using a calculator with an 8-bit register. The text is straightforward, just setting the scene. So I'll structure the YAML as a simple text block.
+*   **Question 1a:** This requires the highest denary number that can be stored, so again, a text block will be appropriate.
+*   **Question 1b:** This involves converting denary numbers to 8-bit binary and filling in empty registers. I'll need to remember to represent the empty registers with the correct `\framebox` syntax in the YAML. Also, the question explicitly asks for *two* denary numbers.
+*   **Question 1c:** This question provides a binary number and asks for the equivalent denary value. I'll need to use the `\hrulefill` syntax in the YAML for the answer line.
+
+Now that I have a clear idea of the questions, I need to apply the formatting rules to keep the generated YAML consistent:
+
+*   Answer lines like the one in Question 1c use `\hrulefill`.
+*   Empty answer tables for the candidate, as in Question 1b, need `\framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}`.
+*   Any question labels like "(a)", "(b)", etc., must be removed from the question text.
+*   Any 'working space' headers are to be ignored.
+
+With those rules in mind, I'm ready to write the YAML, ensuring each question is correctly structured within the YAML file. I'll make sure the `text` field contains the clean question text, appropriately formatted with the required Latex for the answer lines and boxes. Let's get to it!
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A student has an electronic calculator. The calculator has a screen that displays the result of calculations.
+
+      The calculator has 8-bit registers.
+  - number: "1a"
+    type: short_answer
+    text: |
+      State the highest denary number that could be stored in a single 8-bit register.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Denary numbers are typed into the calculator. They are converted to binary numbers and stored in the 8-bit registers.
+
+      The student types in the denary number 23 and the denary number 168.
+
+      Give the 8-bit binary numbers that are stored in the registers for these \textbf{two} denary numbers.
+
+      23 \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+
+      168 \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+  - number: "1c"
+    type: short_answer
+    text: |
+      The result of a calculation that is stored in a register is the binary number 00001011
+
+      Give the denary number that will be displayed on the screen for this binary number.
+
+      00001011 \hrulefill

@@ -1,0 +1,32 @@
+```yaml
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Complete the truth table for this logic circuit.
+
+      \begin{tabular}{|c|c|c|p{8cm}|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \centering \textbf{Working space} & \textbf{Z} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}
+  - number: "3"
+    type: short_answer
+    text: |
+      Describe the characteristics of the string and char data types and give an example of each.
+
+      String \hrulefill
+
+      Example \hrulefill
+
+      Char \hrulefill
+
+      Example \hrulefill
+```

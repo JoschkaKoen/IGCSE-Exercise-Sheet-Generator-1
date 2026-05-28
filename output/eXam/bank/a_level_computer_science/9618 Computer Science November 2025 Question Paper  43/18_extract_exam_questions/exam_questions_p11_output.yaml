@@ -1,0 +1,28 @@
+questions:
+  - number: "2f"
+    type: short_answer
+    text: ''
+  - number: "2fi"
+    type: long_answer
+    text: |
+      Write program code for the main program to:
+
+      \begin{itemize}
+      \item call \texttt{ReadData()}
+      \item call \texttt{Compress()}
+      \item output the content of the compressed string.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(f)(i)} in the evidence document.
+  - number: "2fii"
+    type: long_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{2(f)(ii)} in the evidence document.

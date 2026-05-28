@@ -1,0 +1,46 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1a"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which statement about data storage is correct.
+    options:
+      - letter: A
+        text: |
+          One bit equals four nibbles.
+      - letter: B
+        text: |
+          One byte equals 16 bits.
+      - letter: C
+        text: |
+          One exbibyte (EiB) equals $1024 \times 1024$ tebibytes (TiB).
+      - letter: D
+        text: |
+          One mebibyte (MiB) equals $1024 \times 1024$ gibibytes (GiB).
+  - number: "1b"
+    type: calculation
+    text: |
+      An image file has a resolution of $1024 \text{ pixels high} \times 1024 \text{ pixels wide}$. The colour depth is two bytes.
+
+      Calculate the file size of the image. Give the answer in MiB. Show your working.
+
+      file size of image \hrulefill MiB
+  - number: "2"
+    type: short_answer
+    text: |
+      A user accesses a website using a web browser.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Two functions of a web browser are to provide an address bar and to store cookies.
+
+      Give \textbf{three} other functions of a web browser.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+```

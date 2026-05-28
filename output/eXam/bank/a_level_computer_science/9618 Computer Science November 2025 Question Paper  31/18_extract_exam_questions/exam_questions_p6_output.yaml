@@ -1,0 +1,28 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: short_answer
+    text: |
+      The diagram shows a logic circuit.
+
+      Complete the truth table for the given logic circuit.
+      Show your working.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      \multicolumn{3}{|c|}{} & \multicolumn{4}{c|}{\textbf{Working space}} & \\ \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{P} & \textbf{Q} & \textbf{R} & \textbf{S} & \textbf{Z} \\ \hline
+      0 & 0 & 0 & & & & & \\ \hline
+      0 & 0 & 1 & & & & & \\ \hline
+      0 & 1 & 0 & & & & & \\ \hline
+      0 & 1 & 1 & & & & & \\ \hline
+      1 & 0 & 0 & & & & & \\ \hline
+      1 & 0 & 1 & & & & & \\ \hline
+      1 & 1 & 0 & & & & & \\ \hline
+      1 & 1 & 1 & & & & & \\ \hline
+      \end{tabular}
+```

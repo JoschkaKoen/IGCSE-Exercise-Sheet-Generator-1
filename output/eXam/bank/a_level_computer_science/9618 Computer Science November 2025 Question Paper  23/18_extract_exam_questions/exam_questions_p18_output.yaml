@@ -1,0 +1,33 @@
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A program is being developed to manage student book loans from a college library.
+
+      The programmer has defined a record type to define each loan.
+
+      The data items are:
+
+      \begin{tabular}{|p{2.5cm}|p{2.5cm}|p{8cm}|}
+      \hline
+      \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+      \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed the book \newline\newline The first three characters of a \texttt{StudentID} represent a tutor ID. Each student has one tutor. \\ \hline
+      \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\ \hline
+      \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not} been returned \\ \hline
+      \end{tabular}
+
+      \vspace{1em}
+
+      The programmer has defined a global array \texttt{Loan} to store 8000 loan records.
+
+      There are more elements in the array than books in the library. Unused elements have the \texttt{StudentID} set to an empty string. These may occur anywhere in the array.
+
+      The programmer has defined a program module:
+
+      \begin{tabular}{|p{3cm}|p{10cm}|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{LoanStatus()} & \begin{itemize} \item called with two parameters of type \texttt{STRING} representing a \texttt{StudentID} and a \texttt{BookID} \item outputs a message saying whether a given loan has been returned or not \item outputs a warning message if a record of the given loan is \textbf{not} found \end{itemize} \\ \hline
+      \end{tabular}
+```

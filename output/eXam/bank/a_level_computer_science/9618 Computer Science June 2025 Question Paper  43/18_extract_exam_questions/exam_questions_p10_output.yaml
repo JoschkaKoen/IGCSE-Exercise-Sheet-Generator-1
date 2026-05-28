@@ -1,0 +1,39 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: ''
+  - number: "3ci"
+    type: short_answer
+    text: |
+      The main program creates a new \texttt{LinkedList} object and uses the appropriate method to insert \textbf{five} nodes with the following integer data values in the order given:
+
+      10 \quad 20 \quad 30 \quad 40 \quad 50
+
+      The main program then:
+      \begin{itemize}
+      \item calls \texttt{Traverse()}
+      \item removes the node containing the integer data 30 using \texttt{RemoveNode()}
+      \item calls \texttt{Traverse()}
+      \end{itemize}
+
+      Write program code for the main program.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3cii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the screenshot into part \textbf{3(c)(ii)} in the evidence document. \\
+      \hline
+      \end{tabular}

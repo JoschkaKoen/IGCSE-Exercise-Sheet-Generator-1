@@ -1,0 +1,54 @@
+[thinking]
+**Exam Page 18 Transcription Thoughts**
+
+Okay, the task is to transcribe page 18 of the exam. The questions are labeled 7, 7a, 7b, and 7bi. My initial thought is to go through the page and match the questions to their corresponding stubs.
+
+Looking at the page, question 7 is the overall header. But "7" usually isn't a *question* in itself but rather a container. Let me check the stub structure: I expect to see `7`, `7a`, `7b`, `7bi` types there. The stub indicates 7, 7a, 7b are short answer and 7bi is a calculation.
+
+Scanning the text on the page, I find:
+
+*   "7 (a) State Lenz’s law of electromagnetic induction." - This is 7a.
+*   "(b) A helicopter hovering...Fig. 7.1." - This must be 7b.
+*   "(i) Calculate the magnetic flux..." - This matches 7bi.
+
+Now, what about just "7"? The instructions say that if there's no visible stem for the stub entry, then there's an upstream bug and I should flag it, and *not* guess.
+
+So, I have to think about what is the "stem" of 7? The page says "7 (a)", but there is no question "7". But the stub has "7". Let me re-read the instructions. I am *not* to guess, and the prompt states "Every entry's stem should be visible." Well, there isn't a standalone "7" with its own stem. The instructions say to emit `STUB ERROR` if I can't find a stub's stem.
+
+Therefore, for "7," I need to include a `STUB ERROR`. I won't create a "7" with empty text, nor will I try to fill in a text as the instructions say to emit STUB ERROR.
+
+Now I am ready to transcribe 7a, 7b, and 7bi. For these, I'll transcribe the text exactly as it appears on the page. I'll make sure to get the math, and the answer line for 7bi, exactly right.
+
+So, let's look at 7a: "State Lenz's law of electromagnetic induction."
+
+For 7b: "A helicopter hovering in stationary equilibrium has four rotors, each of length 12m, as shown in the view from above in Fig. 7.1."
+
+Finally for 7bi: "The vertical component of the Earth's magnetic field at the helicopter is downwards with a flux density of 0.047mT. The rotors each rotate in a horizontal plane in the direction shown with a frequency of 85Hz. Calculate the magnetic flux Φ cut by rotor OX during one complete rotation. Give a unit with your answer. Φ = .................................... unit ............ [3]" I'll make sure the answer line is accurately transcribed too.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      State Lenz’s law of electromagnetic induction.
+  - number: "7b"
+    type: short_answer
+    text: |
+      A helicopter hovering in stationary equilibrium has four rotors, each of length $12\text{ m}$, as shown in the view from above in Fig. 7.1.
+  - number: "7bi"
+    type: calculation
+    text: |
+      The vertical component of the Earth’s magnetic field at the helicopter is downwards with a flux density of $0.047\text{ m/T}$.
+
+      The rotors each rotate in a horizontal plane in the direction shown with a frequency of $85\text{ Hz}$.
+
+      Calculate the magnetic flux $\Phi$ cut by rotor OX during one complete rotation. Give a unit with your answer.
+
+      $\Phi =$ \hrulefill unit \hrulefill

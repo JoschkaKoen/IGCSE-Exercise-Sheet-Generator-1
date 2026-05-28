@@ -1,0 +1,51 @@
+[thinking]
+**Examining the Exam Questions**
+
+Okay, so I need to transcribe some questions from page 5 of an exam paper. The user wants them in a specific format. Let me make sure I'm capturing everything accurately, I need to extract the exact text of the questions for: "1aiii", "1aiv", "1b", "1bi", "1bii", and "1biii".
+
+Let's see what we've got. Ah, right. It looks like "1b" might be a statement that leads into a series of sub-questions, or it may just be the statement itself as the user has "short_answer" as the stub. I will make a note of this.
+
+Here's the breakdown, after refining:
+
+*   "1aiii": "On Fig. 1.2, sketch the variation of $v_{\text{H}}$ with time $t$ between $t = 0$ and $t = 3.2\text{ s}$. Label your line H." - This is about sketching a horizontal velocity-time graph.
+*   "1aiv": "On Fig. 1.2, sketch the variation of $v_{\text{V}}$ with time $t$ between $t = 0$ and $t = 3.2\text{ s}$. Assume that velocity in the upward direction is positive. Label your line V." - Looks like a vertical velocity-time graph is needed here, with a crucial positive direction assumption.
+*   "1b": "The total change in momentum of the ball between leaving the ground at $t = 0$ and landing on the ground at $t = 3.2\text{ s}$ is $13\text{ kg}\,\text{m}\,\text{s}^{-1}$." - This is either the question itself, or the context. I'll make sure to get the question or context right.
+*   "1bi": "Define momentum." - A classic definition question.
+*   "1bii": "Calculate the force that acts on the ball while it is in the air. force = \hrulefill N" - This is where we'll apply the physics of momentum change.
+*   "1biii": "Determine the mass of the ball. mass = \hrulefill kg" - We will need to combine some equations to figure this out.
+
+Alright, I think I have all of the questions distilled and ready for transcription. I am sure I've got it correct.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1aiii"
+    type: short_answer
+    text: |
+      On Fig. 1.2, sketch the variation of $v_{\text{H}}$ with time $t$ between $t = 0$ and $t = 3.2\text{ s}$. Label your line H.
+  - number: "1aiv"
+    type: short_answer
+    text: |
+      On Fig. 1.2, sketch the variation of $v_{\text{V}}$ with time $t$ between $t = 0$ and $t = 3.2\text{ s}$. Assume that velocity in the upward direction is positive. Label your line V.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The total change in momentum of the ball between leaving the ground at $t = 0$ and landing on the ground at $t = 3.2\text{ s}$ is $13\text{ kg}\,\text{m}\,\text{s}^{-1}$.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Define momentum.
+  - number: "1bii"
+    type: calculation
+    text: |
+      Calculate the force that acts on the ball while it is in the air.
+
+      force = \hrulefill N
+  - number: "1biii"
+    type: calculation
+    text: |
+      Determine the mass of the ball.
+
+      mass = \hrulefill kg

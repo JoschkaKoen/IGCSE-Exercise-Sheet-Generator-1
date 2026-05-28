@@ -1,0 +1,9 @@
+```yaml
+questions:
+  - number: "8a"
+    type: short_answer
+    text: |
+      Write efficient pseudocode for the module \texttt{LoanStatus()}
+
+      Assume that each combination of \texttt{StudentID} and \texttt{BookID} can occur only once.
+```

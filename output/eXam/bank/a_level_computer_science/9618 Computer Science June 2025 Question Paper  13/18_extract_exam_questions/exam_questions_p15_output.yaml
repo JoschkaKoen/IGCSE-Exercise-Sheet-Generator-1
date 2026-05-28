@@ -1,0 +1,25 @@
+```yaml
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      A new product needs to be entered into the database. The product has the ID 002323, the product name ‘Blue ball point 2mm’, there are 50 in a box, the product costs $5.00 and the supplier has the ID SFX223.
+
+      Write a Structured Query Language (SQL) script to enter the new product into the table \texttt{PRODUCT}.
+  - number: "6c"
+    type: short_answer
+    text: |
+      The attribute \texttt{Collected} in the table \texttt{ORDER} stores the Boolean value \texttt{TRUE} if the order has been collected and \texttt{FALSE} if the order has not been collected.
+
+      Write an SQL script to return the customer name for each customer that has orders they have not collected. Include the number of orders each customer has not collected with an appropriate title.
+
+      An example output might be:
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{CustomerName} & \textbf{NotCollected} \\ \hline
+      Jack Wright & 2 \\ \hline
+      Lin Cho & 1 \\ \hline
+      Santaya Yui & 1 \\ \hline
+      \end{tabular}
+```

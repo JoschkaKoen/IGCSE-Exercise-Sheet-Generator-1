@@ -1,0 +1,46 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A program is being designed in pseudocode.
+
+      The program contains the following declaration for the global array \texttt{MyData}:
+
+      \begin{alltt}
+      DECLARE MyData : ARRAY[1:10000] OF STRING
+      \end{alltt}
+
+      A function \texttt{FindFirst()} is written to search the array for a given string and to return the index of the first element where that string is found, or to return -1 if the string is \textbf{not} found.
+
+      The function is written in pseudocode as shown:
+
+      \begin{alltt}
+      FUNCTION FindFirst(SearchString : STRING) RETURNS INTEGER
+        DECLARE Index, FoundAt : INTEGER
+        FoundAt <- -1
+        FOR Index <- 1 TO 10000
+          IF MyData[Index] = SearchString THEN // outer conditional clause
+            IF FoundAt = -1 THEN             // inner conditional clause
+              FoundAt <- Index
+            ENDIF
+          ENDIF
+        NEXT Index
+        RETURN FoundAt
+      ENDFUNCTION
+      \end{alltt}
+  - number: "5ai"
+    type: short_answer
+    text: |
+      Comment on why the programmer chose -1 as the initial value of \texttt{FoundAt}
+  - number: "5aii"
+    type: short_answer
+    text: |
+      Explain the purpose of the \textbf{outer} conditional clause.
+  - number: "5aiii"
+    type: short_answer
+    text: |
+      The \textbf{inner} conditional clause ensures that only the index of the \textbf{first} matching element, if any, is returned.
+
+      Explain how this clause works.
+```

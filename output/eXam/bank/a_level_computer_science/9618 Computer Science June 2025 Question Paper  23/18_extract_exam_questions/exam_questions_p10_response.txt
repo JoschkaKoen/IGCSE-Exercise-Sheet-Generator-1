@@ -1,0 +1,26 @@
+questions:
+  - number: "5"
+    type: long_answer
+    text: |
+      A module \texttt{Parity()} takes a string as a parameter. The parameter has the identifier \texttt{BitString} and it represents a binary value.
+
+      The module will concatenate a single character to the end of \texttt{BitString} by applying one of the two rules:
+      \begin{itemize}
+      \item \texttt{'0'} if \texttt{BitString} contains an even number of 1s
+      \item \texttt{'1'} if \texttt{BitString} contains an odd number of 1s.
+      \end{itemize}
+
+      The modified value of \texttt{BitString} is then returned.
+
+      For example:
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Parameter} & \textbf{String returned} & \textbf{Explanation} \\ \hline
+      \texttt{"0010010110"} & \texttt{"00100101100"} & there are an even number of 1s in the string passed to \texttt{Parity()} so a \texttt{'0'} is concatenated to the end of \texttt{BitString} \\ \hline
+      \texttt{"101010"} & \texttt{"1010101"} & there are an odd number of 1s in the string passed to \texttt{Parity()} so a \texttt{'1'} is concatenated to the end of \texttt{BitString} \\ \hline
+      \end{tabular}
+
+      Write pseudocode for the module \texttt{Parity()}
+
+      Assume the parameter \texttt{BitString} can only contain the characters \texttt{'0'} and \texttt{'1'}

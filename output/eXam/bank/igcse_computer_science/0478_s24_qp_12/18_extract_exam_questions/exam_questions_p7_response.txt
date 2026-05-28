@@ -1,0 +1,55 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      The table contains statements about error detection methods.
+
+      Complete the table by giving the correct error detection method for each statement.
+
+      \begin{tabular}{|p{6cm}|p{8cm}|}
+      \hline
+      \textbf{error detection method} & \textbf{statement} \\ \hline
+      \hrulefill & An odd or even process can be used. \\ \hline
+      \hrulefill & A value is calculated from the data, using an algorithm. This happens before and after the data is transmitted. \\ \hline
+      \hrulefill & A copy of the data is sent back to the sender by the receiver. \\ \hline
+      \hrulefill & Acknowledgement and timeout are used. \\ \hline
+      \hrulefill & A value is appended to data that has been calculated using the data. This value is checked on data entry. \\ \hline
+      \end{tabular}
+  - number: "7"
+    type: short_answer
+    text: |
+      A computer has both a media access control (MAC) address and an internet protocol (IP) address.
+  - number: "7a"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which of the statements is correct about the MAC address.
+    options:
+      - letter: A
+        text: |
+          It is assigned by the manufacturer.
+      - letter: B
+        text: |
+          It is assigned by a router.
+      - letter: C
+        text: |
+          It can be static or dynamic.
+      - letter: D
+        text: |
+          It is made up of three different parts.
+  - number: "7b"
+    type: short_answer
+    text: |
+      An IP address can have an IPv4 or IPv6 format.
+  - number: "7bi"
+    type: short_answer
+    text: |
+      Give an example of an IP address that has an IPv4 format.
+  - number: "7bii"
+    type: short_answer
+    text: |
+      Give \textbf{two} characteristics of the IPv6 format.
+
+      1. \hrulefill
+      2. \hrulefill
+```

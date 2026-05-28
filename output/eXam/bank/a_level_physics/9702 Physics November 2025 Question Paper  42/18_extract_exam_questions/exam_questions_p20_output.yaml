@@ -1,0 +1,29 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      State what is meant by the mass defect of a nucleus.
+  - number: "9b"
+    type: calculation
+    text: |
+      The nuclear fusion reaction for the formation of helium-4 from deuterium is represented by
+
+      $$^2_1\text{H} + ^2_1\text{H} \rightarrow ^4_2\text{He}$$
+
+      Table 9.1 shows the masses of the nuclides involved in this reaction.
+
+      \textbf{Table 9.1}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      nuclide & nuclide mass/u \\ \hline
+      $^2_1\text{H}$ & 2.013553 \\ \hline
+      $^4_2\text{He}$ & 4.001505 \\ \hline
+      \end{tabular}
+
+      Calculate the energy released in the formation of 1.00 mol of helium-4.
+
+      energy = \hrulefill J

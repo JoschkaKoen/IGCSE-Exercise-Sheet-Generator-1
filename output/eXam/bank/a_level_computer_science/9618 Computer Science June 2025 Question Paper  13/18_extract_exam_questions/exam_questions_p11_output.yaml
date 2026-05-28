@@ -1,0 +1,25 @@
+questions:
+  - number: "5ai"
+    type: short_answer
+    text: |
+      Trace the program currently in memory using the following trace table.
+
+      \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      \textbf{Instruction address} & \textbf{ACC} & \multicolumn{4}{c|}{\textbf{Memory address}} \\ \cline{3-6}
+       & & \textbf{50} & \textbf{51} & \textbf{52} & \textbf{53} \\ \hline
+       & & 47 & 48 & 49 & 50 \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+       & & & & & \\ \hline
+      \end{tabular}

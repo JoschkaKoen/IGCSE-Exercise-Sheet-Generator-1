@@ -1,0 +1,27 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3a"
+    type: short_answer
+    text: |
+      Define power.
+  - number: "3b"
+    type: short_answer
+    text: |
+      An electric car is powered by a motor. The car is travelling at a constant speed of $35\text{ m}\,\text{s}^{-1}$ along a straight horizontal road, as shown in Fig. 3.1.
+
+      There is a total resistive force of $1750\text{ N}$ acting on the car.
+  - number: "3bi"
+    type: calculation
+    text: |
+      Calculate the power transmitted to the wheels of the car by the motor.
+
+      $\text{power} = \hrulefill \text{ W}$
+  - number: "3bii"
+    type: calculation
+    text: |
+      Calculate the useful work done by the motor when the car travels a distance of $17\text{ km}$.
+
+      $\text{work done} = \hrulefill \text{ J}$

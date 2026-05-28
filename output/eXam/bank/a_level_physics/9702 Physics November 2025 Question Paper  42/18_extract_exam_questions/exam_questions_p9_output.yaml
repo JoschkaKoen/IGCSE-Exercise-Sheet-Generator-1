@@ -1,0 +1,30 @@
+questions:
+  - number: "3bi"
+    type: short_answer
+    text: |
+      The value of $\Delta h$ can be used to calculate the pressure of the gas. In order to do this, the gravitational field strength is used, along with a property of the liquid.
+
+      State the property of the liquid that is used to calculate the pressure.
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Before the measurement of $\Delta h$ can be made, the glass bulb needs to reach thermal equilibrium with the environment for which the temperature is to be measured.
+
+      State \textbf{two} disadvantages of using a constant volume gas thermometer to measure temperature.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3biii"
+    type: short_answer
+    text: |
+      Suggest \textbf{one} situation in which a constant volume gas thermometer would be an appropriate type of thermometer to choose for measuring temperature.
+  - number: "3biv"
+    type: calculation
+    text: |
+      Level X aligns with $2.31\text{ cm}$ on the scale. At $0\text{ }^\circ\text{C}$, level Y aligns with $8.69\text{ cm}$.
+
+      At temperature $\theta$, level Y aligns with $7.83\text{ cm}$ on the scale.
+
+      Determine a value for $\theta$ in $^\circ\text{C}$.
+
+      $\theta = $ \hrulefill $^{\circ}\text{C}$

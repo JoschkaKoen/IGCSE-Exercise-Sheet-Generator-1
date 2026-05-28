@@ -1,0 +1,46 @@
+[thinking]
+**Examining the Exam Page**
+
+Okay, so I'm being asked to transcribe page 5 of this exam paper. Looks like the questions on this page are numbered "2" and "2a". Let's dissect this.
+
+For question 2, it begins with a student observing the orbits of Saturn's moons, specifically mentioning Pandora and the determination of its orbital period, $T$, and mean distance, $r$. The problem states that these measurements are repeated for other moons, and suggests a relationship between $T$ and $r$, given by the equation:
+
+$$T = \frac{2\pi r^n}{k}$$
+
+where $n$ and $k$ are constants. No need to include the diagram of Saturn and its moons, as that's external.
+
+Moving on to question 2a, it specifies that a graph of $\lg T$ (base 10 logarithm of T) is plotted on the y-axis against $\lg r$ (base 10 logarithm of r) on the x-axis. The task is to determine expressions for the gradient and the $y$-intercept of this graph. I'll need to figure out how to format this.
+
+I'm thinking that I need to provide these in a structured YAML format as requested by the user. Let's see... I've got to make sure the equations are rendered correctly in the markdown. The fill-in-the-blank part should be indicated with \hrulefill. I'll need to double-check that the formatting and mathematical notation is perfectly accurate, so let's make sure the equation is as stated.
+
+I can handle this, so let's start with the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student observes the orbits of some of the moons around the planet Saturn, as shown in Fig. 2.1.
+
+      For the moon Pandora, the period of the orbit and the mean distance from the centre of Saturn are determined.
+
+      The measurements of period $T$ and mean distance $r$ are repeated for other moons.
+
+      It is suggested that $T$ and $r$ are related by the equation
+
+      $$T = \frac{2\pi r^n}{k}$$
+
+      where $n$ and $k$ are constants.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A graph is plotted of $\lg T$ on the $y$-axis against $\lg r$ on the $x$-axis.
+
+      Determine expressions for the gradient and $y$-intercept.
+
+      gradient = \hrulefill
+
+      $y$-intercept = \hrulefill

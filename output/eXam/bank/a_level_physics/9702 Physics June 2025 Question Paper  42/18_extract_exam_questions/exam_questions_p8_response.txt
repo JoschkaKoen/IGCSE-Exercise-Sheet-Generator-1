@@ -1,0 +1,55 @@
+[thinking]
+**Exam Paper Page 8 Transcription - Thought Process**
+
+Okay, so the user wants me to transcribe page 8 of this exam paper.  The questions on this page are numbered "3", "3a", "3b", "3bi", "3bii", and "3biii". Let's dissect the structure. The main question seems to be "3" and it's followed by several sub-questions.
+
+Initially, I noted that question "3" seems to be a header. However, looking closely at the structure reveals that *all* of the individual numbered parts of question "3" are listed in the stub. Typically, I'd expect to leave the main question number empty or insert a placeholder if there's no actual question text. But the stub explicitly designates it as a "short_answer" type. Let's see if there is any text before `3 (a)`. Nope, it starts directly with `3 (a) Define specific heat capacity.` Therefore, question "3" has *text: ''* in the yaml.
+
+So, let's start with "3". It is a short answer question type, and since it is an introductory type, it will be empty. Then let's move on to the rest of the questions.
+
+*   "3a": Define specific heat capacity. This is pretty straightforward: a short answer.
+*   "3b": This seems like a problem setup with text that has to be transcribed verbatim including the inline math, describing an aluminum block, volume, initial and final temperatures, densities, increase in internal energy, and atmospheric pressure.
+*   "3bi": "Calculate the mass of the block." This is clearly a calculation question, with the answer format as `mass = \hrulefill kg`.
+*   "3bii": "Show that the volume of the block at a temperature of $500^\circ\text{C}$ is $3.722 \times 10^{-3}\text{ m}^3$." Another calculation, this time requiring the student to demonstrate a given result.
+*   "3biii": "Use the information in (b)(ii) to determine the magnitude of the work done on the block when its temperature is raised from $0^\circ\text{C}$ to $500^\circ\text{C}$."  A calculation based on the result from the previous question, with the answer given as `work done = \hrulefill J`.
+
+I need to make sure I transcribe all the inline math and units correctly. Specifically, "3bi" has the units, and "3biii" has the units as well. Now I should be able to assemble the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: |
+      Define specific heat capacity.
+  - number: "3b"
+    type: short_answer
+    text: |
+      A block of aluminium has a volume of $3.612 \times 10^{-3} \text{ m}^3$ at a temperature of $0\text{ }^{\circ}\text{C}$.
+
+      Aluminium has a density of $2.700 \times 10^3 \text{ kg m}^{-3}$ at $0\text{ }^{\circ}\text{C}$.
+      It has a density of $2.620 \times 10^3 \text{ kg m}^{-3}$ at $500\text{ }^{\circ}\text{C}$.
+
+      The block is heated so that its temperature increases from $0\text{ }^{\circ}\text{C}$ to $500\text{ }^{\circ}\text{C}$ at an atmospheric pressure of $1.01 \times 10^5 \text{ Pa}$.
+      The increase in internal energy of the block is $4.38 \text{ MJ}$.
+  - number: "3bi"
+    type: calculation
+    text: |
+      Calculate the mass of the block.
+
+      mass = \hrulefill kg
+  - number: "3bii"
+    type: calculation
+    text: |
+      Show that the volume of the block at a temperature of $500\text{ }^{\circ}\text{C}$ is $3.722 \times 10^{-3} \text{ m}^3$.
+  - number: "3biii"
+    type: calculation
+    text: |
+      Use the information in \textbf{(b)(ii)} to determine the magnitude of the work done on the block when its temperature is raised from $0\text{ }^{\circ}\text{C}$ to $500\text{ }^{\circ}\text{C}$.
+
+      work done = \hrulefill J

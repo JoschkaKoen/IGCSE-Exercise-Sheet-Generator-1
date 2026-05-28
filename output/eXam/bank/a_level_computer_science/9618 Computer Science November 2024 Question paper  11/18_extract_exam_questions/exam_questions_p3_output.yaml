@@ -1,0 +1,5 @@
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      State one reason why binary addition and subtraction can result in overflow.

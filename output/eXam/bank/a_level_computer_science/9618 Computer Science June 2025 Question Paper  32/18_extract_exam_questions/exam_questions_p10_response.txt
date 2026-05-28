@@ -1,0 +1,56 @@
+[thinking]
+**Populating the Question Stubs for 11 and 11a**
+
+Okay, I need to fill in the stubs for questions "11" and "11a". The stub currently has both, which is a bit unusual. Let's examine the question text on the page to figure out how these should be structured.
+
+Looking at it, "11 (a)" is the only question on the page. The stub has both "11" and "11a", so my initial thought is: Is "11" a parent or is "11a" the subquestion? The question begins by describing a linked list, including the layout of the nodes, so that introductory information probably belongs in the "11" stub. The main part of the question then requires completion of a binary tree based on the provided data. So it looks like "11" is introductory and "11a" is the actual question.
+
+I'll split it up like this: "11" will contain the introduction about the linked list and the structure of each node. "11a" will contain the instructions to complete the binary tree. I'll need to remember to omit the diagrams since the instructions say to avoid emitting any image-inclusion commands. I'm omitting the diagram's labels, too, because they're part of the diagram and not standalone text.
+
+Let's start populating the stubs. For "11", I'll write:
+
+```yaml
+  - number: "11"
+    type: short_answer
+    text: |
+      A linked list of nodes is used to store an ordered list of strings. Each node consists of the data, a left pointer and a right pointer.
+```
+
+And for "11a":
+
+```yaml
+  - number: "11a"
+    type: short_answer
+    text: |
+      The linked list will be organised as a binary tree.
+
+      0 is used to represent a null pointer.
+
+      Complete the binary tree, including null pointers, to show how the data will be organised after the following strings have been added:
+
+      Aa, Mm, Ss, Xx
+```
+
+That makes sense. It's clean. Let's double check. Yes, that follows all the rules. Okay, I'm confident with this.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      A linked list of nodes is used to store an ordered list of strings. Each node consists of the data, a left pointer and a right pointer.
+  - number: "11a"
+    type: short_answer
+    text: |
+      The linked list will be organised as a binary tree.
+
+      0 is used to represent a null pointer.
+
+      Complete the binary tree, including null pointers, to show how the data will be organised after the following strings have been added:
+
+      Aa, Mm, Ss, Xx
+```

@@ -1,0 +1,570 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Tick ($\checkmark$) \textbf{one} box to complete the description of abstraction.
+
+
+    Abstraction is part of the analysis stage of the development life cycle. Abstraction
+    means'
+  answer_options:
+  - letter: A
+    text: testing the solution to the problem.
+  - letter: B
+    text: writing a program using program code.
+  - letter: C
+    text: defining the sub-systems that make up the problem.
+  - letter: D
+    text: removing details from the problem that are not relevant.
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: "A fence measuring 2 metres in height and 20 metres in length needs painting.\
+    \ The area of the fence needs to be calculated so that enough paint for the job\
+    \ is purchased.\n\nAfter the task is decomposed, there are three component parts:\
+    \ input, process and output.\n\n\\textbf{Three} component parts and \\textbf{four}\
+    \ example descriptions are shown.\n\nDraw \\textbf{one} line from each component\
+    \ part to the most appropriate relevant description.\n\\textbf{Not} all descriptions\
+    \ will be used.\n\n\\begin{tabular}{cc}\n\\textbf{Component part} & \\textbf{Description}\
+    \ \\\\\n & \\\\\n & \\framebox{the height of the fence \\quad the length of the\
+    \ fence} \\\\\n\\framebox{process} & \\\\\n & \\framebox{The amount of paint required\
+    \ is 40 square metres.} \\\\\n\\framebox{output} & \\\\\n & \\framebox{the colour\
+    \ of the paint} \\\\\n\\framebox{input} & \\\\\n & \\framebox{The area of fence\
+    \ is calculated as 40 square metres.} \\\\\n\\end{tabular}"
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'A range check is used to validate that the input temperature is an integer
+    between $-100$ and $0$, inclusive.
+
+
+    Suggest suitable normal, abnormal, extreme and boundary test data to test if this
+    validation check is working correctly.
+
+
+    Normal test data \hrulefill
+
+
+    Abnormal test data \hrulefill
+
+
+    Extreme test data \hrulefill
+
+
+    Boundary test data \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State \textbf{one} reason for using a verification check when inputting
+      data.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Write the pseudocode for an algorithm to perform a double entry verification
+      check, using the following criteria:
+
+
+      \begin{itemize}
+
+      \item Input 10 numbers and store them in the array \texttt{Numbers[]}
+
+      \item Input the same 10 numbers again; as each number is input, compare it with
+      its corresponding number in the array \texttt{Numbers[]}
+
+      \begin{itemize}
+
+      \item if the numbers match, move on to the next number
+
+      \item if the numbers do not match, display both numbers and ask for the number
+      to be re-entered
+
+      \item store the re-entered number in the corresponding array location and move
+      on to the next number.
+
+      \end{itemize}
+
+      \item When all the numbers have been checked, display a message to say the check
+      has been completed.
+
+      \end{itemize}
+
+
+      You do \textbf{not} need to declare any arrays or variables for this algorithm.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "This pseudocode algorithm should allow 500 names of people and their heights\
+    \ to be entered and stored in two one-dimensional (1D) arrays. The name of a person\
+    \ and the height of that person are in the same index in both the \\texttt{Names[]}\
+    \ and the \\texttt{Heights[]} arrays.\n\nThe algorithm performs as follows:\n\n\
+    \\begin{itemize}\n\\item at the start, the following data is entered:\n  \\begin{itemize}\n\
+    \  \\item name of person\n  \\item height of person in cm\n  \\end{itemize}\n\\\
+    item the data is stored in the relevant arrays\n\\item the heights of the people\
+    \ are totalled\n\\item the shortest person is found\n\\item at the end, the following\
+    \ is output:\n  \\begin{itemize}\n  \\item name of shortest person\n  \\item height\
+    \ of shortest person\n  \\item average height of all 500 people.\n  \\end{itemize}\n\
+    \\end{itemize}\n\n\\begin{alltt}\n01 DECLARE Names : ARRAY[1:500] OF REAL\n02\
+    \ DECLARE Heights : ARRAY[1:500] OF REAL\n03 DECLARE Shortest : REAL\n04 DECLARE\
+    \ Total : REAL\n05 DECLARE Counter : INTEGER\n06 DECLARE Index : INTEGER\n07 Shortest\
+    \ <- 500\n08 Index <- 0\n09 Total <- 100\n10 FOR Counter <- 1 TO 500\n11     INPUT\
+    \ Names[Index]\n12     INPUT Heights[Counter]\n13     Total <- Counter + Heights[Counter]\n\
+    14     IF Heights[Counter] < Shortest\n15     THEN\n16         Shortest <- Heights[Counter]\n\
+    17         Index <- Counter\n18     ENDIF\n19 NEXT Counter\n20 OUTPUT \"The shortest\
+    \ height is \", Heights\n21 OUTPUT \"The shortest person is \", Names[Index]\n\
+    22 OUTPUT \"The average height is \", Total / 500\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Identify the line numbers of \textbf{five} errors in the pseudocode and
+      suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 4 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 5 line number \hrulefill
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Write the pseudocode statement that will output the average height rounded
+      to \textbf{one} decimal place.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Explain how you could change the corrected algorithm so that it will also:
+
+      \begin{itemize}
+
+      \item find the height of the tallest person.
+
+      \item output the height of the tallest person at the end of the algorithm.
+
+      \end{itemize}
+
+
+      Any program statements used must be fully explained.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "This pseudocode is an algorithm.\n\n\\begin{alltt}\nDECLARE Word : STRING\n\
+    DECLARE V1 : INTEGER\nDECLARE V2 : INTEGER\nDECLARE Number : INTEGER\nDECLARE\
+    \ Index : INTEGER\nDECLARE L1 : CHAR\nDECLARE L2 : CHAR\nDECLARE Continue : BOOLEAN\n\
+    INPUT Number\nFOR Index <- 1 TO Number\n    INPUT Word\n    Continue <- TRUE\n\
+    \    V1 <- 1\n    V2 <- LENGTH(Word)\n    WHILE Continue = TRUE AND V1 < V2 DO\n\
+    \        L1 <- SUBSTRING(Word, V1, 1)\n        L2 <- SUBSTRING(Word, V2, 1)\n\
+    \        IF L1 <> L2\n        THEN\n            Continue <- FALSE\n        ELSE\n\
+    \            V1 <- V1 + 1\n            V2 <- V2 - 1\n        ENDIF\n    ENDWHILE\n\
+    \    IF Continue = TRUE\n    THEN\n        OUTPUT \"Successful\"\n    ELSE\n \
+    \       OUTPUT \"NOT successful\"\n    ENDIF\nNEXT Index\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "Complete the trace table for the algorithm, using the input data:\n\n2,\
+      \ RACECAR, TREAT\n\n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|}\n\\hline\n\\textbf{Number}\
+      \ & \\textbf{Index} & \\textbf{Word} & \\textbf{Continue} & \\textbf{V1} & \\\
+      textbf{V2} & \\textbf{L1} & \\textbf{L2} & \\textbf{OUTPUT} \\\\ \\hline\n &\
+      \ & & & & & & & \\\\ \\hline\n & & & & & & & & \\\\ \\hline\n & & & & & & &\
+      \ & \\\\ \\hline\n & & & & & & & & \\\\ \\hline\n & & & & & & & & \\\\ \\hline\n\
+      \ & & & & & & & & \\\\ \\hline\n & & & & & & & & \\\\ \\hline\n & & & & & &\
+      \ & & \\\\ \\hline\n & & & & & & & & \\\\ \\hline\n & & & & & & & & \\\\ \\\
+      hline\n & & & & & & & & \\\\ \\hline\n & & & & & & & & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of the algorithm on page 6.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how the algorithm knows when all the letters in the word have been
+      checked so that it can stop checking.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The flowchart shows an algorithm that is used to input 50 numbers. Each number
+    is stored in the variable \texttt{Value} when it is input. Any number input that
+    is less than or equal to $-20$ or greater than or equal to 50 is rejected and
+    re-input. The accepted numbers are added together as they are entered and the
+    total and average of these numbers are output at the end of the algorithm.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Complete the flowchart.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Explain how you would alter the flowchart in \textbf{7(a)} so that it will
+      individually store each accepted value as it is entered and then output all
+      the numbers, one after the other, outside of the loop that inputs values.
+
+
+      You may include program statements or flowchart symbols in your answer, but
+      they must be fully explained.'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Draw the symbol for an XOR logic gate.
+
+
+    XOR logic gate symbol:'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the truth table for an XOR logic gate.
+
+
+      \begin{tabular}{|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{X} \\ \hline
+
+      0 & 0 & \\ \hline
+
+      0 & 1 & \\ \hline
+
+      1 & 0 & \\ \hline
+
+      1 & 1 & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: "Consider the logic rules in the following table:\n\n\\begin{tabular}{|c|c|l|}\n\
+      \\hline\n\\textbf{Input} & \\textbf{Binary value} & \\textbf{Description} \\\
+      \\ \\hline\n\\multirow{2}{*}{\\textbf{A}} & 0 & operator \\textbf{not} present\
+      \ \\\\ \\cline{2-3}\n & 1 & operator present \\\\ \\hline\n\\multirow{2}{*}{\\\
+      textbf{B}} & 0 & ignition key present \\\\ \\cline{2-3}\n & 1 & ignition key\
+      \ \\textbf{not} present \\\\ \\hline\n\\multirow{2}{*}{\\textbf{C}} & 0 & operator\
+      \ code correct \\\\ \\cline{2-3}\n & 1 & operator code \\textbf{not} correct\
+      \ \\\\ \\hline\n\\end{tabular}\n\nA crane is a machine with a long arm used\
+      \ to lift heavy objects. The crane will only move:\n\\begin{itemize}\n\\item\
+      \ if the operator is present and\n\\item either the ignition key is present,\
+      \ or the operator code is correct.\n\\end{itemize}\n\nThe crane moving is represented\
+      \ by $X = 1$."
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the logic expression for the crane moving.
+
+
+        $X =$ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Complete the truth table for the crane moving.
+
+
+        \begin{tabular}{|c|c|c|c|}
+
+        \hline
+
+        \textbf{A} & \textbf{B} & \textbf{C} & \textbf{X} \\ \hline
+
+        0 & 0 & 0 & \hspace{2em} \\ \hline
+
+        0 & 0 & 1 & \\ \hline
+
+        0 & 1 & 0 & \\ \hline
+
+        0 & 1 & 1 & \\ \hline
+
+        1 & 0 & 0 & \\ \hline
+
+        1 & 0 & 1 & \\ \hline
+
+        1 & 1 & 0 & \\ \hline
+
+        1 & 1 & 1 & \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A database table, \texttt{CapitalCity}, stores data about capital cities
+    from around the world.
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Field} & \textbf{Description} \\ \hline
+
+    \texttt{Identification} & a unique identifier \\ \hline
+
+    \texttt{Name} & the name of the city \\ \hline
+
+    \texttt{Country} & the name of the country in which the city is located \\ \hline
+
+    \texttt{Continent} & the name of the continent in which the city is located \\
+    \hline
+
+    \texttt{Population} & the number of people living in the city \\ \hline
+
+    \texttt{Founded} & the year the city was founded \\ \hline
+
+    \texttt{AverageIncome} & average income of the city''s population, in \$, rounded
+    to 2 decimal places \\ \hline
+
+    \texttt{Subway} & whether or not the city has an underground railway system \\
+    \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the table by writing \textbf{one} appropriate field from \texttt{CapitalCity}
+      for each data type.
+
+
+      Each field must be different.
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      \textbf{Data type} & \textbf{Field} \\ \hline
+
+      Boolean & \hrulefill \\ \hline
+
+      integer & \hrulefill \\ \hline
+
+      real & \hrulefill \\ \hline
+
+      text & \hrulefill \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the structured query language (SQL) statement to list only the
+      name, country and population of all the cities in \texttt{CapitalCity} from
+      the continent of Asia.
+
+
+      \begin{alltt}
+
+      SELECT \hrulefill
+
+
+      \hrulefill CapitalCity
+
+
+      WHERE \hrulefill = \hrulefill ;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: long_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'A program is required to allow students to calculate the volume of a number
+    of standard three-dimensional shapes. It will use functions to allow other shapes
+    to be added in the future.
+
+
+    \textbf{Cuboid}
+
+
+    $\text{volume} = \text{base} \times \text{depth} \times \text{height}$
+
+
+    \textbf{Triangular prism}
+
+
+    $\text{volume} = 1/2 \times \text{base} \times \text{depth} \times \text{height}$
+
+
+    \textbf{Sphere}
+
+
+    $\text{volume} = 4/3 \times \text{Pi} \times \text{radius} \times \text{radius}
+    \times \text{radius}$
+
+
+    Pi is a constant with value 3.142
+
+
+    Write a program that meets the following requirements:
+
+
+    \begin{itemize}
+
+    \item Output a menu to ask the user for an input to indicate the shape for which
+    a volume needs to be calculated, from the three shapes given or if they want to
+    stop the program. The program must validate the input.
+
+    \item Input the data needed to calculate the volume of the chosen shape, based
+    on the given formulae.
+
+    \item Create one function for each shape to calculate and return the volume using
+    the given formulae. Each function uses the input data as parameters.
+
+    \item Output the volume in the main program, rounded to two decimal places.
+
+    \end{itemize}
+
+
+    The program continues until the user inputs the stop option from the menu.
+
+
+    You must use pseudocode or program code \textbf{and} add comments to explain how
+    your code works.
+
+
+    All variables and constants used must be declared for this algorithm.
+
+
+    All inputs and outputs must contain suitable messages.'
+  answer_options: []
+  subquestions: []

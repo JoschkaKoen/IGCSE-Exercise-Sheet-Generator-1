@@ -1,0 +1,23 @@
+```yaml
+questions:
+  - number: "7d"
+    type: short_answer
+    text: |
+      A bitmap file is downloaded. The image has a maximum of 256 colours and measures 512 pixels wide by 2048 pixels high.
+  - number: "7di"
+    type: calculation
+    text: |
+      Calculate an estimate of the file size of the bitmap in kibibytes.
+
+      Show your working.
+
+      File size of bitmap \hrulefill kibibytes
+  - number: "7dii"
+    type: short_answer
+    text: |
+      Explain why the actual file size may be larger than the one calculated in (d)(i).
+  - number: "7diii"
+    type: short_answer
+    text: |
+      Explain how a bitmap image is compressed using run-length encoding (RLE).
+```

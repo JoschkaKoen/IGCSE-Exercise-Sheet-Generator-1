@@ -1,0 +1,23 @@
+questions:
+  - number: "3bi"
+    type: calculation
+    text: |
+      Determine the internal energy of the gas in state A.
+
+      internal energy = \hrulefill J
+  - number: "3bii"
+    type: calculation
+    text: |
+      Determine the temperature of the gas in state B.
+
+      temperature = \hrulefill K
+  - number: "3biii"
+    type: calculation
+    text: |
+      Determine the volume of the gas in state C.
+
+      volume = \hrulefill $\text{m}^3$
+  - number: "3biv"
+    type: short_answer
+    text: |
+      On Fig. 3.1, draw two lines, one to represent change X and one to represent change Y. Label your lines X and Y respectively.

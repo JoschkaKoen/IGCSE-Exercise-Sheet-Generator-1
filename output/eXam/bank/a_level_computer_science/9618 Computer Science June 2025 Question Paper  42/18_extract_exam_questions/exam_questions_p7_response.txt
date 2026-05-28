@@ -1,0 +1,114 @@
+[thinking]
+**My Analysis of the Exam Question Extraction Task**
+
+Okay, so I need to process page 7 of an exam paper. The goal is to extract questions "2c", "2d", and "2e" and format them into a YAML structure that I haven't been given the specification for but I can construct. I'll need to parse the text, remove question prefixes, format the code snippets in a consistent manner, and ensure all important details are preserved, with code snippets wrapped in the LaTeX command for `\texttt{}`. I will assume it will ultimately form the items in a list. I will represent the save/paste instruction as straightforward text.
+
+Let's begin transcribing and structuring the content:
+
+**Question "2c":**
+
+Let's start with "2c." The question presents a function, `\texttt{CalculateHash()}`. The core formula is `\texttt{Key MOD 200}`. Let me represent the formula using the appropriate inline code formatting. I can present the text as follows:
+
+"The hash value is calculated from the key field using the formula: `\texttt{Key MOD 200}`. The function `\texttt{CalculateHash()}` takes a key field as a parameter and calculates and returns the hash value for the key field. Write program code for `\texttt{CalculateHash()}`.
+
+Save your program. Copy and paste the program code into part 2(c) in the evidence document. [2]"
+
+**Question "2d":**
+
+Now, for "2d," we're dealing with the procedure `\texttt{InsertIntoHash()}`. This needs to be presented concisely with proper formatting. The core details are:
+
+"The procedure `\texttt{InsertIntoHash()}`:
+*   takes a record of type `\texttt{NewRecord}` as a parameter
+*   uses `\texttt{CalculateHash()}` to calculate the hash value for the key field in the record
+*   checks if the hash value index in `\texttt{HashTable}` currently stores an empty record
+    *   if the index stores an empty record, store the parameter in this index
+    *   if the index does not store an empty record, store the parameter in `\texttt{Spare}`
+You can assume there will always be enough space in `\texttt{Spare}` to store any collisions. Write program code for `\texttt{InsertIntoHash()}`.
+
+Save your program. Copy and paste the program code into part 2(d) in the evidence document. [6]"
+
+**Question "2e":**
+
+Finally, let's transcribe "2e." This involves a text file, `\texttt{HashData.txt}`, and the procedure `\texttt{CreateHashTable()}`. This should be a straightforward translation to a bulleted list:
+
+"The text file `\texttt{HashData.txt}` stores up to 200 rows of data to be stored into the hash table. Each row contains three integer numbers separated by commas. The first number is the key field, the second number is item 1 and the third number is item 2.
+For example:
+The first row in the text file contains: 646, 12, 568.
+The key field is 646, item 1 is 12 and item 2 is 568.
+
+The procedure `\texttt{CreateHashTable()}`:
+*   opens the file `\texttt{HashData.txt}`
+*   creates a record for each row of data in the file
+*   calls `\texttt{InsertIntoHash()}` with each record.
+
+Write program code for `\texttt{CreateHashTable()}`.
+
+Save your program. Copy and paste the program code into part 2(e) in the evidence document. [5]"
+
+Now I can formulate all of this into YAML output as directed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      The hash value is calculated from the key field using the formula: \texttt{Key MOD 200}
+
+      The function \texttt{CalculateHash()} takes a key field as a parameter and calculates and returns the hash value for the key field.
+
+      Write program code for \texttt{CalculateHash()}
+
+      \textbf{Save your program.}
+
+      \textbf{Copy and paste the program code into part 2(c) in the evidence document.}
+  - number: "2d"
+    type: short_answer
+    text: |
+      The procedure \texttt{InsertIntoHash()}:
+
+      \begin{itemize}
+      \item takes a record of type \texttt{NewRecord} as a parameter
+      \item uses \texttt{CalculateHash()} to calculate the hash value for the key field in the record
+      \item checks if the hash value index in \texttt{HashTable} currently stores an empty record
+        \begin{itemize}
+        \item if the index stores an empty record, store the parameter in this index
+        \item if the index does not store an empty record, store the parameter in \texttt{Spare}
+        \end{itemize}
+      \end{itemize}
+
+      You can assume there will always be enough space in \texttt{Spare} to store any collisions.
+
+      Write program code for \texttt{InsertIntoHash()}
+
+      \textbf{Save your program.}
+
+      \textbf{Copy and paste the program code into part 2(d) in the evidence document.}
+  - number: "2e"
+    type: short_answer
+    text: |
+      The text file \texttt{HashData.txt} stores up to 200 rows of data to be stored into the hash table. Each row contains three integer numbers separated by commas.
+
+      The first number is the key field, the second number is item 1 and the third number is item 2.
+
+      For example:
+
+      The first row in the text file contains: \texttt{646, 12, 568}
+
+      The key field is 646, item 1 is 12 and item 2 is 568
+
+      The procedure \texttt{CreateHashTable()}:
+
+      \begin{itemize}
+      \item opens the file \texttt{HashData.txt}
+      \item creates a record for each row of data in the file
+      \item calls \texttt{InsertIntoHash()} with each record.
+      \end{itemize}
+
+      Write program code for \texttt{CreateHashTable()}
+
+      \textbf{Save your program.}
+
+      \textbf{Copy and paste the program code into part 2(e) in the evidence document.}

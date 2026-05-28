@@ -1,0 +1,116 @@
+[thinking]
+**YAML Stub Population for Exam Page 3**
+
+Okay, so I need to populate the YAML stub for page 3 of this exam. The first question block is numbered "1a," but it's not a standalone question, it's the parent for (i), (ii), and (iii). The stub has "1a", "1ai", "1aii", and "1aiii".
+
+First, let's look at the page. The question starts with "(a) (i)", so there's no visible text directly associated with "1a". The rule states that if the stem of a stub entry isn't visible on the page, I should emit `STUB ERROR`. But, the text "(a) (i)" *is* visible, next to which "1a" is implied, making it a parent element. Given that the rule says *every entry's stem should be visible* I'll treat "1a" as the parent question, which will simply have no text, or `text: ''`. I won't emit `STUB ERROR`.
+
+Now, for question `1ai`, the image reads "(a) (i) Write program code to declare the class Bird and its constructor." The full question is:
+
+```yaml
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Bird} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      All attributes should be private.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program as \textbf{Question1\_N25}.
+
+      Copy and paste the program code into part \textbf{1(a)(i)} in the evidence document.
+```
+
+For `1aii`, the prompt is "The method GetSpecies() returns the species of the bird. Write program code for GetSpecies()". This becomes:
+
+```yaml
+  - number: "1aii"
+    type: short_answer
+    text: |
+      The method \texttt{GetSpecies()} returns the species of the bird.
+
+      Write program code for \texttt{GetSpecies()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(a)(ii)} in the evidence document.
+```
+
+And finally, for `1aiii`, the question is, "The method GetPosition() returns a string of the bird's data in the format: "X = " & <XPosition> & " Y = " & <YPosition>". An example string for a bird is: "X = 500.0 Y = 250.0". Write program code for GetPosition()". So the YAML should be:
+
+```yaml
+  - number: "1aiii"
+    type: short_answer
+    text: |
+      The method \texttt{GetPosition()} returns a string of the bird's data in the format:
+
+      \texttt{"X = " \& <XPosition> \& " Y = " \& <YPosition>}
+
+      An example string for a bird is:
+
+      \texttt{X = 500.0 Y = 250.0}
+
+      Write program code for \texttt{GetPosition()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(a)(iii)} in the evidence document.
+```
+
+I double-checked to make sure that the inline code sections are correctly wrapped in `\texttt{...}` and that characters are escaped. I did this, correctly escaping the `_` to be `\_` in the file name `Question1_N25` and the format string characters in question `1aiii`. The final YAML structure is complete.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1a"
+    type: short_answer
+    text: ''
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Bird} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      All attributes should be private.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program as \textbf{Question1\_N25}.
+
+      Copy and paste the program code into part \textbf{1(a)(i)} in the evidence document.
+  - number: "1aii"
+    type: short_answer
+    text: |
+      The method \texttt{GetSpecies()} returns the species of the bird.
+
+      Write program code for \texttt{GetSpecies()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(a)(ii)} in the evidence document.
+  - number: "1aiii"
+    type: short_answer
+    text: |
+      The method \texttt{GetPosition()} returns a string of the bird's data in the format:
+
+      \texttt{"X = " \& <XPosition> \& " Y = " \& <YPosition>}
+
+      An example string for a bird is:
+
+      \texttt{X = 500.0 Y = 250.0}
+
+      Write program code for \texttt{GetPosition()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(a)(iii)} in the evidence document.

@@ -1,0 +1,81 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 2**
+
+Okay, the task is to generate the YAML stub for page 2 of the exam. The structure seems straightforward, but I need to be precise. The questions are structured hierarchically: "1", "1a", "1ai", "1aii", and "1aiii".
+
+First, let's look at how the question numbers relate to the YAML hierarchy. The question starts with "1 (a)", which splits into the sub-levels. There's no separate introduction under the "1" level. So, "1" should be empty, `text: ''`. Same for `1a`, since it doesn't have its own content.
+
+Now, let's examine the actual questions to populate the deeper levels.
+
+*   "1ai": "Convert the binary number into hexadecimal." The answer format requires the binary number with a fill rule: `101100111010 \hrulefill`. This will be of type "calculation."
+*   "1aii": "Convert the denary number into Binary Coded Decimal (BCD)." This needs the denary number with a fill rule: `108 \hrulefill`. Also of type "calculation."
+*   "1aiii": "Convert the 12-bit two’s complement binary integer into denary." This section needs to include "Show your working." and then the number, followed by "Denary value \hrulefill". I need to follow the rules for "Show your working" which says to eliminate the working space label, and keep the answer line.
+
+The final YAML stub should be structured like this:
+
+```yaml
+- number: "1"
+  type: short_answer
+  text: ''
+- number: "1a"
+  type: short_answer
+  text: ''
+- number: "1ai"
+  type: calculation
+  text: |
+    Convert the binary number into hexadecimal.
+
+    101100111010 \hrulefill
+- number: "1aii"
+  type: calculation
+  text: |
+    Convert the denary number into Binary Coded Decimal (BCD).
+
+    108 \hrulefill
+- number: "1aiii"
+  type: calculation
+  text: |
+    Convert the 12-bit two’s complement binary integer into denary.
+
+    Show your working.
+
+    111110111100
+
+    Denary value \hrulefill
+```
+
+This should be perfect; it covers all the requirements and is compliant with all established rules.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: ''
+  - number: "1ai"
+    type: calculation
+    text: |
+      Convert the binary number into hexadecimal.
+
+      101100111010 \hrulefill
+  - number: "1aii"
+    type: calculation
+    text: |
+      Convert the denary number into Binary Coded Decimal (BCD).
+
+      108 \hrulefill
+  - number: "1aiii"
+    type: calculation
+    text: |
+      Convert the 12-bit two’s complement binary integer into denary.
+
+      Show your working.
+
+      111110111100
+
+      Denary value \hrulefill

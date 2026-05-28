@@ -1,0 +1,31 @@
+questions:
+  - number: "5a"
+    type: short_answer
+    text: |
+      State Kirchhoff’s first law.
+  - number: "5b"
+    type: short_answer
+    text: |
+      The intensity of light incident on Z is $130\text{ W}\,\text{m}^{-2}$. The current in the battery is $38\text{ mA}$.
+  - number: "5bi"
+    type: calculation
+    text: |
+      Show that the terminal potential difference of the battery is $4.8\text{ V}$.
+  - number: "5bii"
+    type: calculation
+    text: |
+      Calculate the current $I_2$ in Y.
+
+      $I_2 = $ \hrulefill A
+  - number: "5biii"
+    type: calculation
+    text: |
+      Calculate the power dissipated in Y.
+
+      power = \hrulefill W
+  - number: "5biv"
+    type: long_answer
+    text: |
+      The intensity of the light incident on Z decreases.
+
+      State and explain the effect on the terminal potential difference of the battery.

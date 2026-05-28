@@ -1,0 +1,24 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2a"
+    type: short_answer
+    text: |
+      State \textbf{two} ways in which the first law of thermodynamics describes that the internal energy of a system may be changed.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2bi"
+    type: long_answer
+    text: |
+      Use the first law of thermodynamics to explain why a bicycle pump gets hot when it is used to pump up a tyre quickly.
+  - number: "2bii"
+    type: long_answer
+    text: |
+      With reference to molecular energies, explain why the temperature of water remains at $100^\circ\text{C}$ when it vaporises in a kettle, even though it is being heated.

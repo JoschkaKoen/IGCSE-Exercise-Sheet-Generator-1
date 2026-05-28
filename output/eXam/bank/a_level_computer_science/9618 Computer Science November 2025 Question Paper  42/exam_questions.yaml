@@ -1,0 +1,759 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores data about birds using Object-Oriented Programming (OOP).
+
+
+    The class \texttt{Bird} stores the data about the birds:
+
+
+    \begin{tabular}{|l|p{8cm}|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Bird}} \\
+
+    \hline
+
+    \texttt{DistancePerHour : Real} & stores the number of kilometres per hour (km/h)
+    the bird can fly (between 0.0 and 100.0 inclusive) \\
+
+    \texttt{Species : String} & stores the species of the bird, for example Pigeon
+    \\
+
+    \texttt{XPosition : Real} & stores the current horizontal position of the bird
+    \\
+
+    \texttt{YPosition : Real} & stores the current vertical position of the bird \\
+
+    \hline
+
+    \texttt{Constructor()} & initialises \texttt{Species} and \texttt{DistancePerHour}
+    to the parameter values; initialises \texttt{XPosition} and \texttt{YPosition}
+    to 500.0 \\
+
+    \texttt{GetPosition()} & returns a string message that contains the horizontal
+    and vertical position of the bird \\
+
+    \texttt{GetSpecies()} & returns the species of the bird \\
+
+    \texttt{Move()} & takes a direction and number of minutes flying (between 0 and
+    500 inclusive) as parameters and updates the appropriate horizontal or vertical
+    position \\
+
+    \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Bird} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        All attributes should be private.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        Save your program as \textbf{Question1\_N25}.
+
+
+        Copy and paste the program code into part \textbf{1(a)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The method \texttt{GetSpecies()} returns the species of the bird.
+
+
+        Write program code for \texttt{GetSpecies()}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(a)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1aiii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The method \texttt{GetPosition()} returns a string of the bird''s data
+        in the format:
+
+
+        \texttt{"X = " \& <XPosition> \& " Y = " \& <YPosition>}
+
+
+        An example string for a bird is:
+
+
+        \texttt{X = 500.0 Y = 250.0}
+
+
+        Write program code for \texttt{GetPosition()}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(a)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1aiv
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: "If the bird is travelling north, the vertical position increases. If\
+        \ the bird is travelling south, the vertical position decreases.\n\nIf the\
+        \ bird is travelling east, the horizontal position increases. If the bird\
+        \ is travelling west, the horizontal position decreases.\n\nThe method \\\
+        texttt{Move()}:\n\\begin{itemize}\n\\item takes the direction of travel as\
+        \ a parameter in the form `\\texttt{N}' for north, `\\texttt{S}' for south,\
+        \ `\\texttt{E}' for east or `\\texttt{W}' for west\n\\item takes the number\
+        \ of minutes that the bird has been flying (to the nearest minute) as a parameter\n\
+        \\item calculates the distance travelled by the bird using the formula:\n\
+        \      $$\\text{distance travelled} = (\\text{distance per hour} / 60) \\\
+        times \\text{minutes flying}$$\n\\item updates the vertical or horizontal\
+        \ position using the distance calculated.\n\\end{itemize}\n\nYou do \\textbf{not}\
+        \ need to validate the parameters.\n\nWrite program code for \\texttt{Move()}\n\
+        \nSave your program.\n\nCopy and paste the program code into part \\textbf{1(a)(iv)}\
+        \ in the evidence document."
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The main program creates two instances of \texttt{Bird}
+
+
+      The first bird is the species `Cockatiel'' and flies $71.0\text{ km/h}$.
+
+
+      The second bird is the species `Macaw'' and flies $56.0\text{ km/h}$.
+
+
+      Write program code to declare and initialise the \textbf{two} birds.
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(b)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 8
+      text: 'The main program needs to:
+
+
+        \begin{itemize}
+
+        \item output a message that includes the species and current X position and
+        Y position for each bird
+
+        \item prompt the user to select one of the birds to move and take this as
+        an input
+
+        \item prompt the user to enter the direction the bird has been travelling
+        and take this as an input
+
+        \item prompt the user to enter the time to the nearest minute that the bird
+        has been travelling and take this as an input
+
+        \item call the appropriate method to update the chosen bird''s position
+
+        \item output an update on the bird''s new position
+
+        \end{itemize}
+
+
+        Each input needs to repeat until valid data is entered. All outputs must be
+        meaningful.
+
+
+        Write program code to amend the main program.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(c)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Test your program \textbf{four} times to meet these criteria:
+
+
+        Test 1: The Cockatiel travels north for 60 minutes.
+
+
+        Test 2: The Macaw travels south for 30 minutes.
+
+
+        Test 3: The Cockatiel travels west for 30 minutes.
+
+
+        Test 4: The Macaw travels east for 60 minutes.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot(s) into part \textbf{1(c)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program stores 20 unique random integers between 0 and 100 (inclusive) in
+    a 1D array that is local to the main program.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Write program code to declare the array local to the main program and store
+      20 \textbf{unique} random numbers between 0 and 100 (inclusive) in the array.
+
+
+      Save your program as \textbf{Question2\_N25}.
+
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The procedure \texttt{PrintArray()} takes an integer array as a parameter.
+      The procedure outputs the array contents on a single line with a space between
+      each integer.
+
+
+      Write the program code for \texttt{PrintArray()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The function \texttt{BubbleSort()}:
+
+
+      \begin{itemize}
+
+      \item takes an integer array as a parameter
+
+      \item sorts the data into ascending order using a bubble sort
+
+      \item returns the sorted array.
+
+      \end{itemize}
+
+
+      The function needs to work for an array of any length.
+
+
+      Do \textbf{not} use an inbuilt sorting method.
+
+
+      Write program code for \texttt{BubbleSort()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2di
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The main program:
+
+
+        \begin{itemize}
+
+        \item outputs the contents of the array using \texttt{PrintArray()}
+
+        \item sorts the array using \texttt{BubbleSort()}
+
+        \item outputs "Sorted"
+
+        \item outputs the contents of the sorted array using \texttt{PrintArray()}
+
+        \end{itemize}
+
+
+        Write program code for the main program.
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{2(d)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2dii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+        Copy and paste the screenshot(s) into part \textbf{2(d)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The recursive function \texttt{RecursiveBinarySearch()} takes four parameters:
+
+
+      \begin{itemize}
+
+      \item an integer array
+
+      \item the lower bound of the array
+
+      \item the upper bound of the array
+
+      \item the value to find in the array.
+
+      \end{itemize}
+
+
+      The recursive function performs a binary search to find the index of the value
+      in the array.
+
+
+      The function returns the index of the value if it is found. The function returns
+      $-1$ if the value is not found.
+
+
+      Write program code for \texttt{RecursiveBinarySearch()}
+
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2f
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The main program:
+
+
+      \begin{itemize}
+
+      \item prompts the user to enter an integer
+
+      \item takes the integer as input
+
+      \item calls \texttt{RecursiveBinarySearch()} with the sorted array, appropriate
+      lower bound, appropriate upper bound and the user''s input as parameters
+
+      \item outputs "Not found" if the input is not within the array
+
+      \item outputs "Found at position" and the index if the input is within the array.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions:
+    - number: 2fi
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write program code to amend the main program.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(f)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2fii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Test your program \textbf{three} times with each of the inputs described:
+
+
+        Test 1: the smallest number in the array
+
+
+        Test 2: the largest number in the array
+
+
+        Test 3: a number \textbf{not} in the array
+
+
+        Take a screenshot of each output.
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot(s) into part \textbf{2(f)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores integers in ascending order in an ordered binary tree. The
+    tree is implemented as a 2D array.
+
+
+    Each node is stored with three values:
+
+    \begin{itemize}
+
+    \item a pointer to the left node
+
+    \item the data
+
+    \item a pointer to the right node.
+
+    \end{itemize}
+
+
+    All null values are stored as $-1$
+
+
+    The binary tree can store up to 50 nodes.
+
+
+    Nodes cannot be deleted from the binary tree.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The binary tree is stored as a global array with the identifier \texttt{TreeArray}.
+      The left pointer, the data and the right pointer of each node are initialised
+      to $-1$
+
+
+      The global variable \texttt{RootPointer} stores the index of the root node in
+      the tree, initialised to $-1$
+
+
+      The global variable \texttt{FreeNode} stores the index of the next free node
+      in the array, initialised to $0$
+
+
+      Write program code to declare and initialise \texttt{TreeArray}, \texttt{RootPointer}
+      and \texttt{FreeNode}
+
+
+      Save your program as \textbf{Question3\_N25}.
+
+
+      Copy and paste the program code into part \textbf{3(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'The procedure \texttt{AddNode()}:
+
+      \begin{itemize}
+
+      \item takes an integer to store in the binary tree as a parameter
+
+      \item stores the parameter in the next free node in the array
+
+      \item finds the position to store the data in the tree by following the appropriate
+      pointers
+
+      \item updates the pointer of the new node''s parent node.
+
+      \end{itemize}
+
+
+      The procedure outputs \texttt{"The tree is full"} if the parameter cannot be
+      stored because the tree is full.
+
+
+      Write program code for \texttt{AddNode()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{3(b)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The text file \texttt{TreeData.txt} stores 50 integers. Each integer is
+      on a new line in the file.
+
+
+      The main program reads each integer from the file and stores each integer in
+      the binary tree in the order they are read.
+
+
+      Write program code for the main program.
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      Save your program. \\
+
+      Copy and paste the program code into part \textbf{3(c)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The procedure \texttt{WriteAllToFile()} stores the content of \texttt{TreeArray}
+      in a new text file with the filename \texttt{Tree.txt}. The file \texttt{Tree.txt}
+      is not provided.
+
+
+      Each node in \texttt{TreeArray} is stored on one line with a comma separating
+      each value.
+
+
+      For example, the current contents of \texttt{TreeArray} are:
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{Index} & \textbf{0} & \textbf{1} & \textbf{2} \\ \hline
+
+      \textbf{0} & -1 & 20 & 1 \\ \hline
+
+      \textbf{1} & -1 & 30 & -1 \\ \hline
+
+      \dots & & & \\ \hline
+
+      \textbf{49} & -1 & -1 & -1 \\ \hline
+
+      \end{tabular}
+
+
+      After writing \texttt{TreeArray} to the text file, \texttt{Tree.txt} will contain:
+
+
+      \begin{alltt}
+
+      -1,20,1
+
+      -1,30,-1
+
+      ...
+
+      -1,-1,-1
+
+      \end{alltt}
+
+
+      Write program code for \texttt{WriteAllToFile()}
+
+
+      Include exception handling when writing to the file.
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      Save your program. \\
+
+      Copy and paste the program code into part \textbf{3(d)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3e
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 3ei
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Amend the main program to call \texttt{WriteAllToFile()}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(e)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3eii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot that shows all of the content stored in the file \texttt{Tree.txt}
+
+
+        In this screenshot you need to make sure the filename is visible.
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot(s) into part \textbf{3(e)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []

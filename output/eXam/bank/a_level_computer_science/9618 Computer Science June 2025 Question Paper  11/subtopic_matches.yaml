@@ -1,0 +1,33 @@
+subject_key: a_level_computer_science
+paper_stem: 9618 Computer Science June 2025 Question Paper  11
+model: qwen3.6-plus
+matched_at: '2026-05-28T05:16:24Z'
+matches:
+  1a: ['3.2']
+  1b: ['3.2']
+  2a: ['2.1']
+  2bi: ['1.3', '2.1']
+  2bii: ['1.3']
+  2c: ['2.1']
+  3a: ['1.2']
+  3bi: ['1.1']
+  3bii: ['1.1']
+  3biii: ['1.1']
+  4a: ['18.1']
+  4b: ['3.1']
+  5a: ['8.1']
+  5b: ['8.1']
+  5c: ['8.1']
+  5d: ['8.1']
+  5e: ['8.3']
+  6ai: ['3.1']
+  6aii: ['4.1']
+  6aiii: ['4.1']
+  6b: ['5.1']
+  7a: ['6.1']
+  7b: ['17.1']
+  7c: ['6.2']
+  8a: ['4.2']
+  8bi: ['4.3']
+  8bii: ['4.3']
+  8biii: ['4.3']

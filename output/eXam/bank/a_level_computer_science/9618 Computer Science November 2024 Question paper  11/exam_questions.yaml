@@ -1,0 +1,741 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State \textbf{one} difference between a tebibyte and a gigabyte.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Convert the unsigned binary integer into hexadecimal.
+
+
+        110001100111
+
+
+        Answer \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Convert the two''s complement binary number into denary.
+
+
+        100110010111
+
+
+        Answer \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Convert the Binary Coded Decimal (BCD) into denary.
+
+
+        010101110011
+
+
+        Answer \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Subtract the denary number 23 from the two''s complement binary number
+      01001010
+
+
+      Perform this calculation using binary subtraction.
+
+
+      Show your working.
+
+
+      Answer \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State one reason why binary addition and subtraction can result in overflow.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A shop repairs electronic devices, for example mobile phones and tablet computers.
+    The shop owner stores the data about the repairs using a file-based approach.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give \textbf{one} limitation of using a file-based approach to store the
+      data \textbf{and} explain how a relational database addresses this limitation.
+
+
+      Limitation \hrulefill
+
+
+      Explanation \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The shop owner creates a relational database called \texttt{FIXIT}.
+
+
+      The database stores data about the customers and the devices for repair.
+
+
+      Some devices need new parts that are ordered from suppliers.
+
+
+      The database \texttt{FIXIT} is designed to include the following tables:
+
+
+      \texttt{PART(PartID, Description, Price, SupplierID)}
+
+
+      \texttt{CUSTOMER(CustomerID, FirstName, LastName, ContactNumber)}
+
+
+      \texttt{REPAIR(RepairNumber, StartDate, EndDate, CustomerID, Device)}
+
+
+      \texttt{REPAIR\_PART(PartID, RepairNumber, Quantity)}'
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Complete the entity-relationship (E-R) diagram for the given tables.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'The table shows sample data for the table \texttt{REPAIR\_PART}.
+
+
+        \begin{tabular}{|l|l|l|}
+
+        \hline
+
+        \multicolumn{1}{|c|}{\textbf{PartID}} & \multicolumn{1}{c|}{\textbf{RepairNumber}}
+        & \multicolumn{1}{c|}{\textbf{Quantity}} \\ \hline
+
+        ACD128SA & 0022 & 3 \\ \hline
+
+        PPOR543DWW & 0022 & 1 \\ \hline
+
+        TR453 & 0023 & 1 \\ \hline
+
+        PPOR543DWW & 0023 & 2 \\ \hline
+
+        WED5 & 0024 & 5 \\ \hline
+
+        \end{tabular}
+
+
+        Write a Structured Query Language (SQL) script to define the table \texttt{REPAIR\_PART}.
+
+
+        Include constraints (restrictions) on the data that can be entered into each
+        field where appropriate.'
+      answer_options: []
+      subquestions: []
+    - number: 2biii
+      question_type: long_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Suppliers send invoices to the company for the parts that are used. A
+        new table, \texttt{INVOICE}, stores the data about each invoice and whether
+        it has been paid or not.
+
+
+        The design for the table \texttt{INVOICE} is shown:
+
+
+        \texttt{INVOICE(InvoiceID, SupplierID, AmountDue, Paid, DatePaid)}
+
+
+        The table shows sample data for the table \texttt{INVOICE}.
+
+
+        \begin{tabular}{|l|l|l|l|l|}
+
+        \hline
+
+        \textbf{InvoiceID} & \textbf{SupplierID} & \textbf{AmountDue} & \textbf{Paid}
+        & \textbf{DatePaid} \\ \hline
+
+        000001 & JK675 & 22.50 & TRUE & 01/01/2024 \\ \hline
+
+        000002 & WR443 & 358.99 & FALSE & \\ \hline
+
+        000003 & JK675 & 10.21 & FALSE & \\ \hline
+
+        \end{tabular}
+
+
+        Write an SQL script to return the total amount due to the supplier with the
+        ID of JK675 for all the invoices that have not currently been paid.'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the table by writing a definition for each of the database terms.
+
+
+      \begin{tabular}{|c|p{10cm}|}
+
+      \hline
+
+      \textbf{Term} & \multicolumn{1}{c|}{\textbf{Definition}} \\ \hline
+
+      Referential integrity & \newline\newline \\ \hline
+
+      Candidate key & \newline\newline \\ \hline
+
+      Tuple & \newline\newline \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer system has a dual-core Central Processing Unit (CPU).
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State the purpose of the system clock and the Control Unit (CU) in a CPU.
+
+
+      System clock \hrulefill
+
+
+      CU \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The number of cores in the processor affects the performance of the computer
+      system.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Identify \textbf{one other} feature of a processor that can affect the
+        performance of a computer system \textbf{and} state why it affects the performance.
+
+
+        Feature \hrulefill
+
+
+        Reason \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'A solid state (flash) memory drive is automatically recognised by the
+        computer when it is plugged into a port in the computer.
+
+
+        Identify an appropriate type of port to connect the solid state memory drive
+        to the computer.
+
+
+        Explain how this port provides an automatic connection.
+
+
+        Port \hrulefill
+
+
+        Explanation \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} disadvantages of using Dynamic RAM (DRAM) instead
+      of Static RAM (SRAM) in a computer system.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The computer system is used to store data received from a temperature sensor
+      every five seconds. The data is stored on an optical disc using an optical disc
+      reader/writer.
+    answer_options: []
+    subquestions:
+    - number: 3di
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Describe the principal operation of an optical disc reader/writer.
+      answer_options: []
+      subquestions: []
+    - number: 3dii
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The computer uses a buffer when writing data to the optical disc.
+
+
+        Explain the use of a buffer when writing data to the optical disc.'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student uses a laptop to write a program that is saved as a text file.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The laptop has utility software and an Operating System (OS).
+    answer_options: []
+    subquestions:
+    - number: 4ai
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe the file management tasks carried out by an OS.
+      answer_options: []
+      subquestions: []
+    - number: 4aii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain the need for back-up software.
+      answer_options: []
+      subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The student compresses the file before it is emailed to their teacher as
+      an attachment.
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: long_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain the benefits to the teacher of the attachment being a compressed
+        file.
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: long_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Describe \textbf{one} lossless method of compressing a text file.
+      answer_options: []
+      subquestions: []
+  - number: 4c
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The student used a program library when writing their program.
+
+
+      Explain the benefits to the student of using library files when writing a program.'
+    answer_options: []
+    subquestions: []
+  - number: 4d
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The program code is written using an Integrated Development Environment
+      (IDE).
+    answer_options: []
+    subquestions:
+    - number: 4di
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'One presentation feature found in a typical IDE is prettyprint.
+
+
+        Identify and describe \textbf{one other} presentation feature found in a typical
+        IDE.
+
+
+        Feature \hrulefill
+
+
+        Description \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 4dii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'One debugging feature found in a typical IDE is single stepping.
+
+
+        Identify and describe \textbf{one other} debugging feature found in a typical
+        IDE.
+
+
+        Feature \hrulefill
+
+
+        Description \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A security system has both a floodlight (very bright light) and an audio
+    alarm.
+
+
+    The data from multiple sensors is analysed and used to:
+
+    \begin{itemize}
+
+    \item turn on the floodlight
+
+    \item sound the audio alarm.
+
+    \end{itemize}
+
+
+    Sensors can be used to detect:
+
+    \begin{itemize}
+
+    \item if doors are open
+
+    \item the external daylight level
+
+    \item if people are detected within a set distance.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Complete the table to identify the most appropriate type of sensor for
+      each scenario.
+
+
+      \begin{tabular}{|p{8cm}|p{6cm}|}
+
+      \hline
+
+      \textbf{Scenario} & \textbf{Type of sensor} \\ \hline
+
+      A door is open. & \hrulefill \\ \hline
+
+      The external daylight level is below a set amount. & \hrulefill \\ \hline
+
+      A person is detected within 2 metres. & \hrulefill \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The floodlight (\textbf{X}) and audio alarm (\textbf{Y}) operate according
+      to the following criteria:
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{Parameter} & \textbf{Description of parameter} & \textbf{Binary value}
+      & \textbf{Condition} \\ \hline
+
+      \textbf{A} & external daylight level & 1 & Low \\ \cline{3-4}
+
+      & & 0 & High \\ \hline
+
+      \textbf{B} & front door & 1 & Open \\ \cline{3-4}
+
+      & & 0 & Closed \\ \hline
+
+      \textbf{C} & person is within 2 m & 1 & Detected \\ \cline{3-4}
+
+      & & 0 & Not detected \\ \hline
+
+      \textbf{D} & back door & 1 & Open \\ \cline{3-4}
+
+      & & 0 & Closed \\ \hline
+
+      \textbf{E} & security system & 1 & Switched on \\ \cline{3-4}
+
+      & & 0 & Switched off \\ \hline
+
+      \end{tabular}
+
+
+      The floodlight turns on ($X = 1$) if:
+
+      \begin{itemize}
+
+      \item the security system is switched on \textbf{and}
+
+      \item the external daylight level is low \textbf{and}
+
+      \item a person is detected within 2 m.
+
+      \end{itemize}
+
+
+      The audio alarm turns on ($Y = 1$) if:
+
+      \begin{itemize}
+
+      \item the security system is switched on \textbf{and}
+
+      \item one \textbf{or} more doors are open, \textbf{or} a person is detected
+      within 2 m.
+
+      \end{itemize}
+
+
+      Write logic expressions for the security system.
+
+
+      \textbf{X} = \hrulefill
+
+
+      \textbf{Y} = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain whether the security system is an example of a monitoring system
+      or a control system.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: long_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'A car park system uses a camera to record the registration number of each
+    car as it enters and leaves the car park.
+
+
+    Explain how artificial intelligence is used in the car park system to identify
+    the car''s registration number.'
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Software is distributed with a licence.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} benefits of distributing software using a shareware software
+      licence.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} benefits of distributing software using a commercial
+      software licence.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer designed using the Von Neumann model for a computer system contains
+    general purpose registers and special purpose registers.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the purpose of the Status Register (SR).
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} differences between general purpose registers and
+      special purpose registers.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []

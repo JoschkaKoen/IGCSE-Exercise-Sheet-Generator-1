@@ -1,0 +1,39 @@
+[thinking]
+**Transcribing Question 7: A Physics Problem**
+
+Okay, the user wants me to transcribe Question 7 from this exam page. My task is straightforward: extract the question details and present them in a usable format, likely for another application. It looks like a multiple-choice physics question, probably involving projectile motion. Let's see...
+
+I need to record the question number, which is "7", and its type, "multiple_choice." The main part is the question text itself, which describes two horizontally projected objects falling different vertical distances. The first object falls a distance *y* and travels a horizontal distance *x*. The second object falls a distance *4y* with the same initial velocity. Air resistance is negligible. The question is asking for the horizontal distance the second object travels. Seems like a classic kinematics problem.
+
+Now, I'll need to extract the answer options. We have four options: A is *x*, B is *2x*, C is *4x* and D is *16x*. Wait, I better check if there were any last-minute revisions to this question, I will double check the image to confirm option C is actually 4x, the image looks good. Alright, I'm confident in the values.
+
+Now, I'll structure the information using block scalars and LaTeX math as requested. This should result in clean and easily parsed YAML format for the question text and answer choices.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: multiple_choice
+    text: |
+      An object is projected horizontally. The object falls a vertical distance $y$ and travels a horizontal distance $x$ before landing on the ground.
+
+      A second object is projected horizontally with the same initial velocity and falls a vertical distance $4y$ before landing on the ground.
+
+      Assume that air resistance is negligible.
+
+      Which horizontal distance does the second object travel?
+    options:
+      - letter: A
+        text: |
+          $x$
+      - letter: B
+        text: |
+          $2x$
+      - letter: C
+        text: |
+          $4x$
+      - letter: D
+        text: |
+          $16x$

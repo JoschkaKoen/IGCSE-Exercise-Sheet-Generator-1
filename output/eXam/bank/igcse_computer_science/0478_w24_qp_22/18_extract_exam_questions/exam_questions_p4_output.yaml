@@ -1,0 +1,58 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      This pseudocode algorithm is intended to sort a pre-populated one-dimensional (1D) array named \texttt{ItemList} into alphabetical order using a bubble sort.
+
+      \begin{alltt}
+      01 DECLARE ItemList : ARRAY[1:100] OF STRING
+      02 DECLARE Counter : STRING
+      03 DECLARE Limit : INTEGER
+      04 DECLARE Pass : INTEGER
+      05 DECLARE Swapped : BOOLEAN
+      06 DECLARE Temp : STRING
+      07 Limit <- 100
+      08 Pass <- 1
+      09 Temp <- TRUE
+      10 WHILE Swapped = TRUE OR Pass <= Limit - 1 DO
+      11     Swapped <- FALSE
+      12     FOR Counter <- 1 TO Limit - Pass
+      13         IF ItemList[Counter] > ItemList[Counter + 1]
+      14         THEN
+      15             Temp <- ItemList[Counter]
+      16             ItemList[Counter] <- ItemList[Counter + 1]
+      17             ItemList[Counter] <- Temp
+      18             Swapped <- TRUE
+      19         ENDCASE
+      20     Pass <- Pass + 1
+      21     NEXT Counter
+      22 ENDWHILE
+      \end{alltt}
+  - number: "4a"
+    type: short_answer
+    text: |
+      Identify the line numbers of \textbf{five} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+
+      \hrulefill
+
+      Error 2 line number \hrulefill
+
+      Correction \hrulefill
+
+      \hrulefill
+
+      Error 3 line number \hrulefill
+
+      Correction \hrulefill
+
+      \hrulefill
+
+      Error 4 line number \hrulefill
+
+      Correction \hrulefill
+
+      \hrulefill

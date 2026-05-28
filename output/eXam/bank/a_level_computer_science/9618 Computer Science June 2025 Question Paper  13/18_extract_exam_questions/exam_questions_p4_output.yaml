@@ -1,0 +1,31 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A computer has a processor.
+  - number: "2a"
+    type: short_answer
+    text: |
+      The processor has a Control Unit (CU) and system clock.
+  - number: "2ai"
+    type: long_answer
+    text: |
+      Explain how the CU and the system clock work together.
+  - number: "2aii"
+    type: long_answer
+    text: |
+      The processor runs the Fetch-Execute (F-E) cycle.
+
+      Write the stages of the F-E cycle using register transfer notation.
+  - number: "2b"
+    type: long_answer
+    text: |
+      The computer has cache memory.
+
+      Describe one benefit of the computer using cache memory.
+  - number: "2c"
+    type: long_answer
+    text: |
+      The computer connects to a monitor using a High Definition Multimedia Interface (HDMI) cable that connects into an HDMI port.
+
+      Explain how HDMI provides connection to peripheral devices.

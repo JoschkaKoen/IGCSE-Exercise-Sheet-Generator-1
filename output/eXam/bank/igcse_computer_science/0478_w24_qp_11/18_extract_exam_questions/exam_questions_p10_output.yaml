@@ -1,0 +1,34 @@
+questions:
+  - number: "6e"
+    type: long_answer
+    text: |
+      The programmer uses an integrated development environment (IDE) to write the program.
+
+      A built-in translator to convert the program into machine code is one way that the IDE helps the computer programmer.
+
+      Describe \textbf{three} other ways the IDE can help the programmer.
+  - number: "7"
+    type: short_answer
+    text: |
+      A computer has an operating system.
+  - number: "7a"
+    type: short_answer
+    text: |
+      The operating system provides several functions.
+  - number: "7ai"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which of these is \textbf{not} a function of the operating system.
+    options:
+      - letter: A
+        text: |
+          managing files
+      - letter: B
+        text: |
+          providing an interface
+      - letter: C
+        text: |
+          handling interrupts
+      - letter: D
+        text: |
+          loading the bootstrap

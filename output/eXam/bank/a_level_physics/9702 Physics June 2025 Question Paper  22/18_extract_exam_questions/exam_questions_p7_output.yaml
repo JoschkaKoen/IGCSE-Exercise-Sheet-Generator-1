@@ -1,0 +1,13 @@
+questions:
+  - number: "2bii"
+    type: short_answer
+    text: |
+      On Fig. 2.2, draw a labelled scale vector triangle to represent the forces acting on the tree. The weight of the tree has been drawn to scale.
+  - number: "2biii"
+    type: calculation
+    text: |
+      The tree exerts a pressure of $150\text{ kPa}$ on the top of the post.
+
+      Determine the surface area of the tree in contact with the post.
+
+      area = \hrulefill $\text{m}^2$

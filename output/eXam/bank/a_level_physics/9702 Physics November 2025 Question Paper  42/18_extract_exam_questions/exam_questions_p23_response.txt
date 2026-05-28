@@ -1,0 +1,61 @@
+[thinking]
+**Processing Exam Questions for Transcription**
+
+Okay, so the task is to extract and format a few questions from page 23 of the exam. Specifically, I need to focus on question 10bii, 10biii, and 10c. Right, let's break this down systematically.
+
+First, "10bii". This looks like a calculation, determining the linear attenuation coefficient, μ, of material Q. The formatting needs to include an answer line, with the correct units as `cm⁻¹`. We have to render that correctly in the markdown, let's make sure that's `cm^{-1}`. So, my formatted output for that will be:
+
+```yaml
+    text: |
+      Determine the linear attenuation coefficient $\mu$ of material Q.
+
+      $\mu = $ \hrulefill $\text{cm}^{-1}$
+```
+
+Next, "10biii". This is a short answer, requiring an explanation based on information from a previous part (b)(i). No answer line is needed, so I simply need to transcribe the question:
+
+```yaml
+    text: |
+      Use the information in (b)(i) to suggest why the X-rays emerging from the structure form an image that has poor contrast.
+```
+
+Finally, "10c". This is a long answer question asking for an explanation of how X-rays are used in computed tomography (CT) scanning to generate a 3D image. Again, no specific answer line is needed. Here's how I format that:
+
+```yaml
+    text: |
+      Explain how X-rays are used in computed tomography (CT) scanning to produce a three-dimensional image of an internal structure.
+```
+
+Just need to double check the formatting. No double quotes needed, block scalar for multiline strings. No `options` key for these types of questions, and no fill lines. Good.
+
+Okay, I see the prefixes like (ii), (iii), and (c). I'll strip those off.
+
+Let's quickly go through those questions again, to check.
+
+"10bii" becomes "Determine the linear attenuation coefficient $\mu$ of material Q." and `$\mu = $ \hrulefill $\text{cm}^{-1}$`.
+
+"10biii" becomes "Use the information in (b)(i) to suggest why the X-rays emerging from the structure form an image that has poor contrast."
+
+And "10c" becomes "Explain how X-rays are used in computed tomography (CT) scanning to produce a three-dimensional image of an internal structure."
+
+Alright, I believe everything is correctly formatted, with proper rendering of the LaTeX for µ and cm⁻¹.
+
+
+
+[/thinking]
+
+questions:
+  - number: "10bii"
+    type: calculation
+    text: |
+      Determine the linear attenuation coefficient $\mu$ of material Q.
+
+      $\mu = $ \hrulefill $\text{cm}^{-1}$
+  - number: "10biii"
+    type: short_answer
+    text: |
+      Use the information in (b)(i) to suggest why the X-rays emerging from the structure form an image that has poor contrast.
+  - number: "10c"
+    type: long_answer
+    text: |
+      Explain how X-rays are used in computed tomography (CT) scanning to produce a three-dimensional image of an internal structure.

@@ -1,0 +1,18 @@
+questions:
+  - number: "40"
+    type: multiple_choice
+    text: |
+      Which combination of three quarks has no overall charge?
+    options:
+      - letter: A
+        text: |
+          down, strange, strange
+      - letter: B
+        text: |
+          up, charm, strange
+      - letter: C
+        text: |
+          up, charm, top
+      - letter: D
+        text: |
+          up, down, strange

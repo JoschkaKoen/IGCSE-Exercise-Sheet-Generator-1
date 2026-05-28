@@ -1,0 +1,26 @@
+questions:
+  - number: "2fii"
+    type: short_answer
+    text: |
+      In the checksum error detection method, two values are compared after transmission. If the values do \textbf{not} match, an error is detected.
+
+      Explain why the values \textbf{not} matching would show an error has occurred.
+  - number: "2g"
+    type: short_answer
+    text: |
+      The email data is encrypted using asymmetric encryption before it is sent.
+  - number: "2gi"
+    type: short_answer
+    text: |
+      Give \textbf{one} reason why the email data is encrypted.
+  - number: "2gii"
+    type: short_answer
+    text: |
+      Give \textbf{one} similarity between symmetric encryption and asymmetric encryption.
+  - number: "2giii"
+    type: short_answer
+    text: |
+      Give \textbf{two} differences between symmetric encryption and asymmetric encryption.
+
+      1. \hrulefill
+      2. \hrulefill		

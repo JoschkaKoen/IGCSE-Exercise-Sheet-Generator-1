@@ -1,0 +1,53 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The class \texttt{Tree} stores the tree.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Tree}} \\ \hline
+      \texttt{FirstNode : Node} & stores the root node in the tree \\ \hline
+      \texttt{Constructor()} & initialises \texttt{FirstNode} to its parameter value \\ \hline
+      \texttt{GetRootNode()} & returns the node stored in \texttt{FirstNode} \\ \hline
+      \texttt{Insert()} & stores its parameter node in the correct position in the tree \\ \hline
+      \end{tabular}
+  - number: "3ci"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Tree} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document.
+  - number: "3cii"
+    type: short_answer
+    text: |
+      Write program code for \texttt{GetRootNode()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence document.
+  - number: "3ciii"
+    type: short_answer
+    text: |
+      The method \texttt{Insert()} takes a node as a parameter and then searches the tree to find the position to insert the new node by:
+
+      \begin{itemize}
+      \item checking whether the node's data is less than or greater than the root node's data
+      \item moving to the left node if the data is less than the root node's data
+      \item moving to the right node if the data is greater than or equal to the root node's data
+      \item repeating until the final position of the node is found and stores the node in that position.
+      \end{itemize}
+
+      Write program code for \texttt{Insert()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(c)(iii)} in the evidence document.

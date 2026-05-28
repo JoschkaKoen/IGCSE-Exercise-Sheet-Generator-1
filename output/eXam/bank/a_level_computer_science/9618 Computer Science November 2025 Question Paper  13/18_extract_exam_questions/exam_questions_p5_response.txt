@@ -1,0 +1,29 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A network engineer is setting up a Local Area Network (LAN) in an office. The network uses both wired and wireless connectivity.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Give \textbf{three} advantages of a wireless network compared to a wired network.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      Give \textbf{one} drawback of using a wireless network.
+  - number: "4c"
+    type: short_answer
+    text: |
+      Complete the table by writing the name of the type of memory technology for each description.
+
+      \begin{tabular}{|p{8cm}|p{6cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Description}} & \multicolumn{1}{c|}{\textbf{Memory technology}} \\ \hline
+      A read only memory where the contents can be erased using a voltage pulse. The contents can be changed multiple times without physically removing the memory. & \\ \hline
+      A read only memory where the contents are erased using ultraviolet (UV) light. The memory must be physically removed to be reprogrammed. & \\ \hline
+      A read only memory where the contents can be written only once after manufacture. & \\ \hline
+      \end{tabular}

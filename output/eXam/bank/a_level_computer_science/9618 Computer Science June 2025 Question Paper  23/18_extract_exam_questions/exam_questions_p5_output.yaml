@@ -1,0 +1,53 @@
+```yaml
+questions:
+  - number: "2aii"
+    type: short_answer
+    text: |
+      The diagram shows the current state of the stack.
+
+      \textbf{Stack}
+
+      \begin{tabular}{c|c|l}
+      \multicolumn{1}{c}{\textbf{Memory location}} & \multicolumn{1}{c}{\textbf{Value}} & \\ \cline{2-2}
+      409 & & \\ \cline{2-2}
+      408 & & \\ \cline{2-2}
+      407 & 'A' & $\leftarrow$ \texttt{TopOfStack} \\ \cline{2-2}
+      406 & 'C' & \\ \cline{2-2}
+      405 & 'F' & \\ \cline{2-2}
+      404 & 'K' & \\ \cline{2-2}
+      403 & 'B' & \\ \cline{2-2}
+      402 & 'S' & \\ \cline{2-2}
+      401 & 'R' & \\ \cline{2-2}
+      400 & 'D' & \\ \cline{2-2}
+      \end{tabular}
+
+      The following sequence of operations are performed:
+
+      \begin{alltt}
+      PUSH 'T'
+      POP
+      POP
+      PUSH 'Z'
+      PUSH 'X'
+      POP
+      PUSH 'Y'
+      \end{alltt}
+
+      Complete the following diagram to show the state of the stack after the operations have been performed.
+
+      \textbf{Stack}
+
+      \begin{tabular}{c|c|}
+      \multicolumn{1}{c}{\textbf{Memory location}} & \multicolumn{1}{c}{\textbf{Value}} \\ \cline{2-2}
+      409 & \\ \cline{2-2}
+      408 & \\ \cline{2-2}
+      407 & \\ \cline{2-2}
+      406 & \\ \cline{2-2}
+      405 & \\ \cline{2-2}
+      404 & \\ \cline{2-2}
+      403 & \\ \cline{2-2}
+      402 & \\ \cline{2-2}
+      401 & \\ \cline{2-2}
+      400 & \\ \cline{2-2}
+      \end{tabular}
+```

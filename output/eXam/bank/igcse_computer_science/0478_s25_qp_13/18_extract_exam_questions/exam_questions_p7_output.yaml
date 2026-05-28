@@ -1,0 +1,66 @@
+questions:
+  - number: "3c"
+    type: multiple_choice
+    text: |
+      Circle the \textbf{two} buses that are used in the fetch stage of the FDE cycle.
+    options:
+      - letter: A
+        text: |
+          binary
+      - letter: B
+        text: |
+          control
+      - letter: C
+        text: |
+          denary
+      - letter: D
+        text: |
+          data
+      - letter: E
+        text: |
+          information
+      - letter: F
+        text: |
+          hardware
+      - letter: G
+        text: |
+          software
+  - number: "4"
+    type: short_answer
+    text: |
+      A computer has an operating system.
+
+      One function of the operating system is handling interrupts.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Describe the role of the operating system in handling interrupts.
+  - number: "4b"
+    type: short_answer
+    text: |
+      Give \textbf{two} other functions of an operating system.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4c"
+    type: short_answer
+    text: |
+      Hardware and software interrupts are two types of interrupt.
+  - number: "4ci"
+    type: short_answer
+    text: |
+      Give \textbf{one} example of a hardware interrupt.
+  - number: "4cii"
+    type: short_answer
+    text: |
+      Give \textbf{one} example of a software interrupt.
+  - number: "5"
+    type: short_answer
+    text: |
+      An online company has a website that allows a user to buy products.
+
+      The user types in the uniform resource locator (URL) for the website and this is sent to a domain name server (DNS).
+  - number: "5a"
+    type: long_answer
+    text: |
+      Describe the role of the DNS.

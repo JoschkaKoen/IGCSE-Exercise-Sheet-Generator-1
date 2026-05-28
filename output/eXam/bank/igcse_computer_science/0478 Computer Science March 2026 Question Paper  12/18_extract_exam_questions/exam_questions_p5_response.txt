@@ -1,0 +1,34 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 5**
+
+Okay, the user wants me to handle page 5 of the exam YAML. Let's get this done correctly. The task is to populate the structure with the questions and their marks. I need to be precise, as this is for an exam.
+
+First, I need to make sure I'm interpreting these question IDs correctly. For `3biii`, the core is to describe how the sensor and microprocessor prevent a drone crash – that's 4 marks. No problem. Next is `3c`, which has an introductory section: "The drone has a digital camera that records a video while the drone is flying.\nThe drone can be connected to a computer using a universal serial bus (USB) interface to transfer the video recorded by the digital camera." Then `3ci` focuses on defining a USB interface, worth 1 mark. Finally, we have `3cii`, which requires an explanation of how the USB interface transmits data, allocated 2 marks.
+
+I’ve double-checked the numbering. It all looks correct, which is good. Now, let's get that YAML stub built.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "3biii"
+    type: long_answer
+    text: |
+      Explain how the sensor and microprocessor work together to stop the drone crashing into an object.
+  - number: "3c"
+    type: short_answer
+    text: |
+      The drone has a digital camera that records a video while the drone is flying.
+
+      The drone can be connected to a computer using a universal serial bus (USB) interface to transfer the video recorded by the digital camera.
+  - number: "3ci"
+    type: short_answer
+    text: |
+      State what is meant by a USB interface.
+  - number: "3cii"
+    type: short_answer
+    text: |
+      Explain how a USB interface is used to transmit data.
+```

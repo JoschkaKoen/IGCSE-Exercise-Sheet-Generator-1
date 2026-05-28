@@ -1,0 +1,13 @@
+```yaml
+questions:
+  - number: "3c"
+    type: long_answer
+    text: |
+      The computer program allows users to play a game in a virtual world. Users can play the game from any computer with internet access using a web browser. The game allows users to interact with other users.
+
+      Explain the reasons why the statement 'This computer game uses a client-server model' is correct.
+  - number: "3d"
+    type: long_answer
+    text: |
+      Describe the possible consequences of the programmer \textbf{not} joining a professional ethical body.
+```

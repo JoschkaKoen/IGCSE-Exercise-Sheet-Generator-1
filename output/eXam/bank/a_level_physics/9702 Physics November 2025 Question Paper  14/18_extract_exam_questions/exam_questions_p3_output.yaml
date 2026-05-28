@@ -1,0 +1,73 @@
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      What is essential to accurately represent all physical quantities?
+    options:
+      - letter: A
+        text: |
+          a base unit and a number
+      - letter: B
+        text: |
+          a unit and a number expressed in standard form (scientific notation)
+      - letter: C
+        text: |
+          a unit and a numerical magnitude
+      - letter: D
+        text: |
+          an SI unit and a numerical magnitude
+  - number: "2"
+    type: multiple_choice
+    text: |
+      A steel rule can be read to the nearest millimetre. It is used to measure the length of a bar whose true length is 895 mm. Repeated measurements give the following readings.
+
+      $$\text{length} / \text{mm} \quad 892, 891, 892, 891, 891, 892$$
+
+      Are the readings accurate and precise to within 1 mm?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & \begin{tabular}{c} results are accurate \\ to within 1 mm \end{tabular} & \begin{tabular}{c} results are precise \\ to within 1 mm \end{tabular} \\
+      \hline
+      \textbf{A} & no & no \\
+      \textbf{B} & no & yes \\
+      \textbf{C} & yes & no \\
+      \textbf{D} & yes & yes \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          results are accurate to within 1 mm: no; results are precise to within 1 mm: no
+      - letter: B
+        text: |
+          results are accurate to within 1 mm: no; results are precise to within 1 mm: yes
+      - letter: C
+        text: |
+          results are accurate to within 1 mm: yes; results are precise to within 1 mm: no
+      - letter: D
+        text: |
+          results are accurate to within 1 mm: yes; results are precise to within 1 mm: yes
+  - number: "3"
+    type: multiple_choice
+    text: |
+      A stone is released from rest and falls vertically to the ground.
+
+      The time taken to fall to the ground and the distance travelled are measured. The measurements are used to determine the acceleration of free fall.
+
+      The percentage uncertainty in the measured time is 0.05%. The percentage uncertainty in the measured distance fallen is 0.6%.
+
+      What is the percentage uncertainty in the calculated value of the acceleration of free fall?
+    options:
+      - letter: A
+        text: |
+          0.5%
+      - letter: B
+        text: |
+          0.7%
+      - letter: C
+        text: |
+          1.1%
+      - letter: D
+        text: |
+          1.3%

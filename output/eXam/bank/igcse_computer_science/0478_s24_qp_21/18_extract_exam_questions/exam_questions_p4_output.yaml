@@ -1,0 +1,41 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      This pseudocode algorithm is intended to allow, at random, between 1 and 20 values to be entered and totalled. The total and average of the entered values are output at the end of the algorithm.
+
+      \begin{alltt}
+      01 DECLARE Loop : STRING
+      02 DECLARE Limit : INTEGER
+      03 DECLARE Value : REAL
+      04 DECLARE Total : REAL
+      05 Total <- 0
+      06 Limit <- ROUND(RANDOM() * 19,0) + 1
+      07 IF Loop <- 1 TO Limit
+      08     OUTPUT "Enter a number"
+      09     INPUT Loop
+      10     Total <- Total * Value
+      11 NEXT Loop
+      12 OUTPUT "The total of the numbers entered is ", Total
+      13 OUTPUT "The average of the numbers entered is ", Total / Limit
+      \end{alltt}
+  - number: "4a"
+    type: short_answer
+    text: |
+      Identify the line numbers of \textbf{four} errors in the pseudocode and suggest corrections.
+
+      Error 1 line number \hrulefill
+      Correction \hrulefill
+
+      Error 2 line number \hrulefill
+      Correction \hrulefill
+
+      Error 3 line number \hrulefill
+      Correction \hrulefill
+
+      Error 4 line number \hrulefill
+      Correction \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      Write the pseudocode statement that would output the average calculated in line 13 of the algorithm rounded to \textbf{one} decimal place.

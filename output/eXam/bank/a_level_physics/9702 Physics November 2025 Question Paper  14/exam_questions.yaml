@@ -1,0 +1,973 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is essential to accurately represent all physical quantities?
+  answer_options:
+  - letter: A
+    text: a base unit and a number
+  - letter: B
+    text: a unit and a number expressed in standard form (scientific notation)
+  - letter: C
+    text: a unit and a numerical magnitude
+  - letter: D
+    text: an SI unit and a numerical magnitude
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "A steel rule can be read to the nearest millimetre. It is used to measure\
+    \ the length of a bar whose true length is 895 mm. Repeated measurements give\
+    \ the following readings.\n\n$$\\text{length} / \\text{mm} \\quad 892, 891, 892,\
+    \ 891, 891, 892$$\n\nAre the readings accurate and precise to within 1 mm?\n\n\
+    \\begin{tabular}{|c|c|c|}\n\\hline\n & \\begin{tabular}{c} results are accurate\
+    \ \\\\ to within 1 mm \\end{tabular} & \\begin{tabular}{c} results are precise\
+    \ \\\\ to within 1 mm \\end{tabular} \\\\\n\\hline\n\\textbf{A} & no & no \\\\\
+    \n\\textbf{B} & no & yes \\\\\n\\textbf{C} & yes & no \\\\\n\\textbf{D} & yes\
+    \ & yes \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: 'results are accurate to within 1 mm: no; results are precise to within
+      1 mm: no'
+  - letter: B
+    text: 'results are accurate to within 1 mm: no; results are precise to within
+      1 mm: yes'
+  - letter: C
+    text: 'results are accurate to within 1 mm: yes; results are precise to within
+      1 mm: no'
+  - letter: D
+    text: 'results are accurate to within 1 mm: yes; results are precise to within
+      1 mm: yes'
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A stone is released from rest and falls vertically to the ground.
+
+
+    The time taken to fall to the ground and the distance travelled are measured.
+    The measurements are used to determine the acceleration of free fall.
+
+
+    The percentage uncertainty in the measured time is 0.05%. The percentage uncertainty
+    in the measured distance fallen is 0.6%.
+
+
+    What is the percentage uncertainty in the calculated value of the acceleration
+    of free fall?'
+  answer_options:
+  - letter: A
+    text: 0.5%
+  - letter: B
+    text: 0.7%
+  - letter: C
+    text: 1.1%
+  - letter: D
+    text: 1.3%
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An object falls from rest towards the ground.
+
+
+    Air resistance is negligible.
+
+
+    Which graph shows the variation of the momentum $p$ of the object with time $t$
+    until it hits the ground?'
+  answer_options:
+  - letter: A
+    text: Graph A (horizontal straight line above the t-axis)
+  - letter: B
+    text: Graph B (curve starting at the origin with decreasing gradient)
+  - letter: C
+    text: Graph C (straight line starting at the origin with constant positive gradient)
+  - letter: D
+    text: Graph D (curve starting at the origin with increasing gradient)
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "A projectile is fired at an angle of $45^\\circ$ upwards from horizontal\
+    \ ground. Air resistance is negligible.\n\nWhich row describes the horizontal\
+    \ motion and the vertical motion of the projectile after it is fired until immediately\
+    \ before it reaches the ground again?\n\n\\begin{tabular}{c|c|c}\n & horizontal\
+    \ motion & vertical motion \\\\ \\hline\n\\textbf{A} & constant velocity & constant\
+    \ acceleration \\\\\n\\textbf{B} & constant velocity & varying acceleration \\\
+    \\\n\\textbf{C} & varying velocity & constant acceleration \\\\\n\\textbf{D} &\
+    \ varying velocity & varying acceleration\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: 'horizontal motion: constant velocity; vertical motion: constant acceleration'
+  - letter: B
+    text: 'horizontal motion: constant velocity; vertical motion: varying acceleration'
+  - letter: C
+    text: 'horizontal motion: varying velocity; vertical motion: constant acceleration'
+  - letter: D
+    text: 'horizontal motion: varying velocity; vertical motion: varying acceleration'
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An aircraft on a runway accelerates uniformly from rest to its take-off speed
+    of $58\text{ m s}^{-1}$.
+
+
+    The acceleration of the aircraft is $4.2\text{ m s}^{-2}$, and the aircraft uses
+    $74\%$ of the length of the runway to reach its take-off speed.
+
+
+    What is the length of the runway?'
+  answer_options:
+  - letter: A
+    text: $300\text{ m}$
+  - letter: B
+    text: $540\text{ m}$
+  - letter: C
+    text: $590\text{ m}$
+  - letter: D
+    text: $800\text{ m}$
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: How can the acceleration of an object be determined?
+  answer_options:
+  - letter: A
+    text: from the area under a displacement–time graph
+  - letter: B
+    text: from the area under a velocity–time graph
+  - letter: C
+    text: from the gradient of a displacement–time graph
+  - letter: D
+    text: from the gradient of a velocity–time graph
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The acceleration of free fall on the Earth is different to the acceleration
+    of free fall on the Moon.
+
+
+    How do the mass and weight of an object on the Earth compare to its mass and weight
+    on the Moon?'
+  answer_options:
+  - letter: A
+    text: different mass, different weight
+  - letter: B
+    text: different mass, same weight
+  - letter: C
+    text: same mass, different weight
+  - letter: D
+    text: same mass, same weight
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A sphere moves vertically downwards at terminal (constant) velocity in a
+    liquid.
+
+
+    Which statement about the magnitude of the upthrust acting on the sphere is correct?'
+  answer_options:
+  - letter: A
+    text: It is proportional to the acceleration of free fall.
+  - letter: B
+    text: It is equal to the weight of the sphere.
+  - letter: C
+    text: It is proportional to the density of the sphere.
+  - letter: D
+    text: It is proportional to the square of the radius of the sphere.
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An object of mass $2.0 \text{ kg}$ is travelling at a speed of $3.0 \text{
+    m s}^{-1}$ on a horizontal frictionless surface. This object collides head-on
+    with a stationary object of mass $1.0 \text{ kg}$. The two objects stick together
+    on impact.
+
+
+    How much kinetic energy is lost on impact?'
+  answer_options:
+  - letter: A
+    text: zero
+  - letter: B
+    text: $2.0 \text{ J}$
+  - letter: C
+    text: $2.4 \text{ J}$
+  - letter: D
+    text: $3.0 \text{ J}$
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A moving object X collides with a stationary object Y.
+
+
+    The objects separate after the collision.
+
+
+    The collision is perfectly elastic and there are no external forces acting.
+
+
+    Which word equation is \textbf{not} correct?'
+  answer_options:
+  - letter: A
+    text: during the collision, (force acting on object X) + (force acting on object
+      Y) = zero
+  - letter: B
+    text: (relative speed of approach of X and Y) + (relative speed of separation
+      of X and Y) = zero
+  - letter: C
+    text: (total kinetic energy before collision) = (total kinetic energy after collision)
+  - letter: D
+    text: (total momentum before collision) = (total momentum after collision)
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a stationary sphere that is just fully submerged in a liquid.
+    The radius of the sphere is $r$ and the density of the liquid is $\rho$. The acceleration
+    of free fall is $g$.
+
+
+    The air exerts pressure $P_{\text{A}}$ on the surface of the liquid.
+
+
+    What is the pressure at the lowest point of the sphere?'
+  answer_options:
+  - letter: A
+    text: $P_{\text{A}} + \frac{4}{3}\pi r^3 \rho g$
+  - letter: B
+    text: $P_{\text{A}} - \frac{4}{3}\pi r^3 \rho g$
+  - letter: C
+    text: $2r\rho g + P_{\text{A}}$
+  - letter: D
+    text: $2r\rho g - P_{\text{A}}$
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A uniform rod is attached by a hinge at one end to a wall. The other end
+    of the rod is supported by a wire so that the rod is horizontal and in equilibrium.
+
+
+    Which arrow shows the direction of the force on the rod from the hinge?'
+  answer_options:
+  - letter: A
+    text: an arrow pointing vertically upwards
+  - letter: B
+    text: an arrow pointing vertically downwards
+  - letter: C
+    text: an arrow pointing diagonally downwards and to the left
+  - letter: D
+    text: an arrow pointing diagonally upwards and to the right
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A couple is applied to a tap, as shown.
+
+
+    What is the torque of the couple?'
+  answer_options:
+  - letter: A
+    text: $\frac{Fd}{2}$
+  - letter: B
+    text: $Fd$
+  - letter: C
+    text: $2Fd$
+  - letter: D
+    text: $4Fd$
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A uniform beam rests on two supports, X and Y, as shown.
+
+
+    The beam has length $20.0\text{ m}$ and weight $200\text{ N}$.
+
+
+    A man of weight $700\text{ N}$ stands on the beam at a distance of $6.0\text{
+    m}$ from support X.
+
+
+    The beam is in equilibrium.
+
+
+    What is the contact force of support X on the beam?'
+  answer_options:
+  - letter: A
+    text: $310\text{ N}$
+  - letter: B
+    text: $450\text{ N}$
+  - letter: C
+    text: $590\text{ N}$
+  - letter: D
+    text: $900\text{ N}$
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a block P of mass $M$ connected by a string over a frictionless
+    pulley to a block Q of mass $m$.
+
+
+    Block P moves up the slope with a constant velocity $v$. The slope is at angle
+    $\theta$ to the horizontal.
+
+
+    The acceleration of free fall is $g$.
+
+
+    The resistive forces on the blocks are negligible.
+
+
+    Which expressions give the energy transferred per unit time to block P?
+
+
+    1 $mgv$
+
+    2 $Mgv \sin \theta$
+
+    3 $(M + m)gv$'
+  answer_options:
+  - letter: A
+    text: 1 and 2
+  - letter: B
+    text: 1 only
+  - letter: C
+    text: 2 and 3
+  - letter: D
+    text: 2 only
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A toy car travels around a vertical loop track.
+
+
+    The toy car is released from rest at a height of $58\text{ cm}$ above the bottom
+    of the vertical loop.
+
+
+    The car is at a height of $32\text{ cm}$ when it is at the top of the vertical
+    loop.
+
+
+    Assume that no resistive forces act on the car.
+
+
+    What is the speed of the car at the top of the vertical loop?'
+  answer_options:
+  - letter: A
+    text: $0.87\text{ m}\,\text{s}^{-1}$
+  - letter: B
+    text: $2.3\text{ m}\,\text{s}^{-1}$
+  - letter: C
+    text: $2.5\text{ m}\,\text{s}^{-1}$
+  - letter: D
+    text: $3.4\text{ m}\,\text{s}^{-1}$
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The total energy supplied to an electric motor is $E$. Energy $Q$ is wasted
+    and the remaining energy does useful work.
+
+
+    What is the efficiency of the motor?'
+  answer_options:
+  - letter: A
+    text: $\frac{Q}{E}$
+  - letter: B
+    text: $\left(\frac{Q}{E}\right) - 1$
+  - letter: C
+    text: 1 - \left(\frac{Q}{E}\right)
+  - letter: D
+    text: \frac{(1 - Q)}{E}
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An object travels between two points. The change in gravitational potential
+    energy $\Delta E_p$ of the object is given by
+
+
+    $$\Delta E_p = mg\Delta h$$
+
+
+    where $m$ is the mass of the object, $\Delta h$ is its change in height and $g$
+    is the acceleration of free fall.
+
+
+    What is a necessary condition in order for the above equation to be valid?'
+  answer_options:
+  - letter: A
+    text: The object must have a constant acceleration of $9.81\text{ m s}^{-2}$.
+  - letter: B
+    text: The object must be travelling in a uniform gravitational field.
+  - letter: C
+    text: The object must be travelling only in a vertical direction.
+  - letter: D
+    text: The resultant force on the object must be equal to its weight.
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A cylindrical steel rod with negligible weight has a diameter of $1.5\text{
+    cm}$ and a length of $5.2\text{ cm}$.
+
+
+    The rod is firmly attached at the top end.
+
+
+    The rod is firmly attached to a machine at the other end that applies a constant
+    force of $363\text{ N}$ to the rod.
+
+
+    This causes the rod to extend to a length of $7.4\text{ cm}$ and to have a minimum
+    diameter of $0.60\text{ cm}$ in the position shown.
+
+
+    What is the maximum stress acting on the steel rod when the length is $7.4\text{
+    cm}$?'
+  answer_options:
+  - letter: A
+    text: $2.1 \times 10^6\text{ Pa}$
+  - letter: B
+    text: $3.2 \times 10^6\text{ Pa}$
+  - letter: C
+    text: $5.7 \times 10^6\text{ Pa}$
+  - letter: D
+    text: $1.3 \times 10^7\text{ Pa}$
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The graph shows the variation in extension with force for a sample of rubber.
+
+
+    The top line shows the variation in extension as a force is applied.
+
+
+    The bottom line shows the variation in extension as the force is removed.
+
+
+    What is represented by the area between the two lines?'
+  answer_options:
+  - letter: A
+    text: the work done as the force is applied
+  - letter: B
+    text: the work done as the force is applied minus the work done as the force is
+      removed
+  - letter: C
+    text: the work done as the force is removed
+  - letter: D
+    text: the work done as the force is removed plus the work done as the force is
+      applied
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two identical springs have the same spring constant $k$. The springs are
+    connected in parallel.
+
+    The length of the unstretched springs is $x$.
+
+
+    A force $F$ is applied to the spring combination. The length of the springs is
+    now $y$.
+
+
+    Both springs are deformed within their limits of proportionality.
+
+
+    Which expression gives the elastic potential energy stored in \textbf{one} of
+    the springs?'
+  answer_options:
+  - letter: A
+    text: $\frac{1}{4}F(y - x)$
+  - letter: B
+    text: $\frac{1}{2}F(y - x)$
+  - letter: C
+    text: $\frac{1}{4}k(y - x)^2$
+  - letter: D
+    text: $k(y - x)^2$
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which expression gives the formula for the spring constant?
+  answer_options:
+  - letter: A
+    text: $Fx$
+  - letter: B
+    text: $2Fx^2$
+  - letter: C
+    text: $\frac{F}{x}$
+  - letter: D
+    text: $\frac{F}{x^2}$
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A transverse progressive wave travels along a string.
+
+
+    The graph shows the variation with distance of the displacement of the string
+    at time $t = 0$.
+
+
+    Which graph represents the variation with time of the velocity of point P on the
+    string?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which statement about electromagnetic waves is correct?
+  answer_options:
+  - letter: A
+    text: A wave of wavelength $5.0 \times 10^{-6}\text{ m}$ is invisible to the human
+      eye.
+  - letter: B
+    text: They can all travel at different speeds in free space.
+  - letter: C
+    text: They \textbf{cannot} be polarised.
+  - letter: D
+    text: They consist of vibrating atoms.
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: For a progressive transverse wave, what describes the term diffraction?
+  answer_options:
+  - letter: A
+    text: the change in observed frequency of a wave due to a movement of the wave
+      source
+  - letter: B
+    text: the spreading of a wave as it passes through a gap or around an obstacle
+  - letter: C
+    text: when oscillations of a wave are confined to one plane
+  - letter: D
+    text: the resultant displacement of two waves is equal to the sum of the displacements
+      of the individual waves when the waves meet
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An aircraft flies at a velocity $v_s$ directly away from a stationary observer.
+
+
+    The aircraft emits a sound of constant frequency.
+
+
+    The speed of sound in air is $v$.
+
+
+    The frequency of the sound heard by the observer on the ground is $500\text{ Hz}$.
+
+
+    The speed of the aircraft is increased so that it flies away from the observer
+    at a greater velocity.
+
+
+    The observer now hears a sound of frequency $250\text{ Hz}$.
+
+
+    Which expression gives the new velocity of the aircraft?'
+  answer_options:
+  - letter: A
+    text: $2(v + v_s)$
+  - letter: B
+    text: $\frac{v + v_s}{2}$
+  - letter: C
+    text: $2v_s + v$
+  - letter: D
+    text: $2v_s - v$
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What may be observed with light waves but \textbf{not} with sound waves?
+  answer_options:
+  - letter: A
+    text: diffraction
+  - letter: B
+    text: interference
+  - letter: C
+    text: polarisation
+  - letter: D
+    text: reflection
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A wire is fixed at both ends and is vibrated by a source of frequency $f$.
+    A stationary wave is formed on the wire with a total of two antinodes.
+
+
+    The frequency of the source is increased to $3f$ and a new stationary wave is
+    formed.
+
+
+    What is the total number of antinodes on the new wave?'
+  answer_options:
+  - letter: A
+    text: $4$
+  - letter: B
+    text: $5$
+  - letter: C
+    text: $6$
+  - letter: D
+    text: $9$
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A parallel beam of red light of wavelength $700\text{ nm}$ is incident normally
+    on a diffraction grating that has $400\text{ lines per millimetre}$.
+
+
+    What is the total number of intensity maxima from the grating?'
+  answer_options:
+  - letter: A
+    text: $6$
+  - letter: B
+    text: $7$
+  - letter: C
+    text: $8$
+  - letter: D
+    text: $9$
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two light sources are used to produce an interference pattern.
+
+
+    Interference fringes appear when the two sources emit waves that are coherent.
+
+
+    What is meant by coherent waves?'
+  answer_options:
+  - letter: A
+    text: The two waves are emitted with the same frequency.
+  - letter: B
+    text: The two waves are emitted with constant phase difference.
+  - letter: C
+    text: The two waves are emitted with the same intensity.
+  - letter: D
+    text: The two waves are emitted with zero phase difference.
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which component has the $I\text{--}V$ graph shown?
+  answer_options:
+  - letter: A
+    text: filament lamp
+  - letter: B
+    text: metallic conductor at constant temperature
+  - letter: C
+    text: resistor of fixed resistance
+  - letter: D
+    text: semiconductor diode
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows an electrical circuit containing a light-dependent resistor
+    (LDR).
+
+
+    What is the circuit diagram for this circuit?'
+  answer_options:
+  - letter: A
+    text: Circuit diagram A
+  - letter: B
+    text: Circuit diagram B
+  - letter: C
+    text: Circuit diagram C
+  - letter: D
+    text: Circuit diagram D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A copper wire of length $2\text{ m}$ has a circular cross-section. There
+    is a constant current in the wire when it is connected to a mobile phone in order
+    to charge the battery.
+
+
+    The wire has a fault. A $1\text{ m}$ length of the wire has half the diameter
+    of the other $1\text{ m}$ length.
+
+
+    The power dissipated in the thicker length of wire is $P$.
+
+
+    What is the power dissipated in the thinner length of wire?'
+  answer_options:
+  - letter: A
+    text: $\frac{1}{4}P$
+  - letter: B
+    text: $\frac{1}{2}P$
+  - letter: C
+    text: $2P$
+  - letter: D
+    text: $4P$
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A wire carries a current of 5.6 A.
+
+
+    What is the number of conduction electrons that pass a point on the wire in a
+    time of 20 s?'
+  answer_options:
+  - letter: A
+    text: $1.8 \times 10^{18}$
+  - letter: B
+    text: $2.2 \times 10^{19}$
+  - letter: C
+    text: $3.5 \times 10^{19}$
+  - letter: D
+    text: $7.0 \times 10^{20}$
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Four resistors of resistance $R$, $2R$, $3R$ and $4R$ are connected to form
+    a network.
+
+
+    A battery of negligible internal resistance and a voltmeter are connected to the
+    resistor network as shown.
+
+
+    The voltmeter reading is 2 V.
+
+
+    What is the electromotive force (e.m.f.) of the battery?'
+  answer_options:
+  - letter: A
+    text: 2 V
+  - letter: B
+    text: 4 V
+  - letter: C
+    text: 6 V
+  - letter: D
+    text: 10 V
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  page: 17
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The circuit diagram shows a battery with internal resistance $r$, two resistors,
+    a switch and a voltmeter. The switch is open.
+
+
+    The switch is now closed.
+
+
+    What happens to the current in the battery, and what happens to the reading on
+    the voltmeter, when the switch is closed?'
+  answer_options:
+  - letter: A
+    text: 'current in battery: increases; reading on voltmeter: decreases'
+  - letter: B
+    text: 'current in battery: increases; reading on voltmeter: remains the same'
+  - letter: C
+    text: 'current in battery: remains the same; reading on voltmeter: decreases'
+  - letter: D
+    text: 'current in battery: remains the same; reading on voltmeter: remains the
+      same'
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  page: 17
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is the correct equation for $\beta^+$ decay?
+  answer_options:
+  - letter: A
+    text: $\text{neutron} \rightarrow \text{proton} + \text{electron} + \text{electron
+      antineutrino}$
+  - letter: B
+    text: $\text{neutron} \rightarrow \text{proton} + \text{electron} + \text{electron
+      neutrino}$
+  - letter: C
+    text: $\text{proton} \rightarrow \text{neutron} + \text{positron} + \text{electron
+      antineutrino}$
+  - letter: D
+    text: $\text{proton} \rightarrow \text{neutron} + \text{positron} + \text{electron
+      neutrino}$
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  page: 17
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A nucleus of polonium, $^{214}_{84}\text{Po}$, decays by emitting an $\alpha$-particle
+    to become a nucleus of lead.
+
+
+    The nucleus of lead is also unstable and decays by emitting a $\beta^-$ particle
+    to form a nucleus of bismuth which then decays by emitting a $\beta^-$ particle
+    to produce a nucleus X.
+
+
+    What is the number of neutrons in nucleus X?'
+  answer_options:
+  - letter: A
+    text: '126'
+  - letter: B
+    text: '128'
+  - letter: C
+    text: '130'
+  - letter: D
+    text: '210'
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  page: 18
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which combination of three quarks has no overall charge?
+  answer_options:
+  - letter: A
+    text: down, strange, strange
+  - letter: B
+    text: up, charm, strange
+  - letter: C
+    text: up, charm, top
+  - letter: D
+    text: up, down, strange
+  subquestions: []

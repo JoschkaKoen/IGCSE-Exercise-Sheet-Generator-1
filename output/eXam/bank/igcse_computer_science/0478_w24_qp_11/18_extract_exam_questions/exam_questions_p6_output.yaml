@@ -1,0 +1,25 @@
+questions:
+  - number: "3d"
+    type: calculation
+    text: |
+      The character ‘T’ is represented by the binary ASCII number 01010100.
+
+      The character ‘t’ is represented by the binary ASCII number 01110100.
+
+      Add the \textbf{two} binary numbers using binary addition. Give your answer in binary. Show all your working.
+  - number: "4"
+    type: short_answer
+    text: |
+      A company decides to create a network for its devices.
+
+      All the company devices are within a single room.
+
+      The employees will need to use their devices to send data to each other and share files.
+
+      The company decides to send data across the network using packet switching.
+  - number: "4a"
+    type: long_answer
+    text: |
+      An employee sends an email to another employee. The email is broken down into packets.
+
+      Describe the structure of a packet of data for the email.

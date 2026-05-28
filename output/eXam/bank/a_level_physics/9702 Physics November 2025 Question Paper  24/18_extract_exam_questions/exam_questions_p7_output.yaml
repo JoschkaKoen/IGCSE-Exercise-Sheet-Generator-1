@@ -1,0 +1,23 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      When a torque of $3.3 \text{ N m}$ is applied to the rod, the sheet is held in equilibrium with two of its edges horizontal, as shown in Fig. 2.3. Point X is at the top-left corner.
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Explain whether the torque applied to the rod to hold the sheet in equilibrium is clockwise or anticlockwise.
+  - number: "2cii"
+    type: calculation
+    text: |
+      Show that the centre of gravity of the sheet has a horizontal displacement of $0.12 \text{ m}$ from the rod.
+  - number: "2d"
+    type: calculation
+    text: |
+      The square metal sheet has an average density of $3000 \text{ kg m}^{-3}$ and a uniform thickness of $4.0 \text{ mm}$.
+
+      Show that the side length of the sheet is $0.48 \text{ m}$.
+  - number: "2e"
+    type: short_answer
+    text: |
+      Use the answer in \textbf{(b)} and the information in \textbf{(c)} and \textbf{(d)} to determine the position of the centre of gravity of the sheet. Indicate this position on Fig. 2.3 with a point labelled Y.

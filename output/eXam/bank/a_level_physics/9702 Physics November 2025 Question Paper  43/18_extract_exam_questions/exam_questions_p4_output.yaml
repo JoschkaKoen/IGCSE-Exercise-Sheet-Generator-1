@@ -1,0 +1,19 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1a"
+    type: long_answer
+    text: |
+      In terms of velocity and acceleration, describe uniform circular motion of an object.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Fig. 1.1 shows the view from above of a polystyrene ball undergoing horizontal circular motion of radius $R$.
+
+      The ball is illuminated by parallel light so that a shadow of the ball forms on a screen placed on the opposite side of the ball from the light source.
+
+      The line joining points O and P is perpendicular to the screen.
+
+      The angular speed of the circular motion is $\omega$.

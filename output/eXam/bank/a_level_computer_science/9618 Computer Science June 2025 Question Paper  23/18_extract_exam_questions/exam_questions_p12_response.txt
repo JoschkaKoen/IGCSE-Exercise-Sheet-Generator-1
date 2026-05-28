@@ -1,0 +1,36 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Study the structure chart:
+
+      Some of the parameter data types are:
+
+      \begin{itemize}
+      \item R and V are of type \texttt{INTEGER}
+      \item T is of type \texttt{REAL}
+      \item U is of type \texttt{STRING}
+      \item W is of type \texttt{BOOLEAN}.
+      \end{itemize}
+
+      Some of the modules in the structure chart are functions, others are procedures.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Explain \textbf{one} difference between functions and procedures.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Write the pseudocode to define the module headers:
+
+      Sub\_Part1A
+
+      \hrulefill
+
+      Sub\_Part2A
+
+      \hrulefill
+
+      Sub\_Part3A
+
+      \hrulefill

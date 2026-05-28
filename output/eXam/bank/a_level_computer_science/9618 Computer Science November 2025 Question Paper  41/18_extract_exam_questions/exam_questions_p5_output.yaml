@@ -1,0 +1,23 @@
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      The program is tested with four trains:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{train ID number} & \textbf{route} \\ \hline
+      12ADV & 134 \\ \hline
+      33ART & 20 \\ \hline
+      9FKF & 3 \\ \hline
+      21VBC & 24 \\ \hline
+      \end{tabular}
+
+      Write program code to declare an instance of \texttt{Train} for each of the \textbf{four} trains.
+
+      \begin{tabular}{|p{12cm}|}
+      \hline
+      Save your program. \newline
+      \newline
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document. \\ \hline
+      \end{tabular}

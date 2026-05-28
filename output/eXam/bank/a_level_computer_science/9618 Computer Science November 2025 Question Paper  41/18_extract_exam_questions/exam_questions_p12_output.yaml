@@ -1,0 +1,33 @@
+questions:
+  - number: "3g"
+    type: short_answer
+    text: |
+      The main program:
+
+      \begin{itemize}
+      \item calls \texttt{InitialiseHashTable()} and \texttt{ReadData()}
+      \item takes \textbf{five} integer key fields as input from the user
+      \item calls \texttt{GetRecord()} with each input and outputs the return value.
+      \end{itemize}
+  - number: "3gi"
+    type: short_answer
+    text: |
+      Write program code for the main program.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(g)(i)} in the evidence document.
+  - number: "3gii"
+    type: short_answer
+    text: |
+      Test your program with the following \textbf{five} inputs in the order given:
+
+      528
+      1128
+      1828
+      1062
+      39
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+      Copy and paste the screenshot(s) into part \textbf{3(g)(ii)} in the evidence document.

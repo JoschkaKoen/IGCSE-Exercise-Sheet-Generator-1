@@ -1,0 +1,65 @@
+[thinking]
+**Page 6 Exam Question YAML Population**
+
+Okay, the task is to populate the YAML stub for page 6 of the exam. Let's break this down systematically. The questions are: "7", "7a", "7b", and "7c". First, I need to check the printed page against the YAML stub to make sure everything lines up.
+
+For "7", it's a `short_answer` type in the stub. However, there's no actual text for the question "7" itself; it jumps straight to "(a)". That’s a potential problem. I need to be careful with these. The instructions say if a stub entry's stem isn't on the page, it indicates a stub generation error and I need to emit a `| STUB ERROR` block scalar. So, no text for "7", therefore it's a stub error. I'll write `| STUB ERROR` for question "7".
+
+Now, onto the sub-questions. For `7a`, the text is "Outline the process of optimisation during the compilation of a program." That's straightforward.
+
+Next, `7b` is about RPN. The question says, "Write the Reverse Polish Notation (RPN) for the given infix expression: ((6 + 12) / (16 - 10)) * 18". I'll represent that clearly. The display math makes the most sense here so I'll render the expression as `$$((6 + 12) / (16 - 10)) * 18$$`.
+
+Finally, for `7c`, we have the RPN evaluation: "The RPN expression c a - b d + * b c + / is to be evaluated, where: a = 4, b = 12, c = 24 and d = 6. Show the changing contents of the stack as the RPN expression is evaluated." This requires a tabular grid to represent the stack's changing contents over time. Let's see... it's 13 columns (each representing a stage) and 5 rows (the stack's depth). I'll generate the LaTeX tabular code for that:
+
+```latex
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+ & & & & & & & & & & & & \\ \hline
+ & & & & & & & & & & & & \\ \hline
+ & & & & & & & & & & & & \\ \hline
+ & & & & & & & & & & & & \\ \hline
+ & & & & & & & & & & & & \\ \hline
+\end{tabular}
+```
+That should correctly render the empty stack history table. And that's it; that should handle the population of the YAML stub for page 6.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: long_answer
+    text: |
+      Outline the process of optimisation during the compilation of a program.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Write the Reverse Polish Notation (RPN) for the given infix expression:
+
+      $$((6 + 12) / (16 - 10)) * 18$$
+  - number: "7c"
+    type: calculation
+    text: |
+      The RPN expression
+
+      $$\text{c a - b d + * b c + /}$$
+
+      is to be evaluated, where:
+
+      $$\text{a} = 4, \text{b} = 12, \text{c} = 24 \text{ and } \text{d} = 6.$$
+
+      Show the changing contents of the stack as the RPN expression is evaluated.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      & & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & & \\ \hline
+      \end{tabular}

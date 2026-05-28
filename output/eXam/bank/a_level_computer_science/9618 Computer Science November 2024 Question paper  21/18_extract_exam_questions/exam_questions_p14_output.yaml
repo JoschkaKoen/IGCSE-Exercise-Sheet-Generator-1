@@ -1,0 +1,26 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A program contains six modules with headers as follows:
+
+      \begin{tabular}{|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Pseudocode module header}} \\ \hline
+      \texttt{PROCEDURE Connect()} \\ \hline
+      \texttt{FUNCTION Activate(H1 : STRING, Code : INTEGER) RETURNS BOOLEAN} \\ \hline
+      \texttt{FUNCTION Sync(T1 : BOOLEAN, S2 : REAL) RETURNS INTEGER} \\ \hline
+      \texttt{PROCEDURE Initialise(BYREF ID : INTEGER, BYVAL CC : INTEGER)} \\ \hline
+      \texttt{FUNCTION Reset(RA : STRING) RETURNS INTEGER} \\ \hline
+      \texttt{FUNCTION Enable(SA : INTEGER) RETURNS BOOLEAN} \\ \hline
+      \end{tabular}
+
+      Module \texttt{Connect()} will call either \texttt{Activate()} or \texttt{Sync()}. This is decided at run-time.
+  - number: "7a"
+    type: short_answer
+    text: |
+      Complete the structure chart for these modules.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Explain the meaning of the curved arrow symbol used in the diagram in part (a).

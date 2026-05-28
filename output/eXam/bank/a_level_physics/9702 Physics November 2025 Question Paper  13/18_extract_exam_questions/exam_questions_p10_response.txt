@@ -1,0 +1,83 @@
+[thinking]
+**My Task: Transcribing Exam Questions**
+
+Okay, here's the deal. I need to get these questions transcribed, specifically numbers 20, 21, and 22 from whatever exam page I'm looking at. Let's break down each one methodically:
+
+**Question 20**
+
+This one's about elastic potential energy. The setup describes a spring fixed at one end, and we're extending it with a tensile force. They give us a graph (which I don't have, but I understand the context). The question asks for the elastic potential energy when the force is 6.0 N. I'll need to remember the formula for elastic potential energy, likely involving the spring constant (which I'll need to figure out from the graph). The units should be Joules (J). The answers are given.
+
+**Question 21**
+
+This is a Young's Modulus problem. We're dealing with a wire initially at 2.00 m, stretched to 2.10 m. A stress of 1.6 x 10^5 Pa is applied. Crucially, the problem states the wire obeys Hooke's Law, meaning stress and strain are linearly proportional. The question explicitly asks for the Young's Modulus. I know this involves stress (force per unit area) and strain (change in length over original length). I have the stress, so I need to calculate the strain from the length changes, and then use the formula: Young's Modulus = Stress / Strain. The units will be Pascals (Pa). I'll need to do the math carefully and then compare the results to the answers given.
+
+**Question 22**
+
+This is straightforward units analysis. The question is asking for the SI base units of stress. I know stress is defined as force per unit area. I need to recall that force is mass times acceleration (kg * m/s^2), and area is in meters squared (m^2). So, the units of stress should be derived from the units of force divided by the units of area. I'll need to construct the appropriate combination of kg, m, and s. The given options are all different combinations of kg, m, and s, so I can eliminate incorrect answers based on my working, which should be fast.
+
+
+
+[/thinking]
+
+questions:
+  - number: "20"
+    type: multiple_choice
+    text: |
+      A spring is fixed at one end. The length $L$ of the spring is increased by applying a tensile force $F$ to the other end.
+
+      The graph shows the variation of $L$ with $F$.
+
+      What is the elastic potential energy of the spring when $F$ is 6.0 N?
+    options:
+      - letter: A
+        text: |
+          0.12 J
+      - letter: B
+        text: |
+          0.24 J
+      - letter: C
+        text: |
+          0.36 J
+      - letter: D
+        text: |
+          0.60 J
+  - number: "21"
+    type: multiple_choice
+    text: |
+      A wire has an unstretched length of 2.00 m.
+
+      A stress of $1.6 \times 10^5 \text{ Pa}$ is applied to the wire, and the new length of the wire is 2.10 m.
+
+      The wire obeys Hooke’s law.
+
+      What is the Young modulus of the wire?
+    options:
+      - letter: A
+        text: |
+          $8.0 \times 10^3 \text{ Pa}$
+      - letter: B
+        text: |
+          $7.8 \times 10^4 \text{ Pa}$
+      - letter: C
+        text: |
+          $1.5 \times 10^5 \text{ Pa}$
+      - letter: D
+        text: |
+          $3.2 \times 10^6 \text{ Pa}$
+  - number: "22"
+    type: multiple_choice
+    text: |
+      What are the SI base units of stress?
+    options:
+      - letter: A
+        text: |
+          $\text{kg}\,\text{m}\,\text{s}^{-2}$
+      - letter: B
+        text: |
+          $\text{kg}\,\text{m}^{-1}\,\text{s}^{-2}$
+      - letter: C
+        text: |
+          $\text{kg}\,\text{m}^{-2}\,\text{s}^{-2}$
+      - letter: D
+        text: |
+          $\text{kg}\,\text{m}^{-3}\,\text{s}^{-2}$

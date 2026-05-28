@@ -1,0 +1,41 @@
+[thinking]
+**Page 5 Transcription: A Step-by-Step Breakdown**
+
+Okay, the task is to transcribe page 5 of an exam paper. I see two questions listed: "2" and "2a". Let's start with "2". The prompt indicates this involves a circuit with capacitors. There's a figure, "Fig. 2.1," which I need to include as a label. The rest is text explaining the experimental setup: capacitors in parallel, switches, potential difference, and a suggested equation:  `EA = V(nC + A)`. "2" seems to set the stage for the capacitor circuit.
+
+Now for "2a". It's asking about a graph: 1/V on the y-axis, n on the x-axis. The instructions say to strip the prefix, so I'll start with the main prompt. The crucial part is to determine expressions for the gradient and y-intercept.
+
+I need to confirm the formatting of the answer blanks.  Yes, it's `gradient = \hrulefill` and `y-intercept = \hrulefill`. I need to ensure a newline between the instruction and the first value, and none between the consecutive values. The math looks clean. I've double-checked the formatting of all the variables and fractions, using math mode where necessary. I think this transcription is precise, and ready.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student investigates a circuit containing capacitors. The circuit is connected with a capacitor of capacitance $A$, as shown in Fig. 2.1.
+
+      Fig. 2.1
+
+      Two capacitors, each of capacitance $C$, are connected in parallel between P and Q.
+
+      Initially, switch X and switch Z are closed and switch Y is open.
+
+      Switches X and Z are opened. Switch Y is then closed. The maximum potential difference between P and Q is measured using the voltmeter. This procedure is repeated and the mean maximum potential difference $V$ between P and Q is determined.
+
+      The experiment is then repeated by changing the number $n$ of capacitors, each of capacitance $C$, connected in parallel between P and Q.
+
+      It is suggested that $V$ and $n$ are related by the equation
+      $$EA = V(nC + A)$$
+      where $E$ is the electromotive force (e.m.f.) of the battery.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A graph is plotted of $\frac{1}{V}$ on the $y$-axis against $n$ on the $x$-axis.
+
+      Determine expressions for the gradient and $y$-intercept.
+
+      gradient = \hrulefill
+      $y$-intercept = \hrulefill

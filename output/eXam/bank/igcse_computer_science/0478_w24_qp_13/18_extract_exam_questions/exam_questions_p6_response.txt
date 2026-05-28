@@ -1,0 +1,56 @@
+[thinking]
+**Exam Paper Page 6: Transcribing Questions**
+
+Okay, so the user wants me to transcribe page 6 of this exam paper. Let's see what we have here. First up, we have `2fii`: "In the checksum error detection method, two values are compared after transmission. If the values do not match, an error is detected. Explain why the values not matching would show an error has occurred." Seems straightforward enough for a short answer.
+
+Next, we have a series of questions related to encryption. The initial question, `2g`, reads: "The email data is encrypted using asymmetric encryption before it is sent." This seems like an introductory statement rather than a question that needs an answer. It looks like the system has interpreted the introduction text as a stand-alone question.
+
+Following `2g`, we have `2gi`, `2gii`, and `2giii` which are clearly related to the encryption context. `2gi` is: "Give one reason why the email data is encrypted." Then `2gii`: "Give one similarity between symmetric encryption and asymmetric encryption." Finally, we have `2giii`: "Give two differences between symmetric encryption and asymmetric encryption." with numbered blanks for the responses.
+
+Alright, so the transcription should be as follows:
+
+`2fii`: In the checksum error detection method, two values are compared after transmission. If the values do **not** match, an error is detected. Explain why the values **not** matching would show an error has occurred.
+
+`2g`: The email data is encrypted using asymmetric encryption before it is sent.
+
+`2gi`: Give **one** reason why the email data is encrypted.
+
+`2gii`: Give **one** similarity between symmetric encryption and asymmetric encryption.
+
+`2giii`: Give **two** differences between symmetric encryption and asymmetric encryption.
+
+1.  \hrulefill
+2.  \hrulefill
+
+I think that's all, should be ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2fii"
+    type: short_answer
+    text: |
+      In the checksum error detection method, two values are compared after transmission. If the values do \textbf{not} match, an error is detected.
+
+      Explain why the values \textbf{not} matching would show an error has occurred.
+  - number: "2g"
+    type: short_answer
+    text: |
+      The email data is encrypted using asymmetric encryption before it is sent.
+  - number: "2gi"
+    type: short_answer
+    text: |
+      Give \textbf{one} reason why the email data is encrypted.
+  - number: "2gii"
+    type: short_answer
+    text: |
+      Give \textbf{one} similarity between symmetric encryption and asymmetric encryption.
+  - number: "2giii"
+    type: short_answer
+    text: |
+      Give \textbf{two} differences between symmetric encryption and asymmetric encryption.
+
+      1. \hrulefill
+      2. \hrulefill		

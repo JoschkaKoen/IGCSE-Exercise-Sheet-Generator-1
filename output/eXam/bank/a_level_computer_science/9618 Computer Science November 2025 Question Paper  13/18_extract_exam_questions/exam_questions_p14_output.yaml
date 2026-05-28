@@ -1,0 +1,60 @@
+```yaml
+questions:
+  - number: "7e"
+    type: short_answer
+    text: |
+      The table contains three algorithms that perform data validation. The third algorithm uses the functions \texttt{MID} and \texttt{LENGTH}.
+
+      The functions \texttt{MID} and \texttt{LENGTH} are defined as follows:
+
+      \begin{itemize}
+      \item \texttt{MID(ThisString : STRING, x : INTEGER, y : INTEGER) RETURNS STRING}\newline returns a string of length \texttt{y} starting at position \texttt{x} from \texttt{ThisString}
+      \item \texttt{LENGTH(ThisString : STRING) RETURNS INTEGER}\newline returns the integer value representing the length of \texttt{ThisString}
+      \end{itemize}
+
+      Complete the table to identify the method of data validation for each algorithm. Each method of data validation must be different.
+
+      \begin{tabular}{|p{9cm}|p{6cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Algorithm}} & \multicolumn{1}{c|}{\textbf{Method of data validation}} \\ \hline
+      \begin{alltt}
+      INPUT x
+
+      IF x < 1 or x > 26 THEN
+
+        OUTPUT "Invalid"
+
+      ENDIF
+      \end{alltt} & \\ \hline
+      \begin{alltt}
+      INPUT x
+
+      IF x <> 'R' AND x <> 'G' AND x <> 'B' THEN
+
+        OUTPUT "Invalid"
+
+      ENDIF
+      \end{alltt} & \\ \hline
+      \begin{alltt}
+      INPUT x
+
+      FLAG <- FALSE
+
+      FOR INDEX <- 1 TO LENGTH(x)
+
+        IF MID(x, INDEX, 1) = "@" THEN
+
+          FLAG <- TRUE
+
+        ENDIF
+
+      NEXT INDEX
+
+      IF NOT FLAG THEN
+
+        OUTPUT "Invalid"
+
+      ENDIF
+      \end{alltt} & \\ \hline
+      \end{tabular}
+```

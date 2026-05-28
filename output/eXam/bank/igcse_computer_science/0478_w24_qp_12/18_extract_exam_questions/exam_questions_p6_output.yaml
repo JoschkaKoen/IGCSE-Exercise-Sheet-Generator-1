@@ -1,0 +1,29 @@
+```yaml
+questions:
+  - number: "4e"
+    type: short_answer
+    text: |
+      The smartwatch only displays the time and text messages.
+
+      A student incorrectly describes this smartwatch as a general-purpose computer.
+
+      Explain why the student’s description is incorrect.
+  - number: "5"
+    type: short_answer
+    text: |
+      A barcode scanning system uses a check digit to check for errors in data on input.
+  - number: "5a"
+    type: long_answer
+    text: |
+      Explain how the barcode scanning system operates to check for errors.
+  - number: "5b"
+    type: short_answer
+    text: |
+      After a barcode is scanned, data is sent to a stock control system to update the stock value stored for that product.
+
+      The data is sent to the stock control system using serial simplex data transmission.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      Explain how the data is sent using serial simplex data transmission.
+```

@@ -1,0 +1,29 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A program is written in a high-level language by a team of three programmers using an Integrated Development Environment (IDE).
+  - number: "4a"
+    type: long_answer
+    text: |
+      Describe how the programmers can use the debugging features of a typical IDE during the development of the program.
+  - number: "4b"
+    type: long_answer
+    text: |
+      The programmers created a new program library whilst developing the program.
+
+      Describe the benefits to the programmers of creating a program library.
+  - number: "4c"
+    type: short_answer
+    text: |
+      The file containing the final program code will be sent by email for beta testing.
+
+      Identify \textbf{one} security method that can be used to protect the program code from unauthorised access during email transfer.
+
+      Explain how your chosen method protects the program code.
+
+      Security method \hrulefill
+
+      Explanation \hrulefill
+```

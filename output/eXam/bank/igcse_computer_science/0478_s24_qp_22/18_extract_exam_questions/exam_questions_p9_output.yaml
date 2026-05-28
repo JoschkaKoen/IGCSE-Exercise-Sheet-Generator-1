@@ -1,0 +1,5 @@
+questions:
+  - number: "9b"
+    type: short_answer
+    text: |
+      Describe what the algorithm represented by the flowchart is doing.

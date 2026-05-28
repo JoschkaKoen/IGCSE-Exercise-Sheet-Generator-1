@@ -1,0 +1,42 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Data can be measured using different units of storage.
+  - number: "1a"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to show which of the following is the largest unit of data storage.
+    options:
+      - letter: A
+        text: |
+          tebibyte (TiB)
+      - letter: B
+        text: |
+          pebibyte (PiB)
+      - letter: C
+        text: |
+          mebibyte (MiB)
+      - letter: D
+        text: |
+          gibibyte (GiB)
+  - number: "1b"
+    type: short_answer
+    text: |
+      A computer has primary storage.
+
+      Give \textbf{one} example of primary storage.
+
+      Explain the purpose of your chosen example.
+
+      Example \hrulefill
+
+      Explanation
+  - number: "1c"
+    type: short_answer
+    text: |
+      All data is converted to binary to be processed by a computer.
+  - number: "1ci"
+    type: calculation
+    text: |
+      Calculate the binary number for the denary number 175. Show all your working.

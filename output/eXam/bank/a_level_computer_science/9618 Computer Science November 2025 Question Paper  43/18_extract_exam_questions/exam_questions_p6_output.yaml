@@ -1,0 +1,40 @@
+```yaml
+questions:
+  - number: "1biv"
+    type: long_answer
+    text: |
+      The method \texttt{DisplayBoard()} outputs the \texttt{Code} of each \texttt{BoardObject} stored in \texttt{TheBoard} using \texttt{GetCode()}
+
+      Each row in \texttt{TheBoard} is output on one line with a space between each \texttt{Code}
+
+      For example, the following board contains these four board objects:
+
+      \begin{itemize}
+      \item one object has code "A" in row 0 column 7
+      \item one object has code "B" in row 0 column 9
+      \item one object has code "C" in row 1 column 1
+      \item one object has code "E" in row 6 column 5
+      \end{itemize}
+
+      The other board objects are empty. The output for this board will be:
+
+      \begin{alltt}
+      - - - - - - - A - B
+      - C - - - - - - - -
+      - - - - - - - - - -
+      - - - - - - - - - -
+      - - - - - - - - - -
+      - - - - - - - - - -
+      - - - - - E - - - -
+      - - - - - - - - - -
+      - - - - - - - - - -
+      - - - - - - - - - -
+      \end{alltt}
+
+      Write program code for \texttt{DisplayBoard()}
+
+      \begin{tabular}{|p{\textwidth}|}
+      \hline
+      Save your program. \newline \newline Copy and paste the program code into part \textbf{1(b)(iv)} in the evidence document. \\ \hline
+      \end{tabular}
+```

@@ -1,0 +1,21 @@
+```yaml
+questions:
+  - number: "3biii"
+    type: long_answer
+    text: |
+      Explain how the sensor and microprocessor work together to stop the drone crashing into an object.
+  - number: "3c"
+    type: short_answer
+    text: |
+      The drone has a digital camera that records a video while the drone is flying.
+
+      The drone can be connected to a computer using a universal serial bus (USB) interface to transfer the video recorded by the digital camera.
+  - number: "3ci"
+    type: short_answer
+    text: |
+      State what is meant by a USB interface.
+  - number: "3cii"
+    type: short_answer
+    text: |
+      Explain how a USB interface is used to transmit data.
+```

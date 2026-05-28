@@ -1,0 +1,42 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: ''
+  - number: "7a"
+    type: short_answer
+    text: |
+      Nitrogen-12 ($^{12}_{7}\text{N}$) is an unstable isotope of nitrogen that decays by the emission of radiation to carbon-12 ($^{12}_{6}\text{C}$).
+
+      Complete the full nuclear equation for the decay, including all the particles involved.
+
+      $$^{12}_{7}\text{N} \rightarrow$$
+  - number: "7b"
+    type: short_answer
+    text: |
+      Hydrogen-1 ($^{1}_{1}\text{H}$) is an isotope of hydrogen. An atom of hydrogen-1 comprises a proton with an orbiting electron.
+
+      An antiparticle equivalent of hydrogen-1 comprises an antiproton with an orbiting positron. The antiquarks in the antiproton are the antiparticles of the quarks in a proton.
+  - number: "7bi"
+    type: short_answer
+    text: |
+      State the charge on the positron in terms of the elementary charge $e$.
+
+      charge = \hrulefill $e$
+  - number: "7bii"
+    type: short_answer
+    text: |
+      State the group (class) of fundamental particle to which the positron belongs.
+  - number: "7biii"
+    type: short_answer
+    text: |
+      In Table 7.1, state the flavour and charge of the three antiquarks that comprise the antiproton.
+
+      \textbf{Table 7.1}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      flavour & charge/$e$ \\ \hline
+       & \\ \hline
+       & \\ \hline
+       & \\ \hline
+      \end{tabular}

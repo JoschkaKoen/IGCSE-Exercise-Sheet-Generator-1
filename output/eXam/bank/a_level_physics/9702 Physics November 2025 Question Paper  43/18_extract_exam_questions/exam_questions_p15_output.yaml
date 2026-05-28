@@ -1,0 +1,10 @@
+questions:
+  - number: "6biii"
+    type: calculation
+    text: |
+      The capacitor is now connected in parallel with a capacitor of capacitance $180\ \mu\text{F}$ that is initially uncharged.
+
+      Determine the total energy, in $\text{mJ}$, now stored in the two capacitors.
+
+      energy = \hrulefill $\text{mJ}$
+```

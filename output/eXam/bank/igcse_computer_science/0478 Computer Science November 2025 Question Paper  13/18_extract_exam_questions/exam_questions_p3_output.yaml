@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      If the air-conditioning system detects an error, it displays an error code. The error code is displayed as a hexadecimal number. The binary number for each error code is stored in a register.
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Give the binary number that is stored in the register to display the error code 51.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Give the binary number that is stored in the register to display the error code E3.
+  - number: "1ciii"
+    type: short_answer
+    text: |
+      Give the hexadecimal number that is displayed when the binary number 10000010 is stored in the register.
+  - number: "1d"
+    type: calculation
+    text: |
+      If the owner of the shop wants to make the room very cold, she may need to enter a negative denary number.
+
+      The negative denary number could be represented using two's complement.
+
+      Give the two's complement 8-bit binary integer that would be stored for the temperature $-5$.
+
+      Show all your working.
+
+      Two's complement 8-bit binary integer \hrulefill
+```

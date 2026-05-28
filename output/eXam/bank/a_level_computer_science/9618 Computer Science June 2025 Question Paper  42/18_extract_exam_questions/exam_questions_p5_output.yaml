@@ -1,0 +1,35 @@
+```yaml
+questions:
+  - number: "1f"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1fi"
+    type: short_answer
+    text: |
+      Write program code to extend the main program to:
+
+      \begin{itemize}
+      \item take a filename as input from the user
+      \item call \texttt{ReadData()} with the input filename
+      \item call \texttt{Calculate()}
+      \item output the final total.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(f)(i)} in the evidence document.
+  - number: "1fii"
+    type: short_answer
+    text: |
+      Test your program twice with the file names:
+
+      \texttt{StackData.txt}
+      \texttt{SecondStack.txt}
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{1(f)(ii)} in the evidence document.
+```

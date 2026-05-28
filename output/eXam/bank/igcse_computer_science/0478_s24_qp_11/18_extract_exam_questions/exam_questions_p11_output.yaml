@@ -1,0 +1,23 @@
+questions:
+  - number: "9bii"
+    type: short_answer
+    text: |
+      Give \textbf{two} other error detection methods that could be used.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "9c"
+    type: short_answer
+    text: |
+      The company owner also installs a firewall to help protect the network from hackers and malware.
+  - number: "9ci"
+    type: long_answer
+    text: |
+      Explain how the firewall operates to help protect the network.
+  - number: "9cii"
+    type: short_answer
+    text: |
+      Give \textbf{two} examples of malware that the firewall can help protect the network from.
+
+      1. \hrulefill
+      2. \hrulefill

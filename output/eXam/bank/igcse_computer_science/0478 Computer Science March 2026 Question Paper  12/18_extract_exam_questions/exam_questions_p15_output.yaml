@@ -1,0 +1,22 @@
+questions:
+  - number: "8c"
+    type: long_answer
+    text: |
+      Complete the table by giving \textbf{two} examples of software security solutions and explain how each protects a computer against threats.
+
+      \begin{tabular}{|p{4cm}|p{10cm}|}
+      \hline
+      \textbf{security solution} & \textbf{explanation} \\ \hline
+       & \\
+       & \\ \hline
+       & \\
+       & \\ \hline
+      \end{tabular}
+  - number: "8d"
+    type: short_answer
+    text: |
+      Define the terms firmware and operating system.
+
+      firmware \hrulefill
+
+      operating system \hrulefill

@@ -1,0 +1,85 @@
+[thinking]
+**My Analysis of Question 1c**
+
+Okay, so the task is to transcribe question "1c" from the provided page. The core of it seems straightforward; it's asking me to write the code for a function called `CompareStrings()`. I'm familiar with this type of problem; it's a fundamental string comparison exercise.
+
+The prompt outlines the function's behavior: it takes two strings as input and needs to determine which one comes first alphabetically, character by character. If the initial characters are identical, I'll need to compare the subsequent characters. The function should return 1 if the first string is alphabetically earlier, and 2 if the second string is earlier.
+
+Key constraints are provided: I need to assume all strings are lowercase, and that a difference will always be identified before hitting the end of a shorter string. This simplifies the logic somewhat, avoiding edge cases. Importantly, I must *not* use any built-in string comparison functions; it's character-by-character comparison only.
+
+I'll need to remember to "Save your program. Copy and paste the program code into part 1(c) in the evidence document." That's a crucial instruction; I'll need to make sure I don't forget it and place the code correctly.
+
+I'll also keep in mind that I need to present the function name in a `\texttt{CompareStrings()}` format. And the text should be formatted as closely to the source as possible. So I'll structure the text as a list of bullet points and add bold formatting where needed.
+
+Here's how I'll present the question:
+
+```yaml
+questions:
+  - number: "1c"
+    type: long_answer
+    text: |
+      The function \texttt{CompareStrings()}:
+
+      \begin{itemize}
+      \item takes two strings as parameters
+      \item compares each string, one character at a time, to identify which string comes first alphabetically. If the first two characters are the same, the second character of each string is compared. This continues until the two characters are different.
+      \end{itemize}
+
+      The function:
+
+      \begin{itemize}
+      \item returns 1 if the first parameter comes before the second alphabetically
+      \item returns 2 if the second parameter comes before the first alphabetically.
+      \end{itemize}
+
+      Write program code for \texttt{CompareStrings()}.
+
+      Assume that all strings are in lower case.
+
+      Assume that a difference between two strings will always be identified before the end of one string is reached.
+
+      Do \textbf{not} use an in-built string comparison function.
+
+      The strings must be compared one character at a time.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.
+```
+I am ready to move on.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: long_answer
+    text: |
+      The function \texttt{CompareStrings()}:
+
+      \begin{itemize}
+      \item takes two strings as parameters
+      \item compares each string, one character at a time, to identify which string comes first alphabetically. If the first two characters are the same, the second character of each string is compared. This continues until the two characters are different.
+      \end{itemize}
+
+      The function:
+
+      \begin{itemize}
+      \item returns 1 if the first parameter comes before the second alphabetically
+      \item returns 2 if the second parameter comes before the first alphabetically.
+      \end{itemize}
+
+      Write program code for \texttt{CompareStrings()}.
+
+      Assume that all strings are in lower case.
+
+      Assume that a difference between two strings will always be identified before the end of one string is reached.
+
+      Do \textbf{not} use an in-built string comparison function.
+
+      The strings must be compared one character at a time.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.

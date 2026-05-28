@@ -1,0 +1,789 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the truth table for the logic expression:
+
+
+      $$\text{X} = (\text{A XOR B}) \text{ NAND } (\text{A AND } (\text{B XOR C}))$$
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Draw the logic circuit for the logic expression:
+
+
+      $$\text{W} = \text{P NAND } ((\text{Q OR NOT R}) \text{ XOR } (\text{P XOR Q}))$$'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Embedded systems are used in many electronic devices.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe the drawbacks of embedded systems.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'An embedded system has Dynamic RAM (DRAM).
+
+
+      Identify \textbf{one} benefit of using DRAM instead of Static RAM (SRAM) in
+      an embedded system.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} differences between Erasable Programmable ROM (EPROM)
+      and Electrically Erasable Programmable ROM (EEPROM).
+
+
+      Difference 1 \hrulefill
+
+
+      Difference 2 \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student has a computer.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The computer is designed using the Von Neumann model for a computer system.
+
+
+      Complete the table by describing the purpose of each of the given registers.
+
+
+      \begin{tabular}{|p{4cm}|p{8cm}|}
+
+      \hline
+
+      \textbf{Register} & \textbf{Purpose} \\ \hline
+
+      Program Counter (PC) & \\ \hline
+
+      Memory Address Register (MAR) & \\ \hline
+
+      Memory Data Register (MDR) & \\ \hline
+
+      Index Register (IX) & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The student needs to connect the computer to a monitor that has a screen
+      resolution of $2560 \times 1600$ pixels. The monitor also has built-in speakers.
+
+
+      The computer has a Video Graphics Array (VGA) port and a High Definition Multimedia
+      Interface (HDMI) port.
+
+
+      Explain the benefits of connecting the monitor to the computer using the HDMI
+      port instead of the VGA port.'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The computer has an Operating System (OS). One of the key management tasks
+      of the OS is process management.
+
+
+      Describe the process management tasks performed by an OS.'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program is written in a high-level language by a team of three programmers
+    using an Integrated Development Environment (IDE).
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Describe how the programmers can use the debugging features of a typical
+      IDE during the development of the program.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The programmers created a new program library whilst developing the program.
+
+
+      Describe the benefits to the programmers of creating a program library.'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The file containing the final program code will be sent by email for beta
+      testing.
+
+
+      Identify \textbf{one} security method that can be used to protect the program
+      code from unauthorised access during email transfer.
+
+
+      Explain how your chosen method protects the program code.
+
+
+      Security method \hrulefill
+
+
+      Explanation \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer programmer is learning about the importance of acting ethically
+    at work.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Explain the reasons why the computer programmer needs to act ethically
+      towards colleagues and the public.
+
+
+      Colleagues \hrulefill
+
+
+      The public \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The programmer writes a program to be used in a business. The source code
+      of the program can be modified by the business. The business pays the programmer
+      for the maintenance and security updates.
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Identify \textbf{one} suitable type of software licence for the program
+        \textbf{and} describe the reasons for your choice.
+
+
+        Type of software licence \hrulefill
+
+
+        Reasons for choice \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain the reasons why the programmer should copyright their program.
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A company uses a relational database to store data about its customers, employees
+    and the individual repair jobs that customers have booked.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain the benefits of using a relational database instead of a file-based
+      approach.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The company decides which employees will work on each repair job. An employee
+      can log into the database to access information about their repair jobs.
+
+
+      The database is normalised and includes these tables:
+
+
+      \begin{itemize}
+
+      \item \texttt{CUSTOMER} stores personal data about each customer
+
+      \item \texttt{EMPLOYEE} stores personal data about each employee
+
+      \item \texttt{LOGIN\_DATA} stores the username and password for each employee
+
+      \item \texttt{JOB} stores the data about each repair job
+
+      \item \texttt{JOB\_EMPLOYEE} stores the employees that are working on each repair
+      job.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 6
+      text: Identify each relationship between the database tables \textbf{and} explain
+        how each relationship can be implemented in the normalised database.
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The database also has the table \texttt{INVOICE} that stores data about
+        each invoice that is sent to a customer.
+
+
+        Example data from the table \texttt{INVOICE} is given.
+
+
+        \begin{tabular}{|c|c|c|c|c|}
+
+        \hline
+
+        \textbf{InvoiceID} & \textbf{DateSent} & \textbf{Amount} & \textbf{Paid} &
+        \textbf{JobID} \\ \hline
+
+        29262 & 12/12/2023 & 105.20 & Y & 221 \\ \hline
+
+        26765 & 11/11/2023 & 200.00 & Y & 315 \\ \hline
+
+        13290 & 02/01/2024 & 50.00 & Y & 315 \\ \hline
+
+        34090 & 05/02/2024 & 25.95 & N & 569 \\ \hline
+
+        \end{tabular}
+
+
+        Write a Structured Query Language (SQL) script to return the total amount
+        of all the invoices sent in the year 2023 that have been paid.'
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student takes a photograph of a science experiment.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The photograph is saved as a bitmapped image.
+    answer_options: []
+    subquestions:
+    - number: 7ai
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Define the following bitmap terms.
+
+
+        Colour depth \hrulefill
+
+
+        File header \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7aii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Explain why changing the image resolution will affect the image quality
+        and file size.
+
+
+        Image quality \hrulefill
+
+
+        File size \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7aiii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify \textbf{one} lossless method of compressing an image.
+      answer_options: []
+      subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The student draws a picture on paper that is scanned into the computer
+      and saved as a vector graphic.
+
+
+      Define the vector graphic terms property and drawing list.
+
+
+      Property \hrulefill
+
+
+      Drawing list \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The following table shows part of the instruction set for a processor. The
+    processor has two registers, the Accumulator (ACC) and the Index Register (IX).
+
+
+    \begin{tabular}{|r|l|p{9cm}|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+    \\ \cline{1-2}
+
+    \textbf{Opcode} & \textbf{Operand} & \\ \hline
+
+    LDM & \texttt{\#n} & Immediate addressing. Load the number n to ACC \\ \hline
+
+    LDD & \texttt{<address>} & Direct addressing. Load the contents of the location
+    at the given address to ACC \\ \hline
+
+    LDI & \texttt{<address>} & Indirect addressing. The address to be used is at the
+    given address. \newline Load the contents of this second address to ACC \\ \hline
+
+    LDX & \texttt{<address>} & Indexed addressing. Form the address from \texttt{<address>}
+    + the contents of the index register. Copy the contents of this calculated address
+    to ACC \\ \hline
+
+    LDR & \texttt{\#n} & Immediate addressing. Load the number n to IX \\ \hline
+
+    ADD & \texttt{\#n/Bn/\&n} & Add the number n to the ACC \\ \hline
+
+    ADD & \texttt{<address>} & Add the contents of the given address to the ACC \\
+    \hline
+
+    SUB & \texttt{\#n/Bn/\&n} & Subtract the number n from the ACC \\ \hline
+
+    SUB & \texttt{<address>} & Subtract the contents of the given address from the
+    ACC \\ \hline
+
+    INC & \texttt{<register>} & Add 1 to the contents of the register (ACC or IX)
+    \\ \hline
+
+    DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC
+    or IX) \\ \hline
+
+    \end{tabular}
+
+
+    \texttt{<address>} can be an absolute or a symbolic address
+
+    \newline
+
+    \# denotes a denary number, e.g. \#123
+
+    \newline
+
+    B denotes a binary number, e.g. B01001010
+
+    \newline
+
+    \& denotes a hexadecimal number, e.g. \&4A'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The current contents of memory are shown:
+
+
+      \begin{tabular}{r|l|}
+
+      \multicolumn{1}{c}{\textbf{Address}} & \multicolumn{1}{c}{\textbf{Data}} \\
+
+      \cline{2-2}
+
+      19 & 25 \\
+
+      \cline{2-2}
+
+      20 & 23 \\
+
+      \cline{2-2}
+
+      21 & 2 \\
+
+      \cline{2-2}
+
+      22 & 4 \\
+
+      \cline{2-2}
+
+      23 & 15 \\
+
+      \cline{2-2}
+
+      24 & 50 \\
+
+      \cline{2-2}
+
+      25 & 22 \\
+
+      \cline{2-2}
+
+      \end{tabular}
+
+
+      The current contents of the ACC and IX are shown:
+
+
+      \begin{tabular}{r|l|}
+
+      \cline{2-2}
+
+      \textbf{ACC} & 50 \\
+
+      \cline{2-2}
+
+      \textbf{IX} & 20 \\
+
+      \cline{2-2}
+
+      \end{tabular}
+
+
+      Complete the table by writing the content of the ACC and the IX after each set
+      of instructions has run.
+
+
+      \begin{tabular}{|c|l|p{4cm}|p{4cm}|}
+
+      \hline
+
+      & \textbf{Instructions} & \centering\textbf{ACC content} & \centering\textbf{IX
+      content} \tabularnewline
+
+      \hline
+
+      \textbf{1} & \begin{tabular}[c]{@{}l@{}}\texttt{LDM \#19}\\\texttt{DEC ACC}\end{tabular}
+      & & \tabularnewline
+
+      \hline
+
+      \textbf{2} & \begin{tabular}[c]{@{}l@{}}\texttt{LDD 23}\\\texttt{ADD 19}\end{tabular}
+      & & \tabularnewline
+
+      \hline
+
+      \textbf{3} & \begin{tabular}[c]{@{}l@{}}\texttt{LDI 25}\\\texttt{INC ACC}\end{tabular}
+      & & \tabularnewline
+
+      \hline
+
+      \textbf{4} & \begin{tabular}[c]{@{}l@{}}\texttt{LDR \#21}\\\texttt{LDX 2}\end{tabular}
+      & & \tabularnewline
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The instruction set also includes these bit manipulation instructions:
+
+
+      \begin{tabular}{|c|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+      \\ \cline{1-2}
+
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+
+      AND & \#n/Bn/\&n & Bitwise AND operation of the contents of ACC with the operand
+      \\ \hline
+
+      AND & <address> & Bitwise AND operation of the contents of ACC with the contents
+      of <address> \\ \hline
+
+      XOR & \#n/Bn/\&n & Bitwise XOR operation of the contents of ACC with the operand
+      \\ \hline
+
+      XOR & <address> & Bitwise XOR operation of the contents of ACC with the contents
+      of <address> \\ \hline
+
+      OR & \#n/Bn/\&n & Bitwise OR operation of the contents of ACC with the operand
+      \\ \hline
+
+      OR & <address> & Bitwise OR operation of the contents of ACC with the contents
+      of <address> \\ \hline
+
+      LSL & \#n & Bits in ACC are shifted logically n places to the left. Zeros are
+      introduced on the right-hand end \\ \hline
+
+      LSR & \#n & Bits in ACC are shifted logically n places to the right. Zeros are
+      introduced on the left-hand end. \\ \hline
+
+      \end{tabular}
+
+
+      \begin{itemize}
+
+      \item <address> can be an absolute or a symbolic address
+
+      \item \# denotes a denary number, e.g. \#123
+
+      \item B denotes a binary number, e.g. B01001010
+
+      \item \& denotes a hexadecimal number, e.g. \&4A
+
+      \end{itemize}
+
+
+      The current content of the ACC is shown:
+
+
+      \begin{tabular}{l|c|c|c|c|c|c|c|c|}
+
+      \cline{2-9}
+
+      \textbf{ACC} & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 \\ \cline{2-9}
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The table has three sets of instructions. The binary number 10011010
+        is reloaded into the ACC before each set of instructions is run.
+
+
+        Complete the table by writing the content of the ACC after each set of instructions
+        has run.
+
+
+        \begin{tabular}{|c|l|c|}
+
+        \hline
+
+        & \textbf{Instructions} & \textbf{ACC content} \\ \hline
+
+        \textbf{1} & LSL \#2 & \\ \hline
+
+        \textbf{2} & ADD \#5 \newline AND \#30 & \\ \hline
+
+        \textbf{3} & OR B11110010 \newline INC ACC & \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Explain how bit manipulation can be used to test whether the binary number
+        stored in the ACC represents an odd denary number.
+
+
+        Write the bit manipulation instruction that will be used.
+
+
+        Explanation \hrulefill
+
+
+        Instruction \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A road bridge has a weight limit and a height limit for vehicles. For example,
+    a vehicle must weigh less than $10000 \text{ kg}$ and must have a height of less
+    than $3 \text{ m}$.
+
+
+    The bridge has a warning system. If a vehicle is approaching the bridge and it
+    exceeds one or both limits, a sign displays a warning telling the driver of the
+    vehicle to stop.'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: "The bridge warning system uses sensors to detect if a vehicle exceeds the\
+      \ limits.\n\nComplete the table by identifying \\textbf{two} different sensors\
+      \ that could be used by the system \\textbf{and} describe how each sensor is\
+      \ used by the system.\n\n\\begin{tabular}{|p{5cm}|p{10cm}|}\n\\hline\n\\textbf{Sensor}\
+      \ & \\textbf{Use in bridge warning system} \\\\ \\hline\n &  \\\\\n &  \\\\\
+      \ \\hline\n &  \\\\\n &  \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain whether the bridge warning system is an example of a monitoring
+      system or of a control system.
+    answer_options: []
+    subquestions: []

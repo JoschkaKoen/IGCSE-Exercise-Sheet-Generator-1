@@ -1,0 +1,5 @@
+questions:
+  - number: "4cii"
+    type: long_answer
+    text: |
+      Explain one difference between session cookies and persistent cookies.

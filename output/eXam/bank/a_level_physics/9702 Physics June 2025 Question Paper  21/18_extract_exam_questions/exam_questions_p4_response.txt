@@ -1,0 +1,50 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 4**
+
+Alright, the task is to fill in the YAML stub for page 4 of the exam. The questions are straightforward: "1", "1a", "1b", "1bi", and "1bii". It's a short answer section. "1" is the main question, but there's no visible text associated with it on the page *apart* from the subquestions. Since the instructions say "Do NOT add or remove questions", "1" has to exist and so I'll leave the text for "1" as an empty string `text: ''`.
+
+Now, looking at "1a," the text is simply "Define acceleration." For "1b," the question is the description of an experiment involving two objects, A and B, being dropped from a building. I have to include the description of the experimental setup, namely the heights and initial conditions and omit the figure. Question "1bi" requires calculating the time for object A to hit the ground. For "1bii," I need to use the answer from "1bi" to calculate the initial upward velocity, `u`, of object B.
+
+So, here's the breakdown of the text entries:
+
+*   "1": `text: ''`
+*   "1a": `text: | Define acceleration.`
+*   "1b": `text: | In an experiment, two objects A and B are released from the side of a building, as shown in Fig. 1.1. Object A is released from rest at a height of $14\text{ m}$ above the horizontal ground. Object B is released with an initial upwards vertical velocity $u$ at a height of $3.6\text{ m}$ above the ground. Both objects take the same time to reach the ground and they do not collide with each other. Air resistance is negligible.`
+*   "1bi": `text: | Calculate the time taken for object A to reach the ground. time = \hrulefill s`
+*   "1bii": `text: | Use your answer in (b)(i) to calculate $u$. u = \hrulefill \text{ m}\,\text{s}^{-1}`
+
+I've ensured to incorporate the correct units and formatting, especially for the calculated values, and now I'm ready to write the complete YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Define acceleration.
+  - number: "1b"
+    type: short_answer
+    text: |
+      In an experiment, two objects A and B are released from the side of a building, as shown in Fig. 1.1.
+
+      Object A is released from rest at a height of $14\text{ m}$ above the horizontal ground.
+      Object B is released with an initial upwards vertical velocity $u$ at a height of $3.6\text{ m}$ above the ground.
+      Both objects take the same time to reach the ground and they do not collide with each other.
+      Air resistance is negligible.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Calculate the time taken for object A to reach the ground.
+
+      time = \hrulefill s
+  - number: "1bii"
+    type: calculation
+    text: |
+      Use your answer in (b)(i) to calculate $u$.
+
+      u = \hrulefill \text{ m}\,\text{s}^{-1}

@@ -1,0 +1,1005 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program sorts string data using different sorting methods.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: long_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The text file \texttt{Data.txt} stores string data items. Each data item
+      is on a new line in the text file.
+
+
+      The function \texttt{ReadData()}:
+
+
+      \begin{itemize}
+
+      \item has a local array of strings that can store 45 items
+
+      \item reads each line of data and stores it in the array
+
+      \item returns the array.
+
+      \end{itemize}
+
+
+      Write program code for the function \texttt{ReadData()}.
+
+
+      Save your program as \textbf{Question1\_N24}.
+
+
+      Copy and paste the program code into part \textbf{1(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The function \texttt{FormatArray()} takes an array of strings as a parameter.
+      It concatenates the contents of the array into one string with a space between
+      each array element. The function returns the concatenated string.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code for \texttt{FormatArray()}.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(b)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The main program:
+
+        \begin{itemize}
+
+        \item calls \texttt{ReadData()} and stores the returned array
+
+        \item calls \texttt{FormatArray()} with the returned array and outputs the
+        returned string.
+
+        \end{itemize}
+
+
+        Write program code for the main program.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(b)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output.
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{1(b)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The function \texttt{CompareStrings()}:
+
+
+      \begin{itemize}
+
+      \item takes two strings as parameters
+
+      \item compares each string, one character at a time, to identify which string
+      comes first alphabetically. If the first two characters are the same, the second
+      character of each string is compared. This continues until the two characters
+      are different.
+
+      \end{itemize}
+
+
+      The function:
+
+
+      \begin{itemize}
+
+      \item returns 1 if the first parameter comes before the second alphabetically
+
+      \item returns 2 if the second parameter comes before the first alphabetically.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{CompareStrings()}.
+
+
+      Assume that all strings are in lower case.
+
+
+      Assume that a difference between two strings will always be identified before
+      the end of one string is reached.
+
+
+      Do \textbf{not} use an in-built string comparison function.
+
+
+      The strings must be compared one character at a time.
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The function \texttt{Bubble()} takes an array of strings as a parameter
+      and sorts the data into ascending alphabetical order, using a bubble sort. The
+      bubble sort uses \texttt{CompareStrings()} to compare each string.
+
+
+      The function returns the sorted list.'
+    answer_options: []
+    subquestions:
+    - number: 1di
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write program code for \texttt{Bubble()}.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(d)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1dii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code to amend the main program to:
+
+
+        \begin{itemize}
+
+        \item call \texttt{Bubble()} with the unsorted array as a parameter
+
+        \item call \texttt{FormatArray()} with the sorted array and output the returned
+        string.
+
+        \end{itemize}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(d)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1diii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output.
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{1(d)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A computer program is designed to simulate horses doing show jumping. In
+    show jumping, horses jump over obstacles called fences. A horse successfully jumps
+    a fence if it does not knock the fence down.
+
+
+    The program is written using Object-Oriented Programming (OOP).
+
+
+    The class \texttt{Horse} stores data about the horses.
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Horse}} \\ \hline
+
+    \texttt{Name : STRING} & stores the name given to the horse \\
+
+    \texttt{MaxFenceHeight : INTEGER} & stores the maximum height in cm that the horse
+    can jump, for example 132 \\
+
+    \texttt{PercentageSuccess : INTEGER} & stores the percentage chance of a horse
+    not knocking down a fence, for example 70 represents a 70\% chance of jumping
+    a fence successfully \\ \hline
+
+    \texttt{Constructor()} & initialises \texttt{Name}, \texttt{MaxFenceHeight} and
+    \texttt{PercentageSuccess} to its parameter values \\
+
+    \texttt{GetName()} & returns the name of the horse \\
+
+    \texttt{GetMaxFenceHeight()} & returns the maximum height the horse can jump \\
+
+    \texttt{Success()} & calculates and returns the percentage chance of a horse successfully
+    jumping a specific fence \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The class \texttt{Horse} stores data about the horses.
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: long_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Horse} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        Use your programming language''s appropriate constructor.
+
+
+        All attributes must be private. If you are writing in Python, include attribute
+        declarations using comments.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program as \textbf{Question2\_N24}. \\
+
+        Copy and paste the program code into part \textbf{2(a)(i)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: long_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The get methods \texttt{GetName()} and \texttt{GetMaxFenceHeight()} each
+        return the relevant attribute.
+
+
+        Write program code for the get methods.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{2(a)(ii)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The array \texttt{Horses} stores objects of type \texttt{Horse}.
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'The program has two horses:
+
+
+        \begin{itemize}
+
+        \item The horse named ‘Beauty’ can jump a maximum height of $150\text{ cm}$
+        and has a success percentage rate of $72\%$.
+
+        \item The horse named ‘Jet’ can jump a maximum height of $160\text{ cm}$ and
+        has a success percentage rate of $65\%$.
+
+        \end{itemize}
+
+
+        Write program code to:
+
+
+        \begin{itemize}
+
+        \item declare the array, \texttt{Horses}, local to the main program with space
+        for \textbf{two} \texttt{Horse} objects
+
+        \item store the \textbf{two} horses described in the array
+
+        \item output the name of both \texttt{Horse} objects from the array.
+
+        \end{itemize}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(b)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output.
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{2(b)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The class \texttt{Fence} stores data about the fences. Each fence has a
+      height in cm and a risk number.
+
+
+      The risk is a whole number between 1 and 5 inclusive. A risk of 1 means the
+      fence is the easiest type to jump. A risk of 5 means the fence is the hardest
+      type to jump.
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Fence}} \\ \hline
+
+      \texttt{Height : INTEGER} & stores the height of the fence in cm \newline the
+      height is between 70 and 180 inclusive \\ \hline
+
+      \texttt{Risk : INTEGER} & stores the risk as a whole number between 1 and 5
+      inclusive \\ \hline
+
+      \texttt{Constructor()} & initialises \texttt{Height} and \texttt{Risk} to its
+      parameter values \\ \hline
+
+      \texttt{GetHeight()} & returns the height of the fence \\ \hline
+
+      \texttt{GetRisk()} & returns the risk of the fence \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Fence}, its constructor
+        and get methods.
+
+
+        Use your programming language''s appropriate constructor.
+
+
+        All attributes must be private.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \newline \newline Copy and paste the program code into
+        part \textbf{2(c)(i)} in the evidence document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'The array \texttt{Course} stores \textbf{four} \texttt{Fence} objects.
+        The user inputs the height and risk for each fence, and these are validated
+        before each fence is created.
+
+
+        Amend the main program to:
+
+
+        \begin{itemize}
+
+        \item declare the local array \texttt{Course}
+
+        \item take as input the data for \textbf{four} fences from the user
+
+        \item loop the input until both the height and risk are valid for each fence
+
+        \item create an instance of \texttt{Fence} for each of the \textbf{four} valid
+        fences and store each instance in the array.
+
+        \end{itemize}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \newline \newline Copy and paste the program code into
+        part \textbf{2(c)(ii)} in the evidence document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The chance of a horse jumping a fence without knocking it down is calculated
+      as follows.
+
+
+      If the height of the fence is more than the maximum height a horse can jump,
+      the success percentage is 20\% of the horse''s \texttt{PercentageSuccess}. The
+      risk does not affect this value.
+
+
+      If the height of the fence is less than or equal to the maximum height a horse
+      can jump, the risk gives a modifier value to multiply with the horse''s \texttt{PercentageSuccess}.
+
+
+      The risk values and their modifiers are given in this table:
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      \textbf{Risk} & \textbf{Modifier} \\ \hline
+
+      5 & 0.6 \\ \hline
+
+      4 & 0.7 \\ \hline
+
+      3 & 0.8 \\ \hline
+
+      2 & 0.9 \\ \hline
+
+      1 & 1.0 \\ \hline
+
+      \end{tabular}
+
+
+      For example:
+
+
+      \begin{itemize}
+
+      \item The horse Jet has \texttt{PercentageSuccess} of 65 and \texttt{MaxFenceHeight}
+      of 160.
+
+      \item A fence has a height of 140 and a risk of 3.
+
+      \item The height of the fence is less than the horse''s \texttt{MaxFenceHeight},
+      therefore the risk is used.
+
+      \item The risk of 3 gives the modifier 0.8.
+
+      \item The modifier 0.8 is multiplied by the horse''s \texttt{PercentageSuccess}
+      of 65, which gives 52.
+
+      \item The chance of the horse successfully jumping this fence is 52\%.
+
+      \end{itemize}
+
+
+      The method \texttt{Success()} in the \texttt{Horse} class:
+
+
+      \begin{itemize}
+
+      \item takes the height and risk of a fence as parameters
+
+      \item calculates the percentage chance of success for that horse jumping the
+      fence without knocking it down
+
+      \item returns the calculated percentage chance of success as a real number.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{Success()}.
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{2(d)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2ei
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write program code to amend the main program to:
+
+
+        \begin{itemize}
+
+        \item calculate and output the chance of the first horse jumping each of the
+        \textbf{four} fences without knocking each fence down
+
+        \item calculate and output the chance of the second horse jumping each of
+        the \textbf{four} fences without knocking each fence down.
+
+        \end{itemize}
+
+
+        All outputs must have appropriate messages including the name of the horse
+        and the fence number.
+
+
+        An example output for one horse jumping two fences is:
+
+
+        \begin{alltt}
+
+        "The horse Fox at fence 1 has a 68% chance of success
+
+        The horse Fox at fence 2 has a 72% chance of success"
+
+        \end{alltt}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(e)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2eii
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code to amend the main program to:
+
+
+        \begin{itemize}
+
+        \item calculate and output the average chance of success for each horse jumping
+        over all \textbf{four} fences without knocking each fence down (the average
+        is the total of values divided by the quantity of values). An example output
+        for one horse jumping all of the fences is:
+
+        \begin{alltt}
+
+        "The horse Fox has an average 70% chance of jumping over all four fences"
+
+        \end{alltt}
+
+        \item output the name of the horse that has the highest average chance of
+        success.
+
+        \end{itemize}
+
+
+        You can assume that each average will be different.
+
+
+        All outputs must have appropriate messages.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(e)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2eiii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Test your program with the following input data for \textbf{four} fences:
+
+
+        \begin{tabular}{|c|c|}
+
+        \hline
+
+        \textbf{Height} & \textbf{Risk} \\ \hline
+
+        152 & 5 \\ \hline
+
+        121 & 1 \\ \hline
+
+        130 & 3 \\ \hline
+
+        145 & 4 \\ \hline
+
+        \end{tabular}
+
+
+        Take a screenshot of the output.
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{2(e)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A linked list stores positive integer data in a 2D array. The first dimension
+    of the array stores the integer data. The second dimension of the array stores
+    the pointer to the next node in the linked list.
+
+
+    A linked list node with no data is initialised with the integer $-1$. These nodes
+    are linked together as an empty list. A pointer of $-1$ identifies that node as
+    the last node.
+
+
+    The linked list can store 20 nodes.
+
+
+    The global 2D array \texttt{LinkedList} stores the linked list.
+
+
+    \texttt{LinkedList} is initialised as an empty list. The data in each node is
+    initialised to $-1$. Each node''s pointer stores the index of the next node. The
+    last node stores the pointer value $-1$, which indicates it is the last node.
+
+
+    The global variable \texttt{FirstEmpty} stores the index of the first element
+    in the empty list. This is the first node in the empty linked list when it is
+    initialised, which is index 0.
+
+
+    The global variable \texttt{FirstNode} stores the index of the first element in
+    the linked list. There is no data in the linked list when it is initialised, so
+    \texttt{FirstNode} is initialised to $-1$.
+
+
+    This diagram shows the content of the initialised array.
+
+
+    \texttt{FirstEmpty = 0}
+
+
+    \texttt{FirstNode = -1}
+
+
+    \begin{tabular}{|c|c|c|}
+
+    \hline
+
+    \textbf{Index} & \textbf{Data} & \textbf{Pointer} \\ \hline
+
+    0 & -1 & 1 \\ \hline
+
+    1 & -1 & 2 \\ \hline
+
+    2 & -1 & 3 \\ \hline
+
+    3 & -1 & 4 \\ \hline
+
+    4 & -1 & 5 \\ \hline
+
+    19 & -1 & -1 \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write program code for the main program to declare and initialise \texttt{LinkedList},
+      \texttt{FirstNode} and \texttt{FirstEmpty}.
+
+
+      Save your program as \textbf{Question3\_N24}.
+
+
+      Copy and paste the program code into part \textbf{3(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: long_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "The procedure \\texttt{InsertData()} takes \\textbf{five} positive integers\
+      \ as input from the user and inserts these into the linked list.\n\nEach data\
+      \ item is inserted at the front of the linked list.\n\nThe table shows the steps\
+      \ to follow depending on the state of the linked list:\n\n\\begin{tabular}{|c|l|}\n\
+      \\hline\n\\textbf{Linked list state} & \\textbf{Steps} \\\\ \\hline\nnot full\
+      \ & insert the data in the index pointed to by \\texttt{FirstEmpty} \\\\\n &\
+      \ change the pointer to the index pointed to by \\texttt{FirstNode} \\\\\n &\
+      \ change the values of \\texttt{FirstNode} and \\texttt{FirstEmpty} \\\\ \\\
+      hline\nfull & end the procedure \\\\ \\hline\n\\end{tabular}\n\nAny node that\
+      \ is at the end of the linked list has a pointer of $-1$.\n\nWrite program code\
+      \ for \\texttt{InsertData()}.\n\n\\begin{tabular}{|l|}\n\\hline\nSave your program.\
+      \ \\\\\nCopy and paste the program code into part \\textbf{3(b)} in the evidence\
+      \ document. \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The procedure \texttt{OutputLinkedList()} outputs the data in the linked
+      list in order by following the pointers from \texttt{FirstNode}.
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: long_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code for \texttt{OutputLinkedList()}.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(c)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: long_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Amend the main program to call \texttt{InsertData()} and then \texttt{OutputLinkedList()}.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3ciii
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program with the test data:
+
+
+        5 \quad 1 \quad 2 \quad 3 \quad 8
+
+
+        Take a screenshot of the output.
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{3(c)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The procedure \texttt{RemoveData()} removes a node from the linked list.
+
+
+      The procedure takes the data item to be removed from the linked list as a parameter.
+
+
+      The procedure checks each node in the linked list, starting with the node \texttt{FirstNode},
+      until it finds the node to be removed. This node is added to the empty list,
+      and pointers are changed as appropriate. The procedure only removes the first
+      occurrence of the parameter.
+
+
+      Assume that the data item being removed is in the linked list.'
+    answer_options: []
+    subquestions:
+    - number: 3di
+      question_type: long_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'Write program code for \texttt{RemoveData()}.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(d)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3dii
+      question_type: long_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Amend the main program to:
+
+
+        \begin{itemize}
+
+        \item call \texttt{RemoveData()} with the parameter 5
+
+        \item output the word "After"
+
+        \item call \texttt{OutputLinkedList()}.
+
+        \end{itemize}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(d)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3diii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program with both sets of given test data:
+
+
+        Test data set 1: 5 6 8 9 5
+
+
+        Test data set 2: 10 7 8 5 6
+
+
+        Take a screenshot of each output.
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot(s) into part \textbf{3(d)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []

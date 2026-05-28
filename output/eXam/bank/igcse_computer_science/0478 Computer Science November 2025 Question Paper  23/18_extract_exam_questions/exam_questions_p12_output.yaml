@@ -1,0 +1,33 @@
+questions:
+  - number: "10"
+    type: long_answer
+    text: |
+      A number game has two players. Random whole numbers are generated for each player. The numbers are compared and players are given points based on the result of the comparison.
+
+      The two-dimensional (2D) array \texttt{NumberGenerated[]} stores each number generated for each player. The first dimension stores the player number and the second dimension stores the random whole numbers generated.
+
+      The game is played as follows:
+
+      \begin{itemize}
+      \item 100 random whole numbers between 1 and 6 inclusive are generated for player 1 and stored in the array.
+      \item 100 random whole numbers between 1 and 6 inclusive are generated for player 2 and stored in the array.
+      \item The first number generated for each player is compared and the player with the higher number is awarded 2 points. If the two numbers are the same, both players are awarded 1 point each.
+      \item The comparisons repeat for all 100 numbers generated.
+      \item The player with the higher total number of points is output as the winner.
+      \item If the players have the same total number of points, a new random whole number is generated for each player and compared. This is repeated until one player has a higher number than the other player. 2 points are added to that player's total number of points, making this player the winner.
+      \end{itemize}
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item input and validate the names of the two players
+      \item generate 100 random whole numbers between 1 and 6 inclusive for each player and store them in the array \texttt{NumberGenerated[]}
+      \item calculate and store the total number of points for each player
+      \item output the name and total number of points for each player in descending order of total number of points.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do not need to declare any arrays or variables; assume that this has already been done.
+
+      All outputs must contain suitable messages.

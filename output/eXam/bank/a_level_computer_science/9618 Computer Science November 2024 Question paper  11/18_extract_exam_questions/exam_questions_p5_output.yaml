@@ -1,0 +1,19 @@
+questions:
+  - number: "2bii"
+    type: long_answer
+    text: |
+      The table shows sample data for the table \texttt{REPAIR\_PART}.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{PartID}} & \multicolumn{1}{c|}{\textbf{RepairNumber}} & \multicolumn{1}{c|}{\textbf{Quantity}} \\ \hline
+      ACD128SA & 0022 & 3 \\ \hline
+      PPOR543DWW & 0022 & 1 \\ \hline
+      TR453 & 0023 & 1 \\ \hline
+      PPOR543DWW & 0023 & 2 \\ \hline
+      WED5 & 0024 & 5 \\ \hline
+      \end{tabular}
+
+      Write a Structured Query Language (SQL) script to define the table \texttt{REPAIR\_PART}.
+
+      Include constraints (restrictions) on the data that can be entered into each field where appropriate.

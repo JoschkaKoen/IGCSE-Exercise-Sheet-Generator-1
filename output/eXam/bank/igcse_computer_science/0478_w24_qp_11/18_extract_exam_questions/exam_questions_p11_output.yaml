@@ -1,0 +1,17 @@
+```yaml
+questions:
+  - number: "7aii"
+    type: short_answer
+    text: |
+      Identify \textbf{one} other function of an operating system.
+
+      Describe the purpose of this function.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Give the name of the set of instructions that are provided to the operating system to allow it to run.
+  - number: "8"
+    type: long_answer
+    text: |
+      Draw and annotate a diagram to show how a payment transaction is made using digital currency and blockchain.
+```

@@ -1,0 +1,13 @@
+questions:
+  - number: "6biii"
+    type: calculation
+    text: |
+      Calculate $I_2$.
+
+      $I_2 = \hrulefill \text{ A}$
+  - number: "6biv"
+    type: calculation
+    text: |
+      Determine $R$.
+
+      $R = \hrulefill \ \Omega$

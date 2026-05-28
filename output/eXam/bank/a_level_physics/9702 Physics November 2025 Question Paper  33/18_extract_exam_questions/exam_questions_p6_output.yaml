@@ -1,0 +1,33 @@
+questions:
+  - number: "1e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ei"
+    type: calculation
+    text: |
+      It is suggested that the quantities $T$, $S$ and $h$ are related by the equation
+
+      $$T^2 = A \frac{S}{h} + B$$
+
+      where $A$ and $B$ are constants.
+
+      Using your answers in \textbf{(d)(iii)}, determine the values of $A$ and $B$.
+      Give appropriate units.
+
+      $A = $ \hrulefill
+
+      $B = $ \hrulefill
+  - number: "1eii"
+    type: calculation
+    text: |
+      Theory suggests that
+
+      $$A = \frac{28\pi^2 L}{5g}$$
+
+      where $g$ is the acceleration of free fall.
+
+      Use your values in \textbf{(a)} and \textbf{(e)(i)} to determine a value for $g$.
+      Give an appropriate unit.
+
+      $g = $ \hrulefill

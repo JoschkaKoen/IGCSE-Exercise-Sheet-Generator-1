@@ -1,0 +1,54 @@
+[thinking]
+**Transcribing Questions 8c and 8d**
+
+Okay, the user wants me to transcribe questions 8c and 8d from the page. Let's get to it.
+
+For question 8c, the text states to complete a table with two examples of software security solutions and explain how they protect a computer against threats. It’s clearly a table format, and the instructions are to keep tabular elements verbatim, even if empty. Given the instructions, and since it is structured, I need to represent it accurately as a LaTeX table. It's a two-column table with headers "security solution" and "explanation." The original table has dotted lines, but I'll use standard LaTeX formatting to represent the blank spaces, keeping the columns proportionate. I'll make sure it is exactly how the candidate will be filling it in, representing the blank lines accurately. So, here's how I'll represent that table:
+
+```latex
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{security solution} & \textbf{explanation} \\ \hline
+ & \\ 
+ & \\ \hline
+ & \\ 
+ & \\ \hline
+\end{tabular}
+```
+
+Now, onto question 8d. This one is asking for definitions of "firmware" and "operating system." The prompt specifies "value followed by an answer line (e.g. `10010011 ........`) -> `10010011 \hrulefill`." It’s straightforward; I need to use the `\hrulefill` to represent the answer lines. So, here's how I'll format the answer:
+
+```latex
+firmware \hrulefill
+
+operating system \hrulefill
+```
+
+I think that should be a perfect representation.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8c"
+    type: long_answer
+    text: |
+      Complete the table by giving \textbf{two} examples of software security solutions and explain how each protects a computer against threats.
+
+      \begin{tabular}{|p{4cm}|p{10cm}|}
+      \hline
+      \textbf{security solution} & \textbf{explanation} \\ \hline
+       & \\
+       & \\ \hline
+       & \\
+       & \\ \hline
+      \end{tabular}
+  - number: "8d"
+    type: short_answer
+    text: |
+      Define the terms firmware and operating system.
+
+      firmware \hrulefill
+
+      operating system \hrulefill

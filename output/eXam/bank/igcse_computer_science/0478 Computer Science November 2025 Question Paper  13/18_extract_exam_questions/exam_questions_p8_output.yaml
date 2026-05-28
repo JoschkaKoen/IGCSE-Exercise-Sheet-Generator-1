@@ -1,0 +1,36 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A cyber security company specialises in security solutions that help prevent hackers being successful.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Identify \textbf{two} security solutions that can be provided to help prevent hackers being successful.
+
+      Explain how each solution helps prevent hackers being successful.
+
+      Solution 1 \hrulefill
+
+      Explanation \hrulefill
+
+      Solution 2 \hrulefill
+
+      Explanation \hrulefill
+  - number: "4b"
+    type: long_answer
+    text: |
+      The company also has a web page that provides information to improve people's awareness of social engineering.
+
+      Describe what is meant by social engineering.
+      Include an example of social engineering in your answer.
+  - number: "4c"
+    type: short_answer
+    text: |
+      The company's website uses both session cookies and persistent cookies.
+  - number: "4ci"
+    type: short_answer
+    text: |
+      State \textbf{one} similarity between session cookies and persistent cookies.
+```

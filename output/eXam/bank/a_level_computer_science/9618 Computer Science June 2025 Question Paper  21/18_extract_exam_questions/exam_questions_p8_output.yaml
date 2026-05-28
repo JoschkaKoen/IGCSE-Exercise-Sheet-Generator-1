@@ -1,0 +1,36 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      Study the algorithm:
+
+      \begin{alltt}
+      DECLARE Chars : ARRAY[1:4] OF CHAR
+      DECLARE I, J : INTEGER
+      DECLARE Key : CHAR
+      I <- 2
+      Chars[1] <- 'D'
+      Chars[2] <- 'T'
+      Chars[3] <- 'H'
+      Chars[4] <- 'R'
+      WHILE I <= 4                                //Outer loop
+          Key <- Chars[I]
+          J <- I - 1
+          WHILE J >= 0 AND Chars[J] > Key         //Inner loop
+              Chars[J + 1] <- Chars[J]
+              J <- J - 1
+          ENDWHILE
+          Chars[J + 1] <- Key
+          I <- I + 1
+      ENDWHILE
+      \end{alltt}
+  - number: "4a"
+    type: short_answer
+    text: |
+      The outer loop structure used in the algorithm is \textbf{not} the most appropriate one to use.
+
+      State the type of loop structure that would be the most appropriate to use and justify why it is the most appropriate.
+
+      Loop structure \hrulefill
+
+      Justification \hrulefill

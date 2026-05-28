@@ -1,0 +1,40 @@
+[thinking]
+**Transcribing Exam Questions: A Quick Mental Run-Through**
+
+Okay, the task is straightforward: I need to pull questions 3c and 3d from this exam page. No problem, this is right in my wheelhouse. First, let's nail down question 3c. It's a short-answer type, which means a concise response is required. The text itself is:
+
+| Wave X and wave Y superpose to form a resultant wave.
+| 
+| On Fig. 3.2, sketch the variation of displacement of the resultant wave with distance from A at the instant of time shown in Fig. 3.1.
+
+Perfect. Note that Fig 3.2 is a diagram. I should make it clear that Fig. 3.2 will be omitted in the text-only transcription.
+
+Now, for question 3d. This one's a calculation. The prompt states:
+
+| The intensity of wave X is $I_X$. The intensity of wave Y is $I_Y$.
+| 
+| Use Fig. 3.1 to determine the ratio $\frac{I_X}{I_Y}$.
+| 
+| ratio = \hrulefill
+
+I've got the variable notation ($I_X$, $I_Y$, $\frac{I_X}{I_Y}$) and the answer line formatting down. The `\hrulefill` is spot on for the answer space. It looks like everything is in order. Time to output the YAML!
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      Wave X and wave Y superpose to form a resultant wave.
+
+      On Fig. 3.2, sketch the variation of displacement of the resultant wave with distance from A at the instant of time shown in Fig. 3.1.
+  - number: "3d"
+    type: calculation
+    text: |
+      The intensity of wave X is $I_X$. The intensity of wave Y is $I_Y$.
+
+      Use Fig. 3.1 to determine the ratio $\frac{I_X}{I_Y}$.
+
+      ratio = \hrulefill

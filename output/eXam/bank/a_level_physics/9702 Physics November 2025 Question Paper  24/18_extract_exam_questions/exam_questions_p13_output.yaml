@@ -1,0 +1,19 @@
+questions:
+  - number: "5bii"
+    type: calculation
+    text: |
+      Calculate, to three significant figures, the resistivity $\rho$ of the nichrome.
+
+      $\rho = \hrulefill \ \Omega\text{m}$
+  - number: "5biii"
+    type: calculation
+    text: |
+      Calculate the percentage uncertainty in $\rho$.
+
+      $\text{percentage uncertainty} = \hrulefill \ \% $
+  - number: "5biv"
+    type: calculation
+    text: |
+      Determine the absolute uncertainty in $\rho$.
+
+      $\text{absolute uncertainty} = \hrulefill \ \Omega\text{m}$

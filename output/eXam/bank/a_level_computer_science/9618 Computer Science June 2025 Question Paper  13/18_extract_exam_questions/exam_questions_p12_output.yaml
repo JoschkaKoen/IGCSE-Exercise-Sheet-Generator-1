@@ -1,0 +1,12 @@
+questions:
+  - number: "5aii"
+    type: short_answer
+    text: |
+      Complete the table by identifying and describing \textbf{two} modes of addressing that are not used in the program in part (a).
+
+      \begin{tabular}{|p{5cm}|p{10cm}|}
+      \hline
+      \textbf{Mode of addressing} & \textbf{Description} \\ \hline
+       & \newline \newline \newline \\ \hline
+       & \newline \newline \newline \\ \hline
+      \end{tabular}

@@ -1,0 +1,43 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: ''
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the statements about cookies.
+
+      Use only terms from the list.
+
+      \textbf{Not} all terms need to be used. Some terms may be used more than once.
+
+      \begin{itemize}
+      \item binary
+      \item close
+      \item denary
+      \item expire
+      \item hexadecimal
+      \item image
+      \item malware
+      \item operating system
+      \item permanent
+      \item persistent
+      \item session
+      \item sound
+      \item temporary
+      \item web browser
+      \end{itemize}
+
+      Cookies are small text files that are stored by a \underline{\hspace{1.5em}}.
+
+      \underline{\hspace{1.5em}} cookies are \underline{\hspace{1.5em}} text files that are deleted when the \underline{\hspace{1.5em}} is closed.
+
+      \underline{\hspace{1.5em}} cookies are \underline{\hspace{1.5em}} text files that are stored on a user's secondary storage device until they are manually deleted or they \underline{\hspace{1.5em}}.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Give \textbf{three} examples of the use of cookies.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

@@ -1,0 +1,23 @@
+```yaml
+questions:
+  - number: "4bi"
+    type: short_answer
+    text: |
+      The requirements of the program change:
+
+      \begin{itemize}
+      \item the number of values in the sequence is unknown, but may be higher than 20
+      \item the values will need to be accessed by another program as data.
+      \end{itemize}
+
+      The data will be stored in a text file instead of an array.
+
+      Give \textbf{two} benefits of using a text file instead of an array.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4bii"
+    type: short_answer
+    text: |
+      State any change that will need to be made before each value is written to the file.
+```

@@ -1,0 +1,21 @@
+```yaml
+questions:
+  - number: "4b"
+    type: long_answer
+    text: |
+      Explain how you could change the algorithm to repeatedly prompt for the telephone number until the number entered is 13 characters in length.
+
+      Any code used must be fully explained.
+  - number: "5"
+    type: short_answer
+    text: |
+      Two library routines used in programming are \texttt{MOD} and \texttt{DIV}.
+
+      State the purpose of each of the library routines.
+      Give \textbf{one} example pseudocode statement for each of the library routines.
+
+      MOD purpose \hrulefill
+      Example pseudocode \hrulefill
+      DIV purpose \hrulefill
+      Example pseudocode \hrulefill
+```

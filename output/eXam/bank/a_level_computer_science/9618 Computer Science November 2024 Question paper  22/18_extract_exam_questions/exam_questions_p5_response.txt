@@ -1,0 +1,40 @@
+[thinking]
+**My Approach to Summarizing the Exam Page**
+
+Okay, let's break this down systematically. My task is to digest the content from page 5 of this exam paper and translate it into a structured YAML format. I need to extract the questions and their relevant text, ensuring the output adheres precisely to the specified format, which looks like this: `number`, `type`, and `text`. I'll also use `options` if the question is multiple choice, but that isn't the case here.
+
+First, I see three questions I need to capture. The main question is labelled "2b", and its two sub-parts are "2bi" and "2bii". The content tells me that the requirements for a function called `Conceal()` have changed. It is no longer a function, but a procedure, that processes 100 card numbers stored in a 2D array, which is called `CardNumber`. The original card number string will be in the first column, and the modified string in the second.
+
+Now, let's go question by question:
+
+*   For "2bi", the prompt is asking me to write pseudocode to declare the array. Since the template expects a `long_answer`, I should format the answer with the key `type` set to `long_answer`. I'll just need to extract the core prompt.
+
+*   For "2bii", the prompt asks how the `CardNumber` array should be specified as a parameter in the procedure header for the new `Conceal()` procedure. The format template expects this to be a `short_answer` question, so I'll set the key to `short_answer`. Again, I just need to capture the core of the question.
+
+Throughout, I need to keep those code-like tokens, like `Conceal()` and `CardNumber`, in the \texttt{...} format to clearly distinguish them. I also need to strip off the sub-question prefixes like "(i)" and "(ii)" from the question text, keeping the prompt's content. Finally, I will make sure the output adheres to the requested block scalar format for any multi-line strings.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      The requirements have been changed. \texttt{Conceal()} will now be written as a procedure which will process 100 card numbers each time it is called.
+
+      The card numbers will be stored in a 2D array \texttt{CardNumber}. The original string will be stored in column one and the modified string in column two.
+  - number: "2bi"
+    type: long_answer
+    text: |
+      Write pseudocode to declare the array.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      The new procedure \texttt{Conceal()} will write the modified string to the corresponding element in column two.
+
+      The array \texttt{CardNumber} is passed as a parameter to the new procedure \texttt{Conceal()}.
+
+      Identify how this parameter should be specified in the new procedure header.
+```

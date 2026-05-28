@@ -1,0 +1,68 @@
+questions:
+  - number: "38"
+    type: multiple_choice
+    text: |
+      Two neutral atoms are isotopes of the same element.
+
+      Which statement about the atoms is correct?
+    options:
+      - letter: A
+        text: |
+          They have a different number of neutrons and a different number of electrons.
+      - letter: B
+        text: |
+          They have a different number of neutrons and the same number of protons.
+      - letter: C
+        text: |
+          They have the same number of neutrons and a different number of electrons.
+      - letter: D
+        text: |
+          They have the same number of neutrons and the same number of protons.
+
+  - number: "39"
+    type: multiple_choice
+    text: |
+      What is the composition of a meson?
+    options:
+      - letter: A
+        text: |
+          1 quark and 1 antiquark
+      - letter: B
+        text: |
+          1 quark and 2 antiquarks
+      - letter: C
+        text: |
+          2 quarks and 1 antiquark
+      - letter: D
+        text: |
+          3 quarks
+
+  - number: "40"
+    type: multiple_choice
+    text: |
+      A nucleus of carbon-11 contains 6 protons and 5 neutrons.
+
+      The nucleus of carbon-11 decays by $\beta^+$ emission.
+
+      What is the total number of up and down quarks in the product of the decay of this nucleus?
+
+      \begin{tabular}{ccc}
+       & up quarks & down quarks \\
+      \textbf{A} & 15 & 18 \\
+      \textbf{B} & 16 & 17 \\
+      \textbf{C} & 17 & 16 \\
+      \textbf{D} & 18 & 15 \\
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

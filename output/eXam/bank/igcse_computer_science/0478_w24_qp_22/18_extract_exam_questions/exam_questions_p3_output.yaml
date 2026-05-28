@@ -1,0 +1,14 @@
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      An algorithm needs to total 50 numbers between 1 and 100 inclusive.
+
+      Draw a flowchart that:
+
+      \begin{itemize}
+      \item uses a count-controlled loop from 1 to 50
+      \item uses an appropriate prompt to ask for a number between 1 and 100
+      \item totals the numbers as they are entered
+      \item outputs the total after the loop has completed with an appropriate message.
+      \end{itemize}

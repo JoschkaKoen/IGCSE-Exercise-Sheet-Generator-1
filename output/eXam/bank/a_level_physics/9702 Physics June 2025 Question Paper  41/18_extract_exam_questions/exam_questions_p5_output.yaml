@@ -1,0 +1,15 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The satellite in \textbf{(b)} is moved to an orbit in which the satellite remains at the same point above the surface of Mars.
+  - number: "1ci"
+    type: short_answer
+    text: |
+      The orbit has a period of 25 hours.
+
+      State what can be deduced from this about the rotation of Mars on its axis.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      State \textbf{one} other feature of this orbit.

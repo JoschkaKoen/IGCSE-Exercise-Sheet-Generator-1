@@ -1,0 +1,57 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program uses a stack to hold up to 30 integer values. The stack is implemented using a global integer variable and a global 1D array.
+
+      The array is declared in pseudocode:
+      \begin{alltt}
+      DECLARE ThisStack : ARRAY[1:30] OF INTEGER
+      \end{alltt}
+
+      Stack design notes:
+      \begin{itemize}
+      \item The global variable \texttt{SP} acts as a stack pointer. \texttt{SP} contains the array index of the last value pushed onto the stack.
+      \item If the stack is empty, then \texttt{SP} is assigned the value zero.
+      \item The first item added to the stack will be stored in \texttt{ThisStack[1]}
+      \item \texttt{SP} is incremented each time an item is added to the stack.
+      \end{itemize}
+
+      A function \texttt{Pop()} is written to remove an item from \texttt{ThisStack}. The function returns an item of type \texttt{PopData} which is defined in pseudocode:
+
+      \begin{alltt}
+      TYPE PopData
+          DECLARE Data   : INTEGER
+          DECLARE Exists : BOOLEAN
+      ENDTYPE
+      \end{alltt}
+
+      The value removed from the stack is assigned to \texttt{Data} and \texttt{Exists} is set to \texttt{TRUE}. If it is not possible to remove a value from the stack, then \texttt{Exists} is set to \texttt{FALSE}
+
+      Complete the pseudocode for \texttt{Pop()}
+
+      \begin{alltt}
+      FUNCTION Pop() RETURNS PopData
+
+          DECLARE ThisPop : \hrulefill
+
+          IF \hrulefill THEN
+
+              PopData.Exists <- \hrulefill // Stack is empty
+
+          ELSE
+
+              PopData.Data <- \hrulefill
+
+              PopData.Exists <- \hrulefill
+
+              SP <- \hrulefill
+
+          ENDIF
+
+          RETURN ThisPop
+
+      ENDFUNCTION
+      \end{alltt}
+```

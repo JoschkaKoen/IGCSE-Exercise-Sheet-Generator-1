@@ -1,0 +1,44 @@
+[thinking]
+**Transcribing Question 1aii**
+
+Okay, so the user wants me to extract the content for question "1aii" from this exam page. Let me take a look. Ah, right, it's a follow-up to the setup with the masses P and Q and distances p and q. Part (ii) deals with the moments of force, $T_P$ and $T_Q$.
+
+Let me check the stub. Ah, the YAML configuration confirms "1aii" corresponds to this part (ii) of question 1a. Good, good. I'll need to transcribe it as a "calculation" type question, with the text:
+
+"The moment of the force about the eye due to mass P is $T_{\text{P}}$.
+
+The moment of the force about the eye due to mass Q is $T_{\text{Q}}$.
+
+The values of $T_{\text{P}}$ and $T_{\text{Q}}$ are given by:
+$$T_{\text{P}} = 5Wp \quad \text{and} \quad T_{\text{Q}} = 7Wq$$
+where $W$ has the value $0.0981\text{ N}$.
+
+Calculate $T_{\text{P}}$ and $T_{\text{Q}}$.
+
+$T_{\text{P}} = $ \hrulefill
+
+$T_{\text{Q}} = $ \hrulefill"
+
+Just to be absolutely certain, let me double check all the subscripts. Correct, $T_P$ is $T_{\text{P}}$ and $T_Q$ is $T_{\text{Q}}$. So the notation is perfectly consistent in the question. And I'll use $T_{\text{P}}$ and $T_{\text{Q}}$ for the final transcription to keep it clean. Okay, that should be it. Let's make sure it's nicely formatted for readability.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1aii"
+    type: calculation
+    text: |
+      The moment of the force about the eye due to mass P is $T_{\text{P}}$.
+
+      The moment of the force about the eye due to mass Q is $T_{\text{Q}}$.
+
+      The values of $T_{\text{P}}$ and $T_{\text{Q}}$ are given by:
+      $$T_{\text{P}} = 5Wp \quad \text{and} \quad T_{\text{Q}} = 7Wq$$
+      where $W$ has the value $0.0981\text{ N}$.
+
+      Calculate $T_{\text{P}}$ and $T_{\text{Q}}$.
+
+      $T_{\text{P}} = $ \hrulefill
+
+      $T_{\text{Q}} = $ \hrulefill

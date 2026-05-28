@@ -1,0 +1,17 @@
+questions:
+  - number: "4bii"
+    type: calculation
+    text: |
+      Determine the value of $\theta$ at which the second-order bright fringe is formed.
+
+      $\theta = $ \hrulefill $^\circ$
+  - number: "4biii"
+    type: short_answer
+    text: |
+      On Fig. 4.2, sketch the variation of the intensity $I$ with $\theta$ for values of $\theta$ from $-15^\circ$ to $+15^\circ$.
+  - number: "4c"
+    type: short_answer
+    text: |
+      A polarising filter is placed in the path of the light beam that is incident on the diffraction grating in Fig. 4.1. The transmission axis of the filter is at $45^\circ$ to the vertical.
+
+      Suggest how the variation of intensity with $\theta$ for the light on the screen compares with the answer in \textbf{(b)(iii)}.

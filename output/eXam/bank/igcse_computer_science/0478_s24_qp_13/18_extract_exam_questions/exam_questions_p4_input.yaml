@@ -1,0 +1,9 @@
+  - number: "3d"
+    type: short_answer
+    text: ""
+  - number: "3e"
+    type: calculation
+    text: ""
+  - number: "4"
+    type: short_answer
+    text: ""

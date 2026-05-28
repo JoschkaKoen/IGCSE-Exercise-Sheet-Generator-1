@@ -1,0 +1,46 @@
+[thinking]
+**Exam Page 5 Transcription**
+
+Okay, so the task at hand is to transcribe the content of exam page 5, which deals with a rocket dynamics problem. The user wants a clean, formatted transcription for each part of the problem.
+
+Let's break down the components. First, there's the preamble to the question, which sets the stage: "The mass of the rocket in (b) is $2.9 \times 10^6 \text{ kg}$. Assume that this mass remains constant. For this rocket, from launch to its height at a time of $20\text{ s}$ after launch..."
+
+Then, we have the sub-questions, each requiring a calculation. I need to make sure the formatting is spot-on, especially concerning the LaTeX.
+
+*   **1ci:** This asks for the gain in gravitational potential energy,  $\Delta E_{\text{P}}$. The correct format for the answer line is `$\Delta E_{\text{P}} = $ \hrulefill J`.
+
+*   **1cii:**  Next, we need to calculate the gain in kinetic energy, $\Delta E_{\text{K}}$. The format for the answer line will be `$\Delta E_{\text{K}} = $ \hrulefill J`.
+
+*   **1ciii:** Finally, we need to determine the average power output of the rocket engines, and importantly, we're assuming resistive forces are negligible. The correct answer line format here will be `power = \hrulefill W`.
+
+I made sure to remove the parenthetical numbering (i), (ii), and (iii) from the beginning of the sub-questions. The core of the problem and the anticipated output format is all correct.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The mass of the rocket in \textbf{(b)} is $2.9 \times 10^6 \text{ kg}$. Assume that this mass remains constant.
+
+      For this rocket, from launch to its height at a time of $20\text{ s}$ after launch:
+  - number: "1ci"
+    type: calculation
+    text: |
+      calculate the gain in gravitational potential energy $\Delta E_{\text{P}}$
+
+      $\Delta E_{\text{P}} = $ \hrulefill J
+  - number: "1cii"
+    type: calculation
+    text: |
+      calculate the gain in kinetic energy $\Delta E_{\text{K}}$
+
+      $\Delta E_{\text{K}} = $ \hrulefill J
+  - number: "1ciii"
+    type: calculation
+    text: |
+      determine the average power output of the rocket engines. Assume that resistive forces are negligible.
+
+      power = \hrulefill W

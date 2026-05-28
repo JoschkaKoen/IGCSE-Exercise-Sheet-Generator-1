@@ -1,0 +1,66 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 6**
+
+Okay, the task is to generate the YAML stub for page 6 of the exam. The questions on this page are: "3c", "3ci", "3cii", and a main question "4" which contains "4a". Let's start by breaking down each section and building the YAML structure.
+
+First, "3c" is straightforward: "The computer program is released under a commercial software licence." It's a short answer. Then, "3ci": "Describe the features of a commercial software licence," a long answer and "3cii": "Explain the reasons why an open source software licence might not be appropriate for the computer program described." also a long answer.
+
+Now, let's address question "4".  The stub has both "4" and "4a". I need to figure out how to structure this. I see that "4 (a)" is "Write the logic expressions for the following logic circuit." and there is a diagram, which I won't represent in detail, instead just insert answer lines, but the key is that "4a" contains the prompt.  Let's see what is written with "4", if it is only a stub or has a stem or main context or a header. It turns out that "4" itself has no content; it immediately jumps to "4 (a)". Therefore, "4" will be an empty string, `text: ''`. I'm confident that's the correct way to handle it because "4" is just a placeholder, the prompt is in "4a". The format for the short answer is "Write the logic expressions for the following logic circuit. X = ... Y = ...".
+
+So, I'll structure the YAML as follows:
+
+```yaml
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The computer program is released under a commercial software licence.
+  - number: "3ci"
+    type: long_answer
+    text: |
+      Describe the features of a commercial software licence.
+  - number: "3cii"
+    type: long_answer
+    text: |
+      Explain the reasons why an open source software licence might not be appropriate for the computer program described.
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      Write the logic expressions for the following logic circuit.
+
+      X = \hrulefill
+      Y = \hrulefill
+```
+
+And finally, to double-check: question "4" has *no* text on the page separate from "4 (a)", so `text: ''` is indeed the correct and safe way to represent it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The computer program is released under a commercial software licence.
+  - number: "3ci"
+    type: long_answer
+    text: |
+      Describe the features of a commercial software licence.
+  - number: "3cii"
+    type: long_answer
+    text: |
+      Explain the reasons why an open source software licence might not be appropriate for the computer program described.
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      Write the logic expressions for the following logic circuit.
+
+      X = \hrulefill
+      Y = \hrulefill

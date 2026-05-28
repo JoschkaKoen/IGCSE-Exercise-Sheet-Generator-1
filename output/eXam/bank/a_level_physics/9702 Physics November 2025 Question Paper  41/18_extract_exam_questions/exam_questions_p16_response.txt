@@ -1,0 +1,54 @@
+[thinking]
+**Analyzing and Transcribing Exam Question 7**
+
+Okay, so I need to transcribe page 16 of this exam, specifically focusing on question 7 and its sub-parts: 7, 7a, 7b, and 7bi. I'll approach this systematically.
+
+First, I see "7" as the main question header. Typically, "7a" would be the first actual question. Let's see if "7" itself contains any text. Nope, it goes straight to "7 (a)". Hmm, so "7" might be empty or a placeholder. There's no introduction text preceding (a). Now, if there's no text, should it be left empty? Or is it a bug? Wait, there is no text. If a parent question lacks its own text, an empty string seems most appropriate. But, if a page has a stub error, I can signal it in a code block. I'll stick with an empty string for "7" for now.
+
+Let's move on to the actual questions. "7a" is straightforward. The OCR reads, "7 (a) State Faraday’s law of electromagnetic induction." So, "7a" is a simple definition.
+
+Next, "7b" is "(b) An aircraft is flying horizontally at constant speed v through the Earth’s magnetic field, as shown in Fig. 7.1." The OCR data continues, "At the location of the aircraft, the vertical component of the Earth’s magnetic field is $38\ \mu\text{T}$ towards the ground. The distance between the wingtips P and Q of the aircraft is $68\text{ m}$. As the aircraft moves through the magnetic field, an electromotive force (e.m.f.) of $0.54\text{ V}$ is induced between the wingtips P and Q.". I will omit figure 7.1. All of this belongs to the question's introduction. "7b" is a short answer, so the extra details are part of that.
+
+Finally, "7bi" is "(i) Calculate the magnetic flux cut by the wings of the aircraft in a time of 15s. Give a unit with your answer." So this is a calculation. The answer should be a filled line.
+```
+magnetic flux = ............................................. unit ............
+```
+So, I will transcribe:
+```yaml
+  - number: "7bi"
+    type: calculation
+    text: |
+      Calculate the magnetic flux cut by the wings of the aircraft in a time of $15\text{ s}$. Give a unit with your answer.
+
+      magnetic flux = \hrulefill unit \hrulefill
+```
+And now I have a complete picture of the whole question.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: ''
+  - number: "7a"
+    type: short_answer
+    text: |
+      State Faraday’s law of electromagnetic induction.
+  - number: "7b"
+    type: short_answer
+    text: |
+      An aircraft is flying horizontally at constant speed $v$ through the Earth’s magnetic field, as shown in Fig. 7.1.
+
+      At the location of the aircraft, the vertical component of the Earth’s magnetic field is $38\ \mu\text{T}$ towards the ground.
+
+      The distance between the wingtips P and Q of the aircraft is $68\text{ m}$.
+
+      As the aircraft moves through the magnetic field, an electromotive force (e.m.f.) of $0.54\text{ V}$ is induced between the wingtips P and Q.
+  - number: "7bi"
+    type: calculation
+    text: |
+      Calculate the magnetic flux cut by the wings of the aircraft in a time of $15\text{ s}$. Give a unit with your answer.
+
+      magnetic flux = \hrulefill unit \hrulefill

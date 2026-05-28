@@ -1,0 +1,96 @@
+[thinking]
+**Transcribing the Exam Questions**
+
+Okay, here we go. The task is to transcribe questions 33, 34, and 35 from this exam page. Seems straightforward.
+
+**Question 33:** This one involves interpreting $I-V$ characteristic graphs. There are three graphs presented for different electrical components. The core of the question is identifying which of these components obey Ohm's Law. This requires recognizing the characteristics of a linear $I-V$ relationship. The options are A (1, 2 and 3), B (1 and 2 only), C (1 and 3 only), and D (1 only).
+
+**Question 34:** This is a standard resistor circuit problem. We're given a resistor with a resistance of $200\,\Omega$ connected to a $4.00\text{ V}$ supply. The objective is to calculate the number of electrons entering the resistor within $4.00\text{ s}$. This requires applying Ohm's Law to find the current, and then relating current to charge (and therefore electrons) over time. The options are A ($3.13 \times 10^{16}$), B ($1.25 \times 10^{17}$), C ($5.00 \times 10^{17}$), and D ($1.25 \times 10^{21}$).
+
+**Question 35:** This one introduces the concept of internal resistance in a cell. The question presents a circuit diagram with a cell of internal resistance $1.0R$ connected to a variable resistor. Initially, the variable resistor has a resistance of $2.0R$, and the current in the cell is $I_1$ with a terminal potential difference (p.d.) of $V_1$. The resistor is then adjusted to a new resistance of $4.0R$. The core of the problem is determining the new current and the new terminal p.d. The options are given in a table format (formatted inline)
+
+```latex
+\begin{tabular}{|c|c|c|}
+\hline
+  & current & terminal p.d. \\ \hline
+  \textbf{A} & $0.50I_1$ & $1.0V_1$ \\ \hline
+  \textbf{B} & $0.50I_1$ & $1.2V_1$ \\ \hline
+  \textbf{C} & $0.60I_1$ & $1.0V_1$ \\ \hline
+  \textbf{D} & $0.60I_1$ & $1.2V_1$ \\ \hline
+  \end{tabular}
+```
+The options presented as:
+- A: current: $0.50I_1$, terminal p.d.: $1.0V_1$
+- B: current: $0.50I_1$, terminal p.d.: $1.2V_1$
+- C: current: $0.60I_1$, terminal p.d.: $1.0V_1$
+- D: current: $0.60I_1$, terminal p.d.: $1.2V_1$
+This requires understanding how internal resistance affects current and voltage division within the cell. The total resistance of the circuit needs to be considered.
+```
+
+
+[/thinking]
+
+questions:
+  - number: "33"
+    type: multiple_choice
+    text: |
+      The $I-V$ characteristics for three electrical components are shown.
+
+      Which components obey Ohm's law?
+    options:
+      - letter: A
+        text: |
+          1, 2 and 3
+      - letter: B
+        text: |
+          1 and 2 only
+      - letter: C
+        text: |
+          1 and 3 only
+      - letter: D
+        text: |
+          1 only
+
+  - number: "34"
+    type: multiple_choice
+    text: |
+      A resistor of resistance $200\,\Omega$ is connected to a supply that has a p.d. of $4.00\text{ V}$.
+
+      How many electrons enter the resistor in $4.00\text{ s}$?
+    options:
+      - letter: A
+        text: |
+          $3.13 \times 10^{16}$
+      - letter: B
+        text: |
+          $1.25 \times 10^{17}$
+      - letter: C
+        text: |
+          $5.00 \times 10^{17}$
+      - letter: D
+        text: |
+          $1.25 \times 10^{21}$
+
+  - number: "35"
+    type: multiple_choice
+    text: |
+      The diagram shows a cell of internal resistance $1.0R$ connected to a variable resistor.
+
+      When the variable resistor has an initial resistance of $2.0R$, the current in the cell is $I_1$ and the terminal potential difference (p.d.) across the cell is $V_1$.
+
+      The variable resistor is now adjusted to a new resistance of $4.0R$.
+
+      What is the new current in the cell and the new terminal p.d. across the cell?
+    options:
+      - letter: A
+        text: |
+          current: $0.50I_1$, terminal p.d.: $1.0V_1$
+      - letter: B
+        text: |
+          current: $0.50I_1$, terminal p.d.: $1.2V_1$
+      - letter: C
+        text: |
+          current: $0.60I_1$, terminal p.d.: $1.0V_1$
+      - letter: D
+        text: |
+          current: $0.60I_1$, terminal p.d.: $1.2V_1$

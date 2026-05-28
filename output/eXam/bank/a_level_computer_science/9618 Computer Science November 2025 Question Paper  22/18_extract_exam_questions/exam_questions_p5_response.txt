@@ -1,0 +1,33 @@
+```yaml
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      The character \texttt{'\\'} has been chosen as a separator.
+
+      Explain why this is a suitable character.
+  - number: "3c"
+    type: long_answer
+    text: |
+      Two new information items are to be stored for each member. Both new items are encrypted; they can each contain any character (including \texttt{'\\'}) and can be of any length up to a maximum of 99 characters.
+
+      For example:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Information item} & \textbf{Example data} \\ \hline
+      member 1 ID & \texttt{"AB1234"} \\ \hline
+      member 1 name & \texttt{"Freddie Jones"} \\ \hline
+      member 1 email address & \texttt{"FreddieJ909@Cambridge.org"} \\ \hline
+      member 1 new information 1 & \texttt{"En/98\&*(|?\\/D7iP"} \\ \hline
+      member 1 new information 2 & \texttt{"23\textbackslash{}CoboL"} \\ \hline
+      \end{tabular}
+
+      Explain the additional file design changes needed so that:
+      \begin{itemize}
+      \item all the information items for each member are stored on a single line of \texttt{NewFile.txt}
+      \item it is possible to extract each information item after the line is read.
+      \end{itemize}
+
+      Assume the \texttt{'\\'} character is not used in any email address.
+```

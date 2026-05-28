@@ -1,0 +1,67 @@
+questions:
+  - number: "24"
+    type: multiple_choice
+    text: |
+      Which row describes a progressive longitudinal wave?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & \begin{tabular}[c]{@{}c@{}}transfers energy in\\a direction parallel\\to the oscillations\end{tabular} & \begin{tabular}[c]{@{}c@{}}requires a medium\\to travel through\end{tabular} & \begin{tabular}[c]{@{}c@{}}always travels at\\the same speed\end{tabular} \\ \hline
+      \textbf{A} & false & false & true \\ \hline
+      \textbf{B} & false & true & true \\ \hline
+      \textbf{C} & true & false & false \\ \hline
+      \textbf{D} & true & true & false \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+
+  - number: "25"
+    type: multiple_choice
+    text: |
+      What is the phase difference between points P and Q on the progressive wave shown in the diagram?
+    options:
+      - letter: A
+        text: |
+          $180^\circ$
+      - letter: B
+        text: |
+          $450^\circ$
+      - letter: C
+        text: |
+          $540^\circ$
+      - letter: D
+        text: |
+          $720^\circ$
+
+  - number: "26"
+    type: multiple_choice
+    text: |
+      The graph shows the variation of displacement with distance for two progressive waves X and Y of the same type in the same medium.
+
+      The intensity of wave X is $I$.
+
+      What is the intensity of wave Y?
+    options:
+      - letter: A
+        text: |
+          $0.28I$
+      - letter: B
+        text: |
+          $0.53I$
+      - letter: C
+        text: |
+          $1.9I$
+      - letter: D
+        text: |
+          $3.5I$

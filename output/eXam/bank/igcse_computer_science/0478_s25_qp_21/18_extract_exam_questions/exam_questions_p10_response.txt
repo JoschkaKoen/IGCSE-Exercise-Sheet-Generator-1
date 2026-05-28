@@ -1,0 +1,14 @@
+[thinking]
+**Transcribing Question 10**
+
+Okay, so the user wants me to handle Question 10 from this page. Right, let's see... the text for Question 10 is: "The flowchart represents an algorithm to calculate grades." Got it. It looks like it's a flowchart diagram, so the goal is to reproduce the text. There's no other surrounding text, just the question itself and the diagram. Alright, let's just make sure I get that text exactly right and I'll transcribe "The flowchart represents an algorithm to calculate grades."
+
+
+
+[/thinking]
+
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      The flowchart represents an algorithm to calculate grades.

@@ -1,0 +1,58 @@
+questions:
+  - number: "4"
+    type: multiple_choice
+    text: |
+      Two vectors, X and Y, are shown.
+
+      What are the directions of $X + Y$ and $X - Y$?
+    options:
+      - letter: A
+        text: |
+          $X + Y$: $\rightarrow$ \quad $X - Y$: $\downarrow$
+      - letter: B
+        text: |
+          $X + Y$: $\rightarrow$ \quad $X - Y$: $\uparrow$
+      - letter: C
+        text: |
+          $X + Y$: $\leftarrow$ \quad $X - Y$: $\downarrow$
+      - letter: D
+        text: |
+          $X + Y$: $\leftarrow$ \quad $X - Y$: $\uparrow$
+  - number: "5"
+    type: multiple_choice
+    text: |
+      A ball is projected vertically downwards with an initial velocity of $20\text{ m}\,\text{s}^{-1}$. Air resistance is negligible.
+
+      What is the displacement from its initial position of the ball after a time of $1.5\text{ s}$?
+    options:
+      - letter: A
+        text: |
+          $11\text{ m}$
+      - letter: B
+        text: |
+          $19\text{ m}$
+      - letter: C
+        text: |
+          $37\text{ m}$
+      - letter: D
+        text: |
+          $41\text{ m}$
+  - number: "6"
+    type: multiple_choice
+    text: |
+      A surveyor's device emits a pulse of light. The light is reflected from a wall $150\text{ m}$ away.
+
+      What is the total time taken for the pulse to travel from the device to the wall and then back to the device?
+    options:
+      - letter: A
+        text: |
+          $0.05\text{ ns}$
+      - letter: B
+        text: |
+          $0.10\text{ ns}$
+      - letter: C
+        text: |
+          $0.50\ \mu\text{s}$
+      - letter: D
+        text: |
+          $1.0\ \mu\text{s}$

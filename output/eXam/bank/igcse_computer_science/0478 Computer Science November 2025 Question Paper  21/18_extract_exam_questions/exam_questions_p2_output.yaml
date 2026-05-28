@@ -1,0 +1,50 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Four descriptions of structured query language (SQL) keywords and \textbf{five} SQL keywords are given.
+
+      Draw \textbf{one} line from each description to its matching keyword.
+      \textbf{Not} all SQL keywords will be used.
+
+      \textbf{Description}
+      \begin{itemize}
+      \item identifies the database table
+      \item sets the condition
+      \item sorts the results
+      \item returns the number of records
+      \end{itemize}
+
+      \textbf{SQL keywords}
+      \begin{itemize}
+      \item \texttt{ORDER BY}
+      \item \texttt{COUNT}
+      \item \texttt{WHERE}
+      \item \texttt{SUM}
+      \item \texttt{FROM}
+      \end{itemize}
+  - number: "2"
+    type: short_answer
+    text: |
+      Identify \textbf{three} different types of test data that can be used to test a program.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "3"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) one box to identify the operator that returns the quotient of a calculation with the fractional part discarded.
+    options:
+      - letter: A
+        text: |
+          /
+      - letter: B
+        text: |
+          \texttt{DIV}
+      - letter: C
+        text: |
+          \^{}
+      - letter: D
+        text: |
+          \texttt{MOD}

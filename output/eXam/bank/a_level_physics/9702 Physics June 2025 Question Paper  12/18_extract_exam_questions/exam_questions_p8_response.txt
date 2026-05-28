@@ -1,0 +1,60 @@
+questions:
+  - number: "16"
+    type: multiple_choice
+    text: |
+      A block is submerged vertically in a liquid. The four diagrams show the block viewed from the side.
+
+      Which diagram shows, to scale, the forces exerted on equal areas of the block by the liquid?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "17"
+    type: multiple_choice
+    text: |
+      The diagram shows a couple.
+
+      How is the torque of the couple calculated?
+    options:
+      - letter: A
+        text: |
+          $\frac{1}{2} \times \text{perpendicular distance between the forces} \times \text{magnitude of one of the forces}$
+      - letter: B
+        text: |
+          $\text{perpendicular distance between the forces} \times \text{magnitude of one of the forces}$
+      - letter: C
+        text: |
+          $\text{perpendicular distance between the forces} \times \text{magnitude of the sum of the forces}$
+      - letter: D
+        text: |
+          $2 \times \text{perpendicular distance between the forces} \times \text{magnitude of one of the forces}$
+  - number: "18"
+    type: multiple_choice
+    text: |
+      A ball of mass $1.2\text{ kg}$ travels horizontally at a speed of $3.0\text{ m}\,\text{s}^{-1}$.
+
+      The ball hits a cushion and comes to rest over a horizontal distance of $0.020\text{ m}$.
+
+      What is the work done by the cushion on the ball to bring the ball to rest?
+    options:
+      - letter: A
+        text: |
+          $0.24\text{ J}$
+      - letter: B
+        text: |
+          $1.8\text{ J}$
+      - letter: C
+        text: |
+          $5.4\text{ J}$
+      - letter: D
+        text: |
+          $11\text{ J}$

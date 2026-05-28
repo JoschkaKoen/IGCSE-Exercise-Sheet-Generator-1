@@ -1,0 +1,7 @@
+questions:
+  - number: "2aii"
+    type: calculation
+    text: |
+      Estimate the percentage uncertainty in your value of $d$. Show your working.
+
+      percentage uncertainty = \hrulefill \%

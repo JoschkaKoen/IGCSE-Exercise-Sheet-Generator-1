@@ -1,0 +1,21 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The Earth may be considered as a uniform sphere of radius $6.37 \times 10^6\text{ m}$.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Cambridge is at a point on the Earth’s surface that has a latitude of $52.2^\circ$ north of the Equator, as shown in Fig. 1.1.
+
+      As the Earth spins on its axis, Cambridge moves in a circle that is parallel to the Equator but with a smaller radius.
+  - number: "1ai"
+    type: calculation
+    text: |
+      Show that the radius of the circle around which Cambridge moves is $3.90 \times 10^6\text{ m}$.
+  - number: "1aii"
+    type: calculation
+    text: |
+      Calculate the speed at which Cambridge moves around the circle.
+
+      $\text{speed} = \hrulefill \text{ m}\,\text{s}^{-1}$

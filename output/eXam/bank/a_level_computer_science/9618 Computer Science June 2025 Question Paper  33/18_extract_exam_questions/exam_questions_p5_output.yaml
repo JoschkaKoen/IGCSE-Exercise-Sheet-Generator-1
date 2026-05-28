@@ -1,0 +1,33 @@
+```yaml
+questions:
+  - number: "3b"
+    type: short_answer
+    text: ''
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Complete the Karnaugh map (K-map) for the given truth table.
+
+      \begin{tabular}{r|c|c|c|c|}
+      \multicolumn{1}{r}{\textbf{CD} \quad \textbf{AB}} & \multicolumn{1}{c}{\textbf{00}} & \multicolumn{1}{c}{\textbf{01}} & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}} \\
+      \cline{2-5}
+      \textbf{00} & & & & \\
+      \cline{2-5}
+      \textbf{01} & & & & \\
+      \cline{2-5}
+      \textbf{11} & & & & \\
+      \cline{2-5}
+      \textbf{10} & & & & \\
+      \cline{2-5}
+      \end{tabular}
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Draw loop(s) around appropriate group(s) in the K-map to produce an optimal sum-of-products.
+  - number: "3biii"
+    type: short_answer
+    text: |
+      Write the Boolean logic expression from your answer to part \textbf{(b)(ii)} as the simplified sum-of-products.
+
+      \textbf{Z} = \hrulefill
+```

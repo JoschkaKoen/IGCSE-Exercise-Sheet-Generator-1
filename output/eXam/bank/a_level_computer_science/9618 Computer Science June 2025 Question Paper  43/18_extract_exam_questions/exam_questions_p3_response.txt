@@ -1,0 +1,71 @@
+[thinking]
+**Examining the Exam Page and the Stub**
+
+Okay, so I need to transcribe questions from page 3 of this exam. The stub I've got lists "1c," "1d," and "1e." But, hold on... "1e" is a bit ambiguous. Looking at the page, I see "(e) (i)" and "(ii)", but no separate "1e" stem. Is this a stub error or something else?
+
+Let me investigate. The text for "(e)" starts directly with "(e) (i) The main program needs extending...". There's no separate "(e)" prompt before that. Ah, this looks promising! Since the stub has "1e", "1ei", "1eii" I need to populate those. "1e" seems to be the parent of "(e)(i)" and "(e)(ii)" - or maybe not... 
+
+Let's carefully check the text for "1e". There's nothing there *except* what's included in "(e) (i)". If "1e" is in the stub, I should populate it. But what do I do with it? If it isn't, and "1ei" and "1eii" *are*, it should also be populated. Let's check whether "1e" is in fact a stub error.
+
+Wait a second, there's a specific rule for this: "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it." Aha! Since there's no independent "1e" question stem, only the (i) and (ii), "1e" *must* be a stub error. I'll double-check this. Yup, "(e)(i)" is actually labeled "1ei," and "(ii)" is "1eii." There is no standalone "(e)" question. Perfect, I've confirmed it!
+
+So, the transcription should be:
+
+-   "1c" is a short answer question about writing code for `Dequeue()`, explaining what it should do with the queue.
+-   "1d" is a short answer question about writing code for `CreateQueue()`, explaining how to read data from a file.
+-   "1e" is a `STUB ERROR`.
+-   "1ei" is a short answer question asking me to write code to extend the main program.
+-   "1eii" is a short answer question that requires a screenshot of the output.
+
+I'm ready to move on. That instruction about the stub errors was very helpful.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The function \texttt{Dequeue()}:
+
+      \begin{itemize}
+      \item returns the next item in the queue, if the queue is \textbf{not} empty
+      \item returns $-1$ if the queue is empty
+      \item updates the pointers where appropriate.
+      \end{itemize}
+
+      Write program code for \texttt{Dequeue()}
+  - number: "1d"
+    type: short_answer
+    text: |
+      The text file \texttt{QueueData.txt} stores positive integers. Each integer is on a new line in the file.
+
+      The procedure \texttt{CreateQueue()}:
+
+      \begin{itemize}
+      \item opens the file \texttt{QueueData.txt}
+      \item reads in each line from the text file and uses \texttt{Enqueue()} to insert each line into the queue
+      \item outputs \texttt{"Queue full"} if any item cannot be inserted into the queue
+      \item uses exception handling when opening and reading from the text file.
+      \end{itemize}
+
+      The procedure needs to work for a file that contains an unknown number of lines.
+
+      Write program code for \texttt{CreateQueue()}
+  - number: "1e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ei"
+    type: short_answer
+    text: |
+      The main program needs extending to call \texttt{CreateQueue()}. The main program then adds together all of the integers stored in the queue, using \texttt{Dequeue()} to access each integer. The total is then output.
+
+      Write program code to extend the main program.
+  - number: "1eii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).

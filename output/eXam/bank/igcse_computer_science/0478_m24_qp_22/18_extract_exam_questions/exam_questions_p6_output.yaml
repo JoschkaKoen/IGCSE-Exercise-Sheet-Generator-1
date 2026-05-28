@@ -1,0 +1,32 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      An algorithm has been written in pseudocode to calculate the profit when an item is sold. Values for cost price and selling price are input, the profit is calculated (selling price – cost price) and output. The input of zero for either value stops the algorithm.
+
+      \begin{alltt}
+      01 REPEAT
+      02   OUTPUT "Enter cost price "
+      03   INPUT Cost
+      04   OUTPUT "Enter selling price "
+      05   OUTPUT Sell
+      06   IF Cost <> 0 OR Sell <> 0
+      07     THEN
+      08       Profit <- Sell - Cost
+      09       OUTPUT "Profit is ", Profit
+      10   NEXT
+      11 UNTIL Cost = 0 OR Sell = 0
+      \end{alltt}
+  - number: "5a"
+    type: short_answer
+    text: |
+      Identify the line numbers of three errors in the pseudocode and suggest corrections.
+
+      Error 1 line number \hrulefill
+      Correction \hrulefill
+
+      Error 2 line number \hrulefill
+      Correction \hrulefill
+
+      Error 3 line number \hrulefill
+      Correction \hrulefill

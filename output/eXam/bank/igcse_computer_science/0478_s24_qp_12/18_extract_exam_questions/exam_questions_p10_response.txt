@@ -1,0 +1,65 @@
+[thinking]
+**Exam Page 10 Transcription**
+
+Okay, so I need to get this right. The task is to transcribe page 10 of this exam paper. Looks like we have three parts to the questions, structured as short answers and one long answer. Let me quickly structure these for clarity:
+
+**Question 10:**
+
+```yaml
+  - number: "10"
+    type: short_answer
+    text: |
+      A garage uses an expert system to help diagnose any problems with cars that need repair.
+```
+
+Simple enough, just a statement of fact to set the scene.
+
+**Question 10a:**
+
+```yaml
+  - number: "10a"
+    type: short_answer
+    text: |
+      The expert system is an example of artificial intelligence (AI).
+
+      Describe what is meant by AI.
+```
+
+Ah, right, a definition is required. This is a common AI introduction. I'll need to clearly articulate what constitutes artificial intelligence, likely touching on aspects like mimicking human cognitive functions, machine learning, and perhaps the ability to solve problems or make decisions. I'll need to define it in a way suitable for this exam level.
+
+**Question 10b:**
+
+```yaml
+  - number: "10b"
+    type: long_answer
+    text: |
+      A car has a problem with its braking system, so it is brought into the garage.
+
+      Explain how the expert system operates and how it is used to help diagnose the problem.
+```
+
+Okay, now we're getting to the meat of the matter. This requires an explanation of how an expert system *functions* in a practical setting, specifically a car repair scenario. I'll need to describe the system's architecture, including the knowledge base, inference engine, user interface, and how it interacts with the mechanic. I'll need to walk through the problem-solving process step-by-step in relation to a car braking system problem. I should address how the system would likely gather information through user input (symptoms, diagnostic tests), compare it to stored knowledge (rules, facts, heuristics), deduce the possible cause, and offer possible solutions. This long-form response needs to be very clear and comprehensive. Alright, let's get to it.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      A garage uses an expert system to help diagnose any problems with cars that need repair.
+  - number: "10a"
+    type: short_answer
+    text: |
+      The expert system is an example of artificial intelligence (AI).
+
+      Describe what is meant by AI.
+  - number: "10b"
+    type: long_answer
+    text: |
+      A car has a problem with its braking system, so it is brought into the garage.
+
+      Explain how the expert system operates and how it is used to help diagnose the problem.
+```

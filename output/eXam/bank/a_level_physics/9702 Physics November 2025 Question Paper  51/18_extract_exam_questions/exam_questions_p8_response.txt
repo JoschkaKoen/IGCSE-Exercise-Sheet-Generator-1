@@ -1,0 +1,41 @@
+[thinking]
+**Transcribing Exam Page 8: A Straightforward Task**
+
+Okay, so the user wants me to transcribe page 8 of an exam paper. No problem, I can handle this. I'll need to accurately represent the questions and include the answer lines in the correct format. Let's break this down into digestible chunks.
+
+First up, question `2civ`: This one's about finding the $y$-intercept of the line of best fit, and crucially, they want the absolute uncertainty included. The format is straightforward: `$y$-intercept = \hrulefill`. Easy peasy.
+
+Next, `2d`: This requires using the results from previous parts – (a), (c)(iii), and (c)(iv) – to determine the values of $\lambda_0$ and $H$, along with their units. That means two lines for this one: `$\lambda_0$ = \hrulefill` and `$H$ = \hrulefill`. Make sure those units are spot on, of course.
+
+Finally, `2e`: This involves Hubble's law: $T = \frac{1}{H}$. We need to calculate the age $T$ of the universe and, once again, include the absolute uncertainty. The format here is: `$T$ = \hrulefill s`. And of course, the units are in seconds, as indicated.
+
+I've made sure to double-check the formatting rules: value, space, then the fill rule. And the details within the questions look correct, making it a simple cut and paste exercise. All set to provide the user with the transcription of page 8!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2civ"
+    type: calculation
+    text: |
+      Determine the $y$-intercept of the line of best fit. Include the absolute uncertainty in your answer.
+
+      $y$-intercept = \hrulefill
+  - number: "2d"
+    type: calculation
+    text: |
+      Using your answers to (a), (c)(iii) and (c)(iv), determine the values of $\lambda_0$ and $H$. Include appropriate units.
+
+      $\lambda_0$ = \hrulefill
+      $H$ = \hrulefill
+  - number: "2e"
+    type: calculation
+    text: |
+      Hubble’s law suggests that the age $T$ of the universe is related to $H$ by
+
+      $$T = \frac{1}{H}$$
+
+      Determine a value for $T$. Include the absolute uncertainty in your answer.
+
+      $T$ = \hrulefill s

@@ -1,0 +1,61 @@
+[thinking]
+**My Analysis of Exam Question Page 3**
+
+Okay, here's the deal. I've been given page 3 of an exam paper and my task is to extract and structure the questions in YAML format according to the schema. Let's break this down systematically.
+
+First, the input is Page 3, and I need to identify and extract questions labeled with the following IDs: "3", "3a", "3ai", "3aii", "3b", "3bi", "3bii", and "3c."
+
+Next, my job is to transcribe each question accurately.
+
+*   **Question 3:** This introduces the context: a programmer debugging a game, examining memory addresses represented as hexadecimal numbers.
+*   **Question 3a:** Provides a hex address, "A2F".
+*   **Question 3ai:** The first specific task is to convert that hex address, "A2F", to binary. This is a standard conversion problem.
+*   **Question 3aii:** Then, the same address "A2F" needs to be converted to denary (decimal). Another typical number base conversion problem.
+*   **Question 3b:** Shifts to a binary number: "000110011011".
+*   **Question 3bi:** The goal here is to convert that binary string, "000110011011", to hexadecimal. More base conversion.
+*   **Question 3bii:** Then convert the same binary number, "000110011011", to denary. Another straight-forward conversion.
+*   **Question 3c:** Finally, a theoretical question: asking for *one* reason why hexadecimal is preferred over binary for displaying addresses. This touches on practical considerations and user experience.
+
+I'm now refining the format for the YAML output. I'll make sure to use `|` for the text content to handle multi-line text cleanly. No need for an `options` key, as these aren't multiple-choice questions. I need to strip any introductory prefixes like "(a)", "(i)", etc., from the beginning of the question text. I must make sure that bold text is wrapped as `\textbf{...}`. No standalone "Working space" or dotted lines are to be included. I am ready to convert this information into the structured YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A programmer is creating a computer game. One character is \textbf{not} moving correctly.
+
+      The programmer needs to debug the program. To do this they need to look at addresses that are locations in memory.
+
+      The addresses are displayed as hexadecimal numbers.
+  - number: "3a"
+    type: short_answer
+    text: |
+      One address is A2F.
+  - number: "3ai"
+    type: calculation
+    text: |
+      Convert the address to binary.
+  - number: "3aii"
+    type: calculation
+    text: |
+      Convert the address to denary.
+  - number: "3b"
+    type: short_answer
+    text: |
+      The binary number stored for another address is 000110011011.
+  - number: "3bi"
+    type: calculation
+    text: |
+      Convert the binary number to hexadecimal.
+  - number: "3bii"
+    type: calculation
+    text: |
+      Convert the binary number to denary.
+  - number: "3c"
+    type: short_answer
+    text: |
+      Give \textbf{one} reason why the addresses are displayed in hexadecimal instead of binary.

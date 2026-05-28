@@ -1,0 +1,25 @@
+subject_key: igcse_computer_science
+paper_stem: 0478 Computer Science March 2026 Question Paper  22
+model: qwen3.6-plus
+matched_at: '2026-05-28T05:11:24Z'
+matches:
+  '1': ['2.2']
+  2ai: ['2.2']
+  2aii: ['2.2']
+  2b: ['2.2']
+  2c: ['8.1', '8.2']
+  '3': []
+  '4': ['8.1']
+  5a: ['8.2']
+  5b: ['8.2', '8.1']
+  5c: ['8.2']
+  6a: ['8.1']
+  6b: ['8.1']
+  6c: ['8.1']
+  7a: ['1.1']
+  7b: ['1.1']
+  8a: ['8.3']
+  8b: []
+  8c: []
+  8d: []
+  '9': ['8.1', '8.2']

@@ -1,0 +1,45 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      Complete the tables, using the flowchart, for the given data:
+
+      Input data: 20
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Count} & \textbf{Number} & \textbf{Value} & \textbf{Output} \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+      \end{tabular}
+
+      \vspace{1em}
+
+      Input data: 110
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Count} & \textbf{Number} & \textbf{Value} & \textbf{Output} \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+       & & & \\ \hline
+      \end{tabular}

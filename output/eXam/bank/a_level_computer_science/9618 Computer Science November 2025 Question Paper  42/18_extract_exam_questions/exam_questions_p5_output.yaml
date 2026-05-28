@@ -1,0 +1,46 @@
+```yaml
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ci"
+    type: short_answer
+    text: |
+      The main program needs to:
+
+      \begin{itemize}
+      \item output a message that includes the species and current X position and Y position for each bird
+      \item prompt the user to select one of the birds to move and take this as an input
+      \item prompt the user to enter the direction the bird has been travelling and take this as an input
+      \item prompt the user to enter the time to the nearest minute that the bird has been travelling and take this as an input
+      \item call the appropriate method to update the chosen bird's position
+      \item output an update on the bird's new position
+      \end{itemize}
+
+      Each input needs to repeat until valid data is entered. All outputs must be meaningful.
+
+      Write program code to amend the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)(i)} in the evidence document.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Test your program \textbf{four} times to meet these criteria:
+
+      Test 1: The Cockatiel travels north for 60 minutes.
+
+      Test 2: The Macaw travels south for 30 minutes.
+
+      Test 3: The Cockatiel travels west for 30 minutes.
+
+      Test 4: The Macaw travels east for 60 minutes.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{1(c)(ii)} in the evidence document.
+```

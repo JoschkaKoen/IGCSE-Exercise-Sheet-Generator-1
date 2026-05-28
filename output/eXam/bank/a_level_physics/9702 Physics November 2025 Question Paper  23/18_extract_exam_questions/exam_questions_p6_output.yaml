@@ -1,0 +1,31 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: ''
+  - number: "2a"
+    type: short_answer
+    text: ''
+  - number: "2ai"
+    type: short_answer
+    text: |
+      Define pressure.
+  - number: "2aii"
+    type: long_answer
+    text: |
+      Explain how hydrostatic pressure results in an upthrust force acting on a solid object immersed in a liquid.
+  - number: "2b"
+    type: short_answer
+    text: |
+      A small steel ball of radius $r$ and mass $m$ falls vertically at terminal speed $v$ through oil.
+
+      The viscous drag force $D$ that acts on the ball is given by
+
+      $$D = 6\pi\eta rv$$
+
+      where $\eta$ is a property of the oil called its viscosity.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      On Fig. 2.1, draw labelled arrows from the ball to show the directions of the three forces that act on the ball as it falls.
+
+      Fig. 2.1

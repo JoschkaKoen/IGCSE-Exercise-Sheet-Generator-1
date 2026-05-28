@@ -1,0 +1,54 @@
+[thinking]
+**Page 18 Transcription: A Detailed Review**
+
+Alright, I need to transcribe page 18 of the exam and extract the questions. I see a question structure for question 9. There are sub-questions 9, 9a, 9b, 9c, 9ci, and 9cii. The structure is clear, and I've got to map the text accurately to each sub-question. First, I have to ensure the proper assignment of the text to each of these sub-parts of question 9.
+
+Looking at question 9, I initially thought it might have a stem, but it appears to be more of a structural element or parent question. There is no stand-alone main stem for question 9. The instructions say that if I cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream, and I must emit a `|` block scalar containing `STUB ERROR`. However, after reviewing the OCR, I see that the question starts with "9 (a) Define activity of a radioactive sample." So "9" can be left as an empty string. The "a" subquestion should be: 'Define activity of a radioactive sample.'
+
+Now, I'll transcribe each sub-question individually.
+- For question 9, the text will be an empty string, or `''`.
+- Sub-question 9a is "Define activity of a radioactive sample."
+- Sub-question 9b is "Explain why the variation with time of the activity of a radioactive sample is exponential in nature."
+- Sub-question 9c states: "A sample contains a single radioactive isotope that decays to form a stable isotope. The sample has an activity of $180\text{ Bq}$ at time $t = 0$. At a time $8.4\text{ minutes}$ later, the activity is $120\text{ Bq}$."
+- Sub-question 9ci states: "Determine the decay constant, in $\text{min}^{-1}$, of the radioactive isotope. decay constant = \hrulefill $\text{min}^{-1}$"
+- Sub-question 9cii states: "Use your answer in \textbf{(c)(i)} to determine the half-life, in $\text{min}$, of the radioactive isotope. half-life = \hrulefill $\text{min}$"
+
+I am making sure to format the questions accurately, using `|` for all the non-empty text, and `''` for empty fields. I'm wrapping math in `$ ... $`, and the fill-in answer lines will be denoted with `\hrulefill` rather than `\dotfill`.
+
+After double-checking the units and formatting for each sub-question, including the units provided in the question, I am confident that these are accurate and follow all instructions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      Define activity of a radioactive sample.
+  - number: "9b"
+    type: long_answer
+    text: |
+      Explain why the variation with time of the activity of a radioactive sample is exponential in nature.
+  - number: "9c"
+    type: short_answer
+    text: |
+      A sample contains a single radioactive isotope that decays to form a stable isotope.
+
+      The sample has an activity of $180\text{ Bq}$ at time $t = 0$.
+      At a time $8.4\text{ minutes}$ later, the activity is $120\text{ Bq}$.
+  - number: "9ci"
+    type: calculation
+    text: |
+      Determine the decay constant, in $\text{min}^{-1}$, of the radioactive isotope.
+
+      decay constant = \hrulefill $\text{min}^{-1}$
+  - number: "9cii"
+    type: calculation
+    text: |
+      Use your answer in \textbf{(c)(i)} to determine the half-life, in $\text{min}$, of the radioactive isotope.
+
+      half-life = \hrulefill $\text{min}$

@@ -1,0 +1,36 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Two parallel plate capacitors $C_1$ and $C_2$ are connected to a supply that has a potential difference (p.d.) $V_S$. The capacitors may be connected in series or in parallel.
+
+      The supply provides charge $Q_S$ and the plates of the two capacitors acquire charges $Q_1$ and $Q_2$ respectively. The p.d.s across the plates of the capacitors are $V_1$ and $V_2$ respectively.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete Table 6.1 to indicate how $Q_S$, $Q_1$ and $Q_2$ relate to each other, and how $V_S$, $V_1$ and $V_2$ relate to each other, for series and parallel connections of the capacitors to the supply.
+
+      \textbf{Table 6.1}
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & relationship between charges & relationship between p.d.s \\ \hline
+      series & & \\ \hline
+      parallel & & \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      An isolated capacitor of capacitance $470\ \mu\text{F}$ stores $19\text{ mJ}$ of energy.
+  - number: "6bi"
+    type: calculation
+    text: |
+      Calculate the p.d. across the capacitor.
+
+      p.d. = \hrulefill V
+  - number: "6bii"
+    type: calculation
+    text: |
+      Calculate the charge on the capacitor.
+
+      charge = \hrulefill C

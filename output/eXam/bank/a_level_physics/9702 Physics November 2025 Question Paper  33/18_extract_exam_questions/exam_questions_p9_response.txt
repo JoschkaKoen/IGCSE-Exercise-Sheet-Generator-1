@@ -1,0 +1,34 @@
+[thinking]
+**Processing Question 2aii: Uncertainty in Distance Measurement**
+
+Okay, the user wants me to transcribe question "2aii" from the exam page, which involves calculating percentage uncertainty. Let's see... the relevant section starts with instructions for setting up an apparatus involving an LED and an LDR, and adjusting the distance 'd' between them to approximately 0.03 m. They've already measured and recorded 'd'.
+
+Now, looking at the *specific* text for 2aii, it says, "(ii) Estimate the percentage uncertainty in your value of d. Show your working." And that's what needs to be transcribed. Right, so I'll strip off the "(ii)" prefix because that's part of the numbering, not the core instruction, according to the prompt rules. The instruction's core is "Estimate the percentage uncertainty in your value of d. Show your working".
+
+Now, time to format it. I'll translate that into a text with an equation to solve, and an answer line. Following the established format, the answer line is "percentage uncertainty = \hrulefill % [1]". I'll make sure to insert that as an answer space.
+
+Given this, I can now assemble the YAML for the question:
+
+```yaml
+questions:
+  - number: "2aii"
+    type: calculation
+    text: |
+      Estimate the percentage uncertainty in your value of $d$. Show your working.
+
+      percentage uncertainty = \hrulefill \%
+```
+
+That should be good to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2aii"
+    type: calculation
+    text: |
+      Estimate the percentage uncertainty in your value of $d$. Show your working.
+
+      percentage uncertainty = \hrulefill \%

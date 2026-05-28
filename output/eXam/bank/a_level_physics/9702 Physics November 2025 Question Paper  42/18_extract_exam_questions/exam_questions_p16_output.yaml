@@ -1,0 +1,31 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      An alternating voltage $V$ varies with time $t$ according to
+
+      $$V = 18 \cos 40\pi t$$
+
+      where $V$ is in $\text{V}$ and $t$ is in $\text{s}$.
+  - number: "7a"
+    type: short_answer
+    text: |
+      For the alternating voltage:
+  - number: "7ai"
+    type: calculation
+    text: |
+      show that the period is $0.050\text{ s}$
+  - number: "7aii"
+    type: calculation
+    text: |
+      determine the root-mean-square (r.m.s.) voltage.
+
+      r.m.s. voltage = \hrulefill $\text{V}$
+  - number: "7b"
+    type: short_answer
+    text: |
+      On Fig. 7.1, sketch the variation of $V$ with $t$ for values of $t$ from $t = 0$ to $t = 100\text{ ms}$.
+  - number: "7c"
+    type: short_answer
+    text: |
+      The alternating voltage is rectified to produce an output voltage across a load resistor R, as shown in Fig. 7.2.

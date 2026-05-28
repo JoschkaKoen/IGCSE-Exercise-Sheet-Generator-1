@@ -1,0 +1,63 @@
+[thinking]
+**Analyzing and Transcribing Exam Question 1**
+
+Okay, so I need to transcribe page 4 of this exam. The structure is immediately apparent: it's question "1," which is broken down into sub-parts, "1a," "1b," and then further subdivided into "1bi" and "1bii." This is a fairly standard format, nothing particularly out of the ordinary here.
+
+Let's begin by extracting the question text. I need to make sure I don't miss anything. Looking at the initial prompt, "1" itself, in the stub generator, doesn't contain a prompt, although it is the container for the questions. This is sometimes the case. But, as I look at the OCR, I notice that "1" simply begins, "(a) Define acceleration." Ah, it’s all here.
+
+Okay, let's start writing it out.
+
+`1`: Ah, "1" is empty! Good. So, `text: ''`. Done.
+
+`1a`: The OCR confirms: `Define acceleration.`
+
+`1b`: Now, for "1b." The text here is: "A rocket is launched vertically from the surface of the Earth.\n\nFig. 1.1 shows the variation of the velocity of the rocket with time for the first 20s after its launch." I'll transcribe that accurately.
+
+`1bi`: Moving on, "1bi" presents a calculation. The text says "Determine the acceleration of the rocket." and then gives a format. I need to get the formatting right on this. They want a space between the m and s, so I'll put it here. Okay, so I should write: `acceleration = \hrulefill \text{ m}\,\text{s}^{-2}`.
+
+`1bii`: "1bii" is a calculation check. It says "Show that the height of the rocket above the surface of the Earth at a time of 20s after launch is 3.2km." I need to remember to write this with math formatting: $20\text{ s}$ and $3.2\text{ km}$. I'll write: `Show that the height of the rocket above the surface of the Earth at a time of $20\text{ s}$ after launch is $3.2\text{ km}$.`
+
+Alright, let's just make one last check of the text:
+`1` text: `''`
+`1a` text: `Define acceleration.`
+`1b` text: |
+  A rocket is launched vertically from the surface of the Earth.
+
+  Fig. 1.1 shows the variation of the velocity of the rocket with time for the first $20\text{ s}$ after its launch.
+`1bi` text: |
+  Determine the acceleration of the rocket.
+
+  acceleration = \hrulefill \text{ m}\,\text{s}^{-2}
+`1bii` text: |
+  Show that the height of the rocket above the surface of the Earth at a time of $20\text{ s}$ after launch is $3.2\text{ km}$.
+
+And I think this question is transcribed!
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Define acceleration.
+  - number: "1b"
+    type: short_answer
+    text: |
+      A rocket is launched vertically from the surface of the Earth.
+
+      Fig. 1.1 shows the variation of the velocity of the rocket with time for the first $20\text{ s}$ after its launch.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Determine the acceleration of the rocket.
+
+      acceleration = \hrulefill $\text{ms}^{-2}$
+  - number: "1bii"
+    type: calculation
+    text: |
+      Show that the height of the rocket above the surface of the Earth at a time of $20\text{ s}$ after launch is $3.2\text{ km}$.

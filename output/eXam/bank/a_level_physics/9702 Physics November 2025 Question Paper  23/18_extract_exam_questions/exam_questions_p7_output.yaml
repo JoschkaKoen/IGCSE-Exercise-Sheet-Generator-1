@@ -1,0 +1,23 @@
+questions:
+  - number: "2bii"
+    type: calculation
+    text: |
+      Determine the SI base units of $\eta$.
+
+      base units \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      The oil in \textbf{(b)} has a density of $920 \text{ kg}\,\text{m}^{-3}$ and a viscosity of $4.7$ in SI units.
+
+      The steel ball has a mass of $2.4 \times 10^{-3} \text{ kg}$ and a radius of $4.2 \times 10^{-3} \text{ m}$.
+  - number: "2ci"
+    type: calculation
+    text: |
+      Show that the upthrust force acting on the ball is $2.8 \times 10^{-3} \text{ N}$.
+  - number: "2cii"
+    type: calculation
+    text: |
+      Determine the terminal speed $v$ of the ball.
+
+      $v = $ \hrulefill $\text{m}\,\text{s}^{-1}$

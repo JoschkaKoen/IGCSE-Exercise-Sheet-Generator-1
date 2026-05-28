@@ -1,0 +1,21 @@
+questions:
+  - number: "2bii"
+    type: short_answer
+    text: |
+      The program to calculate pay uses a number of modules which are each called from different places in the program.
+
+      The program is to be tested using stub testing before all the program modules have been completed.
+
+      Describe stub testing.
+  - number: "2biii"
+    type: short_answer
+    text: |
+      The program has been completed and compiles successfully.
+
+      The program is tested using black-box testing.
+
+      Identify and describe \textbf{one} type of error that black-box testing could detect.
+
+      Type of error \hrulefill
+
+      Description

@@ -1,0 +1,52 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The size of a file can be measured using different data storage units.
+  - number: "1a"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show the smallest data storage unit.
+    options:
+      - letter: A
+        text: |
+          byte
+      - letter: B
+        text: |
+          gibibyte (GiB)
+      - letter: C
+        text: |
+          kibibyte (KiB)
+      - letter: D
+        text: |
+          nibble
+  - number: "1b"
+    type: calculation
+    text: |
+      State how many tebibytes (TiB) are equal to 2 pebibytes (PiB).
+  - number: "1c"
+    type: short_answer
+    text: |
+      The size of a file needs to be reduced.
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Give the name of the process that is used to reduce the size of a file.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      One reason the size of a file may need reducing is so that it has a shorter transmission time.
+
+      Give \textbf{one} other reason why the size of a file may need reducing.
+  - number: "2"
+    type: short_answer
+    text: |
+      A clothes store has a ticket system to allow customers to speak to a personal shopper.
+
+      The ticket displays a ticket number in hexadecimal, for example 11B.
+  - number: "2a"
+    type: short_answer
+    text: |
+      The ticket system has an output device that creates a paper ticket.
+
+      Identify an appropriate output device to produce the paper ticket.

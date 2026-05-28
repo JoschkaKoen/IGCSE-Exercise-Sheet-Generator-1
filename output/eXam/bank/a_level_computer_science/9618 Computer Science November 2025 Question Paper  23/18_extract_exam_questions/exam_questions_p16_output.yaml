@@ -1,0 +1,27 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      There are several different ways to express an algorithm during the design of a program.
+  - number: "7a"
+    type: short_answer
+    text: |
+      One part of the program contains an algorithm which is represented by a state-transition diagram.
+
+      The table shows the inputs, outputs and states for the algorithm:
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Current state} & \textbf{Input} & \textbf{Output} & \textbf{Next state} \\ \hline
+      S1 & A1 & & S2 \\ \hline
+      S2 & A2 & X4 & S3 \\ \hline
+      S3 & A1 & X1 & S3 \\ \hline
+      S3 & A2 & X1 & S3 \\ \hline
+      S3 & A3 & X3 & S4 \\ \hline
+      S3 & A4 & & S2 \\ \hline
+      S4 & A3 & X4 & S5 \\ \hline
+      S4 & A4 & X4 & S5 \\ \hline
+      S4 & A1 & & S2 \\ \hline
+      \end{tabular}
+
+      Complete the state-transition diagram to represent the information given in the table:

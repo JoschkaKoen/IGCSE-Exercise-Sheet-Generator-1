@@ -1,0 +1,32 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      This pseudocode represents an algorithm.
+
+      \begin{alltt}
+      DECLARE Store : ARRAY[1:100] OF CHAR
+      DECLARE Word : STRING
+      DECLARE Index : INTEGER
+      DECLARE Letter : CHAR
+      INPUT Word
+      FOR Index <- 1 TO LENGTH(Word)
+        Letter <- SUBSTRING(Word, Index, 1)
+        CASE OF Letter
+          'A' : Letter <- ""
+          'E' : Letter <- ""
+          'I' : Letter <- ""
+          'O' : Letter <- ""
+          'U' : Letter <- ""
+        ENDCASE
+        Store[Index] <- Letter
+      NEXT Index
+      FOR Index <- 1 TO LENGTH(Word)
+        IF Store[Index] <> ""
+        THEN
+          OUTPUT Store[Index]
+        ENDIF
+      NEXT Index
+      \end{alltt}
+```

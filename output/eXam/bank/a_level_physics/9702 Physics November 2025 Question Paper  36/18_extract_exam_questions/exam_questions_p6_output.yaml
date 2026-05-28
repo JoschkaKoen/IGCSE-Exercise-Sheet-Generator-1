@@ -1,0 +1,13 @@
+questions:
+  - number: "1d"
+    type: calculation
+    text: |
+      It is suggested that the quantities $P$ and $M$ are related by the equation
+      $$\frac{1}{P} = \frac{a}{\sqrt{M}} + b$$
+      where $a$ and $b$ are constants.
+
+      Use your answers in \textbf{(c)(iii)} to determine the values of $a$ and $b$.
+      Give appropriate units.
+
+      $a =$ \hrulefill
+      $b =$ \hrulefill

@@ -1,0 +1,23 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5a"
+    type: short_answer
+    text: |
+      Describe how interrupt handling is used in low-level scheduling.
+  - number: "5b"
+    type: short_answer
+    text: |
+      In process management, a process can be in one of three process states: running, ready or blocked.
+
+      Complete the table to identify \textbf{one} reason why a process could be in each of the three states.
+
+      \begin{tabular}{|c|p{8cm}|}
+      \hline
+      \textbf{Process state} & \textbf{Reason} \\ \hline
+      running & \newline\newline\newline \\ \hline
+      ready & \newline\newline\newline \\ \hline
+      blocked & \newline\newline\newline \\ \hline
+      \end{tabular}

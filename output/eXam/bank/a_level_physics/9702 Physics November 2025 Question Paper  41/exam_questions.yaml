@@ -1,0 +1,936 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: In terms of velocity and acceleration, describe uniform circular motion
+      of an object.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Fig. 1.1 shows the view from above of a polystyrene ball undergoing horizontal
+      circular motion of radius $R$.
+
+
+      Fig. 1.1
+
+
+      The ball is illuminated by parallel light so that a shadow of the ball forms
+      on a screen placed on the opposite side of the ball from the light source.
+
+
+      The line joining points O and P is perpendicular to the screen.
+
+
+      The angular speed of the circular motion is $\omega$.'
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'State an expression, in terms of $R$ and $\omega$, for the speed $v$
+        of the ball.
+
+
+        $v = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine an expression, in terms of $v$ and $\omega$, for the centripetal
+        acceleration of the ball.
+
+
+        $\text{centripetal acceleration} = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The ball in \textbf{(b)} is in the position shown in Fig. 1.1, such that
+      line OB is at an angle $\theta$ to the line OP.
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine an expression, in terms of $R$ and $\theta$, for the displacement
+        $x$ of the shadow from P.
+
+
+        $x = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The value of $\theta$ is zero at time $t = 0$.
+
+
+        State an expression for $\theta$ in terms of $\omega$ and $t$.
+
+
+        $\theta = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1ciii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use your answers in \textbf{(c)(i)} and \textbf{(c)(ii)} to show that
+        $x$ is given by
+
+
+        $$x = R \sin \omega t$$'
+      answer_options: []
+      subquestions: []
+    - number: 1civ
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Explain, with reference to the equation in \textbf{(c)(iii)}, why the
+        motion of the shadow of the ball on the screen may be modelled as simple harmonic.
+      answer_options: []
+      subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The circular motion of the ball in Fig. 1.1 has a diameter of $0.46\text{
+      m}$ and an angular speed of $1.9\text{ rad}\,\text{s}^{-1}$.
+
+
+      For the simple harmonic motion of the shadow of the ball in Fig. 1.1, calculate:'
+    answer_options: []
+    subquestions:
+    - number: 1di
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'the amplitude
+
+
+        amplitude = \hrulefill $\text{m}$'
+      answer_options: []
+      subquestions: []
+    - number: 1dii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'the period
+
+
+        period = \hrulefill $\text{s}$'
+      answer_options: []
+      subquestions: []
+    - number: 1diii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'the maximum acceleration.
+
+
+        maximum acceleration = \hrulefill $\text{m}\,\text{s}^{-2}$'
+      answer_options: []
+      subquestions: []
+  - number: 1e
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: On Fig. 1.1, draw, and label with the letter A, the position of the shadow
+      on the screen when the shadow has its maximum positive acceleration.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State \textbf{two} ways in which the first law of thermodynamics describes
+      that the internal energy of a system may be changed.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Use the first law of thermodynamics to explain why a bicycle pump gets
+        hot when it is used to pump up a tyre quickly.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: With reference to molecular energies, explain why the temperature of water
+        remains at $100^\circ\text{C}$ when it vaporises in a kettle, even though
+        it is being heated.
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define gravitational field at a point.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Fig. 3.1 shows an isolated point mass of mass $M$.
+
+
+      Point P is at distance $x$ from the point mass.'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: By considering the force exerted by the point mass on a test mass of mass
+        $m$ placed at P, derive an equation for the gravitational field strength $g$
+        at P, in terms of $M$ and $x$. Identify any other symbols you use.
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 3.1, draw an arrow to indicate the direction of the gravitational
+        field at P.
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Point Q is at distance $\frac{x}{2}$ from the point mass, on the opposite
+        side of the mass from P, as shown in Fig. 3.2.
+
+
+        Compare the gravitational field at Q with that at P.'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Two identical isolated uniform spheres X and Y each have radius $R$. The
+      centres of the spheres are separated by distance $L$, as shown in Fig. 3.3.
+
+
+      Point P lies on the line joining the centres of X and Y, and is at a variable
+      displacement $x$ from the centre of sphere X.
+
+      The gravitational field strength at the surface of each sphere is $g_0$.
+
+
+      On Fig. 3.4, sketch the variation with $x$ of the gravitational field $g$ at
+      point P between $x = R$ and $x = L - R$.'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'State the value of absolute zero on:'
+    answer_options: []
+    subquestions:
+    - number: 4ai
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'the Celsius temperature scale
+
+
+        temperature = \hrulefill $^{\circ}\text{C}$'
+      answer_options: []
+      subquestions: []
+    - number: 4aii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'the thermodynamic temperature scale. Give a unit with your answer.
+
+
+        temperature = \hrulefill unit \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A sample contains a fixed amount of gas. The gas has pressure $p$, volume
+      $V$ and thermodynamic temperature $T$.
+
+
+      Fig. 4.1 shows the variation of $pV$ with $kT$ for the sample, where $k$ is
+      the Boltzmann constant.'
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is indicated about the nature of the gas from the variation
+        shown in Fig. 4.1.
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the number $N$ of molecules of the gas in the sample.
+
+
+        $N = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 4biii
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use your answer in (b)(ii) to determine the amount $n$ of gas in the
+        sample.
+
+
+        $n = \hrulefill \text{ mol}$'
+      answer_options: []
+      subquestions: []
+  - number: 4c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The root-mean-square (r.m.s.) speed of the molecules of the gas is $1900\text{
+      m}\,\text{s}^{-1}$ when $pV$ is equal to $270\text{ J}$.
+
+
+      Determine the mass, in u, of one molecule of the gas, where u is the unified
+      atomic mass unit.
+
+
+      $\text{mass} = \hrulefill \text{ u}$'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Define electric potential at a point.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A hydrogen atom may be considered to consist of a proton and an electron
+      separated by a distance of $120\text{ pm}$, as shown in Fig. 5.1.
+
+
+      The two particles may be considered as point charges.
+
+
+      Point P lies on the line joining the electron and the proton and is at a variable
+      distance $x$ from the proton.'
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Show that the electric potential $V$ at point P when $x = 10\text{ pm}$
+        is equal to $130\text{ V}$.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: calculation
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate, to two significant figures, $V$ when $x = 30\text{ pm}$.
+
+
+        $V = \hrulefill \text{ V}$'
+      answer_options: []
+      subquestions: []
+    - number: 5biii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 5.1, draw a cross ($\times$) at one position, other than infinity,
+        where the electric potential is zero.
+      answer_options: []
+      subquestions: []
+    - number: 5biv
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: On Fig. 5.2, sketch the variation of $V$ with $x$ between $x = 10\text{
+        pm}$ and $x = 110\text{ pm}$.
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Two parallel plate capacitors $C_1$ and $C_2$ are connected to a supply that
+    has a potential difference (p.d.) $V_S$. The capacitors may be connected in series
+    or in parallel.
+
+
+    The supply provides charge $Q_S$ and the plates of the two capacitors acquire
+    charges $Q_1$ and $Q_2$ respectively. The p.d.s across the plates of the capacitors
+    are $V_1$ and $V_2$ respectively.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "Complete Table 6.1 to indicate how $Q_S$, $Q_1$ and $Q_2$ relate to each\
+      \ other, and how $V_S$, $V_1$ and $V_2$ relate to each other, for series and\
+      \ parallel connections of the capacitors to the supply.\n\n\\textbf{Table 6.1}\n\
+      \n\\begin{tabular}{|c|c|c|}\n\\hline\n & relationship between charges & relationship\
+      \ between p.d.s \\\\ \\hline\nseries & & \\\\ \\hline\nparallel & & \\\\ \\\
+      hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: An isolated capacitor of capacitance $470\ \mu\text{F}$ stores $19\text{
+      mJ}$ of energy.
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the p.d. across the capacitor.
+
+
+        p.d. = \hrulefill V'
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the charge on the capacitor.
+
+
+        charge = \hrulefill C'
+      answer_options: []
+      subquestions: []
+    - number: 6biii
+      question_type: calculation
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The capacitor is now connected in parallel with a capacitor of capacitance
+        $180\text{ }\mu\text{F}$ that is initially uncharged.
+
+
+        Determine the total energy, in mJ, now stored in the two capacitors.
+
+
+        energy = \hrulefill\text{ mJ}'
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State Faraday’s law of electromagnetic induction.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'An aircraft is flying horizontally at constant speed $v$ through the Earth’s
+      magnetic field, as shown in Fig. 7.1.
+
+
+      At the location of the aircraft, the vertical component of the Earth’s magnetic
+      field is $38\ \mu\text{T}$ towards the ground.
+
+
+      The distance between the wingtips P and Q of the aircraft is $68\text{ m}$.
+
+
+      As the aircraft moves through the magnetic field, an electromotive force (e.m.f.)
+      of $0.54\text{ V}$ is induced between the wingtips P and Q.'
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: calculation
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the magnetic flux cut by the wings of the aircraft in a time
+        of $15\text{ s}$. Give a unit with your answer.
+
+
+        magnetic flux = \hrulefill unit \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: calculation
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the area of flux cut by the wings in a time of $15\text{ s}$.
+
+
+        $\text{area} = \hrulefill \text{ m}^2$'
+      answer_options: []
+      subquestions: []
+    - number: 7biii
+      question_type: calculation
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Use your answer in \textbf{(b)(ii)} to determine the speed $v$ of the
+        aircraft.
+
+
+        $v = \hrulefill \text{ m}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 7biv
+      question_type: long_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Use Lenz’s law of electromagnetic induction to explain which of the wingtips
+        P and Q is at the higher induced potential.
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 18
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State what is meant by a photon.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A stationary nucleus of uranium-238 ($^{238}_{92}\text{U}$) undergoes alpha
+      decay to produce a nucleus of thorium-234 ($^{234}_{90}\text{Th}$). The kinetic
+      energy of the emitted alpha particle is $4.200\text{ MeV}$. A gamma-ray photon
+      is also emitted during the decay.
+
+
+      Assume that the rebound kinetic energy of the thorium nucleus is negligible.
+
+
+      Table 8.1 shows the masses of the nuclides involved in the decay reaction. The
+      mass of the uranium-238 nuclide is missing.
+
+
+      \textbf{Table 8.1}
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      nuclide & nuclide mass/u \\ \hline
+
+      $^{4}_{2}\alpha$ & $4.000407$ \\ \hline
+
+      $^{234}_{90}\text{Th}$ & $233.915174$ \\ \hline
+
+      $^{238}_{92}\text{U}$ & \\ \hline
+
+      \end{tabular}
+
+
+      The total energy released in the decay of the nucleus of uranium-238 is $4.274\text{
+      MeV}$.'
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: calculation
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Calculate the mass, in u, of the uranium-238 nuclide. Give your answer
+        to five decimal places.
+
+
+        mass = \hrulefill u'
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: calculation
+      page: 19
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Determine a value for the wavelength of the gamma radiation emitted during
+        the decay of the uranium-238 nucleus.
+
+
+        wavelength = \hrulefill $\text{m}$'
+      answer_options: []
+      subquestions: []
+    - number: 8biii
+      question_type: long_answer
+      page: 19
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'In practice, the rebound kinetic energy of the thorium nucleus is \textbf{not}
+        negligible.
+
+
+        Explain, without further calculation, how your answer in \textbf{(b)(ii)}
+        compares with the true wavelength of gamma radiation emitted during the decay
+        of the uranium-238 nucleus.'
+      answer_options: []
+      subquestions: []
+  - number: 8c
+    question_type: long_answer
+    page: 19
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Gamma radiation emitted during the decay of a sample of uranium-238 has
+      a single wavelength.
+
+
+      Nuclei of cobalt-60 ($^{60}_{27}\text{Co}$) decay by beta emission, and also
+      emit gamma radiation in the process.
+
+
+      Suggest why there is \textbf{not} a single wavelength for the gamma radiation
+      emitted during the decay of a sample of cobalt-60.'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 20
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State Wien’s displacement law.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Fig. 9.1 shows the variation with $d^{-2}$ of the radiant flux intensity
+      $F$ observed from a star X, where $d$ is the distance of the observer from the
+      star. Fig. 9.2 shows the variation with wavelength $\lambda$ of the rates of
+      emission $P$ of radiation by star X and the Sun.
+
+
+      The surface temperature of the Sun is $5770\text{ K}$.
+
+
+      State \textbf{three} conclusions about star X that can be drawn from this data.
+      The conclusions may be qualitative or quantitative. Use the space for any working.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 21
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Star X is in a galaxy that is moving away from the Earth.
+
+
+      Suggest, with a reason, how the line for star X in Fig. 9.2 would appear differently
+      if it had been obtained from data measured on the Earth.'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 22
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 22
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Define specific acoustic impedance.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: long_answer
+    page: 22
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain how ultrasound waves are detected by a piezoelectric crystal.
+    answer_options: []
+    subquestions: []
+  - number: 10c
+    question_type: short_answer
+    page: 22
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Table 10.1 shows the specific acoustic impedance $Z$ for body tissue, water
+      and steel.
+
+
+      \begin{center}
+
+      \textbf{Table 10.1}
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      material & $Z / \text{kg}\,\text{m}^{-2}\,\text{s}^{-1}$ \\ \hline
+
+      body tissue & $1.38 \times 10^6$ \\ \hline
+
+      water & $1.48 \times 10^6$ \\ \hline
+
+      steel & $4.04 \times 10^7$ \\ \hline
+
+      \end{tabular}
+
+      \end{center}'
+    answer_options: []
+    subquestions:
+    - number: 10ci
+      question_type: calculation
+      page: 22
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the intensity reflection coefficient for ultrasound incident
+        on a water–steel boundary.
+
+
+        intensity reflection coefficient = \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 10cii
+      question_type: long_answer
+      page: 22
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain, without calculation, what is likely to happen when ultrasound
+        is incident on a body tissue–water boundary.
+      answer_options: []
+      subquestions: []

@@ -1,0 +1,56 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A school has set up a database table \texttt{SchoolTrip} to record details of students that will go on a school trip.
+
+      \begin{tabular}{|l|l|l|l|l|}
+      \hline
+      \textbf{StudentID} & \textbf{StudentName} & \textbf{ParentName} & \textbf{Permission} & \textbf{DateReceived} \\ \hline
+      STU147 & Amir & Mr Akar & True & 03/03/2025 \\ \hline
+      STU348 & Filip & Mrs Johnson & True & 04/03/2025 \\ \hline
+      STU274 & Matthew & Mr Smith & False & \\ \hline
+      STU873 & Jafar & Mr Al-Saigh & True & 21/03/2025 \\ \hline
+      STU221 & Hussein & Mr Alkasab & True & 28/02/2025 \\ \hline
+      STU553 & Julie & Mrs Jones & True & 25/02/2025 \\ \hline
+      STU213 & Julie & Mr Smith & False & \\ \hline
+      \end{tabular}
+  - number: "8a"
+    type: short_answer
+    text: |
+      State the reason why \texttt{ParentName} is not appropriate as the primary key.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Give the name of the field that should be the primary key.
+  - number: "8c"
+    type: short_answer
+    text: |
+      The database only uses these data types:
+
+      \begin{itemize}
+      \item text
+      \item character
+      \item Boolean
+      \item integer
+      \item real
+      \item date/time
+      \end{itemize}
+
+      Complete the table to show the most appropriate data type for each field. Each data type must be different.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Data type}} \\ \hline
+      \texttt{ParentName} & \\ \hline
+      \texttt{Permission} & \\ \hline
+      \texttt{DateReceived} & \\ \hline
+      \end{tabular}
+  - number: "8d"
+    type: short_answer
+    text: |
+      Complete the structured query language (SQL) statement to display only the names of the students who do not have permission to go on the trip.
+
+      SELECT \hrulefill
+      FROM \hrulefill
+      WHERE \hrulefill

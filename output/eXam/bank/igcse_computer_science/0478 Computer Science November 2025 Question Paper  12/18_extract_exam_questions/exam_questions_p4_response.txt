@@ -1,0 +1,98 @@
+[thinking]
+**My Thought Process: Deconstructing a PDF into YAML**
+
+Okay, here's what I'm thinking. I've got a PDF page in front of me, page 4 of 12. My task is to transform the questions on that page into a YAML structure, which I can feed into a system. There are specific guidelines I need to adhere to, which I need to get right:
+
+First, let's analyze the request. The input is this PDF page. The output has to be YAML containing the question `text` and `options` if it's multiple-choice. The strict constraints: no markdown fences, no extraneous comments; everything *must* be valid YAML. Any non-empty free-text fields get a `|` block scalar. No image inclusion (`\includegraphics` is out). Strip any subquestion prefixes like (a), (b), etc. I also have to correctly handle answer lines, "working spaces", and multiple-choice questions. Got it.
+
+Now, let's dive into each question, one by one.
+
+*   **Question 2**: Straightforward. It's a `short_answer` question. Just need to extract the text: "Two binary numbers are stored in a computer."
+
+*   **Question 2a**: A `calculation` question. The text is "Add the **two** binary numbers using binary addition. Give your answer in binary. Show all of your working. I was originally thinking of using an array environment but I could just write it directly:
+
+    ```latex
+    Add the \textbf{two} binary numbers using binary addition.
+
+    Give your answer in binary. Show all of your working.
+
+    \begin{tabular}{rc}
+      & 11110101 \\
+    + & 00111001 \\
+    \end{tabular}
+    ```
+    This works nicely.
+
+*   **Question 2b**: Another `calculation` question. It says: "A logic right shift of **three** places is performed on the binary number 11110101. Give the denary number for the binary number that would be stored after the logical shift of **three** places has occurred. Show all of your working. Denary number \hrulefill". I just need to capture that. The working space can be completely dropped.
+
+*   **Question 3**: Back to `short_answer`: "A programmer uses assembly language to create a program for a coffee machine."
+
+*   **Question 3a**: Another `short_answer`: "Describe what is meant by assembly language." No special handling there.
+
+*   **Question 3b**: Yet another `short_answer`: "Identify the translator needed for assembly language." Easy peasy.
+
+*   **Question 3c**: This is a `multiple_choice` question. The text is "Tick ($\checkmark$) **one** box to show which statement is an advantage of using assembly language." Now I must gather the options:
+    *   A: It is close to human language.
+    *   B: It is memory efficient.
+    *   C: It is easy to debug.
+    *   D: It is machine independent.
+
+Okay, I've processed all the questions and their data. Now comes the final step: Formatting everything into clean, valid YAML. I'll need to make sure every non-empty text field uses the `|` block scalar. No unnecessary double quotes. And finally, I have to validate the YAML structure and data types to ensure correctness.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Two binary numbers are stored in a computer.
+  - number: "2a"
+    type: calculation
+    text: |
+      Add the \textbf{two} binary numbers using binary addition.
+
+      Give your answer in binary. Show all of your working.
+
+      \begin{tabular}{rc}
+        & 11110101 \\
+      + & 00111001 \\
+      \end{tabular}
+  - number: "2b"
+    type: calculation
+    text: |
+      A logic right shift of \textbf{three} places is performed on the binary number 11110101.
+
+      Give the denary number for the binary number that would be stored after the logical shift of \textbf{three} places has occurred. Show all of your working.
+
+      Denary number \hrulefill
+  - number: "3"
+    type: short_answer
+    text: |
+      A programmer uses assembly language to create a program for a coffee machine.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Describe what is meant by assembly language.
+  - number: "3b"
+    type: short_answer
+    text: |
+      Identify the translator needed for assembly language.
+  - number: "3c"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which statement is an advantage of using assembly language.
+    options:
+      - letter: A
+        text: |
+          It is close to human language.
+      - letter: B
+        text: |
+          It is memory efficient.
+      - letter: C
+        text: |
+          It is easy to debug.
+      - letter: D
+        text: |
+          It is machine independent.

@@ -1,0 +1,11 @@
+questions:
+  - number: "6c"
+    type: long_answer
+    text: |
+      The variable resistor in (b) is fitted with a scale so that its resistance can be accurately determined.
+      The resistor of resistance $240\ \Omega$ is now replaced by a new resistor X of unknown resistance.
+      A galvanometer is connected as shown in Fig. 6.2.
+
+      Fig. 6.2
+
+      With reference to ratios of resistances, explain how this circuit can be used to determine the resistance of X.

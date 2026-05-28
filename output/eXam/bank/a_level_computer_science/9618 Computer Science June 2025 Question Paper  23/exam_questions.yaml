@@ -1,0 +1,858 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program is being developed for the management of a sports centre.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The programmer developing the software decides to use modules (procedures
+      or functions) and local variables. They also decide not to use global variables.
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'State \textbf{two} reasons why the programmer decides to use modules.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State \textbf{one} difference between local and global variables.
+      answer_options: []
+      subquestions: []
+    - number: 1aiii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'State \textbf{two} benefits of using local variables.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The pseudocode design contains a number of expressions.
+
+
+      Complete each pseudocode expression so that it evaluates to the value shown.
+
+
+      Refer to the insert for the list of pseudocode functions and operators.
+
+
+      \begin{tabular}{|l|c|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Expression}} & \textbf{Evaluates to} \\ \hline
+
+      \underline{\hspace{6em}}(68) & \texttt{''D''} \\ \hline
+
+      \underline{\hspace{6em}}(04/02/2025) & 2 \\ \hline
+
+      \underline{\hspace{6em}}TRUE & FALSE \\ \hline
+
+      \underline{\hspace{6em}}(\underline{\hspace{6em}}("Court1.4Upper", \underline{\hspace{2em}},
+      \underline{\hspace{2em}})) & 1.4 \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The table lists some of the variables used in the program.
+
+
+      Complete the table by writing the most appropriate data type for each variable.
+
+
+      \begin{tabular}{|l|p{7cm}|p{3cm}|}
+
+      \hline
+
+      \textbf{Variable} & \textbf{Use of variable} & \textbf{Data type} \\ \hline
+
+      \texttt{MemberCount} & stores how many members have used the sports centre each
+      day & \hrulefill \\ \hline
+
+      \texttt{TotalTakings} & stores the total amount of money taken each day & \hrulefill
+      \\ \hline
+
+      \texttt{BookingConfirmed} & stores the state of a booking for an exercise class;
+      a booking is either confirmed or \textbf{not} confirmed & \hrulefill \\ \hline
+
+      \texttt{MemberDOB} & to calculate when to send an email with a birthday message
+      to a member & \hrulefill \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer uses a number of Abstract Data Types (ADT) in the programs that
+    she is developing.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A stack using memory locations 400 to 409 is used in one program.
+
+
+      The diagram represents the current state of the stack.
+
+
+      A variable \texttt{TopOfStack} pointer indicates the last value added to the
+      stack.
+
+
+      \begin{tabular}{c|c|l}
+
+      \textbf{Memory location} & \multicolumn{1}{c}{\textbf{Value}} & \\ \cline{2-2}
+
+      409 & & \\ \cline{2-2}
+
+      408 & & \\ \cline{2-2}
+
+      407 & & \\ \cline{2-2}
+
+      406 & & \\ \cline{2-2}
+
+      405 & & \\ \cline{2-2}
+
+      404 & & \\ \cline{2-2}
+
+      403 & ''P'' & $\leftarrow$ \texttt{TopOfStack} \\ \cline{2-2}
+
+      402 & ''X'' & \\ \cline{2-2}
+
+      401 & ''D'' & \\ \cline{2-2}
+
+      400 & ''B'' & \\ \cline{2-2}
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Complete the answer column in the following table:
+
+
+        \begin{tabular}{|p{8cm}|p{4cm}|}
+
+        \hline
+
+        \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\textbf{Answer}} \\ \hline
+
+        the memory location of the value that has been on the stack for the longest
+        time & \\ \hline
+
+        the number of consecutive \texttt{push} operations that will result in the
+        \texttt{TopOfStack} variable containing 409 & \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The diagram shows the current state of the stack.
+
+
+        \textbf{Stack}
+
+
+        \begin{tabular}{c|c|l}
+
+        \multicolumn{1}{c}{\textbf{Memory location}} & \multicolumn{1}{c}{\textbf{Value}}
+        & \\ \cline{2-2}
+
+        409 & & \\ \cline{2-2}
+
+        408 & & \\ \cline{2-2}
+
+        407 & ''A'' & $\leftarrow$ \texttt{TopOfStack} \\ \cline{2-2}
+
+        406 & ''C'' & \\ \cline{2-2}
+
+        405 & ''F'' & \\ \cline{2-2}
+
+        404 & ''K'' & \\ \cline{2-2}
+
+        403 & ''B'' & \\ \cline{2-2}
+
+        402 & ''S'' & \\ \cline{2-2}
+
+        401 & ''R'' & \\ \cline{2-2}
+
+        400 & ''D'' & \\ \cline{2-2}
+
+        \end{tabular}
+
+
+        The following sequence of operations are performed:
+
+
+        \begin{alltt}
+
+        PUSH ''T''
+
+        POP
+
+        POP
+
+        PUSH ''Z''
+
+        PUSH ''X''
+
+        POP
+
+        PUSH ''Y''
+
+        \end{alltt}
+
+
+        Complete the following diagram to show the state of the stack after the operations
+        have been performed.
+
+
+        \textbf{Stack}
+
+
+        \begin{tabular}{c|c|}
+
+        \multicolumn{1}{c}{\textbf{Memory location}} & \multicolumn{1}{c}{\textbf{Value}}
+        \\ \cline{2-2}
+
+        409 & \\ \cline{2-2}
+
+        408 & \\ \cline{2-2}
+
+        407 & \\ \cline{2-2}
+
+        406 & \\ \cline{2-2}
+
+        405 & \\ \cline{2-2}
+
+        404 & \\ \cline{2-2}
+
+        403 & \\ \cline{2-2}
+
+        402 & \\ \cline{2-2}
+
+        401 & \\ \cline{2-2}
+
+        400 & \\ \cline{2-2}
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: In a different program, the programmer decides to implement a linked list
+      using an array of records.
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The array is represented in the diagram.
+
+
+        A pointer value of $-1$ indicates the end of the linked list.
+
+
+        Complete the pointer field to produce a linked list that is in alphabetical
+        order.
+
+
+        \begin{tabular}{|c|c|c|}
+
+        \hline
+
+        \textbf{Index} & \textbf{Data} & \textbf{Pointer} \\ \hline
+
+        0 & "Neptune" & \\ \hline
+
+        1 & "Jupiter" & \\ \hline
+
+        2 & "Saturn" & \\ \hline
+
+        3 & "Earth" & \\ \hline
+
+        4 & "Mercury" & \\ \hline
+
+        5 & "Uranus" & \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The variable \texttt{StartPointer} contains the index of the first item
+        in the linked list.
+
+
+        State the value of the variable \texttt{StartPointer}'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A third program is also being created to manage a queue.
+
+
+      Describe \textbf{two} features of a queue.
+
+
+      Feature one
+
+
+      Feature two'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: long_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 7
+  text: 'A programmer has been asked to create a module \texttt{RollDice()} to simulate
+    multiple rolls of a dice. This module will be used as part of a program for a
+    game.
+
+
+    The module will:
+
+
+    step 1 – take a positive integer parameter representing the number of times the
+    dice will be rolled
+
+    step 2 – simulate \textbf{one} roll of the dice by generating a random integer
+    between 1 and 6 inclusive
+
+    step 3 – output the integer generated
+
+    step 4 – repeat, as required from \textbf{step 2}
+
+    step 5 – calculate the average value of the random integers generated
+
+    step 6 – return the average value.
+
+
+    Write pseudocode for the module \texttt{RollDice()}'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer is developing a new stock control program for a shop owner to
+    produce sales reports.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'A text file \texttt{Sales.txt} stores strings representing the number of
+      items sold.
+
+
+      The file contains 52 lines, each representing the number of items sold in each
+      week of the year.
+
+
+      For example:
+
+
+      \begin{tabular}{cc}
+
+      \textbf{File line number} & \textbf{File data} \\
+
+      1 & "350" \\
+
+      2 & "502" \\
+
+      3 & "434" \\
+
+      \vdots & \vdots \\
+
+      49 & "492" \\
+
+      50 & "872" \\
+
+      51 & "772" \\
+
+      52 & "201" \\
+
+      \end{tabular}
+
+
+      The example shows that 502 items were sold in week 2.
+
+
+      The owner requires a module to output all week numbers where the number of items
+      sold is greater than 500.
+
+
+      Describe an algorithm that produces the required module.
+
+
+      Do \textbf{not} include pseudocode statements in your answer.'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Once the program has been completed, it is tested using the walkthrough
+      method.
+
+
+      Describe the walkthrough method and explain how it can be used to identify errors.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: long_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 8
+  text: 'A module \texttt{Parity()} takes a string as a parameter. The parameter has
+    the identifier \texttt{BitString} and it represents a binary value.
+
+
+    The module will concatenate a single character to the end of \texttt{BitString}
+    by applying one of the two rules:
+
+    \begin{itemize}
+
+    \item \texttt{''0''} if \texttt{BitString} contains an even number of 1s
+
+    \item \texttt{''1''} if \texttt{BitString} contains an odd number of 1s.
+
+    \end{itemize}
+
+
+    The modified value of \texttt{BitString} is then returned.
+
+
+    For example:
+
+
+    \begin{tabular}{|l|l|l|}
+
+    \hline
+
+    \textbf{Parameter} & \textbf{String returned} & \textbf{Explanation} \\ \hline
+
+    \texttt{"0010010110"} & \texttt{"00100101100"} & there are an even number of 1s
+    in the string passed to \texttt{Parity()} so a \texttt{''0''} is concatenated
+    to the end of \texttt{BitString} \\ \hline
+
+    \texttt{"101010"} & \texttt{"1010101"} & there are an odd number of 1s in the
+    string passed to \texttt{Parity()} so a \texttt{''1''} is concatenated to the
+    end of \texttt{BitString} \\ \hline
+
+    \end{tabular}
+
+
+    Write pseudocode for the module \texttt{Parity()}
+
+
+    Assume the parameter \texttt{BitString} can only contain the characters \texttt{''0''}
+    and \texttt{''1''}'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Study the structure chart:
+
+
+    Some of the parameter data types are:
+
+
+    \begin{itemize}
+
+    \item R and V are of type \texttt{INTEGER}
+
+    \item T is of type \texttt{REAL}
+
+    \item U is of type \texttt{STRING}
+
+    \item W is of type \texttt{BOOLEAN}.
+
+    \end{itemize}
+
+
+    Some of the modules in the structure chart are functions, others are procedures.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Explain \textbf{one} difference between functions and procedures.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Write the pseudocode to define the module headers:
+
+
+      Sub\_Part1A
+
+
+      \hrulefill
+
+
+      Sub\_Part2A
+
+
+      \hrulefill
+
+
+      Sub\_Part3A
+
+
+      \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The structure chart uses the two symbols shown.
+
+
+      Complete the table to explain what each symbol means and how the relevant modules
+      in the structure chart are affected.
+
+
+      \begin{tabular}{|c|p{10cm}|}
+
+      \hline
+
+      \textbf{Symbol} & \textbf{Explanation} \\ \hline
+
+      $\lozenge$ & \\
+
+      & \\
+
+      & \\ \hline
+
+      $\curvearrowright$ & \\
+
+      & \\
+
+      & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is being developed to implement a customer loyalty scheme for a
+    coffee shop.
+
+
+    The programmer has decided that the following data items need to be stored for
+    each customer:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Data item} & \textbf{Description} \\ \hline
+
+    customer ID & a unique six-digit string \\ \hline
+
+    loyalty points & an integer value that depends on how often the customer visits
+    the coffee shop \\ \hline
+
+    last visit date & the date the customer last visited the coffee shop \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The programmer has defined a program module:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{Module} & \textbf{Description} \\ \hline
+
+      \texttt{UpdateVisit()} & \begin{minipage}[t]{10cm}
+
+      \begin{itemize}
+
+      \item called with two parameters:
+
+      \begin{enumerate}
+
+      \item loyalty points of type \texttt{INTEGER}
+
+      \item last visit date of type \texttt{DATE}
+
+      \end{enumerate}
+
+      \item change the loyalty points:
+
+      \begin{itemize}
+
+      \item increase by \textbf{four} if the last visit date and the current date
+      are in the same month
+
+      \item otherwise increase by \textbf{one}
+
+      \end{itemize}
+
+      \item change the last visit date to the current date
+
+      \item the changed values must be available to the code that follows the call
+      to \texttt{UpdateVisit()}
+
+      \end{itemize}
+
+      \end{minipage} \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 7ai
+      question_type: long_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'Write pseudocode for module \texttt{UpdateVisit()}
+
+
+        Assume the customer has made at least \textbf{one} previous visit.'
+      answer_options: []
+      subquestions: []
+    - number: 7aii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The programmer decides to amend the \texttt{UpdateVisit()} module so
+        that loyalty points are further increased if the customer visits the coffee
+        shop the same day of the week as their last visit.
+
+
+        Write the pseudocode for this condition.'
+      answer_options: []
+      subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A text file \texttt{Loyalty.txt} will be used to store the data items for
+      the loyalty scheme.
+
+
+      The text file \texttt{Loyalty.txt} contains only one line of data for each customer.
+
+
+      Each data item is separated by a comma:
+
+
+      \texttt{<CustomerID>,<LoyaltyPointsString>,<LastVisitDateString>}
+
+
+      \texttt{LastVisitDateString} is always eight characters in length in the format:
+      DDMMYYYY.
+
+
+      An example of how a line of data will be stored in the text file \texttt{Loyalty.txt}
+      is:
+
+
+      \texttt{"100123,132,05032025"}
+
+
+      This example shows that the customer with an ID of 100123 had 132 loyalty points
+      following their last visit to the coffee shop on 05/03/2025.
+
+
+      If a customer visits the coffee shop on a Monday, the value of their loyalty
+      points is increased by 10.
+
+
+      The programmer has defined \textbf{two} more program modules:
+
+
+      \begin{tabular}{|l|p{10cm}|}
+
+      \hline
+
+      \textbf{Module} & \textbf{Description} \\ \hline
+
+      \texttt{FindCustomer()} \newline (is already written) & \begin{itemize}\item
+      called with a parameter of type \texttt{STRING} that represents a customer ID\item
+      returns the line of data read from the text file \texttt{Loyalty.txt} containing
+      the data items for that customer\end{itemize} \\ \hline
+
+      \texttt{MondayCheck()} & \begin{itemize}\item called with a parameter of type
+      \texttt{STRING} that represents the customer ID of a customer\item calls \texttt{FindCustomer()}\item
+      extracts the loyalty points from the string returned by \texttt{FindCustomer()}\item
+      increases the loyalty points for the current customer by 10 if the day visited
+      is a Monday\item returns an integer value representing the loyalty points\end{itemize}
+      \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: long_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 8
+      text: 'Write pseudocode for module \texttt{MondayCheck()}
+
+
+        The module \texttt{FindCustomer()} must be used and assume it returns a valid
+        string for the current customer.'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: short_answer
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'A date is stored in \texttt{LastVisitDateString} in the format:
+
+
+        DDMMYYYY
+
+
+        DD is a 2-digit string
+
+        MM is a 2-digit string
+
+        YYYY is a 4-digit string.
+
+
+        For example, the date 03/09/2024 is stored as \texttt{"03092024"}
+
+
+        An algorithm is needed to convert the string stored in \texttt{LastVisitDateString}
+        to data type \texttt{DATE} which is then stored in the variable \texttt{LastVisitDate}.
+
+
+        Complete the pseudocode for this algorithm:
+
+
+        Assume that \texttt{LastVisitDateString} has been declared and contains valid
+        data.
+
+
+        \begin{alltt}
+
+        DECLARE DayInt, MonthInt, YearInt : INTEGER
+
+        DECLARE LastVisitDate : DATE
+
+        \end{alltt}'
+      answer_options: []
+      subquestions: []

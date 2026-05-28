@@ -1,0 +1,63 @@
+[thinking]
+**My Analysis of the Exam Question Requirements**
+
+Okay, here's the deal. I need to take the content of a specific exam page and convert it into a YAML format. The goal is to represent the essence of questions 3b, 3bi, and 3bii within this YAML structure.
+
+First, I've broken down the source text, specifically targeting the wording of the questions themselves and extracting the key information about the class `Parrot`, its relationship to the `Animal` class, and the required methods. The format dictates YAML, and I need to make sure the structure is correct, which means I'll use the 'number', 'type' and 'text' keys.  I've noted that no multiple-choice options are present in the questions, so I can skip the `options` key.
+
+My next task is to take question 3b and transform the given table information for a nice presentation within the text. I'm going to create a LaTeX table structure inside the `text` field, ensuring the format's readability. I'll need to keep it simple and consistent.
+
+Here's how I am going to organize the LaTeX table, aiming for clarity:
+
+For question 3b, I'll use the `tabular` environment, ensuring consistent column counts in each row. The table will list the `Parrot` class details.
+
+Then, I'm refactoring the individual question texts (3b, 3bi, and 3bii) using YAML's multiline string feature (`|`). This is a critical step to ensure that the text is clean and correctly formatted for YAML's interpretation. I'm careful to keep the essential text of each question, with the embedded LaTeX table for the 3b question.
+
+Finally, I need to check my approach against the specific rules and constraints of the output format.  I need to make sure I'm using multiline strings, avoiding double quotes for non-empty string values.  I will avoid `\includegraphics` and `\dotfill`. And, very importantly, any computer science terms in the questions need to be wrapped in the `\texttt{...}` tags (things like class names and method names).  That's all the important stuff.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      The class \texttt{Parrot} inherits from the class \texttt{Animal}
+
+      \texttt{Parrot} inherits the attributes from \texttt{Animal} and overrides the \texttt{Description()} method. The additional attributes and methods in the class \texttt{Parrot} are:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Parrot}} \\ \hline
+      \texttt{WingSpan : Integer} & the width of the parrot's wings to the nearest cm \\ \hline
+      \texttt{NumberWords : Integer} & the number of words the parrot can speak \\ \hline
+      \texttt{Constructor()} & calls the parent constructor using its parameter values; initialises \texttt{WingSpan} and \texttt{NumberWords} to its parameter values \\ \hline
+      \texttt{ChangeNumberWords()} & takes an integer parameter and adds this to the number currently in \texttt{NumberWords} \\ \hline
+      \end{tabular}
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Parrot}, its constructor and the method \texttt{ChangeNumberWords()}
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(b)(i)} in the evidence document.
+  - number: "3bii"
+    type: short_answer
+    text: |
+      The method \texttt{Description()} in the class \texttt{Parrot} creates and returns a string of the animal's data in the format:
+
+      \texttt{"The animal's name is " <Name> ", it makes a " <Sound> ", its size is " <Size> " and its intelligence level is " <Intelligence> ". It has a wingspan of " <WingSpan> "cm and can say " <NumberWords> " words."}
+
+      For example:
+
+      \texttt{The animal's name is Chewie, it makes a Squawk, its size is 1 and its intelligence level is 10. It has a wingspan of 30cm and can say 29 words.}
+
+      Write program code for \texttt{Description()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(b)(ii)} in the evidence document.

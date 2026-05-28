@@ -1,0 +1,63 @@
+[thinking]
+**Analyzing and Constructing the YAML Response for the Exam Page**
+
+Okay, so I've got page 2 of this exam paper and need to extract and structure the content into YAML format. The goal is to get "1", "1a", "1b", "2", and "2a", matching the provided schema. The prompt emphasizes that every stub's stem should be visible. If not, it means there's a problem upstream, so I'm to emit a `|` block scalar containing `STUB ERROR`.
+
+First, I looked at question "1". Hmm, the stub says it's a `short_answer` type. But on the page, there's no standalone "1" text; it starts immediately with "1 (a) Tick...". So, is "1" empty or a placeholder? The prompt says to include `STUB ERROR` if an entry's stem is *not* found. I have to be careful here – it *could* be a parent question. To clarify, I looked at question "2". "2" is "A user accesses a website using a web browser.", so clearly there's a text associated with "2". Returning to "1", since it *immediately* starts with "(a)" and doesn't contain standalone text, I'm pretty sure "1" doesn't have an associated stem, so I'm writing `text: | \n STUB ERROR` for "1". Double-checking, just to be completely sure.
+
+Now, "1a" is a multiple-choice question: "Tick one box to show which statement about data storage is correct." with the options A, B, C, and D. "1b" is a calculation problem: "An image file has a resolution of 1024 pixels high x 1024 pixels wide. The colour depth is two bytes. Calculate the file size of the image. Give the answer in MiB. Show your working." The inline blank is "file size of image MiB", so I'll need to remember that.
+
+Moving on to "2", it says: "A user accesses a website using a web browser." Then, "2a" asks: "Two functions of a web browser are to provide an address bar and to store cookies. Give three other functions of a web browser. With lines 1., 2., 3.".
+
+Finally, I'm just confirming that "1" is a stub error since it doesn't have text. So, the right output for "1" is `STUB ERROR` as `text`.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1a"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which statement about data storage is correct.
+    options:
+      - letter: A
+        text: |
+          One bit equals four nibbles.
+      - letter: B
+        text: |
+          One byte equals 16 bits.
+      - letter: C
+        text: |
+          One exbibyte (EiB) equals $1024 \times 1024$ tebibytes (TiB).
+      - letter: D
+        text: |
+          One mebibyte (MiB) equals $1024 \times 1024$ gibibytes (GiB).
+  - number: "1b"
+    type: calculation
+    text: |
+      An image file has a resolution of $1024 \text{ pixels high} \times 1024 \text{ pixels wide}$. The colour depth is two bytes.
+
+      Calculate the file size of the image. Give the answer in MiB. Show your working.
+
+      file size of image \hrulefill MiB
+  - number: "2"
+    type: short_answer
+    text: |
+      A user accesses a website using a web browser.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Two functions of a web browser are to provide an address bar and to store cookies.
+
+      Give \textbf{three} other functions of a web browser.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+```

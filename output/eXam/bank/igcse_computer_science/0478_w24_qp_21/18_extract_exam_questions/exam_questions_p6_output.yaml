@@ -1,0 +1,20 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A programmer is designing a program to check the length of a password and to check if the password input is the same as the stored password.
+
+      The program requirements are:
+      \begin{itemize}
+      \item input the password, \texttt{Password}
+      \item check if there are at least 8 characters in the password
+      \item check that the password is \textbf{not} the same as the stored password \texttt{OldPass}
+      \item output ‘accepted’ if both tests are completed successfully
+      \item otherwise, output ‘rejected’.
+      \end{itemize}
+
+      Use the variable names given.
+  - number: "8a"
+    type: short_answer
+    text: |
+      Complete the flowchart for the program.

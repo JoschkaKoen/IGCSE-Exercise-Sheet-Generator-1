@@ -1,0 +1,35 @@
+questions:
+  - number: "2bii"
+    type: long_answer
+    text: |
+      The CPU is changed to a dual-core $3.5\text{ GHz}$ processor.
+
+      Explain how the number of cores affects the performance of a CPU.
+  - number: "2biii"
+    type: long_answer
+    text: |
+      The amount of cache is increased to $64\text{ kB}$.
+
+      Explain how the amount of cache affects the performance of a computer.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The computer has both primary and secondary storage.
+  - number: "2ci"
+    type: long_answer
+    text: |
+      Random access memory (RAM) is one example of primary storage.
+
+      Describe what is meant by RAM.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Read only memory (ROM) is another example of primary storage. ROM often stores the start-up instructions for a computer.
+
+      Identify \textbf{one} other item of data that is commonly stored in ROM.
+  - number: "2ciii"
+    type: short_answer
+    text: |
+      Some computers make use of virtual memory.
+
+      State the purpose of virtual memory.

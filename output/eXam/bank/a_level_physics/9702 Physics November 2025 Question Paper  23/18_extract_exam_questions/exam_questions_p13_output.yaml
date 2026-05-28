@@ -1,0 +1,27 @@
+questions:
+  - number: "5bii"
+    type: long_answer
+    text: |
+      With reference to the current in the cell, explain why the current in resistor R decreases with increasing temperature of the thermistor.
+  - number: "5c"
+    type: short_answer
+    text: |
+      The electromotive force (e.m.f.) $E$ of the cell in Fig. 5.1 is $1.50\text{ V}$. The internal resistance $r$ of the cell is $0.12\ \Omega$.
+
+      Resistor R has a resistance of $6.00\ \Omega$.
+
+      At a particular temperature of the thermistor, the current in R is $0.200\text{ A}$.
+
+      For this temperature of the thermistor, determine:
+  - number: "5ci"
+    type: calculation
+    text: |
+      the current in the cell
+
+      current = \hrulefill A
+  - number: "5cii"
+    type: calculation
+    text: |
+      the resistance of the thermistor.
+
+      resistance = \hrulefill $\Omega$

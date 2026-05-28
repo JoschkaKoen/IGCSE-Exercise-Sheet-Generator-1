@@ -1,0 +1,29 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: |
+      Explain why protocols are essential for communication between computer systems.
+  - number: "3b"
+    type: short_answer
+    text: |
+      POP3 is an email communication protocol.
+
+      Identify and describe \textbf{two} other communication protocols that are used when sending or receiving emails.
+
+      Protocol 1 \hrulefill
+
+      Description \hrulefill
+
+      Protocol 2 \hrulefill
+
+      Description \hrulefill
+  - number: "3c"
+    type: short_answer
+    text: |
+      Describe \textbf{two} ways in which packet switching ensures a complete message is received when passing messages across a network.
+
+      1. \hrulefill
+      2. \hrulefill

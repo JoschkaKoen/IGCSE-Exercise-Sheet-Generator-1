@@ -1,0 +1,40 @@
+[thinking]
+**Exam Page 11 Transcription - My Mental Checklist**
+
+Okay, the task is to transcribe page 11 of this exam. I'll need to accurately represent the questions, paying attention to their structure and any nuances. Let's break this down systematically.
+
+First, I see a calculation question, labeled "5c". It involves converting mebibytes (MiB) to gibibytes (GiB). The prompt itself is straightforward: the size of a sound file is 4096 MiB, and the task is to provide the equivalent size in GiB. There's a dotted line after it, but given my experience with exam formatting, that's just a space for the answer, not integral to the question itself. I'll exclude it from the transcription. The calculation itself is trivial, but I will make sure the units are clearly specified.
+
+Next, there's a set of related questions, starting with "6". This appears to introduce a scenario: a game using AI for character movements. The subsequent questions, "6a" and "6b," delve deeper.
+
+Question "6a" is a request to define "AI". It's a long-answer question, calling for a descriptive explanation.
+
+Question "6b" continues on this topic, asking me to explain how AI can be leveraged to enhance the movements and actions of the game characters. Also a long-answer question.
+
+I'm keeping an eye out for formatting details. I've noted that subquestion prefixes like "(c)", "(a)", and "(b)" at the beginning of the text of the questions should be stripped, so they will not be included in the transcription. I'm also confirming that the "working space" text has been dropped, so I don't need to account for that.
+
+With those considerations in mind, I'm ready to proceed with the transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5c"
+    type: calculation
+    text: |
+      The size of a sound file is 4096 mebibytes (MiB).
+
+      Give the size of the file in gibibytes (GiB).
+  - number: "6"
+    type: short_answer
+    text: |
+      A computer game is programmed to use artificial intelligence (AI) to create the movements and actions of the computer-controlled characters in the game.
+  - number: "6a"
+    type: long_answer
+    text: |
+      Describe what is meant by AI.
+  - number: "6b"
+    type: long_answer
+    text: |
+      Explain how the AI can be used to improve the movements and actions of the computer-controlled characters.

@@ -1,0 +1,89 @@
+[thinking]
+**Transcribing Exam Questions: A Detailed Look**
+
+Okay, so the task is to transcribe questions 34 and 35 from an exam paper, specifically page 15. Let's get this right. First, I need to make sure the format is crystal clear for the expert user.
+
+For question 34, it's a multiple-choice question focused on a circuit with a battery and cells with negligible internal resistance. The question is asking for the resistance of a resistor labeled P, given some values of current, electromotive force (e.m.f.), and resistance in the diagram. The options are straightforward: 0.40 Ohms, 0.80 Ohms, 2.0 Ohms, and 2.8 Ohms. I'll make sure the LaTeX formatting for the units is preserved.
+
+Now, question 35 is slightly more involved. It deals with a circuit that includes a battery, an external resistor R, and the battery's internal resistance, represented by a resistor r. The crux of the question is what happens when a second resistor, identical to R, is connected in parallel with the first resistor. The question asks about the changes in the potential difference (p.d.) across r and the current shown on an ammeter.
+
+The options are presented in a table format. I need to make sure that the relationship between the options and the table are completely clear. I've re-written the options to clearly represent them, incorporating the important table columns: "p.d. across r" and "current shown on ammeter"
+
+Here's the table:
+
+|       | p.d. across r | current shown on ammeter |
+| :---- | :------------ | :------------------------ |
+| **A** | decreases     | decreases                 |
+| **B** | decreases     | increases                 |
+| **C** | increases     | decreases                 |
+| **D** | increases     | increases                 |
+
+So the options for question 35, based on the table, are:
+
+*   **A:** decreases, decreases
+*   **B:** decreases, increases
+*   **C:** increases, decreases
+*   **D:** increases, increases
+
+I need to make sure all the LaTeX formatting is retained, and I've double-checked that all the units and terms are included. Perfect.
+
+
+
+[/thinking]
+
+questions:
+  - number: "34"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit containing a battery and cells with negligible internal resistance.
+
+      Some values of current, electromotive force (e.m.f.) and resistance are shown.
+
+      One resistor is labelled P.
+
+      What is the resistance of resistor P?
+    options:
+      - letter: A
+        text: |
+          $0.40\ \Omega$
+      - letter: B
+        text: |
+          $0.80\ \Omega$
+      - letter: C
+        text: |
+          $2.0\ \Omega$
+      - letter: D
+        text: |
+          $2.8\ \Omega$
+  - number: "35"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit with a battery connected to a resistor R. The battery has an internal resistance represented by resistor r.
+
+      A second resistor, identical to R, is connected in parallel with R.
+
+      Which row describes the changes to the potential difference (p.d.) across r and the current shown on the ammeter when the second resistor is connected?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & p.d. across r & \begin{tabular}{c} current shown \\ on ammeter \end{tabular} \\
+      \hline
+      \textbf{A} & decreases & decreases \\
+      \textbf{B} & decreases & increases \\
+      \textbf{C} & increases & decreases \\
+      \textbf{D} & increases & increases \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          decreases, decreases
+      - letter: B
+        text: |
+          decreases, increases
+      - letter: C
+        text: |
+          increases, decreases
+      - letter: D
+        text: |
+          increases, increases

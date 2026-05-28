@@ -1,0 +1,22 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: long_answer
+    text: |
+      Explain why the electric potential near an isolated proton is positive.
+  - number: "5b"
+    type: short_answer
+    text: |
+      An isolated metal sphere is positively charged and has radius $R$, as shown in Fig. 5.1.
+
+      Line XY passes through the centre of the sphere.
+      Point P lies on line XY at a variable displacement $x$ from the centre of the sphere.
+      Point Q is at a fixed position that is not on line XY.
+
+      The electric field strength at the surface of the sphere is $E_0$.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      On Fig. 5.1, draw an arrow at point Q to show the direction of the electric field at that point.

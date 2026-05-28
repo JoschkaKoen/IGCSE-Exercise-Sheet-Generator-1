@@ -1,0 +1,55 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program reads data from a text file, splits the data depending on its content and stores the separated data into different files.
+
+      The text file \texttt{TheData.txt} contains 72 lines of data. Each line of data has an integer number and a string colour that are separated by a comma. For example, the first line in the file is:
+
+      \texttt{10,red}
+
+      The integer is \texttt{10} and the string is \texttt{"red"}
+
+      The file contains six different colours: red, green, blue, orange, yellow, pink.
+  - number: "2a"
+    type: short_answer
+    text: |
+      The function \texttt{ReadData()}:
+
+      \begin{itemize}
+      \item prompts the user to enter a filename and reads this filename from the user
+      \item opens the file and reads each line of data into a 1D array
+      \item returns the populated 1D array.
+      \end{itemize}
+
+      The function needs to work for a file that contains an unknown number of lines.
+
+      Write program code for \texttt{ReadData()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program as \textbf{Question2\_J25}. \\
+      \\
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "2b"
+    type: short_answer
+    text: |
+      The procedure \texttt{SplitData()} takes a 1D string array as a parameter with the identifier \texttt{DataArray}
+
+      The procedure declares six 1D arrays: one array for each colour that appears in the file (red, green, blue, orange, yellow, pink).
+
+      The procedure accesses each string in \texttt{DataArray}. The data in each string is split into the integer and the colour. The integer is stored in the array that matches the colour.
+
+      For example, the first string in \texttt{DataArray} has the integer \texttt{10} and the colour \texttt{red}, so the integer \texttt{10} is stored in the array for the colour red.
+
+      Write program code for \texttt{SplitData()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      \\
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document. \\
+      \hline
+      \end{tabular}

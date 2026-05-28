@@ -1,0 +1,58 @@
+[thinking]
+**Page 14 Transcription: A Detailed Thought Process**
+
+Okay, here's what's happening. I'm tasked with transcribing page 14 of this exam paper. It looks like the main section is question "12", which has sub-questions "12a" and "12b". Let's dig in.
+
+The YAML stub outlines questions "12", "12a", and "12b". However, when examining the page itself, the text *starts* directly with "12 (a)", and there's no stand-alone question labelled "12". Now, according to the instructions I have, if a stub entry's stem is missing from the page, that means there's a problem upstream, and I need to flag it. The rule is clear: *Do NOT guess*. So, question "12" is a definite STUB ERROR. I must output a `|` block scalar containing `STUB ERROR`. I'll do that.
+
+Moving on to "12a," the question text reads: "An array is an Abstract Data Type (ADT). Identify **two** other ADTs." The answer format appears to be a list, with space for the responses.
+
+Now to "12b." This one deals with pseudocode. The question sets up a 1D array, `DataArray`, and asks for an insertion sort implementation. It provides a table of identifiers, their data types, and descriptions, which is handy. The prompt emphasizes using these identifiers in the algorithm. I'm told not to declare arrays or variables, as that's already taken care of. The first line of pseudocode is pre-written: `FOR Index <- 2 to 1000`.
+
+A quick check on the formatting. The documentation clearly states that pseudocode assignment arrows should be rendered as `<-` within alltt, and NOT as LaTeX symbols. So, the pre-written line will be transcribed as `\texttt{FOR Index <- 2 to 1000}`.
+
+So, in summary: "12" = `STUB ERROR`, "12a" is a straightforward ADT identification question, and "12b" is an insertion sort pseudocode task. I'm now ready to transcribe the page!
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "12"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "12a"
+    type: short_answer
+    text: |
+      An array is an Abstract Data Type (ADT).
+
+      Identify \textbf{two} other ADTs.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "12b"
+    type: short_answer
+    text: |
+      A 1D array \texttt{DataArray} holds up to 1000 elements of type integer and needs to be sorted in ascending order.
+
+      Write the \textbf{pseudocode} for an insertion sort to sort the array into ascending order.
+
+      Use the identifiers from the table in your algorithm.
+
+      You do \textbf{not} need to declare any arrays or variables for this algorithm. You may assume this has already been done.
+
+      \begin{tabular}{|c|c|l|}
+      \hline
+      \textbf{Identifier} & \textbf{Data type} & \textbf{Description} \\ \hline
+      \texttt{Index} & \texttt{INTEGER} & counter for outer loop \\ \hline
+      \texttt{Position} & \texttt{INTEGER} & counter for inner loop – insertion position \\ \hline
+      \texttt{DataArray} & \texttt{INTEGER} & 1D array to store up to 1000 integers \\ \hline
+      \texttt{Value} & \texttt{INTEGER} & value to insert \\ \hline
+      \end{tabular}
+
+      The first line has been written for you.
+
+      \texttt{FOR Index <- 2 to 1000}
+```

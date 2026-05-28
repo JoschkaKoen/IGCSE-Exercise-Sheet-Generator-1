@@ -1,0 +1,28 @@
+questions:
+  - number: "3b"
+    type: long_answer
+    text: |
+      The procedure \texttt{InsertData()} takes \textbf{five} positive integers as input from the user and inserts these into the linked list.
+
+      Each data item is inserted at the front of the linked list.
+
+      The table shows the steps to follow depending on the state of the linked list:
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Linked list state} & \textbf{Steps} \\ \hline
+      not full & insert the data in the index pointed to by \texttt{FirstEmpty} \\
+       & change the pointer to the index pointed to by \texttt{FirstNode} \\
+       & change the values of \texttt{FirstNode} and \texttt{FirstEmpty} \\ \hline
+      full & end the procedure \\ \hline
+      \end{tabular}
+
+      Any node that is at the end of the linked list has a pointer of $-1$.
+
+      Write program code for \texttt{InsertData()}.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(b)} in the evidence document. \\ \hline
+      \end{tabular}

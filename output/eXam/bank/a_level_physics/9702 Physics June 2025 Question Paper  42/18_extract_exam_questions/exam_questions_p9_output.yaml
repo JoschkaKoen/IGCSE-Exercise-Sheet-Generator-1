@@ -1,0 +1,15 @@
+questions:
+  - number: "3biv"
+    type: long_answer
+    text: |
+      Explain whether the work done on the block is positive or negative.
+  - number: "3bv"
+    type: calculation
+    text: |
+      Use the first law of thermodynamics to determine, to three significant figures, a value for the specific heat capacity of aluminium. Explain your reasoning. Give a unit with your answer.
+
+      specific heat capacity = \hrulefill \quad \text{unit} \quad \hrulefill
+  - number: "3c"
+    type: short_answer
+    text: |
+      Without further calculation, suggest with a reason how doubling the pressure in \textbf{(b)} is likely to affect the answer in \textbf{(b)(v)}.

@@ -1,0 +1,28 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student investigates light from different galaxies.
+
+      Fig. 2.1 shows the lines in the absorption spectrum from a distant galaxy.
+
+      The wavelength of one of the lines in the absorption spectrum is $\lambda$. The wavelength of this spectral line in the laboratory is $\lambda_0$.
+
+      The observations of the same spectral line are repeated for different galaxies.
+
+      The student determines the distance $d$ of each galaxy from the Earth.
+
+      It is suggested that $\lambda$ and $d$ are related by the equation
+
+      $$\frac{\lambda - \lambda_0}{\lambda_0} = \frac{Hd}{c}$$
+
+      where $c$ is the speed of light in free space and $H$ is the Hubble constant.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A graph is plotted of $\lambda$ on the $y$-axis against $\frac{d}{c}$ on the $x$-axis.
+
+      Determine expressions for the gradient and $y$-intercept.
+
+      gradient = \hrulefill
+      $y$-intercept = \hrulefill

@@ -1,0 +1,19 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The character 'y' is represented by the binary ASCII number 01111001.
+  - number: "3ci"
+    type: calculation
+    text: |
+      Convert the binary ASCII number to denary.
+  - number: "3cii"
+    type: calculation
+    text: |
+      Convert the binary ASCII number to hexadecimal.
+  - number: "3ciii"
+    type: calculation
+    text: |
+      A logical right shift of two places is performed on the binary ASCII number 01111001.
+
+      Give the binary number after the logical right shift of \textbf{two} places is performed.

@@ -1,0 +1,659 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A student has an electronic calculator. The calculator has a screen that
+    displays the result of calculations.
+
+
+    The calculator has 8-bit registers.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the highest denary number that could be stored in a single 8-bit register.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Denary numbers are typed into the calculator. They are converted to binary
+      numbers and stored in the 8-bit registers.
+
+
+      The student types in the denary number 23 and the denary number 168.
+
+
+      Give the 8-bit binary numbers that are stored in the registers for these \textbf{two}
+      denary numbers.
+
+
+      23 \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+
+
+      168 \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The result of a calculation that is stored in a register is the binary
+      number 00001011
+
+
+      Give the denary number that will be displayed on the screen for this binary
+      number.
+
+
+      00001011 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Another result of a calculation that is stored in a register is the binary
+      number 01000010
+
+
+      Give the denary number that will be displayed on the screen for this binary
+      number.
+
+
+      01000010 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1e
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: "Two binary numbers stored in the registers are 01110110 and 00110000\n\n\
+      Add the binary numbers using binary addition. Show all your working.\n\nGive\
+      \ your answer in binary.\n\n$$\\begin{array}{rcccccccc}\n  & 0 & 1 & 1 & 1 &\
+      \ 0 & 1 & 1 & 0 \\\\\n+ & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\\\\n\\hline\n\\end{array}$$"
+    answer_options: []
+    subquestions: []
+  - number: 1f
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The result of a calculation could be a negative denary number.
+
+
+      State how the calculator could represent a negative denary number as a binary
+      number.'
+    answer_options: []
+    subquestions: []
+  - number: 1g
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The electronic calculator is an example of an embedded system.
+
+
+      Explain why it is an example of an embedded system.'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An employee of a company sells houses. He sends images of the houses to his
+    company.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The employee compresses the image files using lossy compression before
+      sending them. Lossy compression reduces the size of the image files.
+
+
+      Give \textbf{two} other reductions that lossy compression makes to the images.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The image data is broken down into packets to be sent across a network
+      to the company.
+
+
+      The destination internet protocol (IP) address is read by a device in the network.
+      The device uses the IP address to forward the packet towards its correct destination.'
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the name of the device that reads the destination IP address.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify the part of the packet where the destination IP address is found.
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The IP address has an IPv6 format.
+
+
+      Give \textbf{three} characteristics of the IPv6 format.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'An echo check is used to check for errors after the image has been transmitted.
+
+
+      Draw and annotate a diagram to show how the echo check would detect any errors.'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The image data is encrypted using symmetric encryption.
+    answer_options: []
+    subquestions:
+    - number: 2ei
+      question_type: multiple_choice
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Tick ($\checkmark$) one box to show the correct statement about symmetric
+        encryption.
+      answer_options:
+      - letter: A
+        text: Encrypted text is known as plain text.
+      - letter: B
+        text: The most secure form of encryption.
+      - letter: C
+        text: The encryption key is shared with any device receiving the encrypted
+          data.
+      - letter: D
+        text: Two different keys are used.
+      subquestions: []
+    - number: 2eii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give one other type of encryption that could be used.
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student has a portable device. He uses an on-screen keyboard to write messages
+    to his friend.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how the text the student writes is converted to binary to be processed.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The device has 4 gibibytes (GiB) of random access memory (RAM).
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the amount of RAM the device has in mebibytes (MiB).
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the amount of RAM the device has in tebibytes (TiB). Your answer
+        can be given rounded to 3 decimal places.
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain why the portable device needs RAM.
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The device has a fingerprint scanner to allow the student to unlock the
+      portable device.
+
+
+      Circle only \textbf{three} terms that can be used to describe the fingerprint
+      scanner.
+
+
+      \begin{itemize}
+
+      \item authentication
+
+      \item biometric
+
+      \item malware
+
+      \item parity check
+
+      \item firewall
+
+      \item input device
+
+      \item output device
+
+      \item storage device
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A computer game development company are reviewing their current security
+    solutions.
+
+
+    The company wants employees to be aware of how they can identify phishing.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Describe the process of phishing.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} ways an employee could identify phishing.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The company has installed anti-malware software on all employees'' computers.
+
+
+      Give \textbf{three} examples of malware that anti-malware software can detect.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4d
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The computer game developers use a high-level language to create a computer
+      game.
+    answer_options: []
+    subquestions:
+    - number: 4di
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by a high-level language.
+      answer_options: []
+      subquestions: []
+    - number: 4dii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'One benefit of using a high-level language is that the code is easy to
+        debug.
+
+
+        Give \textbf{two} other benefits of using a high-level language.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 4diii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'One drawback of using a high-level language is that it must be converted
+        to a low-level language before it can be run.
+
+
+        Give \textbf{one} other drawback of using a high-level language.'
+      answer_options: []
+      subquestions: []
+    - number: 4div
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The computer game developers use an interpreter instead of a compiler
+        when developing the computer game.
+
+
+        Explain why an interpreter would be more appropriate for developing the computer
+        game.'
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A supermarket wants to start delivering groceries to local elderly people,
+    using robots.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe the characteristics of a robot.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain \textbf{one} benefit to the supermarket of using robots to deliver
+      groceries to elderly customers.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain \textbf{one} drawback to the elderly customers of robots being used
+      to deliver their groceries.
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: multiple_choice
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Each robot has a media access control (MAC) address.
+
+
+      Tick ($\checkmark$) \textbf{one} box to show the correct statement about a MAC
+      address.'
+    answer_options:
+    - letter: A
+      text: It is assigned by the manufacturer.
+    - letter: B
+      text: It is assigned by the product.
+    - letter: C
+      text: It is assigned by the router.
+    - letter: D
+      text: It is assigned by the user.
+    subquestions: []
+  - number: 5e
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The robots have artificial intelligence (AI).
+
+
+      Give \textbf{three} ways the robots could make use of AI.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer with a Von Neumann architecture has a central processing unit (CPU).
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Complete the statements about the operation of the CPU.
+
+
+      Use the terms from the list. \textbf{Not} all terms will need to be used. You
+      should only use each term once.
+
+
+      \begin{itemize}
+
+      \item accumulator
+
+      \item arithmetic logic unit
+
+      \item character set
+
+      \item control unit
+
+      \item current instruction register
+
+      \item cipher
+
+      \item decoding set
+
+      \item instruction counter
+
+      \item instruction set
+
+      \item memory address register
+
+      \item memory data register
+
+      \item memory instruction register
+
+      \item next instruction register
+
+      \item program counter
+
+      \item program register
+
+      \end{itemize}
+
+
+      The \underline{\hspace{1.5em}} stores the address of the next instruction to
+      be fetched. This address is then sent to the \underline{\hspace{1.5em}}. This
+      address is the location in RAM where the instruction can be found. The instruction
+      is retrieved from RAM and immediately stored in the \underline{\hspace{1.5em}}.
+      The instruction is then sent to the \underline{\hspace{1.5em}} where it is decoded
+      by the \underline{\hspace{1.5em}}. The instruction is decoded using an \underline{\hspace{1.5em}}.'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Handling interrupts is one function of an operating system.
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'An interrupt is sent to the CPU every time a key is pressed on the keyboard.
+
+
+        Give the name of this type of interrupt.'
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the name of the program that services the interrupt.
+      answer_options: []
+      subquestions: []
+    - number: 6biii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} other function of an operating system.
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: 'A theatre has a microphone on stage that is connected by cables to several
+    speakers around the theatre. A person speaks into the microphone and their voice
+    is output from the speakers.
+
+
+    Identify the most appropriate data transmission method for this purpose. Explain
+    your choice.
+
+
+    Data transmission method \hrulefill
+
+
+    Explanation'
+  answer_options: []
+  subquestions: []

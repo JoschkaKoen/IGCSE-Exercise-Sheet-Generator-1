@@ -1,0 +1,12 @@
+  - number: "3bi"
+    type: calculation
+    text: ""
+  - number: "3bii"
+    type: calculation
+    text: ""
+  - number: "3biii"
+    type: calculation
+    text: ""
+  - number: "3biv"
+    type: short_answer
+    text: ""

@@ -1,0 +1,20 @@
+[thinking]
+**Transcribing the Pseudocode Question**
+
+Okay, the user wants me to extract and format question "8a" from the provided page. Right, let's see, the question text is: "(a) Write efficient pseudocode for the module OKToBorrow()". Since it's a sub-question, specifically "(a)", I need to strip that prefix. The instructions are clear: "If the source page shows (i) State what effect… for a subquestion labelled i, transcribe just State what effect… (strip the (i) prefix)". So, that's what I'll do.
+
+Therefore, the prompt itself will start with "Write efficient pseudocode for the module OKToBorrow()". Ah, and "OKToBorrow()" is a module name, so I'll wrap that in backticks and `texttt{OKToBorrow()}` for proper typesetting. It's important to format it correctly.
+
+Now, there's a big blank space with dotted lines for the pseudocode itself. I remember the instructions, "Standalone dotted answer line(s) below an open-ended prompt: Nothing — the prompt + marks count carries the meaning". So, I won't need to produce any answer lines. The prompt and the associated marks should be enough. Great.
+
+Now, I'll generate the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8a"
+    type: short_answer
+    text: |
+      Write efficient pseudocode for the module \texttt{OKToBorrow()}

@@ -1,0 +1,40 @@
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      Values of $r$ and $T$ are given for different moons in Table 2.1.
+
+      \begin{center}
+      \textbf{Table 2.1}
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      moon & $r / 10^8\text{ m}$ & $T / 10^3\text{ s}$ & $\lg(r / 10^8\text{ m})$ & $\lg(T / 10^3\text{ s})$ \\ \hline
+      Pandora & 1.42 & $52 \pm 5$ & & \\ \hline
+      Mimas & 1.86 & $81 \pm 5$ & & \\ \hline
+      Enceladus & 2.38 & $120 \pm 10$ & & \\ \hline
+      Tethys & 2.95 & $170 \pm 10$ & & \\ \hline
+      Dione & 3.77 & $240 \pm 20$ & & \\ \hline
+      Rhea & 5.28 & $390 \pm 30$ & & \\ \hline
+      \end{tabular}
+      \end{center}
+
+      Calculate and record values of $\lg(r / 10^8\text{ m})$ and $\lg(T / 10^3\text{ s})$ in Table 2.1. Include the absolute uncertainties in $\lg(T / 10^3\text{ s})$.
+  - number: "2c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Plot a graph of $\lg(T / 10^3\text{ s})$ against $\lg(r / 10^8\text{ m})$. Include error bars for $\lg(T / 10^3\text{ s})$.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit and a worst acceptable straight line on your graph. Label both lines.
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Determine the gradient of the line of best fit. Include the absolute uncertainty in your answer.
+
+      gradient = \hrulefill

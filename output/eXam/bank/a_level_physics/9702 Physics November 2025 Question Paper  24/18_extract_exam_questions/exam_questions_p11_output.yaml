@@ -1,0 +1,7 @@
+questions:
+  - number: "4biv"
+    type: calculation
+    text: |
+      Determine the distance between a node and an adjacent antinode.
+
+      distance = \hrulefill m

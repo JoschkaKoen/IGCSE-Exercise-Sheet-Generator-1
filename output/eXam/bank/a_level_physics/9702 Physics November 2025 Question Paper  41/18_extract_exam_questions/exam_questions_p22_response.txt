@@ -1,0 +1,77 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 22**
+
+Okay, so the task is to transcribe page 22 of this exam. I need to break down question 10 and its sub-questions. First, I need to check the structure.
+
+Question 10 looks like it's a multi-part question, and the structure is:
+*   10, which seems to be just a heading or container;
+*   10a, short answer, definition;
+*   10b, long answer, explanation;
+*   10c, short answer with a table;
+*   10ci, calculation;
+*   10cii, long answer, explanation.
+
+I'm checking the stub to confirm this structure. Specifically, I'm verifying the types and any initial text. "10" itself looks like just a number, a container. Sometimes it's a main question, but usually, it's just the top-level number. So, it's set to type 'short\_answer' with empty text, like this:
+
+```yaml
+  - number: "10"
+    type: short_answer
+    text: ""
+```
+
+Next, I need to look at each sub-question's actual text. I'm taking the time to confirm the stub, and the details provided in the image, to ensure the transcription is perfect.
+
+So, here's what I've got for each sub-question:
+
+*   **10a:** "Define specific acoustic impedance." Straightforward definition.
+*   **10b:** "Explain how ultrasound waves are detected by a piezoelectric crystal." Explanation required.
+*   **10c:** "Table 10.1 shows the specific acoustic impedance $Z$ for body tissue, water and steel." This is the table. I'll need to create a `\begin{tabular}` environment with the material and impedance values. The table must have a proper format.
+*   **10ci:** "Calculate the intensity reflection coefficient for ultrasound incident on a water–steel boundary."  I'll include an equation space: `intensity reflection coefficient = \hrulefill`.
+*   **10cii:** "Explain, without calculation, what is likely to happen when ultrasound is incident on a body tissue–water boundary." An explanation without needing calculation.
+
+I need to create the table using a LaTeX format for the table in question 10c. I need to make sure the table looks accurate. So I am careful with the `\begin{tabular}` environment and delimiters. I will double-check the values.
+
+I'm now confident with the text. I'm ready to build the YAML output. The formatting should be flawless and representative of an expert output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "10"
+    type: short_answer
+    text: ''
+  - number: "10a"
+    type: short_answer
+    text: |
+      Define specific acoustic impedance.
+  - number: "10b"
+    type: long_answer
+    text: |
+      Explain how ultrasound waves are detected by a piezoelectric crystal.
+  - number: "10c"
+    type: short_answer
+    text: |
+      Table 10.1 shows the specific acoustic impedance $Z$ for body tissue, water and steel.
+
+      \begin{center}
+      \textbf{Table 10.1}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      material & $Z / \text{kg}\,\text{m}^{-2}\,\text{s}^{-1}$ \\ \hline
+      body tissue & $1.38 \times 10^6$ \\ \hline
+      water & $1.48 \times 10^6$ \\ \hline
+      steel & $4.04 \times 10^7$ \\ \hline
+      \end{tabular}
+      \end{center}
+  - number: "10ci"
+    type: calculation
+    text: |
+      Calculate the intensity reflection coefficient for ultrasound incident on a water–steel boundary.
+
+      intensity reflection coefficient = \hrulefill
+  - number: "10cii"
+    type: long_answer
+    text: |
+      Explain, without calculation, what is likely to happen when ultrasound is incident on a body tissue–water boundary.

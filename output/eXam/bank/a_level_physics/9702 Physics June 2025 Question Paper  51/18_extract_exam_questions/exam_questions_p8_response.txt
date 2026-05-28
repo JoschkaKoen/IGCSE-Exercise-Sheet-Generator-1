@@ -1,0 +1,57 @@
+[thinking]
+**Exam Page 8 Transcription - Ready to Go**
+
+Okay, so the user wants me to transcribe page 8 of this exam paper. Looks like we have five questions to deal with: 2civ, 2d, 2di, 2dii, and 2e. Let's break this down.
+
+First, I need to check the OCR and image to ensure accuracy. Then, I need to extract the relevant information from each question and meticulously format it.
+
+*   **2civ**: The prompt is straightforward: "Determine the $y$-intercept of the line of best fit. Include the absolute uncertainty in your answer." The format I need to implement here is: `y\text{-intercept} = \hrulefill`.
+
+*   **2d**: This section just provides some experimental data: "The e.m.f. $E$ of the battery is determined twice during the experiment. The values obtained are $5.6\text{ V}$ and $6.0\text{ V}$." This looks like background information for subsequent calculations.
+
+*   **2di**: This requires a bit more processing: "Using your answers to **(a)**, **(c)(iii)** and **(c)(iv)**, determine the values of $R$ and $Z$. Include appropriate units." The format required is:
+    ```
+    R = \hrulefill
+    Z = \hrulefill
+    ```
+
+*   **2dii**: This is a direct request: "Determine the percentage uncertainty in your value of $R$." Formatting this is easy: `percentage uncertainty = \hrulefill \%`.
+
+*   **2e**: Finally, "The experiment is repeated with 20 resistors, each of resistance $R$, connected in parallel between P and Q. Determine the total current $I$ in the circuit." This calls for the format: `I = \hrulefill \text{ A}`.
+
+Once the questions are fully transcribed in the right format, I'll package it up as YAML. I think this will be an accurate and complete representation of the page.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2civ"
+    type: calculation
+    text: |
+      Determine the $y$-intercept of the line of best fit. Include the absolute uncertainty in your answer.
+
+      $y\text{-intercept} = \hrulefill$
+  - number: "2d"
+    type: short_answer
+    text: |
+      The e.m.f. $E$ of the battery is determined twice during the experiment. The values obtained are $5.6\text{ V}$ and $6.0\text{ V}$.
+  - number: "2di"
+    type: calculation
+    text: |
+      Using your answers to \textbf{(a)}, \textbf{(c)(iii)} and \textbf{(c)(iv)}, determine the values of $R$ and $Z$. Include appropriate units.
+
+      $R = \hrulefill$
+      $Z = \hrulefill$
+  - number: "2dii"
+    type: calculation
+    text: |
+      Determine the percentage uncertainty in your value of $R$.
+
+      percentage uncertainty = \hrulefill \%
+  - number: "2e"
+    type: calculation
+    text: |
+      The experiment is repeated with 20 resistors, each of resistance $R$, connected in parallel between P and Q. Determine the total current $I$ in the circuit.
+
+      $I = \hrulefill \text{ A}$

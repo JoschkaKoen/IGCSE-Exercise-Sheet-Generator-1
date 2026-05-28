@@ -1,0 +1,90 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 10**
+
+Okay, the task is clear: I need to populate the YAML stub for page 10, specifically question "7". Let's dissect this. The stub has "7", "7a", and "7b". Immediately, I'm checking the actual exam page. "7" seems to be a parent question, but it *directly* starts with "(a) Draw the symbol for a NOR logic gate...". There's no separate introductory text for "7" itself. The stub includes entries for "7a" and "7b", which implies "7" needs to be populated, even if it's just a container. Since "7" itself appears empty, should I write `text: ''` or should I flag a stub error? No. If the number "7" is visible, but text is empty, the rules state that I can write `text: ''`.
+
+Now, let's address "7a": the text is straightforward: "Draw the symbol for a NOR logic gate and complete the truth table for it." That translates to including a drawing placeholder and a truth table. I'll represent the truth table in LaTeX format:
+```latex
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{A} & \textbf{B} & \textbf{Z} \\ \hline
+0 & 0 & \\ \hline
+0 & 1 & \\ \hline
+1 & 0 & \\ \hline
+1 & 1 & \\ \hline
+\end{tabular}
+```
+That's the basic framework.
+
+Next, "7b". The text begins with "Consider the rules given in the following table:". So, I need to represent that table in LaTeX:
+```latex
+\begin{tabular}{|c|c|l|}
+\hline
+\textbf{Input} & \textbf{Binary value} & \textbf{Description} \\ \hline
+L & 0 & dark \\ \cline{2-3}
+ & 1 & light \\ \hline
+M & 0 & no motion detected \\ \cline{2-3}
+ & 1 & motion detected \\ \hline
+S & 0 & no sound detected \\ \cline{2-3}
+ & 1 & sound detected \\ \hline
+\end{tabular}
+```
+This is a standard representation.
+
+Finally, "7b" continues with a description of a security system: "A security system uses sensors...". It states that the alarm sounding is represented by $A = 1$ and that the alarm sounds if it is dark AND if either motion or sound (or both) are detected.
+
+So the main thing to remember is that "7" has `text: ''` and the other entries are populated with the text, drawing area and tabular data.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: ''
+  - number: "7a"
+    type: short_answer
+    text: |
+      Draw the symbol for a NOR logic gate and complete the truth table for it.
+
+      NOR logic gate symbol:
+
+      \newline
+      \newline
+      \newline
+      \newline
+
+      Truth table:
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{Z} \\ \hline
+      0 & 0 & \\ \hline
+      0 & 1 & \\ \hline
+      1 & 0 & \\ \hline
+      1 & 1 & \\ \hline
+      \end{tabular}
+  - number: "7b"
+    type: short_answer
+    text: |
+      Consider the rules given in the following table:
+
+      \begin{tabular}{|c|c|l|}
+      \hline
+      \textbf{Input} & \textbf{Binary value} & \textbf{Description} \\ \hline
+      \textbf{L} & 0 & dark \\ \cline{2-3}
+       & 1 & light \\ \hline
+      \textbf{M} & 0 & no motion detected \\ \cline{2-3}
+       & 1 & motion detected \\ \hline
+      \textbf{S} & 0 & no sound detected \\ \cline{2-3}
+       & 1 & sound detected \\ \hline
+      \end{tabular}
+
+      A security system uses sensors to sound an alarm if an intruder is detected.
+
+      The alarm sounding is represented by the output $A = 1$.
+
+      The alarm sounds if it is dark and if either motion or sound or both motion and sound are detected.
+```

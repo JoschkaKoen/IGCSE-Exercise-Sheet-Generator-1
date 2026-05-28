@@ -1,0 +1,9 @@
+  - number: "7b"
+    type: short_answer
+    text: ""
+  - number: "7c"
+    type: short_answer
+    text: ""
+  - number: "7d"
+    type: long_answer
+    text: ""

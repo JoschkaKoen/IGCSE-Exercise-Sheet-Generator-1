@@ -1,0 +1,38 @@
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      Complete the Karnaugh map (K-map) for the given truth table.
+
+      \begin{tabular}{r|c|c|c|c|}
+      \multicolumn{1}{r}{\textbf{CD} \textbackslash \ \textbf{AB}} & \multicolumn{1}{c}{\textbf{00}} & \multicolumn{1}{c}{\textbf{01}} & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}} \\
+      \cline{2-5}
+      \textbf{00} & & & & \\
+      \cline{2-5}
+      \textbf{01} & & & & \\
+      \cline{2-5}
+      \textbf{11} & & & & \\
+      \cline{2-5}
+      \textbf{10} & & & & \\
+      \cline{2-5}
+      \end{tabular}
+  - number: "7c"
+    type: short_answer
+    text: |
+      Draw loop(s) around appropriate group(s) in the K-map to produce an optimal sum-of-products.
+  - number: "7d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7di"
+    type: short_answer
+    text: |
+      Write the Boolean logic expression from your answer to part (c) as the simplified sum-of-products.
+
+      \textbf{T} = \hrulefill
+  - number: "7dii"
+    type: short_answer
+    text: |
+      Use Boolean algebra to write your answer to part (d)(i) in its simplest form.
+
+      \textbf{T} = \hrulefill

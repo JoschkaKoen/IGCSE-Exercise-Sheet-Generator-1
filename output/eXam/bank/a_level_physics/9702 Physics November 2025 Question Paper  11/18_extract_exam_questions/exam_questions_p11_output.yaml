@@ -1,0 +1,46 @@
+questions:
+  - number: "23"
+    type: multiple_choice
+    text: |
+      The diagram shows a force–extension graph for a rubber band as the band is extended and then the stretching force is decreased to zero.
+
+      What can be deduced from the graph?
+    options:
+      - letter: A
+        text: |
+          The rubber band does \textbf{not} return to its original length when the force is decreased to zero.
+      - letter: B
+        text: |
+          The rubber band obeys Hooke’s law for the extensions shown.
+      - letter: C
+        text: |
+          The rubber band remains elastic for the extensions shown.
+      - letter: D
+        text: |
+          The shaded area represents the work done in extending the rubber band.
+  - number: "24"
+    type: multiple_choice
+    text: |
+      Which row is correct for sound waves?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & \begin{tabular}{c} can travel \\ in a vacuum \end{tabular} & \begin{tabular}{c} can be \\ polarised \end{tabular} & \begin{tabular}{c} can diffract \\ through a gap \end{tabular} \\ \hline
+      \textbf{A} & no & no & yes \\ \hline
+      \textbf{B} & yes & no & no \\ \hline
+      \textbf{C} & no & yes & no \\ \hline
+      \textbf{D} & no & yes & yes \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

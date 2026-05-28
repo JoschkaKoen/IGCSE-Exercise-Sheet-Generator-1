@@ -1,0 +1,15 @@
+questions:
+  - number: "1e"
+    type: calculation
+    text: |
+      It is suggested that the quantities $\sqrt{T_2}$ and $\sqrt{T_1}$ are related by the equation
+
+      $$\sqrt{T_2} = P \sqrt{T_1} + Q$$
+
+      where $P$ and $Q$ are constants.
+
+      Using your answers in \textbf{(d)(iii)}, determine the values of $P$ and $Q$.
+      Give appropriate units.
+
+      P = \hrulefill
+      Q = \hrulefill

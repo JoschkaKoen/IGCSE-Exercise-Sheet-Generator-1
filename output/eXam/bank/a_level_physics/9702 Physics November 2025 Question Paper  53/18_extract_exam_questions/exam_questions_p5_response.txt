@@ -1,0 +1,49 @@
+[thinking]
+**Processing Exam Page 5: Questions 2 and 2a**
+
+Okay, I see the task: I need to transcribe page 5 of this exam paper. The specific questions are 2 and 2a. Let's dive in.
+
+First, I examined the content of Question 2. It presents a scenario involving a student investigating light from distant galaxies, absorption spectra, and the relationship between wavelength shift and galactic distance. I noted the equation provided, which links the observed wavelength ($\lambda$), the laboratory wavelength ($\lambda_0$), distance ($d$), the Hubble constant ($H$), and the speed of light ($c$). It appears to describe a variation of the Hubble Law.
+
+Next, I looked at Question 2a. It instructs the student to analyze a graph, where $\lambda$ is plotted against $\frac{d}{c}$. The task is to derive expressions for the gradient and the y-intercept of this graph. That should be a straightforward application of recognizing the equation of a straight line, which is great.
+
+Based on the structure provided, I need to represent these questions and the specific format for the answer fields within the YAML structure. Let's do this sequentially:
+
+For Question 2, I crafted a block of text that includes the introductory context, the diagram reference (even if it's not directly included here), the definitions of the variables, and the equation itself. I've presented this section.
+
+Then for Question 2a, I created another block containing the prompt about the graph with the specific directions for the gradient and y-intercept and the answer slots. I've ensured to match the answer slots format and that the specific formatting, regarding the use of \hrulefill, is correctly rendered. I also made sure there are no unnecessary blank lines.
+
+Now, I believe this transcribed content is properly formatted for the output. I'm ready to proceed to the next step.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student investigates light from different galaxies.
+
+      Fig. 2.1 shows the lines in the absorption spectrum from a distant galaxy.
+
+      The wavelength of one of the lines in the absorption spectrum is $\lambda$. The wavelength of this spectral line in the laboratory is $\lambda_0$.
+
+      The observations of the same spectral line are repeated for different galaxies.
+
+      The student determines the distance $d$ of each galaxy from the Earth.
+
+      It is suggested that $\lambda$ and $d$ are related by the equation
+
+      $$\frac{\lambda - \lambda_0}{\lambda_0} = \frac{Hd}{c}$$
+
+      where $c$ is the speed of light in free space and $H$ is the Hubble constant.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A graph is plotted of $\lambda$ on the $y$-axis against $\frac{d}{c}$ on the $x$-axis.
+
+      Determine expressions for the gradient and $y$-intercept.
+
+      gradient = \hrulefill
+      $y$-intercept = \hrulefill

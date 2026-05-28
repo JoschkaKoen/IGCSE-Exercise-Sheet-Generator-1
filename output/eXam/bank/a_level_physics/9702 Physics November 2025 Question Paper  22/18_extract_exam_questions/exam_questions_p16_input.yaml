@@ -1,0 +1,24 @@
+  - number: "6"
+    type: short_answer
+    text: ""
+  - number: "6a"
+    type: short_answer
+    text: ""
+  - number: "6b"
+    type: short_answer
+    text: ""
+  - number: "6bi"
+    type: short_answer
+    text: ""
+  - number: "6bii"
+    type: calculation
+    text: ""
+  - number: "6c"
+    type: short_answer
+    text: ""
+  - number: "6ci"
+    type: short_answer
+    text: ""
+  - number: "6cii"
+    type: calculation
+    text: ""

@@ -1,0 +1,46 @@
+[thinking]
+**Analyzing Exam Paper Page 8**
+
+Okay, the task is to transcribe page 8 of this exam paper. The specific questions on this page are numbered "2", "2a", and "2ai". My initial focus is on structuring the information correctly and accurately reflecting any hierarchy present.
+
+First, let's look at question "2". It states: "In this experiment, you will investigate the resistance of a light-dependent resistor (LDR) using the light from a light-emitting diode (LED)." That seems straightforward enough to start with.
+
+Now for "2a". It appears to be a parent question to "2ai", but there's no separate text explicitly labeled "2a". I see just the "(a) (i)" label and the start of the instructions. Wait, I should double-check the stem. Following the guidance, if a stem for "2a" is missing, I need to flag it. And yes, there's no separate text for "(a)" only the sub-question "(a) (i)". So, I'm going to follow best practices and flag it as a stub error. This indicates a missing parent element and requires QA.
+
+Moving on to "2ai", I see the instructions start: "Using the LED, set up the circuit shown in Fig. 2.1." It continues with instructions about connecting the positive terminals, crocodile clips, the wire, closing and opening the switch, and finally setting up a second circuit with the LDR and ohmmeter (using Fig. 2.2). I need to make sure this is transcribed carefully, maintaining the integrity of the instructions and the relationships between parts.
+
+I will structure the information like this:
+
+*   **2**: "In this experiment, you will investigate the resistance of a light-dependent resistor (LDR) using the light from a light-emitting diode (LED)."
+*   **2a**: `STUB ERROR`
+*   **2ai**: "Using the LED, set up the circuit shown in Fig. 2.1. Ensure that the positive terminal of the power supply and the positive terminal of the LED are connected as shown in Fig. 2.1. P and Q are crocodile clips. Position P and Q so that there is approximately 10 cm of wire W between P and Q. Close the switch. The LED should light. Open the switch. Using the LDR and ohmmeter, set up a second circuit as shown in Fig. 2.2."
+
+I've re-examined "2a" and confirmed that there's no stem for it separate from the sub-question. So the `STUB ERROR` is appropriate. Now to move on to the next section.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the resistance of a light-dependent resistor (LDR) using the light from a light-emitting diode (LED).
+  - number: "2a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ai"
+    type: calculation
+    text: |
+      Using the LED, set up the circuit shown in Fig. 2.1.
+
+      Ensure that the positive terminal of the power supply and the positive terminal of the LED are connected as shown in Fig. 2.1.
+
+      P and Q are crocodile clips. Position P and Q so that there is approximately $10\text{ cm}$ of wire W between P and Q.
+
+      Close the switch. The LED should light.
+
+      Open the switch.
+
+      Using the LDR and ohmmeter, set up a second circuit as shown in Fig. 2.2.

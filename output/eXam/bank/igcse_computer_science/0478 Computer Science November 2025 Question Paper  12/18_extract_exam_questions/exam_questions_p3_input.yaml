@@ -1,0 +1,15 @@
+  - number: "1e"
+    type: short_answer
+    text: ""
+  - number: "1ei"
+    type: short_answer
+    text: ""
+  - number: "1eii"
+    type: multiple_choice
+    text: ""
+  - number: "1eiii"
+    type: short_answer
+    text: ""
+  - number: "1eiv"
+    type: long_answer
+    text: ""

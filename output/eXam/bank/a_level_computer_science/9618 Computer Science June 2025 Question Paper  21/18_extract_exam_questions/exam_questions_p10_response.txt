@@ -1,0 +1,36 @@
+questions:
+  - number: "5"
+    type: long_answer
+    text: |
+      Stacks and queues are both abstract data types.
+
+      A stack uses a top-of-stack pointer to indicate the location of the last item added to the stack.
+
+      A queue uses two pointers:
+      \begin{itemize}
+      \item a front pointer to indicate the location of the next item to be removed from the queue
+      \item a rear pointer to indicate the location of the next item to be added to the queue.
+      \end{itemize}
+
+      A queue can be used to reverse the items stored on a stack.
+
+      For example, if a stack contains six items:
+
+      \textbf{Initial state of the stack:}
+
+      top-of-stack pointer $\longrightarrow$ \begin{tabular}{|c|} \hline item 6 \\ \hline item 5 \\ \hline item 4 \\ \hline item 3 \\ \hline item 2 \\ \hline item 1 \\ \hline \end{tabular}
+
+      \textbf{Final state of the stack when the items have been reversed:}
+
+      top-of-stack pointer $\longrightarrow$ \begin{tabular}{|c|} \hline item 1 \\ \hline item 2 \\ \hline item 3 \\ \hline item 4 \\ \hline item 5 \\ \hline item 6 \\ \hline \end{tabular}
+
+      Describe how the queue could be used to reverse the items that are currently stored on the stack.
+
+      Your description must include how the pointers are used in both the stack and queue.
+
+      Assume:
+      \begin{itemize}
+      \item The stack initially contains an unknown number of items.
+      \item The queue can store all the items currently stored on the stack.
+      \item The queue is initially empty.
+      \end{itemize}

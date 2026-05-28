@@ -1,0 +1,33 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A programmer is buying a new computer.
+  - number: "6a"
+    type: short_answer
+    text: |
+      The programmer is considering the following two computers:
+
+      \begin{tabular}{|p{3cm}|p{8cm}|}
+      \hline
+      Computer 1 & Quad-core 2.2 GHz processor \newline 16-bit architecture \newline 1 GB Random Access Memory (RAM) \newline 500 GB magnetic hard disk \\ \hline
+      Computer 2 & Dual-core 3.8 GHz processor \newline 32-bit architecture \newline 2 GB RAM \newline 500 GB solid state drive (SSD) \\ \hline
+      \end{tabular}
+  - number: "6ai"
+    type: short_answer
+    text: |
+      Computer 1 has a magnetic hard disk.
+
+      Complete the description of the principal operation of a magnetic hard disk by writing the missing words.
+
+      The magnetic hard disk has one or more \underline{\hspace{1.5em}} that can be magnetised. These are mounted on a \underline{\hspace{1.5em}} and rotate at high speed.
+
+      A \underline{\hspace{1.5em}} is moved across the surface on an arm.
+
+      When data is read, the changes in the \underline{\hspace{1.5em}} produce a change in the electric current.
+  - number: "6aii"
+    type: long_answer
+    text: |
+      The two computers have different amounts of RAM.
+
+      Explain how different amounts of RAM affect the performance of a computer.

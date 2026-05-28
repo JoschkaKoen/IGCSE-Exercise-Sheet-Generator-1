@@ -1,0 +1,77 @@
+questions:
+  - number: "19"
+    type: multiple_choice
+    text: |
+      A box of mass $4.9\text{ kg}$ is pushed at a constant velocity from point P at the bottom of an inclined plane to point Q at the top.
+
+      The box is pushed by a force of $64\text{ N}$ acting parallel to the slope.
+
+      The slope is inclined at an angle of $20^\circ$ to the horizontal and the box moves through a vertical height of $5.8\text{ m}$.
+
+      What is the work done against the frictional force acting on the block between P and Q?
+    options:
+      - letter: A
+        text: |
+          $280\text{ J}$
+      - letter: B
+        text: |
+          $810\text{ J}$
+      - letter: C
+        text: |
+          $960\text{ J}$
+      - letter: D
+        text: |
+          $1100\text{ J}$
+
+  - number: "20"
+    type: multiple_choice
+    text: |
+      Which expression gives the efficiency of a system?
+    options:
+      - letter: A
+        text: |
+          $$\frac{\text{total energy input}}{\text{useful energy output}}$$
+      - letter: B
+        text: |
+          $$\frac{\text{useful energy output} + \text{wasted energy output}}{\text{total energy input}}$$
+      - letter: C
+        text: |
+          $$\frac{\text{useful energy output}}{\text{total energy input}}$$
+      - letter: D
+        text: |
+          $$\frac{\text{wasted energy output}}{\text{total energy input}}$$
+
+  - number: "21"
+    type: multiple_choice
+    text: |
+      A student has a copper wire and a steel wire with equal lengths and cross-sectional areas.
+
+      The student hangs identical loads on the two wires.
+
+      The extensions of the two wires are different.
+
+      The student calculates the stress, strain and Young modulus of each wire.
+
+      Which row identifies with a tick ($\checkmark$) the calculated values that are equal for both wires?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & stress & strain & Young modulus \\ \hline
+      \textbf{A} & $\checkmark$ & & \\ \hline
+      \textbf{B} & & $\checkmark$ & \\ \hline
+      \textbf{C} & & $\checkmark$ & $\checkmark$ \\ \hline
+      \textbf{D} & $\checkmark$ & & $\checkmark$ \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

@@ -1,0 +1,18 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: short_answer
+    text: |
+      Define the Young modulus.
+  - number: "5b"
+    type: short_answer
+    text: |
+      A wire of unstretched length $0.81\text{ m}$ is made of a metal with Young modulus $95\text{ GPa}$. The wire obeys Hooke's law and has a constant cross-sectional area. Fig. 5.1 shows the force–extension graph for the wire.
+  - number: "5bi"
+    type: calculation
+    text: |
+      Determine the cross-sectional area of the wire.
+
+      area = \hrulefill $\text{m}^2$

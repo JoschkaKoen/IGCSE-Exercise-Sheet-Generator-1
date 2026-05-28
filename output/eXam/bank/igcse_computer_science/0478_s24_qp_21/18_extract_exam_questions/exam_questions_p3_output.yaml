@@ -1,0 +1,20 @@
+```yaml
+questions:
+  - number: "2c"
+    type: long_answer
+    text: |
+      Outline the role of procedures and functions in creating a program that is easier to maintain.
+  - number: "3"
+    type: short_answer
+    text: |
+      State what is meant by the data types integer and real.
+      Give an example of each.
+
+      Integer \hrulefill
+
+      Example \hrulefill
+
+      Real \hrulefill
+
+      Example \hrulefill
+```

@@ -1,0 +1,46 @@
+questions:
+  - number: "2d"
+    type: long_answer
+    text: |
+      The chance of a horse jumping a fence without knocking it down is calculated as follows.
+
+      If the height of the fence is more than the maximum height a horse can jump, the success percentage is 20\% of the horse's \texttt{PercentageSuccess}. The risk does not affect this value.
+
+      If the height of the fence is less than or equal to the maximum height a horse can jump, the risk gives a modifier value to multiply with the horse's \texttt{PercentageSuccess}.
+
+      The risk values and their modifiers are given in this table:
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Risk} & \textbf{Modifier} \\ \hline
+      5 & 0.6 \\ \hline
+      4 & 0.7 \\ \hline
+      3 & 0.8 \\ \hline
+      2 & 0.9 \\ \hline
+      1 & 1.0 \\ \hline
+      \end{tabular}
+
+      For example:
+
+      \begin{itemize}
+      \item The horse Jet has \texttt{PercentageSuccess} of 65 and \texttt{MaxFenceHeight} of 160.
+      \item A fence has a height of 140 and a risk of 3.
+      \item The height of the fence is less than the horse's \texttt{MaxFenceHeight}, therefore the risk is used.
+      \item The risk of 3 gives the modifier 0.8.
+      \item The modifier 0.8 is multiplied by the horse's \texttt{PercentageSuccess} of 65, which gives 52.
+      \item The chance of the horse successfully jumping this fence is 52\%.
+      \end{itemize}
+
+      The method \texttt{Success()} in the \texttt{Horse} class:
+
+      \begin{itemize}
+      \item takes the height and risk of a fence as parameters
+      \item calculates the percentage chance of success for that horse jumping the fence without knocking it down
+      \item returns the calculated percentage chance of success as a real number.
+      \end{itemize}
+
+      Write program code for \texttt{Success()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(d)} in the evidence document.

@@ -1,0 +1,551 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student has a portable tablet computer.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} input devices that could be built into the portable
+      tablet computer.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify \textbf{one} output device that could be built into the portable
+      tablet computer.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify \textbf{one} type of storage device that could be built into the
+      portable tablet computer.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Hypertext markup language (HTML) colour codes can be represented as hexadecimal.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: multiple_choice
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) \textbf{one} box to show which statement about the hexadecimal
+      number system is incorrect.
+    answer_options:
+    - letter: A
+      text: It uses the values 0 to 9 and A to F.
+    - letter: B
+      text: It can be used as a shorter representation of binary.
+    - letter: C
+      text: It is a base 10 system.
+    - letter: D
+      text: It can be used to represent error codes.
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Denary numbers can be converted to hexadecimal.
+
+
+      Convert the \textbf{three} denary numbers to hexadecimal.
+
+
+      20 \hrulefill
+
+      32 \hrulefill
+
+      165 \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The binary number 10100011 is stored in random access memory (RAM).
+
+
+    A logical left shift of \textbf{three} places is performed on the binary number.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the 8-bit binary number that will be stored after the shift has taken
+      place.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: multiple_choice
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) \textbf{one} box to show which statement about a logical
+      left shift of \textbf{two} places is correct.
+    answer_options:
+    - letter: A
+      text: It would divide the binary number by 2.
+    - letter: B
+      text: It would multiply the binary number by 2.
+    - letter: C
+      text: It would divide the binary number by 4.
+    - letter: D
+      text: It would multiply the binary number by 4.
+    subquestions: []
+  - number: 3c
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: '10100011 can be stored as a two''s complement integer.
+
+
+      Convert the two''s complement integer 10100011 to denary. Show all your working.'
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The binary number is measured as a byte because it has 8 bits.
+
+
+      State how many bytes there are in a kibibyte (KiB).'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data packets are transmitted across a network from one computer to another
+    computer.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe the structure of a data packet.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Packet switching is used to transmit the data packets across the network.
+
+
+      Identify the device that controls which path is taken by each data packet.'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Serial data transmission is used to transmit the data packets across the
+      network.
+
+
+      Explain why serial data transmission is used to transmit the data packets.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer uses both random access memory (RAM) and secondary storage.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of secondary storage.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'One type of secondary storage is optical.
+
+
+      Circle \textbf{three} examples of optical storage.
+
+
+      \begin{itemize}
+
+      \item read only memory (ROM)
+
+      \item secure digital (SD) card
+
+      \item compact disk (CD)
+
+      \item hard disk drive (HDD)
+
+      \item digital versatile disk (DVD)
+
+      \item Blu-ray disk
+
+      \item universal serial bus (USB) drive
+
+      \item solid-state drive (SSD)
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain why a computer needs RAM.
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The computer processes instructions using the fetch–decode–execute (FDE)
+      cycle.
+
+
+      Draw and annotate a diagram to show the process of the fetch stage of the FDE
+      cycle.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer needs firmware and system software to operate.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of firmware.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} example of firmware.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} examples of system software.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Data is encrypted to keep it safe during transmission.
+
+
+    Complete the paragraph about asymmetric encryption.
+
+
+    Use the terms from the list.
+
+
+    Some of the terms in the list will \textbf{not} be used. You should only use a
+    term once.
+
+
+    \begin{itemize}
+
+    \item asymmetric
+
+    \item certificate
+
+    \item cipher text
+
+    \item decrypted
+
+    \item encrypted
+
+    \item parallel key
+
+    \item plain text
+
+    \item private key
+
+    \item protected
+
+    \item public key
+
+    \item serial key
+
+    \item symmetric
+
+    \end{itemize}
+
+
+    \underline{\hspace{1.5em}} is encrypted into \underline{\hspace{1.5em}} using
+    a \underline{\hspace{1.5em}}. The encrypted data is then transmitted from the
+    sender to the receiver. The encrypted data is then decrypted using a \underline{\hspace{1.5em}}.'
+  answer_options: []
+  subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A farmer uses an automated robot to plant seeds in the field.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by the robot being automated.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give \textbf{three} characteristics of a robot.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The robot plants seeds and stops when it reaches a fence. It then turns
+      and continues planting seeds. The robot uses sensors and a microprocessor to
+      know when it reaches a fence.
+
+
+      Explain how the robot uses sensors and a microprocessor to know it has reached
+      a fence.'
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} advantages of the farmer using an automated robot to
+      plant seeds.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8e
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} disadvantages of the farmer using an automated robot
+      to plant seeds.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8f
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The robot is adapted to have machine learning capabilities.
+
+
+      Explain how this will improve the robot.'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A company owner has installed a new network. Data is correct before it is
+    transmitted across the network.
+
+
+    The company owner is concerned that data might have errors after transmission.'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how the data might have errors after transmission.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The company owner decides to introduce an error detection system to check
+      the data for errors after transmission.
+
+
+      The error detection system uses an odd parity check and a positive automatic
+      repeat query (ARQ).'
+    answer_options: []
+    subquestions:
+    - number: 9bi
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 8
+      text: Describe how the error detection system operates to check for errors.
+      answer_options: []
+      subquestions: []
+    - number: 9bii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} other error detection methods that could be used.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The company owner also installs a firewall to help protect the network from
+      hackers and malware.
+    answer_options: []
+    subquestions:
+    - number: 9ci
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: Explain how the firewall operates to help protect the network.
+      answer_options: []
+      subquestions: []
+    - number: 9cii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} examples of malware that the firewall can help protect
+        the network from.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []

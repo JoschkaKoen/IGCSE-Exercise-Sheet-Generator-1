@@ -1,0 +1,30 @@
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      A text file \texttt{Loyalty.txt} will be used to store the data items for the loyalty scheme.
+
+      The text file \texttt{Loyalty.txt} contains only one line of data for each customer.
+
+      Each data item is separated by a comma:
+
+      \texttt{<CustomerID>,<LoyaltyPointsString>,<LastVisitDateString>}
+
+      \texttt{LastVisitDateString} is always eight characters in length in the format: DDMMYYYY.
+
+      An example of how a line of data will be stored in the text file \texttt{Loyalty.txt} is:
+
+      \texttt{"100123,132,05032025"}
+
+      This example shows that the customer with an ID of 100123 had 132 loyalty points following their last visit to the coffee shop on 05/03/2025.
+
+      If a customer visits the coffee shop on a Monday, the value of their loyalty points is increased by 10.
+
+      The programmer has defined \textbf{two} more program modules:
+
+      \begin{tabular}{|l|p{10cm}|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{FindCustomer()} \newline (is already written) & \begin{itemize}\item called with a parameter of type \texttt{STRING} that represents a customer ID\item returns the line of data read from the text file \texttt{Loyalty.txt} containing the data items for that customer\end{itemize} \\ \hline
+      \texttt{MondayCheck()} & \begin{itemize}\item called with a parameter of type \texttt{STRING} that represents the customer ID of a customer\item calls \texttt{FindCustomer()}\item extracts the loyalty points from the string returned by \texttt{FindCustomer()}\item increases the loyalty points for the current customer by 10 if the day visited is a Monday\item returns an integer value representing the loyalty points\end{itemize} \\ \hline
+      \end{tabular}

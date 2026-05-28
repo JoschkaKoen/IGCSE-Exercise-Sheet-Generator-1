@@ -1,0 +1,26 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      An automated digital camera system is used to take a sequence of pictures of animals in a garden. During the design of the system, a state-transition diagram is produced.
+
+      The table details the states in the automated digital camera system along with the events which cause the states to change.
+
+      The system starts in standby mode. The sequence of pictures is taken when in active mode.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Current state} & \textbf{Event} & \textbf{Next state} \\ \hline
+      standby mode & turn on & detect mode \\ \hline
+      detect mode & turn off & standby mode \\ \hline
+      detect mode & movement detected & active mode \\ \hline
+      active mode & 20 seconds elapsed & sequence complete \\ \hline
+      active mode & turn off & standby mode \\ \hline
+      sequence complete & time saved & detect mode \\ \hline
+      \end{tabular}
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the state-transition diagram for the automated digital camera system.
+```

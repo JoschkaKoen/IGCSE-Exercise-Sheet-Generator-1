@@ -1,0 +1,31 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Numbers are stored in a computer using binary floating-point representation with:
+
+      \begin{itemize}
+      \item 8 bits for the mantissa
+      \item 8 bits for the exponent
+      \item two's complement form for both the mantissa and the exponent.
+      \end{itemize}
+  - number: "2a"
+    type: calculation
+    text: |
+      Give the largest normalised positive two's complement binary number that can be stored in this system and state its denary equivalent.
+
+      The denary answer should be expressed in terms of powers of 2.
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \hfill \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+
+      Denary \hrulefill
+  - number: "2b"
+    type: calculation
+    text: |
+      Calculate the normalised binary floating-point representation of $-3.59375$ in this system. Show your working.
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \hfill \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}

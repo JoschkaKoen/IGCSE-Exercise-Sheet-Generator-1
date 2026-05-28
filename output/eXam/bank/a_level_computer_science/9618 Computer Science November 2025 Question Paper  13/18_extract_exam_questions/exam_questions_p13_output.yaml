@@ -1,0 +1,8 @@
+questions:
+  - number: "7d"
+    type: long_answer
+    text: |
+      Describe \textbf{two} reasons why the server that stores the videos uses magnetic hard disks instead of solid state (flash) memory.
+
+      1. \hrulefill
+      2. \hrulefill

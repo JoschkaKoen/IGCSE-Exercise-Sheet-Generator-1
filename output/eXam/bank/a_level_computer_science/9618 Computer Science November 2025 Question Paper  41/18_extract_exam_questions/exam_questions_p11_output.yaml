@@ -1,0 +1,51 @@
+questions:
+  - number: "3e"
+    type: short_answer
+    text: |
+      The file \texttt{"HashTableData.txt"} stores 200 key values and string data items in the format:
+
+      \texttt{key,string}
+
+      For example, the first row in the text file is:
+
+      \texttt{528,permission}
+
+      The key is 528 and the string data is \texttt{"permission"}
+
+      The procedure \texttt{ReadData()}:
+
+      \begin{itemize}
+      \item opens the text file and reads each line
+      \item splits each line into the key and data
+      \item calls \texttt{InsertData()} with an object containing each key and matching data.
+      \end{itemize}
+
+      Write program code for \texttt{ReadData()}
+
+      \begin{tabular}{|l|}
+      \hline
+      \textbf{Save your program.} \\
+      Copy and paste the program code into part \textbf{3(e)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3f"
+    type: short_answer
+    text: |
+      The function \texttt{GetRecord()}:
+
+      \begin{itemize}
+      \item takes an integer key field as a parameter
+      \item calculates the hash value for the key field using the appropriate function
+      \item searches the hash table for the record with the matching key field
+      \item returns the data for the record if the record is found
+      \item returns \texttt{"Not found"} if the record is not found.
+      \end{itemize}
+
+      Write program code for \texttt{GetRecord()}
+
+      \begin{tabular}{|l|}
+      \hline
+      \textbf{Save your program.} \\
+      Copy and paste the program code into part \textbf{3(f)} in the evidence document. \\
+      \hline
+      \end{tabular}

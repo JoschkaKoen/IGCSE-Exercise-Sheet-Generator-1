@@ -1,0 +1,42 @@
+questions:
+  - number: "36"
+    type: multiple_choice
+    text: |
+      A potentiometer circuit is used to determine the electromotive force (e.m.f.) $E_X$ of a cell. The circuit includes a second cell of known e.m.f. $E_0$ and negligible internal resistance, and a uniform resistance wire PQ of known length.
+
+      $E_X$ is less than $E_0$.
+
+      The movable connection J can be positioned anywhere along the length of the resistance wire.
+
+      Which circuit is suitable for determining $E_X$?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+
+  - number: "37"
+    type: multiple_choice
+    text: |
+      The principles of conservation of which two quantities are associated with Kirchhoff’s first and second laws?
+    options:
+      - letter: A
+        text: |
+          \begin{tabular}{ll} first law: charge & second law: energy \end{tabular}
+      - letter: B
+        text: |
+          \begin{tabular}{ll} first law: charge & second law: voltage \end{tabular}
+      - letter: C
+        text: |
+          \begin{tabular}{ll} first law: energy & second law: charge \end{tabular}
+      - letter: D
+        text: |
+          \begin{tabular}{ll} first law: voltage & second law: charge \end{tabular}

@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A computer needs firmware and system software to operate.
+  - number: "6a"
+    type: short_answer
+    text: |
+      State the purpose of firmware.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Give \textbf{one} example of firmware.
+  - number: "6c"
+    type: short_answer
+    text: |
+      Give \textbf{two} examples of system software.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7"
+    type: short_answer
+    text: |
+      Data is encrypted to keep it safe during transmission.
+
+      Complete the paragraph about asymmetric encryption.
+
+      Use the terms from the list.
+
+      Some of the terms in the list will \textbf{not} be used. You should only use a term once.
+
+      \begin{itemize}
+      \item asymmetric
+      \item certificate
+      \item cipher text
+      \item decrypted
+      \item encrypted
+      \item parallel key
+      \item plain text
+      \item private key
+      \item protected
+      \item public key
+      \item serial key
+      \item symmetric
+      \end{itemize}
+
+      \underline{\hspace{1.5em}} is encrypted into \underline{\hspace{1.5em}} using a \underline{\hspace{1.5em}}. The encrypted data is then transmitted from the sender to the receiver. The encrypted data is then decrypted using a \underline{\hspace{1.5em}}.
+```

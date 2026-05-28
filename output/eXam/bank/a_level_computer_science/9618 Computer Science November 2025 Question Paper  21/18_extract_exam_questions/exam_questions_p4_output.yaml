@@ -1,0 +1,13 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      \texttt{Data} is a global 1D array containing 30 elements of type \texttt{STRING}
+
+      An algorithm will output:
+      \begin{itemize}
+      \item all non-blank elements (elements that do not contain an empty string)
+      \item the final total of the number of elements output.
+      \end{itemize}
+
+      Complete the program flowchart to represent the algorithm:

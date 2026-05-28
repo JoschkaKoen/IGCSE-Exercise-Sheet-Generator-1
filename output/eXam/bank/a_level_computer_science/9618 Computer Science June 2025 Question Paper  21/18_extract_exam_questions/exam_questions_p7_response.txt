@@ -1,0 +1,32 @@
+[thinking]
+**Processing Question 3: A Guessing Game**
+
+Okay, let's break this down. First, I'm looking at question 3, a long-answer question from page 7 of the exam. The objective is to populate the `text` field in the YAML structure for this question. The question itself presents a scenario about a student creating a number-guessing game and provides a structured English description.
+
+The immediate step is to transcribe the question text accurately. I need to maintain the formatting, paying close attention to bolded phrases like "step 1," "step 2," etc., ensuring they are preserved. I'll make sure to get all the details from the prompt, including that no input validation is needed. The aim here is accuracy, so let's get that verbatim content.
+
+Next, I'll draft the YAML structure. Given the task, I will use a block scalar (`|`) for the `text` field, which accommodates multi-line strings without requiring excessive escaping. I need to make sure I accurately replicate the provided text, including the steps of the game.
+
+Finally, I'll perform a quick review to confirm the transcription meets the constraints of the system. I'll double-check for the absence of double quotes in free-text fields, the correct use of block scalars, and no unnecessary LaTeX commands like `\includegraphics` or problematic standalone dotted lines. In this case, since there is no subquestion prefix to strip, it should be simple. It seems straightforward, let's execute.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: long_answer
+    text: |
+      A student has been asked to create a simple guessing game program. This program will generate a random integer value between 1 and 100. It will then repeatedly prompt the user to input an integer value until they input the randomly generated value.
+
+      The student has written a structured English description:
+
+      step 1 – randomly generate an integer value between 1 and 100 inclusive
+      step 2 – prompt the user to input an integer value
+      step 3 – output an appropriate message if the value input was too high; then repeat from \textbf{step 2}
+      step 4 – output an appropriate message if the value input was too low; then repeat from \textbf{step 2}
+      step 5 – output an appropriate message if the value input was the same value that was randomly generated; then end the program.
+
+      Write a pseudocode algorithm from this structured English description.
+
+      Assume no input validation is needed.

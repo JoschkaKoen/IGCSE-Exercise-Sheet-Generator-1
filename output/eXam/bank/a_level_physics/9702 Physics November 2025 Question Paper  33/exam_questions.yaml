@@ -1,0 +1,449 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: In this experiment, you will investigate the oscillations of a pendulum on
+    a board.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Fix the string of the pendulum onto the nail using some of the adhesive
+      putty, as shown in Fig. 1.1.
+
+
+      Fig. 1.1
+
+
+      The distance between the two edges of the board is $S$, as shown in Fig. 1.1.
+
+
+      The length $L$ of the pendulum is the distance between the centre of the nail
+      and the centre of the bob.
+
+
+      Adjust the length of the pendulum by wrapping the string around the nail so
+      that the centre of the bob is approximately $1.5\text{ cm}$ from the edge of
+      the board.
+
+
+      Measure and record $S$ and $L$.
+
+
+      $S = \hrulefill \text{ cm}$
+
+      $L = \hrulefill \text{ cm}$'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: '\begin{itemize}
+
+      \item Set up the apparatus as shown in Fig. 1.2.
+
+      \item The distance between the lower edge of the top of the board and the bench
+      is $h$, as shown in Fig. 1.2.
+
+
+      Adjust the position of the boss so that $h$ is approximately $22\text{ cm}$.
+
+      \item Fix the position of the bottom of the board using adhesive putty.
+
+      \item Measure and record $h$.
+
+      \end{itemize}
+
+
+      $h = \hrulefill \text{ cm}$
+
+
+      \begin{itemize}
+
+      \item Move the bob to the edge of the board, as shown in Fig. 1.3.
+
+      \item Release the bob. The bob rolls across the board and the pendulum oscillates.
+
+      \item Take measurements to determine the period $T$ of the oscillations.
+
+      \end{itemize}
+
+
+      $T = \hrulefill \text{ s}$'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'Change $h$ in the range $10.0 \text{ cm} \leqslant h \leqslant 38.0 \text{
+      cm}$ and determine $T$. Repeat until you have six sets of values of $h$ and
+      $T$.
+
+
+      Record your results in a table. Include values of $\frac{S}{h}$ and $T^2$ in
+      your table.'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1di
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Plot a graph of $T^2$ on the $y$-axis against $\frac{S}{h}$ on the $x$-axis.
+      answer_options: []
+      subquestions: []
+    - number: 1dii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Draw the straight line of best fit.
+      answer_options: []
+      subquestions: []
+    - number: 1diii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the gradient and $y$-intercept of this line.
+
+
+        gradient = \hrulefill
+
+
+        y-intercept = \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1e
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1ei
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'It is suggested that the quantities $T$, $S$ and $h$ are related by the
+        equation
+
+
+        $$T^2 = A \frac{S}{h} + B$$
+
+
+        where $A$ and $B$ are constants.
+
+
+        Using your answers in \textbf{(d)(iii)}, determine the values of $A$ and $B$.
+
+        Give appropriate units.
+
+
+        $A = $ \hrulefill
+
+
+        $B = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1eii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Theory suggests that
+
+
+        $$A = \frac{28\pi^2 L}{5g}$$
+
+
+        where $g$ is the acceleration of free fall.
+
+
+        Use your values in \textbf{(a)} and \textbf{(e)(i)} to determine a value for
+        $g$.
+
+        Give an appropriate unit.
+
+
+        $g = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: In this experiment, you will investigate the resistance of a light-dependent
+    resistor (LDR) using the light from a light-emitting diode (LED).
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Using the LED, set up the circuit shown in Fig. 2.1.
+
+
+        Ensure that the positive terminal of the power supply and the positive terminal
+        of the LED are connected as shown in Fig. 2.1.
+
+
+        P and Q are crocodile clips. Position P and Q so that there is approximately
+        $10\text{ cm}$ of wire W between P and Q.
+
+
+        Close the switch. The LED should light.
+
+
+        Open the switch.
+
+
+        Using the LDR and ohmmeter, set up a second circuit as shown in Fig. 2.2.'
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Estimate the percentage uncertainty in your value of $d$. Show your working.
+
+
+        percentage uncertainty = \hrulefill \%'
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The length of wire W between P and Q is $L$.
+
+
+      Measure and record $L$.
+
+
+      $L = $ \hrulefill
+
+
+      Close the switch.
+
+
+      The potential difference $V$ across the LED is given by the voltmeter.
+
+
+      The resistance $R$ of the LDR is given by the ohmmeter.
+
+
+      Measure and record $V$ and $R$.
+
+
+      $V = $ \hrulefill
+
+
+      $R = $ \hrulefill
+
+
+      Open the switch.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Change the length of wire W between P and Q so that $L$ is approximately
+      $90\text{ cm}$.
+
+
+      Repeat (b).
+
+
+      $L = $ \hrulefill
+
+
+      $V = $ \hrulefill
+
+
+      $R = $ \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'It is suggested that the relationship between $V$, $d$ and $R$ is
+
+
+      $$V = \frac{Zd}{R} + k$$
+
+
+      where $Z$ has the value $1.00 \times 10^3\text{ V}\,\Omega\,\text{m}^{-1}$ and
+      $k$ is a constant.'
+    answer_options: []
+    subquestions:
+    - number: 2di
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Using your data, calculate \textbf{two} values of $k$.
+
+
+        first value of $k = $ \hrulefill
+
+
+        second value of $k = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2dii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Justify the number of significant figures that you have given for your
+        values of $k$.
+      answer_options: []
+      subquestions: []
+  - number: 2e
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'It is suggested that the percentage uncertainty in the values of $k$ is
+      5%.
+
+
+      Using this uncertainty, explain whether your results support the relationship
+      in \textbf{(d)}.'
+    answer_options: []
+    subquestions: []
+  - number: 2f
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'It is suggested that
+
+
+      $$k = \frac{hc}{e\lambda}$$
+
+
+      where $h$ is $6.63 \times 10^{-34} \text{ Js}$,
+
+      $c$ is $3.00 \times 10^8 \text{ ms}^{-1}$,
+
+      $e$ is $1.60 \times 10^{-19} \text{ C}$ and
+
+      $\lambda$ is the wavelength of the light emitted by the LED.
+
+
+      Use your second value of $k$ to determine $\lambda$.
+
+
+      $\lambda = $ \hrulefill $\text{ m}$'
+    answer_options: []
+    subquestions: []
+  - number: 2g
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2gi
+      question_type: long_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe \textbf{four} sources of uncertainty or limitations of the procedure
+        for this experiment.
+
+
+        For any uncertainties in measurement that you describe, you should state the
+        quantity being measured and a reason for the uncertainty.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2gii
+      question_type: long_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe \textbf{four} improvements that could be made to this experiment.
+        You may suggest the use of other apparatus or different procedures.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []

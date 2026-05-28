@@ -1,0 +1,80 @@
+[thinking]
+**Transcribing Exam Page 2: Question 1 and 1a**
+
+Okay, so I'm being asked to transcribe page 2 of this exam. The questions on this page are clearly labelled as "1" and "1a." Let's get to it.
+
+First, I need to look at the first question, question 1. The instruction is to simply transcribe the question.
+
+The prompt is: "In this experiment, you will investigate the phase difference between the oscillations of two mass–spring systems." Got it. That seems straightforward enough to transcribe.
+
+Now, on to question 1a. The instructions include "Assemble the apparatus as shown in Fig. 1.1." I'm instructed to include the figure labels/captions. So, I will include it.
+
+The question then gives us specific instructions about masses, which I can also transcribe directly, making sure to include formatting such as italics when appropriate (although this is a text response so I will maintain the plain text equivalent). I'll transcribe them into a structured bulleted format, capturing all the pertinent details. The text gives us mass values for A and B, mentions adding a mass *z* to mass B, and then details calculation steps.
+
+Specifically, it instructs us to:
+*   Assemble the apparatus as shown in Fig. 1.1.
+*   Note the label Fig. 1.1.
+*   Include the information that "Mass A and mass B are each 200 g."
+*   Include the instruction to "Add a mass z of 40 g to mass B."
+*   Include the instruction "Record the value of z." with a blank for the user to fill out.
+*   Note the value of $z = \hrulefill \text{ g}$
+*   Then we have: "$M$ is given by $M = 200\text{ g} + z$. Calculate $M$. $M = \hrulefill \text{ g}$"
+I'm translating this into a structure that can be provided to the user.
+
+Now, let's look at the structure I'll use. I'll translate the questions to match a stub that I have.
+
+Question "1":
+"In this experiment, you will investigate the phase difference between the oscillations of two mass–spring systems."
+
+Question "1a":
+"Assemble the apparatus as shown in Fig. 1.1.
+
+Fig. 1.1
+
+* Mass A and mass B are each $200\text{ g}$.
+* Add a mass $z$ of $40\text{ g}$ to mass B.
+
+Record the value of $z$.
+
+$z = \hrulefill \text{ g}$
+
+* $M$ is given by $M = 200\text{ g} + z$.
+
+Calculate $M$.
+
+$M = \hrulefill \text{ g}$"
+
+This looks correct and structured according to the format I will use. This is ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the phase difference between the oscillations of two mass–spring systems.
+  - number: "1a"
+    type: calculation
+    text: |
+      Assemble the apparatus as shown in Fig. 1.1.
+
+      Fig. 1.1
+
+      \begin{itemize}
+      \item Mass A and mass B are each $200\text{ g}$.
+      \item Add a mass $z$ of $40\text{ g}$ to mass B.
+      \end{itemize}
+
+      Record the value of $z$.
+
+      $z = \hrulefill \text{ g}$
+
+      \begin{itemize}
+      \item $M$ is given by $M = 200\text{ g} + z$.
+      \end{itemize}
+
+      Calculate $M$.
+
+      $M = \hrulefill \text{ g}$

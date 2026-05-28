@@ -1,0 +1,10 @@
+questions:
+  - number: "4"
+    type: long_answer
+    text: |
+      Draw and annotate a diagram or diagrams to show:
+
+      \begin{itemize}
+      \item the contents and structure of a data packet
+      \item how a data packet is transmitted across a network.
+      \end{itemize}

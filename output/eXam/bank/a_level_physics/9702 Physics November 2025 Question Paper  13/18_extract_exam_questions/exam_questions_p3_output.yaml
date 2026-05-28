@@ -1,0 +1,93 @@
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      The table shows some physical quantities.
+
+      Which row correctly identifies the quantities as scalars or vectors?
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+       & acceleration & charge & kinetic energy & wavelength \\
+      \hline
+      \textbf{A} & scalar & vector & vector & scalar \\
+      \textbf{B} & vector & vector & scalar & scalar \\
+      \textbf{C} & scalar & scalar & scalar & vector \\
+      \textbf{D} & vector & scalar & scalar & scalar \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "2"
+    type: multiple_choice
+    text: |
+      Two quantities are measured.
+
+      $$L = 6.8 \pm 0.1\text{ cm}$$
+      $$T = 2.42 \pm 0.08\text{ s}$$
+
+      $L$ and $T$ are related to $X$ by the equation shown.
+
+      $$X = \frac{4\pi^2 L}{T^2}$$
+
+      What is the calculated value and uncertainty of $X$?
+    options:
+      - letter: A
+        text: |
+          $45.8 \pm 0.2\text{ cm}\,\text{s}^{-2}$
+      - letter: B
+        text: |
+          $45.8 \pm 0.3\text{ cm}\,\text{s}^{-2}$
+      - letter: C
+        text: |
+          $46 \pm 2\text{ cm}\,\text{s}^{-2}$
+      - letter: D
+        text: |
+          $46 \pm 4\text{ cm}\,\text{s}^{-2}$
+  - number: "3"
+    type: multiple_choice
+    text: |
+      What are the SI base units of the watt?
+    options:
+      - letter: A
+        text: |
+          $\text{J}\,\text{s}^{-1}$
+      - letter: B
+        text: |
+          $\text{kg}\,\text{m}^2\,\text{s}^{-3}$
+      - letter: C
+        text: |
+          $\text{kg}\,\text{m}^2\,\text{s}^{-1}$
+      - letter: D
+        text: |
+          $\text{N}\,\text{m}\,\text{s}^{-1}$
+  - number: "4"
+    type: multiple_choice
+    text: |
+      The diagram shows two forces of $6.0\text{ N}$ acting on an object. The angle between the lines of action of the two forces is $60^\circ$.
+
+      What is the magnitude of the resultant force?
+    options:
+      - letter: A
+        text: |
+          $6.0\text{ N}$
+      - letter: B
+        text: |
+          $7.9\text{ N}$
+      - letter: C
+        text: |
+          $10\text{ N}$
+      - letter: D
+        text: |
+          $12\text{ N}$

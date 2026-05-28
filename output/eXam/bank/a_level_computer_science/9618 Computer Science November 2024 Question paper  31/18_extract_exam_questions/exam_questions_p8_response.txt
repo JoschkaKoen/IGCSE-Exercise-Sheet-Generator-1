@@ -1,0 +1,46 @@
+[thinking]
+**Analyzing and Transcribing Questions**
+
+Okay, so I'm tasked with transcribing questions 8, 8a, and 8b from this page. I've taken a look at the page, and here's what I see: Question 8 doesn't have a direct stem text associated with it; it immediately jumps into (a) and (b). The stub indicates that question 8 is a short answer, 8a and 8b are long answers.
+
+My first thought was, maybe the main question 8 text is missing, and I might need to infer it or leave it empty, and maybe the stub is wrong. But then, I remembered the instructions. They explicitly say, if a stub stem is *not* present on the page, it's a stub generation bug upstream, and I must emit a `STUB ERROR`.
+
+I have the OCR of the page, confirming that `8` itself has no text; it only contains the number, immediately followed by the sub-questions. No text is associated with `8`. Therefore, according to the instructions, I need to flag it. I need to write `STUB ERROR` to the `text` for the `8` stub.
+
+So I need to emit this:
+
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "8a"
+    type: long_answer
+    text: |
+      Describe the process of \textbf{segmentation} for memory management.
+  - number: "8b"
+    type: long_answer
+    text: |
+      Explain what is meant by \textbf{disk thrashing}.
+```
+
+Just to double-check that I haven't messed up anything I'll look back at the actual text of the questions. The OCR confirms `8a` is: `Describe the process of segmentation for memory management.` And `8b` is: `Explain what is meant by disk thrashing.` Everything is good to go now!
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "8a"
+    type: long_answer
+    text: |
+      Describe the process of \textbf{segmentation} for memory management.
+  - number: "8b"
+    type: long_answer
+    text: |
+      Explain what is meant by \textbf{disk thrashing}.

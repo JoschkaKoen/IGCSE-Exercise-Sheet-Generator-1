@@ -1,0 +1,647 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program is being developed to help the manager of a shop control the stock.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'An identifier table has been used during the design stage.
+
+
+      Complete the identifier table:
+
+
+      \begin{tabular}{|l|p{4.5cm}|p{3cm}|p{3cm}|}
+
+      \hline
+
+      \textbf{Example value} & \textbf{Explanation} & \textbf{Variable name} & \textbf{Data
+      type} \\ \hline
+
+      \texttt{"Fruit"} & a category of stock that is sold in the shop & & \\ \hline
+
+      \texttt{20/02/2025} & when an item was sold & & \\ \hline
+
+      \texttt{12.67} & the cost of an item & & \\ \hline
+
+      \texttt{TRUE} & to indicate if an item is in stock & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'A module \texttt{Sales()} is part of the stock control program.
+
+
+      The table contains pseudocode extracts from the module \texttt{Sales()}
+
+
+      Each extract may include all or part of:
+
+
+      \begin{itemize}
+
+      \item assignment
+
+      \item selection
+
+      \item iteration (repetition).
+
+      \end{itemize}
+
+
+      Complete the table by placing one or more ticks (\checkmark) in each row:
+
+
+      \begin{tabular}{|p{6cm}|c|c|c|}
+
+      \hline
+
+      \textbf{Pseudocode extract} & \textbf{Assignment} & \textbf{Selection} & \textbf{Iteration}
+      \\ \hline
+
+      \texttt{Result <- CalculateTotal()} & & & \\ \hline
+
+      \texttt{WHILE IsClosed} & & & \\ \hline
+
+      \texttt{REPEAT} \newline \texttt{\quad INPUT Value} \newline \texttt{UNTIL Sales
+      > Value} & & & \\ \hline
+
+      \texttt{IF Sales[Current] <= 150 THEN} \newline \texttt{\quad Discount <- TRUE}
+      \newline \texttt{ENDIF} & & & \\ \hline
+
+      \texttt{CASE OF Option} & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Decomposition has been used to design the program to help the shop manager
+      control the stock.
+
+
+      Describe decomposition.'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is being developed to calculate the pay of employees working for
+    a company.
+
+
+    A function \texttt{CalculateBonus()} calculates bonus pay based on the value of
+    sales.
+
+
+    Bonus pay is calculated as shown in the table.
+
+
+    \begin{tabular}{|l|r|}
+
+    \hline
+
+    \textbf{Value of sales (in dollars)} & \textbf{Bonus pay (in dollars)} \\ \hline
+
+    below 2000 & 0 \\ \hline
+
+    between 2000 and 4000 inclusive & 10 \\ \hline
+
+    above 4000 & 100 \\ \hline
+
+    \end{tabular}
+
+
+    A flowchart for the function \texttt{CalculateBonus()} has been designed.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The flowchart contains logic errors.
+
+
+      One logic error is that \texttt{BonusPay} will not be set to 10 although the
+      \texttt{ValueOfSales} input is between 2000 and 4000 inclusive.'
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Explain why this error occurs.
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Explain how this error could be corrected.
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: There are different ways to reduce the risk of errors when developing the
+      new program, such as the use of constants.
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State a value that could be replaced by a constant in the function \texttt{CalculateBonus()}
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how the use of constants helps to reduce the risk of programming
+        errors.
+      answer_options: []
+      subquestions: []
+    - number: 2biii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'One other way that can reduce the risk of errors when writing the program
+        is the use of library routines.
+
+
+        Explain how library routines can reduce the risk of programming errors.'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'All the logic errors have been corrected, and the program has been coded.
+
+
+      Identify and describe \textbf{two} other types of error that the program could
+      contain.
+
+
+      Type of error \hrulefill
+
+
+      Description \hrulefill
+
+
+      Type of error \hrulefill
+
+
+      Description \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: long_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 8
+  text: 'A student has been asked to create a simple guessing game program. This program
+    will generate a random integer value between 1 and 100. It will then repeatedly
+    prompt the user to input an integer value until they input the randomly generated
+    value.
+
+
+    The student has written a structured English description:
+
+
+    step 1 – randomly generate an integer value between 1 and 100 inclusive
+
+    step 2 – prompt the user to input an integer value
+
+    step 3 – output an appropriate message if the value input was too high; then repeat
+    from \textbf{step 2}
+
+    step 4 – output an appropriate message if the value input was too low; then repeat
+    from \textbf{step 2}
+
+    step 5 – output an appropriate message if the value input was the same value that
+    was randomly generated; then end the program.
+
+
+    Write a pseudocode algorithm from this structured English description.
+
+
+    Assume no input validation is needed.'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "Study the algorithm:\n\n\\begin{alltt}\nDECLARE Chars : ARRAY[1:4] OF CHAR\n\
+    DECLARE I, J : INTEGER\nDECLARE Key : CHAR\nI <- 2\nChars <- 'D'\nChars <- 'T'\n\
+    Chars <- 'H'\nChars <- 'R'\nWHILE I <= 4                                //Outer\
+    \ loop\n    Key <- Chars[I]\n    J <- I - 1\n    WHILE J >= 0 AND Chars[J] > Key\
+    \         //Inner loop\n        Chars[J + 1] <- Chars[J]\n        J <- J - 1\n\
+    \    ENDWHILE\n    Chars[J + 1] <- Key\n    I <- I + 1\nENDWHILE\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The outer loop structure used in the algorithm is \textbf{not} the most
+      appropriate one to use.
+
+
+      State the type of loop structure that would be the most appropriate to use and
+      justify why it is the most appropriate.
+
+
+      Loop structure \hrulefill
+
+
+      Justification \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "Complete the trace table by dry running the algorithm.\n\nThe first row\
+      \ has been completed.\n\n\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n\\hline\n & &\
+      \ & & \\multicolumn{4}{c|}{\\textbf{Chars}} \\\\ \\cline{5-8}\n\\textbf{I} &\
+      \ \\textbf{Key} & \\textbf{J} & \\textbf{Chars[J]} & \\textbf{} & \\textbf{}\
+      \ & \\textbf{} & \\textbf{} \\\\ \\hline\n2 & & & & 'D' & 'T' & 'H' & 'R' \\\
+      \\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & &\
+      \ & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\\
+      hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & &\
+      \ & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n\
+      \ & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\
+      \\ \\hline\n & & & & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n & & &\
+      \ & & & & \\\\ \\hline\n & & & & & & & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: long_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 7
+  text: 'Stacks and queues are both abstract data types.
+
+
+    A stack uses a top-of-stack pointer to indicate the location of the last item
+    added to the stack.
+
+
+    A queue uses two pointers:
+
+    \begin{itemize}
+
+    \item a front pointer to indicate the location of the next item to be removed
+    from the queue
+
+    \item a rear pointer to indicate the location of the next item to be added to
+    the queue.
+
+    \end{itemize}
+
+
+    A queue can be used to reverse the items stored on a stack.
+
+
+    For example, if a stack contains six items:
+
+
+    \textbf{Initial state of the stack:}
+
+
+    top-of-stack pointer $\longrightarrow$ \begin{tabular}{|c|} \hline item 6 \\ \hline
+    item 5 \\ \hline item 4 \\ \hline item 3 \\ \hline item 2 \\ \hline item 1 \\
+    \hline \end{tabular}
+
+
+    \textbf{Final state of the stack when the items have been reversed:}
+
+
+    top-of-stack pointer $\longrightarrow$ \begin{tabular}{|c|} \hline item 1 \\ \hline
+    item 2 \\ \hline item 3 \\ \hline item 4 \\ \hline item 5 \\ \hline item 6 \\
+    \hline \end{tabular}
+
+
+    Describe how the queue could be used to reverse the items that are currently stored
+    on the stack.
+
+
+    Your description must include how the pointers are used in both the stack and
+    queue.
+
+
+    Assume:
+
+    \begin{itemize}
+
+    \item The stack initially contains an unknown number of items.
+
+    \item The queue can store all the items currently stored on the stack.
+
+    \item The queue is initially empty.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program monitors the speed of vehicles as they move around a large building
+    site.
+
+
+    Each vehicle contains a sensor which reads an integer value that represents the
+    speed of the vehicle. The value is expected to be in the range 0 to 60 inclusive.
+
+
+    The sensors cannot read values less than 0.
+
+
+    A program module has been written to validate the values read by the sensors.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "A test plan is needed to fully test the module.\n\nComplete the table.\
+      \ The first line has been completed for you.\n\nAssume the sensors generate\
+      \ only integer values.\n\n\\begin{tabular}{|p{4cm}|p{4cm}|p{6cm}|}\n\\hline\n\
+      \\textbf{Type of test data} & \\textbf{Test data value} & \\textbf{Expected\
+      \ outcome} \\\\ \\hline\nnormal & 36 & data item is accepted \\\\ \\hline\n\
+      \ &  &  \\\\ \\hline\n &  &  \\\\ \\hline\n &  &  \\\\ \\hline\n &  &  \\\\\
+      \ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: Write efficient pseudocode for the procedure \texttt{Sort()}
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is being developed to implement a customer loyalty scheme for a
+    coffee shop.
+
+
+    The programmer has decided that the following data items need to be stored for
+    each customer:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Data item} & \textbf{Description} \\ \hline
+
+    customer ID & a unique six-digit string \\ \hline
+
+    points & an integer value that is increased by one for every cup of coffee the
+    customer orders \\ \hline
+
+    \end{tabular}
+
+
+    \newline
+
+    When a customer visits the shop and orders coffee, the scheme operates as follows:
+
+
+    \begin{itemize}
+
+    \item The total number of points is increased by the number of coffees ordered.
+
+    \item If just one cup of coffee is ordered and the number of points goes above
+    10, then:
+
+    \begin{itemize}
+
+    \item the cup of coffee they have just ordered is given to them free of charge
+
+    \item the number of points is reduced by 11.
+
+    \end{itemize}
+
+    \item If the order is for multiple coffees and the number of points goes above
+    10, then:
+
+    \begin{itemize}
+
+    \item they get one coffee free of charge for every 11 points
+
+    \item the number of points is reduced by 11 for each free coffee.
+
+    \end{itemize}
+
+    \end{itemize}
+
+
+    For example, the:
+
+
+    \begin{itemize}
+
+    \item customer currently has 9 points
+
+    \item customer orders 16 cups of coffee
+
+    \item total number of points now becomes 25
+
+    \item customer gets 2 free coffees and now has 3 points left.
+
+    \end{itemize}
+
+
+    The programmer has defined a program module that is called every time a customer
+    places an order:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Module} & \textbf{Description} \\ \hline
+
+    \texttt{CustomerOrder()} &
+
+    \begin{tabular}{l}
+
+    $\bullet$ called with two integer parameters: \\
+
+    \quad $\circ$ the number of coffees ordered \\
+
+    \quad $\circ$ the current number of points \\
+
+    $\bullet$ output a suitable message giving the number of free coffees \\
+
+    $\bullet$ return a value for the new points total.
+
+    \end{tabular} \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: long_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Write pseudocode for module \texttt{CustomerOrder()}
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A text file \texttt{Loyalty.txt} will be used to store the data items for
+      the loyalty scheme. The data items for each customer will be stored on a separate
+      line of the text file where each data item is separated by a comma:
+
+
+      \texttt{<CustomerID>,<Points>}
+
+
+      The contents of the text file \texttt{Loyalty.txt} will always be stored in
+      ascending order by customer ID.
+
+
+      When the data items are read from or written to the text file \texttt{Loyalty.txt},
+      they may need to be converted to the appropriate data type.
+
+
+      Each customer has a unique customer ID starting at \texttt{"100001"} with this
+      value increasing by one each time a new customer joins the loyalty scheme.
+
+
+      When a customer joins the loyalty scheme, they are assigned the next customer
+      ID and value of points is set to 0.
+
+
+      For example, if the loyalty scheme has 204 customers and a new customer joins
+      the loyalty scheme, the following line is added to the text file \texttt{Loyalty.txt}:
+
+
+      \texttt{"100205,0"}
+
+
+      You can assume that the number of customers in the loyalty scheme will never
+      be more than 9000.
+
+
+      The programmer has defined a program module as follows:
+
+
+      \begin{tabular}{|l|p{10cm}|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}}
+      \\ \hline
+
+      \texttt{AddNewCustomers()} & \begin{itemize}
+
+      \item called with an integer parameter representing the number of new customers
+      to be added to the loyalty scheme
+
+      \item adds a new line, containing the required information, to the text file
+      \texttt{Loyalty.txt} for each customer added to the loyalty scheme
+
+      \item outputs each new customer ID added to the loyalty scheme
+
+      \end{itemize} \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: long_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 8
+      text: 'Write pseudocode for module \texttt{AddNewCustomers()}
+
+
+        Assume that there is at least \textbf{one} customer already in the loyalty
+        scheme.'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: short_answer
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'The requirements for \texttt{AddNewCustomers()} are changed. There may
+        be no existing customers in the loyalty scheme.
+
+
+        Explain the changes that will need to be made to the module \texttt{AddNewCustomers()}'
+      answer_options: []
+      subquestions: []

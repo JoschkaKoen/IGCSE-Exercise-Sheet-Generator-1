@@ -1,0 +1,41 @@
+[thinking]
+**Transcribing Question 3: Algorithm Transformation**
+
+Okay, so the task is clear: transcribe question 3, which is a long-answer question from the provided document. Specifically, I need to transcribe the *text* of question 3 and then the original pseudocode. Ah, the question involves rewriting an algorithm – that's good! I like these kinds of questions.
+
+Let's see… The question states: "The following pseudocode algorithm uses a count-controlled loop to read in 10 names and store them in the array `Names[]`." I need to remember the specific wording of the question to make the transcription accurate. The core of the task is to translate the count-controlled loop to a condition-controlled loop.
+
+Here's the pseudocode:
+
+```latex
+\begin{alltt}
+FOR Count <- 1 TO 10
+    OUTPUT "Please enter a name"
+    INPUT Name
+    Names[Count] <- Name
+NEXT Count
+\end{alltt}
+```
+
+Okay, the algorithm uses `<-`, it's clear. I must make sure that it will be correctly rendered in the latex format.
+Now I need to remember the exact requirements for transcribing the pseudocode. It's time to create the yaml output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: long_answer
+    text: |
+      The following pseudocode algorithm uses a count-controlled loop to read in 10 names and store them in the array \texttt{Names[]}
+
+      \begin{alltt}
+      FOR Count <- 1 TO 10
+          OUTPUT "Please enter a name"
+          INPUT Name
+          Names[Count] <- Name
+      NEXT Count
+      \end{alltt}
+
+      Rewrite the algorithm in pseudocode, using a condition-controlled loop instead of a count-controlled loop.

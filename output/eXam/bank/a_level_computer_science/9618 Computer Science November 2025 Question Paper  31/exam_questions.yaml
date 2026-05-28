@@ -1,0 +1,644 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "The composite record data type, \\texttt{ClubMember}, is defined in pseudocode\
+    \ as:\n\n\\begin{alltt}\nTYPE ClubMember\n  DECLARE Code : INTEGER\n  DECLARE\
+    \ LastName : STRING\n  DECLARE FirstName : STRING\n  DECLARE Telephone : STRING\n\
+    \  DECLARE JoinDate : DATE\n  DECLARE Fees : REAL\n  DECLARE FeesPaid : BOOLEAN\n\
+    ENDTYPE\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write the pseudocode statement to set up a variable for one record of
+        the composite data type, \texttt{ClubMember}.
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the pseudocode statements to assign the following values to the
+        variable set up in part (a)(i):
+
+
+        \begin{itemize}
+
+        \item 984632 to \texttt{Code}
+
+        \item \texttt{TRUE} to \texttt{FeesPaid}
+
+        \end{itemize}'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: An enumerated data type, \texttt{Activity}, is required, so that a new field,
+      \texttt{Choice}, can be added to the composite data type, \texttt{ClubMember},
+      to allow members to choose an activity.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the pseudocode statement for the type declaration of \texttt{Activity}
+        to hold the names of the available activities:
+
+
+        Badminton, Football, Golf, Snooker, Swimming, Tennis.'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write the new pseudocode statement required to update the declaration
+        of \texttt{Choice} in the definition of \texttt{ClubMember}.
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Numbers are stored in a computer system using binary floating-point representation
+    with:
+
+
+    \begin{itemize}
+
+    \item 12 bits for the mantissa
+
+    \item 4 bits for the exponent
+
+    \item two''s complement form for both the mantissa and the exponent.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the normalised floating-point representation of the following positive
+      binary number using this system.
+
+
+      $$0.00000001110101101$$
+
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+      \hfill \framebox{$\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Calculate the normalised binary floating-point representation of $-76.1875$
+      in this system. Show your working.
+
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+      \hfill \framebox{$\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain why protocols are essential for communication between computer systems.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'POP3 is an email communication protocol.
+
+
+      Identify and describe \textbf{two} other communication protocols that are used
+      when sending or receiving emails.
+
+
+      Protocol 1 \hrulefill
+
+
+      Description \hrulefill
+
+
+      Protocol 2 \hrulefill
+
+
+      Description \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Describe \textbf{two} ways in which packet switching ensures a complete
+      message is received when passing messages across a network.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A scheduling routine determines how processes are managed by the operating
+    system.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} scheduling routines.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Describe \textbf{two} ways in which the complexities of the computer hardware
+      are hidden from the user.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} items commonly found within a digital certificate.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain why a digital certificate is required to validate a digital signature.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The diagram shows a logic circuit.
+
+
+      Complete the truth table for the given logic circuit.
+
+      Show your working.
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      \multicolumn{3}{|c|}{} & \multicolumn{4}{c|}{\textbf{Working space}} & \\ \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{P} & \textbf{Q} & \textbf{R}
+      & \textbf{S} & \textbf{Z} \\ \hline
+
+      0 & 0 & 0 & & & & & \\ \hline
+
+      0 & 0 & 1 & & & & & \\ \hline
+
+      0 & 1 & 0 & & & & & \\ \hline
+
+      0 & 1 & 1 & & & & & \\ \hline
+
+      1 & 0 & 0 & & & & & \\ \hline
+
+      1 & 0 & 1 & & & & & \\ \hline
+
+      1 & 1 & 0 & & & & & \\ \hline
+
+      1 & 1 & 1 & & & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Complete the Karnaugh map (K-map) for the Boolean expression:
+
+
+      $$\overline{\mathbf{A}}.\mathbf{B}.\mathbf{C} + \overline{\mathbf{A}}.\overline{\mathbf{B}}.\overline{\mathbf{C}}
+      + \mathbf{A}.\overline{\mathbf{B}}.\mathbf{C} + \mathbf{A}.\mathbf{B}.\overline{\mathbf{C}}$$'
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Complete the Karnaugh map (K-map) for the Boolean expression:
+
+
+        $$\overline{\mathbf{A}}.\mathbf{B}.\mathbf{C} + \overline{\mathbf{A}}.\overline{\mathbf{B}}.\overline{\mathbf{C}}
+        + \mathbf{A}.\overline{\mathbf{B}}.\mathbf{C} + \mathbf{A}.\mathbf{B}.\overline{\mathbf{C}}$$
+
+
+        \begin{tabular}{cc|c|c|c|c|}
+
+        & \multicolumn{5}{c}{\textbf{BC}} \\
+
+        \textbf{A} & & \textbf{00} & \textbf{01} & \textbf{11} & \textbf{10} \\
+
+        \cline{2-6}
+
+        & \textbf{0} & & & & \\
+
+        \cline{2-6}
+
+        & \textbf{1} & & & & \\
+
+        \cline{2-6}
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Draw loop(s) around appropriate group(s) in the K-map to produce an optimal
+        sum-of-products.
+      answer_options: []
+      subquestions: []
+    - number: 6biii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the Boolean expression from your answer to part \textbf{b(ii)} as
+        a simplified sum-of-products. Do \textbf{not} carry out any further simplification.
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Identify one Artificial Intelligence (AI) algorithm to find the shortest distance
+    between two points on a graph.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify one Artificial Intelligence (AI) algorithm to find the shortest
+      distance between two points on a graph.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Describe Deep Learning.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Outline the purpose of lexical analysis during the compilation of a program.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the Reverse Polish Notation (RPN) for the given infix expression:
+
+
+      $(2 - 6) * (13 + 7) / 5$'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The RPN expression:
+
+
+      \texttt{d a b + * c a - /}
+
+
+      is to be evaluated, where:
+
+
+      $a = 6$, $b = 12$, $c = 15$ and $d = 5$.
+
+
+      Show the changing contents of the stack as the RPN expression is evaluated.
+
+
+      \begin{tabular}{ccccccccc}
+
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad} \\
+
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad} \\
+
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad} \\
+
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad} \\
+
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} &
+      \framebox{\quad}
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A stack has been implemented using pseudocode to store a maximum of 100 string
+    items using the global variables in the following table:'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: '\begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{Identifier} & \textbf{Data type} & \textbf{Description} & \textbf{Initialisation
+      value} \\ \hline
+
+      Base & INTEGER & pointer for the bottom of the stack & 0 \\ \hline
+
+      Top & INTEGER & pointer for the top of the stack & -1 \\ \hline
+
+      StackArray & STRING & 1D array to implement the stack & [0:99] \\ \hline
+
+      Max & INTEGER & maximum number of items in the stack & 100 \\ \hline
+
+      \end{tabular}
+
+
+      The value of \texttt{Top} is incremented each time a data item is added to the
+      stack and decremented every time a data item is removed.'
+    answer_options: []
+    subquestions:
+    - number: 9ai
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: "Complete the \\textbf{pseudocode} for the function to remove a data item\
+        \ from the stack.\n\n\\begin{alltt}\nFUNCTION Pop() \\hrulefill\n    DECLARE\
+        \ DataItem : STRING\n    DataItem <- \"\"\n\n    IF \\hrulefill THEN\n\n \
+        \       DataItem <- \\hrulefill\n\n        Top <- \\hrulefill\n    ELSE\n\
+        \        DataItem <- \"You cannot remove data; the stack is empty\"\n    ENDIF\n\
+        \n    \\hrulefill\nENDFUNCTION\n\\end{alltt}"
+      answer_options: []
+      subquestions: []
+    - number: 9aii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write the \textbf{pseudocode} to output the data item removed from the
+        stack with an appropriate message.
+      answer_options: []
+      subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'A stack is used to implement recursion.
+
+
+      State the \textbf{three} essential features of recursion.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'Explain what is meant by \textbf{exception handling}.
+
+    Include an example of a possible cause of an exception in your answer.
+
+
+    Explanation \hrulefill
+
+
+    Example \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "The table shows assembly language instructions for a processor that has one\
+    \ register, the Accumulator (ACC).\n\n\\begin{tabular}{|l|l|l|l|}\n\\hline\n\\\
+    textbf{Label} & \\textbf{Opcode} & \\textbf{Operand} & \\textbf{Explanation} \\\
+    \\ \\hline\n & LDM & \\#n & Load the number n to ACC \\\\ \\hline\n & LDD & \\\
+    texttt{<address>} & Load the contents of the location at the given address to\
+    \ the ACC \\\\ \\hline\n & LDI & \\texttt{<address>} & The address to be used\
+    \ is at the given address. Load the contents of this second address to the ACC\
+    \ \\\\ \\hline\n & ADD & \\texttt{<address>} & Add the contents of the given address\
+    \ to the ACC \\\\ \\hline\n & SUB & \\texttt{<address>} & Subtract the contents\
+    \ of the given address from the ACC \\\\ \\hline\n & STO & \\texttt{<address>}\
+    \ & Store the contents of the ACC at the given address \\\\ \\hline\n\\texttt{<label>:}\
+    \ & & \\texttt{<data>} & Gives a symbolic address \\texttt{<label>} to the memory\
+    \ location with contents \\texttt{<data>} \\\\ \\hline\n\\end{tabular}\n\n\\#\
+    \ denotes a denary number, e.g. \\#123\n\\texttt{<label>} can be used in place\
+    \ of \\texttt{<address>}"
+  answer_options: []
+  subquestions:
+  - number: 11a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: "Write \\textbf{assembly language} code, using \\textbf{only} the given\
+      \ instruction set to:\n\n\\begin{itemize}\n\\item store the denary value 100\
+      \ as a named constant\n\\item subtract the constant from the value contained\
+      \ in address 632\n\\item store the result in variable \\texttt{Answer}.\n\\\
+      end{itemize}\n\nShow the initialisation of the constant and \\texttt{Answer}\
+      \ in the table provided.\n\n\\begin{tabular}{|c|c|}\n\\hline\n\\textbf{Label}\
+      \ & \\textbf{Contents} \\\\ \\hline\n &  \\\\ \\hline\n &  \\\\ \\hline\n &\
+      \  \\\\ \\hline\n &  \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 11b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The address 632 contains the value 45.
+
+
+      State the value of \texttt{Answer} after the code described in part \textbf{(a)}
+      has executed.'
+    answer_options: []
+    subquestions: []

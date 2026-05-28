@@ -1,0 +1,77 @@
+[thinking]
+**My Approach to Transcribing Exam Questions**
+
+Okay, here's the game plan. I've been given page 7 of an exam paper and need to extract and format three multiple-choice questions (11, 12, and 13) into YAML. I'll stick to the stub format, so `text` and `options` with a block scalar (`|`) for all non-empty free-text fields. No double quotes in the strings, and LaTeX for the math, naturally. I need to remember to omit any images or diagrams, but I can work around those.
+
+First, I'm tackling question 11. It involves a graph showing momentum over time. I'll describe the graph's labels (momentum in $\text{kg}\,\text{m}\,\text{s}^{-1}$ and time in s) and the key values (5000, 10, 0) since that's important context, but I'll skip the actual image. The prompt asks for the resultant force. The text of the question will be: "The graph shows how the momentum of a motorcycle changes with time.\n\nWhat is the resultant force on the motorcycle?". The options are A: 500 N, B: 5000 N, C: 25 000 N, and D: 50 000 N. Math formatting will be applied to the numerical values of the options (e.g., `$500\text{ N}$`).
+
+Next, question 12. This one deals with a rocket's weight ($W$) and initial acceleration ($a$) and the acceleration of free fall ($g$). The question asks for the initial upward force. I'll transcribe the text: "A rocket has a weight of $W$ and an initial acceleration of $a$ as the rocket leaves the ground vertically. The acceleration of free fall is $g$.\n\nWhich expression gives the initial upward force exerted on the rocket due to the engine?". The options are more complex, and I'll represent them in proper LaTeX: A: $\frac{Wa}{g} + W$, B: $\frac{Wa}{g}$, C: $\frac{Wa}{g} - W$, and D: $Wa + W$.
+
+Finally, question 13. We have a uniform rod of weight $28\text{ N}$ supported by a force $F$, and the whole thing is in equilibrium and attached to a frictionless hinge. The question asks for the magnitude of $F$. The text is: "A uniform rod of weight $28\text{ N}$ is supported at one end by force $F$.\n\nThe rod is in equilibrium and attached to a frictionless hinge at end X.\n\nWhat is the magnitude of $F$?". The options are straightforward: A: 9.0 N, B: 11 N, C: 18 N, and D: 21 N. I'll apply the math formatting to the values (e.g., `$9.0\text{ N}$`).
+
+Before I output the YAML, I'll go back and make sure all non-empty text fields use the block scalar (`|`), there are no double quotes, and I confirm the option letters (A, B, C, D) are plain text and correctly formatted with LaTeX math. Ready to generate the output now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "11"
+    type: multiple_choice
+    text: |
+      The graph shows how the momentum of a motorcycle changes with time.
+
+      What is the resultant force on the motorcycle?
+    options:
+      - letter: A
+        text: |
+          $500\text{ N}$
+      - letter: B
+        text: |
+          $5000\text{ N}$
+      - letter: C
+        text: |
+          $25\,000\text{ N}$
+      - letter: D
+        text: |
+          $50\,000\text{ N}$
+  - number: "12"
+    type: multiple_choice
+    text: |
+      A rocket has a weight of $W$ and an initial acceleration of $a$ as the rocket leaves the ground vertically. The acceleration of free fall is $g$.
+
+      Which expression gives the initial upward force exerted on the rocket due to the engine?
+    options:
+      - letter: A
+        text: |
+          $\frac{Wa}{g} + W$
+      - letter: B
+        text: |
+          $\frac{Wa}{g}$
+      - letter: C
+        text: |
+          $\frac{Wa}{g} - W$
+      - letter: D
+        text: |
+          $Wa + W$
+  - number: "13"
+    type: multiple_choice
+    text: |
+      A uniform rod of weight $28\text{ N}$ is supported at one end by force $F$.
+
+      The rod is in equilibrium and attached to a frictionless hinge at end X.
+
+      What is the magnitude of $F$?
+    options:
+      - letter: A
+        text: |
+          $9.0\text{ N}$
+      - letter: B
+        text: |
+          $11\text{ N}$
+      - letter: C
+        text: |
+          $18\text{ N}$
+      - letter: D
+        text: |
+          $21\text{ N}$

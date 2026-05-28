@@ -1,0 +1,53 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A software developer follows a program development life cycle. The life cycle divides the development process into various stages.
+  - number: "5a"
+    type: short_answer
+    text: |
+      The following table lists some development activities.
+
+      Complete the table by writing the name of the life cycle stage for each activity.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Activity} & \textbf{Name of life cycle stage} \\ \hline
+      The walkthrough method is used. & \\ \hline
+      An algorithm is implemented in a programming language. & \\ \hline
+      The client is interviewed about problems with the current system. & \\ \hline
+      The program is modified to run on new hardware. & \\ \hline
+      Records and file structures are defined. & \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: short_answer
+    text: |
+      The program contains a validation function.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      The function will:
+
+      \begin{itemize}
+      \item take an integer value as a parameter
+      \item return \texttt{TRUE} if the value is within the range 24 to 37, inclusive
+      \item otherwise return \texttt{FALSE}.
+      \end{itemize}
+
+      Complete the table to define a test plan to thoroughly test the operation of the function.
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Type of test data} & \textbf{Test data value} & \textbf{Expected result} \\ \hline
+      Normal & 30 & \texttt{TRUE} \\ \hline
+       & & \\ \hline
+       & & \\ \hline
+       & & \\ \hline
+       & & \\ \hline
+      \end{tabular}
+  - number: "5bii"
+    type: short_answer
+    text: |
+      The function is to be tested on its own. When it is shown to work correctly the function will be combined with other modules and testing will continue.
+
+      Identify the type of testing that this represents.

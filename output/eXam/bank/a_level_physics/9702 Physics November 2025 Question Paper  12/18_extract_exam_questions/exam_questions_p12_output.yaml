@@ -1,0 +1,43 @@
+questions:
+  - number: "31"
+    type: multiple_choice
+    text: |
+      A student connects two loudspeakers to a signal generator.
+
+      As the student walks from P to Q, he notices that the loudness of the sound rises and falls repeatedly.
+
+      What causes the loudness of the sound to vary?
+    options:
+      - letter: A
+        text: |
+          diffraction of the sound waves
+      - letter: B
+        text: |
+          Doppler shift of the sound waves
+      - letter: C
+        text: |
+          interference of the sound waves
+      - letter: D
+        text: |
+          reflection of the sound waves
+  - number: "32"
+    type: multiple_choice
+    text: |
+      The current in a resistor of constant resistance is $8.0\text{ mA}$. The power dissipated by the resistor is $P$.
+
+      The current in the resistor is increased to $12.0\text{ mA}$.
+
+      What is the new power dissipated by the resistor?
+    options:
+      - letter: A
+        text: |
+          $0.44P$
+      - letter: B
+        text: |
+          $0.67P$
+      - letter: C
+        text: |
+          $1.5P$
+      - letter: D
+        text: |
+          $2.3P$

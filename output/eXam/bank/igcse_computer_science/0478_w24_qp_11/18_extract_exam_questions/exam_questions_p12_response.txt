@@ -1,0 +1,55 @@
+[thinking]
+**My Approach to Summarizing Exam Questions**
+
+Okay, let's break this down. My task is to digest the content of page 12 of this exam paper and create a structured representation of the questions. I see three distinct parts: a general question (9) and two sub-questions (9a and 9b). The goal is to extract the core text for each, particularly the prompts and the associated information. There are no multiple-choice options, which simplifies things.
+
+First, I note that Question 9 introduces the context: a doctor's surgery utilizing an expert system for diagnosis.
+
+Next, I need to focus on Question 9a. It's asking for completion of a paragraph regarding the expert system's operation. Crucially, I have a list of terms to use, and it's explicitly mentioned that some terms might not be needed and some might be used more than once. I need to format that word list properly, likely as an itemized list using markdown or a similar format. The paragraph itself has blanks, denoted by underlines, that I'll need to replicate accurately in my summary. The format seems crucial here.
+
+Finally, Question 9b focuses on a specific capability of the expert system: self-adaptation. I'm asked to identify the name of this capability. I'll need to capture the exact wording of the prompt.
+
+
+
+[/thinking]
+
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A doctor’s surgery has an expert system that helps diagnose the illnesses of its patients.
+  - number: "9a"
+    type: short_answer
+    text: |
+      Complete the paragraph about the operation of the expert system.
+
+      Use the terms from the list.
+
+      Some of the terms in the list will \textbf{not} be used. Some terms may be used more than once.
+
+      \begin{itemize}
+      \item artificial
+      \item binary
+      \item central processing unit (CPU)
+      \item data
+      \item inference engine
+      \item interface
+      \item knowledge base
+      \item primary storage
+      \item process
+      \item real
+      \item read only memory (ROM)
+      \item rule base
+      \end{itemize}
+
+      An expert system is a type of \underline{\hspace{1.5em}} intelligence. The doctor will type data about the symptoms of the illness into the \underline{\hspace{1.5em}}.
+
+      The \underline{\hspace{1.5em}} will decide which questions to ask the doctor. It will do this by linking the facts in the \underline{\hspace{1.5em}} to the \underline{\hspace{1.5em}}.
+
+      The \underline{\hspace{1.5em}} will decide on a diagnosis and this will be output on the \underline{\hspace{1.5em}}.
+  - number: "9b"
+    type: short_answer
+    text: |
+      The expert system has the ability to automatically adapt its own processes and data.
+
+      Give the name of this ability.

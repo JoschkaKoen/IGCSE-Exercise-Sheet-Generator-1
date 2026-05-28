@@ -1,0 +1,11 @@
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      Write the pseudocode statement to output the average of the numbers, rounded to \textbf{two} decimal places.
+  - number: "6c"
+    type: long_answer
+    text: |
+      Explain how you could change the corrected algorithm so that it also finds the smallest number that was input and outputs its value at the end.
+
+      Any code used must be fully explained.

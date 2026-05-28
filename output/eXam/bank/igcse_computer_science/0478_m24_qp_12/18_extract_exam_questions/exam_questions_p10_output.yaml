@@ -1,0 +1,29 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A self-driving tractor sows seeds and harvests crops for a farmer. The self-driving tractor moves automatically through the field, turning at each end and stopping when it has finished.
+  - number: "6a"
+    type: short_answer
+    text: |
+      One reason the self-driving tractor is a robot is because it has a mechanical structure that includes wheels, an engine, and a framework.
+
+      Give \textbf{one} other reason why the self-driving tractor is an example of a robot.
+  - number: "6b"
+    type: short_answer
+    text: |
+      If a person is detected within 3 metres whilst the tractor is moving, the self-driving tractor must stop.
+  - number: "6bi"
+    type: long_answer
+    text: |
+      Explain how an infra-red sensor, microprocessor and actuator can be used to stop the self-driving tractor if a person is detected within 3 metres.
+  - number: "6bii"
+    type: short_answer
+    text: |
+      Identify \textbf{one} other sensor that the self-driving tractor might use and how it will use the sensor.
+
+      Sensor \hrulefill
+
+      Use \hrulefill
+```

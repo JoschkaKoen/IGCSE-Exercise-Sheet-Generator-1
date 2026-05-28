@@ -1,0 +1,38 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      The following table shows part of the instruction set for a processor. The processor has two registers: the Accumulator (ACC) and the Index Register (IX).
+
+      \begin{tabular}{|r|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      LDM & \#n & Immediate addressing. Load the number n to the ACC \\ \hline
+      AND & \#n / Bn / \&n & Bitwise AND operation of the contents of the ACC with the operand \\ \hline
+      AND & <address> & Bitwise AND operation of the contents of the ACC with the contents of <address> \\ \hline
+      XOR & \#n / Bn / \&n & Bitwise XOR operation of the contents of the ACC with the operand \\ \hline
+      XOR & <address> & Bitwise XOR operation of the contents of the ACC with the contents of <address> \\ \hline
+      OR & \#n / Bn / \&n & Bitwise OR operation of the contents of the ACC with the operand \\ \hline
+      OR & <address> & Bitwise OR operation of the contents of the ACC with the contents of <address> \\ \hline
+      CMP & \#n & Compare the contents of the ACC with number n \\ \hline
+      CMP & <address> & Compare the contents of the ACC with the contents of <address> \\ \hline
+      LSL & \#n & Bits in the ACC are shifted logically n places to the left. Zeros are introduced on the right-hand end \\ \hline
+      LSR & \#n & Bits in the ACC are shifted logically n places to the right. Zeros are introduced on the left-hand end \\ \hline
+      \end{tabular}
+
+      <address> can be an absolute or symbolic address
+      \# denotes a denary number, e.g. \#127
+      B denotes a binary number, e.g. B10010001
+      \& denotes a hexadecimal number, e.g. \&4A
+
+      The current contents of main memory are shown:
+
+      \begin{tabular}{rc}
+      \textbf{Address} & \textbf{Data} \\
+      100 & \multicolumn{1}{|c|}{0000 0011} \\ \cline{2-2}
+      101 & \multicolumn{1}{|c|}{1010 1110} \\ \cline{2-2}
+      102 & \multicolumn{1}{|c|}{1100 1100} \\ \cline{2-2}
+      103 & \multicolumn{1}{|c|}{1111 1111} \\ \cline{2-2}
+      104 & \multicolumn{1}{|c|}{1100 1100} \\ \cline{2-2}
+      \end{tabular}

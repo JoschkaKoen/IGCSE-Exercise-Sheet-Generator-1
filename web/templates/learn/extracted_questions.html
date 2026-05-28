@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ paper_stem }} — {{ t('learn.extracted.title') }}{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/15-learn-extracted.css" />
+<link rel="stylesheet" href="/static/vendor/katex/katex.min.css">
+<script defer src="/static/vendor/katex/katex.min.js"></script>
+<script defer src="/static/vendor/katex/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+{% endblock %}
+
+{% macro render_question(q, depth, subject, paper_stem) %}
+{% set marks = q.marks if q.marks is not none else 0 %}
+<div class="vq-q vq-depth-{{ depth }}">
+  <div class="vq-q-head">
+    <span class="vq-num">{{ q.number }}</span>
+    {% if marks %}<span class="vq-pill vq-marks">{{ marks }} {% if marks == 1 %}mark{% else %}marks{% endif %}</span>{% endif %}
+    {% if q.question_type %}<span class="vq-pill vq-type">{{ q.question_type }}</span>{% endif %}
+    {% if q.page is defined and q.page is not none %}<span class="vq-pill vq-page">p. {{ q.page }}</span>{% endif %}
+    {% for code in (q.matched_subtopics or []) %}<span class="vq-pill vq-subtopic">{{ code }}</span>{% endfor %}
+  </div>
+
+  {% if q.text == 'STUB ERROR' %}
+    <div class="vq-stub">{{ t('learn.extracted.no_root_text') }}</div>
+  {% elif q.text %}
+    <div class="vq-text">{{ q.text | render_md | safe }}</div>
+  {% endif %}
+
+  {% if q.answer_options %}
+    <ol class="vq-options">
+      {% for opt in q.answer_options %}
+        <li>
+          <span class="vq-opt-letter">{{ opt.letter }}</span>
+          <span class="vq-opt-text">{{ opt.text | render_md | safe }}</span>
+        </li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+
+  {% if q.subquestions %}
+    <div class="vq-children">
+      {% for sub in q.subquestions %}
+        {{ render_question(sub, depth + 1, subject, paper_stem) }}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% block content %}
+<header class="mb-6">
+  <p class="text-xs text-slate-500">
+    <a href="/learn" class="hover:text-slate-300">{{ t('learn.hero.title') }}</a>
+    <span aria-hidden="true"> / </span>
+    <a href="/learn/extracted" class="hover:text-slate-300">{{ t('learn.extracted.title') }}</a>
+    <span aria-hidden="true"> / </span>
+    <a href="/learn/extracted/{{ subject }}" class="hover:text-slate-300">{{ subject_display }}</a>
+    <span aria-hidden="true"> / </span>
+    <span class="text-slate-300">{{ paper_stem }}</span>
+  </p>
+  <h1 class="mt-2 font-display text-xl font-semibold text-white sm:text-2xl">
+    {{ paper_stem }}
+  </h1>
+  <p class="mt-2 text-sm text-slate-400">
+    {{ t('learn.extracted.questions_for') }}
+  </p>
+</header>
+
+{% if not questions %}
+<p class="text-sm text-slate-400">{{ t('learn.extracted.no_questions') }}</p>
+{% else %}
+<div class="vq-paper">
+  {% for q in questions %}
+  {% set qid = subject ~ '::' ~ (paper_stem | urlencode) ~ '::' ~ q.number %}
+  <section class="vq-top">
+    <div class="vq-pdf-pane">
+      <iframe src="/eXam/practice/pdf/{{ qid }}" loading="lazy" title="Question {{ q.number }} PDF"></iframe>
+    </div>
+    <div class="vq-text-pane">
+      {{ render_question(q, 0, subject, paper_stem) }}
+    </div>
+  </section>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

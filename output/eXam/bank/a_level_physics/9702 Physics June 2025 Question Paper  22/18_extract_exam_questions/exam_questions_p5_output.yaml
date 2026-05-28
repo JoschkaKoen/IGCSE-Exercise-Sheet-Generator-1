@@ -1,0 +1,15 @@
+questions:
+  - number: "1biii"
+    type: calculation
+    text: |
+      Between time $t = 0$ and time $t = 5.8\text{ s}$, the work done against resistive forces is $4.7 \times 10^4\text{ J}$.
+
+      Determine the average output power of the car during this time.
+
+      power = \hrulefill \text{ W}
+  - number: "1biv"
+    type: long_answer
+    text: |
+      At time $t = 5.8\text{ s}$, the speed of the car becomes constant.
+
+      State and explain whether the output power of the car is greater than, less than or the same as the output power just before $t = 5.8\text{ s}$.

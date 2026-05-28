@@ -1,0 +1,13 @@
+questions:
+  - number: "7d"
+    type: long_answer
+    text: |
+      Part of the coffee shop program contains three program modules as follows:
+
+      \begin{itemize}
+      \item Module \texttt{Init()} has no parameters and returns a Boolean.
+      \item Module \texttt{Reset()} takes a string as a parameter and returns an Integer.
+      \item Module \texttt{Check()} repeatedly calls \texttt{Init()} followed by \texttt{Reset()}.
+      \end{itemize}
+
+      Draw a structure chart to represent the relationship between the \textbf{three} modules, including all parameters and return values.

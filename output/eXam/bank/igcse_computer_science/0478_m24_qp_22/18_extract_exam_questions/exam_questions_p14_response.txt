@@ -1,0 +1,58 @@
+[thinking]
+**Transcribing Question 11: A Programming Challenge**
+
+Okay, the task is to transcribe question 11 from this exam page. It's a long-answer programming question, and it's pretty involved. Let's break down what's being asked. It looks like we're dealing with student screen time data. We have `\texttt{StudentName[]}` as a 1D array holding student names, and `\texttt{ScreenTime[]}` as a 2D array storing their daily screen time in minutes. The index correspondence between these arrays is crucial – student at index 10 in both arrays, for example, is the same individual. The question also mentions `\texttt{ClassSize}`, indicating the number of students.
+
+The core of the problem is writing a program with several functionalities:
+
+*   Allow students to input their daily screen time for a week. Input validation is not mentioned so we can omit this.
+*   Calculate each student's total weekly screen time.
+*   Count how many days each student exceeded 300 minutes.
+*   Calculate the class's average weekly screen time.
+*   Find the student with the lowest weekly screen time.
+*   The program should output each student's name, their total screen time in hours and minutes, and the number of days exceeding 300 minutes.
+*   Also, output the class average and the name of the student with the lowest weekly time.
+
+The question explicitly states that we must use either pseudocode or actual code, complete with comments to explain the logic. We're given that `\texttt{StudentName[]}` and `\texttt{ClassSize}` are pre-populated, and we don't need to declare any arrays or variables, which is handy. Finally, all inputs and outputs must include informative messages. Good. Now, to the transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "11"
+    type: long_answer
+    text: |
+      Students in a class are recording the amount of time in minutes spent in front of a screen for each day of the week.
+
+      The one-dimensional (1D) array \texttt{StudentName[]} contains the names of the students in the class.
+
+      The two-dimensional (2D) array \texttt{ScreenTime[]} is used to input the number of minutes on each day spent in front of a screen.
+
+      The position of each student's data in the two arrays is the same. For example, the student stored at index 10 in \texttt{StudentName[]} and \texttt{ScreenTime[]} is the same.
+
+      The variable \texttt{ClassSize} contains the number of students in the class.
+
+      Write a program that meets these requirements:
+
+      \begin{itemize}
+      \item allows all the students to enter their daily minutes of screen times for the past week
+      \item calculates the total number of minutes of screen time for each student in the week
+      \item counts, for each student, the number of days with more than 300 minutes of screen time
+      \item calculates the average weekly minutes of screen time for the whole class
+      \item finds the student with the lowest weekly minutes of screen time
+      \item outputs for each student:
+        \begin{itemize}
+        \item name
+        \item total week's screen time in hours and minutes
+        \item number of days with more than 300 minutes of screen time
+        \end{itemize}
+      \item outputs the average weekly minutes of screen time for the whole class
+      \item outputs the name of the student with the lowest weekly screen time.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works. All inputs and outputs must contain suitable messages.
+
+      Assume that the array \texttt{StudentName[]} and the variable \texttt{ClassSize} already contain the required data.
+
+      You do not need to declare any arrays or variables; you may assume that this has already been done.

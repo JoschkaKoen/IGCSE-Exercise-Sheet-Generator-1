@@ -1,0 +1,46 @@
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to identify a method used to design and construct a solution to a computing problem.
+    options:
+      - letter: A
+        text: |
+          analysis
+      - letter: B
+        text: |
+          coding
+      - letter: C
+        text: |
+          flowchart
+      - letter: D
+        text: |
+          testing
+  - number: "2"
+    type: short_answer
+    text: |
+      \textbf{Four} logic functions and \textbf{five} standard symbols for logic gates are shown.
+
+      Draw \textbf{one} line to link each logic function to its standard symbol. \textbf{Not} all standard symbols will be used.
+
+      \begin{tabular}{cc}
+      \textbf{Logic function} & \textbf{Standard symbol} \\
+      & \\
+      \framebox{\quad AND \quad} & [AND gate symbol] \\
+      & \\
+      \framebox{\quad XOR \quad} & [NOT gate symbol] \\
+      & \\
+      \framebox{\quad NAND \quad} & [NAND gate symbol] \\
+      & \\
+      \framebox{\quad OR \quad} & [XOR gate symbol] \\
+      & \\
+      & [NOR gate symbol] \\
+      \end{tabular}
+  - number: "3"
+    type: short_answer
+    text: |
+      Identify \textbf{three} different tasks in the analysis stage of the program development life cycle.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

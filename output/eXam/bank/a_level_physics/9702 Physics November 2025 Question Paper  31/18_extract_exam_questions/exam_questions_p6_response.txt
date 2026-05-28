@@ -1,0 +1,41 @@
+[thinking]
+**My Processing of Question 1e**
+
+Okay, the task is clear: I need to process question "1e" from the provided image. My primary goal is to extract and format the text of the question according to the given specifications.
+
+First, I examine the image. I confirm the question number is indeed "1e" (though it's labeled "(e)" on the page). The core of the question involves a relationship between $\sqrt{T_2}$ and $\sqrt{T_1}$, expressed as the equation:
+
+$$\sqrt{T_2} = P \sqrt{T_1} + Q$$
+
+where $P$ and $Q$ are constants. The prompt instructs me to use answers from a previous part, specifically (d)(iii), to determine the values of $P$ and $Q$, and also to provide appropriate units for the answers.
+
+I quickly construct the YAML structure, applying the necessary formatting rules: using a `|` block scalar for the question text, inline math with `$…$`, and display math with `$$…$$`. I am careful to remove the "(e)" prefix. The answer section has to be formatted as:
+
+```
+P = \hrulefill
+Q = \hrulefill
+```
+
+Initially, I had a slight misinterpretation of the mathematical equation during an OCR check. It seemed like the OCR result was `T2 = P T1 + Q` which is incorrect. However, I corrected myself. Double-checking the original image, I confirm the correct mathematical expression is $\sqrt{T_2} = P \sqrt{T_1} + Q$. I make the final correction in the YAML code.
+
+The final YAML output is now ready and formatted as expected: it accurately represents the question, its mathematical components, and the requested answer format.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1e"
+    type: calculation
+    text: |
+      It is suggested that the quantities $\sqrt{T_2}$ and $\sqrt{T_1}$ are related by the equation
+
+      $$\sqrt{T_2} = P \sqrt{T_1} + Q$$
+
+      where $P$ and $Q$ are constants.
+
+      Using your answers in \textbf{(d)(iii)}, determine the values of $P$ and $Q$.
+      Give appropriate units.
+
+      P = \hrulefill
+      Q = \hrulefill

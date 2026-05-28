@@ -1,0 +1,23 @@
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      Resistor R has a resistance of $56\text{ k}\Omega$. A capacitor of capacitance $12\text{ }\mu\text{F}$ is connected into the circuit of Fig. 6.1 in order to smooth the output voltage.
+  - number: "6ci"
+    type: short_answer
+    text: |
+      On Fig. 6.1, draw the capacitor correctly connected into the circuit.
+  - number: "6cii"
+    type: calculation
+    text: |
+      Calculate the time constant of the smoothing circuit.
+
+      time constant = \hrulefill \text{ s}
+  - number: "6ciii"
+    type: calculation
+    text: |
+      During each discharge cycle, the time for which the capacitor is discharging is $0.14\text{ s}$.
+
+      Determine the minimum value of the smoothed output voltage.
+
+      minimum voltage = \hrulefill \text{ V}

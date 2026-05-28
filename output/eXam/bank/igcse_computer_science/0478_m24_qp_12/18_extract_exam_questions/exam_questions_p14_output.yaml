@@ -1,0 +1,30 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: ''
+  - number: "8a"
+    type: short_answer
+    text: |
+      Hexadecimal can be used to represent binary numbers.
+  - number: "8ai"
+    type: calculation
+    text: |
+      Convert the denary number 236 into hexadecimal.
+  - number: "8aii"
+    type: short_answer
+    text: |
+      Give \textbf{one} benefit of using hexadecimal instead of binary to represent data.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Two’s complement can be used to represent positive and negative binary integers.
+  - number: "8bi"
+    type: calculation
+    text: |
+      Convert the two’s complement integer 10110111 into denary.
+
+      Show all your working.
+  - number: "8bii"
+    type: calculation
+    text: |
+      Convert the denary number 45 into an 8-bit two’s complement integer.

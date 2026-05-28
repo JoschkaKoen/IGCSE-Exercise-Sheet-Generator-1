@@ -1,0 +1,32 @@
+questions:
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the trace table for the input data:
+
+      10, 30, 18, 8, 25, 12, 17, 2, 50, 15, 5
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{L} & \textbf{S} & \textbf{T} & \textbf{A} & \textbf{Limit} & \textbf{Count} & \textbf{Value} & \textbf{OUTPUT} \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: short_answer
+    text: |
+      Outline the purpose of the algorithm.

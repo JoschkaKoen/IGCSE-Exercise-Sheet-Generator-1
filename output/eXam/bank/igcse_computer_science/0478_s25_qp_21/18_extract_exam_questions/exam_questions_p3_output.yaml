@@ -1,0 +1,15 @@
+questions:
+  - number: "3"
+    type: long_answer
+    text: |
+      The following pseudocode algorithm uses a count-controlled loop to read in 10 names and store them in the array \texttt{Names[]}
+
+      \begin{alltt}
+      FOR Count <- 1 TO 10
+          OUTPUT "Please enter a name"
+          INPUT Name
+          Names[Count] <- Name
+      NEXT Count
+      \end{alltt}
+
+      Rewrite the algorithm in pseudocode, using a condition-controlled loop instead of a count-controlled loop.

@@ -1,0 +1,50 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program stores integers in ascending order in an ordered binary tree. The tree is implemented as a 2D array.
+
+      Each node is stored with three values:
+      \begin{itemize}
+      \item a pointer to the left node
+      \item the data
+      \item a pointer to the right node.
+      \end{itemize}
+
+      All null values are stored as $-1$
+
+      The binary tree can store up to 50 nodes.
+
+      Nodes cannot be deleted from the binary tree.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The binary tree is stored as a global array with the identifier \texttt{TreeArray}. The left pointer, the data and the right pointer of each node are initialised to $-1$
+
+      The global variable \texttt{RootPointer} stores the index of the root node in the tree, initialised to $-1$
+
+      The global variable \texttt{FreeNode} stores the index of the next free node in the array, initialised to $0$
+
+      Write program code to declare and initialise \texttt{TreeArray}, \texttt{RootPointer} and \texttt{FreeNode}
+
+      Save your program as \textbf{Question3\_N25}.
+
+      Copy and paste the program code into part \textbf{3(a)} in the evidence document.
+  - number: "3b"
+    type: short_answer
+    text: |
+      The procedure \texttt{AddNode()}:
+      \begin{itemize}
+      \item takes an integer to store in the binary tree as a parameter
+      \item stores the parameter in the next free node in the array
+      \item finds the position to store the data in the tree by following the appropriate pointers
+      \item updates the pointer of the new node's parent node.
+      \end{itemize}
+
+      The procedure outputs \texttt{"The tree is full"} if the parameter cannot be stored because the tree is full.
+
+      Write program code for \texttt{AddNode()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(b)} in the evidence document.

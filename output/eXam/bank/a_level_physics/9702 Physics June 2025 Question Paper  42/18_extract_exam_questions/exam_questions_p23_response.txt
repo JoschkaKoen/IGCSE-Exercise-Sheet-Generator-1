@@ -1,0 +1,26 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, the user wants me to extract and format two questions from the provided page. Let's see... the first is question 10bii. It's a calculation type, asking for the time at which two samples have equal activities, expressed in terms of *T*. And it looks like the expected answer format is "time = ______ T". I need to make sure I represent that correctly – the answer line is crucial. I also should note that on the page, the underline for the answer line is a sequence of dots, but is represented in the document as `\hrulefill`.
+
+Now, question 10c. This one's an explanation – a long-answer type. It's about a radiation detector placed near a sample and asks why the count rate is less than the sample's activity. No specific answer format indicated, just a general explanation. It's worth [2] marks.
+
+Right, let's put this into YAML format. I'll structure it clearly, including the question numbers, types, and the complete text of each question, including the answer line for 10bii. I'll need to use Markdown formatting for the LaTeX notation. This should be ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "10bii"
+    type: calculation
+    text: |
+      Determine, in terms of $T$, the time at which the two samples will have equal activities.
+
+      time = \hrulefill $T$
+  - number: "10c"
+    type: long_answer
+    text: |
+      A radiation detector is placed near to one of the samples in (b).
+
+      Explain why the count rate measured by the detector is less than the activity of the sample.

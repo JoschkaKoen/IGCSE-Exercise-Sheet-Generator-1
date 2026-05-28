@@ -1,0 +1,42 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A linked list stores positive integer data in a 2D array. The first dimension of the array stores the integer data. The second dimension of the array stores the pointer to the next node in the linked list.
+
+      A linked list node with no data is initialised with the integer $-1$. These nodes are linked together as an empty list. A pointer of $-1$ identifies that node as the last node.
+
+      The linked list can store 20 nodes.
+
+      The global 2D array \texttt{LinkedList} stores the linked list.
+
+      \texttt{LinkedList} is initialised as an empty list. The data in each node is initialised to $-1$. Each node's pointer stores the index of the next node. The last node stores the pointer value $-1$, which indicates it is the last node.
+
+      The global variable \texttt{FirstEmpty} stores the index of the first element in the empty list. This is the first node in the empty linked list when it is initialised, which is index 0.
+
+      The global variable \texttt{FirstNode} stores the index of the first element in the linked list. There is no data in the linked list when it is initialised, so \texttt{FirstNode} is initialised to $-1$.
+
+      This diagram shows the content of the initialised array.
+
+      \texttt{FirstEmpty = 0}
+
+      \texttt{FirstNode = -1}
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Index} & \textbf{Data} & \textbf{Pointer} \\ \hline
+      0 & -1 & 1 \\ \hline
+      1 & -1 & 2 \\ \hline
+      2 & -1 & 3 \\ \hline
+      3 & -1 & 4 \\ \hline
+      4 & -1 & 5 \\ \hline
+      19 & -1 & -1 \\ \hline
+      \end{tabular}
+  - number: "3a"
+    type: long_answer
+    text: |
+      Write program code for the main program to declare and initialise \texttt{LinkedList}, \texttt{FirstNode} and \texttt{FirstEmpty}.
+
+      Save your program as \textbf{Question3\_N24}.
+
+      Copy and paste the program code into part \textbf{3(a)} in the evidence document.

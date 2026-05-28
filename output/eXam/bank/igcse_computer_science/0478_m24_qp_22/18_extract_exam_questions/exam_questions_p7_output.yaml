@@ -1,0 +1,18 @@
+```yaml
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      This algorithm needs to be improved with a range check.
+  - number: "5bi"
+    type: long_answer
+    text: |
+      Write pseudocode to reject the input of values less than zero for variables \texttt{Cost} and \texttt{Sell}.
+  - number: "5bii"
+    type: short_answer
+    text: |
+      Describe \textbf{two} other validation checks that should be included in this algorithm.
+
+      Check 1 \hrulefill
+      Check 2 \hrulefill
+```

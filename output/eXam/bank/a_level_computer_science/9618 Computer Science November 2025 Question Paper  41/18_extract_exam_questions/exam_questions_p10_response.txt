@@ -1,0 +1,65 @@
+[thinking]
+**My Approach to Transcribing the Exam Questions**
+
+Okay, so I've got page 10 of this exam paper to deal with. The task is pretty straightforward: pull out questions 3b, 3c, and 3d and reformat them into YAML based on a provided stub. No problem. Here's how I'm thinking through it:
+
+First, I need to *really* analyze the instructions. The input is clearly defined, and the output needs to be YAML, which I know how to handle. The questions themselves are the heart of the matter.
+
+Let's dive in. I start with question "3b". I'll strip the leading `(b) ` and then start to format the text into code, paying close attention to the instructions to save it and copy and paste. I'll make sure to use `\texttt{InitialiseHashTable()}` and `\texttt{HashTable}` to correctly format the code snippets since this is going into LaTeX or a similar environment. There aren't any answer lines, which tells me the student needs to write the code. I need to make sure this is clear within the reformatting so the student knows to write the code.
+
+Next up, "3c". I see a function definition, `\texttt{Hash()}`. Again, I'll remove the leading `(c) ` and convert bullet points into LaTeX's `itemize` environment. The hash formula is `key MOD 100`, which I'll represent as `\texttt{key MOD 100}`. Keep the `\texttt{}` here. It's pseudocode.
+
+Finally, "3d". Same drill: remove the `(d) `, use `\texttt{InsertData()}`, `\texttt{Record}`, and `\texttt{HashTable}`, and convert bullet points to LaTeX. I'll also pay attention to the hint about the maximum number of collisions – this is important information but doesn't require any special formatting.
+
+Now the final part is formatting the resulting LaTeX to ensure consistency:
+
+*   I'll double-check all code tokens are correctly wrapped in `\texttt{...}`.
+*   I'll ensure all bullet lists have the required blank lines before and after to get them formatted properly.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      The procedure \texttt{InitialiseHashTable()} initialises each element in the array to an empty or null record.
+
+      Write program code to declare the global 2D array \texttt{HashTable} and the procedure \texttt{InitialiseHashTable()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(b)} in the evidence document.
+  - number: "3c"
+    type: short_answer
+    text: |
+      The function \texttt{Hash()}:
+
+      \begin{itemize}
+      \item takes an integer key field as a parameter
+      \item calculates and returns the hash value of the key field.
+      \end{itemize}
+
+      The hash value is the result from the formula: \texttt{key MOD 100}
+
+      Write program code for \texttt{Hash()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(c)} in the evidence document.
+  - number: "3d"
+    type: short_answer
+    text: |
+      The procedure \texttt{InsertData()}:
+
+      \begin{itemize}
+      \item takes an object of type \texttt{Record} as a parameter
+      \item calculates the hash value for the parameter using the appropriate function
+      \item stores the parameter in the correct position in \texttt{HashTable}
+      \end{itemize}
+
+      You can assume there will be no more than 10 objects that generate the same hash value.
+
+      Write program code for \texttt{InsertData()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(d)} in the evidence document.

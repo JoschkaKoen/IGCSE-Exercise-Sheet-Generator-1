@@ -1,0 +1,36 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: long_answer
+    text: |
+      Outline the process of optimisation during the compilation of a program.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Write the Reverse Polish Notation (RPN) for the given infix expression:
+
+      $$((6 + 12) / (16 - 10)) * 18$$
+  - number: "7c"
+    type: calculation
+    text: |
+      The RPN expression
+
+      $$\text{c a - b d + * b c + /}$$
+
+      is to be evaluated, where:
+
+      $$\text{a} = 4, \text{b} = 12, \text{c} = 24 \text{ and } \text{d} = 6.$$
+
+      Show the changing contents of the stack as the RPN expression is evaluated.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      & & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & & \\ \hline
+      \end{tabular}

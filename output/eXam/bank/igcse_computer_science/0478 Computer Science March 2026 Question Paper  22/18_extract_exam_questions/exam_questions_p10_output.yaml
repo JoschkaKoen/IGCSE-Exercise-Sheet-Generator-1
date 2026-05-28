@@ -1,0 +1,7 @@
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      As currently written, the algorithm may be difficult to understand if it was used as a program.
+
+      Identify \textbf{three} improvements that could be made to the algorithm to make it more user friendly.

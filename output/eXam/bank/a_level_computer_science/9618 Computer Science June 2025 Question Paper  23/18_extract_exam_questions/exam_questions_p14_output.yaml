@@ -1,0 +1,46 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A program is being developed to implement a customer loyalty scheme for a coffee shop.
+
+      The programmer has decided that the following data items need to be stored for each customer:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Data item} & \textbf{Description} \\ \hline
+      customer ID & a unique six-digit string \\ \hline
+      loyalty points & an integer value that depends on how often the customer visits the coffee shop \\ \hline
+      last visit date & the date the customer last visited the coffee shop \\ \hline
+      \end{tabular}
+  - number: "7a"
+    type: short_answer
+    text: |
+      The programmer has defined a program module:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{UpdateVisit()} & \begin{minipage}[t]{10cm}
+      \begin{itemize}
+      \item called with two parameters:
+      \begin{enumerate}
+      \item loyalty points of type \texttt{INTEGER}
+      \item last visit date of type \texttt{DATE}
+      \end{enumerate}
+      \item change the loyalty points:
+      \begin{itemize}
+      \item increase by \textbf{four} if the last visit date and the current date are in the same month
+      \item otherwise increase by \textbf{one}
+      \end{itemize}
+      \item change the last visit date to the current date
+      \item the changed values must be available to the code that follows the call to \texttt{UpdateVisit()}
+      \end{itemize}
+      \end{minipage} \\ \hline
+      \end{tabular}
+  - number: "7ai"
+    type: long_answer
+    text: |
+      Write pseudocode for module \texttt{UpdateVisit()}
+
+      Assume the customer has made at least \textbf{one} previous visit.

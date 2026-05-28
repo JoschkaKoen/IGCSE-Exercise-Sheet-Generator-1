@@ -1,0 +1,42 @@
+[thinking]
+**Exam Page 4 Transcription - Data Packets**
+
+Okay, so the user wants me to transcribe page 4 of this exam paper. Let's see, the focus here is all about data packets and network transmission. The questions are straightforward, nothing too tricky, but let's make sure we get them down perfectly.
+
+The main question is about data packet transmission. The prompt states the setup: "Data packets are transmitted across a network from one computer to another computer." Then, there are three sub-questions.
+
+First, question "4a" is simple enough: "Describe the structure of a data packet."
+
+Next, in "4b" we are tasked to think about: "Packet switching is used to transmit the data packets across the network. Identify the device that controls which path is taken by each data packet."
+
+Finally, we arrive at "4c" and it reads: "Serial data transmission is used to transmit the data packets across the network. Explain why serial data transmission is used to transmit the data packets."
+
+Just to be absolutely certain, I'm checking the prefixes. Yes, (a), (b), (c) – all correct. I need to strip those for the final transcription and just get the core questions. Perfect! Now, I need to represent this in YAML, so I have a clean and structured output for the user.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      Data packets are transmitted across a network from one computer to another computer.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Describe the structure of a data packet.
+  - number: "4b"
+    type: short_answer
+    text: |
+      Packet switching is used to transmit the data packets across the network.
+
+      Identify the device that controls which path is taken by each data packet.
+  - number: "4c"
+    type: long_answer
+    text: |
+      Serial data transmission is used to transmit the data packets across the network.
+
+      Explain why serial data transmission is used to transmit the data packets.
+```

@@ -1,0 +1,23 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      The beam is $0.80\text{ m}$ above horizontal ground.
+
+      Object A is removed and replaced by a spring connected to the ground and the beam, as shown in Fig. 2.2.
+
+      After the change, the beam is again horizontal and in equilibrium. The positions of B and C are unchanged.
+
+      The spring has an unstretched length of $0.59\text{ m}$ and obeys Hooke’s law.
+  - number: "2ci"
+    type: calculation
+    text: |
+      Calculate the spring constant of the spring.
+
+      spring constant = \hrulefill $\text{N}\,\text{m}^{-1}$
+  - number: "2cii"
+    type: calculation
+    text: |
+      Calculate the elastic potential energy of the spring.
+
+      elastic potential energy = \hrulefill $\text{J}$

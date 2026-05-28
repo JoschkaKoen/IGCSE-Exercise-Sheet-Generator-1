@@ -1,0 +1,21 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the equilibrium of a wooden rod.
+
+      Some of the apparatus has been set up for you.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Complete the set-up of the apparatus as shown in Fig. 1.2.
+  - number: "1ai"
+    type: calculation
+    text: |
+      Fig. 1.1 shows the rod with two eyes.
+
+      The distance between the two eyes on the rod is $S$.
+
+      Measure and record $S$.
+
+      $S = \hrulefill$

@@ -1,0 +1,29 @@
+```yaml
+questions:
+  - number: "8c"
+    type: long_answer
+    text: |
+      The program is changed and the record type definition is modified as follows:
+
+      \begin{alltt}
+      TYPE CharacterType
+          DECLARE Player : INTEGER
+          DECLARE Role : STRING
+          DECLARE Name : STRING
+          DECLARE Level : INTEGER
+          DECLARE Status : BOOLEAN
+      ENDTYPE
+      \end{alltt}
+
+      Describe how the additional Boolean field may be stored with the rest of the fields on one line of a text file.
+  - number: "8d"
+    type: long_answer
+    text: |
+      The save operation is to be extended so that multiple files may be saved as the game progresses. This will allow the user to restore the game from any saved position. The filename must reflect the sequence in which the files are saved.
+
+      Describe a method that would allow multiple files to be saved \textbf{and} give an example of \textbf{two} consecutive filenames.
+
+      Method \hrulefill
+
+      Example \hrulefill
+```

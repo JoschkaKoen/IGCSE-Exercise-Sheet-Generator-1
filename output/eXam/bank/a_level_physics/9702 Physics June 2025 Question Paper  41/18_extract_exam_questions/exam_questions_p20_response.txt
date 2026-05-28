@@ -1,0 +1,50 @@
+[thinking]
+**Exam Page 20 Transcription - Detailed Breakdown**
+
+Okay, so the user wants me to transcribe page 20 of the exam paper. Right, let's break this down systematically. I see question 10 is the main one on this page. Initially, I thought it might have a general context section, but it seems that isn't the case. "10 (a) State Hubble's law." is the first actual part. So, it looks like "10" is just a header, and we don't need to put text there.
+
+Looking at the structure, we have question 10, then the subsections: 10a, 10b, 10bi, 10bii, and 10biii. Each subsection is a "short_answer" or "calculation". The breakdown of the questions is:
+
+*   10: (Empty, it seems, just a header)
+*   10a: "State Hubble’s law."
+*   10b: This section describes a star in a distant galaxy emitting radiation at $4.62 \times 10^{-7}\text{ m}$, and observed on Earth at $4.91 \times 10^{-7}\text{ m}$.
+*   10bi: "Explain why the observed wavelength and the emitted wavelength have different values."
+*   10bii: Requires a calculation of the star's speed relative to Earth. The format requires "speed = \hrulefill $\text{m}\,\text{s}^{-1}$".
+*   10biii: "The wavelength of maximum intensity of emission is used to determine a value for the surface temperature of the star.\n\nExplain how the temperature determined using the observed wavelength compares with the true value of temperature determined using the emitted wavelength."
+
+I've double-checked the formatting, especially the scientific notation and the units. The formatting for the answer box in 10bii is good to go: "speed = \hrulefill $\text{m}\,\text{s}^{-1}$". Now, I'm ready to move on.
+
+
+
+[/thinking]
+
+questions:
+  - number: "10"
+    type: short_answer
+    text: ''
+  - number: "10a"
+    type: short_answer
+    text: |
+      State Hubble’s law.
+  - number: "10b"
+    type: short_answer
+    text: |
+      A star in a distant galaxy emits radiation that has a maximum intensity of emission at a wavelength of $4.62 \times 10^{-7}\text{ m}$.
+
+      Observations of the galaxy made on the Earth detect the maximum intensity of emission from the star at a wavelength of $4.91 \times 10^{-7}\text{ m}$.
+  - number: "10bi"
+    type: short_answer
+    text: |
+      Explain why the observed wavelength and the emitted wavelength have different values.
+  - number: "10bii"
+    type: calculation
+    text: |
+      Calculate the speed of the star relative to the Earth.
+
+      speed = \hrulefill $\text{m}\,\text{s}^{-1}$
+  - number: "10biii"
+    type: short_answer
+    text: |
+      The wavelength of maximum intensity of emission is used to determine a value for the surface temperature of the star.
+
+      Explain how the temperature determined using the observed wavelength compares with the true value of temperature determined using the emitted wavelength.

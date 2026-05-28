@@ -1,0 +1,59 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      The procedure \texttt{StoreData()}:
+
+      \begin{itemize}
+      \item takes \textbf{two} parameters: a 1D array \texttt{DataToStore} and a filename
+      \item opens the text file with the filename that is passed as a parameter
+      \item appends each item of data from \texttt{DataToStore} to a new line in the text file
+      \item uses exception handling when opening and writing data to the text file.
+      \end{itemize}
+
+      Write program code for \texttt{StoreData()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.
+  - number: "2d"
+    type: short_answer
+    text: |
+      Each of the six colours has a blank text file where the numbers will be stored. The names of these six text files are:
+
+      \begin{itemize}
+      \item Blue.txt
+      \item Green.txt
+      \item Orange.txt
+      \item Pink.txt
+      \item Red.txt
+      \item Yellow.txt
+      \end{itemize}
+
+      The procedure \texttt{SplitData()} needs amending to call \texttt{StoreData()} six times, with each of the six colour arrays and the name of the text file that corresponds to that colour.
+
+      For example, \texttt{StoreData()} will be called with the red array and the file name "Red.txt"
+
+      Write program code to amend \texttt{SplitData()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{2(d)} in the evidence document.
+  - number: "2e"
+    type: short_answer
+    text: |
+      The main program calls \texttt{ReadData()} and then \texttt{SplitData()}
+  - number: "2ei"
+    type: short_answer
+    text: |
+      Write program code for the main program.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{2(e)(i)} in the evidence document.
+  - number: "2eii"
+    type: short_answer
+    text: |
+      Test your program. Input the text "TheData.txt" when prompted.
+
+      Take a screenshot of the output(s) and a screenshot showing the content of the file that stores the red numbers.
+
+      Save your program.
+      Copy and paste the screenshot(s) into part \textbf{2(e)(ii)} in the evidence document.

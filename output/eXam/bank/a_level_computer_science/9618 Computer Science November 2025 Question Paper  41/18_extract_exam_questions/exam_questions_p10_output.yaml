@@ -1,0 +1,43 @@
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      The procedure \texttt{InitialiseHashTable()} initialises each element in the array to an empty or null record.
+
+      Write program code to declare the global 2D array \texttt{HashTable} and the procedure \texttt{InitialiseHashTable()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(b)} in the evidence document.
+  - number: "3c"
+    type: short_answer
+    text: |
+      The function \texttt{Hash()}:
+
+      \begin{itemize}
+      \item takes an integer key field as a parameter
+      \item calculates and returns the hash value of the key field.
+      \end{itemize}
+
+      The hash value is the result from the formula: \texttt{key MOD 100}
+
+      Write program code for \texttt{Hash()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(c)} in the evidence document.
+  - number: "3d"
+    type: short_answer
+    text: |
+      The procedure \texttt{InsertData()}:
+
+      \begin{itemize}
+      \item takes an object of type \texttt{Record} as a parameter
+      \item calculates the hash value for the parameter using the appropriate function
+      \item stores the parameter in the correct position in \texttt{HashTable}
+      \end{itemize}
+
+      You can assume there will be no more than 10 objects that generate the same hash value.
+
+      Write program code for \texttt{InsertData()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(d)} in the evidence document.

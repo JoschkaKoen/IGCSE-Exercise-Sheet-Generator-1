@@ -1,0 +1,20 @@
+[thinking]
+**Transcribing Question 7a**
+
+Okay, the user wants me to extract and format question "7a" from this image. Let's see... the text clearly states, "(a) Write pseudocode for module CustomerOrder()". Right, easy enough. I need to strip the "(a)" prefix, leaving me with "Write pseudocode for module CustomerOrder()".
+
+Hang on, the font for "CustomerOrder()" looks like a monospace font in the image. Best to represent that accurately. Let's wrap that module name in the `\texttt{}` tag, resulting in `\texttt{CustomerOrder()}`. That’s much better.
+
+Now, as an expert, I recognize this is a `long_answer` question. No need for specific answer lines or markers here, it's an open-ended pseudocode task. The user can simply provide their solution on blank lines.
+
+Alright, time to construct that YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7a"
+    type: long_answer
+    text: |
+      Write pseudocode for module \texttt{CustomerOrder()}

@@ -1,0 +1,56 @@
+[thinking]
+**Analyzing Exam Question Transcription**
+
+Okay, so I need to transcribe questions from page 7 of this exam. The first snag is "2d". The YAML stub lists "2d", "2di", and "2dii", but on the page itself, I only see "(d) (i)" and "(ii)". Where's "2d"? Is it a parent question or a stub error? Let's check the stub again.
+
+The stub shows:
+
+```yaml
+questions:
+  - number: "2d"
+    type: short_answer
+    text: ""
+  - number: "2di"
+    type: calculation
+    text: ""
+  - number: "2dii"
+    type: short_answer
+    text: ""
+```
+
+I don't see "2d" anywhere, just "(d) (i)" and "(ii)". But wait, "(d)" is the heading for the sub-questions "(i)" and "(ii)". Let me see if there's any text explicitly for just "2d". Nope, it goes straight into "(d) (i)".
+
+Now, the instructions are clear: if a stub entry's stem (the text for the question) isn't on the page, it's a stub-generation bug. I *must* emit a `STUB ERROR` in a block scalar to alert QA. The rule is, "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess." So for "2d", I *have* to write `STUB ERROR`.
+
+I'm double-checking. The page content starts with "(d) (i) Use your answer in (c)(ii) to calculate the average gravitational force..." There's no separate "(d)" text, just combined with "(i)". Therefore, "2d" has no visible stem and I'm sure I have to write `STUB ERROR` in the YAML.
+
+So, for "2d" it's: `STUB ERROR`.
+
+Now, I'll transcribe "2di":
+`text: |`
+`Use your answer in (c)(ii) to calculate the average gravitational force between adjacent molecules in hydrogen gas.`
+`\n\naverage force = \hrulefill N`
+
+And for "2dii":
+`text: |`
+`By considering the weight of a molecule, suggest with a reason whether your answer in (d)(i) is consistent with the assumption of the kinetic theory of gases that there are no forces exerted between molecules.`
+
+
+
+[/thinking]
+
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2di"
+    type: calculation
+    text: |
+      Use your answer in (c)(ii) to calculate the average gravitational force between adjacent molecules in hydrogen gas.
+
+      average force = \hrulefill N
+  - number: "2dii"
+    type: short_answer
+    text: |
+      By considering the weight of a molecule, suggest with a reason whether your answer in (d)(i) is consistent with the assumption of the kinetic theory of gases that there are no forces exerted between molecules.

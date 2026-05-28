@@ -1,0 +1,66 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, the user wants me to extract and present questions 13 and 14 from the image. Let's get this right. I'll focus on clarity and accuracy.
+
+For Question 13, I see a scenario involving a uniform rod attached to a wall via a hinge, supported horizontally by a wire, and in equilibrium. The question is specifically asking about the *direction* of the force exerted on the rod by the hinge. I need to make sure I represent the multiple-choice options accurately. Let me rephrase the options to avoid any potential ambiguity:
+
+*   A: arrow pointing upwards
+*   B: arrow pointing downwards
+*   C: arrow pointing downwards and leftwards
+*   D: arrow pointing upwards and rightwards
+
+Alright, that should be clear.
+
+Now, for Question 14. We have a couple being applied to a tap, which, being an expert in this field, I assume the user already understands, so I don't need to provide additional context. The question is asking for the torque of the couple. The multiple-choice options seem straightforward, presenting different multiples of "Fd", so I should transcribe them as-is:
+
+*   A: $\frac{Fd}{2}$
+*   B: $Fd$
+*   C: $2Fd$
+*   D: $4Fd$
+
+Hopefully, this format is what the user is looking for and it meets the standard they have come to expect.
+
+
+
+[/thinking]
+
+questions:
+  - number: "13"
+    type: multiple_choice
+    text: |
+      A uniform rod is attached by a hinge at one end to a wall. The other end of the rod is supported by a wire so that the rod is horizontal and in equilibrium.
+
+      Which arrow shows the direction of the force on the rod from the hinge?
+    options:
+      - letter: A
+        text: |
+          an arrow pointing vertically upwards
+      - letter: B
+        text: |
+          an arrow pointing vertically downwards
+      - letter: C
+        text: |
+          an arrow pointing diagonally downwards and to the left
+      - letter: D
+        text: |
+          an arrow pointing diagonally upwards and to the right
+  - number: "14"
+    type: multiple_choice
+    text: |
+      A couple is applied to a tap, as shown.
+
+      What is the torque of the couple?
+    options:
+      - letter: A
+        text: |
+          $\frac{Fd}{2}$
+      - letter: B
+        text: |
+          $Fd$
+      - letter: C
+        text: |
+          $2Fd$
+      - letter: D
+        text: |
+          $4Fd$

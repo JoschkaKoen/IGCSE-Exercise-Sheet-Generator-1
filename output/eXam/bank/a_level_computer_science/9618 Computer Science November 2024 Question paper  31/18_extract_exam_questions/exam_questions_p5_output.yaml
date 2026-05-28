@@ -1,0 +1,18 @@
+
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: long_answer
+    text: |
+      Describe the user-defined data type \textbf{set}.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} statements to declare the set data type, \texttt{SymbolSet}, to hold the following set of mathematical operators, using the variable \texttt{Operators}.
+
+      $$+ \quad - \quad * \quad / \quad \wedge$$
+```

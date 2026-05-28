@@ -1,0 +1,35 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A database table called \texttt{SoftDrinks} stores details of the soft drinks sold by a small shop.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Example data}} \\ \hline
+      \texttt{Name} & Cola \\ \hline
+      \texttt{Supplier} & Cambridge Beverages \\ \hline
+      \texttt{Container} & Can \\ \hline
+      \texttt{SizeCl} & 330 \\ \hline
+      \texttt{NumberInStock} & 30 \\ \hline
+      \texttt{ReorderLevel} & 15 \\ \hline
+      \texttt{Reordered} & Yes \\ \hline
+      \end{tabular}
+  - number: "9a"
+    type: short_answer
+    text: |
+      State whether any of the given fields would be suitable as a primary key and give a reason for your answer.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Complete the structured query language (SQL) statement to return the number of cans the shop has in stock.
+
+      \begin{alltt}
+      SELECT \underline{\hspace{1.5em}} ( \underline{\hspace{1.5em}} )
+
+      FROM \underline{\hspace{1.5em}}
+
+      WHERE \underline{\hspace{1.5em}} = \underline{\hspace{1.5em}} ;
+      \end{alltt}
+```

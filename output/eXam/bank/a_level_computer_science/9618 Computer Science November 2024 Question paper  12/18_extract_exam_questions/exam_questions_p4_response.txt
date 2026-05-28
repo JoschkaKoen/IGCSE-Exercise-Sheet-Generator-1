@@ -1,0 +1,52 @@
+[thinking]
+**Exam Page 4 Transcription: A Deep Dive**
+
+Okay, so the task is to transcribe page 4 of this exam. The instructions are clear – I need to ensure the structure and content are accurately represented, especially regarding the tables.
+
+First, I see the prompt is straightforward: "3": "A student has a computer." Followed by "3a": "The computer is designed using the Von Neumann model for a computer system. Complete the table by describing the purpose of each of the given registers." Pretty standard.
+
+Now for the core of the problem: the table. I need to be careful with how I represent this. It's a classic Von Neumann architecture question. The table lists registers – Program Counter (PC), Memory Address Register (MAR), Memory Data Register (MDR), and Index Register (IX) – and the candidates need to fill in the "Purpose" column. It's crucial I get the formatting right.
+
+The instructions specify that tables with *content* in the cells need to be kept verbatim. I read each cell: the first column clearly contains labels (register names), not just blank lines. Therefore, this is a "content table" and should be kept as-is, using LaTeX's tabular environment. I need to ensure the table structure is maintained.
+
+I've got to be extra careful with blank spaces. The instructions explicitly forbid using `\dotfill` or `\hspace` to represent blank answer spaces. So, I need to keep the second column empty, which is what the instructions advise. I'll just represent the `\begin{tabular}` environment as it is in the original document, including column widths and the appropriate separators.
+
+So, here's the LaTeX table structure:
+```latex
+\begin{tabular}{|p{4cm}|p{8cm}|}
+\hline
+\textbf{Register} & \textbf{Purpose} \\ \hline
+Program Counter (PC) & \\ \hline
+Memory Address Register (MAR) & \\ \hline
+Memory Data Register (MDR) & \\ \hline
+Index Register (IX) & \\ \hline
+\end{tabular}
+```
+I've also quickly double-checked the column count to make sure it's consistent across all rows. It's crucial for the LaTeX to compile correctly, so it's a good practice. Each row has two columns, matching the header, and the LaTeX is correct.
+
+Now I'm ready to move on to the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A student has a computer.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The computer is designed using the Von Neumann model for a computer system.
+
+      Complete the table by describing the purpose of each of the given registers.
+
+      \begin{tabular}{|p{4cm}|p{8cm}|}
+      \hline
+      \textbf{Register} & \textbf{Purpose} \\ \hline
+      Program Counter (PC) & \\ \hline
+      Memory Address Register (MAR) & \\ \hline
+      Memory Data Register (MDR) & \\ \hline
+      Index Register (IX) & \\ \hline
+      \end{tabular}

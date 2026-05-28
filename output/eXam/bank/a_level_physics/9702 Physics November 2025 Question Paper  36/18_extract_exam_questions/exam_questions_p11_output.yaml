@@ -1,0 +1,23 @@
+questions:
+  - number: "2g"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2gi"
+    type: long_answer
+    text: |
+      Describe four sources of uncertainty or limitations of the procedure for this experiment. For any uncertainties in measurement that you describe, you should state the quantity being measured and a reason for the uncertainty.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "2gii"
+    type: long_answer
+    text: |
+      Describe four improvements that could be made to this experiment. You may suggest the use of other apparatus or different procedures.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill

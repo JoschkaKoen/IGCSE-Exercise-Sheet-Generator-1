@@ -1,0 +1,44 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A program contains a global 1D array \texttt{Data} with 100 elements of type \texttt{INTEGER}.
+
+      The program contains a function \texttt{Process()} expressed in pseudocode as follows:
+
+      \begin{alltt}
+      FUNCTION Process(Number : INTEGER, Label : STRING) RETURNS STRING
+          DECLARE Index, Count : INTEGER
+          DECLARE ReturnValue : STRING
+
+          Count <- INT(100 / Number)
+          Index <- Data[Number]
+
+          CASE OF (Index MOD 2)
+              0 : ReturnValue <- TO_UPPER(RIGHT(Label, Count))
+              1 : ReturnValue <- "*****"
+          ENDCASE
+
+          RETURN ReturnValue
+      ENDFUNCTION
+      \end{alltt}
+  - number: "5a"
+    type: long_answer
+    text: |
+      Run-time errors can be generated in different ways. For example, a run-time error will be generated if a function is called with invalid parameters.
+
+      The pseudocode contains three statements that could generate a run-time error.
+
+      Write the three statements \textbf{and} explain how each could generate a run-time error.
+
+      Statement 1 \hrulefill
+
+      Explanation \hrulefill
+
+      Statement 2 \hrulefill
+
+      Explanation \hrulefill
+
+      Statement 3 \hrulefill
+
+      Explanation \hrulefill

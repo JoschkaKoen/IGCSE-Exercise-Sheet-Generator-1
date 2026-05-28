@@ -1,0 +1,9 @@
+questions:
+  - number: "1aii"
+    type: calculation
+    text: |
+      Calculate $Z$, where
+
+      $$Z = \frac{W}{\sqrt{(N^2 + W^2)}}.$$
+
+      $Z = \hrulefill$

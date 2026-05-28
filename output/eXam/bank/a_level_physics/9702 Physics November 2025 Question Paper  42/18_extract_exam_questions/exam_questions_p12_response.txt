@@ -1,0 +1,32 @@
+[thinking]
+**Exam Page 12: Question Breakdown**
+
+Okay, so I need to get this exam page transcribed. Looks like it's focused on simple harmonic motion, specifically dealing with a steel ball oscillating on a string. My task is to format the questions for the transcription.
+
+First, I see question "5": "A steel ball on the end of a thin string oscillates with small oscillations, as shown in Fig. 5.1." That's the setup, pretty straightforward. It's just establishing the system.
+
+Next is question "5a": "The displacement of the centre of the ball from its equilibrium position is *x*. Fig. 5.2 shows the variation with *x* of the acceleration *a* of the ball." This introduces the variables, displacement (*x*) and acceleration (*a*), and highlights the visual representation in a graph (Fig 5.2).
+
+Finally, question "5ai": "Explain how Fig. 5.2 shows that the oscillations of the ball are simple harmonic." This is the core question; it wants me to relate the visual data from Fig 5.2 to the properties of Simple Harmonic Motion. I need to explain the connection between the graph and SHM.
+
+I'll be mindful of the figures (5.1 and 5.2), but the instructions say to omit them in the text. I also need to strip the subquestion prefixes "(a)" and "(i)". Now, I'm ready to create the formatted YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A steel ball on the end of a thin string oscillates with small oscillations, as shown in Fig. 5.1.
+  - number: "5a"
+    type: short_answer
+    text: |
+      The displacement of the centre of the ball from its equilibrium position is $x$.
+
+      Fig. 5.2 shows the variation with $x$ of the acceleration $a$ of the ball.
+  - number: "5ai"
+    type: short_answer
+    text: |
+      Explain how Fig. 5.2 shows that the oscillations of the ball are simple harmonic.

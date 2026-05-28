@@ -447,6 +447,7 @@ def subject_grid() -> list[dict]:
                 "slug": slug,
                 "display": _NAMES.get(slug) or slug.replace("_", " ").title(),
                 "available": subject_has_papers(slug),
+                "level": "a_level" if slug.startswith("a_level_") else "igcse",
             }
         )
     return out

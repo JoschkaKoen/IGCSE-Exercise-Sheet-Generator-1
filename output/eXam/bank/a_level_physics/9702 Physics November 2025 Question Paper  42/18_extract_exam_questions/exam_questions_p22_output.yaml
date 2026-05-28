@@ -1,0 +1,20 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "10a"
+    type: short_answer
+    text: |
+      State what is meant by contrast in an X-ray image.
+  - number: "10b"
+    type: short_answer
+    text: |
+      X-rays of intensity $I_0$ are incident normally on a structure, as shown in Fig. 10.1.
+
+      Material P has a linear attenuation coefficient of $0.35\text{ cm}^{-1}$.
+      The X-rays emerging from the structure in region A have an intensity of $0.053I_0$.
+  - number: "10bi"
+    type: calculation
+    text: |
+      Show that the intensity of the X-rays emerging in region B is $0.13I_0$.

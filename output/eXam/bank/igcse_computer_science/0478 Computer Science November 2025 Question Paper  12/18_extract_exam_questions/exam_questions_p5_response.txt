@@ -1,0 +1,44 @@
+[thinking]
+**Exam Page 5 Transcription**
+
+Okay, so the task is to transcribe page 5 of this exam, which I understand is a straightforward process of formatting the questions into a YAML structure. This exam focuses on computer architecture, specifically the Von Neumann model and CPU design. Let me break down the questions.
+
+First, question "4" sets the stage: *“A computer with a Von Neumann architecture has a central processing unit (CPU) that performs the fetch-decode-execute (FDE) cycle.”* That's just a definition, a given.
+
+Then we have question "4a". It's asking for completion and annotation of a diagram that illustrates instruction decoding and execution. The diagram itself isn't provided, so I will represent the components as text. The key components are the control unit (CU) and the arithmetic logic unit (ALU), which I'll format simply as text within the YAML.
+
+Next, "4b" is straightforward: *“The CPU is dual core and has a processor speed of 2.4 GHz. Describe what is meant by a core.”* Pretty basic stuff.
+
+Finally, question "4c" asks for a more in-depth explanation: *“Explain **two** ways that the performance of the CPU could be increased.”* This requires a more detailed response, given the "long_answer" designation.
+
+I've made sure to handle the math formatting correctly – `$2.4\text{ GHz}$` is the right way to represent the frequency. Now I'll generate the YAML code.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A computer with a Von Neumann architecture has a central processing unit (CPU) that performs the fetch–decode–execute (FDE) cycle.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Complete and annotate the diagram to show how instructions are decoded and executed.
+
+      control unit (CU)
+
+      arithmetic logic unit (ALU)
+  - number: "4b"
+    type: short_answer
+    text: |
+      The CPU is dual core and has a processor speed of $2.4\text{ GHz}$.
+
+      Describe what is meant by a core.
+  - number: "4c"
+    type: long_answer
+    text: |
+      Explain \textbf{two} ways that the performance of the CPU could be increased.
+```

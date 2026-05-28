@@ -1,0 +1,87 @@
+[thinking]
+**Examining the Transcription Task**
+
+Okay, here's what I've got. The user wants me to transcribe page 10 of an exam paper. The specific questions on this page are: "2b," "2c," "2d," and "2di."
+
+Let's break down each question to make sure the structure is correct for each section.
+
+**2b:** This looks like a straightforward calculation and measurement exercise. The student is instructed to:
+
+*   Measure and record the length, *L*, of a wire between points P and Q, with an accompanying answer line.
+*   Close a switch.
+*   Measure and record the potential difference, *V*, across an LED using a voltmeter, with an answer line.
+*   Measure and record the resistance, *R*, of an LDR using an ohmmeter, with an answer line.
+*   Open the switch.
+
+**2c:** Similar to 2b, it is also a calculation. The student is told to:
+
+*   Change the wire length, *L*, to approximately 90cm.
+*   Repeat the measurements as in 2b, with the same answer lines for *L*, *V*, and *R*.
+
+**2d:** This looks like a bit of theory and short-answer component. The problem suggests a relationship between *V*, *d*, and *R*:
+
+$$V = \frac{Zd}{R} + k$$
+
+where *Z* is given as $1.00 \times 10^3 \text{ V}\,\Omega\,\text{m}^{-1}$ and *k* is a constant.
+
+**2di:** This section is a calculation, building on 2d. The student must:
+
+*   Use their measured data to calculate two values of *k*, with two answer lines provided.
+
+I'm checking the formatting rules to be exact, so it all fits the correct structure. I'm noting that the values need to be followed by the appropriate fill rule:  `\hrulefill`. Also, I'm noting that Math is wrapped in `$ ... $` or `$$ ... $$` and that there are no double quotes around non-empty string fields. I think I've got it. I'm ready to produce the YAML format now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      The length of wire W between P and Q is $L$.
+
+      Measure and record $L$.
+
+      $L = $ \hrulefill
+
+      Close the switch.
+
+      The potential difference $V$ across the LED is given by the voltmeter.
+
+      The resistance $R$ of the LDR is given by the ohmmeter.
+
+      Measure and record $V$ and $R$.
+
+      $V = $ \hrulefill
+
+      $R = $ \hrulefill
+
+      Open the switch.
+  - number: "2c"
+    type: calculation
+    text: |
+      Change the length of wire W between P and Q so that $L$ is approximately $90\text{ cm}$.
+
+      Repeat (b).
+
+      $L = $ \hrulefill
+
+      $V = $ \hrulefill
+
+      $R = $ \hrulefill
+  - number: "2d"
+    type: short_answer
+    text: |
+      It is suggested that the relationship between $V$, $d$ and $R$ is
+
+      $$V = \frac{Zd}{R} + k$$
+
+      where $Z$ has the value $1.00 \times 10^3\text{ V}\,\Omega\,\text{m}^{-1}$ and $k$ is a constant.
+  - number: "2di"
+    type: calculation
+    text: |
+      Using your data, calculate \textbf{two} values of $k$.
+
+      first value of $k = $ \hrulefill
+
+      second value of $k = $ \hrulefill

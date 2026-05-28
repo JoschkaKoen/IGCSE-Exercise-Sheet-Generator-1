@@ -1,0 +1,21 @@
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      State the mass and the charge, in terms of the atomic mass unit $u$ and the elementary charge $e$, of an alpha particle.
+
+      mass = \hrulefill $u$
+      charge = \hrulefill $e$
+  - number: "6c"
+    type: short_answer
+    text: |
+      There are two types of hadron.
+      The hadrons that are in alpha particles are each composed of three quarks.
+  - number: "6ci"
+    type: short_answer
+    text: |
+      State the name of this type of hadron.
+  - number: "6cii"
+    type: short_answer
+    text: |
+      Show, by reference to their constituent quarks, that the hadrons in an alpha particle have charges of either zero or $+1e$.

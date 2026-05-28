@@ -1,0 +1,33 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A program needs to make sure the characters input for a product code meet these rules:
+
+      \begin{itemize}
+      \item The product code is six characters in length.
+      \item The first two characters must be "PD".
+      \item The last four characters must be a number in the range 1000 to 9999 inclusive.
+      \end{itemize}
+  - number: "4a"
+    type: short_answer
+    text: |
+      Identify \textbf{three} validation checks and state how each check would make sure the product code met one of these rules.
+
+      Check 1 \hrulefill
+
+      Check 2 \hrulefill
+
+      Check 3 \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      The program design will include a pseudocode algorithm. Assume that the product code is stored in the variable \texttt{Product}
+  - number: "4bi"
+    type: short_answer
+    text: |
+      Write the pseudocode to make sure that the product code is six characters in length.
+  - number: "4bii"
+    type: short_answer
+    text: |
+      Write the pseudocode to make sure that the first two characters of the product code are "PD".

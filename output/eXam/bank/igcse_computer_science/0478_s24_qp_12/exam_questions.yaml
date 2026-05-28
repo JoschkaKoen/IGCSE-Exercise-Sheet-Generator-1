@@ -1,0 +1,581 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data can be measured in bits.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the name of the data storage measurement that is equal to 8 bits.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State how many bits there are in a kibibyte (KiB).
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the name of the data storage measurement that is equal to 1024 gibibytes
+      (GiB).
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'A 16-bit colour image has a resolution of 512 pixels wide by 512 pixels
+      high.
+
+
+      Calculate the file size of the image in kibibytes (KiB). Show all your working.
+
+
+      Answer \hrulefill KiB'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data can be transmitted from one device to another.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: multiple_choice
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) one box to show which of the terms is \textbf{not} a
+      method for transmitting data.
+    answer_options:
+    - letter: A
+      text: serial
+    - letter: B
+      text: simplex
+    - letter: C
+      text: parallel
+    - letter: D
+      text: parity
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Data is broken down into smaller units to be transmitted from one device
+      to another.
+
+
+      Give the name of the unit that data is broken down into.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Data is often encrypted when it is transmitted from one device to another.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Explain how data is encrypted using symmetric encryption.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the purpose of encryption.
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Binary is a base 2 number system.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the name of the number system that is base 16.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Three denary numbers are entered into a computer. The computer converts
+      the numbers and stores them as binary.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Give the binary number that would be stored for each of the denary numbers.
+
+
+        10 \hrulefill
+
+        50 \hrulefill
+
+        201 \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain why the data is converted to binary by the computer.
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The two binary integers 00110000 and 01100110 are added together.
+
+
+      Add the binary integers using binary addition and show your answer in binary.
+      Show all your working.'
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The denary integer $-32$ is stored as a two''s complement integer.
+
+
+      Calculate the two''s complement integer that would be stored.
+
+
+      Show all your working.'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student uses both system software and application software on their computer.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} example of system software.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} examples of application software.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the difference between system software and application software.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Instructions are processed by a central processing unit (CPU) in a computer.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'Complete the paragraph about fetching an instruction into the CPU to be
+      processed.
+
+
+      Use the terms from the list.
+
+
+      Some of the terms in the list will \textbf{not} be used. You should only use
+      a term once.
+
+
+      \begin{itemize}
+
+      \item address
+
+      \item arithmetic logic unit (ALU)
+
+      \item binary
+
+      \item control unit (CU)
+
+      \item current instruction register (CIR)
+
+      \item data
+
+      \item denary
+
+      \item driver
+
+      \item fetch
+
+      \item interrupt
+
+      \item memory address register (MAR)
+
+      \item memory data register (MDR)
+
+      \item random access memory (RAM)
+
+      \item read only memory (ROM)
+
+      \item secondary storage
+
+      \item signal
+
+      \end{itemize}
+
+
+      The program counter contains the \underline{\hspace{1.5em}} of the next instruction
+      to be processed; this is then sent to the \underline{\hspace{1.5em}} using the
+      address bus. The address is then sent to the \underline{\hspace{1.5em}}.
+
+
+      Once the address is received, the instruction stored at the location is sent
+      to the \underline{\hspace{1.5em}}, using the \underline{\hspace{1.5em}} bus.
+      The instruction is then sent to the \underline{\hspace{1.5em}} that is built
+      into the \underline{\hspace{1.5em}}.'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The CPU uses an instruction set to decode the instruction.
+
+
+      State what is meant by an instruction set.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: 'The table contains statements about error detection methods.
+
+
+    Complete the table by giving the correct error detection method for each statement.
+
+
+    \begin{tabular}{|p{6cm}|p{8cm}|}
+
+    \hline
+
+    \textbf{error detection method} & \textbf{statement} \\ \hline
+
+    \hrulefill & An odd or even process can be used. \\ \hline
+
+    \hrulefill & A value is calculated from the data, using an algorithm. This happens
+    before and after the data is transmitted. \\ \hline
+
+    \hrulefill & A copy of the data is sent back to the sender by the receiver. \\
+    \hline
+
+    \hrulefill & Acknowledgement and timeout are used. \\ \hline
+
+    \hrulefill & A value is appended to data that has been calculated using the data.
+    This value is checked on data entry. \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer has both a media access control (MAC) address and an internet protocol
+    (IP) address.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: multiple_choice
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) \textbf{one} box to show which of the statements is
+      correct about the MAC address.
+    answer_options:
+    - letter: A
+      text: It is assigned by the manufacturer.
+    - letter: B
+      text: It is assigned by a router.
+    - letter: C
+      text: It can be static or dynamic.
+    - letter: D
+      text: It is made up of three different parts.
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: An IP address can have an IPv4 or IPv6 format.
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give an example of an IP address that has an IPv4 format.
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} characteristics of the IPv6 format.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A company has a website that is suffering a distributed denial of service
+    (DDoS) attack.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Draw and annotate a diagram to show the process of the DDoS.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify a solution that can be used to help prevent the DDoS attack being
+      successful.
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A company uses both solid-state and optical secondary storage.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain why a computer needs secondary storage.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Describe \textbf{three} differences between solid-state and optical storage.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A garage uses an expert system to help diagnose any problems with cars that
+    need repair.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The expert system is an example of artificial intelligence (AI).
+
+
+      Describe what is meant by AI.'
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'A car has a problem with its braking system, so it is brought into the
+      garage.
+
+
+      Explain how the expert system operates and how it is used to help diagnose the
+      problem.'
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A company has a website. Users use the internet and the world wide web to
+    access the website.
+  answer_options: []
+  subquestions:
+  - number: 11a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the difference between the internet and the world wide web.
+    answer_options: []
+    subquestions: []
+  - number: 11b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The website has a uniform resource locator (URL). The URL has three different
+      parts.
+
+
+      Identify the \textbf{three} different parts that are included in the URL.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 11c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'One function of a web browser is to provide an address bar for a user to
+      enter a URL.
+
+
+      Give \textbf{three} other functions of a web browser.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []

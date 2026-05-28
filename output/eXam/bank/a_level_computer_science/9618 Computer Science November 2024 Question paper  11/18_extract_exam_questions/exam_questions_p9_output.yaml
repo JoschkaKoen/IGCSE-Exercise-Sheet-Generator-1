@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A student uses a laptop to write a program that is saved as a text file.
+  - number: "4a"
+    type: short_answer
+    text: |
+      The laptop has utility software and an Operating System (OS).
+  - number: "4ai"
+    type: short_answer
+    text: |
+      Describe the file management tasks carried out by an OS.
+  - number: "4aii"
+    type: short_answer
+    text: |
+      Explain the need for back-up software.
+  - number: "4b"
+    type: short_answer
+    text: |
+      The student compresses the file before it is emailed to their teacher as an attachment.
+  - number: "4bi"
+    type: long_answer
+    text: |
+      Explain the benefits to the teacher of the attachment being a compressed file.
+  - number: "4bii"
+    type: long_answer
+    text: |
+      Describe \textbf{one} lossless method of compressing a text file.
+```

@@ -1,0 +1,44 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      An algorithm has been written in pseudocode to check if a temperature is in a given range.
+      The temperature values used in the algorithm are correct.
+
+      \begin{alltt}
+      01 REPEAT
+      02     OUTPUT "Please enter temperature "
+      03     INPUT Temp
+      04     IF Temperature = 999
+      05     THEN
+      06         IF Temperature > 38.0
+      07         THEN
+      08             OUTPUT "Temperature too high"
+      09         ENDIF
+      10         IF Temperature < 35.0
+      11         THEN
+      12             OUTPUT "Temperature too low"
+      13         ENDIF
+      14         IF Temperature >= 35.0 OR Temperature <= 38.0
+      15         THEN
+      16             OUTPUT "Temperature normal"
+      17         ENDIF
+      18     ENDIF
+      19 WHILE Temperature = 999
+      \end{alltt}
+  - number: "9a"
+    type: short_answer
+    text: |
+      Identify the line numbers of \textbf{four} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+      Correction \hrulefill
+
+      Error 2 line number \hrulefill
+      Correction \hrulefill
+
+      Error 3 line number \hrulefill
+      Correction \hrulefill
+
+      Error 4 line number \hrulefill
+      Correction \hrulefill

@@ -1,0 +1,19 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A supermarket wants to start delivering groceries to local elderly people, using robots.
+  - number: "5a"
+    type: long_answer
+    text: |
+      Describe the characteristics of a robot.
+  - number: "5b"
+    type: long_answer
+    text: |
+      Explain \textbf{one} benefit to the supermarket of using robots to deliver groceries to elderly customers.
+  - number: "5c"
+    type: long_answer
+    text: |
+      Explain \textbf{one} drawback to the elderly customers of robots being used to deliver their groceries.
+```

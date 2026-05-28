@@ -1,0 +1,19 @@
+questions:
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Calculate $y$, where
+      $$y = \sqrt{x^2 + \frac{d^2}{4}}.$$
+
+      y = \hrulefill \text{ cm}
+  - number: "2d"
+    type: calculation
+    text: |
+      \begin{itemize}
+      \item Add slotted masses to the mass hanger so that the total mass $M$ is $0.700\text{ kg}$.
+      \item Repeat (b), (c)(i) and (c)(iii).
+      \end{itemize}
+
+      T = \hrulefill \text{ N}
+      x = \hrulefill \text{ cm}
+      y = \hrulefill \text{ cm}

@@ -1,0 +1,17 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A local area network (LAN) has five computers, one switch and one server.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Describe the characteristics of a LAN.
+  - number: "5b"
+    type: short_answer
+    text: |
+      Complete the following diagram to show how these devices are connected in a star topology.
+  - number: "5c"
+    type: long_answer
+    text: |
+      Describe how packets are transmitted between two hosts using a star topology.

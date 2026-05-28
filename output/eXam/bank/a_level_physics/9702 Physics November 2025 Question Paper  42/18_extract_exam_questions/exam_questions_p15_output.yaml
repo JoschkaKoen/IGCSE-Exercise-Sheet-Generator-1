@@ -1,0 +1,15 @@
+questions:
+  - number: "6biv"
+    type: calculation
+    text: |
+      Calculate the electric field strength $E$ at the surface of the sphere. Give a unit with your answer.
+
+      $E = $ \hrulefill unit \hrulefill
+  - number: "6c"
+    type: calculation
+    text: |
+      The sphere in \textbf{(b)} is discharged by connecting it to earth ($0\text{ V}$) through a resistor of resistance $120\text{ M}\Omega$.
+
+      Calculate the time taken for the charge to fall to $26\text{ pC}$.
+
+      $\text{time} = $ \hrulefill s

@@ -1,0 +1,101 @@
+[thinking]
+**Transcribing the Pseudocode for Question 5**
+
+Okay, the task is clear: I need to transcribe question 5 from the provided material. It's a pseudocode question, which means I'll need to pay close attention to the syntax and structure.
+
+First, I need to understand what's being described. I see a global 1D array called `Num` of integers with four elements. The provided program assigns values to these elements: `Num[1] <- 1`, `Num[2] <- 2`, `Num[3] <- 5`, and `Num[4] <- 3`.
+
+Next, there's a procedure called `Process()` that manipulates the array. The core of the question is the pseudocode definition of this procedure. I'll need to transcribe that. I'm noting the assignment arrow is `<-`.
+
+I'll write this up now, ensuring the formatting is consistent with `\begin{alltt}...\end{alltt}`.
+
+```
+\begin{alltt}
+PROCEDURE Process(Start : INTEGER)
+    DECLARE CaseVar, Index, Count : INTEGER
+
+    Index <- Start
+    Count <- 0
+
+    WHILE Count <= 20
+        CaseVar <- Num[Index]
+        CASE OF CaseVar
+            1 : Num[Index] <- Num[Index] + Index //clause one
+                Index <- Index + 1
+                Count <- Count + 1
+
+            2 : Num[Index] <- Num[Index] + Index //clause two
+                Index <- Index + 2
+                Count <- Count + 2
+
+            3 : Num[Index] <- Num[Index] * 2     //clause three
+                Index <- Index + 3
+                Count <- Count - 1
+
+            4 : Count <- Count + 4               //clause four
+            OTHERWISE : Count <- 20
+        ENDCASE
+
+        Index <- (Index MOD 4) + 1
+
+    ENDWHILE
+
+ENDPROCEDURE
+\end{alltt}
+```
+
+I'll double-check this against the original question description to ensure accuracy. Everything appears correct. Now, I've completely transcribed the pseudocode for question 5.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A global 1D array \texttt{Num} of integers contains four elements. A program assigns values to these elements as shown:
+
+      \begin{alltt}
+      Num[1] <- 1
+      Num[2] <- 2
+      Num[3] <- 5
+      Num[4] <- 3
+      \end{alltt}
+
+      A procedure \texttt{Process()} manipulates the values in the array.
+
+      The procedure is written in pseudocode:
+
+      \begin{alltt}
+      PROCEDURE Process(Start : INTEGER)
+          DECLARE CaseVar, Index, Count : INTEGER
+
+          Index <- Start
+          Count <- 0
+
+          WHILE Count <= 20
+              CaseVar <- Num[Index]
+              CASE OF CaseVar
+                  1 : Num[Index] <- Num[Index] + Index //clause one
+                      Index <- Index + 1
+                      Count <- Count + 1
+
+                  2 : Num[Index] <- Num[Index] + Index //clause two
+                      Index <- Index + 2
+                      Count <- Count + 2
+
+                  3 : Num[Index] <- Num[Index] * 2     //clause three
+                      Index <- Index + 3
+                      Count <- Count - 1
+
+                  4 : Count <- Count + 4               //clause four
+                  OTHERWISE : Count <- 20
+              ENDCASE
+
+              Index <- (Index MOD 4) + 1
+
+          ENDWHILE
+
+      ENDPROCEDURE
+      \end{alltt}

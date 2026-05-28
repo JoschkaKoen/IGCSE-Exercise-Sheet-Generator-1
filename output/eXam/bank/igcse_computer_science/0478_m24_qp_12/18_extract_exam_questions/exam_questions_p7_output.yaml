@@ -1,0 +1,7 @@
+questions:
+  - number: "3biii"
+    type: long_answer
+    text: |
+      A processor is currently executing a program. The processor receives an interrupt.
+
+      Explain how the processor manages the current program and the interrupt.

@@ -1,0 +1,27 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the motion of a sphere rolling along a track.
+  - number: "2a"
+    type: calculation
+    text: |
+      You are provided with a length of plastic channel. When the channel is positioned with its open side at the top, it forms a track with a pair of rails along which a sphere can roll.
+
+      The distance between the rails is $x$.
+
+      Measure and record $x$.
+
+      $x =$ \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      Set up the apparatus as shown in Fig. 2.2.
+  - number: "2bi"
+    type: calculation
+    text: |
+      You are provided with two spheres.
+
+      Place the smaller sphere on the track. If necessary, adjust the position of the wooden block until the sphere is able to roll along the full length of the track and into the box.
+
+      Secure the block to the track with a small piece of adhesive putty as shown in Fig. 2.3. \textbf{The block and track must remain in these positions for the rest of the experiment.}

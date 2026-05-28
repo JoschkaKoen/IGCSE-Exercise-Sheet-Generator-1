@@ -1,0 +1,46 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Give \textbf{three} ways of creating a maintainable program.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "2"
+    type: short_answer
+    text: |
+      \textbf{Four} descriptions of programming techniques and \textbf{five} programming techniques are given.
+
+      Draw \textbf{one} line from each description to the relevant technique. \textbf{Not} all techniques will be used.
+
+      \begin{tabular}{p{7cm}p{5cm}}
+      \textbf{Description} & \textbf{Programming technique} \\
+      & \\
+      adding up a set of numbers & output \\
+      & \\
+      displaying the result of a calculation & selection \\
+      & \\
+      executing a set of instructions based on a condition & totalling \\
+      & \\
+      executing the same set of instructions multiple times & iteration \\
+      & \\
+      & counting \\
+      \end{tabular}
+  - number: "3"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to identify the most appropriate data type to store \texttt{'M'}
+    options:
+      - letter: A
+        text: |
+          integer
+      - letter: B
+        text: |
+          char
+      - letter: C
+        text: |
+          real
+      - letter: D
+        text: |
+          Boolean

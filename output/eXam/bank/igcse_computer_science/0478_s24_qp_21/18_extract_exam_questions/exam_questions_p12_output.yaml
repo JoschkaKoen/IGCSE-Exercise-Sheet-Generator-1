@@ -1,0 +1,44 @@
+questions:
+  - number: "10"
+    type: long_answer
+    text: |
+      The one-dimensional (1D) array \texttt{Clubs[]} is used to store the names of 12 cricket clubs in a local sports league.
+
+      The two-dimensional (2D) array \texttt{Statistics[]} is used to store, for each cricket club, the number of:
+      \begin{itemize}
+      \item matches won
+      \item matches drawn
+      \item matches lost.
+      \end{itemize}
+
+      The 1D array \texttt{Points[]} is used to store the total number of points each cricket club has been awarded.
+
+      The position of any cricket club's data is the same in all three arrays. For example, the data in index 2 of \texttt{Statistics[]} and index 2 of \texttt{Points[]} belongs to the cricket club in index 2 of \texttt{Clubs[]}
+
+      The variable \texttt{Matches} stores the number of matches played by each team. Each team plays the same number of matches.
+
+      Points are awarded for:
+      \begin{itemize}
+      \item a win -- 12 points
+      \item a draw -- 5 points
+      \item a loss -- 0 points.
+      \end{itemize}
+
+      Write a program that meets the following requirements:
+      \begin{itemize}
+      \item allows the number of matches played to be input and stored, with a maximum of 22 matches
+      \item validates the number of matches played
+      \item allows the names of the cricket clubs to be input and stored
+      \item allows the number of matches won, drawn and lost to be input and stored for each team
+      \item validates the number of matches won, drawn or lost against the number of matches played
+      \item asks the user to re-enter the number of matches won, drawn or lost if the total does not match the number of matches played
+      \item calculates and stores the total number of points for each club
+      \item finds the cricket club or clubs with the highest number of points
+      \item outputs the name or names of the winning club or clubs, the number of wins and the total number of points awarded.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do \textbf{not} need to declare any arrays or variables; you may assume that this has already been done.
+
+      All inputs and outputs must contain suitable messages.

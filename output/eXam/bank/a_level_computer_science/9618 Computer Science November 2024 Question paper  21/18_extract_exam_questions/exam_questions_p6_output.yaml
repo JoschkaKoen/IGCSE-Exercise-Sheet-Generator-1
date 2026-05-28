@@ -1,0 +1,34 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      An algorithm will output the \textbf{last} three lines from a text file \texttt{Result.txt}
+
+      The lines need to be output in the same order as they appear in the file.
+
+      Assume:
+      \begin{itemize}
+      \item Three variables \texttt{LineX}, \texttt{LineY} and \texttt{LineZ} will store the three lines. These are of type string and all three variables have been initialised to an empty string.
+      \item The file exists and contains \textbf{at least} three lines.
+      \end{itemize}
+  - number: "3a"
+    type: short_answer
+    text: |
+      The algorithm to output the lines is expressed in eight steps.
+
+      Complete the steps.
+
+      1. Open the file \hrulefill
+      2. Loop until \hrulefill
+      3. \hrulefill and store in \texttt{ThisLine}
+      4. Assign \texttt{LineY} to \texttt{LineX}
+      5. Assign \texttt{LineZ} to \texttt{LineY}
+      6. Assign \texttt{ThisLine} to \texttt{LineZ}
+      7. After the loop, \hrulefill
+      8. Output \texttt{LineX}, \texttt{LineY}, \texttt{LineZ}
+  - number: "3b"
+    type: short_answer
+    text: |
+      Explain the purpose of steps 4, 5 and 6 in the algorithm from part (a).
+```

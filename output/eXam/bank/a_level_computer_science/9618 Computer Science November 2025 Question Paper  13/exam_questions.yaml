@@ -1,0 +1,720 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student creates sound recordings.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Making changes to a sound recording may impact the accuracy of the resulting
+      sound file or the size of the file.
+
+
+      Draw \textbf{two} lines from each change to the impacts it has on the sound
+      file.
+
+
+      \begin{tabular}{cc}
+
+      \textbf{Change} & \textbf{Impact} \\
+
+      & \\
+
+      \framebox{increase the duration of the recording} & \framebox{the file size
+      gets bigger} \\
+
+      & \\
+
+      & \framebox{no change in the file size} \\
+
+      & \\
+
+      \framebox{increase the sampling rate} & \framebox{the file size gets smaller}
+      \\
+
+      & \\
+
+      & \framebox{the accuracy of the sound file improves} \\
+
+      & \\
+
+      \framebox{decrease the sampling resolution} & \framebox{no change to the accuracy
+      of the sound file} \\
+
+      & \\
+
+      & \framebox{the accuracy of the sound file worsens} \\
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: long_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The file names of the sound recordings are stored using the ASCII character
+      set.
+
+
+      Explain how text is represented by the ASCII character set.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} differences between the ASCII and UNICODE character sets.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data in a computer system is represented in binary.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Put one tick ($\checkmark$) in each row to identify the minimum number
+      of bits used to store each example of data.
+
+
+      \begin{tabular}{|l|c|c|c|c|c|c|c|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Example of data}} & \multicolumn{7}{c|}{\textbf{Number
+      of bits}} \\ \cline{2-8}
+
+      & \textbf{4} & \textbf{8} & \textbf{16} & \textbf{24} & \textbf{32} & \textbf{64}
+      & \textbf{128} \\ \hline
+
+      the hexadecimal value F139 & & & & & & & \\ \hline
+
+      16\,000\,000 unique amplitude values & & & & & & & \\ \hline
+
+      an IPv4 address & & & & & & & \\ \hline
+
+      256 unique colours & & & & & & & \\ \hline
+
+      an IPv6 address & & & & & & & \\ \hline
+
+      the denary value 65\,000 & & & & & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Convert the denary number $-108$ into a 12-bit two's complement binary number.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A three-place arithmetic shift to the right is performed on the following
+      two''s complement negative integer.
+
+
+      Show the result of this arithmetic shift.
+
+
+      10010011 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Convert the following positive binary integer into hexadecimal.
+
+
+      1110001100111011 \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the truth table for the following logic expression:
+
+
+      $$X = (A \text{ NOR } B) \text{ NAND } (C \text{ XOR } B)$$
+
+
+      \begin{tabular}{|c|c|c|p{5cm}|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Draw a logic circuit for the logic expression:
+
+
+      $$X = \text{NOT } (((A \text{ AND } B) \text{ OR } C) \text{ AND } (C \text{
+      NOR } D))$$'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A network engineer is setting up a Local Area Network (LAN) in an office.
+    The network uses both wired and wireless connectivity.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give \textbf{three} advantages of a wireless network compared to a wired
+      network.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} drawback of using a wireless network.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the table by writing the name of the type of memory technology
+      for each description.
+
+
+      \begin{tabular}{|p{8cm}|p{6cm}|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Description}} & \multicolumn{1}{c|}{\textbf{Memory
+      technology}} \\ \hline
+
+      A read only memory where the contents can be erased using a voltage pulse. The
+      contents can be changed multiple times without physically removing the memory.
+      & \\ \hline
+
+      A read only memory where the contents are erased using ultraviolet (UV) light.
+      The memory must be physically removed to be reprogrammed. & \\ \hline
+
+      A read only memory where the contents can be written only once after manufacture.
+      & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A company creates a relational database to store data about its customers.
+
+
+    The database, \texttt{REVIEWS}, stores data about the customers, products, complaints
+    and staff.
+
+
+    The database has four tables:
+
+
+    \texttt{CUSTOMER(CustomerID, CustomerFirstName, CustomerLastName, CustomerEmail)}
+
+
+    \texttt{PRODUCT(ProductID, ProductName, ProductDetail, Price, Rating)}
+
+
+    \texttt{COMPLAINT(ComplaintID, ProductID, CustomerID, ComplaintDetails, StaffID)}
+
+
+    \texttt{STAFF(StaffID, StaffFirstName, StaffLastName, Department, RemoteWorker)}'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the entity-relationship (E-R) diagram for the database \texttt{REVIEWS}.
+
+
+      \begin{tabular}{cc}
+
+      \framebox{\quad CUSTOMER \quad} & \framebox{\quad PRODUCT \quad} \\
+
+      & \\
+
+      & \\
+
+      \framebox{\quad COMPLAINT \quad} & \framebox{\quad STAFF \quad} \\
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Some example data from the \texttt{STAFF} table is shown.
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{StaffID} & \textbf{StaffFirstName} & \textbf{StaffLastName} & \textbf{Department}
+      & \textbf{RemoteWorker} \\ \hline
+
+      1 & Ralph & Jura & E & Yes \\ \hline
+
+      2 & Luca & Emcee & A & Yes \\ \hline
+
+      3 & Darwin & Acula & F & No \\ \hline
+
+      \end{tabular}
+
+
+      Write a Structured Query Language (SQL) script to define the table \texttt{STAFF}.'
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Products are given a rating between 1 and 10 inclusive.
+
+
+      Write an SQL script to return only the \texttt{ProductID}, \texttt{ProductName}
+      and \texttt{ComplaintDetails} for all products with a rating of 5 or less. The
+      results need to be displayed in descending order of rating.'
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'A Database Management System (DBMS) is used to maintain and manage the
+      database.
+
+
+      Describe \textbf{two} ways in which the DBMS can be used to ensure the security
+      of the customer data.
+
+
+      1. \hrulefill
+
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The following table shows part of the instruction set for a processor. The
+    processor has two registers: the Accumulator (ACC) and the Index Register (IX).
+
+
+    \begin{tabular}{|r|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}}
+    \\ \cline{1-2}
+
+    \textbf{Opcode} & \textbf{Operand} & \\ \hline
+
+    LDM & \#n & Immediate addressing. Load the number n to the ACC \\ \hline
+
+    AND & \#n / Bn / \&n & Bitwise AND operation of the contents of the ACC with the
+    operand \\ \hline
+
+    AND & <address> & Bitwise AND operation of the contents of the ACC with the contents
+    of <address> \\ \hline
+
+    XOR & \#n / Bn / \&n & Bitwise XOR operation of the contents of the ACC with the
+    operand \\ \hline
+
+    XOR & <address> & Bitwise XOR operation of the contents of the ACC with the contents
+    of <address> \\ \hline
+
+    OR & \#n / Bn / \&n & Bitwise OR operation of the contents of the ACC with the
+    operand \\ \hline
+
+    OR & <address> & Bitwise OR operation of the contents of the ACC with the contents
+    of <address> \\ \hline
+
+    CMP & \#n & Compare the contents of the ACC with number n \\ \hline
+
+    CMP & <address> & Compare the contents of the ACC with the contents of <address>
+    \\ \hline
+
+    LSL & \#n & Bits in the ACC are shifted logically n places to the left. Zeros
+    are introduced on the right-hand end \\ \hline
+
+    LSR & \#n & Bits in the ACC are shifted logically n places to the right. Zeros
+    are introduced on the left-hand end \\ \hline
+
+    \end{tabular}
+
+
+    <address> can be an absolute or symbolic address
+
+    \# denotes a denary number, e.g. \#127
+
+    B denotes a binary number, e.g. B10010001
+
+    \& denotes a hexadecimal number, e.g. \&4A
+
+
+    The current contents of main memory are shown:
+
+
+    \begin{tabular}{rc}
+
+    \textbf{Address} & \textbf{Data} \\
+
+    100 & \multicolumn{1}{|c|}{0000 0011} \\ \cline{2-2}
+
+    101 & \multicolumn{1}{|c|}{1010 1110} \\ \cline{2-2}
+
+    102 & \multicolumn{1}{|c|}{1100 1100} \\ \cline{2-2}
+
+    103 & \multicolumn{1}{|c|}{1111 1111} \\ \cline{2-2}
+
+    104 & \multicolumn{1}{|c|}{1100 1100} \\ \cline{2-2}
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the table by writing the contents of the ACC after the execution
+      of each instruction.
+
+
+      \begin{tabular}{|c|c|c|}
+
+      \hline
+
+      \textbf{Current contents of the ACC} & \textbf{Instruction} & \textbf{Contents
+      of the ACC after the execution of the instruction} \\ \hline
+
+      0000 1111 & AND 101 & \\ \hline
+
+      0000 0000 & LDM \#100 & \\ \hline
+
+      0000 0001 & XOR \&F1 & \\ \hline
+
+      0001 0001 & CMP 101 & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The Von Neumann model for a computer system uses registers.
+
+
+      Describe the role of the Memory Address Register (MAR) and Memory Data Register
+      (MDR) in the fetch-execute (F-E) cycle.'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Assembly language instructions are grouped.
+
+
+      Complete each statement by writing the name of the appropriate instruction group.
+
+
+      Loading data into the accumulator is an example of an instruction in the \underline{\hspace{1.5em}}
+      group. Incrementing the index register is an example of an instruction in the
+      \underline{\hspace{1.5em}} group. Branching to another address is an example
+      of an instruction in the \underline{\hspace{1.5em}} group.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A digital video camera records students in a classroom. The data is transferred
+    from the digital video camera over the internet to a server. Artificial Intelligence
+    (AI) is used to analyse the video on the server to identify when students are
+    interacting with the lesson and the teacher.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe \textbf{one} ethical impact of this use of AI in the classroom.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A video is made of many bitmap images called frames. 30 frames are recorded
+      every second.
+
+
+      Each frame is 4000 pixels wide by 3000 pixels high. The video records using
+      16-bit colour depth.
+
+
+      Calculate an estimate for the file size for \textbf{one} second of the video
+      in gigabytes.
+
+
+      Show your working.
+
+
+      File size \hrulefill gigabytes'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Identify \textbf{and} describe \textbf{one} method of data verification
+      that can be used when transferring data from the digital video camera to the
+      server.
+
+
+      Method \hrulefill
+
+
+      Description \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: long_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Describe \textbf{two} reasons why the server that stores the videos uses
+      magnetic hard disks instead of solid state (flash) memory.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7e
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: "The table contains three algorithms that perform data validation. The third\
+      \ algorithm uses the functions \\texttt{MID} and \\texttt{LENGTH}.\n\nThe functions\
+      \ \\texttt{MID} and \\texttt{LENGTH} are defined as follows:\n\n\\begin{itemize}\n\
+      \\item \\texttt{MID(ThisString : STRING, x : INTEGER, y : INTEGER) RETURNS STRING}\\\
+      newline returns a string of length \\texttt{y} starting at position \\texttt{x}\
+      \ from \\texttt{ThisString}\n\\item \\texttt{LENGTH(ThisString : STRING) RETURNS\
+      \ INTEGER}\\newline returns the integer value representing the length of \\\
+      texttt{ThisString}\n\\end{itemize}\n\nComplete the table to identify the method\
+      \ of data validation for each algorithm. Each method of data validation must\
+      \ be different.\n\n\\begin{tabular}{|p{9cm}|p{6cm}|}\n\\hline\n\\multicolumn{1}{|c|}{\\\
+      textbf{Algorithm}} & \\multicolumn{1}{c|}{\\textbf{Method of data validation}}\
+      \ \\\\ \\hline\n\\begin{alltt}\nINPUT x\n\nIF x < 1 or x > 26 THEN\n\n  OUTPUT\
+      \ \"Invalid\"\n\nENDIF\n\\end{alltt} & \\\\ \\hline\n\\begin{alltt}\nINPUT x\n\
+      \nIF x <> 'R' AND x <> 'G' AND x <> 'B' THEN\n\n  OUTPUT \"Invalid\"\n\nENDIF\n\
+      \\end{alltt} & \\\\ \\hline\n\\begin{alltt}\nINPUT x\n\nFLAG <- FALSE\n\nFOR\
+      \ INDEX <- 1 TO LENGTH(x)\n\n  IF MID(x, INDEX, 1) = \"@\" THEN\n\n    FLAG\
+      \ <- TRUE\n\n  ENDIF\n\nNEXT INDEX\n\nIF NOT FLAG THEN\n\n  OUTPUT \"Invalid\"\
+      \n\nENDIF\n\\end{alltt} & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Compilers and interpreters are used to translate programs written in a high-level
+    language into a low-level language.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State \textbf{two} disadvantages of using a compiler compared to an interpreter
+      during program development.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: long_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how a programmer benefits from using program libraries during program
+      development.
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A programmer is developing an Operating System (OS).
+
+
+      Identify \textbf{two} types of software licence the programmer can use to allow
+      other people to edit and redistribute the OS.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Memory management is one key management task performed by an OS.
+
+
+      Give \textbf{three} other key management tasks that are performed by an OS.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []

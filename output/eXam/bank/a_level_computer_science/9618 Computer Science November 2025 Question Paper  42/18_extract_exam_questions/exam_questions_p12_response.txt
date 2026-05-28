@@ -1,0 +1,44 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 12: A Thought Process**
+
+Okay, I need to generate the YAML stub for page 12. Let's see... the questions are structured as follows: there's this "3e" entry. My initial thought is it's a placeholder, or possibly a parent question. Looking at the actual page, I see "(e) (i) Amend the main program..." and "(ii) Test your program...".
+
+I need to confirm if "3e" is a parent. The page starts directly with "(e) (i)", so no explicit "3e" text is present. Maybe an empty string or introductory text is needed? No, there is no overall instruction for "(e)" apart from "(i)" and "(ii)". Let's try `text: ''` for "3e", if it's just a structural parent.
+
+Wait, the instructions are very specific: "Every entry's stem should be visible." If something's missing, it's a stub generation bug! "STUB ERROR" if I can't find it. But wait... "(e)" is there, it's the beginning of "(e) (i) Amend the main program...". So "(e)" is present.
+
+Now to the actual content:
+
+*   "3ei": That's straightforward; the text is, "Amend the main program to call \\texttt{WriteAllToFile()}... Save your program... Copy and paste the program code..."
+*   "3eii": And the second part, "Test your program... Take a screenshot... Save your program... Copy and paste the screenshot(s)..."
+
+But what about "3e" itself? Since "(e)" is just the label for "(i)" and no separate text is present, I'm confident setting `text: ''` for "3e". That's the correct way to handle it per the instructions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3e"
+    type: short_answer
+    text: ''
+  - number: "3ei"
+    type: short_answer
+    text: |
+      Amend the main program to call \texttt{WriteAllToFile()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(e)(i)} in the evidence document.
+  - number: "3eii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot that shows all of the content stored in the file \texttt{Tree.txt}
+
+      In this screenshot you need to make sure the filename is visible.
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{3(e)(ii)} in the evidence document.

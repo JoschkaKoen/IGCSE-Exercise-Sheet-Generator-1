@@ -1,0 +1,68 @@
+[thinking]
+**My Approach to Transcribing Exam Questions**
+
+Okay, here's how I'm thinking about this task. I need to summarize two questions from an exam paper, specifically "3e" and "3f" on page 11, and format them in YAML. As an expert, I'm already anticipating the format, so here's the mental checklist:
+
+1.  **Understand the Request and Scope:** The core task is to take the raw text and transform it into a structured YAML representation. The key fields will be `number`, `type`, and `text`. Since these are short answer questions, there won't be any `options`.
+
+2.  **Deconstruct Question "3e":**  I'll begin with question "3e". I need to capture the essence of the question.  It's about writing code for a procedure called `\texttt{ReadData()}`.  The description involves reading data from a file `\texttt{HashTableData.txt}`, splitting lines into key-value pairs, and using an `InsertData()` function. I need to maintain the formatting, especially the `\begin{itemize}` for the bullet points describing the procedure's steps, and I'll make sure to include the "Save your program..." note, perhaps by formatting it nicely.
+
+3.  **Deconstruct Question "3f":** Next, I'll tackle question "3f".  This focuses on the function `\texttt{GetRecord()}`. The question explains that this function takes a key, calculates a hash value, searches a hash table, and returns either the data if found or "Not found". Again, I need to keep the structure with `\begin{itemize}` for the bullet points.
+
+4.  **YAML and LaTeX Refinement:** Once I've transcribed the questions, I'll put on my YAML hat. I'll need to create the YAML structure for each question. No double quotes in the text for the YAML.  I'll translate the questions from plain text into clean LaTeX.  I'm focused on clarity and readability, making sure the formatting is consistent, and the important parts such as function and file names are appropriately formatted (e.g., using `\texttt{}`)
+
+
+
+[/thinking]
+
+questions:
+  - number: "3e"
+    type: short_answer
+    text: |
+      The file \texttt{"HashTableData.txt"} stores 200 key values and string data items in the format:
+
+      \texttt{key,string}
+
+      For example, the first row in the text file is:
+
+      \texttt{528,permission}
+
+      The key is 528 and the string data is \texttt{"permission"}
+
+      The procedure \texttt{ReadData()}:
+
+      \begin{itemize}
+      \item opens the text file and reads each line
+      \item splits each line into the key and data
+      \item calls \texttt{InsertData()} with an object containing each key and matching data.
+      \end{itemize}
+
+      Write program code for \texttt{ReadData()}
+
+      \begin{tabular}{|l|}
+      \hline
+      \textbf{Save your program.} \\
+      Copy and paste the program code into part \textbf{3(e)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3f"
+    type: short_answer
+    text: |
+      The function \texttt{GetRecord()}:
+
+      \begin{itemize}
+      \item takes an integer key field as a parameter
+      \item calculates the hash value for the key field using the appropriate function
+      \item searches the hash table for the record with the matching key field
+      \item returns the data for the record if the record is found
+      \item returns \texttt{"Not found"} if the record is not found.
+      \end{itemize}
+
+      Write program code for \texttt{GetRecord()}
+
+      \begin{tabular}{|l|}
+      \hline
+      \textbf{Save your program.} \\
+      Copy and paste the program code into part \textbf{3(f)} in the evidence document. \\
+      \hline
+      \end{tabular}

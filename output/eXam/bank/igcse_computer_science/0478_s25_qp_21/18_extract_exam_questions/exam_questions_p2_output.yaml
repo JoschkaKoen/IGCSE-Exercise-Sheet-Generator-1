@@ -1,0 +1,55 @@
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to identify the type of test to only check for the largest or smallest acceptable value.
+    options:
+      - letter: A
+        text: |
+          normal test data
+      - letter: B
+        text: |
+          abnormal test data
+      - letter: C
+        text: |
+          extreme test data
+      - letter: D
+        text: |
+          boundary test data
+  - number: "2"
+    type: short_answer
+    text: |
+      Four requirements for validating inputs and \textbf{five} types of validation check are given.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Draw \textbf{one} line from each requirement to the most appropriate validation check. \textbf{Not} all validation checks will be used.
+
+      \textbf{Requirement}
+
+      \begin{itemize}
+      \item Date of birth must be between 01/01/1900 and 01/01/2010.
+      \item Name has been entered.
+      \item Password has exactly 12 characters.
+      \item Student ID must contain 2 letters followed by a 4-digit number.
+      \end{itemize}
+
+      \textbf{Validation check}
+
+      \begin{itemize}
+      \item length check
+      \item format check
+      \item range check
+      \item check digit
+      \item presence check
+      \end{itemize}
+  - number: "2b"
+    type: short_answer
+    text: |
+      Identify and describe \textbf{one} verification check that could be applied when a new password is input into a system.
+
+      Verification check \hrulefill
+
+      Description
+```

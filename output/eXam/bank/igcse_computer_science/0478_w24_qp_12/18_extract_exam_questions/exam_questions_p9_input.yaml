@@ -1,0 +1,12 @@
+  - number: "7e"
+    type: short_answer
+    text: ""
+  - number: "8"
+    type: short_answer
+    text: ""
+  - number: "8a"
+    type: multiple_choice
+    text: ""
+  - number: "8b"
+    type: short_answer
+    text: ""

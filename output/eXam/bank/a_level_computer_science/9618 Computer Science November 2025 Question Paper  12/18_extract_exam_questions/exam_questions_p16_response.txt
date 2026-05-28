@@ -1,0 +1,15 @@
+```yaml
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      An automated system opens doors when a person is detected within 2 metres. The system closes the doors when there is no longer a person within 2 metres.
+
+      Identify whether the automated system is an example of a monitoring system or a control system.
+
+      Justify your choice.
+
+      Monitoring or Control \hrulefill
+
+      Justification
+```

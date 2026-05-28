@@ -1,0 +1,51 @@
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+      A solution to a problem may be represented using pseudocode, flowcharts or
+    options:
+      - letter: A
+        text: |
+          procedures.
+      - letter: B
+        text: |
+          processes.
+      - letter: C
+        text: |
+          structure diagrams.
+      - letter: D
+        text: |
+          sub-systems.
+  - number: "2"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+      A pseudocode example of a selection statement is
+    options:
+      - letter: A
+        text: |
+          \texttt{CALL Sorting(Value1, Value2)}
+      - letter: B
+        text: |
+          \texttt{DECLARE Count : INTEGER}
+      - letter: C
+        text: |
+          \texttt{IF X = 7 THEN Y <- 21 ENDIF}
+      - letter: D
+        text: |
+          \texttt{WHILE X <> -1 DO}
+  - number: "3"
+    type: short_answer
+    text: |
+      Four flowchart symbols and five purposes are shown.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Draw \textbf{one} line to link each flowchart symbol to its correct purpose.
+
+      \textbf{Not} all purposes will be used.
+```

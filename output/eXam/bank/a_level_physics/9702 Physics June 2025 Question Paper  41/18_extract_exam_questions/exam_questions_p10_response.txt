@@ -1,0 +1,22 @@
+[thinking]
+**Transcribing Question 5**
+
+Okay, so the user wants me to extract and present question 5 from the provided exam page. I understand the task. Let me parse this. The question describes a cuboidal block floating in a liquid, base horizontal, with a depth *h* below the surface. This block is then displaced downwards and released, resulting in oscillations. Interesting setup. The question references figures 5.1, 5.2, and 5.3, which I need to omit in the transcription, it seems. The text mentions Fig. 5.2 shows the acceleration *a* variation with *h* and Fig. 5.3 shows the kinetic energy *Eₖ* variation with *h*. Right. I'm to present the text of the *question* itself, not the associated figures. Therefore, I need to focus on just the textual description of the experiment setup. Got it. I should omit the diagrams and just extract the text that provides the setup for the problem. Now to render this into YAML, so the output is properly formatted.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A cuboidal block floats in a liquid with its base horizontal, as shown in Fig. 5.1.
+
+      The base of the block is at a depth $h$ below the surface of the liquid.
+
+      The block is displaced downwards by a small distance and then released so that it oscillates.
+
+      Fig. 5.2 shows the variation with $h$ of the acceleration $a$ of the block.
+
+      Fig. 5.3 shows the variation with $h$ of the kinetic energy $E_{\text{K}}$ of the block.

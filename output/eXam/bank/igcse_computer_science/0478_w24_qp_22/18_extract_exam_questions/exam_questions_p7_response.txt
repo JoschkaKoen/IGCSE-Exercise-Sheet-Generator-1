@@ -1,0 +1,51 @@
+[thinking]
+**My Analysis of the Exam Page Task**
+
+Alright, let's break this down. My task is to process page 7 of an exam paper and extract specific questions: "7b," "7c," and "8." The ultimate output needs to be in YAML format, adhering to a defined schema, which I'll assume I have a clear understanding of.
+
+First, question 7b. Straightforward. The source text is "(b) State the purpose of this algorithm." I'll strip the leading "(b) " to get the prompt: "State the purpose of this algorithm." This is clearly a `short_answer` type question. There are no associated answer lines to transcribe, just an open-ended prompt.
+
+Next, 7c. The text is "(c) Describe the problem that would be caused in this algorithm if a Value of 1, 0 or less than –1 was input." Again, I'll strip the prefix, yielding "Describe the problem that would be caused in this algorithm if a \texttt{Value} of 1, 0 or less than $-1$ was input." "Value" is formatted in monospace, so I'll render that as `\texttt{Value}`. And the minus sign is just $-1$. This is also a `short_answer` question, with no answer lines.
+
+Finally, question 8. This one's a bit more involved. The prompt describes program development testing with whole numbers up to 80. It asks to identify two test data items to test the upper limit of 80 and provide a reason for each choice. The text's layout is:
+
+"Test data 1 ........................................................................................................................................
+Reason for choice ............................................................................................................................
+..........................................................................................................................................................
+Test data 2 ........................................................................................................................................
+Reason for choice ............................................................................................................................
+.........................................................................................................................................................."
+
+It seems I need to represent those lines with `\hrulefill` to represent the dotted lines. I need to make sure I get a blank line before "Test Data 1".
+
+Now, time to construct the YAML. I need to make sure to follow the rules I've internalised over time: no double quotes for free-text fields (use `|` block scalar), include inline code as `\texttt{Value}` and proper mathematical notation as $-1$, and replace `\dotfill` with `\hrulefill`. With that, I'm ready to produce the YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      State the purpose of this algorithm.
+  - number: "7c"
+    type: short_answer
+    text: |
+      Describe the problem that would be caused in this algorithm if a \texttt{Value} of 1, 0 or less than $-1$ was input.
+  - number: "8"
+    type: short_answer
+    text: |
+      Different types of test data are used during program development to make sure a program works as intended. A program being developed takes as input whole numbers that are not greater than 80.
+
+      Identify \textbf{two} items of test data to test the whole number limit of 80.
+
+      Explain the reason for your choice of the data in each case.
+
+      Test data 1 \hrulefill
+
+      Reason for choice \hrulefill
+
+      Test data 2 \hrulefill
+
+      Reason for choice \hrulefill

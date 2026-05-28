@@ -1,0 +1,43 @@
+[thinking]
+**My Analysis of the Exam Question Transcription**
+
+Okay, so I've been asked to transcribe questions 2 and 2a from this exam page. Let's break this down systematically. First, I'm examining the structure of the prompt.
+
+I see that question 2 is introductory, setting the stage for an experiment involving a double-slit setup, light interference, and some measurements. The text describes a student performing an experiment with a double slit, measuring fringe separation (`y`) and slit separation (`s`), and mentions the relationship between these parameters and the wavelength of light (`λ`). The critical equations are there.
+
+Then comes question 2a. This is where things get interesting. It specifies that a graph is plotted with fringe separation `y` on the y-axis and the inverse slit separation `1/s` on the x-axis. The core task is to determine an expression for the gradient of this graph. That should be straightforward.
+
+I need to make sure the transcription reflects this structure accurately. I've noted that question 2 is the introductory text, and question 2a contains the specific prompt. The yaml provided appears to correctly implement this structure, putting the introductory material into the "2" section, and the graphing question in "2a".
+
+Finally, I've checked the math formatting to ensure it's rendering correctly, including the fraction and horizontal rule for the answer. All looks consistent and correct now. I believe I have properly interpreted the user's intent, and the transcription is ready.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student places a slide with a double slit on a support clamped to the bench as shown in Fig. 2.1.
+
+      The distance between the slide and the screen is $D$.
+
+      The separation $s$ of the slits is determined.
+
+      Light from a laser is incident normally on the double slit. An interference pattern is observed on the screen. The distance $w$ across 10 fringes is measured. The distance $y$ between the centres of adjacent fringes is calculated using the equation
+      $$y = \frac{w}{10}.$$
+
+      The experiment is repeated with slides of different slit separation $s$.
+
+      It is suggested that $y$ and $s$ are related by the equation
+      $$\lambda = \frac{sy}{D}$$
+      where $\lambda$ is the wavelength of the incident light.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A graph is plotted of $y$ on the $y$-axis against $\frac{1}{s}$ on the $x$-axis.
+
+      Determine an expression for the gradient.
+
+      gradient = \hrulefill

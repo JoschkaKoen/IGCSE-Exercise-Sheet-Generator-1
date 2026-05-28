@@ -1,0 +1,12 @@
+  - number: "6"
+    type: short_answer
+    text: ""
+  - number: "6a"
+    type: short_answer
+    text: ""
+  - number: "6ai"
+    type: short_answer
+    text: ""
+  - number: "6aii"
+    type: long_answer
+    text: ""

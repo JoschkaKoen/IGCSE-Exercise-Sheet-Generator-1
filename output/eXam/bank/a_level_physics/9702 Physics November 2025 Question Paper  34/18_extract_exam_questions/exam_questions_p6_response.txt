@@ -1,0 +1,56 @@
+[thinking]
+**Transcribing Question 1d**
+
+Okay, the user wants me to transcribe question "1d" from the page. Let's see... the text for the question is right here. I'll need to extract it, and format it properly.
+
+First, I need to strip that "(d)" prefix. The text itself is: "It is suggested that the quantities $L$ and $Z$ are related by the equation $$L = aZ + b$$ where $a$ and $b$ are constants. Use your answers in **(c)(iii)** to determine the values of $a$ and $b$. Give appropriate units."
+
+I need to make sure to use inline math for `$L`, `$Z`, `$a`, and `$b`, and display math for the actual equation `$L = aZ + b$`. The reference to section "(c)(iii)" needs to be formatted with `\textbf{(c)(iii)}`. And I have to remember the answer lines:
+
+There should be one blank line before the first answer line, but no blank lines between them. So it's:
+`$a =$ \hrulefill`
+`$b =$ \hrulefill`
+
+Let's put together the YAML. I think this looks right:
+```yaml
+questions:
+  - number: "1d"
+    type: calculation
+    text: |
+      It is suggested that the quantities $L$ and $Z$ are related by the equation
+
+      $$L = aZ + b$$
+
+      where $a$ and $b$ are constants.
+
+      Use your answers in \textbf{(c)(iii)} to determine the values of $a$ and $b$.
+      Give appropriate units.
+
+      $a =$ \hrulefill
+      $b =$ \hrulefill
+```
+Double-checking... Yes, I added the space between the `=` and `\hrulefill`, and I think I've covered all the details. "Give appropriate units" is the last sentence. So:
+`$a =$ \hrulefill`
+`$b =$ \hrulefill`
+Yep, that should be it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1d"
+    type: calculation
+    text: |
+      It is suggested that the quantities $L$ and $Z$ are related by the equation
+
+      $$L = aZ + b$$
+
+      where $a$ and $b$ are constants.
+
+      Use your answers in \textbf{(c)(iii)} to determine the values of $a$ and $b$.
+      Give appropriate units.
+
+      $a =$ \hrulefill
+      $b =$ \hrulefill
+```

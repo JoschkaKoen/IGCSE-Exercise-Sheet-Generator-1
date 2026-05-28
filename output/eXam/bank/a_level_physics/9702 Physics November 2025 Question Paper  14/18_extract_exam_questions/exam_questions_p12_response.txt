@@ -1,0 +1,72 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, the user wants me to transcribe questions 24 and 25. Let's get to it. First, question 24. This looks like a multiple-choice question about a transverse progressive wave on a string. The text says there's a graph showing displacement vs. distance at time t=0, and then it asks which graph represents the variation of velocity with time for point P. The options are graphical, so I just need to identify them. I can label the options as A, B, C, and D, since I can't include images, or describe them briefly if needed. Based on my instructions, it looks like just using "A", "B", "C", "D" will do.
+
+So here's question 24:
+
+"A transverse progressive wave travels along a string.
+
+The graph shows the variation with distance of the displacement of the string at time $t = 0$.
+
+Which graph represents the variation with time of the velocity of point P on the string?"
+
+A
+B
+C
+D
+
+Now, onto question 25. This is also multiple-choice, and it's about electromagnetic waves. Let's see...
+
+"Which statement about electromagnetic waves is correct?"
+
+A: "A wave of wavelength $5.0 \times 10^{-6}\text{ m}$ is invisible to the human eye."
+B: "They can all travel at different speeds in free space."
+C: "They \textbf{cannot} be polarised."
+D: "They consist of vibrating atoms."
+
+Alright, that should do it. I've transcribed both questions accurately.
+
+
+
+[/thinking]
+
+questions:
+  - number: "24"
+    type: multiple_choice
+    text: |
+      A transverse progressive wave travels along a string.
+
+      The graph shows the variation with distance of the displacement of the string at time $t = 0$.
+
+      Which graph represents the variation with time of the velocity of point P on the string?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "25"
+    type: multiple_choice
+    text: |
+      Which statement about electromagnetic waves is correct?
+    options:
+      - letter: A
+        text: |
+          A wave of wavelength $5.0 \times 10^{-6}\text{ m}$ is invisible to the human eye.
+      - letter: B
+        text: |
+          They can all travel at different speeds in free space.
+      - letter: C
+        text: |
+          They \textbf{cannot} be polarised.
+      - letter: D
+        text: |
+          They consist of vibrating atoms.

@@ -1,0 +1,29 @@
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      Complete the SQL statement to display only the destination of the buses that have a return.
+
+      \texttt{SELECT} \hrulefill
+  - number: "9"
+    type: short_answer
+    text: |
+      The variables \texttt{A} and \texttt{B} are used in a program. \texttt{A} holds a whole number and \texttt{B} holds text.
+  - number: "9a"
+    type: short_answer
+    text: |
+      Write pseudocode statements to declare the variables \texttt{A} and \texttt{B}
+  - number: "9b"
+    type: long_answer
+    text: |
+      The function \texttt{Odds(X)} returns ‘Odd’ if the value of \texttt{X} is an odd number and returns ‘Even’ if the value of \texttt{X} is an even number.
+
+      Write pseudocode statements to:
+      \begin{itemize}
+      \item define the function
+      \item call the function using parameter \texttt{A} and store the return item in variable \texttt{B}
+      \end{itemize}
+
+      Function definition \hrulefill
+
+      Function call \hrulefill

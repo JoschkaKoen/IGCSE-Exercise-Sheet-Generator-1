@@ -1,0 +1,42 @@
+[thinking]
+**Exam Page 9: Refinement and Transcription**
+
+Okay, so the user wants me to handle page 9 of this exam. I need to make sure I get the questions transcribed accurately. It's crucial, so let's break this down.
+
+First, question `3biii` is a calculation: "The potential difference (p.d.) across the motor has a constant value of 600V and the motor has an efficiency of 85%. Calculate the current in the motor." The formatting requires the response to appear as: `current = \hrulefill A`. I'll make sure to use `\hrulefill\text{ A}` to be precise with the units.
+
+Next, question `3c` is a short answer question, describing a car on a slope: "The car in (b) now reaches a slope, as shown in Fig. 3.2. The car continues down the slope at the same speed as in (b). State and explain the effect, if any, of the slope on:". The figure isn't relevant, so I'll omit that.
+
+Following `3c`, we have two long answer sub-questions: `3ci` "the air resistance acting on the car" and `3cii` "the current in the motor." The task is to state and explain the effect on the air resistance and the current in the motor caused by the slope, with the car moving at the same speed as in `3b`.
+
+I must remember to strip the prefixes from each text, like `(i)`, `(ii)`, `(iii)` or `(c)`. This means the text starts with the content, not the prefix or subquestion identifier. I've double-checked the formatting on the units and the text to be included.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3biii"
+    type: calculation
+    text: |
+      The potential difference (p.d.) across the motor has a constant value of $600\text{ V}$ and the motor has an efficiency of $85\%$.
+
+      Calculate the current in the motor.
+
+      current = \hrulefill\text{ A}
+  - number: "3c"
+    type: short_answer
+    text: |
+      The car in \textbf{(b)} now reaches a slope, as shown in Fig. 3.2.
+
+      The car continues down the slope at the same speed as in \textbf{(b)}.
+
+      State and explain the effect, if any, of the slope on:
+  - number: "3ci"
+    type: long_answer
+    text: |
+      the air resistance acting on the car
+  - number: "3cii"
+    type: long_answer
+    text: |
+      the current in the motor.

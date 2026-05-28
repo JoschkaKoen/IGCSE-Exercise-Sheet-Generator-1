@@ -1,0 +1,24 @@
+```yaml
+questions:
+  - number: "2bii"
+    type: long_answer
+    text: |
+      Identify whether the lossy or lossless compression method is more appropriate for real-time bit streaming. Justify your answer.
+
+      Compression method \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      The video conference is accessed over the internet.
+
+      Complete the table by stating how modems \textbf{and} dedicated lines are used when data is transmitted over the internet.
+
+      \begin{tabular}{|l|p{10cm}|}
+      \hline
+      \textbf{Hardware} & \textbf{Use} \\ \hline
+      modems & \\
+             & \\ \hline
+      dedicated lines & \\
+                      & \\ \hline
+      \end{tabular}
+```

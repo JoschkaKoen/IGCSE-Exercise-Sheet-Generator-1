@@ -1,0 +1,15 @@
+questions:
+  - number: "1b"
+    type: short_answer
+    text: |
+      Registers that are used in the Fetch-Execute (F-E) cycle include the PC, MAR, MDR and the ACC.
+
+      Identify \textbf{one} other register and describe its role in the Fetch-Execute (F-E) cycle.
+
+      Register \hrulefill
+
+      Role
+  - number: "1c"
+    type: long_answer
+    text: |
+      Explain how an interrupt from an input device will be detected and handled in the F-E cycle.

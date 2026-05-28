@@ -1,0 +1,14 @@
+```yaml
+questions:
+  - number: "11b"
+    type: short_answer
+    text: |
+      A binary tree can be used to implement recursion.
+
+      Identify \textbf{one} feature of an algorithm that makes it beneficial to use recursion.
+      Give \textbf{one} example of an application that could use a recursive algorithm.
+
+      Feature \hrulefill
+
+      Example \hrulefill
+```

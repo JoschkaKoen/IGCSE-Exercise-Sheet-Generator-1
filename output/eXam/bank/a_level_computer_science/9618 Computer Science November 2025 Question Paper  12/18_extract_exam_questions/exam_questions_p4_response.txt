@@ -1,0 +1,43 @@
+```yaml
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      The following table shows part of the instruction set for a processor. The processor has two registers: the ACC and an IX.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+      LDD & <address> & Direct addressing. Load the contents of the location at the given address to ACC \\ \hline
+      LDI & <address> & Indirect addressing. The address to be used is at the given address. Load the contents of this second address to ACC \\ \hline
+      LDX & <address> & Indexed addressing. Form the address from <address> + the contents of the index register. Copy the contents of this calculated address to ACC \\ \hline
+      LDR & \#n & Immediate addressing. Load the number n to IX \\ \hline
+      \end{tabular}
+
+      <address> can be an absolute or symbolic address
+      \# denotes a denary number, e.g. \#127
+
+      The current contents of the main memory and the index register are shown.
+
+      \begin{tabular}{r|c|}
+      \multicolumn{1}{c}{\textbf{Address}} & \multicolumn{1}{c}{\textbf{Instruction}} \\ \cline{2-2}
+      98 & 8 \\ \cline{2-2}
+      99 & 16 \\ \cline{2-2}
+      100 & 3 \\ \cline{2-2}
+      101 & 98 \\ \cline{2-2}
+      102 & 32 \\ \cline{2-2}
+      IX & 2 \\ \cline{2-2}
+      \end{tabular}
+
+      Write the contents of the ACC after each instruction is executed.
+
+      \begin{tabular}{|l|c|}
+      \hline
+      \textbf{Instruction} & \textbf{Value in ACC} \\ \hline
+      LDM \#98 & \hrulefill \\ \hline
+      LDI 101 & \hrulefill \\ \hline
+      LDX 100 & \hrulefill \\ \hline
+      \end{tabular}
+```

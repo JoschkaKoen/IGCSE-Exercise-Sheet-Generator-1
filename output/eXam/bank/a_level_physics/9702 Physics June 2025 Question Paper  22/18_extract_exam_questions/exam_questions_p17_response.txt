@@ -1,0 +1,63 @@
+[thinking]
+**Analyzing the Exam Page and Identifying a Stub Error**
+
+Okay, so I'm looking at page 17 of this exam paper and need to transcribe the content of question 7 and its sub-questions. The initial structure looks straightforward: "7", "7a", "7b", "7bi", "7bii", and "7c". My first instinct is to look at how these are categorized in the stub:
+
+*   `7`: short\_answer
+*   `7a`: short\_answer
+*   `7b`: short\_answer
+*   `7bi`: calculation
+*   `7bii`: short\_answer
+*   `7c`: long\_answer
+
+Now I need to correlate the stub with the actual content on the page. Right away, I see "7 (a) State what is meant by a fundamental particle." Wait, so does `7` have text or not? It's listed in the stub, but only "7 (a)" has text.
+
+I check again, just to be sure: the stub says `7` is a short answer. If `7a` has text and `7` is also a listed entry, that's weird. Is `7` a placeholder or does it have its own introductory text? Let's assume that if there's no text directly associated with the item listed in the stub, it indicates a problem. I look at the OCR and confirm: the text starts at "(a)". It seems like "7" isn't a header, but there's a problem here.
+
+So, let's look at the remaining items: "7b" has the text: "(b) A nucleus X has 14 nucleons and p protons. The ratio of charge to mass for nucleus X is $4.1 \times 10^7 \text{ C kg}^{-1}$." Then, "7bi" and "7bii" follow, then "7c" with its long answer.
+
+*   `7a`: "State what is meant by a fundamental particle."
+*   `7b`: "A nucleus X has 14 nucleons and $p$ protons. The ratio of charge to mass for nucleus X is $4.1 \times 10^7 \text{ C kg}^{-1}$."
+*   `7bi`: "Determine $p$."
+*   `7bii`: "Nucleus X undergoes $\beta^-$ decay to form nucleus Z. Complete the equation representing this decay. $$\text{}^{14}_{\dots\dots}\text{X} \rightarrow \text{}^{\dots\dots}_{\dots\dots}\text{Z} + \text{}^{\dots\dots}_{\dots\dots}\dots\dots + \text{}^{\dots\dots}_{\dots\dots}\dots\dots$$"
+*   `7c`: "A sample of a radioactive substance emits particles that are positively charged and have a continuous range of kinetic energies. State and explain whether the nuclei in the sample are undergoing $\alpha$-decay, $\beta^+$ decay or $\beta^-$ decay."
+
+But wait, what about `7`? The stub has `7` as a distinct `short_answer` entry, but it's empty, or at least, has no separate text. That means it's a **STUB ERROR**. The instructions are clear; if a stub entry's stem is not on the page, flag it. So, even though it may be the *parent* of 7a, I have to flag it. If `7` is listed in the stub, but has no actual text, I have to report this. So, the content of `7` is `|STUB ERROR|`.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      State what is meant by a fundamental particle.
+  - number: "7b"
+    type: short_answer
+    text: |
+      A nucleus X has 14 nucleons and $p$ protons. The ratio of charge to mass for nucleus X is $4.1 \times 10^7 \text{ C kg}^{-1}$.
+  - number: "7bi"
+    type: calculation
+    text: |
+      Determine $p$.
+
+      $p = $ \hrulefill
+  - number: "7bii"
+    type: short_answer
+    text: |
+      Nucleus X undergoes $\beta^-$ decay to form nucleus Z.
+
+      Complete the equation representing this decay.
+
+      $$\text{}^{14}_{\dots\dots}\text{X} \rightarrow \text{}^{\dots\dots}_{\dots\dots}\text{Z} + \text{}^{\dots\dots}_{\dots\dots}\dots\dots + \text{}^{\dots\dots}_{\dots\dots}\dots\dots$$
+  - number: "7c"
+    type: long_answer
+    text: |
+      A sample of a radioactive substance emits particles that are positively charged and have a continuous range of kinetic energies.
+
+      State and explain whether the nuclei in the sample are undergoing $\alpha$-decay, $\beta^+$ decay or $\beta^-$ decay.

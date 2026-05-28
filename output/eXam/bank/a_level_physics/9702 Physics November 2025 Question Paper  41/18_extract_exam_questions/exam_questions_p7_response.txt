@@ -1,0 +1,43 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 7**
+
+Okay, so I need to transcribe page 7 of this exam paper. The requested sections are questions "2", "2a", "2b", "2bi", and "2bii".  My initial thought is to just dive in and get the questions, but I need to make sure I'm following the correct format and avoiding any errors.  Let's look at the stub first.  I see "2", "2a", and "2b" are listed as short answer, while "2bi" and "2bii" are long answer. This gives me a good starting point.
+
+Now, looking at the actual text, the layout is a little unusual. There isn't a main stem question for "2", it immediately starts with "2 (a)".  That's a bit odd. I'm going to follow best practice here and focus on ensuring the stub information matches the text of the questions. The text for "2a" is: "State two ways in which the first law of thermodynamics describes that the internal energy of a system may be changed." Plus two blanks. I'll translate that as a "short_answer" question with a numbered list of answer slots.
+
+Now to the next level of the question, there's no text specifically for "2b" either. It seems to go straight to parts (i) and (ii), so nothing for "2b" itself. That's a red flag. Looking back at the instructions, I remember that if I can't find a stub entry's stem on the page, I need to emit a `|` block scalar containing `STUB ERROR`.
+
+Okay, back to the questions. For "2bi", the question is: "Use the first law of thermodynamics to explain why a bicycle pump gets hot when it is used to pump up a tyre quickly."  And for "2bii": "With reference to molecular energies, explain why the temperature of water remains at $100^\circ\text{C}$ when it vaporises in a kettle, even though it is being heated." Both of those are clearly "long_answer" questions.
+
+Alright, double-checking, question "2" has no main question stem and skips to "2a". Question "2b" has no stem and goes directly to "(b) (i)" and "(b) (ii)".
+
+Therefore, I'm going to generate the appropriate YAML for each section. I need to make sure to include `STUB ERROR` in a `|` block scalar for the non-existent stems for "2" and "2b". The text for "2a" should be: "State **two** ways in which the first law of thermodynamics describes that the internal energy of a system may be changed." With two \hrulefill answer slots.  For "2bi" I will include: "Use the first law of thermodynamics to explain why a bicycle pump gets hot when it is used to pump up a tyre quickly." And "2bii" is: "With reference to molecular energies, explain why the temperature of water remains at $100^\circ\text{C}$ when it vaporises in a kettle, even though it is being heated." Finally, I will double check my formatting and ensure I have accounted for this upstream stub generation bug, by including "STUB ERROR" for questions 2 and 2b.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2a"
+    type: short_answer
+    text: |
+      State \textbf{two} ways in which the first law of thermodynamics describes that the internal energy of a system may be changed.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2bi"
+    type: long_answer
+    text: |
+      Use the first law of thermodynamics to explain why a bicycle pump gets hot when it is used to pump up a tyre quickly.
+  - number: "2bii"
+    type: long_answer
+    text: |
+      With reference to molecular energies, explain why the temperature of water remains at $100^\circ\text{C}$ when it vaporises in a kettle, even though it is being heated.

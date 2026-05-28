@@ -1,0 +1,5 @@
+questions:
+  - number: "8a"
+    type: long_answer
+    text: |
+      Write pseudocode for module \texttt{CheckMark()}.

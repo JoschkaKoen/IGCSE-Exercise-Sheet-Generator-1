@@ -1,0 +1,39 @@
+[thinking]
+**My Thought Process: Extracting and Formatting Exam Questions**
+
+Okay, here's how I'm approaching this task. First, I need to understand what's being asked.  The input is page 10 of an exam paper, and the goal is to pull out questions "7c", "7d", and "7e", then format them as YAML according to a pre-defined schema.  
+
+I'll start with question "7c". I'll grab the text as it is, then remove the "(c)" prefix, so the prompt becomes the primary text content. No answer lines are needed here, as the question is open-ended.
+
+Next, "7d".  Same process: I'll copy the text, remove the "(d)" prefix, so the prompt becomes the primary text content. No answer lines are needed here, as the question is open-ended.
+
+Now, question "7e" presents a new wrinkle. I grab the text, and remove the "(e)" prefix. I notice there are answer slots, indicated by numbered lines.  Okay, I need to apply that numbered answer slots rule. I have to format it precisely, putting each `\hrulefill` on its own line and leaving one blank line between the prompt and the first numbered slot. The period is required after the number, and no blank lines between numbered slots. I also notice that the word "two" is bolded in the question text. I'll need to remember that.
+
+Before finalizing the YAML, I need to do a thorough review. I need to make sure I'm using block scalars (`|`) for the `text` fields, to avoid any escaping issues. No double quotes in free-text fields.  Since these aren't multiple-choice questions, no `options` key is required. And I have to double check the LaTeX formatting for the bolded word "two", and that there are no others, as well as the overall YAML structure. I think I've got it. Let's make sure that that YAML format is perfect.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7c"
+    type: long_answer
+    text: |
+      The smart speaker has machine learning capabilities.
+
+      Explain how the smart speaker can use machine learning to improve the voice command input.
+  - number: "7d"
+    type: short_answer
+    text: |
+      The smart speaker is an example of an embedded system.
+
+      Explain why the smart speaker is an embedded system.
+  - number: "7e"
+    type: short_answer
+    text: |
+      The music and audio books that are played by the smart speaker are stored in cloud storage.
+
+      Give \textbf{two} advantages of storing the music and audio books in cloud storage.
+
+      1. \hrulefill
+      2. \hrulefill

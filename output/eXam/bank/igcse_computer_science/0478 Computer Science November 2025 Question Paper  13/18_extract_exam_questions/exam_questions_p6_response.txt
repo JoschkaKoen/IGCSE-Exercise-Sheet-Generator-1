@@ -1,0 +1,38 @@
+```yaml
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      The computer also has secondary storage.
+
+      Write the name of the type of secondary storage for each description in the table. Each type of secondary storage may be used more than once.
+
+      \begin{tabular}{|p{5cm}|p{8cm}|}
+      \hline
+      \textbf{Type of secondary storage} & \textbf{Description} \\ \hline
+      \hrulefill & It burns pits and lands onto a disk. \\ \hline
+      \hrulefill & It uses control gates and flow gates. \\ \hline
+      \hrulefill & It uses NAND or NOR technology. \\ \hline
+      \hrulefill & The surface of each platter is divided into tracks and sectors. \\ \hline
+      \hrulefill & It has a read/write arm that moves a laser across a disc. \\ \hline
+      \hrulefill & It controls the flow of electrons using transistors. \\ \hline
+      \end{tabular}
+  - number: "3"
+    type: short_answer
+    text: |
+      Data is split into packets before it is transmitted across a network.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The diagram shows a packet with three sections.
+
+      Complete the diagram by writing the name of each section of the packet.
+
+      Write an example in each section of what would be stored in that part of the packet.
+
+      The first section is called the \hrulefill
+
+      The second section is called the \hrulefill
+
+      The third section is called the \hrulefill
+```

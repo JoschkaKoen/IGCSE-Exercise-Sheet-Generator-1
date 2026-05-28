@@ -1,0 +1,13 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A cuboidal block floats in a liquid with its base horizontal, as shown in Fig. 5.1.
+
+      The base of the block is at a depth $h$ below the surface of the liquid.
+
+      The block is displaced downwards by a small distance and then released so that it oscillates.
+
+      Fig. 5.2 shows the variation with $h$ of the acceleration $a$ of the block.
+
+      Fig. 5.3 shows the variation with $h$ of the kinetic energy $E_{\text{K}}$ of the block.

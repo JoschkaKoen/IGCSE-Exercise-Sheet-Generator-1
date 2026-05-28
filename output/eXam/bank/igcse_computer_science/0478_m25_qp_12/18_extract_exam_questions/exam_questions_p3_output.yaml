@@ -1,0 +1,20 @@
+questions:
+  - number: "1c"
+    type: multiple_choice
+    text: |
+      Binary addition can result in overflow.
+
+      Tick (\checkmark) \textbf{one} box to show the correct definition of overflow in binary addition.
+    options:
+      - letter: A
+        text: |
+          The answer has created a negative number that cannot be represented in binary addition.
+      - letter: B
+        text: |
+          The answer is the result of a logical shift that cannot be performed in binary addition.
+      - letter: C
+        text: |
+          The answer is too large to represent in the number of bits available.
+      - letter: D
+        text: |
+          The answer is too small to represent in the number of bits available.

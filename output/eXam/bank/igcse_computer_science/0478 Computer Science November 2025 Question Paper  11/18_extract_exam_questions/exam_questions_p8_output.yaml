@@ -1,0 +1,32 @@
+```yaml
+questions:
+  - number: "4d"
+    type: short_answer
+    text: |
+      The computer game developers use a high-level language to create a computer game.
+  - number: "4di"
+    type: short_answer
+    text: |
+      State what is meant by a high-level language.
+  - number: "4dii"
+    type: short_answer
+    text: |
+      One benefit of using a high-level language is that the code is easy to debug.
+
+      Give \textbf{two} other benefits of using a high-level language.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4diii"
+    type: short_answer
+    text: |
+      One drawback of using a high-level language is that it must be converted to a low-level language before it can be run.
+
+      Give \textbf{one} other drawback of using a high-level language.
+  - number: "4div"
+    type: long_answer
+    text: |
+      The computer game developers use an interpreter instead of a compiler when developing the computer game.
+
+      Explain why an interpreter would be more appropriate for developing the computer game.
+```

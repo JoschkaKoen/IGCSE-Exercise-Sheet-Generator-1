@@ -1,0 +1,35 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      An image is converted to binary to be represented by a computer.
+
+      Complete the table with the missing terms and definition about representing an image.
+
+      \begin{tabular}{|p{5cm}|p{10cm}|}
+      \hline
+      \textbf{Term} & \textbf{Definition} \\ \hline
+      \hrulefill & This is the smallest component of an image. \\ \hline
+      resolution & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+      \hrulefill & This is the number of bits used to create each colour in an image. \\ \hline
+      \hrulefill & This is additional data that is stored with an image that can provide information such as the time and date the image was taken. \\ \hline
+      \end{tabular}
+  - number: "4"
+    type: short_answer
+    text: |
+      A restaurant has an electronic ordering system. The system allows customers to select the food they want to order. The data for the order is transmitted across their network to a computer in the restaurant kitchen.
+  - number: "4a"
+    type: short_answer
+    text: |
+      The data is sent using serial full-duplex data transmission.
+  - number: "4ai"
+    type: short_answer
+    text: |
+      Give \textbf{two} reasons why serial full-duplex is a suitable data transmission method for the data.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4aii"
+    type: short_answer
+    text: |
+      Give \textbf{one} improvement that would be made to the data transmission if parallel transmission is used instead of serial transmission.

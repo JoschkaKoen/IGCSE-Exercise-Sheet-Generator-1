@@ -1,0 +1,22 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      Identify \textbf{two} disadvantages of using Dynamic RAM (DRAM) instead of Static RAM (SRAM) in a computer system.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3d"
+    type: short_answer
+    text: |
+      The computer system is used to store data received from a temperature sensor every five seconds. The data is stored on an optical disc using an optical disc reader/writer.
+  - number: "3di"
+    type: long_answer
+    text: |
+      Describe the principal operation of an optical disc reader/writer.
+  - number: "3dii"
+    type: long_answer
+    text: |
+      The computer uses a buffer when writing data to the optical disc.
+
+      Explain the use of a buffer when writing data to the optical disc.

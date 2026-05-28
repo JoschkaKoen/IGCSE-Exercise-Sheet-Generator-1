@@ -1,0 +1,100 @@
+[thinking]
+**Exam Paper Transcription: Page 10**
+
+Okay, so I need to transcribe page 10 of this exam paper. Let's see... the questions on this page are centered around a database table, which they've called `WATERFOWL`.
+
+First, there's question 7, which requires me to transcribe the main table description and the table itself. Then, 7a asks about the purpose of a primary key. And finally, 7b is about matching data types to fields within the table.
+
+Right, let's start with transcribing the table for question 7. I've got this:
+
+```latex
+\begin{tabular}{|l|l|c|c|c|c|}
+\hline
+\textbf{Species} & \textbf{Family} & \textbf{Length} & \textbf{Wingspan} & \textbf{CoastalHabitat} & \textbf{Lifespan} \\ \hline
+Barnacle goose & Goose & 63.5 & 130.0 & FALSE & 14 \\ \hline
+Bewick’s swan & Swan & 120.2 & 190.5 & TRUE & 8 \\ \hline
+Brent goose & Goose & 58.0 & 94.3 & TRUE & 11 \\ \hline
+Canada goose & Goose & 78.5 & 160.0 & FALSE & 6 \\ \hline
+Eider & Duck & 58.0 & 94.5 & TRUE & 8 \\ \hline
+Goldeneye & Duck & 44.5 & 72.1 & TRUE & 6 \\ \hline
+Goosander & Duck & 63.3 & 90.0 & TRUE & 7 \\ \hline
+Long-tailed duck & Duck & 44.0 & 76.6 & TRUE & 5 \\ \hline
+Mallard & Duck & 59.7 & 90.8 & FALSE & 3 \\ \hline
+Mute swan & Swan & 150.0 & 220.2 & FALSE & 10 \\ \hline
+Pink-footed goose & Goose & 69.6 & 150.0 & TRUE & 8 \\ \hline
+Pintail & Duck & 60.0 & 88.6 & TRUE & 3 \\ \hline
+Smew & Duck & 41.5 & 62.1 & FALSE & 7 \\ \hline
+White-fronted goose & Goose & 71.5 & 140.0 & FALSE & 6 \\ \hline
+Whooper swan & Swan & 150.0 & 230.0 & TRUE & 9 \\ \hline
+\end{tabular}
+```
+
+Now, let's look at 7a: "State the purpose of a primary key in a database table." Straightforward.
+
+For 7b, it looks like they want me to complete a table that identifies the most appropriate field from the `WATERFOWL` table for each data type.  The table should have columns for the `Data type` and the `Field`.
+
+I'll keep the second column blank as the candidate needs to fill it in. So the tabular structure for question 7b will be:
+
+```latex
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Data type} & \textbf{Field} \\ \hline
+Boolean & \\ \hline
+Integer & \\ \hline
+Real & \\ \hline
+Text & \\ \hline
+\end{tabular}
+```
+
+Okay, I believe that is everything I need to transcribe from page 10. Let's make sure that's correct, and put it all in YAML format for clarity.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A database table \texttt{WATERFOWL} stores some details of a range of birds found in the UK that live on or near water. The length and wingspan dimensions are in centimetres and the typical lifespan is in years.
+
+      \begin{tabular}{|l|l|c|c|c|c|}
+      \hline
+      \textbf{Species} & \textbf{Family} & \textbf{Length} & \textbf{Wingspan} & \textbf{CoastalHabitat} & \textbf{Lifespan} \\ \hline
+      Barnacle goose & Goose & 63.5 & 130.0 & FALSE & 14 \\ \hline
+      Bewick’s swan & Swan & 120.2 & 190.5 & TRUE & 8 \\ \hline
+      Brent goose & Goose & 58.0 & 94.3 & TRUE & 11 \\ \hline
+      Canada goose & Goose & 78.5 & 160.0 & FALSE & 6 \\ \hline
+      Eider & Duck & 58.0 & 94.5 & TRUE & 8 \\ \hline
+      Goldeneye & Duck & 44.5 & 72.1 & TRUE & 6 \\ \hline
+      Goosander & Duck & 63.3 & 90.0 & TRUE & 7 \\ \hline
+      Long-tailed duck & Duck & 44.0 & 76.6 & TRUE & 5 \\ \hline
+      Mallard & Duck & 59.7 & 90.8 & FALSE & 3 \\ \hline
+      Mute swan & Swan & 150.0 & 220.2 & FALSE & 10 \\ \hline
+      Pink-footed goose & Goose & 69.6 & 150.0 & TRUE & 8 \\ \hline
+      Pintail & Duck & 60.0 & 88.6 & TRUE & 3 \\ \hline
+      Smew & Duck & 41.5 & 62.1 & FALSE & 7 \\ \hline
+      White-fronted goose & Goose & 71.5 & 140.0 & FALSE & 6 \\ \hline
+      Whooper swan & Swan & 150.0 & 230.0 & TRUE & 9 \\ \hline
+      \end{tabular}
+  - number: "7a"
+    type: short_answer
+    text: |
+      State the purpose of a primary key in a database table.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Complete the table for each of the given data types, to identify \textbf{one} field from the table \texttt{WATERFOWL} that is most likely to use it.
+
+      Each field must be different.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Data type} & \textbf{Field} \\ \hline
+      Boolean & \\ \hline
+      Integer & \\ \hline
+      Real & \\ \hline
+      Text & \\ \hline
+      \end{tabular}
+```

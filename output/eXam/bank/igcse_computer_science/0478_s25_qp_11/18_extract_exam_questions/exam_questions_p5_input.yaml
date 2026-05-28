@@ -1,0 +1,18 @@
+  - number: "4b"
+    type: short_answer
+    text: ""
+  - number: "4bi"
+    type: long_answer
+    text: ""
+  - number: "4bii"
+    type: short_answer
+    text: ""
+  - number: "4c"
+    type: short_answer
+    text: ""
+  - number: "4ci"
+    type: multiple_choice
+    text: ""
+  - number: "4cii"
+    type: short_answer
+    text: ""

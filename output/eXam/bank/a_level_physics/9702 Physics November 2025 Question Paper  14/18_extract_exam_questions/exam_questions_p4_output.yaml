@@ -1,0 +1,70 @@
+questions:
+  - number: "4"
+    type: multiple_choice
+    text: |
+      An object falls from rest towards the ground.
+
+      Air resistance is negligible.
+
+      Which graph shows the variation of the momentum $p$ of the object with time $t$ until it hits the ground?
+    options:
+      - letter: A
+        text: |
+          Graph A (horizontal straight line above the t-axis)
+      - letter: B
+        text: |
+          Graph B (curve starting at the origin with decreasing gradient)
+      - letter: C
+        text: |
+          Graph C (straight line starting at the origin with constant positive gradient)
+      - letter: D
+        text: |
+          Graph D (curve starting at the origin with increasing gradient)
+  - number: "5"
+    type: multiple_choice
+    text: |
+      A projectile is fired at an angle of $45^\circ$ upwards from horizontal ground. Air resistance is negligible.
+
+      Which row describes the horizontal motion and the vertical motion of the projectile after it is fired until immediately before it reaches the ground again?
+
+      \begin{tabular}{c|c|c}
+       & horizontal motion & vertical motion \\ \hline
+      \textbf{A} & constant velocity & constant acceleration \\
+      \textbf{B} & constant velocity & varying acceleration \\
+      \textbf{C} & varying velocity & constant acceleration \\
+      \textbf{D} & varying velocity & varying acceleration
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          horizontal motion: constant velocity; vertical motion: constant acceleration
+      - letter: B
+        text: |
+          horizontal motion: constant velocity; vertical motion: varying acceleration
+      - letter: C
+        text: |
+          horizontal motion: varying velocity; vertical motion: constant acceleration
+      - letter: D
+        text: |
+          horizontal motion: varying velocity; vertical motion: varying acceleration
+  - number: "6"
+    type: multiple_choice
+    text: |
+      An aircraft on a runway accelerates uniformly from rest to its take-off speed of $58\text{ m s}^{-1}$.
+
+      The acceleration of the aircraft is $4.2\text{ m s}^{-2}$, and the aircraft uses $74\%$ of the length of the runway to reach its take-off speed.
+
+      What is the length of the runway?
+    options:
+      - letter: A
+        text: |
+          $300\text{ m}$
+      - letter: B
+        text: |
+          $540\text{ m}$
+      - letter: C
+        text: |
+          $590\text{ m}$
+      - letter: D
+        text: |
+          $800\text{ m}$

@@ -1,0 +1,51 @@
+[thinking]
+**Exam Page 5 YAML Stub Population**
+
+Okay, so I need to populate the YAML stub for exam page 5. Let's break down each question and ensure the stub accurately reflects the content.
+
+First, Question 5: It's all about process management. 5(a) asks for three process states, so I'll need to set up the appropriate lines for the user to fill those in. 5(b) requires a description of the shortest job first scheduling function, *and* a benefit, which means I should structure the stub to clearly indicate both those aspects with the "Function" and "Benefit" prompts.
+
+Now for Question 6. This one is a bit tricky. The stub has entries for both "6" and "6a", but on the actual page, there's no stand-alone "6" stem, it jumps directly to "6(a)". Typically, I'd either combine the "6" text into "6a" or leave it blank if there isn't a dedicated stem. But the structure here seems a bit off, it has `text: ''` for "6" and separate entries for "6a" and "6b". I'm going to follow the existing structure and make sure "6" is left as `text: ''`. Looks like the text for "6a" is: "Describe the structure of a graph as used in an Artificial Intelligence (AI) system." and for "6b": "Explain how supervised learning and unsupervised learning differ from each other."
+
+Okay, let's review to make sure I've got this right. I'm going to double-check:
+*   **Question 5** is straightforward: text for "5" is in the stub, and the formatted content is in "5a" and "5b."
+*   **Question 6** is a bit weird. Because the stem of question "6" has no text, I'll set its text as an empty string, following the current stub structure. Questions "6a" and "6b" are properly formatted.
+
+The prompt notes I should flag errors with a `STUB ERROR` if I'm missing information or if there's an inconsistency. I don't see any obvious errors or missing information from my perspective; all of the information from the page is accounted for in the stub structure. The case with question 6 is unusual but appears to be handled correctly in the current implementation. Therefore, I'm confident in how the questions are structured.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      The management and scheduling of processes are tasks carried out by an operating system.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Identify \textbf{three} process states.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "5b"
+    type: long_answer
+    text: |
+      Describe the function of the shortest job first scheduling routine \textbf{and} give a benefit of this routine.
+
+      Function
+
+      Benefit
+  - number: "6"
+    type: short_answer
+    text: ''
+  - number: "6a"
+    type: short_answer
+    text: |
+      Describe the structure of a graph as used in an Artificial Intelligence (AI) system.
+  - number: "6b"
+    type: long_answer
+    text: |
+      Explain how supervised learning and unsupervised learning differ from each other.

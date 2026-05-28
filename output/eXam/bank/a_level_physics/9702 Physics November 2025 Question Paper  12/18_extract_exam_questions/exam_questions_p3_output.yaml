@@ -1,0 +1,117 @@
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      What is a reasonable estimate of the weight of an adult human?
+    options:
+      - letter: A
+        text: |
+          $7 \times 10^0 \text{ N}$
+      - letter: B
+        text: |
+          $7 \times 10^2 \text{ N}$
+      - letter: C
+        text: |
+          $7 \times 10^4 \text{ N}$
+      - letter: D
+        text: |
+          $7 \times 10^6 \text{ N}$
+  - number: "2"
+    type: multiple_choice
+    text: |
+      What describes a set of data with a high precision?
+    options:
+      - letter: A
+        text: |
+          data measured using equipment with small scale divisions
+      - letter: B
+        text: |
+          data that is close to the accepted value
+      - letter: C
+        text: |
+          data with each value having a low uncertainty
+      - letter: D
+        text: |
+          data with repeats that are close to each other
+  - number: "3"
+    type: multiple_choice
+    text: |
+      Which physical quantity could have units of $\text{N s}^2 \text{m}^{-1}$?
+    options:
+      - letter: A
+        text: |
+          acceleration
+      - letter: B
+        text: |
+          force
+      - letter: C
+        text: |
+          mass
+      - letter: D
+        text: |
+          momentum
+  - number: "4"
+    type: multiple_choice
+    text: |
+      A ball is released from rest. The distance the ball falls and the time the ball takes to fall that distance are both measured.
+
+      The percentage uncertainty in the measured distance is negligible. The percentage uncertainty in the measured time is 4\%.
+
+      The distance and the time are then used to calculate the acceleration of free fall.
+
+      Air resistance is negligible.
+
+      What is the percentage uncertainty in the calculated value of the acceleration of free fall?
+    options:
+      - letter: A
+        text: |
+          2\%
+      - letter: B
+        text: |
+          4\%
+      - letter: C
+        text: |
+          8\%
+      - letter: D
+        text: |
+          16\%
+  - number: "5"
+    type: multiple_choice
+    text: |
+      A car has an initial velocity $u$. The car then moves with constant acceleration $a$ in a straight line through a displacement $d$. The car reaches a final velocity $v$.
+
+      Which expression gives the initial velocity $u$ of the car?
+    options:
+      - letter: A
+        text: |
+          $v - ad$
+      - letter: B
+        text: |
+          $\sqrt{v^2 - 2ad}$
+      - letter: C
+        text: |
+          $v + ad$
+      - letter: D
+        text: |
+          $v - \frac{1}{2}ad^2$
+  - number: "6"
+    type: multiple_choice
+    text: |
+      A bicycle brakes so that it undergoes uniform deceleration from a speed of $8 \text{ m s}^{-1}$ to $6 \text{ m s}^{-1}$ over a distance of $7 \text{ m}$.
+
+      The deceleration of the bicycle remains constant.
+
+      Which further distance will the bicycle travel before coming to rest?
+    options:
+      - letter: A
+        text: |
+          $7 \text{ m}$
+      - letter: B
+        text: |
+          $9 \text{ m}$
+      - letter: C
+        text: |
+          $16 \text{ m}$
+      - letter: D
+        text: |
+          $21 \text{ m}$

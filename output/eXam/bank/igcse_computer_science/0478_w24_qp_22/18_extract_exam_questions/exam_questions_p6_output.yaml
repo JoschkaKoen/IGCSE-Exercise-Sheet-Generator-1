@@ -1,0 +1,53 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      This pseudocode represents an algorithm.
+
+      An input of $-1$ will terminate the algorithm.
+
+      \begin{alltt}
+      DECLARE Count : INTEGER
+      DECLARE Answer : INTEGER
+      DECLARE Value : INTEGER
+      REPEAT
+        INPUT Value
+        IF Value <> -1
+        THEN
+          Answer <- Value
+          FOR Count <- Value - 1 TO 1 STEP -1
+            Answer <- Answer * Count
+          NEXT Count
+          OUTPUT Answer
+        ENDIF
+      UNTIL Value = -1
+      \end{alltt}
+  - number: "7a"
+    type: short_answer
+    text: |
+      Complete the trace table for the input data:
+
+      5, 6, $-1$, 20, 9, 4
+
+      \begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{4cm}|}
+      \hline
+      \hfil \textbf{Value} & \hfil \textbf{Count} & \hfil \textbf{Answer} & \hfil \textbf{OUTPUT} \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      & & & \\ \hline
+      \end{tabular}
+```

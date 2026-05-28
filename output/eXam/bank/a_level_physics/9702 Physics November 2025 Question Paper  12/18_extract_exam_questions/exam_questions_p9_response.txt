@@ -1,0 +1,77 @@
+[thinking]
+**Transcribing and Refining Physics Exam Questions**
+
+Okay, here's the task: I need to pull out questions 21, 22, and 23 from this exam page. Seems straightforward enough. Let's see...
+
+First, Question 21 is a multiple-choice question about a spring supporting a platform and a box. The prompt describes a diagram of the spring before and after the box is added and asks what the quantity "x" represents. The options are compression, load, strain, and stress. Easy enough, I can handle that.
+
+Next, Question 22 is a bit more involved. It deals with a copper wire with a given length (1.7 m) and diameter (0.64 mm), and the Young's modulus of copper ($1.2 \times 10^{11} \text{ Pa}$). I need to determine the spring constant of the wire. This means I'll need to remember and apply the relationship between Young's modulus, geometry, and the spring constant; it's basic mechanics of materials, a standard type of problem. The multiple-choice answers look like typical values for this scenario.
+
+Finally, Question 23 involves a graph showing the extension of a spring versus the force applied. The question asks for the elastic potential energy of the spring when the extension is 4.0 cm. That's a direct application of the area under the force-extension curve. I'll need to remember the formula for elastic potential energy or derive it from the graph, and convert the extension to the correct units. The multiple-choice options seem reasonable values for spring potential energy, depending on the spring constant and extension.
+
+I'll make sure to get all the formatting correct, particularly the math notation, when transcribing everything. Especially, I'll pay attention to proper units, like "m" for meters, "mm" for millimeters, "Pa" for Pascals, and "J" for Joules, and ensure the exponents are represented correctly. Then, I'll organize the questions in YAML format for easy parsing.
+
+
+
+[/thinking]
+
+questions:
+  - number: "21"
+    type: multiple_choice
+    text: |
+      A platform is supported by a spring. A box is placed onto the platform. The diagram shows the spring before and after the box is placed onto it.
+
+      What is the term for the quantity marked as $x$?
+    options:
+      - letter: A
+        text: |
+          compression
+      - letter: B
+        text: |
+          load
+      - letter: C
+        text: |
+          strain
+      - letter: D
+        text: |
+          stress
+  - number: "22"
+    type: multiple_choice
+    text: |
+      A copper wire has length $1.7\text{ m}$ and uniform diameter $0.64\text{ mm}$.
+
+      The Young modulus of copper is $1.2 \times 10^{11}\text{ Pa}$.
+
+      What is the spring constant of the wire?
+    options:
+      - letter: A
+        text: |
+          $2.3 \times 10^4\text{ N}\,\text{m}^{-1}$
+      - letter: B
+        text: |
+          $9.1 \times 10^4\text{ N}\,\text{m}^{-1}$
+      - letter: C
+        text: |
+          $4.5 \times 10^7\text{ N}\,\text{m}^{-1}$
+      - letter: D
+        text: |
+          $7.1 \times 10^7\text{ N}\,\text{m}^{-1}$
+  - number: "23"
+    type: multiple_choice
+    text: |
+      The graph shows how the extension of a spring varies with the force used to stretch it.
+
+      What is the elastic potential energy of the spring when the extension is $4.0\text{ cm}$?
+    options:
+      - letter: A
+        text: |
+          $60\text{ J}$
+      - letter: B
+        text: |
+          $120\text{ J}$
+      - letter: C
+        text: |
+          $600\text{ J}$
+      - letter: D
+        text: |
+          $1200\text{ J}$

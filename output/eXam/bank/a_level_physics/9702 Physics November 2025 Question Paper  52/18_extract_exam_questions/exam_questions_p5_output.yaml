@@ -1,0 +1,25 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student observes the orbits of some of the moons around the planet Saturn, as shown in Fig. 2.1.
+
+      For the moon Pandora, the period of the orbit and the mean distance from the centre of Saturn are determined.
+
+      The measurements of period $T$ and mean distance $r$ are repeated for other moons.
+
+      It is suggested that $T$ and $r$ are related by the equation
+
+      $$T = \frac{2\pi r^n}{k}$$
+
+      where $n$ and $k$ are constants.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A graph is plotted of $\lg T$ on the $y$-axis against $\lg r$ on the $x$-axis.
+
+      Determine expressions for the gradient and $y$-intercept.
+
+      gradient = \hrulefill
+
+      $y$-intercept = \hrulefill

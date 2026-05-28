@@ -1,0 +1,29 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A program is being developed to manage student book loans from a college library.
+
+      The programmer has defined a record type to define each loan.
+
+      The data items are:
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+      \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed the book \\ \hline
+      \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\ \hline
+      \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not} been returned \\ \hline
+      \end{tabular}
+
+      The programmer has defined a global array \texttt{Loan} to store 7000 loan records.
+
+      There are more elements in the array than books in the library. Unused elements have the \texttt{StudentID} set to an empty string. These may occur anywhere in the array.
+
+      The programmer has defined a program module:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      \texttt{CountLoans()} & \begin{tabular}[c]{@{}l@{}}\bullet \quad called with a parameter of type \texttt{STRING} representing a\\ \quad \texttt{StudentID}\\ \\ \bullet \quad counts the number of books currently on loan to the\\ \quad specified student\\ \\ \bullet \quad counts the number of books that the student has already\\ \quad returned\\ \\ \bullet \quad output both counts together with a suitable message\end{tabular} \\ \hline
+      \end{tabular}

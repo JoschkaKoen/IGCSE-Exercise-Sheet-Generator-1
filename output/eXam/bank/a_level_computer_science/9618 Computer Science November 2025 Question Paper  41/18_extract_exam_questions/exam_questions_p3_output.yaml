@@ -1,0 +1,59 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The function \texttt{Pop()} returns the next integer in the stack and updates the pointer as appropriate. If there is no data in the stack, the function returns the value $-999$.
+
+      Write program code for \texttt{Pop()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.
+  - number: "1d"
+    type: short_answer
+    text: |
+      The main program generates 40 random integers between 0 and 1000 (inclusive) and attempts to insert each one into the stack using the appropriate function. If the return value from the function call indicates the stack is full, no more integers are generated and \texttt{"Stack full"} is output.
+
+      Write program code for the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(d)} in the evidence document.
+  - number: "1e"
+    type: short_answer
+    text: |
+      The procedure \texttt{FindValues()}:
+
+      \begin{itemize}
+      \item pops each integer from the stack until the stack is empty
+      \item finds and outputs the largest number that was in the stack in an appropriate message
+      \item finds and outputs the smallest number that was in the stack in an appropriate message.
+      \end{itemize}
+
+      Write program code for \texttt{FindValues()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(e)} in the evidence document.
+  - number: "1f"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1fi"
+    type: short_answer
+    text: |
+      Extend the main program to call \texttt{FindValues()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(f)(i)} in the evidence document.
+  - number: "1fii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{1(f)(ii)} in the evidence document.

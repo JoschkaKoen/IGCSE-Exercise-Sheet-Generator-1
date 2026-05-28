@@ -1,0 +1,48 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 4**
+
+Okay, so I need to transcribe page 4 of this exam paper. The user wants me to extract the questions and their associated text. The questions are labeled as "1b", "1c", "1ci", "1cii", and "1ciii". Let's dissect this.
+
+First, "1b".  The instruction is clear: adjust the rod, measure p and q, record the results, and include TP and TQ. I'll translate that into a suitable YAML structure with the text.
+
+Next, "1c". Hmm, "1c" is there, but there is no specific text associated with *just* "1c" on the page, instead of "1ci", "1cii", and "1ciii". That's a bit odd. I need to be careful here, as I'm a stickler for detail, especially with these instructions. The prompt specifically says, "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it." Ah, right, that's what I must do. "1c" is present in the stub list, but its stem is missing on this page; therefore, the instruction is to report it as a `STUB ERROR`. This will alert the QA team to a potential upstream issue.
+
+Then, "1ci". This one is straightforward: plot TQ vs TP. I can formulate that into the correct text for transcription.
+
+For "1cii", it's the simple instruction to draw the straight line of best fit. I'll include that in the YAML text.
+
+Lastly, "1ciii". This is a calculation question. It asks for the gradient and y-intercept. Let me grab the text and add the hrulefills. It wants to know the gradient and y-intercept and provides the hrulefill underlines. I can format this as a YAML entry too. And remember the instructions specifically said I can format the hrulefills. That's a good touch to remember.
+
+Okay, I think I've got it. I'll write the YAML structures for each of the questions and transcribe them.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1b"
+    type: calculation
+    text: |
+      Change the position of Q and adjust the position of P until the rod is again parallel to the bench. Measure $p$ and $q$. Repeat until you have six sets of values of $p$ and $q$.
+
+      Record your results in a table. Include values of $T_{\text{P}}$ and $T_{\text{Q}}$ in your table.
+  - number: "1c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Plot a graph of $T_{\text{Q}}$ on the $y$-axis against $T_{\text{P}}$ on the $x$-axis.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1ciii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+
+      $y$-intercept = \hrulefill

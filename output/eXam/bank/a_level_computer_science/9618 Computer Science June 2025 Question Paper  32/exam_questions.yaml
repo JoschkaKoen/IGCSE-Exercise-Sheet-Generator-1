@@ -1,0 +1,618 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "Data types can be defined using pseudocode.\n\nThe composite record data\
+    \ type, \\texttt{Departure}, is used to represent flights from Cambridge Airport\
+    \ and is defined in pseudocode as:\n\n\\begin{alltt}\nTYPE Departure\n  DECLARE\
+    \ FlightNumber : STRING\n  DECLARE Destination : STRING\n  DECLARE FlightDate\
+    \ : DATE\n  DECLARE Gate : STRING\n  DECLARE Airline : STRING\nENDTYPE\n\\end{alltt}\n\
+    \nA variable, \\texttt{Flight1}, is declared in pseudocode as:\n\n\\begin{alltt}\n\
+    DECLARE Flight1 : Departure\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Write \textbf{pseudocode} to store the following details to \texttt{Flight1}:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{Field} & \textbf{Data} \\ \hline
+
+      \texttt{FlightNumber} & SB2789 \\ \hline
+
+      \texttt{Destination} & Dublin \\ \hline
+
+      \texttt{FlightDate} & 30/07/2025 \\ \hline
+
+      \texttt{Gate} & N03 \\ \hline
+
+      \texttt{Airline} & Cambridge Airways \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The data type for \texttt{Gate} is changed to an enumerated data type, \texttt{GateID}.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write a \textbf{pseudocode} statement to declare \texttt{GateID} to hold
+        the identity codes for the airport gates:
+
+
+        N01, N02, N03, W01, W02, W03, W04'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write the new \textbf{pseudocode} statement required to replace the declaration
+        of \texttt{Gate} in \texttt{Departure}.
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Numbers are stored in a computer using binary floating-point representation
+    with:
+
+
+    \begin{itemize}
+
+    \item 12 bits for the mantissa
+
+    \item 4 bits for the exponent
+
+    \item two''s complement form for both the mantissa and the exponent.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Calculate the normalised binary floating-point representation of $+124.4375$
+      in this system.
+
+      Show your working.
+
+
+      \textbf{Mantissa} \qquad\qquad\qquad\qquad\qquad\qquad\qquad \textbf{Exponent}
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+      \qquad \framebox{$\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Calculate the denary value of the following normalised binary floating-point
+      number.
+
+      Show your working.
+
+
+      \textbf{Mantissa} \qquad\qquad\qquad\qquad\qquad\qquad\qquad \textbf{Exponent}
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 \\
+
+      \hline
+
+      \end{tabular}
+
+      \qquad
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      0 & 1 & 1 & 0 \\
+
+      \hline
+
+      \end{tabular}
+
+
+      Denary value \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify \textbf{two} different layers of the TCP/IP protocol suite.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Describe how the TCP/IP protocol suite is applied when a message is sent
+      through the internet from one host to another. Do \textbf{not} describe the
+      function of individual layers of the TCP/IP protocol suite.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Circuit switching may be used as a method of data transmission.
+
+
+    State \textbf{two} benefits and \textbf{two} drawbacks of circuit switching.
+
+
+    Benefit 1 \hrulefill
+
+
+    Benefit 2 \hrulefill
+
+
+    Drawback 1 \hrulefill
+
+
+    Drawback 2 \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The management and scheduling of processes are tasks carried out by an operating
+    system.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Identify \textbf{three} process states.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Describe the function of the shortest job first scheduling routine \textbf{and}
+      give a benefit of this routine.
+
+
+      Function
+
+
+      Benefit'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the structure of a graph as used in an Artificial Intelligence
+      (AI) system.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Explain how supervised learning and unsupervised learning differ from each
+      other.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The diagram shows a logic circuit.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the truth table for the given logic circuit.
+
+      Show your working.
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      \multicolumn{4}{|c|}{} & \multicolumn{4}{c|}{Working space} & \\
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{P} & \textbf{Q}
+      & \textbf{R} & \textbf{S} & \textbf{Z} \\
+
+      \hline
+
+      0 & 0 & 0 & 0 & & & & & \\ \hline
+
+      0 & 0 & 0 & 1 & & & & & \\ \hline
+
+      0 & 0 & 1 & 0 & & & & & \\ \hline
+
+      0 & 0 & 1 & 1 & & & & & \\ \hline
+
+      0 & 1 & 0 & 0 & & & & & \\ \hline
+
+      0 & 1 & 0 & 1 & & & & & \\ \hline
+
+      0 & 1 & 1 & 0 & & & & & \\ \hline
+
+      0 & 1 & 1 & 1 & & & & & \\ \hline
+
+      1 & 0 & 0 & 0 & & & & & \\ \hline
+
+      1 & 0 & 0 & 1 & & & & & \\ \hline
+
+      1 & 0 & 1 & 0 & & & & & \\ \hline
+
+      1 & 0 & 1 & 1 & & & & & \\ \hline
+
+      1 & 1 & 0 & 0 & & & & & \\ \hline
+
+      1 & 1 & 0 & 1 & & & & & \\ \hline
+
+      1 & 1 & 1 & 0 & & & & & \\ \hline
+
+      1 & 1 & 1 & 1 & & & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Write the Boolean logic expression that corresponds to the given logic
+      circuit as the sum-of-products.
+
+
+      Z = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Use Boolean algebra including De Morgan''s laws to simplify the following
+      expression. Show all working.
+
+
+      $$(\overline{A + B}) \cdot (\overline{A \cdot B + B \cdot C})$$
+
+
+      Simplified expression \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: long_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Explain what is meant by \textbf{lexical analysis} during program compilation.
+  answer_options: []
+  subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Several syntax diagrams are shown.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State why \texttt{9K} is not a valid variable for the given syntax diagrams.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Complete the Backus-Naur Form (BNF) for \texttt{<operator>}.
+
+
+      \texttt{<operator> ::= } \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'An expression is defined as follows:
+
+
+      \begin{itemize}
+
+      \item A variable is assigned to a variable followed by an operator followed
+      by another variable.
+
+      \item The operator and final variable stage can be repeated as many times as
+      necessary.
+
+      \end{itemize}
+
+
+      Complete the syntax diagram for an expression.'
+    answer_options: []
+    subquestions: []
+  - number: 9d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A character can be a letter or a digit.
+
+
+      An additional constraint has been applied to the definition of variable. It
+      must comply with the given syntax diagram, but it will only pass validation
+      if it has at least \textbf{four} characters.
+
+
+      State \textbf{one} example of a valid variable.'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Identify the \textbf{two} main protocols that form Transport Layer Security
+    (TLS) \textbf{and} state the purpose of each.
+
+
+    Protocol 1 \hrulefill
+
+    Purpose \hrulefill
+
+
+    Protocol 2 \hrulefill
+
+    Purpose \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A linked list of nodes is used to store an ordered list of strings. Each node
+    consists of the data, a left pointer and a right pointer.
+  answer_options: []
+  subquestions:
+  - number: 11a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The linked list will be organised as a binary tree.
+
+
+      0 is used to represent a null pointer.
+
+
+      Complete the binary tree, including null pointers, to show how the data will
+      be organised after the following strings have been added:
+
+
+      Aa, Mm, Ss, Xx'
+    answer_options: []
+    subquestions: []
+  - number: 11b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A binary tree can be used to implement recursion.
+
+
+      Identify \textbf{one} feature of an algorithm that makes it beneficial to use
+      recursion.
+
+      Give \textbf{one} example of an application that could use a recursive algorithm.
+
+
+      Feature \hrulefill
+
+
+      Example \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '12'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 12a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: "A medical clinic uses objects of the class \\texttt{Patient} to assign\
+      \ a priority and a doctor to a patient. Some of the attributes required in the\
+      \ class are listed in the table.\n\n\\begin{tabular}{|l|l|l|}\n\\hline\n\\textbf{Attribute}\
+      \ & \\textbf{Data type} & \\textbf{Description} \\\\ \\hline\n\\texttt{PatientID}\
+      \ & \\texttt{STRING} & Unique identifier of the patient \\\\ \\hline\n\\texttt{Name}\
+      \ & \\texttt{STRING} & Patient's full name, surname first \\\\ \\hline\n\\texttt{DoctorID}\
+      \ & \\texttt{STRING} & ID of doctor administering treatment \\\\ \\hline\n\\\
+      end{tabular}\n\n\\newline\nTreatment is prioritised with a numeric scale of\
+      \ 1 to 5.\n\nComplete the class diagram for \\texttt{Patient}, to include:\n\
+      \\begin{itemize}\n\\item attribute and data type for the date of birth\n\\item\
+      \ attribute and data type for the priority\n\\item methods to assign the patient\
+      \ ID, priority and doctor ID\n\\item methods to return the patient ID, patient\
+      \ date of birth and the priority.\n\\end{itemize}\n\n\\begin{alltt}\n      \
+      \                        Patient\n------------------------------------------------------------------\n\
+      PatientID : STRING\n\nName : STRING\n\n.......................................................\
+      \ : ....................................................................\n\n\
+      ....................................................... : ....................................................................\n\
+      \nDoctorID : STRING\n------------------------------------------------------------------\n\
+      ................................................................................................................................\n\
+      \nSetName(FullName : STRING)\n\nSetDateOfBirth(DOB : DATE)\n\n................................................................................................................................\n\
+      \n................................................................................................................................\n\
+      \n................................................................................................................................\n\
+      \nGetName()\n\n................................................................................................................................\n\
+      \n................................................................................................................................\n\
+      \nGetDoctorID()\n\\end{alltt}"
+    answer_options: []
+    subquestions: []
+  - number: 12b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 12bi
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify the object-oriented programming (OOP) term described as ‘an occurrence
+        of an object’.
+      answer_options: []
+      subquestions: []
+    - number: 12bii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe what is meant by the OOP term \textbf{polymorphism}.
+      answer_options: []
+      subquestions: []
+- number: '13'
+  question_type: short_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: "The pseudocode algorithm below uses random file access to copy 50 records\
+    \ from a live file \\texttt{CurrentResults.dat} to a stored file \\texttt{StoredResults.dat}\
+    \ one record at a time. It uses the user-defined type \\texttt{StudentResult}.\n\
+    \n\\begin{alltt}\nTYPE StudentResult\n  DECLARE LastName : STRING\n  DECLARE FirstName\
+    \ : STRING\n  DECLARE ExamGrade : STRING\nENDTYPE\n\\end{alltt}\n\nIf any grades\
+    \ are missing in \\texttt{CurrentResults.dat}, the text \\texttt{\"Missing grade\"\
+    } is added to the \\texttt{ExamGrade} field in \\texttt{StoredResults.dat}\n\n\
+    Complete this file handling pseudocode algorithm.\n\n\\begin{alltt}\nDECLARE Grade\
+    \ : StudentResult\nDECLARE Position : INTEGER\n\n\\hrulefill\n\nOPENFILE \"StoredResults.dat\"\
+    \ FOR RANDOM\n\n\\hrulefill\n\n  SEEK \"CurrentResults.dat\", Position\n  GETRECORD\
+    \ \"CurrentResults.dat\", Grade\n  IF Grade.ExamGrade = \"\" THEN\n\n\\hrulefill\n\
+    \n  ENDIF\n\n\\hrulefill\n\n\\hrulefill\n\nNEXT Position\nCLOSEFILE \"CurrentResults.dat\"\
+    \nCLOSEFILE \"StoredResults.dat\"\n\\end{alltt}"
+  answer_options: []
+  subquestions: []

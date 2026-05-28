@@ -1,0 +1,22 @@
+```yaml
+questions:
+  - number: "9b"
+    type: short_answer
+    text: |
+      A stack is used to implement recursion.
+
+      State the \textbf{three} essential features of recursion.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "10"
+    type: short_answer
+    text: |
+      Explain what is meant by \textbf{exception handling}.
+      Include an example of a possible cause of an exception in your answer.
+
+      Explanation \hrulefill
+
+      Example \hrulefill
+```

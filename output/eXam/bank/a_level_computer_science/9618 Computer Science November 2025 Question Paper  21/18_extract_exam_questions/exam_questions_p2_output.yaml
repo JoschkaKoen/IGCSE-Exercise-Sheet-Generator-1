@@ -1,0 +1,50 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Refer to the \textbf{insert} for the list of pseudocode functions and operators.
+
+      A program is being developed to meet a particular customer requirement.
+  - number: "1a"
+    type: short_answer
+    text: |
+      The program contains these variables:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Data type}} \\ \hline
+      \texttt{MyChar} & \texttt{CHAR} \\ \hline
+      \texttt{MyString} & \texttt{STRING} \\ \hline
+      \texttt{MyInt} & \texttt{INTEGER} \\ \hline
+      \texttt{MyDOB} & \texttt{DATE} \\ \hline
+      \end{tabular}
+
+      Complete the table by filling in the gaps using functions and/or operators from the \textbf{insert}.
+
+      Each expression must be valid.
+
+      \begin{tabular}{|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Expression}} \\ \hline
+      \texttt{MyString <- 'X'} \underline{\hspace{1.5em}} \texttt{MyString} \\ \hline
+      \texttt{MyChar <-} \underline{\hspace{1.5em}} \texttt{("ABCD",} \underline{\hspace{1.5em}} \texttt{,} \underline{\hspace{1.5em}} \texttt{)} \\ \hline
+      \texttt{MyString <-} \underline{\hspace{1.5em}} \texttt{(} \underline{\hspace{1.5em}} \texttt{(MyDOB))} \\ \hline
+      \texttt{MyInt <-} \underline{\hspace{1.5em}} \texttt{(} \underline{\hspace{1.5em}} \texttt{(MyString) / 2)} \\ \hline
+      \end{tabular}
+  - number: "1b"
+    type: short_answer
+    text: |
+      Different test methods will be used at different stages of the program development.
+
+      Complete the table by identifying the test method that matches the test description.
+
+      The first row has been completed for you.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Test description}} & \multicolumn{1}{c|}{\textbf{Test method}} \\ \hline
+      carried out as soon as a program module has been coded & alpha \\ \hline
+      carried out as program modules are being combined & \underline{\hspace{1.5em}} \\ \hline
+      completed by the developers without referring to the code & \underline{\hspace{1.5em}} \\ \hline
+      completed by the customer & \underline{\hspace{1.5em}} \\ \hline
+      \end{tabular}

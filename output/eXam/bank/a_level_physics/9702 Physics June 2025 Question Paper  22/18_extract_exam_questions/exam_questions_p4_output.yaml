@@ -1,0 +1,38 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Table 1.1 lists some physical quantities. Identify with ticks ($\checkmark$) which quantities are vectors and which are scalars.
+
+      \textbf{Table 1.1}
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      quantity & scalar & vector \\ \hline
+      acceleration & & \\ \hline
+      displacement & & \\ \hline
+      gravitational potential energy & & \\ \hline
+      speed & & \\ \hline
+      temperature & & \\ \hline
+      \end{tabular}
+  - number: "1b"
+    type: short_answer
+    text: |
+      A constant resultant force $F$ acts on a car of mass $m$. The car moves from rest with constant acceleration $a$ along horizontal ground. When the car has displacement $s$, the speed of the car is $v$.
+  - number: "1bi"
+    type: long_answer
+    text: |
+      Using the concept of work done on the car, show that the kinetic energy $E_{\text{K}}$ of the car is given by the equation
+
+      $$E_{\text{K}} = \frac{1}{2}mv^2$$
+  - number: "1bii"
+    type: calculation
+    text: |
+      The mass of the car is $920\text{ kg}$. At time $t = 0$, the car is at rest. At time $t = 5.8\text{ s}$, its velocity is $17\text{ m}\,\text{s}^{-1}$.
+
+      Calculate the kinetic energy of the car at time $t = 5.8\text{ s}$.
+
+      kinetic energy = \hrulefill J

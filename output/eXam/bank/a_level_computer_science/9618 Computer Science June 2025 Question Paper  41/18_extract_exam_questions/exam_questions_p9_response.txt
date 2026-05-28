@@ -1,0 +1,119 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 9**
+
+Okay, the task is to generate the YAML stub for exam page 9. The questions are `3d`, `3e`, `3ei`, and `3eii`. Let's break it down. First, I see `3d`, which describes the `OutputInOrder()` function for a binary tree.  I'll need to provide the code for that. Then I encounter `3e`, and immediately question if it's a parent question or if there's an error. The structure of the YAML stub looks like this: `3d`, `3e`, `3ei`, `3eii`.  A quick check of the page shows text for (e)(i) and (e)(ii), but nothing standalone for `3e`.
+
+The instructions explicitly say to flag missing stems with a "STUB ERROR".  I confirm there's *no* text for just `3e` on the page – it jumps straight to `(e)(i)`.  Therefore, `3e` is a stub error.
+
+Now for the content. `3d` requires the code for `OutputInOrder()`. I'll create a detailed text block, including the algorithm in the context of the question.  For `3e`, I'll use the stipulated "| STUB ERROR" block scalar. `3ei` requests code to extend the main program: creating the tree, inserting nodes, and calling `OutputInOrder()`. I'll provide a text block for that.  Finally, `3eii` is about testing the program and taking a screenshot, so I'll write the text for that.
+
+Let's double-check again for the `3e` error. Yes, the page goes directly from `3d` to `(e)(i)`. So, `STUB ERROR` is indeed the correct approach.
+
+Here's the YAML stub I'm creating:
+```yaml
+  - number: "3d"
+    type: short_answer
+    text: |
+      The recursive procedure \texttt{OutputInOrder()} outputs the data stored in the binary tree in ascending numerical order.
+
+      The procedure takes a \texttt{Node} object as a parameter and then:
+      \begin{itemize}
+      \item checks if the left node is null. If there is a left node, the function calls itself with the left node
+      \item outputs the data of the current node
+      \item checks if the right node is null. If there is a right node, the function calls itself with the right node.
+      \end{itemize}
+
+      Write program code for \texttt{OutputInOrder()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(d)} in the evidence document.
+```
+
+```yaml
+  - number: "3e"
+    type: short_answer
+    text: |
+      STUB ERROR
+```
+
+```yaml
+  - number: "3ei"
+    type: short_answer
+    text: |
+      Write program code to extend the main program to:
+      \begin{itemize}
+      \item create a new object of type \texttt{Tree} with the node containing the data 10 as the first node
+      \item insert the nodes with the values 20, 5, 15 and 7 into the tree in the order given
+      \item call \texttt{OutputInOrder()} with the tree's root node as a parameter.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(e)(i)} in the evidence document.
+```
+
+```yaml
+  - number: "3eii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{3(e)(ii)} in the evidence document.
+```
+
+I'm confident this is the correct solution given the requirements.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3d"
+    type: short_answer
+    text: |
+      The recursive procedure \texttt{OutputInOrder()} outputs the data stored in the binary tree in ascending numerical order.
+
+      The procedure takes a \texttt{Node} object as a parameter and then:
+      \begin{itemize}
+      \item checks if the left node is null. If there is a left node, the function calls itself with the left node
+      \item outputs the data of the current node
+      \item checks if the right node is null. If there is a right node, the function calls itself with the right node.
+      \end{itemize}
+
+      Write program code for \texttt{OutputInOrder()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(d)} in the evidence document.
+  - number: "3e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3ei"
+    type: short_answer
+    text: |
+      Write program code to extend the main program to:
+      \begin{itemize}
+      \item create a new object of type \texttt{Tree} with the node containing the data 10 as the first node
+      \item insert the nodes with the values 20, 5, 15 and 7 into the tree in the order given
+      \item call \texttt{OutputInOrder()} with the tree's root node as a parameter.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(e)(i)} in the evidence document.
+  - number: "3eii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{3(e)(ii)} in the evidence document.

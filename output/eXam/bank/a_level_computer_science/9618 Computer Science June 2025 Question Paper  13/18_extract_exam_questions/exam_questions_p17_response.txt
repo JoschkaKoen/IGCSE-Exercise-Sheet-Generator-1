@@ -1,0 +1,59 @@
+[thinking]
+**Examining the Structure of Question 7**
+
+Okay, so I need to transcribe page 17 of this exam. The task is to structure question 7 and its sub-parts into the required format. Let's break this down systematically.
+
+First, I see that the question is structured as follows: "7", "7a", "7ai", "7aii", "7b", "7c". "7" appears to be the main question number. Now, let's look at the content. "7 (a) A computer can perform logical and arithmetic shifts." "7a" is a parent question to "7ai" and "7aii". So, I need to figure out how to represent this hierarchy correctly.
+
+I'll start by mapping the parts to the stub. "7" needs something. I consider: "7 (a) A computer can perform logical and arithmetic shifts." But that appears in "7a". Maybe "7" is just an empty placeholder. The most logical approach seems to be to make "7" a structural element with an empty `text` field and put the introductory stem in "7a". Therefore, "7a" takes "A computer can perform logical and arithmetic shifts."
+
+Now, "7ai" is straightforward, that's the "Show the result of a logical left shift of 2 places on the two's complement binary integer 11001010" question. Same goes for "7aii", it's the right shift question, "Show the result of an arithmetic right shift of 3 places on the two's complement binary integer 10011110".
+
+Next, "7b" is a binary addition. It's best to represent that calculation in a clear format. I will use LaTeX to make it look clean:
+
+```latex
+$$\begin{array}{rcccccccc}
+  & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 \\
++ & 1 & 0 & 1 & 1 & 0 & 0 & 0 & 1 \\
+\hline
+\end{array}$$
+```
+
+That's the correct format. Now, "7c" requires a binary subtraction calculation, which will be:
+"Subtract the binary number 00011110 from the binary number 01100100 using binary subtraction. Show your working."
+Finally, I confirm that the empty text field for "7" is the best way to represent this structure. The YAML representation will be clean and accurate.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: ''
+  - number: "7a"
+    type: short_answer
+    text: |
+      A computer can perform logical and arithmetic shifts.
+  - number: "7ai"
+    type: short_answer
+    text: |
+      Show the result of a logical left shift of 2 places on the two's complement binary integer 11001010
+  - number: "7aii"
+    type: short_answer
+    text: |
+      Show the result of an arithmetic right shift of 3 places on the two's complement binary integer 10011110
+  - number: "7b"
+    type: calculation
+    text: |
+      Complete the following binary addition. Show your working. Include any overflow bit(s).
+
+      $$\begin{array}{rcccccccc}
+        & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 \\
+      + & 1 & 0 & 1 & 1 & 0 & 0 & 0 & 1 \\
+      \hline
+      \end{array}$$
+  - number: "7c"
+    type: calculation
+    text: |
+      Subtract the binary number 00011110 from the binary number 01100100 using binary subtraction. Show your working.

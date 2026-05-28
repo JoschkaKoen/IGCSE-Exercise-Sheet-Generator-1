@@ -1,0 +1,36 @@
+[thinking]
+**My Thought Process on Transcribing Exam Questions**
+
+Okay, here's how I'm approaching this transcription task. First, I need to understand what's being asked. My input is page 11 of an exam paper, and I'm looking for specific question numbers: "7aii", "7b", and "8". The goal is a YAML output format, which dictates the structure: `number`, `type`, `text` for each question, and `options` if it's a multiple-choice question (which, in this case, it isn't).
+
+Now, let's get into the questions themselves.
+
+For "7aii", I'll extract the text: "Identify one other function of an operating system.\n\nDescribe the purpose of this function." I’ll ignore the `(ii)` prefix, as that’s just the question's sub-number. This is a straightforward, open-ended prompt with no answer lines that need transcribing.
+
+Next, "7b" is simple: "Give the name of the set of instructions that are provided to the operating system to allow it to run." Again, I’ll strip the `(b)` prefix and record the question text.
+
+Finally, for question "8", I see: "Draw and annotate a diagram to show how a payment transaction is made using digital currency and blockchain." I need to remember to treat that with its prefix "8 " to strip.
+
+My final step is formatting this information into YAML. I'll need to use block scalars (`|`) for the `text` fields to preserve any internal newlines or formatting. Double-checking the formatting is important to ensure the output is valid YAML.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7aii"
+    type: short_answer
+    text: |
+      Identify \textbf{one} other function of an operating system.
+
+      Describe the purpose of this function.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Give the name of the set of instructions that are provided to the operating system to allow it to run.
+  - number: "8"
+    type: long_answer
+    text: |
+      Draw and annotate a diagram to show how a payment transaction is made using digital currency and blockchain.
+```

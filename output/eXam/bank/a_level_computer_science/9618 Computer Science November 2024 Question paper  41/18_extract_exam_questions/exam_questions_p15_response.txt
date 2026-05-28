@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "3d"
+    type: short_answer
+    text: |
+      The procedure \texttt{RemoveData()} removes a node from the linked list.
+
+      The procedure takes the data item to be removed from the linked list as a parameter.
+
+      The procedure checks each node in the linked list, starting with the node \texttt{FirstNode}, until it finds the node to be removed. This node is added to the empty list, and pointers are changed as appropriate. The procedure only removes the first occurrence of the parameter.
+
+      Assume that the data item being removed is in the linked list.
+  - number: "3di"
+    type: long_answer
+    text: |
+      Write program code for \texttt{RemoveData()}.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(d)(i)} in the evidence document.
+  - number: "3dii"
+    type: long_answer
+    text: |
+      Amend the main program to:
+
+      \begin{itemize}
+      \item call \texttt{RemoveData()} with the parameter 5
+      \item output the word "After"
+      \item call \texttt{OutputLinkedList()}.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(d)(ii)} in the evidence document.
+  - number: "3diii"
+    type: short_answer
+    text: |
+      Test your program with both sets of given test data:
+
+      Test data set 1: 5 6 8 9 5
+
+      Test data set 2: 10 7 8 5 6
+
+      Take a screenshot of each output.
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{3(d)(iii)} in the evidence document.
+```

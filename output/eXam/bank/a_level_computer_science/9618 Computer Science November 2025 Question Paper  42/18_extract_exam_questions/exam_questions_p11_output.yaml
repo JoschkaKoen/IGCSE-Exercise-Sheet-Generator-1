@@ -1,0 +1,55 @@
+```yaml
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The text file \texttt{TreeData.txt} stores 50 integers. Each integer is on a new line in the file.
+
+      The main program reads each integer from the file and stores each integer in the binary tree in the order they are read.
+
+      Write program code for the main program.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(c)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3d"
+    type: short_answer
+    text: |
+      The procedure \texttt{WriteAllToFile()} stores the content of \texttt{TreeArray} in a new text file with the filename \texttt{Tree.txt}. The file \texttt{Tree.txt} is not provided.
+
+      Each node in \texttt{TreeArray} is stored on one line with a comma separating each value.
+
+      For example, the current contents of \texttt{TreeArray} are:
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Index} & \textbf{0} & \textbf{1} & \textbf{2} \\ \hline
+      \textbf{0} & -1 & 20 & 1 \\ \hline
+      \textbf{1} & -1 & 30 & -1 \\ \hline
+      \dots & & & \\ \hline
+      \textbf{49} & -1 & -1 & -1 \\ \hline
+      \end{tabular}
+
+      After writing \texttt{TreeArray} to the text file, \texttt{Tree.txt} will contain:
+
+      \begin{alltt}
+      -1,20,1
+      -1,30,-1
+      ...
+      -1,-1,-1
+      \end{alltt}
+
+      Write program code for \texttt{WriteAllToFile()}
+
+      Include exception handling when writing to the file.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(d)} in the evidence document. \\
+      \hline
+      \end{tabular}
+```

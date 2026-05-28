@@ -1,0 +1,41 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      The Karnaugh map (K-map) represents a logic circuit with four inputs.
+  - number: "6a"
+    type: short_answer
+    text: |
+      $$
+      \begin{tabular}{cc|c|c|c|c}
+      \multicolumn{2}{c}{} & \multicolumn{4}{c}{\textbf{AB}} \\
+      \multicolumn{2}{c}{} & \multicolumn{1}{c}{\textbf{00}} & \multicolumn{1}{c}{\textbf{01}} & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}} \\
+      \cline{3-6}
+      \textbf{CD} & \textbf{00} & 0 & 0 & 0 & 0 \\
+      \cline{3-6}
+       & \textbf{01} & 1 & 1 & 1 & 0 \\
+      \cline{3-6}
+       & \textbf{11} & 0 & 1 & 1 & 1 \\
+      \cline{3-6}
+       & \textbf{10} & 0 & 0 & 1 & 1 \\
+      \cline{3-6}
+      \end{tabular}
+      $$
+  - number: "6ai"
+    type: short_answer
+    text: |
+      Draw loop(s) around appropriate group(s) in the K-map to produce an optimal sum-of-products.
+  - number: "6aii"
+    type: short_answer
+    text: |
+      Write the Boolean expression from your answer to part \textbf{a(i)} as a simplified sum-of-products. Do \textbf{not} carry out any further simplification.
+  - number: "6b"
+    type: calculation
+    text: |
+      Simplify the following expression using De Morgan’s laws and Boolean algebra.
+
+      Show all the stages in your simplification.
+
+      $$X = \overline{A+B+C} + \overline{\overline{B}+C}$$
+```

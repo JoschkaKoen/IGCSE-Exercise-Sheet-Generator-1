@@ -1,0 +1,51 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A computer with a Von Neumann architecture has a central processing unit (CPU).
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the statements about the operation of the CPU.
+
+      Use the terms from the list. \textbf{Not} all terms will need to be used. You should only use each term once.
+
+      \begin{itemize}
+      \item accumulator
+      \item arithmetic logic unit
+      \item character set
+      \item control unit
+      \item current instruction register
+      \item cipher
+      \item decoding set
+      \item instruction counter
+      \item instruction set
+      \item memory address register
+      \item memory data register
+      \item memory instruction register
+      \item next instruction register
+      \item program counter
+      \item program register
+      \end{itemize}
+
+      The \underline{\hspace{1.5em}} stores the address of the next instruction to be fetched. This address is then sent to the \underline{\hspace{1.5em}}. This address is the location in RAM where the instruction can be found. The instruction is retrieved from RAM and immediately stored in the \underline{\hspace{1.5em}}. The instruction is then sent to the \underline{\hspace{1.5em}} where it is decoded by the \underline{\hspace{1.5em}}. The instruction is decoded using an \underline{\hspace{1.5em}}.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Handling interrupts is one function of an operating system.
+  - number: "6bi"
+    type: short_answer
+    text: |
+      An interrupt is sent to the CPU every time a key is pressed on the keyboard.
+
+      Give the name of this type of interrupt.
+  - number: "6bii"
+    type: short_answer
+    text: |
+      Give the name of the program that services the interrupt.
+  - number: "6biii"
+    type: short_answer
+    text: |
+      Give \textbf{one} other function of an operating system.
+```

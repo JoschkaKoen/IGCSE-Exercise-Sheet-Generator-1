@@ -1,0 +1,27 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A relational database, \texttt{SHIPPING}, stores data about the ships in a company and the containers that are carried on the ships.
+
+      The database has the following tables:
+
+      \texttt{CONTAINER(\underline{ContainerID}, Type, Weight, OwnerName, ShipID)}
+
+      \texttt{SHIP(\underline{ShipID}, Type, Capacity, ShipName)}
+  - number: "4a"
+    type: short_answer
+    text: |
+      Describe the relationship between the two tables. Refer to the primary and foreign keys in your answer.
+  - number: "4b"
+    type: short_answer
+    text: |
+      The table \texttt{CONTAINER} needs an additional field to store the data for the last inspection date.
+
+      Write a Structured Query Language (SQL) script to add \textbf{one} field to the table \texttt{CONTAINER} to store the date of last inspection of the container, for example 08/07/2019.
+  - number: "4c"
+    type: short_answer
+    text: |
+      Write an SQL script to return the number of containers stored in the database for the ship with the name Caledonia.
+```

@@ -1,0 +1,468 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick (\checkmark) \textbf{one} box to show which task is part of the analysis
+    stage of the program life cycle.
+  answer_options:
+  - letter: A
+    text: coding
+  - letter: B
+    text: decomposition
+  - letter: C
+    text: design
+  - letter: D
+    text: testing
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Four test data types and five descriptions are shown.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Draw \textbf{one} line to link each test data type to its most appropriate
+      description.
+
+
+      \textbf{Test data type}
+
+      \begin{itemize}
+
+      \item abnormal
+
+      \item boundary
+
+      \item extreme
+
+      \item normal
+
+      \end{itemize}
+
+
+      \textbf{Description}
+
+      \begin{itemize}
+
+      \item a value that is accepted
+
+      \item a value that is the highest or lowest value to be accepted and the corresponding
+      lowest or highest value to be rejected
+
+      \item a value that is the highest or lowest value to be rejected
+
+      \item a value that is rejected
+
+      \item a value that is the highest or lowest value to be accepted
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'An algorithm has been written to test if an integer that is input is in
+      the range 5 to 10 inclusive. Identify an example of suitable test data for each
+      test data type.
+
+
+      Abnormal \hrulefill
+
+      Boundary \hrulefill
+
+      Extreme \hrulefill
+
+      Normal \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A linear search and a bubble sort are standard methods of solution.
+
+    Fifty numbers are already stored in the array \texttt{Values[1:50]}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: long_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Write an algorithm in pseudocode to input a number, \texttt{MyNumber}, and
+      use a linear search to test if that number is stored in the array. If the number
+      is found in the array, the position in the array is output. If the number is
+      not found in the array, "Not found" is output.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Write an algorithm in pseudocode to sort the array \texttt{Values[1:50]}
+      into ascending order using a bubble sort.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'Identify \textbf{three} data types used in programming.
+
+
+    1. \hrulefill
+
+    2. \hrulefill
+
+    3. \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An algorithm has been written in pseudocode to calculate the profit when
+    an item is sold. Values for cost price and selling price are input, the profit
+    is calculated (selling price – cost price) and output. The input of zero for either
+    value stops the algorithm.
+
+
+    \begin{alltt}
+
+    01 REPEAT
+
+    02   OUTPUT "Enter cost price "
+
+    03   INPUT Cost
+
+    04   OUTPUT "Enter selling price "
+
+    05   OUTPUT Sell
+
+    06   IF Cost <> 0 OR Sell <> 0
+
+    07     THEN
+
+    08       Profit <- Sell - Cost
+
+    09       OUTPUT "Profit is ", Profit
+
+    10   NEXT
+
+    11 UNTIL Cost = 0 OR Sell = 0
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Identify the line numbers of three errors in the pseudocode and suggest
+      corrections.
+
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: This algorithm needs to be improved with a range check.
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Write pseudocode to reject the input of values less than zero for variables
+        \texttt{Cost} and \texttt{Sell}.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe \textbf{two} other validation checks that should be included
+        in this algorithm.
+
+
+        Check 1 \hrulefill
+
+        Check 2 \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: long_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Describe \textbf{two} types of iteration that a programmer can use whilst
+    writing a program.
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Consider the logic expression:
+
+
+    $$\text{X} = (\text{A XOR B}) \text{ AND } (\text{NOT B AND C})$$'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Draw a logic circuit for this logic expression. Each logic gate must have
+      a maximum of two inputs. Do not simplify this logic expression.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table from the given logic expression.
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: "This flowchart represents an algorithm to find the average size of groups\
+    \ of visitors to an attraction.\n\nComplete the trace table using this data:\n\
+    \n7, 10, 2, 8, 3, 9, 0, 6\n\n\\begin{tabular}{|c|c|c|c|c|}\n\\hline\n\\textbf{NumberGroups}\
+    \ & \\textbf{Total} & \\textbf{GroupSize} & \\textbf{Average} & \\textbf{OUTPUT}\
+    \ \\\\ \\hline\n & & & & \\\\ \\hline\n & & & & \\\\ \\hline\n & & & & \\\\ \\\
+    hline\n & & & & \\\\ \\hline\n & & & & \\\\ \\hline\n & & & & \\\\ \\hline\n &\
+    \ & & & \\\\ \\hline\n & & & & \\\\ \\hline\n & & & & \\\\ \\hline\n & & & & \\\
+    \\ \\hline\n\\end{tabular}"
+  answer_options: []
+  subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A storage unit rental company wants to set up a new database table for the
+    storage units that can be rented.
+
+
+    The table is called \texttt{StorageUnits} and needs to store these details:
+
+    \begin{itemize}
+
+    \item \texttt{SizeMetres} – size in square metres
+
+    \item \texttt{Position} – first, second or third floor
+
+    \item \texttt{Hoist} – whether there is a hoist available for the transfer of
+    items
+
+    \item \texttt{PriceMonth} – the price in dollars for a month''s rental
+
+    \item \texttt{StorageID} – the code to identify each storage unit, for example
+    S123
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 9ai
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the name of the field that would be used for the primary key.
+      answer_options: []
+      subquestions: []
+    - number: 9aii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the reason for choosing this field for the primary key.
+      answer_options: []
+      subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the table to identify the most appropriate data type for these
+      fields in the table \texttt{StorageUnits}.
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{Field} & \textbf{Data type} \\ \hline
+
+      \texttt{SizeMetres} & \\ \hline
+
+      \texttt{Position} & \\ \hline
+
+      \texttt{Hoist} & \\ \hline
+
+      \texttt{StorageID} & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete this structured query language (SQL) statement to display only
+      the storage code, price and size in square metres of all the storage units where
+      there is a hoist available.
+
+
+      \texttt{SELECT} \hrulefill
+
+
+      \texttt{FROM} \hrulefill
+
+
+      \texttt{WHERE} \hrulefill ;'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'A programmer has written a program that will be maintained by another programmer.
+
+    Explain how the program can be written to make sure it can be easily maintained
+    by the other programmer.'
+  answer_options: []
+  subquestions: []
+- number: '11'
+  question_type: long_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: "Students in a class are recording the amount of time in minutes spent in\
+    \ front of a screen for each day of the week.\n\nThe one-dimensional (1D) array\
+    \ \\texttt{StudentName[]} contains the names of the students in the class.\n\n\
+    The two-dimensional (2D) array \\texttt{ScreenTime[]} is used to input the number\
+    \ of minutes on each day spent in front of a screen.\n\nThe position of each student's\
+    \ data in the two arrays is the same. For example, the student stored at index\
+    \ 10 in \\texttt{StudentName[]} and \\texttt{ScreenTime[]} is the same.\n\nThe\
+    \ variable \\texttt{ClassSize} contains the number of students in the class.\n\
+    \nWrite a program that meets these requirements:\n\n\\begin{itemize}\n\\item allows\
+    \ all the students to enter their daily minutes of screen times for the past week\n\
+    \\item calculates the total number of minutes of screen time for each student\
+    \ in the week\n\\item counts, for each student, the number of days with more than\
+    \ 300 minutes of screen time\n\\item calculates the average weekly minutes of\
+    \ screen time for the whole class\n\\item finds the student with the lowest weekly\
+    \ minutes of screen time\n\\item outputs for each student:\n  \\begin{itemize}\n\
+    \  \\item name\n  \\item total week's screen time in hours and minutes\n  \\item\
+    \ number of days with more than 300 minutes of screen time\n  \\end{itemize}\n\
+    \\item outputs the average weekly minutes of screen time for the whole class\n\
+    \\item outputs the name of the student with the lowest weekly screen time.\n\\\
+    end{itemize}\n\nYou must use pseudocode or program code \\textbf{and} add comments\
+    \ to explain how your code works. All inputs and outputs must contain suitable\
+    \ messages.\n\nAssume that the array \\texttt{StudentName[]} and the variable\
+    \ \\texttt{ClassSize} already contain the required data.\n\nYou do not need to\
+    \ declare any arrays or variables; you may assume that this has already been done."
+  answer_options: []
+  subquestions: []

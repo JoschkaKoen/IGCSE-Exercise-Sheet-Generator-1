@@ -1,0 +1,49 @@
+[thinking]
+**Analyzing the Exam Page and Question Stubs**
+
+Okay, so I'm being asked to transcribe page 8 of this exam paper. The user has given me a list of question stubs: "2b", "2c", "2ci", and "2cii". I see "2b" on the page, which looks straightforward: a calculation of tension using $T = Mg$.
+
+Then, there's "2c". Hmm, that's where it gets interesting. I see a section labeled "(c) (i)", which involves a newton meter, a string deflection $x$, and a figure (which I don't have). There are two bullet points under this. "2ci" seems to correspond to measuring $x$, and there's also a question "2cii". But what about "2c" itself?
+
+I need to figure out if "2c" is a parent question, empty, or a stub error. Let me check the OCR to ensure I didn't miss something. I see that "(c) (i)" immediately follows, so there's no separate text block for "2c." The user message does state "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess." So it is a stub error.
+
+My analysis of the page confirms that there is indeed no standalone question text for "2c". It looks like "2c" is a parent heading for questions "2ci" and "2cii". I need to adhere to the instruction to return one entry per stub, and to not guess or change the order. So, I need to emit a "STUB ERROR" for question 2c and the rest should be transcribed as follows.
+
+*   "2b": Calculate the tension `T` with given formula and value.
+*   "2c": Needs a "STUB ERROR" since there is no standalone text for 2c.
+*   "2ci": A calculation question. Hook the newton meter on the string and pull it, then measure the deflection `x`.
+*   "2cii": Estimate the percentage uncertainty in the value of `x` and show the working.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      The tension in the string is $T$.
+
+      Calculate $T$ using $T = Mg$, where $g = 9.81 \text{ N}\,\text{kg}^{-1}$.
+
+      $T = \hrulefill$ N
+  - number: "2c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ci"
+    type: calculation
+    text: |
+      Hook the newton meter on the string half-way between the two lower nails and pull it horizontally with a force $F$ of $5.0 \text{ N}$, as shown in Fig. 2.2.
+
+      The force $F$ causes the string to deflect a distance $x$, as shown in Fig. 2.2.
+
+      Measure and record $x$.
+
+      $x = \hrulefill$ cm
+  - number: "2cii"
+    type: calculation
+    text: |
+      Estimate the percentage uncertainty in your value of $x$. Show your working.
+
+      percentage uncertainty = \hrulefill \%

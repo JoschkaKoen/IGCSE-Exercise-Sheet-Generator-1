@@ -1,0 +1,23 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      Data packets are transmitted across a network from one computer to another computer.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Describe the structure of a data packet.
+  - number: "4b"
+    type: short_answer
+    text: |
+      Packet switching is used to transmit the data packets across the network.
+
+      Identify the device that controls which path is taken by each data packet.
+  - number: "4c"
+    type: long_answer
+    text: |
+      Serial data transmission is used to transmit the data packets across the network.
+
+      Explain why serial data transmission is used to transmit the data packets.
+```

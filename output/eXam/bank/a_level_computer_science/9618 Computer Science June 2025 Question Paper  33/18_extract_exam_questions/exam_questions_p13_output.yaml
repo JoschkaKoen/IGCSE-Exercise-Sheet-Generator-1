@@ -1,0 +1,38 @@
+```yaml
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      The pseudocode algorithm below allows a user to input a new stock item. The random file is searched for the next empty location in the file and the new item is inserted there.
+      A suitable message is displayed if the file is full.
+
+      Complete this pseudocode.
+
+      \begin{alltt}
+      DECLARE Location : INTEGER
+      DECLARE NewStock : STRING
+      DECLARE CurrentStock : STRING
+      DECLARE Stored : BOOLEAN
+      DECLARE Max : INTEGER
+      Max <- 100000
+      Stored <- FALSE
+      Location <- 1
+      \hrulefill
+      OUTPUT "Enter the new item you wish to store: "
+      INPUT NewStock
+      WHILE NOT Stored AND Location <= Max
+         \hrulefill
+         GETRECORD "StockList.dat", \hrulefill
+         IF CurrentStock = "" THEN
+            \hrulefill "StockList.dat", NewStock
+            Stored <- TRUE
+         ELSE
+            Location <- Location + 1
+         ENDIF
+      ENDWHILE
+      \hrulefill THEN
+         OUTPUT "The new item has not been stored as the file was full."
+      ENDIF
+      CLOSEFILE "StockList.dat"
+      \end{alltt}
+```

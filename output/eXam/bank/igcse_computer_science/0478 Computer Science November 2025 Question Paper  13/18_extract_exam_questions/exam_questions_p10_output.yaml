@@ -1,0 +1,25 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      Text, images and sound are represented as binary to be processed by a computer.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the table by writing the missing terms and descriptions about representing text, images and sound as binary.
+
+      \begin{tabular}{|p{5cm}|p{8cm}|}
+      \hline
+      \textbf{Term} & \textbf{Description} \\ \hline
+      character set & \\ \hline
+      & This is the number of samples taken each second when recording sound. \\ \hline
+      pixel & \\ \hline
+      resolution & \\ \hline
+      & This is the number of bits used to represent a colour in an image. \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: calculation
+    text: |
+      The size of an image file is 1000 bytes.
+
+      Give the size of the image file in bits.

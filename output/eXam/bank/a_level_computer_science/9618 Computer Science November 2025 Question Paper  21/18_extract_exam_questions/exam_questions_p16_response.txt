@@ -1,0 +1,17 @@
+```yaml
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      A second module is defined:
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Module} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      \texttt{ReturnBook()} & \begin{tabular}[c]{@{}l@{}}• called with two parameters of type \texttt{STRING} representing a\\ \quad \texttt{StudentID} and a \texttt{BookID}\\ • searches the array for the relevant loan record\\ • when found, sets \texttt{OnLoan} to \texttt{FALSE} and returns \texttt{TRUE}\\ • if a loan record is \textbf{not} found, or the book has already been\\ \quad returned, then returns \texttt{FALSE}\end{tabular} \\ \hline
+      \end{tabular}
+
+      Write efficient pseudocode for the module \texttt{ReturnBook()}
+
+      Assume that each student is only allowed to borrow each book only once. That means that there will be no more than one loan record for a given combination of student and book.
+```

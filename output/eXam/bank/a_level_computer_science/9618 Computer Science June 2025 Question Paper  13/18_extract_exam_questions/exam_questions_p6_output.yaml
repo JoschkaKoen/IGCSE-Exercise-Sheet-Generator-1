@@ -1,0 +1,34 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A programmer is writing a program in a high-level language.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Complete the description of compilers and interpreters by writing the missing words.
+
+      A compiler checks all the code before attempting to translate the program. If any errors are found, they are all reported at the same time and the program does not translate or run. If there are no errors found, the compiler produces \underline{\hspace{1.5em}} which can run without access to the \underline{\hspace{1.5em}}.
+
+      An interpreter translates one line of code and then runs it, before moving to the next line of code. If the line of code has an error, the interpreter \underline{\hspace{1.5em}} and displays the error. The programmer can correct the error \underline{\hspace{1.5em}} and then the interpreter continues translating from that point.
+  - number: "3b"
+    type: short_answer
+    text: |
+      The programmer needs to keep the program files secure on their computer and during electronic data transmission over the internet. The files are protected by a password.
+
+      Complete the table by identifying \textbf{one} other method of keeping the files secure during electronic data transmission \textbf{and} \textbf{one} other method of keeping the files secure on the computer.
+
+      State how each method protects the data.
+
+      The methods must be different.
+
+      \begin{tabular}{|l|p{4cm}|p{6cm}|}
+      \hline
+       & \textbf{Method} & \textbf{How the method protects the data} \\ \hline
+      \textbf{during transmission} & & \\
+       & & \\ \hline
+      \textbf{on the computer} & & \\
+       & & \\ \hline
+      \end{tabular}
+```

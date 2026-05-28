@@ -1,0 +1,52 @@
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to show which task is part of the analysis stage of the program life cycle.
+    options:
+      - letter: A
+        text: |
+          coding
+      - letter: B
+        text: |
+          decomposition
+      - letter: C
+        text: |
+          design
+      - letter: D
+        text: |
+          testing
+  - number: "2"
+    type: short_answer
+    text: |
+      Four test data types and five descriptions are shown.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Draw \textbf{one} line to link each test data type to its most appropriate description.
+
+      \textbf{Test data type}
+      \begin{itemize}
+      \item abnormal
+      \item boundary
+      \item extreme
+      \item normal
+      \end{itemize}
+
+      \textbf{Description}
+      \begin{itemize}
+      \item a value that is accepted
+      \item a value that is the highest or lowest value to be accepted and the corresponding lowest or highest value to be rejected
+      \item a value that is the highest or lowest value to be rejected
+      \item a value that is rejected
+      \item a value that is the highest or lowest value to be accepted
+      \end{itemize}
+  - number: "2b"
+    type: short_answer
+    text: |
+      An algorithm has been written to test if an integer that is input is in the range 5 to 10 inclusive. Identify an example of suitable test data for each test data type.
+
+      Abnormal \hrulefill
+      Boundary \hrulefill
+      Extreme \hrulefill
+      Normal \hrulefill

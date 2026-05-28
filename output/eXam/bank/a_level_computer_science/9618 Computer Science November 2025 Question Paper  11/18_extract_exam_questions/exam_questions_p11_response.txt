@@ -1,0 +1,66 @@
+[thinking]
+**Exam Page 11 - Transcription & Formatting**
+
+Okay, so the user wants me to transcribe page 11 of the exam. Let's break this down. The main question is about processor registers – the Accumulator (ACC) and the Current Instruction Register (CIR). I see three specific sub-questions to address:
+
+*   **6a:** This requires a table describing the role of each register. The key here is the *verbatim* instruction: "Content table — cells contain actual words, numbers, or labels... Keep the `\begin{tabular}...\end{tabular}` verbatim." My initial thought was to use a basic content table. Given the blank spaces in the "Role" column, I'm thinking of this:
+
+    ```latex
+    \begin{tabular}{|p{3cm}|p{10cm}|}
+    \hline
+    \textbf{Register} & \textbf{Role} \\ \hline
+    ACC & \\
+     & \\ \hline
+    CIR & \\
+     & \\ \hline
+    \end{tabular}
+    ```
+
+    I'm using `p{3cm}` and `p{10cm}` to give a bit more flexibility in the table width. This should satisfy the content table constraint and allows space for answers.
+
+*   **6b:** This is about the drawbacks of increasing the number of cores in a processor. Seems straightforward, I'll need to articulate those.
+
+*   **6c:** This asks for *three* differences between DRAM and SRAM. So, it requires numbered answer slots, which I'll represent as:
+
+    1.  \hrulefill
+    2.  \hrulefill
+    3.  \hrulefill
+
+Now I need to construct the YAML structure to represent all this information accurately.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      The processor uses several registers, including the Accumulator (ACC) and the Current Instruction Register (CIR).
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the table by describing the role of each register.
+
+      \begin{tabular}{|p{3cm}|p{10cm}|}
+      \hline
+      \textbf{Register} & \textbf{Role} \\ \hline
+      ACC & \\
+          & \\ \hline
+      CIR & \\
+          & \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      Increasing the number of cores in a processor can affect the performance of a computer.
+
+      Describe the drawbacks of increasing the number of cores in a processor.
+  - number: "6c"
+    type: short_answer
+    text: |
+      State \textbf{three} differences between Dynamic RAM (DRAM) and Static RAM (SRAM).
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

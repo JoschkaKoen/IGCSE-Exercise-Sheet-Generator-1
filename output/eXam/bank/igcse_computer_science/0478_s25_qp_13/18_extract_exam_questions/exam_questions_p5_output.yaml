@@ -1,0 +1,29 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A company employee is editing a video for the company's website.
+
+      Data is stored in the random access memory (RAM) when the video is edited.
+
+      The RAM becomes full and pages of data are transmitted to a partitioned section of the secondary storage to stop the computer from crashing.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Give the name of the partitioned section of the secondary storage that is used in this process.
+  - number: "2b"
+    type: short_answer
+    text: |
+      The secondary storage is a hard disk drive (HDD). An HDD is an example of magnetic storage.
+
+      One feature of magnetic storage is that it uses platters.
+
+      Give \textbf{three} other features of magnetic storage.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      Give the reasons why an HDD is an example of secondary storage.

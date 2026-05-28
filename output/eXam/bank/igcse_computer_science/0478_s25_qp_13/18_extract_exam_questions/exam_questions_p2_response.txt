@@ -1,0 +1,56 @@
+[thinking]
+**Exam Page 2 Transcription**
+
+Okay, so the task at hand is to transcribe page 2 of an exam paper. I need to take each question and structure it according to the specified rules. The questions are numbered 1, 1a, 1b, 1c, and 1ci. Let's see...
+
+I'm starting with question 1, which is a short answer question, and the provided text describes a student recording a song and converting it to binary. Then, question 1a asks for a single input device the student could use for recording – another short answer. Next, question 1b is a multiple-choice question about the type of software sound editing software is, with application, security, system, and utility as the options. Then we have question 1c, another short-answer question, this one gives us two binary numbers. Finally, question 1ci, a calculation question, asks to convert those two binary numbers to denary values.
+
+Now, let's format each of these meticulously. I'll make sure to use YAML with the correct indentation. For question "1," I am going to make it a short answer and include the original text provided. For "1a", it's a short answer too, and the key part is "one input device." For "1b," it's multiple choice, so I have to include the options with letters. For "1c," another short answer, I will make sure to include the two binary numbers. For "1ci," the calculation, I need to provide the "convert to denary" instruction along with the values, 00011001 and 10110100, each followed by an answer line (hrulefill). The values will come in a YAML block. I will need to make sure the values and instruction are clearly separated.
+
+Let me just double-check the rules. I recall that the text "Two binary numbers..." is the stem for 1c and 1ci. "Working space" and standalone dotted lines should not be included. No double quotes in the strings. Structural fields should be plain or single-quoted. Everything seems to line up; it's all about precision and detail.
+
+I'm confident this will produce the accurately formatted transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A student records himself singing a song for his music project. The recorded sound is converted to binary to be processed by a computer.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Give \textbf{one} input device the student can use to record the song.
+  - number: "1b"
+    type: multiple_choice
+    text: |
+      The student uses sound editing software to edit the recorded sound.
+
+      Tick ($\checkmark$) \textbf{one} box to show whether sound editing software is an example of application, security, system or utility software.
+    options:
+      - letter: A
+        text: |
+          application software
+      - letter: B
+        text: |
+          security software
+      - letter: C
+        text: |
+          system software
+      - letter: D
+        text: |
+          utility software
+  - number: "1c"
+    type: short_answer
+    text: |
+      Two binary numbers stored from the recording are 00011001 and 10110100.
+  - number: "1ci"
+    type: calculation
+    text: |
+      Convert the \textbf{two} binary numbers to denary numbers.
+
+      00011001 \hrulefill
+      10110100 \hrulefill

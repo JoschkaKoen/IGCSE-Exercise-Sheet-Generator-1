@@ -1,0 +1,52 @@
+[thinking]
+**Analyzing and Structuring Exam Question Page Content**
+
+Okay, so I need to process page 10 of this exam paper and, specifically, the questions numbered 2c, 2ci, 2cii, and 2ciii. Let's see... the initial instructions seem a bit muddled, but the page starts with "(c) (i)", indicating that "2c" might be the overarching instruction or a title of sorts.
+
+It seems the questions are nested as follows: "2c", "2ci", "2cii", and "2ciii." That looks to be the logical breakdown. I will now break it down logically.
+
+Firstly, "2c" appears to provide the initial setup: *Stand the bottle upright on the bench. The height of the water in the bottle is *h*, as shown in Fig. 2.5*. I will exclude the reference to the figure as that can't be represented here.
+
+Next, "2ci" will contain the procedure: *Measure and record h. h = __, The time for the bottle to roll distance L on the rules is t. Take measurements to determine t. t = __*
+
+Following that, "2cii" involves a calculation: *A value for the acceleration a of the bottle is given by a = (2L)/t^2 Calculate a. a = ___*.
+
+Finally, "2ciii" is a question requiring justification: *Justify the number of significant figures that you have given for your value of a*.
+
+I've made sure to capture the question numbers and content accurately. This should provide a clear and organized breakdown of the questions for further processing.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      Stand the bottle upright on the bench.
+
+      The height of the water in the bottle is $h$, as shown in Fig. 2.5.
+  - number: "2ci"
+    type: calculation
+    text: |
+      Measure and record $h$.
+
+      $h = \hrulefill$
+
+      The time for the bottle to roll distance $L$ on the rules is $t$.
+      Take measurements to determine $t$.
+
+      $t = \hrulefill$
+  - number: "2cii"
+    type: calculation
+    text: |
+      A value for the acceleration $a$ of the bottle is given by
+      $$a = \frac{2L}{t^2}$$
+
+      Calculate $a$.
+
+      $a = \hrulefill$
+  - number: "2ciii"
+    type: short_answer
+    text: |
+      Justify the number of significant figures that you have given for your value of $a$.

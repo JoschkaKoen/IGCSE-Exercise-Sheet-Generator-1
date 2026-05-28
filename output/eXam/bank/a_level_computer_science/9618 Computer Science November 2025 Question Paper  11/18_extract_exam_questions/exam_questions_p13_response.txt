@@ -1,0 +1,44 @@
+[thinking]
+**My YAML Creation Process for Exam Questions**
+
+Okay, here's the breakdown of my thought process in tackling these exam questions from page 13. I need to output these in YAML format, so I'm thinking very structured.
+
+First, I'm analyzing the request. I see it's about questions "7d", "7di", "7dii", and "7diii" from an exam paper. I know the expected output is YAML with `number`, `type`, and `text` fields. There aren't any multiple-choice questions here, so `options` won't be necessary.
+
+Next, I'm delving into the actual content of the page. "7d" presents a bit of a wrinkle. It appears to be the introductory stem for the entire question group. I'm wondering if I put the introductory paragraph in `7d`, and the subsequent sub-questions' text just picks up the thread, or if I put the stem in *all* of the sub-questions... but no, there isn't a *separate* "7d" question. Based on the examples I've seen, it seems best to just put the stem in 7d. And, in fact, "7d" is a `short_answer` question.
+
+"7di" is a calculation question about file size. I'm noting the "Show your working" section and the "File size of bitmap ... kibibytes [2]" line. I'll need to remember to format the answer line with `\hrulefill` as per the standard.
+
+"7dii" and "7diii" are short answer questions asking for explanations, one about file size discrepancies and the other about RLE compression.
+
+Then, I'm going through and refining the actual text for each question. I'm careful to keep the correct format and use the YAML block scalar (`|`) for multi-line strings. I'm making sure there are no double quotes on non-empty strings. I'm also ensuring I'm stripping the sub-question prefixes like "(i)" and "(ii)" as part of generating each YAML `text` field.
+
+Finally, I'm double-checking the rules. I'm making sure my formatting is correct, especially with the `\hrulefill` and considering that any dotted lines need to be integrated into the surrounding text. I've also done a final look over each question, making sure that I have all the text, correctly formatted. Everything looks good.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7d"
+    type: short_answer
+    text: |
+      A bitmap file is downloaded. The image has a maximum of 256 colours and measures 512 pixels wide by 2048 pixels high.
+  - number: "7di"
+    type: calculation
+    text: |
+      Calculate an estimate of the file size of the bitmap in kibibytes.
+
+      Show your working.
+
+      File size of bitmap \hrulefill kibibytes
+  - number: "7dii"
+    type: short_answer
+    text: |
+      Explain why the actual file size may be larger than the one calculated in (d)(i).
+  - number: "7diii"
+    type: short_answer
+    text: |
+      Explain how a bitmap image is compressed using run-length encoding (RLE).
+```

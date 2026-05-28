@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The composite record data type, \texttt{ClubMember}, is defined in pseudocode as:
+
+      \begin{alltt}
+      TYPE ClubMember
+        DECLARE Code : INTEGER
+        DECLARE LastName : STRING
+        DECLARE FirstName : STRING
+        DECLARE Telephone : STRING
+        DECLARE JoinDate : DATE
+        DECLARE Fees : REAL
+        DECLARE FeesPaid : BOOLEAN
+      ENDTYPE
+      \end{alltt}
+  - number: "1a"
+    type: short_answer
+    text: ''
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Write the pseudocode statement to set up a variable for one record of the composite data type, \texttt{ClubMember}.
+  - number: "1aii"
+    type: short_answer
+    text: |
+      Write the pseudocode statements to assign the following values to the variable set up in part (a)(i):
+
+      \begin{itemize}
+      \item 984632 to \texttt{Code}
+      \item \texttt{TRUE} to \texttt{FeesPaid}
+      \end{itemize}
+  - number: "1b"
+    type: short_answer
+    text: |
+      An enumerated data type, \texttt{Activity}, is required, so that a new field, \texttt{Choice}, can be added to the composite data type, \texttt{ClubMember}, to allow members to choose an activity.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Write the pseudocode statement for the type declaration of \texttt{Activity} to hold the names of the available activities:
+
+      Badminton, Football, Golf, Snooker, Swimming, Tennis.
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Write the new pseudocode statement required to update the declaration of \texttt{Choice} in the definition of \texttt{ClubMember}.
+```

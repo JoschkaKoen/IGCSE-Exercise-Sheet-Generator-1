@@ -1,0 +1,62 @@
+questions:
+  - number: "20"
+    type: multiple_choice
+    text: |
+      A spring is fixed at one end. The length $L$ of the spring is increased by applying a tensile force $F$ to the other end.
+
+      The graph shows the variation of $L$ with $F$.
+
+      What is the elastic potential energy of the spring when $F$ is $6.0\text{ N}$?
+    options:
+      - letter: A
+        text: |
+          $0.12\text{ J}$
+      - letter: B
+        text: |
+          $0.24\text{ J}$
+      - letter: C
+        text: |
+          $0.36\text{ J}$
+      - letter: D
+        text: |
+          $0.60\text{ J}$
+  - number: "21"
+    type: multiple_choice
+    text: |
+      A wire has an unstretched length of $2.00\text{ m}$.
+
+      A stress of $1.6 \times 10^5\text{ Pa}$ is applied to the wire, and the new length of the wire is $2.10\text{ m}$.
+
+      The wire obeys Hooke's law.
+
+      What is the Young modulus of the wire?
+    options:
+      - letter: A
+        text: |
+          $8.0 \times 10^3\text{ Pa}$
+      - letter: B
+        text: |
+          $7.8 \times 10^4\text{ Pa}$
+      - letter: C
+        text: |
+          $1.5 \times 10^5\text{ Pa}$
+      - letter: D
+        text: |
+          $3.2 \times 10^6\text{ Pa}$
+  - number: "22"
+    type: multiple_choice
+    text: |
+      What are the SI base units of stress?
+    options:
+      - letter: A
+        text: |
+          $\text{kg}\,\text{m}\,\text{s}^{-2}$
+      - letter: B
+        text: |
+          $\text{kg}\,\text{m}^{-1}\,\text{s}^{-2}$
+      - letter: C
+        text: |
+          $\text{kg}\,\text{m}^{-2}\,\text{s}^{-2}$
+      - letter: D
+        text: |
+          $\text{kg}\,\text{m}^{-3}\,\text{s}^{-2}$

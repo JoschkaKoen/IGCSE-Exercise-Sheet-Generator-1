@@ -1,0 +1,27 @@
+```yaml
+questions:
+  - number: "6c"
+    type: long_answer
+    text: |
+      Explain the drawbacks of a farmer using a self-driving tractor to sow seeds and harvest crops.
+  - number: "6d"
+    type: short_answer
+    text: |
+      The self-driving tractor has an in-built expert system that the farmer can use to solve any errors with the tractor.
+
+      Identify \textbf{three} components of an expert system.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "6e"
+    type: short_answer
+    text: |
+      At the end of each day the self-driving tractor transmits the data it has collected to the farmer's computer in their house.
+
+      The transmission uses an echo check.
+  - number: "6ei"
+    type: long_answer
+    text: |
+      Describe the role of the self-driving tractor and the farmer's computer in the echo check.
+```

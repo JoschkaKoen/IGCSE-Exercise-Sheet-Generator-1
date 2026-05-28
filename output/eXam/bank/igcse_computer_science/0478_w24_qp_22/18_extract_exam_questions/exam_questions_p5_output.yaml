@@ -1,0 +1,23 @@
+questions:
+  - number: "4b"
+    type: long_answer
+    text: |
+      A bubble sort algorithm can be written to include features that make it more efficient.
+
+      Explain why the corrected bubble sort algorithm is efficient.
+  - number: "5"
+    type: short_answer
+    text: |
+      Analysis is one stage in the program development life cycle.
+  - number: "5a"
+    type: short_answer
+    text: |
+      State \textbf{one} other stage in the program development life cycle.
+  - number: "5b"
+    type: long_answer
+    text: |
+      Describe the analysis stage of the program development life cycle.
+  - number: "6"
+    type: short_answer
+    text: |
+      Outline \textbf{one} type of verification check that could be used when inputting data.

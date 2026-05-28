@@ -1,0 +1,38 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A logic circuit is to be built to control the opening of a safe used to store money. There are two keys, \textbf{A} and \textbf{B}, and a time switch \textbf{C}. The safe can only open if both keys are used and the time switch is off.
+
+      \begin{tabular}{|l|l|c|}
+      \hline
+      key \textbf{A} & not used & 0 \\ \cline{2-3}
+       & used & 1 \\ \hline
+      key \textbf{B} & not used & 0 \\ \cline{2-3}
+       & used & 1 \\ \hline
+      time switch \textbf{C} & switch off & 0 \\ \cline{2-3}
+       & switch on & 1 \\ \hline
+      safe \textbf{X} & safe cannot open & 0 \\ \cline{2-3}
+       & safe can open & 1 \\ \hline
+      \end{tabular}
+  - number: "8a"
+    type: short_answer
+    text: |
+      Write the logic expression for this problem.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Complete the truth table for this problem.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}

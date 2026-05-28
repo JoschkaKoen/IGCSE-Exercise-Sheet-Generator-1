@@ -1,0 +1,26 @@
+questions:
+  - number: "1c"
+    type: calculation
+    text: |
+      Vary $m$. For each value of $m$, determine $T_1$ and $T_2$. Repeat until you have five sets of values of $m$, $T_1$ and $T_2$. Do not use values of $m$ less than 200g.
+
+      Record your results in a table. Include values of $\sqrt{T_1}$ and $\sqrt{T_2}$ in your table.
+  - number: "1d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1di"
+    type: short_answer
+    text: |
+      Plot a graph of $\sqrt{T_2}$ on the $y$-axis against $\sqrt{T_1}$ on the $x$-axis.
+  - number: "1dii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1diii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+      $y$-intercept = \hrulefill

@@ -1,0 +1,26 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, I see the user needs questions 4bi and 4bii transcribed from the provided text. Let me extract and format those concisely for them, focusing on the core content. Question 4bi describes the distance between the centres of the first and ninth dark fringes as 3.2cm and asks for the calculation of D, providing space for the answer in meters. The format should be: `D = ......................................................m [3]`. I'll make sure to render that answer line exactly as it appears in the text, using the appropriate placeholder.
+
+For question 4bii, the text describes a situation where the slit separation is decreased from 0.16mm to 0.04mm, and the distance between adjacent dark fringes is *x*. The prompt is to sketch the variation of *x* with slit separation on Fig. 4.3. I will omit the reference to the figure as instructed, and transcribe only the text of the prompt. I will make sure the text for that question reads, "The slit separation is now gradually decreased from $0.16\text{ mm}$ to $0.04\text{ mm}$. The distance between the centres of adjacent dark fringes is $x$. On Fig. 4.3, sketch the variation of $x$ with slit separation." I will make sure this is rendered with the correct formatting of the values.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4bi"
+    type: calculation
+    text: |
+      The distance between the centres of the first and ninth dark fringes is $3.2\text{ cm}$.
+
+      Calculate $D$.
+
+      $D = \hrulefill \text{ m}$
+  - number: "4bii"
+    type: short_answer
+    text: |
+      The slit separation is now gradually decreased from $0.16\text{ mm}$ to $0.04\text{ mm}$. The distance between the centres of adjacent dark fringes is $x$.
+
+      On Fig. 4.3, sketch the variation of $x$ with slit separation.

@@ -1,0 +1,58 @@
+[thinking]
+**My Approach to Analyzing the Exam Question**
+
+Okay, here's the deal. I need to unpack Question 1 from this exam. The task is pretty clear: transcribe the question, then essentially act as a lab instructor to plan an experiment. It's essentially an experimental design question with an added layer of needing to linearize a given relationship. The question introduces a physical system – a falling block pulling on a disc attached to an axle. We're given a relationship connecting the block's speed (*v*), the block's mass (*m*), and some physical constants related to the disc's geometry and the set-up. The relationship itself is presented:
+
+$$\frac{h}{v^2} = \frac{\pi r^2 z}{2PQm} + \frac{1}{P}$$
+
+The goal is to design an experiment to test this relationship and extract the constants *P* and *Q*. That means formulating an experimental procedure to check the proposed relationship experimentally.
+
+Here’s the breakdown of my thoughts:
+
+*   First, I need to clearly transcribe the question itself, which I've done.
+*   Next, I have to conceive a lab experiment to test this relationship, which entails a plan to verify the relationship, and use the experimental data to determine P and Q. The problem specifically outlines several important parts of a good experiment plan.
+    *   The *procedure* I design should explain how to actually set up the experiment, conduct the measurements, and repeat trials.
+    *   The *measurements* section must identify *exactly* what quantities need to be measured and how.
+    *   The *control of variables* is essential. I need to be explicit about which parameters are kept constant and which are varied.
+    *   The *analysis of data* is paramount – how will the raw data be processed, graphed, and interpreted to extract *P* and *Q*? This suggests a linearisation of the relationship.
+    *   *Safety precautions* are non-negotiable and need to be included.
+
+This is fundamentally about linearizing the relationship. A good plan should include a diagram showing the experimental setup. A well-designed experiment will involve manipulating *m* (the independent variable) and measuring *v* (the dependent variable). We will need to take multiple data points. To determine *P* and *Q*, I'll need to think about how to plot the data in a way that yields a straight line. This likely involves plotting $\frac{h}{v^2}$ on the *y*-axis and $\frac{1}{m}$ on the *x*-axis. The slope and y-intercept of this linear graph would then be used to calculate *P* and *Q*. I should also consider error analysis and the precision of the measurements.
+
+This seems like a straightforward experimental design problem, one I can readily approach.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: long_answer
+    text: |
+      A thin solid disc of radius $r$ and thickness $z$ is attached to a thin axle. String is wrapped around the axle, as shown in Fig. 1.1.
+
+      A block of mass $m$ is attached to the string.
+
+      The block is released from rest and falls downwards. The block has speed $v$ when it has fallen through a distance $h$ from the point of release. The value of $v$ is determined using \textbf{one} light gate connected to a timer.
+
+      It is suggested that $v$ is related to $m$ by the relationship
+
+      $$\frac{h}{v^2} = \frac{\pi r^2 z}{2PQm} + \frac{1}{P}$$
+
+      where $P$ and $Q$ are constants.
+
+      Plan a laboratory experiment to test the relationship between $v$ and $m$.
+
+      Draw a diagram showing the arrangement of your equipment.
+
+      Explain how the results could be used to determine values for $P$ and $Q$.
+
+      In your plan you should include:
+
+      \begin{itemize}
+      \item the procedure to be followed
+      \item the measurements to be taken
+      \item the control of variables
+      \item the analysis of the data
+      \item any safety precautions to be taken.
+      \end{itemize}

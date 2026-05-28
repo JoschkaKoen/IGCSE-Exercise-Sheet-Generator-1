@@ -1,0 +1,67 @@
+[thinking]
+**Analyzing the Exam Page and Question Structure**
+
+Okay, so I've been asked to process page 5 of this exam paper. My task is to take apart the questions and structure them, and I'm treating the stub entries to handle them correctly. I start by carefully reviewing the layout to establish question stems and sub-questions. Question 4 appears straightforward. I've identified:
+
+*   **Question 4 Stem:** "A scheduling routine determines how processes are managed by the operating system."
+*   **4a:** "Identify two scheduling routines." This will be answered with:
+
+    1.  \hrulefill
+    2.  \hrulefill
+
+*   **4b:** "Describe two ways in which the complexities of the computer hardware are hidden from the user." This calls for a descriptive answer:
+
+    1.  \hrulefill
+    2.  \hrulefill
+
+Now, question 5 is a bit trickier. After initial assessment, it seems there's no main stem for "5" itself. It directly dives into "5a". A quick scan of the provided stub data confirms this oddity. I've gone back and ensured the proper stub generation. If there's no main stem for a numbered question, the entry should indicate an error.
+*   **5**: `STUB ERROR`
+*   **5a:** "Identify two items commonly found within a digital certificate." That requires a structured answer.
+
+    1.  \hrulefill
+    2.  \hrulefill
+
+*   **5b:** "Explain why a digital certificate is required to validate a digital signature." This is a straightforward explanation: No numbered slots are required, just an open area for writing.
+
+So, I will report the structured questions back now.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A scheduling routine determines how processes are managed by the operating system.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Identify \textbf{two} scheduling routines.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      Describe \textbf{two} ways in which the complexities of the computer hardware are hidden from the user.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5a"
+    type: short_answer
+    text: |
+      Identify \textbf{two} items commonly found within a digital certificate.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5b"
+    type: short_answer
+    text: |
+      Explain why a digital certificate is required to validate a digital signature.
+```

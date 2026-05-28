@@ -1,0 +1,55 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program stores data about animals using Object-Oriented Programming (OOP).
+
+      The class \texttt{Animal} stores the data about animals.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Animal}} \\ \hline
+      \texttt{Name : String} & stores the name of the animal \\ \hline
+      \texttt{Sound : String} & stores the sound the animal makes \\ \hline
+      \texttt{Size : Integer} & stores the size of the animal as an integer between 1 (smallest) and 10 (largest) \\ \hline
+      \texttt{Intelligence : Integer} & stores the intelligence of the animal as an integer between 1 (least) and 10 (most) \\ \hline
+      \texttt{Constructor()} & initialises all attributes to its parameter values \\ \hline
+      \texttt{Description()} & returns a string message that contains the data from the attributes \\ \hline
+      \end{tabular}
+  - number: "3a"
+    type: short_answer
+    text: ''
+  - number: "3ai"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Animal} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program as \textbf{Question3\_J25}. \\
+      Copy and paste the program code into part \textbf{3(a)(i)} in the evidence document. \\ \hline
+      \end{tabular}
+  - number: "3aii"
+    type: short_answer
+    text: |
+      The method \texttt{Description()} creates and returns a string of the animal's data in the format:
+
+      \texttt{"The animal's name is " <Name> ", it makes a " <Sound> ", its size is " <Size> " and its intelligence level is " <Intelligence>}
+
+      For example:
+
+      \texttt{The animal's name is Teddy, it makes a Bark, its size is 4 and its intelligence level is 6}
+
+      Write program code for \texttt{Description()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(a)(ii)} in the evidence document. \\ \hline
+      \end{tabular}

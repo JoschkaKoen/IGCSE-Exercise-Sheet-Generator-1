@@ -1,0 +1,721 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Computers represent different types of data in binary.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: multiple_choice
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick (\checkmark) \textbf{one} box to show the reason why computers use
+      binary to represent data.
+    answer_options:
+    - letter: A
+      text: Computers only allow 1s and 0s to be entered.
+    - letter: B
+      text: Computers are made of switches and gates that can only be on or off.
+    - letter: C
+      text: Binary does not need to be converted into other forms of data to be displayed.
+    - letter: D
+      text: Both computers and humans can quickly process binary data.
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'One form of data is characters.
+
+
+      The American standard code for information interchange (ASCII) denary number
+      for the character ''N'' is 78.'
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: multiple_choice
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Tick (\checkmark) \textbf{one} box to identify the ASCII denary number
+        for the character 'Q'.
+      answer_options:
+      - letter: A
+        text: '81'
+      - letter: B
+        text: '80'
+      - letter: C
+        text: '79'
+      - letter: D
+        text: '77'
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the binary number for the ASCII denary number for 'N'.
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: long_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how the word 'RED' is represented using a character set.
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Sound can be represented as binary.
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain why recording sound with a higher sampling resolution creates
+        a more accurate recording.
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} other way that the accuracy of a sound recording can
+        be improved.
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A computer has a central processing unit (CPU).
+
+
+    The CPU includes the registers:
+
+    \begin{itemize}
+
+    \item Program counter (PC)
+
+    \item Memory address register (MAR)
+
+    \item Memory data register (MDR)
+
+    \item Accumulator (ACC)
+
+    \item Current instruction register (CIR).
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The table contains \textbf{five} statements about the role of registers
+      in the fetch–decode–execute cycle of a CPU.
+
+
+      \begin{tabular}{|c|l|}
+
+      \hline
+
+      \textbf{Letter} & \multicolumn{1}{c|}{\textbf{Statement}} \\ \hline
+
+      A & PC stores the address of the next instruction to be accessed \\ \hline
+
+      B & MAR stores the instructions of the program that is running \\ \hline
+
+      C & MDR stores the data passed to it from the PC \\ \hline
+
+      D & ACC stores the result of each calculation \\ \hline
+
+      E & CIR stores the instruction currently being executed \\ \hline
+
+      \end{tabular}
+
+
+      \textbf{Two} of the statements are \textbf{not} correct.
+
+
+      Identify the letter of each incorrect statement.
+
+
+      Suggest a corrected statement for each.
+
+
+      Incorrect statement 1 \hrulefill
+
+
+      Corrected statement
+
+
+      \vspace{4em}
+
+
+      Incorrect statement 2 \hrulefill
+
+
+      Corrected statement'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The computer has a single core $3.5\text{ GHz}$ processor and an $8\text{
+      kB}$ cache.
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by a $3.5\text{ GHz}$ processor.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The CPU is changed to a dual-core $3.5\text{ GHz}$ processor.
+
+
+        Explain how the number of cores affects the performance of a CPU.'
+      answer_options: []
+      subquestions: []
+    - number: 2biii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The amount of cache is increased to $64\text{ kB}$.
+
+
+        Explain how the amount of cache affects the performance of a computer.'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The computer has both primary and secondary storage.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Random access memory (RAM) is one example of primary storage.
+
+
+        Describe what is meant by RAM.'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Read only memory (ROM) is another example of primary storage. ROM often
+        stores the start-up instructions for a computer.
+
+
+        Identify \textbf{one} other item of data that is commonly stored in ROM.'
+      answer_options: []
+      subquestions: []
+    - number: 2ciii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Some computers make use of virtual memory.
+
+
+        State the purpose of virtual memory.'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer has an operating system (OS).
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the table by writing each missing OS function name and description.
+
+
+      \begin{tabular}{|p{5cm}|p{10cm}|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Function name}} & \multicolumn{1}{c|}{\textbf{Description}}
+      \\ \hline
+
+      & \\
+
+      managing memory & \\
+
+      & \\ \hline
+
+      & \\
+
+      & allows application software to run on the computer \\
+
+      & \\ \hline
+
+      & \\
+
+      managing peripherals & \\
+
+      & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The OS handles interrupts.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the purpose of an interrupt.
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Identify \textbf{one} input device and \textbf{one} example of an interrupt
+        that it can generate.
+
+
+        Input device \hrulefill
+
+        Interrupt \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'A processor is currently executing a program. The processor receives
+        an interrupt.
+
+
+        Explain how the processor manages the current program and the interrupt.'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: long_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: 'A student enters a uniform resource locator (URL) into their web browser.
+
+
+    Draw and annotate a diagram to show the process from the user entering the URL
+    to the web browser displaying the web page.'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Complete the description of digital currencies using the terms provided.
+
+
+    \begin{itemize}
+
+    \item blockchains
+
+    \item changed
+
+    \item datachains
+
+    \item decentralised
+
+    \item deleted
+
+    \item encryption
+
+    \item passport
+
+    \item physical address
+
+    \item physically
+
+    \item records
+
+    \item time-stamp
+
+    \item traced
+
+    \item transaction-chains
+
+    \item virtually
+
+    \end{itemize}
+
+
+    A digital currency does not exist \underline{\hspace{1.5em}}, it can only be accessed
+    electronically.
+
+
+    Some digital currencies have digital ledgers called \underline{\hspace{1.5em}}.
+
+
+    These are decentralised databases where each transaction is stored as a new set
+    of data with a \underline{\hspace{1.5em}} and is linked to the previous set of
+    data. This means that transactions cannot be altered, only new transactions added,
+    which allows the location of the data to be \underline{\hspace{1.5em}}.
+
+
+    \hfill'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A self-driving tractor sows seeds and harvests crops for a farmer. The self-driving
+    tractor moves automatically through the field, turning at each end and stopping
+    when it has finished.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'One reason the self-driving tractor is a robot is because it has a mechanical
+      structure that includes wheels, an engine, and a framework.
+
+
+      Give \textbf{one} other reason why the self-driving tractor is an example of
+      a robot.'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: If a person is detected within 3 metres whilst the tractor is moving, the
+      self-driving tractor must stop.
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: Explain how an infra-red sensor, microprocessor and actuator can be used
+        to stop the self-driving tractor if a person is detected within 3 metres.
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Identify \textbf{one} other sensor that the self-driving tractor might
+        use and how it will use the sensor.
+
+
+        Sensor \hrulefill
+
+
+        Use \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 6c
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain the drawbacks of a farmer using a self-driving tractor to sow seeds
+      and harvest crops.
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The self-driving tractor has an in-built expert system that the farmer
+      can use to solve any errors with the tractor.
+
+
+      Identify \textbf{three} components of an expert system.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6e
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'At the end of each day the self-driving tractor transmits the data it has
+      collected to the farmer''s computer in their house.
+
+
+      The transmission uses an echo check.'
+    answer_options: []
+    subquestions:
+    - number: 6ei
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Describe the role of the self-driving tractor and the farmer's computer
+        in the echo check.
+      answer_options: []
+      subquestions: []
+    - number: 6eii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: "Another method of error checking is a parity block check.\n\nThe table\
+        \ shows 7 bytes that are transmitted using odd parity. The parity bit has\
+        \ been completed for each byte.\n\nComplete the parity byte for the data.\n\
+        \n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|}\n\\hline\n & \\textbf{\\begin{tabular}[c]{@{}c@{}}parity\\\
+        \\ bit\\end{tabular}} & \\textbf{bit 7} & \\textbf{bit 6} & \\textbf{bit 5}\
+        \ & \\textbf{bit 4} & \\textbf{bit 3} & \\textbf{bit 2} & \\textbf{bit 1}\
+        \ \\\\ \\hline\n\\textbf{byte 1} & 1 & 1 & 0 & 0 & 1 & 1 & 1 & 0 \\\\ \\hline\n\
+        \\textbf{byte 2} & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 0 \\\\ \\hline\n\\textbf{byte\
+        \ 3} & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\\\ \\hline\n\\textbf{byte 4} & 0 &\
+        \ 1 & 0 & 0 & 1 & 1 & 1 & 1 \\\\ \\hline\n\\textbf{byte 5} & 1 & 0 & 0 & 0\
+        \ & 0 & 0 & 0 & 0 \\\\ \\hline\n\\textbf{byte 6} & 0 & 1 & 1 & 1 & 1 & 1 &\
+        \ 1 & 1 \\\\ \\hline\n\\textbf{byte 7} & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 1 \\\\\
+        \ \\hline\n\\textbf{\\begin{tabular}[c]{@{}c@{}}parity\\\\ byte\\end{tabular}}\
+        \ &  &  &  &  &  &  &  &  \\\\ \\hline\n\\end{tabular}"
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data is transmitted using the internet.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The data is encrypted before transmission.
+    answer_options: []
+    subquestions:
+    - number: 7ai
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the purpose of encrypting data.
+      answer_options: []
+      subquestions: []
+    - number: 7aii
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Describe the differences between symmetric and asymmetric encryption.
+      answer_options: []
+      subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The data is transmitted using packet switching.
+    answer_options: []
+    subquestions:
+    - number: 7bi
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Identify \textbf{two} items of data contained in a packet header.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7bii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the purpose of a router in the packet-switching process.
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Hexadecimal can be used to represent binary numbers.
+    answer_options: []
+    subquestions:
+    - number: 8ai
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Convert the denary number 236 into hexadecimal.
+      answer_options: []
+      subquestions: []
+    - number: 8aii
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} benefit of using hexadecimal instead of binary to represent
+        data.
+      answer_options: []
+      subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Two’s complement can be used to represent positive and negative binary integers.
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Convert the two’s complement integer 10110111 into denary.
+
+
+        Show all your working.'
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Convert the denary number 45 into an 8-bit two’s complement integer.
+      answer_options: []
+      subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Logical shifts are performed on binary integers.
+
+
+      State the mathematical effect of a right shift of \textbf{four} places on a
+      positive binary integer.'
+    answer_options: []
+    subquestions: []

@@ -1,0 +1,24 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A company has a network that includes a web server.
+
+      Data is transmitted across the network using serial half-duplex data transmission.
+  - number: "7a"
+    type: short_answer
+    text: |
+      Draw and annotate a diagram to show how the data is transmitted using serial half-duplex data transmission.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Give \textbf{two} benefits of the company using serial half-duplex data transmission for this purpose.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7c"
+    type: short_answer
+    text: |
+      Give \textbf{one} drawback of the company using serial half-duplex data transmission for this purpose.
+```

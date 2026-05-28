@@ -1,0 +1,25 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A student has a portable device. He uses an on-screen keyboard to write messages to his friend.
+  - number: "3a"
+    type: long_answer
+    text: |
+      Explain how the text the student writes is converted to binary to be processed.
+  - number: "3b"
+    type: short_answer
+    text: |
+      The device has 4 gibibytes (GiB) of random access memory (RAM).
+  - number: "3bi"
+    type: calculation
+    text: |
+      State the amount of RAM the device has in mebibytes (MiB).
+  - number: "3bii"
+    type: calculation
+    text: |
+      State the amount of RAM the device has in tebibytes (TiB). Your answer can be given rounded to 3 decimal places.
+  - number: "3c"
+    type: long_answer
+    text: |
+      Explain why the portable device needs RAM.

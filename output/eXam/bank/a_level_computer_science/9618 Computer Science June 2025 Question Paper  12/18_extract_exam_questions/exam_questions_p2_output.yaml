@@ -1,0 +1,39 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The table has six statements about the Von Neumann model for a computer system. Three of the statements are incorrect.
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Statement number} & \textbf{Statement} \\ \hline
+      1 & The Program Counter (PC) stores the next instruction to be fetched from memory. \\ \hline
+      2 & The Arithmetic and Logic Unit (ALU) performs mathematical and logical operations. \\ \hline
+      3 & The Control Unit (CU) sends signals to other components on the data bus. \\ \hline
+      4 & The Memory Data Register (MDR) transfers data to the memory address stored in the Memory Address Register (MAR). \\ \hline
+      5 & The MAR stores an address from memory. \\ \hline
+      6 & The Accumulator (ACC) stores the result of calculations. \\ \hline
+      \end{tabular}
+  - number: "1a"
+    type: short_answer
+    text: |
+      Complete the table by writing the \textbf{three} incorrect statement numbers and the corrected statements.
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Incorrect statement number} & \textbf{Corrected statement} \\ \hline
+       & \\
+      \hrulefill & \hrulefill \\
+       & \hrulefill \\
+       & \hrulefill \\ \hline
+       & \\
+      \hrulefill & \hrulefill \\
+       & \hrulefill \\
+       & \hrulefill \\ \hline
+       & \\
+      \hrulefill & \hrulefill \\
+       & \hrulefill \\
+       & \hrulefill \\ \hline
+      \end{tabular}
+```

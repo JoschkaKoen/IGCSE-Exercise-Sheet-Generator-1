@@ -1,0 +1,28 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "4a"
+    type: short_answer
+    text: |
+      State \textbf{one} reason for using a verification check when inputting data.
+  - number: "4b"
+    type: long_answer
+    text: |
+      Write the pseudocode for an algorithm to perform a double entry verification check, using the following criteria:
+
+      \begin{itemize}
+      \item Input 10 numbers and store them in the array \texttt{Numbers[]}
+      \item Input the same 10 numbers again; as each number is input, compare it with its corresponding number in the array \texttt{Numbers[]}
+      \begin{itemize}
+      \item if the numbers match, move on to the next number
+      \item if the numbers do not match, display both numbers and ask for the number to be re-entered
+      \item store the re-entered number in the corresponding array location and move on to the next number.
+      \end{itemize}
+      \item When all the numbers have been checked, display a message to say the check has been completed.
+      \end{itemize}
+
+      You do \textbf{not} need to declare any arrays or variables for this algorithm.
+```

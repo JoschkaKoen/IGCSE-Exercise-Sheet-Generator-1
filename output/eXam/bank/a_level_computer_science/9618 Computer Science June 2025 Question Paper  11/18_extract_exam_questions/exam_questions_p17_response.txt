@@ -1,0 +1,93 @@
+[thinking]
+**Populating the YAML Stubs**
+
+Okay, let's get this done. I need to generate the YAML stubs for questions "8bi," "8bii," and "8biii." I'll start by reviewing the page content. It looks like "8bi" requires a bit manipulation instruction to set the least significant bit to 1, while preserving all other bits, and the instruction needs to work for any 8-bit binary number. "8bii" involves an XOR operation with `&FE` on a specific binary value, and "8biii" is a logical shift right by 5 places, `LSR #5`, also on a given binary value.
+
+Now, let's assemble each question in YAML format. I need to make sure I format the inline code with `\texttt{...}`. Specifically, "XOR &FE" and "LSR #5" need to be formatted as `\texttt{XOR \&FE}` and `\texttt{LSR \#5}`. Also, given it is LaTeX, `&` needs to be escaped as `\&`, and `#` needs to be escaped as `\#`. I also need to make sure that the tables are formatted correctly using the `tabular` environment.
+
+Here's the YAML I'm generating:
+
+```yaml
+  - number: "8bi"
+    type: short_answer
+    text: |
+      Write the bit manipulation instruction that can be used to set the least significant bit to 1 in an 8-bit register. All other bits must remain unchanged.
+
+      The instruction needs to work on a register that contains any 8-bit binary number.
+```
+
+```yaml
+  - number: "8bii"
+    type: short_answer
+    text: |
+      The ACC currently contains the following binary value.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+      \hline
+      \end{tabular}
+
+      Write the result after the instruction \texttt{XOR \&FE} is run.
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+```
+
+```yaml
+  - number: "8biii"
+    type: short_answer
+    text: |
+      The ACC currently contains the following binary value.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 \\
+      \hline
+      \end{tabular}
+
+      Write the result after the instruction \texttt{LSR \#5} is run.
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+```
+
+That should cover it. All the questions are now formatted correctly, including the proper LaTeX escaping for special characters.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8bi"
+    type: short_answer
+    text: |
+      Write the bit manipulation instruction that can be used to set the least significant bit to 1 in an 8-bit register. All other bits must remain unchanged.
+
+      The instruction needs to work on a register that contains any 8-bit binary number.
+  - number: "8bii"
+    type: short_answer
+    text: |
+      The ACC currently contains the following binary value.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+      \hline
+      \end{tabular}
+
+      Write the result after the instruction \texttt{XOR \&FE} is run.
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+  - number: "8biii"
+    type: short_answer
+    text: |
+      The ACC currently contains the following binary value.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 \\
+      \hline
+      \end{tabular}
+
+      Write the result after the instruction \texttt{LSR \#5} is run.
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}

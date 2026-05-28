@@ -1,0 +1,39 @@
+questions:
+  - number: "5d"
+    type: short_answer
+    text: |
+      The company uses cookies to allow users to keep items in a shopping cart. The items remain in the cart after the user closes their web browser.
+  - number: "5di"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) one box to show the type of cookie that is used for this process.
+    options:
+      - letter: A
+        text: |
+          dynamic
+      - letter: B
+        text: |
+          persistent
+      - letter: C
+        text: |
+          session
+      - letter: D
+        text: |
+          static
+  - number: "5dii"
+    type: short_answer
+    text: |
+      Give \textbf{three} other ways that the company can use cookies.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "5diii"
+    type: short_answer
+    text: |
+      Cookies are stored by a web browser.
+
+      Give \textbf{two} other functions of a web browser.
+
+      1. \hrulefill
+      2. \hrulefill

@@ -1,0 +1,30 @@
+```yaml
+questions:
+  - number: "3"
+    type: long_answer
+    text: |
+      The program development life cycle is split into a number of stages.
+
+      Describe what happens during the analysis and design stages of the program development life cycle.
+
+      analysis \hrulefill
+
+      design \hrulefill
+  - number: "4"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to identify which of the following does \textbf{not} help to create a maintainable program.
+    options:
+      - letter: A
+        text: |
+          Use meaningful identifiers for variable names.
+      - letter: B
+        text: |
+          Remove blank lines to make the program code shorter.
+      - letter: C
+        text: |
+          Use procedures and functions.
+      - letter: D
+        text: |
+          Use the commenting feature provided by the programming languages.
+```

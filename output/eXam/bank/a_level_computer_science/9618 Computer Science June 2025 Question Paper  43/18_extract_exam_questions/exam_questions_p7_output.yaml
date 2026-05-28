@@ -1,0 +1,62 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program stores data in a linked list that is designed using Object-Oriented Programming (OOP).
+
+      The class \texttt{Node} stores data about the nodes.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Node}} \\ \hline
+      \texttt{TheData : Integer} & stores the integer data \\
+      \texttt{NextNode : Node} & stores the next node in the linked list \\ \hline
+      \texttt{Constructor()} & initialises \texttt{TheData} to its parameter value, initialises \texttt{NextNode} to a null value \\
+      \texttt{GetData()} & returns \texttt{TheData} \\
+      \texttt{GetNextNode()} & returns \texttt{NextNode} \\
+      \texttt{SetNextNode()} & takes an object of type \texttt{Node} as a parameter and stores it in \texttt{NextNode} \\ \hline
+      \end{tabular}
+  - number: "3a"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Node} and its methods.
+  - number: "3ai"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Node} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program as \textbf{Question3\_J25}. \\
+      Copy and paste the program code into part \textbf{3(a)(i)} in the evidence document. \\ \hline
+      \end{tabular}
+  - number: "3aii"
+    type: short_answer
+    text: |
+      Write program code for the \textbf{two} get methods.
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(a)(ii)} in the evidence document. \\ \hline
+      \end{tabular}
+  - number: "3aiii"
+    type: short_answer
+    text: |
+      The method \texttt{SetNextNode()} takes an object of type \texttt{Node} as a parameter. The method stores the parameter in the attribute \texttt{NextNode}
+
+      Write program code for \texttt{SetNextNode()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(a)(iii)} in the evidence document. \\ \hline
+      \end{tabular}
+```

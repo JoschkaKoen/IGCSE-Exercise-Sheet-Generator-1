@@ -1,0 +1,15 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A computer has system software and application software.
+  - number: "8a"
+    type: short_answer
+    text: |
+      Explain how system software is different to application software.
+  - number: "8b"
+    type: short_answer
+    text: |
+      One type of system software is an operating system. One function of an operating system is to manage peripherals.
+
+      Describe the operating system function managing peripherals.

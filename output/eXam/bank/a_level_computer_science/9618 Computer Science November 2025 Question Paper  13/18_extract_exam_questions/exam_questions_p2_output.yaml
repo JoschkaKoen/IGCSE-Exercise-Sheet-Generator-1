@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A student creates sound recordings.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Making changes to a sound recording may impact the accuracy of the resulting sound file or the size of the file.
+
+      Draw \textbf{two} lines from each change to the impacts it has on the sound file.
+
+      \begin{tabular}{cc}
+      \textbf{Change} & \textbf{Impact} \\
+      & \\
+      \framebox{increase the duration of the recording} & \framebox{the file size gets bigger} \\
+      & \\
+      & \framebox{no change in the file size} \\
+      & \\
+      \framebox{increase the sampling rate} & \framebox{the file size gets smaller} \\
+      & \\
+      & \framebox{the accuracy of the sound file improves} \\
+      & \\
+      \framebox{decrease the sampling resolution} & \framebox{no change to the accuracy of the sound file} \\
+      & \\
+      & \framebox{the accuracy of the sound file worsens} \\
+      \end{tabular}
+  - number: "1b"
+    type: long_answer
+    text: |
+      The file names of the sound recordings are stored using the ASCII character set.
+
+      Explain how text is represented by the ASCII character set.
+  - number: "1c"
+    type: short_answer
+    text: |
+      Give \textbf{two} differences between the ASCII and UNICODE character sets.
+
+      1. \hrulefill
+      2. \hrulefill
+```

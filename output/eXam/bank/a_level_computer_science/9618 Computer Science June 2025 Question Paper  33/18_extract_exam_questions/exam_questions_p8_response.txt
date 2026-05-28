@@ -1,0 +1,20 @@
+[thinking]
+**My Task: Transcribing and Interpreting Instructions**
+
+Okay, so the user wants me to extract and present questions 7 and 8 from a given document. It's straightforward enough – the questions themselves are clearly labeled. I've noted that they are both marked as "long_answer" questions. That's a key piece of information for me; I'll need to remember that. More importantly, the instructions state that "standalone dotted answer line(s) below an open-ended prompt" don't require any explicit answer markers. The prompt, coupled with the marks allocated, is all that's needed. Excellent, I'll keep that in mind when I output the questions. No need to add any unnecessary fluff. Let's get these questions transcribed accurately.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: long_answer
+    text: |
+      Secure Socket Layer (SSL) and Transport Layer Security (TLS) are two protocols.
+
+      Explain how SSL/TLS is used when client-server communication is initiated.
+  - number: "8"
+    type: long_answer
+    text: |
+      Explain the process of \textbf{syntax analysis} during program compilation.

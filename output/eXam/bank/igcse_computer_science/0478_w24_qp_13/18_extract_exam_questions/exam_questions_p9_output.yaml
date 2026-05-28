@@ -1,0 +1,30 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A farmer has a plough that is an automated system. The plough is used to dig the ground in a field to prepare it for planting seeds.
+
+      The plough uses sensors and a microprocessor to maintain a straight line when digging the ground.
+  - number: "5a"
+    type: short_answer
+    text: |
+      State what is meant by an automated system.
+  - number: "5b"
+    type: short_answer
+    text: |
+      Describe the role of the microprocessor in this process.
+  - number: "5c"
+    type: short_answer
+    text: |
+      Give \textbf{two} benefits to the farmer of using an automated system for this purpose.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5d"
+    type: long_answer
+    text: |
+      The plough uses artificial intelligence (AI) to navigate its way around the field.
+
+      Explain how the plough makes use of AI for this purpose.
+```

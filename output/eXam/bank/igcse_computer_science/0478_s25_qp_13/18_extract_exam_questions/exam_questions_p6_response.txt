@@ -1,0 +1,62 @@
+[thinking]
+**Exam Page 6: Let's Get This Right**
+
+Okay, so the user wants me to transcribe page 6 of this exam paper. Looks straightforward enough, but I always triple-check these things. The questions are: a Von Neumann architecture hardware component question with a table to fill in, and then a question about registers in the fetch stage of the FDE cycle.
+
+The first question, question 3, has a table, and they want me to transcribe it. The instructions are clear – no `\dotfill`, no `\hspace{N cm}` as stand-ins for blank cells in tables. So, when a cell is blank in the original document, it should also be blank in the YAML or LaTeX I transcribe. I've got to make sure I don't accidentally represent blank cells with some kind of placeholder. Okay, I've got the LaTeX structure for the table ready:
+
+```latex
+\begin{tabular}{|p{4cm}|p{8cm}|}
+\hline
+\textbf{Term} & \textbf{Description} \\ \hline
+\hrulefill & This is the address given to a network interface card (NIC) when it is manufactured. \\ \hline
+register & \\ \hline
+clock & \\ \hline
+control unit (CU) & \\ \hline
+\hrulefill & This is a processing unit within the CPU that can fetch, decode and execute instructions. \\ \hline
+\end{tabular}
+```
+
+That should be perfect.  The description cells are blank so they will be empty. I can use `\hrulefill` for the blank lines in the first column, as it's indicated.
+
+Next, Question 3b asks for three registers used in the fetch stage. Simple numbered list with slots to fill, using `\hrulefill` as a placeholder:
+
+```
+1. \hrulefill
+2. \hrulefill
+3. \hrulefill
+```
+
+Alright, that's everything on the page. Time to write that YAML. I want to make sure I get this 100% correct, and be careful with the blank lines.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A computer with a Von Neumann architecture has several hardware components.
+  - number: "3a"
+    type: short_answer
+    text: |
+      Complete the table with the missing terms and descriptions about computer hardware.
+
+      \begin{tabular}{|p{4cm}|p{8cm}|}
+      \hline
+      \hfil \textbf{Term} & \hfil \textbf{Description} \\ \hline
+      \hrulefill & This is the address given to a network interface card (NIC) when it is manufactured. \\ \hline
+      register & \\ \hline
+      clock & \\ \hline
+      control unit (CU) & \\ \hline
+      \hrulefill & This is a processing unit within the CPU that can fetch, decode and execute instructions. \\ \hline
+      \end{tabular}
+  - number: "3b"
+    type: short_answer
+    text: |
+      Identify \textbf{three} registers that are used in the fetch stage of the fetch–decode–execute (FDE) cycle.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

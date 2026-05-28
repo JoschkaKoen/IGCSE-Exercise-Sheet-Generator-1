@@ -1,0 +1,58 @@
+[thinking]
+**Exam Page 7 Transcription: My Thought Process**
+
+Okay, so the task at hand is to transcribe page 7 of the exam paper. Specifically, the questions on this page are numbered "2" and "2a". Let's get to it.
+
+First, let's process question 2. It looks like it is a short answer question. The text from the image reads, "In this experiment, you will investigate the deformation of paper cylinders." This looks straightforward enough.
+
+Now, question 2a. This looks like an experiment and calculation related to paper cylinders. The instructions are pretty detailed, let's break this down into a structured format. We have a few key steps here. The core instructions will be transcribed into the requested format:
+
+It looks like the question involves using paper, measuring its dimensions, rolling it into a cylinder, and measuring the diameter. The paper has a width w which has to be measured. Then rolled into a cylinder, adjusted to a diameter d that's close to 7cm, and measured.
+
+I'll structure the response precisely to match the instructions.
+
+*   Select the smaller piece of paper.
+*   Measure and record $w$.
+
+    $w = \hrulefill \text{ cm}$
+
+*   Roll the paper into a cylinder and use two paper clips to hold the paper in place, as shown in Fig. 2.2.
+*   The diameter of the cylinder is $d$, as shown in Fig. 2.2. Adjust the paper and paper clips until $d$ is as close as possible to 7.0 cm.
+*   Measure and record $d$.
+
+    $d = \hrulefill \text{ cm}$
+
+I should have it formatted so that it will be easily consumed, I'm confident in my accuracy.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the deformation of paper cylinders.
+  - number: "2a"
+    type: calculation
+    text: |
+      You have been provided with two pieces of paper.
+
+      The width of a piece of paper is the length $w$ of the shorter side, as shown in Fig. 2.1.
+
+      \begin{itemize}
+      \item Select the smaller piece of paper.
+      \item Measure and record $w$.
+      \end{itemize}
+
+      $w =$ \hrulefill cm
+
+      \begin{itemize}
+      \item Roll the paper into a cylinder and use two paper clips to hold the paper in place, as shown in Fig. 2.2.
+      \item The diameter of the cylinder is $d$, as shown in Fig. 2.2.
+      \newline
+      Adjust the paper and paper clips until $d$ is as close as possible to 7.0 cm.
+      \item Measure and record $d$.
+      \end{itemize}
+
+      $d =$ \hrulefill cm

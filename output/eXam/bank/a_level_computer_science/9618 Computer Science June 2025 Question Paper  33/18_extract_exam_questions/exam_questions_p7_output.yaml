@@ -1,0 +1,32 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      Complete the table by filling in the missing object-oriented programming (OOP) terms and descriptions.
+
+      \begin{tabular}{|p{4cm}|p{10cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{OOP term}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      \hrulefill & A method that accesses the value of a property. \\ \hline
+      \hrulefill & A method that changes the value of a property. \\ \hline
+      \multicolumn{1}{|c|}{Object} & \newline\newline\newline \\ \hline
+      \multicolumn{1}{|c|}{Method} & \newline\newline\newline \\ \hline
+      \end{tabular}
+  - number: "6"
+    type: short_answer
+    text: |
+      The management and scheduling of processes are tasks carried out by an operating system.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Describe \textbf{one} reason why scheduling is necessary in process management.
+  - number: "6b"
+    type: long_answer
+    text: |
+      Explain the function of the round robin scheduling routine \textbf{and} give a benefit of this routine.
+
+      Function \hrulefill
+
+      Benefit \hrulefill
+```

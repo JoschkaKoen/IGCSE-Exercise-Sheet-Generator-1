@@ -1,0 +1,55 @@
+[thinking]
+**Extracting and Formatting Exam Questions**
+
+Okay, let's break this down. My task is to take this input – PDF page 1 (which the document labels as page 4) – and extract specific questions. I need to pull out questions "2", "2a", "2b", "2bi", "2bii", and "2c". The output has to be in YAML format, and it needs to match the provided stub perfectly.
+
+First, I'm analyzing the content itself. I see that Question 2 establishes the scenario: an employee sending house images. This becomes the foundation for the subsequent sub-questions. Question 2a deals with lossy compression, and I need to identify what reductions it makes in addition to file size. Question 2b talks about network packets and IP addresses, which leads into the specific questions 2bi and 2bii. Finally, Question 2c is about IPv6 format characteristics.
+
+Now, for formatting, I have to ensure the YAML structure is correct. Question 2 is straightforward; I just wrap the stem in a `text` block scalar. For sub-questions like 2a and 2c, I need to strip the prefixes (a), (b), etc. and then format the text using LaTeX to present the questions clearly with blank slots, using `\hrulefill` for the numbered answer lines. I remember, no `\dotfill`, and the instructions are very clear about the *number* of answers that need to be provided for each question, using bold text, which I will apply to the formatted question text.
+
+For the questions 2bi and 2bii, I will strip the prefix, and wrap the question text as a block scalar. Since these are single open-ended prompts, no extra marker or answer field is needed.
+
+I'm double-checking the constraints. No double quotes in the free-text fields – using block scalars for those. No math commands are needed here, so the formatting is straightforward. I am also making sure to avoid using any Markdown fences in the output. I also verify that numbered slots are `1. \hrulefill`, and not something else. I'll make sure there is no extraneous whitespace. Now, I'm ready to craft the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      An employee of a company sells houses. He sends images of the houses to his company.
+  - number: "2a"
+    type: short_answer
+    text: |
+      The employee compresses the image files using lossy compression before sending them. Lossy compression reduces the size of the image files.
+
+      Give \textbf{two} other reductions that lossy compression makes to the images.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      The image data is broken down into packets to be sent across a network to the company.
+
+      The destination internet protocol (IP) address is read by a device in the network. The device uses the IP address to forward the packet towards its correct destination.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      State the name of the device that reads the destination IP address.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Identify the part of the packet where the destination IP address is found.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The IP address has an IPv6 format.
+
+      Give \textbf{three} characteristics of the IPv6 format.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

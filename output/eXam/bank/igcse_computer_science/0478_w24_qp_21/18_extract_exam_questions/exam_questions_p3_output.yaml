@@ -1,0 +1,29 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      Identify \textbf{three} stages of the program development life cycle from the following list of words.
+
+      \begin{itemize}
+      \item analysis
+      \item decomposition
+      \item design
+      \item input
+      \item pseudocode
+      \item testing
+      \item variable
+      \end{itemize}
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "5"
+    type: long_answer
+    text: |
+      Describe \textbf{three} methods that are used to design and construct a solution to a problem.
+
+      Method 1 \hrulefill
+
+      Method 2 \hrulefill
+
+      Method 3 \hrulefill

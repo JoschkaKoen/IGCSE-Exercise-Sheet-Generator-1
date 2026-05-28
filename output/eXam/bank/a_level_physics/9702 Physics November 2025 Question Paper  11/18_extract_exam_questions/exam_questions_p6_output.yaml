@@ -1,0 +1,58 @@
+questions:
+  - number: "8"
+    type: multiple_choice
+    text: |
+      A sphere falls from rest through the air. The graph shows the variation with time of the sphere’s velocity.
+
+      Which diagram shows the forces acting on the sphere when it is at the velocity corresponding to point P on the graph?
+    options:
+      - letter: A
+        text: |
+          air resistance and weight of equal magnitude
+      - letter: B
+        text: |
+          weight only
+      - letter: C
+        text: |
+          air resistance of smaller magnitude than weight
+      - letter: D
+        text: |
+          air resistance of greater magnitude than weight
+  - number: "9"
+    type: multiple_choice
+    text: |
+      In which situation is total linear momentum \textbf{always} conserved?
+    options:
+      - letter: A
+        text: |
+          in all collisions between two objects
+      - letter: B
+        text: |
+          in collisions between two objects moving at equal and opposite velocity
+      - letter: C
+        text: |
+          in collisions between two objects that form an isolated system
+      - letter: D
+        text: |
+          in collisions between two objects with the same mass
+  - number: "10"
+    type: multiple_choice
+    text: |
+      An object of mass $m$ moving with velocity $9.0\text{ m}\,\text{s}^{-1}$ has a head-on elastic collision with a stationary object of mass $2m$.
+
+      After the collision, both objects are moving. No external forces act on the system.
+
+      What is the velocity of the object of mass $2m$ after the collision?
+    options:
+      - letter: A
+        text: |
+          $-6.0\text{ m}\,\text{s}^{-1}$
+      - letter: B
+        text: |
+          $-3.0\text{ m}\,\text{s}^{-1}$
+      - letter: C
+        text: |
+          $4.5\text{ m}\,\text{s}^{-1}$
+      - letter: D
+        text: |
+          $6.0\text{ m}\,\text{s}^{-1}$

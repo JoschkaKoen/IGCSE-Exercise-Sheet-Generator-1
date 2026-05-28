@@ -1,0 +1,49 @@
+[thinking]
+**Transcribing Exam Page 10: Analyzing and Structuring Questions**
+
+Okay, so the task is to transcribe page 10 of this exam paper. My initial focus is on the question structure, so I'll start by mapping out the questions listed: "4", "4a", "4b", "4bi", "4bii", and "4biii". The goal here is to get a clean YAML representation of this page.
+
+First, I looked at the stub and noted the question types: `short_answer` for 4, 4a, 4b, and 4biii, while 4bi is `long_answer` and 4bii is a `calculation`.
+
+I need to parse each question and correctly associate it with its designated category. Question "4" is just a placeholder with no text, it has `text: ''`. Question 4a is simple: "State the principle of superposition.".
+
+For question "4b", I see the text: "An electromagnetic wave of wavelength 0.026m in free space is incident normally on an aluminium sheet, as shown in Fig. 4.1." I will need to omit the diagram, but keep the text. In addition, the text states "The wave reflects at the aluminium sheet and a stationary wave is formed in the region between the transmitter and the sheet.". I'll ensure this is all captured as well.
+
+Question "4bi" asks "Explain how the stationary wave, including its nodes and antinodes, is formed.", so that's easy enough. Question "4bii" is a calculation asking for the frequency. I'll need to remember to include the units and the prompt to calculate it: "Calculate the frequency of the electromagnetic wave. frequency = \hrulefill Hz". Lastly, 4biii just asks for the "principal region of the electromagnetic spectrum to which the wave belongs."
+
+The main formatting rules I had in mind here are: to remove any question prefixes like `(a)`, and `(i)`. Also, to use math formatting `$...$` and to handle the empty question with the appropriate `text: ''`.
+
+With that, I am ready to write the YAML representation. I'll double-check it for adherence to formatting rules and double check that I have not missed anything. After my final review, it's all good. I can now submit the transcribed content, in YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      State the principle of superposition.
+  - number: "4b"
+    type: short_answer
+    text: |
+      An electromagnetic wave of wavelength $0.026\text{ m}$ in free space is incident normally on an aluminium sheet, as shown in Fig. 4.1.
+
+      The wave reflects at the aluminium sheet and a stationary wave is formed in the region between the transmitter and the sheet.
+  - number: "4bi"
+    type: long_answer
+    text: |
+      Explain how the stationary wave, including its nodes and antinodes, is formed.
+  - number: "4bii"
+    type: calculation
+    text: |
+      Calculate the frequency of the electromagnetic wave.
+
+      frequency = \hrulefill Hz
+  - number: "4biii"
+    type: short_answer
+    text: |
+      State the principal region of the electromagnetic spectrum to which the wave belongs.

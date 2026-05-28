@@ -1,0 +1,15 @@
+```yaml
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      Data is often encrypted when it is transmitted from one device to another.
+  - number: "2ci"
+    type: long_answer
+    text: |
+      Explain how data is encrypted using symmetric encryption.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Give the purpose of encryption.
+```

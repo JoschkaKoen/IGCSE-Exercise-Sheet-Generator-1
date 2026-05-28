@@ -1,0 +1,30 @@
+[thinking]
+**Transcribing Question 7bi: Pseudocode for `MondayCheck()`**
+
+Okay, the user wants me to transcribe question "7bi" from this document. Let's take a look. First, I need to strip that pesky subquestion prefix, `(i)`. Alright, text extracted: "Write pseudocode for module MondayCheck(). The module FindCustomer() must be used and assume it returns a valid string for the current customer."
+
+Now, a quick check of the instructions... right, I need to wrap inline code tokens in `\texttt{...}`. I remember seeing a monospace font in the PDF; specifically, `MondayCheck()` and `FindCustomer()` are module names. Given the instructions, `\texttt{MondayCheck()}` and `\texttt{FindCustomer()}` is the correct format. They're function calls, so they fit the pattern.
+
+Okay, time to build the YAML. Here's what I've got:
+```yaml
+questions:
+  - number: "7bi"
+    type: long_answer
+    text: |
+      Write pseudocode for module \texttt{MondayCheck()}
+
+      The module \texttt{FindCustomer()} must be used and assume it returns a valid string for the current customer.
+```
+I'm confident this accurately reflects the question, incorporating the necessary formatting.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7bi"
+    type: long_answer
+    text: |
+      Write pseudocode for module \texttt{MondayCheck()}
+
+      The module \texttt{FindCustomer()} must be used and assume it returns a valid string for the current customer.

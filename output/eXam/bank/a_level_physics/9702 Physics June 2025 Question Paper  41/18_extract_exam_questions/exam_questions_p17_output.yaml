@@ -1,0 +1,15 @@
+questions:
+  - number: "8diii"
+    type: short_answer
+    text: |
+      Explain why two gamma-ray photons are produced, rather than just one.
+  - number: "8div"
+    type: calculation
+    text: |
+      Show that the kinetic energy of the electron before the collision is $1.1 \times 10^{-15}\text{ J}$.
+  - number: "8dv"
+    type: calculation
+    text: |
+      Use the information in \textbf{(d)(iv)} to determine, to three significant figures, the wavelength associated with the gamma radiation emitted in the collision.
+
+      wavelength = \hrulefill \text{ m}

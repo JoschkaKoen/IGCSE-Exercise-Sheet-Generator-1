@@ -1,0 +1,25 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program sorts string data using different sorting methods.
+  - number: "1a"
+    type: long_answer
+    text: |
+      The text file \texttt{Data.txt} stores string data items. Each data item is on a new line in the text file.
+
+      The function \texttt{ReadData()}:
+
+      \begin{itemize}
+      \item has a local array of strings that can store 45 items
+      \item reads each line of data and stores it in the array
+      \item returns the array.
+      \end{itemize}
+
+      Write program code for the function \texttt{ReadData()}.
+
+      Save your program as \textbf{Question1\_N24}.
+
+      Copy and paste the program code into part \textbf{1(a)} in the evidence document.
+```

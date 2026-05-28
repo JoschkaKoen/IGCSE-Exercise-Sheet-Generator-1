@@ -1,0 +1,21 @@
+  - number: "2diii"
+    type: short_answer
+    text: ""
+  - number: "2e"
+    type: short_answer
+    text: ""
+  - number: "2ei"
+    type: short_answer
+    text: ""
+  - number: "2eii"
+    type: multiple_choice
+    text: ""
+  - number: "2eiii"
+    type: short_answer
+    text: ""
+  - number: "2f"
+    type: short_answer
+    text: ""
+  - number: "2fi"
+    type: short_answer
+    text: ""

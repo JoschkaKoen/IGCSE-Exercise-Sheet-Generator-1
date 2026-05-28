@@ -1,0 +1,33 @@
+questions:
+  - number: "1"
+    type: long_answer
+    text: |
+      Fig. 1.1 shows a model wind turbine with blades, each of length $L$, placed in moving air.
+
+      The area of the circle swept by the blades of the turbine is $A$.
+
+      The output of the turbine has two terminals. The turbine is connected to a resistor of resistance $R$. At a speed $v$ of the moving air, the current in the resistor is $I$.
+
+      The atmospheric pressure is $P$ and the thermodynamic temperature of the air is $T$.
+
+      It is suggested that $I$ is related to $v$ by the relationship
+
+      $$\frac{I^2 R}{Q} = \frac{APv^3}{2T}$$
+
+      where $Q$ is a constant.
+
+      Plan a laboratory experiment to test the relationship between $I$ and $v$.
+
+      Draw a diagram showing the arrangement of your equipment.
+
+      Explain how the results could be used to determine a value for $Q$.
+
+      In your plan you should include:
+
+      \begin{itemize}
+      \item the procedure to be followed
+      \item the measurements to be taken
+      \item the control of variables
+      \item the analysis of the data
+      \item any safety precautions to be taken.
+      \end{itemize}

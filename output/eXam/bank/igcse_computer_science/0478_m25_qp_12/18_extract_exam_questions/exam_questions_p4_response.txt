@@ -1,0 +1,51 @@
+[thinking]
+**My Approach to Processing Exam Question Data**
+
+Alright, let's break this down. My task is to take this exam page, specifically questions 2, 2a, 2b, 2c, 2ci, and 2cii, and format them into a structured YAML output. I need to generate `number`, `type`, and `text` fields, and `options` if it's multiple choice.
+
+First, I need to analyze the incoming data. I know I'm looking at an exam paper, specifically page 4, containing questions 2 onwards. The desired format is YAML, which I'm familiar with.
+
+Next, I need to understand the questions themselves.  "Question 2: An artist creates an image on a computer." That's the main stem.  Then, I need to tackle sub-questions 2a, 2b, 2c, 2ci, and 2cii. I have to strip those leading prefixes (a), (b), etc. and extract the core question text.  For example, "2a: (a) State what is meant by the colour depth of an image." becomes "State what is meant by the colour depth of an image."
+
+I then need to analyze question 2cii to determine the layout, as it has an unusual layout. It appears "Method ...." translates to `Method \hrulefill`
+
+Then, I need to categorize the question types. "2", "2a", "2b" and "2c" look like short answer, while "2ci" needs a longer explanation, so I'll mark that as a long answer.  And 2cii looks like a short answer question as well, although the response will have a specific structure.
+
+Finally, I need to construct the YAML structure, remembering the specific formatting rules: no double quotes unless needed for an empty string or where the content has characters which may be problematic in yaml, using a block scalar (`|`) for multi-line text, and the special case of stripping the prefixes from the question text. I'll need to remember the "Method" line in 2cii is formatted as `Method \hrulefill`. With that, I can generate the YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      An artist creates an image on a computer.
+  - number: "2a"
+    type: short_answer
+    text: |
+      State what is meant by the colour depth of an image.
+  - number: "2b"
+    type: short_answer
+    text: |
+      Describe the relationship between the resolution of the image and the file size of the image.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The artist compresses the image file before uploading it to their website. Users can download the image file from the website to print as a poster.
+
+      The image file is compressed using lossless compression.
+  - number: "2ci"
+    type: long_answer
+    text: |
+      Explain the reasons why the artist chose lossless compression instead of lossy compression to compress this image file.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Identify one lossless method of compressing an image.
+
+      Describe your chosen method.
+
+      Method \hrulefill
+      Description

@@ -1,0 +1,48 @@
+[thinking]
+**Exam Page 18 Transcription: Hydrogen Spectrum Analysis**
+
+Okay, here's what the user wants. I need to transcribe page 18 of this exam. The questions on this page are: "8", "8a", "8b", "8bi", and "8bii". Let's get to it.
+
+First, I see Question 8, which is really just an introductory passage. It sets the scene with a diagram (Fig. 8.1) showing three spectral lines with frequencies 3.09, 2.92, and 2.47 (in $10^{15}\text{ Hz}$), but the *instructions* are separate. Let's make sure we include the relevant text, but omit the diagram to make it easier for the user to work with.
+
+So for **8**, it's: "Fig. 8.1 shows the three lowest-frequency lines in the part of the emission spectrum for hydrogen that relates to electron transitions to the ground state (level $n = 1$). The numbers represent the frequencies, in $10^{15}\text{ Hz}$, associated with the spectral lines."
+
+Next, **8a** is a more conceptual question: "Use the photon model of electromagnetic radiation to explain how the existence of spectral lines in the emission spectrum provides evidence for discrete electron energy levels in the hydrogen atom." That's a classic one.
+
+Then, we've got **8b**, which starts a calculation sequence: "The energy of the ground state (level $n = 1$) in a hydrogen atom is $-13.6\text{ eV}$."
+
+Following that, **8bi** wants a calculation: "Calculate the energy, in J, of the ground state. energy = \hrulefill J". It's a straightforward conversion from eV to Joules, should be easy.
+
+And finally, **8bii** is a derivation question: "Show that the energy difference between levels $n = 1$ and $n = 2$ is $10.2\text{ eV}$." That's the core of the quantum mechanical argument.
+
+Just to be absolutely certain, let's double-check all the text again. *Double checks all text above*. Yep, looks perfect. I've got a good handle on what needs to be transcribed and structured. Okay, time to generate the YAML for it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      Fig. 8.1 shows the three lowest-frequency lines in the part of the emission spectrum for hydrogen that relates to electron transitions to the ground state (level $n = 1$).
+
+      The numbers represent the frequencies, in $10^{15}\text{ Hz}$, associated with the spectral lines.
+  - number: "8a"
+    type: long_answer
+    text: |
+      Use the photon model of electromagnetic radiation to explain how the existence of spectral lines in the emission spectrum provides evidence for discrete electron energy levels in the hydrogen atom.
+  - number: "8b"
+    type: short_answer
+    text: |
+      The energy of the ground state (level $n = 1$) in a hydrogen atom is $-13.6\text{ eV}$.
+  - number: "8bi"
+    type: calculation
+    text: |
+      Calculate the energy, in J, of the ground state.
+
+      energy = \hrulefill J
+  - number: "8bii"
+    type: calculation
+    text: |
+      Show that the energy difference between levels $n = 1$ and $n = 2$ is $10.2\text{ eV}$.

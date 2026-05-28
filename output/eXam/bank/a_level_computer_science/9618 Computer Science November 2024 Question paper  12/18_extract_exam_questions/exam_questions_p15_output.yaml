@@ -1,0 +1,11 @@
+questions:
+  - number: "8bii"
+    type: short_answer
+    text: |
+      Explain how bit manipulation can be used to test whether the binary number stored in the ACC represents an odd denary number.
+
+      Write the bit manipulation instruction that will be used.
+
+      Explanation \hrulefill
+
+      Instruction \hrulefill

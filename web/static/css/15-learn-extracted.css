@@ -1,0 +1,190 @@
+/* Read-only verification view for extracted exam questions.
+ *
+ * Paper list and per-paper question viewer (PDF strip alongside the
+ * rendered YAML text + recursive subquestions). Only used by
+ * learn/extracted_papers.html and learn/extracted_questions.html.
+ */
+
+/* ---------- Paper list (extracted_papers.html) ---------- */
+.vq-paper-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  max-width: 56rem;
+}
+.vq-paper-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.75rem;
+  color: rgb(226, 232, 240);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 120ms, border-color 120ms;
+}
+.vq-paper-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+.vq-paper-name {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+}
+.vq-paper-arrow {
+  width: 1rem;
+  height: 1rem;
+  color: rgb(100, 116, 139);
+  flex-shrink: 0;
+}
+
+/* ---------- Per-paper question viewer (extracted_questions.html) ---------- */
+.vq-paper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* One row per top-level question: PDF strip on the left, text on the right. */
+.vq-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+}
+@media (max-width: 900px) {
+  .vq-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vq-pdf-pane iframe {
+  width: 100%;
+  height: 70vh;
+  min-height: 320px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.6rem;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.vq-text-pane {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Question block (recursive) ---------- */
+.vq-q {
+  padding: 0.5rem 0.75rem;
+  border-left: 2px solid transparent;
+  min-width: 0;
+}
+.vq-q.vq-depth-0 {
+  padding-left: 0;
+}
+.vq-q.vq-depth-1 {
+  margin-top: 0.5rem;
+  padding-left: 0.85rem;
+  border-left-color: rgba(56, 189, 248, 0.25);
+}
+.vq-q.vq-depth-2 {
+  padding-left: 0.85rem;
+  border-left-color: rgba(99, 102, 241, 0.22);
+}
+.vq-q.vq-depth-3,
+.vq-q.vq-depth-4 {
+  padding-left: 0.85rem;
+  border-left-color: rgba(168, 85, 247, 0.20);
+}
+.vq-children {
+  margin-left: 0.5rem;
+}
+
+.vq-q-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+}
+.vq-num {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-weight: 600;
+  color: rgb(226, 232, 240);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.45rem;
+}
+.vq-pill {
+  font-size: 0.7rem;
+  color: rgb(148, 163, 184);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  padding: 0.05rem 0.5rem;
+}
+.vq-pill.vq-subtopic {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  color: rgb(196, 181, 253);
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.28);
+}
+
+.vq-text {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgb(226, 232, 240);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.vq-text p {
+  margin: 0 0 0.5rem 0;
+}
+.vq-text :last-child {
+  margin-bottom: 0;
+}
+.vq-stub {
+  font-size: 0.8rem;
+  color: rgb(100, 116, 139);
+  font-style: italic;
+}
+
+/* ---------- MCQ options ---------- */
+.vq-options {
+  list-style: none;
+  padding: 0;
+  margin: 0.45rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.vq-options li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  color: rgb(203, 213, 225);
+}
+.vq-opt-letter {
+  flex-shrink: 0;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-weight: 600;
+  width: 1.3rem;
+  color: rgb(148, 163, 184);
+}
+.vq-opt-text {
+  min-width: 0;
+}
+.vq-opt-text p {
+  margin: 0;
+}

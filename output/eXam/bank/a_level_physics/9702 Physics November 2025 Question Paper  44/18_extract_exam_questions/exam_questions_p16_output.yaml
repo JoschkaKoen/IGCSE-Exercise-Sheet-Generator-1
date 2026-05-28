@@ -1,0 +1,23 @@
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      The input voltage varies with time $t$ according to the equation
+
+      $$V_{\text{IN}} = 34 \sin 18t$$
+
+      where $V_{\text{IN}}$ is in V and $t$ is in s.
+  - number: "6bi"
+    type: calculation
+    text: |
+      Show that the period of the input voltage is 0.35 s.
+  - number: "6bii"
+    type: calculation
+    text: |
+      Calculate the root-mean-square (r.m.s.) input voltage.
+
+      r.m.s. voltage = \hrulefill V
+  - number: "6biii"
+    type: short_answer
+    text: |
+      On Fig. 6.2, sketch the variation of $V_{\text{OUT}}$ with $t$ from $t = 0$ to $t = 0.35\text{ s}$.

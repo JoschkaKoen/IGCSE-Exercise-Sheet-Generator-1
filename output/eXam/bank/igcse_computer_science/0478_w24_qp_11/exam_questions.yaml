@@ -1,0 +1,650 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The size of a file can be measured using different units.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: multiple_choice
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick $(\checkmark)$ \textbf{one} box to show which of these is \textbf{not}
+      a unit of measurement for a file.
+    answer_options:
+    - letter: A
+      text: bit
+    - letter: B
+      text: bot
+    - letter: C
+      text: nibble
+    - letter: D
+      text: byte
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The size of a file can be reduced by compressing it.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} types of compression that can be used to reduce the
+        size of a file.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Give \textbf{three} benefits of reducing the size of a file for storage
+        and transmission.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student has a smartphone.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} input devices that can be built into the smartphone.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} output devices that can be built into the smartphone.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The smartphone contains secondary storage.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain the purpose of the secondary storage in the smartphone.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Identify the most suitable type of secondary storage for the smartphone.
+
+
+        Explain your choice.
+
+
+        Secondary storage type \hrulefill
+
+
+        Explanation \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A user enters text into a computer system, using a keyboard.
+
+
+    An American standard code for information interchange (ASCII) character set is
+    used to convert the text to binary.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify \textbf{one} other character set that could be used to convert
+      the text to binary.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The character ''A'' is represented by the denary ASCII number 65.
+
+
+      The character ''m'' is represented by the denary ASCII number 109.'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Convert the \textbf{two} denary ASCII numbers to binary.
+
+
+        65 \hrulefill
+
+        109 \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Convert the \textbf{two} denary ASCII numbers to hexadecimal.
+
+
+        65 \hrulefill
+
+        109 \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The character 'y' is represented by the binary ASCII number 01111001.
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Convert the binary ASCII number to denary.
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Convert the binary ASCII number to hexadecimal.
+      answer_options: []
+      subquestions: []
+    - number: 3ciii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'A logical right shift of two places is performed on the binary ASCII
+        number 01111001.
+
+
+        Give the binary number after the logical right shift of \textbf{two} places
+        is performed.'
+      answer_options: []
+      subquestions: []
+  - number: 3d
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The character ‘T’ is represented by the binary ASCII number 01010100.
+
+
+      The character ‘t’ is represented by the binary ASCII number 01110100.
+
+
+      Add the \textbf{two} binary numbers using binary addition. Give your answer
+      in binary. Show all your working.'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A company decides to create a network for its devices.
+
+
+    All the company devices are within a single room.
+
+
+    The employees will need to use their devices to send data to each other and share
+    files.
+
+
+    The company decides to send data across the network using packet switching.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'An employee sends an email to another employee. The email is broken down
+      into packets.
+
+
+      Describe the structure of a packet of data for the email.'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The company decides to use parallel full-duplex data transmission to send
+      the data across the network.
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Explain the reasons why the company have chosen this method of data transmission.
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} drawbacks of the company using this method of data
+        transmission.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 4biii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} other method of data transmission the company could
+        have chosen.
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A central processing unit (CPU) performs the fetch–decode–execute (FDE) cycle.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give the name of \textbf{two} registers that are used in the fetch stage
+      of the cycle.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe what happens at the decode stage of the cycle.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} register in the CPU that is used in the execute stage
+      of the cycle.
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: multiple_choice
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Buses are used in the CPU to transmit data through the FDE cycle.
+
+
+      Circle \textbf{three} buses that are used in the CPU.'
+    answer_options:
+    - letter: A
+      text: fetch
+    - letter: B
+      text: address
+    - letter: C
+      text: register
+    - letter: D
+      text: execute
+    - letter: E
+      text: data
+    - letter: F
+      text: decode
+    - letter: G
+      text: calculation
+    - letter: H
+      text: central
+    - letter: I
+      text: value
+    - letter: J
+      text: binary
+    - letter: K
+      text: control
+    subquestions: []
+  - number: 5e
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A user changes their CPU from one with a dual core and a clock speed of
+      $2.4 \text{ GHz}$ to one with a dual core and a clock speed of $3.5 \text{ GHz}$.
+
+
+      Explain the effect this change will have on the performance of the CPU.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer programmer uses assembly language to create a computer program
+    for an embedded system in a washing machine.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by an embedded system.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the name of the translator that will be used for the program.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The washing machine needs to display error codes on a small screen if there
+      is a problem with the washing machine.
+
+
+      The error codes are stored as binary. The binary numbers are too long to be
+      displayed on the washing machine.
+
+
+      State how the error codes could be reduced in length to be displayed on the
+      screen.'
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} benefit to the programmer of using assembly language to
+      write the program.
+    answer_options: []
+    subquestions: []
+  - number: 6e
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The programmer uses an integrated development environment (IDE) to write
+      the program.
+
+
+      A built-in translator to convert the program into machine code is one way that
+      the IDE helps the computer programmer.
+
+
+      Describe \textbf{three} other ways the IDE can help the programmer.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer has an operating system.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The operating system provides several functions.
+    answer_options: []
+    subquestions:
+    - number: 7ai
+      question_type: multiple_choice
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Tick ($\checkmark$) \textbf{one} box to show which of these is \textbf{not}
+        a function of the operating system.
+      answer_options:
+      - letter: A
+        text: managing files
+      - letter: B
+        text: providing an interface
+      - letter: C
+        text: handling interrupts
+      - letter: D
+        text: loading the bootstrap
+      subquestions: []
+    - number: 7aii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Identify \textbf{one} other function of an operating system.
+
+
+        Describe the purpose of this function.'
+      answer_options: []
+      subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the name of the set of instructions that are provided to the operating
+      system to allow it to run.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: long_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Draw and annotate a diagram to show how a payment transaction is made using
+    digital currency and blockchain.
+  answer_options: []
+  subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A doctor’s surgery has an expert system that helps diagnose the illnesses
+    of its patients.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'Complete the paragraph about the operation of the expert system.
+
+
+      Use the terms from the list.
+
+
+      Some of the terms in the list will \textbf{not} be used. Some terms may be used
+      more than once.
+
+
+      \begin{itemize}
+
+      \item artificial
+
+      \item binary
+
+      \item central processing unit (CPU)
+
+      \item data
+
+      \item inference engine
+
+      \item interface
+
+      \item knowledge base
+
+      \item primary storage
+
+      \item process
+
+      \item real
+
+      \item read only memory (ROM)
+
+      \item rule base
+
+      \end{itemize}
+
+
+      An expert system is a type of \underline{\hspace{1.5em}} intelligence. The doctor
+      will type data about the symptoms of the illness into the \underline{\hspace{1.5em}}.
+
+
+      The \underline{\hspace{1.5em}} will decide which questions to ask the doctor.
+      It will do this by linking the facts in the \underline{\hspace{1.5em}} to the
+      \underline{\hspace{1.5em}}.
+
+
+      The \underline{\hspace{1.5em}} will decide on a diagnosis and this will be output
+      on the \underline{\hspace{1.5em}}.'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The expert system has the ability to automatically adapt its own processes
+      and data.
+
+
+      Give the name of this ability.'
+    answer_options: []
+    subquestions: []

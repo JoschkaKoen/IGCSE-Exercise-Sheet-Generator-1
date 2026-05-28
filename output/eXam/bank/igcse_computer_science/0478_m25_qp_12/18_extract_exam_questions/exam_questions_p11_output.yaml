@@ -1,0 +1,19 @@
+```yaml
+questions:
+  - number: "7b"
+    type: long_answer
+    text: |
+      A high-level language can be translated into a low-level language, using a compiler or an interpreter.
+
+      Describe the advantages of using an interpreter instead of a compiler during software development.
+  - number: "7c"
+    type: short_answer
+    text: |
+      Integrated development environments (IDEs) provide translators.
+
+      Identify \textbf{three} other common functions of an IDE.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+```

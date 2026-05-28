@@ -1,0 +1,34 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      The nuclide $^3_1\text{H}$ is an isotope of hydrogen that is called tritium.
+  - number: "6a"
+    type: short_answer
+    text: ''
+  - number: "6ai"
+    type: short_answer
+    text: |
+      Determine the numbers of protons, neutrons and electrons in a neutral atom of tritium.
+
+      number of protons = \hrulefill
+      number of neutrons = \hrulefill
+      number of electrons = \hrulefill
+  - number: "6aii"
+    type: short_answer
+    text: |
+      Draw a labelled diagram to represent a simple model of the arrangement of the protons, neutrons and electrons in a tritium atom.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Tritium is radioactive and undergoes $\beta^-$ decay to form an isotope of helium (He). Gamma radiation is not emitted during this decay.
+  - number: "6bi"
+    type: short_answer
+    text: |
+      Complete the equation to represent the radioactive decay of tritium.
+
+      $$^3_1\text{H} \rightarrow \text{}^{\underline{\hspace{1.5em}}}_{\underline{\hspace{1.5em}}}\text{He} + \text{}^{\underline{\hspace{1.5em}}}_{\underline{\hspace{1.5em}}}\beta + ^0_0\text{X}$$
+  - number: "6bii"
+    type: short_answer
+    text: |
+      State the name of particle X.

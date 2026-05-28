@@ -1,0 +1,42 @@
+[thinking]
+**Page 17 of the Exam: Question Breakdown**
+
+Okay, so I need to transcribe the content from page 17 of this exam paper. The user specifically wants me to grab the content for questions "6c", "6ci", "6cii", and "6ciii."
+
+First, let's take a look at the text for "6c". It gives some background: "Resistor R has a resistance of 56kΩ. A capacitor of capacitance 12μF is connected into the circuit of Fig. 6.1 in order to smooth the output voltage." I'm rendering that with LaTeX formatting.
+
+Next, "6ci" instructs to draw a capacitor into the circuit. It's a drawing question, so I'll render that appropriately.
+
+"6cii" asks to calculate the time constant of the smoothing circuit. I'll need to specify a fill-in-the-blank answer line that includes the units. After checking the rules, I'm confident with: `time constant = \hrulefill \text{ s}`.
+
+Finally, "6ciii" provides more context: "During each discharge cycle, the time for which the capacitor is discharging is 0.14s." It then asks me to determine the minimum value of the smoothed output voltage, which is also a fill-in-the-blank with units, and I will express this as: `minimum voltage = \hrulefill \text{ V}`.
+
+I've double-checked all the text and formatting, and I'm ready to render this in the required YAML structure.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      Resistor R has a resistance of $56\text{ k}\Omega$. A capacitor of capacitance $12\text{ }\mu\text{F}$ is connected into the circuit of Fig. 6.1 in order to smooth the output voltage.
+  - number: "6ci"
+    type: short_answer
+    text: |
+      On Fig. 6.1, draw the capacitor correctly connected into the circuit.
+  - number: "6cii"
+    type: calculation
+    text: |
+      Calculate the time constant of the smoothing circuit.
+
+      time constant = \hrulefill \text{ s}
+  - number: "6ciii"
+    type: calculation
+    text: |
+      During each discharge cycle, the time for which the capacitor is discharging is $0.14\text{ s}$.
+
+      Determine the minimum value of the smoothed output voltage.
+
+      minimum voltage = \hrulefill \text{ V}

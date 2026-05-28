@@ -1,0 +1,33 @@
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      The artist emails the image file to their friends.
+  - number: "2di"
+    type: long_answer
+    text: |
+      Explain how a file is broken down into packets and transmitted over a network.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      The packets can use many different methods of data transmission to travel.
+
+      Complete and annotate the diagram to show the difference between serial full-duplex transmission between two computers and parallel simplex transmission between two computers.
+
+      Serial full-duplex transmission:
+
+      \begin{tabular}{|c|c|}
+      \hline
+      Computer 1 & Computer 2 \\
+      \hline
+      \end{tabular}
+
+      \vspace{4em}
+
+      Parallel simplex transmission:
+
+      \begin{tabular}{|c|c|}
+      \hline
+      Computer 1 & Computer 2 \\
+      \hline
+      \end{tabular}

@@ -1,0 +1,27 @@
+questions:
+  - number: "1b"
+    type: short_answer
+    text: |
+      Change $z$ and determine $P$. Repeat until you have six sets of values of $z$ and $P$.
+
+      Record your results in a table. Include values of $M$, $\frac{1}{\sqrt{M}}$ and $\frac{1}{P}$ in your table.
+  - number: "1c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Plot a graph of $\frac{1}{P}$ on the $y$-axis against $\frac{1}{\sqrt{M}}$ on the $x$-axis.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1ciii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+
+      $y$-intercept = \hrulefill

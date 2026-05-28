@@ -1,0 +1,17 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      The Internet layer and Link layer are two layers of the TCP/IP protocol suite.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Describe the purpose of the Internet layer \textbf{and} the purpose of the Link layer.
+
+      Purpose of Internet layer \hrulefill
+
+      Purpose of Link layer \hrulefill
+  - number: "4b"
+    type: long_answer
+    text: |
+      Describe the function of a router in packet switching.

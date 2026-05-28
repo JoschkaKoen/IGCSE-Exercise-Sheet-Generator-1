@@ -1,0 +1,41 @@
+[thinking]
+**Transcribing Question 6biii**
+
+Okay, the user wants me to extract question "6biii" from this page. Let's see... the question starts with "(iii) The capacitor is now connected...". Right, I need to strip that "(iii)" prefix. The prompt is a straightforward calculation involving parallel capacitors and energy.
+
+I need to create the YAML structure for the question. Let's start by looking at the page:
+
+The question body is: "The capacitor is now connected in parallel with a capacitor of capacitance $180\mu\text{F}$ that is initially uncharged. Determine the total energy, in mJ, now stored in the two capacitors."
+
+The answer line reads: "energy = .................................................... mJ [3]". The "mJ" should be in math mode and as specified in the rules, the answer line is `energy = \hrulefill $\text{mJ}$`. I will omit the `[3]`.
+
+So the YAML will look like:
+
+```yaml
+questions:
+  - number: "6biii"
+    type: calculation
+    text: |
+      The capacitor is now connected in parallel with a capacitor of capacitance $180\ \mu\text{F}$ that is initially uncharged.
+
+      Determine the total energy, in $\text{mJ}$, now stored in the two capacitors.
+
+      energy = \hrulefill $\text{mJ}$
+```
+
+Let's do a quick double-check...  `$180\ \mu\text{F}$` is the correct formatting for the capacitance. Looks good. And `$\text{mJ}$` for the unit. Looks fine.  Done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6biii"
+    type: calculation
+    text: |
+      The capacitor is now connected in parallel with a capacitor of capacitance $180\ \mu\text{F}$ that is initially uncharged.
+
+      Determine the total energy, in $\text{mJ}$, now stored in the two capacitors.
+
+      energy = \hrulefill $\text{mJ}$
+```

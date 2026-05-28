@@ -1,0 +1,41 @@
+```yaml
+questions:
+  - number: "3biii"
+    type: short_answer
+    text: |
+      The method \texttt{Traverse()} concatenates the integer data from the nodes in the linked list, starting with the node stored in \texttt{HeadNode}. The method returns the final string with each integer data separated with a space.
+
+      Write program code for \texttt{Traverse()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(b)(iii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "3biv"
+    type: short_answer
+    text: |
+      The method \texttt{RemoveNode()} takes an integer parameter to search for and remove from the linked list.
+
+      The method first checks if the linked list is empty. If the linked list is empty the method returns \texttt{FALSE}
+
+      If the linked list is \textbf{not} empty, the integer data in \texttt{HeadNode} is compared to the parameter. If it matches the parameter, \texttt{HeadNode} is changed to store the next node.
+
+      If the parameter does \textbf{not} match, the nodes are followed until either:
+
+      \begin{itemize}
+      \item the node with matching integer data is found. This node is removed, the appropriate nodes updated and \texttt{TRUE} returned
+      \item or
+      \item none of the nodes contain matching integer data to the parameter. No nodes are removed and \texttt{FALSE} is returned.
+      \end{itemize}
+
+      Write program code for \texttt{RemoveNode()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{3(b)(iv)} in the evidence document. \\
+      \hline
+      \end{tabular}
+```

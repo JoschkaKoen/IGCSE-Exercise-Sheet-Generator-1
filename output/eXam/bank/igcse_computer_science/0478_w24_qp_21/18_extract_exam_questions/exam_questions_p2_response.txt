@@ -1,0 +1,90 @@
+[thinking]
+**My Thought Process: Deconstructing Exam Questions for YAML Transformation**
+
+Okay, here's the breakdown. I've received page 2 of an exam paper and my task is to transform the questions into a YAML format, adhering to a specific schema. The target questions are identified as "1," "2," and "3".
+
+First, I need to methodically extract the information from each question and categorize it.
+
+*   **Question 1:** This is a straightforward multiple-choice question. The prompt instructs the user to select one box ($\checkmark$). The key phrase, "which check is used for verification when data is input," points to the core concept. The options are: length check, range check, type check, and visual check. I need to make sure I transcribe these accurately, particularly the LaTeX, and the tick/checkmark.
+
+*   **Question 2:** Another multiple-choice question, this time requesting identification of the option representing the inputs and output of a Boolean expression. The choices are flowchart, trace table, truth table, and variable. Again, accurate transcription is critical.
+
+*   **Question 3:** This one's a bit more involved. It's a short-answer question involving matching. It presents four operators and three operator types. The prompt explicitly says to draw lines to match the operators to the correct type. Since I'm not supposed to include any figures (no `\includegraphics` commands), I'll represent the question by clearly listing the operators and the operator types:
+
+    **Operators:**
+
+    *   `>=`
+    *   `AND`
+    *   `DIV`
+    *   `+`
+
+    **Operator types:**
+
+    *   Boolean
+    *   Arithmetic
+    *   Logical
+
+I need to make sure I don't miss anything. The prompt uses LaTeX math mode (`>=`, `DIV`, etc.). The instructions specify I should be very careful to respect these formatting directives. This is also a matching question which I have to extract accurately.
+
+Before I emit the YAML, I'll review my transcription for a final check against the constraints. I'll make sure there are no double quotes around string values, and use the block scalar (`|`) for any text containing newlines or requiring the preservation of formatting. Finally, I'll ensure I haven't inadvertently included `\includegraphics` or `\dotfill` commands and confirm the LaTeX is well-formed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show which check is used for verification when data is input.
+    options:
+      - letter: A
+        text: |
+          length check
+      - letter: B
+        text: |
+          range check
+      - letter: C
+        text: |
+          type check
+      - letter: D
+        text: |
+          visual check
+  - number: "2"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to identify which option is used to show the inputs and output of a Boolean expression.
+    options:
+      - letter: A
+        text: |
+          flowchart
+      - letter: B
+        text: |
+          trace table
+      - letter: C
+        text: |
+          truth table
+      - letter: D
+        text: |
+          variable
+  - number: "3"
+    type: short_answer
+    text: |
+      Four operators and \textbf{three} types of operator are shown.
+
+      Draw \textbf{one or more} lines from each operator to its correct operator type.
+
+      \textbf{Operators}
+      \begin{itemize}
+      \item \texttt{>=}
+      \item \texttt{AND}
+      \item \texttt{DIV}
+      \item \texttt{+}
+      \end{itemize}
+
+      \textbf{Operator types}
+      \begin{itemize}
+      \item Boolean
+      \item Arithmetic
+      \item Logical
+      \end{itemize}

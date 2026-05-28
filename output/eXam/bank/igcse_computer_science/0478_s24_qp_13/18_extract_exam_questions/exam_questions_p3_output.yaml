@@ -1,0 +1,37 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A programmer is creating a computer game. One character is \textbf{not} moving correctly.
+
+      The programmer needs to debug the program. To do this they need to look at addresses that are locations in memory.
+
+      The addresses are displayed as hexadecimal numbers.
+  - number: "3a"
+    type: short_answer
+    text: |
+      One address is A2F.
+  - number: "3ai"
+    type: calculation
+    text: |
+      Convert the address to binary.
+  - number: "3aii"
+    type: calculation
+    text: |
+      Convert the address to denary.
+  - number: "3b"
+    type: short_answer
+    text: |
+      The binary number stored for another address is 000110011011.
+  - number: "3bi"
+    type: calculation
+    text: |
+      Convert the binary number to hexadecimal.
+  - number: "3bii"
+    type: calculation
+    text: |
+      Convert the binary number to denary.
+  - number: "3c"
+    type: short_answer
+    text: |
+      Give \textbf{one} reason why the addresses are displayed in hexadecimal instead of binary.

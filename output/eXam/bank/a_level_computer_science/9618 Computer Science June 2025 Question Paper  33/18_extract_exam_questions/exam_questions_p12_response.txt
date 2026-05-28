@@ -1,0 +1,35 @@
+[thinking]
+**Transcribing Exam Page 12: Question 10**
+
+Okay, the user wants me to transcribe page 12 of the exam. The main question is "10", which has sub-questions (a), (b), and (c). First, I need to check the stubs to make sure I get the stems right. Let's see... the instructions say to generate a `STUB ERROR` if an entry's stem isn't visible, but the stub should be curated for this page. Right, so I'm looking for any discrepancies.
+
+Now, does "10" have its own text? Let's check the image. Nope, it goes straight into "10 (a)". That means it's just the main question number. Should I write `text: ''`? Yeah, that feels right. The parent question number is often empty. I'll go with `text: ''`. Let's confirm again... no separate stem, the question starts with "(a)". Okay, confirmed.
+
+Now to transcribe the actual questions:
+- "10" gets `text: ''`
+- "10a" gets the text: `State the purpose of the A* and Dijkstra's algorithms.`
+- "10b" gets the text: `Outline the difference between the A* and Dijkstra's algorithms.`
+- "10c" gets the text: `Explain how unsupervised learning takes place in machine learning.`
+
+Just to be absolutely sure... does "10" implicitly contain the text of "10 (a)"? No, the stub has "10a", so "10" is empty. Alright, I'm ready to write the YAML now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "10"
+    type: short_answer
+    text: ''
+  - number: "10a"
+    type: short_answer
+    text: |
+      State the purpose of the A* and Dijkstra's algorithms.
+  - number: "10b"
+    type: short_answer
+    text: |
+      Outline the difference between the A* and Dijkstra's algorithms.
+  - number: "10c"
+    type: long_answer
+    text: |
+      Explain how unsupervised learning takes place in machine learning.

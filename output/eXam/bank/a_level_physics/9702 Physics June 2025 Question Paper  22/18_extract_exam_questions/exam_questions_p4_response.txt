@@ -1,0 +1,63 @@
+[thinking]
+**Examining Page 4 of the Exam**
+
+Alright, the task is to transcribe page 4 of the exam. The questions are structured as "1", "1a", "1b", "1bi", and "1bii".  I need to extract the text and question types accurately.
+
+First, I examine the structure. Question "1" is the overall header, followed by "1a" and "1b". "1b" branches further into "1bi" and "1bii". Let's check the OCR.
+
+I see that "1" doesn't have its own text; it directly starts with "1 (a)". It appears to be a parent question. The instructions state if I cannot find a stem on the page, the best course of action is to output an empty string, as a stub-generation bug may exist upstream. However, I want to make sure. I confirm there's no actual content for the "1" stem.
+
+"1a" seems to be a short answer question related to identifying vectors and scalars from a table of physical quantities. I'll need to accurately represent the table in the YAML.
+
+"1b" presents a scenario involving a car under constant force, acceleration, and displacement. This section looks straightforward and is labeled as a short answer.
+
+"1bi" involves a derivation requiring showing how kinetic energy equals 1/2mv^2 using work done on the car. This is a long answer question.
+
+"1bii" is a calculation problem asking for the kinetic energy of a car with given mass and velocity. It's a clear calculation.
+
+Since "1" is the parent question and doesn't have any text, the text should be empty.
+
+I'm now generating the YAML output, making sure to include the math equations in LaTeX format, the table in LaTeX, and the correct question types. I will double-check everything, especially the math in `1bii` to ensure accuracy.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Table 1.1 lists some physical quantities. Identify with ticks ($\checkmark$) which quantities are vectors and which are scalars.
+
+      \textbf{Table 1.1}
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      quantity & scalar & vector \\ \hline
+      acceleration & & \\ \hline
+      displacement & & \\ \hline
+      gravitational potential energy & & \\ \hline
+      speed & & \\ \hline
+      temperature & & \\ \hline
+      \end{tabular}
+  - number: "1b"
+    type: short_answer
+    text: |
+      A constant resultant force $F$ acts on a car of mass $m$. The car moves from rest with constant acceleration $a$ along horizontal ground. When the car has displacement $s$, the speed of the car is $v$.
+  - number: "1bi"
+    type: long_answer
+    text: |
+      Using the concept of work done on the car, show that the kinetic energy $E_{\text{K}}$ of the car is given by the equation
+
+      $$E_{\text{K}} = \frac{1}{2}mv^2$$
+  - number: "1bii"
+    type: calculation
+    text: |
+      The mass of the car is $920\text{ kg}$. At time $t = 0$, the car is at rest. At time $t = 5.8\text{ s}$, its velocity is $17\text{ m}\,\text{s}^{-1}$.
+
+      Calculate the kinetic energy of the car at time $t = 5.8\text{ s}$.
+
+      kinetic energy = \hrulefill J

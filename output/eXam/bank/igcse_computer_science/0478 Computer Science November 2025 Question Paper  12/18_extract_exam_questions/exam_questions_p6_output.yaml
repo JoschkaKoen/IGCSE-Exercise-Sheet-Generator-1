@@ -1,0 +1,38 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A computer system has a mouse.
+
+      An interrupt is sent to the CPU every time a button on the mouse is clicked.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Identify the name of this type of interrupt.
+  - number: "5b"
+    type: long_answer
+    text: |
+      The interrupt is placed in a queue.
+
+      Explain how the interrupt is serviced after it is placed in the queue.
+  - number: "5c"
+    type: short_answer
+    text: |
+      The mouse is connected using a universal serial bus (USB) connection.
+  - number: "5ci"
+    type: short_answer
+    text: |
+      Explain how data is sent using the USB connection.
+  - number: "5cii"
+    type: short_answer
+    text: |
+      Give \textbf{two} benefits of using a USB connection for this purpose.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5ciii"
+    type: short_answer
+    text: |
+      Give \textbf{one} drawback of using a USB connection for this purpose.
+```

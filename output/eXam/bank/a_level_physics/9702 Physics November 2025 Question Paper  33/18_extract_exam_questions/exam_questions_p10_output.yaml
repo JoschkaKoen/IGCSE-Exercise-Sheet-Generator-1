@@ -1,0 +1,51 @@
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      The length of wire W between P and Q is $L$.
+
+      Measure and record $L$.
+
+      $L = $ \hrulefill
+
+      Close the switch.
+
+      The potential difference $V$ across the LED is given by the voltmeter.
+
+      The resistance $R$ of the LDR is given by the ohmmeter.
+
+      Measure and record $V$ and $R$.
+
+      $V = $ \hrulefill
+
+      $R = $ \hrulefill
+
+      Open the switch.
+  - number: "2c"
+    type: calculation
+    text: |
+      Change the length of wire W between P and Q so that $L$ is approximately $90\text{ cm}$.
+
+      Repeat (b).
+
+      $L = $ \hrulefill
+
+      $V = $ \hrulefill
+
+      $R = $ \hrulefill
+  - number: "2d"
+    type: short_answer
+    text: |
+      It is suggested that the relationship between $V$, $d$ and $R$ is
+
+      $$V = \frac{Zd}{R} + k$$
+
+      where $Z$ has the value $1.00 \times 10^3\text{ V}\,\Omega\,\text{m}^{-1}$ and $k$ is a constant.
+  - number: "2di"
+    type: calculation
+    text: |
+      Using your data, calculate \textbf{two} values of $k$.
+
+      first value of $k = $ \hrulefill
+
+      second value of $k = $ \hrulefill

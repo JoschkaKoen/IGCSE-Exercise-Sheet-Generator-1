@@ -1,0 +1,62 @@
+questions:
+  - number: "37"
+    type: multiple_choice
+    text: |
+      The circuit diagram shows a battery with internal resistance $r$, two resistors, a switch and a voltmeter. The switch is open.
+
+      The switch is now closed.
+
+      What happens to the current in the battery, and what happens to the reading on the voltmeter, when the switch is closed?
+    options:
+      - letter: A
+        text: |
+          current in battery: increases; reading on voltmeter: decreases
+      - letter: B
+        text: |
+          current in battery: increases; reading on voltmeter: remains the same
+      - letter: C
+        text: |
+          current in battery: remains the same; reading on voltmeter: decreases
+      - letter: D
+        text: |
+          current in battery: remains the same; reading on voltmeter: remains the same
+
+  - number: "38"
+    type: multiple_choice
+    text: |
+      What is the correct equation for $\beta^+$ decay?
+    options:
+      - letter: A
+        text: |
+          $\text{neutron} \rightarrow \text{proton} + \text{electron} + \text{electron antineutrino}$
+      - letter: B
+        text: |
+          $\text{neutron} \rightarrow \text{proton} + \text{electron} + \text{electron neutrino}$
+      - letter: C
+        text: |
+          $\text{proton} \rightarrow \text{neutron} + \text{positron} + \text{electron antineutrino}$
+      - letter: D
+        text: |
+          $\text{proton} \rightarrow \text{neutron} + \text{positron} + \text{electron neutrino}$
+
+  - number: "39"
+    type: multiple_choice
+    text: |
+      A nucleus of polonium, $^{214}_{84}\text{Po}$, decays by emitting an $\alpha$-particle to become a nucleus of lead.
+
+      The nucleus of lead is also unstable and decays by emitting a $\beta^-$ particle to form a nucleus of bismuth which then decays by emitting a $\beta^-$ particle to produce a nucleus X.
+
+      What is the number of neutrons in nucleus X?
+    options:
+      - letter: A
+        text: |
+          126
+      - letter: B
+        text: |
+          128
+      - letter: C
+        text: |
+          130
+      - letter: D
+        text: |
+          210

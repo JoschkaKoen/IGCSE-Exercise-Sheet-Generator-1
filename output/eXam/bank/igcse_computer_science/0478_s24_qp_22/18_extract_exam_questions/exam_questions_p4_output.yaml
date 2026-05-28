@@ -1,0 +1,20 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A high-level programming language makes use of arithmetic, Boolean and logical operators.
+
+      State how each type of operator is used.
+      Give an example statement, in pseudocode, for each one.
+
+      Arithmetic \hrulefill
+
+      Example \hrulefill
+
+      Boolean \hrulefill
+
+      Example \hrulefill
+
+      Logical \hrulefill
+
+      Example \hrulefill

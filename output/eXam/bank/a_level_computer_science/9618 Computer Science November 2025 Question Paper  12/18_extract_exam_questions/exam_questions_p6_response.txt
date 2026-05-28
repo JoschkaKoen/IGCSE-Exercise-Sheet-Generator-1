@@ -1,0 +1,52 @@
+[thinking]
+**My Analysis of the Exam Question**
+
+Okay, so the user wants me to transcribe page 6 of an exam paper. I see there's a database question centered around a relational database named `SHIPPING`. The task involves transcribing Question 4, broken down into parts (a), (b), and (c). Let's see what we've got.
+
+First, I need to represent the database structure accurately. The question describes two tables: `CONTAINER` and `SHIP`. The crucial part here is making sure I get the primary keys correct, which are underlined. I'll represent them using `\underline{...}`. So, that'll be:
+
+`\texttt{CONTAINER(\underline{ContainerID}, Type, Weight, OwnerName, ShipID)}`
+
+`\texttt{SHIP(\underline{ShipID}, Type, Capacity, ShipName)}`
+
+Now, let's break down each part of the question.
+
+**(a)** This part asks to describe the relationship between these two tables, with emphasis on the primary and foreign keys. Nothing tricky, just standard relational database stuff. I'll just write: "Describe the relationship between the two tables. Refer to the primary and foreign keys in your answer."
+
+**(b)** Here, the question asks me to write an SQL script. The specific requirement is to add a new field, the last inspection date, to the `CONTAINER` table. It's important to make the word "one" bold to represent the specific requirement that only one field is to be added. I'll format this part as: "The table \texttt{CONTAINER} needs an additional field to store the data for the last inspection date. Write a Structured Query Language (SQL) script to add \textbf{one} field to the table \texttt{CONTAINER} to store the date of last inspection of the container, for example 08/07/2019."
+
+**(c)** Finally, this part demands an SQL script to determine the number of containers associated with a ship named "Caledonia." That's a classic query, should be simple enough. I'll write: "Write an SQL script to return the number of containers stored in the database for the ship with the name Caledonia."
+
+I need to make sure I format this correctly. So, database components are `\texttt{...}`. Primary keys get an underline: `\underline{...}`. Key words are bolded like this: `\textbf{...}`. Okay, I think I'm ready to write the YAML!
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A relational database, \texttt{SHIPPING}, stores data about the ships in a company and the containers that are carried on the ships.
+
+      The database has the following tables:
+
+      \texttt{CONTAINER(\underline{ContainerID}, Type, Weight, OwnerName, ShipID)}
+
+      \texttt{SHIP(\underline{ShipID}, Type, Capacity, ShipName)}
+  - number: "4a"
+    type: short_answer
+    text: |
+      Describe the relationship between the two tables. Refer to the primary and foreign keys in your answer.
+  - number: "4b"
+    type: short_answer
+    text: |
+      The table \texttt{CONTAINER} needs an additional field to store the data for the last inspection date.
+
+      Write a Structured Query Language (SQL) script to add \textbf{one} field to the table \texttt{CONTAINER} to store the date of last inspection of the container, for example 08/07/2019.
+  - number: "4c"
+    type: short_answer
+    text: |
+      Write an SQL script to return the number of containers stored in the database for the ship with the name Caledonia.
+```

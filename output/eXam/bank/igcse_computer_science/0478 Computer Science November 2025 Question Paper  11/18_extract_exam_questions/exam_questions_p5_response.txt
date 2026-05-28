@@ -1,0 +1,53 @@
+[thinking]
+**My YAML Extraction Strategy**
+
+Alright, let's break this down. I need to take the content from page 5 of this exam paper and distill it into a YAML format, adhering to the specified schema. My primary objective is to accurately represent the questions: "2d," "2e," "2ei," and "2eii".
+
+First, I need to analyze the input. It's an exam page, so I need to carefully interpret the structure. I'll need to extract the question text and determine the question type for each.
+
+*   **Question 2d:**  It's a "short\_answer" type question.  I have to ensure that I remove the prefix `(d)` at the start of the prompt as per the instructions, so the output must be "An echo check is used to check for errors after the image has been transmitted. Draw and annotate a diagram to show how the echo check would detect any errors."
+
+*   **Question 2e:** This is a bit trickier, but after analyzing the subsequent sub-questions, I realize that "2e" itself functions as introductory text for the following sub-questions. Hence, I'll capture this introductory statement as the content for the corresponding section in the YAML.
+
+*   **Question 2ei:** This is a "multiple\_choice" question, following "2e", so I'll need to correctly represent both the text and the given options. I'll need to remember to correctly strip the `(i)` sub-question prefix here as well. I'll need to capture each option (A, B, C, D) as a separate entry in the YAML, which requires meticulous attention to detail.
+
+*   **Question 2eii:**  Another "short\_answer" question, also associated with the introduction of "2e", and I'll remove the `(ii)` prefix here as well. No standalone dotted lines are necessary, so I'll ignore these in the final YAML format.
+
+Now, for formatting, I'll use the YAML block scalar with `|` to handle multi-line text effectively, which is important for preserving the original formatting of the question statements. I'll also double-check for proper LaTeX commands, for instance, `\checkmark`, to be confident that I'm implementing the provided formatting instructions correctly. I'll omit double quotes for non-empty strings. Finally, I'll confirm that the schema adheres to my specified format and is completely accurate.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      An echo check is used to check for errors after the image has been transmitted.
+
+      Draw and annotate a diagram to show how the echo check would detect any errors.
+  - number: "2e"
+    type: short_answer
+    text: |
+      The image data is encrypted using symmetric encryption.
+  - number: "2ei"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) one box to show the correct statement about symmetric encryption.
+    options:
+      - letter: A
+        text: |
+          Encrypted text is known as plain text.
+      - letter: B
+        text: |
+          The most secure form of encryption.
+      - letter: C
+        text: |
+          The encryption key is shared with any device receiving the encrypted data.
+      - letter: D
+        text: |
+          Two different keys are used.
+  - number: "2eii"
+    type: short_answer
+    text: |
+      Give one other type of encryption that could be used.

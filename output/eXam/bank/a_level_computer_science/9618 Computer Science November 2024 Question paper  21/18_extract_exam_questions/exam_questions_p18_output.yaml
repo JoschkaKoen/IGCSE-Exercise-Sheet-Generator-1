@@ -1,0 +1,20 @@
+questions:
+  - number: "8b"
+    type: long_answer
+    text: |
+      A second module is defined:
+
+      \begin{tabular}{|l|p{12cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      \texttt{CheckAll()} & \begin{itemize}
+      \item called with a parameter of type integer representing the number of candidate marks in the \texttt{Result} array
+      \item uses \texttt{CheckMark()} to check each candidate mark
+      \item for each paper that needs to be checked, write the corresponding candidate ID on a separate line in a new file named \texttt{GRList.txt}
+      \item outputs a message with a count of how many papers need to be checked
+      \end{itemize} \\ \hline
+      \end{tabular}
+
+      Write pseudocode for module \texttt{CheckAll()}.
+
+      \texttt{CheckMark()} must be used to check each individual mark.

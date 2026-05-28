@@ -1,0 +1,71 @@
+[thinking]
+**Exam Question Transcription: A Deep Dive**
+
+Okay, so the user wants me to transcribe some questions from page 8 of the exam. The first part is question "2c". I need to figure out how to structure this. The initial text reads "The spacecraft now splits apart into a carrier and a payload as shown in Fig. 2.3." Is that the actual question, or just an introduction? The stub indicates we have "2c", "2ci", and "2cii". Let's look at the full text.
+
+Ah, "2c" is a `short_answer` type.  There's more to it than just the introductory sentence, though. Following the intro, there's text about the split, force, time, velocity change, and combined mass of the carrier and payload: "During the split, an average force of $5500\text{ N}$ acts on the payload for a time of $0.36\text{ s}$. The velocity of the payload increases by $8.5\text{ m}\,\text{s}^{-1}$ in the upwards direction. The combined mass of the carrier and payload is $2.5 \times 10^3\text{ kg}$." Okay, this all seems to be introductory text. So, I'll put all of that, including the initial sentence, into "2c" as background. That seems right, as it *introduces* the subsequent sub-questions.
+
+Now, let's look at the stub again: "2ci" is also `short_answer`. And "2cii" is a `calculation`. Got it.
+
+Here's how I'll structure the YAML output:
+
+```yaml
+  - number: "2c"
+    type: short_answer
+    text: |
+      The spacecraft now splits apart into a carrier and a payload as shown in Fig. 2.3.
+
+      During the split, an average force of $5500\text{ N}$ acts on the payload for a time of $0.36\text{ s}$. The velocity of the payload increases by $8.5\text{ m}\,\text{s}^{-1}$ in the upwards direction.
+
+      The combined mass of the carrier and payload is $2.5 \times 10^3\text{ kg}$.
+```
+
+Then, for 2ci:
+
+```yaml
+  - number: "2ci"
+    type: short_answer
+    text: |
+      State the principle of conservation of momentum.
+```
+
+And finally, for 2cii:
+
+```yaml
+  - number: "2cii"
+    type: calculation
+    text: |
+      Show that the mass of the payload is $230\text{ kg}$.
+```
+
+Just need to check the math formatting. Looks like the following is correct:
+
+- $5500\text{ N}$
+- $0.36\text{ s}$
+- $8.5\text{ m}\,\text{s}^{-1}$
+- $2.5 \times 10^3\text{ kg}$
+- $230\text{ kg}$
+
+Right, that should be perfect. All of that correctly formatted.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      The spacecraft now splits apart into a carrier and a payload as shown in Fig. 2.3.
+
+      During the split, an average force of $5500\text{ N}$ acts on the payload for a time of $0.36\text{ s}$. The velocity of the payload increases by $8.5\text{ m}\,\text{s}^{-1}$ in the upwards direction.
+
+      The combined mass of the carrier and payload is $2.5 \times 10^3\text{ kg}$.
+  - number: "2ci"
+    type: short_answer
+    text: |
+      State the principle of conservation of momentum.
+  - number: "2cii"
+    type: calculation
+    text: |
+      Show that the mass of the payload is $230\text{ kg}$.

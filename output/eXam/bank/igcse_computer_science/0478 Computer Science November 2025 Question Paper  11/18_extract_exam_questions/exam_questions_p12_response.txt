@@ -1,0 +1,34 @@
+[thinking]
+**Analyzing the Audio Transmission Scenario**
+
+Okay, so I'm being asked to look at question 7 and transcribe it. Seems straightforward enough – it describes a fairly common scenario: a microphone connected to speakers in a theatre. The crux of the question is to identify the best *data transmission method* for this audio setup and provide a rationale. My expert mind immediately starts processing this.
+
+We're dealing with real-time audio transmission. We need to consider factors like latency, reliability, and cost-effectiveness. The question specifically calls out *data transmission*, which immediately makes me think of the distinction between the physical media itself (the cables) and the data encoding/signaling method within them. While *we* might think of the system as 'a wire to a speaker', it's framed in terms of digital concepts. I understand the nuances of the distinction.
+
+The task is to fill in the following template:
+
+```
+Data transmission method \hrulefill
+
+Explanation
+```
+
+So, let me focus on what information needs to go in that "Data transmission method" blank. And, for the "Explanation" section I will be sure to address why I chose the way to communicate.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7"
+    type: long_answer
+    text: |
+      A theatre has a microphone on stage that is connected by cables to several speakers around the theatre. A person speaks into the microphone and their voice is output from the speakers.
+
+      Identify the most appropriate data transmission method for this purpose. Explain your choice.
+
+      Data transmission method \hrulefill
+
+      Explanation
+```

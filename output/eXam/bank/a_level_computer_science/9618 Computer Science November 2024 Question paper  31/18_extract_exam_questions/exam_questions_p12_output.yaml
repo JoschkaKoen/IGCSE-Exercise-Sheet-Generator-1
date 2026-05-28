@@ -1,0 +1,15 @@
+```yaml
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      The following diagram shows an ordered binary tree.
+  - number: "11a"
+    type: short_answer
+    text: |
+      A linked list of nodes is used to store the data. Each node consists of a left pointer, the data and a right pointer.
+
+      $-1$ is used to represent a null pointer.
+
+      Complete this linked list to represent the given binary tree.
+```

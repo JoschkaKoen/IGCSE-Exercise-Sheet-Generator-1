@@ -1,0 +1,51 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, the user wants me to transcribe questions 3 and 4. Let's get to it. First, question 3. It's a long answer format. I need to capture the text exactly as it appears on the page. I see the question asks about the analysis and design stages of the program development life cycle, followed by the labels "analysis" and "design," each with a dotted line. The instructions are clear on how to handle these: a value followed by an answer line gets transcribed as "value \hrulefill". So, for this question, I'll transcribe "analysis \hrulefill" and "design \hrulefill". I need to be careful with the formatting of the yaml, here's the code:
+```yaml
+text: |
+  The program development life cycle is split into a number of stages.
+
+  Describe what happens during the analysis and design stages of the program development life cycle.
+
+  analysis \hrulefill
+
+  design \hrulefill
+```
+
+Now, question 4. This one's a multiple-choice question. I need to get the text of the question and the options correctly. The question asks the user to tick one box. And the tick symbol is `\checkmark`. Let's use `\checkmark` safely, just in case, by putting it inside math symbols like so `$\checkmark$`. The question text is "Tick ($\checkmark$) \textbf{one} box to identify which of the following does \textbf{not} help to create a maintainable program.". The options are A: Use meaningful identifiers for variable names, B: Remove blank lines to make the program code shorter, C: Use procedures and functions, D: Use the commenting feature provided by the programming languages. Okay, so I've got all the pieces. I'm ready to write the YAML for the question.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "3"
+    type: long_answer
+    text: |
+      The program development life cycle is split into a number of stages.
+
+      Describe what happens during the analysis and design stages of the program development life cycle.
+
+      analysis \hrulefill
+
+      design \hrulefill
+  - number: "4"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to identify which of the following does \textbf{not} help to create a maintainable program.
+    options:
+      - letter: A
+        text: |
+          Use meaningful identifiers for variable names.
+      - letter: B
+        text: |
+          Remove blank lines to make the program code shorter.
+      - letter: C
+        text: |
+          Use procedures and functions.
+      - letter: D
+        text: |
+          Use the commenting feature provided by the programming languages.
+```

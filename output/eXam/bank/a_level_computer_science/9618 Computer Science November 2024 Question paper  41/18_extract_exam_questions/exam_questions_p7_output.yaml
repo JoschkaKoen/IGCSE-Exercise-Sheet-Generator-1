@@ -1,0 +1,38 @@
+```yaml
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      The array \texttt{Horses} stores objects of type \texttt{Horse}.
+  - number: "2bi"
+    type: long_answer
+    text: |
+      The program has two horses:
+
+      \begin{itemize}
+      \item The horse named ‘Beauty’ can jump a maximum height of $150\text{ cm}$ and has a success percentage rate of $72\%$.
+      \item The horse named ‘Jet’ can jump a maximum height of $160\text{ cm}$ and has a success percentage rate of $65\%$.
+      \end{itemize}
+
+      Write program code to:
+
+      \begin{itemize}
+      \item declare the array, \texttt{Horses}, local to the main program with space for \textbf{two} \texttt{Horse} objects
+      \item store the \textbf{two} horses described in the array
+      \item output the name of both \texttt{Horse} objects from the array.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(b)(i)} in the evidence document.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output.
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{2(b)(ii)} in the evidence document.
+```

@@ -1,0 +1,37 @@
+```yaml
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      Another result of a calculation that is stored in a register is the binary number 01000010
+
+      Give the denary number that will be displayed on the screen for this binary number.
+
+      01000010 \hrulefill
+  - number: "1e"
+    type: calculation
+    text: |
+      Two binary numbers stored in the registers are 01110110 and 00110000
+
+      Add the binary numbers using binary addition. Show all your working.
+
+      Give your answer in binary.
+
+      $$\begin{array}{rcccccccc}
+        & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 0 \\
+      + & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\
+      \hline
+      \end{array}$$
+  - number: "1f"
+    type: short_answer
+    text: |
+      The result of a calculation could be a negative denary number.
+
+      State how the calculator could represent a negative denary number as a binary number.
+  - number: "1g"
+    type: short_answer
+    text: |
+      The electronic calculator is an example of an embedded system.
+
+      Explain why it is an example of an embedded system.
+```

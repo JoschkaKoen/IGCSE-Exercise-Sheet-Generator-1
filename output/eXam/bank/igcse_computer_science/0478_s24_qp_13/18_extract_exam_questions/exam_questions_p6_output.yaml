@@ -1,0 +1,25 @@
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      The table contains different types of sensors and a use for each.
+
+      Complete the table by giving a suitable use for each type of sensor. The first one has been done for you.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{type of sensor} & \textbf{use} \\ \hline
+      acoustic & to monitor whether a water pipe has cracked and is leaking and dripping onto the floor \\ \hline
+      temperature & \\
+       & \\
+       & \\ \hline
+      humidity & \\
+       & \\
+       & \\ \hline
+      infra-red & \\
+       & \\
+       & \\ \hline
+      magnetic field & \\
+       & \\
+       & \\ \hline
+      \end{tabular}

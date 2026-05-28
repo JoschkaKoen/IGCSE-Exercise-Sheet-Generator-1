@@ -1,0 +1,23 @@
+[thinking]
+**My Task: Question 4 Dissection and YAML Creation**
+
+Okay, so the user wants me to handle Question 4 from the provided text. My understanding is I need to focus on a question about networking, specifically concerning data packets and transmission. The question itself asks to *draw and annotate* a diagram that showcases the *contents and structure of a data packet* and *how a data packet is transmitted across a network*. The mark value is [4], which suggests a concise but comprehensive answer is required.
+
+I need to make a note of the formatting: I will use `\begin{itemize}` to properly format the bullet points and ensure clarity, and absolutely no image inclusion commands, since I cannot create or include images. Also, since this is a drawing question, there will be no need for answer markers.
+
+Now, let's get into composing the YAML structure to guide my response. This will allow for a robust and properly structured response.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: long_answer
+    text: |
+      Draw and annotate a diagram or diagrams to show:
+
+      \begin{itemize}
+      \item the contents and structure of a data packet
+      \item how a data packet is transmitted across a network.
+      \end{itemize}

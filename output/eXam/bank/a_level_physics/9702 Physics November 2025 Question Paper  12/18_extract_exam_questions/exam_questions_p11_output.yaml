@@ -1,0 +1,103 @@
+```yaml
+questions:
+  - number: "27"
+    type: multiple_choice
+    text: |
+      A moving source emits sound of frequency $1200\text{ Hz}$.
+
+      A stationary observer hears sound of frequency $960\text{ Hz}$. The speed of the sound is $340\text{ m s}^{-1}$.
+
+      What could be the velocity of the source?
+    options:
+      - letter: A
+        text: |
+          $68\text{ m s}^{-1}$ directly away from the observer
+      - letter: B
+        text: |
+          $68\text{ m s}^{-1}$ directly towards the observer
+      - letter: C
+        text: |
+          $85\text{ m s}^{-1}$ directly away from the observer
+      - letter: D
+        text: |
+          $85\text{ m s}^{-1}$ directly towards the observer
+  - number: "28"
+    type: multiple_choice
+    text: |
+      A light wave passes through a single slit and a diffraction pattern forms.
+
+      What happens to the frequency and the speed of the wave when it is diffracted?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & frequency & speed \\
+      \hline
+      \textbf{A} & decreases & increases \\
+      \textbf{B} & increases & decreases \\
+      \textbf{C} & no change & decreases \\
+      \textbf{D} & no change & no change \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          decreases / increases
+      - letter: B
+        text: |
+          increases / decreases
+      - letter: C
+        text: |
+          no change / decreases
+      - letter: D
+        text: |
+          no change / no change
+  - number: "29"
+    type: multiple_choice
+    text: |
+      The equation $n\lambda = d \sin\theta$ can be used with a diffraction grating to find the wavelength of visible light.
+
+      Which quantity is \textbf{not} correct for use in this equation?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & symbol & quantity \\
+      \hline
+      \textbf{A} & $d$ & distance from grating to screen \\
+      \textbf{B} & $\lambda$ & wavelength of light \\
+      \textbf{C} & $n$ & order of intensity maximum \\
+      \textbf{D} & $\theta$ & diffraction angle of intensity maximum \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          $d$ / distance from grating to screen
+      - letter: B
+        text: |
+          $\lambda$ / wavelength of light
+      - letter: C
+        text: |
+          $n$ / order of intensity maximum
+      - letter: D
+        text: |
+          $\theta$ / diffraction angle of intensity maximum
+  - number: "30"
+    type: multiple_choice
+    text: |
+      Two progressive sound waves move in opposite directions and superpose to form a stationary wave.
+
+      Which statement describes an antinode of this stationary wave?
+    options:
+      - letter: A
+        text: |
+          a position where the phase difference between the two waves is always $0^\circ$
+      - letter: B
+        text: |
+          a position where the phase difference between the two waves is always $180^\circ$
+      - letter: C
+        text: |
+          a position where the stationary wave has maximum amplitude
+      - letter: D
+        text: |
+          a position where the stationary wave has minimum amplitude
+```

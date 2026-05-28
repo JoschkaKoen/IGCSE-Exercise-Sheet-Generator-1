@@ -1,0 +1,56 @@
+[thinking]
+**Exam Page 4 Transcription: A Detailed Breakdown**
+
+Okay, so the task at hand is to meticulously format the questions from page 4 of the exam. My goal is to ensure each question is accurately represented and ready for interpretation. I'm focusing on preserving the question text while also identifying its structure, type, and any relevant details.
+
+First, I see a series of questions related to fundamental computer architecture concepts. We're starting with question "2", which simply states "A computer has a processor." That's the setup.
+
+Next comes "2a," which is a short answer question, stating, "The processor has a Control Unit (CU) and system clock." Straightforward definition there.
+
+Then, things get more interesting with "2ai," a long-answer question that asks me to "Explain how the CU and the system clock work together." This delves into the core interaction of these components. I'll need to articulate the relationship between control signals and timing.
+
+Following that is "2aii," another long-answer question, which demands I address the Fetch-Execute (F-E) cycle. Specifically, it requests the stages expressed in register transfer notation. This is a classic, but requires precision in outlining the process.
+
+Now comes "2b," asking about "cache memory." I'm tasked with "Describe one benefit of the computer using cache memory." I'll need to succinctly articulate a key performance advantage related to caching.
+
+Finally, "2c" focuses on "HDMI." I'm instructed to "Explain how HDMI provides connection to peripheral devices." This calls for an understanding of digital signal transmission and the HDMI's role in connecting displays.
+
+I've ensured to strip unnecessary prefixes like "(i)," "(ii)," "(a)," "(b)," and "(c)" from the question text, ensuring clean presentation. Now I've verified each question text to ensure correct representation.
+
+Each question appears to be an open-ended prompt, necessitating multi-line answers, so no explicit answer markers are required. Excellent. I'm ready to move forward and transcribe these into the specified format.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A computer has a processor.
+  - number: "2a"
+    type: short_answer
+    text: |
+      The processor has a Control Unit (CU) and system clock.
+  - number: "2ai"
+    type: long_answer
+    text: |
+      Explain how the CU and the system clock work together.
+  - number: "2aii"
+    type: long_answer
+    text: |
+      The processor runs the Fetch-Execute (F-E) cycle.
+
+      Write the stages of the F-E cycle using register transfer notation.
+  - number: "2b"
+    type: long_answer
+    text: |
+      The computer has cache memory.
+
+      Describe one benefit of the computer using cache memory.
+  - number: "2c"
+    type: long_answer
+    text: |
+      The computer connects to a monitor using a High Definition Multimedia Interface (HDMI) cable that connects into an HDMI port.
+
+      Explain how HDMI provides connection to peripheral devices.

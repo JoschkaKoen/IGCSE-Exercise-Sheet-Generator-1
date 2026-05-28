@@ -1,0 +1,5 @@
+questions:
+  - number: "10b"
+    type: short_answer
+    text: |
+      State the rules that the password must meet.

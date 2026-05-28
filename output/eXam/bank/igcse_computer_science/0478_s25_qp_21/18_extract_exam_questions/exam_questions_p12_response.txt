@@ -1,0 +1,53 @@
+[thinking]
+**Analyzing Question 11: A Tournament Scoring Problem**
+
+Okay, the user wants me to tackle Question 11. It's a long-answer programming question, dealing with processing competitor data in a tournament. Let's see... the problem is about managing competitor names and scores. We have three arrays: `\texttt{CompetitorName[]}` (names), `\texttt{CompetitorScore[]}` (scores for each event), and `\texttt{Points[]}` (total points). Competitor scores are out of 100 for five events, and they're manually entered into `\texttt{CompetitorScore[]}`. Medals are awarded for both individual event high scores and the overall highest total score across all events.
+
+The requirements are clearly laid out: we need to take valid scores as input (0-100), calculate the highest scores for each event, output the names of competitors with those highest event scores, calculate the highest total score, and finally, output the names of those competitors with the highest overall score. They explicitly state that we should use pseudocode or code, and that we do not need to declare any arrays or variables - very considerate of the user. I should provide suitable input and output messages too.
+
+I should make the text look nicer with LaTeX to follow the instructions properly.
+
+I'm thinking I'll need to use nested loops to iterate through the arrays: one to iterate through competitors and the other to iterate through the events for calculating individual event high scores and the overall total. I'll need some logic to track the highest score and the corresponding competitor for each event. Similarly, I'll need to keep track of the overall highest score and the associated competitor(s).
+
+I'm going to create the YAML structure to define the arrays that I need. This will make my job much easier.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "11"
+    type: long_answer
+    text: |
+      The one-dimensional (1D) array \texttt{CompetitorName[]} contains the names of 25 competitors in a tournament that includes five events.
+
+      Another two-dimensional (2D) array \texttt{CompetitorScore[]} contains the points scored by each competitor in the five events. The first dimension of this array contains the index of the competitor from \texttt{CompetitorName[]} and the second dimension contains their scores.
+
+      Each competitor receives a score out of 100 for each event. These scores are manually entered into \texttt{CompetitorScore[]}
+
+      Medals are awarded to the competitor or the competitors who have:
+
+      \begin{itemize}
+      \item the highest points scored in each of the five events
+      \item the highest total points scored for all five events.
+      \end{itemize}
+
+      The one-dimensional (1D) array \texttt{Points[]} stores the total number of points scored for each competitor.
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item takes as input, valid scores (between 0 and 100), for each competitor in each of the five events
+      \item calculates the highest points scored for each event
+      \item outputs the names of the competitors who receive a medal for the highest points scored
+      \item calculates the highest total points scored for the five events
+      \item outputs the names of the competitors with the highest total points scored for the five events.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do \textbf{not} need to declare any arrays or variables.
+
+      All inputs and outputs must contain suitable messages.
+```

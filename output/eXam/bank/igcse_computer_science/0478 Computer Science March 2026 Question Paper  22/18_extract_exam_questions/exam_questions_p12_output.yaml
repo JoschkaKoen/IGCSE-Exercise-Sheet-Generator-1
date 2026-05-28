@@ -1,0 +1,39 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A database table \texttt{NATIONAL\_TREES} stores details of the national trees of some countries from around the world.
+
+      \begin{tabular}{|l|l|l|l|l|}
+      \hline
+      \textbf{IDCode} & \textbf{Country} & \textbf{Continent} & \textbf{CommonName} & \textbf{ScientificName} \\ \hline
+      EU121 & Albania & Europe & Olive & Olea europaea \\ \hline
+      OC235 & Australia & Oceania & Golden wattle & Acacia pycnantha \\ \hline
+      NO126 & The Bahamas & North America & Lignum vitae & Guaiacum sanctum \\ \hline
+      AS534 & Bangladesh & Asia & Mango tree & Mangifera indica \\ \hline
+      SO326 & Brazil & South America & Brazilwood & Caesalpinia echinata \\ \hline
+      NO124 & Canada & North America & Maple & Acer \\ \hline
+      EU321 & Cyprus & Europe & Golden oak & Quercus alnifolia \\ \hline
+      NA456 & Dominican Republic & North America & West Indian mahogany & Swietenia mahagoni \\ \hline
+      EU652 & Finland & Europe & Silver birch & Betula pendula \\ \hline
+      AS222 & India & Asia & Indian banyan & Ficus benghalensis \\ \hline
+      NO232 & Jamaica & North America & Blue mahoe & Talipariti elatum \\ \hline
+      AF875 & Madagascar & Africa & Baobab & Adansonia \\ \hline
+      OC123 & New Zealand & Oceania & Silver fern & Cyathea dealbata \\ \hline
+      AS498 & Philippines & Asia & Narra & Pterocarpus indicus \\ \hline
+      AF501 & South Africa & Africa & Real yellowwood & Podocarpus latifolius \\ \hline
+      SO522 & Venezuela & South America & Araguaney & Tabebuia chrysantha \\ \hline
+      \end{tabular}
+  - number: "8a"
+    type: short_answer
+    text: |
+      State the number of fields and records in this database table.
+
+      fields \hrulefill
+      records \hrulefill
+  - number: "8b"
+    type: short_answer
+    text: |
+      The data in both \texttt{IDCode} and \texttt{Country} fields are unique in the database table.
+
+      State \textbf{one} reason why \texttt{IDCode} would make a better primary key than \texttt{Country}

@@ -1,0 +1,58 @@
+[thinking]
+**Exam Question Transcription**
+
+Okay, so the user wants me to transcribe some questions from page 11 of this exam. Looks like they want me to be very precise with the formatting, which is good. Let's make sure we get this right.
+
+First, question "4bii" is a calculation. It's asking to determine the value of $\theta$ at which the second-order bright fringe is formed. The formatting here is crucial. They've specified a precise format for the answer. I'll represent that as:
+```yaml
+- number: "4bii"
+  type: calculation
+  text: |
+    Determine the value of $\theta$ at which the second-order bright fringe is formed.
+
+    $\theta = $ \hrulefill $^\circ$
+```
+That's exactly what they want.
+
+Next is question "4biii". This is a short-answer question and they want a sketch of the intensity variation, which is no problem. I'll omit the Figure 4.2 itself, as instructed.
+```yaml
+- number: "4biii"
+  type: short_answer
+  text: |
+    On Fig. 4.2, sketch the variation of the intensity $I$ with $\theta$ for values of $\theta$ from $-15^\circ$ to $+15^\circ$.
+```
+Seems straightforward.
+
+Finally, "4c," another short answer, involves a polarizing filter. They want a comparison of the intensity variation with the previous sketch.
+```yaml
+- number: "4c"
+  type: short_answer
+  text: |
+    A polarising filter is placed in the path of the light beam that is incident on the diffraction grating in Fig. 4.1. The transmission axis of the filter is at $45^\circ$ to the vertical.
+
+    Suggest how the variation of intensity with $\theta$ for the light on the screen compares with the answer in \textbf{(b)(iii)}.
+```
+I'll make sure to get the formatting of the sub-question reference correct. The instructions have been explicitly followed.
+I'm ready.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4bii"
+    type: calculation
+    text: |
+      Determine the value of $\theta$ at which the second-order bright fringe is formed.
+
+      $\theta = $ \hrulefill $^\circ$
+  - number: "4biii"
+    type: short_answer
+    text: |
+      On Fig. 4.2, sketch the variation of the intensity $I$ with $\theta$ for values of $\theta$ from $-15^\circ$ to $+15^\circ$.
+  - number: "4c"
+    type: short_answer
+    text: |
+      A polarising filter is placed in the path of the light beam that is incident on the diffraction grating in Fig. 4.1. The transmission axis of the filter is at $45^\circ$ to the vertical.
+
+      Suggest how the variation of intensity with $\theta$ for the light on the screen compares with the answer in \textbf{(b)(iii)}.

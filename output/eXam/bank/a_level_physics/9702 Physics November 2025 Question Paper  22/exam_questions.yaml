@@ -1,0 +1,589 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Scientists are investigating the variation in air pressure at different locations
+    on a mountain.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The scientists take measurements of several physical quantities at each
+      location.
+
+
+      Complete Table 1.1 by stating the SI base unit for each quantity and identifying
+      with a tick ($\checkmark$) whether each quantity is a scalar or a vector. Use
+      the space for any working.
+
+
+      \textbf{Table 1.1}
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      quantity measured & SI base unit & scalar & vector \\ \hline
+
+      air temperature & & & \\ \hline
+
+      air pressure & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: At one location, the density of the air is $1.1 \text{ kg}\,\text{m}^{-3}$.
+      A spherical weather balloon is filled with a gas and released from rest. The
+      balloon has radius $0.90 \text{ m}$.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the upthrust acting on the balloon when it is released.
+
+
+        upthrust = \hrulefill N'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain why an upthrust acts on the balloon.
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The balloon has weight $19\text{ N}$.
+
+
+        Calculate the magnitude of the initial acceleration of the balloon.
+
+
+        acceleration = \hrulefill $\text{ms}^{-2}$'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A quantity $c$ relating to the motion of the balloon is calculated from
+      three measured quantities $k$, $F$ and $v$ using the formula
+
+
+      $$c = \frac{2kF}{v^2}$$
+
+
+      The percentage uncertainties in the measured quantities are given in Table 1.2.
+
+
+      \textbf{Table 1.2}
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      measured quantity & percentage uncertainty \\ \hline
+
+      $k$ & 5\% \\ \hline
+
+      $F$ & 3\% \\ \hline
+
+      $v$ & 4\% \\ \hline
+
+      \end{tabular}
+
+
+      The calculated value of $c$ is 1.8.
+
+
+      Determine the absolute uncertainty in $c$.
+
+
+      absolute uncertainty = \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A spacecraft in deep space uses jets of hot gas from its thrusters to change
+    its velocity. Fig. 2.1 shows a side view of the spacecraft and some of its thrusters.
+
+
+    Thruster A is a distance of $1.6\text{ m}$ leftwards from the centre of gravity
+    of the spacecraft. Thruster C is a distance of $0.40\text{ m}$ upwards from the
+    centre of gravity of the spacecraft.
+
+
+    Thrusters A and B can produce forces on the spacecraft in the upwards direction
+    only.
+
+    Thruster C can produce a force on the spacecraft in the leftwards direction only.
+
+    All the thrusters shown produce forces entirely in the same plane as the centre
+    of gravity.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Thruster A is activated, producing a force of $60\text{ N}$ upwards on
+        the spacecraft. Thruster C is also activated, producing a force of $220\text{
+        N}$ in the leftwards direction on the spacecraft.
+
+
+        Calculate the resultant moment due to these forces about the centre of gravity.
+
+
+        resultant moment = \hrulefill $\text{Nm}$'
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State and explain whether the forces from A and C are a couple.
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Thrusters A and C are now switched off and the spacecraft is stationary.
+      Thruster B is activated at time $t_1$, producing a constant force on the spacecraft
+      until the fuel runs out at time $t_2$. As the fuel is used, the total mass of
+      the spacecraft decreases.
+
+
+      On Fig. 2.2, sketch the variation of speed of the spacecraft with time from
+      $t_1$ to $t_2$.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The spacecraft now splits apart into a carrier and a payload as shown in
+      Fig. 2.3.
+
+
+      During the split, an average force of $5500\text{ N}$ acts on the payload for
+      a time of $0.36\text{ s}$. The velocity of the payload increases by $8.5\text{
+      m}\,\text{s}^{-1}$ in the upwards direction.
+
+
+      The combined mass of the carrier and payload is $2.5 \times 10^3\text{ kg}$.'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: State the principle of conservation of momentum.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Show that the mass of the payload is $230\text{ kg}$.
+      answer_options: []
+      subquestions: []
+    - number: 2ciii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Calculate the magnitude of the change in velocity of the carrier.
+
+
+        change in velocity = \hrulefill $\text{m}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A spring is fixed at one end and attached to the frame of a pulley at the
+    other end. A cable is passed around the wheel of the pulley. The spring is stretched
+    to a fixed length using the cable and pulley.
+
+
+    Fig. 3.1 shows the view from above of the spring, cable and pulley.
+
+
+    The spring obeys Hooke’s law and has a spring constant $k$ of $250\text{ N}\,\text{m}^{-1}$.
+    A force $F$ acts on the spring. The tension in the cable is $T$. The pulley is
+    in equilibrium.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: On Fig. 3.2, draw labelled arrows to show the directions of the forces acting
+      on the pulley.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The force $F$ is $110\text{ N}$.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine $T$.
+
+
+        $T = $ \hrulefill $\text{ N}$'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the extension of the spring.
+
+
+        extension = \hrulefill m'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A second identical spring with the same spring constant of $250\text{ N}\,\text{m}^{-1}$
+      is now also connected to the pulley, as shown in Fig. 3.3.
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The tension in the cable is kept the same. The pulley is again in equilibrium.
+
+
+        Determine the extension of the springs.
+
+
+        extension = \hrulefill m'
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The elastic potential energy stored in the spring in Fig. 3.1 is $E_1$.
+        The total elastic potential energy stored in the two springs in Fig. 3.3 is
+        $E_2$.
+
+
+        Calculate the ratio $\frac{E_1}{E_2}$.
+
+
+        ratio = \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A laser emits visible light of a single frequency in a vacuum. The light
+    is incident normally on a double slit and then forms a pattern of bright and dark
+    fringes on a screen, as shown in Fig. 4.1.
+
+
+    The separation of the slits is $1.0 \times 10^{-3}\text{ m}$. The distance from
+    the slits to the screen is $4.8\text{ m}$. The distance between the centres of
+    adjacent dark fringes on the screen is $3.3\text{ mm}$.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how the pattern of bright and dark fringes is formed.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Calculate the frequency of the light emitted by the laser.
+
+
+      frequency = \hrulefill Hz'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The double slit is removed. A second laser is placed beside the first laser.
+      The second laser produces visible light of a different frequency from that of
+      the first laser. The beams of light from the two lasers overlap on the screen.
+
+
+      Explain why a steady pattern of bright and dark fringes is \textbf{not} formed
+      on the screen.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Fig. 5.1 shows a circuit containing a battery, two fixed resistors X and
+    Y, and a light-dependent resistor (LDR) Z.
+
+
+    The battery has electromotive force (e.m.f.) $5.0\text{ V}$ and internal resistance
+    $4.7\ \Omega$. The current in X is $I_1$ and the current in Y is $I_2$.
+
+
+    The resistance of X is $100\ \Omega$. The resistance of Z varies with the intensity
+    of light incident on it as shown in Fig. 5.2.'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State Kirchhoff’s first law.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The intensity of light incident on Z is $130\text{ W}\,\text{m}^{-2}$. The
+      current in the battery is $38\text{ mA}$.
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: calculation
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Show that the terminal potential difference of the battery is $4.8\text{
+        V}$.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: calculation
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Calculate the current $I_2$ in Y.
+
+
+        $I_2 = $ \hrulefill A'
+      answer_options: []
+      subquestions: []
+    - number: 5biii
+      question_type: calculation
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the power dissipated in Y.
+
+
+        power = \hrulefill W'
+      answer_options: []
+      subquestions: []
+    - number: 5biv
+      question_type: long_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The intensity of the light incident on Z decreases.
+
+
+        State and explain the effect on the terminal potential difference of the battery.'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by a fundamental particle.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Particle Q is a meson with a charge of 0.
+
+
+        Determine a possible quark composition for Q.'
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: calculation
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Particle Q has a mass of $0.67\text{ u}$ and a kinetic energy of $2.1
+        \times 10^{-16}\text{ J}$.
+
+
+        Calculate the speed of particle Q.
+
+
+        speed = \hrulefill $\text{ms}^{-1}$'
+      answer_options: []
+      subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Radium-228 ($^{228}_{88}\text{Ra}$) is a radioactive nuclide.
+    answer_options: []
+    subquestions:
+    - number: 6ci
+      question_type: short_answer
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'State the number of electrons in a neutral atom of radium-228.
+
+
+        number of electrons = \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 6cii
+      question_type: calculation
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'A nucleus of radium-228 undergoes a series of decays to form nucleus
+        X. During the process, 5 $\alpha$-particles and 4 $\beta^-$ particles are
+        emitted.
+
+
+        Determine the number of protons and the number of neutrons in nucleus X.
+
+
+        number of protons = \hrulefill
+
+        number of neutrons = \hrulefill'
+      answer_options: []
+      subquestions: []

@@ -1,0 +1,80 @@
+[thinking]
+**Exam Page 5 Transcription**
+
+Okay, so I need to transcribe page 5 of this exam. Let's see... First, I've got "2c," which presents example data from a `PLACEMENT` table. Right, a table in LaTeX, that looks like this: I'll make sure to get the formatting right.
+
+```latex
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{PlacementID} & \textbf{StudentID} & \textbf{CompanyID} & \textbf{StartDate} & \textbf{EndDate} & \textbf{Complete} \\ \hline
+PC001 & LDEA01 & MSCM & 01/01/2023 & 12/07/2023 & TRUE \\ \hline
+PC002 & LDEA01 & MSCM & 01/04/2024 & 08/05/2024 & FALSE \\ \hline
+PC003 & ALAU02 & NEAM & 09/03/2020 & 10/03/2021 & FALSE \\ \hline
+PC004 & LOLI75 & GOUZ & 07/06/2018 & 11/09/2018 & TRUE \\ \hline
+\end{tabular}
+```
+
+Now, remembering the instructions, "Some example data from the `PLACEMENT` table is shown:" Let's ensure the LaTeX is wrapped in a way that includes the `\texttt{}` tags as well. I'm going to structure this as a YAML block, using `short_answer` for the type.
+
+```yaml
+  - number: "2c"
+    type: short_answer
+    text: |
+      Some example data from the \texttt{PLACEMENT} table is shown:
+
+      \begin{tabular}{|l|l|l|l|l|l|}
+      \hline
+      \textbf{PlacementID} & \textbf{StudentID} & \textbf{CompanyID} & \textbf{StartDate} & \textbf{EndDate} & \textbf{Complete} \\ \hline
+      PC001 & LDEA01 & MSCM & 01/01/2023 & 12/07/2023 & TRUE \\ \hline
+      PC002 & LDEA01 & MSCM & 01/04/2024 & 08/05/2024 & FALSE \\ \hline
+      PC003 & ALAU02 & NEAM & 09/03/2020 & 10/03/2021 & FALSE \\ \hline
+      PC004 & LOLI75 & GOUZ & 07/06/2018 & 11/09/2018 & TRUE \\ \hline
+      \end{tabular}
+```
+
+Next, question "2ci": it's asking for a SQL script to delete all completed placements.  That's easy:
+
+```yaml
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Write a Structured Query Language (SQL) script to delete all placements that have been completed.
+```
+
+And finally, "2cii":  This one wants an SQL script to get the total number of completed placements for a specific student and company. It wants an appropriate name for the total.  Here we go:
+
+```yaml
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Write an SQL script to return the total number of placements completed by the student with ID LDEA01 at the company with ID NEAM. The total should be given an appropriate name.
+```
+
+Just double-checking the structure and that there are no answer lines.  Looks like open-ended questions.  Perfect, all set. Now I need to review and verify the table formatting and column counts. The table has six columns. The LaTeX I used has six `l`s. The row counts are 6 cells. All checks out.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      Some example data from the \texttt{PLACEMENT} table is shown:
+
+      \begin{tabular}{|l|l|l|l|l|l|}
+      \hline
+      \textbf{PlacementID} & \textbf{StudentID} & \textbf{CompanyID} & \textbf{StartDate} & \textbf{EndDate} & \textbf{Complete} \\ \hline
+      PC001 & LDEA01 & MSCM & 01/01/2023 & 12/07/2023 & TRUE \\ \hline
+      PC002 & LDEA01 & MSCM & 01/04/2024 & 08/05/2024 & FALSE \\ \hline
+      PC003 & ALAU02 & NEAM & 09/03/2020 & 10/03/2021 & FALSE \\ \hline
+      PC004 & LOLI75 & GOUZ & 07/06/2018 & 11/09/2018 & TRUE \\ \hline
+      \end{tabular}
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Write a Structured Query Language (SQL) script to delete all placements that have been completed.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Write an SQL script to return the total number of placements completed by the student with ID LDEA01 at the company with ID NEAM. The total should be given an appropriate name.

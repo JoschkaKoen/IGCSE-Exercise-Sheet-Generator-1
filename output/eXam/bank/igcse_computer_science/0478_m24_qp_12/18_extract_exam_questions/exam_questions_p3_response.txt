@@ -1,0 +1,15 @@
+```yaml
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      Sound can be represented as binary.
+  - number: "1ci"
+    type: long_answer
+    text: |
+      Explain why recording sound with a higher sampling resolution creates a more accurate recording.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Give \textbf{one} other way that the accuracy of a sound recording can be improved.
+```

@@ -1,0 +1,239 @@
+questions:
+- number: '1'
+  question_type: long_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'On a bench, a steel ball of radius $r$ is used to compress a spring by a
+    distance $x$. The ball is held at rest in this position, as shown in Fig. 1.1.
+
+
+    The ball is released and rolls along the bench. At a fixed point P, the ball has
+    speed $v$. The speed of the ball at P is determined using \textbf{one} light gate
+    connected to a timer.
+
+
+    Several steel balls of different radii are available.
+
+
+    It is suggested that $v$ is related to $r$ by the relationship
+
+
+    $$v^2 = \frac{Ykx^2}{r^n\rho}$$
+
+
+    where $k$ is the spring constant of the spring, $\rho$ is the density of the steel,
+    and $Y$ and $n$ are constants.
+
+
+    Plan a laboratory experiment to test the relationship between $v$ and $r$.
+
+
+    Draw a diagram showing the arrangement of your equipment.
+
+
+    Explain how the results could be used to determine values for $Y$ and $n$.
+
+
+    In your plan you should include:
+
+
+    \begin{itemize}
+
+    \item the procedure to be followed
+
+    \item the measurements to be taken
+
+    \item the control of variables
+
+    \item the analysis of the data
+
+    \item any safety precautions to be taken.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A student investigates light from different galaxies.
+
+
+    Fig. 2.1 shows the lines in the absorption spectrum from a distant galaxy.
+
+
+    The wavelength of one of the lines in the absorption spectrum is $\lambda$. The
+    wavelength of this spectral line in the laboratory is $\lambda_0$.
+
+
+    The observations of the same spectral line are repeated for different galaxies.
+
+
+    The student determines the distance $d$ of each galaxy from the Earth.
+
+
+    It is suggested that $\lambda$ and $d$ are related by the equation
+
+
+    $$\frac{\lambda - \lambda_0}{\lambda_0} = \frac{Hd}{c}$$
+
+
+    where $c$ is the speed of light in free space and $H$ is the Hubble constant.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A graph is plotted of $\lambda$ on the $y$-axis against $\frac{d}{c}$ on
+      the $x$-axis.
+
+
+      Determine expressions for the gradient and $y$-intercept.
+
+
+      gradient = \hrulefill
+
+      $y$-intercept = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Values of $d$ and $\lambda$ are given in Table 2.1.
+
+
+      \begin{center}
+
+      \textbf{Table 2.1}
+
+
+      \begin{tabular}{|c|c|c|}
+
+      \hline
+
+      $d / 10^{21}\text{ km}$ & $\frac{d}{c} / 10^{15}\text{ s}$ & $\lambda / \text{nm}$
+      \\ \hline
+
+      $0.48 \pm 0.12$ & & $658.4$ \\ \hline
+
+      $1.04 \pm 0.12$ & & $661.2$ \\ \hline
+
+      $1.45 \pm 0.12$ & & $664.2$ \\ \hline
+
+      $1.80 \pm 0.12$ & & $665.7$ \\ \hline
+
+      $2.85 \pm 0.12$ & & $672.4$ \\ \hline
+
+      $3.75 \pm 0.12$ & & $678.2$ \\ \hline
+
+      \end{tabular}
+
+      \end{center}
+
+
+      The value of $c$ is $3.00 \times 10^5\text{ km}\,\text{s}^{-1}$.
+
+
+      Calculate and record values of $\frac{d}{c} / 10^{15}\text{ s}$ in Table 2.1.
+      Include the absolute uncertainties in $\frac{d}{c}$.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Plot a graph of $\lambda / \text{nm}$ against $\frac{d}{c} / 10^{15}\text{
+        s}$. Include error bars for $\frac{d}{c}$.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Draw the straight line of best fit and a worst acceptable straight line
+        on your graph. Label both lines.
+      answer_options: []
+      subquestions: []
+    - number: 2ciii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the gradient of the line of best fit. Include the absolute
+        uncertainty in your answer.
+
+
+        gradient = \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2civ
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the $y$-intercept of the line of best fit. Include the absolute
+        uncertainty in your answer.
+
+
+        $y\text{-intercept} = $ \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Using your answers to \textbf{(a)}, \textbf{(c)(iii)} and \textbf{(c)(iv)},
+      determine the values of $\lambda_0$ and $H$. Include appropriate units.
+
+
+      $\lambda_0 = $ \hrulefill
+
+      $H = $ \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Hubble''s law suggests that the age $T$ of the universe is related to $H$
+      by
+
+
+      $$T = \frac{1}{H}.$$
+
+
+      Determine a value for $T$. Include the absolute uncertainty in your answer.
+
+
+      $T = $ \hrulefill $\text{ s}$'
+    answer_options: []
+    subquestions: []

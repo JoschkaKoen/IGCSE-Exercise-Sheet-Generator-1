@@ -1,0 +1,64 @@
+[thinking]
+**Transcribing Questions for a Physics Assessment**
+
+Okay, the task is clear: I need to extract and represent two multiple-choice questions from this image, focusing on their textual content and answer options. The instructions are specific: no image inclusion, but full text transcription.
+
+For **Question 36**, the core is about a four-terminal box and identical currents in ammeters. The challenge is the options, which are diagrams. Since I can't include the diagrams themselves, the prompt demands I indicate their presence without the graphics. The instruction states I should omit any image-inclusion commands. I need to label them A, B, C, and D. The `options` key should exist, and for each option, `text` should either be an empty string `''` or a brief description if needed. Given that they are only diagrams, `text: ''` seems the cleanest solution, per the instruction.
+
+Now, **Question 37** presents a table relating Kirchhoff's first law and conserved quantities. Here, I have to represent the options, which are rows from a table. I considered using a LaTeX table format, but the simplest approach is probably the most effective. Instead of LaTeX, I will use a simple, readable block scalar:
+
+`  statement: The algebraic sum of currents at a junction is zero.`
+`  `
+`  quantity: charge`
+
+This approach clearly presents the 'statement' and 'quantity' pairs for each option without unnecessary formatting complexity. This format will be used for each of the options, A, B, C, and D.
+
+
+
+[/thinking]
+
+questions:
+  - number: "36"
+    type: multiple_choice
+    text: |
+      The diagram shows a four-terminal box connected to a battery and two ammeters.
+
+      The currents in the two ammeters are identical.
+
+      Which circuit, within the box, gives this result?
+    options:
+      - letter: A
+        text: ''
+      - letter: B
+        text: ''
+      - letter: C
+        text: ''
+      - letter: D
+        text: ''
+  - number: "37"
+    type: multiple_choice
+    text: |
+      Each of Kirchhoff’s two laws presumes that some quantity is conserved.
+
+      Which row states Kirchhoff’s \textbf{first} law and names the quantity that is conserved?
+    options:
+      - letter: A
+        text: |
+          statement: The algebraic sum of currents at a junction is zero.
+
+          quantity: charge
+      - letter: B
+        text: |
+          statement: The algebraic sum of currents at a junction is zero.
+
+          quantity: energy
+      - letter: C
+        text: |
+          statement: The e.m.f. in a loop is equal to the algebraic sum of the product of current and resistance round the loop.
+
+          quantity: charge
+      - letter: D
+        text: |
+          statement: The e.m.f. in a loop is equal to the algebraic sum of the product of current and resistance round the loop.
+
+          quantity: energy

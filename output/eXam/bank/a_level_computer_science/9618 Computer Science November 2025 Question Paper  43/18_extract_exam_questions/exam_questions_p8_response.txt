@@ -1,0 +1,64 @@
+[thinking]
+**Populating the YAML Stub for Page 8**
+
+Okay, so I'm on page 8 of the exam and need to populate the YAML stub. The first thing I see is that the questions are structured under a heading `1d`, which I need to get right. Let's look at the breakdown. I see that questions `1di` and `1dii` follow. I need to make sure I represent the structure correctly in the stub, and avoid any stub generation bugs. It looks like `1d` itself isn't a standalone question, but more of a parent or context for the `(i)` and `(ii)` sub-parts.
+
+I see that the stub has entries for `1d`, `1di`, and `1dii`, with corresponding types: `short_answer`, and `long_answer` respectively. The page text shows `(d) (i) Amend the main program to:`. The fact that `(d)` is visible on the page means I shouldn't throw a `STUB ERROR`.
+
+Okay, I'm going to put the instruction to amend the main program in `1d`. Since this is a `short_answer` entry and I can see the `(d)` part on the page, the safest approach is to create this for `1d`:
+
+```yaml
+  - number: "1d"
+    type: short_answer
+    text: |
+      Amend the main program.
+```
+
+For `1di` and `1dii`, I'll formulate the content based on the details on the page to match the items in the text. I'll include the enumerated items and testing details in the respective `long_answer` sections.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      Amend the main program.
+  - number: "1di"
+    type: long_answer
+    text: |
+      Amend the main program to:
+
+      \begin{itemize}
+      \item repeatedly take a row position as input until it is between 0 and 9 inclusive
+      \item repeatedly take a column position as input until it is between 0 and 9 inclusive
+      \item use the appropriate method(s) to identify if there is an object in the array position input
+      \item output "Miss" if there is an empty \texttt{BoardObject} in that position
+      \item output the \texttt{Code} and \texttt{Value} if there is a non-empty \texttt{BoardObject} in that position.
+      \end{itemize}
+
+      All outputs must include appropriate messages.
+
+      Save your program.
+
+      Copy and paste the program code into part 1(d)(i) in the evidence document.
+  - number: "1dii"
+    type: long_answer
+    text: |
+      Test your program by entering this test data in the order given:
+
+      \begin{tabular}{ll}
+      Row position first input: & 10 \\
+      Row position second input: & 4 \\
+      Column position first input: & -1 \\
+      Column position second input: & 5 \\
+      \end{tabular}
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part 1(d)(ii) in the evidence document.
+```

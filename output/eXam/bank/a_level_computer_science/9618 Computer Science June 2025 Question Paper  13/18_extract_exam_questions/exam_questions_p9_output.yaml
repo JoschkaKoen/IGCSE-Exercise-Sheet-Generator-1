@@ -1,0 +1,22 @@
+```yaml
+questions:
+  - number: "4b"
+    type: short_answer
+    text: |
+      Complete the truth table for the logic expression:
+
+      $$\textbf{X} = (\textbf{A} \text{ OR } \textbf{B}) \text{ XOR } (\textbf{B} \text{ OR } \textbf{C}) \text{ XOR } (\text{NOT } \textbf{A} \text{ NAND } \textbf{C})$$
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}
+```

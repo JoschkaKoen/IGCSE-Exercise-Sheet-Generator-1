@@ -1,0 +1,953 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What must all physical quantities have?
+  answer_options:
+  - letter: A
+    text: a direction and a magnitude
+  - letter: B
+    text: a direction and a unit
+  - letter: C
+    text: a magnitude and a prefix
+  - letter: D
+    text: a magnitude and a unit
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is $0.25\text{ kN}\,\text{mm}^{-2}$ expressed in $\text{N}\,\text{m}^{-2}$?
+  answer_options:
+  - letter: A
+    text: $0.00025\text{ N}\,\text{m}^{-2}$
+  - letter: B
+    text: $0.25\text{ N}\,\text{m}^{-2}$
+  - letter: C
+    text: $250\,000\text{ N}\,\text{m}^{-2}$
+  - letter: D
+    text: $250\,000\,000\text{ N}\,\text{m}^{-2}$
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student calculates the density of a solid steel cube in an experiment.
+
+
+    The measured mass is $975\text{ g} \pm 10\text{ g}$ and the measured length of
+    side is $50\text{ mm} \pm 1\text{ mm}$.
+
+
+    What is the density of the steel?'
+  answer_options:
+  - letter: A
+    text: $7.8\text{ g}\,\text{cm}^{-3} \pm 3.0\%$
+  - letter: B
+    text: $7.8\text{ g}\,\text{cm}^{-3} \pm 7.0\%$
+  - letter: C
+    text: $7.8\text{ g}\,\text{cm}^{-3} \pm 11\%$
+  - letter: D
+    text: $7.8\text{ g}\,\text{cm}^{-3} \pm 13\%$
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The time period $T$ of a pendulum is given by
+
+
+    $$T = 2\pi \left( \frac{L}{g} \right)^n$$
+
+
+    where $L$ is the length of the pendulum and $g$ is the acceleration of free fall.
+
+
+    The equation is homogeneous.
+
+
+    What is the value of $n$?'
+  answer_options:
+  - letter: A
+    text: $-2$
+  - letter: B
+    text: $-\frac{1}{2}$
+  - letter: C
+    text: $\frac{1}{2}$
+  - letter: D
+    text: $2$
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Radio waves can be used to measure the distance between Earth and the planet
+    Jupiter.
+
+
+    A pulse of radio waves is emitted from the surface of Earth. The pulse reflects
+    from the surface of Jupiter and is detected again on Earth.
+
+
+    The time between emitting and receiving the pulse is 3960 s.
+
+
+    What is the distance between Earth and Jupiter?'
+  answer_options:
+  - letter: A
+    text: $5.94 \times 10^8 \text{ km}$
+  - letter: B
+    text: $1.19 \times 10^9 \text{ km}$
+  - letter: C
+    text: $5.94 \times 10^{11} \text{ km}$
+  - letter: D
+    text: $1.19 \times 10^{12} \text{ km}$
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The graph shows the variation with time of the velocity of a car.
+
+
+    Which statement is correct?'
+  answer_options:
+  - letter: A
+    text: The car accelerates for 2 s, then stops for 4 s and then reverses.
+  - letter: B
+    text: The car accelerates at $12 \text{ m s}^{-2}$ for 2 s.
+  - letter: C
+    text: The car travels a distance of 36 m in the first 4 s.
+  - letter: D
+    text: The car travels a distance of 48 m in the last 4 s.
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A solid object of mass 1.0 kg falls vertically downwards in a vacuum.
+
+
+    When the speed of the object is $60 \text{ m s}^{-1}$, an additional constant
+    force of 50 N suddenly starts to act vertically upwards on the object.
+
+
+    What is the speed of the object 2.0 s after the additional force starts to act?'
+  answer_options:
+  - letter: A
+    text: $20 \text{ m s}^{-1}$
+  - letter: B
+    text: $40 \text{ m s}^{-1}$
+  - letter: C
+    text: $80 \text{ m s}^{-1}$
+  - letter: D
+    text: $100 \text{ m s}^{-1}$
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A stone is thrown upwards and follows a curved path.
+
+
+    Air resistance is negligible.
+
+
+    Why does the path have this shape?'
+  answer_options:
+  - letter: A
+    text: The stone has a constant horizontal acceleration and constant vertical velocity.
+  - letter: B
+    text: The stone has a constant horizontal velocity and constant vertical acceleration.
+  - letter: C
+    text: The stone has a constant upward acceleration followed by a constant downward
+      acceleration.
+  - letter: D
+    text: The stone has a constant upward velocity followed by a constant downward
+      velocity.
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A rocket engine ejects $90\text{ kg}$ of exhaust gas per second at a velocity
+    of $190\text{ m}\,\text{s}^{-1}$ relative to the rocket.
+
+
+    What is the force acting on the rocket due to the ejected gas?'
+  answer_options:
+  - letter: A
+    text: $2.1\text{ kN}$
+  - letter: B
+    text: $17\text{ kN}$
+  - letter: C
+    text: $18\text{ kN}$
+  - letter: D
+    text: $162\text{ kN}$
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which statement does \textbf{not} describe an elastic collision between two
+    objects?
+  answer_options:
+  - letter: A
+    text: The relative speed of approach of the two objects equals the relative speed
+      of separation.
+  - letter: B
+    text: The total kinetic energy of the objects is conserved.
+  - letter: C
+    text: The total kinetic energy of the objects is reduced.
+  - letter: D
+    text: The total linear momentum of the objects is conserved.
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A cyclist is riding at a constant speed on a level road.
+
+
+    According to Newton’s third law of motion, what is equal and opposite to the backward
+    push of the back wheel on the road?'
+  answer_options:
+  - letter: A
+    text: the force exerted by the cyclist on the pedals
+  - letter: B
+    text: the forward push of the road on the back wheel
+  - letter: C
+    text: the tension in the cycle chain
+  - letter: D
+    text: the total air resistance and friction force
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A stone is released from rest and falls a long distance in air.
+
+
+    Which graph could show the variation with time $t$ of the acceleration $a$ of
+    the stone?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An empty cart is moving along a horizontal track at a constant velocity.
+
+
+    Resistive forces acting on the cart are negligible.
+
+
+    A heavy rock is dropped vertically into the cart.
+
+
+    The cart continues to move horizontally with the rock inside.
+
+
+    How does the momentum and kinetic energy of the cart with the rock inside compare
+    with the momentum and kinetic energy of the empty cart?'
+  answer_options:
+  - letter: A
+    text: The cart with the rock inside has a smaller momentum and a smaller kinetic
+      energy.
+  - letter: B
+    text: The cart with the rock inside has a smaller momentum and the same kinetic
+      energy.
+  - letter: C
+    text: The cart with the rock inside has the same momentum and a smaller kinetic
+      energy.
+  - letter: D
+    text: The cart with the rock inside has the same momentum and the same kinetic
+      energy.
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A wooden block is held stationary in a container of water using a string
+    that is attached to both the wooden block and the bottom of the container.
+
+
+    The wooden block has mass $m$ and volume $V$. The water has density $\rho$. The
+    acceleration of free fall is $g$.
+
+
+    What is the magnitude of the force acting on the block due to the tension in the
+    string?'
+  answer_options:
+  - letter: A
+    text: $\rho gV$
+  - letter: B
+    text: $mg + \rho gV$
+  - letter: C
+    text: $mg$
+  - letter: D
+    text: $\rho gV - mg$
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A square shop sign of uniform density has mass $2.4\text{ kg}$ and sides
+    of length $0.86\text{ m}$.
+
+
+    The sign is supported by a hinge along its top edge.
+
+
+    There is friction in the hinge so that the sign hangs from it in equilibrium at
+    an angle of $15^\circ$ to the vertical, as shown.
+
+
+    What is the moment about the hinge of the weight of the sign?'
+  answer_options:
+  - letter: A
+    text: $2.6\text{ N}\,\text{m}$
+  - letter: B
+    text: $4.0\text{ N}\,\text{m}$
+  - letter: C
+    text: $5.2\text{ N}\,\text{m}$
+  - letter: D
+    text: $9.8\text{ N}\,\text{m}$
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A block is submerged vertically in a liquid. The four diagrams show the block
+    viewed from the side.
+
+
+    Which diagram shows, to scale, the forces exerted on equal areas of the block
+    by the liquid?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a couple.
+
+
+    How is the torque of the couple calculated?'
+  answer_options:
+  - letter: A
+    text: $\frac{1}{2} \times \text{perpendicular distance between the forces} \times
+      \text{magnitude of one of the forces}$
+  - letter: B
+    text: $\text{perpendicular distance between the forces} \times \text{magnitude
+      of one of the forces}$
+  - letter: C
+    text: $\text{perpendicular distance between the forces} \times \text{magnitude
+      of the sum of the forces}$
+  - letter: D
+    text: $2 \times \text{perpendicular distance between the forces} \times \text{magnitude
+      of one of the forces}$
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A ball of mass $1.2\text{ kg}$ travels horizontally at a speed of $3.0\text{
+    m}\,\text{s}^{-1}$.
+
+
+    The ball hits a cushion and comes to rest over a horizontal distance of $0.020\text{
+    m}$.
+
+
+    What is the work done by the cushion on the ball to bring the ball to rest?'
+  answer_options:
+  - letter: A
+    text: $0.24\text{ J}$
+  - letter: B
+    text: $1.8\text{ J}$
+  - letter: C
+    text: $5.4\text{ J}$
+  - letter: D
+    text: $11\text{ J}$
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A box of mass $4.9\text{ kg}$ is pushed at a constant velocity from point
+    P at the bottom of an inclined plane to point Q at the top.
+
+
+    The box is pushed by a force of $64\text{ N}$ acting parallel to the slope.
+
+
+    The slope is inclined at an angle of $20^\circ$ to the horizontal and the box
+    moves through a vertical height of $5.8\text{ m}$.
+
+
+    What is the work done against the frictional force acting on the block between
+    P and Q?'
+  answer_options:
+  - letter: A
+    text: $280\text{ J}$
+  - letter: B
+    text: $810\text{ J}$
+  - letter: C
+    text: $960\text{ J}$
+  - letter: D
+    text: $1100\text{ J}$
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which expression gives the efficiency of a system?
+  answer_options:
+  - letter: A
+    text: $$\frac{\text{total energy input}}{\text{useful energy output}}$$
+  - letter: B
+    text: $$\frac{\text{useful energy output} + \text{wasted energy output}}{\text{total
+      energy input}}$$
+  - letter: C
+    text: $$\frac{\text{useful energy output}}{\text{total energy input}}$$
+  - letter: D
+    text: $$\frac{\text{wasted energy output}}{\text{total energy input}}$$
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "A student has a copper wire and a steel wire with equal lengths and cross-sectional\
+    \ areas.\n\nThe student hangs identical loads on the two wires.\n\nThe extensions\
+    \ of the two wires are different.\n\nThe student calculates the stress, strain\
+    \ and Young modulus of each wire.\n\nWhich row identifies with a tick ($\\checkmark$)\
+    \ the calculated values that are equal for both wires?\n\n\\begin{tabular}{|c|c|c|c|}\n\
+    \\hline\n & stress & strain & Young modulus \\\\ \\hline\n\\textbf{A} & $\\checkmark$\
+    \ & & \\\\ \\hline\n\\textbf{B} & & $\\checkmark$ & \\\\ \\hline\n\\textbf{C}\
+    \ & & $\\checkmark$ & $\\checkmark$ \\\\ \\hline\n\\textbf{D} & $\\checkmark$\
+    \ & & $\\checkmark$ \\\\ \\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two springs X and Y stretch elastically. The graphs show the variation with
+    extension $x$ of the force $F$ applied to each spring.
+
+
+    Which statement is correct?'
+  answer_options:
+  - letter: A
+    text: When each spring is given the same extension, the energy stored in Y is
+      4 times the energy stored in X.
+  - letter: B
+    text: When each spring is given the same extension, the energy stored in Y is
+      8 times the energy stored in X.
+  - letter: C
+    text: When the same force is applied to each spring, the energy stored in Y is
+      4 times the energy stored in X.
+  - letter: D
+    text: When the same force is applied to each spring, the energy stored in Y is
+      8 times the energy stored in X.
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which phrase describes the strain at the elastic limit on a stress–strain
+    graph?
+  answer_options:
+  - letter: A
+    text: the maximum strain below which Hooke’s law is obeyed
+  - letter: B
+    text: the maximum strain below which the deformation is plastic
+  - letter: C
+    text: the minimum strain above which Hooke’s law is obeyed
+  - letter: D
+    text: the minimum strain above which the deformation is plastic
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A teacher removes the turntable from a microwave oven and places a bar of
+    chocolate in the oven. She then switches the oven on for a short time.
+
+
+    A stationary wave is formed in the oven.
+
+
+    When the chocolate is removed, the teacher observes that there are two small sections
+    of melted chocolate $6.0\text{ cm}$ apart with unmelted chocolate in between.
+
+
+    Each section of melted chocolate is located at an antinode.
+
+
+    Assume that the speed of the microwaves is $3.0 \times 10^8\text{ m}\,\text{s}^{-1}$.
+
+
+    What is the frequency of the microwaves emitted by the oven?'
+  answer_options:
+  - letter: A
+    text: $25\text{ MHz}$
+  - letter: B
+    text: $50\text{ MHz}$
+  - letter: C
+    text: $2.5\text{ GHz}$
+  - letter: D
+    text: $5.0\text{ GHz}$
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A sound wave travels from the left to the right.
+
+
+    The graph shows the variation of the displacement to the right of particles in
+    the sound wave with distance, at one instant.
+
+
+    Which letter represents the centre of a compression?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A buzzer emitting sound of frequency $846\text{ Hz}$ is attached to a string
+    and rotated in a horizontal circle. The linear speed of the buzzer is $25.0\text{
+    m}\,\text{s}^{-1}$.
+
+
+    The speed of sound is $340\text{ m}\,\text{s}^{-1}$.
+
+
+    What is the maximum frequency heard by the observer?'
+  answer_options:
+  - letter: A
+    text: $783\text{ Hz}$
+  - letter: B
+    text: $788\text{ Hz}$
+  - letter: C
+    text: $908\text{ Hz}$
+  - letter: D
+    text: $913\text{ Hz}$
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Vertically polarised light of intensity $I_0$ is incident normally on a polarising
+    filter.
+
+
+    The transmission axis of the filter is at an angle $\theta$ to the plane of polarisation
+    of the light.
+
+
+    The intensity of the light after passing through the filter is $\frac{I_0}{3}$.
+
+
+    What is $\theta$?'
+  answer_options:
+  - letter: A
+    text: $8.4^\circ$
+  - letter: B
+    text: $55^\circ$
+  - letter: C
+    text: $71^\circ$
+  - letter: D
+    text: $84^\circ$
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which statement compares the behaviour of transverse and longitudinal waves?
+  answer_options:
+  - letter: A
+    text: Only longitudinal waves can be diffracted.
+  - letter: B
+    text: Only longitudinal waves can travel in free space.
+  - letter: C
+    text: Only transverse waves can be coherent.
+  - letter: D
+    text: Only transverse waves can be polarised.
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student uses a diffraction grating to determine the wavelength of visible
+    light from a source.
+
+
+    The diffraction grating has 300 lines per mm. The student measures the angle $\theta$
+    of each order $n$ of the intensity maxima. A graph of $n$ against $\sin \theta$
+    is plotted. The line of best fit for the plotted points is shown and has gradient
+    $G$.
+
+
+    Which expression represents the wavelength, in m, of the visible light in terms
+    of $G$?'
+  answer_options:
+  - letter: A
+    text: $3 \times 10^5 G$
+  - letter: B
+    text: $3.3 \times 10^{-6} G$
+  - letter: C
+    text: $\frac{3.3 \times 10^{-6}}{G}$
+  - letter: D
+    text: $\frac{300}{G}$
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two waves meet.
+
+
+    What is \textbf{not} a necessary condition for the waves to produce a stationary
+    wave?'
+  answer_options:
+  - letter: A
+    text: They must be of the same type.
+  - letter: B
+    text: They must have the same period.
+  - letter: C
+    text: They must have the same wavelength.
+  - letter: D
+    text: They must travel in the same direction.
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Light of a single wavelength is incident normally on a double slit. Interference
+    fringes are observed on a screen.
+
+
+    The distance from the double slit to the screen is $0.60\text{ m}$ and the fringe
+    separation is $1.8\text{ mm}$.
+
+
+    The distance from the double slit to the screen increases by $0.90\text{ m}$.
+
+
+    What is the new fringe separation?'
+  answer_options:
+  - letter: A
+    text: $1.2\text{ mm}$
+  - letter: B
+    text: $2.7\text{ mm}$
+  - letter: C
+    text: $4.5\text{ mm}$
+  - letter: D
+    text: $5.4\text{ mm}$
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A wire is made from a metal of constant resistivity. There is a constant
+    current in the wire.
+
+
+    Which statement about the potential difference across the wire is correct?'
+  answer_options:
+  - letter: A
+    text: It is directly proportional to the length of the wire.
+  - letter: B
+    text: It is inversely proportional to the length of the wire.
+  - letter: C
+    text: It is directly proportional to the diameter of the wire.
+  - letter: D
+    text: It is inversely proportional to the diameter of the wire.
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The $I-V$ characteristics for three electrical components are shown.
+
+
+    Which components obey Ohm''s law?'
+  answer_options:
+  - letter: A
+    text: 1, 2 and 3
+  - letter: B
+    text: 1 and 2 only
+  - letter: C
+    text: 1 and 3 only
+  - letter: D
+    text: 1 only
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A resistor of resistance $200\,\Omega$ is connected to a supply that has
+    a p.d. of $4.00\text{ V}$.
+
+
+    How many electrons enter the resistor in $4.00\text{ s}$?'
+  answer_options:
+  - letter: A
+    text: $3.13 \times 10^{16}$
+  - letter: B
+    text: $1.25 \times 10^{17}$
+  - letter: C
+    text: $5.00 \times 10^{17}$
+  - letter: D
+    text: $1.25 \times 10^{21}$
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a cell of internal resistance $1.0R$ connected to a variable
+    resistor.
+
+
+    When the variable resistor has an initial resistance of $2.0R$, the current in
+    the cell is $I_1$ and the terminal potential difference (p.d.) across the cell
+    is $V_1$.
+
+
+    The variable resistor is now adjusted to a new resistance of $4.0R$.
+
+
+    What is the new current in the cell and the new terminal p.d. across the cell?'
+  answer_options:
+  - letter: A
+    text: 'current: $0.50I_1$, terminal p.d.: $1.0V_1$'
+  - letter: B
+    text: 'current: $0.50I_1$, terminal p.d.: $1.2V_1$'
+  - letter: C
+    text: 'current: $0.60I_1$, terminal p.d.: $1.0V_1$'
+  - letter: D
+    text: 'current: $0.60I_1$, terminal p.d.: $1.2V_1$'
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a four-terminal box connected to a battery and two ammeters.
+
+
+    The currents in the two ammeters are identical.
+
+
+    Which circuit, within the box, gives this result?'
+  answer_options:
+  - letter: A
+    text: ''
+  - letter: B
+    text: ''
+  - letter: C
+    text: ''
+  - letter: D
+    text: ''
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Each of Kirchhoff’s two laws presumes that some quantity is conserved.
+
+
+    Which row states Kirchhoff’s \textbf{first} law and names the quantity that is
+    conserved?'
+  answer_options:
+  - letter: A
+    text: 'statement: The algebraic sum of currents at a junction is zero.
+
+
+      quantity: charge'
+  - letter: B
+    text: 'statement: The algebraic sum of currents at a junction is zero.
+
+
+      quantity: energy'
+  - letter: C
+    text: 'statement: The e.m.f. in a loop is equal to the algebraic sum of the product
+      of current and resistance round the loop.
+
+
+      quantity: charge'
+  - letter: D
+    text: 'statement: The e.m.f. in a loop is equal to the algebraic sum of the product
+      of current and resistance round the loop.
+
+
+      quantity: energy'
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two neutral atoms are isotopes of the same element.
+
+
+    Which statement about the atoms is correct?'
+  answer_options:
+  - letter: A
+    text: They have a different number of neutrons and a different number of electrons.
+  - letter: B
+    text: They have a different number of neutrons and the same number of protons.
+  - letter: C
+    text: They have the same number of neutrons and a different number of electrons.
+  - letter: D
+    text: They have the same number of neutrons and the same number of protons.
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is the composition of a meson?
+  answer_options:
+  - letter: A
+    text: 1 quark and 1 antiquark
+  - letter: B
+    text: 1 quark and 2 antiquarks
+  - letter: C
+    text: 2 quarks and 1 antiquark
+  - letter: D
+    text: 3 quarks
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "A nucleus of carbon-11 contains 6 protons and 5 neutrons.\n\nThe nucleus\
+    \ of carbon-11 decays by $\\beta^+$ emission.\n\nWhat is the total number of up\
+    \ and down quarks in the product of the decay of this nucleus?\n\n\\begin{tabular}{ccc}\n\
+    \ & up quarks & down quarks \\\\\n\\textbf{A} & 15 & 18 \\\\\n\\textbf{B} & 16\
+    \ & 17 \\\\\n\\textbf{C} & 17 & 16 \\\\\n\\textbf{D} & 18 & 15 \\\\\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

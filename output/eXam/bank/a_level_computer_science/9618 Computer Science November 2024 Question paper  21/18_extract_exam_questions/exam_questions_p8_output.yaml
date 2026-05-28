@@ -1,0 +1,38 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A program includes the following assignment statement:
+
+      \begin{alltt}
+      Result <- STR_TO_NUM(x) / STR_TO_NUM(y)
+      \end{alltt}
+
+      When the program evaluates the expression in the statement, it performs a calculation.
+
+      Variable \texttt{Result} is of type real and variables \texttt{x} and \texttt{y} are of type string.
+
+      Two checks are required before the calculation is performed:
+
+      \begin{enumerate}
+      \item The two strings represent valid numeric values.
+      \item The numeric value of string \texttt{y} is not zero.
+      \end{enumerate}
+  - number: "4a"
+    type: short_answer
+    text: |
+      Identify the type of error that could occur if these checks are \textbf{not} carried out \textbf{and} state a cause of this error.
+
+      Type \hrulefill
+
+      Cause \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      The designer considers implementing the \textbf{checks and calculation} as a module (a procedure or a function). One reason for this is that the same checks and calculations are performed at several places in the program.
+
+      Give \textbf{another} reason why this is a suitable approach \textbf{and} state what is avoided by this approach.
+
+      Reason \hrulefill
+
+      Avoided \hrulefill

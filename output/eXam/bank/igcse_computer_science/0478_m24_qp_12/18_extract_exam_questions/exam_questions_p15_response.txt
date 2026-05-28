@@ -1,0 +1,24 @@
+[thinking]
+**Analyzing Question 8c: Binary Shifts**
+
+Okay, so the user wants me to extract and analyze question "8c" from this page. Let me take a look... Ah, there it is! Under the header "15." Not sure what that means yet, but the important bit is clearly:
+
+"**(c) Logical shifts are performed on binary integers. State the mathematical effect of a right shift of four places on a positive binary integer.**"
+
+Right, and it's worth two marks, so I need to be concise and accurate. The instructions say to strip the "(c)" prefix. So, I see I should transcribe the prompt as:
+
+"Logical shifts are performed on binary integers. State the mathematical effect of a right shift of **four** places on a positive binary integer."
+
+No other instructions, and no standalone marker at the end, I need to focus on just this open-ended prompt. Okay, I think I'm ready to interpret this.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      Logical shifts are performed on binary integers.
+
+      State the mathematical effect of a right shift of \textbf{four} places on a positive binary integer.

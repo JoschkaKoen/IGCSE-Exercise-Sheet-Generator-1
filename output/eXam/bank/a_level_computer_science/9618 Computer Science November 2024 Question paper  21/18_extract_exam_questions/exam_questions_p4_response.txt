@@ -1,0 +1,26 @@
+questions:
+  - number: "2"
+    type: long_answer
+    text: |
+      A program uses three global integer variables \texttt{HH}, \texttt{MM} and \texttt{SS} to represent the current time in hours, minutes and seconds using the 24-hour clock notation.
+
+      Midnight would be represented as 00:00:00 (\texttt{HH:MM:SS}). If the variables \texttt{HH}, \texttt{MM} and \texttt{SS} contained the values 16, 30 and 10 respectively, then the time would be 16:30:10 or just after 4.30 in the afternoon.
+
+      A procedure \texttt{Tick()} will be called every second.
+      The procedure \texttt{Tick()} will:
+      \begin{itemize}
+      \item update the value in \texttt{SS} each time it is called
+      \item update the values in \texttt{HH} and \texttt{MM} as appropriate
+      \item call a procedure \texttt{CheckAlarm()} at the start of each minute
+      \item call a procedure \texttt{NewDay()} whenever the time reaches midnight.
+      \end{itemize}
+
+      Complete the pseudocode for procedure \texttt{Tick()}.
+
+      \begin{alltt}
+      PROCEDURE Tick()
+      \end{alltt}
+
+      \begin{alltt}
+      ENDPROCEDURE
+      \end{alltt}

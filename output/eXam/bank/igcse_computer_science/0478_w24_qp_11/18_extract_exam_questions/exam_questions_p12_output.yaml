@@ -1,0 +1,40 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A doctor’s surgery has an expert system that helps diagnose the illnesses of its patients.
+  - number: "9a"
+    type: short_answer
+    text: |
+      Complete the paragraph about the operation of the expert system.
+
+      Use the terms from the list.
+
+      Some of the terms in the list will \textbf{not} be used. Some terms may be used more than once.
+
+      \begin{itemize}
+      \item artificial
+      \item binary
+      \item central processing unit (CPU)
+      \item data
+      \item inference engine
+      \item interface
+      \item knowledge base
+      \item primary storage
+      \item process
+      \item real
+      \item read only memory (ROM)
+      \item rule base
+      \end{itemize}
+
+      An expert system is a type of \underline{\hspace{1.5em}} intelligence. The doctor will type data about the symptoms of the illness into the \underline{\hspace{1.5em}}.
+
+      The \underline{\hspace{1.5em}} will decide which questions to ask the doctor. It will do this by linking the facts in the \underline{\hspace{1.5em}} to the \underline{\hspace{1.5em}}.
+
+      The \underline{\hspace{1.5em}} will decide on a diagnosis and this will be output on the \underline{\hspace{1.5em}}.
+  - number: "9b"
+    type: short_answer
+    text: |
+      The expert system has the ability to automatically adapt its own processes and data.
+
+      Give the name of this ability.

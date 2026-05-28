@@ -1,0 +1,13 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A cylinder contains a fixed mass of an ideal gas at pressure $2Y$ and volume $6X$.
+
+      The gas undergoes a sequence of changes from its initial state A, through states B, C and D, then finally back to its initial state A, as shown in Fig. 4.1.
+
+      Fig. 4.2 shows the variation with time of the internal energy of the gas.
+  - number: "4a"
+    type: short_answer
+    text: |
+      State the first law of thermodynamics.

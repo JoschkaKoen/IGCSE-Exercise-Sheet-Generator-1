@@ -1,0 +1,25 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      Variables in the program have example values:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Variable} & \textbf{Example value} \\ \hline
+      \texttt{DoB} & \texttt{23/6/2011} \\ \hline
+      \texttt{Multiplier} & \texttt{2.5} \\ \hline
+      \texttt{AddressLine[1]} & \texttt{"35 Lincoln Avenue"} \\ \hline
+      \end{tabular}
+
+      \vspace{1em}
+
+      Complete the table by evaluating each expression using the example values:
+
+      \begin{tabular}{|l|p{5cm}|}
+      \hline
+      \textbf{Expression} & \textbf{Evaluates to} \\ \hline
+      \texttt{LENGTH(NUM\_TO\_STR(Multiplier))} & \hrulefill \\ \hline
+      \texttt{MONTH(DoB) > 4} & \hrulefill \\ \hline
+      \texttt{15 + STR\_TO\_NUM(MID(AddressLine[1], 2, 1))} & \hrulefill \\ \hline
+      \end{tabular}

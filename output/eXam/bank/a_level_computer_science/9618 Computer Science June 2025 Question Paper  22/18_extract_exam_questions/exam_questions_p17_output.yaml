@@ -1,0 +1,13 @@
+questions:
+  - number: "7c"
+    type: short_answer
+    text: |
+      The programmer decides to amend the customer ID; it will be stored as a \texttt{STRING} instead of an \texttt{INTEGER}. This means that the 2D array \texttt{Loyalty} can no longer be used.
+  - number: "7ci"
+    type: short_answer
+    text: |
+      Explain why the 2D array \texttt{Loyalty} can no longer be used.
+  - number: "7cii"
+    type: short_answer
+    text: |
+      Explain how a 1D array could be used to store both the loyalty points and the amended customer ID.

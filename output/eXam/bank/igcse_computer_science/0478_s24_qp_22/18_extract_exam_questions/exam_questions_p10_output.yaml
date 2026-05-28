@@ -1,0 +1,44 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      A television subscription service has a new database table named \texttt{Contract} to store details of their subscribers' contracts. The table contains these fields:
+
+      \begin{itemize}
+      \item \texttt{ContractNumber} -- the contract number, for example CT567
+      \item \texttt{Months} -- the length of the contract in months, for example 6
+      \item \texttt{EndDate} -- the date the contract finishes, for example 30 November 2024
+      \item \texttt{News} -- the news service, yes or no
+      \item \texttt{Movie} -- the movie service, yes or no
+      \item \texttt{Sport} -- the sports service, yes or no
+      \item \texttt{Junior} -- the children's service, yes or no.
+      \end{itemize}
+  - number: "10a"
+    type: short_answer
+    text: |
+      Identify the field that will be the most appropriate primary key for this table.
+  - number: "10b"
+    type: short_answer
+    text: |
+      Complete the table to identify the most appropriate data type for these fields in \texttt{Contract}
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Data type}} \\ \hline
+      \texttt{ContractNumber} & \\ \hline
+      \texttt{Months} & \\ \hline
+      \texttt{EndDate} & \\ \hline
+      \texttt{Sport} & \\ \hline
+      \end{tabular}
+  - number: "10c"
+    type: short_answer
+    text: |
+      Explain the purpose of these structured query language (SQL) statements.
+
+      Statement 1: \texttt{SELECT SUM (Months) FROM Contract;}
+
+      Statement 2: \texttt{SELECT COUNT (News) FROM Contract WHERE News;}
+
+      Statement 1 \hrulefill
+
+      Statement 2 \hrulefill

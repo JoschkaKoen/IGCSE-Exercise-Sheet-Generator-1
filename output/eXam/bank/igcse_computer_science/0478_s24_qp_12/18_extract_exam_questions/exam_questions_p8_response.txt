@@ -1,0 +1,30 @@
+[thinking]
+**Exam Page 8 Transcription - DDoS Analysis**
+
+Okay, so the user wants me to essentially transcribe and format page 8 of this exam paper. Let's break this down. It's a DDoS attack scenario, so that's the core focus. The first part, Question 8, is just a straightforward statement: "A company has a website that is suffering a distributed denial of service (DDoS) attack." No problem there; it's short and sweet, a simple introduction to the topic.
+
+Then comes the interesting part – 8a. They want me to draw and annotate a diagram illustrating the DDoS process. A diagram, hmmm, I'll need to think about the typical components: the compromised machines (the "zombies"), the central target, and the flow of traffic. I'll need to clearly show how the attack originates from multiple sources, overwhelming the target. I'll need to consider how to best represent this visually, focusing on clarity and key vulnerabilities. Also, no separate marker for this question, as it's an open-ended question.
+
+Finally, 8b asks for a solution to prevent the DDoS attack from being successful. Well, there are several methods I can provide, and this section is short, too. There's mention of a single dotted line, which means it doesn't need to be represented as a formal marker.
+
+So, overall, this means three YAML elements need to be generated for the exam page. I'm ready to write the YAML structure for the whole page.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A company has a website that is suffering a distributed denial of service (DDoS) attack.
+  - number: "8a"
+    type: long_answer
+    text: |
+      Draw and annotate a diagram to show the process of the DDoS.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Identify a solution that can be used to help prevent the DDoS attack being successful.
+```

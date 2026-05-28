@@ -1,0 +1,30 @@
+[thinking]
+**Exam Page 14 Transcription**
+
+Okay, so the user wants me to handle page 14 of this exam. Looks like I need to format these questions properly. Let me parse these into a logical structure. Here's what I've got:
+
+*   **Question 8:** "A computer has system software and application software." This is the opening statement for the whole section.
+*   **Question 8a:** "Explain how system software is different to application software." Straightforward enough – it's all about contrasting the two software types.
+*   **Question 8b:** "One type of system software is an operating system. One function of an operating system is to manage peripherals.\n\nDescribe the operating system function managing peripherals." This looks like a multi-part question. First, it defines the operating system as a type of system software. Then, it highlights peripheral management as a key OS function and calls for a description of it.
+
+I've ensured I kept the introductory sentence for "8" and stripped the subquestion prefixes for the sub-questions "8a" and "8b". Now I am confident that I have understood the question and have correctly formatted it as per the instructions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A computer has system software and application software.
+  - number: "8a"
+    type: short_answer
+    text: |
+      Explain how system software is different to application software.
+  - number: "8b"
+    type: short_answer
+    text: |
+      One type of system software is an operating system. One function of an operating system is to manage peripherals.
+
+      Describe the operating system function managing peripherals.

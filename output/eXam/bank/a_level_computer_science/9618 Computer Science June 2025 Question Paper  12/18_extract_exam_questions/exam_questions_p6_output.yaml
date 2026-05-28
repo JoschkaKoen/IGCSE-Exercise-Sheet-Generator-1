@@ -1,0 +1,23 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The computer program is released under a commercial software licence.
+  - number: "3ci"
+    type: long_answer
+    text: |
+      Describe the features of a commercial software licence.
+  - number: "3cii"
+    type: long_answer
+    text: |
+      Explain the reasons why an open source software licence might not be appropriate for the computer program described.
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      Write the logic expressions for the following logic circuit.
+
+      X = \hrulefill
+      Y = \hrulefill

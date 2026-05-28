@@ -1,0 +1,83 @@
+[thinking]
+**Transcribing Questions for Further Analysis**
+
+Okay, so I'm being asked to transcribe three physics questions from this provided image. Let's break down what's being asked.
+
+The first question, number 18, is about the efficiency of an electric motor. It states that a total energy *E* is supplied, a portion *Q* is wasted, and the rest does useful work.  The question is: what is the efficiency? Clearly, efficiency is useful work divided by total input energy. The wasted energy isn't useful, so efficiency is related to `(E-Q)/E`, which is equivalent to  `1 - (Q/E)`.  The options provided seem straightforward: A is `Q/E`, B is `(Q/E) - 1`, C is `1 - (Q/E)`, and D is `(1 - Q)/E`.  I would select option C.
+
+The second question, number 19, involves gravitational potential energy, specifically the equation `ΔEp = mgΔh`. They're asking for a necessary condition for this equation to hold true. The options are: A: "The object must have a constant acceleration of $9.81\text{ m s}^{-2}$," B: "The object must be travelling in a uniform gravitational field," C: "The object must be travelling only in a vertical direction," and D: "The resultant force on the object must be equal to its weight." This equation is derived under the assumption of a uniform gravitational field. Though the object must experience a force equal to its weight, this does not have to be the resultant force. While the object is traveling in the vertical direction, this would also not be an essential condition, as the equation can be applied even if the change in height is along a diagonal path. Thus, the correct answer is B.
+
+The final question, number 20, is a mechanics problem concerning stress in a cylindrical steel rod. It describes a rod with an initial diameter of 1.5 cm and length of 5.2 cm. One end is fixed, and a force of 363 N is applied to the other, causing it to extend to 7.4 cm and the diameter to decrease to 0.60 cm. The question is to calculate the *maximum* stress on the rod. Given that the diameter is 0.60 cm in its minimum (and extended) state, it follows that the maximum stress will be at the section of the smallest diameter. Stress is Force/Area. So I would need to calculate the area based on the minimum diameter, then calculate the stress. Options are A: `$2.1 \times 10^6\text{ Pa}$`, B: `$3.2 \times 10^6\text{ Pa}$`, C: `$5.7 \times 10^6\text{ Pa}$`, and D: `$1.3 \times 10^7\text{ Pa}$`. I would have to work this out, however. The important calculation will involve: `Stress = Force/Area = F / (pi * (d/2)^2)`, where d is the minimum diameter.
+
+
+
+[/thinking]
+
+questions:
+  - number: "18"
+    type: multiple_choice
+    text: |
+      The total energy supplied to an electric motor is $E$. Energy $Q$ is wasted and the remaining energy does useful work.
+
+      What is the efficiency of the motor?
+    options:
+      - letter: A
+        text: |
+          $\frac{Q}{E}$
+      - letter: B
+        text: |
+          $\left(\frac{Q}{E}\right) - 1$
+      - letter: C
+        text: |
+          1 - \left(\frac{Q}{E}\right)
+      - letter: D
+        text: |
+          \frac{(1 - Q)}{E}
+  - number: "19"
+    type: multiple_choice
+    text: |
+      An object travels between two points. The change in gravitational potential energy $\Delta E_p$ of the object is given by
+
+      $$\Delta E_p = mg\Delta h$$
+
+      where $m$ is the mass of the object, $\Delta h$ is its change in height and $g$ is the acceleration of free fall.
+
+      What is a necessary condition in order for the above equation to be valid?
+    options:
+      - letter: A
+        text: |
+          The object must have a constant acceleration of $9.81\text{ m s}^{-2}$.
+      - letter: B
+        text: |
+          The object must be travelling in a uniform gravitational field.
+      - letter: C
+        text: |
+          The object must be travelling only in a vertical direction.
+      - letter: D
+        text: |
+          The resultant force on the object must be equal to its weight.
+  - number: "20"
+    type: multiple_choice
+    text: |
+      A cylindrical steel rod with negligible weight has a diameter of $1.5\text{ cm}$ and a length of $5.2\text{ cm}$.
+
+      The rod is firmly attached at the top end.
+
+      The rod is firmly attached to a machine at the other end that applies a constant force of $363\text{ N}$ to the rod.
+
+      This causes the rod to extend to a length of $7.4\text{ cm}$ and to have a minimum diameter of $0.60\text{ cm}$ in the position shown.
+
+      What is the maximum stress acting on the steel rod when the length is $7.4\text{ cm}$?
+    options:
+      - letter: A
+        text: |
+          $2.1 \times 10^6\text{ Pa}$
+      - letter: B
+        text: |
+          $3.2 \times 10^6\text{ Pa}$
+      - letter: C
+        text: |
+          $5.7 \times 10^6\text{ Pa}$
+      - letter: D
+        text: |
+          $1.3 \times 10^7\text{ Pa}$

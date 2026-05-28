@@ -1,0 +1,41 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A company has multiple sites in different cities.
+      The company has drivers who deliver products to customers. Each driver can connect to the company's WAN (Wide Area Network) whilst out of the office using a smartphone.
+  - number: "6a"
+    type: short_answer
+    text: |
+      State \textbf{two} ways that a WAN is different to a LAN (Local Area Network).
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "6b"
+    type: long_answer
+    text: |
+      The smartphones use the cell phone network to connect to the WAN.
+
+      Explain how data is transmitted using the cell phone network.
+  - number: "6c"
+    type: short_answer
+    text: |
+      Devices that connect to the WAN have an IP address.
+
+      Complete the following description of IP addresses by writing the missing words.
+
+      IPv4 is displayed as four groups of 8-bit numbers separated by \underline{\hspace{1.5em}}.
+
+      Each IPv4 address is 32 bits.
+
+      IPv6 is made of eight groups of 4 \underline{\hspace{1.5em}} numbers separated by colons.
+
+      Multiple consecutive groups of \underline{\hspace{1.5em}} can be replaced with a double colon.
+
+      Each IPv6 address is \underline{\hspace{1.5em}} bits.
+
+      A \underline{\hspace{1.5em}} IP address can change each time the computer connects to a network.
+
+      A \underline{\hspace{1.5em}} IP address can only be accessed by other devices in the same LAN and is assigned by the router within the LAN.
+```

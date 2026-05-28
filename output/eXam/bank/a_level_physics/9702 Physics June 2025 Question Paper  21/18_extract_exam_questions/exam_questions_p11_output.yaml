@@ -1,0 +1,15 @@
+questions:
+  - number: "4bi"
+    type: calculation
+    text: |
+      The distance between the centres of the first and ninth dark fringes is $3.2\text{ cm}$.
+
+      Calculate $D$.
+
+      $D = \hrulefill \text{ m}$
+  - number: "4bii"
+    type: short_answer
+    text: |
+      The slit separation is now gradually decreased from $0.16\text{ mm}$ to $0.04\text{ mm}$. The distance between the centres of adjacent dark fringes is $x$.
+
+      On Fig. 4.3, sketch the variation of $x$ with slit separation.

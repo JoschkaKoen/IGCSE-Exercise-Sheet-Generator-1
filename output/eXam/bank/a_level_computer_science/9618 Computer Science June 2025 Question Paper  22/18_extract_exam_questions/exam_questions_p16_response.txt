@@ -1,0 +1,19 @@
+```yaml
+questions:
+  - number: "7b"
+    type: long_answer
+    text: |
+      A customer can claim a free coffee for every 11 loyalty points.
+
+      The programmer has defined a second program module:
+
+      \begin{tabular}{|p{4cm}|p{10cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      \texttt{PointsReport()} & \begin{itemize} \item output the customer ID for each customer who has 11 or more loyalty points \item output the average loyalty points for all customers in the \texttt{Loyalty} array along with an appropriate message \end{itemize} \\ \hline
+      \end{tabular}
+
+      Write efficient pseudocode for module \texttt{PointsReport()}
+
+      Assume the array contains the data for at least \textbf{one} customer.
+```

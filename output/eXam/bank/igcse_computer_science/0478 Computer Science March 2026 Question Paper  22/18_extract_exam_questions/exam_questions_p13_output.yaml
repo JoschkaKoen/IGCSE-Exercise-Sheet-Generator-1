@@ -1,0 +1,27 @@
+```yaml
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      Give the output that would be produced by the structured query language (SQL) statement:
+
+      \begin{alltt}
+      SELECT IDCode, Country, CommonName
+      FROM NATIONAL_TREES
+      WHERE Continent = "Europe";
+      \end{alltt}
+  - number: "8d"
+    type: short_answer
+    text: |
+      Complete the SQL statement to list only the country, common name and scientific name of the national trees listed for North America, in alphabetical order of their common names.
+
+      \begin{alltt}
+      SELECT \hrulefill
+      \newline
+      FROM \hrulefill
+      \newline
+      WHERE \hrulefill
+      \newline
+      \hrulefill ;
+      \end{alltt}
+```

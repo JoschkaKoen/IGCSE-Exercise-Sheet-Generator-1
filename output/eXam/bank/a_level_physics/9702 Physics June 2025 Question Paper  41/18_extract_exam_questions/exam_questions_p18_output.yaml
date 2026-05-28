@@ -1,0 +1,31 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      Define activity of a radioactive sample.
+  - number: "9b"
+    type: long_answer
+    text: |
+      Explain why the variation with time of the activity of a radioactive sample is exponential in nature.
+  - number: "9c"
+    type: short_answer
+    text: |
+      A sample contains a single radioactive isotope that decays to form a stable isotope.
+
+      The sample has an activity of $180\text{ Bq}$ at time $t = 0$.
+      At a time $8.4\text{ minutes}$ later, the activity is $120\text{ Bq}$.
+  - number: "9ci"
+    type: calculation
+    text: |
+      Determine the decay constant, in $\text{min}^{-1}$, of the radioactive isotope.
+
+      decay constant = \hrulefill $\text{min}^{-1}$
+  - number: "9cii"
+    type: calculation
+    text: |
+      Use your answer in \textbf{(c)(i)} to determine the half-life, in $\text{min}$, of the radioactive isotope.
+
+      half-life = \hrulefill $\text{min}$

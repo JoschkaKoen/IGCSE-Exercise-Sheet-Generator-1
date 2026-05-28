@@ -1,0 +1,48 @@
+questions:
+  - number: "13"
+    type: short_answer
+    text: |
+      The table shows assembly language instructions for a processor that has one register, the Accumulator (ACC).
+
+      \begin{tabular}{|c|c|l|p{7.5cm}|}
+      \hline
+      \textbf{Label} & \multicolumn{2}{c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\
+      \cline{2-3}
+       & \textbf{Opcode} & \textbf{Operand} & \\
+      \hline
+       & \texttt{LDM} & \texttt{\#n} & Load the number n to the ACC \\
+      \hline
+       & \texttt{LDD} & \texttt{<address>} & Load the contents of the location at the given address to the ACC \\
+      \hline
+       & \texttt{LDI} & \texttt{<address>} & The address to be used is at the given address. \newline Load the contents of this second address to the ACC \\
+      \hline
+       & \texttt{ADD} & \texttt{<address>} & Add the contents of the given address to the ACC \\
+      \hline
+       & \texttt{ADD} & \texttt{\#n} & Add the number n to the ACC \\
+      \hline
+       & \texttt{SUB} & \texttt{<address>} & Subtract the contents of the given address from the ACC \\
+      \hline
+       & \texttt{SUB} & \texttt{\#n} & Subtract the number n from the ACC \\
+      \hline
+       & \texttt{STO} & \texttt{<address>} & Store the contents of the ACC at the given address \\
+      \hline
+      \texttt{<label>:} & & \texttt{<data>} & Gives a symbolic address \texttt{<label>} to the memory location with the contents \texttt{<data>} \\
+      \hline
+      \multicolumn{4}{|l|}{\# denotes a denary number, e.g. \#123} \\
+      \multicolumn{4}{|l|}{\texttt{<label>} can be used in place of \texttt{<address>}} \\
+      \hline
+      \end{tabular}
+
+      \vspace{1em}
+
+      The current contents of memory are:
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Address} & \textbf{Contents} \\
+      \hline
+      563 & 125 \\
+      \hline
+      899 & 63 \\
+      \hline
+      \end{tabular}

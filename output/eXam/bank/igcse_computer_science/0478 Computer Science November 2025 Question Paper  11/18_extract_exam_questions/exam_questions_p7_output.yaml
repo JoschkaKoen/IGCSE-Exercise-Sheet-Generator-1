@@ -1,0 +1,45 @@
+questions:
+  - number: "3d"
+    type: short_answer
+    text: |
+      The device has a fingerprint scanner to allow the student to unlock the portable device.
+
+      Circle only \textbf{three} terms that can be used to describe the fingerprint scanner.
+
+      \begin{itemize}
+      \item authentication
+      \item biometric
+      \item malware
+      \item parity check
+      \item firewall
+      \item input device
+      \item output device
+      \item storage device
+      \end{itemize}
+  - number: "4"
+    type: short_answer
+    text: |
+      A computer game development company are reviewing their current security solutions.
+
+      The company wants employees to be aware of how they can identify phishing.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Describe the process of phishing.
+  - number: "4b"
+    type: short_answer
+    text: |
+      Give \textbf{two} ways an employee could identify phishing.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4c"
+    type: short_answer
+    text: |
+      The company has installed anti-malware software on all employees' computers.
+
+      Give \textbf{three} examples of malware that anti-malware software can detect.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

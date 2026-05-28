@@ -1,0 +1,33 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      State what is meant by a fundamental particle.
+  - number: "7b"
+    type: short_answer
+    text: |
+      A nucleus X has 14 nucleons and $p$ protons. The ratio of charge to mass for nucleus X is $4.1 \times 10^7 \text{ C kg}^{-1}$.
+  - number: "7bi"
+    type: calculation
+    text: |
+      Determine $p$.
+
+      $p = $ \hrulefill
+  - number: "7bii"
+    type: short_answer
+    text: |
+      Nucleus X undergoes $\beta^-$ decay to form nucleus Z.
+
+      Complete the equation representing this decay.
+
+      $$\text{}^{14}_{\dots\dots}\text{X} \rightarrow \text{}^{\dots\dots}_{\dots\dots}\text{Z} + \text{}^{\dots\dots}_{\dots\dots}\dots\dots + \text{}^{\dots\dots}_{\dots\dots}\dots\dots$$
+  - number: "7c"
+    type: long_answer
+    text: |
+      A sample of a radioactive substance emits particles that are positively charged and have a continuous range of kinetic energies.
+
+      State and explain whether the nuclei in the sample are undergoing $\alpha$-decay, $\beta^+$ decay or $\beta^-$ decay.

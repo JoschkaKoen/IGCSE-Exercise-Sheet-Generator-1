@@ -1,0 +1,15 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      All the logic errors have been corrected, and the program has been coded.
+
+      Identify and describe \textbf{two} other types of error that the program could contain.
+
+      Type of error \hrulefill
+
+      Description \hrulefill
+
+      Type of error \hrulefill
+
+      Description \hrulefill

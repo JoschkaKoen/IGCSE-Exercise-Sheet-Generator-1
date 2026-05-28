@@ -1,0 +1,30 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      The following table shows part of the instruction set for a processor. The processor has two registers, the Accumulator (ACC) and the Index Register (IX).
+
+      \begin{tabular}{|r|l|p{9cm}|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      LDM & \texttt{\#n} & Immediate addressing. Load the number n to ACC \\ \hline
+      LDD & \texttt{<address>} & Direct addressing. Load the contents of the location at the given address to ACC \\ \hline
+      LDI & \texttt{<address>} & Indirect addressing. The address to be used is at the given address. \newline Load the contents of this second address to ACC \\ \hline
+      LDX & \texttt{<address>} & Indexed addressing. Form the address from \texttt{<address>} + the contents of the index register. Copy the contents of this calculated address to ACC \\ \hline
+      LDR & \texttt{\#n} & Immediate addressing. Load the number n to IX \\ \hline
+      ADD & \texttt{\#n/Bn/\&n} & Add the number n to the ACC \\ \hline
+      ADD & \texttt{<address>} & Add the contents of the given address to the ACC \\ \hline
+      SUB & \texttt{\#n/Bn/\&n} & Subtract the number n from the ACC \\ \hline
+      SUB & \texttt{<address>} & Subtract the contents of the given address from the ACC \\ \hline
+      INC & \texttt{<register>} & Add 1 to the contents of the register (ACC or IX) \\ \hline
+      DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC or IX) \\ \hline
+      \end{tabular}
+
+      \texttt{<address>} can be an absolute or a symbolic address
+      \newline
+      \# denotes a denary number, e.g. \#123
+      \newline
+      B denotes a binary number, e.g. B01001010
+      \newline
+      \& denotes a hexadecimal number, e.g. \&4A

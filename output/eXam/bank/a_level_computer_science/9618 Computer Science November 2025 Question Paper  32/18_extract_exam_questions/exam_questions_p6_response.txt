@@ -1,0 +1,93 @@
+[thinking]
+**Transcribing Exam Page 6: Logic Circuits**
+
+Okay, so the task is to transcribe page 6 of the exam. The stub gives us "6" and "6a." I need to determine the structure. Looking at the page, question 6 starts with "6 (a) The diagram shows a logic circuit." Hmm, so is "6" the main question, or is "6a" the sub-question?
+
+Let's dissect this. Usually, "6" would be the initial statement.  The stub has `text: ""` for both "6" and "6a", so let's populate it.
+
+I see "6 (a) The diagram shows a logic circuit." followed by the diagram (which I *won't* transcribe, of course). Then comes: "Complete the truth table for the given logic circuit. Show your working." and then the table itself.
+
+Right, so "6" is the introductory text and "6a" is the actual problem. Let's start with this structure:
+
+```yaml
+  - number: "6"
+    type: short_answer
+    text: |
+      The diagram shows a logic circuit.
+```
+
+And then for "6a", the core of the question:
+
+```yaml
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the truth table for the given logic circuit.
+      Show your working.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{P} & \textbf{Q} & \textbf{R} & \textbf{S} & \textbf{Z} \\ \hline
+      0 & 0 & 0 & & & & & \\ \hline
+      0 & 0 & 1 & & & & & \\ \hline
+      0 & 1 & 0 & & & & & \\ \hline
+      0 & 1 & 1 & & & & & \\ \hline
+      1 & 0 & 0 & & & & & \\ \hline
+      1 & 0 & 1 & & & & & \\ \hline
+      1 & 1 & 0 & & & & & \\ \hline
+      1 & 1 & 1 & & & & & \\ \hline
+      \end{tabular}
+```
+
+Now, the table. There's "Working space" spanning multiple columns. I'll need to represent that. I could use `\multicolumn{4}{|c|}{\textbf{Working space}}` in the LaTeX. Let's render the full LaTeX table with the "Working space" column header:
+
+```latex
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{} & \multicolumn{4}{c|}{\textbf{Working space}} & \\ \hline
+\textbf{A} & \textbf{B} & \textbf{C} & \textbf{P} & \textbf{Q} & \textbf{R} & \textbf{S} & \textbf{Z} \\ \hline
+0 & 0 & 0 & & & & & \\ \hline
+0 & 0 & 1 & & & & & \\ \hline
+0 & 1 & 0 & & & & & \\ \hline
+0 & 1 & 1 & & & & & \\ \hline
+1 & 0 & 0 & & & & & \\ \hline
+1 & 0 & 1 & & & & & \\ \hline
+1 & 1 & 0 & & & & & \\ \hline
+1 & 1 & 1 & & & & & \\ \hline
+\end{tabular}
+```
+
+Okay, let's verify column counts, just to be sure: Rows 1 and 2 need 8 columns: `\multicolumn{3}{|c|}{}` takes 3, `\multicolumn{4}{c|}{\textbf{Working space}}` takes 4, and the final column. That's 8 columns. And for row 2 (header), we have 8 also. Rows 3-10 need 8 too. Great! That table structure is correct.
+
+I am confident that this is the best way to transcribe the page. "6" contains the setup, and "6a" the problem and the initial truth table. It's a clean transcription!
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      The diagram shows a logic circuit.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the truth table for the given logic circuit.
+      Show your working.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      \multicolumn{3}{|c|}{} & \multicolumn{4}{c|}{\textbf{Working space}} & \\ \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{P} & \textbf{Q} & \textbf{R} & \textbf{S} & \textbf{Z} \\ \hline
+      0 & 0 & 0 & & & & & \\ \hline
+      0 & 0 & 1 & & & & & \\ \hline
+      0 & 1 & 0 & & & & & \\ \hline
+      0 & 1 & 1 & & & & & \\ \hline
+      1 & 0 & 0 & & & & & \\ \hline
+      1 & 0 & 1 & & & & & \\ \hline
+      1 & 1 & 0 & & & & & \\ \hline
+      1 & 1 & 1 & & & & & \\ \hline
+      \end{tabular}
+```

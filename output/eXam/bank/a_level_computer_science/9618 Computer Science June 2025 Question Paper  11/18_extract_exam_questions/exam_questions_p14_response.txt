@@ -1,0 +1,83 @@
+[thinking]
+**Page 14 YAML Stub Population**
+
+Okay, the task is to populate the YAML stub for page 14 of the exam. The stub already includes entries for `number: "8"` and `number: "8a"`. Let's analyze the content of the page. Looking at the prompt, I see that question 8 is a table describing an instruction set. Since the stub includes both "8" and "8a", it suggests that "8" is the parent question and "8a" is a sub-question, or maybe "8a" is the table and notes.
+
+The page itself contains: "8 (a) The following table shows part of the instruction set for a processor. The processor has two registers: the Accumulator (ACC) and an Index Register (IX)." followed by the table, and then some notes.
+
+Since the prompt indicates that I should expect to find the "stem" of each stub entry on the page (unless there's an error), the presence of both "8" and "8a" implies a split. It appears that "8" can be the introductory text, while "8a" will contain the table and notes. Since the page doesn't have other sub-questions or questions, I will consider the best approach is to divide the introduction and the table into two parts.
+
+Therefore, for `8`, I'll use the initial descriptive text:
+```yaml
+text: |
+  The following table shows part of the instruction set for a processor. The processor has two registers: the Accumulator (ACC) and an Index Register (IX).
+```
+
+And for `8a`, I'll create the LaTeX code for the table. It is a 3-column table with "Instruction" spanning 2 columns (Opcode and Operand) and "Explanation" in the third column. Also, escape special characters as required by LaTeX. Let's incorporate all the notes to the table. Let's make the following table with the instructions in LaTeX:
+
+```yaml
+text: |
+  \begin{tabular}{|l|l|l|}
+  \hline
+  \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+  \textbf{Opcode} & \textbf{Operand} & \\ \hline
+  LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+  LDD & \texttt{<address>} & Direct addressing. Load the contents of the location at the given address to ACC \\ \hline
+  LDI & \texttt{<address>} & Indirect addressing. The address to be used is at the given address. Load the contents of this second address to ACC \\ \hline
+  INC & \texttt{<register>} & Add 1 to the contents of the register (ACC or IX) \\ \hline
+  STO & \texttt{<address>} & Store the contents of ACC at the given address \\ \hline
+  ADD & \#n/Bn/\&n & Add the number n to the ACC \\ \hline
+  DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC or IX) \\ \hline
+  JMP & \texttt{<address>} & Jump to the given address \\ \hline
+  CMP & \texttt{<address>} & Compare the contents of ACC with the contents of \texttt{<address>} \\ \hline
+  JPE & \texttt{<address>} & Following a compare instruction, jump to \texttt{<address>} if the compare was True \\ \hline
+  END & & Return control to the operating system \\ \hline
+  \end{tabular}
+
+  \vspace{0.5em}
+  \textit{Notes:} \\
+  ACC denotes Accumulator \\
+  \texttt{<address>} can be an absolute or a symbolic address \\
+  \# denotes a denary number, e.g. \#123 \\
+  B denotes a binary number, e.g. B01001010 \\
+  \& denotes a hexadecimal number, e.g. \&4A
+```
+
+I've escaped special LaTeX characters (`#`, `&`, `<`, `>`) and used `\texttt{}` where appropriate, now this seems correct!
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      The following table shows part of the instruction set for a processor. The processor has two registers: the Accumulator (ACC) and an Index Register (IX).
+  - number: "8a"
+    type: short_answer
+    text: |
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+      LDD & \texttt{<address>} & Direct addressing. Load the contents of the location at the given address to ACC \\ \hline
+      LDI & \texttt{<address>} & Indirect addressing. The address to be used is at the given address. Load the contents of this second address to ACC \\ \hline
+      INC & \texttt{<register>} & Add 1 to the contents of the register (ACC or IX) \\ \hline
+      STO & \texttt{<address>} & Store the contents of ACC at the given address \\ \hline
+      ADD & \#n/Bn/\&n & Add the number n to the ACC \\ \hline
+      DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC or IX) \\ \hline
+      JMP & \texttt{<address>} & Jump to the given address \\ \hline
+      CMP & \texttt{<address>} & Compare the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      JPE & \texttt{<address>} & Following a compare instruction, jump to \texttt{<address>} if the compare was True \\ \hline
+      END & & Return control to the operating system \\ \hline
+      \end{tabular}
+
+      \begin{itemize}
+      \item ACC denotes Accumulator
+      \item \texttt{<address>} can be an absolute or a symbolic address
+      \item \# denotes a denary number, e.g. \#123
+      \item B denotes a binary number, e.g. B01001010
+      \item \& denotes a hexadecimal number, e.g. \&4A
+      \end{itemize}

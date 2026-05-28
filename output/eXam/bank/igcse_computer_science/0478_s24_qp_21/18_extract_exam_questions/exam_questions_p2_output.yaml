@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+      A validation check to make sure that an email address contains an '@' sign is a
+    options:
+      - letter: A
+        text: |
+          range check.
+      - letter: B
+        text: |
+          visual check.
+      - letter: C
+        text: |
+          presence check.
+      - letter: D
+        text: |
+          format check.
+  - number: "2"
+    type: short_answer
+    text: |
+      \textbf{Four} descriptions of programming concepts and \textbf{five} programming concepts are shown.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Draw \textbf{one} line to link each description to the most appropriate programming concept.
+
+      \textbf{Not} all programming concepts will be used.
+
+      \begin{tabular}{ll}
+      \textbf{Description} & \textbf{Programming concept} \\
+      a subroutine that may \textbf{not} return a value & function \\
+       & \\
+      a value that is declared and used within a specific procedure & procedure \\
+       & \\
+      a value that a procedure expects you to supply when it is called & parameter \\
+       & \\
+      a subroutine that will always return a value & global variable \\
+       & \\
+       & local variable \\
+      \end{tabular}
+  - number: "2b"
+    type: short_answer
+    text: |
+      Write the pseudocode to use a procedure named \texttt{Average} that passes the values 25 and 50 to the procedure.
+```

@@ -1,0 +1,50 @@
+[thinking]
+**Examining the Experimental Design Question**
+
+Okay, so I'm presented with an exam question, Question 1, that's a long-answer type, focusing on experimental design. It's asking me to devise a lab experiment to test a relationship between two variables. The core of the problem involves a turntable, a sphere of putty, and a relationship given by: `Kf_0/f = βK + mr^2`. My task is to outline a complete experimental plan to validate this relationship and determine the constants `β` and `K`.
+
+I need to start by clearly stating the context: A horizontal turntable has a sphere of putty dropped on it, changing its rotational frequency. The question provides the mathematical relationship linking the initial and final frequencies (`f_0` and `f`), putty mass (`m`), the distance from the centre (`r`), and constants (`β` and `K`). Importantly, it highlights that Fig. 1.1 and Fig. 1.2, which describe the setup, are omitted in the YAML formatting, which is fine, I can visualize the setup.
+
+My response should include a proper diagram of the experimental setup, detailing the equipment arrangement. The core of my plan will be the procedure: How I'll manipulate the variables, precisely measure them, and handle the data. It needs to include a clear list of what I will measure - namely f, f_0 and m. I'll need to define how I'll control variables, like ensuring a consistent distance `r` for the putty from the centre, and the initial rotational speed (`f_0`), ensuring that the experiment is as accurate as possible. Finally, I'll need to analyze the data, which means devising a strategy to determine the values of `β` and `K` from the measurements. This probably means, I will need to plot the data in a linear fashion, according to the mathematical model provided, and work out how the gradient and intercept relate to the constants. I must also consider and list any safety precautions.
+
+The provided YAML structure shows how to format the question details, and I will adopt the correct structure. I'll focus on the procedural details: ensuring clarity, precision, and a robust approach to data analysis in order to show my understanding and expertise in experimental design.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: long_answer
+    text: |
+      Fig. 1.1 shows a horizontal turntable.
+
+      Point C is at the centre of the turntable. Point P is a distance $r$ from the centre.
+
+      Fig. 1.2 shows a side view of a d.c. motor attached to the turntable with a belt.
+
+      The motor is used to rotate the turntable at frequency $f_0$. The motor is switched off and the turntable continues to rotate at frequency $f_0$.
+
+      A sphere of adhesive putty of mass $m$ is dropped onto the turntable at point P. The frequency of the turntable is now $f$.
+
+      It is suggested that $f$ is related to $m$ by the relationship
+
+      $$\frac{Kf_0}{f} = \beta K + mr^2$$
+
+      where $\beta$ and $K$ are constants.
+
+      Plan a laboratory experiment to test the relationship between $f$ and $m$.
+
+      Draw a diagram showing the arrangement of your equipment.
+
+      Explain how the results could be used to determine values for $\beta$ and $K$.
+
+      In your plan you should include:
+
+      \begin{itemize}
+      \item the procedure to be followed
+      \item the measurements to be taken
+      \item the control of variables
+      \item the analysis of the data
+      \item any safety precautions to be taken.
+      \end{itemize}

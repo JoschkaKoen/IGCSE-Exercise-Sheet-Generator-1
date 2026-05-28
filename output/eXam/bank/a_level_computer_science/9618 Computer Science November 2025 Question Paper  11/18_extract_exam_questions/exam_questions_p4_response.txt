@@ -1,0 +1,41 @@
+[thinking]
+**Examining the Work Experience Database Questions**
+
+Okay, so the user wants me to transcribe page 4 of this exam paper. Let's see, the focus is on a relational database called `WORKEXPERIENCE`. The questions on this page are straightforward and fall into the classic database design pattern.
+
+First, there's question "2", which sets the scene. It's an introduction to the database, describing the relationships between students and companies for work experience placements. We are given the table structures: `STUDENT`, `PLACEMENT`, and `COMPANY`.
+
+Then, question "2a" wants me to fill in the entity-relationship (E-R) diagram for `WORKEXPERIENCE`. That's a classic task, showing the entities (tables) and their relationships (primary and foreign keys). I'll need to remember to skip the actual diagram image itself, as per the guidelines.
+
+Finally, "2b" asks for an explanation of why the database is in Third Normal Form (3NF). This means I need to discuss the dependencies and ensure there are no transitive dependencies.
+This YAML transcription will make it easy to then present this to the user.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A relational database, \texttt{WORKEXPERIENCE}, stores data about students and the companies where they complete work experience.
+
+      Students can complete multiple work experience placements but can only complete one placement at a time.
+
+      Students can complete more than one placement at the same company.
+
+      Part of the database is shown:
+
+      \texttt{STUDENT(StudentID, FirstName, TelephoneNumber, UniversityName)}
+
+      \texttt{PLACEMENT(PlacementID, StudentID, CompanyID, StartDate, EndDate, Complete)}
+
+      \texttt{COMPANY(CompanyID, CompanyName, MaxStudentsPerPlacement)}
+  - number: "2a"
+    type: short_answer
+    text: |
+      Complete the entity-relationship (E-R) diagram for the database \texttt{WORKEXPERIENCE}.
+  - number: "2b"
+    type: short_answer
+    text: |
+      Explain why the database \texttt{WORKEXPERIENCE} is in Third Normal Form (3NF).

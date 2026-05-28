@@ -1,0 +1,16 @@
+[thinking]
+**Transcribing Question 10b: Password Rules**
+
+Alright, the user wants me to transcribe question "10b" from this page. No problem, let's get right to it. First, I'm taking a look at the page layout; I see trace tables at the top, specifically mentioning "Data: M!word" and "Data: My!Hidden." Interesting. Then, there it is: Question (b), "State the rules that the password must meet," worth 3 marks. The stub confirms this is indeed question "10b."
+
+So, time to get to work. Let's build that YAML!
+
+
+
+[/thinking]
+
+questions:
+  - number: "10b"
+    type: short_answer
+    text: |
+      State the rules that the password must meet.

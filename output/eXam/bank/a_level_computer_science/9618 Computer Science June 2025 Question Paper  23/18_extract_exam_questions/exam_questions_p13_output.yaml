@@ -1,0 +1,20 @@
+```yaml
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      The structure chart uses the two symbols shown.
+
+      Complete the table to explain what each symbol means and how the relevant modules in the structure chart are affected.
+
+      \begin{tabular}{|c|p{10cm}|}
+      \hline
+      \textbf{Symbol} & \textbf{Explanation} \\ \hline
+      $\lozenge$ & \\
+      & \\
+      & \\ \hline
+      $\curvearrowright$ & \\
+      & \\
+      & \\ \hline
+      \end{tabular}
+```

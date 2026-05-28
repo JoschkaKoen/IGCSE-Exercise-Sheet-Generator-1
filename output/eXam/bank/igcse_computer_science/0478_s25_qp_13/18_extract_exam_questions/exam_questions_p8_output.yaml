@@ -1,0 +1,39 @@
+questions:
+  - number: "5b"
+    type: multiple_choice
+    text: |
+      The website asks a user to input their username and password to log into their account.
+
+      The company want to make their login system more secure.
+
+      Tick ($\checkmark$) \textbf{one} box to show \textbf{one} other security method that could be added to make the login system more secure.
+    options:
+      - letter: A
+        text: |
+          access levels
+      - letter: B
+        text: |
+          firewall
+      - letter: C
+        text: |
+          spyware
+      - letter: D
+        text: |
+          two-step verification
+  - number: "5c"
+    type: short_answer
+    text: |
+      The company uses a proxy server to keep the web server safe from distributed denial of service (DDoS) attacks.
+  - number: "5ci"
+    type: short_answer
+    text: |
+      Complete and annotate a diagram to show how a DDoS attack is carried out on the web server.
+
+      \framebox{web server}
+  - number: "5cii"
+    type: short_answer
+    text: |
+      Identify \textbf{two} tasks that can be performed by a proxy server that are not performed by a firewall.
+
+      1. \hrulefill
+      2. \hrulefill

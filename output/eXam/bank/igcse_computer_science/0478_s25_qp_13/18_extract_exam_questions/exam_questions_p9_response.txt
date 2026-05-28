@@ -1,0 +1,111 @@
+[thinking]
+**My YAML Generation Process for the Exam Questions**
+
+Okay, let's break this down. I see page 9 of an exam paper and it has sections 5d, 5di, 5dii and 5diii. My task is to translate these questions into a YAML format. I need to make sure the structure and the formatting are spot on.
+
+First, I need to look at each question and identify its structure. For **5d**, it looks like a short answer question that gives context. The text provided is about a company using cookies for shopping cart functionality. I'll translate that as the *text* for the short answer.
+
+Next up, **5di**, it's a multiple-choice question asking for the type of cookie used. I'll need to parse the multiple choice options and map them into the YAML structure with letters as the keys.
+
+**5dii** asks for three other cookie uses, and **5diii** asks for two functions of a browser. These are clearly short answer questions with numbered slots. I'll remember to format the answer slots correctly, using `\hrulefill` within the `text` field and be sure to provide three slots for **5dii** and two slots for **5diii**.
+
+Before I build my YAML, I will need to take a quick review of the rules to make sure I am on the right track. No double quotes in the free text fields! Block scalar `|` is the way to go. Forget about that `\dotfill`, it's `\hrulefill` for my answer slots. Prefixes like (i), (ii), etc, will be discarded. Also, the math delimiter in the first question is okay, so that won't require any conversion.
+
+Now for each question, let's structure the YAML.
+
+*   **5d** will be a short answer:
+    ```yaml
+    number: "5d"
+    type: short_answer
+    text: |
+      The company uses cookies to allow users to keep items in a shopping cart. The items remain in the cart after the user closes their web browser.
+    ```
+*   **5di** is a multiple-choice:
+    ```yaml
+    number: "5di"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) one box to show the type of cookie that is used for this process.
+    options:
+      - letter: A
+        text: |
+          dynamic
+      - letter: B
+        text: |
+          persistent
+      - letter: C
+        text: |
+          session
+      - letter: D
+        text: |
+          static
+    ```
+*   **5dii** is a short answer:
+    ```yaml
+    number: "5dii"
+    type: short_answer
+    text: |
+      Give \textbf{three} other ways that the company can use cookies.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+    ```
+*   **5diii** is another short answer:
+    ```yaml
+    number: "5diii"
+    type: short_answer
+    text: |
+      Cookies are stored by a web browser.
+
+      Give \textbf{two} other functions of a web browser.
+
+      1. \hrulefill
+      2. \hrulefill
+    ```
+
+After going through this process, I am confident that these answers meet the requirements. It is time to create the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5d"
+    type: short_answer
+    text: |
+      The company uses cookies to allow users to keep items in a shopping cart. The items remain in the cart after the user closes their web browser.
+  - number: "5di"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) one box to show the type of cookie that is used for this process.
+    options:
+      - letter: A
+        text: |
+          dynamic
+      - letter: B
+        text: |
+          persistent
+      - letter: C
+        text: |
+          session
+      - letter: D
+        text: |
+          static
+  - number: "5dii"
+    type: short_answer
+    text: |
+      Give \textbf{three} other ways that the company can use cookies.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "5diii"
+    type: short_answer
+    text: |
+      Cookies are stored by a web browser.
+
+      Give \textbf{two} other functions of a web browser.
+
+      1. \hrulefill
+      2. \hrulefill

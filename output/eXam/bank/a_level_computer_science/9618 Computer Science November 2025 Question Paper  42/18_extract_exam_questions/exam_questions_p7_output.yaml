@@ -1,0 +1,50 @@
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2di"
+    type: short_answer
+    text: |
+      The main program:
+
+      \begin{itemize}
+      \item outputs the contents of the array using \texttt{PrintArray()}
+      \item sorts the array using \texttt{BubbleSort()}
+      \item outputs "Sorted"
+      \item outputs the contents of the sorted array using \texttt{PrintArray()}
+      \end{itemize}
+
+      Write program code for the main program.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{2(d)(i)} in the evidence document.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+      Copy and paste the screenshot(s) into part \textbf{2(d)(ii)} in the evidence document.
+  - number: "2e"
+    type: short_answer
+    text: |
+      The recursive function \texttt{RecursiveBinarySearch()} takes four parameters:
+
+      \begin{itemize}
+      \item an integer array
+      \item the lower bound of the array
+      \item the upper bound of the array
+      \item the value to find in the array.
+      \end{itemize}
+
+      The recursive function performs a binary search to find the index of the value in the array.
+
+      The function returns the index of the value if it is found. The function returns $-1$ if the value is not found.
+
+      Write program code for \texttt{RecursiveBinarySearch()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{2(e)} in the evidence document.

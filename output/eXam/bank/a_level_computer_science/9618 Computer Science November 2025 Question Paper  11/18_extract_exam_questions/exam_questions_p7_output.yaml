@@ -1,0 +1,29 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: |
+      Draw a logic circuit for the logic expression:
+
+      $$X = \text{NOT } ((A \text{ NAND } B) \text{ XOR } (\text{NOT } A \text{ OR } \text{NOT } C))$$
+  - number: "3b"
+    type: short_answer
+    text: |
+      Write the logic expression for the following truth table.
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{R} & \textbf{S} & \textbf{T} & \textbf{Q} \\ \hline
+      0 & 0 & 0 & 0 \\ \hline
+      0 & 0 & 1 & 1 \\ \hline
+      0 & 1 & 0 & 0 \\ \hline
+      0 & 1 & 1 & 0 \\ \hline
+      1 & 0 & 0 & 0 \\ \hline
+      1 & 0 & 1 & 0 \\ \hline
+      1 & 1 & 0 & 1 \\ \hline
+      1 & 1 & 1 & 0 \\ \hline
+      \end{tabular}
+
+      Q = \hrulefill

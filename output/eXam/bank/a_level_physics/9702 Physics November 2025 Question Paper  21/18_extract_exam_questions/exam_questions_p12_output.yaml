@@ -1,0 +1,18 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: short_answer
+    text: |
+      State Kirchhoff's first law.
+  - number: "5b"
+    type: short_answer
+    text: |
+      Fig. 5.1 shows a circuit containing a thermistor T that has a negative temperature coefficient.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      The thermistor has resistance $R_0$ at a temperature of $0^\circ\text{C}$.
+
+      On Fig. 5.2, sketch a possible variation of the resistance of the thermistor with temperature between $0^\circ\text{C}$ and $100^\circ\text{C}$.

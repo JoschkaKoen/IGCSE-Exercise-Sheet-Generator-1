@@ -1,0 +1,15 @@
+  - number: "6"
+    type: short_answer
+    text: ""
+  - number: "6a"
+    type: calculation
+    text: ""
+  - number: "6b"
+    type: calculation
+    text: ""
+  - number: "6c"
+    type: calculation
+    text: ""
+  - number: "6d"
+    type: calculation
+    text: ""

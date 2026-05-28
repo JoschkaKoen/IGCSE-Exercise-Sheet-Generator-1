@@ -1,0 +1,117 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 2**
+
+Okay, the task is to generate the YAML content for page 2 of the exam. The user needs me to create the structure for the questions. Let's break this down systematically.
+
+First, I need to create a section for each question and its relevant details. I can see the outline.
+
+*   **Question 1:** is a short answer question on the concept of measuring data. It's straightforward, here's the code:
+    ```yaml
+    number: "1"
+    type: short_answer
+    text: |
+      Data can be measured using different units of storage.
+    ```
+
+*   **Question 1a:** This is a multiple-choice question focusing on the largest unit of data storage. I need to be careful to include the options with correct letter labels:
+    ```yaml
+    number: "1a"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to show which of the following is the largest unit of data storage.
+    options:
+      - letter: A
+        text: |
+          tebibyte (TiB)
+      - letter: B
+        text: |
+          pebibyte (PiB)
+      - letter: C
+        text: |
+          mebibyte (MiB)
+      - letter: D
+        text: |
+          gibibyte (GiB)
+    ```
+
+*   **Question 1b:** This short-answer question concerns primary storage. I need to clearly define the expected format. I see it has both an Example and Explanation field. My plan is:
+    ```yaml
+    number: "1b"
+    type: short_answer
+    text: |
+      A computer has primary storage.
+
+      Give \textbf{one} example of primary storage.
+
+      Explain the purpose of your chosen example.
+
+      Example \hrulefill
+
+      Explanation
+    ```
+    This should correctly render the example and explanation fields.
+
+*   **Question 1c:** Another concise short answer is about binary representation:
+    ```yaml
+    number: "1c"
+    type: short_answer
+    text: |
+      All data is converted to binary to be processed by a computer.
+    ```
+
+*   **Question 1ci:** Finally, there's a calculation involving binary conversion. I don't need to indicate any markers for the student to show their work because it is a space for the student to use for their work.
+    ```yaml
+    number: "1ci"
+    type: calculation
+    text: |
+      Calculate the binary number for the denary number 175. Show all your working.
+    ```
+
+Now, I'm confident that this YAML stub accurately represents the structure and content of page 2. I'm ready to move on.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Data can be measured using different units of storage.
+  - number: "1a"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to show which of the following is the largest unit of data storage.
+    options:
+      - letter: A
+        text: |
+          tebibyte (TiB)
+      - letter: B
+        text: |
+          pebibyte (PiB)
+      - letter: C
+        text: |
+          mebibyte (MiB)
+      - letter: D
+        text: |
+          gibibyte (GiB)
+  - number: "1b"
+    type: short_answer
+    text: |
+      A computer has primary storage.
+
+      Give \textbf{one} example of primary storage.
+
+      Explain the purpose of your chosen example.
+
+      Example \hrulefill
+
+      Explanation
+  - number: "1c"
+    type: short_answer
+    text: |
+      All data is converted to binary to be processed by a computer.
+  - number: "1ci"
+    type: calculation
+    text: |
+      Calculate the binary number for the denary number 175. Show all your working.

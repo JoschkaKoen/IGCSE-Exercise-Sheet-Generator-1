@@ -1,0 +1,830 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores positive integers in a circular queue.
+
+
+    The queue is stored as a global 1D array of 20 integers with the identifier \texttt{Queue}.
+    Each index is initialised with the data $-1$
+
+
+    The global variable \texttt{HeadPointer}, initialised to $-1$, points to the first
+    element in the queue.
+
+    The global variable \texttt{TailPointer}, initialised to $-1$, points to the last
+    element in the queue.
+
+    The global variable \texttt{NumberItems}, initialised to 0, stores the number
+    of items in the queue.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write program code to declare and initialise \texttt{Queue}, \texttt{HeadPointer},
+      \texttt{TailPointer} and \texttt{NumberItems}
+
+
+      Save your program as \textbf{Question1\_J25}.
+
+
+      Copy and paste the program code into part \textbf{1(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The function \texttt{Enqueue()}:
+
+
+      \begin{itemize}
+
+      \item takes an integer as a parameter
+
+      \item checks if the queue is full
+
+      \item returns \texttt{FALSE} if the queue is full
+
+      \item stores the parameter in the next position in the queue and returns \texttt{TRUE}
+      if the queue is \textbf{not} full
+
+      \item updates the appropriate pointers and \texttt{NumberItems}
+
+      \end{itemize}
+
+
+      Write program code for \texttt{Enqueue()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(b)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The main program:
+
+
+      \begin{itemize}
+
+      \item attempts to store each of the integers 1 to 25 (inclusive) in the queue
+      in ascending numerical order using \texttt{Enqueue()}
+
+      \item outputs the integer that was passed to \texttt{Enqueue()} and "Successful"
+      if it was stored in the queue, or "Unsuccessful" if it was not stored in the
+      queue.
+
+      \end{itemize}
+
+
+      For example:
+
+      \begin{itemize}
+
+      \item if the integer 5 is passed to \texttt{Enqueue()} and is stored in the
+      queue, the output will be: "5 Successful"
+
+      \item if the integer 23 is passed to \texttt{Enqueue()} and is not stored in
+      the queue, the output will be: "23 Unsuccessful"
+
+      \end{itemize}
+
+
+      Write program code for the main program.
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The function \texttt{Dequeue()} returns -1 if the queue is empty. If the
+      queue is not empty, the function returns the next item in the queue, updates
+      the appropriate pointers and updates \texttt{NumberItems}
+
+
+      Write program code for \texttt{Dequeue()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{1(d)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1e
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1ei
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code to extend the main program to call \texttt{Dequeue()}
+        twice and output the return value each time.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{1(e)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1eii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{1(e)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program reads data from a text file, splits the data depending on its content
+    and stores the separated data into different files.
+
+
+    The text file \texttt{TheData.txt} contains 72 lines of data. Each line of data
+    has an integer number and a string colour that are separated by a comma. For example,
+    the first line in the file is:
+
+
+    \texttt{10,red}
+
+
+    The integer is \texttt{10} and the string is \texttt{"red"}
+
+
+    The file contains six different colours: red, green, blue, orange, yellow, pink.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'The function \texttt{ReadData()}:
+
+
+      \begin{itemize}
+
+      \item prompts the user to enter a filename and reads this filename from the
+      user
+
+      \item opens the file and reads each line of data into a 1D array
+
+      \item returns the populated 1D array.
+
+      \end{itemize}
+
+
+      The function needs to work for a file that contains an unknown number of lines.
+
+
+      Write program code for \texttt{ReadData()}
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      Save your program as \textbf{Question2\_J25}. \\
+
+      \\
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The procedure \texttt{SplitData()} takes a 1D string array as a parameter
+      with the identifier \texttt{DataArray}
+
+
+      The procedure declares six 1D arrays: one array for each colour that appears
+      in the file (red, green, blue, orange, yellow, pink).
+
+
+      The procedure accesses each string in \texttt{DataArray}. The data in each string
+      is split into the integer and the colour. The integer is stored in the array
+      that matches the colour.
+
+
+      For example, the first string in \texttt{DataArray} has the integer \texttt{10}
+      and the colour \texttt{red}, so the integer \texttt{10} is stored in the array
+      for the colour red.
+
+
+      Write program code for \texttt{SplitData()}
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      Save your program. \\
+
+      \\
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The procedure \texttt{StoreData()}:
+
+
+      \begin{itemize}
+
+      \item takes \textbf{two} parameters: a 1D array \texttt{DataToStore} and a filename
+
+      \item opens the text file with the filename that is passed as a parameter
+
+      \item appends each item of data from \texttt{DataToStore} to a new line in the
+      text file
+
+      \item uses exception handling when opening and writing data to the text file.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{StoreData()}
+
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Each of the six colours has a blank text file where the numbers will be
+      stored. The names of these six text files are:
+
+
+      \begin{itemize}
+
+      \item Blue.txt
+
+      \item Green.txt
+
+      \item Orange.txt
+
+      \item Pink.txt
+
+      \item Red.txt
+
+      \item Yellow.txt
+
+      \end{itemize}
+
+
+      The procedure \texttt{SplitData()} needs amending to call \texttt{StoreData()}
+      six times, with each of the six colour arrays and the name of the text file
+      that corresponds to that colour.
+
+
+      For example, \texttt{StoreData()} will be called with the red array and the
+      file name "Red.txt"
+
+
+      Write program code to amend \texttt{SplitData()}
+
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(d)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The main program calls \texttt{ReadData()} and then \texttt{SplitData()}
+    answer_options: []
+    subquestions:
+    - number: 2ei
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write program code for the main program.
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{2(e)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2eii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Test your program. Input the text "TheData.txt" when prompted.
+
+
+        Take a screenshot of the output(s) and a screenshot showing the content of
+        the file that stores the red numbers.
+
+
+        Save your program.
+
+        Copy and paste the screenshot(s) into part \textbf{2(e)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores data in a binary tree that is designed using Object-Oriented
+    Programming (OOP).
+
+
+    The tree stores data in ascending numerical order, for example:
+
+
+    The class \texttt{Node} stores data about the nodes.
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Node}} \\
+
+    \hline
+
+    \texttt{NodeData : Integer} & stores the node''s integer data \\
+
+    \hline
+
+    \texttt{LeftNode : Node} & stores the node that is stored to the left of the current
+    node, or a null value if there is no node to the left \\
+
+    \hline
+
+    \texttt{RightNode : Node} & stores the node that is stored to the right of the
+    current node, or a null value if there is no node to the right \\
+
+    \hline
+
+    \texttt{Constructor()} & initialises \texttt{NodeData} to its parameter value;
+    initialises \texttt{LeftNode} and \texttt{RightNode} to a null value \\
+
+    \hline
+
+    \texttt{GetLeft()} & returns \texttt{LeftNode} \\
+
+    \hline
+
+    \texttt{GetRight()} & returns \texttt{RightNode} \\
+
+    \hline
+
+    \texttt{GetData()} & returns \texttt{NodeData} \\
+
+    \hline
+
+    \texttt{SetLeft()} & takes an object of type \texttt{Node} as a parameter and
+    stores it in \texttt{LeftNode} \\
+
+    \hline
+
+    \texttt{SetRight()} & takes an object of type \texttt{Node} as a parameter and
+    stores it in \texttt{RightNode} \\
+
+    \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Write program code to declare the class \texttt{Node} and its constructor.
+
+
+      Do \textbf{not} declare the other methods.
+
+
+      Use your programming language appropriate constructor.
+
+
+      If you are writing in Python, include attribute declarations using comments.
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      Save your program as \textbf{Question3\_J25}. \\
+
+      Copy and paste the program code into part \textbf{3(a)(i)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Node} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program as \textbf{Question3\_J25}. \\
+
+        Copy and paste the program code into part \textbf{3(a)(i)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write program code for the \textbf{three} get methods.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(a)(ii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3aiii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The method \texttt{SetLeft()} takes an object of type \texttt{Node} as
+        a parameter. The method stores the parameter in the attribute \texttt{LeftNode}
+
+
+        The method \texttt{SetRight()} takes an object of type \texttt{Node} as a
+        parameter. The method stores the parameter in the attribute \texttt{RightNode}
+
+
+        Write program code for \texttt{SetLeft()} and \texttt{SetRight()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(a)(iii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the main program to declare \textbf{five} objects of type \texttt{Node}
+      :
+
+
+      \begin{itemize}
+
+      \item Node 1 with the data 10
+
+      \item Node 2 with the data 20
+
+      \item Node 3 with the data 5
+
+      \item Node 4 with the data 15
+
+      \item Node 5 with the data 7
+
+      \end{itemize}
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      Save your program. \\
+
+      Copy and paste the program code into part \textbf{3(b)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The class \texttt{Tree} stores the tree.
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{Tree}} \\ \hline
+
+      \texttt{FirstNode : Node} & stores the root node in the tree \\ \hline
+
+      \texttt{Constructor()} & initialises \texttt{FirstNode} to its parameter value
+      \\ \hline
+
+      \texttt{GetRootNode()} & returns the node stored in \texttt{FirstNode} \\ \hline
+
+      \texttt{Insert()} & stores its parameter node in the correct position in the
+      tree \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code to declare the class \texttt{Tree} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(c)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Write program code for \texttt{GetRootNode()}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3ciii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 6
+      text: 'The method \texttt{Insert()} takes a node as a parameter and then searches
+        the tree to find the position to insert the new node by:
+
+
+        \begin{itemize}
+
+        \item checking whether the node''s data is less than or greater than the root
+        node''s data
+
+        \item moving to the left node if the data is less than the root node''s data
+
+        \item moving to the right node if the data is greater than or equal to the
+        root node''s data
+
+        \item repeating until the final position of the node is found and stores the
+        node in that position.
+
+        \end{itemize}
+
+
+        Write program code for \texttt{Insert()}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(c)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The recursive procedure \texttt{OutputInOrder()} outputs the data stored
+      in the binary tree in ascending numerical order.
+
+
+      The procedure takes a \texttt{Node} object as a parameter and then:
+
+      \begin{itemize}
+
+      \item checks if the left node is null. If there is a left node, the function
+      calls itself with the left node
+
+      \item outputs the data of the current node
+
+      \item checks if the right node is null. If there is a right node, the function
+      calls itself with the right node.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{OutputInOrder()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{3(d)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 3e
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 3ei
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write program code to extend the main program to:
+
+        \begin{itemize}
+
+        \item create a new object of type \texttt{Tree} with the node containing the
+        data 10 as the first node
+
+        \item insert the nodes with the values 20, 5, 15 and 7 into the tree in the
+        order given
+
+        \item call \texttt{OutputInOrder()} with the tree''s root node as a parameter.
+
+        \end{itemize}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(e)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3eii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{3(e)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []

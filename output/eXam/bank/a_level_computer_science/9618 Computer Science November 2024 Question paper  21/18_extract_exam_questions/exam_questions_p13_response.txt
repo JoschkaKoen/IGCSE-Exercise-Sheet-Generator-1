@@ -1,0 +1,40 @@
+[thinking]
+**Transcribing Question 6b**
+
+Okay, the user wants me to transcribe question "6b" from this page. Let's see... the question prefix is `(b)`. The text is "Complete the pseudocode for the function GetDate(). Date functions from the **insert** should be used in your solution." Alright, and then there's a code block that gives the function signature `FUNCTION GetDate(ProductionDate : DATE, ShelfLife : INTEGER) RETURNS DATE`, followed by a bunch of dotted lines, and `ENDFUNCTION`. The question is worth `[7]` marks.
+
+Let's format this correctly. Right, the instructions say to use `\begin{alltt}...\end{alltt}` for multi-line code. The question *contains* a code template with a big blank space, which is interesting. Should the blank space be represented, or left blank? The instructions state "Standalone dotted answer line(s) below an open-ended prompt: Nothing — the prompt + marks count carries the meaning". However, this template is embedded in the prompt. I think I will render just the template as it's cleaner.
+
+Here's the final LaTeX output:
+
+```latex
+Complete the pseudocode for the function \texttt{GetDate()}.
+
+Date functions from the \textbf{insert} should be used in your solution.
+
+\begin{alltt}
+FUNCTION GetDate(ProductionDate : DATE, ShelfLife : INTEGER) RETURNS DATE
+
+ENDFUNCTION
+\end{alltt}
+```
+
+That should be perfectly clear and standard.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6b"
+    type: long_answer
+    text: |
+      Complete the pseudocode for the function \texttt{GetDate()}.
+
+      Date functions from the \textbf{insert} should be used in your solution.
+
+      \begin{alltt}
+      FUNCTION GetDate(ProductionDate : DATE, ShelfLife : INTEGER) RETURNS DATE
+
+      ENDFUNCTION
+      \end{alltt}

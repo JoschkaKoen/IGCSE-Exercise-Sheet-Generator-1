@@ -1,0 +1,71 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, the user wants me to transcribe two physics questions from an image. Let's get to it.
+
+First, question 11. It's a multiple-choice question about a collision between two objects, X and Y. The collision is perfectly elastic, no external forces are acting, and they separate after impact. I need to identify which word equation isn't correct. The options are:
+
+*   A: `during the collision, (force acting on object X) + (force acting on object Y) = zero`
+*   B: `(relative speed of approach of X and Y) + (relative speed of separation of X and Y) = zero`
+*   C: `(total kinetic energy before collision) = (total kinetic energy after collision)`
+*   D: `(total momentum before collision) = (total momentum after collision)`
+
+Now for question 12. This one's about a submerged sphere. A stationary sphere is fully submerged in a liquid. I know the radius ($r$), the density of the liquid ($\rho$), and the acceleration due to gravity ($g$). The air pressure on the liquid surface is $P_{\text{A}}$. The question is asking for the pressure at the lowest point of the sphere. The options given are:
+
+*   A: `$P_{\text{A}} + \frac{4}{3}\pi r^3 \rho g$`
+*   B: `$P_{\text{A}} - \frac{4}{3}\pi r^3 \rho g$`
+*   C: `$2r\rho g + P_{\text{A}}$`
+*   D: `$2r\rho g - P_{\text{A}}$`
+
+I rechecked the rendered options from the OCR, to ensure no data loss.
+Everything seems accurate. I'm ready to present these questions. I'll get the YAML ready.
+
+
+
+[/thinking]
+
+questions:
+  - number: "11"
+    type: multiple_choice
+    text: |
+      A moving object X collides with a stationary object Y.
+
+      The objects separate after the collision.
+
+      The collision is perfectly elastic and there are no external forces acting.
+
+      Which word equation is \textbf{not} correct?
+    options:
+      - letter: A
+        text: |
+          during the collision, (force acting on object X) + (force acting on object Y) = zero
+      - letter: B
+        text: |
+          (relative speed of approach of X and Y) + (relative speed of separation of X and Y) = zero
+      - letter: C
+        text: |
+          (total kinetic energy before collision) = (total kinetic energy after collision)
+      - letter: D
+        text: |
+          (total momentum before collision) = (total momentum after collision)
+  - number: "12"
+    type: multiple_choice
+    text: |
+      The diagram shows a stationary sphere that is just fully submerged in a liquid. The radius of the sphere is $r$ and the density of the liquid is $\rho$. The acceleration of free fall is $g$.
+
+      The air exerts pressure $P_{\text{A}}$ on the surface of the liquid.
+
+      What is the pressure at the lowest point of the sphere?
+    options:
+      - letter: A
+        text: |
+          $P_{\text{A}} + \frac{4}{3}\pi r^3 \rho g$
+      - letter: B
+        text: |
+          $P_{\text{A}} - \frac{4}{3}\pi r^3 \rho g$
+      - letter: C
+        text: |
+          $2r\rho g + P_{\text{A}}$
+      - letter: D
+        text: |
+          $2r\rho g - P_{\text{A}}$

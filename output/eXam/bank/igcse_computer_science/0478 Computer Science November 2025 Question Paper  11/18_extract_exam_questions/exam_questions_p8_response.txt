@@ -1,0 +1,53 @@
+[thinking]
+**Exam Page 8: Question Formatting**
+
+Okay, so the user wants me to format some exam questions from page 8. It looks like they're all related to high-level languages and their use in game development. My job is to translate these questions into a specific YAML format for rendering.
+
+First, there's a straightforward introductory question, labelled "4d", stating that developers are using a high-level language. Nothing to format there, just information.
+
+Next, "4di" asks for a definition of "high-level language". Simple short answer.
+
+Then comes "4dii," which presents a benefit (easy debugging) and then demands *two* more benefits. I need to make sure I create space for those answers with `\hrulefill`. I'll format that as YAML with the numbered slots as per the instructions provided. The formatting rules specify a newline after the prompt, and then numbered lines without blank lines between them, and using `\hrulefill`.
+
+"4diii" is similar, but this time it asks for *one* drawback of high-level languages. Again, another short answer. I'll need to remember to include a prompt and then a numbered slot.
+
+Finally, "4div" requires an explanation of why an interpreter might be more suitable than a compiler for game development. This is a longer answer, so that goes into the "long_answer" type.
+
+So I need to create YAML blocks for each sub-question, including the appropriate type ("short_answer" or "long_answer") and the correctly formatted text with the `\hrulefill` for the answer spaces, paying close attention to the formatting rules, especially the numbered answer sections with `\hrulefill` and the newlines. I'm double-checking the rules to make sure I get it right.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "4d"
+    type: short_answer
+    text: |
+      The computer game developers use a high-level language to create a computer game.
+  - number: "4di"
+    type: short_answer
+    text: |
+      State what is meant by a high-level language.
+  - number: "4dii"
+    type: short_answer
+    text: |
+      One benefit of using a high-level language is that the code is easy to debug.
+
+      Give \textbf{two} other benefits of using a high-level language.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4diii"
+    type: short_answer
+    text: |
+      One drawback of using a high-level language is that it must be converted to a low-level language before it can be run.
+
+      Give \textbf{one} other drawback of using a high-level language.
+  - number: "4div"
+    type: long_answer
+    text: |
+      The computer game developers use an interpreter instead of a compiler when developing the computer game.
+
+      Explain why an interpreter would be more appropriate for developing the computer game.
+```

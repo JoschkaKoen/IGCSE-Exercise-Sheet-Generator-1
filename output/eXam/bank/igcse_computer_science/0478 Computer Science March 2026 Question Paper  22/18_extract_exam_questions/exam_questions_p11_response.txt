@@ -1,0 +1,34 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Consider the logic expression:
+
+      $$X = (\text{A NAND NOT B) XOR (A NOR C)}$$
+  - number: "7a"
+    type: short_answer
+    text: |
+      Draw a logic circuit for this logic expression.
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+
+      Do \textbf{not} simplify the logic expression.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Complete the truth table from the given logic expression.
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{X} \\ \hline
+      0 & 0 & 0 & \hrulefill \\ \hline
+      0 & 0 & 1 & \hrulefill \\ \hline
+      0 & 1 & 0 & \hrulefill \\ \hline
+      0 & 1 & 1 & \hrulefill \\ \hline
+      1 & 0 & 0 & \hrulefill \\ \hline
+      1 & 0 & 1 & \hrulefill \\ \hline
+      1 & 1 & 0 & \hrulefill \\ \hline
+      1 & 1 & 1 & \hrulefill \\ \hline
+      \end{tabular}
+```

@@ -1,0 +1,75 @@
+[thinking]
+**Transcribing Exam Page 3**
+
+Okay, the task is to transcribe page 3 of this exam paper. First, I need to check the stubs against the content. The stub lists "1c", "1d", and "1e". Hmm, and now I see "1ei" and "1eii". Let's go through this systematically.
+
+"1c" looks straightforward; it's the main program. "1d" is the `Dequeue()` function. Now, "1e". There isn't a "1e" stem separate from the "(e)(i)" and "(ii)" questions. Ah, right, the instructions! If an entry in the stub doesn't have a corresponding *visible* stem on the page, it's a stub-generation bug. We are supposed to mark these. Yes, there's no standalone "1e" on the page, just "(e)(i)" and "(ii)". The rule is clear: *no text for "1e"*. Therefore, "1e" requires a `STUB ERROR`. Got it.
+
+Now for the transcription itself. For "1c," it's about the main program, including attempting to store integers 1 to 25 and outputting whether it was successful or unsuccessful. The "For example" section uses bullet points, I'll transcribe that as an `itemize` environment with each point a separate item.
+
+Next, "1d" is the `Dequeue()` function, returning -1 for an empty queue, and the next item otherwise. It also mentions updating pointers and `NumberItems`, I'll transcribe that as is.
+
+For "1e", I will write `STUB ERROR`, as we determined.
+
+"1ei" requires extending the main program to call `Dequeue()` twice and output the return values.
+
+Finally, "1eii" involves testing the program and taking a screenshot of the output. I'll make sure to note that. I think that's everything. Time to get this formatted correctly for output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      The main program:
+
+      \begin{itemize}
+      \item attempts to store each of the integers 1 to 25 (inclusive) in the queue in ascending numerical order using \texttt{Enqueue()}
+      \item outputs the integer that was passed to \texttt{Enqueue()} and "Successful" if it was stored in the queue, or "Unsuccessful" if it was not stored in the queue.
+      \end{itemize}
+
+      For example:
+      \begin{itemize}
+      \item if the integer 5 is passed to \texttt{Enqueue()} and is stored in the queue, the output will be: "5 Successful"
+      \item if the integer 23 is passed to \texttt{Enqueue()} and is not stored in the queue, the output will be: "23 Unsuccessful"
+      \end{itemize}
+
+      Write program code for the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(c)} in the evidence document.
+  - number: "1d"
+    type: short_answer
+    text: |
+      The function \texttt{Dequeue()} returns -1 if the queue is empty. If the queue is not empty, the function returns the next item in the queue, updates the appropriate pointers and updates \texttt{NumberItems}
+
+      Write program code for \texttt{Dequeue()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(d)} in the evidence document.
+  - number: "1e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ei"
+    type: short_answer
+    text: |
+      Write program code to extend the main program to call \texttt{Dequeue()} twice and output the return value each time.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(e)(i)} in the evidence document.
+  - number: "1eii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot into part \textbf{1(e)(ii)} in the evidence document.

@@ -1,0 +1,15 @@
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A company has a website that is suffering a distributed denial of service (DDoS) attack.
+  - number: "8a"
+    type: long_answer
+    text: |
+      Draw and annotate a diagram to show the process of the DDoS.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Identify a solution that can be used to help prevent the DDoS attack being successful.
+```

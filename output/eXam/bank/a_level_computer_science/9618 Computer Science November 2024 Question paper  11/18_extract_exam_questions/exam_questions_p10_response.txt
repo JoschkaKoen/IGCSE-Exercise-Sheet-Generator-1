@@ -1,0 +1,48 @@
+[thinking]
+**Exam Page 10 Transcription Process**
+
+Okay, so the task is to transcribe page 10 of this exam paper into a specific YAML format. Let's break this down systematically. I see there are a few questions here. First, question "4c": it's asking about the benefits of using program libraries, a classic software engineering concept. I need to make sure I format the text correctly, including the question's text itself. The answer will be a long answer.
+
+Next, "4d" seems to be a straightforward introductory sentence about using an IDE. Ah, it's defined as a short answer. Simple enough, just need to include that sentence.
+
+Then, there are the "4di" and "4dii" sub-questions. These are formatted differently, with "Feature" and "Description" fields marked with those horizontal dotted lines. This means I need to explicitly render the `\hrulefill` as part of the structure, which is important. These are short answer questions. I must remember to include the emphasis on "one other" when referencing the presentation and debugging features.
+
+I need to double-check the rules. The `\hrulefill` is crucial here. They are using this to indicate the answer area. Finally, I'll remove any prefix, like the "(c)", "(d)" before the questions. I think I'm ready to write the YAML based on these steps. Got it.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "4c"
+    type: long_answer
+    text: |
+      The student used a program library when writing their program.
+
+      Explain the benefits to the student of using library files when writing a program.
+  - number: "4d"
+    type: short_answer
+    text: |
+      The program code is written using an Integrated Development Environment (IDE).
+  - number: "4di"
+    type: short_answer
+    text: |
+      One presentation feature found in a typical IDE is prettyprint.
+
+      Identify and describe \textbf{one other} presentation feature found in a typical IDE.
+
+      Feature \hrulefill
+
+      Description \hrulefill
+  - number: "4dii"
+    type: short_answer
+    text: |
+      One debugging feature found in a typical IDE is single stepping.
+
+      Identify and describe \textbf{one other} debugging feature found in a typical IDE.
+
+      Feature \hrulefill
+
+      Description \hrulefill
+```

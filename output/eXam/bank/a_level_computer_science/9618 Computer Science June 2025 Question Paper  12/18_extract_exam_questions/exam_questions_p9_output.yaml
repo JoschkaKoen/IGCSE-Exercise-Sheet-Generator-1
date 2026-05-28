@@ -1,0 +1,20 @@
+questions:
+  - number: "5c"
+    type: short_answer
+    text: |
+      A Database Management System (DBMS) provides data security.
+  - number: "5ci"
+    type: short_answer
+    text: |
+      Identify \textbf{two} methods the DBMS can use to protect the data in the table \texttt{USER} from unauthorised access.
+
+      Explain how each method protects the data.
+  - number: "5cii"
+    type: short_answer
+    text: |
+      The DBMS also supports data integrity.
+
+      Give \textbf{two} ways that a DBMS can support data integrity.
+
+      1. \hrulefill
+      2. \hrulefill

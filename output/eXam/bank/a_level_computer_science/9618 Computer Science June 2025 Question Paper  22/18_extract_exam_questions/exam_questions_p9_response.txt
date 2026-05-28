@@ -1,0 +1,56 @@
+[thinking]
+**My Task: Transcribing and Refining Questions**
+
+Okay, so I see the user wants me to extract and present questions 5 and 5a from this document. Easy enough. I need to make sure the transcription is accurate and presented clearly. The first thing I'll do is strip any unnecessary information or prefixes.
+
+Question 5 gives a description of an automated digital camera system that's designed with a state-transition diagram, a common practice for this kind of application. It describes the camera's states and the events that cause transitions between those states. I'll need to make sure the table provided is included in the transcription:
+
+*   **Question 5:** "An automated digital camera system is used to take a sequence of pictures of animals in a garden. During the design of the system, a state-transition diagram is produced. The table details the states in the automated digital camera system along with the events which cause the states to change. The system starts in standby mode. The sequence of pictures is taken when in active mode."
+
+    *   **Table:**
+        | Current state    | Event                 | Next state        |
+        | :--------------- | :-------------------- | :---------------- |
+        | standby mode     | turn on               | detect mode       |
+        | detect mode      | turn off              | standby mode      |
+        | detect mode      | movement detected     | active mode       |
+        | active mode      | 20 seconds elapsed    | sequence complete |
+        | active mode      | turn off              | standby mode      |
+        | sequence complete | time saved            | detect mode       |
+
+Now, the second part:
+
+*   **Question 5a:** "Complete the state-transition diagram for the automated digital camera system."
+
+There seems to be an accompanying diagram, but the instructions are explicit: omit that entirely. The prompt itself is the important part here.
+That's it. Questions are transcribed. I believe the YAML should encapsulate this concisely.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      An automated digital camera system is used to take a sequence of pictures of animals in a garden. During the design of the system, a state-transition diagram is produced.
+
+      The table details the states in the automated digital camera system along with the events which cause the states to change.
+
+      The system starts in standby mode. The sequence of pictures is taken when in active mode.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Current state} & \textbf{Event} & \textbf{Next state} \\ \hline
+      standby mode & turn on & detect mode \\ \hline
+      detect mode & turn off & standby mode \\ \hline
+      detect mode & movement detected & active mode \\ \hline
+      active mode & 20 seconds elapsed & sequence complete \\ \hline
+      active mode & turn off & standby mode \\ \hline
+      sequence complete & time saved & detect mode \\ \hline
+      \end{tabular}
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the state-transition diagram for the automated digital camera system.
+```

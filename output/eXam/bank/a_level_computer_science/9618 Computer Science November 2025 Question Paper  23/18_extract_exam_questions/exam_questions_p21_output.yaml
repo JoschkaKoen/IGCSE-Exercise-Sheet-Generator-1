@@ -1,0 +1,37 @@
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      It is decided to mark as unused all records for book loans that have been returned. The data for these records will first be written to a new text file for archive purposes.
+  - number: "8ci"
+    type: short_answer
+    text: |
+      The archive program will automatically generate a meaningful filename each time it is run.
+
+      Outline a meaningful format to use for the filename.
+  - number: "8cii"
+    type: short_answer
+    text: |
+      There is a problem that will need to be overcome before the data items can be written to a text file.
+
+      As a reminder, the data items are:
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+      \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed the book \newline\newline The first three characters of a \texttt{StudentID} represent a tutor ID. Each student has one tutor. \\ \hline
+      \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\ \hline
+      \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not} been returned \\ \hline
+      \end{tabular}
+
+      Explain the problem.
+  - number: "8ciii"
+    type: short_answer
+    text: |
+      One way of storing the data items in a text file is to store each data item on a separate line.
+
+      Identify \textbf{one} benefit and \textbf{one} drawback of this way of storing the data.
+
+      Benefit \hrulefill
+
+      Drawback \hrulefill

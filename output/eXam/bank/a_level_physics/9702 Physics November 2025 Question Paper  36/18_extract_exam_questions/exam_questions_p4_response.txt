@@ -1,0 +1,56 @@
+[thinking]
+**Analyzing Exam Page 4 for Transcription**
+
+Okay, so I'm tasked with transcribing page 4 of this exam. The structure is a little tricky, so I need to be careful. The user wants me to render the page in YAML format.
+
+First, I see the questions are labelled "1b", "1c", and then "1ci", "1cii", and "1ciii". I immediately recognize the typical hierarchical numbering. I have to make sure I represent this structure correctly in the YAML format. I need to check if the stub entries match the actual text on the page.
+
+Looking at the page, I see "(b)" followed by the question text. Then comes "(c) (i)", but there's no standalone "(c)". This is where it gets interesting. The stub has "1c", but the page jumps straight to "(c) (i)". Does "1c" exist or is it implicitly represented as the parent? Usually, if a question has sub-parts like (i), (ii), and (iii), the parent question's text might be empty, serving as an introduction to the sub-questions.
+
+I review the rules: "Every entry's stem should be visible. If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR`". Aha! Since there's no separate "1c" stem on the page, only "(c) (i)", I must write `STUB ERROR` for "1c". This signals a stub generation problem. I should *not* assume that "1c" is empty and I *must* insert `STUB ERROR` if it's not explicitly present. That is a hard requirement.
+
+Now, I'm ready to write the YAML entries.
+
+For `1b`, I can directly transcribe: Change $z$ and determine $P$. Repeat until you have six sets of values of $z$ and $P$. Record your results in a table. Include values of $M$, $\frac{1}{\sqrt{M}}$ and $\frac{1}{P}$ in your table.
+
+For `1c`, it's clear: `STUB ERROR`.
+
+For `1ci`, I transcribe: Plot a graph of $\frac{1}{P}$ on the $y$-axis against $\frac{1}{\sqrt{M}}$ on the $x$-axis.
+
+For `1cii`: Draw the straight line of best fit.
+
+Finally, for `1ciii`, I'll transcribe: Determine the gradient and $y$-intercept of this line. And include the gradient = \hrulefill and $y$-intercept = \hrulefill placeholders.
+
+So, I have transcribed 1b, 1c, 1ci, 1cii, and 1ciii, paying careful attention to the existence of "1c".
+
+
+
+[/thinking]
+
+questions:
+  - number: "1b"
+    type: short_answer
+    text: |
+      Change $z$ and determine $P$. Repeat until you have six sets of values of $z$ and $P$.
+
+      Record your results in a table. Include values of $M$, $\frac{1}{\sqrt{M}}$ and $\frac{1}{P}$ in your table.
+  - number: "1c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Plot a graph of $\frac{1}{P}$ on the $y$-axis against $\frac{1}{\sqrt{M}}$ on the $x$-axis.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1ciii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+
+      $y$-intercept = \hrulefill

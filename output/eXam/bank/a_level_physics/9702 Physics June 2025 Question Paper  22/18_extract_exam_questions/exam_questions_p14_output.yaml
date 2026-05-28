@@ -1,0 +1,24 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: ''
+  - number: "6a"
+    type: short_answer
+    text: |
+      Define electric potential difference across a component.
+  - number: "6b"
+    type: short_answer
+    text: |
+      A circuit contains four resistors and a battery of electromotive force (e.m.f.) $8.0\text{ V}$ with negligible internal resistance. When the variable resistor has resistance $R$, the currents in the circuit are $0.030\text{ A}$, $I_1$ and $I_2$, as shown in Fig. 6.1.
+  - number: "6bi"
+    type: calculation
+    text: |
+      Determine the charge passing through the battery in a time of $4.0\text{ minutes}$.
+
+      $\text{charge} = \hrulefill \text{ C}$
+  - number: "6bii"
+    type: calculation
+    text: |
+      Calculate $I_1$.
+
+      $I_1 = \hrulefill \text{ A}$

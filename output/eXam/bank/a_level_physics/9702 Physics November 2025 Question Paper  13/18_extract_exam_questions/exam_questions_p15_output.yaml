@@ -1,0 +1,56 @@
+questions:
+  - number: "34"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit containing a battery and cells with negligible internal resistance.
+
+      Some values of current, electromotive force (e.m.f.) and resistance are shown.
+
+      One resistor is labelled P.
+
+      What is the resistance of resistor P?
+    options:
+      - letter: A
+        text: |
+          $0.40\ \Omega$
+      - letter: B
+        text: |
+          $0.80\ \Omega$
+      - letter: C
+        text: |
+          $2.0\ \Omega$
+      - letter: D
+        text: |
+          $2.8\ \Omega$
+  - number: "35"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit with a battery connected to a resistor R. The battery has an internal resistance represented by resistor r.
+
+      A second resistor, identical to R, is connected in parallel with R.
+
+      Which row describes the changes to the potential difference (p.d.) across r and the current shown on the ammeter when the second resistor is connected?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & p.d. across r & \begin{tabular}{c} current shown \\ on ammeter \end{tabular} \\
+      \hline
+      \textbf{A} & decreases & decreases \\
+      \textbf{B} & decreases & increases \\
+      \textbf{C} & increases & decreases \\
+      \textbf{D} & increases & increases \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          decreases, decreases
+      - letter: B
+        text: |
+          decreases, increases
+      - letter: C
+        text: |
+          increases, decreases
+      - letter: D
+        text: |
+          increases, increases

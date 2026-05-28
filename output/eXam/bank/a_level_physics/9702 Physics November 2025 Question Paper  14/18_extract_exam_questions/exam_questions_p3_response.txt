@@ -1,0 +1,126 @@
+[thinking]
+**Transcribing Page 3 of the Exam Paper**
+
+Okay, so I'm being asked to transcribe page 3 of this exam paper. Let's get right to it. There are three questions on this page: 1, 2, and 3. I need to be precise here, especially with the formatting.
+
+**Question 1:** It's a multiple-choice question. The question itself is pretty straightforward: "What is essential to accurately represent all physical quantities?" The options are:
+
+*   A: a base unit and a number
+*   B: a unit and a number expressed in standard form (scientific notation)
+*   C: a unit and a numerical magnitude
+*   D: an SI unit and a numerical magnitude
+
+Easy enough.
+
+**Question 2:** This one's a bit more involved. It's also multiple-choice, but it includes some data and a table, or at least a representation of one. The question describes measurements of a bar's length with a steel rule. The true length is 895 mm, and the repeated measurements are: 892, 891, 892, 891, 891, 892. The question asks if the readings are accurate and precise to within 1 mm.
+
+Now, there's a table that provides the options. Initially, I thought about how to best represent this data in the prompt and how to render it properly. I considered a few approaches to format the options but landed on incorporating the table directly in the question text. I'll need to use LaTeX formatting. Let's see...
+
+```latex
+\begin{tabular}{|c|c|c|}
+\hline
+ & results are accurate to within 1 mm & results are precise to within 1 mm \\
+\hline
+\textbf{A} & no & no \\
+\textbf{B} & no & yes \\
+\textbf{C} & yes & no \\
+\textbf{D} & yes & yes \\
+\hline
+\end{tabular}
+```
+
+The options now need to reference the rows of this table, and I'll keep it concise:
+
+*   A: accurate: no; precise: no
+*   B: accurate: no; precise: yes
+*   C: accurate: yes; precise: no
+*   D: accurate: yes; precise: yes
+
+I think that's clean and unambiguous.
+
+**Question 3:** Another multiple-choice. This one involves a stone falling and determining the acceleration of free fall from measurements of time and distance. The question gives percentage uncertainties: time is 0.05%, and distance is 0.6%. It then asks for the percentage uncertainty in the calculated value of the acceleration of free fall. The options are:
+
+*   A: 0.5%
+*   B: 0.7%
+*   C: 1.1%
+*   D: 1.3%
+
+That should be everything for page 3.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      What is essential to accurately represent all physical quantities?
+    options:
+      - letter: A
+        text: |
+          a base unit and a number
+      - letter: B
+        text: |
+          a unit and a number expressed in standard form (scientific notation)
+      - letter: C
+        text: |
+          a unit and a numerical magnitude
+      - letter: D
+        text: |
+          an SI unit and a numerical magnitude
+  - number: "2"
+    type: multiple_choice
+    text: |
+      A steel rule can be read to the nearest millimetre. It is used to measure the length of a bar whose true length is 895 mm. Repeated measurements give the following readings.
+
+      $$\text{length} / \text{mm} \quad 892, 891, 892, 891, 891, 892$$
+
+      Are the readings accurate and precise to within 1 mm?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & \begin{tabular}{c} results are accurate \\ to within 1 mm \end{tabular} & \begin{tabular}{c} results are precise \\ to within 1 mm \end{tabular} \\
+      \hline
+      \textbf{A} & no & no \\
+      \textbf{B} & no & yes \\
+      \textbf{C} & yes & no \\
+      \textbf{D} & yes & yes \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          results are accurate to within 1 mm: no; results are precise to within 1 mm: no
+      - letter: B
+        text: |
+          results are accurate to within 1 mm: no; results are precise to within 1 mm: yes
+      - letter: C
+        text: |
+          results are accurate to within 1 mm: yes; results are precise to within 1 mm: no
+      - letter: D
+        text: |
+          results are accurate to within 1 mm: yes; results are precise to within 1 mm: yes
+  - number: "3"
+    type: multiple_choice
+    text: |
+      A stone is released from rest and falls vertically to the ground.
+
+      The time taken to fall to the ground and the distance travelled are measured. The measurements are used to determine the acceleration of free fall.
+
+      The percentage uncertainty in the measured time is 0.05%. The percentage uncertainty in the measured distance fallen is 0.6%.
+
+      What is the percentage uncertainty in the calculated value of the acceleration of free fall?
+    options:
+      - letter: A
+        text: |
+          0.5%
+      - letter: B
+        text: |
+          0.7%
+      - letter: C
+        text: |
+          1.1%
+      - letter: D
+        text: |
+          1.3%

@@ -1,0 +1,48 @@
+[thinking]
+**Transcribing Question 6**
+
+Okay, here we go. The task is to transcribe question 6 from the exam paper, specifically the part describing the `Compare()` string function. Let's break this down systematically.
+
+First, I need to extract the function's definition. The question describes a string function named `Compare()` that compares two strings. It takes four parameters: two strings, `String1` and `String2`, a character `Position` (either 's' for start or 'e' for end), and a boolean `CaseMatters`.  `CaseMatters` dictates whether case sensitivity is enforced. The function returns `FALSE` if `String2` is shorter than `String1`, and `TRUE` or `FALSE` based on whether the comparison succeeds.
+
+Now, I'll translate this into a clear format. I'll use LaTeX to represent the provided example table.  I'll ensure the table is properly constructed with the correct number of columns and appropriate formatting for the parameters and return values.
+
+I'm checking the LaTeX code to make sure the columns align correctly.  I'm representing the parameters (`String1`, `String2`, `CaseMatters`, `Position`) and the return value.  It looks good. I will also incorporate the formatting of the bullet points as described in the prompt. I will include this in the final output.
+
+I have verified the structure, so the transcription and formatting are ready.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A string function \texttt{Compare()} will compare two strings.
+
+      The function will:
+      \begin{itemize}
+      \item take \textbf{four} parameters:
+      \begin{itemize}
+      \item two strings, \texttt{String1} and \texttt{String2}
+      \item a character, \texttt{Position}, to indicate whether \texttt{String1} will be compared with the start (\texttt{'s'}), or the end (\texttt{'e'}) of \texttt{String2}
+      \item a Boolean, \texttt{CaseMatters}, to indicate whether an upper case character and lower case character (for example, \texttt{'A'} and \texttt{'a'}) are regarded as different (\texttt{TRUE}), or as the same (\texttt{FALSE})
+      \end{itemize}
+      \item return \texttt{FALSE} if \texttt{String2} has fewer characters than \texttt{String1}
+      \item return \texttt{TRUE} if the comparison is true, otherwise return \texttt{FALSE}
+      \end{itemize}
+
+      For example:
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \multicolumn{4}{|c|}{\textbf{Parameter}} & \textbf{Return} \\ \cline{1-4}
+      \textbf{String1} & \textbf{String2} & \textbf{CaseMatters} & \textbf{Position} & \textbf{value} \\ \hline
+      \texttt{"Cat"} & \texttt{"Catalogue"} & \texttt{TRUE} & \texttt{'s'} & \texttt{TRUE} \\ \hline
+      \texttt{"CAT"} & \texttt{"Catalogue"} & \texttt{TRUE} & \texttt{'s'} & \texttt{FALSE} \\ \hline
+      \texttt{"CAT"} & \texttt{"Catalogue"} & \texttt{FALSE} & \texttt{'s'} & \texttt{TRUE} \\ \hline
+      \texttt{"Cat"} & \texttt{"Catalogue"} & \texttt{TRUE} & \texttt{'e'} & \texttt{FALSE} \\ \hline
+      \texttt{"GUE"} & \texttt{"Catalogue"} & \texttt{FALSE} & \texttt{'e'} & \texttt{TRUE} \\ \hline
+      \texttt{"Catalogue"} & \texttt{"Cat"} & \texttt{TRUE} & \texttt{'s'} & \texttt{FALSE} \\ \hline
+      \end{tabular}

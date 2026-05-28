@@ -1,0 +1,83 @@
+[thinking]
+**Transcribing Question 3: Binary Tree and OOP**
+
+Okay, here's what's happening. I need to transcribe Question 3 from this document. It's about a binary tree implemented using Object-Oriented Programming (OOP). The question specifically mentions a `Node` class. It's a binary tree that stores data in ascending numerical order - a standard structure. There's a diagram, but I'm told to omit it.
+
+The relevant part is a description of the `Node` class. It's presented as a table with two columns: "Attribute/Method name" and "Description". I'll format the table in LaTeX. Let me just think through the structure to avoid any errors.
+
+Alright, here's the LaTeX table, ensuring consistency in the number of columns.  Each row is definitely going to have two columns and a header for the `Node` class.  I'll use `\texttt{...}` for all the code tokens, like the attribute and method names.
+
+Here's the finalized table content:
+
+```latex
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Node}} \\
+\hline
+\texttt{NodeData : Integer} & stores the node's integer data \\
+\hline
+\texttt{LeftNode : Node} & stores the node that is stored to the left of the current \\
+ & node, or a null value if there is no node to the left \\
+\hline
+\texttt{RightNode : Node} & stores the node that is stored to the right of the current \\
+ & node, or a null value if there is no node to the right \\
+\hline
+\texttt{Constructor()} & initialises \texttt{NodeData} to its parameter value; initialises \\
+ & \texttt{LeftNode} and \texttt{RightNode} to a null value \\
+\hline
+\texttt{GetLeft()} & returns \texttt{LeftNode} \\
+\hline
+\texttt{GetRight()} & returns \texttt{RightNode} \\
+\hline
+\texttt{GetData()} & returns \texttt{NodeData} \\
+\hline
+\texttt{SetLeft()} & takes an object of type \texttt{Node} as a parameter and stores \\
+ & it in \texttt{LeftNode} \\
+\hline
+\texttt{SetRight()} & takes an object of type \texttt{Node} as a parameter and stores \\
+ & it in \texttt{RightNode} \\
+\hline
+\end{tabular}
+```
+
+Now, let me make sure I've got all the text correct.  "3 A program stores data in a binary tree that is designed using Object-Oriented Programming (OOP)."  "The tree stores data in ascending numerical order, for example:"  (Diagram omitted). "The class \texttt{Node} stores data about the nodes." Excellent.
+
+I've checked the text and the table. I'm ready for the next step.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program stores data in a binary tree that is designed using Object-Oriented Programming (OOP).
+
+      The tree stores data in ascending numerical order, for example:
+
+      The class \texttt{Node} stores data about the nodes.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Node}} \\
+      \hline
+      \texttt{NodeData : Integer} & stores the node's integer data \\
+      \hline
+      \texttt{LeftNode : Node} & stores the node that is stored to the left of the current node, or a null value if there is no node to the left \\
+      \hline
+      \texttt{RightNode : Node} & stores the node that is stored to the right of the current node, or a null value if there is no node to the right \\
+      \hline
+      \texttt{Constructor()} & initialises \texttt{NodeData} to its parameter value; initialises \texttt{LeftNode} and \texttt{RightNode} to a null value \\
+      \hline
+      \texttt{GetLeft()} & returns \texttt{LeftNode} \\
+      \hline
+      \texttt{GetRight()} & returns \texttt{RightNode} \\
+      \hline
+      \texttt{GetData()} & returns \texttt{NodeData} \\
+      \hline
+      \texttt{SetLeft()} & takes an object of type \texttt{Node} as a parameter and stores it in \texttt{LeftNode} \\
+      \hline
+      \texttt{SetRight()} & takes an object of type \texttt{Node} as a parameter and stores it in \texttt{RightNode} \\
+      \hline
+      \end{tabular}

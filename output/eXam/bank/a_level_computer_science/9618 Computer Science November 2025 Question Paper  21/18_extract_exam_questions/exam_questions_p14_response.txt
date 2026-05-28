@@ -1,0 +1,29 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A program is being developed to manage student book loans from a college library. Students may borrow up to five books at a time from the library.
+
+      The programmer has defined a record type to define each loan.
+
+      The record data items are:
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+      \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed the book \\ \hline
+      \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\ \hline
+      \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not} been returned \\ \hline
+      \end{tabular}
+
+      The programmer has defined a global array \texttt{Loan} to store 5000 loan records.
+
+      There are more elements in the array than books in the library. Unused elements have the \texttt{StudentID} set to an empty string. These may occur anywhere in the array.
+
+      The programmer has defined the first program module:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{OKToBorrow()} & \begin{tabular}[c]{@{}l@{}} $\bullet$ called with a parameter of type \texttt{STRING} representing a\\ \quad \texttt{StudentID}\\ $\bullet$ search the array for loan records for the specified student\\ $\bullet$ output a suitable message to say whether the student may, or\\ \quad may not, borrow another book\end{tabular} \\ \hline
+      \end{tabular}

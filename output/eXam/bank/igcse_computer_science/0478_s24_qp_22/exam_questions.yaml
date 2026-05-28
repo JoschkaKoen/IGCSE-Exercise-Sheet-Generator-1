@@ -1,0 +1,567 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Tick ($\checkmark$) \textbf{one} box to identify a method used to design and
+    construct a solution to a computing problem.
+  answer_options:
+  - letter: A
+    text: analysis
+  - letter: B
+    text: coding
+  - letter: C
+    text: flowchart
+  - letter: D
+    text: testing
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: '\textbf{Four} logic functions and \textbf{five} standard symbols for logic
+    gates are shown.
+
+
+    Draw \textbf{one} line to link each logic function to its standard symbol. \textbf{Not}
+    all standard symbols will be used.
+
+
+    \begin{tabular}{cc}
+
+    \textbf{Logic function} & \textbf{Standard symbol} \\
+
+    & \\
+
+    \framebox{\quad AND \quad} & [AND gate symbol] \\
+
+    & \\
+
+    \framebox{\quad XOR \quad} & [NOT gate symbol] \\
+
+    & \\
+
+    \framebox{\quad NAND \quad} & [NAND gate symbol] \\
+
+    & \\
+
+    \framebox{\quad OR \quad} & [XOR gate symbol] \\
+
+    & \\
+
+    & [NOR gate symbol] \\
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'Identify \textbf{three} different tasks in the analysis stage of the program
+    development life cycle.
+
+
+    1. \hrulefill
+
+    2. \hrulefill
+
+    3. \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program needs to make sure the characters input for a product code meet
+    these rules:
+
+
+    \begin{itemize}
+
+    \item The product code is six characters in length.
+
+    \item The first two characters must be "PD".
+
+    \item The last four characters must be a number in the range 1000 to 9999 inclusive.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Identify \textbf{three} validation checks and state how each check would
+      make sure the product code met one of these rules.
+
+
+      Check 1 \hrulefill
+
+
+      Check 2 \hrulefill
+
+
+      Check 3 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The program design will include a pseudocode algorithm. Assume that the
+      product code is stored in the variable \texttt{Product}
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the pseudocode to make sure that the product code is six characters
+        in length.
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write the pseudocode to make sure that the first two characters of the
+        product code are "PD".
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'A high-level programming language makes use of arithmetic, Boolean and logical
+    operators.
+
+
+    State how each type of operator is used.
+
+    Give an example statement, in pseudocode, for each one.
+
+
+    Arithmetic \hrulefill
+
+
+    Example \hrulefill
+
+
+    Boolean \hrulefill
+
+
+    Example \hrulefill
+
+
+    Logical \hrulefill
+
+
+    Example \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Totalling and counting are standard methods of solution.
+
+
+    Numbers are input. The number 9999.9 is the last number to be input and is ignored.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Write an algorithm in pseudocode to total the numbers input and to output
+      the total.
+
+      You do \textbf{not} need to validate the input.'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Write an algorithm in pseudocode to count and output the number of input
+      values that are
+
+      greater than 100. You do \textbf{not} need to validate the input.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An algorithm has been written in pseudocode to find and display the maximum
+    and minimum values in an array of 1000 positive numbers. The array \texttt{List[]}
+    starts at index 1
+
+
+    \begin{alltt}
+
+    01 Max <- List
+
+    02 Min <- List
+
+    03 FOR Counter <- 2 TO 1000
+
+    04     IF List[Counter] < Max
+
+    05         THEN
+
+    06             Max <- List[Counter]
+
+    07     ENDIF
+
+    08     IF List[Count] < Min
+
+    09         THEN
+
+    10             Min <- List[Counter]
+
+    11     ENDWHILE
+
+    12 NEXT Counter
+
+    13 OUTPUT "Maximum value is ", Max
+
+    14 OUTPUT "Minimum value is ", Min
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give a line number for each of these types of statement:
+
+
+      Assignment statement \hrulefill
+
+      Selection statement \hrulefill
+
+      Iteration statement \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Identify the line numbers of the \textbf{three} errors in the pseudocode
+      and suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+      Correction \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+      Correction \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "A logic circuit is to be built to control the opening of a safe used to store\
+    \ money. There are two keys, \\textbf{A} and \\textbf{B}, and a time switch \\\
+    textbf{C}. The safe can only open if both keys are used and the time switch is\
+    \ off.\n\n\\begin{tabular}{|l|l|c|}\n\\hline\nkey \\textbf{A} & not used & 0 \\\
+    \\ \\cline{2-3}\n & used & 1 \\\\ \\hline\nkey \\textbf{B} & not used & 0 \\\\\
+    \ \\cline{2-3}\n & used & 1 \\\\ \\hline\ntime switch \\textbf{C} & switch off\
+    \ & 0 \\\\ \\cline{2-3}\n & switch on & 1 \\\\ \\hline\nsafe \\textbf{X} & safe\
+    \ cannot open & 0 \\\\ \\cline{2-3}\n & safe can open & 1 \\\\ \\hline\n\\end{tabular}"
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Write the logic expression for this problem.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table for this problem.
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\
+      \hline
+
+      0 & 0 & 0 & & \\ \hline
+
+      0 & 0 & 1 & & \\ \hline
+
+      0 & 1 & 0 & & \\ \hline
+
+      0 & 1 & 1 & & \\ \hline
+
+      1 & 0 & 0 & & \\ \hline
+
+      1 & 0 & 1 & & \\ \hline
+
+      1 & 1 & 0 & & \\ \hline
+
+      1 & 1 & 1 & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: This flowchart represents an algorithm.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The array \texttt{List[1:5]} used in the flowchart contains this data:
+
+
+      \begin{tabular}{|c|c|c|c|c|}
+
+      \hline
+
+      \texttt{List} & \texttt{List} & \texttt{List} & \texttt{List} & \texttt{List}
+      \\ \hline
+
+      15 & 17 & 20 & 5 & 9 \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe what the algorithm represented by the flowchart is doing.
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A television subscription service has a new database table named \texttt{Contract}
+    to store details of their subscribers'' contracts. The table contains these fields:
+
+
+    \begin{itemize}
+
+    \item \texttt{ContractNumber} -- the contract number, for example CT567
+
+    \item \texttt{Months} -- the length of the contract in months, for example 6
+
+    \item \texttt{EndDate} -- the date the contract finishes, for example 30 November
+    2024
+
+    \item \texttt{News} -- the news service, yes or no
+
+    \item \texttt{Movie} -- the movie service, yes or no
+
+    \item \texttt{Sport} -- the sports service, yes or no
+
+    \item \texttt{Junior} -- the children''s service, yes or no.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the field that will be the most appropriate primary key for this
+      table.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete the table to identify the most appropriate data type for these
+      fields in \texttt{Contract}
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Data type}}
+      \\ \hline
+
+      \texttt{ContractNumber} & \\ \hline
+
+      \texttt{Months} & \\ \hline
+
+      \texttt{EndDate} & \\ \hline
+
+      \texttt{Sport} & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 10c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Explain the purpose of these structured query language (SQL) statements.
+
+
+      Statement 1: \texttt{SELECT SUM (Months) FROM Contract;}
+
+
+      Statement 2: \texttt{SELECT COUNT (News) FROM Contract WHERE News;}
+
+
+      Statement 1 \hrulefill
+
+
+      Statement 2 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 10d
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete this SQL statement to find the contract numbers of the subscribers
+      that take both the news and sports services.
+
+
+      \begin{alltt}
+
+      SELECT \hrulefill
+
+
+      FROM Contract
+
+
+      WHERE \hrulefill AND \hrulefill ;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'A one-player game uses the two-dimensional (2D) array \texttt{Grid[]} to
+    store the location of a secret cell to be found by the player in 10 moves. Each
+    row and column has 5 cells.
+
+
+    At the start of the game:
+
+    \begin{itemize}
+
+    \item The program places an ''X'' in a random cell (\textbf{not} in \texttt{Grid[1,1]})
+    and empties all the other cells in the grid.
+
+    \item The player starts at the top left of the grid.
+
+    \item The player has 10 moves.
+
+    \end{itemize}
+
+
+    During the game:
+
+    \begin{itemize}
+
+    \item The player can move left, right, up or down by one cell and the move must
+    be within the grid.
+
+    \item ``You Win'''' is displayed if the player moves to the cell with ''X'' and
+    has played 10 moves or less.
+
+    \item ``You Lose'''' is displayed if the player has made 10 moves without finding
+    the ''X''.
+
+    \end{itemize}
+
+
+    Write a program that meets these requirements.
+
+
+    You must use pseudocode or program code \textbf{and} add comments to explain how
+    your code works.
+
+
+    You do \textbf{not} need to declare any arrays or variables; you may assume that
+    this has already been done.
+
+
+    All inputs and outputs must contain suitable messages.'
+  answer_options: []
+  subquestions: []

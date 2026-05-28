@@ -1,0 +1,11 @@
+questions:
+  - number: "7"
+    type: long_answer
+    text: |
+      Secure Socket Layer (SSL) and Transport Layer Security (TLS) are two protocols.
+
+      Explain how SSL/TLS is used when client-server communication is initiated.
+  - number: "8"
+    type: long_answer
+    text: |
+      Explain the process of \textbf{syntax analysis} during program compilation.

@@ -1,0 +1,20 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A student has a computer.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The computer is designed using the Von Neumann model for a computer system.
+
+      Complete the table by describing the purpose of each of the given registers.
+
+      \begin{tabular}{|p{4cm}|p{8cm}|}
+      \hline
+      \textbf{Register} & \textbf{Purpose} \\ \hline
+      Program Counter (PC) & \\ \hline
+      Memory Address Register (MAR) & \\ \hline
+      Memory Data Register (MDR) & \\ \hline
+      Index Register (IX) & \\ \hline
+      \end{tabular}

@@ -1,0 +1,68 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Refer to the \textbf{insert} for the list of pseudocode functions and operators.
+  - number: "1a"
+    type: short_answer
+    text: |
+      The table contains pseudocode examples.
+
+      Each example may contain statements that relate to one or more of:
+      \begin{itemize}
+      \item selection
+      \item iteration (repetition)
+      \item subroutines (procedures or functions).
+      \end{itemize}
+
+      Complete the table by placing \textbf{one or more} ticks ($\checkmark$) in each row.
+
+      \begin{tabular}{|p{6cm}|c|c|c|}
+      \hline
+      \textbf{Pseudocode example} & \textbf{Selection} & \textbf{Iteration} & \textbf{Subroutine} \\ \hline
+      \begin{alltt}
+      IF Status = FALSE THEN
+        FOR Count <- 1 TO 20
+          CALL Reset(Count)
+        NEXT Count
+      ENDIF
+      \end{alltt} & & & \\ \hline
+      \begin{alltt}
+      OTHERWISE : Status <- TRUE
+      \end{alltt} & & & \\ \hline
+      \begin{alltt}
+      WHILE AllDone() = TRUE
+      \end{alltt} & & & \\ \hline
+      \begin{alltt}
+      30 : NextChar <- 'X'
+      \end{alltt} & & & \\ \hline
+      \end{tabular}
+  - number: "1b"
+    type: short_answer
+    text: |
+      Complete the table by giving the appropriate data type.
+
+      \begin{tabular}{|l|l|p{4cm}|}
+      \hline
+      \textbf{Variable} & \textbf{Example data value} & \textbf{Data type} \\ \hline
+      \texttt{Result} & 5.42 & \\ \hline
+      \texttt{MonthLetter} & \texttt{"JFMAMJJASOND"} & \\ \hline
+      \texttt{Birthday} & \texttt{15/11/2009} & \\ \hline
+      \end{tabular}
+  - number: "1c"
+    type: short_answer
+    text: |
+      Evaluate each expression in the table by using the data values shown in (b).
+
+      Write 'ERROR' if the expression contains an error.
+
+      \begin{tabular}{|p{8cm}|p{4cm}|}
+      \hline
+      \textbf{Expression} & \textbf{Evaluates to} \\ \hline
+      \texttt{INT(Result) + 1 > 6} & \\ \hline
+      \texttt{NUM\_TO\_STR(LENGTH(MonthLetter))} & \\ \hline
+      \texttt{NUM\_TO\_STR(Result + "3.2")} & \\ \hline
+      \texttt{MID(MonthLetter, MONTH(Birthday) - 2, 1)} & \\ \hline
+      \end{tabular}
+```

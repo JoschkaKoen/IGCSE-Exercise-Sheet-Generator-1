@@ -1,0 +1,11 @@
+questions:
+  - number: "6d"
+    type: short_answer
+    text: |
+      The main office for the company has four wired computers, one server, two printers, one central switch and a device providing a single point of access for the internet. The network is set up as a star topology.
+
+      Draw the topology for the main office network. Label all devices.
+  - number: "6e"
+    type: long_answer
+    text: |
+      Describe the role of a switch in a network.

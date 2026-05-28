@@ -1,0 +1,110 @@
+[thinking]
+**Question 13 Transcription**
+
+Okay, so the task at hand is to transcribe Question 13 from the provided document. It seems pretty straightforward: there are two tables and some introductory text to be captured. The user wants a fulsome transcription, so I'll be thorough.
+
+First, I need to get the first table right. This one defines assembly language instructions for a processor with an Accumulator (ACC) register. Let's see... The header has a bit of an unusual structure; looks like "Instruction" spans two columns: Opcode and Operand. The first column is "Label" and the fourth is "Explanation." I need to construct a LaTeX `tabular` environment to represent this. I'll need to use `\multicolumn` to handle the spanning correctly. I'll also add in the notes at the end of the table.
+
+Initially I considered a nested tabular, but it's cleaner to use a standard table and manage column widths for wrapping text. I'll use the `p{7.5cm}` column type for the Explanation, for better formatting.
+
+Here's my attempt at the LaTeX for the first table:
+
+```latex
+\begin{tabular}{|c|c|l|p{7.5cm}|}
+\hline
+\textbf{Label} & \multicolumn{2}{c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\
+\cline{2-3}
+ & \textbf{Opcode} & \textbf{Operand} & \\
+\hline
+ & \texttt{LDM} & \texttt{\#n} & Load the number n to the ACC \\
+\hline
+ & \texttt{LDD} & \texttt{<address>} & Load the contents of the location at the given address to the ACC \\
+\hline
+ & \texttt{LDI} & \texttt{<address>} & The address to be used is at the given address. \newline Load the contents of this second address to the ACC \\
+\hline
+ & \texttt{ADD} & \texttt{<address>} & Add the contents of the given address to the ACC \\
+\hline
+ & \texttt{ADD} & \texttt{\#n} & Add the number n to the ACC \\
+\hline
+ & \texttt{SUB} & \texttt{<address>} & Subtract the contents of the given address from the ACC \\
+\hline
+ & \texttt{SUB} & \texttt{\#n} & Subtract the number n from the ACC \\
+\hline
+ & \texttt{STO} & \texttt{<address>} & Store the contents of the ACC at the given address \\
+\hline
+\texttt{<label>:} & & \texttt{<data>} & Gives a symbolic address \texttt{<label>} to the memory location with the contents \texttt{<data>} \\
+\hline
+\multicolumn{4}{|l|}{\# denotes a denary number, e.g. \#123} \\
+\multicolumn{4}{|l|}{\texttt{<label>} can be used in place of \texttt{<address>}} \\
+\hline
+\end{tabular}
+```
+
+Now, the second table is much simpler; it maps addresses to contents. Let's make that one:
+
+```latex
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Address} & \textbf{Contents} \\
+\hline
+563 & 125 \\
+\hline
+899 & 63 \\
+\hline
+\end{tabular}
+```
+
+Now I'll just assemble everything together, including the introductory text, and I'm done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "13"
+    type: short_answer
+    text: |
+      The table shows assembly language instructions for a processor that has one register, the Accumulator (ACC).
+
+      \begin{tabular}{|c|c|l|p{7.5cm}|}
+      \hline
+      \textbf{Label} & \multicolumn{2}{c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\
+      \cline{2-3}
+       & \textbf{Opcode} & \textbf{Operand} & \\
+      \hline
+       & \texttt{LDM} & \texttt{\#n} & Load the number n to the ACC \\
+      \hline
+       & \texttt{LDD} & \texttt{<address>} & Load the contents of the location at the given address to the ACC \\
+      \hline
+       & \texttt{LDI} & \texttt{<address>} & The address to be used is at the given address. \newline Load the contents of this second address to the ACC \\
+      \hline
+       & \texttt{ADD} & \texttt{<address>} & Add the contents of the given address to the ACC \\
+      \hline
+       & \texttt{ADD} & \texttt{\#n} & Add the number n to the ACC \\
+      \hline
+       & \texttt{SUB} & \texttt{<address>} & Subtract the contents of the given address from the ACC \\
+      \hline
+       & \texttt{SUB} & \texttt{\#n} & Subtract the number n from the ACC \\
+      \hline
+       & \texttt{STO} & \texttt{<address>} & Store the contents of the ACC at the given address \\
+      \hline
+      \texttt{<label>:} & & \texttt{<data>} & Gives a symbolic address \texttt{<label>} to the memory location with the contents \texttt{<data>} \\
+      \hline
+      \multicolumn{4}{|l|}{\# denotes a denary number, e.g. \#123} \\
+      \multicolumn{4}{|l|}{\texttt{<label>} can be used in place of \texttt{<address>}} \\
+      \hline
+      \end{tabular}
+
+      \vspace{1em}
+
+      The current contents of memory are:
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Address} & \textbf{Contents} \\
+      \hline
+      563 & 125 \\
+      \hline
+      899 & 63 \\
+      \hline
+      \end{tabular}

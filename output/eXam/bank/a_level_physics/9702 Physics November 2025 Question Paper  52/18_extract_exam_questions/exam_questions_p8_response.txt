@@ -1,0 +1,39 @@
+[thinking]
+**Examining the Exam Questions**
+
+Okay, so the user wants me to extract and format three questions from page 8 of an exam paper. I need to transcribe questions "2civ", "2d", and "2e" and represent them in a structured YAML format, adhering to specific guidelines.
+
+First, I need to break down each question. For question "2civ", it's a calculation, asking for the *y*-intercept of the line of best fit, including absolute uncertainty. The provided format uses an underline so, the format will be: `$y\text{-intercept} = \hrulefill$`.
+
+Next, question "2d" requires determining the values of *n* and *k* using previous answers, and again, including uncertainties. The text suggests the following format: `$n = \hrulefill$`, `$k = \hrulefill$`.
+
+Finally, for question "2e", we need to calculate the value of *r* for Titan, given its orbital period. It looks like the format will be: `$r = \hrulefill \text{ m}$`. I'll make sure to include the unit since it's present in the question.
+
+I've got to be meticulous about avoiding double quotes for any string field. I must also make sure I don't introduce any structural keys beyond the requested `number`, `type`, `text`, and `options`. The YAML needs to be clean. I will avoid making any changes to the questions themselves, or making any assumptions about their context. I'll stick to the provided format with the underscores. Now, let's generate the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2civ"
+    type: calculation
+    text: |
+      Determine the $y$-intercept of the line of best fit. Include the absolute uncertainty in your answer.
+
+      $y\text{-intercept} = \hrulefill$
+  - number: "2d"
+    type: calculation
+    text: |
+      Using your answers to (a), (c)(iii) and (c)(iv), determine the values of $n$ and $k$. Include the absolute uncertainties in $n$ and $k$. You need not be concerned with units.
+
+      $n = \hrulefill$
+      $k = \hrulefill$
+  - number: "2e"
+    type: calculation
+    text: |
+      Titan is another moon of Saturn. The orbit of Titan has a period of $1.38 \times 10^6\text{ s}$.
+
+      Determine the value of $r$ for Titan.
+
+      $r = \hrulefill\text{ m}$

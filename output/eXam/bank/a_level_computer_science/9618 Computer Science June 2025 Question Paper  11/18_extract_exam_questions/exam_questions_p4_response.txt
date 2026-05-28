@@ -1,0 +1,40 @@
+[thinking]
+**Exam Page 4 YAML Stub Generation**
+
+Okay, so I've been asked to fill in the YAML stub for page 4 of this exam. Looks straightforward enough, but I need to be precise. The questions on this page are: "2", "2a", and "2b(i)".
+
+First, I need to extract the stems for each question. Question "2" provides the overall context: "Programmers in a software development company take part in live video conferences to discuss their work. The live video conferences take place using real-time bit streaming. The video is compressed before it is transmitted."
+
+Question "2a" then asks, "Explain how data is transferred using real-time bit streaming." Simple enough, and I know exactly how to formulate that.
+
+Now, here's where it gets a little tricky. I see a "2b" in the stub, but only "(b) (i)" on the image. The prompt specifically instructs me to treat missing stems as a possible stub generation bug. Given that "2b" is listed as a `short_answer` type, and "2bi" is a `long_answer` type, I'm going to mark "2b" as `STUB ERROR`. It's clearly a placeholder that doesn't exist in the actual question text. Let's make sure I'm right though. Yep, confirmed, no standalone "2b".
+
+So, "2bi" will be: "(b) (i) Explain the reasons why a video is compressed before it is transmitted using real-time bit streaming."
+
+Right, time to write the YAML.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Programmers in a software development company take part in live video conferences to discuss their work.
+
+      The live video conferences take place using real-time bit streaming. The video is compressed before it is transmitted.
+  - number: "2a"
+    type: long_answer
+    text: |
+      Explain how data is transferred using real-time bit streaming.
+  - number: "2b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2bi"
+    type: long_answer
+    text: |
+      Explain the reasons why a video is compressed before it is transmitted using real-time bit streaming.
+```

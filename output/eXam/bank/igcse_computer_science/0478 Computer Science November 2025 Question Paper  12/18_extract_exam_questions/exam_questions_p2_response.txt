@@ -1,0 +1,35 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A toy store gives each of the toys it sells a unique code. The codes are 3-digit hexadecimal codes, for example A4B.
+
+      A computer is used to store a database of the codes. The computer has 12-bit registers.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Give the largest hexadecimal number that can be stored in a 12-bit register.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Give the largest denary number that can be stored in a 12-bit register.
+  - number: "1c"
+    type: short_answer
+    text: |
+      Two toys have the hexadecimal codes 429 and 1A3.
+
+      Convert the \textbf{two} hexadecimal codes to 12-bit binary numbers.
+
+      429 \hrulefill
+      1A3 \hrulefill
+  - number: "1d"
+    type: short_answer
+    text: |
+      Two binary numbers that are stored in the registers are 100010100001 and 011100001011.
+
+      Convert the \textbf{two} binary numbers to hexadecimal numbers.
+
+      100010100001 \hrulefill
+      011100001011 \hrulefill
+```

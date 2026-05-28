@@ -1,0 +1,112 @@
+[thinking]
+**My YAML Transcription Process**
+
+Okay, here's how I'm approaching this. First, I need to understand the task. I'm given page 12 of an exam paper, specifically questions 25, 26, and 27. The goal is to transcribe these into YAML format. The input is effectively the text and structure of each question. The required output is YAML, with specific keys: `number`, `type`, `text`, and `options`. The catch is it needs to be formatted for clean and valid YAML, specifically no double quotes, using `|` block scalar for long text, and handling math correctly. The fact that the diagram is omitted is not an issue, I'll just note it and move on.
+
+So, let's break this down question by question.
+
+**Question 25:**
+
+This is a multiple-choice question. I'll start with:
+
+*   `number: 25`
+*   `type: multiple_choice`
+*   `text:` followed by the entire question stem. Since it's a paragraph, I will use a `|` block scalar, I will also note the absence of a diagram.
+*   `options:` then I will list each multiple choice, again, each option will be rendered using a block scalar format, and each option is indicated by A, B, C, or D.
+
+**Question 26:**
+
+Another multiple-choice question. The process is the same as the prior question:
+
+*   `number: 26`
+*   `type: multiple_choice`
+*   `text:` followed by the entire question stem, this time including the math which is to be properly encapsulated.
+*   `options:` again, with the block scalars and correct labels.
+
+**Question 27:**
+
+The third question, another multiple-choice. This follows the same format as the first two, using the same transcription principles.
+
+*   `number: 27`
+*   `type: multiple_choice`
+*   `text:` followed by the question stem, and properly encapsulating the math expressions.
+*   `options:` same as before, with block scalars and labels.
+
+**The Final Format Check:**
+
+Now, before I output anything, I'll go back and make sure everything is clean. I need to guarantee that no unnecessary double quotes were used around text. I'll make sure math is wrapped in the correct delimiters (`$...$`). And I need to ensure that the YAML structure is valid. I'll keep the output clean and concise, adhering to the no-double-quotes rule and block scalar format. Ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "25"
+    type: multiple_choice
+    text: |
+      A source emits a progressive sound wave in the horizontal direction. The wave travels away from the source in a direction towards the right.
+
+      The graph shows the variation of the displacement of the particles from their equilibrium positions with distance from the source at a particular instant in time. Displacements to the right of the equilibrium positions are shown as positive.
+
+      Position Y represents the displacement of a particle in the sound wave at a particular distance from the source at this instant.
+
+      Which statement about the motion of this particle is correct?
+    options:
+      - letter: A
+        text: |
+          The particle is moving away from the source.
+      - letter: B
+        text: |
+          The particle is moving towards the source.
+      - letter: C
+        text: |
+          The particle is moving upwards.
+      - letter: D
+        text: |
+          The particle is moving downwards.
+  - number: "26"
+    type: multiple_choice
+    text: |
+      Two polarising filters are placed next to each other so that their planes are parallel.
+
+      The first polarising filter has its transmission axis at an angle of $50^\circ$ to the vertical.
+
+      The second polarising filter has its transmission axis at an angle of $20^\circ$ to the vertical. The angle between the transmission axes of the two polarising filters is $30^\circ$.
+
+      A beam of vertically polarised light of intensity $8.0\text{ W}\,\text{m}^{-2}$ is incident normally on the first polarising filter.
+
+      What is the intensity of the light that is transmitted from the second polarising filter?
+    options:
+      - letter: A
+        text: |
+          zero
+      - letter: B
+        text: |
+          $2.5\text{ W}\,\text{m}^{-2}$
+      - letter: C
+        text: |
+          $2.9\text{ W}\,\text{m}^{-2}$
+      - letter: D
+        text: |
+          $6.0\text{ W}\,\text{m}^{-2}$
+  - number: "27"
+    type: multiple_choice
+    text: |
+      A dolphin is swimming at a speed of $16.0\text{ m}\,\text{s}^{-1}$ directly towards a stationary underwater microphone.
+
+      The dolphin emits a sound of frequency $122\text{ kHz}$. The speed of sound in water is $1480\text{ m}\,\text{s}^{-1}$.
+
+      What is the frequency of sound detected by the microphone?
+    options:
+      - letter: A
+        text: |
+          $1300\text{ Hz}$
+      - letter: B
+        text: |
+          $1330\text{ Hz}$
+      - letter: C
+        text: |
+          $121\text{ kHz}$
+      - letter: D
+        text: |
+          $123\text{ kHz}$

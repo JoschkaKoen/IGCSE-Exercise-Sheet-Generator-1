@@ -1,0 +1,7 @@
+questions:
+  - number: "7"
+    type: long_answer
+    text: |
+      A computer programmer uses an integrated development environment (IDE) when creating a computer program.
+
+      Explain the purpose of the IDE.

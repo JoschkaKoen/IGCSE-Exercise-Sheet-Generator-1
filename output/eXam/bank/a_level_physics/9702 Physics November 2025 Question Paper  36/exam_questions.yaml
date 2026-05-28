@@ -1,0 +1,360 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: In this experiment, you will investigate the phase difference between the
+    oscillations of two mass–spring systems.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Assemble the apparatus as shown in Fig. 1.1.
+
+
+      Fig. 1.1
+
+
+      \begin{itemize}
+
+      \item Mass A and mass B are each $200\text{ g}$.
+
+      \item Add a mass $z$ of $40\text{ g}$ to mass B.
+
+      \end{itemize}
+
+
+      Record the value of $z$.
+
+
+      $z = \hrulefill \text{ g}$
+
+
+      \begin{itemize}
+
+      \item $M$ is given by $M = 200\text{ g} + z$.
+
+      \end{itemize}
+
+
+      Calculate $M$.
+
+
+      $M = \hrulefill \text{ g}$'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 10
+    text: 'Change $z$ and determine $P$. Repeat until you have six sets of values
+      of $z$ and $P$.
+
+
+      Record your results in a table. Include values of $M$, $\frac{1}{\sqrt{M}}$
+      and $\frac{1}{P}$ in your table.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Plot a graph of $\frac{1}{P}$ on the $y$-axis against $\frac{1}{\sqrt{M}}$
+        on the $x$-axis.
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Draw the straight line of best fit.
+      answer_options: []
+      subquestions: []
+    - number: 1ciii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the gradient and $y$-intercept of this line.
+
+
+        gradient = \hrulefill
+
+
+        $y$-intercept = \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 1d
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'It is suggested that the quantities $P$ and $M$ are related by the equation
+
+      $$\frac{1}{P} = \frac{a}{\sqrt{M}} + b$$
+
+      where $a$ and $b$ are constants.
+
+
+      Use your answers in \textbf{(c)(iii)} to determine the values of $a$ and $b$.
+
+      Give appropriate units.
+
+
+      $a =$ \hrulefill
+
+      $b =$ \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: In this experiment, you will investigate the tension in a string.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Set up the apparatus as shown in Fig. 2.1.
+
+
+      \begin{itemize}
+
+      \item The mass hanger and masses should have a total mass $M$ of $0.400\text{
+      kg}$.
+
+      \item The distance between the two lower nails is $d$, as shown in Fig. 2.1.
+
+      \end{itemize}
+
+
+      Measure and record $d$.
+
+
+      $d = $ \hrulefill $\text{ cm}$'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The tension in the string is $T$.
+
+
+      Calculate $T$ using $T = Mg$, where $g = 9.81 \text{ N}\,\text{kg}^{-1}$.
+
+
+      $T = \hrulefill$ N'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Hook the newton meter on the string half-way between the two lower nails
+        and pull it horizontally with a force $F$ of $5.0 \text{ N}$, as shown in
+        Fig. 2.2.
+
+
+        The force $F$ causes the string to deflect a distance $x$, as shown in Fig.
+        2.2.
+
+
+        Measure and record $x$.
+
+
+        $x = \hrulefill$ cm'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Estimate the percentage uncertainty in your value of $x$. Show your working.
+
+
+        percentage uncertainty = \hrulefill \%'
+      answer_options: []
+      subquestions: []
+    - number: 2ciii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate $y$, where
+
+        $$y = \sqrt{x^2 + \frac{d^2}{4}}.$$
+
+
+        y = \hrulefill \text{ cm}'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: '\begin{itemize}
+
+      \item Add slotted masses to the mass hanger so that the total mass $M$ is $0.700\text{
+      kg}$.
+
+      \item Repeat (b), (c)(i) and (c)(iii).
+
+      \end{itemize}
+
+
+      T = \hrulefill \text{ N}
+
+      x = \hrulefill \text{ cm}
+
+      y = \hrulefill \text{ cm}'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'It is suggested that the relationship between $y$, $T$ and $x$ is
+
+
+      $$ky = Tx$$
+
+
+      where $k$ is a constant.'
+    answer_options: []
+    subquestions:
+    - number: 2ei
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Using your data, calculate \textbf{two} values of $k$.
+
+
+        first value of $k =$ \hrulefill
+
+        second value of $k =$ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2eii
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Justify the number of significant figures that you have given for your
+        values of $k$.
+      answer_options: []
+      subquestions: []
+  - number: 2f
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'It is suggested that the percentage uncertainty in the values of $k$ is
+      20\%.
+
+
+      Using this uncertainty, explain whether your results support the relationship
+      in (e).'
+    answer_options: []
+    subquestions: []
+  - number: 2g
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2gi
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe four sources of uncertainty or limitations of the procedure
+        for this experiment. For any uncertainties in measurement that you describe,
+        you should state the quantity being measured and a reason for the uncertainty.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2gii
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Describe four improvements that could be made to this experiment. You
+        may suggest the use of other apparatus or different procedures.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill
+
+        4. \hrulefill'
+      answer_options: []
+      subquestions: []

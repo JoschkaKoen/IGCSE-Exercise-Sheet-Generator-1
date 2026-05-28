@@ -1,0 +1,40 @@
+[thinking]
+**Transcribing Questions 1c and 1d**
+
+Okay, the user wants me to transcribe questions 1c and 1d. Let's get right to it. For question 1c, it's asking for the appropriate data types for variables presented in a table. It's a fill-in-the-blank type of question. I need to represent this table in LaTeX format. I think a `\begin{tabular}` environment is perfect for this. I'll need to define the columns; I'll use `|l|l|` for the column specifications, or perhaps `|p{5cm}|p{5cm}|` for a bit more control over the width. I'll include a header row with bolded "Variable name" and "Data type". Then I'll add the variable names as they appear: `\texttt{HighRate}` and `\texttt{TaxPayable}`. I'll make sure to put `\hline` to draw a line between rows, and another at the top. The final LaTeX snippet should look something like:
+
+```latex
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Variable name} & \textbf{Data type} \\ \hline
+\texttt{HighRate} & \\ \hline
+\texttt{TaxPayable} & \\ \hline
+\end{tabular}
+```
+
+I'll quickly double-check that the cell count is consistent: two columns and each row includes one `&` separating the two cells. All good.
+
+Now, for question 1d: It's an open-ended question that asks for a keyword. It seems pretty straightforward; I don't need any answer lines. There is a dotted line after "Give the keyword.". That should be dropped. Okay, that's everything!
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      Give the \textbf{appropriate} data type for the variables in the following table, as used in the pseudocode:
+
+      \begin{tabular}{|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Variable name}} & \multicolumn{1}{c|}{\textbf{Data type}} \\ \hline
+      \texttt{HighRate} & \\ \hline
+      \texttt{TaxPayable} & \\ \hline
+      \end{tabular}
+  - number: "1d"
+    type: short_answer
+    text: |
+      The final \texttt{CASE} condition (\texttt{> 200}) in the pseudocode example could be replaced with a keyword.
+
+      Give the keyword.

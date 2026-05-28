@@ -1,0 +1,13 @@
+questions:
+  - number: "4biii"
+    type: short_answer
+    text: |
+      Apart from the period, frequency and angular frequency of the oscillations, determine \textbf{three} other conclusions about the object and its oscillations that may be drawn from Fig. 4.1 and Fig. 4.2. The conclusions may be qualitative or quantitative. Use the space below for any working.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "4biv"
+    type: long_answer
+    text: |
+      Describe the interchange between kinetic energy and potential energy during the oscillations. Numerical values are \textbf{not} required.

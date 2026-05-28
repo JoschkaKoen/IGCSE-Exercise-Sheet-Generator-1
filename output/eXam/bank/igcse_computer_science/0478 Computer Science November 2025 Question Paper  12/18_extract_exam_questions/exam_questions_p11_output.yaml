@@ -1,0 +1,16 @@
+questions:
+  - number: "7f"
+    type: short_answer
+    text: |
+      The data for the music and audio books needs to be checked for errors after being transmitted from the cloud.
+  - number: "7fi"
+    type: short_answer
+    text: |
+      Explain how errors may occur in the data during transmission.
+  - number: "7fii"
+    type: short_answer
+    text: |
+      Give \textbf{two} error detection methods that could be used to check for errors in the data after transmission.
+
+      1. \hrulefill
+      2. \hrulefill

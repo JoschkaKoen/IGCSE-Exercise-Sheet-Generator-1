@@ -1,0 +1,11 @@
+questions:
+  - number: "7bii"
+    type: calculation
+    text: |
+      Determine the magnitude of the electromotive force (e.m.f.) induced across the length of rotor OX.
+
+      e.m.f. = \hrulefill\ \text{V}
+  - number: "7biii"
+    type: long_answer
+    text: |
+      Use Lenz’s law to explain whether end O or end X of the rotor is at the higher potential.

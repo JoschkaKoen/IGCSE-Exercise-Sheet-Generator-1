@@ -1,0 +1,32 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      The following table shows part of the instruction set for a processor. The processor has two registers: the Accumulator (ACC) and an Index Register (IX).
+  - number: "8a"
+    type: short_answer
+    text: |
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \cline{1-2}
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+      LDD & \texttt{<address>} & Direct addressing. Load the contents of the location at the given address to ACC \\ \hline
+      LDI & \texttt{<address>} & Indirect addressing. The address to be used is at the given address. Load the contents of this second address to ACC \\ \hline
+      INC & \texttt{<register>} & Add 1 to the contents of the register (ACC or IX) \\ \hline
+      STO & \texttt{<address>} & Store the contents of ACC at the given address \\ \hline
+      ADD & \#n/Bn/\&n & Add the number n to the ACC \\ \hline
+      DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC or IX) \\ \hline
+      JMP & \texttt{<address>} & Jump to the given address \\ \hline
+      CMP & \texttt{<address>} & Compare the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      JPE & \texttt{<address>} & Following a compare instruction, jump to \texttt{<address>} if the compare was True \\ \hline
+      END & & Return control to the operating system \\ \hline
+      \end{tabular}
+
+      \begin{itemize}
+      \item ACC denotes Accumulator
+      \item \texttt{<address>} can be an absolute or a symbolic address
+      \item \# denotes a denary number, e.g. \#123
+      \item B denotes a binary number, e.g. B01001010
+      \item \& denotes a hexadecimal number, e.g. \&4A
+      \end{itemize}

@@ -1,0 +1,9 @@
+  - number: "8"
+    type: short_answer
+    text: ""
+  - number: "8ai"
+    type: short_answer
+    text: ""
+  - number: "8aii"
+    type: calculation
+    text: ""

@@ -1,0 +1,67 @@
+questions:
+  - number: "21"
+    type: multiple_choice
+    text: |
+      The graph shows the variation in extension with force for a sample of rubber.
+
+      The top line shows the variation in extension as a force is applied.
+
+      The bottom line shows the variation in extension as the force is removed.
+
+      What is represented by the area between the two lines?
+    options:
+      - letter: A
+        text: |
+          the work done as the force is applied
+      - letter: B
+        text: |
+          the work done as the force is applied minus the work done as the force is removed
+      - letter: C
+        text: |
+          the work done as the force is removed
+      - letter: D
+        text: |
+          the work done as the force is removed plus the work done as the force is applied
+
+  - number: "22"
+    type: multiple_choice
+    text: |
+      Two identical springs have the same spring constant $k$. The springs are connected in parallel.
+      The length of the unstretched springs is $x$.
+
+      A force $F$ is applied to the spring combination. The length of the springs is now $y$.
+
+      Both springs are deformed within their limits of proportionality.
+
+      Which expression gives the elastic potential energy stored in \textbf{one} of the springs?
+    options:
+      - letter: A
+        text: |
+          $\frac{1}{4}F(y - x)$
+      - letter: B
+        text: |
+          $\frac{1}{2}F(y - x)$
+      - letter: C
+        text: |
+          $\frac{1}{4}k(y - x)^2$
+      - letter: D
+        text: |
+          $k(y - x)^2$
+
+  - number: "23"
+    type: multiple_choice
+    text: |
+      Which expression gives the formula for the spring constant?
+    options:
+      - letter: A
+        text: |
+          $Fx$
+      - letter: B
+        text: |
+          $2Fx^2$
+      - letter: C
+        text: |
+          $\frac{F}{x}$
+      - letter: D
+        text: |
+          $\frac{F}{x^2}$

@@ -1,0 +1,43 @@
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      The floodlight (\textbf{X}) and audio alarm (\textbf{Y}) operate according to the following criteria:
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Parameter} & \textbf{Description of parameter} & \textbf{Binary value} & \textbf{Condition} \\ \hline
+      \textbf{A} & external daylight level & 1 & Low \\ \cline{3-4}
+      & & 0 & High \\ \hline
+      \textbf{B} & front door & 1 & Open \\ \cline{3-4}
+      & & 0 & Closed \\ \hline
+      \textbf{C} & person is within 2 m & 1 & Detected \\ \cline{3-4}
+      & & 0 & Not detected \\ \hline
+      \textbf{D} & back door & 1 & Open \\ \cline{3-4}
+      & & 0 & Closed \\ \hline
+      \textbf{E} & security system & 1 & Switched on \\ \cline{3-4}
+      & & 0 & Switched off \\ \hline
+      \end{tabular}
+
+      The floodlight turns on ($X = 1$) if:
+      \begin{itemize}
+      \item the security system is switched on \textbf{and}
+      \item the external daylight level is low \textbf{and}
+      \item a person is detected within 2 m.
+      \end{itemize}
+
+      The audio alarm turns on ($Y = 1$) if:
+      \begin{itemize}
+      \item the security system is switched on \textbf{and}
+      \item one \textbf{or} more doors are open, \textbf{or} a person is detected within 2 m.
+      \end{itemize}
+
+      Write logic expressions for the security system.
+
+      \textbf{X} = \hrulefill
+
+      \textbf{Y} = \hrulefill
+  - number: "5c"
+    type: long_answer
+    text: |
+      Explain whether the security system is an example of a monitoring system or a control system.

@@ -1,0 +1,51 @@
+questions:
+  - number: "13"
+    type: short_answer
+    text: |
+      The recursive procedure \texttt{Delete()} is defined as follows:
+
+      \begin{alltt}
+      PROCEDURE Delete(Index, Target)
+        IF Numbers[Index] > 0 THEN
+          IF Numbers[Index] >= Target THEN
+            Numbers[Index] <- Numbers[Index + 1]
+          ENDIF
+          Index <- Index + 1
+          CALL Delete(Index, Target)
+        ENDIF
+      ENDPROCEDURE
+      \end{alltt}
+
+      An array \texttt{Numbers} is used to store a sorted data set of non-zero positive integers. Unused cells contain zero.
+
+      The contents of the array at the start of the algorithm are:
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      \multicolumn{10}{|c|}{\textbf{Numbers}} \\ \hline
+      \textbf{[1]} & \textbf{[2]} & \textbf{[3]} & \textbf{[4]} & \textbf{[5]} & \textbf{[6]} & \textbf{[7]} & \textbf{[8]} & \textbf{[9]} & \textbf{[10]} \\ \hline
+      2 & 3 & 7 & 11 & 15 & 17 & 19 & 23 & 0 & 0 \\ \hline
+      \end{tabular}
+
+      Complete the trace table for the algorithm for the procedure call:
+
+      \begin{alltt}
+      CALL Delete(1, 15)
+      \end{alltt}
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      & & \multicolumn{10}{c|}{\textbf{Numbers}} \\ \hline
+      \textbf{Index} & \textbf{Target} & \textbf{[1]} & \textbf{[2]} & \textbf{[3]} & \textbf{[4]} & \textbf{[5]} & \textbf{[6]} & \textbf{[7]} & \textbf{[8]} & \textbf{[9]} & \textbf{[10]} \\ \hline
+      & & 2 & 3 & 7 & 11 & 15 & 17 & 19 & 23 & 0 & 0 \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      \end{tabular}

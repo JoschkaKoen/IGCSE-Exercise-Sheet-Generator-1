@@ -1,0 +1,19 @@
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      When a book is returned, the loan record will have its \texttt{OnLoan} data set to \texttt{FALSE}
+
+      A new procedure \texttt{Archive()} will mark these records as unused after first saving them for future reference.
+
+      Explain how these records can be saved for future reference.
+  - number: "8d"
+    type: short_answer
+    text: |
+      It is decided to extend the program so that a new module \texttt{Reminder()} will send an email to the student three days before the book is due to be returned.
+
+      Outline the changes that will need to be made to the data stored and how this data will be used to generate the reminder email.
+
+      Data \hrulefill
+
+      Use \hrulefill

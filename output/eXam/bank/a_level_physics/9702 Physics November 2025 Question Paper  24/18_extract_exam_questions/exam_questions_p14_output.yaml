@@ -1,0 +1,24 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Fig. 6.1 shows four alpha particles W, X, Y and Z moving towards a gold nucleus that is in thin gold foil.
+  - number: "6a"
+    type: short_answer
+    text: ''
+  - number: "6ai"
+    type: short_answer
+    text: |
+      The paths of particles X and Z are shown.
+
+      Complete Fig. 6.1 to show possible paths for particles W and Y.
+  - number: "6aii"
+    type: short_answer
+    text: |
+      Describe what may be inferred about the structure of an atom from the path of particle X.
+  - number: "6aiii"
+    type: short_answer
+    text: |
+      When a beam containing many alpha particles is incident on thin gold foil, nearly all of the alpha particles follow paths that are similar to the path of particle Z.
+
+      Describe what may be inferred from this about the structure of an atom.

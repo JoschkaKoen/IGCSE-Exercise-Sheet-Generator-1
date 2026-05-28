@@ -1,0 +1,42 @@
+questions:
+  - number: "1e"
+    type: short_answer
+    text: |
+      The hexadecimal code for each toy is stored in a barcode that is displayed on each toy.
+
+      Each time a customer buys a toy, the barcode is scanned and the amount of stock stored in the database for that toy is reduced by 1.
+
+      An item of hardware is used in this system to receive the hexadecimal code from the barcode scanner and find it in the database. The item of hardware is built into a single chip.
+  - number: "1ei"
+    type: short_answer
+    text: |
+      Identify the name of the item of hardware.
+  - number: "1eii"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show whether a barcode scanner is a type of input, output, process or storage device.
+    options:
+      - letter: A
+        text: |
+          input
+      - letter: B
+        text: |
+          output
+      - letter: C
+        text: |
+          process
+      - letter: D
+        text: |
+          storage
+  - number: "1eiii"
+    type: short_answer
+    text: |
+      The barcode scanner contains a sensor.
+
+      Identify the type of sensor that the barcode scanner could contain.
+  - number: "1eiv"
+    type: long_answer
+    text: |
+      A backup of the database is made at the end of each day using optical storage.
+
+      Describe how the database is written to the optical storage.

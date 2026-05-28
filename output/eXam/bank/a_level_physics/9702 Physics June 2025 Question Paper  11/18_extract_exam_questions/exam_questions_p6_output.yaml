@@ -1,0 +1,47 @@
+questions:
+  - number: "10"
+    type: multiple_choice
+    text: |
+      A firework travels vertically upwards in air. Gases are pushed vertically downwards from the firework.
+
+      Several forces that act on the firework and gases are shown.
+
+      Which forces are a Newton’s third law pair?
+    options:
+      - letter: A
+        text: |
+          air resistance and force on gases
+      - letter: B
+        text: |
+          air resistance and thrust
+      - letter: C
+        text: |
+          force on gases and thrust
+      - letter: D
+        text: |
+          thrust and weight
+  - number: "11"
+    type: multiple_choice
+    text: |
+      Two blocks K and L slide towards each other along a horizontal frictionless surface.
+
+      The diagram shows the momentum of the two blocks just before they collide.
+
+      During the collision, the blocks are in contact with each other for a time of $0.084\text{ s}$.
+
+      After the collision, the blocks separate and block L moves back along its original path with a momentum of $0.12\text{ kg}\,\text{m}\,\text{s}^{-1}$.
+
+      What is the magnitude of the average force exerted on block L by block K during the collision?
+    options:
+      - letter: A
+        text: |
+          $3.1\text{ N}$
+      - letter: B
+        text: |
+          $4.0\text{ N}$
+      - letter: C
+        text: |
+          $6.9\text{ N}$
+      - letter: D
+        text: |
+          $7.1\text{ N}$

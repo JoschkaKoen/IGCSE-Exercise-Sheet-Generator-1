@@ -1,0 +1,30 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A shop installs a new system that allows users to purchase items without going through a manual checkout.
+
+      The new system:
+      \begin{itemize}
+      \item identifies customers when they enter the shop and matches them to their account
+      \item prevents a customer from walking through the automatic barriers if they do not have an account
+      \item automatically detects the items that a customer has taken from a shelf and charges these to the customer's account.
+      \end{itemize}
+  - number: "4a"
+    type: long_answer
+    text: |
+      The new system uses digital cameras and Artificial Intelligence (AI) to identify the customers.
+
+      Explain how the new system uses AI to identify each customer.
+  - number: "4b"
+    type: short_answer
+    text: |
+      The new system uses sensors to identify the items taken from a shelf.
+
+      Identify \textbf{one} type of sensor that can be used in this new system.
+
+      State how the sensor can be used to identify the items taken from a shelf.
+
+      Sensor \hrulefill
+
+      Use \hrulefill

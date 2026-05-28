@@ -1,0 +1,75 @@
+questions:
+  - number: "33"
+    type: multiple_choice
+    text: |
+      A piece of wire X has resistivity $\rho$, length $L$ and cross-sectional area $A$. Wire X has a resistance $R$.
+
+      A second piece of wire Y is made of a different metal. It has the same resistance as X but has twice the length of X.
+
+      Which row gives possible values for the resistivity and the cross-sectional area of Y?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      & resistivity & \begin{tabular}{c} cross-sectional \\ area \end{tabular} \\
+      \hline
+      \textbf{A} & $\frac{1}{2}\rho$ & $\frac{1}{2}A$ \\
+      \textbf{B} & $\frac{1}{2}\rho$ & $A$ \\
+      \textbf{C} & $\rho$ & $\frac{1}{2}A$ \\
+      \textbf{D} & $2\rho$ & $A$ \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+
+  - number: "34"
+    type: multiple_choice
+    text: |
+      A cell of electromotive force (e.m.f.) $E$ delivers a charge $Q$ to an external circuit.
+
+      Which statement is correct?
+    options:
+      - letter: A
+        text: |
+          The energy dissipated in the external circuit is $EQ$.
+      - letter: B
+        text: |
+          The energy dissipated within the cell is $EQ$.
+      - letter: C
+        text: |
+          The external resistance is $EQ$.
+      - letter: D
+        text: |
+          The total energy dissipated in the cell and the external circuit is $EQ$.
+
+  - number: "35"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit with a battery of electromotive force (e.m.f.) $60\text{ V}$ and negligible internal resistance, a $20\text{ k}\Omega$ resistor, a thermistor and a voltmeter. The resistance of the thermistor is $20\text{ k}\Omega$.
+
+      The temperature of the thermistor decreases, and this causes its resistance to change by $50\%$.
+
+      After this change, what is the reading on the voltmeter?
+    options:
+      - letter: A
+        text: |
+          $20\text{ V}$
+      - letter: B
+        text: |
+          $24\text{ V}$
+      - letter: C
+        text: |
+          $36\text{ V}$
+      - letter: D
+        text: |
+          $40\text{ V}$

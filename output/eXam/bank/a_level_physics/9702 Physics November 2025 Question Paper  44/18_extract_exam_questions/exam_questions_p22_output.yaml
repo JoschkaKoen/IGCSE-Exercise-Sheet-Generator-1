@@ -1,0 +1,35 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      State what is meant by the photoelectric effect.
+  - number: "9b"
+    type: short_answer
+    text: |
+      The photoelectric effect is investigated using two clean metal plates. One plate is made from metal X and the other is made from metal Y.
+
+      Metal X has work function energy $\Phi$. Metal Y has work function energy $2\Phi$.
+      Metal X has threshold frequency $F$.
+
+      State expressions, in terms of either or both of $\Phi$ and $F$, for
+  - number: "9bi"
+    type: short_answer
+    text: |
+      the threshold frequency of metal Y
+
+      threshold frequency = \hrulefill
+  - number: "9bii"
+    type: short_answer
+    text: |
+      the Planck constant.
+
+      Planck constant = \hrulefill
+  - number: "9c"
+    type: short_answer
+    text: |
+      The maximum kinetic energy $E_{\text{K}}$ of photoelectrons is determined for each of the plates in (b) for different frequencies $f$ of incident radiation.
+
+      On Fig. 9.1, sketch the variation of $E_{\text{K}}$ with $f$ for each plate. Label your lines X and Y to identify which line relates to which plate.

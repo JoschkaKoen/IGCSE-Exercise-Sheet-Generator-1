@@ -1,0 +1,21 @@
+  - number: "1"
+    type: short_answer
+    text: ""
+  - number: "1a"
+    type: short_answer
+    text: ""
+  - number: "1b"
+    type: calculation
+    text: ""
+  - number: "1c"
+    type: short_answer
+    text: ""
+  - number: "2"
+    type: short_answer
+    text: ""
+  - number: "2a"
+    type: short_answer
+    text: ""
+  - number: "2b"
+    type: short_answer
+    text: ""

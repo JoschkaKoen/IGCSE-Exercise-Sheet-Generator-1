@@ -1,0 +1,15 @@
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2di"
+    type: calculation
+    text: |
+      Use your answer in (c)(ii) to calculate the average gravitational force between adjacent molecules in hydrogen gas.
+
+      average force = \hrulefill N
+  - number: "2dii"
+    type: short_answer
+    text: |
+      By considering the weight of a molecule, suggest with a reason whether your answer in (d)(i) is consistent with the assumption of the kinetic theory of gases that there are no forces exerted between molecules.

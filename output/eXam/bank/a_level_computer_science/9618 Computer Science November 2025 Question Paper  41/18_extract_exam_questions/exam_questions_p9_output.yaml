@@ -1,0 +1,45 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program stores records in the 2D array \texttt{HashTable}. Each record is stored at a specific index of the array that is calculated using a hashing algorithm with the record's key field.
+
+      The array has $100 \times 10$ elements. The hashing algorithm uses the key to generate an index between 0 and 99 (inclusive). If two key fields generate the same index, there is a collision. Any records that have a collision are stored in the next space in the same index.
+
+      For example: In this table two record keys generated the same hash value of 1. Four record keys generated the same hash value of 3.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{Index} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{...} & \textbf{9} \\ \hline
+      \textbf{0} & record & & & & & & & \\ \hline
+      \textbf{1} & record & record & & & & & & \\ \hline
+      \textbf{2} & & & & & & & & \\ \hline
+      \textbf{3} & record & record & record & record & & & & \\ \hline
+      \textbf{4} & & & & & & & & \\ \hline
+      \textbf{...} & & & & & & & & \\ \hline
+      \textbf{99} & & & & & & & & \\ \hline
+      \end{tabular}
+
+      The program uses Object-Oriented Programming (OOP).
+  - number: "3a"
+    type: short_answer
+    text: |
+      The class \texttt{Record} stores data about the records:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Record}} \\ \hline
+      \texttt{Key : Integer} & stores the integer key field for the data \\ \hline
+      \texttt{Data : String} & stores the string data \\ \hline
+      \texttt{Constructor()} & initialises \texttt{Key} and \texttt{Data} to its parameter values \\ \hline
+      \end{tabular}
+
+      The attributes \texttt{Key} and \texttt{Data} are public.
+
+      Write program code to declare the class \texttt{Record} and its constructor.
+
+      Use your programming language appropriate constructor.
+
+      Save your program as \textbf{Question3\_N25}.
+
+      Copy and paste the program code into part \textbf{3(a)} in the evidence document.

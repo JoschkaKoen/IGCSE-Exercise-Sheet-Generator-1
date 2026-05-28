@@ -1,0 +1,51 @@
+[thinking]
+**Transcribing Page 12 of the Exam**
+
+Okay, so the task at hand is to transcribe the content from page 12 of an exam. The section we're focusing on is labeled "5b," which involves a `CASE` structure in pseudocode and its optimization. I need to make sure I get the questions and any associated answer lines correct. Let's break it down:
+
+First, I need to transcribe the introductory section for "5b," including the reminder of the `CASE` structure. This involves preserving the existing structure, including the four clauses (1, 2, 3, and 4) and the `OTHERWISE` condition. It seems straightforward, but I need to ensure the formatting with `\texttt` and the code block are right. Specifically, the YAML should use an `alltt` block for formatting. I have to remember that in an `alltt` block, `{`, `}` and `\` are special characters that need escaping, but there are no such characters in the pseudocode. Square brackets should be fine though. Assignment uses `<-`.
+
+Next, I have "5bi," which is a short answer question asking to identify the `CaseVar` values for two existing clauses in the given pseudocode. I see a dotted line with `[1]` at the end, I need to check if there is some prompt. There is no prompt, so I don't need to put `\hrulefill`.
+
+Finally, there's "5bii," another short answer, which asks for the pseudocode to replace those combined clauses. There are three dotted lines with `[2]` at the end of the question. Again, no markers needed.
+
+It's important to remember that I'm aiming for clean and precise transcription that faithfully represents the original exam content. The provided pseudocode example is pretty standard, but attention to the details, like the correct use of LaTeX formatting, will be vital to accurately transcribe the section.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      As a reminder, the \texttt{CASE} structure in the pseudocode is:
+
+      \begin{alltt}
+      CASE OF CaseVar
+          1 : Num[Index] <- Num[Index] + Index //clause one
+              Index <- Index + 1
+              Count <- Count + 1
+
+          2 : Num[Index] <- Num[Index] + Index //clause two
+              Index <- Index + 2
+              Count <- Count + 2
+
+          3 : Num[Index] <- Num[Index] * 2     //clause three
+              Index <- Index + 3
+              Count <- Count - 1
+
+          4 : Count <- Count + 4               //clause four
+          OTHERWISE : Count <- 20
+      ENDCASE
+      \end{alltt}
+
+      The \texttt{CASE} structure could be optimised by combining two existing clauses.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      Identify the \texttt{CaseVar} values for these \textbf{two} existing clauses.
+  - number: "5bii"
+    type: short_answer
+    text: |
+      Write pseudocode for a single clause to replace the \textbf{two} clauses identified in (b) (i).

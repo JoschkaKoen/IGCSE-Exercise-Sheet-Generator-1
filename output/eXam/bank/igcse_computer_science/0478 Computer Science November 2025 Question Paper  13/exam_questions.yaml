@@ -1,0 +1,635 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A flower shop has a room that has an air-conditioning system. It is used
+    to keep the room at a constant temperature for storing flowers.
+
+
+    The owner uses a keypad to set the temperature for the room.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: multiple_choice
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) \textbf{one} box to show whether a keypad is an example
+      of an input, output, process or storage device.
+    answer_options:
+    - letter: A
+      text: input
+    - letter: B
+      text: output
+    - letter: C
+      text: process
+    - letter: D
+      text: storage
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The owner of the shop enters a denary number to set the temperature for
+      the room.
+
+
+      The denary number is converted to a binary number to be processed. The binary
+      number is stored in a register in the air conditioning system.'
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the binary number that would be stored when the denary number 24
+        is entered.
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the binary number that would be stored when the denary number 101
+        is entered.
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The binary number 00010011 is stored in the register.
+
+
+        Give the denary number that has been entered for this binary number to be
+        stored.'
+      answer_options: []
+      subquestions: []
+    - number: 1biv
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The binary number 00100010 is stored in the register.
+
+
+        Give the denary number that has been entered for this binary number to be
+        stored.'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: If the air-conditioning system detects an error, it displays an error code.
+      The error code is displayed as a hexadecimal number. The binary number for each
+      error code is stored in a register.
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the binary number that is stored in the register to display the error
+        code 51.
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the binary number that is stored in the register to display the error
+        code E3.
+      answer_options: []
+      subquestions: []
+    - number: 1ciii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the hexadecimal number that is displayed when the binary number 10000010
+        is stored in the register.
+      answer_options: []
+      subquestions: []
+  - number: 1d
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'If the owner of the shop wants to make the room very cold, she may need
+      to enter a negative denary number.
+
+
+      The negative denary number could be represented using two''s complement.
+
+
+      Give the two''s complement 8-bit binary integer that would be stored for the
+      temperature $-5$.
+
+
+      Show all your working.
+
+
+      Two''s complement 8-bit binary integer \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1e
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The air-conditioning system uses a temperature sensor and a microprocessor
+      to keep the temperature of the room at a constant level.
+    answer_options: []
+    subquestions:
+    - number: 1ei
+      question_type: multiple_choice
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Tick ($\checkmark$) one box to show whether the sensor is an example of
+        an input, output, process or storage device.
+      answer_options:
+      - letter: A
+        text: input
+      - letter: B
+        text: output
+      - letter: C
+        text: process
+      - letter: D
+        text: storage
+      subquestions: []
+    - number: 1eii
+      question_type: long_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The temperature sensor continuously sends analogue data to the microprocessor.
+        This data is then converted to digital.
+
+
+        Explain how the microprocessor keeps the temperature of the room at a constant
+        level.'
+      answer_options: []
+      subquestions: []
+  - number: 1f
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The air-conditioning system is an example of an embedded system.
+
+
+      Explain why the air-conditioning system is an embedded system.'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer with a Von Neumann architecture has a central processing unit (CPU)
+    that carries out the fetch-decode-execute (FDE) cycle.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give the name of the first register that is used in the fetch part of the
+      cycle.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The CPU has a control unit (CU).
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Describe the role of the CU in the CPU.
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the name of the register that is part of the CU.
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The computer has primary storage. One example of primary storage is cache.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: multiple_choice
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Tick (\checkmark) \textbf{one} box to show the correct statement that
+        describes the purpose of cache.
+      answer_options:
+      - letter: A
+        text: It stores important instructions.
+      - letter: B
+        text: It stores the next instruction to be processed.
+      - letter: C
+        text: It stores frequently used instructions.
+      - letter: D
+        text: It stores instructions so they are not lost when the power is turned
+          off.
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{one} other example of primary storage.
+
+
+        Identify the type of data your example would store.
+
+
+        Primary storage \hrulefill
+
+
+        Data \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The computer also has secondary storage.
+
+
+      Write the name of the type of secondary storage for each description in the
+      table. Each type of secondary storage may be used more than once.
+
+
+      \begin{tabular}{|p{5cm}|p{8cm}|}
+
+      \hline
+
+      \textbf{Type of secondary storage} & \textbf{Description} \\ \hline
+
+      \hrulefill & It burns pits and lands onto a disk. \\ \hline
+
+      \hrulefill & It uses control gates and flow gates. \\ \hline
+
+      \hrulefill & It uses NAND or NOR technology. \\ \hline
+
+      \hrulefill & The surface of each platter is divided into tracks and sectors.
+      \\ \hline
+
+      \hrulefill & It has a read/write arm that moves a laser across a disc. \\ \hline
+
+      \hrulefill & It controls the flow of electrons using transistors. \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data is split into packets before it is transmitted across a network.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The diagram shows a packet with three sections.
+
+
+      Complete the diagram by writing the name of each section of the packet.
+
+
+      Write an example in each section of what would be stored in that part of the
+      packet.
+
+
+      The first section is called the \hrulefill
+
+
+      The second section is called the \hrulefill
+
+
+      The third section is called the \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Packets can be sent across a network using different methods of data transmission.
+
+
+      Explain how data is transmitted in the \textbf{two} given methods of data transmission.'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Serial full-duplex
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Parallel half-duplex
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A cyber security company specialises in security solutions that help prevent
+    hackers being successful.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Identify \textbf{two} security solutions that can be provided to help prevent
+      hackers being successful.
+
+
+      Explain how each solution helps prevent hackers being successful.
+
+
+      Solution 1 \hrulefill
+
+
+      Explanation \hrulefill
+
+
+      Solution 2 \hrulefill
+
+
+      Explanation \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The company also has a web page that provides information to improve people''s
+      awareness of social engineering.
+
+
+      Describe what is meant by social engineering.
+
+      Include an example of social engineering in your answer.'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The company's website uses both session cookies and persistent cookies.
+    answer_options: []
+    subquestions:
+    - number: 4ci
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State \textbf{one} similarity between session cookies and persistent cookies.
+      answer_options: []
+      subquestions: []
+    - number: 4cii
+      question_type: long_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain one difference between session cookies and persistent cookies.
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Text, images and sound are represented as binary to be processed by a computer.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete the table by writing the missing terms and descriptions about
+      representing text, images and sound as binary.
+
+
+      \begin{tabular}{|p{5cm}|p{8cm}|}
+
+      \hline
+
+      \textbf{Term} & \textbf{Description} \\ \hline
+
+      character set & \\ \hline
+
+      & This is the number of samples taken each second when recording sound. \\ \hline
+
+      pixel & \\ \hline
+
+      resolution & \\ \hline
+
+      & This is the number of bits used to represent a colour in an image. \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The size of an image file is 1000 bytes.
+
+
+      Give the size of the image file in bits.'
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The size of a sound file is 4096 mebibytes (MiB).
+
+
+      Give the size of the file in gibibytes (GiB).'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer game is programmed to use artificial intelligence (AI) to create
+    the movements and actions of the computer-controlled characters in the game.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe what is meant by AI.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how the AI can be used to improve the movements and actions of the
+      computer-controlled characters.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The computer game is programmed using a high-level language.
+
+
+      Explain \textbf{one} difference between a high-level language and a low-level
+      language.'
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The programmer uses translators to translate the high-level language source
+      code into machine code.
+
+
+      Identify the name of the translator that would be used for each of the statements.
+      Each name may be used more than once.'
+    answer_options: []
+    subquestions:
+    - number: 6di
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Translates and executes the source code one line at a time.
+      answer_options: []
+      subquestions: []
+    - number: 6dii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Translates the source code and will not execute it if errors are found.
+        It instead produces a full report of the errors in the source code.
+      answer_options: []
+      subquestions: []
+    - number: 6diii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Translates the source code and produces an executable file.
+      answer_options: []
+      subquestions: []
+    - number: 6div
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Stops execution of the machine code where an error is found and will resume
+        execution of the machine code once the error is fixed.
+      answer_options: []
+      subquestions: []

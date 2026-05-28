@@ -1,0 +1,9 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      Fig. 5.1 shows a circuit containing a battery, two fixed resistors X and Y, and a light-dependent resistor (LDR) Z.
+
+      The battery has electromotive force (e.m.f.) $5.0\text{ V}$ and internal resistance $4.7\ \Omega$. The current in X is $I_1$ and the current in Y is $I_2$.
+
+      The resistance of X is $100\ \Omega$. The resistance of Z varies with the intensity of light incident on it as shown in Fig. 5.2.

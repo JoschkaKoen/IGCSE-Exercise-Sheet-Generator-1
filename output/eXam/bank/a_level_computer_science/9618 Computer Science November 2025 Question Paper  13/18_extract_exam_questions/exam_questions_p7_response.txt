@@ -1,0 +1,40 @@
+[thinking]
+**My Analysis of Exam Question 5**
+
+Okay, here's the breakdown of what I need to do. I'm looking at page 7 of this exam paper, and I need to parse the questions 5b and 5c into YAML format for further processing. The goal is to extract the problem statement, the question type, and potentially any relevant data, then structure it as a clean YAML file.
+
+First, I need to analyze the input. It’s clear that I need to deal with two distinct SQL-related questions.
+
+**Question 5b** is asking for an SQL script to define the `STAFF` table. I see sample data with columns: `StaffID`, `StaffFirstName`, `StaffLastName`, `Department`, and `RemoteWorker`. The instruction explicitly requires an SQL script. I'll need to capture that table data effectively.  The marks allocated are [4]. This hints at the complexity – it's a relatively straightforward table definition, so the script shouldn't be too convoluted. Since it's about table definition, the question type should be `short_answer`.
+
+Now, I'll format question 5b. I'll use `\begin{tabular}` to accurately represent the table in the `text` field, ensuring it's formatted as LaTeX.  The table's columns look best with a format like `|c|c|c|c|c|`, and I'll include the table header and data rows. I'll need to remember to use `\textbf{}` for the header, and ensure that the backslashes are properly escaped in the LaTeX.
+
+For **Question 5c**, it seems to ask for another SQL script to query product data, filtering for ratings of 5 or less, and ordering the results in descending order. The question involves `ProductID`, `ProductName`, and `ComplaintDetails`. The marks are [5], suggesting this SQL query will require a `WHERE` clause with a comparison and an `ORDER BY` clause. The question type will also be `short_answer`.  The instructions are pretty clear; I need to simply extract the relevant text and format it correctly.
+
+Finally, I'll need to double-check my LaTeX formatting, especially regarding the use of `\texttt{}` for database terms like `STAFF`, `ProductID`, etc., to denote code, and make sure that there are no issues with the YAML formatting.  I must be careful about those double quotes, and ensure that block scalars are used as required to prevent parsing issues.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      Some example data from the \texttt{STAFF} table is shown.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{StaffID} & \textbf{StaffFirstName} & \textbf{StaffLastName} & \textbf{Department} & \textbf{RemoteWorker} \\ \hline
+      1 & Ralph & Jura & E & Yes \\ \hline
+      2 & Luca & Emcee & A & Yes \\ \hline
+      3 & Darwin & Acula & F & No \\ \hline
+      \end{tabular}
+
+      Write a Structured Query Language (SQL) script to define the table \texttt{STAFF}.
+  - number: "5c"
+    type: short_answer
+    text: |
+      Products are given a rating between 1 and 10 inclusive.
+
+      Write an SQL script to return only the \texttt{ProductID}, \texttt{ProductName} and \texttt{ComplaintDetails} for all products with a rating of 5 or less. The results need to be displayed in descending order of rating.

@@ -1,0 +1,26 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      The string operation \texttt{SUBSTRING(FullText, X, Y)} returns a string from \texttt{FullText} beginning at position \texttt{X} that is \texttt{Y} characters long. The first character in \texttt{FullText} is in position 1.
+  - number: "7a"
+    type: long_answer
+    text: |
+      Write the pseudocode statements to:
+
+      \begin{itemize}
+      \item store the string ``IGCSE Computer Science at Cambridge'' in \texttt{FullText}
+      \item extract and display the words ``Computer Science'' from the string and store it in a suitable variable
+      \item output the original string in upper case.
+      \end{itemize}
+  - number: "7b"
+    type: long_answer
+    text: |
+      Write the pseudocode statements to:
+
+      \begin{itemize}
+      \item store the content of the variable you created in part \textbf{(a)} to a text file named \texttt{"Subjects.txt"}
+      \item close the text file at the end of the algorithm.
+      \end{itemize}
+```

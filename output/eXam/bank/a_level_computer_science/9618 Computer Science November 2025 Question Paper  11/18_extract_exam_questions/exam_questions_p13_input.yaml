@@ -1,0 +1,12 @@
+  - number: "7d"
+    type: short_answer
+    text: ""
+  - number: "7di"
+    type: calculation
+    text: ""
+  - number: "7dii"
+    type: short_answer
+    text: ""
+  - number: "7diii"
+    type: short_answer
+    text: ""

@@ -1,0 +1,21 @@
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      Some example data from the \texttt{STAFF} table is shown.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{StaffID} & \textbf{StaffFirstName} & \textbf{StaffLastName} & \textbf{Department} & \textbf{RemoteWorker} \\ \hline
+      1 & Ralph & Jura & E & Yes \\ \hline
+      2 & Luca & Emcee & A & Yes \\ \hline
+      3 & Darwin & Acula & F & No \\ \hline
+      \end{tabular}
+
+      Write a Structured Query Language (SQL) script to define the table \texttt{STAFF}.
+  - number: "5c"
+    type: short_answer
+    text: |
+      Products are given a rating between 1 and 10 inclusive.
+
+      Write an SQL script to return only the \texttt{ProductID}, \texttt{ProductName} and \texttt{ComplaintDetails} for all products with a rating of 5 or less. The results need to be displayed in descending order of rating.

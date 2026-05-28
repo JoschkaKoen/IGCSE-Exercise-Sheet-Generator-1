@@ -1,0 +1,55 @@
+[thinking]
+**Analyzing Exam Page 4 for Transcription**
+
+Okay, so I'm on page 4 of this exam and the task is to transcribe it. The questions listed are "1", "1a", and "1b". Immediately, I'm thinking, "Is '1' a main header, or is it a stub entry?" Let's dive into the YAML structure provided – it looks like:
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: ""
+  - number: "1a"
+    type: long_answer
+    text: ""
+  - number: "1b"
+    type: short_answer
+    text: ""
+```
+
+Right, so "1" is designated as a "short_answer" type, "1a" is a "long_answer", and "1b" is another "short_answer." Now, looking at the actual page, I see "1 (a) In terms of velocity and acceleration, describe uniform circular motion of an object." That's clearly "1a". And "(b)" is also there. But where's just plain "1"? It doesn't seem to be a standalone question, and the provided structure would have me expect it, so it feels like a stub.
+
+Hang on. There *isn't* a "1" question stem on the page; it seems to just jump straight into "1(a)" and "(b)". I should probably confirm that "1" is a stub entry. The instructions say, "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess."
+
+I can see "1(a)" and "1(b)", but not "1" by itself, let's verify with the OCR, which is `1 (a) In terms of velocity and acceleration, describe uniform circular motion of an object.`. So no plain "1."
+
+Alright, based on the instructions, since there's no actual content for question "1" on this page, the appropriate response is to output `STUB ERROR`. Let's get to the rest of the page.
+
+So, "1a" is `In terms of velocity and acceleration, describe uniform circular motion of an object.` and "1b" is:
+
+`Fig. 1.1 shows the view from above of a polystyrene ball undergoing horizontal circular motion of radius $R$.\n\n[Diagram]\n\nThe ball is illuminated by parallel light so that a shadow of the ball forms on a screen placed on the opposite side of the ball from the light source.\n\nThe line joining points O and P is perpendicular to the screen.\n\nThe angular speed of the circular motion is $\omega$.`
+
+I think I've got a firm grasp of what's where and how to handle it. Let's make sure that "1" being `STUB ERROR` is appropriate: yes, that will flag the issue. Done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1a"
+    type: long_answer
+    text: |
+      In terms of velocity and acceleration, describe uniform circular motion of an object.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Fig. 1.1 shows the view from above of a polystyrene ball undergoing horizontal circular motion of radius $R$.
+
+      The ball is illuminated by parallel light so that a shadow of the ball forms on a screen placed on the opposite side of the ball from the light source.
+
+      The line joining points O and P is perpendicular to the screen.
+
+      The angular speed of the circular motion is $\omega$.

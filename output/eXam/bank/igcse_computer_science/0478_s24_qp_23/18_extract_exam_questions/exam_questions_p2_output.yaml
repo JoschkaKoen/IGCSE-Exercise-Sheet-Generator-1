@@ -1,0 +1,38 @@
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+      This flowchart symbol
+    options:
+      - letter: A
+        text: |
+          represents a subroutine.
+      - letter: B
+        text: |
+          represents a decision.
+      - letter: C
+        text: |
+          represents an input/output.
+      - letter: D
+        text: |
+          represents a terminator.
+  - number: "2"
+    type: short_answer
+    text: |
+      Four logic gate symbols and five logic functions are shown.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Draw \textbf{one} line to link each logic gate symbol to the appropriate logic function.
+
+      \textbf{Not} all logic functions will be used.
+
+      \begin{itemize}
+      \item AND
+      \item XOR
+      \item NOT
+      \item NAND
+      \item OR
+      \end{itemize}

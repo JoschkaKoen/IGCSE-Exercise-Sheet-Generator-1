@@ -1,0 +1,37 @@
+questions:
+  - number: "11c"
+    type: short_answer
+    text: |
+      The database uses only the data types:
+
+      \begin{itemize}
+      \item alphanumeric
+      \item character
+      \item Boolean
+      \item integer
+      \item real
+      \item date/time.
+      \end{itemize}
+
+      Complete the table to show the fields that could have the given data types.
+
+      Only \textbf{one} field name is required in each box and each field name must be different.
+
+      \begin{tabular}{|p{6cm}|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Data type}} \\ \hline
+       & alphanumeric \\ \hline
+       & Boolean \\ \hline
+       & real \\ \hline
+       & integer \\ \hline
+      \end{tabular}
+  - number: "11d"
+    type: short_answer
+    text: |
+      Give the output that would be produced by the structured query language (SQL) statement:
+
+      \begin{alltt}
+      SELECT RoomNo, Type, Guests, Rate$
+      FROM Booking28
+      WHERE Mon <> T;
+      \end{alltt}

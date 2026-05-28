@@ -1,0 +1,7 @@
+questions:
+  - number: "2f"
+    type: short_answer
+    text: |
+      It is suggested that the percentage uncertainty in the values of $k$ is 10%.
+
+      Using this uncertainty, explain whether your results support the relationship in (e).

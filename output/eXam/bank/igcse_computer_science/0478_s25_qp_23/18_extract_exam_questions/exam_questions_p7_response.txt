@@ -1,0 +1,76 @@
+[thinking]
+**Page 7 of the Exam: Component Database Questions**
+
+Okay, the task is to generate the YAML stub for page 7 of the exam. This page focuses on a database question involving a `COMPONENT` table. The question is structured into three parts: the main stem (5), a data type table completion (5a), and an SQL statement completion (5b).
+
+First, let's confirm the structure of the question. The provided text confirms that "5" is the introductory stem, "5a" is the data type table, and "5b" is the SQL statement. Now, looking at the stem (5): "A computer store uses a database table \texttt{COMPONENT} to store the stock details of a range of components needed to build computer systems."
+
+For 5a, I need to create the LaTeX table. The text states it's a content table because it has words, numbers and labels in columns 1 and 3, meaning the LaTeX `tabular` environment will be maintained. The middle column, the answer column, will be left blank for the candidate to fill in, so the cells need only `& &` or empty spaces between the `&` symbols. I need to make sure the column count is consistent (3 columns). The text explicitly says to only use these data types: text, character, Boolean, integer, real, and date/time. The LaTeX table will be:
+
+```latex
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Field} & \textbf{Data type} & \textbf{Description} \\ \hline
+\texttt{ID} & & unique identifier \\ \hline
+\texttt{Name} & & component name \\ \hline
+\texttt{Description} & & component description \\ \hline
+\texttt{Price} & & selling price of component to 2 decimal places \\ \hline
+\texttt{NumberAvailable} & & number in stock \\ \hline
+\texttt{MinimumLevel} & & level at which the component is reordered \\ \hline
+\texttt{ReOrdered} & & whether or not the component has been reordered \\ \hline
+\texttt{DateOrdered} & & the date the component was reordered \\ \hline
+\end{tabular}
+```
+
+Now, for question 5b, an SQL statement completion, it is coded/pseudocode, so it must be wrapped in `\begin{alltt}...\end{alltt}`. The prompt indicates that `\hrulefill` is to be used to mark the gaps where the candidate is to fill in the SQL. I need to make sure the semicolon is at the end of the `WHERE` clause. Therefore, the SQL template will be:
+
+```latex
+\begin{alltt}
+SELECT \hrulefill
+
+FROM \hrulefill
+
+WHERE \hrulefill ;
+\end{alltt}
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A computer store uses a database table \texttt{COMPONENT} to store the stock details of a range of components needed to build computer systems.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the table by giving appropriate data types for each field.
+
+      Only the data types: text, character, Boolean, integer, real, date/time are available in this database.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Field} & \textbf{Data type} & \textbf{Description} \\ \hline
+      \texttt{ID} & & unique identifier \\ \hline
+      \texttt{Name} & & component name \\ \hline
+      \texttt{Description} & & component description \\ \hline
+      \texttt{Price} & & selling price of component to 2 decimal places \\ \hline
+      \texttt{NumberAvailable} & & number in stock \\ \hline
+      \texttt{MinimumLevel} & & level at which the component is reordered \\ \hline
+      \texttt{ReOrdered} & & whether or not the component has been reordered \\ \hline
+      \texttt{DateOrdered} & & the date the component was reordered \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: short_answer
+    text: |
+      Complete the structured query language (SQL) statement to list only the unique identifier, component name and reorder date of all the components that have been reordered.
+
+      \begin{alltt}
+      SELECT \hrulefill
+
+      FROM \hrulefill
+
+      WHERE \hrulefill ;
+      \end{alltt}

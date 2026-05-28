@@ -1,0 +1,23 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A presence check is a type of validation check.
+  - number: "4a"
+    type: short_answer
+    text: |
+      State the purpose of a presence check.
+  - number: "4b"
+    type: short_answer
+    text: |
+      A value input into a computer system must be an integer.
+  - number: "4bi"
+    type: short_answer
+    text: |
+      Identify the validation check used to test whether the value input meets this requirement.
+  - number: "4bii"
+    type: long_answer
+    text: |
+      Write the pseudocode for an algorithm to allow a number to be input into an appropriate variable and check whether the number is an integer. If the number is an integer, it is accepted. If the number is \textbf{not} an integer, an error message is output. Re-input of the number is required until a valid number is input.
+```

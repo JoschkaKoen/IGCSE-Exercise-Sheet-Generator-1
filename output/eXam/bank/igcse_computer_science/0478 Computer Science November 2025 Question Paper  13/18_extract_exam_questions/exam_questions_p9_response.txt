@@ -1,0 +1,14 @@
+[thinking]
+**Processing Question 4cii**
+
+Okay, so the user wants me to extract and format question "4cii" from this page. I need to get the text of the subquestion right, then strip the prefix `(ii)`.  Here's what I have to work with:  "(ii) Explain one difference between session cookies and persistent cookies." Alright, that's pretty straightforward. I'm taking the question itself, so I'll strip the leading `(ii)` and give: "Explain one difference between session cookies and persistent cookies." That seems correct.  I've got the text. It's a `long_answer` type, which means no answer markers are necessary.  The output should be the question text itself. That's it, ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4cii"
+    type: long_answer
+    text: |
+      Explain one difference between session cookies and persistent cookies.

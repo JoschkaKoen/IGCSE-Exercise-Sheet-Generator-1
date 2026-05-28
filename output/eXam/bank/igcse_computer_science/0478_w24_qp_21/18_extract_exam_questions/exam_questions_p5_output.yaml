@@ -1,0 +1,28 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Consider the logic circuit:
+  - number: "7a"
+    type: short_answer
+    text: |
+      Write a logic expression for the given logic circuit. Do not attempt to simplify the logic expression.
+
+      W = \hrulefill
+  - number: "7b"
+    type: short_answer
+    text: |
+      Complete the truth table from the given logic circuit.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{Working space} & \textbf{W} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}

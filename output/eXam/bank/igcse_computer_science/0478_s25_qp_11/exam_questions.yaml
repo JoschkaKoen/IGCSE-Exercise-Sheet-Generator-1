@@ -1,0 +1,706 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The size of a file can be measured using different data storage units.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: multiple_choice
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) \textbf{one} box to show the smallest data storage unit.
+    answer_options:
+    - letter: A
+      text: byte
+    - letter: B
+      text: gibibyte (GiB)
+    - letter: C
+      text: kibibyte (KiB)
+    - letter: D
+      text: nibble
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State how many tebibytes (TiB) are equal to 2 pebibytes (PiB).
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The size of a file needs to be reduced.
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the name of the process that is used to reduce the size of a file.
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'One reason the size of a file may need reducing is so that it has a shorter
+        transmission time.
+
+
+        Give \textbf{one} other reason why the size of a file may need reducing.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A clothes store has a ticket system to allow customers to speak to a personal
+    shopper.
+
+
+    The ticket displays a ticket number in hexadecimal, for example 11B.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The ticket system has an output device that creates a paper ticket.
+
+
+      Identify an appropriate output device to produce the paper ticket.'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Each ticket number is stored as a binary number in the ticket machine.
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Two ticket numbers are 14B and 97A.
+
+
+        Convert the \textbf{two} ticket numbers from hexadecimal to binary.
+
+
+        14B \hrulefill
+
+        97A \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} reasons why the ticket number is displayed as hexadecimal
+        instead of binary.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The ticket numbers could also be represented as denary.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Convert the \textbf{two} ticket numbers from hexadecimal to denary.
+
+
+        02C \hrulefill
+
+        10B \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Convert the \textbf{two} denary numbers into hexadecimal.
+
+
+        109 \hrulefill
+
+        415 \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'An image is converted to binary to be represented by a computer.
+
+
+    Complete the table with the missing terms and definition about representing an
+    image.
+
+
+    \begin{tabular}{|p{5cm}|p{10cm}|}
+
+    \hline
+
+    \textbf{Term} & \textbf{Definition} \\ \hline
+
+    \hrulefill & This is the smallest component of an image. \\ \hline
+
+    resolution & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+
+    \hrulefill & This is the number of bits used to create each colour in an image.
+    \\ \hline
+
+    \hrulefill & This is additional data that is stored with an image that can provide
+    information such as the time and date the image was taken. \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A restaurant has an electronic ordering system. The system allows customers
+    to select the food they want to order. The data for the order is transmitted across
+    their network to a computer in the restaurant kitchen.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The data is sent using serial full-duplex data transmission.
+    answer_options: []
+    subquestions:
+    - number: 4ai
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} reasons why serial full-duplex is a suitable data transmission
+        method for the data.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 4aii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} improvement that would be made to the data transmission
+        if parallel transmission is used instead of serial transmission.
+      answer_options: []
+      subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A checksum is used to check the data for errors after transmission.
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: Describe the process of the checksum error detection method.
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify \textbf{one} other error detection method that could be used
+        to check for errors in the data.
+      answer_options: []
+      subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A customer can also order food from home using the internet. The data for
+      their order is broken down into packets and transmitted across the internet
+      to the computer in the restaurant kitchen.
+    answer_options: []
+    subquestions:
+    - number: 4ci
+      question_type: multiple_choice
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Tick ($\checkmark$) \textbf{one} box to show which item would \textbf{not}
+        be included in a packet's header.
+      answer_options:
+      - letter: A
+        text: destination address
+      - letter: B
+        text: originator's address
+      - letter: C
+        text: packet number
+      - letter: D
+        text: payload
+      subquestions: []
+    - number: 4cii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The packets of data may need to be reordered when they arrive at the
+        computer in the restaurant kitchen.
+
+
+        Explain why the packets of data may need to be reordered.'
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data is processed by the central processing unit (CPU) in a computer that
+    has a Von Neumann architecture.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete the table with the missing terms and definitions about processing
+      data.
+
+
+      \begin{tabular}{|p{5cm}|p{8cm}|}
+
+      \hline
+
+      \textbf{Term} & \textbf{Definition} \\ \hline
+
+      current instruction register (CIR) & \hrulefill \newline \hrulefill \newline
+      \hrulefill \\ \hline
+
+      \hrulefill & This is a processing unit within the CPU that can fetch, decode
+      and execute instructions. \\ \hline
+
+      \hrulefill & This is a list of all the commands that can be processed by the
+      CPU. \\ \hline
+
+      cache & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+
+      accumulator & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the component in the CPU that is responsible for decoding an instruction.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how the clock speed can affect the performance of a CPU.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data can be encrypted using asymmetric encryption.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'Complete the paragraph about asymmetric encryption.
+
+
+      Use the terms from the list.
+
+
+      Some of the terms in the list will not be used. You may use a term more than
+      once.
+
+
+      \begin{itemize}
+
+      \item algorithm
+
+      \item binary
+
+      \item cipher text
+
+      \item compression
+
+      \item error
+
+      \item hardware
+
+      \item hexadecimal
+
+      \item meaningless
+
+      \item plain text
+
+      \item private
+
+      \item public
+
+      \item readable
+
+      \item transmission
+
+      \item unreadable
+
+      \end{itemize}
+
+
+      Data is encrypted using an encryption key. This is a type of \underline{\hspace{1.5em}}
+      that scrambles the \underline{\hspace{1.5em}} and turns it into \underline{\hspace{1.5em}}.
+      This makes the data \underline{\hspace{1.5em}}.
+
+
+      A \underline{\hspace{1.5em}} key is used to encrypt the data. This key cannot
+      be used to decrypt the data. A \underline{\hspace{1.5em}} key is used to decrypt
+      the data. Any device is able to request the \underline{\hspace{1.5em}} key,
+      but only your device knows the \underline{\hspace{1.5em}} key.'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Data can also be encrypted using symmetric encryption.
+
+
+      Give \textbf{one} reason why a person would use asymmetric encryption instead
+      of symmetric encryption.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student’s computer has primary storage. One example of primary storage is
+    random access memory (RAM).
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify \textbf{one} other example of primary storage.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain why RAM is an example of primary storage and \textbf{not} secondary
+      storage.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The student is editing a large video file for a project and during this
+      process the RAM becomes full. This makes the computer crash.
+
+
+      Describe how virtual memory could be used in this process to stop the computer
+      crashing.'
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The computer uses solid-state (flash memory) storage.
+    answer_options: []
+    subquestions:
+    - number: 7di
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} features of solid-state (flash memory) storage.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7dii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} examples of solid-state (flash memory) storage.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A robot is used to move car parts in a factory.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'One characteristic of the robot is that it has a mechanical structure.
+
+
+      Give \textbf{one} other characteristic of a robot.'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The robot has firmware.
+
+
+      State what is meant by firmware.'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Interrupts are generated when the robot is operating in the factory.
+
+
+      Give \textbf{two} examples of interrupts that may be generated when the robot
+      is in operation.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} advantages to the workers in the factory of using robots
+      to move the car parts.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 8e
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The robots have the ability to automatically adapt their own processes.
+
+
+      State the name of the ability described.'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Each employee in a finance company has a computer and an electronic account.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Each computer has an operating system. One function of the operating system
+      is to manage memory.
+
+
+      Describe the role of the operating system in managing memory.'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The finance company is concerned that a hacker may perform a brute-force
+      attack to gain access to an employee's account.
+    answer_options: []
+    subquestions:
+    - number: 9bi
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe how the hacker would perform the brute-force attack.
+      answer_options: []
+      subquestions: []
+    - number: 9bii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Give \textbf{three} cyber security solutions that could be used to help
+        prevent a brute-force attack from being successful.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The company uses a digital currency to purchase a new car.
+    answer_options: []
+    subquestions:
+    - number: 9ci
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by a digital currency.
+      answer_options: []
+      subquestions: []
+    - number: 9cii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The digital currency uses a process that involves a digital ledger. The
+        ledger has time stamped transactions that cannot be altered.
+
+
+        Give the name of this process.'
+      answer_options: []
+      subquestions: []

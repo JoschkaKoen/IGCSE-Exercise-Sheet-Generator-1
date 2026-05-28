@@ -1,0 +1,9 @@
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      A function \texttt{CheckNumber()} will take an integer value and return the Boolean value \texttt{TRUE} if the check digit is correct, otherwise return \texttt{FALSE}
+
+      Write pseudocode for the function \texttt{CheckNumber()}
+
+      Assume that the parameter is valid.

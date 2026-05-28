@@ -1,0 +1,32 @@
+[thinking]
+**Exam Page 3 Transcription: Framing the Encryption Questions**
+
+Okay, the user wants me to handle page 3 of this exam. Looks like we're diving into encryption. The specific questions are: "2c," "2ci," and "2cii." I need to get this right, so let's break them down.
+
+First, "2c" is a statement. It's the setup, the context: "Data is often encrypted when it is transmitted from one device to another." Got it. Essentially, it's setting the stage. No explanation is needed here.
+
+Next up, "2ci" demands an explanation. "Explain how data is encrypted using symmetric encryption." Ah, that's the core question on the mechanism. That requires a long answer. Thinking about it, I'll need to cover the key aspects: shared secret, encryption/decryption process, the strengths, and weaknesses.
+
+Finally, "2cii" asks for the purpose: "Give the purpose of encryption." This is straightforward. Basically, what problem does encryption solve? Security, confidentiality, integrity... it's a short answer, focusing on the fundamental goal.
+
+Alright, I've got a handle on the structure of these questions, so now let's build the YAML. This should make it easy to manage and format these answers.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      Data is often encrypted when it is transmitted from one device to another.
+  - number: "2ci"
+    type: long_answer
+    text: |
+      Explain how data is encrypted using symmetric encryption.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Give the purpose of encryption.
+```

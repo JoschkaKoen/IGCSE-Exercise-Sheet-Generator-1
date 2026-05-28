@@ -1,0 +1,33 @@
+```yaml
+questions:
+  - number: "2d"
+    type: calculation
+    text: |
+      Repeat \textbf{(c)} using the larger sphere.
+
+      $d = $ \hrulefill
+
+      $1 - \left(\frac{x}{d}\right)^2 = $ \hrulefill
+
+      $t = $ \hrulefill
+  - number: "2e"
+    type: short_answer
+    text: |
+      It is suggested that the relationship between $t$, $h$, $x$ and $d$ is
+
+      $$t^2 h = k \left( 5 + \frac{2}{1 - \left(\frac{x}{d}\right)^2} \right)$$
+
+      where $k$ is a constant.
+  - number: "2ei"
+    type: calculation
+    text: |
+      Using your data, calculate \textbf{two} values of $k$.
+
+      first value of $k = $ \hrulefill
+
+      second value of $k = $ \hrulefill
+  - number: "2eii"
+    type: short_answer
+    text: |
+      Justify the number of significant figures that you have given for your values of $k$.
+```

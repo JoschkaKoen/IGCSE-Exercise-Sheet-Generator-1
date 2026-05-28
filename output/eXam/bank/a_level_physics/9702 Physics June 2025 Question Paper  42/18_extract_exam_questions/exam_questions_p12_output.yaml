@@ -1,0 +1,36 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: short_answer
+    text: |
+      State what is meant by simple harmonic motion.
+  - number: "5b"
+    type: short_answer
+    text: |
+      A block is suspended by a spring. The block oscillates vertically with simple harmonic motion.
+
+      The velocity $v$ of the block varies with time $t$ according to
+
+      $$v = 0.56 \cos 16t$$
+
+      where $v$ is in $\text{ms}^{-1}$ and $t$ is in $\text{s}$.
+  - number: "5bi"
+    type: calculation
+    text: |
+      Calculate the period of the oscillation.
+
+      period = \hrulefill $\text{s}$
+  - number: "5bii"
+    type: calculation
+    text: |
+      Determine the amplitude $x_0$ of the oscillation.
+
+      $x_0$ = \hrulefill $\text{m}$
+  - number: "5biii"
+    type: calculation
+    text: |
+      Use your answer in (b)(ii) to determine the equation for $v$ in terms of the displacement $x$ of the block, where $v$ is in $\text{ms}^{-1}$ and $x$ is in $\text{m}$.
+
+      $v$ = \hrulefill

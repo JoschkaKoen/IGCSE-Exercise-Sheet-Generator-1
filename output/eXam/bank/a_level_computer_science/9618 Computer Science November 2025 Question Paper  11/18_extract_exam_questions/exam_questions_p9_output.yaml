@@ -1,0 +1,37 @@
+```yaml
+questions:
+  - number: "4b"
+    type: short_answer
+    text: |
+      The ACC currently contains the following positive binary integer:
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\ \hline \end{tabular}
+
+      Write the contents of the ACC after the instruction \texttt{XOR \&12} is carried out.
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+  - number: "4c"
+    type: short_answer
+    text: |
+      The ACC currently contains the following positive binary integer:
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\ \hline \end{tabular}
+
+      Write the contents of the ACC after the instruction \texttt{AND \#63} is carried out.
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+  - number: "4d"
+    type: short_answer
+    text: |
+      The ACC currently contains the following positive binary integer:
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\ \hline \end{tabular}
+
+      The current contents of memory are:
+
+      \begin{tabular}{cc} \textbf{Address} & \textbf{Data} \\ 98 & 00100100 \\ 99 & 00110001 \\ 100 & 00110011 \\ 101 & 10100011 \\ 102 & 10101100 \end{tabular}
+
+      Write the contents of the ACC after the instruction \texttt{OR 100} is carried out.
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+```

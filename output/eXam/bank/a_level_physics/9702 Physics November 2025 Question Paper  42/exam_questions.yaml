@@ -1,0 +1,919 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The Earth may be considered as a uniform sphere of radius $6.37 \times 10^6\text{
+    m}$.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Cambridge is at a point on the Earth’s surface that has a latitude of $52.2^\circ$
+      north of the Equator, as shown in Fig. 1.1.
+
+
+      As the Earth spins on its axis, Cambridge moves in a circle that is parallel
+      to the Equator but with a smaller radius.'
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that the radius of the circle around which Cambridge moves is $3.90
+        \times 10^6\text{ m}$.
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Calculate the speed at which Cambridge moves around the circle.
+
+
+        $\text{speed} = \hrulefill \text{ m}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A student of mass $58.6 \text{ kg}$ stands on horizontal ground in Cambridge.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the magnitude of the resultant force that acts to cause the
+        circular motion of the student.
+
+
+        resultant force = \hrulefill $\text{N}$'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 1.2, draw an arrow to show the direction of the resultant force
+        that acts on the student.
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: On Fig. 1.3, draw labelled arrows from the student to show the directions
+        of the forces that act on the student to cause the resultant force in \textbf{(b)(ii)}.
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State Newton’s law of gravitation.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'One of the basic assumptions of the kinetic theory of gases is that there
+      are no forces exerted between the molecules of the gas except during collisions.
+
+
+      State \textbf{two} other basic assumptions of the kinetic theory of gases.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Hydrogen gas consists of molecules that each have a mass of $3.34 \times
+      10^{-27} \text{ kg}$. Hydrogen may be considered to be an ideal gas.
+
+
+      A spherical balloon contains $0.0160 \text{ mol}$ of hydrogen gas at a temperature
+      of $282 \text{ K}$. At this temperature, the volume of gas in the balloon is
+      $1.87 \times 10^{-4} \text{ m}^3$.'
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the pressure of the gas.
+
+
+        pressure = \hrulefill $\text{Pa}$'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Estimate the average separation of the hydrogen molecules in the gas.
+
+
+        average separation = \hrulefill $\text{m}$'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2di
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Use your answer in (c)(ii) to calculate the average gravitational force
+        between adjacent molecules in hydrogen gas.
+
+
+        average force = \hrulefill N'
+      answer_options: []
+      subquestions: []
+    - number: 2dii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: By considering the weight of a molecule, suggest with a reason whether
+        your answer in (d)(i) is consistent with the assumption of the kinetic theory
+        of gases that there are no forces exerted between molecules.
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State what is meant by two objects being in thermal equilibrium.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Fig. 3.1 shows a type of thermometer called a constant volume gas thermometer.
+
+
+      The thermometer is used to determine the thermodynamic temperature $T$ of the
+      gas in the glass bulb.
+
+
+      The glass bulb is immersed in the environment for which the temperature is to
+      be measured. The height of the movable glass tube is then adjusted so that the
+      level of the liquid on the left-hand side aligns with the reference line X marked
+      on the fixed glass tube. The reference line Y is marked on the side of the movable
+      glass tube. The level of the liquid at Y is higher than at X as a result of
+      the pressure of the gas in the glass bulb.
+
+
+      The difference in height $\Delta h$ between the liquid levels at X and Y is
+      then measured using the scale. The thermodynamic temperature $T$ of the gas
+      is directly proportional to the pressure of the gas. This pressure is directly
+      proportional to $\Delta h$.'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The value of $\Delta h$ can be used to calculate the pressure of the
+        gas. In order to do this, the gravitational field strength is used, along
+        with a property of the liquid.
+
+
+        State the property of the liquid that is used to calculate the pressure.'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Before the measurement of $\Delta h$ can be made, the glass bulb needs
+        to reach thermal equilibrium with the environment for which the temperature
+        is to be measured.
+
+
+        State \textbf{two} disadvantages of using a constant volume gas thermometer
+        to measure temperature.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Suggest \textbf{one} situation in which a constant volume gas thermometer
+        would be an appropriate type of thermometer to choose for measuring temperature.
+      answer_options: []
+      subquestions: []
+    - number: 3biv
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Level X aligns with $2.31\text{ cm}$ on the scale. At $0\text{ }^\circ\text{C}$,
+        level Y aligns with $8.69\text{ cm}$.
+
+
+        At temperature $\theta$, level Y aligns with $7.83\text{ cm}$ on the scale.
+
+
+        Determine a value for $\theta$ in $^\circ\text{C}$.
+
+
+        $\theta = $ \hrulefill $^{\circ}\text{C}$'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A cylinder contains a fixed mass of an ideal gas at pressure $2Y$ and volume
+    $6X$.
+
+
+    The gas undergoes a sequence of changes from its initial state A, through states
+    B, C and D, then finally back to its initial state A, as shown in Fig. 4.1.
+
+
+    Fig. 4.2 shows the variation with time of the internal energy of the gas.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State the first law of thermodynamics.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use Fig. 4.1 and Fig. 4.2 to determine the general expression for the
+        internal energy $U$ of the gas when it has pressure $p$ and volume $V$.
+
+
+        $U = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'An ideal gas at thermodynamic temperature $T$ contains $N$ molecules.
+
+
+        Use your answer in \textbf{(b)(i)} and the equation of state for an ideal
+        gas to deduce an expression for $U$ in terms of $N$ and $T$. Identify any
+        other symbols you use.
+
+
+        $U = \hrulefill$'
+      answer_options: []
+      subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Determine expressions, in terms of $X$ and $Y$, for the work $W$ done on
+      the gas during:'
+    answer_options: []
+    subquestions:
+    - number: 4ci
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'change AB
+
+
+        $W = \hrulefill$'
+      answer_options: []
+      subquestions: []
+    - number: 4cii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'change CD.
+
+
+        $W = \hrulefill$'
+      answer_options: []
+      subquestions: []
+  - number: 4d
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Use your answers in \textbf{(c)} and the first law of thermodynamics to
+      determine an expression, in terms of $X$ and $Y$, for the net thermal energy
+      $Q$ supplied to the gas during one full cycle ABCDA. Explain your reasoning.
+
+
+      $Q = \hrulefill$'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A steel ball on the end of a thin string oscillates with small oscillations,
+    as shown in Fig. 5.1.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The displacement of the centre of the ball from its equilibrium position
+      is $x$.
+
+
+      Fig. 5.2 shows the variation with $x$ of the acceleration $a$ of the ball.'
+    answer_options: []
+    subquestions:
+    - number: 5ai
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how Fig. 5.2 shows that the oscillations of the ball are simple
+        harmonic.
+      answer_options: []
+      subquestions: []
+    - number: 5aii
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Determine the period $T$ of the oscillations.
+
+
+        $T = $ \hrulefill s'
+      answer_options: []
+      subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: At time $t = 0$, when the displacement of the ball has its maximum value,
+      the ball is immersed in a trough containing thick oil so that the ball is just
+      below the surface of the oil. This results in the subsequent motion of the ball
+      being heavily damped.
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: State what is meant by damping.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: On Fig. 5.3, sketch a possible variation of the displacement $x$ of the
+        ball with $t$ between $t = 0$ and $t = 2T$.
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define electric field at a point.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'An isolated conducting sphere in a vacuum has a capacitance of $69\text{
+      pF}$.
+
+      The charge on the sphere is $+83\text{ pC}$.'
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: On Fig. 6.1, draw field lines to represent the electric field outside
+        the sphere due to the charge on the sphere.
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the electric potential at the surface of the sphere.
+
+
+        electric potential = \hrulefill V'
+      answer_options: []
+      subquestions: []
+    - number: 6biii
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the radius of the sphere.
+
+
+        radius = \hrulefill m'
+      answer_options: []
+      subquestions: []
+    - number: 6biv
+      question_type: calculation
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the electric field strength $E$ at the surface of the sphere.
+        Give a unit with your answer.
+
+
+        $E = $ \hrulefill unit \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The sphere in \textbf{(b)} is discharged by connecting it to earth ($0\text{
+      V}$) through a resistor of resistance $120\text{ M}\Omega$.
+
+
+      Calculate the time taken for the charge to fall to $26\text{ pC}$.
+
+
+      $\text{time} = $ \hrulefill s'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An alternating voltage $V$ varies with time $t$ according to
+
+
+    $$V = 18 \cos 40\pi t$$
+
+
+    where $V$ is in $\text{V}$ and $t$ is in $\text{s}$.'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'For the alternating voltage:'
+    answer_options: []
+    subquestions:
+    - number: 7ai
+      question_type: calculation
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: show that the period is $0.050\text{ s}$
+      answer_options: []
+      subquestions: []
+    - number: 7aii
+      question_type: calculation
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'determine the root-mean-square (r.m.s.) voltage.
+
+
+        r.m.s. voltage = \hrulefill $\text{V}$'
+      answer_options: []
+      subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: On Fig. 7.1, sketch the variation of $V$ with $t$ for values of $t$ from
+      $t = 0$ to $t = 100\text{ ms}$.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: The alternating voltage is rectified to produce an output voltage across
+      a load resistor R, as shown in Fig. 7.2.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 18
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Fig. 8.1 shows the three lowest-frequency lines in the part of the emission
+    spectrum for hydrogen that relates to electron transitions to the ground state
+    (level $n = 1$).
+
+
+    The numbers represent the frequencies, in $10^{15}\text{ Hz}$, associated with
+    the spectral lines.'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: long_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Use the photon model of electromagnetic radiation to explain how the existence
+      of spectral lines in the emission spectrum provides evidence for discrete electron
+      energy levels in the hydrogen atom.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The energy of the ground state (level $n = 1$) in a hydrogen atom is $-13.6\text{
+      eV}$.
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: calculation
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate the energy, in J, of the ground state.
+
+
+        energy = \hrulefill J'
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: calculation
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Show that the energy difference between levels $n = 1$ and $n = 2$ is
+        $10.2\text{ eV}$.
+      answer_options: []
+      subquestions: []
+    - number: 8biii
+      question_type: short_answer
+      page: 19
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Complete Table 8.1 to show the energy differences from the ground state,
+        and the energies of the levels up to $n = 4$, in the hydrogen atom. Use the
+        space for any working.
+
+
+        \textbf{Table 8.1}
+
+
+        \begin{tabular}{|c|c|c|}
+
+        \hline
+
+        level & \begin{tabular}{c}(energy difference \\ from $n = 1$)/eV\end{tabular}
+        & energy/eV \\ \hline
+
+        $n = 4$ & & \\ \hline
+
+        $n = 3$ & & \\ \hline
+
+        $n = 2$ & 10.2 & \\ \hline
+
+        $n = 1$ & 0.0 & $-13.6$ \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 20
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State what is meant by the mass defect of a nucleus.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: calculation
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The nuclear fusion reaction for the formation of helium-4 from deuterium
+      is represented by
+
+
+      $$^2_1\text{H} + ^2_1\text{H} \rightarrow ^4_2\text{He}$$
+
+
+      Table 9.1 shows the masses of the nuclides involved in this reaction.
+
+
+      \textbf{Table 9.1}
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      nuclide & nuclide mass/u \\ \hline
+
+      $^2_1\text{H}$ & 2.013553 \\ \hline
+
+      $^4_2\text{He}$ & 4.001505 \\ \hline
+
+      \end{tabular}
+
+
+      Calculate the energy released in the formation of 1.00 mol of helium-4.
+
+
+      energy = \hrulefill J'
+    answer_options: []
+    subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 21
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The star Sirius has a radius of $1.19 \times 10^9 \text{ m}$ and loses mass
+      due to nuclear fusion at a rate of $1.09 \times 10^{11} \text{ kg s}^{-1}$.
+      Assume that the power of the radiation emitted by the star is equal to the power
+      released by this process.
+    answer_options: []
+    subquestions:
+    - number: 9ci
+      question_type: calculation
+      page: 21
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine a value for the luminosity of Sirius. Give a unit with your
+        answer.
+
+
+        luminosity = \hrulefill unit \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 9cii
+      question_type: calculation
+      page: 21
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Use your answer in (c)(i) to determine the surface temperature of Sirius.
+
+
+        surface temperature = \hrulefill K'
+      answer_options: []
+      subquestions: []
+  - number: 9d
+    question_type: long_answer
+    page: 21
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how cosmologists use standard candles to estimate the distance of
+      a galaxy from the Earth.
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 22
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 22
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by contrast in an X-ray image.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 22
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'X-rays of intensity $I_0$ are incident normally on a structure, as shown
+      in Fig. 10.1.
+
+
+      Material P has a linear attenuation coefficient of $0.35\text{ cm}^{-1}$.
+
+      The X-rays emerging from the structure in region A have an intensity of $0.053I_0$.'
+    answer_options: []
+    subquestions:
+    - number: 10bi
+      question_type: calculation
+      page: 22
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that the intensity of the X-rays emerging in region B is $0.13I_0$.
+      answer_options: []
+      subquestions: []
+    - number: 10bii
+      question_type: calculation
+      page: 23
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Determine the linear attenuation coefficient $\mu$ of material Q.
+
+
+        $\mu = $ \hrulefill $\text{cm}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 10biii
+      question_type: short_answer
+      page: 23
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Use the information in (b)(i) to suggest why the X-rays emerging from
+        the structure form an image that has poor contrast.
+      answer_options: []
+      subquestions: []
+  - number: 10c
+    question_type: long_answer
+    page: 23
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how X-rays are used in computed tomography (CT) scanning to produce
+      a three-dimensional image of an internal structure.
+    answer_options: []
+    subquestions: []

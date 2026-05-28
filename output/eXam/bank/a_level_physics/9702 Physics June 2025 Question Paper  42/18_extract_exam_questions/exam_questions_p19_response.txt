@@ -1,0 +1,58 @@
+[thinking]
+**Transcribing Exam Questions: A Detailed Look at Section 8b**
+
+Okay, so the task is to extract and format questions from page 19 of this exam. The specific questions are "8b", "8bi", "8bii", "8biii", and "8biv". Let's get to it.
+
+First, "8b" seems to be the preamble for the entire section. I need to figure out if it has its own question or if it's just introductory text for the sub-questions. Checking the provided structure confirms this. The YAML stub indicates "8b" as `short_answer` but seems to only contain the preamble. Thus, "8b" is the starting context for this section: "Resistor R has resistance $45\,\Omega$. Assume that there is no p.d. across the diode when it is conducting."
+
+Now, let's move onto the sub-questions.
+
+For "8bi", it's a calculation: "Determine the peak power $P_0$ in the resistor. $P_0 = $ \hrulefill W". I'll format the answer line correctly, using the \hrulefill.
+
+"8bii" is a `short_answer` asking for a sketch: "On Fig. 8.3, sketch the variation of the power $P$ in the resistor with $t$ between $t = 0$ and $t = 2T$." The instructions say to omit figures, so I'll just keep the question prompt.
+
+Next, "8biii" is a `long_answer` that wants an explanation: "Use the answer in \textbf{(b)(ii)} to explain why the mean power in the resistor is $\frac{1}{4} P_0$." I'll note the cross-reference to the previous section.
+
+Finally, for "8biv", it's a calculation with an r.m.s. value: "Use the information in \textbf{(b)(iii)} to determine the r.m.s. value of $V_{\text{OUT}}$. r.m.s. voltage = \hrulefill V". Again, I'll format the answer line appropriately.
+
+The formatting rules are important, so I'll ensure:
+*   Answer lines use `\hrulefill`.
+*   Variable equations or definitions format correctly, with the relevant units.
+*   Block scalars for multi-line text to maintain formatting using the `|` symbol.
+*   No double quotes for non-empty strings.
+*   No `\dotfill`.
+*   Strip subquestion prefixes like `(i)`, `(ii)`, `(iii)`, `(iv)` at the start of the text.
+
+I believe this is a complete and accurate transcription of the questions, carefully formatted according to the guidelines. I'm ready to finalize the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      Resistor R has resistance $45\,\Omega$.
+
+      Assume that there is no p.d. across the diode when it is conducting.
+  - number: "8bi"
+    type: calculation
+    text: |
+      Determine the peak power $P_0$ in the resistor.
+
+      $P_0 = $ \hrulefill W
+  - number: "8bii"
+    type: short_answer
+    text: |
+      On Fig. 8.3, sketch the variation of the power $P$ in the resistor with $t$ between $t = 0$ and $t = 2T$.
+  - number: "8biii"
+    type: long_answer
+    text: |
+      Use the answer in \textbf{(b)(ii)} to explain why the mean power in the resistor is $\frac{1}{4} P_0$.
+  - number: "8biv"
+    type: calculation
+    text: |
+      Use the information in \textbf{(b)(iii)} to determine the r.m.s. value of $V_{\text{OUT}}$.
+
+      r.m.s. voltage = \hrulefill V

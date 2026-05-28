@@ -1,0 +1,37 @@
+questions:
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the trace table for the algorithm, using input data: COMPUTER
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      \multicolumn{3}{|c|}{} & \multicolumn{8}{c|}{Store[]} & \\ \hline
+      \textbf{Word} & \textbf{Index} & \textbf{Letter} & \textbf{[1]} & \textbf{[2]} & \textbf{[3]} & \textbf{[4]} & \textbf{[5]} & \textbf{[6]} & \textbf{[7]} & \textbf{[8]} & \textbf{OUTPUT} \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      & & & & & & & & & & & \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: long_answer
+    text: |
+      Describe the processes in the algorithm.

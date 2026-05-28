@@ -1,0 +1,39 @@
+questions:
+  - number: "33"
+    type: multiple_choice
+    text: |
+      The graph shows the $I\text{--}V$ characteristic of an electrical component.
+
+      What is the component?
+    options:
+      - letter: A
+        text: |
+          a filament lamp
+      - letter: B
+        text: |
+          a metallic conductor at constant temperature
+      - letter: C
+        text: |
+          a resistor
+      - letter: D
+        text: |
+          a semiconductor diode
+  - number: "34"
+    type: multiple_choice
+    text: |
+      The diagram shows six identical resistors connected in a circuit.
+
+      In which branch of the circuit is the most power dissipated?
+    options:
+      - letter: A
+        text: |
+          PQ
+      - letter: B
+        text: |
+          QR
+      - letter: C
+        text: |
+          RS
+      - letter: D
+        text: |
+          SP

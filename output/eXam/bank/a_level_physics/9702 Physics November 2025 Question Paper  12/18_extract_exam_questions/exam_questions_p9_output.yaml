@@ -1,0 +1,60 @@
+questions:
+  - number: "21"
+    type: multiple_choice
+    text: |
+      A platform is supported by a spring. A box is placed onto the platform. The diagram shows the spring before and after the box is placed onto it.
+
+      What is the term for the quantity marked as $x$?
+    options:
+      - letter: A
+        text: |
+          compression
+      - letter: B
+        text: |
+          load
+      - letter: C
+        text: |
+          strain
+      - letter: D
+        text: |
+          stress
+  - number: "22"
+    type: multiple_choice
+    text: |
+      A copper wire has length $1.7\text{ m}$ and uniform diameter $0.64\text{ mm}$.
+
+      The Young modulus of copper is $1.2 \times 10^{11}\text{ Pa}$.
+
+      What is the spring constant of the wire?
+    options:
+      - letter: A
+        text: |
+          $2.3 \times 10^4\text{ N}\,\text{m}^{-1}$
+      - letter: B
+        text: |
+          $9.1 \times 10^4\text{ N}\,\text{m}^{-1}$
+      - letter: C
+        text: |
+          $4.5 \times 10^7\text{ N}\,\text{m}^{-1}$
+      - letter: D
+        text: |
+          $7.1 \times 10^7\text{ N}\,\text{m}^{-1}$
+  - number: "23"
+    type: multiple_choice
+    text: |
+      The graph shows how the extension of a spring varies with the force used to stretch it.
+
+      What is the elastic potential energy of the spring when the extension is $4.0\text{ cm}$?
+    options:
+      - letter: A
+        text: |
+          $60\text{ J}$
+      - letter: B
+        text: |
+          $120\text{ J}$
+      - letter: C
+        text: |
+          $600\text{ J}$
+      - letter: D
+        text: |
+          $1200\text{ J}$

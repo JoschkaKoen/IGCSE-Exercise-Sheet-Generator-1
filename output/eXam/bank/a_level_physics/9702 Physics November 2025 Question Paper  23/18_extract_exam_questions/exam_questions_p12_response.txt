@@ -1,0 +1,74 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 12**
+
+Okay, so I've been tasked with populating the YAML stub for page 12. Let's break this down. The questions on the page are structured as "5", "5a", "5b", and "5bi". I need to map the question text to the corresponding stub entries.
+
+First, let's look at the existing stub:
+
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: ""
+  - number: "5a"
+    type: short_answer
+    text: ""
+  - number: "5b"
+    type: short_answer
+    text: ""
+  - number: "5bi"
+    type: short_answer
+    text: ""
+```
+
+Now, mapping the text to the numbers. "5" itself doesn't have any associated text directly, it's just the overarching question number. But the instructions say something about an error if there is no text. So let's look at it. There is text associated with "5a", "5b" and "5bi". "5a" is "State Kirchhoff's first law.", "5b" is "Fig. 5.1 shows a circuit containing a thermistor T that has a negative temperature coefficient.", and "5bi" is "The thermistor has resistance $R_0$ at a temperature of $0^\circ\text{C}$.\n\nOn Fig. 5.2, sketch a possible variation of the resistance of the thermistor with temperature between $0^\circ\text{C}$ and $100^\circ\text{C}$."
+
+The important part is the rule: "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess." Since "5" doesn't have its own stem text, even though it's just the header, and since I *can't* guess, I need to flag it. Therefore, I'll populate the YAML field for "5" with `| STUB ERROR`. The other parts are pretty straightforward:
+
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5a"
+    type: short_answer
+    text: |
+      State Kirchhoff's first law.
+  - number: "5b"
+    type: short_answer
+    text: |
+      Fig. 5.1 shows a circuit containing a thermistor T that has a negative temperature coefficient.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      The thermistor has resistance $R_0$ at a temperature of $0\text{ }^\circ\text{C}$.
+
+      On Fig. 5.2, sketch a possible variation of the resistance of the thermistor with temperature between $0\text{ }^\circ\text{C}$ and $100\text{ }^\circ\text{C}$.
+```
+
+This is the most compliant and safest way to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5a"
+    type: short_answer
+    text: |
+      State Kirchhoff's first law.
+  - number: "5b"
+    type: short_answer
+    text: |
+      Fig. 5.1 shows a circuit containing a thermistor T that has a negative temperature coefficient.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      The thermistor has resistance $R_0$ at a temperature of $0\text{ }^\circ\text{C}$.
+
+      On Fig. 5.2, sketch a possible variation of the resistance of the thermistor with temperature between $0\text{ }^\circ\text{C}$ and $100\text{ }^\circ\text{C}$.

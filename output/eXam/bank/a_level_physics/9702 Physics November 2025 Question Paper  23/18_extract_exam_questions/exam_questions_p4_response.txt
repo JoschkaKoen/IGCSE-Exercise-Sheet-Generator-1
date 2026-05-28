@@ -1,0 +1,41 @@
+[thinking]
+**Analyzing the Exam Page: A Thought Process**
+
+Okay, so I need to transcribe page 4 of this exam paper. My initial thought is to just dive in, but I need to make sure I structure this correctly for the output format. First, I see the main question header is "1". This looks like the overarching question, so I'll start there.
+
+I'm checking the content under "1" and it seems empty or there's no context statement, which is unusual. Generally, this would house the overarching context for the whole question. "1" has "1a" and "1b" as child nodes. I'll make sure to note "1" is empty in the text, so "1" should be represented as an empty text string, but with the key present, as it has child nodes.
+
+I note that "1a" is "Define acceleration." That's straightforward enough. Then comes "1b", which introduces a rocket launch scenario: "A rocket is launched vertically from the surface of the Earth. Fig. 1.1 shows the variation of the velocity of the rocket with time for the first 20s after its launch."
+
+Now, there are sub-questions for "1b". "1bi" wants me to "Determine the acceleration of the rocket." and "1bii" wants me to "Show that the height of the rocket above the surface of the Earth at a time of 20s after launch is 3.2km."
+
+Regarding that empty "1" text, the rule says to keep only the basic `number`, `type`, `text`, and `options` and that "Empty -> `field: ''`". Therefore, I'll represent "1" with `text: ''`. Let's get this YAML structured correctly.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Define acceleration.
+  - number: "1b"
+    type: short_answer
+    text: |
+      A rocket is launched vertically from the surface of the Earth.
+
+      Fig. 1.1 shows the variation of the velocity of the rocket with time for the first $20\text{ s}$ after its launch.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Determine the acceleration of the rocket.
+
+      acceleration = \hrulefill $\text{m}\,\text{s}^{-2}$
+  - number: "1bii"
+    type: calculation
+    text: |
+      Show that the height of the rocket above the surface of the Earth at a time of $20\text{ s}$ after launch is $3.2\text{ km}$.

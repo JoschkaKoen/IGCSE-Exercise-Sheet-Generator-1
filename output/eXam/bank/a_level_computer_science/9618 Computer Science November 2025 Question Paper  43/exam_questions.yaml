@@ -1,0 +1,923 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores data for a board game using Object-Oriented Programming
+    (OOP). The game has objects that are placed on the board. Each object has a string
+    code (for example "A") and an integer value (for example, 2).
+
+
+    The class \texttt{BoardObject} stores the data about the objects that can be placed
+    on the board:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{BoardObject}} \\ \hline
+
+    \texttt{Code : String} & stores the board object''s code \\
+
+    \texttt{Value : Integer} & stores the integer value of the board object \\ \hline
+
+    \texttt{Constructor()} & initialises the attributes to the parameter values \\
+
+    \texttt{GetCode()} & returns \texttt{Code} \\
+
+    \texttt{GetValue()} & returns \texttt{Value} \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A class declaration can be used to declare a record. If the programming
+      language used does not support arrays, a list can be used instead.
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: long_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'Write program code to declare the class \texttt{BoardObject} and its
+        constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        Save your program as \textbf{Question1\_N25}.
+
+
+        Copy and paste the program code into part \textbf{1(a)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The methods \texttt{GetCode()} and \texttt{GetValue()} return the appropriate
+        attribute.
+
+
+        Write program code for \texttt{GetCode()} and \texttt{GetValue()}
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{1(a)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 1aiii
+      question_type: long_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The table shows the code and value of \textbf{five} board objects. The
+        table has the variable identifier where each of the objects are stored.
+
+
+        \begin{tabular}{|c|c|c|}
+
+        \hline
+
+        \textbf{Variable identifier} & \textbf{Code} & \textbf{Value} \\ \hline
+
+        Object1 & "A" & 2 \\ \hline
+
+        Object2 & "B" & 3 \\ \hline
+
+        Object3 & "C" & 5 \\ \hline
+
+        Object4 & "D" & 2 \\ \hline
+
+        Object5 & "E" & 7 \\ \hline
+
+        \end{tabular}
+
+
+        Write program code for the main program to instantiate each of the \textbf{five}
+        board objects and store them in the variables with the identifiers given.
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{1(a)(iii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: "The board objects are placed on a board that is represented by a 0-indexed\
+      \ 2D array:\n\n\\begin{itemize}\n\\item the board is a 10 x 10 grid\n\\item\
+      \ each position on the board is identified by a row and column number\n\\item\
+      \ rows are numbered 0 to 9\n\\item columns are numbered 0 to 9\n\\item board\
+      \ objects can be placed at a row and column position\n\\item each board position\
+      \ is initialised with an empty \\texttt{BoardObject}, an empty \\texttt{BoardObject}\
+      \ has \\texttt{Code = \"-\"} and \\texttt{Value = 0}\n\\end{itemize}\n\nFor\
+      \ example, the element highlighted in the given board is in row 1 and column\
+      \ 3.\n\n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}\n\\hline\n\\textbf{Row} &\
+      \ \\multicolumn{10}{c|}{\\textbf{Column}} \\\\ \\cline{2-11}\n & 0 & 1 & 2 &\
+      \ 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ \\hline\n0 & & & & & & & & & & \\\\ \\hline\n\
+      1 & & & & $\\bullet$ & & & & & & \\\\ \\hline\n2 & & & & & & & & & & \\\\ \\\
+      hline\n3 & & & & & & & & & & \\\\ \\hline\n4 & & & & & & & & & & \\\\ \\hline\n\
+      5 & & & & & & & & & & \\\\ \\hline\n6 & & & & & & & & & & \\\\ \\hline\n7 &\
+      \ & & & & & & & & & \\\\ \\hline\n8 & & & & & & & & & & \\\\ \\hline\n9 & &\
+      \ & & & & & & & & \\\\ \\hline\n\\end{tabular}\n\nThe class \\texttt{Board}\
+      \ stores the data about the board and where the board objects are placed.\n\n\
+      \\begin{tabular}{|l|l|}\n\\hline\n\\multicolumn{2}{|c|}{\\textbf{Board}} \\\\\
+      \ \\hline\n\\texttt{TheBoard : ARRAY[0:9, 0:9] of BoardObject} & stores the\
+      \ board contents as a 2D array of \\\\\n & 10 x 10 elements of type \\texttt{BoardObject}\
+      \ \\\\ \\hline\n\\texttt{Constructor()} & initialises each of \\texttt{TheBoard}\
+      \ elements to \\\\\n & an empty \\texttt{BoardObject} with \\texttt{Code = \"\
+      -\"} \\\\\n & and \\texttt{Value = 0} \\\\ \\hline\n\\texttt{GetObject()} &\
+      \ takes a row and column number as \\\\\n & parameters and returns the \\texttt{BoardObject}\
+      \ \\\\\n & at the row, column position \\\\ \\hline\n\\texttt{SetObject()} &\
+      \ takes a \\texttt{BoardObject}, row number and \\\\\n & column number as parameters.\
+      \ Stores the \\\\\n & \\texttt{BoardObject} in \\texttt{TheBoard} at the given\
+      \ \\\\\n & row, column position \\\\ \\hline\n\\texttt{DisplayBoard()} & outputs\
+      \ the code of each \\texttt{BoardObject} \\\\\n & stored in \\texttt{TheBoard},\
+      \ one row at a time \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Board} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        \textbf{Save your program.} \\
+
+        Copy and paste the program code into part \textbf{1(b)(i)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The method \texttt{GetObject()} takes a row number and column number
+        as parameters.
+
+
+        The method returns the \texttt{BoardObject} stored at the parameter position.
+
+
+        Write program code for \texttt{GetObject()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        \textbf{Save your program.} \\
+
+        Copy and paste the program code into part \textbf{1(b)(ii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The method \texttt{SetObject()} takes \textbf{three} parameters: a \texttt{BoardObject},
+        row number and column number.
+
+
+        The method stores the \texttt{BoardObject} parameter in the row, column position
+        in \texttt{TheBoard}
+
+
+        Write program code for \texttt{SetObject()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        \textbf{Save your program.} \\
+
+        Copy and paste the program code into part \textbf{1(b)(iii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 1biv
+      question_type: long_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The method \texttt{DisplayBoard()} outputs the \texttt{Code} of each
+        \texttt{BoardObject} stored in \texttt{TheBoard} using \texttt{GetCode()}
+
+
+        Each row in \texttt{TheBoard} is output on one line with a space between each
+        \texttt{Code}
+
+
+        For example, the following board contains these four board objects:
+
+
+        \begin{itemize}
+
+        \item one object has code "A" in row 0 column 7
+
+        \item one object has code "B" in row 0 column 9
+
+        \item one object has code "C" in row 1 column 1
+
+        \item one object has code "E" in row 6 column 5
+
+        \end{itemize}
+
+
+        The other board objects are empty. The output for this board will be:
+
+
+        \begin{alltt}
+
+        - - - - - - - A - B
+
+        - C - - - - - - - -
+
+        - - - - - - - - - -
+
+        - - - - - - - - - -
+
+        - - - - - - - - - -
+
+        - - - - - - - - - -
+
+        - - - - - E - - - -
+
+        - - - - - - - - - -
+
+        - - - - - - - - - -
+
+        - - - - - - - - - -
+
+        \end{alltt}
+
+
+        Write program code for \texttt{DisplayBoard()}
+
+
+        \begin{tabular}{|p{\textwidth}|}
+
+        \hline
+
+        Save your program. \newline \newline Copy and paste the program code into
+        part \textbf{1(b)(iv)} in the evidence document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The table gives the row and column position on the board to store each
+        of the five objects created in part \textbf{1(a)(iii)}.
+
+
+        \begin{tabular}{|l|c|c|}
+
+        \hline
+
+        \textbf{Object identifier} & \textbf{row position} & \textbf{column position}
+        \\ \hline
+
+        Object1 & 0 & 0 \\ \hline
+
+        Object2 & 9 & 9 \\ \hline
+
+        Object3 & 4 & 5 \\ \hline
+
+        Object4 & 2 & 2 \\ \hline
+
+        Object5 & 8 & 7 \\ \hline
+
+        \end{tabular}
+
+
+        Write program code to amend the main program to:
+
+
+        \begin{itemize}
+
+        \item declare a new instance of \texttt{Board()}
+
+        \item store each \texttt{BoardObject} in the position given in the table
+
+        \item call \texttt{DisplayBoard()} for the new board object.
+
+        \end{itemize}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{1(c)(i)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the screenshot(s) into part \textbf{1(c)(ii)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Amend the main program.
+    answer_options: []
+    subquestions:
+    - number: 1di
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Amend the main program to:
+
+
+        \begin{itemize}
+
+        \item repeatedly take a row position as input until it is between 0 and 9
+        inclusive
+
+        \item repeatedly take a column position as input until it is between 0 and
+        9 inclusive
+
+        \item use the appropriate method(s) to identify if there is an object in the
+        array position input
+
+        \item output "Miss" if there is an empty \texttt{BoardObject} in that position
+
+        \item output the \texttt{Code} and \texttt{Value} if there is a non-empty
+        \texttt{BoardObject} in that position.
+
+        \end{itemize}
+
+
+        All outputs must include appropriate messages.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part 1(d)(i) in the evidence document.'
+      answer_options: []
+      subquestions: []
+    - number: 1dii
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program by entering this test data in the order given:
+
+
+        \begin{tabular}{ll}
+
+        Row position first input: & 10 \\
+
+        Row position second input: & 4 \\
+
+        Column position first input: & -1 \\
+
+        Column position second input: & 5 \\
+
+        \end{tabular}
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot(s) into part 1(d)(ii) in the evidence document.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program reads string data from a text file into a linear queue and then
+    compresses the data.
+
+
+    The queue is created using the global 1D array \texttt{Queue}. The queue can store
+    up to 100 elements. Each element is initialised to the empty string \texttt{""}
+
+
+    The queue has two pointers that are global to the program:
+
+
+    \begin{itemize}
+
+    \item \texttt{QueueHead} that points to the index of the first element in the
+    queue, initialised to $-1$
+
+    \item \texttt{QueueTail} that points to the index of the last element in the queue,
+    initialised to $-1$
+
+    \end{itemize}
+
+
+    The global variable \texttt{NumberItems} stores the number of elements stored
+    in the queue, initialised to 0'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write program code to declare and initialise \texttt{Queue}, \texttt{QueueHead},
+      \texttt{QueueTail} and \texttt{NumberItems}
+
+
+      Save your program as \textbf{Question2\_N25}.
+
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The function \texttt{Enqueue()} takes a string as a parameter. The function
+      checks if the queue is full, and returns Boolean \texttt{FALSE} if the queue
+      is full.
+
+
+      If the queue is not full, the parameter is inserted into the next position in
+      \texttt{Queue}. The function updates the appropriate pointer(s), updates \texttt{NumberItems}
+      and then returns Boolean \texttt{TRUE}
+
+
+      Write program code for \texttt{Enqueue()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: long_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The function \texttt{Dequeue()} returns the string \texttt{"False"} if
+      the queue is empty.
+
+
+      If the queue is not empty, the function returns the next element in the queue.
+      The function updates the appropriate pointer(s) and updates \texttt{NumberItems}
+
+
+      Write program code for \texttt{Dequeue()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The text file \texttt{BinaryData.txt} stores individual binary digits,
+      ''1'' and ''0''. Each digit is on a new line. For example, the first line in
+      the text file stores ''1'', the second line stores ''1''.
+
+
+      The procedure \texttt{ReadData()} reads in each line from the text file \texttt{BinaryData.txt}
+      and inserts it into the queue using the appropriate method.
+
+
+      The procedure needs to work for a text file with any number of lines up to a
+      maximum of 100.
+
+
+      Write program code for \texttt{ReadData()}
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      Save your program. \\
+
+      Copy and paste the program code into part \textbf{2(d)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The string data in the text file is compressed.
+
+
+      The compression algorithm counts the number of times each binary digit appears
+      consecutively, then stores the binary digit followed by the number of times
+      it appears. The algorithm stores the compressed data in a single string.
+
+
+      For example, if the text file contains the data:
+
+
+      \begin{alltt}
+
+      1
+
+      1
+
+      0
+
+      0
+
+      0
+
+      1
+
+      1
+
+      1
+
+      \end{alltt}
+
+
+      The compression algorithm will create the string \texttt{"120313"} because there
+      are two ''1'' digits, followed by three ''0'' digits, followed by three ''1''
+      digits.
+
+
+      The procedure \texttt{Compress()} uses \texttt{Dequeue()} to remove each element
+      from the queue in turn. The procedure then compresses the data following the
+      compression algorithm described. The new compressed string is stored in the
+      global variable \texttt{NewString}
+
+
+      You can assume that one binary digit will never appear more than nine times
+      consecutively in the sequence.
+
+
+      You can assume that there will always be at least one item in the queue.
+
+
+      Write program code for \texttt{Compress()}
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      Save your program. \\
+
+      Copy and paste the program code into part \textbf{2(e)} in the evidence document.
+      \\
+
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 2f
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2fi
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code for the main program to:
+
+
+        \begin{itemize}
+
+        \item call \texttt{ReadData()}
+
+        \item call \texttt{Compress()}
+
+        \item output the content of the compressed string.
+
+        \end{itemize}
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(f)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2fii
+      question_type: long_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot(s) into part \textbf{2(f)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program is written to perform different individual processes using arrays.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A 1D array stores 10 integers.
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: long_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 6
+      text: "A recursive function \\texttt{RecursiveCount()} takes three parameters:\n\
+        \n\\begin{itemize}\n\\item \\texttt{ArrayCopy}, an array of integers\n\\item\
+        \ \\texttt{NumberElements}, the number of elements in the array of integers\n\
+        \\item \\texttt{DataToFind}, an integer data to find in the array.\n\\end{itemize}\n\
+        \nThe function counts and returns the number of times \\texttt{DataToFind}\
+        \ is in \\texttt{ArrayCopy}\n\nThe recursive algorithm:\n\n\\begin{itemize}\n\
+        \\item returns 0 if there are no elements in \\texttt{ArrayCopy}\n\\item compares\
+        \ the first element in \\texttt{ArrayCopy} with \\texttt{DataToFind}\n  \\\
+        begin{itemize}\n  \\item if the element matches, the function returns 1 added\
+        \ to the return value from a recursive call (passing the array without the\
+        \ first element)\n  \\item if the element does not match, the function returns\
+        \ the return value from a recursive call (passing the array without the first\
+        \ element).\n  \\end{itemize}\n\\end{itemize}\n\nWrite program code for \\\
+        texttt{RecursiveCount()}\n\nSave your program as \\textbf{Question3\\_N25}.\n\
+        \nCopy and paste the program code into part \\textbf{3(a)(i)} in the evidence\
+        \ document."
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: long_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The main program stores the following data in a 1D array of integers
+        in the order given:
+
+
+        0 5 1 2 5 9 9 6 5 0
+
+
+        The main program calls \texttt{RecursiveCount()} with the parameters:
+
+
+        \begin{itemize}
+
+        \item 0 as the data to find
+
+        \item 10 as the number of elements
+
+        \item the array of 10 integers.
+
+        \end{itemize}
+
+
+        The return value is output.
+
+
+        Write program code for the main program.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{3(a)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 3aiii
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).'
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The program stores the following string. The string has four statements
+      that are each terminated by a semi-colon '';''
+
+
+      \texttt{"x=0;y=1;x=x+y;y++;"}'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write program code to amend the main program to store the string \texttt{"x=0;y=1;x=x+y;y++;"}
+        in a local variable.
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 6
+      text: 'The function \texttt{SplitData()} splits a string parameter into \textbf{four}
+        individual lines of code.
+
+
+        The function creates an array of the strings where each line is stored in
+        a new array element without the semi-colon.
+
+
+        The function returns the array of strings.
+
+
+        Do \textbf{not} use an inbuilt function to split the string.
+
+
+        Write program code for \texttt{SplitData()}'
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The main program needs to call \texttt{SplitData()} with the string from
+        part 3(b)(i). The main program then needs to output each element from the
+        returned array on a new line.
+
+
+        Write program code to amend the main program.'
+      answer_options: []
+      subquestions: []
+    - number: 3biv
+      question_type: long_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).'
+      answer_options: []
+      subquestions: []

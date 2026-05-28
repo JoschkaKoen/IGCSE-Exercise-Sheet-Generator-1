@@ -1,0 +1,19 @@
+questions:
+  - number: "5aii"
+    type: calculation
+    text: |
+      Determine the period $T$ of the oscillations.
+
+      $T = $ \hrulefill s
+  - number: "5b"
+    type: short_answer
+    text: |
+      At time $t = 0$, when the displacement of the ball has its maximum value, the ball is immersed in a trough containing thick oil so that the ball is just below the surface of the oil. This results in the subsequent motion of the ball being heavily damped.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      State what is meant by damping.
+  - number: "5bii"
+    type: short_answer
+    text: |
+      On Fig. 5.3, sketch a possible variation of the displacement $x$ of the ball with $t$ between $t = 0$ and $t = 2T$.

@@ -1,0 +1,41 @@
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A robot is used to move car parts in a factory.
+  - number: "8a"
+    type: short_answer
+    text: |
+      One characteristic of the robot is that it has a mechanical structure.
+
+      Give \textbf{one} other characteristic of a robot.
+  - number: "8b"
+    type: short_answer
+    text: |
+      The robot has firmware.
+
+      State what is meant by firmware.
+  - number: "8c"
+    type: short_answer
+    text: |
+      Interrupts are generated when the robot is operating in the factory.
+
+      Give \textbf{two} examples of interrupts that may be generated when the robot is in operation.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8d"
+    type: short_answer
+    text: |
+      Give \textbf{two} advantages to the workers in the factory of using robots to move the car parts.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8e"
+    type: short_answer
+    text: |
+      The robots have the ability to automatically adapt their own processes.
+
+      State the name of the ability described.
+```

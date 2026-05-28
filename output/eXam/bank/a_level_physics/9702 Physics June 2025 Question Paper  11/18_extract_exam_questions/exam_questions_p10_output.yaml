@@ -1,0 +1,60 @@
+questions:
+  - number: "20"
+    type: multiple_choice
+    text: |
+      A parachutist is falling at constant (terminal) velocity.
+
+      Which statement is \textbf{not} correct?
+    options:
+      - letter: A
+        text: |
+          Gravitational potential energy is converted into kinetic energy of the air.
+      - letter: B
+        text: |
+          Gravitational potential energy is converted into kinetic energy of the parachutist.
+      - letter: C
+        text: |
+          Gravitational potential energy is converted into thermal energy of the air.
+      - letter: D
+        text: |
+          Gravitational potential energy is converted into thermal energy of the parachutist.
+  - number: "21"
+    type: multiple_choice
+    text: |
+      A student investigates a spring. The variation of the length of the spring with the force applied to the spring is shown.
+
+      What is the spring constant of the spring?
+    options:
+      - letter: A
+        text: |
+          $0.17 \text{ N}\,\text{m}^{-1}$
+      - letter: B
+        text: |
+          $0.25 \text{ N}\,\text{m}^{-1}$
+      - letter: C
+        text: |
+          $4.0 \text{ N}\,\text{m}^{-1}$
+      - letter: D
+        text: |
+          $6.0 \text{ N}\,\text{m}^{-1}$
+  - number: "22"
+    type: multiple_choice
+    text: |
+      The graph shows the variation with force of the extension of a wire.
+
+      The force is gradually increased to a maximum at Q and then gradually decreased to zero at R.
+
+      Which statement is correct?
+    options:
+      - letter: A
+        text: |
+          Along the line PQ, the wire obeys Hooke's law.
+      - letter: B
+        text: |
+          Along the line RP, the spring constant is equal to $\frac{\text{extension}}{\text{force}}$.
+      - letter: C
+        text: |
+          The wire has elastic deformation at point Q.
+      - letter: D
+        text: |
+          The work done in stretching the wire to P is equal to $(\text{force} \times \text{extension})$ at point P.

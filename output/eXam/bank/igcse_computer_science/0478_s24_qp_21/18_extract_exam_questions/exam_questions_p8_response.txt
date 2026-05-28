@@ -1,0 +1,65 @@
+[thinking]
+**Page 8 YAML Stub Population**
+
+Okay, the task is to populate the YAML stub for page 8 of this exam. Let's break this down systematically. First, I need to identify the questions on this page. It looks like we have 6b and questions under the 7 heading. Specifically, it appears that question 6b asks me to "Outline the processes involved in the algorithm shown in the flowchart on page 6."
+
+Now, let's turn to the section under `7`. It's structured with a `7`, `7a`, and `7b`, so I need to make sure I understand how these relate. I see now; based on the content of the page, `7` does not exist as a standalone question separate from the subsequent 7a and 7b sub-questions. In fact, `7` seems to act as an introduction, or more likely, it is a stub-generation bug. The page jumps directly to "7 (a) Outline why it is useful to store data in a file." and "(b) The function LENGTH(X) calculates the length of a string X...".
+
+Now, I need to check the YAML stub for the correct formatting. It's a key requirement that all entries' stems must be visible. If I can't find a stub entry's stem, it indicates an upstream error. In this case, I've confirmed that `7` doesn't exist as an independent question. The instruction is clear: I must emit a `|` block scalar containing `STUB ERROR`. I won't be guessing; the goal is to be explicit to the QA process.
+
+So, let's generate the YAML:
+
+```yaml
+  - number: "6b"
+    type: long_answer
+    text: |
+      Outline the processes involved in the algorithm shown in the flowchart on page 6.
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      Outline why it is useful to store data in a file.
+  - number: "7b"
+    type: short_answer
+    text: |
+      The function \texttt{LENGTH(X)} calculates the length of a string \texttt{X}
+
+      Write the pseudocode statements to:
+      \begin{itemize}
+      \item read the contents of the text file \texttt{Quotation.txt} into an appropriate string variable that has been declared
+      \item output the string in upper case and the length of the string.
+      \end{itemize}
+```
+
+Now, let me double-check. Yes, I've confirmed that `LENGTH(X)`, `X`, and `Quotation.txt` are code tokens and therefore correctly wrapped in `\texttt{...}`. It all looks correct, and I've adhered to the rules regarding stub errors. I am ready to output the completed YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6b"
+    type: long_answer
+    text: |
+      Outline the processes involved in the algorithm shown in the flowchart on page 6.
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      Outline why it is useful to store data in a file.
+  - number: "7b"
+    type: short_answer
+    text: |
+      The function \texttt{LENGTH(X)} calculates the length of a string \texttt{X}
+
+      Write the pseudocode statements to:
+      \begin{itemize}
+      \item read the contents of the text file \texttt{Quotation.txt} into an appropriate string variable that has been declared
+      \item output the string in upper case and the length of the string.
+      \end{itemize}

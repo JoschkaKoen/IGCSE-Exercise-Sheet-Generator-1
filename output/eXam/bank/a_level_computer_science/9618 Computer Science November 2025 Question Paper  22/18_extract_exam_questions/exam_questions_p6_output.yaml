@@ -1,0 +1,41 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A quiz has nine questions. There are:
+
+      \begin{itemize}
+      \item five easy questions each worth 3 points
+      \item four hard questions each worth 5 points.
+      \end{itemize}
+
+      At the end of the quiz the points for each correctly answered question are added to give a total score.
+
+      A check is made to test that the total score is valid using a 1D array \texttt{CheckTotal} of type \texttt{BOOLEAN}. Each index value of the array represents a possible total score. The corresponding element value is \texttt{TRUE} if the index value represents a valid total score and \texttt{FALSE} otherwise.
+
+      The first nine rows of the array are:
+
+      \begin{tabular}{|c|c|l|}
+      \hline
+      \textbf{Index value} & \textbf{Element value} & \textbf{Comment} \\ \hline
+      0 & \texttt{TRUE} & valid total score (no correct answers) \\ \hline
+      1 & \texttt{FALSE} & invalid total score \\ \hline
+      2 & \texttt{FALSE} & invalid total score \\ \hline
+      3 & \texttt{TRUE} & valid total score (one 3-point question correct) \\ \hline
+      4 & \texttt{FALSE} & invalid total score \\ \hline
+      5 & \texttt{TRUE} & valid total score (one 5-point question correct) \\ \hline
+      6 & \texttt{TRUE} & valid total score (two 3-point questions correct) \\ \hline
+      7 & \texttt{FALSE} & invalid total score \\ \hline
+      8 & \texttt{TRUE} & valid total score (one 3-point question and one 5-point question correct) \\ \hline
+      \end{tabular}
+
+      \newline
+      For example, a total score of 6 points is valid; the value of the array element at index value 6 is \texttt{TRUE}.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Write pseudocode to declare \texttt{CheckTotal} and to set all elements of the array to \texttt{FALSE}
+
+      All variables used must be declared.
+```

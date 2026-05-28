@@ -1,0 +1,53 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      The truth table for a logic circuit is shown.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \multicolumn{4}{|c|}{\textbf{INPUT}} & \textbf{OUTPUT} \\
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{T} \\
+      \hline
+      0 & 0 & 0 & 0 & 0 \\
+      \hline
+      0 & 0 & 0 & 1 & 1 \\
+      \hline
+      0 & 0 & 1 & 0 & 0 \\
+      \hline
+      0 & 0 & 1 & 1 & 1 \\
+      \hline
+      0 & 1 & 0 & 0 & 0 \\
+      \hline
+      0 & 1 & 0 & 1 & 0 \\
+      \hline
+      0 & 1 & 1 & 0 & 0 \\
+      \hline
+      0 & 1 & 1 & 1 & 0 \\
+      \hline
+      1 & 0 & 0 & 0 & 0 \\
+      \hline
+      1 & 0 & 0 & 1 & 1 \\
+      \hline
+      1 & 0 & 1 & 0 & 0 \\
+      \hline
+      1 & 0 & 1 & 1 & 1 \\
+      \hline
+      1 & 1 & 0 & 0 & 0 \\
+      \hline
+      1 & 1 & 0 & 1 & 1 \\
+      \hline
+      1 & 1 & 1 & 0 & 0 \\
+      \hline
+      1 & 1 & 1 & 1 & 1 \\
+      \hline
+      \end{tabular}
+  - number: "7a"
+    type: short_answer
+    text: |
+      Write the Boolean logic expression that corresponds to the given truth table as the sum-of-products.
+
+      \textbf{T} = \hrulefill
+```

@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A program monitors the speed of vehicles as they move around a large building site.
+
+      Each vehicle contains a sensor which reads an integer value that represents the speed of the vehicle. The value is expected to be in the range 0 to 60 inclusive.
+
+      The sensors cannot read values less than 0.
+
+      A program module has been written to validate the values read by the sensors.
+  - number: "6a"
+    type: short_answer
+    text: |
+      A test plan is needed to fully test the module.
+
+      Complete the table. The first line has been completed for you.
+
+      Assume the sensors generate only integer values.
+
+      \begin{tabular}{|p{4cm}|p{4cm}|p{6cm}|}
+      \hline
+      \textbf{Type of test data} & \textbf{Test data value} & \textbf{Expected outcome} \\ \hline
+      normal & 36 & data item is accepted \\ \hline
+       &  &  \\ \hline
+       &  &  \\ \hline
+       &  &  \\ \hline
+       &  &  \\ \hline
+      \end{tabular}
+```

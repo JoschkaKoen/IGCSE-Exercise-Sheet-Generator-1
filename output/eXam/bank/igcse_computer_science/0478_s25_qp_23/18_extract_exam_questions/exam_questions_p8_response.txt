@@ -1,0 +1,70 @@
+[thinking]
+**Transcribing and Analyzing Pseudocode**
+
+Okay, so the user wants me to handle Question 6. Right, this looks like a pseudocode algorithm. My immediate instinct is to transcribe it exactly as it's presented. Let's get the code down, character for character, ensuring the formatting is preserved.
+
+```alltt
+DECLARE Store : ARRAY[1:100] OF CHAR
+DECLARE Word : STRING
+DECLARE Index : INTEGER
+DECLARE Letter : CHAR
+INPUT Word
+FOR Index <- 1 TO LENGTH(Word)
+  Letter <- SUBSTRING(Word, Index, 1)
+  CASE OF Letter
+    'A' : Letter <- ""
+    'E' : Letter <- ""
+    'I' : Letter <- ""
+    'O' : Letter <- ""
+    'U' : Letter <- ""
+  ENDCASE
+  Store[Index] <- Letter
+NEXT Index
+FOR Index <- 1 TO LENGTH(Word)
+  IF Store[Index] <> ""
+  THEN
+    OUTPUT Store[Index]
+  ENDIF
+NEXT Index
+```
+
+Now, before I commit to presenting this, I need to double-check those assignment operators. Gotta be meticulous about that. Looks like we're using the left arrow `<-` for assignment, which is standard in pseudocode. Seems correct throughout the algorithm.
+
+With that verification complete, I am confident in the transcription. I'm ready to move onto the requested output format. Let's use YAML.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      This pseudocode represents an algorithm.
+
+      \begin{alltt}
+      DECLARE Store : ARRAY[1:100] OF CHAR
+      DECLARE Word : STRING
+      DECLARE Index : INTEGER
+      DECLARE Letter : CHAR
+      INPUT Word
+      FOR Index <- 1 TO LENGTH(Word)
+        Letter <- SUBSTRING(Word, Index, 1)
+        CASE OF Letter
+          'A' : Letter <- ""
+          'E' : Letter <- ""
+          'I' : Letter <- ""
+          'O' : Letter <- ""
+          'U' : Letter <- ""
+        ENDCASE
+        Store[Index] <- Letter
+      NEXT Index
+      FOR Index <- 1 TO LENGTH(Word)
+        IF Store[Index] <> ""
+        THEN
+          OUTPUT Store[Index]
+        ENDIF
+      NEXT Index
+      \end{alltt}
+```

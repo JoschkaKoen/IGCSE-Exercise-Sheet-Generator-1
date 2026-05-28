@@ -1,0 +1,11 @@
+questions:
+  - number: "5d"
+    type: long_answer
+    text: |
+      Explain the reasons why the data in the table \texttt{ORDER\_ITEM} cannot be stored in the table \texttt{ORDER}
+  - number: "5e"
+    type: long_answer
+    text: |
+      Write an Structured Query Language (SQL) script to output the customer ID, the customer's name and the total cost of the customer's orders that have not been paid.
+
+      The output of the total cost must have an appropriate title.

@@ -1,0 +1,22 @@
+[thinking]
+**Transcribing the Exam Question**
+
+Okay, so the user wants me to pull up and format question "6b" from page 15 of this exam. Let's see... here it is. The subquestion prefix is indeed `(b)`. The text reads: "A function \texttt{CheckNumber()} will take an integer value and return the Boolean value \texttt{TRUE} if the check digit is correct, otherwise return \texttt{FALSE} \n\nWrite pseudocode for the function \texttt{CheckNumber()}\n\nAssume that the parameter is valid." And the mark allocation is `[7]`.
+
+Right, let's format this correctly. First, I need to strip that initial `(b)` prefix. Next, I need to wrap any inline code tokens – so, `CheckNumber()`, `TRUE`, and `FALSE` – in the `\texttt{...}` environment for correct rendering. This is an open-ended question, indicated by the dotted lines at the bottom. No need to emit any answer markers.
+
+Now I need to generate the YAML to present this to the user.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      A function \texttt{CheckNumber()} will take an integer value and return the Boolean value \texttt{TRUE} if the check digit is correct, otherwise return \texttt{FALSE}
+
+      Write pseudocode for the function \texttt{CheckNumber()}
+
+      Assume that the parameter is valid.

@@ -1,0 +1,45 @@
+questions:
+  - number: "36"
+    type: multiple_choice
+    text: |
+      The diagram shows a four-terminal box connected to a battery and two ammeters.
+
+      The currents in the two ammeters are identical.
+
+      Which circuit, within the box, gives this result?
+    options:
+      - letter: A
+        text: ''
+      - letter: B
+        text: ''
+      - letter: C
+        text: ''
+      - letter: D
+        text: ''
+  - number: "37"
+    type: multiple_choice
+    text: |
+      Each of Kirchhoff’s two laws presumes that some quantity is conserved.
+
+      Which row states Kirchhoff’s \textbf{first} law and names the quantity that is conserved?
+    options:
+      - letter: A
+        text: |
+          statement: The algebraic sum of currents at a junction is zero.
+
+          quantity: charge
+      - letter: B
+        text: |
+          statement: The algebraic sum of currents at a junction is zero.
+
+          quantity: energy
+      - letter: C
+        text: |
+          statement: The e.m.f. in a loop is equal to the algebraic sum of the product of current and resistance round the loop.
+
+          quantity: charge
+      - letter: D
+        text: |
+          statement: The e.m.f. in a loop is equal to the algebraic sum of the product of current and resistance round the loop.
+
+          quantity: energy

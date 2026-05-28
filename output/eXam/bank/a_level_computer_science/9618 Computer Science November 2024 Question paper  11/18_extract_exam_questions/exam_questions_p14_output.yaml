@@ -1,0 +1,18 @@
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A computer designed using the Von Neumann model for a computer system contains general purpose registers and special purpose registers.
+  - number: "8a"
+    type: short_answer
+    text: |
+      Describe the purpose of the Status Register (SR).
+  - number: "8b"
+    type: short_answer
+    text: |
+      Identify \textbf{two} differences between general purpose registers and special purpose registers.
+
+      1. \hrulefill
+      2. \hrulefill
+```

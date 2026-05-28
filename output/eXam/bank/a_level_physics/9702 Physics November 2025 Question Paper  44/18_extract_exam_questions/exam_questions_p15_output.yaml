@@ -1,0 +1,25 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Fig. 6.1 shows part of a bridge rectifier circuit that can be used for rectification of an alternating input voltage $V_{\text{IN}}$.
+
+      Fig. 6.1
+
+      The circuit contains four diodes, one of which is shown.
+      The rectified output voltage $V_{\text{OUT}}$ is applied across load resistor R.
+  - number: "6a"
+    type: short_answer
+    text: ''
+  - number: "6ai"
+    type: short_answer
+    text: |
+      State what is meant by rectification.
+  - number: "6aii"
+    type: short_answer
+    text: |
+      State the name of the type of rectification produced by a bridge rectifier circuit.
+  - number: "6aiii"
+    type: short_answer
+    text: |
+      Complete the circuit in Fig. 6.1 by drawing the three missing diodes inside the dashed circles.

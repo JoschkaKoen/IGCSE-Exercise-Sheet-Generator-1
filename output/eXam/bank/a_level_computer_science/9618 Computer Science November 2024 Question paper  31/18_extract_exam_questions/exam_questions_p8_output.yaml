@@ -1,0 +1,13 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "8a"
+    type: long_answer
+    text: |
+      Describe the process of \textbf{segmentation} for memory management.
+  - number: "8b"
+    type: long_answer
+    text: |
+      Explain what is meant by \textbf{disk thrashing}.

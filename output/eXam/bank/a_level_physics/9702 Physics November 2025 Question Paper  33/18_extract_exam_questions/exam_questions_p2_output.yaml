@@ -1,0 +1,22 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the oscillations of a pendulum on a board.
+  - number: "1a"
+    type: calculation
+    text: |
+      Fix the string of the pendulum onto the nail using some of the adhesive putty, as shown in Fig. 1.1.
+
+      Fig. 1.1
+
+      The distance between the two edges of the board is $S$, as shown in Fig. 1.1.
+
+      The length $L$ of the pendulum is the distance between the centre of the nail and the centre of the bob.
+
+      Adjust the length of the pendulum by wrapping the string around the nail so that the centre of the bob is approximately $1.5\text{ cm}$ from the edge of the board.
+
+      Measure and record $S$ and $L$.
+
+      $S = \hrulefill \text{ cm}$
+      $L = \hrulefill \text{ cm}$

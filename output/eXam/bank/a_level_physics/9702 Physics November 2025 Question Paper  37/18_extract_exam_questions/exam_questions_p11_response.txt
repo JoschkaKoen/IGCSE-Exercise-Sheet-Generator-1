@@ -1,0 +1,26 @@
+questions:
+  - number: "2d"
+    type: calculation
+    text: |
+      * Pour approximately half the water from the bottle into the beaker.
+      * Repeat \textbf{(c)(i)} and \textbf{(c)(ii)}.
+
+      $h = \hrulefill$
+
+      $t = \hrulefill$
+
+      $a = \hrulefill$
+  - number: "2e"
+    type: calculation
+    text: |
+      It is suggested that the relationship between $a$ and $h$ is
+
+      $$a = \frac{kd\sqrt{\pi h}}{2}$$
+
+      where $k$ is a constant.
+
+      Using your data, calculate \textbf{two} values of $k$.
+
+      first value of $k = \hrulefill$
+
+      second value of $k = \hrulefill$

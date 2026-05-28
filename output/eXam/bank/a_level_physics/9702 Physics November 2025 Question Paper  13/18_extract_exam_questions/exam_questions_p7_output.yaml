@@ -1,0 +1,60 @@
+questions:
+  - number: "11"
+    type: multiple_choice
+    text: |
+      The graph shows how the momentum of a motorcycle changes with time.
+
+      What is the resultant force on the motorcycle?
+    options:
+      - letter: A
+        text: |
+          $500\text{ N}$
+      - letter: B
+        text: |
+          $5000\text{ N}$
+      - letter: C
+        text: |
+          $25\,000\text{ N}$
+      - letter: D
+        text: |
+          $50\,000\text{ N}$
+  - number: "12"
+    type: multiple_choice
+    text: |
+      A rocket has a weight of $W$ and an initial acceleration of $a$ as the rocket leaves the ground vertically. The acceleration of free fall is $g$.
+
+      Which expression gives the initial upward force exerted on the rocket due to the engine?
+    options:
+      - letter: A
+        text: |
+          $\frac{Wa}{g} + W$
+      - letter: B
+        text: |
+          $\frac{Wa}{g}$
+      - letter: C
+        text: |
+          $\frac{Wa}{g} - W$
+      - letter: D
+        text: |
+          $Wa + W$
+  - number: "13"
+    type: multiple_choice
+    text: |
+      A uniform rod of weight $28\text{ N}$ is supported at one end by force $F$.
+
+      The rod is in equilibrium and attached to a frictionless hinge at end X.
+
+      What is the magnitude of $F$?
+    options:
+      - letter: A
+        text: |
+          $9.0\text{ N}$
+      - letter: B
+        text: |
+          $11\text{ N}$
+      - letter: C
+        text: |
+          $18\text{ N}$
+      - letter: D
+        text: |
+          $21\text{ N}$

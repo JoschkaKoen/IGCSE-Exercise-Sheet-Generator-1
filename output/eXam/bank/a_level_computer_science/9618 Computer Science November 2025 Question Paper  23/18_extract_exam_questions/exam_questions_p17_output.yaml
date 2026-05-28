@@ -1,0 +1,17 @@
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      A structure chart is used to document a different part of the program, made up of five modules.
+
+      Program notes:
+      \begin{itemize}
+      \item module \texttt{Setup} calls either module \texttt{Restart}, or module \texttt{Confirm}
+      \item module \texttt{Confirm} takes a string as a parameter and returns an integer
+      \item module \texttt{Modify} has no parameters and returns a Boolean
+      \item module \texttt{Update} takes a string as a parameter
+      \item module \texttt{Restart} repeatedly calls module \texttt{Update} followed by module \texttt{Modify}
+      \item module \texttt{Restart} takes a string as a parameter that is passed by reference.
+      \end{itemize}
+
+      Draw a structure chart to represent the relationship between the \textbf{five} modules, including all parameters and return values.

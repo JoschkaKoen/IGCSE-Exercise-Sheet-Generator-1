@@ -1,0 +1,40 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A computer has an operating system (OS).
+  - number: "3a"
+    type: short_answer
+    text: |
+      Complete the table by writing each missing OS function name and description.
+
+      \begin{tabular}{|p{5cm}|p{10cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Function name}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      & \\
+      managing memory & \\
+      & \\ \hline
+      & \\
+      & allows application software to run on the computer \\
+      & \\ \hline
+      & \\
+      managing peripherals & \\
+      & \\ \hline
+      \end{tabular}
+  - number: "3b"
+    type: short_answer
+    text: |
+      The OS handles interrupts.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      State the purpose of an interrupt.
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Identify \textbf{one} input device and \textbf{one} example of an interrupt that it can generate.
+
+      Input device \hrulefill
+      Interrupt \hrulefill
+```

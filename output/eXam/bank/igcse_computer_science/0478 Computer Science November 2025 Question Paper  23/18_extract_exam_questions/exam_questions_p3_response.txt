@@ -1,0 +1,23 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      Tickets for a theme park are booked online. An adult ticket costs $12.99 and a child ticket costs $7.99. A booking fee of $1.99 is added to the total cost of each booking.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Write an algorithm in pseudocode to:
+
+      \begin{itemize}
+      \item input the number of adult tickets for a booking
+      \item input the number of child tickets for a booking
+      \item calculate and output the total cost of the booking using an appropriate message.
+      \end{itemize}
+  - number: "4b"
+    type: long_answer
+    text: |
+      Each booking must have at least one adult ticket.
+
+      Explain how the algorithm could be changed to repeatedly ask for the number of adult tickets if the number input is less than 1.
+
+      Any code used must be fully explained.

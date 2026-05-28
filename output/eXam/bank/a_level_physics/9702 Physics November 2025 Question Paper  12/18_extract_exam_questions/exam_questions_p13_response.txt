@@ -1,0 +1,121 @@
+[thinking]
+**Transcribing Exam Questions: A Thought Process**
+
+Alright, I'm being asked to transcribe three physics questions, specifically numbers 33, 34, and 35, from an exam page. My focus is on clarity and accuracy in representation.
+
+For **Question 33**, I immediately see a resistivity problem. The core setup involves two wires, X and Y, with different properties but the same resistance. My initial thought is to represent the options as a LaTeX table for neatness, with columns for resistivity and cross-sectional area. However, given that these are multiple-choice questions, the most streamlined approach might be to incorporate the table directly into the question text and keep the options simple, just letters A, B, C, and D. So, the final format for the table will be:
+
+```latex
+\begin{tabular}{|c|c|c|}
+\hline
+& resistivity & \begin{tabular}{c} cross-sectional \\ area \end{tabular} \\
+\hline
+\textbf{A} & $\frac{1}{2}\rho$ & $\frac{1}{2}A$ \\
+\textbf{B} & $\frac{1}{2}\rho$ & $A$ \\
+\textbf{C} & $\rho$ & $\frac{1}{2}A$ \\
+\textbf{D} & $2\rho$ & $A$ \\
+\hline
+\end{tabular}
+```
+
+The options will then be:
+*   A: A
+*   B: B
+*   C: C
+*   D: D
+
+Next, **Question 34** involves a cell and energy dissipation. The problem describes the flow of charge $Q$ from an emf $E$. I need to accurately capture the multiple-choice options which are:
+
+*   A: "The energy dissipated in the external circuit is $EQ$."
+*   B: "The energy dissipated within the cell is $EQ$."
+*   C: "The external resistance is $EQ$."
+*   D: "The total energy dissipated in the cell and the external circuit is $EQ$."
+
+Finally, **Question 35** presents a circuit analysis problem with a thermistor, a battery, and a voltmeter. There is a 60V battery and a 20k ohm resistor and a 20k ohm thermistor. It seems the question involves how the voltmeter reading changes as the thermistor's resistance changes by 50%. The multiple choice options that require capturing are:
+
+*   A: "$20\text{ V}$"
+*   B: "$24\text{ V}$"
+*   C: "$36\text{ V}$"
+*   D: "$40\text{ V}$"
+
+I'll transcribe these questions to ensure they are accurately represented.
+
+
+
+[/thinking]
+
+questions:
+  - number: "33"
+    type: multiple_choice
+    text: |
+      A piece of wire X has resistivity $\rho$, length $L$ and cross-sectional area $A$. Wire X has a resistance $R$.
+
+      A second piece of wire Y is made of a different metal. It has the same resistance as X but has twice the length of X.
+
+      Which row gives possible values for the resistivity and the cross-sectional area of Y?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      & resistivity & \begin{tabular}{c} cross-sectional \\ area \end{tabular} \\
+      \hline
+      \textbf{A} & $\frac{1}{2}\rho$ & $\frac{1}{2}A$ \\
+      \textbf{B} & $\frac{1}{2}\rho$ & $A$ \\
+      \textbf{C} & $\rho$ & $\frac{1}{2}A$ \\
+      \textbf{D} & $2\rho$ & $A$ \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+
+  - number: "34"
+    type: multiple_choice
+    text: |
+      A cell of electromotive force (e.m.f.) $E$ delivers a charge $Q$ to an external circuit.
+
+      Which statement is correct?
+    options:
+      - letter: A
+        text: |
+          The energy dissipated in the external circuit is $EQ$.
+      - letter: B
+        text: |
+          The energy dissipated within the cell is $EQ$.
+      - letter: C
+        text: |
+          The external resistance is $EQ$.
+      - letter: D
+        text: |
+          The total energy dissipated in the cell and the external circuit is $EQ$.
+
+  - number: "35"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit with a battery of electromotive force (e.m.f.) $60\text{ V}$ and negligible internal resistance, a $20\text{ k}\Omega$ resistor, a thermistor and a voltmeter. The resistance of the thermistor is $20\text{ k}\Omega$.
+
+      The temperature of the thermistor decreases, and this causes its resistance to change by $50\%$.
+
+      After this change, what is the reading on the voltmeter?
+    options:
+      - letter: A
+        text: |
+          $20\text{ V}$
+      - letter: B
+        text: |
+          $24\text{ V}$
+      - letter: C
+        text: |
+          $36\text{ V}$
+      - letter: D
+        text: |
+          $40\text{ V}$

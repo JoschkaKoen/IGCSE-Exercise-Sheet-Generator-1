@@ -1,0 +1,21 @@
+  - number: "6b"
+    type: short_answer
+    text: ""
+  - number: "6bi"
+    type: short_answer
+    text: ""
+  - number: "6bii"
+    type: short_answer
+    text: ""
+  - number: "6biii"
+    type: short_answer
+    text: ""
+  - number: "7"
+    type: short_answer
+    text: ""
+  - number: "7a"
+    type: short_answer
+    text: ""
+  - number: "7b"
+    type: long_answer
+    text: ""

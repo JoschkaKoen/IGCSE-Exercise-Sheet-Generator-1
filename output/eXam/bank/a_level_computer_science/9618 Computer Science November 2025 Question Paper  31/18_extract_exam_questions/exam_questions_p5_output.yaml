@@ -1,0 +1,36 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A scheduling routine determines how processes are managed by the operating system.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Identify \textbf{two} scheduling routines.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      Describe \textbf{two} ways in which the complexities of the computer hardware are hidden from the user.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5a"
+    type: short_answer
+    text: |
+      Identify \textbf{two} items commonly found within a digital certificate.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5b"
+    type: short_answer
+    text: |
+      Explain why a digital certificate is required to validate a digital signature.
+```

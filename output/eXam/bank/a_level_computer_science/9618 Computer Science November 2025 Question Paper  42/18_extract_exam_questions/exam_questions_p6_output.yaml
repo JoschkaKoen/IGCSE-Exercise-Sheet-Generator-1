@@ -1,0 +1,43 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program stores 20 unique random integers between 0 and 100 (inclusive) in a 1D array that is local to the main program.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Write program code to declare the array local to the main program and store 20 \textbf{unique} random numbers between 0 and 100 (inclusive) in the array.
+
+      Save your program as \textbf{Question2\_N25}.
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.
+  - number: "2b"
+    type: short_answer
+    text: |
+      The procedure \texttt{PrintArray()} takes an integer array as a parameter. The procedure outputs the array contents on a single line with a space between each integer.
+
+      Write the program code for \texttt{PrintArray()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The function \texttt{BubbleSort()}:
+
+      \begin{itemize}
+      \item takes an integer array as a parameter
+      \item sorts the data into ascending order using a bubble sort
+      \item returns the sorted array.
+      \end{itemize}
+
+      The function needs to work for an array of any length.
+
+      Do \textbf{not} use an inbuilt sorting method.
+
+      Write program code for \texttt{BubbleSort()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.

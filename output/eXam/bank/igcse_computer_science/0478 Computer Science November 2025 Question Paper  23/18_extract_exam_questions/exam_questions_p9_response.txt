@@ -1,0 +1,49 @@
+[thinking]
+**Analyzing the YAML Stub for Page 9 of the Exam**
+
+Okay, so I need to populate the YAML stub for page 9. The user wants me to make sure everything lines up, and I know that means carefully checking the existing questions against the page structure. Let me see...
+
+First, I see the questions are 7b, 7c, 7ci, and 7cii. I need to make sure I am doing it right. I know that sometimes the stub has errors.
+
+Now, let's look at the page. We have (b), (c)(i), and (c)(ii). Okay, so that's the setup. But wait, in the stub, we have `7c` listed separately. Let's see if that's right.
+
+Is `7c` a parent question, or a stub generation issue? I'm pretty sure `7c` isn't a standalone question, but is meant to be an overarching container. It looks like the (c) text introduces (i) and (ii), but the text of (i) is directly included.
+
+Okay, let me check the instructions. "If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it." That's the key.
+
+Let's look more closely. There's no separate "7c" on the page. The question starts directly with "(c)(i)". The text seems to be directly part of (i). Usually, if `7c` is the parent, it can be empty or the shared preamble. But that text seems to be part of the actual question. So, I need to decide what to do. The prompt says that the text must be populated. The problem is that the "stem" doesn't have a distinct entry.
+
+Ah, the prompt says to flag the error. I must flag `7c` with `STUB ERROR`. It's a stub generation bug.
+
+Now, let me check again: There is no standalone 7c. I must use `STUB ERROR`.
+
+Okay, I'm confident. I'll make sure the YAML file is correct, then move on to the next task.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      Identify \textbf{one} programming technique used in the algorithm.
+  - number: "7c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7ci"
+    type: short_answer
+    text: |
+      The algorithm can accept a number between 1 and 255 inclusive as input.
+      Two validation checks that could be applied to \texttt{DenaryNumber} are a presence check and a type check.
+
+      Identify \textbf{one} other validation check that could be applied to \texttt{DenaryNumber}
+  - number: "7cii"
+    type: long_answer
+    text: |
+      Write the pseudocode to implement the validation check you identified in (c)(i).
+
+      You do \textbf{not} need to rewrite the whole algorithm.
+```

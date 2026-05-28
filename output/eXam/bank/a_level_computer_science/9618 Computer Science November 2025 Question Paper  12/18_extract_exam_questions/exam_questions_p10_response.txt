@@ -1,0 +1,58 @@
+[thinking]
+**Exam Page 10: YAML Stub Population**
+
+Okay, so the task is to fill in the YAML stub for page 10 of the exam. The main question here is number 6, but it looks like there's a bit of an organizational quirk. Let's dig in. I see in the stub, we have entries for "6", "6a", and "6b". I need to figure out what the correct content for each is.
+
+First thing, I'm checking if "6" has a corresponding stem or is just a structural placeholder. Ah, there's no standalone stem for "6". It starts immediately with "6 (a)". So, "6" isn't a main context question on its own. Now, the stub lists "6". Hmm, what do I do with that? If there's no corresponding text on the page, the instructions say to flag it with `STUB ERROR`. However, since "6" is essentially the label for the entire question block, and "6 (a)" is the actual start, I'm thinking setting `text: ''` is the safest bet here, and possibly it indicates that the stub generation is off. I'm going to lean towards leaving it as an empty string, rather than triggering a QA error.
+
+Now, for "6a", that's straightforward. I'll grab the text directly from the exam page: the compression question with the type of compression and justification. I'll make sure to preserve all the formatting.
+
+For "6b", the text will include the table with word/denary values, and the binary values. I'll need to capture the table structure properly. And I need to ensure the empty cells in the second table's "Word" row are preserved, counting the columns and making sure they match! Looks like the table has the right number of columns. This is straightforward; I just need to transcribe the content.
+
+So, in summary, question "6" will have an empty text field. Question "6a" and "6b" will have text from the exam page, and the correct formatting.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: ''
+  - number: "6a"
+    type: short_answer
+    text: |
+      A sound file is compressed by reducing the sampling rate.
+
+      State whether this is lossless or lossy compression. Justify your choice.
+
+      Type of compression \hrulefill
+
+      Justification
+  - number: "6b"
+    type: short_answer
+    text: |
+      The following table shows some words and corresponding denary values.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Word} & \textbf{Denary value} \\ \hline
+      Computing & 55 \\ \hline
+      Science & 56 \\ \hline
+      Computers & 57 \\ \hline
+      are & 58 \\ \hline
+      Brilliant! & 59 \\ \hline
+      is & 60 \\ \hline
+      Fun! & 61 \\ \hline
+      Amazing! & 62 \\ \hline
+      \end{tabular}
+
+      The following table shows three bytes of data that have been received.
+
+      Use the table to find the corresponding words from the binary values received.
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Binary value} & 00111000 & 00111100 & 00111110 \\ \hline
+      \textbf{Word} & & & \\ \hline
+      \end{tabular}

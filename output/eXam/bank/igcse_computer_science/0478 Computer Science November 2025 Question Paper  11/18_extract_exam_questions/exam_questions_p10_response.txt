@@ -1,0 +1,58 @@
+[thinking]
+**Transcribing Questions for the User**
+
+Okay, so the user wants me to extract and format two specific questions from this document. Let me see... the first is a multiple-choice question about MAC addresses. It's asking for the correct statement about a MAC address, and the choices are: assigned by the manufacturer, the product, the router, or the user. Straightforward. I will need to render the choices and remember to only include one tickbox for the correct answer.
+
+The second question is a short-answer question on the use of AI in robots. Specifically, the prompt asks for *three* ways AI could be used, with numbered answer slots. Hmmm, the provided text shows the answer slots formatted with dots, spanning multiple lines, like this:
+
+`1 ................................................................................................................................................`
+`...................................................................................................................................................`
+`2 ................................................................................................................................................`
+`...................................................................................................................................................`
+`3 ................................................................................................................................................`
+`...................................................................................................................................................`
+
+However, the more standard convention is to format the numbered answer slots like this:
+
+`1. \hrulefill`
+`2. \hrulefill`
+`3. \hrulefill`
+
+I'll go with this standard convention. It is concise and clear and should be just what the user expects. I'll make sure there is a blank line between the instruction prompt and the first numbered slot. Good, I'm ready to extract and format these questions.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "5d"
+    type: multiple_choice
+    text: |
+      Each robot has a media access control (MAC) address.
+
+      Tick ($\checkmark$) \textbf{one} box to show the correct statement about a MAC address.
+    options:
+      - letter: A
+        text: |
+          It is assigned by the manufacturer.
+      - letter: B
+        text: |
+          It is assigned by the product.
+      - letter: C
+        text: |
+          It is assigned by the router.
+      - letter: D
+        text: |
+          It is assigned by the user.
+  - number: "5e"
+    type: short_answer
+    text: |
+      The robots have artificial intelligence (AI).
+
+      Give \textbf{three} ways the robots could make use of AI.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+```

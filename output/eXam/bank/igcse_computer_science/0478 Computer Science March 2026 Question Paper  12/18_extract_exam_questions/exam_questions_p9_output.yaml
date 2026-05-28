@@ -1,0 +1,17 @@
+questions:
+  - number: "5c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5ci"
+    type: short_answer
+    text: |
+      State what is meant by cloud storage.
+  - number: "5cii"
+    type: short_answer
+    text: |
+      Explain the advantages to the student of storing their data on cloud storage instead of storing the data locally on their home computer.
+  - number: "5ciii"
+    type: short_answer
+    text: |
+      Explain the advantages to the student of storing their data locally on their home computer instead of using cloud storage.

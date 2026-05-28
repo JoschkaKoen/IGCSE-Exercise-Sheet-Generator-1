@@ -1,0 +1,39 @@
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Each ticket number is stored as a binary number in the ticket machine.
+  - number: "2bi"
+    type: calculation
+    text: |
+      Two ticket numbers are 14B and 97A.
+
+      Convert the \textbf{two} ticket numbers from hexadecimal to binary.
+
+      14B \hrulefill
+      97A \hrulefill
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Give \textbf{two} reasons why the ticket number is displayed as hexadecimal instead of binary.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      The ticket numbers could also be represented as denary.
+  - number: "2ci"
+    type: calculation
+    text: |
+      Convert the \textbf{two} ticket numbers from hexadecimal to denary.
+
+      02C \hrulefill
+      10B \hrulefill
+  - number: "2cii"
+    type: calculation
+    text: |
+      Convert the \textbf{two} denary numbers into hexadecimal.
+
+      109 \hrulefill
+      415 \hrulefill

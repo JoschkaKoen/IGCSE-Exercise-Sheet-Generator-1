@@ -1,0 +1,69 @@
+[thinking]
+**Exam Paper Transcription and Formatting**
+
+Okay, so the task at hand is to transcribe and structure page 2 of this exam paper. I see that the questions revolve around software development, specifically related to modules, local variables, and pseudocode expressions. My initial thought is to break down each question segment, assigning appropriate YAML and LaTeX formatting to ensure clarity and accurate representation.
+
+First, I need to format each individual question. I will use YAML for the question number, type (which appears to be short answer), and the question text itself. This ensures I capture the structure precisely.
+
+Question "1" is a simple introductory prompt: "A program is being developed for the management of a sports centre." Straightforward YAML.
+
+Then, "1a": "The programmer developing the software decides to use modules (procedures or functions) and local variables. They also decide not to use global variables." Again, this is a straightforward YAML entry.
+
+Next is "1ai": "State two reasons why the programmer decides to use modules." This requires two numbered answer slots. YAML formatting is perfect for this, clearly indicating the two responses needed.
+
+For "1aii": "State one difference between local and global variables." A single line to indicate the difference. This, too, translates easily into YAML.
+
+"1aiii": "State two benefits of using local variables." Two numbered answer slots, YAML.
+
+Finally, "1b" presents a pseudocode expression challenge. Here's where it gets interesting. I need to reproduce a table with expressions and their evaluated values. This requires LaTeX. The LaTeX code will need to accurately represent the table structure. I see that each expression entry has an underlined placeholder. I'll represent this placeholder with `\underline{\hspace{3em}}` or `\underline{\hspace{6em}}` for increased space, as necessary within the table's context. I will also have to ensure that all characters such as parentheses and quotation marks are correctly formatted.
+
+I've examined the example carefully and determined how the placeholder should appear. I will also ensure correct formatting of the LaTeX table and the expression text itself.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program is being developed for the management of a sports centre.
+  - number: "1a"
+    type: short_answer
+    text: |
+      The programmer developing the software decides to use modules (procedures or functions) and local variables. They also decide not to use global variables.
+  - number: "1ai"
+    type: short_answer
+    text: |
+      State \textbf{two} reasons why the programmer decides to use modules.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "1aii"
+    type: short_answer
+    text: |
+      State \textbf{one} difference between local and global variables.
+  - number: "1aiii"
+    type: short_answer
+    text: |
+      State \textbf{two} benefits of using local variables.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "1b"
+    type: short_answer
+    text: |
+      The pseudocode design contains a number of expressions.
+
+      Complete each pseudocode expression so that it evaluates to the value shown.
+
+      Refer to the insert for the list of pseudocode functions and operators.
+
+      \begin{tabular}{|l|c|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Expression}} & \textbf{Evaluates to} \\ \hline
+      \underline{\hspace{6em}}(68) & \texttt{'D'} \\ \hline
+      \underline{\hspace{6em}}(04/02/2025) & 2 \\ \hline
+      \underline{\hspace{6em}}TRUE & FALSE \\ \hline
+      \underline{\hspace{6em}}(\underline{\hspace{6em}}("Court1.4Upper", \underline{\hspace{2em}}, \underline{\hspace{2em}})) & 1.4 \\ \hline
+      \end{tabular}

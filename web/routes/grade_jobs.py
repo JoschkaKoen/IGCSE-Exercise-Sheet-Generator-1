@@ -554,7 +554,14 @@ async def resume_grade_job(
     )
     _validate_opts(opts)
 
-    job = store.create()
+    user_id = current_user_id(request)
+    job = store.create(user_id=user_id, kind="grade")
+    if user_id is not None:
+        # Title from the artifact dir's exam stem since we already know it for a resume.
+        jobs_db.insert(
+            job_id=job.id, user_id=user_id, kind="grade", title=art.parent.name,
+        )
+        jobs_db.set_artifact_dir(job.id, art)
     session_id = getattr(request.state, "session_id", None)
     track_request_event(
         request, "grade_job_started",

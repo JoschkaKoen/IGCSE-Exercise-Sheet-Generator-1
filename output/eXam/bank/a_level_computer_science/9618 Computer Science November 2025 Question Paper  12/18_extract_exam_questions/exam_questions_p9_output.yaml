@@ -1,0 +1,26 @@
+questions:
+  - number: "5d"
+    type: long_answer
+    text: |
+      Another type of network is a bus network.
+
+      Ethernet is used to transmit and receive data between the devices on the bus network.
+
+      Describe how collisions are detected and managed on this network.
+  - number: "5e"
+    type: short_answer
+    text: |
+      Complete the table by identifying \textbf{one} threat to computer and data security posed by networks and the internet.
+
+      Describe the threat and give a method of prevention.
+
+      \begin{tabular}{|p{3cm}|p{7cm}|p{3cm}|}
+      \hline
+      \centering \textbf{Threat} & \centering \textbf{Description} & \centering \textbf{Prevention} \tabularnewline \hline
+      & & \\
+      & & \\
+      & & \\
+      & & \\
+      & & \\
+      \hline
+      \end{tabular}

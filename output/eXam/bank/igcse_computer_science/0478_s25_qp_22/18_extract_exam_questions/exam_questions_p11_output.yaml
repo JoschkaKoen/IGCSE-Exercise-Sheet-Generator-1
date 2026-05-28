@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      Consider the logic rules in the following table:
+
+      \begin{tabular}{|c|c|l|}
+      \hline
+      \textbf{Input} & \textbf{Binary value} & \textbf{Description} \\ \hline
+      \multirow{2}{*}{\textbf{A}} & 0 & operator \textbf{not} present \\ \cline{2-3}
+       & 1 & operator present \\ \hline
+      \multirow{2}{*}{\textbf{B}} & 0 & ignition key present \\ \cline{2-3}
+       & 1 & ignition key \textbf{not} present \\ \hline
+      \multirow{2}{*}{\textbf{C}} & 0 & operator code correct \\ \cline{2-3}
+       & 1 & operator code \textbf{not} correct \\ \hline
+      \end{tabular}
+
+      A crane is a machine with a long arm used to lift heavy objects. The crane will only move:
+      \begin{itemize}
+      \item if the operator is present and
+      \item either the ignition key is present, or the operator code is correct.
+      \end{itemize}
+
+      The crane moving is represented by $X = 1$.
+  - number: "8bi"
+    type: short_answer
+    text: |
+      Write the logic expression for the crane moving.
+
+      $X =$ \hrulefill
+  - number: "8bii"
+    type: short_answer
+    text: |
+      Complete the truth table for the crane moving.
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{X} \\ \hline
+      0 & 0 & 0 & \hspace{2em} \\ \hline
+      0 & 0 & 1 & \\ \hline
+      0 & 1 & 0 & \\ \hline
+      0 & 1 & 1 & \\ \hline
+      1 & 0 & 0 & \\ \hline
+      1 & 0 & 1 & \\ \hline
+      1 & 1 & 0 & \\ \hline
+      1 & 1 & 1 & \\ \hline
+      \end{tabular}
+```

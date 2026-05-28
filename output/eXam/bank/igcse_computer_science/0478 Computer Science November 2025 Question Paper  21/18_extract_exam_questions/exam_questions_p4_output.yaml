@@ -1,0 +1,43 @@
+questions:
+  - number: "4c"
+    type: short_answer
+    text: |
+      The restaurant offers a discount on a meal if the person ordering is either a student or is 65 years or older. The discount ($X = 1$) can only be given if the amount of the order is \$20.00 or over.
+
+      \begin{tabular}{|c|l|c|}
+      \hline
+      rule A & a student & 0 \\ \cline{2-3}
+             & not a student & 1 \\ \hline
+      rule B & under 65 years old & 0 \\ \cline{2-3}
+             & 65 years or older & 1 \\ \hline
+      rule C & under \$20.00 & 0 \\ \cline{2-3}
+             & \$20.00 or over & 1 \\ \hline
+      \end{tabular}
+  - number: "4ci"
+    type: short_answer
+    text: |
+      Write the logic expression for this problem.
+  - number: "4cii"
+    type: short_answer
+    text: |
+      Draw a logic circuit for this logic expression.
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+      Do \textbf{not} simplify this logic expression.
+  - number: "4d"
+    type: short_answer
+    text: |
+      Draw the NAND logic gate symbol \textbf{and} complete the truth table for it.
+
+      NAND logic gate symbol:
+
+      Truth table:
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{X} \\ \hline
+      0 & 0 & \\ \hline
+      0 & 1 & \\ \hline
+      1 & 0 & \\ \hline
+      1 & 1 & \\ \hline
+      \end{tabular}

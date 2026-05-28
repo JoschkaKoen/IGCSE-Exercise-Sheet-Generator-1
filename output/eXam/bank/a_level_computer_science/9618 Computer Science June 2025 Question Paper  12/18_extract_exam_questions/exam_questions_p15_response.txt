@@ -1,0 +1,70 @@
+[thinking]
+**Exam Paper Transcription: Page 15**
+
+Okay, so the user wants me to essentially transcribe page 15 of an exam paper. Let's break this down systematically. The page contains three questions: `7ai`, `7aii`, and `7aiii`.
+
+`7ai` involves tracing a program currently held in memory, utilizing a provided trace table. My focus is on understanding the table's structure. It's a classic trace table, with columns for the Instruction Address, the Accumulator (ACC), and Memory Address. The Memory Address column, however, is subdivided into five sub-columns, corresponding to memory locations 10, 11, 12, 13, and 14. I need to make sure I represent this clearly. I'll translate the existing information into a LaTeX table format.
+
+I see that the table has a header row that defines the columns, and a second row with the individual memory address locations. There's an example data row and then a set of empty rows. I'll need to accurately represent the header, the data, and the multiple empty rows for the complete trace table. It looks like it should be easy to represent this with a simple tabular environment.
+
+I'm thinking:
+```latex
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\textbf{Instruction address} & \textbf{ACC} & \multicolumn{5}{c|}{\textbf{Memory address}} \\ \cline{3-7}
+ & & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{13} & \textbf{14} \\ \hline
+ & & 12 & 11 & 10 & 22 & 22 \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+\end{tabular}
+```
+Now, for `7aii`, it's a direct question: "State the effect of changing instruction `LDD 10` in address 100 to `LDM #10`." I'll need to answer this based on my knowledge of assembly language and addressing modes. There's no particular formatting specified here.
+
+Finally, for `7aiii`, I need to "Identify and describe one mode of addressing not given in the table of instructions in part (a)." This requires me to recall different addressing modes, and then provide a description. The page provides a structure with "Mode of addressing" and "Description" fields. Again, there are no specific answer lines required. It appears to be an open-ended question that I must answer.
+
+So, I'll need to carefully extract the information from the user, and format my answer concisely.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7ai"
+    type: short_answer
+    text: |
+      Trace the program currently in memory using the following trace table.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|}
+      \hline
+      \multirow{2}{*}{\textbf{Instruction address}} & \multirow{2}{*}{\textbf{ACC}} & \multicolumn{5}{c|}{\textbf{Memory address}} \\ \cline{3-7}
+       & & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{13} & \textbf{14} \\ \hline
+       & & 12 & 11 & 10 & 22 & 22 \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+       & & & & & & \\ \hline
+      \end{tabular}
+  - number: "7aii"
+    type: short_answer
+    text: |
+      State the effect of changing instruction \texttt{LDD 10} in address 100 to \texttt{LDM \#10}
+  - number: "7aiii"
+    type: short_answer
+    text: |
+      Identify \textbf{and} describe \textbf{one} mode of addressing \textbf{not} given in the table of instructions in part (a).
+
+      Mode of addressing \hrulefill
+
+      Description
+```

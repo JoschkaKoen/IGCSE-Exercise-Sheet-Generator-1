@@ -1,0 +1,62 @@
+[thinking]
+**Exam Page 6: Transcription and Analysis**
+
+Okay, so I need to transcribe page 6 of this exam paper. It looks like it's all about a programming task, specifically focusing on array manipulation and sorting. Let's break down the questions one by one and make sure I understand the requirements completely.
+
+First, there's question "2", which sets the overall context: we're dealing with a 1D array holding 20 unique random integers, values between 0 and 100, local to the main program. Nothing too complex to start with.
+
+Next up, "2a".  This is the actual coding part. I need to write code to *declare* that array, populate it with *unique* random numbers within the specified range, and then save the program as "Question2_N25". And, crucially, copy and paste that code into the evidence document. So, ensuring uniqueness and randomness is key here, something I will have to bear in mind when writing my code!
+
+"2b" deals with a procedure named `PrintArray()`. This takes an integer array as input and outputs its contents on a single line, with a space between each element. Seems straightforward, another small piece of code to write, save, and copy-paste.
+
+Finally, "2c". This involves a function named `BubbleSort()`. This is another coding task! The function *must* take an integer array as a parameter, sort it into ascending order using the bubble sort algorithm, and return the sorted array. The really important detail here is: *no* using built-in sorting methods. I need to write the bubble sort implementation myself. Also, the function needs to work for any array size. After I'm done writing that function, I have to save it and, of course, copy and paste it into the evidence document.
+
+I'll need to keep a close eye on the formatting rules. No double quotes for string fields, use `\texttt{...}` for inline code, and `\textbf{...}` for bold text. Also, the bullet points for `BubbleSort` are within an `itemize` environment. There's no need for answer markers; these are open-ended coding tasks. Okay, I've got this! Let's get to work!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program stores 20 unique random integers between 0 and 100 (inclusive) in a 1D array that is local to the main program.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Write program code to declare the array local to the main program and store 20 \textbf{unique} random numbers between 0 and 100 (inclusive) in the array.
+
+      Save your program as \textbf{Question2\_N25}.
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.
+  - number: "2b"
+    type: short_answer
+    text: |
+      The procedure \texttt{PrintArray()} takes an integer array as a parameter. The procedure outputs the array contents on a single line with a space between each integer.
+
+      Write the program code for \texttt{PrintArray()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The function \texttt{BubbleSort()}:
+
+      \begin{itemize}
+      \item takes an integer array as a parameter
+      \item sorts the data into ascending order using a bubble sort
+      \item returns the sorted array.
+      \end{itemize}
+
+      The function needs to work for an array of any length.
+
+      Do \textbf{not} use an inbuilt sorting method.
+
+      Write program code for \texttt{BubbleSort()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.

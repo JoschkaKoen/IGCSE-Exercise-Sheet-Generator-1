@@ -1,0 +1,54 @@
+[thinking]
+**Processing the Exam Questions**
+
+Okay, the user wants me to extract and format specific questions from this exam page: 7bii, 7biii, and 7biv. Let's see... looking at the image, I've got the text for each question.
+
+*   **7bii:** This is a calculation, asking to determine the area of flux cut by the wings in 15 seconds. The answer should be in square meters. I'll represent that as `area = \hrulefill \text{ m}^2` in the YAML.
+*   **7biii:** Another calculation, this time using the previous result to find the aircraft's speed. The units are meters per second. The YAML equivalent will be `v = \hrulefill \text{ m}\,\text{s}^{-1}`.
+*   **7biv:** Ah, this one's a long answer explanation question. It's asking for an explanation using Lenz's Law to determine which wingtip is at a higher potential. No specific format markers, so I'll just include the question text itself in the YAML.
+
+Alright, I've got all the information now. Time to structure it in YAML format:
+
+```yaml
+questions:
+  - number: "7bii"
+    type: calculation
+    text: |
+      Determine the area of flux cut by the wings in a time of $15\text{ s}$.
+
+      area = \hrulefill $\text{m}^2$
+  - number: "7biii"
+    type: calculation
+    text: |
+      Use your answer in \textbf{(b)(ii)} to determine the speed $v$ of the aircraft.
+
+      $v$ = \hrulefill $\text{m}\,\text{s}^{-1}$
+  - number: "7biv"
+    type: long_answer
+    text: |
+      Use Lenz’s law of electromagnetic induction to explain which of the wingtips P and Q is at the higher induced potential.
+```
+
+That should be good to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7bii"
+    type: calculation
+    text: |
+      Determine the area of flux cut by the wings in a time of $15\text{ s}$.
+
+      area = \hrulefill $\text{m}^2$
+  - number: "7biii"
+    type: calculation
+    text: |
+      Use your answer in \textbf{(b)(ii)} to determine the speed $v$ of the aircraft.
+
+      $v$ = \hrulefill $\text{m}\,\text{s}^{-1}$
+  - number: "7biv"
+    type: long_answer
+    text: |
+      Use Lenz’s law of electromagnetic induction to explain which of the wingtips P and Q is at the higher induced potential.

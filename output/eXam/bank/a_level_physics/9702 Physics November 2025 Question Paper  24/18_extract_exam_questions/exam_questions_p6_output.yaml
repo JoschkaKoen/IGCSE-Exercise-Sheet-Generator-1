@@ -1,0 +1,18 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Fig. 2.1 shows a square metal sheet of non-uniform density, with a thin wooden rod fixed at its centre. One of the corners of the sheet is labelled X.
+
+      The rod has negligible mass. The mass of the metal sheet is $2.8 \text{ kg}$.
+      The rod is supported so that the rod is horizontal and the metal sheet is vertical.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Define the torque of a couple.
+  - number: "2b"
+    type: short_answer
+    text: |
+      When the rod is supported in such a way that it can rotate freely within its support, the sheet hangs in equilibrium with point X vertically above the rod, as shown in Fig. 2.2.
+
+      On Fig. 2.2, draw a line to indicate the range of possible positions for the centre of gravity of the metal sheet.

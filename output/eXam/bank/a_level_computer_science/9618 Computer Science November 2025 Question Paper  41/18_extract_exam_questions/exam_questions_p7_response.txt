@@ -1,0 +1,54 @@
+```yaml
+questions:
+  - number: "2cii"
+    type: short_answer
+    text: |
+      The method \texttt{AddTrain()} takes a \texttt{Train} parameter. The method compares the attributes \texttt{NumberTrains} and \texttt{NumberPlatforms} to identify if there is a platform available (a platform currently with no train).
+
+      The method returns \texttt{FALSE} if there are no platforms available.
+
+      If there is a platform available, the method:
+      \begin{itemize}
+      \item stores the \texttt{Train} parameter in the array \texttt{Trains}
+      \item updates the appropriate attribute(s)
+      \item returns \texttt{TRUE}
+      \end{itemize}
+
+      Write program code for \texttt{AddTrain()}
+
+      \begin{tabular}{|p{\textwidth}|}
+      \hline
+      Save your program. \newline \newline
+      Copy and paste the program code into part \textbf{2(c)(ii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "2ciii"
+    type: short_answer
+    text: |
+      The method \texttt{GetTrains()} returns the string \texttt{"There are no trains"} if there are no trains at the station platforms.
+
+      If there are trains at the station platforms, the method returns a string in the format:
+
+      \texttt{The trains at station <StationID> are:}
+
+      \texttt{<TrainIDNumber> on route number <Route>}
+
+      The line \texttt{<TrainIDNumber> on route number <Route>} is repeated for each train at the station platforms.
+
+      For example: If the station with the station ID \texttt{"NT1"} has two trains with the train ID numbers \texttt{"48RTG"}, \texttt{"6UFH"}, the method will produce this output:
+
+      \texttt{The trains at station NT1 are:}
+
+      \texttt{48RTG on route number 43}
+
+      \texttt{6UFH on route number 12}
+
+      Write program code for \texttt{GetTrains()}
+
+      \begin{tabular}{|p{\textwidth}|}
+      \hline
+      Save your program. \newline \newline
+      Copy and paste the program code into part \textbf{2(c)(iii)} in the evidence document. \\
+      \hline
+      \end{tabular}
+```

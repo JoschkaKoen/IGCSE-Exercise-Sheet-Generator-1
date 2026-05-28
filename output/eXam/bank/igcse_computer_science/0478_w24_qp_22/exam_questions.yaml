@@ -1,0 +1,622 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+
+    A solution to a problem may be represented using pseudocode, flowcharts or'
+  answer_options:
+  - letter: A
+    text: procedures.
+  - letter: B
+    text: processes.
+  - letter: C
+    text: structure diagrams.
+  - letter: D
+    text: sub-systems.
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+
+    A pseudocode example of a selection statement is'
+  answer_options:
+  - letter: A
+    text: \texttt{CALL Sorting(Value1, Value2)}
+  - letter: B
+    text: '\texttt{DECLARE Count : INTEGER}'
+  - letter: C
+    text: \texttt{IF X = 7 THEN Y <- 21 ENDIF}
+  - letter: D
+    text: \texttt{WHILE X <> -1 DO}
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Four flowchart symbols and five purposes are shown.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Draw \textbf{one} line to link each flowchart symbol to its correct purpose.
+
+
+      \textbf{Not} all purposes will be used.'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'An algorithm needs to total 50 numbers between 1 and 100 inclusive.
+
+
+      Draw a flowchart that:
+
+
+      \begin{itemize}
+
+      \item uses a count-controlled loop from 1 to 50
+
+      \item uses an appropriate prompt to ask for a number between 1 and 100
+
+      \item totals the numbers as they are entered
+
+      \item outputs the total after the loop has completed with an appropriate message.
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'This pseudocode algorithm is intended to sort a pre-populated one-dimensional
+    (1D) array named \texttt{ItemList} into alphabetical order using a bubble sort.
+
+
+    \begin{alltt}
+
+    01 DECLARE ItemList : ARRAY[1:100] OF STRING
+
+    02 DECLARE Counter : STRING
+
+    03 DECLARE Limit : INTEGER
+
+    04 DECLARE Pass : INTEGER
+
+    05 DECLARE Swapped : BOOLEAN
+
+    06 DECLARE Temp : STRING
+
+    07 Limit <- 100
+
+    08 Pass <- 1
+
+    09 Temp <- TRUE
+
+    10 WHILE Swapped = TRUE OR Pass <= Limit - 1 DO
+
+    11     Swapped <- FALSE
+
+    12     FOR Counter <- 1 TO Limit - Pass
+
+    13         IF ItemList[Counter] > ItemList[Counter + 1]
+
+    14         THEN
+
+    15             Temp <- ItemList[Counter]
+
+    16             ItemList[Counter] <- ItemList[Counter + 1]
+
+    17             ItemList[Counter] <- Temp
+
+    18             Swapped <- TRUE
+
+    19         ENDCASE
+
+    20     Pass <- Pass + 1
+
+    21     NEXT Counter
+
+    22 ENDWHILE
+
+    \end{alltt}'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Identify the line numbers of \textbf{five} errors in the pseudocode and
+      suggest a correction for each error.
+
+
+      Error 1 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      \hrulefill
+
+
+      Error 2 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      \hrulefill
+
+
+      Error 3 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      \hrulefill
+
+
+      Error 4 line number \hrulefill
+
+
+      Correction \hrulefill
+
+
+      \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'A bubble sort algorithm can be written to include features that make it
+      more efficient.
+
+
+      Explain why the corrected bubble sort algorithm is efficient.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Analysis is one stage in the program development life cycle.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State \textbf{one} other stage in the program development life cycle.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Describe the analysis stage of the program development life cycle.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 2
+  text: Outline \textbf{one} type of verification check that could be used when inputting
+    data.
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "This pseudocode represents an algorithm.\n\nAn input of $-1$ will terminate\
+    \ the algorithm.\n\n\\begin{alltt}\nDECLARE Count : INTEGER\nDECLARE Answer :\
+    \ INTEGER\nDECLARE Value : INTEGER\nREPEAT\n  INPUT Value\n  IF Value <> -1\n\
+    \  THEN\n    Answer <- Value\n    FOR Count <- Value - 1 TO 1 STEP -1\n      Answer\
+    \ <- Answer * Count\n    NEXT Count\n    OUTPUT Answer\n  ENDIF\nUNTIL Value =\
+    \ -1\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete the trace table for the input data:
+
+
+      5, 6, $-1$, 20, 9, 4
+
+
+      \begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{4cm}|}
+
+      \hline
+
+      \hfil \textbf{Value} & \hfil \textbf{Count} & \hfil \textbf{Answer} & \hfil
+      \textbf{OUTPUT} \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of this algorithm.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the problem that would be caused in this algorithm if a \texttt{Value}
+      of 1, 0 or less than $-1$ was input.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Different types of test data are used during program development to make
+    sure a program works as intended. A program being developed takes as input whole
+    numbers that are not greater than 80.
+
+
+    Identify \textbf{two} items of test data to test the whole number limit of 80.
+
+
+    Explain the reason for your choice of the data in each case.
+
+
+    Test data 1 \hrulefill
+
+
+    Reason for choice \hrulefill
+
+
+    Test data 2 \hrulefill
+
+
+    Reason for choice \hrulefill'
+  answer_options: []
+  subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Consider the logic expression:
+
+
+    $$X = (\text{NOT } P \text{ OR } Q) \text{ NAND } (Q \text{ XOR } R)$$'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Draw a logic circuit for this logic expression.
+
+
+      Each logic gate must have a maximum of \textbf{two} inputs.
+
+
+      Do \textbf{not} simplify the logic expression.'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the truth table for the given logic expression.
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{P} & \textbf{Q} & \textbf{R} & \textbf{X} \\ \hline
+
+      0 & 0 & 0 & \\ \hline
+
+      0 & 0 & 1 & \\ \hline
+
+      0 & 1 & 0 & \\ \hline
+
+      0 & 1 & 1 & \\ \hline
+
+      1 & 0 & 0 & \\ \hline
+
+      1 & 0 & 1 & \\ \hline
+
+      1 & 1 & 0 & \\ \hline
+
+      1 & 1 & 1 & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: long_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'The function \texttt{LENGTH(X)} calculates the length of a string \texttt{X}
+
+
+    Write the pseudocode statements to:
+
+
+    \begin{itemize}
+
+    \item allow a line of text to be input to an appropriate variable
+
+    \item store this line of text in a text file called \texttt{Main.txt}
+
+    \item calculate the length of the line of text and output the text in lower case
+    along with its length
+
+    \item store the lower-case line of text in a text file called \texttt{Lowercase.txt}
+
+    \end{itemize}
+
+
+    Make sure that any variables used are declared and that both text files are closed
+    after they have been used.'
+  answer_options: []
+  subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A database table called \texttt{Booking28} stores details of hotel rooms
+    and bookings for the week beginning Monday 7 July 2025.
+
+
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+
+    \hline
+
+    \textbf{RoomNo} & \textbf{Type} & \textbf{Guests} & \textbf{Rate\$} & \textbf{Mon}
+    & \textbf{Tue} & \textbf{Wed} & \textbf{Thu} & \textbf{Fri} & \textbf{Sat} & \textbf{Sun}
+    \\ \hline
+
+    101D & Double & 2 & 99.99 & T & T & T & T & F & T & T \\ \hline
+
+    102D & Double & 2 & 99.99 & T & T & T & F & T & T & T \\ \hline
+
+    103F & Family & 4 & 150.00 & T & T & T & T & T & T & T \\ \hline
+
+    104S & Single & 1 & 72.50 & F & T & T & F & T & T & T \\ \hline
+
+    105S & Single & 1 & 72.50 & F & T & T & F & T & T & T \\ \hline
+
+    106T & Twin & 2 & 120.00 & T & T & T & T & F & T & T \\ \hline
+
+    201F & Family & 4 & 160.00 & F & F & T & T & T & T & T \\ \hline
+
+    202D & Double & 2 & 120.00 & T & F & T & T & T & T & T \\ \hline
+
+    203T & Twin & 2 & 120.00 & T & F & T & T & T & T & T \\ \hline
+
+    204T & Twin & 2 & 125.00 & T & F & T & F & T & T & T \\ \hline
+
+    205S & Single & 1 & 79.99 & T & F & T & T & F & T & T \\ \hline
+
+    301D & Double & 2 & 200.00 & F & T & T & F & F & T & T \\ \hline
+
+    302T & Twin & 2 & 200.00 & T & T & T & T & F & T & T \\ \hline
+
+    303P & Suite & 4 & 500.00 & T & T & T & T & F & T & T \\ \hline
+
+    304P & Suite & 6 & 700.00 & F & F & F & F & T & T & T \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 11a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State the number of fields and records in this database table.
+
+
+      Fields \hrulefill
+
+      Records \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 11b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the reason why the \texttt{Type} field would not be suitable as a
+      primary key.
+    answer_options: []
+    subquestions: []
+  - number: 11c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: "The database uses only the data types:\n\n\\begin{itemize}\n\\item alphanumeric\n\
+      \\item character\n\\item Boolean\n\\item integer\n\\item real\n\\item date/time.\n\
+      \\end{itemize}\n\nComplete the table to show the fields that could have the\
+      \ given data types.\n\nOnly \\textbf{one} field name is required in each box\
+      \ and each field name must be different.\n\n\\begin{tabular}{|p{6cm}|l|}\n\\\
+      hline\n\\multicolumn{1}{|c|}{\\textbf{Field}} & \\multicolumn{1}{c|}{\\textbf{Data\
+      \ type}} \\\\ \\hline\n & alphanumeric \\\\ \\hline\n & Boolean \\\\ \\hline\n\
+      \ & real \\\\ \\hline\n & integer \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 11d
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Give the output that would be produced by the structured query language
+      (SQL) statement:
+
+
+      \begin{alltt}
+
+      SELECT RoomNo, Type, Guests, Rate$
+
+      FROM Booking28
+
+      WHERE Mon <> T;
+
+      \end{alltt}'
+    answer_options: []
+    subquestions: []
+- number: '12'
+  question_type: long_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 15
+  text: 'A one-dimensional (1D) array \texttt{Rooms[]} contains the names of up to
+    20 rooms in a house.
+
+    A two-dimensional (2D) array \texttt{Dimensions[]} is used to store the length,
+    width and area of each room.
+
+
+    The position of any room''s data is the same in both arrays. For example, the
+    data in index 5 of \texttt{Dimensions[]} belongs to the room in index 5 of \texttt{Rooms[]}
+
+
+    The variable \texttt{Number} stores the number of rooms for which data is to be
+    input. There must be at least 3 rooms but no more than 20.
+
+
+    Write a program that meets the following requirements:
+
+
+    \begin{itemize}
+
+    \item allows the number of rooms for which data is required to be input, stored
+    and validated
+
+    \item allows the name of the room and the length and width of the room, in metres,
+    to be entered and stored
+
+    \item allows the area of each room to be calculated as length multiplied by width
+    and stored as square metres rounded to two decimal places
+
+    \item calculates the average size of all the rooms by area, in square metres,
+    rounded to two decimal places
+
+    \item finds the largest room and smallest room by area
+
+    \item outputs the names of all rooms with their dimensions and area
+
+    \item outputs the names of the largest room and smallest room by area
+
+    \item outputs the total area of the house and the average size of all the rooms
+    by area.
+
+    \end{itemize}
+
+
+    You must use pseudocode or program code \textbf{and} add comments to explain how
+    your code works.
+
+
+    You do \textbf{not} need to declare any arrays or variables; you may assume that
+    this has already been done.
+
+
+    All inputs and outputs must contain suitable messages.'
+  answer_options: []
+  subquestions: []

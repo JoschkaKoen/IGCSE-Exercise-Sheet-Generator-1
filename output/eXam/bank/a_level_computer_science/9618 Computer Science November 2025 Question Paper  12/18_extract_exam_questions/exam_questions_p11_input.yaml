@@ -1,0 +1,12 @@
+  - number: "6c"
+    type: short_answer
+    text: ""
+  - number: "6ci"
+    type: short_answer
+    text: ""
+  - number: "6cii"
+    type: short_answer
+    text: ""
+  - number: "6d"
+    type: calculation
+    text: ""

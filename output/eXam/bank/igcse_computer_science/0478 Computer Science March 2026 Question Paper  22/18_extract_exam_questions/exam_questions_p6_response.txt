@@ -1,0 +1,52 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      This pseudocode algorithm is intended to sort 200 names in ascending order, using a bubble sort. The last names and first names are stored in separate columns of a two-dimensional (2D) array. The last names are stored in column 1 of the array.
+
+      \begin{alltt}
+      01 // The array Names[] has already been declared as
+      02 // ARRAY[1:200, 1:2] OF STRING and it is already populated
+      03 DECLARE Row : STRING
+      04 DECLARE Temp1 : STRING
+      05 DECLARE Temp2 : STRING
+      06 DECLARE Swap : BOOLEAN
+      07 Swap <- FALSE
+      08 WHILE NOT Swap DO
+      09   Swap <- FALSE
+      10   FOR Row <- 2 TO 199
+      11     IF Names[Row, 1] > Names[Row + 1, 1]
+      12       THEN
+      13         Temp1 <- Names[Row, 1]
+      14         Temp2 <- Names[Row, 2]
+      15         Names[Row, 1] <- Names[Row + 1, 1]
+      16         Names[Row, 1] <- Names[Row + 1, 2]
+      17         Names[Row + 1, 1] <- Temp1
+      18         Names[Row + 1, 2] <- Temp2
+      19         Swap <- FALSE
+      20     ENDIF
+      21   NEXT Column
+      22 ENDWHILE
+      \end{alltt}
+  - number: "5a"
+    type: short_answer
+    text: |
+      Identify the line numbers of five errors in the pseudocode and suggest corrections.
+
+      error 1 line number \hrulefill
+
+      correction \hrulefill
+
+      error 2 line number \hrulefill
+
+      correction \hrulefill
+
+      error 3 line number \hrulefill
+
+      correction \hrulefill
+
+      error 4 line number \hrulefill
+
+      correction \hrulefill
+```

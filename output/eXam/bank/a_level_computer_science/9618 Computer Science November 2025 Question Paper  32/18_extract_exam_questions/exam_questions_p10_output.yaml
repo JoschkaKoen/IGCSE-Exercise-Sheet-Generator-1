@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      The table shows assembly language instructions for a processor that has one register, the Accumulator (ACC).
+
+      \begin{tabular}{|c|c|l|l|}
+      \hline
+      \multicolumn{1}{|c|}{} & \multicolumn{2}{c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{} \\ \cline{2-3}
+      \textbf{Label} & \textbf{Opcode} & \textbf{Operand} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \hline
+       & \texttt{LDM} & \texttt{\#n} & Load the number n to the ACC \\ \hline
+       & \texttt{LDD} & \texttt{<address>} & Load the contents of the location at the given address to ACC \\ \hline
+       & \texttt{LDI} & \texttt{<address>} & \begin{tabular}[c]{@{}l@{}}The address to be used is at the given address.\\ Load the contents of this second address to the ACC.\end{tabular} \\ \hline
+       & \texttt{ADD} & \texttt{<address>} & Add the contents of the given address to the ACC \\ \hline
+       & \texttt{SUB} & \texttt{<address>} & Subtract the contents of the given address from the ACC \\ \hline
+       & \texttt{STO} & \texttt{<address>} & Store the contents of the ACC at the given address \\ \hline
+      \texttt{<label>:} & & \texttt{<data>} & Gives a symbolic address \texttt{<label>} to the memory location with the contents \texttt{<data>} \\ \hline
+      \multicolumn{4}{|l|}{\begin{tabular}[c]{@{}l@{}}\# denotes a denary number, e.g. \texttt{\#123}\\ \texttt{<label>} can be used in place of \texttt{<address>}\end{tabular}} \\ \hline
+      \end{tabular}
+
+      The current contents of memory are:
+
+      \begin{tabular}{|r|c|}
+      \hline
+      \textbf{Address} & \textbf{Contents} \\ \hline
+      150 & 26 \\ \hline
+      300 & 86 \\ \hline
+      420 & 150 \\ \hline
+      \end{tabular}
+```

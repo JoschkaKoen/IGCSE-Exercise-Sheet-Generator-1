@@ -1,0 +1,15 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      Wave X and wave Y superpose to form a resultant wave.
+
+      On Fig. 3.2, sketch the variation of displacement of the resultant wave with distance from A at the instant of time shown in Fig. 3.1.
+  - number: "3d"
+    type: calculation
+    text: |
+      The intensity of wave X is $I_X$. The intensity of wave Y is $I_Y$.
+
+      Use Fig. 3.1 to determine the ratio $\frac{I_X}{I_Y}$.
+
+      ratio = \hrulefill

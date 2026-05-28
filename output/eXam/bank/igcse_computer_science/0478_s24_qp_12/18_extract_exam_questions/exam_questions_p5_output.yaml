@@ -1,0 +1,28 @@
+questions:
+  - number: "3d"
+    type: calculation
+    text: |
+      The denary integer $-32$ is stored as a two's complement integer.
+
+      Calculate the two's complement integer that would be stored.
+
+      Show all your working.
+  - number: "4"
+    type: short_answer
+    text: |
+      A student uses both system software and application software on their computer.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Give \textbf{one} example of system software.
+  - number: "4b"
+    type: short_answer
+    text: |
+      Give \textbf{two} examples of application software.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4c"
+    type: short_answer
+    text: |
+      Describe the difference between system software and application software.

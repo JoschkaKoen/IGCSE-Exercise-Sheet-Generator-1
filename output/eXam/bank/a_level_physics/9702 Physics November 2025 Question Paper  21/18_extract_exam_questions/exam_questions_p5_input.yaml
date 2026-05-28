@@ -1,0 +1,12 @@
+  - number: "1c"
+    type: short_answer
+    text: ""
+  - number: "1ci"
+    type: calculation
+    text: ""
+  - number: "1cii"
+    type: calculation
+    text: ""
+  - number: "1ciii"
+    type: calculation
+    text: ""

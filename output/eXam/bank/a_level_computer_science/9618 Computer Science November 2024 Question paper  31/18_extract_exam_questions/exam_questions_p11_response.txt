@@ -1,0 +1,78 @@
+[thinking]
+**Exam Page 11: Formatting the Questions**
+
+Okay, so the user wants me to format page 11 of the exam. Let's break down each question and get it ready. Looks like we have a mix of BNF, syntax diagrams, and a new `password` rule.
+
+For question "10a," the goal is to complete the Backus-Naur Form (BNF) definitions for `<operator>`, `<label>`, and `<equation>`. The instructions are pretty straightforward; just need to fill in those `\hrulefill` placeholders with the correct BNF rules based on accompanying syntax diagrams, which I should have a look at. I'll represent the question with:
+
+```yaml
+  - number: "10a"
+    type: short_answer
+    text: |
+      Complete the Backus-Naur Form (BNF) for the given syntax diagrams.
+
+      \texttt{<operator> ::=} \hrulefill
+
+      \texttt{<label> ::=} \hrulefill
+
+      \texttt{<equation> ::=} \hrulefill
+```
+
+Moving on to "10b," we're introducing this `password` syntax rule. It needs to start with either a letter or a symbol, then a digit, and finally, end with one or two symbols. The straightforward instruction will be:
+
+```yaml
+  - number: "10b"
+    type: short_answer
+    text: |
+      A new syntax rule, \textbf{password}, is required. It must begin with a letter or a symbol, followed by a digit and end with one or two symbols.
+```
+
+Question "10bi" asks for a syntax diagram for the `password` rule. Since it's a diagram question, I don't need to add anything. We're just expecting a visual representation. We will put the instruction, which is:
+
+```yaml
+  - number: "10bi"
+    type: short_answer
+    text: |
+      Draw a syntax diagram for \textbf{password}.
+```
+
+And finally, "10bii" requires the BNF for the `password` rule. Similar to "10bi," this is an open-ended question. The instruction is the only important text. We write:
+
+```yaml
+  - number: "10bii"
+    type: short_answer
+    text: |
+      Write the BNF for \textbf{password}.
+```
+
+Essentially, I'm setting up the structure of the exam page, and each question has to be formatted. I'm ready to move on.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "10a"
+    type: short_answer
+    text: |
+      Complete the Backus-Naur Form (BNF) for the given syntax diagrams.
+
+      \texttt{<operator> ::=} \hrulefill
+
+      \texttt{<label> ::=} \hrulefill
+
+      \texttt{<equation> ::=} \hrulefill
+  - number: "10b"
+    type: short_answer
+    text: |
+      A new syntax rule, \textbf{password}, is required. It must begin with a letter or a symbol, followed by a digit and end with one or two symbols.
+  - number: "10bi"
+    type: short_answer
+    text: |
+      Draw a syntax diagram for \textbf{password}.
+  - number: "10bii"
+    type: short_answer
+    text: |
+      Write the BNF for \textbf{password}.
+```

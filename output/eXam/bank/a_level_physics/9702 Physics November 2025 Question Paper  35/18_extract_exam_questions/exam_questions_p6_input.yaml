@@ -1,0 +1,9 @@
+  - number: "1d"
+    type: short_answer
+    text: ""
+  - number: "1di"
+    type: calculation
+    text: ""
+  - number: "1dii"
+    type: calculation
+    text: ""

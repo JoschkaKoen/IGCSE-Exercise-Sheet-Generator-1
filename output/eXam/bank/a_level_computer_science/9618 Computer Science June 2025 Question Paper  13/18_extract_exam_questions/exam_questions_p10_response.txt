@@ -1,0 +1,69 @@
+[thinking]
+**Populating the Question 5 and 5a Stubs**
+
+Okay, let's get down to brass tacks. I need to populate the stubs for questions 5 and 5a from this exam page. First, I'll transcribe the table presented in Question 5, which describes the processor's instruction set.  I'll format it nicely in LaTeX. To make it easier on the eyes and match the layout, I'll organize the table with the headers "Instruction" spanning "Opcode" and "Operand," with a separate "Explanation" column.  I'll be sure to escape special characters like '#' and '&' for proper rendering and use `\texttt{}` for addresses in the operands to avoid any ambiguity. Then, I'll include the provided notes explaining the symbols used.
+
+Next up, I'll tackle question 5a, specifically, the memory table. I'm going to strip the "(a)" prefix since the question *starts* with "The current contents of memory are:". I'll represent this memory table clearly in LaTeX, ensuring the columns are properly aligned with headers for "Address" and "Instruction." I'll need to be mindful of the content and structure from the page, like the address and corresponding instructions, and any instructions that need special rendering. I think this format will be easy to read and work with. Let's make sure the address is the first column with values like 50, 51, and so on, and the second column will contain instructions. Now, let's craft these tables.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      The following table shows part of the instruction set for a processor. The processor has two registers: the Accumulator (ACC) and an Index Register (IX).
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \hline
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      LDM & \texttt{\#n} & Immediate addressing. Load the number n to ACC \\ \hline
+      STO & \texttt{<address>} & Store the contents of ACC at the given address \\ \hline
+      ADD & \texttt{\#n/Bn/\&n} & Add the number n to the ACC \\ \hline
+      ADD & \texttt{<address>} & Add the contents of the given address to the ACC \\ \hline
+      SUB & \texttt{<address>} & Subtract the contents of the given address from the ACC \\ \hline
+      SUB & \texttt{\#n/Bn/\&n} & Subtract the number n from the ACC \\ \hline
+      DEC & \texttt{<register>} & Subtract 1 from the contents of the register (ACC or IX) \\ \hline
+      JMP & \texttt{<address>} & Jump to the given address \\ \hline
+      CMP & \texttt{<address>} & Compare the contents of ACC with the contents of \texttt{<address>} \\ \hline
+      CMP & \texttt{\#n} & Compare the contents of ACC with number n \\ \hline
+      JPE & \texttt{<address>} & Following a compare instruction, jump to \texttt{<address>} if the compare was True \\ \hline
+      END & & Return control to the operating system \\ \hline
+      \end{tabular}
+
+      ACC denotes Accumulator
+      \newline
+      \texttt{<address>} can be an absolute or a symbolic address
+      \newline
+      \# denotes a denary number, e.g. \#123
+      \newline
+      B denotes a binary number, e.g. B01001010
+      \newline
+      \& denotes a hexadecimal number, e.g. \&4A
+  - number: "5a"
+    type: short_answer
+    text: |
+      The current contents of memory are:
+
+      \begin{tabular}{r|l|}
+      \cline{2-2}
+      \textbf{Address} & \textbf{Instruction} \\ \cline{2-2}
+      \textbf{50} & 47 \\ \cline{2-2}
+      \textbf{51} & 48 \\ \cline{2-2}
+      \textbf{52} & 49 \\ \cline{2-2}
+      \textbf{53} & 50 \\ \cline{2-2}
+      ... & \\ \cline{2-2}
+      \textbf{500} & LDM \#50 \\ \cline{2-2}
+      \textbf{501} & DEC ACC \\ \cline{2-2}
+      \textbf{502} & CMP 51 \\ \cline{2-2}
+      \textbf{503} & JPE 505 \\ \cline{2-2}
+      \textbf{504} & JMP 501 \\ \cline{2-2}
+      \textbf{505} & STO 50 \\ \cline{2-2}
+      \textbf{506} & SUB \#10 \\ \cline{2-2}
+      \textbf{507} & STO 51 \\ \cline{2-2}
+      \textbf{508} & END \\ \cline{2-2}
+      \end{tabular}
+```

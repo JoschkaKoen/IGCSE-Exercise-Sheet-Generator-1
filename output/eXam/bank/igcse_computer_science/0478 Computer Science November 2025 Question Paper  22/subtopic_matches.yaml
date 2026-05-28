@@ -1,0 +1,24 @@
+subject_key: igcse_computer_science
+paper_stem: 0478 Computer Science November 2025 Question Paper  22
+model: qwen3.6-plus
+matched_at: '2026-05-28T05:12:11Z'
+matches:
+  '1': ['8.1']
+  2a: ['8.1', '8.2']
+  2bi: ['8.1', '8.2']
+  2bii: ['8.1']
+  2ci: ['8.2']
+  2cii: ['8.2']
+  '3': ['8.1']
+  4a: []
+  4b: ['8.1']
+  5a: ['8.2']
+  5b: ['8.1']
+  5c: ['8.2']
+  6a: ['1.1']
+  6b: []
+  7a: []
+  7b: ['8.1']
+  7c: []
+  7d: []
+  '8': ['8.1', '8.2']

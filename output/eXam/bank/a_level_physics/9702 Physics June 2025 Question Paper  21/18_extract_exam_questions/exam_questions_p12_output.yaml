@@ -1,0 +1,22 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: short_answer
+    text: |
+      Use the definitions of speed $v$, frequency $f$ and wavelength $\lambda$ to derive the wave equation
+
+      $$v = f\lambda.$$
+  - number: "5b"
+    type: short_answer
+    text: |
+      A source of sound waves of frequency $236\text{ Hz}$ is travelling at a constant velocity of $20\text{ m}\,\text{s}^{-1}$.
+
+      A stationary observer has a microphone connected to a cathode-ray oscilloscope (CRO). The microphone detects the sound waves as the source moves directly towards the observer.
+
+      The resulting trace on the CRO is shown in Fig. 5.1.
+
+      Fig. 5.1
+
+      The time-base on the CRO is set to $1.0\text{ ms}\,\text{div}^{-1}$.

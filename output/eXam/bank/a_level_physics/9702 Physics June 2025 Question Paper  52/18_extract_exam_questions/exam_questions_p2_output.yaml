@@ -1,0 +1,31 @@
+questions:
+  - number: "1"
+    type: long_answer
+    text: |
+      A thin solid disc of radius $r$ and thickness $z$ is attached to a thin axle. String is wrapped around the axle, as shown in Fig. 1.1.
+
+      A block of mass $m$ is attached to the string.
+
+      The block is released from rest and falls downwards. The block has speed $v$ when it has fallen through a distance $h$ from the point of release. The value of $v$ is determined using \textbf{one} light gate connected to a timer.
+
+      It is suggested that $v$ is related to $m$ by the relationship
+
+      $$\frac{h}{v^2} = \frac{\pi r^2 z}{2PQm} + \frac{1}{P}$$
+
+      where $P$ and $Q$ are constants.
+
+      Plan a laboratory experiment to test the relationship between $v$ and $m$.
+
+      Draw a diagram showing the arrangement of your equipment.
+
+      Explain how the results could be used to determine values for $P$ and $Q$.
+
+      In your plan you should include:
+
+      \begin{itemize}
+      \item the procedure to be followed
+      \item the measurements to be taken
+      \item the control of variables
+      \item the analysis of the data
+      \item any safety precautions to be taken.
+      \end{itemize}

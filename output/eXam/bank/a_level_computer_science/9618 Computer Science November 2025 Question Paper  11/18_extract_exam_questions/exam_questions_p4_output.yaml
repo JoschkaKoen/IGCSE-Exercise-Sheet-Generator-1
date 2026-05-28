@@ -1,0 +1,25 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A relational database, \texttt{WORKEXPERIENCE}, stores data about students and the companies where they complete work experience.
+
+      Students can complete multiple work experience placements but can only complete one placement at a time.
+
+      Students can complete more than one placement at the same company.
+
+      Part of the database is shown:
+
+      \texttt{STUDENT(StudentID, FirstName, TelephoneNumber, UniversityName)}
+
+      \texttt{PLACEMENT(PlacementID, StudentID, CompanyID, StartDate, EndDate, Complete)}
+
+      \texttt{COMPANY(CompanyID, CompanyName, MaxStudentsPerPlacement)}
+  - number: "2a"
+    type: short_answer
+    text: |
+      Complete the entity-relationship (E-R) diagram for the database \texttt{WORKEXPERIENCE}.
+  - number: "2b"
+    type: short_answer
+    text: |
+      Explain why the database \texttt{WORKEXPERIENCE} is in Third Normal Form (3NF).

@@ -1,0 +1,37 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program is needed to manage individual rentals in a car-hire business.
+
+      The data items for each rental will be held in a record structure of type \texttt{RentalRecord}
+      The programmer has started to define the items that will be needed:
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Item} & \textbf{Example value} & \textbf{Comment} \\ \hline
+      RentalID & "AB1234" & a unique alpha-numeric value \\ \hline
+      CarID & 241 & a numeric value used as an array index \\ \hline
+      DisCode & 'S' & a letter indicating the type of discount offered \\ \hline
+      Start & 13/06/2025 & when the rental starts \\ \hline
+      Duration & 7 & the number of days of the rental \\ \hline
+      Completed & FALSE & TRUE when the car is returned and the rental charge paid \\ \hline
+      \end{tabular}
+  - number: "3ai"
+    type: short_answer
+    text: |
+      Write pseudocode to declare the record structure for type \texttt{RentalRecord}
+  - number: "3aii"
+    type: short_answer
+    text: |
+      A 1D array \texttt{Rental} containing 500 elements is used to store the data for all rental records.
+
+      Write pseudocode to declare the \texttt{Rental} array.
+  - number: "3b"
+    type: short_answer
+    text: |
+      State \textbf{three} benefits of using an array of records to store the data for all rentals.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

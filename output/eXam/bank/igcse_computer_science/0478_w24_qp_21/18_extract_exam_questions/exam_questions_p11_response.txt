@@ -1,0 +1,71 @@
+[thinking]
+**Exam Page 11 YAML Generation**
+
+Okay, the task is to generate the YAML for page 11 of this exam. I've got questions `10c`, `10d`, `10di`, and `10dii`.
+
+First, `10c` seems straightforward – it's a standard SQL query.  I need to include the query itself, wrapped in an `alltt` environment for proper LaTeX rendering. No special escaping needed here, so the original code goes directly in.
+
+Then there is the issue of `10d`. Looking at the page, there's no question labeled just "10d"; there's only `10di` and `10dii`. The instructions state that if a stub entry's stem is missing from the page, it's a stub-generation error. That means `10d` is a **STUB ERROR**.  I'll need to emit a `|` block scalar containing `"STUB ERROR"`.
+
+`10di` is a fill-in-the-blanks SQL statement.  Originally I thought I'd need to use `\hrulefill` inside an `alltt` environment, but that can lead to LaTeX compilation problems because of the double backslashes and brace handling. The instructions say the correct approach is "A value followed by an answer line (e.g. `10010011 ........`) -> `10010011 \hrulefill`". Instead, I'll use `\texttt{SELECT} \hrulefill` to get a cleaner horizontal rule in the LaTeX output.
+
+Finally, `10dii` is a long-answer question about explaining a change to the previous statement. I'll flag it as a `long_answer` type.
+
+With these thoughts in mind, here is my final LaTeX code:
+```latex
+\begin{enumerate}
+    \item[10c]
+    Write the output from this structured query language (SQL) statement.
+    \begin{alltt}
+    SELECT ChNo, WeightKg
+    FROM CheeseStock
+    WHERE SupplierCode = 'ABC';
+    \end{alltt}
+
+    \item[10d]
+    STUB ERROR
+
+    \item[10di]
+    Complete this SQL statement to display only the name of all the cheeses that are out of stock.
+    \texttt{SELECT} \hrulefill
+    \texttt{FROM} \hrulefill
+    \texttt{WHERE} \hrulefill ;
+
+    \item[10dii]
+    Explain how \textbf{one} of the lines in your statement in part \textbf{(d)(i)} could be changed to display the same information.
+\end{enumerate}
+```
+
+
+
+[/thinking]
+
+questions:
+  - number: "10c"
+    type: short_answer
+    text: |
+      Write the output from this structured query language (SQL) statement.
+
+      \begin{alltt}
+      SELECT ChNo, WeightKg
+      FROM CheeseStock
+      WHERE SupplierCode = 'ABC';
+      \end{alltt}
+  - number: "10d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "10di"
+    type: short_answer
+    text: |
+      Complete this SQL statement to display only the name of all the cheeses that are out of stock.
+
+      \texttt{SELECT} \hrulefill
+
+      \texttt{FROM} \hrulefill
+
+      \texttt{WHERE} \hrulefill ;
+  - number: "10dii"
+    type: long_answer
+    text: |
+      Explain how \textbf{one} of the lines in your statement in part \textbf{(d)(i)} could be changed to display the same information.

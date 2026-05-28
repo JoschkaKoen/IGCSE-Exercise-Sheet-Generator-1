@@ -1,0 +1,7 @@
+questions:
+  - number: "6b"
+    type: long_answer
+    text: |
+      The owner decides that some combinations of fillings do not go well together. For example, anchovies and peanut butter.
+
+      Describe how the design could be changed to prevent certain combinations being selected.

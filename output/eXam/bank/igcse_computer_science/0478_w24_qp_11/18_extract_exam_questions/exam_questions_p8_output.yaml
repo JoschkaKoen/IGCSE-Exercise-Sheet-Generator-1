@@ -1,0 +1,66 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A central processing unit (CPU) performs the fetch–decode–execute (FDE) cycle.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Give the name of \textbf{two} registers that are used in the fetch stage of the cycle.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5b"
+    type: short_answer
+    text: |
+      Describe what happens at the decode stage of the cycle.
+  - number: "5c"
+    type: short_answer
+    text: |
+      Give \textbf{one} register in the CPU that is used in the execute stage of the cycle.
+  - number: "5d"
+    type: multiple_choice
+    text: |
+      Buses are used in the CPU to transmit data through the FDE cycle.
+
+      Circle \textbf{three} buses that are used in the CPU.
+    options:
+      - letter: A
+        text: |
+          fetch
+      - letter: B
+        text: |
+          address
+      - letter: C
+        text: |
+          register
+      - letter: D
+        text: |
+          execute
+      - letter: E
+        text: |
+          data
+      - letter: F
+        text: |
+          decode
+      - letter: G
+        text: |
+          calculation
+      - letter: H
+        text: |
+          central
+      - letter: I
+        text: |
+          value
+      - letter: J
+        text: |
+          binary
+      - letter: K
+        text: |
+          control
+  - number: "5e"
+    type: short_answer
+    text: |
+      A user changes their CPU from one with a dual core and a clock speed of $2.4 \text{ GHz}$ to one with a dual core and a clock speed of $3.5 \text{ GHz}$.
+
+      Explain the effect this change will have on the performance of the CPU.

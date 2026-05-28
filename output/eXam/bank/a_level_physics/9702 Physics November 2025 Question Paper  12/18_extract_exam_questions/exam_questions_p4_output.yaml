@@ -1,0 +1,54 @@
+questions:
+  - number: "7"
+    type: multiple_choice
+    text: |
+      The velocity–time graph for an object is shown.
+
+      Which expression gives the total displacement of the object?
+    options:
+      - letter: A
+        text: |
+          $\text{area 1} - \text{area 2}$
+      - letter: B
+        text: |
+          $\frac{\text{area 1} + \text{area 2}}{2}$
+      - letter: C
+        text: |
+          $\text{area 1} + \text{area 2}$
+      - letter: D
+        text: |
+          $\text{area 2} - \text{area 1}$
+  - number: "8"
+    type: multiple_choice
+    text: |
+      Which statement describes the weight of an object?
+    options:
+      - letter: A
+        text: |
+          It is equal to the mass of the object multiplied by its acceleration.
+      - letter: B
+        text: |
+          It is equal to the resultant force when the object falls at terminal (constant) velocity.
+      - letter: C
+        text: |
+          It is the force acting on the object due to a gravitational field.
+      - letter: D
+        text: |
+          It is the property of the object that resists change in motion.
+  - number: "9"
+    type: multiple_choice
+    text: |
+      What is a statement of the principle of conservation of momentum?
+    options:
+      - letter: A
+        text: |
+          In an elastic collision, momentum is constant.
+      - letter: B
+        text: |
+          Momentum is the product of mass and velocity.
+      - letter: C
+        text: |
+          The force acting on a body is proportional to its rate of change of momentum.
+      - letter: D
+        text: |
+          The momentum of an isolated system is constant.

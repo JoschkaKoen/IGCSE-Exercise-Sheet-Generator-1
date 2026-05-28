@@ -1,0 +1,25 @@
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A computer with a Von Neumann architecture has a central processing unit (CPU) that performs the fetch–decode–execute (FDE) cycle.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Complete and annotate the diagram to show how instructions are decoded and executed.
+
+      control unit (CU)
+
+      arithmetic logic unit (ALU)
+  - number: "4b"
+    type: short_answer
+    text: |
+      The CPU is dual core and has a processor speed of $2.4\text{ GHz}$.
+
+      Describe what is meant by a core.
+  - number: "4c"
+    type: long_answer
+    text: |
+      Explain \textbf{two} ways that the performance of the CPU could be increased.
+```

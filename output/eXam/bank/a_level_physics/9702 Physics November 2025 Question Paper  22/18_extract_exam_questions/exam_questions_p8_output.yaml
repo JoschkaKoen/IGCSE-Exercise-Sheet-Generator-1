@@ -1,0 +1,17 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      The spacecraft now splits apart into a carrier and a payload as shown in Fig. 2.3.
+
+      During the split, an average force of $5500\text{ N}$ acts on the payload for a time of $0.36\text{ s}$. The velocity of the payload increases by $8.5\text{ m}\,\text{s}^{-1}$ in the upwards direction.
+
+      The combined mass of the carrier and payload is $2.5 \times 10^3\text{ kg}$.
+  - number: "2ci"
+    type: short_answer
+    text: |
+      State the principle of conservation of momentum.
+  - number: "2cii"
+    type: calculation
+    text: |
+      Show that the mass of the payload is $230\text{ kg}$.

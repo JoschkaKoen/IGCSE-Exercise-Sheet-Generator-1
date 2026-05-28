@@ -1,0 +1,81 @@
+[thinking]
+**My Approach to Transforming Exam Questions into YAML**
+
+Okay, so I've been given the task of converting three exam questions from page 10 into a YAML format. I need to be precise about this. The input is a slice of an exam paper, specifically questions 20, 21, and 22. The desired output is a YAML file, following a very specific structure. Let's break down the requirements, because this is where I shine.
+
+First, I need to analyze the request. The structure I need in the YAML file for *each* question is pretty straightforward: `number`, `type`, `text`, and, if it's a multiple-choice question, the `options`. Crucially, there are format constraints: no double quotes, and I must use the `|` block scalar for any non-empty free-text fields like `text` and option `text`. This is for legibility. Additionally, I need to preserve the LaTeX formatting for any math or units; I can't touch that. And of course, I must not add or remove any questions; I'm simply reformatting. No images, graphs, or anything. I'm focusing on text and mathematical notation.
+
+Now, let's step through the questions. Question 20 is up first. I recognize it's a multiple-choice question, so the `type` is easy. The `text` field will contain the question itself, including the problem description about the spring, and I'll carefully include the mathematical expressions, equations, and units using LaTeX formatting. Important note: I need to omit the image. The options will follow, and I'll represent them as A, B, C, D, and I'll be sure to include the numerical values and units in a formatted manner (e.g. `$0.12\text{ J}$`).
+
+Next is Question 21, another multiple-choice. The `text` will include the problem about the wire. The units must be included. I'll need to parse this question and preserve its mathematical notation. The `options` for this question are another straightforward multiple choice setup.
+
+Finally, question 22. The same format applies here, a multiple choice question with a brief text question. The options are also formatted appropriately.
+
+Finally, the YAML formatting. I have to ensure the `|` block scalar for the `text` fields, and `option` fields. It's really the only key rule, to maintain YAML validity and readability. No double quotes anywhere for string values. I am ready to convert!
+
+
+
+[/thinking]
+
+questions:
+  - number: "20"
+    type: multiple_choice
+    text: |
+      A spring is fixed at one end. The length $L$ of the spring is increased by applying a tensile force $F$ to the other end.
+
+      The graph shows the variation of $L$ with $F$.
+
+      What is the elastic potential energy of the spring when $F$ is $6.0\text{ N}$?
+    options:
+      - letter: A
+        text: |
+          $0.12\text{ J}$
+      - letter: B
+        text: |
+          $0.24\text{ J}$
+      - letter: C
+        text: |
+          $0.36\text{ J}$
+      - letter: D
+        text: |
+          $0.60\text{ J}$
+  - number: "21"
+    type: multiple_choice
+    text: |
+      A wire has an unstretched length of $2.00\text{ m}$.
+
+      A stress of $1.6 \times 10^5\text{ Pa}$ is applied to the wire, and the new length of the wire is $2.10\text{ m}$.
+
+      The wire obeys Hooke's law.
+
+      What is the Young modulus of the wire?
+    options:
+      - letter: A
+        text: |
+          $8.0 \times 10^3\text{ Pa}$
+      - letter: B
+        text: |
+          $7.8 \times 10^4\text{ Pa}$
+      - letter: C
+        text: |
+          $1.5 \times 10^5\text{ Pa}$
+      - letter: D
+        text: |
+          $3.2 \times 10^6\text{ Pa}$
+  - number: "22"
+    type: multiple_choice
+    text: |
+      What are the SI base units of stress?
+    options:
+      - letter: A
+        text: |
+          $\text{kg}\,\text{m}\,\text{s}^{-2}$
+      - letter: B
+        text: |
+          $\text{kg}\,\text{m}^{-1}\,\text{s}^{-2}$
+      - letter: C
+        text: |
+          $\text{kg}\,\text{m}^{-2}\,\text{s}^{-2}$
+      - letter: D
+        text: |
+          $\text{kg}\,\text{m}^{-3}\,\text{s}^{-2}$

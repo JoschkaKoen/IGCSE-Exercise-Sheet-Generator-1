@@ -1,0 +1,31 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      An online game has a database that stores data about users and the characters each user creates in the game. Each user can create multiple characters and purchase multiple items for each character.
+
+      The normalised database has the following design:
+
+      \texttt{USER(Username, Password, DateOfBirth)}
+
+      \texttt{CHARACTER(CharacterName, CharacterID, Username, Level, Money)}
+
+      \texttt{ITEM(ItemName, MinimumLevel, Cost)}
+
+      \texttt{CHARACTER\_ITEM(CharacterID, ItemName)}
+  - number: "5a"
+    type: short_answer
+    text: |
+      Explain the purpose of the table \texttt{CHARACTER\_ITEM} in the database.
+  - number: "5b"
+    type: short_answer
+    text: |
+      Underline the attribute, or attributes, that form the primary key in each of the tables.
+
+      \texttt{USER(Username, Password, DateOfBirth)}
+
+      \texttt{CHARACTER(CharacterName, CharacterID, Username, Level, Money)}
+
+      \texttt{ITEM(ItemName, MinimumLevel, Cost)}
+
+      \texttt{CHARACTER\_ITEM(CharacterID, ItemName)}

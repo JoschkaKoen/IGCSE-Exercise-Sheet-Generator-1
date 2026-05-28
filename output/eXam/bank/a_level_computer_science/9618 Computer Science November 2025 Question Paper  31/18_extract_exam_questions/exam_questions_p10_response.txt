@@ -1,0 +1,47 @@
+[thinking]
+**Populating the YAML Stub for Page 10**
+
+Okay, the task is to generate the content for the YAML stub for page 10 of this exam. The existing stub provides two elements, `9b` and `10`, so I need to translate the questions on that page into the proper format.
+
+First, let's dissect question `9b`. It begins with "(b) A stack is used to implement recursion." and then asks for "the three essential features of recursion". We need to remove the subquestion prefix `(b)` and make it clear we're looking for three features. Therefore, I should format this like: "A stack is used to implement recursion.\n\nState the **three** essential features of recursion." and then provide the numbered slots where the student will write their answers. So the corresponding markdown for this part will be:
+
+```markdown
+1. \hrulefill
+2. \hrulefill
+3. \hrulefill
+```
+
+Now, let's move on to question `10`. The question asks: "Explain what is meant by exception handling.\nInclude an example of a possible cause of an exception in your answer." I initially thought about using `Explanation \hrulefill\n\nExample \hrulefill` as is, but it appears the dotted lines in the original formatting are different lengths. Using that formatting with the `\hrulefill` would be cleaner than trying to duplicate the original lengths with multiple horizontal rules. The markdown for this will be:
+
+```markdown
+Explain what is meant by **exception handling**.\nInclude an example of a possible cause of an exception in your answer.\n\nExplanation \hrulefill\n\nExample \hrulefill
+```
+
+Now it's time to build the YAML.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "9b"
+    type: short_answer
+    text: |
+      A stack is used to implement recursion.
+
+      State the \textbf{three} essential features of recursion.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "10"
+    type: short_answer
+    text: |
+      Explain what is meant by \textbf{exception handling}.
+      Include an example of a possible cause of an exception in your answer.
+
+      Explanation \hrulefill
+
+      Example \hrulefill
+```

@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+{% block title %}{{ t('dashboard.title') }}{% endblock %}
+{% block extra_head %}
+  <link rel="stylesheet" href="/static/css/14-dashboard.css" />
+{% endblock %}
+{% block content %}
+<header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ t('dashboard.title') }}</h1>
+  <div class="text-sm text-slate-400">
+    {{ t('dashboard.welcome').format(name=profile.username) }}
+  </div>
+</header>
+
+{# ----- AI cost summary card ----- #}
+<section class="glass-panel rounded-2xl p-5 mb-6" aria-labelledby="dash-cost-title">
+  <h2 id="dash-cost-title" class="dashboard-section-title">{{ t('dashboard.section.cost') }}</h2>
+  <div class="dashboard-cost-grid">
+    <div class="dashboard-cost-cell">
+      <div class="dashboard-cost-label">{{ t('dashboard.cost.nl') }}</div>
+      <div class="dashboard-cost-value">¥{{ '%.4f' % costs.nl_rmb }}</div>
+    </div>
+    <div class="dashboard-cost-cell">
+      <div class="dashboard-cost-label">{{ t('dashboard.cost.grade') }}</div>
+      <div class="dashboard-cost-value">¥{{ '%.4f' % costs.grade_rmb }}</div>
+    </div>
+    <div class="dashboard-cost-cell">
+      <div class="dashboard-cost-label">{{ t('dashboard.cost.exam') }}</div>
+      <div class="dashboard-cost-value">¥{{ '%.4f' % costs.exam_rmb }}</div>
+    </div>
+    <div class="dashboard-cost-cell dashboard-cost-cell-total">
+      <div class="dashboard-cost-label">{{ t('dashboard.cost.total') }}</div>
+      <div class="dashboard-cost-value">¥{{ '%.4f' % costs.total_rmb }}</div>
+    </div>
+  </div>
+</section>
+
+{# ----- My exercise sheets (NL) ----- #}
+<section class="glass-panel rounded-2xl mb-6" aria-labelledby="dash-nl-title">
+  <h2 id="dash-nl-title" class="dashboard-section-title px-5 pt-5">{{ t('dashboard.section.exercises') }}</h2>
+  {% if not nl_jobs %}
+    <p class="px-5 pb-5 text-sm text-slate-500">{{ t('dashboard.empty.exercises') }}</p>
+  {% else %}
+  <div class="overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+      <tr>
+        <th class="px-4 py-3">{{ t('dashboard.col.title') }}</th>
+        <th class="px-4 py-3">{{ t('dashboard.col.created') }}</th>
+        <th class="px-4 py-3">{{ t('dashboard.col.status') }}</th>
+        <th class="px-4 py-3 text-right">{{ t('dashboard.col.cost') }}</th>
+        <th class="px-4 py-3">{{ t('dashboard.col.downloads') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for j in nl_jobs %}
+      <tr class="border-b border-white/[0.04] last:border-b-0 hover:bg-white/[0.02]">
+        <td class="px-4 py-3 font-medium text-white">{{ j.title }}</td>
+        <td class="px-4 py-3 text-slate-400 tabular-nums">{{ j.created_at[:16].replace('T', ' ') }}</td>
+        <td class="px-4 py-3">
+          {% if j.status == 'done' %}<span class="text-emerald-300">{{ t('dashboard.status.done') }}</span>
+          {% elif j.status == 'running' %}<span class="text-amber-300">{{ t('dashboard.status.running') }}</span>
+          {% elif j.status == 'pending' %}<span class="text-slate-400">{{ t('dashboard.status.pending') }}</span>
+          {% else %}<span class="text-red-300">{{ t('dashboard.status.failed') }}</span>{% endif %}
+        </td>
+        <td class="px-4 py-3 text-right tabular-nums text-slate-300">
+          {% if j.total_cost_rmb and j.total_cost_rmb > 0 %}¥{{ '%.4f' % j.total_cost_rmb }}{% else %}<span class="text-slate-600">—</span>{% endif %}
+        </td>
+        <td class="px-4 py-3 text-sm">
+          {% if j.status == 'done' and j.artifact_exists %}
+            <a class="dashboard-dl-link" href="/api/jobs/{{ j.id }}/file">{{ t('dashboard.dl.exercise') }}</a>
+            <a class="dashboard-dl-link" href="/api/jobs/{{ j.id }}/answers">{{ t('dashboard.dl.answers') }}</a>
+            <a class="dashboard-dl-link" href="/api/jobs/{{ j.id }}/download-all">{{ t('dashboard.dl.all') }}</a>
+          {% elif j.status == 'done' and not j.artifact_exists %}
+            <span class="text-slate-500">{{ t('dashboard.expired') }}</span>
+          {% else %}
+            <span class="text-slate-600">—</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% endif %}
+</section>
+
+{# ----- My grade jobs ----- #}
+<section class="glass-panel rounded-2xl mb-6" aria-labelledby="dash-grade-title">
+  <h2 id="dash-grade-title" class="dashboard-section-title px-5 pt-5">{{ t('dashboard.section.grade') }}</h2>
+  {% if not grade_jobs %}
+    <p class="px-5 pb-5 text-sm text-slate-500">{{ t('dashboard.empty.grade') }}</p>
+  {% else %}
+  <div class="overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+      <tr>
+        <th class="px-4 py-3">{{ t('dashboard.col.exam') }}</th>
+        <th class="px-4 py-3">{{ t('dashboard.col.created') }}</th>
+        <th class="px-4 py-3">{{ t('dashboard.col.status') }}</th>
+        <th class="px-4 py-3 text-right">{{ t('dashboard.col.cost') }}</th>
+        <th class="px-4 py-3">{{ t('dashboard.col.downloads') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for j in grade_jobs %}
+      <tr class="border-b border-white/[0.04] last:border-b-0 hover:bg-white/[0.02]">
+        <td class="px-4 py-3 font-medium text-white">{{ j.title }}</td>
+        <td class="px-4 py-3 text-slate-400 tabular-nums">{{ j.created_at[:16].replace('T', ' ') }}</td>
+        <td class="px-4 py-3">
+          {% if j.status == 'done' %}<span class="text-emerald-300">{{ t('dashboard.status.done') }}</span>
+          {% elif j.status == 'running' %}<span class="text-amber-300">{{ t('dashboard.status.running') }}</span>
+          {% elif j.status == 'pending' %}<span class="text-slate-400">{{ t('dashboard.status.pending') }}</span>
+          {% else %}<span class="text-red-300">{{ t('dashboard.status.failed') }}</span>{% endif %}
+        </td>
+        <td class="px-4 py-3 text-right tabular-nums text-slate-300">
+          {% if j.total_cost_rmb and j.total_cost_rmb > 0 %}¥{{ '%.4f' % j.total_cost_rmb }}{% else %}<span class="text-slate-600">—</span>{% endif %}
+        </td>
+        <td class="px-4 py-3 text-sm">
+          {% if j.status == 'done' and j.artifact_exists %}
+            <a class="dashboard-dl-link" href="/api/grade/jobs/{{ j.id }}/student-pdfs.zip">{{ t('dashboard.dl.student_pdfs') }}</a>
+            <a class="dashboard-dl-link" href="/api/grade/jobs/{{ j.id }}/class-report.pdf">{{ t('dashboard.dl.class_report') }}</a>
+            <a class="dashboard-dl-link" href="/api/grade/jobs/{{ j.id }}/review-queue">{{ t('dashboard.dl.review_queue') }}</a>
+          {% elif j.status == 'done' and not j.artifact_exists %}
+            <span class="text-slate-500">{{ t('dashboard.expired') }}</span>
+          {% else %}
+            <span class="text-slate-600">—</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% endif %}
+</section>
+
+{# ----- eXam activity ----- #}
+<section class="glass-panel rounded-2xl p-5 mb-6" aria-labelledby="dash-exam-title">
+  <h2 id="dash-exam-title" class="dashboard-section-title">{{ t('dashboard.section.exam') }}</h2>
+
+  {% if profile.role == 'teacher' %}
+  <div class="dashboard-subblock">
+    <h3 class="dashboard-subblock-title">{{ t('dashboard.exam.tests_built') }}
+      {% if tests_built_total > 5 %}
+        <a href="/eXam/teacher/" class="dashboard-subblock-link">{{ t('dashboard.exam.view_all') }}</a>
+      {% endif %}
+    </h3>
+    {% if not tests_built %}
+      <p class="text-sm text-slate-500">{{ t('dashboard.empty.tests_built') }}</p>
+    {% else %}
+    <ul class="dashboard-test-list">
+      {% for tst in tests_built %}
+      <li>
+        <a href="/eXam/teacher/test/{{ tst.id }}">{{ tst.title }}</a>
+        <span class="dashboard-test-meta">{{ tst.subject }}{% if tst.class_label %} · {{ tst.class_label }}{% endif %} · {{ tst.created_at[:10] }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="dashboard-subblock">
+    <h3 class="dashboard-subblock-title">{{ t('dashboard.exam.practice') }}</h3>
+    {% if not open_practice %}
+      <p class="text-sm text-slate-500">{{ t('dashboard.empty.practice') }}</p>
+    {% else %}
+    <div class="dashboard-practice-grid">
+      {% for p in open_practice %}
+      <div class="dashboard-practice-cell">
+        <div class="dashboard-practice-subject">{{ p.subject }}</div>
+        <div class="dashboard-practice-stats">
+          <span>{{ t('dashboard.practice.attempts').format(n=p.n) }}</span>
+          {% if p.avg_pct is not none %}
+          <span>{{ t('dashboard.practice.avg').format(pct=p.avg_pct) }}</span>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="dashboard-subblock">
+    <h3 class="dashboard-subblock-title">{{ t('dashboard.exam.activity_chart') }}</h3>
+    <div class="dashboard-chart-wrap">
+      <canvas id="dashboard-weekly-chart" aria-label="{{ t('dashboard.exam.activity_chart') }}"></canvas>
+    </div>
+    <script id="dashboard-weekly-data" type="application/json">{{ weekly_json | safe }}</script>
+  </div>
+</section>
+
+{# ----- Profile / settings ----- #}
+<section class="glass-panel rounded-2xl p-5 mb-6" aria-labelledby="dash-profile-title">
+  <h2 id="dash-profile-title" class="dashboard-section-title">{{ t('dashboard.section.profile') }}</h2>
+
+  <dl class="dashboard-profile-grid">
+    <div><dt>{{ t('dashboard.profile.username') }}</dt><dd>@{{ profile.username }}</dd></div>
+    <div><dt>{{ t('dashboard.profile.role') }}</dt><dd>{{ profile.role }}</dd></div>
+    <div><dt>{{ t('dashboard.profile.member_since') }}</dt><dd>{{ profile.created_at[:10] if profile.created_at else '—' }}</dd></div>
+    <div><dt>{{ t('dashboard.profile.last_login') }}</dt><dd>{{ profile.last_login_at[:16].replace('T', ' ') if profile.last_login_at else '—' }}</dd></div>
+  </dl>
+
+  <div class="dashboard-settings-grid">
+    <form id="dashboard-username-form" class="dashboard-settings-form" autocomplete="off">
+      <h3 class="dashboard-subblock-title">{{ t('dashboard.settings.change_username') }}</h3>
+      <input type="text" name="new_username" required maxlength="40"
+             placeholder="{{ t('dashboard.settings.new_username') }}"
+             class="dashboard-input" autocomplete="username" />
+      <input type="password" name="current_password" required maxlength="128"
+             placeholder="{{ t('dashboard.settings.current_password') }}"
+             class="dashboard-input" autocomplete="current-password" />
+      <p data-dashboard-username-err class="dashboard-form-err" hidden></p>
+      <button type="submit" class="dashboard-submit">{{ t('dashboard.settings.save') }}</button>
+    </form>
+
+    <form id="dashboard-password-form" class="dashboard-settings-form" autocomplete="off">
+      <h3 class="dashboard-subblock-title">{{ t('dashboard.settings.change_password') }}</h3>
+      <input type="password" name="current_password" required maxlength="128"
+             placeholder="{{ t('dashboard.settings.current_password') }}"
+             class="dashboard-input" autocomplete="current-password" />
+      <input type="password" name="new_password" required maxlength="128"
+             placeholder="{{ t('dashboard.settings.new_password') }}"
+             class="dashboard-input" autocomplete="new-password" />
+      <p data-dashboard-password-err class="dashboard-form-err" hidden></p>
+      <button type="submit" class="dashboard-submit">{{ t('dashboard.settings.save') }}</button>
+      <p class="dashboard-form-note">{{ t('dashboard.settings.password_other_devices') }}</p>
+    </form>
+  </div>
+
+  <div class="dashboard-logout-row">
+    <button type="button" id="dashboard-logout" class="dashboard-logout">{{ t('dashboard.profile.logout') }}</button>
+  </div>
+</section>
+
+<script src="/static/vendor/chartjs/chart.umd.min.js" defer></script>
+<script src="/static/js/dashboard.js" defer></script>
+
+{% endblock %}

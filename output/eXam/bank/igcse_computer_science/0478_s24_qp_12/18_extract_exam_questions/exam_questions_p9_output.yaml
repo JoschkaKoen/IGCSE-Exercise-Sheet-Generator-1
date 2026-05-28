@@ -1,0 +1,17 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A company uses both solid-state and optical secondary storage.
+  - number: "9a"
+    type: short_answer
+    text: |
+      Explain why a computer needs secondary storage.
+  - number: "9b"
+    type: long_answer
+    text: |
+      Describe \textbf{three} differences between solid-state and optical storage.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

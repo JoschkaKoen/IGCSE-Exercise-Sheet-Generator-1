@@ -1,0 +1,32 @@
+```yaml
+questions:
+  - number: "5d"
+    type: multiple_choice
+    text: |
+      Each robot has a media access control (MAC) address.
+
+      Tick ($\checkmark$) \textbf{one} box to show the correct statement about a MAC address.
+    options:
+      - letter: A
+        text: |
+          It is assigned by the manufacturer.
+      - letter: B
+        text: |
+          It is assigned by the product.
+      - letter: C
+        text: |
+          It is assigned by the router.
+      - letter: D
+        text: |
+          It is assigned by the user.
+  - number: "5e"
+    type: short_answer
+    text: |
+      The robots have artificial intelligence (AI).
+
+      Give \textbf{three} ways the robots could make use of AI.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+```

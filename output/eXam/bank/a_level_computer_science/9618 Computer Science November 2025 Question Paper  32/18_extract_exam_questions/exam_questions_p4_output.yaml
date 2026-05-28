@@ -1,0 +1,32 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      HTTP and IMAP are examples of protocols used in the Application Layer of the TCP/IP protocol suite.
+  - number: "3a"
+    type: short_answer
+    text: |
+      State the purpose of the HTTP and IMAP protocols.
+
+      HTTP \hrulefill
+      IMAP \hrulefill
+  - number: "3b"
+    type: long_answer
+    text: |
+      Describe how files are shared using the BitTorrent protocol.
+  - number: "4"
+    type: short_answer
+    text: |
+      Identify one benefit of circuit switching and one benefit of packet switching.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Circuit switching \hrulefill
+      Packet switching \hrulefill
+  - number: "4b"
+    type: short_answer
+    text: |
+      Identify two differences between circuit switching and packet switching.
+
+      1. \hrulefill
+      2. \hrulefill

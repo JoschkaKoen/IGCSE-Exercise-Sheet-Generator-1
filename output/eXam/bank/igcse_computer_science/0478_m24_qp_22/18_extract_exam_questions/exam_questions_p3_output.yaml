@@ -1,0 +1,12 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A linear search and a bubble sort are standard methods of solution.
+      Fifty numbers are already stored in the array \texttt{Values[1:50]}
+  - number: "3a"
+    type: long_answer
+    text: |
+      Write an algorithm in pseudocode to input a number, \texttt{MyNumber}, and use a linear search to test if that number is stored in the array. If the number is found in the array, the position in the array is output. If the number is not found in the array, "Not found" is output.
+```

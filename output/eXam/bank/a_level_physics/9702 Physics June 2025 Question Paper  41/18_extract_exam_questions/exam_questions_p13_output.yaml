@@ -1,0 +1,29 @@
+questions:
+  - number: "6bi"
+    type: calculation
+    text: |
+      The variation of $V_{\text{IN}}$ with $t$ can be represented by
+
+      $$V_{\text{IN}} = A \cos Bt$$
+
+      where $A$ and $B$ are constants.
+
+      Determine the values of $A$ and $B$. Give a unit with your answer for $A$.
+
+      $A = $ \hrulefill unit \hrulefill
+
+      $B = $ \hrulefill $\text{rad}\,\text{s}^{-1}$
+  - number: "6bii"
+    type: short_answer
+    text: |
+      Determine the type of rectification produced by the circuit in Fig. 6.1.
+  - number: "6biii"
+    type: short_answer
+    text: |
+      On Fig. 6.3, draw the circuit diagram for the components inside the rectification circuit.
+  - number: "6biv"
+    type: calculation
+    text: |
+      Determine a value for the time constant for the discharge of the capacitor C through the resistor R in Fig. 6.1.
+
+      time constant = \hrulefill s

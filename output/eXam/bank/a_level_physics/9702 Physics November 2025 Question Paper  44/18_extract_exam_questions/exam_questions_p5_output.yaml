@@ -1,0 +1,27 @@
+questions:
+  - number: "1bii"
+    type: calculation
+    text: |
+      Calculate the centripetal acceleration of star A.
+
+      acceleration = \hrulefill $\text{ms}^{-2}$
+  - number: "1biii"
+    type: calculation
+    text: |
+      Use your answer in \textbf{(b)(ii)} to determine the period of the orbit of star A.
+
+      period = \hrulefill $\text{s}$
+  - number: "1biv"
+    type: short_answer
+    text: |
+      By placing a tick ($\checkmark$) in each row, complete Table 1.1 to show how the quantities indicated for star B compare with the same quantities for star A.
+
+      \textbf{Table 1.1}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & B less than A & B equal to A & B greater than A \\ \hline
+      centripetal acceleration & & & \\ \hline
+      linear speed & & & \\ \hline
+      period & & & \\ \hline
+      \end{tabular}

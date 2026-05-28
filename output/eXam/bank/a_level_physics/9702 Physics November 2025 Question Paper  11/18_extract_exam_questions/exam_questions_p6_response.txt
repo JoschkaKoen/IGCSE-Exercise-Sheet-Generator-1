@@ -1,0 +1,94 @@
+[thinking]
+**Transcribing Physics Questions**
+
+Okay, the task is straightforward: I need to transcribe questions 8, 9, and 10 from this provided physics page, excluding any figures or diagrams as per the instructions. Let's get to it.
+
+For question 8, the prompt describes a sphere falling through the air and a graph of its velocity versus time (which I'm omitting, of course). The question asks about the forces acting on the sphere at a specific point on the graph, point P. The key here is to accurately represent the force diagrams without the actual diagrams. The options are diagrams, so I need to describe them. I need to make sure I am accurate, and that I represent the diagrams correctly without being able to *see* them.
+
+After careful consideration of the force diagrams, I'll represent the options as:
+
+*   **A:** air resistance and weight of equal magnitude
+*   **B:** weight only
+*   **C:** air resistance of smaller magnitude than weight
+*   **D:** air resistance of greater magnitude than weight
+
+That seems like a clear and accurate way to represent those diagrams textually.
+
+Moving on to question 9, the prompt asks: "In which situation is total linear momentum *always* conserved?" The options are:
+
+*   **A:** in all collisions between two objects
+*   **B:** in collisions between two objects moving at equal and opposite velocity
+*   **C:** in collisions between two objects that form an isolated system
+*   **D:** in collisions between two objects with the same mass
+
+And finally, for question 10, this is a classic collision problem. The prompt describes an object of mass *m* moving at 9.0 m/s colliding elastically with a stationary object of mass 2*m*. We're told both objects are moving after the collision, and no external forces are acting. The question is: "What is the velocity of the object of mass 2*m* after the collision?" The options are:
+
+*   **A:** -6.0 m/s
+*   **B:** -3.0 m/s
+*   **C:** 4.5 m/s
+*   **D:** 6.0 m/s
+
+Done. I think I have accurately transcribed the questions and the options. Let me double-check... Yes, everything is represented accurately. Time to move on.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: multiple_choice
+    text: |
+      A sphere falls from rest through the air. The graph shows the variation with time of the sphere’s velocity.
+
+      Which diagram shows the forces acting on the sphere when it is at the velocity corresponding to point P on the graph?
+    options:
+      - letter: A
+        text: |
+          air resistance and weight of equal magnitude
+      - letter: B
+        text: |
+          weight only
+      - letter: C
+        text: |
+          air resistance of smaller magnitude than weight
+      - letter: D
+        text: |
+          air resistance of greater magnitude than weight
+  - number: "9"
+    type: multiple_choice
+    text: |
+      In which situation is total linear momentum \textbf{always} conserved?
+    options:
+      - letter: A
+        text: |
+          in all collisions between two objects
+      - letter: B
+        text: |
+          in collisions between two objects moving at equal and opposite velocity
+      - letter: C
+        text: |
+          in collisions between two objects that form an isolated system
+      - letter: D
+        text: |
+          in collisions between two objects with the same mass
+  - number: "10"
+    type: multiple_choice
+    text: |
+      An object of mass $m$ moving with velocity $9.0\text{ m}\,\text{s}^{-1}$ has a head-on elastic collision with a stationary object of mass $2m$.
+
+      After the collision, both objects are moving. No external forces act on the system.
+
+      What is the velocity of the object of mass $2m$ after the collision?
+    options:
+      - letter: A
+        text: |
+          $-6.0\text{ m}\,\text{s}^{-1}$
+      - letter: B
+        text: |
+          $-3.0\text{ m}\,\text{s}^{-1}$
+      - letter: C
+        text: |
+          $4.5\text{ m}\,\text{s}^{-1}$
+      - letter: D
+        text: |
+          $6.0\text{ m}\,\text{s}^{-1}$

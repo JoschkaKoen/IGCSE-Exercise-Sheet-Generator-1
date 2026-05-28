@@ -1,0 +1,7 @@
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Thrusters A and C are now switched off and the spacecraft is stationary. Thruster B is activated at time $t_1$, producing a constant force on the spacecraft until the fuel runs out at time $t_2$. As the fuel is used, the total mass of the spacecraft decreases.
+
+      On Fig. 2.2, sketch the variation of speed of the spacecraft with time from $t_1$ to $t_2$.

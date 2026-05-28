@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      The Operating System (OS) is responsible for hardware and security management in a computer system.
+  - number: "5a"
+    type: short_answer
+    text: ''
+  - number: "5ai"
+    type: short_answer
+    text: |
+      State \textbf{two} tasks that are performed by hardware management.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5aii"
+    type: short_answer
+    text: |
+      State \textbf{two} tasks that are performed by security management.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5b"
+    type: short_answer
+    text: ''
+  - number: "5bi"
+    type: short_answer
+    text: |
+      Describe \textbf{one} benefit of using library routines when developing software.
+  - number: "5bii"
+    type: short_answer
+    text: |
+      Describe \textbf{one} drawback of using library routines when developing software.
+  - number: "5c"
+    type: short_answer
+    text: |
+      Identify \textbf{two} presentation features found in a typical Integrated Development Environment (IDE).
+
+      1. \hrulefill
+      2. \hrulefill
+```

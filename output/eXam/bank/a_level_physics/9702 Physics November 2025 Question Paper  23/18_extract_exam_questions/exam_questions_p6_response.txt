@@ -1,0 +1,50 @@
+[thinking]
+**Exam Page 6: Question Transcription**
+
+Okay, so I need to transcribe page 6 of this exam. The structure is pretty straightforward. I've got a section numbered "2" followed by sub-questions. Let's see... the main question "2" itself doesn't have any associated text, it just seems to serve as a header. I'll represent that as an empty text field in my YAML structure.
+
+Sub-question "2a" is also just a prefix for the subsequent questions, so I'll keep the text field empty here too.
+
+Now for the content! "2ai" is a definition of pressure – easy enough: "Define pressure."  "2aii" is an explanation about hydrostatic pressure and upthrust. I'll translate that text directly: "Explain how hydrostatic pressure results in an upthrust force acting on a solid object immersed in a liquid."
+
+"2b" is about a steel ball falling through oil, with the viscous drag force equation provided. I'll transcribe all of that, including the formula: "A small steel ball of radius $r$ and mass $m$ falls vertically at terminal speed $v$ through oil. The viscous drag force $D$ that acts on the ball is given by $$D = 6\pi\eta rv$$ where $\eta$ is a property of the oil called its viscosity."
+
+Finally, "2bi" asks for a diagram of forces. I need to remember I'm only transcribing the text of the questions. I'll write the prompt to draw the forces, and add the figure title at the end: "On Fig. 2.1, draw labelled arrows from the ball to show the directions of the three forces that act on the ball as it falls. Fig. 2.1".
+
+Okay, now it's time to build the YAML structure, making sure that each section is assigned its type correctly: short answer or long answer. Should be ready now!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: ''
+  - number: "2a"
+    type: short_answer
+    text: ''
+  - number: "2ai"
+    type: short_answer
+    text: |
+      Define pressure.
+  - number: "2aii"
+    type: long_answer
+    text: |
+      Explain how hydrostatic pressure results in an upthrust force acting on a solid object immersed in a liquid.
+  - number: "2b"
+    type: short_answer
+    text: |
+      A small steel ball of radius $r$ and mass $m$ falls vertically at terminal speed $v$ through oil.
+
+      The viscous drag force $D$ that acts on the ball is given by
+
+      $$D = 6\pi\eta rv$$
+
+      where $\eta$ is a property of the oil called its viscosity.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      On Fig. 2.1, draw labelled arrows from the ball to show the directions of the three forces that act on the ball as it falls.
+
+      Fig. 2.1

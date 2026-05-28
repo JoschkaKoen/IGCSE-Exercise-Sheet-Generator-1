@@ -1,0 +1,29 @@
+questions:
+  - number: "1"
+    type: long_answer
+    text: |
+      Fig. 1.1 shows a thin coil of cross-sectional area $A$ and length $l$ connected to a resistor of resistance $S$ and two terminals.
+
+      An alternating voltage is applied to the terminals. The peak value of the alternating voltage is $E$ and the frequency is $f$. The peak value of the potential difference $V$ across the resistor is determined using an oscilloscope.
+
+      It is suggested that $V$ is related to $f$ by the relationship
+
+      $$\frac{ES}{V} = \frac{KAN^2 f}{l}$$
+
+      where $N$ is the number of turns on the coil and $K$ is a constant.
+
+      Plan a laboratory experiment to test the relationship between $V$ and $f$.
+
+      Draw a diagram showing the arrangement of your equipment.
+
+      Explain how the results could be used to determine a value for $K$.
+
+      In your plan you should include:
+
+      \begin{itemize}
+      \item the procedure to be followed
+      \item the measurements to be taken
+      \item the control of variables
+      \item the analysis of the data
+      \item any safety precautions to be taken.
+      \end{itemize}

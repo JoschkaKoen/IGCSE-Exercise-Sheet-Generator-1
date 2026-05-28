@@ -1,0 +1,53 @@
+[thinking]
+**Page 7 YAML Stub Population**
+
+Okay, so the task at hand is to fill out the YAML stub for page 7 of the exam. The user wants a complete and accurate representation of the question structure. Let me break this down methodically.
+
+First, I need to understand the hierarchy of the questions. Question "2" is the root; it looks like a parent question based on the stub: "2", "2a", "2b", "2bi", "2bii". The initial check is to see if "2" has text itself or if it acts purely as a header. Examining the image, "2" is followed directly by "(a) State two ways..." so that suggests "2" is empty, or is structural. The instructions tell me that if I *can't* find the stem, then I need to use `STUB ERROR`. But based on prior experience, empty parent nodes are simply set to `''`. Let me examine the structure in detail.
+
+Looking at "2a," the stem is clear: "State two ways...". Then "2b" is another parent with no explicit text, leading directly to sub-questions "2bi" and "2bii." So, "2" and "2b" are structural headers. This means the `text` fields for "2" and "2b" can both be set to an empty string `''`. I need to ensure that is correct to prevent a QA error.
+
+Now for the populated YAML entries:
+
+*   "2": `text: ''` (Structural header, no content)
+*   "2a": The text stem here is "State two ways in which the first law of thermodynamics describes that the internal energy of a system may be changed." I should use a block scalar for the text, and I need to include the prompt for the answer, including the **two** and the blanks for the answer:
+
+    ```yaml
+    text: |
+      State \textbf{two} ways in which the first law of thermodynamics describes that the internal energy of a system may be changed.
+      
+      1. \hrulefill
+      2. \hrulefill
+    ```
+*   "2b": `text: ''` (Structural header, no content).
+*   "2bi": The text is: "Use the first law of thermodynamics to explain why a bicycle pump gets hot when it is used to pump up a tyre quickly."
+*   "2bii": The text is: "With reference to molecular energies, explain why the temperature of water remains at $100^\circ\text{C}$ when it vaporises in a kettle, even though it is being heated."
+
+I'll double-check everything, making sure "2" and "2b" are indeed structural and that the other entries have the appropriate formatting and content. Empty strings for structural items, block scalars for the questions. No `STUB ERROR` is needed.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: ''
+  - number: "2a"
+    type: short_answer
+    text: |
+      State \textbf{two} ways in which the first law of thermodynamics describes that the internal energy of a system may be changed.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: ''
+  - number: "2bi"
+    type: long_answer
+    text: |
+      Use the first law of thermodynamics to explain why a bicycle pump gets hot when it is used to pump up a tyre quickly.
+  - number: "2bii"
+    type: long_answer
+    text: |
+      With reference to molecular energies, explain why the temperature of water remains at $100\text{ }^\circ\text{C}$ when it vaporises in a kettle, even though it is being heated.

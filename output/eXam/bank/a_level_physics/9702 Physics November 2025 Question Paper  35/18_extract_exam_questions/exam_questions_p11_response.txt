@@ -1,0 +1,64 @@
+[thinking]
+**Transcribing Questions 2d and 2e**
+
+Okay, the user wants me to transcribe questions 2d and 2e from this image, I see. Let's break this down. First, question 2d requires me to format some instructions and lines for the user to fill in. I need to capture the instructions about pouring water and repeating previous steps, and then the blank lines for the variables. I'll represent the bullet points as a list within a YAML block, and then include the fill-in-the-blanks. That should be a clean representation. So, I need to represent the following:
+
+```yaml
+text: |
+  \begin{itemize}
+  \item Pour approximately half the water from the bottle into the beaker.
+  \item Repeat (c)(i) and (c)(ii).
+  \end{itemize}
+
+  $h = $ \hrulefill
+  $t = $ \hrulefill
+  $a = $ \hrulefill
+```
+
+Next, for question 2e, there's a formula and some instructions to calculate a constant. The formula is $a = \frac{kd\sqrt{\pi h}}{2}$. I'll need to capture that in a LaTeX format. There are also instructions to calculate two values of *k*, and blank lines for those values. I'll format this into another YAML block:
+
+```yaml
+text: |
+  It is suggested that the relationship between $a$ and $h$ is
+
+  $$a = \frac{kd\sqrt{\pi h}}{2}$$
+
+  where $k$ is a constant.
+
+  Using your data, calculate \textbf{two} values of $k$.
+
+  first value of $k = $ \hrulefill
+  second value of $k = $ \hrulefill
+```
+
+Just to be absolutely certain, let me quickly confirm that the formula is accurately represented as  $a = \frac{kd\sqrt{\pi h}}{2}$. Yes, that's exactly what I see. Okay, now I can write out the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2d"
+    type: calculation
+    text: |
+      \begin{itemize}
+      \item Pour approximately half the water from the bottle into the beaker.
+      \item Repeat (c)(i) and (c)(ii).
+      \end{itemize}
+
+      $h = $ \hrulefill
+      $t = $ \hrulefill
+      $a = $ \hrulefill
+  - number: "2e"
+    type: calculation
+    text: |
+      It is suggested that the relationship between $a$ and $h$ is
+
+      $$a = \frac{kd\sqrt{\pi h}}{2}$$
+
+      where $k$ is a constant.
+
+      Using your data, calculate \textbf{two} values of $k$.
+
+      first value of $k = $ \hrulefill
+      second value of $k = $ \hrulefill

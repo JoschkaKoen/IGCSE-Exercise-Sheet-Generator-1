@@ -1,0 +1,24 @@
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Describe the purpose of a code of conduct.
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: ''
+  - number: "3ai"
+    type: short_answer
+    text: |
+      State what is meant by relative addressing.
+  - number: "3aii"
+    type: short_answer
+    text: |
+      Registers such as the Accumulator (ACC) and the Index Register (IX) are used in the CPU.
+
+      Identify \textbf{two} special purpose registers used in the CPU. Do \textbf{not} include the ACC or IX in your answers.
+
+      1. \hrulefill
+      2. \hrulefill

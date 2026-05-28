@@ -1,0 +1,73 @@
+[thinking]
+**Transcribing Exam Page 4**
+
+Alright, let's get down to brass tacks. The user wants me to transcribe page 4 of this exam paper. Looks like we've got three questions to handle: 7, 8, and 9. My goal is to represent the information from each question accurately in YAML format. Let's make sure it's correct from the start.
+
+First, Question 7: This is a velocity-time graph problem. The question asks for the expression for total displacement. The options presented are A: area1-area2, B: (area1+area2)/2, C: area1+area2, and D: area2-area1.  Just to be absolutely sure, I'll confirm that option B is indeed the sum of the areas, divided by 2. That's a classic kinematic application, and displacement is the integral of velocity, or the area under the curve. Area above the time axis is positive displacement, area below is negative. The correct answer will be either A or C.
+
+Now, I'll transcribe this information into the YAML format, remembering to use the block scalar `|` for the text, single quotes for the question number, and plain text for the `letter` and `type` fields.  The YAML code will have `number: "7"`, `type: multiple_choice`, the question text, and the four options with their letters and textual representations.
+
+Next up, Question 8: This is about defining weight. The options are A: mass times acceleration, B: resultant force at terminal velocity, C: force due to gravitational field, and D: resistance to change in motion. The correct answer would be the gravitational field description, C.  I'll translate this into YAML as well, keeping the same formatting principles as before.
+
+Finally, Question 9: This is about the principle of conservation of momentum. The options are A: constant in elastic collisions, B: mass times velocity, C: force proportional to rate of change of momentum, and D: momentum of an isolated system is constant. The correct answer here would be D.  I will render this into YAML with the same strict adherence to formatting rules.
+
+Okay, I've reviewed the YAML formatting rules: no unnecessary double quotes, block scalar `|` for multi-line text, and plain text for the single-letter and type fields and single-quoted numbers. The structure looks sound and the information is accurately transcribed. I'm ready to present the YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: multiple_choice
+    text: |
+      The velocity–time graph for an object is shown.
+
+      Which expression gives the total displacement of the object?
+    options:
+      - letter: A
+        text: |
+          $\text{area 1} - \text{area 2}$
+      - letter: B
+        text: |
+          $\frac{\text{area 1} + \text{area 2}}{2}$
+      - letter: C
+        text: |
+          $\text{area 1} + \text{area 2}$
+      - letter: D
+        text: |
+          $\text{area 2} - \text{area 1}$
+  - number: "8"
+    type: multiple_choice
+    text: |
+      Which statement describes the weight of an object?
+    options:
+      - letter: A
+        text: |
+          It is equal to the mass of the object multiplied by its acceleration.
+      - letter: B
+        text: |
+          It is equal to the resultant force when the object falls at terminal (constant) velocity.
+      - letter: C
+        text: |
+          It is the force acting on the object due to a gravitational field.
+      - letter: D
+        text: |
+          It is the property of the object that resists change in motion.
+  - number: "9"
+    type: multiple_choice
+    text: |
+      What is a statement of the principle of conservation of momentum?
+    options:
+      - letter: A
+        text: |
+          In an elastic collision, momentum is constant.
+      - letter: B
+        text: |
+          Momentum is the product of mass and velocity.
+      - letter: C
+        text: |
+          The force acting on a body is proportional to its rate of change of momentum.
+      - letter: D
+        text: |
+          The momentum of an isolated system is constant.

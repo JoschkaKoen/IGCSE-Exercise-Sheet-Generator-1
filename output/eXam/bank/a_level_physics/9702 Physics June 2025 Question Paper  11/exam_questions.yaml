@@ -1,0 +1,910 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which quantity is a vector?
+  answer_options:
+  - letter: A
+    text: pressure
+  - letter: B
+    text: temperature
+  - letter: C
+    text: weight
+  - letter: D
+    text: work
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Four students, \\textbf{A}, \\textbf{B}, \\textbf{C} and \\textbf{D}, have\
+    \ completed an experiment to determine the acceleration of free fall, $g$. Each\
+    \ student repeated the experiment three times. The determined values of $g$ are\
+    \ shown in the table.\n\nWhich set of results has a high precision and a low accuracy?\n\
+    \n\\begin{tabular}{|c|c|c|c|}\n\\hline\n & \\multicolumn{3}{c|}{acceleration of\
+    \ free fall / $\\text{m}\\,\\text{s}^{-2}$} \\\\\n\\cline{2-4}\n & experiment\
+    \ 1 & experiment 2 & experiment 3 \\\\\n\\hline\n\\textbf{A} & 7.2 & 9.4 & 8.3\
+    \ \\\\\n\\textbf{B} & 9.5 & 9.8 & 10.2 \\\\\n\\textbf{C} & 9.8 & 9.8 & 9.9 \\\\\
+    \n\\textbf{D} & 10.1 & 10.2 & 10.1 \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diameter of a ball is measured as $(5.26 \pm 0.02)\text{ cm}$.
+
+
+    What is the absolute uncertainty in the volume of the ball?'
+  answer_options:
+  - letter: A
+    text: $0.29\text{ cm}^3$
+  - letter: B
+    text: $0.87\text{ cm}^3$
+  - letter: C
+    text: $1.1\text{ cm}^3$
+  - letter: D
+    text: $7.0\text{ cm}^3$
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two vectors, X and Y, are shown.
+
+
+    What are the directions of $X + Y$ and $X - Y$?'
+  answer_options:
+  - letter: A
+    text: '$X + Y$: $\rightarrow$ \quad $X - Y$: $\downarrow$'
+  - letter: B
+    text: '$X + Y$: $\rightarrow$ \quad $X - Y$: $\uparrow$'
+  - letter: C
+    text: '$X + Y$: $\leftarrow$ \quad $X - Y$: $\downarrow$'
+  - letter: D
+    text: '$X + Y$: $\leftarrow$ \quad $X - Y$: $\uparrow$'
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A ball is projected vertically downwards with an initial velocity of $20\text{
+    m}\,\text{s}^{-1}$. Air resistance is negligible.
+
+
+    What is the displacement from its initial position of the ball after a time of
+    $1.5\text{ s}$?'
+  answer_options:
+  - letter: A
+    text: $11\text{ m}$
+  - letter: B
+    text: $19\text{ m}$
+  - letter: C
+    text: $37\text{ m}$
+  - letter: D
+    text: $41\text{ m}$
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A surveyor''s device emits a pulse of light. The light is reflected from
+    a wall $150\text{ m}$ away.
+
+
+    What is the total time taken for the pulse to travel from the device to the wall
+    and then back to the device?'
+  answer_options:
+  - letter: A
+    text: $0.05\text{ ns}$
+  - letter: B
+    text: $0.10\text{ ns}$
+  - letter: C
+    text: $0.50\ \mu\text{s}$
+  - letter: D
+    text: $1.0\ \mu\text{s}$
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which equation of uniformly accelerated motion can be derived using only the
+    gradient of a velocity–time graph?
+  answer_options:
+  - letter: A
+    text: $s = \frac{1}{2}(u + v)t$
+  - letter: B
+    text: $s = ut + \frac{1}{2}at^2$
+  - letter: C
+    text: $v = u + at$
+  - letter: D
+    text: $v^2 = u^2 + 2as$
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An object is projected horizontally from a table at time $t = 0$. The object
+    falls in a uniform gravitational field. Air resistance is negligible.
+
+
+    Graphs P, Q, R and S are velocity–time graphs.
+
+
+    Which graphs represent the horizontal and vertical components of the velocity
+    of the object?'
+  answer_options:
+  - letter: A
+    text: 'horizontal: Q, vertical: P'
+  - letter: B
+    text: 'horizontal: Q, vertical: S'
+  - letter: C
+    text: 'horizontal: R, vertical: P'
+  - letter: D
+    text: 'horizontal: R, vertical: S'
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is always conserved in elastic collisions?
+  answer_options:
+  - letter: A
+    text: 'total kinetic energy: yes, total velocity: yes'
+  - letter: B
+    text: 'total kinetic energy: yes, total velocity: no'
+  - letter: C
+    text: 'total kinetic energy: no, total velocity: yes'
+  - letter: D
+    text: 'total kinetic energy: no, total velocity: no'
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A firework travels vertically upwards in air. Gases are pushed vertically
+    downwards from the firework.
+
+
+    Several forces that act on the firework and gases are shown.
+
+
+    Which forces are a Newton’s third law pair?'
+  answer_options:
+  - letter: A
+    text: air resistance and force on gases
+  - letter: B
+    text: air resistance and thrust
+  - letter: C
+    text: force on gases and thrust
+  - letter: D
+    text: thrust and weight
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two blocks K and L slide towards each other along a horizontal frictionless
+    surface.
+
+
+    The diagram shows the momentum of the two blocks just before they collide.
+
+
+    During the collision, the blocks are in contact with each other for a time of
+    $0.084\text{ s}$.
+
+
+    After the collision, the blocks separate and block L moves back along its original
+    path with a momentum of $0.12\text{ kg}\,\text{m}\,\text{s}^{-1}$.
+
+
+    What is the magnitude of the average force exerted on block L by block K during
+    the collision?'
+  answer_options:
+  - letter: A
+    text: $3.1\text{ N}$
+  - letter: B
+    text: $4.0\text{ N}$
+  - letter: C
+    text: $6.9\text{ N}$
+  - letter: D
+    text: $7.1\text{ N}$
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Leonardo da Vinci proposed a flying machine that would work like a screw
+    to lift the pilot into the air. The ‘screw’ is rotated by the pilot.
+
+
+    The machine and the pilot together have a total mass of $120\text{ kg}$.
+
+
+    Which useful output power must the pilot provide to move vertically upwards at
+    a constant speed of $2.5\text{ m}\,\text{s}^{-1}$?'
+  answer_options:
+  - letter: A
+    text: $48\text{ W}$
+  - letter: B
+    text: $300\text{ W}$
+  - letter: C
+    text: $470\text{ W}$
+  - letter: D
+    text: $2900\text{ W}$
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Which row describes a pair of forces that forms a couple?\n\n\\begin{tabular}{|c|c|c|}\n\
+    \\hline\n & direction of the forces & magnitude of the forces \\\\\n\\hline\n\\\
+    textbf{A} & opposite & different \\\\\n\\textbf{B} & opposite & equal \\\\\n\\\
+    textbf{C} & same & different \\\\\n\\textbf{D} & same & equal \\\\\n\\hline\n\\\
+    end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A uniform cylinder of weight $25.0\text{ N}$ is suspended from a newton meter.
+
+
+    The cylinder is fully submerged in water, as shown.
+
+
+    The reading on the newton meter is $10.0\text{ N}$.
+
+
+    The water is replaced by a liquid with a density 10\% greater than the density
+    of water. The cylinder remains fully submerged.
+
+
+    What is the new reading on the newton meter?'
+  answer_options:
+  - letter: A
+    text: $8.5\text{ N}$
+  - letter: B
+    text: $9.0\text{ N}$
+  - letter: C
+    text: $11.0\text{ N}$
+  - letter: D
+    text: $11.5\text{ N}$
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student balances a $30\text{ cm}$ ruler on a fulcrum set at the $15\text{
+    cm}$ mark. She then places a $50\text{ g}$ mass on the $23\text{ cm}$ mark and
+    a $20\text{ g}$ mass on the $11\text{ cm}$ mark, as shown.
+
+
+    Which mass should she place on the $7\text{ cm}$ mark to restore the balance?'
+  answer_options:
+  - letter: A
+    text: $30\text{ g}$
+  - letter: B
+    text: $40\text{ g}$
+  - letter: C
+    text: $47\text{ g}$
+  - letter: D
+    text: $133\text{ g}$
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A submarine is at a depth of $130\text{ m}$ below the surface of the sea.
+
+
+    The pressure on the submarine due to the sea water is $p$.
+
+
+    The submarine sinks to a depth of $260\text{ m}$ below the surface.
+
+
+    Assume that the density of sea water is constant.
+
+
+    What is the \textbf{difference} between the pressures on the submarine due to
+    the sea water at the two depths?'
+  answer_options:
+  - letter: A
+    text: $0$
+  - letter: B
+    text: $0.5p$
+  - letter: C
+    text: $p$
+  - letter: D
+    text: $2p$
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An object is falling in a uniform gravitational field.
+
+
+    Which two quantities are sufficient to calculate the change in gravitational potential
+    energy?'
+  answer_options:
+  - letter: A
+    text: mass and acceleration of free fall
+  - letter: B
+    text: mass and change in vertical displacement
+  - letter: C
+    text: weight and acceleration of free fall
+  - letter: D
+    text: weight and change in vertical displacement
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The points X, Y and Z are on a rough, horizontal surface.
+
+
+    A box P is pushed across the surface from X to Y and then from Y to Z.
+
+
+    The distance from X to Y is 3.0 m. The work done against the frictional force
+    in moving the box from X to Y is 150 J.
+
+
+    The work done against the frictional force in moving the box from Y to Z is 200
+    J.
+
+
+    An identical box Q is pushed in a straight line from X to Z.
+
+
+    The magnitude of the frictional force between the boxes and the surface is constant.
+
+
+    How much extra work is done against the frictional force in moving P than Q?'
+  answer_options:
+  - letter: A
+    text: 100 J
+  - letter: B
+    text: 250 J
+  - letter: C
+    text: 350 J
+  - letter: D
+    text: 600 J
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The momentum of a car of mass $m$ increases from $p_1$ to $p_2$.
+
+
+    What is the increase in the kinetic energy of the car?'
+  answer_options:
+  - letter: A
+    text: $\frac{(p_2^2 - p_1^2)}{2m}$
+  - letter: B
+    text: $\frac{(p_2 - p_1)^2}{2m}$
+  - letter: C
+    text: $\frac{p_2 - p_1}{2m}$
+  - letter: D
+    text: $\frac{p_1 - p_2}{2m}$
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A parachutist is falling at constant (terminal) velocity.
+
+
+    Which statement is \textbf{not} correct?'
+  answer_options:
+  - letter: A
+    text: Gravitational potential energy is converted into kinetic energy of the air.
+  - letter: B
+    text: Gravitational potential energy is converted into kinetic energy of the parachutist.
+  - letter: C
+    text: Gravitational potential energy is converted into thermal energy of the air.
+  - letter: D
+    text: Gravitational potential energy is converted into thermal energy of the parachutist.
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student investigates a spring. The variation of the length of the spring
+    with the force applied to the spring is shown.
+
+
+    What is the spring constant of the spring?'
+  answer_options:
+  - letter: A
+    text: $0.17 \text{ N}\,\text{m}^{-1}$
+  - letter: B
+    text: $0.25 \text{ N}\,\text{m}^{-1}$
+  - letter: C
+    text: $4.0 \text{ N}\,\text{m}^{-1}$
+  - letter: D
+    text: $6.0 \text{ N}\,\text{m}^{-1}$
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The graph shows the variation with force of the extension of a wire.
+
+
+    The force is gradually increased to a maximum at Q and then gradually decreased
+    to zero at R.
+
+
+    Which statement is correct?'
+  answer_options:
+  - letter: A
+    text: Along the line PQ, the wire obeys Hooke's law.
+  - letter: B
+    text: Along the line RP, the spring constant is equal to $\frac{\text{extension}}{\text{force}}$.
+  - letter: C
+    text: The wire has elastic deformation at point Q.
+  - letter: D
+    text: The work done in stretching the wire to P is equal to $(\text{force} \times
+      \text{extension})$ at point P.
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A uniform metal wire of length $L$ and diameter $d$ has spring constant $k$.
+
+
+    What is the Young modulus of the metal?'
+  answer_options:
+  - letter: A
+    text: $\frac{\pi d^2}{4kL}$
+  - letter: B
+    text: $\frac{\pi d^2}{kL}$
+  - letter: C
+    text: $\frac{kL}{\pi d^2}$
+  - letter: D
+    text: $\frac{4kL}{\pi d^2}$
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An aircraft produces a sound at a frequency of $30.0\text{ Hz}$.
+
+
+    The speed of sound in air is $330\text{ m}\,\text{s}^{-1}$.
+
+
+    The aircraft is directly in front of the stationary observer and travels in a
+    straight line towards or away from the observer.
+
+
+    The observer hears the sound from the aircraft at a frequency of $20.0\text{ Hz}$.
+
+
+    What is the speed and direction of the aircraft?'
+  answer_options:
+  - letter: A
+    text: $110\text{ m}\,\text{s}^{-1}$ away from observer
+  - letter: B
+    text: $110\text{ m}\,\text{s}^{-1}$ towards observer
+  - letter: C
+    text: $165\text{ m}\,\text{s}^{-1}$ away from observer
+  - letter: D
+    text: $165\text{ m}\,\text{s}^{-1}$ towards observer
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which statement about longitudinal and transverse wave motion for a progressive
+    wave is correct?
+  answer_options:
+  - letter: A
+    text: All transverse and longitudinal waves require a medium for propagation.
+  - letter: B
+    text: All transverse waves travel at the same speed, but longitudinal waves can
+      travel at different speeds.
+  - letter: C
+    text: In both transverse waves and longitudinal waves, a particle with zero displacement
+      has a maximum speed.
+  - letter: D
+    text: In a longitudinal wave there is a net movement of particles in the direction
+      of travel of the wave, but there is no net movement of particles in a transverse
+      wave.
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a progressive transverse wave on a stretched string at
+    one instant in time.
+
+
+    One point on the string is labelled X.
+
+
+    Which point on the string is $270^\circ$ out of phase with X?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which wavelength of electromagnetic radiation in free space could be green
+    light?
+  answer_options:
+  - letter: A
+    text: $4.9 \times 10^{-9}\text{ m}$
+  - letter: B
+    text: $6.6 \times 10^{-9}\text{ m}$
+  - letter: C
+    text: $5.5 \times 10^{-7}\text{ m}$
+  - letter: D
+    text: $8.6 \times 10^{-7}\text{ m}$
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which group contains only waves that can be polarised?
+  answer_options:
+  - letter: A
+    text: infrared waves, radio waves, sound waves
+  - letter: B
+    text: visible light waves, microwaves, radio waves
+  - letter: C
+    text: visible light waves, radio waves, sound waves
+  - letter: D
+    text: microwaves, visible light waves, sound waves
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'One wave has an amplitude of $2A$. A second wave has an amplitude of $\frac{A}{2}$.
+    The waves are otherwise identical.
+
+
+    The two waves travel in opposite directions and overlap.
+
+
+    What is the ratio $\frac{\text{maximum amplitude of combined wave}}{\text{minimum
+    amplitude of combined wave}}$?'
+  answer_options:
+  - letter: A
+    text: $\frac{3}{2}$
+  - letter: B
+    text: $\frac{5}{3}$
+  - letter: C
+    text: $\frac{5}{2}$
+  - letter: D
+    text: $4$
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Light of wavelength $680\text{ nm}$ is incident normally on a diffraction
+    grating with $450\text{ lines mm}^{-1}$.
+
+
+    What is the angle of diffraction of the second-order maximum in the diffraction
+    pattern that is produced?'
+  answer_options:
+  - letter: A
+    text: $1.8^\circ$
+  - letter: B
+    text: $3.5^\circ$
+  - letter: C
+    text: $18^\circ$
+  - letter: D
+    text: $38^\circ$
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A hollow tube is closed at one end and open at the other.
+
+
+    A stationary sound wave of the lowest possible frequency, $820\text{ Hz}$, is
+    produced in the tube.
+
+
+    The speed of sound in air is $330\text{ m s}^{-1}$.
+
+
+    What is the length of the tube?'
+  answer_options:
+  - letter: A
+    text: $10\text{ cm}$
+  - letter: B
+    text: $20\text{ cm}$
+  - letter: C
+    text: $40\text{ cm}$
+  - letter: D
+    text: $160\text{ cm}$
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which expression gives the definition of resistance?
+  answer_options:
+  - letter: A
+    text: current divided by potential difference
+  - letter: B
+    text: current multiplied by potential difference
+  - letter: C
+    text: potential difference divided by current
+  - letter: D
+    text: resistivity multiplied by length
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The graph shows the $I\text{--}V$ characteristic of an electrical component.
+
+
+    What is the component?'
+  answer_options:
+  - letter: A
+    text: a filament lamp
+  - letter: B
+    text: a metallic conductor at constant temperature
+  - letter: C
+    text: a resistor
+  - letter: D
+    text: a semiconductor diode
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows six identical resistors connected in a circuit.
+
+
+    In which branch of the circuit is the most power dissipated?'
+  answer_options:
+  - letter: A
+    text: PQ
+  - letter: B
+    text: QR
+  - letter: C
+    text: RS
+  - letter: D
+    text: SP
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a circuit containing a thermistor, a fixed resistor and
+    a battery.
+
+
+    The graph shows the $I-V$ characteristics of both components.
+
+
+    The battery has an e.m.f. of $12\text{ V}$ and negligible internal resistance.
+
+
+    What is the current in the fixed resistor?'
+  answer_options:
+  - letter: A
+    text: $0.36\text{ mA}$
+  - letter: B
+    text: $0.40\text{ mA}$
+  - letter: C
+    text: $0.48\text{ mA}$
+  - letter: D
+    text: $0.80\text{ mA}$
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two resistors of resistances $R_1$ and $R_2$ are connected in parallel.
+
+
+    What is the combined resistance between X and Y?'
+  answer_options:
+  - letter: A
+    text: $R_1 + R_2$
+  - letter: B
+    text: $\frac{R_1 R_2}{R_1 + R_2}$
+  - letter: C
+    text: $\frac{R_1 + R_2}{R_1 R_2}$
+  - letter: D
+    text: $\frac{R_1}{R_2}$
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A cell is connected in series with an ammeter and a variable resistor. A
+    voltmeter is used to measure the p.d. across the variable resistor. The resistance
+    of the variable resistor is varied, and the p.d. and the current are recorded.
+
+
+    The graph shows the variation with current of the p.d. across the variable resistor.
+
+
+    What is the internal resistance of the cell?'
+  answer_options:
+  - letter: A
+    text: $0.050\ \Omega$
+  - letter: B
+    text: $1.6\ \Omega$
+  - letter: C
+    text: $20\ \Omega$
+  - letter: D
+    text: $23\ \Omega$
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which list contains only fundamental particles?
+  answer_options:
+  - letter: A
+    text: antineutrinos, baryons, neutrons, electrons
+  - letter: B
+    text: mesons, electrons, neutrinos, protons
+  - letter: C
+    text: positrons, quarks, hadrons, protons
+  - letter: D
+    text: quarks, positrons, neutrinos, leptons
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which statement explains why alpha-particles have discrete energies, but beta-particles
+    have a continuous range of energies?
+  answer_options:
+  - letter: A
+    text: Beta-particles have a much smaller mass than alpha-particles which means
+      beta-particles can be emitted with a larger range of velocities.
+  - letter: B
+    text: Only alpha-particles experience repulsion from the nucleus which is dependent
+      on the number of protons in the nucleus.
+  - letter: C
+    text: Only beta-particles are emitted with another lepton and some energy is transferred
+      to the other lepton.
+  - letter: D
+    text: Only the energy of alpha-particles is discrete because the composition of
+      alpha-particles is always the same.
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A hadron consists of antiquarks that are all identical.
+
+
+    What is a possible value, in terms of the elementary charge $e$, for the charge
+    on the hadron?'
+  answer_options:
+  - letter: A
+    text: $0e$
+  - letter: B
+    text: $+1e$
+  - letter: C
+    text: $+2e$
+  - letter: D
+    text: $+3e$
+  subquestions: []

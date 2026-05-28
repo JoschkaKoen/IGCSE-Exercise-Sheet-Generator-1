@@ -1,0 +1,30 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Consider the logic expression:
+
+      $$\text{X} = (\text{J} \text{ XOR } \text{NOT } \text{K}) \text{ NAND } \text{NOT } \text{L}$$
+  - number: "6a"
+    type: short_answer
+    text: |
+      Draw a logic circuit for the logic expression.
+      Each logic gate must have a maximum of \textbf{two} inputs.
+      Do \textbf{not} simplify the logic expression.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Complete the truth table for the given logic expression.
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{J} & \textbf{K} & \textbf{L} & \textbf{Working space} & \textbf{X} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}

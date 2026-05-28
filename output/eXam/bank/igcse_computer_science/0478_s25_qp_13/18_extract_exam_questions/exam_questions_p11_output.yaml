@@ -1,0 +1,26 @@
+questions:
+  - number: "6d"
+    type: short_answer
+    text: |
+      Give \textbf{two} advantages to the weather station employees of using an automated weather system.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "6e"
+    type: short_answer
+    text: |
+      Give \textbf{one} disadvantage to the weather station employees of using an automated weather system.
+  - number: "6f"
+    type: short_answer
+    text: |
+      The automated weather system is upgraded and given machine learning capabilities.
+  - number: "6fi"
+    type: short_answer
+    text: |
+      Machine learning is part of a branch of computer science.
+
+      Identify the name of this branch of computer science.
+  - number: "6fii"
+    type: long_answer
+    text: |
+      Explain how the machine learning capabilities can be used to predict future weather.

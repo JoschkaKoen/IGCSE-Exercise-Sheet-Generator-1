@@ -1,0 +1,807 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program reads data from a text file and stores it in a queue. The linear
+    queue \texttt{Queue} is stored as a 1D array of up to 50 elements. The queue has
+    the following pointers:
+
+
+    \begin{itemize}
+
+    \item \texttt{HeadPointer} – this stores the index of the first element in the
+    queue, initialised to -1
+
+    \item \texttt{TailPointer} – this stores the index of the last element in the
+    queue, initialised to -1
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: '\texttt{Queue} is a global array of 50 integers with all elements initialised
+      to -1 in the main program.
+
+
+      The \textbf{two} pointers are declared as global variables and initialised to
+      -1
+
+
+      Write program code to declare and initialise \texttt{Queue}, \texttt{HeadPointer}
+      and \texttt{TailPointer}
+
+
+      Save your program as \textbf{Question1\_J25}.
+
+
+      Copy and paste the program code into part 1(a) in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The function \texttt{Enqueue()}:
+
+
+      \begin{itemize}
+
+      \item takes an integer parameter to store in the next position in the queue
+
+      \item returns \texttt{FALSE} if the queue is full and the parameter cannot be
+      stored in the queue
+
+      \item returns \texttt{TRUE} if the parameter is stored in the queue
+
+      \item updates the pointers where appropriate.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{Enqueue()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part 1(b) in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The function \texttt{Dequeue()}:
+
+
+      \begin{itemize}
+
+      \item returns the next item in the queue, if the queue is \textbf{not} empty
+
+      \item returns $-1$ if the queue is empty
+
+      \item updates the pointers where appropriate.
+
+      \end{itemize}
+
+
+      Write program code for \texttt{Dequeue()}'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The text file \texttt{QueueData.txt} stores positive integers. Each integer
+      is on a new line in the file.
+
+
+      The procedure \texttt{CreateQueue()}:
+
+
+      \begin{itemize}
+
+      \item opens the file \texttt{QueueData.txt}
+
+      \item reads in each line from the text file and uses \texttt{Enqueue()} to insert
+      each line into the queue
+
+      \item outputs \texttt{"Queue full"} if any item cannot be inserted into the
+      queue
+
+      \item uses exception handling when opening and reading from the text file.
+
+      \end{itemize}
+
+
+      The procedure needs to work for a file that contains an unknown number of lines.
+
+
+      Write program code for \texttt{CreateQueue()}'
+    answer_options: []
+    subquestions: []
+  - number: 1e
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 1ei
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'The main program needs extending to call \texttt{CreateQueue()}. The
+        main program then adds together all of the integers stored in the queue, using
+        \texttt{Dequeue()} to access each integer. The total is then output.
+
+
+        Write program code to extend the main program.'
+      answer_options: []
+      subquestions: []
+    - number: 1eii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program sorts the data in the 1D array \texttt{DataArray} and searches
+    \texttt{DataArray} for specific values.
+
+
+    \texttt{DataArray} stores 14 integer values and is declared local to the main
+    program.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Write program code to create \texttt{DataArray} and initialise it with
+      the following data values in the order they are written:
+
+
+      0 3 4 56 67 44 43 32 31 345 45 6 54 1
+
+
+      Save your program as \textbf{Question2\_J25}.
+
+
+      Copy and paste the program code into part \textbf{2(a)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The function \texttt{InsertionSort()} takes an array of integers as a parameter.
+      The function sorts the data in the array into ascending numerical order using
+      an insertion sort. The function returns the sorted array.
+
+
+      Write program code for \texttt{InsertionSort()}
+
+
+      You must \textbf{not} use any inbuilt sorting functions for your programming
+      language.
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{2(b)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The procedure \texttt{OutputArray()} takes an array of integers as a parameter.
+      The procedure outputs each element in the array from the first element to the
+      last element. The output is on one line with a space between each number.
+
+
+      An example output is:
+
+
+      \texttt{"0 3 4 56 67 44 43 32 31 345 45 6 54 1"}
+
+
+      Write program code for \texttt{OutputArray()}
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{2(c)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2di
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The main program needs extending to:
+
+
+        \begin{itemize}
+
+        \item output the content of the unsorted array using \texttt{OutputArray()}
+
+        \item sort the array using \texttt{InsertionSort()}
+
+        \item output the content of the sorted array using \texttt{OutputArray()}
+
+        \end{itemize}
+
+
+        Write program code to extend the main program.
+
+
+        Save your program.
+
+
+        Copy and paste the program code into part \textbf{2(d)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2dii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+
+        Copy and paste the screenshot into part \textbf{2(d)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The function \texttt{Search()} performs a binary search to find \texttt{ItemToFind}
+      in \texttt{DataArray}
+
+
+      The function takes \textbf{two} parameters:
+
+
+      \begin{itemize}
+
+      \item \texttt{DataArray}, an array of integers
+
+      \item \texttt{ItemToFind}, an integer to find in \texttt{DataArray}
+
+      \end{itemize}
+
+
+      The function returns:
+
+
+      \begin{itemize}
+
+      \item the index of \texttt{ItemToFind} if it is in \texttt{DataArray}
+
+      \item -1 if \texttt{ItemToFind} is not in \texttt{DataArray}
+
+      \end{itemize}
+
+
+      Write program code for \texttt{Search()}
+
+
+      You must \textbf{not} use any inbuilt searching functions for your programming
+      language.
+
+
+      Save your program.
+
+
+      Copy and paste the program code into part \textbf{2(e)} in the evidence document.'
+    answer_options: []
+    subquestions: []
+  - number: 2f
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The main program needs extending to call \texttt{Search()} with the sorted
+      array \textbf{four} times:
+
+
+      \begin{itemize}
+
+      \item the first time to find the index of the integer 0
+
+      \item the second time to find the index of the integer 345
+
+      \item the third time to find the index of the integer 67
+
+      \item the fourth time to find the index of the integer 2
+
+      \end{itemize}
+
+
+      If the integer is found in the array, output an appropriate message that includes
+      the index.
+
+      If the integer is not found, output that it was not found.'
+    answer_options: []
+    subquestions:
+    - number: 2fi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code to extend the main program.
+
+
+        Save your program.
+
+        Copy and paste the program code into part \textbf{2(f)(i)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+    - number: 2fii
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        Save your program.
+
+        Copy and paste the screenshot into part \textbf{2(f)(ii)} in the evidence
+        document.'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program stores data in a linked list that is designed using Object-Oriented
+    Programming (OOP).
+
+
+    The class \texttt{Node} stores data about the nodes.
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \multicolumn{2}{|c|}{\textbf{Node}} \\ \hline
+
+    \texttt{TheData : Integer} & stores the integer data \\
+
+    \texttt{NextNode : Node} & stores the next node in the linked list \\ \hline
+
+    \texttt{Constructor()} & initialises \texttt{TheData} to its parameter value,
+    initialises \texttt{NextNode} to a null value \\
+
+    \texttt{GetData()} & returns \texttt{TheData} \\
+
+    \texttt{GetNextNode()} & returns \texttt{NextNode} \\
+
+    \texttt{SetNextNode()} & takes an object of type \texttt{Node} as a parameter
+    and stores it in \texttt{NextNode} \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Write program code to declare the class \texttt{Node} and its methods.
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Write program code to declare the class \texttt{Node} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program as \textbf{Question3\_J25}. \\
+
+        Copy and paste the program code into part \textbf{3(a)(i)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Write program code for the \textbf{two} get methods.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(a)(ii)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3aiii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The method \texttt{SetNextNode()} takes an object of type \texttt{Node}
+        as a parameter. The method stores the parameter in the attribute \texttt{NextNode}
+
+
+        Write program code for \texttt{SetNextNode()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(a)(iii)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The class \texttt{LinkedList} stores the linked list.
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \multicolumn{2}{|c|}{\textbf{LinkedList}} \\ \hline
+
+      \texttt{HeadNode : Node} & stores the first node in the linked list \\ \hline
+
+      \texttt{Constructor()} & initialises \texttt{HeadNode} to a null value \\
+
+      \texttt{InsertNode()} & creates a new node using its integer parameter. Sets
+      this \\
+
+      & node as the new head node and updates \texttt{NextNode} \\
+
+      \texttt{RemoveNode()} & finds the first node that contains its integer parameter
+      and \\
+
+      & removes this node from the linked list \\
+
+      \texttt{Traverse()} & concatenates and returns the integer data in each node
+      in \\
+
+      & the linked list \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write program code to declare the class \texttt{LinkedList} and its constructor.
+
+
+        Do \textbf{not} declare the other methods.
+
+
+        Use your programming language appropriate constructor.
+
+
+        If you are writing in Python, include attribute declarations using comments.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(b)(i)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'The method \texttt{InsertNode()}:
+
+
+        \begin{itemize}
+
+        \item takes an integer as a parameter
+
+        \item creates a new node with the parameter as the integer data
+
+        \item uses the new node''s method \texttt{SetNextNode()} to store the current
+        \texttt{HeadNode} as the next node
+
+        \item replaces \texttt{HeadNode} with the current node.
+
+        \end{itemize}
+
+
+        Write program code for \texttt{InsertNode()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(b)(ii)} in the evidence
+        document. \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The method \texttt{Traverse()} concatenates the integer data from the
+        nodes in the linked list, starting with the node stored in \texttt{HeadNode}.
+        The method returns the final string with each integer data separated with
+        a space.
+
+
+        Write program code for \texttt{Traverse()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(b)(iii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3biv
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 6
+      text: 'The method \texttt{RemoveNode()} takes an integer parameter to search
+        for and remove from the linked list.
+
+
+        The method first checks if the linked list is empty. If the linked list is
+        empty the method returns \texttt{FALSE}
+
+
+        If the linked list is \textbf{not} empty, the integer data in \texttt{HeadNode}
+        is compared to the parameter. If it matches the parameter, \texttt{HeadNode}
+        is changed to store the next node.
+
+
+        If the parameter does \textbf{not} match, the nodes are followed until either:
+
+
+        \begin{itemize}
+
+        \item the node with matching integer data is found. This node is removed,
+        the appropriate nodes updated and \texttt{TRUE} returned
+
+        \item or
+
+        \item none of the nodes contain matching integer data to the parameter. No
+        nodes are removed and \texttt{FALSE} is returned.
+
+        \end{itemize}
+
+
+        Write program code for \texttt{RemoveNode()}
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(b)(iv)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The main program creates a new \texttt{LinkedList} object and uses the
+        appropriate method to insert \textbf{five} nodes with the following integer
+        data values in the order given:
+
+
+        10 \quad 20 \quad 30 \quad 40 \quad 50
+
+
+        The main program then:
+
+        \begin{itemize}
+
+        \item calls \texttt{Traverse()}
+
+        \item removes the node containing the integer data 30 using \texttt{RemoveNode()}
+
+        \item calls \texttt{Traverse()}
+
+        \end{itemize}
+
+
+        Write program code for the main program.
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the program code into part \textbf{3(c)(i)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Test your program.
+
+
+        Take a screenshot of the output(s).
+
+
+        \begin{tabular}{|l|}
+
+        \hline
+
+        Save your program. \\
+
+        Copy and paste the screenshot into part \textbf{3(c)(ii)} in the evidence
+        document. \\
+
+        \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []

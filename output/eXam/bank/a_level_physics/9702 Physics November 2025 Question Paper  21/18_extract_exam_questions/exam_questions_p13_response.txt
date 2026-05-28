@@ -1,0 +1,44 @@
+[thinking]
+**Page 13 of the Exam: A Quick Breakdown**
+
+Okay, so the user wants me to handle page 13 of this exam. Looks like we have a few questions to work through, all related to a circuit involving a thermistor. Let's break down the tasks. First, there's question `5bii`: this is a long-answer question, essentially asking me to explain how the current through resistor R changes as the thermistor's temperature increases, and, crucially, to relate this to the current *in the cell*. I need to be precise and clear here, making sure my explanation explicitly links the cell's current to the overall behavior of the circuit.
+
+Next up, we have `5c`, which sets the stage for a few calculations. It provides the following information: the electromotive force (EMF) of the cell is 1.50V, the internal resistance is 0.12Ω, resistor R's resistance is 6.00Ω, and, at a particular temperature, the current through R is 0.200A.
+
+Now, the specific calculations:
+*   `5ci`: I need to determine the current in the cell. Simple enough, just need to figure out how to do it.
+*   `5cii`: I need to calculate the resistance of the thermistor at this specific temperature. Should be able to apply some circuit laws to get to the answer.
+
+I'll need to remember to keep the units right. Make sure I've formatted the answer lines correctly with `current = \hrulefill \text{ A}` and `resistance = \hrulefill \Omega`.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5bii"
+    type: long_answer
+    text: |
+      With reference to the current in the cell, explain why the current in resistor R decreases with increasing temperature of the thermistor.
+  - number: "5c"
+    type: short_answer
+    text: |
+      The electromotive force (e.m.f.) $E$ of the cell in Fig. 5.1 is $1.50\text{ V}$. The internal resistance $r$ of the cell is $0.12\ \Omega$.
+
+      Resistor R has a resistance of $6.00\ \Omega$.
+
+      At a particular temperature of the thermistor, the current in R is $0.200\text{ A}$.
+
+      For this temperature of the thermistor, determine:
+  - number: "5ci"
+    type: calculation
+    text: |
+      the current in the cell
+
+      current = \hrulefill\text{ A}
+  - number: "5cii"
+    type: calculation
+    text: |
+      the resistance of the thermistor.
+
+      resistance = \hrulefill\ \Omega

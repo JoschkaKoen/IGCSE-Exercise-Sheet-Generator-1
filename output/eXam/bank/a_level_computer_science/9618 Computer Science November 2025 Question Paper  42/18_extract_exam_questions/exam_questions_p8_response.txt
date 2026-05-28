@@ -1,0 +1,103 @@
+[thinking]
+**Analyzing and Structuring Exam Questions**
+
+Okay, so the task at hand is to transcribe questions from page 8 of this exam and ensure they're correctly formatted according to a given stub structure. The stubs provided are "2f," "2fi," and "2fii". My first thought is to analyze the page's organization and the relationship between these stub entries. The page clearly structures things as (f)(i) and (ii).
+
+Initially, I considered whether "2f" might represent a stub error, given the potential for discrepancies between the stub and the page content, but quickly realized that (f) is a parent component and thus "2f" is not an error and is the parent question. So, let's look at the structure more closely. "(f)" appears to be the overall section, and "(i)" and "(ii)" are sub-parts. It looks like the program design has been considered.
+
+Now I need to decide what to put in each sub-section, 2f, 2fi and 2fii. "2f" looks like the parent, so I'll structure it that way. The text on the page begins with "(f) (i) The main program: ...", and is followed by some bullet points and program code to amend. The 2f entry is going to be short, as the parent. The code-writing part will need to go to 2fi. 
+
+I'll put the description of the program that has been provided in the exam into 2f. The instruction to write and amend program code will go into 2fi. The screenshot testing section will go to 2fii. 
+
+Here's how I'll structure it:
+
+`2f`: Introduces the main program:
+```yaml
+  - number: "2f"
+    type: short_answer
+    text: |
+      The main program:
+
+      \begin{itemize}
+      \item prompts the user to enter an integer
+      \item takes the integer as input
+      \item calls \texttt{RecursiveBinarySearch()} with the sorted array, appropriate lower bound, appropriate upper bound and the user's input as parameters
+      \item outputs "Not found" if the input is not within the array
+      \item outputs "Found at position" and the index if the input is within the array.
+      \end{itemize}
+```
+
+`2fi`: The code-writing part:
+```yaml
+  - number: "2fi"
+    type: short_answer
+    text: |
+      Write program code to amend the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(f)(i)} in the evidence document.
+```
+
+`2fii`: Describes the program testing:
+```yaml
+  - number: "2fii"
+    type: short_answer
+    text: |
+      Test your program \textbf{three} times with each of the inputs described:
+
+      Test 1: the smallest number in the array
+
+      Test 2: the largest number in the array
+
+      Test 3: a number \textbf{not} in the array
+
+      Take a screenshot of each output.
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{2(f)(ii)} in the evidence document.
+```
+This looks correct and logically organized. This hierarchy makes perfect sense!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2f"
+    type: short_answer
+    text: |
+      The main program:
+
+      \begin{itemize}
+      \item prompts the user to enter an integer
+      \item takes the integer as input
+      \item calls \texttt{RecursiveBinarySearch()} with the sorted array, appropriate lower bound, appropriate upper bound and the user's input as parameters
+      \item outputs "Not found" if the input is not within the array
+      \item outputs "Found at position" and the index if the input is within the array.
+      \end{itemize}
+  - number: "2fi"
+    type: short_answer
+    text: |
+      Write program code to amend the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(f)(i)} in the evidence document.
+  - number: "2fii"
+    type: short_answer
+    text: |
+      Test your program \textbf{three} times with each of the inputs described:
+
+      Test 1: the smallest number in the array
+
+      Test 2: the largest number in the array
+
+      Test 3: a number \textbf{not} in the array
+
+      Take a screenshot of each output.
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{2(f)(ii)} in the evidence document.

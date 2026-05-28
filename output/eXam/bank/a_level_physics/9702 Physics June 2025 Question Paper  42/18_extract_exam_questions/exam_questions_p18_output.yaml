@@ -1,0 +1,21 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      Fig. 8.1 shows a circuit that produces rectification of an alternating input voltage.
+
+      The input voltage $V_{\text{IN}}$ is sinusoidal. The rectified output voltage $V_{\text{OUT}}$ is applied across resistor R.
+
+      The variation of $V_{\text{IN}}$ with time $t$ has amplitude $V_0$ and period $T$, as shown in Fig. 8.2.
+
+      The root-mean-square (r.m.s.) value of $V_{\text{IN}}$ is 6.0 V.
+  - number: "8ai"
+    type: short_answer
+    text: |
+      State the type of rectification produced by the circuit of Fig. 8.1.
+  - number: "8aii"
+    type: calculation
+    text: |
+      Calculate $V_0$.
+
+      $V_0 = \hrulefill \text{ V}$

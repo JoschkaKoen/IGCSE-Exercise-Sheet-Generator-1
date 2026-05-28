@@ -1,0 +1,7 @@
+questions:
+  - number: "4c"
+    type: calculation
+    text: |
+      Calculate the ratio $\frac{h_2}{h_1}$.
+
+      ratio = \hrulefill

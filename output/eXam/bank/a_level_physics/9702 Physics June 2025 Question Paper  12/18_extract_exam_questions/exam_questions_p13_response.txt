@@ -1,0 +1,100 @@
+[thinking]
+**Examining the Physics Questions**
+
+Okay, so I need to transcribe page 13 of this exam paper, specifically questions 29, 30, 31, and 32. Let's dive in.
+
+First up, Question 29. It deals with diffraction gratings.  A student is using one to determine the wavelength of visible light. The grating has 300 lines per mm. The student measures the angle, $\theta$, for each order, $n$, of the intensity maxima, and plots $n$ against $\sin \theta$. We have a graph with a straight line, and the gradient is labeled 'G'. The question asks for the expression representing the wavelength, in meters, in terms of G. I'll need to recall the grating equation here, likely $d \sin \theta = n \lambda$, where $d$ is the slit separation (the inverse of the lines per mm), $n$ is the order, $\theta$ is the angle, and $\lambda$ is the wavelength. Since the y-axis is $n$ and the x-axis is $\sin \theta$, the gradient should be $d/\lambda$. We need to convert lines per mm to meters. Therefore, $300 \text{ lines/mm} = 300 \times 10^3 \text{ lines/m} $, so $d = (300 \times 10^3)^{-1} \text{ m} = 3.33 \times 10^{-6} \text{ m}$ Therefore, $\lambda = d/G$. So I think the answer is C: $\frac{3.3 \times 10^{-6}}{G}$.
+
+Moving on to Question 30, it concerns stationary waves. The question asks what is *not* a necessary condition for two waves to produce a stationary wave. Immediately, I'm thinking of the conditions for superposition and interference. They definitely need to have the same period and wavelength. They can't be traveling in the same direction, or they would be a traveling wave, but in opposite directions. Different types would have different properties, such as frequency, so they would not create a standing wave, so they also would not be of the same period.  Therefore, I'm going with D: They must travel in the same direction.
+
+Question 31 presents a double-slit experiment. We're given the distance from the slits to the screen ($0.60 \text{ m}$), and the fringe separation ($1.8 \text{ mm}$). Then, the distance is increased by $0.90 \text{ m}$, so the total distance is now $1.50 \text{ m}$.  We need to find the new fringe separation. I remember the formula for fringe separation, $\Delta x = \frac{\lambda L}{d}$, where $L$ is the distance to the screen, $\lambda$ is the wavelength, and $d$ is the slit separation. Since the wavelength and slit separation are constant, the fringe separation is directly proportional to the distance to the screen. If the distance increases by a factor of 1.5, the new fringe separation should increase proportionally.  $1.50 / 0.60 = 2.5$. The original separation is $1.8 \text{ mm} \times 2.5 = 4.5\text{ mm}$. The answer must be C: $4.5\text{ mm}$.
+
+Finally, Question 32 looks at a wire with constant resistivity and a constant current. We want to know about the potential difference across the wire. Think Ohm's Law and resistance, $V = IR$, and resistance is $\rho L/A$, where $\rho$ is the resistivity, $L$ is the length, and $A$ is the cross-sectional area. The cross-sectional area varies with the *square* of the diameter. Combining, we get $V = I (\rho L / A)$. Since the wire is constant, $I$ is constant, and since $A$ is proportional to the diameter squared, $V$ is directly proportional to the length and inversely proportional to the diameter of the square. Thus, potential difference is directly proportional to the length of the wire and, as the diameter increase, $V$ gets smaller. The question is what is true, so looking at the options: The answer is A: It is directly proportional to the length of the wire.
+
+
+
+[/thinking]
+
+questions:
+  - number: "29"
+    type: multiple_choice
+    text: |
+      A student uses a diffraction grating to determine the wavelength of visible light from a source.
+
+      The diffraction grating has 300 lines per mm. The student measures the angle $\theta$ of each order $n$ of the intensity maxima. A graph of $n$ against $\sin \theta$ is plotted. The line of best fit for the plotted points is shown and has gradient $G$.
+
+      Which expression represents the wavelength, in m, of the visible light in terms of $G$?
+    options:
+      - letter: A
+        text: |
+          $3 \times 10^5 G$
+      - letter: B
+        text: |
+          $3.3 \times 10^{-6} G$
+      - letter: C
+        text: |
+          $\frac{3.3 \times 10^{-6}}{G}$
+      - letter: D
+        text: |
+          $\frac{300}{G}$
+  - number: "30"
+    type: multiple_choice
+    text: |
+      Two waves meet.
+
+      What is \textbf{not} a necessary condition for the waves to produce a stationary wave?
+    options:
+      - letter: A
+        text: |
+          They must be of the same type.
+      - letter: B
+        text: |
+          They must have the same period.
+      - letter: C
+        text: |
+          They must have the same wavelength.
+      - letter: D
+        text: |
+          They must travel in the same direction.
+  - number: "31"
+    type: multiple_choice
+    text: |
+      Light of a single wavelength is incident normally on a double slit. Interference fringes are observed on a screen.
+
+      The distance from the double slit to the screen is $0.60\text{ m}$ and the fringe separation is $1.8\text{ mm}$.
+
+      The distance from the double slit to the screen increases by $0.90\text{ m}$.
+
+      What is the new fringe separation?
+    options:
+      - letter: A
+        text: |
+          $1.2\text{ mm}$
+      - letter: B
+        text: |
+          $2.7\text{ mm}$
+      - letter: C
+        text: |
+          $4.5\text{ mm}$
+      - letter: D
+        text: |
+          $5.4\text{ mm}$
+  - number: "32"
+    type: multiple_choice
+    text: |
+      A wire is made from a metal of constant resistivity. There is a constant current in the wire.
+
+      Which statement about the potential difference across the wire is correct?
+    options:
+      - letter: A
+        text: |
+          It is directly proportional to the length of the wire.
+      - letter: B
+        text: |
+          It is inversely proportional to the length of the wire.
+      - letter: C
+        text: |
+          It is directly proportional to the diameter of the wire.
+      - letter: D
+        text: |
+          It is inversely proportional to the diameter of the wire.

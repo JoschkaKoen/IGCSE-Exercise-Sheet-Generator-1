@@ -1,0 +1,31 @@
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      The swap section in lines 11 to 13 of the existing code are to be changed to a call statement for a procedure. This procedure will include two parameters representing the indexes of the array elements to be swapped.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Complete the pseudocode for \texttt{PROCEDURE Swap}
+
+      \begin{alltt}
+      PROCEDURE Swap(\hrulefill)
+
+          DECLARE Hold : REAL
+
+          Hold <- Values[\hrulefill]
+
+          \hrulefill
+
+          \hrulefill
+
+      ENDPROCEDURE
+      \end{alltt}
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Write the pseudocode to transfer control to \texttt{PROCEDURE Swap}
+  - number: "3c"
+    type: long_answer
+    text: |
+      Explain the difference between global variables and the variable declared in \textbf{3(b)(i)}.

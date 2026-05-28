@@ -1,0 +1,26 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A road bridge has a weight limit and a height limit for vehicles. For example, a vehicle must weigh less than $10000 \text{ kg}$ and must have a height of less than $3 \text{ m}$.
+
+      The bridge has a warning system. If a vehicle is approaching the bridge and it exceeds one or both limits, a sign displays a warning telling the driver of the vehicle to stop.
+  - number: "9a"
+    type: short_answer
+    text: |
+      The bridge warning system uses sensors to detect if a vehicle exceeds the limits.
+
+      Complete the table by identifying \textbf{two} different sensors that could be used by the system \textbf{and} describe how each sensor is used by the system.
+
+      \begin{tabular}{|p{5cm}|p{10cm}|}
+      \hline
+      \textbf{Sensor} & \textbf{Use in bridge warning system} \\ \hline
+       &  \\
+       &  \\ \hline
+       &  \\
+       &  \\ \hline
+      \end{tabular}
+  - number: "9b"
+    type: short_answer
+    text: |
+      Explain whether the bridge warning system is an example of a monitoring system or of a control system.

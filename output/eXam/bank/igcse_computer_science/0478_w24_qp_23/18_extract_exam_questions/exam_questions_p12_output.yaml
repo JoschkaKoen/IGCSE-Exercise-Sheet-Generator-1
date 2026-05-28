@@ -1,0 +1,32 @@
+```yaml
+questions:
+  - number: "12"
+    type: long_answer
+    text: |
+      Members of a litter picking group complete a litter pick every month. Members' names are stored in one-dimensional (1D) array \texttt{PickerName[]}
+
+      Each member stores the weight of the litter they have picked in another one-dimensional (1D) array \texttt{PickedWeight[]}
+      The weights are in kilograms with one decimal place, for example 8.4
+
+      The position of each member's data in the two arrays is the same. For example, the member stored at index 10 in \texttt{PickerName[]} and at index 10 in \texttt{PickedWeight[]} is the same.
+
+      Every month, there is a small prize awarded to the members of the group who have the two heaviest weights. Certificates are awarded to all members with a pick weight of over three kilograms.
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item allows the weight of members' picks to be input and validated
+      \item sorts the arrays \texttt{PickedWeight[]} and \texttt{PickerName[]} in descending order of weight
+      \item outputs the member names and the pick weights of the members with the two heaviest picks and identifies them as "Best in Group" and "Second best in Group"
+      \item stores the names of all the members who will receive a certificate in the array \texttt{PickerCertificate[]}
+      \item outputs a message stating the number of certificates to be printed.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do \textbf{not} need to declare any arrays or variables; you may assume that this has already been done.
+
+      All inputs and outputs must contain suitable messages.
+
+      You do \textbf{not} need to initialise the data in the array \texttt{PickerName[]}
+```

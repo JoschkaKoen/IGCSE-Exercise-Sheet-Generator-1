@@ -1,0 +1,94 @@
+[thinking]
+**Exam Page 10 Transcription and SQL Analysis**
+
+Okay, so the user wants me to handle page 10 of this exam paper. Let's break this down. The questions are based on a table, which is good. Here's what I'm seeing:
+
+*   **Question 11:** The introduction and table. The table is pretty straightforward, and I've got the data points in front of me: `MtNo`, `Name`, `InStock`, `WeightKg`, `PricePerBag`, and `NumberBags`. I can quickly translate this into a LaTeX `tabular` environment for clarity, since the formatting in the image is simple. Let's make it look clean:
+
+    ```latex
+    \begin{tabular}{|l|l|l|l|l|l|}
+    \hline
+    \textbf{MtNo} & \textbf{Name} & \textbf{InStock} & \textbf{WeightKg} & \textbf{PricePerBag} & \textbf{NumberBags} \\ \hline
+    MT01 & Builders sand & Yes & 50 & 4.50 & 50 \\ \hline
+    MT02 & Sharp sand & Yes & 25 & 3.50 & 21 \\ \hline
+    MT03 & Red sand & No & 50 & 2.75 & 0 \\ \hline
+    MT04 & Cement & No & 25 & 6.85 & 0 \\ \hline
+    MT05 & Chippings & Yes & 50 & 35.00 & 50 \\ \hline
+    MT06 & Cobbles & No & 75 & 67.35 & 0 \\ \hline
+    MT07 & Pebbles small & Yes & 50 & 34.50 & 3 \\ \hline
+    MT08 & Pebbles medium & Yes & 25 & 25.50 & 10 \\ \hline
+    MT12 & Pebbles large & Yes & 75 & 62.75 & 20 \\ \hline
+    MT15 & Washed gravel & Yes & 50 & 12.75 & 12 \\ \hline
+    MT16 & Pea gravel & Yes & 100 & 15.95 & 24 \\ \hline
+    \end{tabular}
+    ```
+
+*   **Question 11a:** It's an SQL output question, asking for the result of a `SELECT` statement. This should be trivial for anyone with experience. The query is:
+
+    ```sql
+    SELECT MtNo, Name
+    FROM BuildStock
+    WHERE WeightKg = 75
+    ORDER BY PricePerBag;
+    ```
+
+    No need to put answer lines here. I'm sure anyone with the right expertise can work out the output.
+
+*   **Question 11bi:** This is a SQL completion exercise. They want a `SELECT` statement to show out-of-stock materials. The prompts gives a line to fill in:
+
+    ```sql
+    SELECT \hrulefill
+    FROM \hrulefill
+    WHERE \hrulefill
+    ```
+
+*   **Question 11bii:** An explanation of another SQL statement to achieve the same result. No answer lines required here either. They're looking for a conceptual understanding of SQL. This shouldn't be too hard to come up with alternative SQL queries.
+
+
+
+[/thinking]
+
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      Building materials are sold in bags. A new database table called \texttt{BuildStock} has been set up to store details about the materials for sale. Part of this table is given.
+
+      \begin{tabular}{|c|l|c|c|c|c|}
+      \hline
+      \textbf{MtNo} & \textbf{Name} & \textbf{InStock} & \textbf{WeightKg} & \textbf{PricePerBag} & \textbf{NumberBags} \\ \hline
+      MT01 & Builders sand & Yes & 50 & 4.50 & 50 \\ \hline
+      MT02 & Sharp sand & Yes & 25 & 3.50 & 21 \\ \hline
+      MT03 & Red sand & No & 50 & 2.75 & 0 \\ \hline
+      MT04 & Cement & No & 25 & 6.85 & 0 \\ \hline
+      MT05 & Chippings & Yes & 50 & 35.00 & 50 \\ \hline
+      MT06 & Cobbles & No & 75 & 67.35 & 0 \\ \hline
+      MT07 & Pebbles small & Yes & 50 & 34.50 & 3 \\ \hline
+      MT08 & Pebbles medium & Yes & 25 & 25.50 & 10 \\ \hline
+      MT12 & Pebbles large & Yes & 75 & 62.75 & 20 \\ \hline
+      MT15 & Washed gravel & Yes & 50 & 12.75 & 12 \\ \hline
+      MT16 & Pea gravel & Yes & 100 & 15.95 & 24 \\ \hline
+      \end{tabular}
+  - number: "11a"
+    type: short_answer
+    text: |
+      Write the output from this structured query language (SQL) statement.
+
+      \begin{alltt}
+      SELECT MtNo, Name
+      FROM BuildStock
+      WHERE WeightKg = 75
+      ORDER BY PricePerBag;
+      \end{alltt}
+  - number: "11bi"
+    type: short_answer
+    text: |
+      Complete this SQL statement to display only the names of all the materials that are out of stock.
+
+      \texttt{SELECT} \hrulefill
+      \texttt{FROM} \hrulefill
+      \texttt{WHERE} \hrulefill
+  - number: "11bii"
+    type: long_answer
+    text: |
+      Explain how another SQL statement using a different field could be used to display the same information.

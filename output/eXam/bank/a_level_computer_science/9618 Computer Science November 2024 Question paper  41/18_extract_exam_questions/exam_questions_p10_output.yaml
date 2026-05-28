@@ -1,0 +1,47 @@
+questions:
+  - number: "2e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ei"
+    type: long_answer
+    text: |
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item calculate and output the chance of the first horse jumping each of the \textbf{four} fences without knocking each fence down
+      \item calculate and output the chance of the second horse jumping each of the \textbf{four} fences without knocking each fence down.
+      \end{itemize}
+
+      All outputs must have appropriate messages including the name of the horse and the fence number.
+
+      An example output for one horse jumping two fences is:
+
+      \begin{alltt}
+      "The horse Fox at fence 1 has a 68% chance of success
+      The horse Fox at fence 2 has a 72% chance of success"
+      \end{alltt}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)(i)} in the evidence document.
+  - number: "2eii"
+    type: long_answer
+    text: |
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item calculate and output the average chance of success for each horse jumping over all \textbf{four} fences without knocking each fence down (the average is the total of values divided by the quantity of values). An example output for one horse jumping all of the fences is:
+      \begin{alltt}
+      "The horse Fox has an average 70% chance of jumping over all four fences"
+      \end{alltt}
+      \item output the name of the horse that has the highest average chance of success.
+      \end{itemize}
+
+      You can assume that each average will be different.
+
+      All outputs must have appropriate messages.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)(ii)} in the evidence document.

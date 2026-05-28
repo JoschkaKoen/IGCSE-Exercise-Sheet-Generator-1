@@ -1,0 +1,39 @@
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student has a smartphone.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Identify \textbf{two} input devices that can be built into the smartphone.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      Identify \textbf{two} output devices that can be built into the smartphone.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2c"
+    type: short_answer
+    text: |
+      The smartphone contains secondary storage.
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Explain the purpose of the secondary storage in the smartphone.
+  - number: "2cii"
+    type: long_answer
+    text: |
+      Identify the most suitable type of secondary storage for the smartphone.
+
+      Explain your choice.
+
+      Secondary storage type \hrulefill
+
+      Explanation \hrulefill
+```

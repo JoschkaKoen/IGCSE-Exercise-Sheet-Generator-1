@@ -1,0 +1,5 @@
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      Determine the quark composition of a tritium nucleus.

@@ -1,0 +1,39 @@
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      The class \texttt{Station} stores the data about the stations:
+
+      \begin{tabular}{|l|p{7.5cm}|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Station}} \\
+      \hline
+      \texttt{StationID : String} & stores the station ID \\
+      \texttt{NumberPlatforms : Integer} & stores the number of platforms at the station \\
+      \texttt{Trains[0:9] : Train} & stores the trains currently at the station platforms \\
+      \texttt{NumberTrains : Integer} & stores the number of trains currently at the station platforms \\
+      \hline
+      \texttt{Constructor()} & initialises \texttt{StationID} and \texttt{NumberPlatforms} to the parameter values, initialises \texttt{Trains} to an empty array and \texttt{NumberTrains} to 0 \\
+      \texttt{GetTrains()} & returns a string containing data about the trains currently at the station platforms \\
+      \texttt{AddTrain()} & takes a \texttt{Train} parameter and stores it if there is a platform available; each platform can only have one train \\
+      \hline
+      \end{tabular}
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Station} and its constructor.
+
+      Do \textbf{not} declare the other methods.
+
+      All attributes should be private.
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      \begin{tabular}{|p{12cm}|}
+      \hline
+      Save your program. \newline \newline
+      Copy and paste the program code into part \textbf{2(c)(i)} in the evidence document. \\
+      \hline
+      \end{tabular}

@@ -1,0 +1,64 @@
+[thinking]
+**Page 2 Exam YAML Generation**
+
+Okay, so the task at hand is to generate the YAML structure for page 2 of this exam. Let's break down the questions and translate them into a suitable format. First, question "1" is a straightforward multiple-choice. We'll need to capture the question stem, the options (A through D), and the correct answer, which is going to be "format check".
+
+Then, we have question "2", which is a short answer section. It's subdivided. Question "2a" is a matching exercise, which is great, I can represent this nicely. It links descriptions of programming concepts to the concepts themselves. I'll represent this as a table; I need to ensure it's structured in a way that is clear.
+
+The challenge here is matching the four descriptions to *five* programming concepts, and the table format is the way to do it, because it is best to show them in columns. I have checked the latex formatting, and checked that the rows and columns are correct.
+
+Finally, we get to "2b", which is a pseudo code writing question. It requires the student to write the pseudo code to use a procedure named `Average` that takes the values 25 and 50. Since it's open-ended, the YAML structure will likely just need a prompt to indicate where the answer should be placed, no specific answer fields as such.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+      A validation check to make sure that an email address contains an '@' sign is a
+    options:
+      - letter: A
+        text: |
+          range check.
+      - letter: B
+        text: |
+          visual check.
+      - letter: C
+        text: |
+          presence check.
+      - letter: D
+        text: |
+          format check.
+  - number: "2"
+    type: short_answer
+    text: |
+      \textbf{Four} descriptions of programming concepts and \textbf{five} programming concepts are shown.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Draw \textbf{one} line to link each description to the most appropriate programming concept.
+
+      \textbf{Not} all programming concepts will be used.
+
+      \begin{tabular}{ll}
+      \textbf{Description} & \textbf{Programming concept} \\
+      a subroutine that may \textbf{not} return a value & function \\
+       & \\
+      a value that is declared and used within a specific procedure & procedure \\
+       & \\
+      a value that a procedure expects you to supply when it is called & parameter \\
+       & \\
+      a subroutine that will always return a value & global variable \\
+       & \\
+       & local variable \\
+      \end{tabular}
+  - number: "2b"
+    type: short_answer
+    text: |
+      Write the pseudocode to use a procedure named \texttt{Average} that passes the values 25 and 50 to the procedure.
+```

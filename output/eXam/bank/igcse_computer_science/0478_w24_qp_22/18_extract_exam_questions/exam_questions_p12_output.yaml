@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "12"
+    type: long_answer
+    text: |
+      A one-dimensional (1D) array \texttt{Rooms[]} contains the names of up to 20 rooms in a house.
+      A two-dimensional (2D) array \texttt{Dimensions[]} is used to store the length, width and area of each room.
+
+      The position of any room's data is the same in both arrays. For example, the data in index 5 of \texttt{Dimensions[]} belongs to the room in index 5 of \texttt{Rooms[]}
+
+      The variable \texttt{Number} stores the number of rooms for which data is to be input. There must be at least 3 rooms but no more than 20.
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item allows the number of rooms for which data is required to be input, stored and validated
+      \item allows the name of the room and the length and width of the room, in metres, to be entered and stored
+      \item allows the area of each room to be calculated as length multiplied by width and stored as square metres rounded to two decimal places
+      \item calculates the average size of all the rooms by area, in square metres, rounded to two decimal places
+      \item finds the largest room and smallest room by area
+      \item outputs the names of all rooms with their dimensions and area
+      \item outputs the names of the largest room and smallest room by area
+      \item outputs the total area of the house and the average size of all the rooms by area.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do \textbf{not} need to declare any arrays or variables; you may assume that this has already been done.
+
+      All inputs and outputs must contain suitable messages.
+```

@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "9a"
+    type: short_answer
+    text: |
+      State why \texttt{9K} is not a valid variable for the given syntax diagrams.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Complete the Backus-Naur Form (BNF) for \texttt{<operator>}.
+
+      \texttt{<operator> ::= } \hrulefill
+  - number: "9c"
+    type: short_answer
+    text: |
+      An expression is defined as follows:
+
+      \begin{itemize}
+      \item A variable is assigned to a variable followed by an operator followed by another variable.
+      \item The operator and final variable stage can be repeated as many times as necessary.
+      \end{itemize}
+
+      Complete the syntax diagram for an expression.
+  - number: "9d"
+    type: short_answer
+    text: |
+      A character can be a letter or a digit.
+
+      An additional constraint has been applied to the definition of variable. It must comply with the given syntax diagram, but it will only pass validation if it has at least \textbf{four} characters.
+
+      State \textbf{one} example of a valid variable.
+  - number: "10"
+    type: short_answer
+    text: |
+      Identify the \textbf{two} main protocols that form Transport Layer Security (TLS) \textbf{and} state the purpose of each.
+
+      Protocol 1 \hrulefill
+      Purpose \hrulefill
+
+      Protocol 2 \hrulefill
+      Purpose \hrulefill
+```

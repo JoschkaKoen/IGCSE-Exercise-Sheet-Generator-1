@@ -1,0 +1,18 @@
+  - number: "5"
+    type: short_answer
+    text: ""
+  - number: "5a"
+    type: short_answer
+    text: ""
+  - number: "5b"
+    type: short_answer
+    text: ""
+  - number: "5c"
+    type: short_answer
+    text: ""
+  - number: "5d"
+    type: multiple_choice
+    text: ""
+  - number: "5e"
+    type: short_answer
+    text: ""

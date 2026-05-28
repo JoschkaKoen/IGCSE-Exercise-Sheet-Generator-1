@@ -1,0 +1,48 @@
+questions:
+  - number: "8"
+    type: long_answer
+    text: |
+      A program is required to test the fairness of the random number generator.
+
+      The one-dimensional (1D) array \texttt{RandomNumber[]} is used to store 100000 random integers.
+
+      The two-dimensional (2D) array \texttt{CountedNumber[]} is used to store the integers 1 to 10, inclusive, and the frequency of each integer (the number of times each integer was generated).
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item Generate 100000 random integers between 1 and 10, inclusive.
+      \item Store each integer in the appropriate array.
+      \item Calculate the frequency of each of the integers 1 to 10 and store these values in the appropriate array.
+      \item Sort the contents of the counted number array in \textbf{descending order} of frequency.
+      \item Calculate the chance of generating each of the integers 1 to 10, rounded to four decimal places.
+      Use the formula: chance = frequency / 100000
+      \item Output each of the integers 1 to 10 in the order they are stored in the counted number array, along with the chance of generating them.
+      \end{itemize}
+
+      The following is an example of an algorithm that sorts a 2D array in an ascending order:
+
+      \begin{alltt}
+      F <- TRUE
+      WHILE F DO
+        F <- FALSE
+        FOR I <- 1 TO 9
+          IF A[I, 2] > A[I + 1, 2]
+          THEN
+            T1 <- A[I, 1]
+            T2 <- A[I, 2]
+            A[I, 1] <- A[I + 1, 1]
+            A[I, 2] <- A[I + 1, 2]
+            A[I + 1, 1] <- T1
+            A[I + 1, 2] <- T2
+            F <- TRUE
+          ENDIF
+        NEXT I
+      ENDWHILE
+      \end{alltt}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      All arrays, variables or constants used must be declared for this algorithm.
+
+      All inputs and outputs must contain suitable messages.

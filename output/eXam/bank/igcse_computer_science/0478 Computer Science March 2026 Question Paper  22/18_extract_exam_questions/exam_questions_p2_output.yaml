@@ -1,0 +1,39 @@
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to identify the reason for applying a verification check to input data.
+    options:
+      - letter: A
+        text: |
+          To make sure that all the data is in the correct range.
+      - letter: B
+        text: |
+          To make sure that all the data is accurate.
+      - letter: C
+        text: |
+          To make sure that no errors have been introduced during input.
+      - letter: D
+        text: |
+          To make sure that all the data is of the correct length.
+  - number: "2"
+    type: short_answer
+    text: ''
+  - number: "2a"
+    type: short_answer
+    text: |
+      Identify the type of validation check in each description. Each check must be different.
+  - number: "2ai"
+    type: short_answer
+    text: |
+      A check to make sure that data input follows a set pattern such as two letters followed by three numbers.
+  - number: "2aii"
+    type: short_answer
+    text: |
+      A check to make sure that only whole numbers can be input.
+  - number: "2b"
+    type: short_answer
+    text: |
+      Explain the reasons why validation checks are necessary when data is input.
+```

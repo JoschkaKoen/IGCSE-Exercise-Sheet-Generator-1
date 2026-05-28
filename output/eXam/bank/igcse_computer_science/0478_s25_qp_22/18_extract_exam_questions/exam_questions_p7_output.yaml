@@ -1,0 +1,32 @@
+questions:
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the trace table for the algorithm, using the input data:
+
+      2, RACECAR, TREAT
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{Number} & \textbf{Index} & \textbf{Word} & \textbf{Continue} & \textbf{V1} & \textbf{V2} & \textbf{L1} & \textbf{L2} & \textbf{OUTPUT} \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+       & & & & & & & & \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      State the purpose of the algorithm on page 6.
+  - number: "6c"
+    type: long_answer
+    text: |
+      Explain how the algorithm knows when all the letters in the word have been checked so that it can stop checking.

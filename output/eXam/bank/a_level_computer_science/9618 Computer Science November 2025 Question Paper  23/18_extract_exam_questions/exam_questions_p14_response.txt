@@ -1,0 +1,36 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Students are learning about a simple check digit method for data validation. In this method, a single check digit is appended to the end of an original number to give a new number.
+
+      The students are studying a method which:
+      \begin{itemize}
+      \item calculates the sum of all the digits in the original number
+      \item uses integer division to calculate the remainder when the sum is divided by 10
+      \item uses the remainder as the check digit
+      \item appends the check digit to the original number, creating the new number.
+      \end{itemize}
+
+      For example:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      original number & 4162 \\ \hline
+      sum of all digits & 4 + 1 + 6 + 2 = 13 \\ \hline
+      remainder when the sum is divided by 10 using integer division & 3 \\ \hline
+      new number & 41623 \\ \hline
+      \end{tabular}
+
+      \vspace{1em}
+      The original number is always at least three digits in length.
+
+      When the new number is input, the check digit is used to validate the new number.
+  - number: "6a"
+    type: short_answer
+    text: |
+      A function \texttt{Generate()} is written to take an original number as a parameter and to return the check digit.
+
+      Outline a test plan that could be used to fully test function \texttt{Generate()}
+
+      Assume that the parameter is valid.

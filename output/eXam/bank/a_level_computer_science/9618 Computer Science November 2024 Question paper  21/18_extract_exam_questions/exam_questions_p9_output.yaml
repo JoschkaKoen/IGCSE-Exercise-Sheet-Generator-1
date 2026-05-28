@@ -1,0 +1,25 @@
+questions:
+  - number: "4c"
+    type: long_answer
+    text: |
+      The module to perform the checks and calculation will be implemented as a function. The function will need to return both a real and a Boolean value. To achieve this a record type is defined in pseudocode as follows:
+
+      \begin{alltt}
+      TYPE Result
+        DECLARE Done : BOOLEAN
+        DECLARE Value : REAL
+      ENDTYPE
+      \end{alltt}
+
+      The function \texttt{Evaluate()} will:
+      \begin{itemize}
+      \item take two parameters of type string representing the two numeric values
+      \item return a variable of type \texttt{Result} with the \texttt{Done} field set to \texttt{FALSE} if either of the following applies:
+        \begin{itemize}
+        \item at least one of the strings does \textbf{not} represent a valid numeric value
+        \item the numeric value of the string representing value \texttt{y} is zero
+        \end{itemize}
+      \item otherwise return a variable of type \texttt{Result} with the \texttt{Done} field set to \texttt{TRUE} and the \texttt{Value} field assigned the result of the formula (based on the numeric value of the two parameters).
+      \end{itemize}
+
+      Write pseudocode for the function \texttt{Evaluate()}.

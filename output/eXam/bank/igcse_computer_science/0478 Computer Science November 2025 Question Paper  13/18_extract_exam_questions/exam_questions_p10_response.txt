@@ -1,0 +1,42 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 10**
+
+Okay, so I need to get this YAML stub for page 10 of the exam populated. The questions are pretty straightforward. I'm focusing on "5", "5a", and "5b". "5" is a basic statement about binary representation. "5b" is a quick unit conversion – bytes to bits. But "5a" is where the real work is. It's that table.
+
+Let's break down this table in "5a". I've got two columns: "Term" and "Description". I'll be handling each cell that is not filled, making sure that it looks good, and that I'm correctly representing blank spaces. The instructions mention that because it's a content table, I need to keep the tabular environment verbatim, which is good.
+
+I need to make this table in LaTeX. Now, about those blank lines. Should I use `\hrulefill`, or just leave them blank? The instructions state that for blank lines, it's better to just leave them blank. The instructions emphasize that because these are writing spaces, let's represent them by simply leaving blank.
+
+So I'll write the tabular code. First, the header row. Then, the rows for each table. Now I just need to verify that it's correctly formatted to 2 columns. Okay, column count checks out – two columns per row.  It's all looking consistent.
+
+Now for "5b". I've got "The size of an image file is 1000 bytes. Give the size of the image file in bits." The instructions give an example for a dotted line: "A value followed by an answer line (e.g. 10010011 ........)" -> `10010011 \hrulefill`. But in this case, there's no preceding value, just a standalone dotted line. The instructions are clear here: "Standalone dotted answer line(s) below an open-ended prompt -> Nothing — the prompt + marks count carries the meaning." So, no `\hrulefill` is needed. I can skip it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      Text, images and sound are represented as binary to be processed by a computer.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the table by writing the missing terms and descriptions about representing text, images and sound as binary.
+
+      \begin{tabular}{|p{5cm}|p{8cm}|}
+      \hline
+      \textbf{Term} & \textbf{Description} \\ \hline
+      character set & \\ \hline
+      & This is the number of samples taken each second when recording sound. \\ \hline
+      pixel & \\ \hline
+      resolution & \\ \hline
+      & This is the number of bits used to represent a colour in an image. \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: calculation
+    text: |
+      The size of an image file is 1000 bytes.
+
+      Give the size of the image file in bits.

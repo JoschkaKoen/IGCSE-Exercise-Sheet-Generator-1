@@ -1,0 +1,22 @@
+```yaml
+questions:
+  - number: "6"
+    type: short_answer
+    text: ''
+  - number: "6a"
+    type: calculation
+    text: |
+      Convert the denary number 150 into an 8-bit binary number.
+  - number: "6b"
+    type: calculation
+    text: |
+      Convert the hexadecimal number F08 into a 12-bit binary number.
+  - number: "6c"
+    type: calculation
+    text: |
+      Give the 8-bit binary value after a logical binary shift left of two places is performed on the binary number 00110101.
+  - number: "6d"
+    type: calculation
+    text: |
+      Convert the two's complement binary integer 01110101 into denary.
+```

@@ -1,0 +1,24 @@
+questions:
+  - number: "3e"
+    type: short_answer
+    text: ''
+  - number: "3ei"
+    type: short_answer
+    text: |
+      Amend the main program to call \texttt{WriteAllToFile()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{3(e)(i)} in the evidence document.
+  - number: "3eii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot that shows all of the content stored in the file \texttt{Tree.txt}
+
+      In this screenshot you need to make sure the filename is visible.
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{3(e)(ii)} in the evidence document.

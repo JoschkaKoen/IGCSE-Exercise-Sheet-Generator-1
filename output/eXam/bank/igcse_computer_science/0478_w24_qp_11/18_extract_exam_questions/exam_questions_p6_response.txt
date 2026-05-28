@@ -1,0 +1,42 @@
+[thinking]
+**My Analysis of Exam Page 6**
+
+Okay, here's the breakdown of what I need to do with this exam page. I'm looking at page 6 and need to extract three questions from it, namely "3d", "4", and "4a", and then structure them in YAML format, adhering to the specified schema.
+
+First, I need to transcribe question "3d". This looks like a straightforward calculation question. I'll need to accurately capture the text, making sure to preserve the context. I'll need to strip the prefix "(d)" and then accurately transcribe the question: "The character ‘T’ is represented by the binary ASCII number 01010100. The character ‘t’ is represented by the binary ASCII number 01110100. Add the two binary numbers using binary addition. Give your answer in binary. Show all your working." This should be formatted as a `calculation` type question. There are no answer lines defined, so I do not need to include any empty answer lines.
+
+Next, I need to transcribe question "4." This looks like a short-answer question and the text states: "4 A company decides to create a network for its devices. All the company devices are within a single room. The employees will need to use their devices to send data to each other and share files. The company decides to send data across the network using packet switching." I'll need to strip the prefix "4 " and store this as a `short_answer` type.
+
+Finally, I need to transcribe question "4a." This will be a `long_answer` type. I'll need to remove the "(a)" prefix and transcribe the text as: "An employee sends an email to another employee. The email is broken down into packets. Describe the structure of a packet of data for the email." Again, no answer lines are defined so I do not need to include any.
+
+The last step is formatting the YAML. Given the schema and what I've extracted, I'll need to make sure I use block scalars (`|`) for all the text fields, especially since some questions have newlines in the text. I'll also need to make sure I don't use double quotes, and I won't be including an `options` key, as none of the questions are multiple-choice. This should give me clean, valid YAML output that I can process or store.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3d"
+    type: calculation
+    text: |
+      The character ‘T’ is represented by the binary ASCII number 01010100.
+
+      The character ‘t’ is represented by the binary ASCII number 01110100.
+
+      Add the \textbf{two} binary numbers using binary addition. Give your answer in binary. Show all your working.
+  - number: "4"
+    type: short_answer
+    text: |
+      A company decides to create a network for its devices.
+
+      All the company devices are within a single room.
+
+      The employees will need to use their devices to send data to each other and share files.
+
+      The company decides to send data across the network using packet switching.
+  - number: "4a"
+    type: long_answer
+    text: |
+      An employee sends an email to another employee. The email is broken down into packets.
+
+      Describe the structure of a packet of data for the email.

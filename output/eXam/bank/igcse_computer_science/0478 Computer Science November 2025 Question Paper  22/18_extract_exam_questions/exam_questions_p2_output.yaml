@@ -1,0 +1,65 @@
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to complete this sentence.
+
+      The result of the arithmetic operation $4 \wedge 2$ is
+    options:
+      - letter: A
+        text: |
+          2
+      - letter: B
+        text: |
+          8
+      - letter: C
+        text: |
+          16
+      - letter: D
+        text: |
+          42
+  - number: "2"
+    type: short_answer
+    text: |
+      This pseudocode algorithm is intended to input a first name from a user and search for it in a two-dimensional (2D) array. If the name is found, the algorithm outputs all the remaining details for that name. The algorithm will continue to allow other names to be entered for searching, until the user input stops it.
+
+      \begin{alltt}
+      01 DECLARE Contacts : ARRAY[1:500, 1:4] OF REAL
+      02 DECLARE Row : INTEGER
+      03 DECLARE Column : INTEGER
+      04 DECLARE Continue : BOOLEAN
+      05 DECLARE Stop : BOOLEAN
+      06 DECLARE FirstName : STRING
+      07 Continue <- TRUE
+      08 Stop <- FALSE
+      09 WHILE Continue
+      10   Row <- 1
+      11   OUTPUT "Enter a first name "
+      12   OUTPUT FirstName
+      13   REPEAT
+      14     IF Contacts[Row, 1] = FirstName
+      15     THEN
+      16       FOR Column <- 1 TO 4
+      17         OUTPUT Contacts[Row, 1]
+      18       NEXT Column
+      19       Stop <- TRUE
+      20     ELSE
+      21       Row <- Row + 1
+      22     ENDIF
+      23   NEXT Stop OR Row > 500
+      24   OUTPUT "Search for another name? (Y or N)"
+      25   INPUT Answer
+      26   IF Answer = 'N' OR Answer = 'n'
+      27   THEN
+      28     Continue <- TRUE
+      29   ENDIF
+      30 ENDWHILE
+      \end{alltt}
+  - number: "2a"
+    type: short_answer
+    text: |
+      Identify the line numbers of \textbf{five} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill

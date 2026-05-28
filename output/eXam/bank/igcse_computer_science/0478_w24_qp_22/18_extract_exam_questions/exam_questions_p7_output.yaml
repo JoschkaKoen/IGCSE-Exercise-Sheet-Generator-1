@@ -1,0 +1,25 @@
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      State the purpose of this algorithm.
+  - number: "7c"
+    type: short_answer
+    text: |
+      Describe the problem that would be caused in this algorithm if a \texttt{Value} of 1, 0 or less than $-1$ was input.
+  - number: "8"
+    type: short_answer
+    text: |
+      Different types of test data are used during program development to make sure a program works as intended. A program being developed takes as input whole numbers that are not greater than 80.
+
+      Identify \textbf{two} items of test data to test the whole number limit of 80.
+
+      Explain the reason for your choice of the data in each case.
+
+      Test data 1 \hrulefill
+
+      Reason for choice \hrulefill
+
+      Test data 2 \hrulefill
+
+      Reason for choice \hrulefill

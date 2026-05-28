@@ -1,0 +1,22 @@
+[thinking]
+**Transcribing Question 3: Pseudocode for Random Integer Generation**
+
+Okay, so I see the task: the user wants me to transcribe Question 3. It's a long-answer question, and it's asking for pseudocode. Alright, no problem. I'll get right to it.
+
+Let's break down the information in the text. I need to handle some formatting details first. It mentions negative signs. I'll make sure to use a proper minus sign or render it in math mode to be technically correct. The question describes an algorithm. I'll take special care to extract and clarify the details in a way that is immediately ready for pseudocode, being careful with how I handle the range of values given, noting that the word "inclusive" is key.
+
+The algorithm itself is designed to generate and output two unique random integers. The range is between $-10$ and $10$, inclusive. Got it. If both of these initial integers are negative, then a third random integer is generated and output, but this time its range is between $30$ and $35$, inclusive. Seems straightforward enough. The core of the problem is writing the pseudocode for this logic. The user wants to avoid any confusion or ambiguity, so I'll be clear and precise, with formatting and rendering that make this immediately usable for pseudocode creation. I'll make it as clean and error-proof as possible for the end-user. Time to structure the YAML.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: long_answer
+    text: |
+      An algorithm is designed to generate and output two unique random integers. Each integer value is between $-10$ and $10$ inclusive.
+
+      If both integers output are negative, a third random integer between $30$ and $35$ inclusive will be generated and output.
+
+      Write pseudocode for this algorithm.

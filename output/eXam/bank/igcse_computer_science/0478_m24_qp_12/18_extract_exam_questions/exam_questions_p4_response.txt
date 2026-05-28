@@ -1,0 +1,52 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A computer has a central processing unit (CPU).
+
+      The CPU includes the registers:
+      \begin{itemize}
+      \item Program counter (PC)
+      \item Memory address register (MAR)
+      \item Memory data register (MDR)
+      \item Accumulator (ACC)
+      \item Current instruction register (CIR).
+      \end{itemize}
+  - number: "2a"
+    type: short_answer
+    text: |
+      The table contains \textbf{five} statements about the role of registers in the fetch–decode–execute cycle of a CPU.
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Letter} & \multicolumn{1}{c|}{\textbf{Statement}} \\ \hline
+      A & PC stores the address of the next instruction to be accessed \\ \hline
+      B & MAR stores the instructions of the program that is running \\ \hline
+      C & MDR stores the data passed to it from the PC \\ \hline
+      D & ACC stores the result of each calculation \\ \hline
+      E & CIR stores the instruction currently being executed \\ \hline
+      \end{tabular}
+
+      \textbf{Two} of the statements are \textbf{not} correct.
+
+      Identify the letter of each incorrect statement.
+
+      Suggest a corrected statement for each.
+
+      Incorrect statement 1 \hrulefill
+
+      Corrected statement
+
+      \vspace{4em}
+
+      Incorrect statement 2 \hrulefill
+
+      Corrected statement
+  - number: "2b"
+    type: short_answer
+    text: |
+      The computer has a single core $3.5\text{ GHz}$ processor and an $8\text{ kB}$ cache.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      State what is meant by a $3.5\text{ GHz}$ processor.

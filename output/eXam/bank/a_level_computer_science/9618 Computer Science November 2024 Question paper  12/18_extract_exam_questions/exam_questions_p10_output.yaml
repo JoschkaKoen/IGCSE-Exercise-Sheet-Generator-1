@@ -1,0 +1,41 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A student takes a photograph of a science experiment.
+  - number: "7a"
+    type: short_answer
+    text: |
+      The photograph is saved as a bitmapped image.
+  - number: "7ai"
+    type: short_answer
+    text: |
+      Define the following bitmap terms.
+
+      Colour depth \hrulefill
+
+      File header \hrulefill
+  - number: "7aii"
+    type: short_answer
+    text: |
+      Explain why changing the image resolution will affect the image quality and file size.
+
+      Image quality \hrulefill
+
+      File size \hrulefill
+  - number: "7aiii"
+    type: short_answer
+    text: |
+      Identify \textbf{one} lossless method of compressing an image.
+  - number: "7b"
+    type: short_answer
+    text: |
+      The student draws a picture on paper that is scanned into the computer and saved as a vector graphic.
+
+      Define the vector graphic terms property and drawing list.
+
+      Property \hrulefill
+
+      Drawing list \hrulefill
+```

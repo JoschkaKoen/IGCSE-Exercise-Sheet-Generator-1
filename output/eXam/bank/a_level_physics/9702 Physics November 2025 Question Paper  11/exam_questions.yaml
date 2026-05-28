@@ -1,0 +1,951 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "The table shows some physical quantities.\n\nWhich row correctly identifies\
+    \ the quantities as scalars or vectors?\n\n\\begin{tabular}{|c|c|c|c|c|}\n\\hline\n\
+    \ & acceleration & charge & kinetic energy & wavelength \\\\\n\\hline\n\\textbf{A}\
+    \ & scalar & vector & vector & scalar \\\\\n\\textbf{B} & vector & vector & scalar\
+    \ & scalar \\\\\n\\textbf{C} & scalar & scalar & scalar & vector \\\\\n\\textbf{D}\
+    \ & vector & scalar & scalar & scalar \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two quantities are measured.
+
+
+    $$L = 6.8 \pm 0.1\text{ cm}$$
+
+
+    $$T = 2.42 \pm 0.08\text{ s}$$
+
+
+    $L$ and $T$ are related to $X$ by the equation shown.
+
+
+    $$X = \frac{4\pi^2 L}{T^2}$$
+
+
+    What is the calculated value and uncertainty of $X$?'
+  answer_options:
+  - letter: A
+    text: $45.8 \pm 0.2\text{ cm}\,\text{s}^{-2}$
+  - letter: B
+    text: $45.8 \pm 0.3\text{ cm}\,\text{s}^{-2}$
+  - letter: C
+    text: $46 \pm 2\text{ cm}\,\text{s}^{-2}$
+  - letter: D
+    text: $46 \pm 4\text{ cm}\,\text{s}^{-2}$
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What are the SI base units of the watt?
+  answer_options:
+  - letter: A
+    text: $\text{J}\,\text{s}^{-1}$
+  - letter: B
+    text: $\text{kg}\,\text{m}^2\,\text{s}^{-3}$
+  - letter: C
+    text: $\text{kg}\,\text{m}^2\,\text{s}^{-1}$
+  - letter: D
+    text: $\text{N}\,\text{m}\,\text{s}^{-1}$
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows two forces of $6.0\text{ N}$ acting on an object. The angle
+    between the lines of action of the two forces is $60^\circ$.
+
+
+    What is the magnitude of the resultant force?'
+  answer_options:
+  - letter: A
+    text: $6.0\text{ N}$
+  - letter: B
+    text: $7.9\text{ N}$
+  - letter: C
+    text: $10\text{ N}$
+  - letter: D
+    text: $12\text{ N}$
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A goods train passes through a station at a constant speed of $10\text{ m}\,\text{s}^{-1}$
+    at time $t = 0$. An express train is at rest at the station. The express train
+    leaves the station with a uniform acceleration of $0.5\text{ m}\,\text{s}^{-2}$
+    just as the goods train goes past. Both trains move in the same direction on straight,
+    parallel tracks.
+
+
+    At which time $t$ does the express train overtake the goods train?'
+  answer_options:
+  - letter: A
+    text: $6\text{ s}$
+  - letter: B
+    text: $10\text{ s}$
+  - letter: C
+    text: $20\text{ s}$
+  - letter: D
+    text: $40\text{ s}$
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A ball is held above the ground and released. It falls to the ground and
+    bounces several times.
+
+
+    The graph shows the variation with time $t$ of the velocity $v$ of the ball.
+
+
+    Four points on the graph are labelled P, Q, R and S.
+
+
+    Which statement is \textbf{not} correct?'
+  answer_options:
+  - letter: A
+    text: The area under line PQ represents the initial height of the ball.
+  - letter: B
+    text: The collisions of the ball with the ground are inelastic.
+  - letter: C
+    text: The gradient of the line RS represents the acceleration due to free fall.
+  - letter: D
+    text: The maximum upwards velocity of the ball is reached at point P.
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An object is projected horizontally. The object falls a vertical distance
+    $y$ and travels a horizontal distance $x$ before landing on the ground.
+
+
+    A second object is projected horizontally with the same initial velocity and falls
+    a vertical distance $4y$ before landing on the ground.
+
+
+    Assume that air resistance is negligible.
+
+
+    Which horizontal distance does the second object travel?'
+  answer_options:
+  - letter: A
+    text: $x$
+  - letter: B
+    text: $2x$
+  - letter: C
+    text: $4x$
+  - letter: D
+    text: $16x$
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A sphere falls from rest through the air. The graph shows the variation with
+    time of the sphere’s velocity.
+
+
+    Which diagram shows the forces acting on the sphere when it is at the velocity
+    corresponding to point P on the graph?'
+  answer_options:
+  - letter: A
+    text: air resistance and weight of equal magnitude
+  - letter: B
+    text: weight only
+  - letter: C
+    text: air resistance of smaller magnitude than weight
+  - letter: D
+    text: air resistance of greater magnitude than weight
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: In which situation is total linear momentum \textbf{always} conserved?
+  answer_options:
+  - letter: A
+    text: in all collisions between two objects
+  - letter: B
+    text: in collisions between two objects moving at equal and opposite velocity
+  - letter: C
+    text: in collisions between two objects that form an isolated system
+  - letter: D
+    text: in collisions between two objects with the same mass
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An object of mass $m$ moving with velocity $9.0\text{ m}\,\text{s}^{-1}$
+    has a head-on elastic collision with a stationary object of mass $2m$.
+
+
+    After the collision, both objects are moving. No external forces act on the system.
+
+
+    What is the velocity of the object of mass $2m$ after the collision?'
+  answer_options:
+  - letter: A
+    text: $-6.0\text{ m}\,\text{s}^{-1}$
+  - letter: B
+    text: $-3.0\text{ m}\,\text{s}^{-1}$
+  - letter: C
+    text: $4.5\text{ m}\,\text{s}^{-1}$
+  - letter: D
+    text: $6.0\text{ m}\,\text{s}^{-1}$
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The graph shows how the momentum of a motorcycle changes with time.
+
+
+    What is the resultant force on the motorcycle?'
+  answer_options:
+  - letter: A
+    text: $500 \text{ N}$
+  - letter: B
+    text: $5000 \text{ N}$
+  - letter: C
+    text: $25\ 000 \text{ N}$
+  - letter: D
+    text: $50\ 000 \text{ N}$
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A rocket has a weight of $W$ and an initial acceleration of $a$ as the rocket
+    leaves the ground vertically. The acceleration of free fall is $g$.
+
+
+    Which expression gives the initial upward force exerted on the rocket due to the
+    engine?'
+  answer_options:
+  - letter: A
+    text: $\frac{Wa}{g} + W$
+  - letter: B
+    text: $\frac{Wa}{g}$
+  - letter: C
+    text: $\frac{Wa}{g} - W$
+  - letter: D
+    text: $Wa + W$
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A uniform rod of weight $28 \text{ N}$ is supported at one end by force $F$.
+
+
+    The rod is in equilibrium and attached to a frictionless hinge at end X.
+
+
+    What is the magnitude of $F$?'
+  answer_options:
+  - letter: A
+    text: $9.0 \text{ N}$
+  - letter: B
+    text: $11 \text{ N}$
+  - letter: C
+    text: $18 \text{ N}$
+  - letter: D
+    text: $21 \text{ N}$
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two forces, each of magnitude $F$, act in opposite directions on a rod.
+
+
+    Each force acts on the rod at a distance $d$ from the pivot P.
+
+
+    What is the torque of this couple about P?'
+  answer_options:
+  - letter: A
+    text: '0'
+  - letter: B
+    text: $F \times d$
+  - letter: C
+    text: $2F \times d$
+  - letter: D
+    text: $2F \times 2d$
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A man of weight $600\text{ N}$ stands with both feet flat on the ground.
+
+
+    What is a reasonable estimate of the pressure exerted on the ground by the weight
+    of the man?'
+  answer_options:
+  - letter: A
+    text: $1 \times 10^0\text{ Pa}$
+  - letter: B
+    text: $1 \times 10^2\text{ Pa}$
+  - letter: C
+    text: $1 \times 10^4\text{ Pa}$
+  - letter: D
+    text: $1 \times 10^6\text{ Pa}$
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The formula for the upthrust on a block of wood partially submerged in water
+    is shown.
+
+
+    $$F = \rho gV$$
+
+
+    What do the symbols $\rho$ and $V$ represent?'
+  answer_options:
+  - letter: A
+    text: '$\rho$: density of water; $V$: volume of whole block'
+  - letter: B
+    text: '$\rho$: density of water; $V$: volume of block below surface of water'
+  - letter: C
+    text: '$\rho$: density of wood; $V$: volume of whole block'
+  - letter: D
+    text: '$\rho$: density of wood; $V$: volume of block below surface of water'
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An object with a mass of $100\text{ g}$ falls a vertical distance of $10\text{
+    m}$.
+
+
+    What is the change in the gravitational potential energy of the object?'
+  answer_options:
+  - letter: A
+    text: $1\text{ J}$
+  - letter: B
+    text: $10\text{ J}$
+  - letter: C
+    text: $100\text{ J}$
+  - letter: D
+    text: $10\,000\text{ J}$
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A bungee jumper jumps from a platform and is decelerated by an elastic bungee
+    cord, as shown.
+
+
+    When the jumper makes the jump, his initial gravitational potential energy relative
+    to the ground is converted into his kinetic energy and into elastic potential
+    energy in the cord.
+
+
+    At which part of the jump are all three types of energy non-zero?'
+  answer_options:
+  - letter: A
+    text: on the platform before the jump
+  - letter: B
+    text: on the way down before the cord has started to extend
+  - letter: C
+    text: on the way down as he decelerates
+  - letter: D
+    text: at the bottom of the jump when he is stationary
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A sailboat is pushed by the wind at a constant velocity $v$ across a lake.
+
+
+    The force of the wind and the velocity of the sailboat are in the same direction.
+
+
+    Which additional information is required to determine the work done per unit time
+    by the wind acting on the sailboat?'
+  answer_options:
+  - letter: A
+    text: the force exerted by the wind
+  - letter: B
+    text: the distance travelled by the sailboat per unit time
+  - letter: C
+    text: the total energy input to the sailboat by the wind
+  - letter: D
+    text: the weight of the sailboat
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A spring is fixed at one end. The length $L$ of the spring is increased by
+    applying a tensile force $F$ to the other end.
+
+
+    The graph shows the variation of $L$ with $F$.
+
+
+    What is the elastic potential energy of the spring when $F$ is $6.0\text{ N}$?'
+  answer_options:
+  - letter: A
+    text: $0.12\text{ J}$
+  - letter: B
+    text: $0.24\text{ J}$
+  - letter: C
+    text: $0.36\text{ J}$
+  - letter: D
+    text: $0.60\text{ J}$
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A wire has an unstretched length of $2.00\text{ m}$.
+
+
+    A stress of $1.6 \times 10^5\text{ Pa}$ is applied to the wire, and the new length
+    of the wire is $2.10\text{ m}$.
+
+
+    The wire obeys Hooke''s law.
+
+
+    What is the Young modulus of the wire?'
+  answer_options:
+  - letter: A
+    text: $8.0 \times 10^3\text{ Pa}$
+  - letter: B
+    text: $7.8 \times 10^4\text{ Pa}$
+  - letter: C
+    text: $1.5 \times 10^5\text{ Pa}$
+  - letter: D
+    text: $3.2 \times 10^6\text{ Pa}$
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What are the SI base units of stress?
+  answer_options:
+  - letter: A
+    text: $\text{kg}\,\text{m}\,\text{s}^{-2}$
+  - letter: B
+    text: $\text{kg}\,\text{m}^{-1}\,\text{s}^{-2}$
+  - letter: C
+    text: $\text{kg}\,\text{m}^{-2}\,\text{s}^{-2}$
+  - letter: D
+    text: $\text{kg}\,\text{m}^{-3}\,\text{s}^{-2}$
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a force–extension graph for a rubber band as the band is
+    extended and then the stretching force is decreased to zero.
+
+
+    What can be deduced from the graph?'
+  answer_options:
+  - letter: A
+    text: The rubber band does \textbf{not} return to its original length when the
+      force is decreased to zero.
+  - letter: B
+    text: The rubber band obeys Hooke’s law for the extensions shown.
+  - letter: C
+    text: The rubber band remains elastic for the extensions shown.
+  - letter: D
+    text: The shaded area represents the work done in extending the rubber band.
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Which row is correct for sound waves?\n\n\\begin{tabular}{|c|c|c|c|}\n\\\
+    hline\n & \\begin{tabular}{c} can travel \\\\ in a vacuum \\end{tabular} & \\\
+    begin{tabular}{c} can be \\\\ polarised \\end{tabular} & \\begin{tabular}{c} can\
+    \ diffract \\\\ through a gap \\end{tabular} \\\\ \\hline\n\\textbf{A} & no &\
+    \ no & yes \\\\ \\hline\n\\textbf{B} & yes & no & no \\\\ \\hline\n\\textbf{C}\
+    \ & no & yes & no \\\\ \\hline\n\\textbf{D} & no & yes & yes \\\\ \\hline\n\\\
+    end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A source emits a progressive sound wave in the horizontal direction. The
+    wave travels away from the source in a direction towards the right.
+
+
+    The graph shows the variation of the displacement of the particles from their
+    equilibrium positions with distance from the source at a particular instant in
+    time. Displacements to the right of the equilibrium positions are shown as positive.
+
+
+    Position Y represents the displacement of a particle in the sound wave at a particular
+    distance from the source at this instant.
+
+
+    Which statement about the motion of this particle is correct?'
+  answer_options:
+  - letter: A
+    text: The particle is moving away from the source.
+  - letter: B
+    text: The particle is moving towards the source.
+  - letter: C
+    text: The particle is moving upwards.
+  - letter: D
+    text: The particle is moving downwards.
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two polarising filters are placed next to each other so that their planes
+    are parallel.
+
+
+    The first polarising filter has its transmission axis at an angle of $50^\circ$
+    to the vertical.
+
+
+    The second polarising filter has its transmission axis at an angle of $20^\circ$
+    to the vertical. The angle between the transmission axes of the two polarising
+    filters is $30^\circ$.
+
+
+    A beam of vertically polarised light of intensity $8.0\text{ W}\,\text{m}^{-2}$
+    is incident normally on the first polarising filter.
+
+
+    What is the intensity of the light that is transmitted from the second polarising
+    filter?'
+  answer_options:
+  - letter: A
+    text: zero
+  - letter: B
+    text: $2.5\text{ W}\,\text{m}^{-2}$
+  - letter: C
+    text: $2.9\text{ W}\,\text{m}^{-2}$
+  - letter: D
+    text: $6.0\text{ W}\,\text{m}^{-2}$
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A dolphin is swimming at a speed of $16.0\text{ m}\,\text{s}^{-1}$ directly
+    towards a stationary underwater microphone.
+
+
+    The dolphin emits a sound of frequency $122\text{ kHz}$. The speed of sound in
+    water is $1480\text{ m}\,\text{s}^{-1}$.
+
+
+    What is the frequency of sound detected by the microphone?'
+  answer_options:
+  - letter: A
+    text: $1300\text{ Hz}$
+  - letter: B
+    text: $1330\text{ Hz}$
+  - letter: C
+    text: $121\text{ kHz}$
+  - letter: D
+    text: $123\text{ kHz}$
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student carries out a double-slit experiment using a laser emitting red
+    light of wavelength of $680\text{ nm}$. The light is incident normally on a double
+    slit.
+
+
+    The diagram shows part of the pattern of bright fringes visible on a screen at
+    a distance of $2.4\text{ m}$ from the slits. The distance across five bright fringes
+    is measured as $34\text{ mm}$.
+
+
+    What is the slit separation?'
+  answer_options:
+  - letter: A
+    text: $8.5 \times 10^{-3}\text{ m}$
+  - letter: B
+    text: $2.4 \times 10^{-4}\text{ m}$
+  - letter: C
+    text: $1.9 \times 10^{-4}\text{ m}$
+  - letter: D
+    text: $4.8 \times 10^{-5}\text{ m}$
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a stationary wave on a stretched spring at an instant in
+    time.
+
+
+    Two particles on the spring, P and Q, are shown.
+
+
+    Which statement about the vibrations of P and Q is correct?'
+  answer_options:
+  - letter: A
+    text: They have different frequencies.
+  - letter: B
+    text: They have the same amplitudes.
+  - letter: C
+    text: They have different periods.
+  - letter: D
+    text: They are always in phase.
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Green laser light passes through a diffraction grating and forms an interference
+    pattern.
+
+
+    The diffraction grating contains 400 lines per mm.
+
+
+    The wavelength of the laser light is $550\text{ nm}$.
+
+
+    What is the highest order diffraction maximum produced by the grating?'
+  answer_options:
+  - letter: A
+    text: '4'
+  - letter: B
+    text: '5'
+  - letter: C
+    text: '8'
+  - letter: D
+    text: '9'
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'There is a potential difference $V$ across a resistor of resistance $R$.
+    The current in the resistor is $I$.
+
+
+    Which equation gives the power $P$ dissipated by the resistor?'
+  answer_options:
+  - letter: A
+    text: $P = V^2 I$
+  - letter: B
+    text: $P = \frac{V^2}{I}$
+  - letter: C
+    text: $P = V^2 R$
+  - letter: D
+    text: $P = \frac{V^2}{R}$
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is a possible charge on a particle?
+  answer_options:
+  - letter: A
+    text: $6.40 \times 10^{-20}\text{ C}$
+  - letter: B
+    text: $4.00 \times 10^{-19}\text{ C}$
+  - letter: C
+    text: $1.12 \times 10^{-18}\text{ C}$
+  - letter: D
+    text: $9.11 \times 10^{-18}\text{ C}$
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The graphs show possible current–voltage ($I–V$) characteristics for a filament
+    lamp and for a semiconductor diode.
+
+
+    Which row identifies the $I–V$ graphs for the lamp and for the diode?'
+  answer_options:
+  - letter: A
+    text: 'filament lamp: P; semiconductor diode: R'
+  - letter: B
+    text: 'filament lamp: P; semiconductor diode: S'
+  - letter: C
+    text: 'filament lamp: Q; semiconductor diode: R'
+  - letter: D
+    text: 'filament lamp: Q; semiconductor diode: S'
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a circuit containing a battery and cells with negligible
+    internal resistance.
+
+
+    Some values of current, electromotive force (e.m.f.) and resistance are shown.
+
+
+    One resistor is labelled P.
+
+
+    What is the resistance of resistor P?'
+  answer_options:
+  - letter: A
+    text: $0.40\,\Omega$
+  - letter: B
+    text: $0.80\,\Omega$
+  - letter: C
+    text: $2.0\,\Omega$
+  - letter: D
+    text: $2.8\,\Omega$
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "The diagram shows a circuit with a battery connected to a resistor R. The\
+    \ battery has an internal resistance represented by resistor r.\n\nA second resistor,\
+    \ identical to R, is connected in parallel with R.\n\nWhich row describes the\
+    \ changes to the potential difference (p.d.) across r and the current shown on\
+    \ the ammeter when the second resistor is connected?\n\n\\begin{tabular}{|c|c|c|}\n\
+    \\hline\n & p.d. across r & \\begin{tabular}{c} current shown \\\\ on ammeter\
+    \ \\end{tabular} \\\\ \\hline\n\\textbf{A} & decreases & decreases \\\\ \\hline\n\
+    \\textbf{B} & decreases & increases \\\\ \\hline\n\\textbf{C} & increases & decreases\
+    \ \\\\ \\hline\n\\textbf{D} & increases & increases \\\\ \\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Two identical wires X and Y, each of length $L$ and radius $r$, are connected
+    in parallel as shown.
+
+
+    The total resistance of this combination is $R_1$.
+
+
+    Wire X is replaced with a wire of the same material with length $L$ and radius
+    $2r$.
+
+
+    The total resistance of the new combination is $R_2$.
+
+
+    What is the ratio $\frac{R_1}{R_2}$?'
+  answer_options:
+  - letter: A
+    text: $\frac{2}{5}$
+  - letter: B
+    text: $\frac{2}{3}$
+  - letter: C
+    text: $\frac{3}{2}$
+  - letter: D
+    text: $\frac{5}{2}$
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows the currents in part of an electric circuit.
+
+
+    The resistors are identical.
+
+
+    Which equation is \textbf{not} correct?'
+  answer_options:
+  - letter: A
+    text: $I_1 = I_2 + I_4 + I_5$
+  - letter: B
+    text: $I_2 = I_1 - I_3$
+  - letter: C
+    text: $I_2 = I_3 + I_4 + I_5$
+  - letter: D
+    text: $I_4 = I_3 - I_5$
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a sequence of radioactive decays involving three $\alpha$-particles
+    and a $\beta^-$ particle.
+
+
+    $$\text{}^{237}_{93}\text{Np} \xrightarrow{\alpha} \text{Q} \xrightarrow{\beta^-}
+    \text{R} \xrightarrow{\alpha} \text{S} \xrightarrow{\alpha} \text{T}$$
+
+
+    What is nuclide T?'
+  answer_options:
+  - letter: A
+    text: $^{225}_{88}\text{Ra}$
+  - letter: B
+    text: $^{231}_{88}\text{Ra}$
+  - letter: C
+    text: $^{225}_{90}\text{Th}$
+  - letter: D
+    text: $^{229}_{90}\text{Th}$
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  page: 17
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The number of electrons in a neutral atom of an isotope of plutonium, $^{239}_{94}\text{Pu}$,
+    is changed to produce a charged atom (ion) W.
+
+
+    W has an overall charge of $+1.6 \times 10^{-19}\text{ C}$.
+
+
+    How many protons, neutrons and electrons are in W?'
+  answer_options:
+  - letter: A
+    text: 'protons: 94, neutrons: 145, electrons: 93'
+  - letter: B
+    text: 'protons: 94, neutrons: 145, electrons: 95'
+  - letter: C
+    text: 'protons: 238, neutrons: 94, electrons: 239'
+  - letter: D
+    text: 'protons: 239, neutrons: 94, electrons: 238'
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  page: 17
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which particle is a lepton?
+  answer_options:
+  - letter: A
+    text: meson
+  - letter: B
+    text: positron
+  - letter: C
+    text: proton
+  - letter: D
+    text: quark
+  subquestions: []

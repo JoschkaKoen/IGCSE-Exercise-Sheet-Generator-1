@@ -1,0 +1,86 @@
+questions:
+  - number: "23"
+    type: multiple_choice
+    text: |
+      A uniform metal wire of length $L$ and diameter $d$ has spring constant $k$.
+
+      What is the Young modulus of the metal?
+    options:
+      - letter: A
+        text: |
+          $\frac{\pi d^2}{4kL}$
+      - letter: B
+        text: |
+          $\frac{\pi d^2}{kL}$
+      - letter: C
+        text: |
+          $\frac{kL}{\pi d^2}$
+      - letter: D
+        text: |
+          $\frac{4kL}{\pi d^2}$
+
+  - number: "24"
+    type: multiple_choice
+    text: |
+      An aircraft produces a sound at a frequency of $30.0\text{ Hz}$.
+
+      The speed of sound in air is $330\text{ m}\,\text{s}^{-1}$.
+
+      The aircraft is directly in front of the stationary observer and travels in a straight line towards or away from the observer.
+
+      The observer hears the sound from the aircraft at a frequency of $20.0\text{ Hz}$.
+
+      What is the speed and direction of the aircraft?
+    options:
+      - letter: A
+        text: |
+          $110\text{ m}\,\text{s}^{-1}$ away from observer
+      - letter: B
+        text: |
+          $110\text{ m}\,\text{s}^{-1}$ towards observer
+      - letter: C
+        text: |
+          $165\text{ m}\,\text{s}^{-1}$ away from observer
+      - letter: D
+        text: |
+          $165\text{ m}\,\text{s}^{-1}$ towards observer
+
+  - number: "25"
+    type: multiple_choice
+    text: |
+      Which statement about longitudinal and transverse wave motion for a progressive wave is correct?
+    options:
+      - letter: A
+        text: |
+          All transverse and longitudinal waves require a medium for propagation.
+      - letter: B
+        text: |
+          All transverse waves travel at the same speed, but longitudinal waves can travel at different speeds.
+      - letter: C
+        text: |
+          In both transverse waves and longitudinal waves, a particle with zero displacement has a maximum speed.
+      - letter: D
+        text: |
+          In a longitudinal wave there is a net movement of particles in the direction of travel of the wave, but there is no net movement of particles in a transverse wave.
+
+  - number: "26"
+    type: multiple_choice
+    text: |
+      The diagram shows a progressive transverse wave on a stretched string at one instant in time.
+
+      One point on the string is labelled X.
+
+      Which point on the string is $270^\circ$ out of phase with X?
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

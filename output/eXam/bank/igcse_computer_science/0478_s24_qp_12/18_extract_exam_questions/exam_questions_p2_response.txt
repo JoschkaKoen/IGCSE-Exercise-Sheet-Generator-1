@@ -1,0 +1,84 @@
+[thinking]
+**My Approach to Summarizing the Exam Page**
+
+Okay, here's how I'm going to approach summarizing this exam page. First, I need to understand the structure: it's a series of questions, and the goal is to extract the relevant text and structure it into a YAML format.
+
+I've got the raw text from page 2, and the identified questions "1", "1a", "1b", "1c", "1d", "2", "2a", and "2b". The output needs `text` and `options` keys, specifically for the multiple-choice questions (MCQs). I have to use `|` for multiline text. I will need to remove things such as subquestion prefixes and formatting like "(a)". For question 1d I need to keep the "Answer \hrulefill KiB" line and represent that as the final part of the text.
+
+Here's how I will transcribe and format each section:
+
+*   **Question 1:** The introduction, "Data can be measured in bits," will be the initial `text`.
+*   **Question 1a:** "Give the name of the data storage measurement that is equal to 8 bits." will be the `text`.
+*   **Question 1b:** "State how many bits there are in a kibibyte (KiB)." will become the `text`.
+*   **Question 1c:** "Give the name of the data storage measurement that is equal to 1024 gibibytes (GiB)." becomes the `text`.
+*   **Question 1d:** "A 16-bit colour image has a resolution of 512 pixels wide by 512 pixels high.\n\nCalculate the file size of the image in kibibytes (KiB). Show all your working.\n\nAnswer \hrulefill KiB" is a bit tricky. The plan is to include everything up to the "Answer \hrulefill KiB" and then append the answer line at the end of the `text`.
+*   **Question 2:** Start with "Data can be transmitted from one device to another." as `text`.
+*   **Question 2a:** It's an MCQ. "Tick ($\checkmark$) one box to show which of the terms is \textbf{not} a method for transmitting data." will be the `text`, and I'll include the options:
+    *   A: serial
+    *   B: simplex
+    *   C: parallel
+    *   D: parity
+
+    I will need to represent these as a list under an `options` key, in the YAML.
+*   **Question 2b:** "Data is broken down into smaller units to be transmitted from one device to another.\n\nGive the name of the unit that data is broken down into." becomes the `text`.
+
+Finally, I will pay attention to the specific formatting rules I was given: Use `|` for all multiline strings, no quotes around strings unless they are empty, and ensure that math symbols and formatting are correctly handled.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Data can be measured in bits.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Give the name of the data storage measurement that is equal to 8 bits.
+  - number: "1b"
+    type: short_answer
+    text: |
+      State how many bits there are in a kibibyte (KiB).
+  - number: "1c"
+    type: short_answer
+    text: |
+      Give the name of the data storage measurement that is equal to 1024 gibibytes (GiB).
+  - number: "1d"
+    type: calculation
+    text: |
+      A 16-bit colour image has a resolution of 512 pixels wide by 512 pixels high.
+
+      Calculate the file size of the image in kibibytes (KiB). Show all your working.
+
+      Answer \hrulefill KiB
+  - number: "2"
+    type: short_answer
+    text: |
+      Data can be transmitted from one device to another.
+  - number: "2a"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) one box to show which of the terms is \textbf{not} a method for transmitting data.
+    options:
+      - letter: A
+        text: |
+          serial
+      - letter: B
+        text: |
+          simplex
+      - letter: C
+        text: |
+          parallel
+      - letter: D
+        text: |
+          parity
+  - number: "2b"
+    type: short_answer
+    text: |
+      Data is broken down into smaller units to be transmitted from one device to another.
+
+      Give the name of the unit that data is broken down into.
+```

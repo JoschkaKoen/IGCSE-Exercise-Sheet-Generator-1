@@ -1,0 +1,36 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A search engine uses artificial intelligence (AI) to identify the most relevant web pages for the user.
+  - number: "6a"
+    type: short_answer
+    text: |
+      One characteristic of AI is the ability to learn.
+
+      Identify \textbf{three} other characteristics of AI.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "6b"
+    type: long_answer
+    text: |
+      The search engine uses machine learning.
+
+      Explain how machine learning is used by the search engine.
+  - number: "7"
+    type: short_answer
+    text: |
+      Programs can be written in a high-level language or a low-level language.
+  - number: "7a"
+    type: short_answer
+    text: |
+      Machine code is one type of low-level language.
+
+      Identify \textbf{one} other type of low-level language.
+
+      Identify the translator that is needed for the type of low-level language you have identified.
+
+      Type of low-level language \hrulefill
+      Translator \hrulefill

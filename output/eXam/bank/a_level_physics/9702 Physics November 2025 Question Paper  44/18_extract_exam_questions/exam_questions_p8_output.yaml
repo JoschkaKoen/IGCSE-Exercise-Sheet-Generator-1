@@ -1,0 +1,21 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3a"
+    type: short_answer
+    text: |
+      With reference to molecular kinetic energy and molecular potential energy, explain what is meant by the internal energy of an ideal gas.
+  - number: "3b"
+    type: short_answer
+    text: |
+      A sample of an ideal gas is initially in state A, at a pressure of $2.0 \times 10^5 \text{ Pa}$ and with a volume of $0.016 \text{ m}^3$, as shown in Fig. 3.1.
+
+      In state A, the temperature of the gas is $400 \text{ K}$.
+
+      The gas undergoes two successive changes X and Y.
+
+      In change X, it is heated at constant volume to a pressure of $4.0 \times 10^5 \text{ Pa}$. At the end of change X, the gas is in state B.
+
+      In change Y, it is then allowed to expand at constant temperature back to its original pressure. At the end of change Y, the gas is in state C.

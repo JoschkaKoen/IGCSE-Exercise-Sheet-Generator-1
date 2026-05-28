@@ -1,0 +1,23 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      State Lenz’s law of electromagnetic induction.
+  - number: "7b"
+    type: short_answer
+    text: |
+      A helicopter hovering in stationary equilibrium has four rotors, each of length $12\text{ m}$, as shown in the view from above in Fig. 7.1.
+  - number: "7bi"
+    type: calculation
+    text: |
+      The vertical component of the Earth’s magnetic field at the helicopter is downwards with a flux density of $0.047\text{ m/T}$.
+
+      The rotors each rotate in a horizontal plane in the direction shown with a frequency of $85\text{ Hz}$.
+
+      Calculate the magnetic flux $\Phi$ cut by rotor OX during one complete rotation. Give a unit with your answer.
+
+      $\Phi =$ \hrulefill unit \hrulefill

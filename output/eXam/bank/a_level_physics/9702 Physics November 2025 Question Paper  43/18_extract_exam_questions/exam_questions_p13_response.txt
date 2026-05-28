@@ -1,0 +1,22 @@
+[thinking]
+**Transcribing Question 5biv**
+
+Okay, the user wants me to transcribe question "5biv" from this page. Let's see... the question number is clearly labeled "(iv)", so that confirms the "5biv" stub. Scanning the text, ah, here it is: "On Fig. 5.2, sketch the variation of $V$ with $x$ between $x = 10\text{ pm}$ and $x = 110\text{ pm}$."
+
+Right, there's a figure, "Fig. 5.2," involved. But the instructions are clear: *no* image inclusion commands. We're only transcribing the text itself. That's fine, we can just omit the figure reference and grab the text.
+
+Let's make sure that text is in proper LaTeX format. I'll translate the question into LaTeX math mode to ensure proper rendering:
+
+`On Fig. 5.2, sketch the variation of $V$ with $x$ between $x = 10\text{ pm}$ and $x = 110\text{ pm}$.`
+
+That should be perfectly clear and well formatted. Ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5biv"
+    type: short_answer
+    text: |
+      On Fig. 5.2, sketch the variation of $V$ with $x$ between $x = 10\text{ pm}$ and $x = 110\text{ pm}$.

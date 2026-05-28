@@ -1,0 +1,43 @@
+```yaml
+questions:
+  - number: "3aiii"
+    type: long_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+  - number: "3b"
+    type: short_answer
+    text: |
+      The program stores the following string. The string has four statements that are each terminated by a semi-colon ';'
+
+      \texttt{"x=0;y=1;x=x+y;y++;"}
+  - number: "3bi"
+    type: long_answer
+    text: |
+      Write program code to amend the main program to store the string \texttt{"x=0;y=1;x=x+y;y++;"} in a local variable.
+  - number: "3bii"
+    type: long_answer
+    text: |
+      The function \texttt{SplitData()} splits a string parameter into \textbf{four} individual lines of code.
+
+      The function creates an array of the strings where each line is stored in a new array element without the semi-colon.
+
+      The function returns the array of strings.
+
+      Do \textbf{not} use an inbuilt function to split the string.
+
+      Write program code for \texttt{SplitData()}
+  - number: "3biii"
+    type: long_answer
+    text: |
+      The main program needs to call \texttt{SplitData()} with the string from part 3(b)(i). The main program then needs to output each element from the returned array on a new line.
+
+      Write program code to amend the main program.
+  - number: "3biv"
+    type: long_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+```

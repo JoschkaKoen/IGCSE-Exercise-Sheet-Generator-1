@@ -1,0 +1,141 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 2**
+
+Okay, the task is to generate the YAML for page 2 of the exam. I need to structure this properly, ensuring each question is correctly formatted. Let me go through each question and its sub-parts methodically.
+
+First up, is question "1". It's a short answer type. I'll translate the provided text into the YAML format:
+```yaml
+number: "1"
+type: short_answer
+text: |
+  A flower shop has a room that has an air-conditioning system. It is used to keep the room at a constant temperature for storing flowers.
+
+  The owner uses a keypad to set the temperature for the room.
+```
+
+Next, question "1a" is a multiple-choice question. I need to make sure the options are correctly structured, and of course, I have to strip the prefix:
+```yaml
+number: "1a"
+type: multiple_choice
+text: |
+  Tick ($\checkmark$) \textbf{one} box to show whether a keypad is an example of an input, output, process or storage device.
+options:
+  - letter: A
+    text: |
+      input
+  - letter: B
+    text: |
+      output
+  - letter: C
+    text: |
+      process
+  - letter: D
+    text: |
+      storage
+```
+
+Now, let's move onto question "1b", another short-answer question. I'll include the introductory text for part (b) in the YAML:
+```yaml
+number: "1b"
+type: short_answer
+text: |
+  The owner of the shop enters a denary number to set the temperature for the room.
+
+  The denary number is converted to a binary number to be processed. The binary number is stored in a register in the air conditioning system.
+```
+
+Now, the subquestions of "1b" start. First, "1bi". Remember to strip the prefix:
+```yaml
+number: "1bi"
+type: short_answer
+text: |
+  Give the binary number that would be stored when the denary number 24 is entered.
+```
+I also have to check for any answer lines or markers. Given that there are dotted lines, and a standalone prompt, I *don't* emit a marker, this means nothing. No markers or answer lines.
+
+Next is "1bii"
+```yaml
+number: "1bii"
+type: short_answer
+text: |
+  Give the binary number that would be stored when the denary number 101 is entered.
+```
+No answer lines or markers.
+
+Then, "1biii":
+```yaml
+number: "1biii"
+type: short_answer
+text: |
+  The binary number 00010011 is stored in the register.
+
+  Give the denary number that has been entered for this binary number to be stored.
+```
+No answer lines or markers.
+
+Finally, "1biv":
+```yaml
+number: "1biv"
+type: short_answer
+text: |
+  The binary number 00100010 is stored in the register.
+
+  Give the denary number that has been entered for this binary number to be stored.
+```
+No answer lines or markers.
+Alright, I've got a comprehensive YAML structure for the entire page, ready to be integrated. I've been careful about the short answer dotted lines and stripped prefixes as requested.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A flower shop has a room that has an air-conditioning system. It is used to keep the room at a constant temperature for storing flowers.
+
+      The owner uses a keypad to set the temperature for the room.
+  - number: "1a"
+    type: multiple_choice
+    text: |
+      Tick ($\checkmark$) \textbf{one} box to show whether a keypad is an example of an input, output, process or storage device.
+    options:
+      - letter: A
+        text: |
+          input
+      - letter: B
+        text: |
+          output
+      - letter: C
+        text: |
+          process
+      - letter: D
+        text: |
+          storage
+  - number: "1b"
+    type: short_answer
+    text: |
+      The owner of the shop enters a denary number to set the temperature for the room.
+
+      The denary number is converted to a binary number to be processed. The binary number is stored in a register in the air conditioning system.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Give the binary number that would be stored when the denary number 24 is entered.
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Give the binary number that would be stored when the denary number 101 is entered.
+  - number: "1biii"
+    type: short_answer
+    text: |
+      The binary number 00010011 is stored in the register.
+
+      Give the denary number that has been entered for this binary number to be stored.
+  - number: "1biv"
+    type: short_answer
+    text: |
+      The binary number 00100010 is stored in the register.
+
+      Give the denary number that has been entered for this binary number to be stored.

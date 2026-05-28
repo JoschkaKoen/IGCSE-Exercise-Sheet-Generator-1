@@ -1,0 +1,127 @@
+[thinking]
+**Exam Page Transcription Plan**
+
+Okay, so I need to transcribe page 5 of an exam paper. The specific questions I'm looking at are labeled 1bi, 1bii, 1c, 1ci, 1cii, 1ciii, and 1civ. It looks like a mechanics problem. My task is to produce the text in a suitable format for the user, likely YAML, stripping out all the sub-question numbering. Let's see how this will look for the user.
+
+First, question 1bi requires an expression for the speed, *v*, of a ball in terms of the radius, *R*, and angular velocity, *ω*. I'll output the text of the question with a placeholder for the answer line, like so:
+
+```yaml
+  - number: "1bi"
+    type: short_answer
+    text: |
+      State an expression, in terms of $R$ and $\omega$, for the speed $v$ of the ball.
+
+      v = \hrulefill
+```
+
+Next, for 1bii, I need an expression for the centripetal acceleration, in terms of *v* and *ω*. The placeholder is:
+
+```yaml
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Determine an expression, in terms of $v$ and $\omega$, for the centripetal acceleration of the ball.
+
+      centripetal acceleration = \hrulefill
+```
+
+Then, question 1c sets the stage. The ball is at an angle *θ* to a reference line. It's just context so no answer is required, but must be represented:
+
+```yaml
+  - number: "1c"
+    type: short_answer
+    text: |
+      The ball in (b) is in the position shown in Fig. 1.1, such that line OB is at an angle $\theta$ to the line OP.
+```
+
+Next up is 1ci. This needs an expression for the displacement, *x*, of the shadow, in terms of *R* and *θ*. The answer line is:
+
+```yaml
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Determine an expression, in terms of $R$ and $\theta$, for the displacement $x$ of the shadow from P.
+
+      x = \hrulefill
+```
+
+Question 1cii asks for an expression for *θ*, given that it's zero at *t* = 0, in terms of *ω* and *t*. The placeholder is:
+
+```yaml
+  - number: "1cii"
+    type: short_answer
+    text: |
+      The value of $\theta$ is zero at time $t = 0$.
+
+      State an expression for $\theta$ in terms of $\omega$ and $t$.
+
+      $\theta = \hrulefill$
+```
+
+For 1ciii, I'll transcribe the question. It expects the user to show a derivation. The prompt and the provided equation is:
+
+```yaml
+  - number: "1ciii"
+    type: short_answer
+    text: |
+      Use your answers in (c)(i) and (c)(ii) to show that $x$ is given by
+
+      $$x = R \sin \omega t.$$
+```
+
+Finally, 1civ asks for an explanation regarding simple harmonic motion with reference to the equation in 1ciii, so this is open-ended. I will provide the context without any specific format:
+
+```yaml
+  - number: "1civ"
+    type: long_answer
+    text: |
+      Explain, with reference to the equation in (c)(iii), why the motion of the shadow of the ball on the screen may be modelled as simple harmonic.
+```
+
+I think that's it. Let's make sure the formatting is correct. Everything should be clean, clear, and ready to go for this expert!
+
+
+
+[/thinking]
+
+questions:
+  - number: "1bi"
+    type: short_answer
+    text: |
+      State an expression, in terms of $R$ and $\omega$, for the speed $v$ of the ball.
+
+      v = \hrulefill
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Determine an expression, in terms of $v$ and $\omega$, for the centripetal acceleration of the ball.
+
+      centripetal acceleration = \hrulefill
+  - number: "1c"
+    type: short_answer
+    text: |
+      The ball in (b) is in the position shown in Fig. 1.1, such that line OB is at an angle $\theta$ to the line OP.
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Determine an expression, in terms of $R$ and $\theta$, for the displacement $x$ of the shadow from P.
+
+      x = \hrulefill
+  - number: "1cii"
+    type: short_answer
+    text: |
+      The value of $\theta$ is zero at time $t = 0$.
+
+      State an expression for $\theta$ in terms of $\omega$ and $t$.
+
+      $\theta = \hrulefill$
+  - number: "1ciii"
+    type: short_answer
+    text: |
+      Use your answers in (c)(i) and (c)(ii) to show that $x$ is given by
+
+      $$x = R \sin \omega t.$$
+  - number: "1civ"
+    type: long_answer
+    text: |
+      Explain, with reference to the equation in (c)(iii), why the motion of the shadow of the ball on the screen may be modelled as simple harmonic.

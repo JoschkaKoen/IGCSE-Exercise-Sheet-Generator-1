@@ -1,0 +1,622 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Different types of software can be run on a computer.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by software.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: multiple_choice
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Utility software is one type of software that can be run on a computer.
+
+
+      Tick ($\checkmark$) \textbf{one} box to show which software is an example of
+      utility software.'
+    answer_options:
+    - letter: A
+      text: spreadsheet
+    - letter: B
+      text: anti-virus
+    - letter: C
+      text: web browser
+    - letter: D
+      text: database
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the type of software that manages inputs and outputs for the computer.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Data storage can be measured using different units of measurement.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the name of the smallest unit of measurement of data.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State how many nibbles there are in 2 bytes.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'A 10 second sound effect is recorded for a movie.
+
+
+      It is recorded with a sample rate of 22,016 Hz and a sample resolution of 8
+      bits.
+
+
+      Calculate the file size of the sound effect in kibibytes (KiB). Show all your
+      working.
+
+
+      Answer \hrulefill \text{ KiB}'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The sound effect file is compressed for storage.
+    answer_options: []
+    subquestions:
+    - number: 2di
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by file compression.
+      answer_options: []
+      subquestions: []
+    - number: 2dii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} benefit of compressing the file for storage.
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A user enters data that is hexadecimal into a computer system. The data is
+    converted to binary to be processed by the computer.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Give similarities and differences between hexadecimal and binary.
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give \textbf{one} similarity between hexadecimal and binary.
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Give \textbf{two} differences between hexadecimal and binary.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Data that is denary can also be converted to binary.
+
+
+      Give the binary number for each of the \textbf{three} denary numbers.
+
+
+      15 \hrulefill
+
+      180 \hrulefill
+
+      235 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Denary numbers can also be converted to hexadecimal.
+
+
+      Give the hexadecimal number for each of the \textbf{three} denary numbers.
+
+
+      14 \hrulefill
+
+      100 \hrulefill
+
+      250 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A binary integer that is stored in a register in the computer has a logical
+      left shift performed on it.
+    answer_options: []
+    subquestions:
+    - number: 3di
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe the process of the logical left shift that is performed on the
+        binary integer.
+      answer_options: []
+      subquestions: []
+    - number: 3dii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what effect this will have on the binary integer.
+      answer_options: []
+      subquestions: []
+  - number: 3e
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A negative binary integer needs to be stored in a register in the computer.
+
+
+      Give the name of the number system that can be used to represent negative binary
+      integers.'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student has a smartwatch.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The smartwatch has built-in input and output devices.
+
+
+      Identify \textbf{two} input devices that can be built into the smartwatch.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify \textbf{one} output device that can be built into the smartwatch.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The smartwatch has read only memory (ROM).
+
+
+      Explain why the smartwatch needs ROM.'
+    answer_options: []
+    subquestions: []
+  - number: 4d
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The smartwatch uses a text message application that receives data from cloud
+      storage.
+    answer_options: []
+    subquestions:
+    - number: 4di
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe what is meant by cloud storage.
+      answer_options: []
+      subquestions: []
+    - number: 4dii
+      question_type: long_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Explain \textbf{two} benefits of the application using cloud storage.
+
+
+        1. \hrulefill
+
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 4e
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The smartwatch only displays the time and text messages.
+
+
+      A student incorrectly describes this smartwatch as a general-purpose computer.
+
+
+      Explain why the student’s description is incorrect.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A barcode scanning system uses a check digit to check for errors in data on
+    input.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Explain how the barcode scanning system operates to check for errors.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'After a barcode is scanned, data is sent to a stock control system to update
+      the stock value stored for that product.
+
+
+      The data is sent to the stock control system using serial simplex data transmission.'
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain how the data is sent using serial simplex data transmission.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain why serial simplex is the most appropriate method of data transmission
+        for this purpose.
+      answer_options: []
+      subquestions: []
+    - number: 5biii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The data is checked for errors after it has been transmitted to the stock
+        control system.
+
+
+        Give \textbf{two} error detection methods that could be used for this purpose.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'The table contains names and descriptions of components in a central processing
+    unit (CPU).
+
+
+    Complete the table by giving the missing component names and descriptions.
+
+
+    \begin{tabular}{|p{6cm}|p{9cm}|}
+
+    \hline
+
+    \textbf{Component name} & \textbf{Description} \\ \hline
+
+    \hrulefill & sends signals to manage the flow of data through the CPU \\ \hline
+
+    program counter & \newline \newline \newline \\ \hline
+
+    \hrulefill & stores the address of the data that is about to be fetched from random
+    access memory (RAM) into the CPU \\ \hline
+
+    \hrulefill & transmits data between the RAM and the CPU \\ \hline
+
+    accumulator & \newline \newline \newline \\ \hline
+
+    \hrulefill & stores an instruction when it is being decoded \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student enters the uniform resource locator (URL) for a web page into their
+    tablet computer.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by a URL.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} different parts of a URL.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The student enters the URL into a piece of software that then displays
+      the web page.
+
+
+      Identify the name of this software.'
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Draw and annotate a diagram to show how the web page is located and retrieved
+      to be displayed on the student's tablet computer.
+    answer_options: []
+    subquestions: []
+  - number: 7e
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'The data for the web page is transmitted using the secure socket layer
+      (SSL) protocol.
+
+
+      Complete the paragraph about the SSL protocol.
+
+
+      Use only terms from the list.
+
+
+      \textbf{Not} all terms need to be used. Some terms may be used more than once.
+
+
+      \begin{itemize}
+
+      \item encrypted
+
+      \item file server
+
+      \item hypertext markup language (HTML)
+
+      \item hypertext transfer protocol (HTTP)
+
+      \item operating system
+
+      \item search engine
+
+      \item unencrypted
+
+      \item URL
+
+      \item web browser
+
+      \item web server
+
+      \end{itemize}
+
+
+      The \underline{\hspace{1.5em}} asks the \underline{\hspace{1.5em}} to identify
+      itself. The \underline{\hspace{1.5em}} sends back its digital certificate. The
+      \underline{\hspace{1.5em}} authenticates the digital certificate. If it is authentic,
+      \underline{\hspace{1.5em}} data transmission begins.'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A robot vacuum cleaner uses sensors to navigate around obstacles in a room.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: multiple_choice
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) \textbf{one} box to show which sensor would be the most
+      suitable for this purpose.
+    answer_options:
+    - letter: A
+      text: proximity
+    - letter: B
+      text: flow
+    - letter: C
+      text: pressure
+    - letter: D
+      text: level
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'An expert system can be used to diagnose an error with a robot vacuum cleaner.
+
+
+      Circle \textbf{three} components that are part of an expert system.
+
+
+      \begin{itemize}
+
+      \item knowledge base
+
+      \item operating system
+
+      \item firewall
+
+      \item server
+
+      \item printer
+
+      \item actuator
+
+      \item inference engine
+
+      \item rule base
+
+      \item encryption
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how the robot vacuum cleaner can make use of machine learning.
+    answer_options: []
+    subquestions: []

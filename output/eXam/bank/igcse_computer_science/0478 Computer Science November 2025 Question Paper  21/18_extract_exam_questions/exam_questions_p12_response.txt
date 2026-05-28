@@ -1,0 +1,106 @@
+[thinking]
+**Analyzing and Deconstructing a Database Question**
+
+Okay, here's the breakdown of what I'm working through. I've got to analyze page 12 of this exam paper and extract the relevant information for questions 8, 8a, 8b, 8c, and 8d. The end game is to generate a YAML output, but right now, I'm focusing on parsing the questions themselves.
+
+First, I need to get a handle on the structure. Question 8 introduces a `SchoolTrip` database table. I see the table's structure immediately: `StudentID`, `StudentName`, `ParentName`, `Permission`, and `DateReceived`.  I note the provided data which is key to understanding the context of the subsequent questions. The table's data looks pretty straightforward, with the `Permission` being a Boolean-ish field and `DateReceived` being in a date format.
+
+Now onto the individual questions. Question 8a is a conceptual one, asking why `ParentName` wouldn't be a suitable primary key.  Easy enough to tackle, likely a non-unique value issue. Question 8b simply asks for the *correct* primary key. The schema's hinting at a suitable candidate here, and it's pretty obvious.  Question 8c is about data types. I'm given a specific list (text, character, Boolean, integer, real, date/time) and have to assign them to `ParentName`, `Permission`, and `DateReceived`.  That's a design consideration. Question 8d wants an SQL statement to select students *without* permission. That's a simple `SELECT...FROM...WHERE` query and the syntax will need to be correct, according to the table.
+
+Now I'm planning the formatting. For the `SchoolTrip` table, I'll represent it using LaTeX's `tabular` environment, using columns for each data element.  I'll probably use `|l|l|l|l|l|` to keep it organized and clean. The rest, 8a and 8b don't need dedicated answer spaces so, no formatting is really needed. Question 8c requires another `tabular` for the field and data type matching.  Question 8d requires the SQL template.
+
+Let's start drafting the LaTeX, so the database table will look like this, nicely formatted:
+```latex
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{StudentID} & \textbf{StudentName} & \textbf{ParentName} & \textbf{Permission} & \textbf{DateReceived} \\ \hline
+STU147 & Amir & Mr Akar & True & 03/03/2025 \\ \hline
+STU348 & Filip & Mrs Johnson & True & 04/03/2025 \\ \hline
+STU274 & Matthew & Mr Smith & False & \\ \hline
+STU873 & Jafar & Mr Al-Saigh & True & 21/03/2025 \\ \hline
+STU221 & Hussein & Mr Alkasab & True & 28/02/2025 \\ \hline
+STU553 & Julie & Mrs Jones & True & 25/02/2025 \\ \hline
+STU213 & Julie & Mr Smith & False & \\ \hline
+\end{tabular}
+```
+
+The table for question 8c is also straightforward:
+```latex
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Field} & \textbf{Data type} \\ \hline
+ParentName & \\ \hline
+Permission & \\ \hline
+DateReceived & \\ \hline
+\end{tabular}
+```
+
+And finally, the SQL template, adhering to those formatting guidelines:
+```latex
+SELECT \hrulefill
+FROM \hrulefill
+WHERE \hrulefill
+```
+
+Okay, now that I have everything drafted, I can convert this to the desired format!
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A school has set up a database table \texttt{SchoolTrip} to record details of students that will go on a school trip.
+
+      \begin{tabular}{|l|l|l|l|l|}
+      \hline
+      \textbf{StudentID} & \textbf{StudentName} & \textbf{ParentName} & \textbf{Permission} & \textbf{DateReceived} \\ \hline
+      STU147 & Amir & Mr Akar & True & 03/03/2025 \\ \hline
+      STU348 & Filip & Mrs Johnson & True & 04/03/2025 \\ \hline
+      STU274 & Matthew & Mr Smith & False & \\ \hline
+      STU873 & Jafar & Mr Al-Saigh & True & 21/03/2025 \\ \hline
+      STU221 & Hussein & Mr Alkasab & True & 28/02/2025 \\ \hline
+      STU553 & Julie & Mrs Jones & True & 25/02/2025 \\ \hline
+      STU213 & Julie & Mr Smith & False & \\ \hline
+      \end{tabular}
+  - number: "8a"
+    type: short_answer
+    text: |
+      State the reason why \texttt{ParentName} is not appropriate as the primary key.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Give the name of the field that should be the primary key.
+  - number: "8c"
+    type: short_answer
+    text: |
+      The database only uses these data types:
+
+      \begin{itemize}
+      \item text
+      \item character
+      \item Boolean
+      \item integer
+      \item real
+      \item date/time
+      \end{itemize}
+
+      Complete the table to show the most appropriate data type for each field. Each data type must be different.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Data type}} \\ \hline
+      \texttt{ParentName} & \\ \hline
+      \texttt{Permission} & \\ \hline
+      \texttt{DateReceived} & \\ \hline
+      \end{tabular}
+  - number: "8d"
+    type: short_answer
+    text: |
+      Complete the structured query language (SQL) statement to display only the names of the students who do not have permission to go on the trip.
+
+      SELECT \hrulefill
+      FROM \hrulefill
+      WHERE \hrulefill

@@ -1,0 +1,13 @@
+questions:
+  - number: "5bi"
+    type: calculation
+    text: |
+      Calculate the frequency of the sound waves detected by the microphone.
+
+      frequency = \hrulefill Hz
+  - number: "5bii"
+    type: calculation
+    text: |
+      Determine the speed of the sound in air.
+
+      speed of sound = \hrulefill $\text{ms}^{-1}$

@@ -1,0 +1,29 @@
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      The tension in the string is $T$.
+
+      Calculate $T$ using $T = Mg$, where $g = 9.81 \text{ N}\,\text{kg}^{-1}$.
+
+      $T = \hrulefill$ N
+  - number: "2c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ci"
+    type: calculation
+    text: |
+      Hook the newton meter on the string half-way between the two lower nails and pull it horizontally with a force $F$ of $5.0 \text{ N}$, as shown in Fig. 2.2.
+
+      The force $F$ causes the string to deflect a distance $x$, as shown in Fig. 2.2.
+
+      Measure and record $x$.
+
+      $x = \hrulefill$ cm
+  - number: "2cii"
+    type: calculation
+    text: |
+      Estimate the percentage uncertainty in your value of $x$. Show your working.
+
+      percentage uncertainty = \hrulefill \%

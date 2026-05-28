@@ -1,0 +1,45 @@
+[thinking]
+**Examining the Exam Questions**
+
+Okay, so the user wants me to extract and format the questions from page 7 of an exam paper. I need to transcribe them accurately, paying attention to the formatting and any mathematical notation. It looks like the questions are structured with sub-parts, so I'll preserve that. I've checked the image, and here's what I've got:
+
+*   **2c:** "When a torque of $3.3 \text{ N m}$ is applied to the rod, the sheet is held in equilibrium with two of its edges horizontal, as shown in Fig. 2.3. Point X is at the top-left corner." This seems to be the introductory context for the subsequent parts.
+
+*   **2ci:** "Explain whether the torque applied to the rod to hold the sheet in equilibrium is clockwise or anticlockwise." This will require a conceptual explanation, probably drawing on principles of rotational equilibrium.
+
+*   **2cii:** "Show that the centre of gravity of the sheet has a horizontal displacement of $0.12 \text{ m}$ from the rod." This is a derivation, likely involving calculations based on the given torque and equilibrium conditions.
+
+*   **2d:** "The square metal sheet has an average density of $3000 \text{ kg m}^{-3}$ and a uniform thickness of $4.0 \text{ mm}$. Show that the side length of the sheet is $0.48 \text{ m}$." Here, I'll need to use the density and thickness to derive the side length, likely involving the mass and volume of the sheet. This assumes a homogenous material.
+
+*   **2e:** "Use the answer in **(b)** and the information in **(c)** and **(d)** to determine the position of the centre of gravity of the sheet. Indicate this position on Fig. 2.3 with a point labelled Y." This suggests that the answer to a previous question, (b), is required in conjunction with the solutions from (c) and (d). I will need to determine the position of the center of gravity using information provided in the previous sections.
+    The goal is to determine the position relative to the rod.
+
+I've carefully checked the units throughout, making sure they're consistent and formatted correctly, specifically, N m, kg m^-3, mm, and m. Now I'm ready to present this information to the user in a YAML format, ensuring clarity and accuracy.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2c"
+    type: short_answer
+    text: |
+      When a torque of $3.3 \text{ N m}$ is applied to the rod, the sheet is held in equilibrium with two of its edges horizontal, as shown in Fig. 2.3. Point X is at the top-left corner.
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Explain whether the torque applied to the rod to hold the sheet in equilibrium is clockwise or anticlockwise.
+  - number: "2cii"
+    type: calculation
+    text: |
+      Show that the centre of gravity of the sheet has a horizontal displacement of $0.12 \text{ m}$ from the rod.
+  - number: "2d"
+    type: calculation
+    text: |
+      The square metal sheet has an average density of $3000 \text{ kg m}^{-3}$ and a uniform thickness of $4.0 \text{ mm}$.
+
+      Show that the side length of the sheet is $0.48 \text{ m}$.
+  - number: "2e"
+    type: short_answer
+    text: |
+      Use the answer in \textbf{(b)} and the information in \textbf{(c)} and \textbf{(d)} to determine the position of the centre of gravity of the sheet. Indicate this position on Fig. 2.3 with a point labelled Y.

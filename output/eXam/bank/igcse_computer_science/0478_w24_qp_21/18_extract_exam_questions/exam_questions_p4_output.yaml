@@ -1,0 +1,44 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      An incomplete algorithm has been written in pseudocode to count the number of zeros stored in an array and total the non-zero values.
+
+      \begin{alltt}
+      01 DECLARE A[1:50] : INTEGER
+      02 DECLARE C : INTEGER
+      03 DECLARE I : INTEGER
+      04 DECLARE T : INTEGER
+      05 I <- 0
+      06 \hrulefill
+      07 FOR C <- 1 TO 50
+      08     IF A[C] \hrulefill
+      09     THEN
+      10         T <- T + 1
+      11     ELSE
+      12         I <- I + A[C]
+      13     ENDIF
+      14 \hrulefill
+      \end{alltt}
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete the given pseudocode algorithm.
+  - number: "6b"
+    type: short_answer
+    text: |
+      Write the pseudocode to display, with suitable messages, the number of zeros stored in the array and the total of the non-zero values.
+  - number: "6c"
+    type: short_answer
+    text: |
+      Meaningful identifiers have not been used in the algorithm. Suggest suitable meaningful identifiers for:
+
+      The array:
+
+      A \hrulefill
+
+      The variables:
+
+      T \hrulefill
+      C \hrulefill
+      I \hrulefill

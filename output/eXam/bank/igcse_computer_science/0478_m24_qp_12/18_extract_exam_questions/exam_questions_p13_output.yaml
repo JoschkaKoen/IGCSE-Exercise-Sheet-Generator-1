@@ -1,0 +1,32 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Data is transmitted using the internet.
+  - number: "7a"
+    type: short_answer
+    text: |
+      The data is encrypted before transmission.
+  - number: "7ai"
+    type: short_answer
+    text: |
+      State the purpose of encrypting data.
+  - number: "7aii"
+    type: long_answer
+    text: |
+      Describe the differences between symmetric and asymmetric encryption.
+  - number: "7b"
+    type: short_answer
+    text: |
+      The data is transmitted using packet switching.
+  - number: "7bi"
+    type: short_answer
+    text: |
+      Identify \textbf{two} items of data contained in a packet header.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7bii"
+    type: short_answer
+    text: |
+      Give the purpose of a router in the packet-switching process.

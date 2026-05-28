@@ -1,0 +1,51 @@
+[thinking]
+**Analyzing Exam Page 14: A Deep Dive into Electrostatics**
+
+Okay, so the task is to essentially transcribe and structure page 14 of this exam, specifically focusing on question 6 and its sub-parts. I'm essentially parsing the information, ensuring each element is correctly formatted and ready for whatever's coming next.
+
+First, I need to get the structure right. Question 6 has several sub-questions: 6, 6a, 6b, 6bi, and 6bii. I see a diagram (Fig 6.1) is referred to, which will be crucial for 6a.
+
+Now, let's dissect the content. Question 6 itself is a classic electrostatics problem. It describes two parallel metal plates, X and Y, separated by 0.041 meters with a vacuum in between. An electron is initially at rest at the center of plate X, and a potential difference of 58 kV is applied, causing it to accelerate towards plate Y. This seems straightforward enough.
+
+Question 6a is a simple one-point question: indicate the positive and negative plates on the diagram using + and -. Easy peasy.
+
+Question 6b, however, needs a closer look. After carefully reviewing the page, I realized that 6b acts as a heading for 6bi and 6bii, but doesn't have its own specific text. Therefore, I will treat it as an empty section.
+
+Then comes question 6bi: Calculate the electric field strength *E* between the plates and provide the correct units. I've noted that the provided space in the exam is for the answer and the unit.
+
+Finally, 6bii asks us to determine the acceleration of the electron, also with the required units. As with 6bi, I need to represent the answer and unit space in the appropriate form for the user.
+
+Essentially, I have structured the information and will provide it in a way that allows us to either render the complete page or individual elements. The key is accuracy, structure, and ready for whatever the user needs next.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Two parallel metal plates X and Y are separated by a distance of $0.041 \text{ m}$, as shown in Fig. 6.1.
+
+      There is a vacuum between the plates. An electron is at rest at the centre of plate X.
+
+      A potential difference (p.d.) of $58 \text{ kV}$ is applied across the plates. This causes the electron to accelerate towards plate Y.
+  - number: "6a"
+    type: short_answer
+    text: |
+      On Fig. 6.1, use the symbols $+$ and $-$ to indicate which of plates X and Y is the positive plate and which is the negative plate.
+  - number: "6b"
+    type: short_answer
+    text: ''
+  - number: "6bi"
+    type: calculation
+    text: |
+      Calculate the electric field strength $E$ between the plates. Give a unit with your answer.
+
+      $E = \hrulefill \text{ unit } \hrulefill$
+  - number: "6bii"
+    type: calculation
+    text: |
+      Determine the acceleration of the electron.
+
+      $\text{acceleration} = \hrulefill \text{ m}\,\text{s}^{-2}$

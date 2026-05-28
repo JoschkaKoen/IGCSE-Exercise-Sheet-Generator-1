@@ -1,0 +1,19 @@
+```yaml
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      A garage uses an expert system to help diagnose any problems with cars that need repair.
+  - number: "10a"
+    type: short_answer
+    text: |
+      The expert system is an example of artificial intelligence (AI).
+
+      Describe what is meant by AI.
+  - number: "10b"
+    type: long_answer
+    text: |
+      A car has a problem with its braking system, so it is brought into the garage.
+
+      Explain how the expert system operates and how it is used to help diagnose the problem.
+```

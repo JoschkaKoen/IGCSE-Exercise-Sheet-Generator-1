@@ -1,0 +1,41 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: ''
+  - number: "9a"
+    type: short_answer
+    text: |
+      Consider the following logic circuit:
+
+      Write the logic expression for the logic circuit. Do not simplify the expression.
+
+      X = \hrulefill
+  - number: "9b"
+    type: short_answer
+    text: |
+      Consider the following logic expression:
+
+      $$X = \text{NOT } ((A \text{ NAND } B) \text{ XOR } (\text{NOT } A \text{ OR } \text{NOT } C))$$
+
+      A truth table for the logic expression is given:
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{Row number} & \textbf{A} & \textbf{B} & \textbf{C} & \textbf{X} \\ \hline
+      1 & 0 & 0 & 0 & 1 \\ \hline
+      2 & 0 & 0 & 1 & 0 \\ \hline
+      3 & 0 & 1 & 0 & 1 \\ \hline
+      4 & 0 & 1 & 1 & 0 \\ \hline
+      5 & 1 & 0 & 0 & 1 \\ \hline
+      6 & 1 & 0 & 1 & 0 \\ \hline
+      7 & 1 & 1 & 0 & 1 \\ \hline
+      8 & 1 & 1 & 1 & 1 \\ \hline
+      \end{tabular}
+
+      There are \textbf{three} errors in the truth table.
+
+      Identify the \textbf{three} errors in the truth table by writing the row numbers with an incorrect output.
+
+      Error 1 Row number \hrulefill
+      Error 2 Row number \hrulefill
+      Error 3 Row number \hrulefill

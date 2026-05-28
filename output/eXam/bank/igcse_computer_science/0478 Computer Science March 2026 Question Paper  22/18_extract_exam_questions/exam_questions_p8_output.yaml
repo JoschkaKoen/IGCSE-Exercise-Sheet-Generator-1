@@ -1,0 +1,5 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      This flowchart represents an algorithm.

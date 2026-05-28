@@ -1,0 +1,25 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      A programmer is developing a computer program.
+  - number: "10a"
+    type: long_answer
+    text: |
+      Explain how the programmer can first use an interpreter \textbf{and} then a compiler to develop the computer program.
+
+      Interpreter \hrulefill
+
+      Compiler \hrulefill
+  - number: "10b"
+    type: short_answer
+    text: |
+      The programmer releases the program as Free Software.
+
+      Describe what is meant by Free Software.
+  - number: "10c"
+    type: short_answer
+    text: |
+      A user downloads the computer program from the internet.
+
+      State what should be included as part of the download to make sure the program is authentic.

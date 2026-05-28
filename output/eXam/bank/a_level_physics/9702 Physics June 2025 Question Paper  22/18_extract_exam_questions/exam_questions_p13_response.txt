@@ -1,0 +1,38 @@
+[thinking]
+**Transcribing Question 5bii**
+
+Okay, the user wants me to transcribe question "5bii" from this page. Let's see... page 13, got it.
+
+Alright, the text for 5bii reads: "(ii) The extension of the wire is initially $2.0 \times 10^{-3}\text{ m}$. Determine the work done to increase the extension of the wire to $3.0 \times 10^{-3}\text{ m}$." Simple enough, I just need to strip that initial subquestion marker.
+
+Now, the answer line is "work done = ....................................................... J [3]". I'll reformat that as "work done = \hrulefill J". I don't need the marks in the transcription unless it's explicitly part of the text, so let's stick with the more elegant format.
+
+So the final text will be: "The extension of the wire is initially $2.0 \times 10^{-3}\text{ m}$. Determine the work done to increase the extension of the wire to $3.0 \times 10^{-3}\text{ m}$. work done = \hrulefill \text{ J}"
+
+Now I need to format this for the YAML output. I'll make sure it's structured correctly with the `questions` array, `number`, `type` and the `text` keys. Here is the resulting YAML:
+```yaml
+questions:
+  - number: "5bii"
+    type: calculation
+    text: |
+      The extension of the wire is initially $2.0 \times 10^{-3}\text{ m}$.
+
+      Determine the work done to increase the extension of the wire to $3.0 \times 10^{-3}\text{ m}$.
+
+      work done = \hrulefill \text{ J}
+```
+That's it, question transcribed and ready to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5bii"
+    type: calculation
+    text: |
+      The extension of the wire is initially $2.0 \times 10^{-3}\text{ m}$.
+
+      Determine the work done to increase the extension of the wire to $3.0 \times 10^{-3}\text{ m}$.
+
+      work done = \hrulefill \text{ J}

@@ -1,0 +1,49 @@
+[thinking]
+**Transcribing Exam Page 7: Trace Table and Algorithm Purpose**
+
+Okay, the user wants me to transcribe page 7 of the exam. The questions here are fairly standard: a trace table and a question outlining the algorithm's purpose. Let's get to it.
+
+First, question 5a: It wants me to transcribe the trace table question. Specifically, it asks the candidate to "Complete the trace table for the input data: 10, 30, 18, 8, 25, 12, 17, 2, 50, 15, 5". I recall from past experience creating similar tables that the best approach here is to use a LaTeX `tabular` environment to maintain the table's structure. That's the most reliable way to visually represent the table clearly.
+
+The provided table has headers: `L`, `S`, `T`, `A`, `Limit`, `Count`, `Value`, and `OUTPUT`. There are 16 rows. I need to generate an empty trace table for the candidate to fill. The instruction specifies *verbatim* if containing content, but the table here is empty. Normally I'd use `\framebox{...}` for each empty cell, however this is a large table, so maintaining the structure is paramount. So, I will produce an empty table with 8 columns, corresponding to the headers, with the structure of the `tabular` intact. I'll make sure to include the `\hline` to delineate the rows and columns.
+
+I double-checked: 8 columns means 7 ampersands, which is correct. The result should look professional.
+
+Now for question 5b. It's asking the candidate to "Outline the purpose of the algorithm". No need for specific answer lines here; this is an open-ended question that the candidate can answer in their own words. Now I just need to make sure to transcribe it correctly.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5a"
+    type: short_answer
+    text: |
+      Complete the trace table for the input data:
+
+      10, 30, 18, 8, 25, 12, 17, 2, 50, 15, 5
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{L} & \textbf{S} & \textbf{T} & \textbf{A} & \textbf{Limit} & \textbf{Count} & \textbf{Value} & \textbf{OUTPUT} \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+      \end{tabular}
+  - number: "5b"
+    type: short_answer
+    text: |
+      Outline the purpose of the algorithm.

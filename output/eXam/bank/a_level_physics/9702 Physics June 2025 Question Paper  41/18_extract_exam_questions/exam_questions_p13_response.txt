@@ -1,0 +1,48 @@
+[thinking]
+**Examining Page 13: Questions 6bi to 6biv**
+
+Alright, let's break down this page. The user wants a transcription of the questions on page 13 of an exam. I see the questions are labeled "6bi" through "6biv". Let's get to it.
+
+First, "6bi" has an interesting input voltage variation described by a cosine function: `V_IN = A cos Bt`. The task here is to determine the constants `A` and `B`, and crucially, include a unit for `A`. The answer lines are provided, so let's format them properly with LaTeX. I'll make sure to get the units right for B, it's rad/s, as it is, so I don't need to change that.
+
+For "6bii", it's a straightforward rectification question. I'll need to identify the *type* of rectification produced by the circuit shown in Figure 6.1. No calculations, just a description.
+
+"6biii" is a bit more involved. It asks me to draw a circuit diagram. The prompt is: "On Fig. 6.3, draw the circuit diagram for the components inside the rectification circuit." Since I don't have access to the figure itself, I'll need to make a note to incorporate the diagram correctly when it's available. I'll just keep the text as it is for now.
+
+Finally, "6biv" deals with the time constant of a capacitor discharging through a resistor in Fig. 6.1. The instruction is to determine this time constant. A numerical answer with a unit in seconds is expected. I'll format the answer line appropriately.
+
+Now, I need to make sure the answer line formats are correct in LaTeX. I'll double check the units, and make sure everything is in the proper format. I'll then generate a YAML representation of the questions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6bi"
+    type: calculation
+    text: |
+      The variation of $V_{\text{IN}}$ with $t$ can be represented by
+
+      $$V_{\text{IN}} = A \cos Bt$$
+
+      where $A$ and $B$ are constants.
+
+      Determine the values of $A$ and $B$. Give a unit with your answer for $A$.
+
+      $A = $ \hrulefill unit \hrulefill
+
+      $B = $ \hrulefill $\text{rad}\,\text{s}^{-1}$
+  - number: "6bii"
+    type: short_answer
+    text: |
+      Determine the type of rectification produced by the circuit in Fig. 6.1.
+  - number: "6biii"
+    type: short_answer
+    text: |
+      On Fig. 6.3, draw the circuit diagram for the components inside the rectification circuit.
+  - number: "6biv"
+    type: calculation
+    text: |
+      Determine a value for the time constant for the discharge of the capacitor C through the resistor R in Fig. 6.1.
+
+      time constant = \hrulefill s

@@ -1,0 +1,15 @@
+questions:
+  - number: "6b"
+    type: short_answer
+    text: |
+      Wire Y is identical to wire X. Wire Y is added to the circuit in parallel with wire X, as shown in Fig. 6.2.
+
+      State and explain the effect, if any, of this change on:
+  - number: "6bi"
+    type: long_answer
+    text: |
+      the reading on the ammeter
+  - number: "6bii"
+    type: long_answer
+    text: |
+      the average drift speed of the charge carriers in X.

@@ -1,0 +1,25 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      Two progressive water waves X and Y travel along a straight line from point A to point B. The variation of displacement of the waves with distance from A at an instant in time is shown in Fig. 3.1.
+  - number: "3a"
+    type: short_answer
+    text: |
+      State the amplitude of wave X.
+
+      amplitude = \hrulefill $\text{cm}$
+  - number: "3b"
+    type: short_answer
+    text: |
+      Both waves have frequency $16\text{ Hz}$.
+  - number: "3bi"
+    type: calculation
+    text: |
+      Determine the speed of wave X.
+
+      speed = \hrulefill $\text{m}\,\text{s}^{-1}$
+  - number: "3bii"
+    type: long_answer
+    text: |
+      State and explain whether X and Y are coherent.

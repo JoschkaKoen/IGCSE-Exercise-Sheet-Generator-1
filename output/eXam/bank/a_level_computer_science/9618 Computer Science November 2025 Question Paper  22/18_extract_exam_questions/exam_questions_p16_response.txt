@@ -1,0 +1,62 @@
+[thinking]
+**My Analysis of "8b" and its LaTeX Representation**
+
+Okay, so the user wants me to transcribe "8b" from this page, right? Let me take a look. Hmm, it seems like this isn't the actual question prompt, it's more of a preamble or setup. It begins by reminding me that a global array called `Loan` stores 7000 loan records with specific data items. It then defines the structure of each record: `StudentID`, `BookID`, and `OnLoan`, along with their data types and brief descriptions.
+
+Next, there's a description of a new module, `NewLoan()`. It details the module's parameters (`StudentID` and `BookID`, both `STRING`), its function (searching for an unused loan record, updating it if found, and returning `TRUE` or `FALSE`).
+
+So, the "question" is the setup. I'll represent this in LaTeX, aiming for clarity and avoiding unnecessary complexity, while handling the tables. Let's make sure it's correct:
+
+```latex
+As a reminder, a global array \texttt{Loan} stores 7000 loan records with data items for each loan record:
+
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+\texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed the book \\ \hline
+\texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\ \hline
+\texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not} been returned \\ \hline
+\end{tabular}
+
+\vspace{1em}
+A new module is defined:
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Module} & \textbf{Description} \\ \hline
+\texttt{NewLoan()} & $\bullet$ called with two parameters of type \texttt{STRING} representing a \texttt{StudentID} and a \texttt{BookID} \\
+ & $\bullet$ searches the array for an unused loan record \\
+ & $\bullet$ if found, updates the loan record and returns \texttt{TRUE}, otherwise returns \texttt{FALSE} \\ \hline
+\end{tabular}
+```
+This LaTeX should be clean and clear. The cell counts are consistent, and there are no nested tabulars or complex `p` column definitions, so it should compile without issues.  Now, I'll provide this as the response to "8b."
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      As a reminder, a global array \texttt{Loan} stores 7000 loan records with data items for each loan record:
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+      \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed the book \\ \hline
+      \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\ \hline
+      \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not} been returned \\ \hline
+      \end{tabular}
+
+      A new module is defined:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{NewLoan()} & $\bullet$ called with two parameters of type \texttt{STRING} representing a \texttt{StudentID} and a \texttt{BookID} \\
+       & $\bullet$ searches the array for an unused loan record \\
+       & $\bullet$ if found, updates the loan record and returns \texttt{TRUE}, otherwise returns \texttt{FALSE} \\ \hline
+      \end{tabular}
+```

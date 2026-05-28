@@ -1,0 +1,58 @@
+[thinking]
+**Examining the Exam Page for Transcription**
+
+Okay, so I've been asked to transcribe page 8 of an exam paper. The prompt indicates the page contains questions numbered "2", "2a", "2b", and "2bi". I need to carefully interpret the OCR and structure the information accordingly.
+
+My first thought is to break down the problem. Let's see what the OCR output reveals.
+
+*   **Question 2**: The text here seems straightforward: "In this experiment, you will investigate the motion of a sphere rolling along a track." That's a general introductory statement. I'll flag this as a "short\_answer" type question.
+
+*   **Question 2a**: This one looks like it involves a measurement. The text describes a channel track, the distance 'x' between rails, and instructs me to measure and record 'x'. The answer line `x = \hrulefill` confirms this is a single measurement, so I'll classify this as a "calculation" question.
+
+*   **Question 2b & 2bi**: This is where it gets a little more involved. The stub has two parts, "2b" (short\_answer) and "2bi" (calculation). Let's trace it and see how it works. I need to be careful with the text to avoid misplacing the information. The text "(b)(i)" is on the page, so I'll follow that. It begins with: "Set up the apparatus as shown in Fig. 2.2". This looks like instructions, and there are additional instructions following. There is no question for measurement in (b)(i). The fact that the diagram is referenced to 2.2 and 2.3 suggest that there might be a measurement question in the following pages, so I need to keep that in mind. The text "2b" can be empty or it can include an introduction to the instruction. The text "2bi" is the instructions.
+
+Let's carefully split it up:
+
+*   **2b**: The only text I see in the OCR as "(b)(i)" is "Set up the apparatus as shown in Fig. 2.2".
+*   **2bi**: The instruction continues with: "You are provided with two spheres.", "Place the smaller sphere on the track. If necessary, adjust the position of the wooden block until the sphere is able to roll along the full length of the track and into the box.", and "Secure the block to the track with a small piece of adhesive putty as shown in Fig. 2.3. The block and track must remain in these positions for the rest of the experiment." I have to be careful with my wording to make sure I convey this instruction properly, while adhering to the expected format.
+
+So my final breakdown should be:
+
+*   **2**: (short\_answer) - "In this experiment, you will investigate the motion of a sphere rolling along a track."
+*   **2a**: (calculation) - "You are provided with a length of plastic channel. When the channel is positioned with its open side at the top, it forms a track with a pair of rails along which a sphere can roll. The distance between the rails is x. Measure and record x. x = \hrulefill"
+*   **2b**: (short\_answer) - "Set up the apparatus as shown in Fig. 2.2."
+*   **2bi**: (calculation) - "You are provided with two spheres. Place the smaller sphere on the track. If necessary, adjust the position of the wooden block until the sphere is able to roll along the full length of the track and into the box. Secure the block to the track with a small piece of adhesive putty as shown in Fig. 2.3. The block and track must remain in these positions for the rest of the experiment."
+
+This feels right, mapping each section of text to the specified question number and type and is, I believe, a clean and complete transcription. I'm satisfied.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the motion of a sphere rolling along a track.
+  - number: "2a"
+    type: calculation
+    text: |
+      You are provided with a length of plastic channel. When the channel is positioned with its open side at the top, it forms a track with a pair of rails along which a sphere can roll.
+
+      The distance between the rails is $x$.
+
+      Measure and record $x$.
+
+      $x =$ \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      Set up the apparatus as shown in Fig. 2.2.
+  - number: "2bi"
+    type: calculation
+    text: |
+      You are provided with two spheres.
+
+      Place the smaller sphere on the track. If necessary, adjust the position of the wooden block until the sphere is able to roll along the full length of the track and into the box.
+
+      Secure the block to the track with a small piece of adhesive putty as shown in Fig. 2.3. \textbf{The block and track must remain in these positions for the rest of the experiment.}

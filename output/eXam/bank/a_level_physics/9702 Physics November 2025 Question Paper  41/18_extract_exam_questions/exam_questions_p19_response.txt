@@ -1,0 +1,38 @@
+[thinking]
+**Exam Question Transcription**
+
+Okay, so the user wants me to transcribe three questions from page 19 of an exam. It looks like they want them presented in a specific format. Let's see... the questions are: 8bii, 8biii, and 8c.
+
+*   **8bii:** This is a calculation problem. I need to transcribe the question: "Determine a value for the wavelength of the gamma radiation emitted during the decay of the uranium-238 nucleus." The answer line should be: `wavelength = \hrulefill \text{ m}`.
+
+*   **8biii:** This is a long-answer question. I need to transcribe: "In practice, the rebound kinetic energy of the thorium nucleus is \textbf{not} negligible. Explain, without further calculation, how your answer in \textbf{(b)(ii)} compares with the true wavelength of gamma radiation emitted during the decay of the uranium-238 nucleus."
+
+*   **8c:** This is another long-answer question. I need to transcribe: "Gamma radiation emitted during the decay of a sample of uranium-238 has a single wavelength. Nuclei of cobalt-60 ($^{60}_{27}\text{Co}$) decay by beta emission, and also emit gamma radiation in the process. Suggest why there is \textbf{not} a single wavelength for the gamma radiation emitted during the decay of a sample of cobalt-60."
+
+Right, I need to make sure I format this correctly. I need to strip the subquestion prefixes like (ii), (iii), and (c). The answer lines need to use the `\hrulefill` for the fill-in section. And, bold text needs to use the `\textbf{...}` tag. I'll need to use `$..$` to write math as well, such as $^{60}_{27}\text{Co}$. I'm ready to proceed with the transcription.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8bii"
+    type: calculation
+    text: |
+      Determine a value for the wavelength of the gamma radiation emitted during the decay of the uranium-238 nucleus.
+
+      wavelength = \hrulefill $\text{m}$
+  - number: "8biii"
+    type: long_answer
+    text: |
+      In practice, the rebound kinetic energy of the thorium nucleus is \textbf{not} negligible.
+
+      Explain, without further calculation, how your answer in \textbf{(b)(ii)} compares with the true wavelength of gamma radiation emitted during the decay of the uranium-238 nucleus.
+  - number: "8c"
+    type: long_answer
+    text: |
+      Gamma radiation emitted during the decay of a sample of uranium-238 has a single wavelength.
+
+      Nuclei of cobalt-60 ($^{60}_{27}\text{Co}$) decay by beta emission, and also emit gamma radiation in the process.
+
+      Suggest why there is \textbf{not} a single wavelength for the gamma radiation emitted during the decay of a sample of cobalt-60.

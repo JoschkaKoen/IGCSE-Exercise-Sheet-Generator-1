@@ -1,0 +1,66 @@
+[thinking]
+**Exam Page 2 Transcription**
+
+Okay, so I need to transcribe page 2 of this exam paper. Let's break down the questions. First, there's question "1," which starts with "Refer to the insert for the list of pseudocode functions and operators. A program is being developed to control the production line in a factory." Alright, seems straightforward enough.
+
+Now, we have sub-question "1a," which discusses program life cycles: "A number of different program life cycles are available for the development of a program."
+
+Next, "1ai": "Explain the need for different program development life cycles." That's a classic question. Should be able to knock that out.
+
+Then, "1aii": "Coding is a stage in a program development life cycle. State **one** consideration that would influence the choice of programming language." Thinking about that, it's pretty open-ended, but I have plenty of ideas.
+
+Moving on to "1b," the program's been running for a while, and adaptive maintenance is needed: "The program has been in use for a number of months and adaptive maintenance is required."
+
+"1bi" asks for three reasons for adaptive maintenance: "Give **three** reasons why adaptive maintenance may be required. 1. \hrulefill 2. \hrulefill 3. \hrulefill". Easy.
+
+Finally, there's "1bii," which covers other types of maintenance: "As well as adaptive maintenance, other types of program maintenance may be needed. Identify **one** other type of program maintenance." I have a good grasp of this, and it should be simple.
+
+Before starting, I need to make sure I'm adhering to the prompt, and stripping the subquestion prefixes.
+
+With this prep, I'm confident I can do this efficiently and accurately.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Refer to the insert for the list of pseudocode functions and operators.
+
+      A program is being developed to control the production line in a factory.
+  - number: "1a"
+    type: short_answer
+    text: |
+      A number of different program life cycles are available for the development of a program.
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Explain the need for different program development life cycles.
+  - number: "1aii"
+    type: short_answer
+    text: |
+      Coding is a stage in a program development life cycle.
+
+      State \textbf{one} consideration that would influence the choice of programming language.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The program has been in use for a number of months and adaptive maintenance is required.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Give \textbf{three} reasons why adaptive maintenance may be required.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "1bii"
+    type: short_answer
+    text: |
+      As well as adaptive maintenance, other types of program maintenance may be needed.
+
+      Identify \textbf{one} other type of program maintenance.
+```

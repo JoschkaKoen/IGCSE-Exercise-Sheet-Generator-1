@@ -1,0 +1,28 @@
+```yaml
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      Identify the field in the database table that is most suitable to be the primary key \textbf{and} give \textbf{one} reason for your choice.
+
+      Primary key field \hrulefill
+
+      Reason \hrulefill
+  - number: "8c"
+    type: short_answer
+    text: |
+      Give the output from the structured query language (SQL) statement:
+
+      \begin{alltt}
+      SELECT City, Country, Population
+      FROM MajorCity
+      WHERE Continent = "South America"
+      ORDER BY Population;
+      \end{alltt}
+  - number: "8d"
+    type: short_answer
+    text: |
+      Complete the SQL statement to list only the code, city, country and continent of all the cities in the database table that are capital cities.
+
+      SELECT \hrulefill
+```

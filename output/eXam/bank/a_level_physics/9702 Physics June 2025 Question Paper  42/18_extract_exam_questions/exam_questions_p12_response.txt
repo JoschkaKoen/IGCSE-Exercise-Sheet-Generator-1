@@ -1,0 +1,53 @@
+[thinking]
+**Analyzing Exam Question 5**
+
+Okay, so I'm presented with an exam question, specifically question number 5 on page 12. My task is to transcribe it. Right, let's break this down. It seems the structure is straightforward enough: "5" is the overarching question, with sub-questions denoted by "5a", "5b", and then further subdivisions within "5b".
+
+Initially, I'm noting that the main question "5" itself doesn't seem to have its own direct text. Often, that main number serves as a placeholder or contains the introduction. In this case, there's no introductory text explicitly under "5", rather the text seems to immediately branch into subquestions. I have to make sure to accommodate this in my output. So "5" will be transcribed as blank, but should still be represented to preserve the structure.
+
+"5a" asks for a definition of simple harmonic motion. That's a classic. Then, "5b" presents a scenario: a block on a spring undergoing simple harmonic motion, and gives us a velocity equation, $v = 0.56 \cos 16t$. This screams "harmonic motion" and I'm instantly thinking about the relationships between frequency, amplitude, and displacement, and how to utilize the given equation.
+
+Sub-question "5bi" requires the calculation of the oscillation period, which is a direct application of the formula based on the argument of the cosine function. "5bii" then asks for the amplitude, which I can get from the coefficient of the cosine function. Finally, "5biii" wants us to derive a velocity equation in terms of displacement, meaning I will need to relate the given equation to the displacement function, likely using the relationship between velocity and displacement in SHM.
+
+So, in essence, I need to map the given text to the correct sub-question labels, accounting for the "empty" main question. That means transcribing "5" with `text: ''`. I need to ensure the formatting with line breaks, math, and the blanks for the answers is accurately preserved.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: short_answer
+    text: |
+      State what is meant by simple harmonic motion.
+  - number: "5b"
+    type: short_answer
+    text: |
+      A block is suspended by a spring. The block oscillates vertically with simple harmonic motion.
+
+      The velocity $v$ of the block varies with time $t$ according to
+
+      $$v = 0.56 \cos 16t$$
+
+      where $v$ is in $\text{ms}^{-1}$ and $t$ is in $\text{s}$.
+  - number: "5bi"
+    type: calculation
+    text: |
+      Calculate the period of the oscillation.
+
+      period = \hrulefill $\text{s}$
+  - number: "5bii"
+    type: calculation
+    text: |
+      Determine the amplitude $x_0$ of the oscillation.
+
+      $x_0$ = \hrulefill $\text{m}$
+  - number: "5biii"
+    type: calculation
+    text: |
+      Use your answer in (b)(ii) to determine the equation for $v$ in terms of the displacement $x$ of the block, where $v$ is in $\text{ms}^{-1}$ and $x$ is in $\text{m}$.
+
+      $v$ = \hrulefill

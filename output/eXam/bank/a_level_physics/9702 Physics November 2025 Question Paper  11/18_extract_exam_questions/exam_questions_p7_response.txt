@@ -1,0 +1,77 @@
+[thinking]
+**My Thought Process: Transcribing Physics Exam Questions to YAML**
+
+Okay, let's break this down. The task is to take questions from page 7 of an exam paper (questions 11, 12, and 13) and convert them into a YAML format. The YAML format needs specific fields: `number`, `type`, `text`, and `options`. The `type` will be `multiple_choice` since all three are multiple-choice. The key constraint is to avoid double quotes for strings and use the `|` block scalar for multi-line text. Also, all math needs to be rendered using LaTeX. It is important to remember not to include any figure.
+
+First, I'll transcribe question 11. The text is straightforward: "The graph shows how the momentum of a motorcycle changes with time. What is the resultant force on the motorcycle?". The crucial part is to correctly capture the phrasing. The options are A: 500 N, B: 5000 N, C: 25000 N, and D: 50000 N. I'll represent the units in LaTeX for consistency, and more elegant presentation, as `$500 \text{ N}$`, etc.
+
+Next, Question 12. The text is: "A rocket has a weight of $W$ and an initial acceleration of $a$ as the rocket leaves the ground vertically. The acceleration of free fall is $g$. Which expression gives the initial upward force exerted on the rocket due to the engine?". The options here require LaTeX: A: $\frac{Wa}{g} + W$, B: $\frac{Wa}{g}$, C: $\frac{Wa}{g} - W$, and D: $Wa + W$. So, I need to render these exactly as they are in the paper.
+
+Finally, for Question 13. The text: "A uniform rod of weight $28\text{ N}$ is supported at one end by force $F$. The rod is in equilibrium and attached to a frictionless hinge at end X. What is the magnitude of $F$?". The multiple-choice options are: A: `$9.0\text{ N}$`, B: `$11\text{ N}$`, C: `$18\text{ N}$`, and D: `$21\text{ N}$`. Again, the units need to be consistently rendered in LaTeX.
+
+Now, I'll structure all this as YAML, ensuring proper use of block scalars with `|` and avoiding double quotes. I am careful to make sure all of the requested LaTeX is used.
+
+
+
+[/thinking]
+
+questions:
+  - number: "11"
+    type: multiple_choice
+    text: |
+      The graph shows how the momentum of a motorcycle changes with time.
+
+      What is the resultant force on the motorcycle?
+    options:
+      - letter: A
+        text: |
+          $500 \text{ N}$
+      - letter: B
+        text: |
+          $5000 \text{ N}$
+      - letter: C
+        text: |
+          $25\ 000 \text{ N}$
+      - letter: D
+        text: |
+          $50\ 000 \text{ N}$
+  - number: "12"
+    type: multiple_choice
+    text: |
+      A rocket has a weight of $W$ and an initial acceleration of $a$ as the rocket leaves the ground vertically. The acceleration of free fall is $g$.
+
+      Which expression gives the initial upward force exerted on the rocket due to the engine?
+    options:
+      - letter: A
+        text: |
+          $\frac{Wa}{g} + W$
+      - letter: B
+        text: |
+          $\frac{Wa}{g}$
+      - letter: C
+        text: |
+          $\frac{Wa}{g} - W$
+      - letter: D
+        text: |
+          $Wa + W$
+  - number: "13"
+    type: multiple_choice
+    text: |
+      A uniform rod of weight $28 \text{ N}$ is supported at one end by force $F$.
+
+      The rod is in equilibrium and attached to a frictionless hinge at end X.
+
+      What is the magnitude of $F$?
+    options:
+      - letter: A
+        text: |
+          $9.0 \text{ N}$
+      - letter: B
+        text: |
+          $11 \text{ N}$
+      - letter: C
+        text: |
+          $18 \text{ N}$
+      - letter: D
+        text: |
+          $21 \text{ N}$

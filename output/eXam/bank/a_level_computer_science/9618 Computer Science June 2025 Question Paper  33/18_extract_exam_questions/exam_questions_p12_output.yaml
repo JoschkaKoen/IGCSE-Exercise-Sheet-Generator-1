@@ -1,0 +1,16 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: ''
+  - number: "10a"
+    type: short_answer
+    text: |
+      State the purpose of the A* and Dijkstra's algorithms.
+  - number: "10b"
+    type: short_answer
+    text: |
+      Outline the difference between the A* and Dijkstra's algorithms.
+  - number: "10c"
+    type: long_answer
+    text: |
+      Explain how unsupervised learning takes place in machine learning.

@@ -1,0 +1,35 @@
+```yaml
+questions:
+  - number: "2a"
+    type: short_answer
+    text: |
+      The flowchart contains logic errors.
+
+      One logic error is that \texttt{BonusPay} will not be set to 10 although the \texttt{ValueOfSales} input is between 2000 and 4000 inclusive.
+  - number: "2ai"
+    type: short_answer
+    text: |
+      Explain why this error occurs.
+  - number: "2aii"
+    type: short_answer
+    text: |
+      Explain how this error could be corrected.
+  - number: "2b"
+    type: short_answer
+    text: |
+      There are different ways to reduce the risk of errors when developing the new program, such as the use of constants.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      State a value that could be replaced by a constant in the function \texttt{CalculateBonus()}
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Explain how the use of constants helps to reduce the risk of programming errors.
+  - number: "2biii"
+    type: short_answer
+    text: |
+      One other way that can reduce the risk of errors when writing the program is the use of library routines.
+
+      Explain how library routines can reduce the risk of programming errors.
+```

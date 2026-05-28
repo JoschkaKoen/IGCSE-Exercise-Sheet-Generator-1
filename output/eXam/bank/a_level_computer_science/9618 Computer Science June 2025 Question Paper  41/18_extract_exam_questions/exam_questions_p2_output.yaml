@@ -1,0 +1,37 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program stores positive integers in a circular queue.
+
+      The queue is stored as a global 1D array of 20 integers with the identifier \texttt{Queue}. Each index is initialised with the data $-1$
+
+      The global variable \texttt{HeadPointer}, initialised to $-1$, points to the first element in the queue.
+      The global variable \texttt{TailPointer}, initialised to $-1$, points to the last element in the queue.
+      The global variable \texttt{NumberItems}, initialised to 0, stores the number of items in the queue.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Write program code to declare and initialise \texttt{Queue}, \texttt{HeadPointer}, \texttt{TailPointer} and \texttt{NumberItems}
+
+      Save your program as \textbf{Question1\_J25}.
+
+      Copy and paste the program code into part \textbf{1(a)} in the evidence document.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The function \texttt{Enqueue()}:
+
+      \begin{itemize}
+      \item takes an integer as a parameter
+      \item checks if the queue is full
+      \item returns \texttt{FALSE} if the queue is full
+      \item stores the parameter in the next position in the queue and returns \texttt{TRUE} if the queue is \textbf{not} full
+      \item updates the appropriate pointers and \texttt{NumberItems}
+      \end{itemize}
+
+      Write program code for \texttt{Enqueue()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(b)} in the evidence document.

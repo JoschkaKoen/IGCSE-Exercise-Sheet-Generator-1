@@ -1,0 +1,29 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3a"
+    type: short_answer
+    text: |
+      Identify \textbf{two} different layers of the TCP/IP protocol suite.
+  - number: "3b"
+    type: long_answer
+    text: |
+      Describe how the TCP/IP protocol suite is applied when a message is sent through the internet from one host to another. Do \textbf{not} describe the function of individual layers of the TCP/IP protocol suite.
+  - number: "4"
+    type: short_answer
+    text: |
+      Circuit switching may be used as a method of data transmission.
+
+      State \textbf{two} benefits and \textbf{two} drawbacks of circuit switching.
+
+      Benefit 1 \hrulefill
+
+      Benefit 2 \hrulefill
+
+      Drawback 1 \hrulefill
+
+      Drawback 2 \hrulefill
+```

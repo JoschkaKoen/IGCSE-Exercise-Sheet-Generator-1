@@ -1,0 +1,57 @@
+[thinking]
+**Transcribing Exam Page 12: A YAML-Based Approach**
+
+Okay, so the task is to essentially transcribe page 12 of an exam paper into a structured format, likely for a system that will parse it. I'm thinking YAML is the way to go here, it's clean and easily readable. Let's break down the questions one by one.
+
+First, question "7": "Web browsers use Internet Protocol (IP) addresses." A simple statement, so a short answer YAML entry seems right. Easy enough.
+
+Next, "7a": "Complete the table by describing the following types of IP address. (Static, Public)".  Right, that means I need a table structure. Initially, I considered a simplified format, but then I'll use a tabular format to keep the formatting intact.
+
+Then, "7b": "Consider the following IP address: 256.0.0.A. Circle whether this IP address is IPv4, IPv6 or an invalid IP address. Justify your choice."  Definitely an "invalid" IP address – that 256 is the giveaway! Need to ensure the "invalid" choice is explicitly available in the YAML. I'll include the IP address in math format, and explicitly list IPv4, IPv6 and Invalid as choices.
+
+Finally, "7c": "A user types a Uniform Resource Locator (URL) into the address bar of a web browser to access a web page. Explain how the web browser uses the URL to access the web page." This is a more involved explanation, so a long answer type is clearly what's needed. I'll make sure it's clear what the prompt is and format it nicely for the output.
+
+Alright, with these considerations in mind, I'll structure the YAML accordingly. It's important to make the YAML easy to parse, easy to debug, and ready to feed to whatever system is expecting it.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Web browsers use Internet Protocol (IP) addresses.
+  - number: "7a"
+    type: short_answer
+    text: |
+      Complete the table by describing the following types of IP address.
+
+      \begin{tabular}{|c|p{10cm}|}
+      \hline
+      \textbf{Type of IP address} & \textbf{Description} \\ \hline
+      Static & \newline\newline \\ \hline
+      Public & \newline\newline \\ \hline
+      \end{tabular}
+  - number: "7b"
+    type: short_answer
+    text: |
+      Consider the following IP address:
+
+      $$256.0.0.A$$
+
+      Circle whether this IP address is IPv4, IPv6 or an invalid IP address.
+
+      \begin{center}
+      IPv4 \quad\quad IPv6 \quad\quad Invalid
+      \end{center}
+
+      Justify your choice.
+  - number: "7c"
+    type: long_answer
+    text: |
+      A user types a Uniform Resource Locator (URL) into the address bar of a web browser to access a web page.
+
+      Explain how the web browser uses the URL to access the web page.
+```

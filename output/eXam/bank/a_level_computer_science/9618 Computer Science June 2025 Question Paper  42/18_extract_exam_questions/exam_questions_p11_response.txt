@@ -1,0 +1,63 @@
+[thinking]
+**Analyzing and Structuring Exam Questions**
+
+Okay, let's break this down. I need to process information from page 11 of an exam paper. My task is to extract the content for questions "3c", "3ci", and "3cii" and then format it as YAML, adhering to specific formatting rules.
+
+First, I'll identify the relevant sections. Question 3c seems to describe the `Wolf` class, its inheritance from `Animal`, and its attributes and methods. Specifically, it lists `TerritorySize`, the `Constructor()`, and `SetTerritorySize()`. The tabular format here will require some careful handling to maintain its structure while ensuring YAML compatibility. I need to make sure that the LaTeX table formatting adheres to the specified guidelines. I'll need to use the `|` block scalar and wrap code tokens in `\texttt{...}`. No double quotes in the fields. The initial table representation should be:
+```latex
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Wolf}} \\ \hline
+\texttt{TerritorySize : Integer} & stores the size of the area where the wolf lives, to the nearest square mile \\ \hline
+\texttt{Constructor()} & calls the parent constructor using its parameter values; initialises \texttt{TerritorySize} to its parameter value \\ \hline
+\texttt{SetTerritorySize()} & takes an integer parameter and adds this to the number currently in \texttt{TerritorySize} \\ \hline
+\end{tabular}
+```
+Now, for 3ci, it requests program code to declare the `Wolf` class, its constructor, and the `SetTerritorySize()` method. I must remember to use an appropriate constructor syntax for my chosen language. If I'm using Python, I must include attribute declarations as comments. Finally, 3cii asks for code to implement the `Description()` method, which should return a formatted string. It provides a sample output format as well. I have to make sure to save the program and copy-paste the code into the evidence documents as specified.
+I must also make sure that I don't introduce extraneous blank lines, or dotted lines, and that the column counts of any tables are correct. Let's make sure it's correct. Good, it is. All set.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The class \texttt{Wolf} inherits from the class \texttt{Animal}
+
+      \texttt{Wolf} inherits the attributes from \texttt{Animal} and overrides the \texttt{Description()} method. The additional attributes and methods in the class \texttt{Wolf} are:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Wolf}} \\ \hline
+      \texttt{TerritorySize : Integer} & stores the size of the area where the wolf lives, to the nearest square mile \\ \hline
+      \texttt{Constructor()} & calls the parent constructor using its parameter values; initialises \texttt{TerritorySize} to its parameter value \\ \hline
+      \texttt{SetTerritorySize()} & takes an integer parameter and adds this to the number currently in \texttt{TerritorySize} \\ \hline
+      \end{tabular}
+  - number: "3ci"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Wolf}, its constructor and the method \texttt{SetTerritorySize()}
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document.
+  - number: "3cii"
+    type: short_answer
+    text: |
+      The method \texttt{Description()} in the class \texttt{Wolf} creates and returns a string of the animal's data in the format:
+
+      \texttt{"The animal's name is " <Name> ", it makes a " <Sound> ", its size is " <Size> " and its intelligence level is " <Intelligence> ". Its territory is " <TerritorySize> " square miles."}
+
+      For example:
+
+      \texttt{The animal's name is Nighteyes, it makes a Howl, its size is 8 and its intelligence level is 7. Its territory is 100 square miles.}
+
+      Write program code for \texttt{Description()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence document.

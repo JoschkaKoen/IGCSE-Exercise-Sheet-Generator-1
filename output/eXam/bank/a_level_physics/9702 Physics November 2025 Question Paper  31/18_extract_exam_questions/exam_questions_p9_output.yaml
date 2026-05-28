@@ -1,0 +1,25 @@
+questions:
+  - number: "2bii"
+    type: calculation
+    text: |
+      Estimate the percentage uncertainty in your value of $y$. Show your working.
+
+      percentage uncertainty = \hrulefill \%
+  - number: "2c"
+    type: short_answer
+    text: |
+      By adjusting the height of the boss, lower the mass to squash the middle of the paper cylinder until the bottom of the mass is 2.5 cm above the bench, as shown in Fig. 2.4.
+  - number: "2ci"
+    type: calculation
+    text: |
+      The length of the springs is $p$, as shown in Fig. 2.4.
+
+      Measure and record $p$.
+
+      $p$ = \hrulefill cm
+  - number: "2cii"
+    type: calculation
+    text: |
+      Calculate $(y - p)$.
+
+      $(y - p)$ = \hrulefill cm

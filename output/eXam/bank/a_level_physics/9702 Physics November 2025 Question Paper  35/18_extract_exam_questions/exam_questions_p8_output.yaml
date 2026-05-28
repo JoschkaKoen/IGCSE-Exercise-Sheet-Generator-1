@@ -1,0 +1,29 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      You may not need to use all of the materials provided.
+
+      In this experiment, you will investigate the rolling of a plastic bottle.
+  - number: "2a"
+    type: short_answer
+    text: |
+      You are provided with a plastic bottle with a cap, as shown in Fig. 2.1.
+  - number: "2ai"
+    type: calculation
+    text: |
+      The diameter of the base of the bottle is $d$.
+
+      Measure and record $d$.
+
+      $d = $ \hrulefill
+  - number: "2aii"
+    type: calculation
+    text: |
+      Estimate the percentage uncertainty in your value of $d$. Show your working.
+
+      percentage uncertainty = \hrulefill
+  - number: "2b"
+    type: calculation
+    text: |
+      Set up the apparatus as shown in Fig. 2.2.

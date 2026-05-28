@@ -1,0 +1,34 @@
+questions:
+  - number: "5c"
+    type: long_answer
+    text: |
+      Explain why the identifiers \texttt{L}, \texttt{S}, \texttt{T} and \texttt{A} may \textbf{not} be appropriate to use as identifiers and how they could be improved.
+  - number: "5d"
+    type: short_answer
+    text: |
+      State a more appropriate identifier for each of the variables \texttt{L}, \texttt{S}, \texttt{T} and \texttt{A}.
+
+      \begin{tabular}{|c|p{6cm}|}
+      \hline
+      \textbf{Original identifier} & \textbf{Improved identifier} \\ \hline
+      \texttt{L} & \\ \hline
+      \texttt{S} & \\ \hline
+      \texttt{T} & \\ \hline
+      \texttt{A} & \\ \hline
+      \end{tabular}
+  - number: "6"
+    type: short_answer
+    text: |
+      A program is to be written that will accept integers that are between the values of 1 and 80 inclusive.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Give examples of normal, abnormal and extreme test data that could be used to make sure the program only accepts valid data.
+
+      Normal test data \hrulefill
+      Abnormal test data \hrulefill
+      Extreme test data \hrulefill
+  - number: "6b"
+    type: short_answer
+    text: |
+      Describe what is meant by extreme test data.

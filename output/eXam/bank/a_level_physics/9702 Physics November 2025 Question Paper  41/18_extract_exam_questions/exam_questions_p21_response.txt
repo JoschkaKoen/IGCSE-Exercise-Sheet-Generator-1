@@ -1,0 +1,16 @@
+[thinking]
+**Transcribing Question 9c for Analysis**
+
+Okay, so the user wants me to transcribe question "9c" from the page they've given me. Let's take a look. Ah, here it is: "Star X is in a galaxy that is moving away from the Earth."  Then there's a paragraph break, and the core of the question: "Suggest, with a reason, how the line for star X in Fig. 9.2 would appear differently if it had been obtained from data measured on the Earth." It's worth [2] marks, which helps frame the expected level of detail. I'll strip that subquestion label, and present the text as requested. I'm ready for the next step.
+
+
+
+[/thinking]
+
+questions:
+  - number: "9c"
+    type: short_answer
+    text: |
+      Star X is in a galaxy that is moving away from the Earth.
+
+      Suggest, with a reason, how the line for star X in Fig. 9.2 would appear differently if it had been obtained from data measured on the Earth.

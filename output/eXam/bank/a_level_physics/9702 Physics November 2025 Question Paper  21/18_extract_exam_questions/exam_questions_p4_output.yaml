@@ -1,0 +1,24 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: short_answer
+    text: |
+      Define acceleration.
+  - number: "1b"
+    type: short_answer
+    text: |
+      A rocket is launched vertically from the surface of the Earth.
+
+      Fig. 1.1 shows the variation of the velocity of the rocket with time for the first $20\text{ s}$ after its launch.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Determine the acceleration of the rocket.
+
+      acceleration = \hrulefill $\text{ms}^{-2}$
+  - number: "1bii"
+    type: calculation
+    text: |
+      Show that the height of the rocket above the surface of the Earth at a time of $20\text{ s}$ after launch is $3.2\text{ km}$.

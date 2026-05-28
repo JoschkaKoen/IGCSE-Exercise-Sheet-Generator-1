@@ -1,0 +1,51 @@
+[thinking]
+**Exam Page 8: YAML Population**
+
+Okay, so I've got to fill out the YAML stub for page 8 of this exam. The instructions are clear: keep the same order, same number of entries as the stub, no adding or removing questions.  The first thing is question "8".  Let's see, does "8" have any stem text? Nope, it just acts as the question number. The stub has "8", "8a", "8b", and "8c". Since there's no question stem text for just "8", I'll put `text: ''`. That handles the first entry in the stub.
+
+Next up, "8a". I'll grab the question text directly from the page: "Outline the purpose of lexical analysis during the compilation of a program.". Easy enough.
+
+For "8b", the question asks for the Reverse Polish Notation (RPN) of the infix expression: `(2 - 6) * (13 + 7) / 5`. That's straightforward; I can add that text directly.
+
+Finally, question "8c". This one involves evaluating an RPN expression: `d a b + * c a - /`. We're given the values for a, b, c, and d. The question specifically wants me to show the changing contents of a stack during evaluation. I see a visual stack diagram with 9 stacks each with 5 levels/boxes. Time to represent that visually.
+
+I need to create a visual representation of 9 stacks, each of height 5.  A table seems like the best approach. Since there is a small gap between the columns, I'll use a `tabular` environment. I can create nine columns, each containing five rows of `\framebox{\quad}`. This should render as nine distinct stacks, each five boxes tall.  That's clean and efficient. This should generate exactly the stack diagram asked for.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: ''
+  - number: "8a"
+    type: short_answer
+    text: |
+      Outline the purpose of lexical analysis during the compilation of a program.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Write the Reverse Polish Notation (RPN) for the given infix expression:
+
+      $(2 - 6) * (13 + 7) / 5$
+  - number: "8c"
+    type: short_answer
+    text: |
+      The RPN expression:
+
+      \texttt{d a b + * c a - /}
+
+      is to be evaluated, where:
+
+      $a = 6$, $b = 12$, $c = 15$ and $d = 5$.
+
+      Show the changing contents of the stack as the RPN expression is evaluated.
+
+      \begin{tabular}{ccccccccc}
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} \\
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} \\
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} \\
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} \\
+      \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad} & \framebox{\quad}
+      \end{tabular}

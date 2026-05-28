@@ -1,0 +1,19 @@
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      Set up the apparatus as shown in Fig. 2.3.
+
+      \begin{itemize}
+      \item Slide the loop of the upper spring onto the wooden rod.
+      \item Hang a mass of 200g from the lower spring.
+      \item Adjust the height of the boss until the bottom of the mass is approximately 10cm above the bench.
+      \item Place the paper cylinder so that the middle of the cylinder is under the mass, as shown in Fig. 2.3.
+      \item The length of the springs is $y$, as shown in Fig. 2.3.
+      \end{itemize}
+  - number: "2bi"
+    type: calculation
+    text: |
+      Measure and record $y$.
+
+      $y = $ \hrulefill cm [1]

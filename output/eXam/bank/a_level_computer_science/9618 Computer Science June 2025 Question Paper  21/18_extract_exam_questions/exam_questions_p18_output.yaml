@@ -1,0 +1,7 @@
+questions:
+  - number: "7bii"
+    type: short_answer
+    text: |
+      The requirements for \texttt{AddNewCustomers()} are changed. There may be no existing customers in the loyalty scheme.
+
+      Explain the changes that will need to be made to the module \texttt{AddNewCustomers()}

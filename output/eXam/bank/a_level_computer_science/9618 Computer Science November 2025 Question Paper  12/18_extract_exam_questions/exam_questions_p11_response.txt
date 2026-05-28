@@ -1,0 +1,55 @@
+```yaml
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      A computer system uses even parity. The least significant (rightmost) bit of each byte is the parity bit.
+  - number: "6ci"
+    type: short_answer
+    text: |
+      Complete the byte by writing the missing parity bit:
+
+      \begin{tabular}{cc}
+      & parity \\
+      & bit \\
+      & $\downarrow$ \\
+      \hline
+      \multicolumn{1}{|c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{\underline{\hspace{1.5em}}} \\
+      \hline
+      \end{tabular}
+  - number: "6cii"
+    type: short_answer
+    text: |
+      The computer also uses parity block check. The parity block check uses even parity. Computer A transmits four bytes of data to computer B, followed by a parity byte. Computer B receives the following sequence of bytes.
+
+      \begin{tabular}{ccccccccc}
+      & & & & & & & & parity \\
+      & & & & & & & & bit \\
+      & & & & & & & & $\downarrow$ \\
+      \cline{2-9}
+      & \multicolumn{1}{|c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} \\
+      \cline{2-9}
+      & \multicolumn{1}{|c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \\
+      \cline{2-9}
+      & \multicolumn{1}{|c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} \\
+      \cline{2-9}
+      & \multicolumn{1}{|c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \\
+      \cline{2-9}
+      parity byte $\rightarrow$ & \multicolumn{1}{|c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} \\
+      \cline{2-9}
+      \end{tabular}
+
+      Following transmission, one of the four bytes of data has an error in one of the bits.
+
+      Circle the bit that has been altered during the data transfer.
+  - number: "6d"
+    type: calculation
+    text: |
+      A bitmap image has a resolution of 1000 pixels wide by 2000 pixels high. The colour depth is 16 bits.
+
+      Calculate an estimate of the file size in megabytes.
+
+      Show your working.
+
+      File size \underline{\hspace{1.5em}} megabytes
+```

@@ -1,0 +1,56 @@
+```yaml
+questions:
+  - number: "2d"
+    type: long_answer
+    text: |
+      The text file \texttt{BinaryData.txt} stores individual binary digits, '1' and '0'. Each digit is on a new line. For example, the first line in the text file stores '1', the second line stores '1'.
+
+      The procedure \texttt{ReadData()} reads in each line from the text file \texttt{BinaryData.txt} and inserts it into the queue using the appropriate method.
+
+      The procedure needs to work for a text file with any number of lines up to a maximum of 100.
+
+      Write program code for \texttt{ReadData()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{2(d)} in the evidence document. \\
+      \hline
+      \end{tabular}
+  - number: "2e"
+    type: long_answer
+    text: |
+      The string data in the text file is compressed.
+
+      The compression algorithm counts the number of times each binary digit appears consecutively, then stores the binary digit followed by the number of times it appears. The algorithm stores the compressed data in a single string.
+
+      For example, if the text file contains the data:
+
+      \begin{alltt}
+      1
+      1
+      0
+      0
+      0
+      1
+      1
+      1
+      \end{alltt}
+
+      The compression algorithm will create the string \texttt{"120313"} because there are two '1' digits, followed by three '0' digits, followed by three '1' digits.
+
+      The procedure \texttt{Compress()} uses \texttt{Dequeue()} to remove each element from the queue in turn. The procedure then compresses the data following the compression algorithm described. The new compressed string is stored in the global variable \texttt{NewString}
+
+      You can assume that one binary digit will never appear more than nine times consecutively in the sequence.
+
+      You can assume that there will always be at least one item in the queue.
+
+      Write program code for \texttt{Compress()}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{2(e)} in the evidence document. \\
+      \hline
+      \end{tabular}
+```

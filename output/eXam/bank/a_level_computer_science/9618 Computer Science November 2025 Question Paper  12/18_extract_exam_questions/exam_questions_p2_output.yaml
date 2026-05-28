@@ -1,0 +1,49 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Draw one line from each verification method to indicate whether it is used during data transfer or data entry.
+
+      \textbf{Verification Method}
+
+      \begin{itemize}
+      \item Parity byte check
+      \item Checksum
+      \item Visual check
+      \item Parity block check
+      \end{itemize}
+
+      \textbf{Use}
+
+      \begin{itemize}
+      \item Data transfer
+      \item Data entry
+      \end{itemize}
+  - number: "2"
+    type: short_answer
+    text: |
+      Complete the table by describing each term.
+  - number: "2a"
+    type: long_answer
+    text: |
+      \begin{tabular}{|l|p{10cm}|}
+      \hline
+      \textbf{Term} & \textbf{Description} \\
+      \hline
+      Copyright & \\
+      & \\
+      & \\
+      \hline
+      Open Source (Initiative) & \\
+      & \\
+      & \\
+      \hline
+      Shareware & \\
+      & \\
+      & \\
+      \hline
+      Software Licence & \\
+      & \\
+      & \\
+      \hline
+      \end{tabular}

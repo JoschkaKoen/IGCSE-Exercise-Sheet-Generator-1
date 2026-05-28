@@ -1,0 +1,52 @@
+[thinking]
+**My Thought Process on Parsing Exam Question Page 12**
+
+Okay, let's break this down. The task is to extract and format specific questions from page 12 of an exam paper into a YAML structure.  I need to grab sections 3g, 3gi, and 3gii. The format is pre-defined YAML stub, so I have to ensure the extracted content fits.
+
+First, I examined question 3g. The textual description needs some formatting, specifically for readability. I'll use LaTeX's itemize environment for the bullet points and `\texttt` for the code elements: `InitialiseHashTable()`, `ReadData()`, and `GetRecord()`. I'll also emphasize the number of key fields by bolding "five".
+
+Next, question 3gi. This one requires me to be very precise. I need to copy *exactly* the instructions given on saving and pasting code. I'll need to remember to correctly number the section referenced in the pasted instructions. Marks are indicated as [3].
+
+For 3gii, the goal is to capture the provided test inputs and output instructions. I also need to emphasize the number of inputs and correctly number the section referred to in the save and paste instruction. Marks here are [2].
+
+Finally, the YAML formatting. I will construct the YAML structure for each question. I'll need to remember a few key constraints for a successful output: Use the `|` block scalar for all text fields, no double quotes around strings, and I need to be careful with any LaTeX commands. I am to include no `\includegraphics` and, crucially, I need to strip the subquestion label prefixes (e.g., "(i)", "(ii)") from the beginning of the text of the questions. The `\texttt` command will be used to denote code.
+
+Now I'll build the YAML structures for each, ensuring they match the described requirements and the format is clean. After formatting the YAML, I will double-check all aspects to ensure all instructions were followed precisely.  Let's make sure there are no Markdown fences in the final YAML output.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3g"
+    type: short_answer
+    text: |
+      The main program:
+
+      \begin{itemize}
+      \item calls \texttt{InitialiseHashTable()} and \texttt{ReadData()}
+      \item takes \textbf{five} integer key fields as input from the user
+      \item calls \texttt{GetRecord()} with each input and outputs the return value.
+      \end{itemize}
+  - number: "3gi"
+    type: short_answer
+    text: |
+      Write program code for the main program.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(g)(i)} in the evidence document.
+  - number: "3gii"
+    type: short_answer
+    text: |
+      Test your program with the following \textbf{five} inputs in the order given:
+
+      528
+      1128
+      1828
+      1062
+      39
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+      Copy and paste the screenshot(s) into part \textbf{3(g)(ii)} in the evidence document.

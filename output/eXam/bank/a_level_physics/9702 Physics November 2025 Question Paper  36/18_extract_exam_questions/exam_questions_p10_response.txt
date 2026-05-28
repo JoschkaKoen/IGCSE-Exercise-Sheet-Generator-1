@@ -1,0 +1,47 @@
+[thinking]
+**Page 10 of the Exam: Transcription and Formatting**
+
+Okay, so the user wants me to transcribe page 10 of the exam, specifically focusing on questions "2e," "2ei," "2eii," and "2f". Let's break this down. First, I need to look at the image and understand the content of each question, then format it correctly according to the provided instructions.
+
+"2e" seems to be a short answer question. The text describes a relationship: *ky = Tx*, where *k* is a constant. So, I need to format this as a YAML entry with the correct type and text.
+
+For "2ei," it looks like a calculation question. I need to get the student to calculate *two* values of *k* using their data, and indicate this with the appropriate number of answer lines. The user specified that the expected format for the answer is `\hrulefill`.
+
+"2eii" requires a long-form answer, asking for justification of the significant figures used in the *k* values calculated in "2ei".
+
+Finally, "2f" is another long-form question, asking to explain whether the results support the relationship described in "2e", given a 20% uncertainty in the *k* values.
+
+I've got the content of each question now, so I need to translate it into the desired YAML format. I'll need to remember those formatting rules: no double quotes for non-empty string fields, and block scalars for multi-line text. Also, I need to strip the subquestion prefixes like (e), (i), (ii), and (f). I also need to correctly escape `%` as `\%` for LaTeX compatibility.
+
+Let me apply all these rules and generate the YAML entries for each question. I'll double-check to make sure it's all correct. I think I'm ready to write that out now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2e"
+    type: short_answer
+    text: |
+      It is suggested that the relationship between $y$, $T$ and $x$ is
+
+      $$ky = Tx$$
+
+      where $k$ is a constant.
+  - number: "2ei"
+    type: calculation
+    text: |
+      Using your data, calculate \textbf{two} values of $k$.
+
+      first value of $k =$ \hrulefill
+      second value of $k =$ \hrulefill
+  - number: "2eii"
+    type: long_answer
+    text: |
+      Justify the number of significant figures that you have given for your values of $k$.
+  - number: "2f"
+    type: long_answer
+    text: |
+      It is suggested that the percentage uncertainty in the values of $k$ is 20\%.
+
+      Using this uncertainty, explain whether your results support the relationship in (e).

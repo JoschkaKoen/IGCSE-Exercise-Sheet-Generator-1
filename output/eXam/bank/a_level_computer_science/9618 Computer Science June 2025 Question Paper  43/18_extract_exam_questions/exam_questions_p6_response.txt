@@ -1,0 +1,50 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 6**
+
+Okay, let's get this exam page structured correctly in the YAML. The task is `2f`, and the stub already has `2f`, `2fi`, and `2fii` which seems right based on the numbering. Looking at the exam question, it's laid out with an `(f)` that branches into `(i)` and `(ii)`. Right, so `(f)` is the parent, and `(i)` and `(ii)` are the specific questions that need to be answered.
+
+The question text begins with "The main program needs extending..." which sets the context for `(i)`.  Aha!  `2f` is the natural place for that introductory text. We'll populate `2f` with the common introductory context and specifics of the search task.  `2fi` will get the "Write code..." part, and `2fii` covers the testing and screenshot. I need to make sure I bold the key information like how many searches are needed and what should be included in output messages.
+
+Here's how I think it breaks down: `2f` will contain the main task:  "The main program needs extending to call `Search()` with the sorted array four times..." with the specific search parameters: 0, 345, 67, and 2, including the output instructions.
+
+`2fi` will be "Write program code to extend the main program. Save your program. Copy and paste the program code into part 2(f)(i) in the evidence document."
+
+Finally, `2fii` will have "Test your program. Take a screenshot of the output(s). Save your program. Copy and paste the screenshot into part 2(f)(ii) in the evidence document."
+
+Now I can put this into the YAML. The structure will be clean and directly reflect the exam question structure. I will use the YAML formatting and make sure that the question numbers are also included for proper organization of the evidence. I have created clean YAML snippets for these.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2f"
+    type: short_answer
+    text: |
+      The main program needs extending to call \texttt{Search()} with the sorted array \textbf{four} times:
+
+      \begin{itemize}
+      \item the first time to find the index of the integer 0
+      \item the second time to find the index of the integer 345
+      \item the third time to find the index of the integer 67
+      \item the fourth time to find the index of the integer 2
+      \end{itemize}
+
+      If the integer is found in the array, output an appropriate message that includes the index.
+      If the integer is not found, output that it was not found.
+  - number: "2fi"
+    type: short_answer
+    text: |
+      Write program code to extend the main program.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{2(f)(i)} in the evidence document.
+  - number: "2fii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+      Copy and paste the screenshot into part \textbf{2(f)(ii)} in the evidence document.

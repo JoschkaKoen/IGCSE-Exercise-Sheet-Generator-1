@@ -1,0 +1,20 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A computer program uses a digital camera to read the words on an item.
+
+      The program can read the words that are written on the item, translate the words to a chosen language and then output the words as audio. For example, when used in a supermarket, the program can output the words written on the labels on products.
+
+      The program uses Artificial Intelligence (AI).
+  - number: "3a"
+    type: long_answer
+    text: |
+      Explain how AI is used in the computer program described.
+  - number: "3b"
+    type: short_answer
+    text: |
+      State \textbf{two} social benefits of the use of AI in the computer program described.
+
+      1. \hrulefill
+      2. \hrulefill

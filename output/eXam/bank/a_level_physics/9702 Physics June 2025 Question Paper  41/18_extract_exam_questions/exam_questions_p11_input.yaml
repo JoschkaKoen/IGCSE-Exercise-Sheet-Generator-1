@@ -1,0 +1,15 @@
+  - number: "5a"
+    type: short_answer
+    text: ""
+  - number: "5ai"
+    type: calculation
+    text: ""
+  - number: "5aii"
+    type: short_answer
+    text: ""
+  - number: "5b"
+    type: short_answer
+    text: ""
+  - number: "5c"
+    type: short_answer
+    text: ""

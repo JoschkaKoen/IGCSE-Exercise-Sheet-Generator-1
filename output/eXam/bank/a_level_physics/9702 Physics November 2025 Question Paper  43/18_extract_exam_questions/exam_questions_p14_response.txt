@@ -1,0 +1,56 @@
+[thinking]
+**Exam Page 14 Transcription: Analysis and Structure**
+
+Okay, so I need to transcribe page 14 of the exam. The questions are structured as "6", "6a", "6b", "6bi", and "6bii." I immediately recognize this as a capacitors question, which is right in my wheelhouse. Let's break this down systematically.
+
+First, question "6" is the overarching problem. It sets the scene: we have two parallel plate capacitors, C1 and C2, hooked up to a voltage source Vs. We can connect them in series or parallel. We're also dealing with charges – the source provides Qs, and the capacitors themselves hold Q1 and Q2. Similarly, the voltage source is Vs, and the individual capacitors have voltages V1 and V2.
+
+Now, let's look at the sub-questions:
+*   "6" (main) has text introducing the context.
+*   "6a" is a short-answer question involving completing a table. The table requires me to define how the charge and the potential differences relate in both a series and a parallel circuit.
+*   "6b" is another short-answer question and it provides information about a single, isolated capacitor and the energy stored in it.
+*   "6bi" is a calculation question, asking for the voltage across that capacitor.
+*   "6bii" is also a calculation question, asking for the charge on the same capacitor.
+
+I need to make sure I include the provided text. Let me organize the text for each question. Question "6" will start with the scenario from the question. Then, "6a" will include the table and instructions. "6b" will include the introduction to the isolated capacitor. "6bi" and "6bii" will include their respective instructions. I need to make sure that the units for "6bi" (Volts) and "6bii" (Coulombs) are correct, and the appropriate formatting applied. I'm going to double check those units. Okay, that seems straight forward, I think I'm ready to write the YAML now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Two parallel plate capacitors $C_1$ and $C_2$ are connected to a supply that has a potential difference (p.d.) $V_S$. The capacitors may be connected in series or in parallel.
+
+      The supply provides charge $Q_S$ and the plates of the two capacitors acquire charges $Q_1$ and $Q_2$ respectively. The p.d.s across the plates of the capacitors are $V_1$ and $V_2$ respectively.
+  - number: "6a"
+    type: short_answer
+    text: |
+      Complete Table 6.1 to indicate how $Q_S$, $Q_1$ and $Q_2$ relate to each other, and how $V_S$, $V_1$ and $V_2$ relate to each other, for series and parallel connections of the capacitors to the supply.
+
+      \textbf{Table 6.1}
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & relationship between charges & relationship between p.d.s \\ \hline
+      series & & \\ \hline
+      parallel & & \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      An isolated capacitor of capacitance $470\ \mu\text{F}$ stores $19\text{ mJ}$ of energy.
+  - number: "6bi"
+    type: calculation
+    text: |
+      Calculate the p.d. across the capacitor.
+
+      p.d. = \hrulefill V
+  - number: "6bii"
+    type: calculation
+    text: |
+      Calculate the charge on the capacitor.
+
+      charge = \hrulefill C

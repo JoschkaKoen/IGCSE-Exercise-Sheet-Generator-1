@@ -1,0 +1,5 @@
+questions:
+  - number: "6b"
+    type: long_answer
+    text: |
+      Write efficient pseudocode for the procedure \texttt{Sort()}

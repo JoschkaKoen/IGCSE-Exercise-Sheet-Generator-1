@@ -1,0 +1,15 @@
+questions:
+  - number: "5bi"
+    type: short_answer
+    text: |
+      The pseudocode does not use the most appropriate loop construct.
+
+      Explain why this is not the most appropriate loop construct.
+  - number: "5bii"
+    type: short_answer
+    text: |
+      Suggest and justify a more appropriate loop construct that could be used.
+
+      Construct \hrulefill
+
+      Justification

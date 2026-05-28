@@ -1,0 +1,111 @@
+[thinking]
+**Populating the YAML Stub for Questions 7 and 7a**
+
+Okay, I need to fill in the YAML stub for questions "7" and "7a" based on this page. I see that the prompt includes both "7" and "7a", so I need to make sure I represent both.  Let's see, question 7 starts with "7 (a) The following table..."  Wait, the stub has "7" and "7a". The prompt says to include one entry per stub, in the original order. Is there even a question "7" separate from "7a"? "7 (a)" suggests there is. I need to make sure I capture all the parts.
+
+It looks like "7" is the main setup, while "7a" is the sub-question. Looking at the text again, "7 (a) The following table shows part of the instruction set..." That table is the core, and then there are definitions:  "ACC denotes Accumulator...".  Then, there's a memory contents table: "The current contents of memory are..."  Since both "7" and "7a" are listed, I must address both parts.
+
+Let's divide things logically: I'll put the instruction set table and its notes under "7" and the memory contents and the memory table under "7a".
+
+For question "7", I'll create a LaTeX representation of the instruction set table, capturing all the opcode, operand, and explanation data, with all the given definitions. I'll make sure to format it in a clean, professional way.
+
+```latex
+The following table shows part of the instruction set for a processor. The processor has one register: the Accumulator (ACC).
+
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \hline
+\textbf{Opcode} & \textbf{Operand} & \\ \hline
+LDD & <address> & Direct addressing. Load the contents of the location at the given address to ACC \\ \hline
+LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+STO & <address> & Store the contents of ACC at the given address \\ \hline
+ADD & \#n/Bn/\&n & Add the number n to the ACC \\ \hline
+ADD & <address> & Add the contents of the given address to the ACC \\ \hline
+INC & <register> & Add 1 to the contents of the register (ACC) \\ \hline
+CMP & <address> & Compare the contents of ACC with the contents of <address> \\ \hline
+CMP & \#n & Compare the contents of ACC with number n \\ \hline
+JPE & <address> & Following a compare instruction, jump to <address> if the compare was True \\ \hline
+JMP & <address> & Jump to the given address \\ \hline
+END & & Return control to the operating system \\ \hline
+\end{tabular}
+
+ACC denotes Accumulator
+<address> can be an absolute or a symbolic address
+\# denotes a denary number, e.g. \#123
+B denotes a binary number, e.g. B01001010
+\& denotes a hexadecimal number, e.g. \&4A
+```
+
+Now, for "7a", I need to represent the memory contents table.  The visual layout is important, so I'll create a LaTeX table that visually matches the format.
+
+I see that the memory table has borders in the image. It's a single column of boxes for the instructions/values, with addresses on the left.
+Let's represent it as a table:
+```latex
+\begin{tabular}{r|l|}
+\cline{2-2}
+\textbf{10} & 12 \\ \cline{2-2}
+\textbf{11} & 11 \\ \cline{2-2}
+\textbf{12} & 10 \\ \cline{2-2}
+\textbf{13} & 22 \\ \cline{2-2}
+\textbf{14} & 22 \\ \cline{2-2}
+... & \\ \cline{2-2}
+\textbf{100} & LDD 10 \\ \cline{2-2}
+\textbf{101} & ADD 12 \\ \cline{2-2}
+\textbf{102} & STO 11 \\ \cline{2-2}
+\textbf{103} & CMP 14 \\ \cline{2-2}
+\textbf{104
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      The following table shows part of the instruction set for a processor. The processor has one register: the Accumulator (ACC).
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Instruction}} & \multicolumn{1}{c|}{\textbf{Explanation}} \\ \hline
+      \textbf{Opcode} & \textbf{Operand} & \\ \hline
+      LDD & <address> & Direct addressing. Load the contents of the location at the given address to ACC \\ \hline
+      LDM & \#n & Immediate addressing. Load the number n to ACC \\ \hline
+      STO & <address> & Store the contents of ACC at the given address \\ \hline
+      ADD & \#n/Bn/\&n & Add the number n to the ACC \\ \hline
+      ADD & <address> & Add the contents of the given address to the ACC \\ \hline
+      INC & <register> & Add 1 to the contents of the register (ACC) \\ \hline
+      CMP & <address> & Compare the contents of ACC with the contents of <address> \\ \hline
+      CMP & \#n & Compare the contents of ACC with number n \\ \hline
+      JPE & <address> & Following a compare instruction, jump to <address> if the compare was True \\ \hline
+      JMP & <address> & Jump to the given address \\ \hline
+      END & & Return control to the operating system \\ \hline
+      \end{tabular}
+
+      ACC denotes Accumulator
+      <address> can be an absolute or a symbolic address
+      \# denotes a denary number, e.g. \#123
+      B denotes a binary number, e.g. B01001010
+      \& denotes a hexadecimal number, e.g. \&4A
+  - number: "7a"
+    type: short_answer
+    text: |
+      The current contents of memory are:
+
+      \begin{tabular}{r|l|}
+      \cline{2-2}
+      \textbf{10} & 12 \\ \cline{2-2}
+      \textbf{11} & 11 \\ \cline{2-2}
+      \textbf{12} & 10 \\ \cline{2-2}
+      \textbf{13} & 22 \\ \cline{2-2}
+      \textbf{14} & 22 \\ \cline{2-2}
+      ... & \\ \cline{2-2}
+      \textbf{100} & LDD 10 \\ \cline{2-2}
+      \textbf{101} & ADD 12 \\ \cline{2-2}
+      \textbf{102} & STO 11 \\ \cline{2-2}
+      \textbf{103} & CMP 14 \\ \cline{2-2}
+      \textbf{104} & JPE 107 \\ \cline{2-2}
+      \textbf{105} & INC ACC \\ \cline{2-2}
+      \textbf{106} & JMP 101 \\ \cline{2-2}
+      \textbf{107} & STO 10 \\ \cline{2-2}
+      \textbf{108} & END \\ \cline{2-2}
+      \end{tabular}

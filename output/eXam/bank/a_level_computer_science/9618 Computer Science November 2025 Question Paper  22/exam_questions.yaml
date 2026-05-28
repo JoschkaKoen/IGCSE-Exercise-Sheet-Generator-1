@@ -1,0 +1,709 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Refer to the \textbf{insert} for the list of pseudocode functions and operators.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "The table contains pseudocode examples.\n\nEach example may contain statements\
+      \ that relate to one or more of:\n\\begin{itemize}\n\\item selection\n\\item\
+      \ iteration (repetition)\n\\item subroutines (procedures or functions).\n\\\
+      end{itemize}\n\nComplete the table by placing \\textbf{one or more} ticks ($\\\
+      checkmark$) in each row.\n\n\\begin{tabular}{|p{6cm}|c|c|c|}\n\\hline\n\\textbf{Pseudocode\
+      \ example} & \\textbf{Selection} & \\textbf{Iteration} & \\textbf{Subroutine}\
+      \ \\\\ \\hline\n\\begin{alltt}\nIF Status = FALSE THEN\n  FOR Count <- 1 TO\
+      \ 20\n    CALL Reset(Count)\n  NEXT Count\nENDIF\n\\end{alltt} & & & \\\\ \\\
+      hline\n\\begin{alltt}\nOTHERWISE : Status <- TRUE\n\\end{alltt} & & & \\\\ \\\
+      hline\n\\begin{alltt}\nWHILE AllDone() = TRUE\n\\end{alltt} & & & \\\\ \\hline\n\
+      \\begin{alltt}\n30 : NextChar <- 'X'\n\\end{alltt} & & & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the table by giving the appropriate data type.
+
+
+      \begin{tabular}{|l|l|p{4cm}|}
+
+      \hline
+
+      \textbf{Variable} & \textbf{Example data value} & \textbf{Data type} \\ \hline
+
+      \texttt{Result} & 5.42 & \\ \hline
+
+      \texttt{MonthLetter} & \texttt{"JFMAMJJASOND"} & \\ \hline
+
+      \texttt{Birthday} & \texttt{15/11/2009} & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Evaluate each expression in the table by using the data values shown in
+      (b).
+
+
+      Write ''ERROR'' if the expression contains an error.
+
+
+      \begin{tabular}{|p{8cm}|p{4cm}|}
+
+      \hline
+
+      \textbf{Expression} & \textbf{Evaluates to} \\ \hline
+
+      \texttt{INT(Result) + 1 > 6} & \\ \hline
+
+      \texttt{NUM\_TO\_STR(LENGTH(MonthLetter))} & \\ \hline
+
+      \texttt{NUM\_TO\_STR(Result + "3.2")} & \\ \hline
+
+      \texttt{MID(MonthLetter, MONTH(Birthday) - 2, 1)} & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: '\texttt{Data} is a global 1D array containing 20 elements of type \texttt{REAL}
+
+
+    An algorithm will:
+
+    \begin{itemize}
+
+    \item input a sequence of real values, one at a time
+
+    \item assign each value to consecutive array elements, starting from index 1
+
+    \item end when the value 99.9 is input, or all 20 elements have been assigned
+    (the value 99.9 must \textbf{not} be stored in the array).
+
+    \end{itemize}
+
+
+    Complete the program flowchart to represent the algorithm:'
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A text file \texttt{OldFile.txt} contains IDs, names and email addresses
+    for members of a club. Three information items are stored for each member and
+    each item is stored on a separate line.
+
+
+    The example shows the information for the first two members in the first six lines
+    of the file:
+
+
+    \begin{tabular}{|c|l|l|}
+
+    \hline
+
+    \textbf{Line in file} & \textbf{Information item} & \textbf{Example data} \\ \hline
+
+    1 & member 1 ID & \texttt{"AB1234"} \\ \hline
+
+    2 & member 1 name & \texttt{"Freddie Jones"} \\ \hline
+
+    3 & member 1 email address & \texttt{"FreddieJ909@Cambridge.org"} \\ \hline
+
+    4 & member 2 ID & \texttt{"BC2345"} \\ \hline
+
+    5 & member 2 name & \texttt{"Sue Smith"} \\ \hline
+
+    6 & member 2 email address & \texttt{"Sue1024@Cambridge.org"} \\ \hline
+
+    \end{tabular}
+
+
+    The member ID string is always two letters followed by four digits.
+
+
+    The file design is to be changed so that information for each user is stored as
+    a single line of the file, with the character ''\textbackslash{}'' used as a separator
+    between data items.
+
+
+    For example, the single line for member 1 will be:
+
+
+    \texttt{"AB1234\textbackslash{}Freddie Jones\textbackslash{}FreddieJ909@Cambridge.org"}
+
+
+    An algorithm will produce a new file \texttt{NewFile.txt} from the contents of
+    \texttt{OldFile.txt}
+
+
+    Assume:
+
+    \begin{itemize}
+
+    \item \texttt{LineX}, \texttt{LineY} and \texttt{LineZ} are of type \texttt{STRING}
+    and are used to store the three items of information for each member
+
+    \item \texttt{NewString} is a temporary variable of type \texttt{STRING}
+
+    \item \texttt{OldFile.txt} exists and contains valid data.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The algorithm to create the new file is expressed in steps.
+
+
+      Complete the following numbered steps:
+
+
+      Step 1 : open the file \underline{\hspace{1.5em}} in \underline{\hspace{1.5em}}
+      \newline
+
+      Step 2 : open the file \underline{\hspace{1.5em}} in \underline{\hspace{1.5em}}
+      \newline
+
+      Step 3 : read a line from \underline{\hspace{1.5em}} and store in \underline{\hspace{1.5em}}
+      \newline
+
+      Step 4 : read a line from \underline{\hspace{1.5em}} and store in \underline{\hspace{1.5em}}
+      \newline
+
+      Step 5 : read a line from \underline{\hspace{1.5em}} and store in \underline{\hspace{1.5em}}
+      \newline
+
+      Step 6 : set \texttt{NewString} to \underline{\hspace{1.5em}} \newline
+
+      Step 7 : write \texttt{NewString} to \underline{\hspace{1.5em}} \newline
+
+      Step 8 : repeat from step \underline{\hspace{1.5em}} until \underline{\hspace{1.5em}}
+      \newline
+
+      Step 9 : close both files.'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The character \texttt{''\\''} has been chosen as a separator.
+
+
+      Explain why this is a suitable character.'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Two new information items are to be stored for each member. Both new items
+      are encrypted; they can each contain any character (including \texttt{''\\''})
+      and can be of any length up to a maximum of 99 characters.
+
+
+      For example:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{Information item} & \textbf{Example data} \\ \hline
+
+      member 1 ID & \texttt{"AB1234"} \\ \hline
+
+      member 1 name & \texttt{"Freddie Jones"} \\ \hline
+
+      member 1 email address & \texttt{"FreddieJ909@Cambridge.org"} \\ \hline
+
+      member 1 new information 1 & \texttt{"En/98\&*(|?\\/D7iP"} \\ \hline
+
+      member 1 new information 2 & \texttt{"23\textbackslash{}CoboL"} \\ \hline
+
+      \end{tabular}
+
+
+      Explain the additional file design changes needed so that:
+
+      \begin{itemize}
+
+      \item all the information items for each member are stored on a single line
+      of \texttt{NewFile.txt}
+
+      \item it is possible to extract each information item after the line is read.
+
+      \end{itemize}
+
+
+      Assume the \texttt{''\\''} character is not used in any email address.'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A quiz has nine questions. There are:
+
+
+    \begin{itemize}
+
+    \item five easy questions each worth 3 points
+
+    \item four hard questions each worth 5 points.
+
+    \end{itemize}
+
+
+    At the end of the quiz the points for each correctly answered question are added
+    to give a total score.
+
+
+    A check is made to test that the total score is valid using a 1D array \texttt{CheckTotal}
+    of type \texttt{BOOLEAN}. Each index value of the array represents a possible
+    total score. The corresponding element value is \texttt{TRUE} if the index value
+    represents a valid total score and \texttt{FALSE} otherwise.
+
+
+    The first nine rows of the array are:
+
+
+    \begin{tabular}{|c|c|l|}
+
+    \hline
+
+    \textbf{Index value} & \textbf{Element value} & \textbf{Comment} \\ \hline
+
+    0 & \texttt{TRUE} & valid total score (no correct answers) \\ \hline
+
+    1 & \texttt{FALSE} & invalid total score \\ \hline
+
+    2 & \texttt{FALSE} & invalid total score \\ \hline
+
+    3 & \texttt{TRUE} & valid total score (one 3-point question correct) \\ \hline
+
+    4 & \texttt{FALSE} & invalid total score \\ \hline
+
+    5 & \texttt{TRUE} & valid total score (one 5-point question correct) \\ \hline
+
+    6 & \texttt{TRUE} & valid total score (two 3-point questions correct) \\ \hline
+
+    7 & \texttt{FALSE} & invalid total score \\ \hline
+
+    8 & \texttt{TRUE} & valid total score (one 3-point question and one 5-point question
+    correct) \\ \hline
+
+    \end{tabular}
+
+
+    \newline
+
+    For example, a total score of 6 points is valid; the value of the array element
+    at index value 6 is \texttt{TRUE}.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Write pseudocode to declare \texttt{CheckTotal} and to set all elements
+      of the array to \texttt{FALSE}
+
+
+      All variables used must be declared.'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: "The pseudocode represents an algorithm to set the appropriate elements\
+      \ of the array to \\texttt{TRUE}\n\nComplete the pseudocode:\n\n\\begin{alltt}\n\
+      DECLARE EasyQ, HardQ : INTEGER\n\nFOR EasyQ <- \\underline{\\hspace{3em}} TO\
+      \ 15 STEP \\underline{\\hspace{3em}}\n\n    FOR HardQ <- 0 TO \\underline{\\\
+      hspace{3em}} STEP \\underline{\\hspace{3em}}\n\n        CheckTotal[\\underline{\\\
+      hspace{6em}}] <- TRUE\n\n    NEXT HardQ\n\nNEXT EasyQ\n\\end{alltt}"
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The array elements have been assigned the required values.
+
+
+      A module \texttt{ValidateScore()} will take an integer value representing a
+      total score as a parameter. It will return \texttt{TRUE} if the total score
+      is valid, or \texttt{FALSE} if it is not valid.
+
+
+      Describe the algorithm for \texttt{ValidateScore()} using \textbf{four} steps.
+
+
+      Do \textbf{not} use pseudocode in your answer.
+
+
+      Step 1 \hrulefill
+
+      Step 2 \hrulefill
+
+      Step 3 \hrulefill
+
+      Step 4 \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is developed to satisfy a specific customer requirement.
+
+
+    The project follows a program development life cycle model. This model divides
+    the development process into several different stages.'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The table lists some of the development activities.
+
+
+      Complete the table by writing the name of the life cycle stage for each activity:
+
+
+      \begin{tabular}{|p{8cm}|p{6cm}|}
+
+      \hline
+
+      \textbf{Activity} & \textbf{Name of life cycle stage} \\ \hline
+
+      a structure chart is produced & \\ \hline
+
+      a program is modified to allow it to run on new hardware & \\ \hline
+
+      the programmer identifies the customer''s requirements & \\ \hline
+
+      an Integrated Development Environment (IDE) provides context-sensitive help
+      such as ''auto-complete'' & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Alpha and beta testing has been completed. The final testing stage is carried
+      out by the customer.
+
+
+      Identify this final testing stage.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 7
+  text: 'A string function \texttt{Compare()} will compare two strings.
+
+
+    The function will:
+
+    \begin{itemize}
+
+    \item take \textbf{four} parameters:
+
+    \begin{itemize}
+
+    \item two strings, \texttt{String1} and \texttt{String2}
+
+    \item a character, \texttt{Position}, to indicate whether \texttt{String1} will
+    be compared with the start (\texttt{''s''}), or the end (\texttt{''e''}) of \texttt{String2}
+
+    \item a Boolean, \texttt{CaseMatters}, to indicate whether an upper case character
+    and lower case character (for example, \texttt{''A''} and \texttt{''a''}) are
+    regarded as different (\texttt{TRUE}), or as the same (\texttt{FALSE})
+
+    \end{itemize}
+
+    \item return \texttt{FALSE} if \texttt{String2} has fewer characters than \texttt{String1}
+
+    \item return \texttt{TRUE} if the comparison is true, otherwise return \texttt{FALSE}
+
+    \end{itemize}
+
+
+    For example:
+
+
+    \begin{tabular}{|c|c|c|c|c|}
+
+    \hline
+
+    \multicolumn{4}{|c|}{\textbf{Parameter}} & \textbf{Return} \\ \cline{1-4}
+
+    \textbf{String1} & \textbf{String2} & \textbf{CaseMatters} & \textbf{Position}
+    & \textbf{value} \\ \hline
+
+    \texttt{"Cat"} & \texttt{"Catalogue"} & \texttt{TRUE} & \texttt{''s''} & \texttt{TRUE}
+    \\ \hline
+
+    \texttt{"CAT"} & \texttt{"Catalogue"} & \texttt{TRUE} & \texttt{''s''} & \texttt{FALSE}
+    \\ \hline
+
+    \texttt{"CAT"} & \texttt{"Catalogue"} & \texttt{FALSE} & \texttt{''s''} & \texttt{TRUE}
+    \\ \hline
+
+    \texttt{"Cat"} & \texttt{"Catalogue"} & \texttt{TRUE} & \texttt{''e''} & \texttt{FALSE}
+    \\ \hline
+
+    \texttt{"GUE"} & \texttt{"Catalogue"} & \texttt{FALSE} & \texttt{''e''} & \texttt{TRUE}
+    \\ \hline
+
+    \texttt{"Catalogue"} & \texttt{"Cat"} & \texttt{TRUE} & \texttt{''s''} & \texttt{FALSE}
+    \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The structure chart shows part of a program design:'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain the meaning of the curved arrow symbol in this structure chart.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The program designer has noted that:
+
+
+      \begin{itemize}
+
+      \item Count is the number of elements in an array
+
+      \item T1 is a value representing the number of elements in an array that have
+      been modified
+
+      \item Key is of type \texttt{STRING}
+
+      \end{itemize}
+
+
+      Write the pseudocode module headers for analyse, update and sort.
+
+
+      Analyse:
+
+
+      \hrulefill
+
+
+      Update:
+
+
+      \hrulefill
+
+
+      Sort:
+
+
+      \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is being developed to manage student book loans from a college
+    library.
+
+
+    The programmer has defined a record type to define each loan.
+
+
+    The data items are:
+
+
+    \begin{tabular}{|l|l|l|}
+
+    \hline
+
+    \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+
+    \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed
+    the book \\ \hline
+
+    \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\
+    \hline
+
+    \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not}
+    been returned \\ \hline
+
+    \end{tabular}
+
+
+    The programmer has defined a global array \texttt{Loan} to store 7000 loan records.
+
+
+    There are more elements in the array than books in the library. Unused elements
+    have the \texttt{StudentID} set to an empty string. These may occur anywhere in
+    the array.
+
+
+    The programmer has defined a program module:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}}
+    \\ \hline
+
+    \texttt{CountLoans()} & \begin{tabular}[c]{@{}l@{}}\bullet \quad called with a
+    parameter of type \texttt{STRING} representing a\\ \quad \texttt{StudentID}\\
+    \\ \bullet \quad counts the number of books currently on loan to the\\ \quad specified
+    student\\ \\ \bullet \quad counts the number of books that the student has already\\
+    \quad returned\\ \\ \bullet \quad output both counts together with a suitable
+    message\end{tabular} \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Write pseudocode for module \texttt{CountLoans()}
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: "As a reminder, a global array \\texttt{Loan} stores 7000 loan records with\
+      \ data items for each loan record:\n\n\\begin{tabular}{|l|l|l|}\n\\hline\n\\\
+      textbf{Data item} & \\textbf{Data type} & \\textbf{Comment} \\\\ \\hline\n\\\
+      texttt{StudentID} & \\texttt{STRING} & the unique ID of the student who has\
+      \ borrowed the book \\\\ \\hline\n\\texttt{BookID} & \\texttt{STRING} & the\
+      \ unique ID of the book being borrowed \\\\ \\hline\n\\texttt{OnLoan} & \\texttt{BOOLEAN}\
+      \ & \\texttt{TRUE} if the book has \\textbf{not} been returned \\\\ \\hline\n\
+      \\end{tabular}\n\nA new module is defined:\n\n\\begin{tabular}{|l|l|}\n\\hline\n\
+      \\textbf{Module} & \\textbf{Description} \\\\ \\hline\n\\texttt{NewLoan()} &\
+      \ $\\bullet$ called with two parameters of type \\texttt{STRING} representing\
+      \ a \\texttt{StudentID} and a \\texttt{BookID} \\\\\n & $\\bullet$ searches\
+      \ the array for an unused loan record \\\\\n & $\\bullet$ if found, updates\
+      \ the loan record and returns \\texttt{TRUE}, otherwise returns \\texttt{FALSE}\
+      \ \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'When a book is returned, the loan record will have its \texttt{OnLoan}
+      data set to \texttt{FALSE}
+
+
+      A new procedure \texttt{Archive()} will mark these records as unused after first
+      saving them for future reference.
+
+
+      Explain how these records can be saved for future reference.'
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'It is decided to extend the program so that a new module \texttt{Reminder()}
+      will send an email to the student three days before the book is due to be returned.
+
+
+      Outline the changes that will need to be made to the data stored and how this
+      data will be used to generate the reminder email.
+
+
+      Data \hrulefill
+
+
+      Use \hrulefill'
+    answer_options: []
+    subquestions: []

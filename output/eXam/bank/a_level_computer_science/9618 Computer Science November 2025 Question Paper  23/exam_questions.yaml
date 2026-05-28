@@ -1,0 +1,784 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A user requires a program that implements complex data encryption to a recognised
+    international standard. A programmer has started the design of the program.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The programmer decides to use a library routine to provide part of the
+      solution. One reason for this is that library routines may perform functions
+      that the programmer is unable to program themselves.
+
+
+      State \textbf{three} other benefits of using library routines in the development
+      of the program.
+
+
+      1. \hrulefill
+
+      2. \hrulefill
+
+      3. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The programmer has identified a different part of the algorithm that would
+      be appropriate to implement as a subroutine (a procedure or a function); no
+      suitable library routine exists for this part.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'State \textbf{two} reasons why the programmer may decide to use a subroutine.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'A function header in pseudocode is defined as:
+
+
+        \begin{alltt}
+
+        FUNCTION Pass2(Count : INTEGER) RETURNS BOOLEAN
+
+        \end{alltt}
+
+
+        Complete the table by describing the terms used in the function header.
+
+
+        The first row has been completed.
+
+
+        \begin{tabular}{|l|l|}
+
+        \hline
+
+        \textbf{Term} & \textbf{Description} \\ \hline
+
+        \texttt{Pass2} & the name of the function \\ \hline
+
+        \texttt{Count} &  \\ \hline
+
+        \texttt{BOOLEAN} &  \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Variables in the program have example values:
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{Variable} & \textbf{Example value} \\ \hline
+
+      \texttt{DoB} & \texttt{23/6/2011} \\ \hline
+
+      \texttt{Multiplier} & \texttt{2.5} \\ \hline
+
+      \texttt{AddressLine} & \texttt{"35 Lincoln Avenue"} \\ \hline
+
+      \end{tabular}
+
+
+      \vspace{1em}
+
+
+      Complete the table by evaluating each expression using the example values:
+
+
+      \begin{tabular}{|l|p{5cm}|}
+
+      \hline
+
+      \textbf{Expression} & \textbf{Evaluates to} \\ \hline
+
+      \texttt{LENGTH(NUM\_TO\_STR(Multiplier))} & \hrulefill \\ \hline
+
+      \texttt{MONTH(DoB) > 4} & \hrulefill \\ \hline
+
+      \texttt{15 + STR\_TO\_NUM(MID(AddressLine, 2, 1))} & \hrulefill \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program contains a global 1D array of type \texttt{STRING} containing 65
+    elements.
+
+
+    An existing text file is used to store the data in the array. Only non-blank elements
+    (those that do not contain an empty string) are written to the text file.
+
+
+    An algorithm will:
+
+    \begin{itemize}
+
+    \item write the first element of the array as a new line in the text file
+
+    \item continue until all elements have been written, each to a new line of the
+    text file.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Stepwise refinement is applied to the algorithm.
+
+
+      Describe up to \textbf{six} steps for this algorithm that could be used to produce
+      pseudocode.
+
+
+      Do \textbf{not} use pseudocode statements in your answer.
+
+
+      Step 1 \hrulefill
+
+
+      Step 2 \hrulefill
+
+
+      Step 3 \hrulefill
+
+
+      Step 4 \hrulefill
+
+
+      Step 5 \hrulefill
+
+
+      Step 6 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Iteration is one programming construct.
+
+
+      Identify \textbf{one} other programming construct that will be required when
+      the algorithm from part \textbf{(a)} is converted into pseudocode and explain
+      how it is used.
+
+
+      Construct \hrulefill
+
+
+      Use \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: "A program uses a stack to hold up to 30 integer values. The stack is implemented\
+    \ using a global integer variable and a global 1D array.\n\nThe array is declared\
+    \ in pseudocode:\n\\begin{alltt}\nDECLARE ThisStack : ARRAY[1:30] OF INTEGER\n\
+    \\end{alltt}\n\nStack design notes:\n\\begin{itemize}\n\\item The global variable\
+    \ \\texttt{SP} acts as a stack pointer. \\texttt{SP} contains the array index\
+    \ of the last value pushed onto the stack.\n\\item If the stack is empty, then\
+    \ \\texttt{SP} is assigned the value zero.\n\\item The first item added to the\
+    \ stack will be stored in \\texttt{ThisStack}\n\\item \\texttt{SP} is incremented\
+    \ each time an item is added to the stack.\n\\end{itemize}\n\nA function \\texttt{Pop()}\
+    \ is written to remove an item from \\texttt{ThisStack}. The function returns\
+    \ an item of type \\texttt{PopData} which is defined in pseudocode:\n\n\\begin{alltt}\n\
+    TYPE PopData\n    DECLARE Data   : INTEGER\n    DECLARE Exists : BOOLEAN\nENDTYPE\n\
+    \\end{alltt}\n\nThe value removed from the stack is assigned to \\texttt{Data}\
+    \ and \\texttt{Exists} is set to \\texttt{TRUE}. If it is not possible to remove\
+    \ a value from the stack, then \\texttt{Exists} is set to \\texttt{FALSE}\n\n\
+    Complete the pseudocode for \\texttt{Pop()}\n\n\\begin{alltt}\nFUNCTION Pop()\
+    \ RETURNS PopData\n\n    DECLARE ThisPop : \\hrulefill\n\n    IF \\hrulefill THEN\n\
+    \n        PopData.Exists <- \\hrulefill // Stack is empty\n\n    ELSE\n\n    \
+    \    PopData.Data <- \\hrulefill\n\n        PopData.Exists <- \\hrulefill\n\n\
+    \        SP <- \\hrulefill\n\n    ENDIF\n\n    RETURN ThisPop\n\nENDFUNCTION\n\
+    \\end{alltt}"
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'A program contains a global 1D array \texttt{Data} containing 20 elements
+    of type \texttt{INTEGER}
+
+
+    A global string \texttt{NumString} represents a sequence of three-digit numbers,
+    separated by commas.
+
+    For example:
+
+
+    \texttt{"101,456,219,754,328"}
+
+
+    The string contains at least \textbf{four} three-digit numbers. The total number
+    of three-digit numbers in the string is unknown.
+
+
+    A procedure \texttt{Store()} will:
+
+    \begin{itemize}
+
+    \item extract one three-digit number at a time from \texttt{NumString}
+
+    \item convert each of the three-digit numbers extracted to an integer and assign
+    this to the next array element, starting from index 1
+
+    \item end when all three-digit numbers have been stored, or when the array is
+    full.
+
+    \end{itemize}
+
+
+    Complete the pseudocode for \texttt{Store()}
+
+
+    All local variables used must be declared.
+
+
+    \begin{alltt}
+
+    PROCEDURE Store()
+
+    \end{alltt}
+
+
+    \begin{alltt}
+
+    ENDPROCEDURE
+
+    \end{alltt}'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "A global 1D array \\texttt{Num} of integers contains four elements. A program\
+    \ assigns values to these elements as shown:\n\n\\begin{alltt}\nNum <- 1\nNum\
+    \ <- 2\nNum <- 5\nNum <- 3\n\\end{alltt}\n\nA procedure \\texttt{Process()} manipulates\
+    \ the values in the array.\n\nThe procedure is written in pseudocode:\n\n\\begin{alltt}\n\
+    PROCEDURE Process(Start : INTEGER)\n    DECLARE CaseVar, Index, Count : INTEGER\n\
+    \n    Index <- Start\n    Count <- 0\n\n    WHILE Count <= 20\n        CaseVar\
+    \ <- Num[Index]\n        CASE OF CaseVar\n            1 : Num[Index] <- Num[Index]\
+    \ + Index //clause one\n                Index <- Index + 1\n                Count\
+    \ <- Count + 1\n\n            2 : Num[Index] <- Num[Index] + Index //clause two\n\
+    \                Index <- Index + 2\n                Count <- Count + 2\n\n  \
+    \          3 : Num[Index] <- Num[Index] * 2     //clause three\n             \
+    \   Index <- Index + 3\n                Count <- Count - 1\n\n            4 :\
+    \ Count <- Count + 4               //clause four\n            OTHERWISE : Count\
+    \ <- 20\n        ENDCASE\n\n        Index <- (Index MOD 4) + 1\n\n    ENDWHILE\n\
+    \nENDPROCEDURE\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Complete the trace table by dry running the procedure when it is called
+      in the statement:
+
+
+      \texttt{CALL Process(1)}
+
+
+      \begin{tabular}{|c|c|c|c|c|c|c|}
+
+      \hline
+
+      \textbf{Index} & \textbf{CaseVar} & \textbf{Count} & \textbf{Num} & \textbf{Num}
+      & \textbf{Num} & \textbf{Num} \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      & & & & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: "As a reminder, the \\texttt{CASE} structure in the pseudocode is:\n\n\\\
+      begin{alltt}\nCASE OF CaseVar\n    1 : Num[Index] <- Num[Index] + Index //clause\
+      \ one\n        Index <- Index + 1\n        Count <- Count + 1\n\n    2 : Num[Index]\
+      \ <- Num[Index] + Index //clause two\n        Index <- Index + 2\n        Count\
+      \ <- Count + 2\n\n    3 : Num[Index] <- Num[Index] * 2     //clause three\n\
+      \        Index <- Index + 3\n        Count <- Count - 1\n\n    4 : Count <-\
+      \ Count + 4               //clause four\n    OTHERWISE : Count <- 20\nENDCASE\n\
+      \\end{alltt}\n\nThe \\texttt{CASE} structure could be optimised by combining\
+      \ two existing clauses."
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify the \texttt{CaseVar} values for these \textbf{two} existing clauses.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Write pseudocode for a single clause to replace the \textbf{two} clauses
+        identified in (b) (i).
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Students are learning about a simple check digit method for data validation.
+    In this method, a single check digit is appended to the end of an original number
+    to give a new number.
+
+
+    The students are studying a method which:
+
+    \begin{itemize}
+
+    \item calculates the sum of all the digits in the original number
+
+    \item uses integer division to calculate the remainder when the sum is divided
+    by 10
+
+    \item uses the remainder as the check digit
+
+    \item appends the check digit to the original number, creating the new number.
+
+    \end{itemize}
+
+
+    For example:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    original number & 4162 \\ \hline
+
+    sum of all digits & 4 + 1 + 6 + 2 = 13 \\ \hline
+
+    remainder when the sum is divided by 10 using integer division & 3 \\ \hline
+
+    new number & 41623 \\ \hline
+
+    \end{tabular}
+
+
+    \vspace{1em}
+
+    The original number is always at least three digits in length.
+
+
+    When the new number is input, the check digit is used to validate the new number.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A function \texttt{Generate()} is written to take an original number as
+      a parameter and to return the check digit.
+
+
+      Outline a test plan that could be used to fully test function \texttt{Generate()}
+
+
+      Assume that the parameter is valid.'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'A function \texttt{CheckNumber()} will take an integer value and return
+      the Boolean value \texttt{TRUE} if the check digit is correct, otherwise return
+      \texttt{FALSE}
+
+
+      Write pseudocode for the function \texttt{CheckNumber()}
+
+
+      Assume that the parameter is valid.'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: There are several different ways to express an algorithm during the design
+    of a program.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'One part of the program contains an algorithm which is represented by a
+      state-transition diagram.
+
+
+      The table shows the inputs, outputs and states for the algorithm:
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      \textbf{Current state} & \textbf{Input} & \textbf{Output} & \textbf{Next state}
+      \\ \hline
+
+      S1 & A1 & & S2 \\ \hline
+
+      S2 & A2 & X4 & S3 \\ \hline
+
+      S3 & A1 & X1 & S3 \\ \hline
+
+      S3 & A2 & X1 & S3 \\ \hline
+
+      S3 & A3 & X3 & S4 \\ \hline
+
+      S3 & A4 & & S2 \\ \hline
+
+      S4 & A3 & X4 & S5 \\ \hline
+
+      S4 & A4 & X4 & S5 \\ \hline
+
+      S4 & A1 & & S2 \\ \hline
+
+      \end{tabular}
+
+
+      Complete the state-transition diagram to represent the information given in
+      the table:'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'A structure chart is used to document a different part of the program,
+      made up of five modules.
+
+
+      Program notes:
+
+      \begin{itemize}
+
+      \item module \texttt{Setup} calls either module \texttt{Restart}, or module
+      \texttt{Confirm}
+
+      \item module \texttt{Confirm} takes a string as a parameter and returns an integer
+
+      \item module \texttt{Modify} has no parameters and returns a Boolean
+
+      \item module \texttt{Update} takes a string as a parameter
+
+      \item module \texttt{Restart} repeatedly calls module \texttt{Update} followed
+      by module \texttt{Modify}
+
+      \item module \texttt{Restart} takes a string as a parameter that is passed by
+      reference.
+
+      \end{itemize}
+
+
+      Draw a structure chart to represent the relationship between the \textbf{five}
+      modules, including all parameters and return values.'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 18
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is being developed to manage student book loans from a college
+    library.
+
+
+    The programmer has defined a record type to define each loan.
+
+
+    The data items are:
+
+
+    \begin{tabular}{|p{2.5cm}|p{2.5cm}|p{8cm}|}
+
+    \hline
+
+    \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+
+    \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has borrowed
+    the book \newline\newline The first three characters of a \texttt{StudentID} represent
+    a tutor ID. Each student has one tutor. \\ \hline
+
+    \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed \\
+    \hline
+
+    \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not}
+    been returned \\ \hline
+
+    \end{tabular}
+
+
+    \vspace{1em}
+
+
+    The programmer has defined a global array \texttt{Loan} to store 8000 loan records.
+
+
+    There are more elements in the array than books in the library. Unused elements
+    have the \texttt{StudentID} set to an empty string. These may occur anywhere in
+    the array.
+
+
+    The programmer has defined a program module:
+
+
+    \begin{tabular}{|p{3cm}|p{10cm}|}
+
+    \hline
+
+    \textbf{Module} & \textbf{Description} \\ \hline
+
+    \texttt{LoanStatus()} & \begin{itemize} \item called with two parameters of type
+    \texttt{STRING} representing a \texttt{StudentID} and a \texttt{BookID} \item
+    outputs a message saying whether a given loan has been returned or not \item outputs
+    a warning message if a record of the given loan is \textbf{not} found \end{itemize}
+    \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 19
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'Write efficient pseudocode for the module \texttt{LoanStatus()}
+
+
+      Assume that each combination of \texttt{StudentID} and \texttt{BookID} can occur
+      only once.'
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'A second module is defined:
+
+
+      \begin{tabular}{|p{3.5cm}|p{8.5cm}|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}}
+      \\ \hline
+
+      \texttt{LoansPerTutor()} & \begin{itemize} \item called with a parameter of
+      type \texttt{STRING} representing a tutor ID (as a reminder, the first three
+      characters of a \texttt{StudentID} represent a tutor ID) \item returns an integer
+      value representing the number of books currently on loan to students who have
+      the given tutor \end{itemize} \\ \hline
+
+      \end{tabular}
+
+
+      Reminder: unused elements have the \texttt{StudentID} set to an empty string.
+      These may occur anywhere in the array.
+
+
+      Write pseudocode for the module \texttt{LoansPerTutor()}'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 21
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: It is decided to mark as unused all records for book loans that have been
+      returned. The data for these records will first be written to a new text file
+      for archive purposes.
+    answer_options: []
+    subquestions:
+    - number: 8ci
+      question_type: short_answer
+      page: 21
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The archive program will automatically generate a meaningful filename
+        each time it is run.
+
+
+        Outline a meaningful format to use for the filename.'
+      answer_options: []
+      subquestions: []
+    - number: 8cii
+      question_type: short_answer
+      page: 21
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'There is a problem that will need to be overcome before the data items
+        can be written to a text file.
+
+
+        As a reminder, the data items are:
+
+
+        \begin{tabular}{|l|l|l|}
+
+        \hline
+
+        \textbf{Data item} & \textbf{Data type} & \textbf{Comment} \\ \hline
+
+        \texttt{StudentID} & \texttt{STRING} & the unique ID of the student who has
+        borrowed the book \newline\newline The first three characters of a \texttt{StudentID}
+        represent a tutor ID. Each student has one tutor. \\ \hline
+
+        \texttt{BookID} & \texttt{STRING} & the unique ID of the book being borrowed
+        \\ \hline
+
+        \texttt{OnLoan} & \texttt{BOOLEAN} & \texttt{TRUE} if the book has \textbf{not}
+        been returned \\ \hline
+
+        \end{tabular}
+
+
+        Explain the problem.'
+      answer_options: []
+      subquestions: []
+    - number: 8ciii
+      question_type: short_answer
+      page: 21
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'One way of storing the data items in a text file is to store each data
+        item on a separate line.
+
+
+        Identify \textbf{one} benefit and \textbf{one} drawback of this way of storing
+        the data.
+
+
+        Benefit \hrulefill
+
+
+        Drawback \hrulefill'
+      answer_options: []
+      subquestions: []

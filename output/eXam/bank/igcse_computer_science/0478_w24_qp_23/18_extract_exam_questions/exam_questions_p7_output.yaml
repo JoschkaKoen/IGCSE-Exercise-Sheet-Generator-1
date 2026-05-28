@@ -1,0 +1,20 @@
+questions:
+  - number: "9"
+    type: long_answer
+    text: |
+      A flowchart checks that values stored in three variables are identical.
+      If they are different, the highest value is stored in all three variables.
+
+      Identify \textbf{four} errors in the flowchart and suggest a correction for each error. You may label each error on the diagram with the corresponding error number.
+
+      Error 1 \hrulefill
+      Correction \hrulefill
+
+      Error 2 \hrulefill
+      Correction \hrulefill
+
+      Error 3 \hrulefill
+      Correction \hrulefill
+
+      Error 4 \hrulefill
+      Correction \hrulefill

@@ -1,0 +1,13 @@
+questions:
+  - number: "5bii"
+    type: short_answer
+    text: |
+      On Fig. 5.2, sketch the variation of the electric field $E$ with $x$ for values of $x$ between $x = -3R$ and $x = 3R$. Do \textbf{not} include the region inside the sphere between $x = -R$ and $x = R$.
+  - number: "5c"
+    type: calculation
+    text: |
+      The proton and the electron in a hydrogen atom are separated by a distance of $5.3 \times 10^{-11}\text{ m}$.
+
+      Calculate the electric potential energy of the proton and the electron.
+
+      electric potential energy = \hrulefill J

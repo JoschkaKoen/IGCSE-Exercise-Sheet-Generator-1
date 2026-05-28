@@ -1,0 +1,67 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 4**
+
+Alright, the task is to fill in the YAML stub for page 4 of the exam. The goal is to represent the questions and their accompanying text accurately. Let's break this down.
+
+First, the stub provides the structure: "1", "1a", and "1b". It looks like "1" is the main question, "1a" is the first sub-question, and "1b" is the second. Looking at the exam page itself, I see:
+
+*   **1 (a)** "In terms of velocity and acceleration, describe uniform circular motion of an object."
+*   **1 (b)** "Fig. 1.1 shows the view from above of a polystyrene ball undergoing horizontal circular motion of radius R." There's also a diagram and some descriptive text about the setup (polystyrene ball, shadow on a screen, angular speed ω).
+
+The tricky part is deciding what goes where. There isn't a traditional overarching introduction to the whole question "1". So, I have to figure out if we can leave "1" blank, since it doesn't appear in the OCR. So, let's leave it blank and make it `text: ''`.
+
+Now, "1a" is straightforward. It's the first question, and the OCR gives the text directly: "In terms of velocity and acceleration, describe uniform circular motion of an object."
+
+For "1b", things are a bit more involved. The prompt starts with "Fig. 1.1...". There's also a diagram, but the instructions tell me *not* to include images. So, I need to transcribe the *text* associated with the diagram, not the diagram itself. The associated text describes the ball, the screen, and the light source. It describes how the light forms a shadow, the line joining points O and P, and the angular speed ω. I'll need to capture all of this text, omitting the figure itself.
+
+Okay, let's get the YAML structure right:
+
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: long_answer
+    text: |
+      In terms of velocity and acceleration, describe uniform circular motion of an object.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Fig. 1.1 shows the view from above of a polystyrene ball undergoing horizontal circular motion of radius $R$.
+
+      Fig. 1.1
+
+      The ball is illuminated by parallel light so that a shadow of the ball forms on a screen placed on the opposite side of the ball from the light source.
+
+      The line joining points O and P is perpendicular to the screen.
+
+      The angular speed of the circular motion is $\omega$.
+```
+
+I've made "1" empty, transcribed the questions and provided the appropriate text for each.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: ''
+  - number: "1a"
+    type: long_answer
+    text: |
+      In terms of velocity and acceleration, describe uniform circular motion of an object.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Fig. 1.1 shows the view from above of a polystyrene ball undergoing horizontal circular motion of radius $R$.
+
+      Fig. 1.1
+
+      The ball is illuminated by parallel light so that a shadow of the ball forms on a screen placed on the opposite side of the ball from the light source.
+
+      The line joining points O and P is perpendicular to the screen.
+
+      The angular speed of the circular motion is $\omega$.

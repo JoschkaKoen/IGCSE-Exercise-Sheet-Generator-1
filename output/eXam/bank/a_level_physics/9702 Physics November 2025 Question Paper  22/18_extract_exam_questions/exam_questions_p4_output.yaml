@@ -1,0 +1,34 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Scientists are investigating the variation in air pressure at different locations on a mountain.
+  - number: "1a"
+    type: short_answer
+    text: |
+      The scientists take measurements of several physical quantities at each location.
+
+      Complete Table 1.1 by stating the SI base unit for each quantity and identifying with a tick ($\checkmark$) whether each quantity is a scalar or a vector. Use the space for any working.
+
+      \textbf{Table 1.1}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      quantity measured & SI base unit & scalar & vector \\ \hline
+      air temperature & & & \\ \hline
+      air pressure & & & \\ \hline
+      \end{tabular}
+  - number: "1b"
+    type: short_answer
+    text: |
+      At one location, the density of the air is $1.1 \text{ kg}\,\text{m}^{-3}$. A spherical weather balloon is filled with a gas and released from rest. The balloon has radius $0.90 \text{ m}$.
+  - number: "1bi"
+    type: calculation
+    text: |
+      Calculate the upthrust acting on the balloon when it is released.
+
+      upthrust = \hrulefill N
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Explain why an upthrust acts on the balloon.

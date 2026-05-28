@@ -1,0 +1,46 @@
+```yaml
+questions:
+  - number: "1e"
+    type: short_answer
+    text: |
+      The values stored in the stack are used to perform mathematical operations.
+
+      A total is initialised to the first value in the stack. The first value in the stack will always be a number.
+
+      The next value will be a mathematical operator and the next value will be the number to apply to the calculation. This is repeated until there are no values left in the stack. There will always be a number following a mathematical operator.
+
+      For example, the contents of a stack are:
+
+      \begin{tabular}{|c|l}
+      \cline{1-1}
+      10 & $\longleftarrow$ TopOfStack \\ \cline{1-1}
+      + & \\ \cline{1-1}
+      3 & \\ \cline{1-1}
+      $-$ & \\ \cline{1-1}
+      2 & \\ \cline{1-1}
+      \end{tabular}
+
+      The total is initialised to the first value in the stack: 10
+
+      total = 10
+
+      The next two values are: + 3
+
+      total = 10 + 3 = 13
+
+      The next two values are: $-$ 2
+
+      total = 13 $-$ 2 = 11
+
+      The final total is 11 and this is returned.
+
+      Write program code for the function \texttt{Calculate()} to:
+      \begin{itemize}
+      \item take each value from the stack
+      \item calculate and return the final total.
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(e)} in the evidence document.
+```

@@ -1,0 +1,53 @@
+[thinking]
+**My Analysis of Exam Question Extraction**
+
+Okay, here's how I'm approaching this. The task is to pull two questions, "5d" (long answer) and "5e" (short answer), from page 9 of this exam paper and represent them in YAML format. The output needs the question number, type, and text. No multiple-choice options here, so that's straightforward.
+
+First, I need to extract "5d." It's a "long_answer" question. The text reads: "Another type of network is a bus network. Ethernet is used to transmit and receive data between the devices on the bus network. Describe how collisions are detected and managed on this network." Simple enough; no need for answer lines for an open-ended question.
+
+Now, for "5e." This one is "short_answer" and involves a table. The question is: "Complete the table by identifying \textbf{one} threat to computer and data security posed by networks and the internet. Describe the threat and give a method of prevention." The key here is the table format. It's not a pre-filled table, but a template where the candidate needs to fill in the cells. The instructions specify how to handle tables with content versus those designed for the candidate's input. Since this table is empty except for the headers, I need to format it appropriately, which means creating the LaTeX structure.
+
+Initially, I considered using `\hrulefill` or similar to represent the empty input lines within the cells, but after reviewing the instructions, and thinking it through, I decide to create the table structure in LaTeX. I need to make sure I create a correct structure; three columns for "Threat", "Description", and "Prevention". Finally, I decide on creating a basic table with empty cells, but enough rows for the candidate to fill in, using:
+```latex
+\begin{tabular}{|p{3cm}|p{7cm}|p{3cm}|}
+\hline
+\textbf{Threat} & \textbf{Description} & \textbf{Prevention} \\ \hline
+ & & \\
+ & & \\
+ & & \\
+ & & \\
+\hline
+\end{tabular}
+```
+This LaTeX table representation is clean, easy to parse, and accurately reflects the structure of the question. I double-checked the column count to ensure everything is perfect. And that should be it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5d"
+    type: long_answer
+    text: |
+      Another type of network is a bus network.
+
+      Ethernet is used to transmit and receive data between the devices on the bus network.
+
+      Describe how collisions are detected and managed on this network.
+  - number: "5e"
+    type: short_answer
+    text: |
+      Complete the table by identifying \textbf{one} threat to computer and data security posed by networks and the internet.
+
+      Describe the threat and give a method of prevention.
+
+      \begin{tabular}{|p{3cm}|p{7cm}|p{3cm}|}
+      \hline
+      \centering \textbf{Threat} & \centering \textbf{Description} & \centering \textbf{Prevention} \tabularnewline \hline
+      & & \\
+      & & \\
+      & & \\
+      & & \\
+      & & \\
+      \hline
+      \end{tabular}

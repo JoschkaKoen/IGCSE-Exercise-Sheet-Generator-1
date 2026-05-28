@@ -1,0 +1,25 @@
+```yaml
+questions:
+  - number: "10a"
+    type: short_answer
+    text: |
+      Complete the trace table for the algorithm, using the input data:
+
+      21, 46, 63, 91, 12
+
+      \begin{tabular}{|p{3cm}|p{3cm}|p{6cm}|}
+      \hline
+      \centering \textbf{Score} & \centering \textbf{Grade} & \centering \textbf{OUTPUT} \tabularnewline \hline
+      & & \tabularnewline \hline
+      & & \tabularnewline \hline
+      & & \tabularnewline \hline
+      & & \tabularnewline \hline
+      & & \tabularnewline \hline
+      & & \tabularnewline \hline
+      & & \tabularnewline \hline
+      \end{tabular}
+  - number: "10b"
+    type: long_answer
+    text: |
+      Explain how the flowchart can be changed to produce the correct output.
+```

@@ -1,0 +1,52 @@
+```yaml
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A veterinary surgery wants to create a class for individual pets.
+      Some of the attributes required in the class are listed in the table.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Attribute} & \textbf{Data type} & \textbf{Description} \\ \hline
+      \texttt{PetID} & \texttt{STRING} & unique ID assigned at registration \\ \hline
+      \texttt{PetType} & \texttt{STRING} & type of pet assigned at registration \\ \hline
+      \texttt{OwnerTelephone} & \texttt{STRING} & telephone number of owner assigned at registration \\ \hline
+      \texttt{DateRegistered} & \texttt{DATE} & date of registration \\ \hline
+      \end{tabular}
+  - number: "9a"
+    type: short_answer
+    text: |
+      State \textbf{one} reason why the attributes would be declared as \texttt{PRIVATE}.
+  - number: "9b"
+    type: short_answer
+    text: |
+      Complete the class diagram for \texttt{Pet}, to include:
+
+      \begin{itemize}
+      \item an attribute and data type for the name of the pet
+      \item an attribute and data type for the name of the owner
+      \item a method to create a \texttt{Pet} object and set attributes at the time of registration
+      \item a method to assign a pet ID
+      \item a method to assign the date of registration
+      \item a method to return the pet name
+      \item a method to return the owner's telephone number.
+      \end{itemize}
+
+      \begin{tabular}{|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Pet}} \\ \hline
+      \texttt{PetID : STRING} \\
+      \texttt{PetType : STRING} \\
+      \texttt{OwnerTelephone : STRING} \\
+      \texttt{DateRegistered : DATE} \\
+      \hrulefill\ : \hrulefill\ \\
+      \hrulefill\ : \hrulefill\ \\ \hline
+      \\
+      \hrulefill\ \\
+      \hrulefill\ \\
+      \hrulefill\ \\
+      \hrulefill\ \\
+      \hrulefill\ \\ \hline
+      \end{tabular}
+```

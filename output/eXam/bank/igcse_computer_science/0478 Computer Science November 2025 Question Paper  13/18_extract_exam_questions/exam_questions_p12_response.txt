@@ -1,0 +1,83 @@
+[thinking]
+**Exam Page 12 YAML Stub Generation**
+
+Okay, so I need to construct the YAML for page 12 of this exam. The task seems straightforward: format the questions regarding high-level and low-level languages and their translators. Let's break this down systematically.
+
+First, I need to represent each question in the YAML structure. Question "6c" is a long-answer question comparing high-level and low-level languages. I need to make sure the key terms are correctly formatted (e.g., *one*). Then, question "6d" is about identifying translator types for different behaviors. The sub-questions from "6di" to "6div" give descriptions of translator behavior.
+
+The initial YAML stub should look like this. I need to remember the `type` field which will be `long_answer` or `short_answer`.
+
+```yaml
+  - number: "6c"
+    type: long_answer
+    text: |
+      The computer game is programmed using a high-level language.
+
+      Explain \textbf{one} difference between a high-level language and a low-level language.
+```
+
+For the short answer section, I'll need to remember the rule about removing the leading sub-question prefix: `(i)`, `(ii)`, etc. This means I'll remove those from the text itself. Also, these are standalone dotted answer lines. So I *don't* need to add the `\hrulefill` as per the rule: "Standalone dotted answer line(s) below an open-ended prompt -> Nothing — the prompt + marks count carries the meaning".
+
+So I will use the format below.
+```yaml
+  - number: "6d"
+    type: short_answer
+    text: |
+      The programmer uses translators to translate the high-level language source code into machine code.
+
+      Identify the name of the translator that would be used for each of the statements. Each name may be used more than once.
+  - number: "6di"
+    type: short_answer
+    text: |
+      Translates and executes the source code one line at a time.
+  - number: "6dii"
+    type: short_answer
+    text: |
+      Translates the source code and will not execute it if errors are found. It instead produces a full report of the errors in the source code.
+  - number: "6diii"
+    type: short_answer
+    text: |
+      Translates the source code and produces an executable file.
+  - number: "6div"
+    type: short_answer
+    text: |
+      Stops execution of the machine code where an error is found and will resume execution of the machine code once the error is fixed.
+```
+
+That should be the correct YAML representation for those questions. No need to add `\hrulefill`. It is all straight forward.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "6c"
+    type: long_answer
+    text: |
+      The computer game is programmed using a high-level language.
+
+      Explain \textbf{one} difference between a high-level language and a low-level language.
+  - number: "6d"
+    type: short_answer
+    text: |
+      The programmer uses translators to translate the high-level language source code into machine code.
+
+      Identify the name of the translator that would be used for each of the statements. Each name may be used more than once.
+  - number: "6di"
+    type: short_answer
+    text: |
+      Translates and executes the source code one line at a time.
+  - number: "6dii"
+    type: short_answer
+    text: |
+      Translates the source code and will not execute it if errors are found. It instead produces a full report of the errors in the source code.
+  - number: "6diii"
+    type: short_answer
+    text: |
+      Translates the source code and produces an executable file.
+  - number: "6div"
+    type: short_answer
+    text: |
+      Stops execution of the machine code where an error is found and will resume execution of the machine code once the error is fixed.
+```

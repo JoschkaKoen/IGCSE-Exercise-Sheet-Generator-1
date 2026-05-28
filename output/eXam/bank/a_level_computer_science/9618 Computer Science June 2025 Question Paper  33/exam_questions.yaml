@@ -1,0 +1,592 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer is writing a program to manage a video library. They require
+    a user-defined data type.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Write \textbf{pseudocode} statements to declare the composite data type
+      \texttt{VideoLibrary} to hold data about each video in the collection. This
+      data includes:
+
+
+      \begin{itemize}
+
+      \item identity code (any combination of letters and numbers)
+
+      \item title
+
+      \item year released
+
+      \item date purchased
+
+      \item format (for example DVD, Blu-ray, 4K, MP4)
+
+      \item running time (minutes)
+
+      \end{itemize}
+
+
+      Use the most appropriate data type in each case.'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{one} field in \texttt{VideoLibrary} that could be an efficient
+      enumerated data type and give a reason for your choice.
+
+
+      Field \hrulefill
+
+
+      Reason \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Numbers are stored in a computer using binary floating-point representation
+    with:
+
+
+    \begin{itemize}
+
+    \item 8 bits for the mantissa
+
+    \item 8 bits for the exponent
+
+    \item two''s complement form for both the mantissa and the exponent.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give the largest normalised positive two''s complement binary number that
+      can be stored in this system and state its denary equivalent.
+
+
+      The denary answer should be expressed in terms of powers of 2.
+
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+      \hfill \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+
+
+      Denary \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Calculate the normalised binary floating-point representation of $-3.59375$
+      in this system. Show your working.
+
+
+      \textbf{Mantissa} \hfill \textbf{Exponent}
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+      \hfill \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'This truth table represents a logic circuit.
+
+
+    \begin{tabular}{|c|c|c|c|c|}
+
+    \hline
+
+    \multicolumn{4}{|c|}{\textbf{INPUT}} & \textbf{OUTPUT} \\ \hline
+
+    \textbf{A} & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{Z} \\ \hline
+
+    0 & 0 & 0 & 0 & 0 \\ \hline
+
+    0 & 0 & 0 & 1 & 0 \\ \hline
+
+    0 & 0 & 1 & 0 & 1 \\ \hline
+
+    0 & 0 & 1 & 1 & 1 \\ \hline
+
+    0 & 1 & 0 & 0 & 1 \\ \hline
+
+    0 & 1 & 0 & 1 & 0 \\ \hline
+
+    0 & 1 & 1 & 0 & 0 \\ \hline
+
+    0 & 1 & 1 & 1 & 0 \\ \hline
+
+    1 & 0 & 0 & 0 & 0 \\ \hline
+
+    1 & 0 & 0 & 1 & 0 \\ \hline
+
+    1 & 0 & 1 & 0 & 1 \\ \hline
+
+    1 & 0 & 1 & 1 & 1 \\ \hline
+
+    1 & 1 & 0 & 0 & 1 \\ \hline
+
+    1 & 1 & 0 & 1 & 0 \\ \hline
+
+    1 & 1 & 1 & 0 & 0 \\ \hline
+
+    1 & 1 & 1 & 1 & 0 \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the Boolean logic expression that corresponds to the given truth
+      table as the sum-of-products.
+
+
+      \textbf{Z} = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Complete the Karnaugh map (K-map) for the given truth table.
+
+
+        \begin{tabular}{r|c|c|c|c|}
+
+        \multicolumn{1}{r}{\textbf{CD} \quad \textbf{AB}} & \multicolumn{1}{c}{\textbf{00}}
+        & \multicolumn{1}{c}{\textbf{01}} & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}}
+        \\
+
+        \cline{2-5}
+
+        \textbf{00} & & & & \\
+
+        \cline{2-5}
+
+        \textbf{01} & & & & \\
+
+        \cline{2-5}
+
+        \textbf{11} & & & & \\
+
+        \cline{2-5}
+
+        \textbf{10} & & & & \\
+
+        \cline{2-5}
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Draw loop(s) around appropriate group(s) in the K-map to produce an optimal
+        sum-of-products.
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the Boolean logic expression from your answer to part \textbf{(b)(ii)}
+        as the simplified sum-of-products.
+
+
+        \textbf{Z} = \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The Internet layer and Link layer are two layers of the TCP/IP protocol suite.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Describe the purpose of the Internet layer \textbf{and} the purpose of
+      the Link layer.
+
+
+      Purpose of Internet layer \hrulefill
+
+
+      Purpose of Link layer \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: long_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Describe the function of a router in packet switching.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Complete the table by filling in the missing object-oriented programming
+    (OOP) terms and descriptions.
+
+
+    \begin{tabular}{|p{4cm}|p{10cm}|}
+
+    \hline
+
+    \multicolumn{1}{|c|}{\textbf{OOP term}} & \multicolumn{1}{c|}{\textbf{Description}}
+    \\ \hline
+
+    \hrulefill & A method that accesses the value of a property. \\ \hline
+
+    \hrulefill & A method that changes the value of a property. \\ \hline
+
+    \multicolumn{1}{|c|}{Object} & \newline\newline\newline \\ \hline
+
+    \multicolumn{1}{|c|}{Method} & \newline\newline\newline \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The management and scheduling of processes are tasks carried out by an operating
+    system.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe \textbf{one} reason why scheduling is necessary in process management.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Explain the function of the round robin scheduling routine \textbf{and}
+      give a benefit of this routine.
+
+
+      Function \hrulefill
+
+
+      Benefit \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: long_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Secure Socket Layer (SSL) and Transport Layer Security (TLS) are two protocols.
+
+
+    Explain how SSL/TLS is used when client-server communication is initiated.'
+  answer_options: []
+  subquestions: []
+- number: '8'
+  question_type: long_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Explain the process of \textbf{syntax analysis} during program compilation.
+  answer_options: []
+  subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Several syntax diagrams are shown.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State why \texttt{JJ90} is not a valid passcode for the given syntax diagrams.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the Backus-Naur Form (BNF) for \texttt{<upper>} and \texttt{<passcode>}.
+
+
+      \texttt{<upper> ::= } \hrulefill
+
+
+      \texttt{<passcode> ::= } \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'A character can be an upper, a lower or a digit.
+
+
+      The rules for passcode have been changed so that the third character may also
+      be selected from upper and the final character may be repeated one or more times.
+
+
+      Complete the syntax diagram for passcode to show these changes.'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the purpose of the A* and Dijkstra's algorithms.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Outline the difference between the A* and Dijkstra's algorithms.
+    answer_options: []
+    subquestions: []
+  - number: 10c
+    question_type: long_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Explain how unsupervised learning takes place in machine learning.
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: "The pseudocode algorithm below allows a user to input a new stock item. The\
+    \ random file is searched for the next empty location in the file and the new\
+    \ item is inserted there.\nA suitable message is displayed if the file is full.\n\
+    \nComplete this pseudocode.\n\n\\begin{alltt}\nDECLARE Location : INTEGER\nDECLARE\
+    \ NewStock : STRING\nDECLARE CurrentStock : STRING\nDECLARE Stored : BOOLEAN\n\
+    DECLARE Max : INTEGER\nMax <- 100000\nStored <- FALSE\nLocation <- 1\n\\hrulefill\n\
+    OUTPUT \"Enter the new item you wish to store: \"\nINPUT NewStock\nWHILE NOT Stored\
+    \ AND Location <= Max\n   \\hrulefill\n   GETRECORD \"StockList.dat\", \\hrulefill\n\
+    \   IF CurrentStock = \"\" THEN\n      \\hrulefill \"StockList.dat\", NewStock\n\
+    \      Stored <- TRUE\n   ELSE\n      Location <- Location + 1\n   ENDIF\nENDWHILE\n\
+    \\hrulefill THEN\n   OUTPUT \"The new item has not been stored as the file was\
+    \ full.\"\nENDIF\nCLOSEFILE \"StockList.dat\"\n\\end{alltt}"
+  answer_options: []
+  subquestions: []
+- number: '12'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 12a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'An array is an Abstract Data Type (ADT).
+
+
+      Identify \textbf{two} other ADTs.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 12b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'A 1D array \texttt{DataArray} holds up to 1000 elements of type integer
+      and needs to be sorted in ascending order.
+
+
+      Write the \textbf{pseudocode} for an insertion sort to sort the array into ascending
+      order.
+
+
+      Use the identifiers from the table in your algorithm.
+
+
+      You do \textbf{not} need to declare any arrays or variables for this algorithm.
+      You may assume this has already been done.
+
+
+      \begin{tabular}{|c|c|l|}
+
+      \hline
+
+      \textbf{Identifier} & \textbf{Data type} & \textbf{Description} \\ \hline
+
+      \texttt{Index} & \texttt{INTEGER} & counter for outer loop \\ \hline
+
+      \texttt{Position} & \texttt{INTEGER} & counter for inner loop – insertion position
+      \\ \hline
+
+      \texttt{DataArray} & \texttt{INTEGER} & 1D array to store up to 1000 integers
+      \\ \hline
+
+      \texttt{Value} & \texttt{INTEGER} & value to insert \\ \hline
+
+      \end{tabular}
+
+
+      The first line has been written for you.
+
+
+      \texttt{FOR Index <- 2 to 1000}'
+    answer_options: []
+    subquestions: []
+  - number: 12c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Describe \textbf{two} ways in which the performance of a sort routine is
+      affected by the data to be sorted.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '13'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: "The recursive procedure \\texttt{Delete()} is defined as follows:\n\n\\begin{alltt}\n\
+    PROCEDURE Delete(Index, Target)\n  IF Numbers[Index] > 0 THEN\n    IF Numbers[Index]\
+    \ >= Target THEN\n      Numbers[Index] <- Numbers[Index + 1]\n    ENDIF\n    Index\
+    \ <- Index + 1\n    CALL Delete(Index, Target)\n  ENDIF\nENDPROCEDURE\n\\end{alltt}\n\
+    \nAn array \\texttt{Numbers} is used to store a sorted data set of non-zero positive\
+    \ integers. Unused cells contain zero.\n\nThe contents of the array at the start\
+    \ of the algorithm are:\n\n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\n\\hline\n\\\
+    multicolumn{10}{|c|}{\\textbf{Numbers}} \\\\ \\hline\n\\textbf{} & \\textbf{}\
+    \ & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{}\
+    \ & \\textbf{} & \\textbf{} \\\\ \\hline\n2 & 3 & 7 & 11 & 15 & 17 & 19 & 23 &\
+    \ 0 & 0 \\\\ \\hline\n\\end{tabular}\n\nComplete the trace table for the algorithm\
+    \ for the procedure call:\n\n\\begin{alltt}\nCALL Delete(1, 15)\n\\end{alltt}\n\
+    \n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}\n\\hline\n& & \\multicolumn{10}{c|}{\\\
+    textbf{Numbers}} \\\\ \\hline\n\\textbf{Index} & \\textbf{Target} & \\textbf{}\
+    \ & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{}\
+    \ & \\textbf{} & \\textbf{} & \\textbf{} \\\\ \\hline\n& & 2 & 3 & 7 & 11 & 15\
+    \ & 17 & 19 & 23 & 0 & 0 \\\\ \\hline\n& & & & & & & & & & & \\\\ \\hline\n& &\
+    \ & & & & & & & & & \\\\ \\hline\n& & & & & & & & & & & \\\\ \\hline\n& & & &\
+    \ & & & & & & & \\\\ \\hline\n& & & & & & & & & & & \\\\ \\hline\n& & & & & &\
+    \ & & & & & \\\\ \\hline\n& & & & & & & & & & & \\\\ \\hline\n& & & & & & & &\
+    \ & & & \\\\ \\hline\n& & & & & & & & & & & \\\\ \\hline\n& & & & & & & & & &\
+    \ & \\\\ \\hline\n\\end{tabular}"
+  answer_options: []
+  subquestions: []

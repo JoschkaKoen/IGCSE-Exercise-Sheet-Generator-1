@@ -1,0 +1,44 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      A shop that sells cheese has set up a new database table called \texttt{CheeseStock} to store details of the cheeses available for sale. Part of this table is given.
+
+      \begin{tabular}{|c|l|c|c|c|c|}
+      \hline
+      \textbf{ChNo} & \textbf{Name} & \textbf{InStock} & \textbf{SupplierCode} & \textbf{PricePerKg} & \textbf{WeightKg} \\ \hline
+      CH01 & American & Yes & XYZ & 4.50 & 20.0 \\ \hline
+      CH02 & Brie & Yes & XYZ & 7.50 & 21.0 \\ \hline
+      CH03 & Burrata & No & IMP & 13.75 & 0.0 \\ \hline
+      CH04 & Camembert & No & ABC & 16.85 & 0.0 \\ \hline
+      CH05 & Cheddar & Yes & ABC & 5.00 & 50.0 \\ \hline
+      CH06 & Comté & No & SPC & 7.35 & 0.0 \\ \hline
+      CH07 & Cottage & Yes & XYZ & 4.50 & 3.0 \\ \hline
+      CH08 & Cream & Yes & XYZ & 5.50 & 6.5 \\ \hline
+      CH12 & Emmental & Yes & IMP & 2.75 & 1.5 \\ \hline
+      CH15 & Feta & Yes & IMP & 12.75 & 12.0 \\ \hline
+      CH16 & Fontina & Yes & SPC & 15.99 & 1.2 \\ \hline
+      CH17 & Gorgonzola & Yes & SPC & 15.25 & 0.3 \\ \hline
+      CH19 & Gouda & Yes & SPC & 7.99 & 2.5 \\ \hline
+      CH21 & Gruyère & No & SPC & 16.75 & 0.0 \\ \hline
+      CH22 & Halloumi & Yes & IMP & 4.75 & 15.0 \\ \hline
+      CH23 & Havarti & No & SPC & 6.75 & 0.0 \\ \hline
+      CH27 & Manchego & No & IMP & 13.99 & 0.0 \\ \hline
+      CH30 & Manouri & No & IMP & 18.50 & 0.0 \\ \hline
+      CH31 & Mascarpone & No & SPC & 12.99 & 0.0 \\ \hline
+      \end{tabular}
+  - number: "10a"
+    type: short_answer
+    text: |
+      State the number of records in this part of the database table.
+  - number: "10b"
+    type: short_answer
+    text: ''
+  - number: "10bi"
+    type: short_answer
+    text: |
+      Give the name of the field that would be used for the primary key.
+  - number: "10bii"
+    type: short_answer
+    text: |
+      State the reason for choosing this field for the primary key.

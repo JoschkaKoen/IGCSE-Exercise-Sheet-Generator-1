@@ -1,0 +1,37 @@
+questions:
+  - number: "2f"
+    type: short_answer
+    text: |
+      The main program:
+
+      \begin{itemize}
+      \item prompts the user to enter an integer
+      \item takes the integer as input
+      \item calls \texttt{RecursiveBinarySearch()} with the sorted array, appropriate lower bound, appropriate upper bound and the user's input as parameters
+      \item outputs "Not found" if the input is not within the array
+      \item outputs "Found at position" and the index if the input is within the array.
+      \end{itemize}
+  - number: "2fi"
+    type: short_answer
+    text: |
+      Write program code to amend the main program.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(f)(i)} in the evidence document.
+  - number: "2fii"
+    type: short_answer
+    text: |
+      Test your program \textbf{three} times with each of the inputs described:
+
+      Test 1: the smallest number in the array
+
+      Test 2: the largest number in the array
+
+      Test 3: a number \textbf{not} in the array
+
+      Take a screenshot of each output.
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{2(f)(ii)} in the evidence document.

@@ -1,0 +1,41 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Refer to the insert for the list of pseudocode functions and operators.
+
+      A program is being developed to control the production line in a factory.
+  - number: "1a"
+    type: short_answer
+    text: |
+      A number of different program life cycles are available for the development of a program.
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Explain the need for different program development life cycles.
+  - number: "1aii"
+    type: short_answer
+    text: |
+      Coding is a stage in a program development life cycle.
+
+      State \textbf{one} consideration that would influence the choice of programming language.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The program has been in use for a number of months and adaptive maintenance is required.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Give \textbf{three} reasons why adaptive maintenance may be required.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "1bii"
+    type: short_answer
+    text: |
+      As well as adaptive maintenance, other types of program maintenance may be needed.
+
+      Identify \textbf{one} other type of program maintenance.
+```

@@ -1,0 +1,13 @@
+questions:
+  - number: "6b"
+    type: long_answer
+    text: |
+      Complete the pseudocode for the function \texttt{GetDate()}.
+
+      Date functions from the \textbf{insert} should be used in your solution.
+
+      \begin{alltt}
+      FUNCTION GetDate(ProductionDate : DATE, ShelfLife : INTEGER) RETURNS DATE
+
+      ENDFUNCTION
+      \end{alltt}

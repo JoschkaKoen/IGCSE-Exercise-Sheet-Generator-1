@@ -1,0 +1,18 @@
+  - number: "3"
+    type: short_answer
+    text: ""
+  - number: "3a"
+    type: short_answer
+    text: ""
+  - number: "3b"
+    type: short_answer
+    text: ""
+  - number: "3bi"
+    type: calculation
+    text: ""
+  - number: "3bii"
+    type: calculation
+    text: ""
+  - number: "3biii"
+    type: calculation
+    text: ""

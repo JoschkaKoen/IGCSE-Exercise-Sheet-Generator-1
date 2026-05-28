@@ -1,0 +1,34 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: ''
+  - number: "8a"
+    type: short_answer
+    text: |
+      State what is meant by the de Broglie wavelength.
+  - number: "8b"
+    type: calculation
+    text: |
+      Calculate the de Broglie wavelength of an electron moving at a speed of $4.9 \times 10^7 \text{ m s}^{-1}$.
+
+      wavelength = \hrulefill m
+  - number: "8c"
+    type: short_answer
+    text: |
+      State \textbf{one} similarity and \textbf{one} difference between an electron and a positron.
+
+      similarity: \hrulefill
+
+      difference: \hrulefill
+  - number: "8d"
+    type: short_answer
+    text: |
+      An electron moving at a speed of $4.9 \times 10^7 \text{ m s}^{-1}$ collides with a positron that is travelling at the same speed in the opposite direction. As a result of the collision, two gamma-ray photons are produced.
+  - number: "8di"
+    type: short_answer
+    text: |
+      State the name of this type of reaction.
+  - number: "8dii"
+    type: short_answer
+    text: |
+      State what happens to the electron and to the positron.

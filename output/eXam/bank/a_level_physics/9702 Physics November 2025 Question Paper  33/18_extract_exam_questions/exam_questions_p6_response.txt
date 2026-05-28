@@ -1,0 +1,52 @@
+[thinking]
+**Examining the Exam Page and Navigating Stub Errors**
+
+Okay, the task is to transcribe page 6 of the exam paper. The user wants the contents of questions "1e", "1ei", and "1eii". Let's get started. First, I see the page starts with "(e) (i) It is suggested that the quantities T, S and h...". And the stub has "1e", "1ei", and "1eii".
+
+Now, I need to figure out how these stubs map to the actual text. Let's start with "1e". There's no separate "(e)" section, only "(e)(i)". It appears "1e" might be a parent or a placeholder, but there's no independent text associated with it. Hmmm...
+
+Wait, the instructions say: "Every entry's stem should be visible. If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR`..." Aha! The text "It is suggested that the quantities..." is part of "(e)(i)". There's no separate "1e" text. So, "1e" must be a stub error. It's not visible, therefore, it's a bug. The instructions are clear - I should output `STUB ERROR`. Good, I will mark 1e as `STUB ERROR`.
+
+Now, for "1ei". The "(e)(i)" question actually contains the equation, the instructions and the blanks for the answers. Let's generate YAML for this with the equation and the blanks. I'll make sure to use the format with the math symbols, following the user's instructions. That's a calculation, so I'll set the type to `calculation`.
+
+Next, "1eii". Looking at the page, it has the equation for this calculation and instructions to use previous answers. This is also a calculation. I will format the output in YAML, including the appropriate type and using the math notation.
+
+I've double-checked my work. There's definitely no visible "1e" stem separate from "(e)(i)". I'm going to follow the instructions precisely and emit `STUB ERROR` for `1e`. I'm going to generate the YAML now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ei"
+    type: calculation
+    text: |
+      It is suggested that the quantities $T$, $S$ and $h$ are related by the equation
+
+      $$T^2 = A \frac{S}{h} + B$$
+
+      where $A$ and $B$ are constants.
+
+      Using your answers in \textbf{(d)(iii)}, determine the values of $A$ and $B$.
+      Give appropriate units.
+
+      $A = $ \hrulefill
+
+      $B = $ \hrulefill
+  - number: "1eii"
+    type: calculation
+    text: |
+      Theory suggests that
+
+      $$A = \frac{28\pi^2 L}{5g}$$
+
+      where $g$ is the acceleration of free fall.
+
+      Use your values in \textbf{(a)} and \textbf{(e)(i)} to determine a value for $g$.
+      Give an appropriate unit.
+
+      $g = $ \hrulefill

@@ -1,0 +1,55 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Computers represent different types of data in binary.
+  - number: "1a"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to show the reason why computers use binary to represent data.
+    options:
+      - letter: A
+        text: |
+          Computers only allow 1s and 0s to be entered.
+      - letter: B
+        text: |
+          Computers are made of switches and gates that can only be on or off.
+      - letter: C
+        text: |
+          Binary does not need to be converted into other forms of data to be displayed.
+      - letter: D
+        text: |
+          Both computers and humans can quickly process binary data.
+  - number: "1b"
+    type: short_answer
+    text: |
+      One form of data is characters.
+
+      The American standard code for information interchange (ASCII) denary number for the character 'N' is 78.
+  - number: "1bi"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to identify the ASCII denary number for the character 'Q'.
+    options:
+      - letter: A
+        text: |
+          81
+      - letter: B
+        text: |
+          80
+      - letter: C
+        text: |
+          79
+      - letter: D
+        text: |
+          77
+  - number: "1bii"
+    type: short_answer
+    text: |
+      Give the binary number for the ASCII denary number for 'N'.
+  - number: "1biii"
+    type: long_answer
+    text: |
+      Explain how the word 'RED' is represented using a character set.
+```

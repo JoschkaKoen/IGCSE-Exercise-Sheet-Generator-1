@@ -1,0 +1,86 @@
+[thinking]
+**Analyzing the Page 3 YAML Stub and Associated Questions**
+
+Okay, the task is to generate the YAML stub for page 3 of the exam, and the user's instructions are pretty specific. I need to make sure I get the structure and content correct based on the provided text. Let's see...
+
+First, I need to look at question "2". I see it's about RISC processors, with a clear instruction to identify four features. I'll need to format that nicely with numbered slots.
+
+Next is question "3", and here's where things get a little tricky. I see entries for "3", "3a", and "3b" in the stub. Based on the page text, question "2" is straightforward. Question "3" itself doesn't have any standalone text, it appears to be a parent question. "3(a)" is "Describe circuit switching..." and "(b)" asks for a benefit and drawback. The stub has entries for each "3", "3a", and "3b". But what do I put in the stub if the parent has no text?
+
+I remember the instructions: "Do NOT add or remove questions... return one entry per stub entry, in the same order, with the same number and type values." Okay, so I must have the stub with entries for 3, 3a, and 3b.
+
+Given that "3a" is a long answer, that's where the description of circuit switching belongs. I need a long answer box for "3a", and "3b" will be a short answer.
+
+So, let's look at the options.
+
+*   Can I put "Describe circuit switching" in "3" and leave "3a" empty? No, because "3a" is a long-answer. The text "Describe circuit switching..." should be in "3a".
+*   Can "3" be a parent? Yes, the stub has a "3" entry. But there is no text. If there's no text, then the only option is to put an empty string for the "3" entry.
+
+Alright, the most logical solution is to assign an empty string to "3" because there is no text in question 3. I'll put the "Describe circuit switching..." text in the long answer question "3a" entry. That fits the type and number.
+
+Therefore, for "3", I'll put an empty string. The "3a" entry will contain the circuit switching description, and "3b" will contain the benefit/drawback question, formatted appropriately.
+
+Let's assemble the YAML:
+
+```yaml
+- number: "2"
+  type: short_answer
+  text: |
+    Reduced Instruction Set Computers (RISC) is a type of processor.
+
+    Identify \textbf{four} features of a RISC processor.
+
+    1. \hrulefill
+    2. \hrulefill
+    3. \hrulefill
+    4. \hrulefill
+- number: "3"
+  type: short_answer
+  text: ''
+- number: "3a"
+  type: long_answer
+  text: |
+    Describe circuit switching as a method of data transmission.
+- number: "3b"
+  type: short_answer
+  text: |
+    State \textbf{one} benefit and \textbf{one} drawback of circuit switching as a method of data transmission.
+
+    Benefit \hrulefill
+
+    Drawback \hrulefill
+```
+
+Done!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Reduced Instruction Set Computers (RISC) is a type of processor.
+
+      Identify \textbf{four} features of a RISC processor.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+      4. \hrulefill
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: long_answer
+    text: |
+      Describe circuit switching as a method of data transmission.
+  - number: "3b"
+    type: short_answer
+    text: |
+      State \textbf{one} benefit and \textbf{one} drawback of circuit switching as a method of data transmission.
+
+      Benefit \hrulefill
+
+      Drawback \hrulefill

@@ -1,0 +1,55 @@
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A program is written to only accept data that contains more than 9 characters. The program needs to be tested. The table, when completed, shows appropriate test data that matches the type of test data and the purpose of the test data.
+
+      Complete the table by inserting the missing information.
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Test data} & \textbf{Type of test data} & \textbf{Purpose of test data} \\ \hline
+      & & \\
+      ABC & \hrulefill & \hrulefill \\
+      & & \\ \hline
+      & & \\
+      \hrulefill & Boundary & \hrulefill \\
+      & & \\ \hline
+      & & \\
+      \hrulefill & \hrulefill & to make sure that the program accepts data \\
+      & & that is an appropriate length \\ \hline
+      \end{tabular}
+  - number: "6"
+    type: short_answer
+    text: |
+      This pseudocode algorithm is intended to allow 1000 positive integers to be input and stored in a one-dimensional (1D) array. The integers are added together as they are input and the highest value is identified. At the end of the algorithm, the highest number, the total and the average of the numbers are output.
+
+      \begin{alltt}
+      01 DECLARE Numbers : ARRAY[1:1000] OF INTEGER
+      02 DECLARE Highest : STRING
+      03 DECLARE Count : INTEGER
+      04 DECLARE Total : INTEGER
+      05 Highest <- 1500
+      06 Total <- 0
+      07 FOR Count <- 1 TO 1000
+      08     INPUT Numbers[Count]
+      09     Total <- Total + Count
+      10     IF Numbers[Count] > Total
+      11         THEN
+      12             Highest <- Numbers[Count]
+      13     ENDIF
+      14 NEXT Count
+      15 OUTPUT "The highest number is ", Highest
+      16 OUTPUT "The total is ", Total
+      17 OUTPUT "The average is ", Average / 1000
+      \end{alltt}
+  - number: "6a"
+    type: short_answer
+    text: |
+      Identify the line numbers of \textbf{five} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+
+      Correction \hrulefill
+```

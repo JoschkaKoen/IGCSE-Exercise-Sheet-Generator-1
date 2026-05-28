@@ -1,0 +1,19 @@
+questions:
+  - number: "1e"
+    type: short_answer
+    text: |
+      The table contains terms and descriptions about the process of converting analogue sound to binary.
+
+      Complete the table with the missing term and descriptions.
+
+      \begin{tabular}{|p{4cm}|p{10cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Term}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      \hrulefill & This is the measurement of the height (amplitude) of a sound wave taken at regular time intervals. \\ \hline
+      sample rate & \\
+       & \\
+       & \\ \hline
+      sample resolution & \\
+       & \\
+       & \\ \hline
+      \end{tabular}

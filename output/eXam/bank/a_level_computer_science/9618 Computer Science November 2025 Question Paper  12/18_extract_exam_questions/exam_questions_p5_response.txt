@@ -1,0 +1,47 @@
+[thinking]
+**Processing Question 3c**
+
+Okay, so the user wants me to handle question "3c" from this document. The prompt starts with "A student buys..." and goes on to describe a new computer purchase. My task is to transcribe and format this question accurately. First, I need to strip the subquestion prefix, following the rule for subquestion prefixes at the start of text.
+
+Now, I'll translate the information into a neat format. The core of the question involves a comparison table outlining the specifications of an old computer versus a new one. I'll translate this table into a LaTeX format:
+
+```latex
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Old computer} & \textbf{New computer} \\ \hline
+1.8 GHz dual core processor & 2.3 GHz dual core processor \\ \hline
+16 MB cache & 32 MB cache \\ \hline
+\end{tabular}
+```
+
+The key part is the prompt: "Explain why increasing the clock speed **and** increasing the cache memory will improve the performance of the computer." So it's asking for an explanation of the performance gains due to both clock speed and cache memory increases.
+
+Finally, the question has specific prompts for each point: "Clock speed .............................................................................................................................." and "Cache memory .............................................................................................................................." Since these indicate multi-line writing spaces, and there's a dotted line after the first one, I'll format these as follows:
+
+"Clock speed \hrulefill"
+"Cache memory \hrulefill"
+
+I've taken the prompt, formatted it correctly, and I am ready to process it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3c"
+    type: long_answer
+    text: |
+      A student buys a new computer. The table shows the specifications of the old computer and the new computer.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Old computer} & \textbf{New computer} \\ \hline
+      1.8 GHz dual core processor & 2.3 GHz dual core processor \\ \hline
+      16 MB cache & 32 MB cache \\ \hline
+      \end{tabular}
+
+      Explain why increasing the clock speed \textbf{and} increasing the cache memory will improve the performance of the computer.
+
+      Clock speed \hrulefill
+
+      Cache memory \hrulefill

@@ -1,0 +1,29 @@
+questions:
+  - number: "11"
+    type: long_answer
+    text: |
+      A running club has 200 members who compete in a 1-kilometre running competition every month.
+      Members’ names are stored in the one-dimensional (1D) array \texttt{MemberName[]}
+      Each member’s time, in seconds, for the 1-kilometre run will be stored in another one-dimensional (1D) array \texttt{MemberTime[]}
+      The position of each member’s data in the two arrays is the same. For example, the member stored at index 10 in \texttt{MemberName[]} and at index 10 in \texttt{MemberTime[]} is the same.
+
+      The running club awards a small prize to the members who have the top three times.
+      The club also awards certificates to all members with a time under 240 seconds.
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item allows members’ times to be input twice and verifies that the inputs match
+      \item sorts the arrays \texttt{MemberTime[]} and \texttt{MemberName[]} in ascending order of time
+      \item outputs the member names and times of the members with the top three times and identifies them as First, Second and Third
+      \item stores the names of all the members who will receive a certificate in the array \texttt{MemberCertificate[]}
+      \item outputs a message stating the number of certificates to be printed.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do not need to initialise the data in the array \texttt{MemberName[]}
+
+      You do not need to declare any arrays or variables; you may assume that this has already been done.
+
+      All inputs and outputs must contain suitable messages.

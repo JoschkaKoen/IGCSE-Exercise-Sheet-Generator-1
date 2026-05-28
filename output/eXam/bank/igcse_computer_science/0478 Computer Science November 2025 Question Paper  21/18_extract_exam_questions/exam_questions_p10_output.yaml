@@ -1,0 +1,13 @@
+questions:
+  - number: "7b"
+    type: short_answer
+    text: |
+      State the purpose of the algorithm on page 8. A copy of the algorithm is provided for you on page 11.
+  - number: "7c"
+    type: short_answer
+    text: |
+      State a suitable data type for the variable \texttt{Count}
+  - number: "7d"
+    type: long_answer
+    text: |
+      Write the algorithm in pseudocode. A copy of the algorithm is provided for you on page 11.

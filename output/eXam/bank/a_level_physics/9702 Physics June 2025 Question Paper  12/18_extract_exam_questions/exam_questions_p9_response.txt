@@ -1,0 +1,90 @@
+[thinking]
+**My Transcription Workflow**
+
+Okay, so I need to transcribe three questions from the image provided. First up is Question 19. It's a physics problem involving a box on an inclined plane. I'll need to capture the text, which is a word problem detailing the mass, applied force, incline angle, and vertical height, all in LaTeX format. The question is asking for the work done against the frictional force. The multiple-choice options are straightforward: A: 280 J, B: 810 J, C: 960 J, and D: 1100 J.
+
+Next, I'll move on to Question 20, which deals with efficiency. It's a conceptual question asking for the expression that defines efficiency. I'll need to carefully examine the LaTeX formatted options. I recall this, let's write them out, remembering what's input and output. Option C, the ratio of useful output to total input is right.
+
+Finally, for Question 21, it's about the mechanical properties of wires. It describes a scenario where identical loads are hung on copper and steel wires of equal length and cross-sectional area, resulting in different extensions. I need to transcribe the question and the associated multiple-choice options, which involve a table indicating which values (stress, strain, and Young's modulus) are equal for both wires. Originally I was planning a separate table, but I'll embed the table within the text of the question, and the options themselves are A, B, C, and D. I'll double-check that the table's structure is correct within the LaTeX. I also ensure that the options are clear and unambiguous, with the tick marks represented correctly. I'll be certain to organize all of this carefully and ensure the LaTeX is perfect.
+
+
+
+[/thinking]
+
+questions:
+  - number: "19"
+    type: multiple_choice
+    text: |
+      A box of mass $4.9\text{ kg}$ is pushed at a constant velocity from point P at the bottom of an inclined plane to point Q at the top.
+
+      The box is pushed by a force of $64\text{ N}$ acting parallel to the slope.
+
+      The slope is inclined at an angle of $20^\circ$ to the horizontal and the box moves through a vertical height of $5.8\text{ m}$.
+
+      What is the work done against the frictional force acting on the block between P and Q?
+    options:
+      - letter: A
+        text: |
+          $280\text{ J}$
+      - letter: B
+        text: |
+          $810\text{ J}$
+      - letter: C
+        text: |
+          $960\text{ J}$
+      - letter: D
+        text: |
+          $1100\text{ J}$
+
+  - number: "20"
+    type: multiple_choice
+    text: |
+      Which expression gives the efficiency of a system?
+    options:
+      - letter: A
+        text: |
+          $$\frac{\text{total energy input}}{\text{useful energy output}}$$
+      - letter: B
+        text: |
+          $$\frac{\text{useful energy output} + \text{wasted energy output}}{\text{total energy input}}$$
+      - letter: C
+        text: |
+          $$\frac{\text{useful energy output}}{\text{total energy input}}$$
+      - letter: D
+        text: |
+          $$\frac{\text{wasted energy output}}{\text{total energy input}}$$
+
+  - number: "21"
+    type: multiple_choice
+    text: |
+      A student has a copper wire and a steel wire with equal lengths and cross-sectional areas.
+
+      The student hangs identical loads on the two wires.
+
+      The extensions of the two wires are different.
+
+      The student calculates the stress, strain and Young modulus of each wire.
+
+      Which row identifies with a tick ($\checkmark$) the calculated values that are equal for both wires?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & stress & strain & Young modulus \\ \hline
+      \textbf{A} & $\checkmark$ & & \\ \hline
+      \textbf{B} & & $\checkmark$ & \\ \hline
+      \textbf{C} & & $\checkmark$ & $\checkmark$ \\ \hline
+      \textbf{D} & $\checkmark$ & & $\checkmark$ \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

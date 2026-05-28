@@ -1,0 +1,81 @@
+[thinking]
+**My Task: Transcribing Exam Questions**
+
+Okay, here's the deal. I need to get these questions transcribed. The user wants me to extract and present questions 5, 6, and 7 from this exam page. Let's see...
+
+First up is Question 5. It's a multiple-choice question about using radio waves to determine the distance between Earth and Jupiter. Interesting scenario – they're giving us the time it takes for a radio wave pulse to go to Jupiter and back, and we need to calculate the Earth-Jupiter distance. The time is 3960 seconds. We'll have to consider the speed of light for this one, and remember it's a round trip! The answer choices are in scientific notation, which is a good clue about the magnitude of the result.
+
+Next, Question 6. This is a multiple-choice question based on a graph showing a car's velocity over time. The graph itself isn't provided, so I will omit that entirely. I will need to focus on what statements can be derived from the graph, for example, whether the car accelerates, whether the car reverses, and how far the car moves over a period of time. This probably involves interpreting the slope of the graph (acceleration) and the area under the curve (distance traveled).
+
+Finally, Question 7. Another multiple-choice problem. This one deals with a 1.0 kg object falling in a vacuum. A constant upward force of 50 N is applied when the object is traveling at 60 m/s. The question asks for the object's speed 2 seconds after the force is applied. This one is about forces, acceleration, and using the kinematic equations. I will need to consider the net force acting on the object after the force is applied.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: multiple_choice
+    text: |
+      Radio waves can be used to measure the distance between Earth and the planet Jupiter.
+
+      A pulse of radio waves is emitted from the surface of Earth. The pulse reflects from the surface of Jupiter and is detected again on Earth.
+
+      The time between emitting and receiving the pulse is 3960 s.
+
+      What is the distance between Earth and Jupiter?
+    options:
+      - letter: A
+        text: |
+          $5.94 \times 10^8 \text{ km}$
+      - letter: B
+        text: |
+          $1.19 \times 10^9 \text{ km}$
+      - letter: C
+        text: |
+          $5.94 \times 10^{11} \text{ km}$
+      - letter: D
+        text: |
+          $1.19 \times 10^{12} \text{ km}$
+
+  - number: "6"
+    type: multiple_choice
+    text: |
+      The graph shows the variation with time of the velocity of a car.
+
+      Which statement is correct?
+    options:
+      - letter: A
+        text: |
+          The car accelerates for 2 s, then stops for 4 s and then reverses.
+      - letter: B
+        text: |
+          The car accelerates at $12 \text{ m s}^{-2}$ for 2 s.
+      - letter: C
+        text: |
+          The car travels a distance of 36 m in the first 4 s.
+      - letter: D
+        text: |
+          The car travels a distance of 48 m in the last 4 s.
+
+  - number: "7"
+    type: multiple_choice
+    text: |
+      A solid object of mass 1.0 kg falls vertically downwards in a vacuum.
+
+      When the speed of the object is $60 \text{ m s}^{-1}$, an additional constant force of 50 N suddenly starts to act vertically upwards on the object.
+
+      What is the speed of the object 2.0 s after the additional force starts to act?
+    options:
+      - letter: A
+        text: |
+          $20 \text{ m s}^{-1}$
+      - letter: B
+        text: |
+          $40 \text{ m s}^{-1}$
+      - letter: C
+        text: |
+          $80 \text{ m s}^{-1}$
+      - letter: D
+        text: |
+          $100 \text{ m s}^{-1}$

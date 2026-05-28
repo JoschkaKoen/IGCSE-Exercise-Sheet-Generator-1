@@ -1,0 +1,38 @@
+questions:
+  - number: "3d"
+    type: short_answer
+    text: |
+      All three computers have the same instruction set.
+
+      Define the term instruction set.
+  - number: "4"
+    type: short_answer
+    text: |
+      An automated teller machine (ATM) is a device where a person inserts their bank card and can request to withdraw money. The ATM also allows the person to check how much money they have in their bank account.
+  - number: "4a"
+    type: short_answer
+    text: |
+      A sensor is used to detect when a person stands within 1 metre of the ATM. When a person is detected, a welcome message is displayed on the screen.
+  - number: "4ai"
+    type: short_answer
+    text: |
+      Identify an appropriate sensor for the ATM to use to detect a person.
+  - number: "4aii"
+    type: long_answer
+    text: |
+      Describe the role of the microprocessor in detecting the person.
+  - number: "4b"
+    type: short_answer
+    text: |
+      Describe the features of the ATM that identify it as an embedded system.
+  - number: "4c"
+    type: short_answer
+    text: |
+      The ATM has a touch screen and a keypad.
+
+      The ATM may need to be used by people who are unable to see.
+
+      Identify \textbf{one} other input device and \textbf{one} other output device that can be built into the ATM to help people who are unable to see.
+
+      Input \hrulefill
+      Output \hrulefill

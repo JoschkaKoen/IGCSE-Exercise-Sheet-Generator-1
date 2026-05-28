@@ -1,0 +1,12 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      The flowchart shows an algorithm used for quality control on a biscuit production line.
+
+      The weight of each biscuit is entered into the variable \texttt{Weight}. If the weight of the biscuit is between 16.2 and 17.2 grammes, inclusive, the pass counter is incremented by 1. Otherwise, the reject counter is incremented by 1. The process continues until --1 is entered, after which, the totals for pass and reject counters are output.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Complete this flowchart.

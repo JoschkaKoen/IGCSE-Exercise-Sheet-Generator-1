@@ -1,0 +1,62 @@
+[thinking]
+**Exam Page 8: Question Analysis and YAML Stub Population**
+
+Okay, so the task is to flesh out the YAML stub for page 8 of this exam. Looks like we have questions 8, 8a, 8b, and 8c. The prompt clearly states that I need to maintain the existing question structure. I see the provided stub has the correct structure: question numbers and types are already set. The focus is on populating the text fields.
+
+"8" itself doesn't appear to have any explicit text associated with it on the page – it’s a heading, or perhaps an intro. Since the prompt said *not* to remove anything, I'll keep it. The correct thing to do here is populate the `text` for "8" with an empty string, `text: ''`. That should be fine.
+
+Now for "8a", "8b" and "8c". Those look straightforward enough. "8a" asks about the purpose of optimization, "8b" about converting RPN to infix, and "8c" about stack evaluation of an RPN expression with given values. I can see the question text for each, and the image also clarifies what I need to do.
+
+But the trickiest part is how to represent the changing stack content in "8c". The image shows a set of ten separate stacks, each stack with 5 cells. Okay, the best way to represent this is using LaTeX, and I am going to make ten separate tabulars. Each tabular will be a single column of 5 cells. That will render perfectly. No need for complex tables here; simple vertical stacks are best. I'm going to represent it with the following:
+```latex
+\begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+\begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+...
+```
+I just need to replicate this ten times, and it should display perfectly like the image.
+
+So, in summary, I will update the YAML stub, and provide the LaTeX code for the stack representation. All done.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "8"
+    type: short_answer
+    text: ''
+  - number: "8a"
+    type: short_answer
+    text: |
+      State the purpose of the optimisation stage in the compilation of a program.
+  - number: "8b"
+    type: short_answer
+    text: |
+      Convert this Reverse Polish Notation (RPN) back to its original infix form:
+
+      \texttt{a b - c + c a - * d /}
+  - number: "8c"
+    type: short_answer
+    text: |
+      The RPN expression:
+
+      \texttt{c a / b d - * b +}
+
+      is to be evaluated, where:
+
+      $a = 3$, $b = 16$, $c = 9$ and $d = 6$.
+
+      Show the changing contents of the stack as the RPN expression is evaluated.
+
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular} \quad
+      \begin{tabular}{|c|} \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \phantom{X} \\ \hline \end{tabular}
+```

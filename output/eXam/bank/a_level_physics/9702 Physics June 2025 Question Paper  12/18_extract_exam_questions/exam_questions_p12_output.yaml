@@ -1,0 +1,62 @@
+questions:
+  - number: "26"
+    type: multiple_choice
+    text: |
+      A buzzer emitting sound of frequency $846\text{ Hz}$ is attached to a string and rotated in a horizontal circle. The linear speed of the buzzer is $25.0\text{ m}\,\text{s}^{-1}$.
+
+      The speed of sound is $340\text{ m}\,\text{s}^{-1}$.
+
+      What is the maximum frequency heard by the observer?
+    options:
+      - letter: A
+        text: |
+          $783\text{ Hz}$
+      - letter: B
+        text: |
+          $788\text{ Hz}$
+      - letter: C
+        text: |
+          $908\text{ Hz}$
+      - letter: D
+        text: |
+          $913\text{ Hz}$
+  - number: "27"
+    type: multiple_choice
+    text: |
+      Vertically polarised light of intensity $I_0$ is incident normally on a polarising filter.
+
+      The transmission axis of the filter is at an angle $\theta$ to the plane of polarisation of the light.
+
+      The intensity of the light after passing through the filter is $\frac{I_0}{3}$.
+
+      What is $\theta$?
+    options:
+      - letter: A
+        text: |
+          $8.4^\circ$
+      - letter: B
+        text: |
+          $55^\circ$
+      - letter: C
+        text: |
+          $71^\circ$
+      - letter: D
+        text: |
+          $84^\circ$
+  - number: "28"
+    type: multiple_choice
+    text: |
+      Which statement compares the behaviour of transverse and longitudinal waves?
+    options:
+      - letter: A
+        text: |
+          Only longitudinal waves can be diffracted.
+      - letter: B
+        text: |
+          Only longitudinal waves can travel in free space.
+      - letter: C
+        text: |
+          Only transverse waves can be coherent.
+      - letter: D
+        text: |
+          Only transverse waves can be polarised.

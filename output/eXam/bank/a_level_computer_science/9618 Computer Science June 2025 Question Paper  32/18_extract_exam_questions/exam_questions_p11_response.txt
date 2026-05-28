@@ -1,0 +1,25 @@
+[thinking]
+**Transcribing Question 11b: Recursion and Binary Trees**
+
+Okay, so the task is to transcribe question "11b" from this page. Straightforward enough. Let's see... the text begins with: "A binary tree can be used to implement recursion." Right, a standard setup. Now the question itself: "Identify **one** feature of an algorithm that makes it beneficial to use recursion. Give **one** example of an application that could use a recursive algorithm." Got it. Concise and to the point. The structure is clear: a feature, followed by an application, both to be explained in the designated spaces.
+
+So, the intended format needs to be adhered to. I need to strip the sub-question identifier, "(b)", at the beginning, that's done. I also need to make sure the text is correctly formatted with appropriate line breaks and bolding to meet the defined style. With that information, I'm ready to produce the YAML.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "11b"
+    type: short_answer
+    text: |
+      A binary tree can be used to implement recursion.
+
+      Identify \textbf{one} feature of an algorithm that makes it beneficial to use recursion.
+      Give \textbf{one} example of an application that could use a recursive algorithm.
+
+      Feature \hrulefill
+
+      Example \hrulefill
+```

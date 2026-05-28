@@ -1,0 +1,61 @@
+[thinking]
+**Exam Paper Transcription: Thoughts on Interrupts and USB**
+
+Okay, here we go. The user wants me to transcribe page 6 of an exam paper. I see the focus is on a computer system with a mouse and a few questions about interrupts and USB connections. Let's break down these questions and outline how I'd approach each.
+
+First, there's a basic setup question ("5") describing an interrupt triggered by a mouse click. Then, the follow up:
+
+*   **5a:** Identify the *type* of interrupt. This should be straightforward. I'll need to recall the different interrupt classifications; this one's a classic.
+*   **5b:** Explain how the interrupt is *serviced* after it's queued. Time to articulate the interrupt handling process, emphasizing the role of the interrupt vector table, context switching, and the interrupt service routine (ISR).
+
+Next, we shift to the connection method, the USB:
+
+*   **5c:** Introduces the USB connection.
+*   **5ci:** Explanation of how *data is sent* via USB. I'll need to cover the USB protocol, packet structure, and data transfer mechanisms, perhaps mentioning things like isochronous, interrupt, and bulk transfers depending on how precise the answer is expected to be.
+*   **5cii:** Provide *two benefits* of using USB for the mouse. Here I need to think about ease of use, power delivery, hot-swapping, and the standardized interface.
+*   **5ciii:** Give *one drawback* of using USB. Latency would be a good response. I could mention the potential for interference, bandwidth limitations, or possibly compatibility issues with older systems.
+
+I'm making sure to format the markdown correctly, especially the bolding and the horizontal rules, to make sure it is rendered in the correct format.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A computer system has a mouse.
+
+      An interrupt is sent to the CPU every time a button on the mouse is clicked.
+  - number: "5a"
+    type: short_answer
+    text: |
+      Identify the name of this type of interrupt.
+  - number: "5b"
+    type: long_answer
+    text: |
+      The interrupt is placed in a queue.
+
+      Explain how the interrupt is serviced after it is placed in the queue.
+  - number: "5c"
+    type: short_answer
+    text: |
+      The mouse is connected using a universal serial bus (USB) connection.
+  - number: "5ci"
+    type: short_answer
+    text: |
+      Explain how data is sent using the USB connection.
+  - number: "5cii"
+    type: short_answer
+    text: |
+      Give \textbf{two} benefits of using a USB connection for this purpose.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5ciii"
+    type: short_answer
+    text: |
+      Give \textbf{one} drawback of using a USB connection for this purpose.
+```

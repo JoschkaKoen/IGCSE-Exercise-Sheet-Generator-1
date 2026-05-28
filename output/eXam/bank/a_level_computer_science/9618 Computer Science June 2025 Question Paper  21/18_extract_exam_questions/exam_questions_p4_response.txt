@@ -1,0 +1,28 @@
+[thinking]
+**Transcribing Question 2 for the User**
+
+Okay, so the task at hand is to transcribe question number two from the provided source. The user specifically wants the text of the question. Let's see, the question is about a program in development that calculates employee pay, focusing on a `CalculateBonus()` function based on sales figures. The core of the question lies in defining the bonus structure. Ah, a table! That's what I'll need to focus on transcribing precisely. It outlines the bonus pay based on different sales value ranges: below $2000 gets no bonus, between $2000 and $4000 inclusive earns a $10 bonus, and anything above $4000 gets a $100 bonus. The original text also mentions a flowchart for the `CalculateBonus()` function but the instructions say to exclude that, so I'll omit that from my transcription. I'll need to make sure the table is represented accurately and in a clear format. Let's double check the number of columns in the table matches. Perfect! It is a 2-column table. Now, time to output the YAML representing question 2.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program is being developed to calculate the pay of employees working for a company.
+
+      A function \texttt{CalculateBonus()} calculates bonus pay based on the value of sales.
+
+      Bonus pay is calculated as shown in the table.
+
+      \begin{tabular}{|l|r|}
+      \hline
+      \textbf{Value of sales (in dollars)} & \textbf{Bonus pay (in dollars)} \\ \hline
+      below 2000 & 0 \\ \hline
+      between 2000 and 4000 inclusive & 10 \\ \hline
+      above 4000 & 100 \\ \hline
+      \end{tabular}
+
+      A flowchart for the function \texttt{CalculateBonus()} has been designed.

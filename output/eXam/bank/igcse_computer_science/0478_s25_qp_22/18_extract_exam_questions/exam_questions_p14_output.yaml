@@ -1,0 +1,38 @@
+```yaml
+questions:
+  - number: "10"
+    type: long_answer
+    text: |
+      A program is required to allow students to calculate the volume of a number of standard three-dimensional shapes. It will use functions to allow other shapes to be added in the future.
+
+      \textbf{Cuboid}
+
+      $\text{volume} = \text{base} \times \text{depth} \times \text{height}$
+
+      \textbf{Triangular prism}
+
+      $\text{volume} = 1/2 \times \text{base} \times \text{depth} \times \text{height}$
+
+      \textbf{Sphere}
+
+      $\text{volume} = 4/3 \times \text{Pi} \times \text{radius} \times \text{radius} \times \text{radius}$
+
+      Pi is a constant with value 3.142
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item Output a menu to ask the user for an input to indicate the shape for which a volume needs to be calculated, from the three shapes given or if they want to stop the program. The program must validate the input.
+      \item Input the data needed to calculate the volume of the chosen shape, based on the given formulae.
+      \item Create one function for each shape to calculate and return the volume using the given formulae. Each function uses the input data as parameters.
+      \item Output the volume in the main program, rounded to two decimal places.
+      \end{itemize}
+
+      The program continues until the user inputs the stop option from the menu.
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      All variables and constants used must be declared for this algorithm.
+
+      All inputs and outputs must contain suitable messages.
+```

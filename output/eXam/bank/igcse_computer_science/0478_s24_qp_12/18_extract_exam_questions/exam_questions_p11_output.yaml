@@ -1,0 +1,29 @@
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      A company has a website. Users use the internet and the world wide web to access the website.
+  - number: "11a"
+    type: short_answer
+    text: |
+      Describe the difference between the internet and the world wide web.
+  - number: "11b"
+    type: short_answer
+    text: |
+      The website has a uniform resource locator (URL). The URL has three different parts.
+
+      Identify the \textbf{three} different parts that are included in the URL.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill
+  - number: "11c"
+    type: short_answer
+    text: |
+      One function of a web browser is to provide an address bar for a user to enter a URL.
+
+      Give \textbf{three} other functions of a web browser.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

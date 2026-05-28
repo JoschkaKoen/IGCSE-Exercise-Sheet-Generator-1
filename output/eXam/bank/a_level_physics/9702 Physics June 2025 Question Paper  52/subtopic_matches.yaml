@@ -1,0 +1,15 @@
+subject_key: a_level_physics
+paper_stem: 9702 Physics June 2025 Question Paper  52
+model: qwen3.6-plus
+matched_at: '2026-05-28T05:22:24Z'
+matches:
+  '1': ['1.3', '2.1']
+  2a: ['19.1']
+  2b: ['1.3']
+  2ci: ['1.3', '10.2']
+  2cii: ['19.1']
+  2ciii: ['1.3']
+  2civ: ['1.3', '19.1']
+  2di: ['19.1']
+  2dii: ['1.3']
+  2e: ['19.1']

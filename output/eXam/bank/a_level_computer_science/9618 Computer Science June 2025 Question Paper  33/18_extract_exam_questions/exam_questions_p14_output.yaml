@@ -1,0 +1,39 @@
+```yaml
+questions:
+  - number: "12"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "12a"
+    type: short_answer
+    text: |
+      An array is an Abstract Data Type (ADT).
+
+      Identify \textbf{two} other ADTs.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "12b"
+    type: short_answer
+    text: |
+      A 1D array \texttt{DataArray} holds up to 1000 elements of type integer and needs to be sorted in ascending order.
+
+      Write the \textbf{pseudocode} for an insertion sort to sort the array into ascending order.
+
+      Use the identifiers from the table in your algorithm.
+
+      You do \textbf{not} need to declare any arrays or variables for this algorithm. You may assume this has already been done.
+
+      \begin{tabular}{|c|c|l|}
+      \hline
+      \textbf{Identifier} & \textbf{Data type} & \textbf{Description} \\ \hline
+      \texttt{Index} & \texttt{INTEGER} & counter for outer loop \\ \hline
+      \texttt{Position} & \texttt{INTEGER} & counter for inner loop – insertion position \\ \hline
+      \texttt{DataArray} & \texttt{INTEGER} & 1D array to store up to 1000 integers \\ \hline
+      \texttt{Value} & \texttt{INTEGER} & value to insert \\ \hline
+      \end{tabular}
+
+      The first line has been written for you.
+
+      \texttt{FOR Index <- 2 to 1000}
+```

@@ -1,0 +1,61 @@
+[thinking]
+**Transcribing Exam Page 7: Tension in a String Experiment**
+
+Okay, the task is to transcribe page 7 of the exam paper. Specifically, questions "2" and "2a".  Let's see what we're dealing with.
+
+Question 2 states: "In this experiment, you will investigate the tension in a string." Seems straightforward enough. It's a short answer, so I'll render that as a simple statement.
+
+Then we have question 2a. This is a bit more involved. It seems like a calculation and involves setting up some apparatus as shown in Figure 2.1 (which I don't have access to, but I can still capture the textual instructions). The key instructions are that the total mass, *M*, is 0.400 kg, and the distance between the nails is *d*, which needs to be measured and recorded.  We have the format "$d = ... cm [1]$" which I should format properly.
+
+Now, let's format it in YAML. For question 2, it's pretty simple:  a short answer with the given text.
+
+For 2a, I'll structure it like this:
+
+*   Instructions to set up the apparatus.
+*   The mass value of $M$ = 0.400 kg.
+*   The definition of the distance *d* between the nails.
+*   Instruction to measure and record *d*.
+*   The answer line, formatted correctly using LaTeX for the value with units.
+
+Thinking about the output format, I'll use `\hrulefill` for the answer line as per the instructions provided:
+
+```yaml
+  - number: "2a"
+    type: calculation
+    text: |
+      Set up the apparatus as shown in Fig. 2.1.
+
+      \begin{itemize}
+      \item The mass hanger and masses should have a total mass $M$ of $0.400\text{ kg}$.
+      \item The distance between the two lower nails is $d$, as shown in Fig. 2.1.
+      \end{itemize}
+
+      Measure and record $d$.
+
+      $d = \hrulefill \text{ cm}$
+```
+
+That should be precisely what is required.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      In this experiment, you will investigate the tension in a string.
+  - number: "2a"
+    type: calculation
+    text: |
+      Set up the apparatus as shown in Fig. 2.1.
+
+      \begin{itemize}
+      \item The mass hanger and masses should have a total mass $M$ of $0.400\text{ kg}$.
+      \item The distance between the two lower nails is $d$, as shown in Fig. 2.1.
+      \end{itemize}
+
+      Measure and record $d$.
+
+      $d = $ \hrulefill $\text{ cm}$

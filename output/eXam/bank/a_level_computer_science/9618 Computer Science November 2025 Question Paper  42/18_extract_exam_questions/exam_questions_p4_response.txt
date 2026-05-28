@@ -1,0 +1,40 @@
+```yaml
+questions:
+  - number: "1aiv"
+    type: short_answer
+    text: |
+      If the bird is travelling north, the vertical position increases. If the bird is travelling south, the vertical position decreases.
+
+      If the bird is travelling east, the horizontal position increases. If the bird is travelling west, the horizontal position decreases.
+
+      The method \texttt{Move()}:
+      \begin{itemize}
+      \item takes the direction of travel as a parameter in the form `\texttt{N}' for north, `\texttt{S}' for south, `\texttt{E}' for east or `\texttt{W}' for west
+      \item takes the number of minutes that the bird has been flying (to the nearest minute) as a parameter
+      \item calculates the distance travelled by the bird using the formula:
+            $$\text{distance travelled} = (\text{distance per hour} / 60) \times \text{minutes flying}$$
+      \item updates the vertical or horizontal position using the distance calculated.
+      \end{itemize}
+
+      You do \textbf{not} need to validate the parameters.
+
+      Write program code for \texttt{Move()}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(a)(iv)} in the evidence document.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The main program creates two instances of \texttt{Bird}
+
+      The first bird is the species `Cockatiel' and flies $71.0\text{ km/h}$.
+
+      The second bird is the species `Macaw' and flies $56.0\text{ km/h}$.
+
+      Write program code to declare and initialise the \textbf{two} birds.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{1(b)} in the evidence document.
+```

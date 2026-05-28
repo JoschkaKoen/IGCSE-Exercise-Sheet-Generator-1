@@ -1,0 +1,64 @@
+[thinking]
+**My Thought Process: Transcribing Exam Questions to YAML**
+
+Okay, here's how I'm going to approach this. I've got an exam paper snippet (page 3) with four questions: "1d", "1e", "1f", and "1g." The goal is to convert these into a YAML format. I need to output `number`, `type`, and `text` (and `options` for MCQs, but I don't see any here, yet).
+
+First, let's look at "1d." It's a "short_answer" question. I'll extract the text, which is: "Another result of a calculation that is stored in a register is the binary number 01000010 Give the denary number that will be displayed on the screen for this binary number. 01000010 ............................................................................................................................ [1]". I'll need to remove the "Working space" section. I'll clean it up and use `01000010 \hrulefill` to represent the answer space.
+
+Moving onto "1e." This looks like a "calculation" question. I see an addition of two binary numbers: 01110110 + 00110000.  I'll include the necessary text and use a clean LaTeX math display for the addition. I initially thought about tabular environments, but a simple display math environment using the `array` environment will be best:
+```latex
+$$\begin{array}{rcccccccc}
+  & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 0 \\
++ & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\
+\hline
+\end{array}$$
+```
+That should be nice and clear, without adding unnecessary complexity.
+
+Now, for "1f." Again, this looks like a "short_answer." The text reads: "The result of a calculation could be a negative denary number. State how the calculator could represent a negative denary number as a binary number." There's no specific blank for a value here, just dotted lines. So, no need to represent a space here.
+
+Lastly, "1g" is another "short_answer." The text reads: "The electronic calculator is an example of an embedded system. Explain why it is an example of an embedded system." Same as before, no specific answer space, just a dotted line.
+
+Now, I'll review to make sure I adhere to the YAML output format I have in mind: no double quotes, using `|` block scalars, strip subquestion prefixes, drop "Working space," and double-check my math delimiters. The LaTeX formatting should compile correctly to prevent formatting issues during output. Let's get this done.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "1d"
+    type: short_answer
+    text: |
+      Another result of a calculation that is stored in a register is the binary number 01000010
+
+      Give the denary number that will be displayed on the screen for this binary number.
+
+      01000010 \hrulefill
+  - number: "1e"
+    type: calculation
+    text: |
+      Two binary numbers stored in the registers are 01110110 and 00110000
+
+      Add the binary numbers using binary addition. Show all your working.
+
+      Give your answer in binary.
+
+      $$\begin{array}{rcccccccc}
+        & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 0 \\
+      + & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\
+      \hline
+      \end{array}$$
+  - number: "1f"
+    type: short_answer
+    text: |
+      The result of a calculation could be a negative denary number.
+
+      State how the calculator could represent a negative denary number as a binary number.
+  - number: "1g"
+    type: short_answer
+    text: |
+      The electronic calculator is an example of an embedded system.
+
+      Explain why it is an example of an embedded system.
+```

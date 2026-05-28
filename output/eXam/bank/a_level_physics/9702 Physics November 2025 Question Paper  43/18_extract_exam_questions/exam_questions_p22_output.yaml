@@ -1,0 +1,38 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: ''
+  - number: "10a"
+    type: short_answer
+    text: |
+      Define specific acoustic impedance.
+  - number: "10b"
+    type: long_answer
+    text: |
+      Explain how ultrasound waves are detected by a piezoelectric crystal.
+  - number: "10c"
+    type: short_answer
+    text: |
+      Table 10.1 shows the specific acoustic impedance $Z$ for body tissue, water and steel.
+
+      \begin{center}
+      \textbf{Table 10.1}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      material & $Z / \text{kg}\,\text{m}^{-2}\,\text{s}^{-1}$ \\ \hline
+      body tissue & $1.38 \times 10^6$ \\ \hline
+      water & $1.48 \times 10^6$ \\ \hline
+      steel & $4.04 \times 10^7$ \\ \hline
+      \end{tabular}
+      \end{center}
+  - number: "10ci"
+    type: calculation
+    text: |
+      Calculate the intensity reflection coefficient for ultrasound incident on a water–steel boundary.
+
+      intensity reflection coefficient = \hrulefill
+  - number: "10cii"
+    type: long_answer
+    text: |
+      Explain, without calculation, what is likely to happen when ultrasound is incident on a body tissue–water boundary.

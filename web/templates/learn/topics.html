@@ -1,6 +1,35 @@
 {% extends "base.html" %}
 {% block title %}{{ t('nav.learn') }} — {{ subject_display }}{% endblock %}
-{% block extra_head %}<link rel="stylesheet" href="/static/css/06-landing.css" />{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/06-landing.css" />
+<link rel="stylesheet" href="/static/vendor/katex/katex.min.css">
+<script defer src="/static/vendor/katex/katex.min.js"></script>
+<script defer src="/static/vendor/katex/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+{% endblock %}
+{% macro coming_soon() %}
+<div class="rounded-xl border border-white/[0.08]
+            bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5
+            shadow-black/20 backdrop-blur-sm">
+  <div class="flex items-center gap-3 text-slate-400">
+    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+    </svg>
+    <p class="text-sm">{{ t('learn.coming_soon.title') }}</p>
+  </div>
+</div>
+{% endmacro %}
+{% macro content_body(html) %}
+{% if html %}
+<div class="learn-content-body rounded-xl border border-white/[0.06] bg-space-void p-4 sm:p-5">
+  {{ html | safe }}
+</div>
+<p class="mt-2 text-xs text-slate-500">{{ t('learn.content.cambridge_note') }}</p>
+{% else %}
+{{ coming_soon() }}
+{% endif %}
+{% endmacro %}
 {% block content %}
 <header class="mb-8 max-w-3xl">
   <a href="/learn"
@@ -23,7 +52,7 @@
     {% for topic in topics %}
     <li>
       {% if topic.subtopics %}
-      <details class="group rounded-2xl border border-white/[0.08]
+      <details class="group/topic rounded-2xl border border-white/[0.08]
                       bg-gradient-to-b from-white/[0.06] to-white/[0.02]
                       shadow-black/20 backdrop-blur-sm">
         <summary class="flex cursor-pointer list-none items-center gap-3 px-4 py-3
@@ -33,47 +62,56 @@
                        rounded-md bg-white/[0.06] px-2 text-xs font-semibold
                        tabular-nums text-cyan-200">{{ topic.number }}</span>
           <span class="flex-1 truncate text-sm font-semibold sm:text-base">{{ topic.title }}</span>
-          <svg class="h-4 w-4 text-slate-500 transition-transform group-open:rotate-90"
+          <svg class="h-4 w-4 text-slate-500 transition-transform group-open/topic:rotate-90"
                fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
           </svg>
         </summary>
-        <ul class="border-t border-white/[0.06] px-2 py-2">
+        <ul class="border-t border-white/[0.06] px-2 py-2 flex flex-col gap-1">
           {% for sub in topic.subtopics %}
           <li>
-            <a href="/learn/{{ subject }}/{{ sub.number }}"
-               class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm
-                      text-slate-300 transition hover:bg-white/[0.05] hover:text-white
-                      focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
-              <span class="inline-flex min-w-[2.5rem] justify-end font-mono text-xs
-                           tabular-nums text-slate-500">{{ sub.number }}</span>
-              <span class="flex-1 truncate">{{ sub.title }}</span>
-              <svg class="h-3.5 w-3.5 text-slate-600"
-                   fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-            </a>
+            <details class="group/sub rounded-lg">
+              <summary class="flex cursor-pointer list-none items-center gap-3
+                              rounded-lg px-3 py-2 text-sm text-slate-300 transition
+                              hover:bg-white/[0.05] hover:text-white
+                              focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+                <span class="inline-flex min-w-[2.5rem] justify-end font-mono text-xs
+                             tabular-nums text-slate-500">{{ sub.number }}</span>
+                <span class="flex-1 truncate">{{ sub.title }}</span>
+                <svg class="h-3.5 w-3.5 text-slate-600 transition-transform group-open/sub:rotate-90"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </summary>
+              <div class="px-3 pb-3 pt-1">
+                {{ content_body(sub.content_html) }}
+              </div>
+            </details>
           </li>
           {% endfor %}
         </ul>
       </details>
       {% else %}
-      {# Topic without subtopics (IGCSE CS topics 7-10) — single clickable card. #}
-      <a href="/learn/{{ subject }}/{{ topic.number }}"
-         class="flex items-center gap-3 rounded-2xl border border-white/[0.08]
-                bg-gradient-to-b from-white/[0.06] to-white/[0.02] px-4 py-3
-                shadow-black/20 backdrop-blur-sm
-                text-white transition hover:border-white/20 hover:from-white/[0.09]
-                focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
-        <span class="inline-flex h-7 min-w-[1.75rem] items-center justify-center
-                     rounded-md bg-white/[0.06] px-2 text-xs font-semibold
-                     tabular-nums text-cyan-200">{{ topic.number }}</span>
-        <span class="flex-1 truncate text-sm font-semibold sm:text-base">{{ topic.title }}</span>
-        <svg class="h-4 w-4 text-slate-500"
-             fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </a>
+      {# Topic without subtopics (IGCSE CS topics 7-10) — single inline-expandable card. #}
+      <details class="group/topic rounded-2xl border border-white/[0.08]
+                      bg-gradient-to-b from-white/[0.06] to-white/[0.02]
+                      shadow-black/20 backdrop-blur-sm">
+        <summary class="flex cursor-pointer list-none items-center gap-3 px-4 py-3
+                        text-white focus:outline-none focus-visible:ring-2
+                        focus-visible:ring-cyan-400/60 rounded-2xl">
+          <span class="inline-flex h-7 min-w-[1.75rem] items-center justify-center
+                       rounded-md bg-white/[0.06] px-2 text-xs font-semibold
+                       tabular-nums text-cyan-200">{{ topic.number }}</span>
+          <span class="flex-1 truncate text-sm font-semibold sm:text-base">{{ topic.title }}</span>
+          <svg class="h-4 w-4 text-slate-500 transition-transform group-open/topic:rotate-90"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </summary>
+        <div class="border-t border-white/[0.06] px-4 py-3">
+          {{ content_body(topic.content_html) }}
+        </div>
+      </details>
       {% endif %}
     </li>
     {% endfor %}

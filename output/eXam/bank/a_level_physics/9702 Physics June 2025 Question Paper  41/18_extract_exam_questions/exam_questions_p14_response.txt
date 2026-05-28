@@ -1,0 +1,68 @@
+[thinking]
+**Analyzing Exam Questions for Transcription**
+
+Okay, so the task at hand is to transcribe questions from page 14 of this exam. Let's break this down systematically. First, I need to look at each question number and its corresponding text.
+
+First up, "6c". This one's straightforward: I need to generate the YAML for it. The question is asking to calculate the resistance of a resistor, given the capacitance of a capacitor ($570 \mu F$) and referencing a previous part, (b)(iv). I'll need to remember to include the resistance unit as Ohms. I will generate:
+
+```yaml
+text: |
+  The capacitor C has a capacitance of $570\ \mu\text{F}$.
+
+  Use your answer in \textbf{(b)(iv)} to determine the resistance of resistor R.
+
+  resistance = \hrulefill $\Omega$
+```
+
+Now, the "7" question is giving me a headache. It's listed as a parent question, but also as a `short_answer` type.  I need to figure out if it's a true parent, a stub error, or something in between.  Let's look more closely.
+
+The "7" entry in the source is followed by "7 (a) Define magnetic flux density." which is also repeated as "7a". It looks like "7" does not have text, it's a parent, but then it's directly followed by (a) and (b), so it's probably missing. If the stem is not visible, I should emit `STUB ERROR`.
+
+Okay, I'm thinking... The problem here is that there's no standalone "7" text. It seems the intent was likely to have "7" as an introductory statement, but it's absent. As the "short_answer" type expects text, this is clearly a stub error, so let's mark "7" as a `STUB ERROR`.
+
+Now for the subsequent questions:
+`7a`: which is straightforward to transcribe:
+
+```yaml
+text: |
+  Define magnetic flux density.
+```
+
+And "7b":
+
+```yaml
+text: |
+  A particle of mass $m$ and charge $+Q$ moves at speed $v$ into a region where there is a uniform magnetic field, as shown in Fig. 7.1.
+
+  The uniform magnetic field is into the page and has flux density $B$. The particle enters the region of the field at point Y.
+```
+
+I'll ignore the image reference for now. That should be a complete set.
+
+
+
+[/thinking]
+
+questions:
+  - number: "6c"
+    type: calculation
+    text: |
+      The capacitor C has a capacitance of $570\ \mu\text{F}$.
+
+      Use your answer in \textbf{(b)(iv)} to determine the resistance of resistor R.
+
+      resistance = \hrulefill $\Omega$
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      Define magnetic flux density.
+  - number: "7b"
+    type: short_answer
+    text: |
+      A particle of mass $m$ and charge $+Q$ moves at speed $v$ into a region where there is a uniform magnetic field, as shown in Fig. 7.1.
+
+      The uniform magnetic field is into the page and has flux density $B$. The particle enters the region of the field at point Y.

@@ -1,0 +1,54 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A computer has a central processing unit (CPU), memory and secondary storage.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The computer has a Von Neumann architecture.
+
+      Circle \textbf{three} registers that are found in the Von Neumann architecture.
+
+      \begin{itemize}
+      \item accumulator
+      \item arithmetic register
+      \item binary counter
+      \item binary register
+      \item control register
+      \item current data register
+      \item current instruction register
+      \item data counter
+      \item instruction counter
+      \item logical register
+      \item program counter
+      \item storage register
+      \end{itemize}
+  - number: "3b"
+    type: short_answer
+    text: |
+      State the purpose of the CPU in the computer.
+  - number: "3c"
+    type: short_answer
+    text: |
+      Computer A has a $2.1\text{ GHz}$ quad-core processor.
+
+      Computer B has a $2.5\text{ GHz}$ dual-core processor.
+
+      Computer C has a $5.2\text{ GHz}$ single-core processor.
+  - number: "3ci"
+    type: short_answer
+    text: |
+      Identify which computer is most likely to execute more instructions simultaneously.
+
+      Justify your answer.
+
+      Computer \hrulefill
+
+      Justification
+  - number: "3cii"
+    type: short_answer
+    text: |
+      Explain why Computer C can execute more instructions per second than Computer B.
+```

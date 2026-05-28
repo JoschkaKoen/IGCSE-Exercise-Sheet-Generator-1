@@ -1,0 +1,21 @@
+```yaml
+questions:
+  - number: "9"
+    type: long_answer
+    text: |
+      A company requires a digital certificate to ensure the authenticity of its online communications.
+
+      Outline the process followed to acquire a digital certificate.
+  - number: "10"
+    type: short_answer
+    text: |
+      A stack, \texttt{StackArray}, is to be implemented using pseudocode, to store a maximum of 100 string items in an appropriate array. Declarations are required so that the stack has a beginning, an end and a maximum size. An array is also required to store the data.
+  - number: "10a"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} to declare the variables, constant and array required to implement the stack.
+  - number: "10b"
+    type: short_answer
+    text: |
+      Write \textbf{pseudocode} for a procedure to initialise the top and bottom pointers of the stack to appropriate values.
+```

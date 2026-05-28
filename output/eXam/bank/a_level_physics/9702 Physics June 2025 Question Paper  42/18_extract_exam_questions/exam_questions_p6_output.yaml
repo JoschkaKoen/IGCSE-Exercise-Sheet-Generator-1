@@ -1,0 +1,21 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ai"
+    type: short_answer
+    text: |
+      State what is represented by a gravitational field line.
+  - number: "2aii"
+    type: short_answer
+    text: |
+      The Earth may be considered as a uniform sphere, as shown in Fig. 2.1.
+
+      On Fig. 2.1, draw field lines to represent the Earth’s gravitational field outside the Earth.
+  - number: "2b"
+    type: short_answer
+    text: |
+      The Earth’s magnetic field may be considered as being due to the Earth acting as a long solenoid, as shown in Fig. 2.2.
+
+      The magnetic poles do not align with the geographic poles, which are on the axis of rotation.

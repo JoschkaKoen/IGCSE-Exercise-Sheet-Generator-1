@@ -1,0 +1,12 @@
+  - number: "1d"
+    type: short_answer
+    text: ""
+  - number: "1e"
+    type: calculation
+    text: ""
+  - number: "1f"
+    type: short_answer
+    text: ""
+  - number: "1g"
+    type: short_answer
+    text: ""

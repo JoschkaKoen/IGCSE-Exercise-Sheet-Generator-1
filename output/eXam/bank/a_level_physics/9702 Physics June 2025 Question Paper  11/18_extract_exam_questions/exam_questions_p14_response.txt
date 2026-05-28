@@ -1,0 +1,60 @@
+[thinking]
+**My Current Task**
+
+Okay, so I see the user needs me to transcribe two specific questions from this provided text. They've identified questions 35 and 36, and I need to accurately capture both the text of the questions and their corresponding multiple-choice options.
+
+Here's the breakdown:
+
+For question 35, it's a circuit diagram scenario involving a thermistor, a fixed resistor, and a battery with an EMF of 12V and negligible internal resistance. The user needs to determine the current in the fixed resistor, referencing some $I-V$ characteristics shown in a graph. The multiple-choice options are A: 0.36 mA, B: 0.40 mA, C: 0.48 mA, and D: 0.80 mA. I'll make sure to note all those details down accurately.
+
+Question 36 is about two resistors, $R_1$ and $R_2$, connected in parallel. The question asks for the combined resistance between points X and Y. The options are A: $R_1 + R_2$, B: $\frac{R_1 R_2}{R_1 + R_2}$, C: $\frac{R_1 + R_2}{R_1 R_2}$, and D: $\frac{R_1}{R_2}$. I should remember the formula for parallel resistance is something I know well, just to be sure... yep, that seems correct.
+
+Now, to make sure I format the information properly for the user, I'll need to double-check that the YAML structure is clean and accurate.
+
+
+
+[/thinking]
+
+questions:
+  - number: "35"
+    type: multiple_choice
+    text: |
+      The diagram shows a circuit containing a thermistor, a fixed resistor and a battery.
+
+      The graph shows the $I-V$ characteristics of both components.
+
+      The battery has an e.m.f. of $12\text{ V}$ and negligible internal resistance.
+
+      What is the current in the fixed resistor?
+    options:
+      - letter: A
+        text: |
+          $0.36\text{ mA}$
+      - letter: B
+        text: |
+          $0.40\text{ mA}$
+      - letter: C
+        text: |
+          $0.48\text{ mA}$
+      - letter: D
+        text: |
+          $0.80\text{ mA}$
+  - number: "36"
+    type: multiple_choice
+    text: |
+      Two resistors of resistances $R_1$ and $R_2$ are connected in parallel.
+
+      What is the combined resistance between X and Y?
+    options:
+      - letter: A
+        text: |
+          $R_1 + R_2$
+      - letter: B
+        text: |
+          $\frac{R_1 R_2}{R_1 + R_2}$
+      - letter: C
+        text: |
+          $\frac{R_1 + R_2}{R_1 R_2}$
+      - letter: D
+        text: |
+          $\frac{R_1}{R_2}$

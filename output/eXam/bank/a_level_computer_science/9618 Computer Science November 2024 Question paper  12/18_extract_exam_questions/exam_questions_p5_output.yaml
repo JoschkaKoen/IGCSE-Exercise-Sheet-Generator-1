@@ -1,0 +1,15 @@
+questions:
+  - number: "3b"
+    type: long_answer
+    text: |
+      The student needs to connect the computer to a monitor that has a screen resolution of $2560 \times 1600$ pixels. The monitor also has built-in speakers.
+
+      The computer has a Video Graphics Array (VGA) port and a High Definition Multimedia Interface (HDMI) port.
+
+      Explain the benefits of connecting the monitor to the computer using the HDMI port instead of the VGA port.
+  - number: "3c"
+    type: long_answer
+    text: |
+      The computer has an Operating System (OS). One of the key management tasks of the OS is process management.
+
+      Describe the process management tasks performed by an OS.

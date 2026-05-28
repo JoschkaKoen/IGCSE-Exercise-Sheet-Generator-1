@@ -1,0 +1,56 @@
+[thinking]
+**Transcribing Exam Page 8**
+
+Okay, the task is to transcribe page 8 of this exam paper.  Let's break down the questions one by one. I see a few different question types here: multiple choice, short answer with diagrams, and short answer with more open-ended responses. I need to make sure I get the format right.
+
+First, we have "5b", which is a multiple-choice question. I can see the text and the options clearly defined.  That shouldn't be too tricky.
+
+Next is "5c."  Wait, looking closely at the page, "5c" looks like an introductory sentence. "The company uses a proxy server to keep the web server safe from distributed denial of service (DDoS) attacks." I need to clarify what's going on. The prompt lists "5c," "5ci," and "5cii." Let's transcribe that introductory text for "5c." If it is just an introductory sentence and the questions that follow start with "5ci", then I should put the introductory text as the text.
+
+Moving on to "5ci," it's a short-answer question that involves completing and annotating a diagram related to DDoS attacks on a web server.  The original text includes the LaTeX for a simple box with "web server" inside.  I think I'll use `\framebox{web server}` to represent that.
+
+Finally, "5cii" requires identifying two tasks performed by a proxy server that a firewall wouldn't handle. The original text includes the standard numbered lines with `\hrulefill` for the response, which is a common format.  I'll follow the specified formatting rules for these numbered answer slots, ensuring that the period after the digit is present.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5b"
+    type: multiple_choice
+    text: |
+      The website asks a user to input their username and password to log into their account.
+
+      The company want to make their login system more secure.
+
+      Tick ($\checkmark$) \textbf{one} box to show \textbf{one} other security method that could be added to make the login system more secure.
+    options:
+      - letter: A
+        text: |
+          access levels
+      - letter: B
+        text: |
+          firewall
+      - letter: C
+        text: |
+          spyware
+      - letter: D
+        text: |
+          two-step verification
+  - number: "5c"
+    type: short_answer
+    text: |
+      The company uses a proxy server to keep the web server safe from distributed denial of service (DDoS) attacks.
+  - number: "5ci"
+    type: short_answer
+    text: |
+      Complete and annotate a diagram to show how a DDoS attack is carried out on the web server.
+
+      \framebox{web server}
+  - number: "5cii"
+    type: short_answer
+    text: |
+      Identify \textbf{two} tasks that can be performed by a proxy server that are not performed by a firewall.
+
+      1. \hrulefill
+      2. \hrulefill

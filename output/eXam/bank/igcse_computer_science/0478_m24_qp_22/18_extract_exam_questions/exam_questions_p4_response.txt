@@ -1,0 +1,34 @@
+[thinking]
+**My Transcription Task**
+
+Okay, so the user wants me to transcribe a couple of questions from this document. Let's see, the first one is labeled "3b", but apparently I need to strip that initial "b" prefix. Got it. So, that means I'm supposed to generate the prompt "Write an algorithm in pseudocode to sort the array Values[1:50] into ascending order using a bubble sort." And to be more precise, I should probably render `Values[1:50]` as `\texttt{Values[1:50]}` since it's an array. The document also looks like it provides writing space, but it's not marked so I shouldn't add any extra delimiters there.
+
+Next up is question "4". This is straightforward, it is asking me to "Identify **three** data types used in programming." The format here is pretty clear, it wants numbered lines for the answers. So I should render this as:
+
+```
+Identify \textbf{three} data types used in programming.
+
+1. \hrulefill
+2. \hrulefill
+3. \hrulefill
+```
+
+And that should be it, two cleanly transcribed questions, ready for the user to work with.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3b"
+    type: long_answer
+    text: |
+      Write an algorithm in pseudocode to sort the array \texttt{Values[1:50]} into ascending order using a bubble sort.
+  - number: "4"
+    type: short_answer
+    text: |
+      Identify \textbf{three} data types used in programming.
+
+      1. \hrulefill
+      2. \hrulefill
+      3. \hrulefill

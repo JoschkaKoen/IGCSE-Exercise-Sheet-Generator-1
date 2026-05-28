@@ -1,0 +1,709 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Refer to the insert for the list of pseudocode functions and operators.
+
+
+    A program is being developed to control the production line in a factory.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: A number of different program life cycles are available for the development
+      of a program.
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Explain the need for different program development life cycles.
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Coding is a stage in a program development life cycle.
+
+
+        State \textbf{one} consideration that would influence the choice of programming
+        language.'
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The program has been in use for a number of months and adaptive maintenance
+      is required.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Give \textbf{three} reasons why adaptive maintenance may be required.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: short_answer
+      page: 2
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'As well as adaptive maintenance, other types of program maintenance may
+        be needed.
+
+
+        Identify \textbf{one} other type of program maintenance.'
+      answer_options: []
+      subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Pseudocode has been used to design modules for the program to control the
+      production line.
+
+
+      The table shows \textbf{four} valid pseudocode expressions.
+
+
+      Complete the table by giving the data type of the evaluated expression.
+
+
+      \begin{tabular}{|l|l|}
+
+      \hline
+
+      \textbf{Expression} & \textbf{Data type} \\ \hline
+
+      \texttt{RIGHT(MachineCode, 4)} & \\ \hline
+
+      \texttt{Speed * 2.5} & \\ \hline
+
+      \texttt{NOT Status} & \\ \hline
+
+      \texttt{IS\_NUM(Check)} & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A global array \texttt{Product} is used as part of the pseudocode design
+      being developed to control the production line. \texttt{Product} is used to
+      store the number of rejected items each day.
+
+
+      The following pseudocode statement is used to assign a value to an element of
+      the array:
+
+
+      \texttt{Product[x, y] <- 23}
+
+
+      The lower and upper bound values are shown in the table:
+
+
+      \begin{tabular}{|c|c|c|}
+
+      \hline
+
+      \textbf{Variable} & \textbf{Lower bound} & \textbf{Upper bound} \\ \hline
+
+      \texttt{x} & 0 & 99 \\ \hline
+
+      \texttt{y} & 0 & 9 \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 1di
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the number of dimensions of \texttt{Product}
+      answer_options: []
+      subquestions: []
+    - number: 1dii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the total number of elements in array \texttt{Product}
+      answer_options: []
+      subquestions: []
+    - number: 1diii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Give the pseudocode declaration for the array \texttt{Product}
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A program to calculate the pay of employees working for a company is being
+    designed.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Stepwise refinement has been used in the design of the program.
+
+
+      Describe stepwise refinement.'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'One of the program modules used to calculate employees'' weekly bonus pay
+      has been completed. The amount of bonus pay they receive is based on the number
+      of hours worked and the value of sales made as shown in the table.
+
+
+      Bonus pay and value of sales are both in dollars.
+
+
+      \begin{tabular}{|l|l|c|}
+
+      \hline
+
+      \textbf{Hours worked} & \textbf{Value of sales} & \textbf{Bonus pay} \\ \hline
+
+      between 1 and 40 inclusive & 2000 or less & 0 \\ \hline
+
+      between 1 and 40 inclusive & above 2000 & 50 \\ \hline
+
+      above 40 & 2000 or less & 10 \\ \hline
+
+      above 40 & above 2000 & 100 \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The module is tested using white-box testing.
+
+
+        State \textbf{two} tests, using valid data, that can be used to test different
+        paths through the program.
+
+
+        Test one:
+
+
+        Hours worked \hrulefill
+
+        Value of sales \hrulefill
+
+        Bonus pay \hrulefill
+
+
+        Test two:
+
+
+        Hours worked \hrulefill
+
+        Value of sales \hrulefill
+
+        Bonus pay \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The program to calculate pay uses a number of modules which are each
+        called from different places in the program.
+
+
+        The program is to be tested using stub testing before all the program modules
+        have been completed.
+
+
+        Describe stub testing.'
+      answer_options: []
+      subquestions: []
+    - number: 2biii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The program has been completed and compiles successfully.
+
+
+        The program is tested using black-box testing.
+
+
+        Identify and describe \textbf{one} type of error that black-box testing could
+        detect.
+
+
+        Type of error \hrulefill
+
+
+        Description'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: long_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 8
+  text: 'An algorithm is designed to generate and output two unique random integers.
+    Each integer value is between $-10$ and $10$ inclusive.
+
+
+    If both integers output are negative, a third random integer between $30$ and
+    $35$ inclusive will be generated and output.
+
+
+    Write pseudocode for this algorithm.'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'An algorithm will:
+
+
+    \begin{itemize}
+
+    \item input 100 integer values, one value at a time
+
+    \item store the first value input into the first location of the array \texttt{Number}
+
+    \item store the next input value in the next unused location of the array \texttt{Number}
+
+    \item output the contents of \texttt{Number} array in the opposite sequence to
+    that in which the values were input.
+
+    \end{itemize}
+
+
+    Complete the program flowchart to represent the algorithm.
+
+
+    Variable declarations are \textbf{not} required.'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'An automated digital camera system is used to take a sequence of pictures
+    of animals in a garden. During the design of the system, a state-transition diagram
+    is produced.
+
+
+    The table details the states in the automated digital camera system along with
+    the events which cause the states to change.
+
+
+    The system starts in standby mode. The sequence of pictures is taken when in active
+    mode.
+
+
+    \begin{tabular}{|l|l|l|}
+
+    \hline
+
+    \textbf{Current state} & \textbf{Event} & \textbf{Next state} \\ \hline
+
+    standby mode & turn on & detect mode \\ \hline
+
+    detect mode & turn off & standby mode \\ \hline
+
+    detect mode & movement detected & active mode \\ \hline
+
+    active mode & 20 seconds elapsed & sequence complete \\ \hline
+
+    active mode & turn off & standby mode \\ \hline
+
+    sequence complete & time saved & detect mode \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Complete the state-transition diagram for the automated digital camera system.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: 'At the end of each sequence of pictures, the time is saved as a string
+      in the format \texttt{<HH><MM><SS>} where:
+
+
+      \begin{itemize}
+
+      \item \texttt{HH} represents the hours using two digits
+
+      \item \texttt{MM} represents the minutes using two digits
+
+      \item \texttt{SS} represents the seconds using two digits.
+
+      \end{itemize}
+
+
+      For example:
+
+
+      \begin{itemize}
+
+      \item \texttt{"081230"} is stored to represent the time 8:12:30, in the morning
+
+      \item \texttt{"152235"} is stored to represent the time 15:22:35, in the afternoon.
+
+      \end{itemize}
+
+
+      Each string is stored on a new line in the text file \texttt{TimeTaken.txt}
+
+
+      An algorithm is required to process the content of the text file \texttt{TimeTaken.txt}
+      once it has been transferred to the computer.
+
+
+      For each hour when pictures are taken, output a suitable message showing the
+      hour and the total number of sequences of pictures taken within that hour.
+
+
+      Example outputs:
+
+
+      \begin{alltt}
+
+      Hour : 15  Total : 32
+
+      Hour : 18  Total : 1
+
+      \end{alltt}
+
+
+      Write pseudocode for this algorithm.
+
+
+      Assume the text file \texttt{TimeTaken.txt} contains at least one line.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: "Two arrays \\texttt{Data} and \\texttt{Pointer} are accessed by the procedure\
+    \ \\texttt{Place()}\n\n\\texttt{Data} and \\texttt{Pointer} are both global arrays\
+    \ of type \\texttt{INTEGER}\n\nThe contents of these two arrays are shown:\n\n\
+    \\begin{tabular}{cc|cc}\n\\multicolumn{2}{c}{\\textbf{Data}} & \\multicolumn{2}{c}{\\\
+    textbf{Pointer}} \\\\\n1 & \\multicolumn{1}{|c|}{1018} & 1 & \\multicolumn{1}{|c}{7}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n2 & \\multicolumn{1}{|c|}{1007} & 2 & \\multicolumn{1}{|c}{3}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n3 & \\multicolumn{1}{|c|}{1010} & 3 & \\multicolumn{1}{|c}{1}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n4 & \\multicolumn{1}{|c|}{1056} & 4 & \\multicolumn{1}{|c}{6}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n5 & \\multicolumn{1}{|c|}{1092} & 5 & \\multicolumn{1}{|c}{-1}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n6 & \\multicolumn{1}{|c|}{1062} & 6 & \\multicolumn{1}{|c}{5}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n7 & \\multicolumn{1}{|c|}{1034} & 7 & \\multicolumn{1}{|c}{4}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n8 & \\multicolumn{1}{|c|}{0} & 8 & \\multicolumn{1}{|c}{9}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n9 & \\multicolumn{1}{|c|}{0} & 9 & \\multicolumn{1}{|c}{10}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n10 & \\multicolumn{1}{|c|}{0} & 10 & \\multicolumn{1}{|c}{-1}\
+    \ \\\\ \\cline{2-2} \\cline{4-4}\n\\end{tabular}\n\nStudy the pseudocode:\n\n\\\
+    begin{alltt}\nPROCEDURE Place(Value : INTEGER, Start : INTEGER, Unused : INTEGER)\n\
+    \    DECLARE New, Current, Last : INTEGER\n    CONSTANT NullPointer = -1\n   \
+    \ New <- Unused\n    Last <- NullPointer\n    Current <- Start\n    WHILE Current\
+    \ <> NullPointer AND Data[Current] < Value\n        Last <- Current\n        Current\
+    \ <- Pointer[Current]\n    ENDWHILE\n    Pointer[New] <- Pointer[Last]\n    Pointer[Last]\
+    \ <- New\n    Data[New] <- Value\nENDPROCEDURE\n\\end{alltt}"
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 6ai
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: "Complete the trace table below by dry running the procedure \\texttt{Place()}\
+        \ when it is called by the statement:\n\n\\texttt{CALL Place(1043, 2, 8)}\n\
+        \n\\begin{tabular}{|c|c|c|c|c|c|}\n\\hline\n\\textbf{Value} & \\textbf{Start}\
+        \ & \\textbf{Unused} & \\textbf{New} & \\textbf{Last} & \\textbf{Current}\
+        \ \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & &\
+        \ & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & &\
+        \ & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n & &\
+        \ & & & \\\\ \\hline\n & & & & & \\\\ \\hline\n\\end{tabular}"
+      answer_options: []
+      subquestions: []
+    - number: 6aii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Complete the diagram showing the contents of the global arrays \texttt{Data}
+        and \texttt{Pointer} after the procedure \texttt{Place()} has run to completion
+        when called as shown in part (a)(i).
+
+
+        \begin{tabular}{rlcrl}
+
+        \multicolumn{2}{c}{\textbf{Data}} & \quad & \multicolumn{2}{c}{\textbf{Pointer}}
+        \\
+
+        1 & \multicolumn{1}{|l|}{1018} & & 1 & \multicolumn{1}{|l|}{\hspace{2em}}
+        \\
+
+        2 & \multicolumn{1}{|l|}{1007} & & 2 & \multicolumn{1}{|l|}{} \\
+
+        3 & \multicolumn{1}{|l|}{1010} & & 3 & \multicolumn{1}{|l|}{} \\
+
+        4 & \multicolumn{1}{|l|}{1056} & & 4 & \multicolumn{1}{|l|}{} \\
+
+        5 & \multicolumn{1}{|l|}{1092} & & 5 & \multicolumn{1}{|l|}{} \\
+
+        6 & \multicolumn{1}{|l|}{1062} & & 6 & \multicolumn{1}{|l|}{} \\
+
+        7 & \multicolumn{1}{|l|}{1034} & & 7 & \multicolumn{1}{|l|}{} \\
+
+        8 & \multicolumn{1}{|l|}{} & & 8 & \multicolumn{1}{|l|}{} \\
+
+        9 & \multicolumn{1}{|l|}{} & & 9 & \multicolumn{1}{|l|}{} \\
+
+        10 & \multicolumn{1}{|l|}{} & & 10 & \multicolumn{1}{|l|}{} \\
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The operation carried out by procedure \texttt{Place()} together with the
+      arrays form part of the implementation of an Abstract Data Type (ADT).
+
+
+      Identify the ADT and state the operation carried out by procedure \texttt{Place()}'
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A program is being developed to implement a customer loyalty scheme for a
+    coffee shop.
+
+
+    Each customer has a unique customer ID starting at 10001 with this value increasing
+    by one each time a new customer joins the loyalty scheme.
+
+
+    For example, the third customer who joins the loyalty scheme is given the customer
+    ID 10003
+
+
+    The loyalty scheme is limited to 1000 customers.
+
+
+    A customer is awarded a loyalty point every time they buy a coffee.
+
+
+    The programmer has decided to use a global 2D array \texttt{Loyalty} of type \texttt{INTEGER}.
+    The array \texttt{Loyalty} is made up of 1000 rows and 2 columns. Each row relates
+    to one customer; column 1 contains the unique customer ID and column 2 contains
+    the number of customer loyalty points.
+
+
+    Rows in the array \texttt{Loyalty} that are not currently being used have the
+    value of Column 1 set to 99999
+
+
+    The array is sorted in ascending order by customer ID.
+
+
+    The programmer has defined a program module:
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{Module} & \textbf{Description} \\ \hline
+
+    \texttt{FindCustomer()} & \begin{tabular}[t]{@{}l@{}}
+
+    $\bullet$ called with parameter of type \texttt{INTEGER} representing a customer
+    ID \\
+
+    $\bullet$ searches the \texttt{Loyalty} array for this customer ID \\
+
+    $\bullet$ the search will stop as soon as the customer ID is found \\
+
+    $\bullet$ the search should efficiently deal with the situation when the \\
+
+    \phantom{$\bullet$} customer ID is \textbf{not} stored in the \texttt{Loyalty}
+    array \\
+
+    $\bullet$ if the customer ID is found, return an integer value representing the
+    \\
+
+    \phantom{$\bullet$} loyalty points, otherwise return -1
+
+    \end{tabular} \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: long_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: Write efficient pseudocode for module \texttt{FindCustomer()}
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: long_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'A customer can claim a free coffee for every 11 loyalty points.
+
+
+      The programmer has defined a second program module:
+
+
+      \begin{tabular}{|p{4cm}|p{10cm}|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Module}} & \multicolumn{1}{c|}{\textbf{Description}}
+      \\ \hline
+
+      \texttt{PointsReport()} & \begin{itemize} \item output the customer ID for each
+      customer who has 11 or more loyalty points \item output the average loyalty
+      points for all customers in the \texttt{Loyalty} array along with an appropriate
+      message \end{itemize} \\ \hline
+
+      \end{tabular}
+
+
+      Write efficient pseudocode for module \texttt{PointsReport()}
+
+
+      Assume the array contains the data for at least \textbf{one} customer.'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The programmer decides to amend the customer ID; it will be stored as a
+      \texttt{STRING} instead of an \texttt{INTEGER}. This means that the 2D array
+      \texttt{Loyalty} can no longer be used.
+    answer_options: []
+    subquestions:
+    - number: 7ci
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Explain why the 2D array \texttt{Loyalty} can no longer be used.
+      answer_options: []
+      subquestions: []
+    - number: 7cii
+      question_type: short_answer
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain how a 1D array could be used to store both the loyalty points
+        and the amended customer ID.
+      answer_options: []
+      subquestions: []

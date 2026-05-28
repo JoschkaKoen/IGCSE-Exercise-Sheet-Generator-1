@@ -1,0 +1,59 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A shop sells sandwiches and snacks. The owner chooses a 'daily special' sandwich which is displayed on a board outside the shop. Each 'daily special' has two different fillings and is made with one type of bread.
+
+      The owner wants a program to randomly choose the 'daily special' sandwich.
+
+      The program designer decides to store the possible sandwich fillings in a 1D array of type string.
+
+      The array is declared in pseudocode as follows:
+
+      \begin{alltt}
+      DECLARE Filling : ARRAY [1:35] OF STRING
+      \end{alltt}
+
+      Each element contains the name of one filling.
+
+      An example of the first five elements is as follows:
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Index} & \textbf{Element value} \\ \hline
+      1 & "Cheese" \\ \hline
+      2 & "Onion" \\ \hline
+      3 & "Salmon" \\ \hline
+      4 & "Anchovies" \\ \hline
+      5 & "Peanut Butter" \\ \hline
+      \end{tabular}
+
+      \vfill
+
+      A second 1D array stores the possible bread used:
+
+      \begin{alltt}
+      DECLARE Bread : ARRAY [1:10] OF STRING
+      \end{alltt}
+
+      Each element contains the name of one type of bread.
+
+      An example of the first three elements is as follows:
+
+      \begin{tabular}{|c|l|}
+      \hline
+      \textbf{Index} & \textbf{Element value} \\ \hline
+      1 & "White" \\ \hline
+      2 & "Brown" \\ \hline
+      3 & "Pitta" \\ \hline
+      \end{tabular}
+
+      Both arrays may contain unused elements. The value of these will be an empty string and they may occur anywhere in each array.
+
+      A procedure \texttt{Special()} will output a message giving the 'daily special' sandwich made from \textbf{two} randomly selected different fillings and \textbf{one} randomly selected bread.
+
+      Unused array elements must \textbf{not} be used when creating the 'daily special' sandwich.
+
+      Using the above examples, the output could be:
+
+      \texttt{"The daily special is Cheese and Onion on Brown bread."}

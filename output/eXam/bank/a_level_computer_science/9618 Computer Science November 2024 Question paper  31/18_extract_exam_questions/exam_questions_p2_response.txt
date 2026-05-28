@@ -1,0 +1,58 @@
+[thinking]
+**Populating the YAML Stub for the Exam**
+
+Okay, so I need to construct the YAML structure for page 2 of this exam. The task is pretty straightforward: format these questions on binary floating-point representation. Let's break it down and convert each section into the right format.
+
+First, question "1" just provides an introductory definition. That should be a simple `short_answer` type.  I need to make sure to present the bit counts for mantissa and exponent correctly, and indicate that both are in two's complement.
+
+Next, question "1a" asks for the calculation of a normalised binary floating-point representation. This will be a `calculation` type. I'll need to include the "show your working" instruction, and then importantly, create those empty 10-bit and 6-bit registers as placeholders.  I'll use `\framebox` for those since they represent empty registers, and ensure the format uses a correct visual representation of the available bits.
+
+Question "1b" is the reverse: calculate the denary value from a given normalized binary floating-point number, again a `calculation` type. The key here is the representation of the given binary number. This demands a table structure to display the mantissa and exponent.  I'll use `tabular` environments to display the given numbers, and I'll confirm that the tabular column specifiers accurately reflect the correct column count for the given cells. I need to double-check that the text matches what's required here: "Calculate the denary value... Show your working." and ensure the tabular data is rendered correctly.
+
+Right, let's put it all together and construct the YAML!
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Numbers are stored in a computer using binary floating-point representation with:
+
+      \begin{itemize}
+      \item 10 bits for the mantissa
+      \item 6 bits for the exponent
+      \item two's complement form for both the mantissa and the exponent.
+      \end{itemize}
+  - number: "1a"
+    type: calculation
+    text: |
+      Calculate the normalised binary floating-point representation of $+201.125$ in this system.
+
+      Show your working.
+
+      \textbf{Mantissa} \qquad \qquad \qquad \qquad \qquad \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \qquad \framebox{$\square\,\square\,\square\,\square\,\square\,\square$}
+  - number: "1b"
+    type: calculation
+    text: |
+      Calculate the denary value of the given normalised binary floating-point number.
+
+      Show your working.
+
+      \textbf{Mantissa} \qquad \qquad \qquad \qquad \qquad \textbf{Exponent}
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      1 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+      \hline
+      \end{tabular}
+      \qquad
+      \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      0 & 0 & 0 & 1 & 0 & 1 \\
+      \hline
+      \end{tabular}

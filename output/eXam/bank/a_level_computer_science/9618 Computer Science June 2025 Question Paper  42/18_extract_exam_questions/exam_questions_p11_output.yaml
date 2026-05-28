@@ -1,0 +1,41 @@
+questions:
+  - number: "3c"
+    type: short_answer
+    text: |
+      The class \texttt{Wolf} inherits from the class \texttt{Animal}
+
+      \texttt{Wolf} inherits the attributes from \texttt{Animal} and overrides the \texttt{Description()} method. The additional attributes and methods in the class \texttt{Wolf} are:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Wolf}} \\ \hline
+      \texttt{TerritorySize : Integer} & stores the size of the area where the wolf lives, to the nearest square mile \\ \hline
+      \texttt{Constructor()} & calls the parent constructor using its parameter values; initialises \texttt{TerritorySize} to its parameter value \\ \hline
+      \texttt{SetTerritorySize()} & takes an integer parameter and adds this to the number currently in \texttt{TerritorySize} \\ \hline
+      \end{tabular}
+  - number: "3ci"
+    type: short_answer
+    text: |
+      Write program code to declare the class \texttt{Wolf}, its constructor and the method \texttt{SetTerritorySize()}
+
+      Use your programming language appropriate constructor.
+
+      If you are writing in Python, include attribute declarations using comments.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(c)(i)} in the evidence document.
+  - number: "3cii"
+    type: short_answer
+    text: |
+      The method \texttt{Description()} in the class \texttt{Wolf} creates and returns a string of the animal's data in the format:
+
+      \texttt{"The animal's name is " <Name> ", it makes a " <Sound> ", its size is " <Size> " and its intelligence level is " <Intelligence> ". Its territory is " <TerritorySize> " square miles."}
+
+      For example:
+
+      \texttt{The animal's name is Nighteyes, it makes a Howl, its size is 8 and its intelligence level is 7. Its territory is 100 square miles.}
+
+      Write program code for \texttt{Description()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{3(c)(ii)} in the evidence document.

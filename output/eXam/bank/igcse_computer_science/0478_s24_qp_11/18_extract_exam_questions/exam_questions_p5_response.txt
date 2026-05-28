@@ -1,0 +1,107 @@
+[thinking]
+**Populating the YAML Stub for Exam Page 5**
+
+Okay, the task is to generate the YAML for page 5 of the exam. Let's break this down question by question.
+
+First, question "5" itself is a simple short-answer question, just stating a premise. We'll format that as a YAML block:
+
+```yaml
+number: "5"
+type: short_answer
+text: |
+  A computer uses both random access memory (RAM) and secondary storage.
+```
+
+Next, question "5a" also a short-answer question directly asks for the purpose of secondary storage. Here's that YAML:
+
+```yaml
+number: "5a"
+type: short_answer
+text: |
+  State the purpose of secondary storage.
+```
+
+For "5b", it's a short answer with a list. We need to identify the optical storage options. The prompt wants "Circle three examples". We need to use `\begin{itemize}` to represent the list of options correctly, as a block scalar.
+
+```yaml
+number: "5b"
+type: short_answer
+text: |
+  One type of secondary storage is optical.
+
+  Circle \textbf{three} examples of optical storage.
+
+  \begin{itemize}
+  \item read only memory (ROM)
+  \item secure digital (SD) card
+  \item compact disk (CD)
+  \item hard disk drive (HDD)
+  \item digital versatile disk (DVD)
+  \item Blu-ray disk
+  \item universal serial bus (USB) drive
+  \item solid-state drive (SSD)
+  \end{itemize}
+```
+
+Moving on to "5c", it's a long-answer question explaining the need for RAM. Straightforward YAML.
+
+```yaml
+number: "5c"
+type: long_answer
+text: |
+  Explain why a computer needs RAM.
+```
+
+Finally, for "5d", we have another long-answer question, this time asking for a diagram and annotation of the fetch stage of the FDE cycle. Here is the YAML.
+
+```yaml
+number: "5d"
+type: long_answer
+text: |
+  The computer processes instructions using the fetch–decode–execute (FDE) cycle.
+
+  Draw and annotate a diagram to show the process of the fetch stage of the FDE cycle.
+```
+
+I have reviewed the rules: no markdown fences, no extra commentary, block scalars for text, no options key, correctly formatted itemized lists and subquestion prefixes removed. I am confident that the YAML is formatted correctly.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A computer uses both random access memory (RAM) and secondary storage.
+  - number: "5a"
+    type: short_answer
+    text: |
+      State the purpose of secondary storage.
+  - number: "5b"
+    type: short_answer
+    text: |
+      One type of secondary storage is optical.
+
+      Circle \textbf{three} examples of optical storage.
+
+      \begin{itemize}
+      \item read only memory (ROM)
+      \item secure digital (SD) card
+      \item compact disk (CD)
+      \item hard disk drive (HDD)
+      \item digital versatile disk (DVD)
+      \item Blu-ray disk
+      \item universal serial bus (USB) drive
+      \item solid-state drive (SSD)
+      \end{itemize}
+  - number: "5c"
+    type: long_answer
+    text: |
+      Explain why a computer needs RAM.
+  - number: "5d"
+    type: long_answer
+    text: |
+      The computer processes instructions using the fetch–decode–execute (FDE) cycle.
+
+      Draw and annotate a diagram to show the process of the fetch stage of the FDE cycle.

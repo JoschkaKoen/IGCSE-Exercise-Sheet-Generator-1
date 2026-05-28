@@ -1,0 +1,48 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program has been developed and released for general use. After a few months of use an error is detected where under certain circumstances it outputs an unexpected value.
+  - number: "1a"
+    type: short_answer
+    text: |
+      The error in the program needs to be corrected.
+
+      Identify the stage of the program development life cycle that this correction is made in.
+  - number: "1b"
+    type: long_answer
+    text: |
+      The program contains a function \texttt{Lookup()}. After investigation, it is found that this is the function that sometimes returns an incorrect value.
+
+      An Integrated Development Environment (IDE) is used to help locate the error.
+
+      The IDE features of watch window, single stepping and breakpoint will be used.
+
+      Explain these features including the order that they will be used in to locate the error in \texttt{Lookup()}.
+  - number: "1c"
+    type: short_answer
+    text: |
+      To solve the error a programmer decides to create a new module.
+
+      The design of the new module has been completed and the module is being coded.
+
+      Identify \textbf{two} features of an IDE that will help during the coding of this new module.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "1d"
+    type: short_answer
+    text: |
+      The new module referred to in part (c) introduces \textbf{three} new variables.
+
+      Complete the following table by giving the appropriate data type for each.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Variable name} & \textbf{Used to store} & \textbf{Data type} \\ \hline
+      \texttt{Name} & A customer name. & \hrulefill \\ \hline
+      \texttt{Index} & An array index. & \hrulefill \\ \hline
+      \texttt{Result} & The result of the division of any two non-zero numbers. & \hrulefill \\ \hline
+      \end{tabular}
+```

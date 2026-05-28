@@ -1,0 +1,26 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A drone is used to search for lost animals. The drone is a flying device that can be autonomous or operated using a remote control.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The drone is a robot.
+
+      Give \textbf{two} characteristics of the drone that identify it as a robot.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3b"
+    type: short_answer
+    text: |
+      The drone has a built-in system to stop it from crashing into objects, for example a tree. The system uses sensors and a microprocessor.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Identify \textbf{one} sensor that could be built into the drone to detect if it is near an object.
+  - number: "3bii"
+    type: short_answer
+    text: |
+      State what is meant by a microprocessor.

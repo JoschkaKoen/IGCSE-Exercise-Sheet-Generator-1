@@ -1,0 +1,39 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A student records himself singing a song for his music project. The recorded sound is converted to binary to be processed by a computer.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Give \textbf{one} input device the student can use to record the song.
+  - number: "1b"
+    type: multiple_choice
+    text: |
+      The student uses sound editing software to edit the recorded sound.
+
+      Tick ($\checkmark$) \textbf{one} box to show whether sound editing software is an example of application, security, system or utility software.
+    options:
+      - letter: A
+        text: |
+          application software
+      - letter: B
+        text: |
+          security software
+      - letter: C
+        text: |
+          system software
+      - letter: D
+        text: |
+          utility software
+  - number: "1c"
+    type: short_answer
+    text: |
+      Two binary numbers stored from the recording are 00011001 and 10110100.
+  - number: "1ci"
+    type: calculation
+    text: |
+      Convert the \textbf{two} binary numbers to denary numbers.
+
+      00011001 \hrulefill
+      10110100 \hrulefill

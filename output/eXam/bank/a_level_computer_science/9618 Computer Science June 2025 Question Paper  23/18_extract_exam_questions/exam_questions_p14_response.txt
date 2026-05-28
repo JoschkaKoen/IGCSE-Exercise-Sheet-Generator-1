@@ -1,0 +1,63 @@
+[thinking]
+**Analyzing and Structuring the Exam Questions**
+
+Okay, let's break this down. First, I'm looking at Page 14 of this exam paper. My task is to process these questions – specifically questions "7", "7a", and "7ai" – and output the content in YAML format. The YAML should include the question number, question type, and the question text, with multiple-choice options, if applicable.
+
+I'm starting by understanding the content of the page, beginning with Question 7. It's describing a customer loyalty program for a coffee shop and the data items stored for each customer. I'm noting the table that follows, which details "customer ID," "loyalty points," and "last visit date." I need to format this information as YAML.
+
+Moving on to Question 7a, this section describes a program module called `UpdateVisit()`. The module takes loyalty points and the last visit date as parameters. Based on the rules defined, it modifies the loyalty points based on whether the last visit and the current visit fall within the same month. I also need to capture this module description and parameter details, and the changes to loyalty points and last visit date in YAML format.
+
+Finally, I'm examining Question 7ai. This is where I'll need to provide pseudocode for the `UpdateVisit()` module. The question assumes the customer has made at least one prior visit. So, I will need to focus on producing a YAML rendition of the pseudocode logic.
+
+For proper formatting, I'll need to follow the provided guidelines. I need to make sure that the inline code is rendered with `\texttt{...}`. I will keep in mind that I shouldn't use double quotes for free-text fields and use `|` block scalar. Table structures need to be verified, particularly the alignment with the number of columns.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A program is being developed to implement a customer loyalty scheme for a coffee shop.
+
+      The programmer has decided that the following data items need to be stored for each customer:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Data item} & \textbf{Description} \\ \hline
+      customer ID & a unique six-digit string \\ \hline
+      loyalty points & an integer value that depends on how often the customer visits the coffee shop \\ \hline
+      last visit date & the date the customer last visited the coffee shop \\ \hline
+      \end{tabular}
+  - number: "7a"
+    type: short_answer
+    text: |
+      The programmer has defined a program module:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Module} & \textbf{Description} \\ \hline
+      \texttt{UpdateVisit()} & \begin{minipage}[t]{10cm}
+      \begin{itemize}
+      \item called with two parameters:
+      \begin{enumerate}
+      \item loyalty points of type \texttt{INTEGER}
+      \item last visit date of type \texttt{DATE}
+      \end{enumerate}
+      \item change the loyalty points:
+      \begin{itemize}
+      \item increase by \textbf{four} if the last visit date and the current date are in the same month
+      \item otherwise increase by \textbf{one}
+      \end{itemize}
+      \item change the last visit date to the current date
+      \item the changed values must be available to the code that follows the call to \texttt{UpdateVisit()}
+      \end{itemize}
+      \end{minipage} \\ \hline
+      \end{tabular}
+  - number: "7ai"
+    type: long_answer
+    text: |
+      Write pseudocode for module \texttt{UpdateVisit()}
+
+      Assume the customer has made at least \textbf{one} previous visit.

@@ -1,0 +1,46 @@
+[thinking]
+**My Analysis of the Exam Page**
+
+Okay, so I'm presented with page 5 of a 16-page exam paper. My task is clear: extract and transcribe specific questions, namely "4c" and "5", and then structure the results into YAML format, adhering to the provided schema. The schema is implicit, but I know what's expected for this type of problem.
+
+First, I'll tackle question "4c". It's a `long_answer` type. The text begins with "(c)", which I'll immediately strip, as per instructions. The prompt is: "Explain how you should alter the original corrected algorithm to make sure that all the numbers entered are between 1 and 500 inclusive. If any numbers fall outside these limits, a replacement value is requested and entered.\n\nYou do not need to re-write the algorithm." The marks are `[4]`, and the prompt dictates the inclusion or exclusion of the marks. Since it's at the end, I'll probably keep it, but it doesn't need to be explicitly written. I don't need any answer lines for this type, because it is open-ended.
+
+Next, I move on to question "5". This is a `short_answer` type. The text starts with "5 Write the pseudocode statements to perform this task:". The "5 " prefix needs to go. Here is the text:
+
+"Write the pseudocode statements to perform this task:
+\begin{itemize}
+\item accept the input of a whole number from 1 to 4 inclusive
+\item use a \texttt{CASE} statement to:
+  \begin{itemize}
+  \item output the number (1 to 4 inclusive) that was entered
+  \item output the word ``ERROR'' if a 1 to 4 inclusive number was \textbf{not} entered.
+  \end{itemize}
+\end{itemize}"
+
+I'll format this nicely with LaTeX itemize to represent it accurately in the YAML. The `CASE` statement uses inline code, so `\texttt{CASE}`. The word "not" is in bold, thus `\textbf{not}`.
+
+Finally, the YAML formatting. I need to make sure I use block scalars `|` for all non-empty text fields. No double quotes are allowed, and I absolutely will not use markdown fences. The output should be clean, concise, and YAML-valid.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4c"
+    type: long_answer
+    text: |
+      Explain how you should alter the original corrected algorithm to make sure that all the numbers entered are between 1 and 500 inclusive. If any numbers fall outside these limits, a replacement value is requested and entered.
+
+      You do \textbf{not} need to re-write the algorithm.
+  - number: "5"
+    type: short_answer
+    text: |
+      Write the pseudocode statements to perform this task:
+      \begin{itemize}
+      \item accept the input of a whole number from 1 to 4 inclusive
+      \item use a \texttt{CASE} statement to:
+        \begin{itemize}
+        \item output the number (1 to 4 inclusive) that was entered
+        \item output the word ``ERROR'' if a 1 to 4 inclusive number was \textbf{not} entered.
+        \end{itemize}
+      \end{itemize}

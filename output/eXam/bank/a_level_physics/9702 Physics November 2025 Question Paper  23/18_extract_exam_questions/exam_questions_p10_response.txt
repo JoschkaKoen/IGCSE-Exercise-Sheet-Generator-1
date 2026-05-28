@@ -1,0 +1,45 @@
+[thinking]
+**Transcribing Page 10 of the Exam Paper**
+
+Okay, the task is to transcribe page 10 of this exam paper. My first thought is to break down the structure of question 4. The user specifically asked me to transcribe it. The questions listed on this page are 4, 4a, 4b, and 4bi, which looks straightforward.
+
+I need to confirm that each entry's stem should be visible. That means I need to make sure I am not missing any text. So, question 4 first. It appears that "4" itself is just a container or question number and doesn't contain any separate text. Since there's no actual content *directly* under "4" as such, I'll represent it with an empty string: `text: ''`. I'll consider it a stub entry. The instructions say if I cannot find a stem on the page, I should output `| STUB ERROR` as a block scalar, but I can see "4" on the page, so I just need `text: ''`.
+
+Now for the content under each sub-question.  4a looks straightforward: I just need to transcribe the text. I'll represent that as `text: |` followed by the content. 4b is a little more involved, with multiple sentences, and a diagram reference (Fig. 4.1). I must include all of the text, including the line spacing, the screen setup, and the intensity descriptions. I will accurately transcribe that as well. Finally, 4bi, which asks to show a calculation. I will transcribe the text as a separate entry, noting the angle.
+
+So, in the end, I'll transcribe:
+*   4: `text: ''`
+*   4a: `text: | State what is meant by diffraction of a wave.`
+*   4b: `text: | A beam of vertically polarised light of wavelength $540\text{ nm}$ is incident normally on a diffraction grating, as shown in Fig. 4.1.  The diffraction grating has a line spacing of $5.0 \times 10^{-6}\text{ m}$.  The light transmitted by the diffraction grating illuminates a circular screen. The diffraction grating is at the centre X of the circle. The central bright fringe is formed at point O on the screen and has intensity $I_0$. P is a point on the screen where the line XP is at a variable angle $\theta$ to the line XO. The intensity $I$ of light on the screen at P varies with $\theta$.`
+*   4bi: `text: | Show that the angle $\theta$ at which the first-order bright fringe is formed is $6.2^\circ$.`
+
+That should cover the full structure and content required from page 10.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      State what is meant by diffraction of a wave.
+  - number: "4b"
+    type: short_answer
+    text: |
+      A beam of vertically polarised light of wavelength $540\text{ nm}$ is incident normally on a diffraction grating, as shown in Fig. 4.1.
+
+      The diffraction grating has a line spacing of $5.0 \times 10^{-6}\text{ m}$.
+
+      The light transmitted by the diffraction grating illuminates a circular screen. The diffraction grating is at the centre X of the circle.
+
+      The central bright fringe is formed at point O on the screen and has intensity $I_0$.
+
+      P is a point on the screen where the line XP is at a variable angle $\theta$ to the line XO. The intensity $I$ of light on the screen at P varies with $\theta$.
+  - number: "4bi"
+    type: calculation
+    text: |
+      Show that the angle $\theta$ at which the first-order bright fringe is formed is $6.2^\circ$.

@@ -1,0 +1,64 @@
+```yaml
+questions:
+  - number: "12"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "12a"
+    type: short_answer
+    text: |
+      A medical clinic uses objects of the class \texttt{Patient} to assign a priority and a doctor to a patient. Some of the attributes required in the class are listed in the table.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Attribute} & \textbf{Data type} & \textbf{Description} \\ \hline
+      \texttt{PatientID} & \texttt{STRING} & Unique identifier of the patient \\ \hline
+      \texttt{Name} & \texttt{STRING} & Patient's full name, surname first \\ \hline
+      \texttt{DoctorID} & \texttt{STRING} & ID of doctor administering treatment \\ \hline
+      \end{tabular}
+
+      \newline
+      Treatment is prioritised with a numeric scale of 1 to 5.
+
+      Complete the class diagram for \texttt{Patient}, to include:
+      \begin{itemize}
+      \item attribute and data type for the date of birth
+      \item attribute and data type for the priority
+      \item methods to assign the patient ID, priority and doctor ID
+      \item methods to return the patient ID, patient date of birth and the priority.
+      \end{itemize}
+
+      \begin{alltt}
+                                    Patient
+      ------------------------------------------------------------------
+      PatientID : STRING
+
+      Name : STRING
+
+      ....................................................... : ....................................................................
+
+      ....................................................... : ....................................................................
+
+      DoctorID : STRING
+      ------------------------------------------------------------------
+      ................................................................................................................................
+
+      SetName(FullName : STRING)
+
+      SetDateOfBirth(DOB : DATE)
+
+      ................................................................................................................................
+
+      ................................................................................................................................
+
+      ................................................................................................................................
+
+      GetName()
+
+      ................................................................................................................................
+
+      ................................................................................................................................
+
+      GetDoctorID()
+      \end{alltt}
+```

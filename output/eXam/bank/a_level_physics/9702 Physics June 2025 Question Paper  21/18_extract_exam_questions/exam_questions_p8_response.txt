@@ -1,0 +1,47 @@
+[thinking]
+**Analyzing the Exam Page: A Deep Dive**
+
+Okay, so I'm presented with page 8 of this exam and tasked with transcribing it. The key is question "3", and I'm immediately looking for any potential irregularities. It seems like "3" itself is the main container for a few sub-questions. My initial thought is to check if "3" has its own text – is it a stand-alone question, a title, or just a container?
+
+I see the questions are structured as "3 (a) Define power.", "3b", "3bi", and "3bii". There is no text for "3" itself, just the sub-questions. So, is "3" empty or a stub error? I need to adhere to the given rules. The rule specifically states that if the stem of a stub entry can't be found, I should flag it as a `STUB ERROR`. I have to be precise; I can't guess!
+
+I've confirmed that "3" indeed doesn't have any text other than the sub-questions. It is not listed as a question itself. I've re-examined the layout to ensure there is no hidden text for "3". Therefore, I'm confident in applying the rule. The stem for "3" is absent.
+
+Based on this, I'm going to mark "3" as a `STUB ERROR`. I must maintain that the goal is not to fill in anything based on assumptions, but to provide a precise transcription of the provided data.
+Now to move on to the actual questions:
+"3a" is "Define power."
+"3b" is a worded question about a car, speed, and resistive force.
+"3bi" asks to calculate power transmitted.
+"3bii" asks to calculate useful work done.
+
+
+
+[/thinking]
+
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3a"
+    type: short_answer
+    text: |
+      Define power.
+  - number: "3b"
+    type: short_answer
+    text: |
+      An electric car is powered by a motor. The car is travelling at a constant speed of $35\text{ m}\,\text{s}^{-1}$ along a straight horizontal road, as shown in Fig. 3.1.
+
+      There is a total resistive force of $1750\text{ N}$ acting on the car.
+  - number: "3bi"
+    type: calculation
+    text: |
+      Calculate the power transmitted to the wheels of the car by the motor.
+
+      $\text{power} = \hrulefill \text{ W}$
+  - number: "3bii"
+    type: calculation
+    text: |
+      Calculate the useful work done by the motor when the car travels a distance of $17\text{ km}$.
+
+      $\text{work done} = \hrulefill \text{ J}$

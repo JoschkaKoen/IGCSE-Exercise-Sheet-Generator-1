@@ -1,0 +1,73 @@
+[thinking]
+**My Analysis of the Exam Questions**
+
+Okay, so I'm being asked to transcribe three exam questions. Let's break down my approach to accurately representing them.
+
+First, Question 4 is a vector addition and subtraction problem. I need to capture the essence of it. Two vectors, X and Y, are presented. The question is straightforward: determine the directions of X + Y and X - Y. The options are multiple-choice, and I can see the directional descriptions are crucial. The initial plan of a table will be less helpful than simply describing them. My approach is to concisely represent the options using standard LaTeX arrows for clarity. I'll make sure to note that the arrows represent the directions of the resulting vectors. I should also format the text in a way that is easily readable and interpretable. It will be: " `X + Y` is $\rightarrow$ ; `X - Y` is $\downarrow$ " (and similar for each option). This approach keeps things concise and directly reflects the multiple-choice format.
+
+Next, Question 5 is a classic kinematics problem involving a ball projected downwards with an initial velocity, and I am to determine the displacement. The initial velocity and time are provided and air resistance is negligible, which simplifies the calculations. I should be sure to reproduce the question and the multiple-choice answers, as they are.
+
+Finally, Question 6 is about the time of flight of a light pulse. A surveyor's device sends a light pulse to a wall a certain distance away, and the goal is to calculate the total time for the round trip. The distance is given, and I must preserve the multiple-choice options, being careful to copy the units. I'll simply reproduce the question as it is presented.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4"
+    type: multiple_choice
+    text: |
+      Two vectors, X and Y, are shown.
+
+      What are the directions of $X + Y$ and $X - Y$?
+    options:
+      - letter: A
+        text: |
+          $X + Y$: $\rightarrow$ \quad $X - Y$: $\downarrow$
+      - letter: B
+        text: |
+          $X + Y$: $\rightarrow$ \quad $X - Y$: $\uparrow$
+      - letter: C
+        text: |
+          $X + Y$: $\leftarrow$ \quad $X - Y$: $\downarrow$
+      - letter: D
+        text: |
+          $X + Y$: $\leftarrow$ \quad $X - Y$: $\uparrow$
+  - number: "5"
+    type: multiple_choice
+    text: |
+      A ball is projected vertically downwards with an initial velocity of $20\text{ m}\,\text{s}^{-1}$. Air resistance is negligible.
+
+      What is the displacement from its initial position of the ball after a time of $1.5\text{ s}$?
+    options:
+      - letter: A
+        text: |
+          $11\text{ m}$
+      - letter: B
+        text: |
+          $19\text{ m}$
+      - letter: C
+        text: |
+          $37\text{ m}$
+      - letter: D
+        text: |
+          $41\text{ m}$
+  - number: "6"
+    type: multiple_choice
+    text: |
+      A surveyor's device emits a pulse of light. The light is reflected from a wall $150\text{ m}$ away.
+
+      What is the total time taken for the pulse to travel from the device to the wall and then back to the device?
+    options:
+      - letter: A
+        text: |
+          $0.05\text{ ns}$
+      - letter: B
+        text: |
+          $0.10\text{ ns}$
+      - letter: C
+        text: |
+          $0.50\ \mu\text{s}$
+      - letter: D
+        text: |
+          $1.0\ \mu\text{s}$

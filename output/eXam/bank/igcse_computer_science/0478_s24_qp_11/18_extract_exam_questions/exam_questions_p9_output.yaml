@@ -1,0 +1,21 @@
+questions:
+  - number: "8d"
+    type: short_answer
+    text: |
+      Give \textbf{two} advantages of the farmer using an automated robot to plant seeds.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8e"
+    type: short_answer
+    text: |
+      Give \textbf{two} disadvantages of the farmer using an automated robot to plant seeds.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "8f"
+    type: long_answer
+    text: |
+      The robot is adapted to have machine learning capabilities.
+
+      Explain how this will improve the robot.

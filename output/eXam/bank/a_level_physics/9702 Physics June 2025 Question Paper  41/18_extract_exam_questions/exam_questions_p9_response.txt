@@ -1,0 +1,98 @@
+[thinking]
+**Page 9 Transcription and Stub Mapping**
+
+Okay, the task is to transcribe page 9 of the exam, and I need to align the text with a given YAML stub. The questions are nested: 4, 4a, 4ai, 4aii, and 4b. I see that the questions don't have separate introductory text. Now, the stub structure looks like this:
+
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: ""
+  - number: "4a"
+    type: short_answer
+    text: ""
+  - number: "4ai"
+    type: short_answer
+    text: ""
+  - number: "4aii"
+    type: long_answer
+    text: ""
+  - number: "4b"
+    type: short_answer
+    text: ""
+```
+
+The instructions are clear: Every stem in the YAML stub *must* be visible on the exam page. If a stub entry's stem is *not* present, then that constitutes a STUB ERROR. I double-checked the page and the stem numbers are indeed visible ("4", "(a)"). Since the questions don't have introductory text but are clearly question stems, I'll populate the YAML with empty strings for "4" and "4a". The text content starts with 4ai and 4aii. The text in the leaf nodes will be the actual questions and the table content.
+
+Here's how I'll translate:
+
+*   **4:** `''` (no text on page 9)
+*   **4a:** `''` (no text on page 9)
+*   **4ai:** `State what is meant by the internal energy of a system.`
+*   **4aii:** `Explain why the internal energy of an ideal gas is directly proportional to the thermodynamic temperature of the gas.`
+*   **4b:** I have extracted and rendered the text and table as follows:
+
+```yaml
+    text: |
+      A sample of an ideal gas at thermodynamic temperature $T$ has internal energy $U$.
+
+      The gas is compressed so that its temperature increases to $3T$.
+      During this compression, work $W$ is done on the gas.
+
+      The gas is then cooled at constant volume so that its temperature decreases to $2T$.
+
+      Complete Table 4.1 to show, in terms of some or all of $W$, $T$ and $U$, the work done on the gas, the thermal energy supplied to the gas and the increase in internal energy of the gas for each of the two processes.
+
+      \textbf{Table 4.1}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & work done on gas & \begin{tabular}{c} thermal energy \\ supplied to gas \end{tabular} & \begin{tabular}{c} increase in internal \\ energy of gas \end{tabular} \\ \hline
+      compression & $+W$ & & \\ \hline
+      cooling & & & \\ \hline
+      \end{tabular}
+```
+
+The LaTeX table is spot-on, matching the exam page's table format. I'm confident that this accurately represents the question structure and content. This meets all the criteria in the prompt.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: ''
+  - number: "4ai"
+    type: short_answer
+    text: |
+      State what is meant by the internal energy of a system.
+  - number: "4aii"
+    type: long_answer
+    text: |
+      Explain why the internal energy of an ideal gas is directly proportional to the thermodynamic temperature of the gas.
+  - number: "4b"
+    type: short_answer
+    text: |
+      A sample of an ideal gas at thermodynamic temperature $T$ has internal energy $U$.
+
+      The gas is compressed so that its temperature increases to $3T$.
+      During this compression, work $W$ is done on the gas.
+
+      The gas is then cooled at constant volume so that its temperature decreases to $2T$.
+
+      Complete Table 4.1 to show, in terms of some or all of $W$, $T$ and $U$, the work done on the gas, the thermal energy supplied to the gas and the increase in internal energy of the gas for each of the two processes.
+
+      \textbf{Table 4.1}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & work done on gas & \begin{tabular}{c} thermal energy \\ supplied to gas \end{tabular} & \begin{tabular}{c} increase in internal \\ energy of gas \end{tabular} \\ \hline
+      compression & $+W$ & & \\ \hline
+      cooling & & & \\ \hline
+      \end{tabular}
+```

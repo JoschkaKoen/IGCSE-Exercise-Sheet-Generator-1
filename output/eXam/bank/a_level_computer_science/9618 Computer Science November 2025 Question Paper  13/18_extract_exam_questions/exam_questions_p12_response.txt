@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      A digital video camera records students in a classroom. The data is transferred from the digital video camera over the internet to a server. Artificial Intelligence (AI) is used to analyse the video on the server to identify when students are interacting with the lesson and the teacher.
+  - number: "7a"
+    type: long_answer
+    text: |
+      Describe \textbf{one} ethical impact of this use of AI in the classroom.
+  - number: "7b"
+    type: calculation
+    text: |
+      A video is made of many bitmap images called frames. 30 frames are recorded every second.
+
+      Each frame is 4000 pixels wide by 3000 pixels high. The video records using 16-bit colour depth.
+
+      Calculate an estimate for the file size for \textbf{one} second of the video in gigabytes.
+
+      Show your working.
+
+      File size \hrulefill gigabytes
+  - number: "7c"
+    type: short_answer
+    text: |
+      Identify \textbf{and} describe \textbf{one} method of data verification that can be used when transferring data from the digital video camera to the server.
+
+      Method \hrulefill
+
+      Description \hrulefill
+```

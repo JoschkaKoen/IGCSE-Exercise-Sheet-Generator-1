@@ -1,0 +1,57 @@
+[thinking]
+**Page 6 Exam Question Transcription**
+
+Okay, so the task is to transcribe page 6 of an exam paper. I need to get the questions for 2b, 2c, 2ci, 2cii, and 2ciii. Let's see what we have. Starting with 2b, there's a table (Table 2.1) where I need to calculate and record values for 1/I (in units of 10^3 A^-1), including absolute uncertainties. I can see the table has columns for n, 1/n, and I (in microamps) with associated uncertainties for I. Now, the format looks good, and the text is as expected, so I'll transcribe it precisely.
+
+Next, I see a "2c." Wait, there's no text explicitly labeled as 2c, it jumps right to 2ci. Based on the instructions, if there's no stem, it's a stub generation bug. I should mark it as `STUB ERROR`.
+
+Now, for 2ci, I see I need to plot a graph of 1/I (in units of 10^3 A^-1) against 1/n and include error bars for 1/I. Sounds straightforward.
+
+Then 2cii asks me to draw the best-fit and worst-acceptable straight lines and label them on the graph. That's a standard procedure.
+
+Finally, 2ciii requires determining the gradient of the best-fit line, with the absolute uncertainty included in the answer. I'll include a placeholder for that answer, as usual.
+
+Therefore, my summary will include the full transcription for 2b, the `STUB ERROR` for 2c, and the texts for 2ci, 2cii, and 2ciii.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2b"
+    type: calculation
+    text: |
+      Values of $n$, $\frac{1}{n}$ and $I$ are given in Table 2.1.
+
+      \textbf{Table 2.1}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      $n$ & $\frac{1}{n}$ & $I / \mu\text{A}$ & $\frac{1}{I} / 10^3\text{A}^{-1}$ \\ \hline
+      5 & 0.200 & $455 \pm 5$ & \\ \hline
+      6 & 0.167 & $525 \pm 5$ & \\ \hline
+      7 & 0.143 & $580 \pm 5$ & \\ \hline
+      8 & 0.125 & $635 \pm 5$ & \\ \hline
+      9 & 0.111 & $685 \pm 5$ & \\ \hline
+      11 & 0.0909 & $765 \pm 5$ & \\ \hline
+      \end{tabular}
+
+      Calculate and record values of $\frac{1}{I} / 10^3\text{A}^{-1}$ in Table 2.1. Include the absolute uncertainties in $\frac{1}{I}$.
+  - number: "2c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ci"
+    type: short_answer
+    text: |
+      Plot a graph of $\frac{1}{I} / 10^3\text{A}^{-1}$ against $\frac{1}{n}$. Include error bars for $\frac{1}{I}$.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit and a worst acceptable straight line on your graph. Label both lines.
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Determine the gradient of the line of best fit. Include the absolute uncertainty in your answer.
+
+      gradient = \hrulefill

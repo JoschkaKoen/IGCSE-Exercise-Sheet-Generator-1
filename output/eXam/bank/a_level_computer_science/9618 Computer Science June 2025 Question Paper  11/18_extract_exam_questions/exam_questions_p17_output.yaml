@@ -1,0 +1,35 @@
+questions:
+  - number: "8bi"
+    type: short_answer
+    text: |
+      Write the bit manipulation instruction that can be used to set the least significant bit to 1 in an 8-bit register. All other bits must remain unchanged.
+
+      The instruction needs to work on a register that contains any 8-bit binary number.
+  - number: "8bii"
+    type: short_answer
+    text: |
+      The ACC currently contains the following binary value.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+      \hline
+      \end{tabular}
+
+      Write the result after the instruction \texttt{XOR \&FE} is run.
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+  - number: "8biii"
+    type: short_answer
+    text: |
+      The ACC currently contains the following binary value.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 \\
+      \hline
+      \end{tabular}
+
+      Write the result after the instruction \texttt{LSR \#5} is run.
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}

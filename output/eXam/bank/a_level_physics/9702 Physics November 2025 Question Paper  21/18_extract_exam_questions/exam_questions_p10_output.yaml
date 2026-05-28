@@ -1,0 +1,24 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: ''
+  - number: "4a"
+    type: short_answer
+    text: |
+      State what is meant by diffraction of a wave.
+  - number: "4b"
+    type: short_answer
+    text: |
+      A beam of vertically polarised light of wavelength $540 \text{ nm}$ is incident normally on a diffraction grating, as shown in Fig. 4.1.
+  - number: "4bi"
+    type: calculation
+    text: |
+      The diffraction grating has a line spacing of $5.0 \times 10^{-6} \text{ m}$.
+
+      The light transmitted by the diffraction grating illuminates a circular screen. The diffraction grating is at the centre X of the circle.
+
+      The central bright fringe is formed at point O on the screen and has intensity $I_0$.
+
+      P is a point on the screen where the line XP is at a variable angle $\theta$ to the line XO. The intensity $I$ of light on the screen at P varies with $\theta$.
+
+      Show that the angle $\theta$ at which the first-order bright fringe is formed is $6.2^\circ$.

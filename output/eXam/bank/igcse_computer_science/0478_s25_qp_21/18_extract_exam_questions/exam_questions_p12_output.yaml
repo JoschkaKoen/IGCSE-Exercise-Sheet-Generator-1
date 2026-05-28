@@ -1,0 +1,36 @@
+```yaml
+questions:
+  - number: "11"
+    type: long_answer
+    text: |
+      The one-dimensional (1D) array \texttt{CompetitorName[]} contains the names of 25 competitors in a tournament that includes five events.
+
+      Another two-dimensional (2D) array \texttt{CompetitorScore[]} contains the points scored by each competitor in the five events. The first dimension of this array contains the index of the competitor from \texttt{CompetitorName[]} and the second dimension contains their scores.
+
+      Each competitor receives a score out of 100 for each event. These scores are manually entered into \texttt{CompetitorScore[]}
+
+      Medals are awarded to the competitor or the competitors who have:
+
+      \begin{itemize}
+      \item the highest points scored in each of the five events
+      \item the highest total points scored for all five events.
+      \end{itemize}
+
+      The one-dimensional (1D) array \texttt{Points[]} stores the total number of points scored for each competitor.
+
+      Write a program that meets the following requirements:
+
+      \begin{itemize}
+      \item takes as input, valid scores (between 0 and 100), for each competitor in each of the five events
+      \item calculates the highest points scored for each event
+      \item outputs the names of the competitors who receive a medal for the highest points scored
+      \item calculates the highest total points scored for the five events
+      \item outputs the names of the competitors with the highest total points scored for the five events.
+      \end{itemize}
+
+      You must use pseudocode or program code \textbf{and} add comments to explain how your code works.
+
+      You do \textbf{not} need to declare any arrays or variables.
+
+      All inputs and outputs must contain suitable messages.
+```

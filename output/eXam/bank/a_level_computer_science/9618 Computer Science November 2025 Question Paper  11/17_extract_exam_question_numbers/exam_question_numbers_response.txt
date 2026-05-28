@@ -1,0 +1,411 @@
+[thinking]
+**Exam Paper Structure: My Analysis**
+
+Okay, so the goal is a YAML representation of the exam paper's structure – purely structural metadata, no question text, no options. Let's break this down. First, the layout seems straightforward: a single column, single row arrangement. Now, time to go page by page.
+
+*   **Page 1:** Cover page. No questions here, so we skip it.
+
+*   **Page 2:** I see the first set of questions structured as:
+    *   `1ai`: Conversion, marks of 1, type calculation.
+    *   `1aii`: Conversion, marks of 1, type calculation.
+    *   `1aiii`: Conversion, marks of 2, type calculation.
+
+*   **Page 3:** Continuing from the format of the first page:
+    *   `1bi`: Binary, marks of 1, type calculation.
+    *   `1bii`: Error description, marks of 2, type short answer.
+
+*   **Page 4:**
+    *   `2a`: Completing an E-R diagram, marks of 2, type of short answer (or potentially drawing/short answer).
+    *   `2b`: Database 3NF, marks of 2, type short answer.
+
+*   **Page 5:**
+    *   `2ci`: SQL delete, marks of 2, type short answer.
+    *   `2cii`: SQL return total, marks of 4, type short answer.
+
+*   **Page 6:**
+    *   `2d`: Referential integrity, marks of 3, type short answer.
+
+*   **Page 7:**
+    *   `3a`: Logic circuit, marks of 2, type short answer.
+    *   `3b`: Logic expression, marks of 2, type short answer.
+
+*   **Page 8:**
+    *   `4a`: Bit manipulation instruction, marks of 1, type short answer.
+
+*   **Page 9:**
+    *   `4b`: ACC after XOR, marks of 1, type short answer.
+    *   `4c`: ACC after AND, marks of 1, type short answer.
+    *   `4d`: ACC after OR, marks of 1, type short answer.
+
+*   **Page 10:**
+    *   `5ai`: Two tasks (hardware), marks of 2, type short answer.
+    *   `5aii`: Two tasks (security), marks of 2, type short answer.
+    *   `5bi`: Benefit library routines, marks of 2, type short answer.
+    *   `5bii`: Drawback library routines, marks of 2, type short answer.
+    *   `5c`: IDE features, marks of 2, type short answer.
+
+*   **Page 11:**
+    *   `6a`: Table: ACC/CIR, marks of 2, type short answer.
+    *   `6b`: Drawbacks cores, marks of 2, type short answer.
+    *   `6c`: DRAM vs SRAM, marks of 3, type short answer.
+
+*   **Page 12:**
+    *   `7a`: Table: Static/Public IP, marks of 2, type short answer.
+    *   `7b`: IPv4/IPv6/Invalid, marks of 2, type short answer.
+    *   `7c`: How browser uses URL, marks of 4, type long answer.
+
+*   **Page 13:**
+    *   `7di`: File size calculation, marks of 2, type calculation.
+    *   `7dii`: Actual file size, marks of 2, type short answer.
+    *   `7diii`: Bitmap compression, marks of 2, type short answer.
+
+*   **Page 14:**
+    *   `8a`: Virus and pharming, marks of 2, type short answer.
+    *   `8b`: Ethical considerations, marks of 3, type short answer.
+    *   `8c`: Social impact of AI, marks of 4, type long answer.
+
+*   **Page 15:**
+    *   `9`: Monitoring vs control system, marks of 3, type short answer.
+    *   `10a`: Printing model (3D), marks of 3, type short answer.
+    *   `10b`: Buffer need 3D, marks of 1, type short answer.
+
+*   **Page 16:** Blank page.
+
+Now, to refine this into the nested structure I need for
+
+
+[/thinking]
+
+rows: 1
+cols: 1
+questions:
+  - number: "1"
+    type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    subquestions:
+      - number: "1a"
+        type: short_answer
+        page: 2
+        subpage_row: 1
+        subpage_col: 1
+        marks: 0
+        subquestions:
+          - number: "1ai"
+            type: calculation
+            page: 2
+            subpage_row: 1
+            subpage_col: 1
+            marks: 1
+          - number: "1aii"
+            type: calculation
+            page: 2
+            subpage_row: 1
+            subpage_col: 1
+            marks: 1
+          - number: "1aiii"
+            type: calculation
+            page: 2
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+      - number: "1b"
+        type: short_answer
+        page: 3
+        subpage_row: 1
+        subpage_col: 1
+        marks: 0
+        subquestions:
+          - number: "1bi"
+            type: calculation
+            page: 3
+            subpage_row: 1
+            subpage_col: 1
+            marks: 1
+          - number: "1bii"
+            type: short_answer
+            page: 3
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+
+  - number: "2"
+    type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    subquestions:
+      - number: "2a"
+        type: short_answer
+        page: 4
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+      - number: "2b"
+        type: short_answer
+        page: 4
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+      - number: "2c"
+        type: short_answer
+        page: 5
+        subpage_row: 1
+        subpage_col: 1
+        marks: 0
+        subquestions:
+          - number: "2ci"
+            type: short_answer
+            page: 5
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+          - number: "2cii"
+            type: short_answer
+            page: 5
+            subpage_row: 1
+            subpage_col: 1
+            marks: 4
+      - number: "2d"
+        type: short_answer
+        page: 6
+        subpage_row: 1
+        subpage_col: 1
+        marks: 3
+
+  - number: "3"
+    type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    subquestions:
+      - number: "3a"
+        type: short_answer
+        page: 7
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+      - number: "3b"
+        type: short_answer
+        page: 7
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+
+  - number: "4"
+    type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    subquestions:
+      - number: "4a"
+        type: short_answer
+        page: 8
+        subpage_row: 1
+        subpage_col: 1
+        marks: 1
+      - number: "4b"
+        type: short_answer
+        page: 9
+        subpage_row: 1
+        subpage_col: 1
+        marks: 1
+      - number: "4c"
+        type: short_answer
+        page: 9
+        subpage_row: 1
+        subpage_col: 1
+        marks: 1
+      - number: "4d"
+        type: short_answer
+        page: 9
+        subpage_row: 1
+        subpage_col: 1
+        marks: 1
+
+  - number: "5"
+    type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    subquestions:
+      - number: "5a"
+        type: short_answer
+        page: 10
+        subpage_row: 1
+        subpage_col: 1
+        marks: 0
+        subquestions:
+          - number: "5ai"
+            type: short_answer
+            page: 10
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+          - number: "5aii"
+            type: short_answer
+            page: 10
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+      - number: "5b"
+        type: short_answer
+        page: 10
+        subpage_row: 1
+        subpage_col: 1
+        marks: 0
+        subquestions:
+          - number: "5bi"
+            type: short_answer
+            page: 10
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+          - number: "5bii"
+            type: short_answer
+            page: 10
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+      - number: "5c"
+        type: short_answer
+        page: 10
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+
+  - number: "6"
+    type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    subquestions:
+      - number: "6a"
+        type: short_answer
+        page: 11
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+      - number: "6b"
+        type: short_answer
+        page: 11
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+      - number: "6c"
+        type: short_answer
+        page: 11
+        subpage_row: 1
+        subpage_col: 1
+        marks: 3
+
+  - number: "7"
+    type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    subquestions:
+      - number: "7a"
+        type: short_answer
+        page: 12
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+      - number: "7b"
+        type: short_answer
+        page: 12
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+      - number: "7c"
+        type: long_answer
+        page: 12
+        subpage_row: 1
+        subpage_col: 1
+        marks: 4
+      - number: "7d"
+        type: short_answer
+        page: 13
+        subpage_row: 1
+        subpage_col: 1
+        marks: 0
+        subquestions:
+          - number: "7di"
+            type: calculation
+            page: 13
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+          - number: "7dii"
+            type: short_answer
+            page: 13
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+          - number: "7diii"
+            type: short_answer
+            page: 13
+            subpage_row: 1
+            subpage_col: 1
+            marks: 2
+
+  - number: "8"
+    type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    subquestions:
+      - number: "8a"
+        type: short_answer
+        page: 14
+        subpage_row: 1
+        subpage_col: 1
+        marks: 2
+      - number: "8b"
+        type: short_answer
+        page: 14
+        subpage_row: 1
+        subpage_col: 1
+        marks: 3
+      - number: "8c"
+        type: long_answer
+        page: 14
+        subpage_row: 1
+        subpage_col: 1
+        marks: 4
+
+  - number: "9"
+    type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+
+  - number: "10"
+    type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    subquestions:
+      - number: "10a"
+        type: short_answer
+        page: 15
+        subpage_row: 1
+        subpage_col: 1
+        marks: 3
+      - number: "10b"
+        type: short_answer
+        page: 15
+        subpage_row: 1
+        subpage_col: 1
+        marks: 1

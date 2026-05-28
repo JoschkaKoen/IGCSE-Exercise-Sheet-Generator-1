@@ -1,0 +1,94 @@
+[thinking]
+**Transcription Task Review**
+
+Okay, so the task is to transcribe questions 7 through 10 from an image, but the expected order is "10", "7", "8", "9". However, the provided stub YAML file dictates the order: 7, 8, 9, 10. Therefore, I'm going to follow the stub's order.
+
+First, let's look at question 7. The question is a straightforward multiple-choice physics question about determining acceleration. I'll make sure to get all the options.
+
+Then, question 8 presents a table to compare mass and weight on the Earth versus the Moon, which is also a multiple-choice question. I need to be careful with formatting the answer options clearly since the table format itself implicitly defines the options. I'll make sure to represent those options correctly using the same terms as the table (mass and weight). After considering several formatting options, I decided the clearest representation is to list the table's contents as options: A, B, C, D with full descriptions.
+
+Question 9 looks like a multiple-choice question about upthrust on a sphere. Nothing complex, just making sure I have the text and options.
+
+Question 10 is where it gets a little more involved. It has a diagram, which I am instructed to omit, and involves calculations, so I'll check that the units and formatting are correct. The original text had a hyphen for negative exponent "3.0 m s–1", I'll represent that as "$3.0 \text{ m s}^{-1}$" using LaTeX. I'll make sure to adhere to the given style for units and variables.
+
+Finally, I'll double-check my work and be sure to put it in the YAML format as per the instructions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: multiple_choice
+    text: |
+      How can the acceleration of an object be determined?
+    options:
+      - letter: A
+        text: |
+          from the area under a displacement–time graph
+      - letter: B
+        text: |
+          from the area under a velocity–time graph
+      - letter: C
+        text: |
+          from the gradient of a displacement–time graph
+      - letter: D
+        text: |
+          from the gradient of a velocity–time graph
+  - number: "8"
+    type: multiple_choice
+    text: |
+      The acceleration of free fall on the Earth is different to the acceleration of free fall on the Moon.
+
+      How do the mass and weight of an object on the Earth compare to its mass and weight on the Moon?
+    options:
+      - letter: A
+        text: |
+          different mass, different weight
+      - letter: B
+        text: |
+          different mass, same weight
+      - letter: C
+        text: |
+          same mass, different weight
+      - letter: D
+        text: |
+          same mass, same weight
+  - number: "9"
+    type: multiple_choice
+    text: |
+      A sphere moves vertically downwards at terminal (constant) velocity in a liquid.
+
+      Which statement about the magnitude of the upthrust acting on the sphere is correct?
+    options:
+      - letter: A
+        text: |
+          It is proportional to the acceleration of free fall.
+      - letter: B
+        text: |
+          It is equal to the weight of the sphere.
+      - letter: C
+        text: |
+          It is proportional to the density of the sphere.
+      - letter: D
+        text: |
+          It is proportional to the square of the radius of the sphere.
+  - number: "10"
+    type: multiple_choice
+    text: |
+      An object of mass $2.0 \text{ kg}$ is travelling at a speed of $3.0 \text{ m s}^{-1}$ on a horizontal frictionless surface. This object collides head-on with a stationary object of mass $1.0 \text{ kg}$. The two objects stick together on impact.
+
+      How much kinetic energy is lost on impact?
+    options:
+      - letter: A
+        text: |
+          zero
+      - letter: B
+        text: |
+          $2.0 \text{ J}$
+      - letter: C
+        text: |
+          $2.4 \text{ J}$
+      - letter: D
+        text: |
+          $3.0 \text{ J}$

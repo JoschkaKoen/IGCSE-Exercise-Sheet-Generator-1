@@ -1,0 +1,10 @@
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      Complete the SQL statement to display only the ID and model of all the aircraft that are airworthy.
+
+      \texttt{SELECT ID,} \hrulefill
+      \hrulefill
+      \hrulefill
+      \hrulefill ;

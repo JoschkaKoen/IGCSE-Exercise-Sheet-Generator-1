@@ -1,0 +1,13 @@
+```yaml
+questions:
+  - number: "7"
+    type: long_answer
+    text: |
+      A theatre has a microphone on stage that is connected by cables to several speakers around the theatre. A person speaks into the microphone and their voice is output from the speakers.
+
+      Identify the most appropriate data transmission method for this purpose. Explain your choice.
+
+      Data transmission method \hrulefill
+
+      Explanation
+```

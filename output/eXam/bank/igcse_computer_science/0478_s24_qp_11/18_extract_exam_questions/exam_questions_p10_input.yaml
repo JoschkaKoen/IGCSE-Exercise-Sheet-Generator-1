@@ -1,0 +1,12 @@
+  - number: "9"
+    type: short_answer
+    text: ""
+  - number: "9a"
+    type: long_answer
+    text: ""
+  - number: "9b"
+    type: short_answer
+    text: ""
+  - number: "9bi"
+    type: long_answer
+    text: ""

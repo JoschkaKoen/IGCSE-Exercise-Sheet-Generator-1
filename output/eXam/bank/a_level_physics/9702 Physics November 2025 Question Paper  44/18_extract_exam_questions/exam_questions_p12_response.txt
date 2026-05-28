@@ -1,0 +1,41 @@
+[thinking]
+**Exam Page 12: Transcription Thoughts**
+
+Okay, so I need to transcribe page 12 of this exam. The user's given me a list of question stubs, which is helpful. I see a few layers here, starting with "5" and branching out. I need to make sure I capture everything accurately.
+
+First, "5". Looking at the text, it's just the main question number; there's no accompanying text. The instructions are clear that I can't add or remove anything, so I'll render the text value of "5" as an empty string.
+
+Next, "5a". The text here is straightforward: "Explain why the electric potential near an isolated proton is positive." Simple enough.
+
+Then we have "5b". This one's a bit more involved; it's got the description of a positively charged metal sphere, radius *R*, and mentions Line XY, point P, point Q, displacement *x*, and the electric field strength *E₀*. I need to make sure I include all of that.
+
+Finally, "5bi". This requires drawing an arrow on a diagram at point Q to show the direction of the electric field. I'll need to make sure I get that phrasing exactly right in the text.
+
+I've made sure to adhere to the formatting and include the details and descriptions as needed. I'm double-checking to ensure nothing's missed, and it looks like everything aligns perfectly with the instructions.
+
+
+
+[/thinking]
+
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: long_answer
+    text: |
+      Explain why the electric potential near an isolated proton is positive.
+  - number: "5b"
+    type: short_answer
+    text: |
+      An isolated metal sphere is positively charged and has radius $R$, as shown in Fig. 5.1.
+
+      Line XY passes through the centre of the sphere.
+      Point P lies on line XY at a variable displacement $x$ from the centre of the sphere.
+      Point Q is at a fixed position that is not on line XY.
+
+      The electric field strength at the surface of the sphere is $E_0$.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      On Fig. 5.1, draw an arrow at point Q to show the direction of the electric field at that point.

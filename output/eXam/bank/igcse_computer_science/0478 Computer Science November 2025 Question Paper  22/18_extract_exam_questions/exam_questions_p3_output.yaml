@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      A procedure \texttt{NewData} allows data for new contacts to be entered and stored in the 2D array \texttt{Contacts[]}. A parameter, \texttt{Number}, is used to pass values from the main algorithm to the procedure for the number of new contacts. Next, four pieces of contact data for each new contact are entered and stored at the start of the array.
+  - number: "2bi"
+    type: short_answer
+    text: |
+      Complete the pseudocode for \texttt{PROCEDURE NewData}
+
+      \begin{alltt}
+      PROCEDURE NewData(\underline{\textbackslash{}hspace\{15em\}})
+
+          FOR Row <- 1 TO \underline{\textbackslash{}hspace\{15em\}}
+
+              FOR Column <- 1 TO 4
+
+                  INPUT \underline{\textbackslash{}hspace\{15em\}}
+
+                  \underline{\textbackslash{}hspace\{25em\}}
+
+                  \underline{\textbackslash{}hspace\{25em\}}
+
+      ENDPROCEDURE
+      \end{alltt}
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Write the pseudocode to input the number of new contacts and to use procedure \texttt{NewData}. A variable declaration is \textbf{not} required.
+```

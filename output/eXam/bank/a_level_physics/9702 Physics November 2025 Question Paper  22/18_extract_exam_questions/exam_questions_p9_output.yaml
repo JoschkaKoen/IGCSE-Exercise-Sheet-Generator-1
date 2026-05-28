@@ -1,0 +1,7 @@
+questions:
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Calculate the magnitude of the change in velocity of the carrier.
+
+      change in velocity = \hrulefill $\text{m}\,\text{s}^{-1}$ [3]

@@ -1,0 +1,21 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      A company owner has installed a new network. Data is correct before it is transmitted across the network.
+
+      The company owner is concerned that data might have errors after transmission.
+  - number: "9a"
+    type: long_answer
+    text: |
+      Explain how the data might have errors after transmission.
+  - number: "9b"
+    type: short_answer
+    text: |
+      The company owner decides to introduce an error detection system to check the data for errors after transmission.
+
+      The error detection system uses an odd parity check and a positive automatic repeat query (ARQ).
+  - number: "9bi"
+    type: long_answer
+    text: |
+      Describe how the error detection system operates to check for errors.

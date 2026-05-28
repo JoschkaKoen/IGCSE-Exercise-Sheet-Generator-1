@@ -1,0 +1,25 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Fig. 7.1 shows a circuit containing a capacitor of capacitance $C$ and a resistor of resistance $R$.
+
+      Initially, the switch is open and the potential difference (p.d.) across the capacitor is $12\text{ V}$.
+
+      The switch is closed at time $t = 0$ and the capacitor discharges through the resistor.
+
+      Fig. 7.2 shows the variation of the charge $Q$ on the capacitor with the p.d. $V_C$ across the capacitor as the capacitor discharges. Fig. 7.3 shows the variation of the current $I$ in the resistor with the p.d. $V_R$ across the resistor as the capacitor discharges.
+  - number: "7a"
+    type: short_answer
+    text: |
+      State the relationship between $V_C$ and $V_R$.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Determine:
+  - number: "7bi"
+    type: calculation
+    text: |
+      the capacitance $C$, in $\mu\text{F}$
+
+      $C =$ \hrulefill $\mu\text{F}$

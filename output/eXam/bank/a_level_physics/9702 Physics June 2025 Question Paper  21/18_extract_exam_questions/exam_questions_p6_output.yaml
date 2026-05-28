@@ -1,0 +1,23 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2a"
+    type: short_answer
+    text: |
+      State the principle of moments.
+  - number: "2b"
+    type: calculation
+    text: |
+      Three objects A, B and C are placed on a horizontal beam. The beam is in equilibrium, as shown in Fig. 2.1.
+
+      The beam is uniform and has length $6.0\text{ m}$.
+      The pivot is at the midpoint of the beam.
+      Object A has mass $60\text{ kg}$ and is at one end of the beam.
+      Object B has mass $45\text{ kg}$ and is at a distance $x$ from the pivot.
+      Object C has mass $80\text{ kg}$ and is at the other end of the beam.
+
+      Calculate $x$.
+
+      $x = \hrulefill \text{ m}$

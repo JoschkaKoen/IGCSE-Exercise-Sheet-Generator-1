@@ -1,0 +1,81 @@
+questions:
+  - number: "1"
+    type: multiple_choice
+    text: |
+      What must all physical quantities have?
+    options:
+      - letter: A
+        text: |
+          a direction and a magnitude
+      - letter: B
+        text: |
+          a direction and a unit
+      - letter: C
+        text: |
+          a magnitude and a prefix
+      - letter: D
+        text: |
+          a magnitude and a unit
+  - number: "2"
+    type: multiple_choice
+    text: |
+      What is $0.25\text{ kN}\,\text{mm}^{-2}$ expressed in $\text{N}\,\text{m}^{-2}$?
+    options:
+      - letter: A
+        text: |
+          $0.00025\text{ N}\,\text{m}^{-2}$
+      - letter: B
+        text: |
+          $0.25\text{ N}\,\text{m}^{-2}$
+      - letter: C
+        text: |
+          $250\,000\text{ N}\,\text{m}^{-2}$
+      - letter: D
+        text: |
+          $250\,000\,000\text{ N}\,\text{m}^{-2}$
+  - number: "3"
+    type: multiple_choice
+    text: |
+      A student calculates the density of a solid steel cube in an experiment.
+
+      The measured mass is $975\text{ g} \pm 10\text{ g}$ and the measured length of side is $50\text{ mm} \pm 1\text{ mm}$.
+
+      What is the density of the steel?
+    options:
+      - letter: A
+        text: |
+          $7.8\text{ g}\,\text{cm}^{-3} \pm 3.0\%$
+      - letter: B
+        text: |
+          $7.8\text{ g}\,\text{cm}^{-3} \pm 7.0\%$
+      - letter: C
+        text: |
+          $7.8\text{ g}\,\text{cm}^{-3} \pm 11\%$
+      - letter: D
+        text: |
+          $7.8\text{ g}\,\text{cm}^{-3} \pm 13\%$
+  - number: "4"
+    type: multiple_choice
+    text: |
+      The time period $T$ of a pendulum is given by
+
+      $$T = 2\pi \left( \frac{L}{g} \right)^n$$
+
+      where $L$ is the length of the pendulum and $g$ is the acceleration of free fall.
+
+      The equation is homogeneous.
+
+      What is the value of $n$?
+    options:
+      - letter: A
+        text: |
+          $-2$
+      - letter: B
+        text: |
+          $-\frac{1}{2}$
+      - letter: C
+        text: |
+          $\frac{1}{2}$
+      - letter: D
+        text: |
+          $2$

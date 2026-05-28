@@ -1,0 +1,31 @@
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: ''
+  - number: "3a"
+    type: short_answer
+    text: |
+      Complete the truth table for the following logic expression:
+
+      $$X = (A \text{ NOR } B) \text{ NAND } (C \text{ XOR } B)$$
+
+      \begin{tabular}{|c|c|c|p{5cm}|c|}
+      \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Working space} & \textbf{X} \\ \hline
+      0 & 0 & 0 & & \\ \hline
+      0 & 0 & 1 & & \\ \hline
+      0 & 1 & 0 & & \\ \hline
+      0 & 1 & 1 & & \\ \hline
+      1 & 0 & 0 & & \\ \hline
+      1 & 0 & 1 & & \\ \hline
+      1 & 1 & 0 & & \\ \hline
+      1 & 1 & 1 & & \\ \hline
+      \end{tabular}
+  - number: "3b"
+    type: short_answer
+    text: |
+      Draw a logic circuit for the logic expression:
+
+      $$X = \text{NOT } (((A \text{ AND } B) \text{ OR } C) \text{ AND } (C \text{ NOR } D))$$
+```

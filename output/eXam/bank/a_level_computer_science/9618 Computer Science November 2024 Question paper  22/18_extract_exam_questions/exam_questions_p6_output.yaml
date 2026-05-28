@@ -1,0 +1,63 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A program uses a stack to hold up to 60 numeric values.
+      The stack is implemented using two integer variables and a 1D array.
+
+      The array is declared in pseudocode as shown:
+
+      \begin{alltt}
+      DECLARE ThisStack : ARRAY[1:60] OF REAL
+      \end{alltt}
+
+      The stack operates as follows:
+
+      \begin{itemize}
+      \item Global variable \texttt{SP} acts as a stack pointer that points to the next available stack location. The value of \texttt{SP} represents an array index.
+      \item Global variable \texttt{OnStack} represents the number of values currently on the stack.
+      \item The stack grows upwards from array element index 1.
+      \end{itemize}
+  - number: "3a"
+    type: short_answer
+    text: ''
+  - number: "3ai"
+    type: short_answer
+    text: |
+      Give the initial values that should be assigned to the two variables.
+
+      SP \hrulefill
+      OnStack \hrulefill
+  - number: "3aii"
+    type: long_answer
+    text: |
+      Explain why it is not necessary to initialise the array elements before the stack is used.
+  - number: "3b"
+    type: long_answer
+    text: |
+      A function to add a value to \texttt{ThisStack} is expressed in pseudocode as shown.
+      The function will return a value to indicate whether the operation was successful or not.
+
+      Complete the pseudocode by filling in the gaps.
+
+      \begin{alltt}
+      FUNCTION Push(ThisValue : REAL) RETURNS BOOLEAN
+
+        DECLARE ReturnValue : BOOLEAN
+
+        IF ................................................ THEN
+
+          RETURN ................................................ // stack is already full
+
+        ENDIF
+
+        ................................................ <- ThisValue
+
+        SP <- ................................................
+
+        OnStack <- OnStack + 1
+
+        RETURN TRUE
+
+      ENDFUNCTION
+      \end{alltt}

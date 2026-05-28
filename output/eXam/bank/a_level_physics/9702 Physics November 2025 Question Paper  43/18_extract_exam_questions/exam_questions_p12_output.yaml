@@ -1,0 +1,30 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: ''
+  - number: "5a"
+    type: short_answer
+    text: |
+      Define electric potential at a point.
+  - number: "5b"
+    type: short_answer
+    text: |
+      A hydrogen atom may be considered to consist of a proton and an electron separated by a distance of $120\text{ pm}$, as shown in Fig. 5.1.
+
+      The two particles may be considered as point charges.
+
+      Point P lies on the line joining the electron and the proton and is at a variable distance $x$ from the proton.
+  - number: "5bi"
+    type: calculation
+    text: |
+      Show that the electric potential $V$ at point P when $x = 10\text{ pm}$ is equal to $130\text{ V}$.
+  - number: "5bii"
+    type: calculation
+    text: |
+      Calculate, to two significant figures, $V$ when $x = 30\text{ pm}$.
+
+      $V = $ \hrulefill $\text{V}$
+  - number: "5biii"
+    type: short_answer
+    text: |
+      On Fig. 5.1, draw a cross ($\times$) at one position, other than infinity, where the electric potential is zero.

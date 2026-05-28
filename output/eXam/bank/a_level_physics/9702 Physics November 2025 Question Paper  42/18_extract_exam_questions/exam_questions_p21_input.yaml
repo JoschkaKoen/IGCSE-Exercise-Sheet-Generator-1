@@ -1,0 +1,12 @@
+  - number: "9c"
+    type: short_answer
+    text: ""
+  - number: "9ci"
+    type: calculation
+    text: ""
+  - number: "9cii"
+    type: calculation
+    text: ""
+  - number: "9d"
+    type: long_answer
+    text: ""

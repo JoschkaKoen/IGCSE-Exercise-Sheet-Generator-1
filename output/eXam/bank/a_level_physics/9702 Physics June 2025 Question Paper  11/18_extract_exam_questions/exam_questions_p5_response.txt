@@ -1,0 +1,110 @@
+[thinking]
+**Transcribing Physics Exam Questions**
+
+Okay, so the task at hand is to grab three multiple-choice questions from this exam page. First, I need to make sure I get the questions exactly as they appear, along with their respective options.
+
+For Question 7, it's straightforward enough: the question asks about which equation of uniformly accelerated motion can be derived using only the gradient of a velocity-time graph. I need to make sure to include all four options: A: $s = \frac{1}{2}(u + v)t$, B: $s = ut + \frac{1}{2}at^2$, C: $v = u + at$, and D: $v^2 = u^2 + 2as$.
+
+Question 8 is a bit more involved. It describes an object projected horizontally and asks which graphs (P, Q, R, S) represent the horizontal and vertical velocity components. The prompt says "Return the question text and answer options exactly as printed on the page." Therefore, I need to present the table format to capture the relationships between these graphs.
+
+```latex
+\begin{tabular}{|c|c|c|}
+\hline
+ & horizontal & vertical \\
+\hline
+\textbf{A} & Q & P \\
+\textbf{B} & Q & S \\
+\textbf{C} & R & P \\
+\textbf{D} & R & S \\
+\hline
+\end{tabular}
+```
+
+This represents the options correctly. The question's options are:
+- A: A
+- B: B
+- C: C
+- D: D
+
+Finally, Question 9 deals with elastic collisions. It asks what is always conserved, presenting a table with the options:
+```latex
+\begin{tabular}{|c|c|c|}
+\hline
+ & total kinetic energy & total velocity \\
+\hline
+\textbf{A} & yes & yes \\
+\textbf{B} & yes & no \\
+\textbf{C} & no & yes \\
+\textbf{D} & no & no \\
+\hline
+\end{tabular}
+```
+
+The options are:
+- A: A
+- B: B
+- C: C
+- D: D
+
+So, that should be everything required. I've ensured all questions and options are transcribed accurately.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7"
+    type: multiple_choice
+    text: |
+      Which equation of uniformly accelerated motion can be derived using only the gradient of a velocity–time graph?
+    options:
+      - letter: A
+        text: |
+          $s = \frac{1}{2}(u + v)t$
+      - letter: B
+        text: |
+          $s = ut + \frac{1}{2}at^2$
+      - letter: C
+        text: |
+          $v = u + at$
+      - letter: D
+        text: |
+          $v^2 = u^2 + 2as$
+  - number: "8"
+    type: multiple_choice
+    text: |
+      An object is projected horizontally from a table at time $t = 0$. The object falls in a uniform gravitational field. Air resistance is negligible.
+
+      Graphs P, Q, R and S are velocity–time graphs.
+
+      Which graphs represent the horizontal and vertical components of the velocity of the object?
+    options:
+      - letter: A
+        text: |
+          horizontal: Q, vertical: P
+      - letter: B
+        text: |
+          horizontal: Q, vertical: S
+      - letter: C
+        text: |
+          horizontal: R, vertical: P
+      - letter: D
+        text: |
+          horizontal: R, vertical: S
+  - number: "9"
+    type: multiple_choice
+    text: |
+      What is always conserved in elastic collisions?
+    options:
+      - letter: A
+        text: |
+          total kinetic energy: yes, total velocity: yes
+      - letter: B
+        text: |
+          total kinetic energy: yes, total velocity: no
+      - letter: C
+        text: |
+          total kinetic energy: no, total velocity: yes
+      - letter: D
+        text: |
+          total kinetic energy: no, total velocity: no

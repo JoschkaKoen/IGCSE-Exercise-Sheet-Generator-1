@@ -1,0 +1,79 @@
+[thinking]
+**Page 6 Exam Question YAML Population**
+
+Okay, so I need to construct the YAML stub for page 6 of the exam. The user has given me the questions that need to be formatted. Let's break this down systematically.
+
+First, I see the initial sentence: "A computer has a central processing unit (CPU), memory and secondary storage." That's straightforward, it's just a text block.
+
+Next, Question 3a, which deals with Von Neumann architecture and registers. I'll need to use an `itemize` environment for the register list. I'll make sure to use bold text for the word "three" to emphasize the constraint, and I'll carefully review the list to make sure everything's correct.
+
+Then, there's a simple, "State the purpose of the CPU in the computer," so that's a straightforward text field as well.
+
+The next section compares processor speeds and core counts for Computers A, B, and C. It will require the math formatting for the GHz values, so that should be properly rendered as `$2.1\text{ GHz}$`, or similar.
+
+Question 3ci asks which computer is most likely to execute more instructions simultaneously, and requires a justification. I'll need to include the line "Computer \hrulefill" as a placeholder for the answer and a "Justification" label.
+
+Finally, 3cii needs an explanation of why Computer C can execute more instructions per second than Computer B. Again, this is straight text.
+
+Okay, let's make sure the formatting is spot on. "Computer \hrulefill" should render correctly since there is preceding text to its left. And with "Justification" it has blank lines below it, so that is correct. The math formatting is good, bullet points seem correct.
+
+Now, let's write the YAML, keeping these considerations in mind.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A computer has a central processing unit (CPU), memory and secondary storage.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The computer has a Von Neumann architecture.
+
+      Circle \textbf{three} registers that are found in the Von Neumann architecture.
+
+      \begin{itemize}
+      \item accumulator
+      \item arithmetic register
+      \item binary counter
+      \item binary register
+      \item control register
+      \item current data register
+      \item current instruction register
+      \item data counter
+      \item instruction counter
+      \item logical register
+      \item program counter
+      \item storage register
+      \end{itemize}
+  - number: "3b"
+    type: short_answer
+    text: |
+      State the purpose of the CPU in the computer.
+  - number: "3c"
+    type: short_answer
+    text: |
+      Computer A has a $2.1\text{ GHz}$ quad-core processor.
+
+      Computer B has a $2.5\text{ GHz}$ dual-core processor.
+
+      Computer C has a $5.2\text{ GHz}$ single-core processor.
+  - number: "3ci"
+    type: short_answer
+    text: |
+      Identify which computer is most likely to execute more instructions simultaneously.
+
+      Justify your answer.
+
+      Computer \hrulefill
+
+      Justification
+  - number: "3cii"
+    type: short_answer
+    text: |
+      Explain why Computer C can execute more instructions per second than Computer B.
+```

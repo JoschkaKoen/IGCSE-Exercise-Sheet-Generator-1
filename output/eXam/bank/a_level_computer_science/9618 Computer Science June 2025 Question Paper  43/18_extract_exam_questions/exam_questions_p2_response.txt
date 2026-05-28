@@ -1,0 +1,75 @@
+[thinking]
+**Transcription and Formatting of Questions**
+
+Okay, so the task is to transcribe questions 1, 1a, and 1b from the provided source, ensuring correct formatting. Let's break this down. First, I need to look at the text and identify the separate questions. I see a structure with "1," "1a," and "1b," which suggests a hierarchical organization.
+
+It seems question 1 contains introductory text: "A program reads data from a text file and stores it in a queue. The linear queue \texttt{Queue} is stored as a 1D array of up to 50 elements. The queue has the following pointers:
+\begin{itemize}
+\item \texttt{HeadPointer} – this stores the index of the first element in the queue, initialised to -1
+\item \texttt{TailPointer} – this stores the index of the last element in the queue, initialised to -1
+\end{itemize}"
+
+I need to confirm that this is not broken up with text between it and 1a. It seems this text is just part of question 1. The key is to keep all of the text together for question 1.
+
+Moving to 1a, I need to strip the prefix `(a)` and ensure the formatting is correct: "Queue is a global array of 50 integers with all elements initialised to -1 in the main program. The two pointers are declared as global variables and initialised to -1. Write program code to declare and initialise \texttt{Queue}, \texttt{HeadPointer} and \texttt{TailPointer}. Save your program as \textbf{Question1\_J25}. Copy and paste the program code into part 1(a) in the evidence document."
+
+For 1b, I also need to strip the prefix `(b)` and maintain proper formatting. This is the resulting text: "The function \texttt{Enqueue()}:
+\begin{itemize}
+\item takes an integer parameter to store in the next position in the queue
+\item returns \texttt{FALSE} if the queue is full and the parameter cannot be stored in the queue
+\item returns \texttt{TRUE} if the parameter is stored in the queue
+\item updates the pointers where appropriate.
+\end{itemize}
+Write program code for \texttt{Enqueue()} Save your program. Copy and paste the program code into part 1(b) in the evidence document."
+
+I am going to check to make sure I have covered all the instructions:
+
+The summary is to include:
+- CS pseudocode/inline code tokens should be wrapped in `\texttt{...}`.
+- Bold text: `Question1\_J25`, `two`.
+- No standalone markers.
+The formatting is correct.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program reads data from a text file and stores it in a queue. The linear queue \texttt{Queue} is stored as a 1D array of up to 50 elements. The queue has the following pointers:
+
+      \begin{itemize}
+      \item \texttt{HeadPointer} – this stores the index of the first element in the queue, initialised to -1
+      \item \texttt{TailPointer} – this stores the index of the last element in the queue, initialised to -1
+      \end{itemize}
+  - number: "1a"
+    type: short_answer
+    text: |
+      \texttt{Queue} is a global array of 50 integers with all elements initialised to -1 in the main program.
+
+      The \textbf{two} pointers are declared as global variables and initialised to -1
+
+      Write program code to declare and initialise \texttt{Queue}, \texttt{HeadPointer} and \texttt{TailPointer}
+
+      Save your program as \textbf{Question1\_J25}.
+
+      Copy and paste the program code into part 1(a) in the evidence document.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The function \texttt{Enqueue()}:
+
+      \begin{itemize}
+      \item takes an integer parameter to store in the next position in the queue
+      \item returns \texttt{FALSE} if the queue is full and the parameter cannot be stored in the queue
+      \item returns \texttt{TRUE} if the parameter is stored in the queue
+      \item updates the pointers where appropriate.
+      \end{itemize}
+
+      Write program code for \texttt{Enqueue()}
+
+      Save your program.
+
+      Copy and paste the program code into part 1(b) in the evidence document.

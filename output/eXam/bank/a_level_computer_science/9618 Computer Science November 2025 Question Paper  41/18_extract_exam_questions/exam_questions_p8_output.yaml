@@ -1,0 +1,53 @@
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      The program is tested with two stations:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{station ID} & \textbf{\begin{tabular}[c]{@{}l@{}}number of\\ platforms\end{tabular}} \\ \hline
+      STH & 2 \\ \hline
+      NTH & 1 \\ \hline
+      \end{tabular}
+  - number: "2di"
+    type: short_answer
+    text: |
+      Write program code to amend the main program to declare an instance of \texttt{Station} for each of the \textbf{two} stations.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(d)(i)} in the evidence document.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      The four trains attempt to stop at the following stations in the order given:
+
+      \begin{itemize}
+      \item Train 12ADV, station STH
+      \item Train 33ART, station STH
+      \item Train 9FKF, station STH
+      \item Train 21VBC, station NTH
+      \end{itemize}
+
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item add each train to the given station using \texttt{AddTrain()}
+      \item output \texttt{"Station is full"} for any train where the return value indicates it cannot be added to the station
+      \item output the trains at each station using \texttt{GetTrains()}
+      \end{itemize}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(d)(ii)} in the evidence document.
+  - number: "2diii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+
+      Copy and paste the screenshot(s) into part \textbf{2(d)(iii)} in the evidence document.

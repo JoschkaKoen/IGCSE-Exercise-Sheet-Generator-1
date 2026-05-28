@@ -1,0 +1,49 @@
+```yaml
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      Pseudocode has been used to design modules for the program to control the production line.
+
+      The table shows \textbf{four} valid pseudocode expressions.
+
+      Complete the table by giving the data type of the evaluated expression.
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Expression} & \textbf{Data type} \\ \hline
+      \texttt{RIGHT(MachineCode, 4)} & \\ \hline
+      \texttt{Speed * 2.5} & \\ \hline
+      \texttt{NOT Status} & \\ \hline
+      \texttt{IS\_NUM(Check)} & \\ \hline
+      \end{tabular}
+  - number: "1d"
+    type: short_answer
+    text: |
+      A global array \texttt{Product} is used as part of the pseudocode design being developed to control the production line. \texttt{Product} is used to store the number of rejected items each day.
+
+      The following pseudocode statement is used to assign a value to an element of the array:
+
+      \texttt{Product[x, y] <- 23}
+
+      The lower and upper bound values are shown in the table:
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Variable} & \textbf{Lower bound} & \textbf{Upper bound} \\ \hline
+      \texttt{x} & 0 & 99 \\ \hline
+      \texttt{y} & 0 & 9 \\ \hline
+      \end{tabular}
+  - number: "1di"
+    type: short_answer
+    text: |
+      State the number of dimensions of \texttt{Product}
+  - number: "1dii"
+    type: short_answer
+    text: |
+      State the total number of elements in array \texttt{Product}
+  - number: "1diii"
+    type: short_answer
+    text: |
+      Give the pseudocode declaration for the array \texttt{Product}
+```

@@ -481,25 +481,30 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 }
 
 /* ─── Learn subtopic content: markdown-rendered Core/Supplement table ──────── */
+.learn-content-body {
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  color: rgb(241, 245, 249);                       /* slate-100 */
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
 .learn-content-body table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-  font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .learn-content-body thead th {
   text-align: left;
   font-weight: 600;
   color: rgb(165, 243, 252);                       /* cyan-200 */
-  padding: 0.5rem 0.75rem;
+  padding: 0.6rem 0.85rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   background-color: rgba(255, 255, 255, 0.03);
 }
 .learn-content-body tbody td {
   vertical-align: top;
-  padding: 0.6rem 0.75rem;
-  color: rgb(226, 232, 240);                       /* slate-200 */
+  padding: 0.7rem 0.85rem;
+  color: rgb(241, 245, 249);                       /* slate-100 */
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 .learn-content-body tbody tr:nth-child(odd) td {
@@ -513,13 +518,13 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 }
 .learn-content-body .math.inline,
 .learn-content-body .math.block {
-  color: rgb(226, 232, 240);                       /* slate-200 */
+  color: rgb(241, 245, 249);                       /* slate-100 */
 }
 /* H3 sub-section headers (IGCSE Physics 1.5.1, 1.5.2, …) between tables. */
 .learn-content-body h3 {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: rgb(165, 243, 252);                       /* cyan-200 */
 }
@@ -531,12 +536,10 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
   list-style-type: decimal;
   padding-left: 1.5rem;
   margin: 0;
-  color: rgb(226, 232, 240);                       /* slate-200 */
-  font-size: 1rem;
-  line-height: 1.6;
+  color: rgb(241, 245, 249);                       /* slate-100 */
 }
 .learn-content-body ol > li {
-  margin: 0.25rem 0;
+  margin: 0.35rem 0;
   padding-left: 0.25rem;
 }
 .learn-content-body ol > li::marker {

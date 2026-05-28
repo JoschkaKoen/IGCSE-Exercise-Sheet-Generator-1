@@ -1,0 +1,46 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Refer to the \textbf{insert} for the list of pseudocode functions and operators.
+
+      A program will calculate the tax payable based on the cost of an item.
+
+      Calculations will occur at many places in the program and these involve the use of one of three tax rates.
+
+      Tax rate values represent a percentage. For example, a tax rate value of 5.23 represents 5.23%. In this case, the tax payable on an item costing $100 would be $5.23.
+
+      Tax rate values are used at several places within the program. One example is given in pseudocode as follows:
+
+      \begin{alltt}
+      HighRate <- FALSE
+      CASE OF ItemCost
+        <= 50  : TaxRate <- 3.75  // tax rate of 3.75%
+        <= 200 : TaxRate <- 5.23  // tax rate of 5.23%
+        > 200  : TaxRate <- 6.25  // tax rate of 6.25%
+                 HighRate <- TRUE
+      ENDCASE
+      TaxPayable <- ItemCost * TaxRate // tax payable
+      \end{alltt}
+  - number: "1a"
+    type: short_answer
+    text: |
+      The pseudocode contains a logical error.
+
+      Identify the error \textbf{and} suggest a correction.
+
+      Error \hrulefill
+
+      Correction \hrulefill
+  - number: "1b"
+    type: short_answer
+    text: |
+      During the design of the program, tax rate values have been used wherever they are needed as shown in the pseudocode example above. Tax rates do not change while the program runs.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Identify a more appropriate way of representing the tax rate values in the final program.
+  - number: "1bii"
+    type: long_answer
+    text: |
+      Describe the benefits of your answer to part (b)(i) with reference to this program.

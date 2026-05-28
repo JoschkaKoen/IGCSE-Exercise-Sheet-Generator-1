@@ -1,0 +1,54 @@
+```yaml
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A computer with a Von Neumann architecture has a central processing unit (CPU) that carries out the fetch-decode-execute (FDE) cycle.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Give the name of the first register that is used in the fetch part of the cycle.
+  - number: "2b"
+    type: short_answer
+    text: |
+      The CPU has a control unit (CU).
+  - number: "2bi"
+    type: long_answer
+    text: |
+      Describe the role of the CU in the CPU.
+  - number: "2bii"
+    type: short_answer
+    text: |
+      Give the name of the register that is part of the CU.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The computer has primary storage. One example of primary storage is cache.
+  - number: "2ci"
+    type: multiple_choice
+    text: |
+      Tick (\checkmark) \textbf{one} box to show the correct statement that describes the purpose of cache.
+    options:
+      - letter: A
+        text: |
+          It stores important instructions.
+      - letter: B
+        text: |
+          It stores the next instruction to be processed.
+      - letter: C
+        text: |
+          It stores frequently used instructions.
+      - letter: D
+        text: |
+          It stores instructions so they are not lost when the power is turned off.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      Give \textbf{one} other example of primary storage.
+
+      Identify the type of data your example would store.
+
+      Primary storage \hrulefill
+
+      Data \hrulefill
+```

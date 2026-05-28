@@ -1,0 +1,27 @@
+questions:
+  - number: "1b"
+    type: calculation
+    text: |
+      Change $W$ by moving the lower nail to another hole in the wooden strip. Adjust the height of the upper boss so that the wooden strip is parallel to the bench.
+
+      Measure and record $W$, $N$ and $L$. Repeat until you have six sets of values.
+      Record your results in a table. Include values of $Z$ in your table.
+  - number: "1c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Plot a graph of $L$ on the $y$-axis against $Z$ on the $x$-axis.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1ciii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+      $y$-intercept = \hrulefill

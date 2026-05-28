@@ -1,0 +1,19 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A program is being developed to calculate the pay of employees working for a company.
+
+      A function \texttt{CalculateBonus()} calculates bonus pay based on the value of sales.
+
+      Bonus pay is calculated as shown in the table.
+
+      \begin{tabular}{|l|r|}
+      \hline
+      \textbf{Value of sales (in dollars)} & \textbf{Bonus pay (in dollars)} \\ \hline
+      below 2000 & 0 \\ \hline
+      between 2000 and 4000 inclusive & 10 \\ \hline
+      above 4000 & 100 \\ \hline
+      \end{tabular}
+
+      A flowchart for the function \texttt{CalculateBonus()} has been designed.

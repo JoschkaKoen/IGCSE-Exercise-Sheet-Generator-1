@@ -1,0 +1,30 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      Complete the description of digital currencies using the terms provided.
+
+      \begin{itemize}
+      \item blockchains
+      \item changed
+      \item datachains
+      \item decentralised
+      \item deleted
+      \item encryption
+      \item passport
+      \item physical address
+      \item physically
+      \item records
+      \item time-stamp
+      \item traced
+      \item transaction-chains
+      \item virtually
+      \end{itemize}
+
+      A digital currency does not exist \underline{\hspace{1.5em}}, it can only be accessed electronically.
+
+      Some digital currencies have digital ledgers called \underline{\hspace{1.5em}}.
+
+      These are decentralised databases where each transaction is stored as a new set of data with a \underline{\hspace{1.5em}} and is linked to the previous set of data. This means that transactions cannot be altered, only new transactions added, which allows the location of the data to be \underline{\hspace{1.5em}}.
+
+      \hfill [4]

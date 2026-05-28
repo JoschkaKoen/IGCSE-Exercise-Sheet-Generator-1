@@ -1,0 +1,36 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: short_answer
+    text: |
+      The algorithm uses the one-dimensional (1D) array \texttt{ClassList} that contains the following data:
+
+      \textbf{ClassList}
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
+      Henil & Sven & Ella & Asia & Ridwan \\ \hline
+      \end{tabular}
+
+      \newline\newline
+      Complete the table by writing the output from the flowchart when each of the given names are input.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Name} & \textbf{OUTPUT} \\ \hline
+      Ridwan & \hrulefill \\ \hline
+      Yan & \hrulefill \\ \hline
+      Ella & \hrulefill \\ \hline
+      \end{tabular}
+  - number: "6b"
+    type: short_answer
+    text: |
+      Identify the standard method of solution used by the flowchart.
+  - number: "6c"
+    type: long_answer
+    text: |
+      Write the algorithm in pseudocode.

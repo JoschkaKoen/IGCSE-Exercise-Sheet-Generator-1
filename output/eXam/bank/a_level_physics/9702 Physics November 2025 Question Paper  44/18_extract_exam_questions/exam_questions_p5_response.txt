@@ -1,0 +1,58 @@
+[thinking]
+**My Thought Process: Transcribing Physics Exam Questions to YAML**
+
+Okay, here's the task: I need to process a page from an exam paper (specifically page 5), focusing on questions 1bii, 1biii, and 1biv. The goal is to generate YAML output that accurately reflects the questions' content and structure, following a specific stub format. No `options` key for these, since we're dealing with calculation and short answer types.
+
+First, I need to break down each question.
+
+For **1bii**, the type is clearly `calculation`. The text is "Calculate the centripetal acceleration of star A." and the answer line shows "acceleration = ................................................ ms^-2 [1]". I'll need to format the answer line as `acceleration = \hrulefill $\text{ms}^{-2}$`.
+
+Next is **1biii**, also a `calculation` question. The text reads, "Use your answer in (b)(ii) to determine the period of the orbit of star A." The provided answer line is "period = ...................................................... s [3]". I'll format this with `period = \hrulefill $\text{s}$`.
+
+Finally, for **1biv**, this is a `short_answer` question, which includes a table to be completed. The initial text is "By placing a tick ($\checkmark$) in each row, complete Table 1.1 to show how the quantities indicated for star B compare with the same quantities for star A.\n\nTable 1.1\n\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n & B less than A & B equal to A & B greater than A \\\\\n\\hline\ncentripetal acceleration & & & \\\\\n\\hline\nlinear speed & & & \\\\\n\\hline\nperiod & & & \\\\\n\\hline\n\end{tabular}". I'll refine this table formatting to standard LaTeX for the YAML output:
+
+```latex
+By placing a tick ($\checkmark$) in each row, complete \textbf{Table 1.1} to show how the quantities indicated for star B compare with the same quantities for star A.
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & B less than A & B equal to A & B greater than A \\ \hline
+centripetal acceleration & & & \\ \hline
+linear speed & & & \\ \hline
+period & & & \\ \hline
+\end{tabular}
+```
+
+Now, I'll review these transcriptions against the constraints. I need to make sure: non-empty strings are block scalars; prefixes like "(ii)", "(iii)", and "(iv)" are removed; I have the right math formatting: `$\text{ms}^{-2}$`, `$\text{s}$`, and `$\checkmark$`; and, importantly, there's no `options` key, as specified for these types.  I think I'm ready to generate the YAML now.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1bii"
+    type: calculation
+    text: |
+      Calculate the centripetal acceleration of star A.
+
+      acceleration = \hrulefill $\text{ms}^{-2}$
+  - number: "1biii"
+    type: calculation
+    text: |
+      Use your answer in \textbf{(b)(ii)} to determine the period of the orbit of star A.
+
+      period = \hrulefill $\text{s}$
+  - number: "1biv"
+    type: short_answer
+    text: |
+      By placing a tick ($\checkmark$) in each row, complete Table 1.1 to show how the quantities indicated for star B compare with the same quantities for star A.
+
+      \textbf{Table 1.1}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & B less than A & B equal to A & B greater than A \\ \hline
+      centripetal acceleration & & & \\ \hline
+      linear speed & & & \\ \hline
+      period & & & \\ \hline
+      \end{tabular}

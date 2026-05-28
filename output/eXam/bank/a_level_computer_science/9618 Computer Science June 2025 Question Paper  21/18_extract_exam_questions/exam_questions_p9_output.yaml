@@ -1,0 +1,31 @@
+questions:
+  - number: "4b"
+    type: short_answer
+    text: |
+      Complete the trace table by dry running the algorithm.
+
+      The first row has been completed.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+       & & & & \multicolumn{4}{c|}{\textbf{Chars}} \\ \cline{5-8}
+      \textbf{I} & \textbf{Key} & \textbf{J} & \textbf{Chars[J]} & \textbf{[1]} & \textbf{[2]} & \textbf{[3]} & \textbf{[4]} \\ \hline
+      2 & & & & 'D' & 'T' & 'H' & 'R' \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+       & & & & & & & \\ \hline
+      \end{tabular}

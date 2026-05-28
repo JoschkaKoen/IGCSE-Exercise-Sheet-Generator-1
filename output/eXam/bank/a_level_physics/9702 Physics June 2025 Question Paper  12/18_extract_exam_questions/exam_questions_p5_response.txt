@@ -1,0 +1,96 @@
+[thinking]
+**Transcribing Questions with Precision**
+
+Okay, so the task is to transcribe questions 8 through 11 from the image, but the prompt is a little sneaky. It wants the questions in a specific order: 10, 11, 8, 9, which is *not* the order provided in the YAML stub. However, the YAML stub *does* provide the correct order of the fields within a question. So, I will be transcribing the information in the order of the stub's structure, which is 8, 9, 10, 11. I must make sure the correct *numbers* are associated with the right questions.
+
+First, Question 8: This is a classic projectile motion question. The text describes a stone thrown upwards and asks *why* the path is curved, assuming negligible air resistance. The available options are about acceleration and velocity components.
+
+Next, Question 9: This involves a rocket engine and the force exerted by the ejected gas. The text gives the mass of exhaust gas per second (90 kg/s) and the exhaust velocity relative to the rocket (190 m/s). I made a point to ensure proper formatting with the unit notation.
+
+I had to double check the minus sign/en-dash. And ensure that the text is transcribed without errors.
+
+Then, Question 10: This probes understanding of elastic collisions. The question asks *which statement does not* describe an elastic collision. The options cover relative speeds, kinetic energy conservation, and linear momentum conservation.
+
+Finally, Question 11: This is about Newton's Third Law and a cyclist. The question is, "What is equal and opposite to the backward push of the back wheel on the road?" The options consider forces related to the cyclist, the road, the chain, and air resistance. I will use the block scalar and no quotes, as requested in the formatting notes. Let's make sure the formatting is perfectly consistent and the content is accurate and free of errors.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: multiple_choice
+    text: |
+      A stone is thrown upwards and follows a curved path.
+
+      Air resistance is negligible.
+
+      Why does the path have this shape?
+    options:
+      - letter: A
+        text: |
+          The stone has a constant horizontal acceleration and constant vertical velocity.
+      - letter: B
+        text: |
+          The stone has a constant horizontal velocity and constant vertical acceleration.
+      - letter: C
+        text: |
+          The stone has a constant upward acceleration followed by a constant downward acceleration.
+      - letter: D
+        text: |
+          The stone has a constant upward velocity followed by a constant downward velocity.
+  - number: "9"
+    type: multiple_choice
+    text: |
+      A rocket engine ejects $90\text{ kg}$ of exhaust gas per second at a velocity of $190\text{ m}\,\text{s}^{-1}$ relative to the rocket.
+
+      What is the force acting on the rocket due to the ejected gas?
+    options:
+      - letter: A
+        text: |
+          $2.1\text{ kN}$
+      - letter: B
+        text: |
+          $17\text{ kN}$
+      - letter: C
+        text: |
+          $18\text{ kN}$
+      - letter: D
+        text: |
+          $162\text{ kN}$
+  - number: "10"
+    type: multiple_choice
+    text: |
+      Which statement does \textbf{not} describe an elastic collision between two objects?
+    options:
+      - letter: A
+        text: |
+          The relative speed of approach of the two objects equals the relative speed of separation.
+      - letter: B
+        text: |
+          The total kinetic energy of the objects is conserved.
+      - letter: C
+        text: |
+          The total kinetic energy of the objects is reduced.
+      - letter: D
+        text: |
+          The total linear momentum of the objects is conserved.
+  - number: "11"
+    type: multiple_choice
+    text: |
+      A cyclist is riding at a constant speed on a level road.
+
+      According to Newton’s third law of motion, what is equal and opposite to the backward push of the back wheel on the road?
+    options:
+      - letter: A
+        text: |
+          the force exerted by the cyclist on the pedals
+      - letter: B
+        text: |
+          the forward push of the road on the back wheel
+      - letter: C
+        text: |
+          the tension in the cycle chain
+      - letter: D
+        text: |
+          the total air resistance and friction force

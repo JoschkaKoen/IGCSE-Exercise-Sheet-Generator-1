@@ -1,0 +1,45 @@
+[thinking]
+**Transcribing Exam Page 6: Password Validation**
+
+Okay, so the user wants me to transcribe page 6 of this exam paper. It looks like we're focusing on Question 8, and its sub-question 8a. Let's get to it.
+
+First, let's process Question 8 itself. The prompt describes a programmer working on a password validation program. The program needs to do these key things:
+
+*   Input the password, and the prompt specifies using the variable name `\texttt{Password}`.
+*   Check if the password has at least 8 characters.
+*   Check if the entered password `\texttt{Password}` is different from the stored password `\texttt{OldPass}`.
+*   Output "accepted" if both of those tests pass.
+*   Otherwise output "rejected".
+
+Now, for Question 8a: This is the sub-question. It looks like it wants a flowchart that represents this program logic. Specifically:
+
+*   Complete the flowchart for the program.
+
+There's a space provided for drawing the flowchart, with [6] marks attached, so it seems to be worth a decent amount.
+
+Okay, let's build the YAML. That should capture all the necessary information cleanly.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      A programmer is designing a program to check the length of a password and to check if the password input is the same as the stored password.
+
+      The program requirements are:
+      \begin{itemize}
+      \item input the password, \texttt{Password}
+      \item check if there are at least 8 characters in the password
+      \item check that the password is \textbf{not} the same as the stored password \texttt{OldPass}
+      \item output ‘accepted’ if both tests are completed successfully
+      \item otherwise, output ‘rejected’.
+      \end{itemize}
+
+      Use the variable names given.
+  - number: "8a"
+    type: short_answer
+    text: |
+      Complete the flowchart for the program.

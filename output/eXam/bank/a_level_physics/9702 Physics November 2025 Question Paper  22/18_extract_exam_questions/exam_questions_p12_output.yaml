@@ -1,0 +1,17 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A laser emits visible light of a single frequency in a vacuum. The light is incident normally on a double slit and then forms a pattern of bright and dark fringes on a screen, as shown in Fig. 4.1.
+
+      The separation of the slits is $1.0 \times 10^{-3}\text{ m}$. The distance from the slits to the screen is $4.8\text{ m}$. The distance between the centres of adjacent dark fringes on the screen is $3.3\text{ mm}$.
+  - number: "4a"
+    type: long_answer
+    text: |
+      Explain how the pattern of bright and dark fringes is formed.
+  - number: "4b"
+    type: calculation
+    text: |
+      Calculate the frequency of the light emitted by the laser.
+
+      frequency = \hrulefill Hz

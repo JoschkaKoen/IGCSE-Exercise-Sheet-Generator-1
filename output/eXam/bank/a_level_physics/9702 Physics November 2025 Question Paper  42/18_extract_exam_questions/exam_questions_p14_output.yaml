@@ -1,0 +1,30 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "6a"
+    type: short_answer
+    text: |
+      Define electric field at a point.
+  - number: "6b"
+    type: short_answer
+    text: |
+      An isolated conducting sphere in a vacuum has a capacitance of $69\text{ pF}$.
+      The charge on the sphere is $+83\text{ pC}$.
+  - number: "6bi"
+    type: short_answer
+    text: |
+      On Fig. 6.1, draw field lines to represent the electric field outside the sphere due to the charge on the sphere.
+  - number: "6bii"
+    type: calculation
+    text: |
+      Calculate the electric potential at the surface of the sphere.
+
+      electric potential = \hrulefill V
+  - number: "6biii"
+    type: calculation
+    text: |
+      Determine the radius of the sphere.
+
+      radius = \hrulefill m

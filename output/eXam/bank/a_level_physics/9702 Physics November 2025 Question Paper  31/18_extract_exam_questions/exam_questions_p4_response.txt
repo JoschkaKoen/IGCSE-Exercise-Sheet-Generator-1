@@ -1,0 +1,52 @@
+[thinking]
+**Exam Page 4 Transcription: A Detailed Analysis**
+
+Okay, so the task is to transcribe page 4 of the exam. Let's see... First, I need to make sure I understand the question structure and that it's correctly reflected in the transcription. It looks like the questions on this page are "1c" and "1d", and then "1d" is broken down into "(i)", "(ii)", and "(iii)". I need to check the stubs to verify the numbering. Let's make a mental note to confirm that I match them exactly.
+
+I see in the stubs: "1c", "1d", "1di", "1dii", and "1diii". Seems fine on first inspection.
+
+Now, let's transcribe. I've got the text for (c), which involves varying m to get five sets of T1, T2 values, making a table including sqrt(T1) and sqrt(T2), with the constraint that m is not less than 200g. I'll translate that into the YAML format, noting this question type as "calculation".
+
+Now, "1d". Wait, there is no text for "1d" on its own, it just precedes the (i), (ii), (iii) parts. The image does not show any text for "1d" by itself. Looking at the documentation, if a stub entry's stem is missing from the page, that means there is a stub-generation bug. The instruction states I should emit a `|` block scalar containing `STUB ERROR`. Absolutely, no guessing is allowed. So, "1d" needs to have the value `STUB ERROR`.
+
+Next, I have "(d)(i)" which is "Plot a graph of sqrt(T2) on the y-axis against sqrt(T1) on the x-axis." This seems straightforward and should be a "short_answer" type.
+
+Then, "(d)(ii)" is "Draw the straight line of best fit." Again, "short_answer".
+
+Finally, "(d)(iii)" asks me to "Determine the gradient and y-intercept of this line."  Looking at the image, I see that this will be a "calculation". The image also shows:
+"gradient = ..............................................................."
+"y-intercept = ..............................................................."
+Which are equivalent to \hrulefill in the markdown. The instructions say that there should be one blank line between the instruction and the first value, and NEVER leave a blank line between consecutive values, so there shouldn't be a blank line between the two lines.
+
+I've got it. I'm ready to write the YAML now, and will ensure to check the output for any errors.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1c"
+    type: calculation
+    text: |
+      Vary $m$. For each value of $m$, determine $T_1$ and $T_2$. Repeat until you have five sets of values of $m$, $T_1$ and $T_2$. Do not use values of $m$ less than 200g.
+
+      Record your results in a table. Include values of $\sqrt{T_1}$ and $\sqrt{T_2}$ in your table.
+  - number: "1d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1di"
+    type: short_answer
+    text: |
+      Plot a graph of $\sqrt{T_2}$ on the $y$-axis against $\sqrt{T_1}$ on the $x$-axis.
+  - number: "1dii"
+    type: short_answer
+    text: |
+      Draw the straight line of best fit.
+  - number: "1diii"
+    type: calculation
+    text: |
+      Determine the gradient and $y$-intercept of this line.
+
+      gradient = \hrulefill
+      $y$-intercept = \hrulefill

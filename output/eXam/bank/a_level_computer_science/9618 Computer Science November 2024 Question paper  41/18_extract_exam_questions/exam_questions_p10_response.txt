@@ -1,0 +1,120 @@
+[thinking]
+**Analyzing and Transcribing Questions 2e, 2ei, and 2eii**
+
+Okay, here's the breakdown of my thought process. I need to populate three questions: "2e", "2ei", and "2eii". The page structure is a bit odd, so I need to make sure I get it right.
+
+First, I see the page starts with "(e) (i)" – that's potentially part of "2e", but let's see. The stub suggests "2e", "2ei", and "2eii". Is "2e" a general instruction, or a stub error? I need to clarify.
+
+I check the page again. I see "(e) (i)" and "(ii)", but no standalone "2e". Ah, right, "2e" is the *parent* question. The stub includes it, but is it explicitly stated on the page? No, it looks like only "2ei" and "2eii" are.
+
+The instructions say to flag a "STUB ERROR" if the stem isn't explicitly on the page and it looks like that's the case here. No clear instruction for "2e" on this page, only "(e) (i)".
+
+Let's double-check the OCR: I confirm it's "(e) (i)". So, the key is "(e)". But the parent "2e" doesn't have a clear stem. The instructions are very clear: if the stem isn't found, emit a `| STUB ERROR`. So, I'll flag "2e" as `STUB ERROR`.
+
+Okay, "2e" is definitely `STUB ERROR`.
+
+Now, let's transcribe "2ei". I'll take the provided text and include it, ensuring I capture the formatting, especially the bold text, and the instruction box. I'll translate the instruction box to text:
+
+```yaml
+  - number: "2ei"
+    type: long_answer
+    text: |
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item calculate and output the chance of the first horse jumping each of the \textbf{four} fences without knocking each fence down
+      \item calculate and output the chance of the second horse jumping each of the \textbf{four} fences without knocking each fence down.
+      \end{itemize}
+
+      All outputs must have appropriate messages including the name of the horse and the fence number.
+
+      An example output for one horse jumping two fences is:
+
+      \begin{alltt}
+      "The horse Fox at fence 1 has a 68\% chance of success
+      The horse Fox at fence 2 has a 72\% chance of success"
+      \end{alltt}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)(i)} in the evidence document.
+```
+
+Next, let's transcribe "2eii" in the same way, keeping all the text, bolding, italics, and instructions.
+
+```yaml
+  - number: "2eii"
+    type: long_answer
+    text: |
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item calculate and output the average chance of success for each horse jumping over all \textbf{four} fences without knocking each fence down (the average is the total of values divided by the quantity of values). An example output for one horse jumping all of the fences is:
+      \begin{alltt}
+      "The horse Fox has an average 70\% chance of jumping over all four fences"
+      \end{alltt>
+      \item output the name of the horse that has the highest average chance of success.
+      \end{itemize}
+
+      You can assume that each average will be different.
+
+      All outputs must have appropriate messages.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)(ii)} in the evidence document.
+```
+
+Finally, just to be extra sure, "2e" is definitely a stub error, so it should have `| STUB ERROR`. All done!
+
+
+
+[/thinking]
+
+questions:
+  - number: "2e"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2ei"
+    type: long_answer
+    text: |
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item calculate and output the chance of the first horse jumping each of the \textbf{four} fences without knocking each fence down
+      \item calculate and output the chance of the second horse jumping each of the \textbf{four} fences without knocking each fence down.
+      \end{itemize}
+
+      All outputs must have appropriate messages including the name of the horse and the fence number.
+
+      An example output for one horse jumping two fences is:
+
+      \begin{alltt}
+      "The horse Fox at fence 1 has a 68% chance of success
+      The horse Fox at fence 2 has a 72% chance of success"
+      \end{alltt}
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)(i)} in the evidence document.
+  - number: "2eii"
+    type: long_answer
+    text: |
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item calculate and output the average chance of success for each horse jumping over all \textbf{four} fences without knocking each fence down (the average is the total of values divided by the quantity of values). An example output for one horse jumping all of the fences is:
+      \begin{alltt}
+      "The horse Fox has an average 70% chance of jumping over all four fences"
+      \end{alltt}
+      \item output the name of the horse that has the highest average chance of success.
+      \end{itemize}
+
+      You can assume that each average will be different.
+
+      All outputs must have appropriate messages.
+
+      Save your program.
+
+      Copy and paste the program code into part \textbf{2(e)(ii)} in the evidence document.

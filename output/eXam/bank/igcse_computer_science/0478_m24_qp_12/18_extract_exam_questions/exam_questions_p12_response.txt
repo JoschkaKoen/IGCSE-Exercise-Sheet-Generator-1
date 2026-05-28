@@ -1,0 +1,24 @@
+```yaml
+questions:
+  - number: "6eii"
+    type: short_answer
+    text: |
+      Another method of error checking is a parity block check.
+
+      The table shows 7 bytes that are transmitted using odd parity. The parity bit has been completed for each byte.
+
+      Complete the parity byte for the data.
+
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+      \hline
+       & \textbf{\begin{tabular}[c]{@{}c@{}}parity\\ bit\end{tabular}} & \textbf{bit 7} & \textbf{bit 6} & \textbf{bit 5} & \textbf{bit 4} & \textbf{bit 3} & \textbf{bit 2} & \textbf{bit 1} \\ \hline
+      \textbf{byte 1} & 1 & 1 & 0 & 0 & 1 & 1 & 1 & 0 \\ \hline
+      \textbf{byte 2} & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 0 \\ \hline
+      \textbf{byte 3} & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+      \textbf{byte 4} & 0 & 1 & 0 & 0 & 1 & 1 & 1 & 1 \\ \hline
+      \textbf{byte 5} & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+      \textbf{byte 6} & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ \hline
+      \textbf{byte 7} & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 1 \\ \hline
+      \textbf{\begin{tabular}[c]{@{}c@{}}parity\\ byte\end{tabular}} &  &  &  &  &  &  &  &  \\ \hline
+      \end{tabular}
+```

@@ -1,0 +1,8 @@
+```yaml
+questions:
+  - number: "10"
+    type: long_answer
+    text: |
+      A programmer has written a program that will be maintained by another programmer.
+      Explain how the program can be written to make sure it can be easily maintained by the other programmer.
+```

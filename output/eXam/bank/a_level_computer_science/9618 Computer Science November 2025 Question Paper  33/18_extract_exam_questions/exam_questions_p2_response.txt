@@ -1,0 +1,42 @@
+```yaml
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      An enumerated data type, \texttt{Spectrum}, is required to hold the names of colours.
+  - number: "1a"
+    type: short_answer
+    text: |
+      An enumerated data type, \texttt{Spectrum}, is required to hold the names of colours.
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Write the \textbf{pseudocode} statement for the type declaration of \texttt{Spectrum} to hold the names of the colours available:
+
+      Red, Orange, Yellow, Green, Blue, Indigo, Violet.
+  - number: "1aii"
+    type: short_answer
+    text: |
+      Identify \textbf{two} characteristics of the list of values given in an enumerated data type declaration.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "1b"
+    type: short_answer
+    text: |
+      \texttt{ColourData} is a composite data type to store definitions of colours.
+
+      Write \textbf{pseudocode} statements to declare \texttt{ColourData} to hold the following fields:
+
+      \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Field} & \textbf{Example data} \\ \hline
+      ColourCode & XYZ12345 \\ \hline
+      Colour & Red \\ \hline
+      Wavelength & 650 \\ \hline
+      Frequency & 4.62 \\ \hline
+      PrimaryColour & Yes \\ \hline
+      \end{tabular}
+
+      Use the most appropriate data type in each case, including the enumerated data type \texttt{Spectrum} from part a(i).
+```

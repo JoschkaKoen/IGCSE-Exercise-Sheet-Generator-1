@@ -1,0 +1,21 @@
+questions:
+  - number: "8bii"
+    type: calculation
+    text: |
+      Determine a value for the wavelength of the gamma radiation emitted during the decay of the uranium-238 nucleus.
+
+      wavelength = \hrulefill $\text{m}$
+  - number: "8biii"
+    type: long_answer
+    text: |
+      In practice, the rebound kinetic energy of the thorium nucleus is \textbf{not} negligible.
+
+      Explain, without further calculation, how your answer in \textbf{(b)(ii)} compares with the true wavelength of gamma radiation emitted during the decay of the uranium-238 nucleus.
+  - number: "8c"
+    type: long_answer
+    text: |
+      Gamma radiation emitted during the decay of a sample of uranium-238 has a single wavelength.
+
+      Nuclei of cobalt-60 ($^{60}_{27}\text{Co}$) decay by beta emission, and also emit gamma radiation in the process.
+
+      Suggest why there is \textbf{not} a single wavelength for the gamma radiation emitted during the decay of a sample of cobalt-60.

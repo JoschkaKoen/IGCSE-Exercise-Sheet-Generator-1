@@ -1,0 +1,81 @@
+questions:
+  - number: "14"
+    type: multiple_choice
+    text: |
+      Two forces, each of magnitude $F$, act in opposite directions on a rod.
+
+      Each force acts on the rod at a distance $d$ from the pivot P.
+
+      What is the torque of this couple about P?
+    options:
+      - letter: A
+        text: |
+          0
+      - letter: B
+        text: |
+          $F \times d$
+      - letter: C
+        text: |
+          $2F \times d$
+      - letter: D
+        text: |
+          $2F \times 2d$
+  - number: "15"
+    type: multiple_choice
+    text: |
+      A man of weight $600\text{ N}$ stands with both feet flat on the ground.
+
+      What is a reasonable estimate of the pressure exerted on the ground by the weight of the man?
+    options:
+      - letter: A
+        text: |
+          $1 \times 10^0\text{ Pa}$
+      - letter: B
+        text: |
+          $1 \times 10^2\text{ Pa}$
+      - letter: C
+        text: |
+          $1 \times 10^4\text{ Pa}$
+      - letter: D
+        text: |
+          $1 \times 10^6\text{ Pa}$
+  - number: "16"
+    type: multiple_choice
+    text: |
+      The formula for the upthrust on a block of wood partially submerged in water is shown.
+
+      $$F = \rho gV$$
+
+      What do the symbols $\rho$ and $V$ represent?
+    options:
+      - letter: A
+        text: |
+          $\rho$: density of water; $V$: volume of whole block
+      - letter: B
+        text: |
+          $\rho$: density of water; $V$: volume of block below surface of water
+      - letter: C
+        text: |
+          $\rho$: density of wood; $V$: volume of whole block
+      - letter: D
+        text: |
+          $\rho$: density of wood; $V$: volume of block below surface of water
+  - number: "17"
+    type: multiple_choice
+    text: |
+      An object with a mass of $100\text{ g}$ falls a vertical distance of $10\text{ m}$.
+
+      What is the change in the gravitational potential energy of the object?
+    options:
+      - letter: A
+        text: |
+          $1\text{ J}$
+      - letter: B
+        text: |
+          $10\text{ J}$
+      - letter: C
+        text: |
+          $100\text{ J}$
+      - letter: D
+        text: |
+          $10\,000\text{ J}$

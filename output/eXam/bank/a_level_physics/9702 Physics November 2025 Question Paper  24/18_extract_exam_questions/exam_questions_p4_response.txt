@@ -1,0 +1,35 @@
+[thinking]
+**Exam Page 4 Transcription: A Deep Dive**
+
+Okay, so the user wants me to transcribe page 4 of this exam. The questions are labeled "1", "1a", "1ai", and "1aii." I need to capture the exact wording and structure, while ensuring the formatting is spot on for their system.
+
+First, I'm reading the questions to understand their context. Question 1 is about a child kicking a ball, with a given initial velocity and angle. That's a classic projectile motion setup. Question 1a gives the important assumption that air resistance is negligible and the time the ball leaves the ground. Then, 1ai is asking for the horizontal and vertical velocity components – a straightforward trigonometric calculation. Finally, 1aii requests that I show the ball's time to maximum height, probably using the vertical motion.
+
+Now, for the YAML structure. I need to be precise with the formatting. Block scalars (`|`) for the question text, no double quotes around the strings, and the right math formatting: `$ ... $` for inline equations. It's also important to make sure the answer area for 1ai is included correctly with the `\hrulefill`. No extra blank lines are needed between the fields, and no subquestion prefixes (like a,i,ii).
+
+I'm ready to write the YAML now. Let's make sure it's accurate and perfectly formatted so the system can process it without a hitch.
+
+
+
+[/thinking]
+
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A child kicks a ball so that it leaves horizontal ground with a velocity of $28\text{ m}\,\text{s}^{-1}$ at an angle of $34^\circ$ to the horizontal, as shown in Fig. 1.1.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Air resistance is negligible. The ball leaves the ground at time $t = 0$.
+  - number: "1ai"
+    type: calculation
+    text: |
+      Calculate the horizontal component $v_{\text{H}}$ and the vertical component $v_{\text{V}}$ of the velocity of the ball immediately after it has left the ground.
+
+      $v_{\text{H}} = \hrulefill \text{ m}\,\text{s}^{-1}$
+      $v_{\text{V}} = \hrulefill \text{ m}\,\text{s}^{-1}$
+  - number: "1aii"
+    type: calculation
+    text: |
+      Show that the ball reaches its maximum height at time $t = 1.6\text{ s}$.

@@ -1,0 +1,38 @@
+[thinking]
+**Transcribing Questions 8b and 8c**
+
+Okay, the user wants me to transcribe questions 8b and 8c from this page. Let me take a look. Ah, I see, the numbering on the page uses parentheses, (b) and (c), which I understand to correspond to the stub's "8b" and "8c". Right, so first, let's transcribe (b), which I'll call "8b".
+
+It reads: "The accepted password, Password, is to be written to the file MyPassword.txt Write pseudocode to: ... [3]". Now, I should make a note of this. It includes:
+
+*   open the file
+*   write the accepted password to the file
+*   close the file.
+
+I'll make sure to get the formatting right. That means using the `\texttt{}` command for code-style text like "Password" and "MyPassword.txt".
+
+Next up, question (c), which is "8c". The text is: "Explain why the accepted password needs to be stored in a file."
+
+Perfect, that's it. Let's make sure I didn't miss anything. Ah, formatting rules. Right. Code-style text using `\texttt{}` for "Password" and "MyPassword.txt". And the bullet points in the pseudocode need the `\begin{itemize}` and `\end{itemize}` environment. Also, there are no standalone dotted lines below open-ended prompts, so I don't need to add any special markers. I think I'm good to go.
+
+
+
+[/thinking]
+
+questions:
+  - number: "8b"
+    type: short_answer
+    text: |
+      The accepted password, \texttt{Password}, is to be written to the file \texttt{MyPassword.txt}
+
+      Write pseudocode to:
+
+      \begin{itemize}
+      \item open the file
+      \item write the accepted password to the file
+      \item close the file.
+      \end{itemize}
+  - number: "8c"
+    type: long_answer
+    text: |
+      Explain why the accepted password needs to be stored in a file.

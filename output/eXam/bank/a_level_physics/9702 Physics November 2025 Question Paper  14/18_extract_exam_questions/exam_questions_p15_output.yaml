@@ -1,0 +1,43 @@
+questions:
+  - number: "33"
+    type: multiple_choice
+    text: |
+      The diagram shows an electrical circuit containing a light-dependent resistor (LDR).
+
+      What is the circuit diagram for this circuit?
+    options:
+      - letter: A
+        text: |
+          Circuit diagram A
+      - letter: B
+        text: |
+          Circuit diagram B
+      - letter: C
+        text: |
+          Circuit diagram C
+      - letter: D
+        text: |
+          Circuit diagram D
+  - number: "34"
+    type: multiple_choice
+    text: |
+      A copper wire of length $2\text{ m}$ has a circular cross-section. There is a constant current in the wire when it is connected to a mobile phone in order to charge the battery.
+
+      The wire has a fault. A $1\text{ m}$ length of the wire has half the diameter of the other $1\text{ m}$ length.
+
+      The power dissipated in the thicker length of wire is $P$.
+
+      What is the power dissipated in the thinner length of wire?
+    options:
+      - letter: A
+        text: |
+          $\frac{1}{4}P$
+      - letter: B
+        text: |
+          $\frac{1}{2}P$
+      - letter: C
+        text: |
+          $2P$
+      - letter: D
+        text: |
+          $4P$

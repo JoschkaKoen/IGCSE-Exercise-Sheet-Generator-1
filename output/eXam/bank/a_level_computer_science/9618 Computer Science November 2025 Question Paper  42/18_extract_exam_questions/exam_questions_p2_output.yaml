@@ -1,0 +1,23 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A program stores data about birds using Object-Oriented Programming (OOP).
+
+      The class \texttt{Bird} stores the data about the birds:
+
+      \begin{tabular}{|l|p{8cm}|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Bird}} \\
+      \hline
+      \texttt{DistancePerHour : Real} & stores the number of kilometres per hour (km/h) the bird can fly (between 0.0 and 100.0 inclusive) \\
+      \texttt{Species : String} & stores the species of the bird, for example Pigeon \\
+      \texttt{XPosition : Real} & stores the current horizontal position of the bird \\
+      \texttt{YPosition : Real} & stores the current vertical position of the bird \\
+      \hline
+      \texttt{Constructor()} & initialises \texttt{Species} and \texttt{DistancePerHour} to the parameter values; initialises \texttt{XPosition} and \texttt{YPosition} to 500.0 \\
+      \texttt{GetPosition()} & returns a string message that contains the horizontal and vertical position of the bird \\
+      \texttt{GetSpecies()} & returns the species of the bird \\
+      \texttt{Move()} & takes a direction and number of minutes flying (between 0 and 500 inclusive) as parameters and updates the appropriate horizontal or vertical position \\
+      \hline
+      \end{tabular}

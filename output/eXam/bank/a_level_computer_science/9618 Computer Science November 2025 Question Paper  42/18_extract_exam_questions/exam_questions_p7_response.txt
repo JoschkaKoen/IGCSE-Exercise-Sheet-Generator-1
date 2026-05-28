@@ -1,0 +1,79 @@
+[thinking]
+**Analyzing and Transcribing Exam Page 7**
+
+Okay, so I need to transcribe page 7 of this exam paper. My initial scan of the questions is a bit confusing because of how they are structured. The task involves transcribing a program, so I need to be precise.
+
+First, I see "2d" listed, but then it jumps to "(d) (i)". Is "2d" a parent question, a stub error, or simply an introductory part to the actual question? Looking at the page again, I see "(d) (i) The main program: ...", so there is no standalone "2d" question. The stub includes: "2d", "2di", "2dii", and "2e". This suggests "2d" might be a parent question or a stub issue.
+
+I carefully examine the question text. "(d) (i)" details the main program's requirements: outputting the array, sorting with `BubbleSort()`, outputting "Sorted", and outputting the sorted array. The instructions are clear: write the program code, save it, and paste it into the evidence document.
+
+Now, I'm checking if "2d" is a stub error or if it represents the intro. The structure confuses me; should I handle "2d" as an intro? The structure is clearly “(d) (i) The main program:”, so “2di” is correct.
+
+I'm starting to suspect "2d" is a stub-generation issue, given that it's in the stub but isn't explicitly written on the page as a separate question stem. Let's refer to the rules: "The stub is curated for this page. Every entry's stem should be visible. If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess."
+
+I confirm that there is no separate "2d" question. It starts directly with "(d) (i)". So "2d" should indeed be labeled as a `STUB ERROR`.
+
+Now, I'm going to create the YAML.
+
+For `2d`: I'll use the text `STUB ERROR` within the code.
+
+For `2di`: The transcription will include the list of actions for the main program. The output, the array sorted, the "Sorted" message, and the sorted array output are all important. I must include the write program, save, and copy instructions.
+
+For `2dii`: I'll transcribe the details for testing the program and taking a screenshot to be saved and pasted into the document.
+
+Finally, for `2e`: I will transcribe the details about the recursive function, the parameters (array, lower bound, upper bound, value), what it does (binary search, returns index or -1), and the final instructions to write the code and save it.
+
+
+
+[/thinking]
+
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2di"
+    type: short_answer
+    text: |
+      The main program:
+
+      \begin{itemize}
+      \item outputs the contents of the array using \texttt{PrintArray()}
+      \item sorts the array using \texttt{BubbleSort()}
+      \item outputs "Sorted"
+      \item outputs the contents of the sorted array using \texttt{PrintArray()}
+      \end{itemize}
+
+      Write program code for the main program.
+
+      Save your program.
+      Copy and paste the program code into part \textbf{2(d)(i)} in the evidence document.
+  - number: "2dii"
+    type: short_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      Save your program.
+      Copy and paste the screenshot(s) into part \textbf{2(d)(ii)} in the evidence document.
+  - number: "2e"
+    type: short_answer
+    text: |
+      The recursive function \texttt{RecursiveBinarySearch()} takes four parameters:
+
+      \begin{itemize}
+      \item an integer array
+      \item the lower bound of the array
+      \item the upper bound of the array
+      \item the value to find in the array.
+      \end{itemize}
+
+      The recursive function performs a binary search to find the index of the value in the array.
+
+      The function returns the index of the value if it is found. The function returns $-1$ if the value is not found.
+
+      Write program code for \texttt{RecursiveBinarySearch()}
+
+      Save your program.
+      Copy and paste the program code into part \textbf{2(e)} in the evidence document.

@@ -1,0 +1,16 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      Complete the table to give the missing term or description for the internet terms.
+
+      \begin{tabular}{|p{5cm}|p{9cm}|}
+      \hline
+      \textbf{Internet term} & \textbf{Description} \\ \hline
+      \hrulefill & the collection of web pages accessed using the internet \\ \hline
+      \hrulefill & the address given to a device when it connects to the internet \\ \hline
+      web browser & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+      \hrulefill & the hardware that stores a database of matching website and IP addresses \\ \hline
+      \hrulefill & a type of hardware that can be used to prevent a distributed denial of service (DDoS) attack \\ \hline
+      hacking & \hrulefill \newline \hrulefill \newline \hrulefill \\ \hline
+      \end{tabular}

@@ -1,0 +1,19 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3a"
+    type: short_answer
+    text: |
+      State what is meant by two objects being in thermal equilibrium.
+  - number: "3b"
+    type: short_answer
+    text: |
+      Fig. 3.1 shows a type of thermometer called a constant volume gas thermometer.
+
+      The thermometer is used to determine the thermodynamic temperature $T$ of the gas in the glass bulb.
+
+      The glass bulb is immersed in the environment for which the temperature is to be measured. The height of the movable glass tube is then adjusted so that the level of the liquid on the left-hand side aligns with the reference line X marked on the fixed glass tube. The reference line Y is marked on the side of the movable glass tube. The level of the liquid at Y is higher than at X as a result of the pressure of the gas in the glass bulb.
+
+      The difference in height $\Delta h$ between the liquid levels at X and Y is then measured using the scale. The thermodynamic temperature $T$ of the gas is directly proportional to the pressure of the gas. This pressure is directly proportional to $\Delta h$.

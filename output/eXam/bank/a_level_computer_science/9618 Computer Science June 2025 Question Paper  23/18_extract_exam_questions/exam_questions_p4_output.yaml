@@ -1,0 +1,38 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A programmer uses a number of Abstract Data Types (ADT) in the programs that she is developing.
+  - number: "2a"
+    type: short_answer
+    text: |
+      A stack using memory locations 400 to 409 is used in one program.
+
+      The diagram represents the current state of the stack.
+
+      A variable \texttt{TopOfStack} pointer indicates the last value added to the stack.
+
+      \begin{tabular}{c|c|l}
+      \textbf{Memory location} & \multicolumn{1}{c}{\textbf{Value}} & \\ \cline{2-2}
+      409 & & \\ \cline{2-2}
+      408 & & \\ \cline{2-2}
+      407 & & \\ \cline{2-2}
+      406 & & \\ \cline{2-2}
+      405 & & \\ \cline{2-2}
+      404 & & \\ \cline{2-2}
+      403 & 'P' & $\leftarrow$ \texttt{TopOfStack} \\ \cline{2-2}
+      402 & 'X' & \\ \cline{2-2}
+      401 & 'D' & \\ \cline{2-2}
+      400 & 'B' & \\ \cline{2-2}
+      \end{tabular}
+  - number: "2ai"
+    type: short_answer
+    text: |
+      Complete the answer column in the following table:
+
+      \begin{tabular}{|p{8cm}|p{4cm}|}
+      \hline
+      \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\textbf{Answer}} \\ \hline
+      the memory location of the value that has been on the stack for the longest time & \\ \hline
+      the number of consecutive \texttt{push} operations that will result in the \texttt{TopOfStack} variable containing 409 & \\ \hline
+      \end{tabular}

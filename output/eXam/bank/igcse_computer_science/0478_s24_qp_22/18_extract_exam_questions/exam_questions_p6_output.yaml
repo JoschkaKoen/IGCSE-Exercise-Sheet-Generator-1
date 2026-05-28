@@ -1,0 +1,43 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      An algorithm has been written in pseudocode to find and display the maximum and minimum values in an array of 1000 positive numbers. The array \texttt{List[]} starts at index 1
+
+      \begin{alltt}
+      01 Max <- List[1]
+      02 Min <- List[1]
+      03 FOR Counter <- 2 TO 1000
+      04     IF List[Counter] < Max
+      05         THEN
+      06             Max <- List[Counter]
+      07     ENDIF
+      08     IF List[Count] < Min
+      09         THEN
+      10             Min <- List[Counter]
+      11     ENDWHILE
+      12 NEXT Counter
+      13 OUTPUT "Maximum value is ", Max
+      14 OUTPUT "Minimum value is ", Min
+      \end{alltt}
+  - number: "7a"
+    type: short_answer
+    text: |
+      Give a line number for each of these types of statement:
+
+      Assignment statement \hrulefill
+      Selection statement \hrulefill
+      Iteration statement \hrulefill
+  - number: "7b"
+    type: short_answer
+    text: |
+      Identify the line numbers of the \textbf{three} errors in the pseudocode and suggest a correction for each error.
+
+      Error 1 line number \hrulefill
+      Correction \hrulefill
+
+      Error 2 line number \hrulefill
+      Correction \hrulefill
+
+      Error 3 line number \hrulefill
+      Correction \hrulefill

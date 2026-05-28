@@ -1,0 +1,13 @@
+questions:
+  - number: "10d"
+    type: short_answer
+    text: |
+      Complete this SQL statement to find the contract numbers of the subscribers that take both the news and sports services.
+
+      \begin{alltt}
+      SELECT \hrulefill
+
+      FROM Contract
+
+      WHERE \hrulefill AND \hrulefill ;
+      \end{alltt}

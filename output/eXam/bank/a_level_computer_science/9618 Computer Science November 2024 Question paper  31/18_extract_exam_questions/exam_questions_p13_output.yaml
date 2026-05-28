@@ -1,0 +1,66 @@
+questions:
+  - number: "11b"
+    type: short_answer
+    text: |
+      A user-defined record structure is used to store the nodes of the linked list in part (a).
+
+      Complete the diagram, using your answer for part (a).
+
+      \textbf{RootPtr}
+      \framebox[1.5cm]{\strut 0}
+
+      \textbf{FreePtr}
+      \framebox[1.5cm]{\strut \quad}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      \textbf{Index} & \textbf{LeftPtr} & \textbf{Data} & \textbf{RightPtr} \\ \hline
+      \textbf{0} & & Red & \\ \hline
+      \textbf{1} & & Green & \\ \hline
+      \textbf{2} & & Yellow & \\ \hline
+      \textbf{3} & & Blue & \\ \hline
+      \textbf{4} & & Orange & \\ \hline
+      \textbf{5} & & Indigo & \\ \hline
+      \textbf{6} & & Violet & \\ \hline
+      \textbf{7} & & & \\ \hline
+      \end{tabular}
+  - number: "11c"
+    type: short_answer
+    text: |
+      The linked list in part (a) is implemented using a 1D array of records. Each record contains a left pointer, data and a right pointer.
+
+      The following pseudocode represents a function that searches for an element in the array of records \texttt{BinTree}. It returns the index of the record if the element is found, or it returns a null pointer if the element is not found.
+
+      Complete the pseudocode for the function.
+
+      \begin{alltt}
+      FUNCTION SearchTree(Item : STRING) \hrulefill
+
+          NowPtr <- \hrulefill
+
+          WHILE NowPtr <> -1
+
+              IF \hrulefill THEN
+
+                  NowPtr <- BinTree[NowPtr].LeftPtr
+
+              ELSE
+
+                  IF BinTree[NowPtr].Data < Item THEN
+
+                      \hrulefill
+
+                  ELSE
+
+                      RETURN NowPtr
+
+                  ENDIF
+
+              ENDIF
+
+          ENDWHILE
+
+          RETURN NowPtr
+
+      ENDFUNCTION
+      \end{alltt}

@@ -1,0 +1,32 @@
+[thinking]
+**Transcribing Question 4biv**
+
+Alright, the user wants me to handle question "4biv" from this image. Okay, let's break this down systematically. First, I see the question number: "4biv". Now, let's extract the actual question text. It reads: "(iv) Determine the distance between a node and an adjacent antinode." I can strip away the "(iv)" - it's just a marker. So the core question is: "Determine the distance between a node and an adjacent antinode."
+
+I also need to capture the answer format. It looks like "distance = ..................................................... m [1]". I need to replace the dotted line with a placeholder, probably using `\hrulefill`, and I can drop the marks since I'm just formatting the question.
+
+Okay, let's put it all together into a clean, concise YAML format. Here's what I've got:
+
+```yaml
+questions:
+  - number: "4biv"
+    type: calculation
+    text: |
+      Determine the distance between a node and an adjacent antinode.
+
+      distance = \hrulefill m
+```
+
+That should be precisely what the user needs. It's properly structured, and contains the relevant question and a placeholder for the answer.
+
+
+
+[/thinking]
+
+questions:
+  - number: "4biv"
+    type: calculation
+    text: |
+      Determine the distance between a node and an adjacent antinode.
+
+      distance = \hrulefill m

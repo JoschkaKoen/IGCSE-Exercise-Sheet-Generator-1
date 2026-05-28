@@ -1,0 +1,11 @@
+```yaml
+questions:
+  - number: "5b"
+    type: long_answer
+    text: |
+      Write the pseudocode for an algorithm, using nested iteration, to output the contents of \texttt{Names[]}
+  - number: "5c"
+    type: short_answer
+    text: |
+      Describe a possible problem with the algorithm that could mean the names are not sorted accurately.
+```

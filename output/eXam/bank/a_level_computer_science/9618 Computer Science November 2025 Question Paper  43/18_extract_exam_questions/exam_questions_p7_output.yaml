@@ -1,0 +1,45 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1ci"
+    type: long_answer
+    text: |
+      The table gives the row and column position on the board to store each of the five objects created in part \textbf{1(a)(iii)}.
+
+      \begin{tabular}{|l|c|c|}
+      \hline
+      \textbf{Object identifier} & \textbf{row position} & \textbf{column position} \\ \hline
+      Object1 & 0 & 0 \\ \hline
+      Object2 & 9 & 9 \\ \hline
+      Object3 & 4 & 5 \\ \hline
+      Object4 & 2 & 2 \\ \hline
+      Object5 & 8 & 7 \\ \hline
+      \end{tabular}
+
+      Write program code to amend the main program to:
+
+      \begin{itemize}
+      \item declare a new instance of \texttt{Board()}
+      \item store each \texttt{BoardObject} in the position given in the table
+      \item call \texttt{DisplayBoard()} for the new board object.
+      \end{itemize}
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the program code into part \textbf{1(c)(i)} in the evidence document. \\ \hline
+      \end{tabular}
+  - number: "1cii"
+    type: long_answer
+    text: |
+      Test your program.
+
+      Take a screenshot of the output(s).
+
+      \begin{tabular}{|l|}
+      \hline
+      Save your program. \\
+      Copy and paste the screenshot(s) into part \textbf{1(c)(ii)} in the evidence document. \\ \hline
+      \end{tabular}

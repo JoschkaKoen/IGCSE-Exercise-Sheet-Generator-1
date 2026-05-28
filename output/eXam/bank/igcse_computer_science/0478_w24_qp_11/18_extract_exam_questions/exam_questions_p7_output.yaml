@@ -1,0 +1,20 @@
+questions:
+  - number: "4b"
+    type: short_answer
+    text: |
+      The company decides to use parallel full-duplex data transmission to send the data across the network.
+  - number: "4bi"
+    type: long_answer
+    text: |
+      Explain the reasons why the company have chosen this method of data transmission.
+  - number: "4bii"
+    type: short_answer
+    text: |
+      Give \textbf{two} drawbacks of the company using this method of data transmission.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "4biii"
+    type: short_answer
+    text: |
+      Give \textbf{one} other method of data transmission the company could have chosen.

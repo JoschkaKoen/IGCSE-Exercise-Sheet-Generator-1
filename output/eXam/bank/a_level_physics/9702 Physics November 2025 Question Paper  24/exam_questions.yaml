@@ -1,0 +1,594 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A child kicks a ball so that it leaves horizontal ground with a velocity of
+    $28\text{ m}\,\text{s}^{-1}$ at an angle of $34^\circ$ to the horizontal, as shown
+    in Fig. 1.1.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Air resistance is negligible. The ball leaves the ground at time $t = 0$.
+    answer_options: []
+    subquestions:
+    - number: 1ai
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the horizontal component $v_{\text{H}}$ and the vertical component
+        $v_{\text{V}}$ of the velocity of the ball immediately after it has left the
+        ground.
+
+
+        $v_{\text{H}} = \hrulefill \text{ m}\,\text{s}^{-1}$
+
+        $v_{\text{V}} = \hrulefill \text{ m}\,\text{s}^{-1}$'
+      answer_options: []
+      subquestions: []
+    - number: 1aii
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that the ball reaches its maximum height at time $t = 1.6\text{ s}$.
+      answer_options: []
+      subquestions: []
+    - number: 1aiii
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: On Fig. 1.2, sketch the variation of $v_{\text{H}}$ with time $t$ between
+        $t = 0$ and $t = 3.2\text{ s}$. Label your line H.
+      answer_options: []
+      subquestions: []
+    - number: 1aiv
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: On Fig. 1.2, sketch the variation of $v_{\text{V}}$ with time $t$ between
+        $t = 0$ and $t = 3.2\text{ s}$. Assume that velocity in the upward direction
+        is positive. Label your line V.
+      answer_options: []
+      subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The total change in momentum of the ball between leaving the ground at $t
+      = 0$ and landing on the ground at $t = 3.2\text{ s}$ is $13\text{ kg}\,\text{m}\,\text{s}^{-1}$.
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Define momentum.
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the force that acts on the ball while it is in the air.
+
+
+        force = \hrulefill N'
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine the mass of the ball.
+
+
+        mass = \hrulefill kg'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Fig. 2.1 shows a square metal sheet of non-uniform density, with a thin wooden
+    rod fixed at its centre. One of the corners of the sheet is labelled X.
+
+
+    The rod has negligible mass. The mass of the metal sheet is $2.8 \text{ kg}$.
+
+    The rod is supported so that the rod is horizontal and the metal sheet is vertical.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Define the torque of a couple.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'When the rod is supported in such a way that it can rotate freely within
+      its support, the sheet hangs in equilibrium with point X vertically above the
+      rod, as shown in Fig. 2.2.
+
+
+      On Fig. 2.2, draw a line to indicate the range of possible positions for the
+      centre of gravity of the metal sheet.'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: When a torque of $3.3 \text{ N m}$ is applied to the rod, the sheet is held
+      in equilibrium with two of its edges horizontal, as shown in Fig. 2.3. Point
+      X is at the top-left corner.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Explain whether the torque applied to the rod to hold the sheet in equilibrium
+        is clockwise or anticlockwise.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that the centre of gravity of the sheet has a horizontal displacement
+        of $0.12 \text{ m}$ from the rod.
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The square metal sheet has an average density of $3000 \text{ kg m}^{-3}$
+      and a uniform thickness of $4.0 \text{ mm}$.
+
+
+      Show that the side length of the sheet is $0.48 \text{ m}$.'
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Use the answer in \textbf{(b)} and the information in \textbf{(c)} and \textbf{(d)}
+      to determine the position of the centre of gravity of the sheet. Indicate this
+      position on Fig. 2.3 with a point labelled Y.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A bungee jumper of mass $64\text{ kg}$ secures one end of an elastic rope
+    to a bridge. The other end is attached to the bungee jumper. The jumper falls
+    from rest from the bridge and descends into the valley below, as shown in Fig.
+    3.1.
+
+
+    Fig. 3.2 shows the variation of the tension $T$ in the rope with the vertical
+    distance $h$ of the jumper below the level of the bridge.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The rope obeys Hooke’s law.
+
+
+      State Hooke’s law.'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine the unstretched length of the rope.
+
+
+        length = \hrulefill m'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Determine the spring constant $k$ of the rope.
+
+
+        $k$ = \hrulefill $\text{N}\,\text{m}^{-1}$'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'For the position of the bungee jumper at a distance of $120\text{ m}$ below
+      the bridge:'
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: show that the loss of gravitational potential energy since leaving the
+        bridge is $75\text{ kJ}$
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: show that the elastic potential energy in the rope is $75\text{ kJ}$.
+      answer_options: []
+      subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain what can be deduced from the information in \textbf{(c)} about the
+      speed of the bungee jumper when at a distance of $120\text{ m}$ below the bridge.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State the principle of superposition.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'An electromagnetic wave of wavelength $0.026\text{ m}$ in free space is
+      incident normally on an aluminium sheet, as shown in Fig. 4.1.
+
+
+      The wave reflects at the aluminium sheet and a stationary wave is formed in
+      the region between the transmitter and the sheet.'
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Explain how the stationary wave, including its nodes and antinodes, is
+        formed.
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: calculation
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the frequency of the electromagnetic wave.
+
+
+        frequency = \hrulefill Hz'
+      answer_options: []
+      subquestions: []
+    - number: 4biii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the principal region of the electromagnetic spectrum to which the
+        wave belongs.
+      answer_options: []
+      subquestions: []
+    - number: 4biv
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine the distance between a node and an adjacent antinode.
+
+
+        distance = \hrulefill m'
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student uses a circuit containing an ammeter, a voltmeter and a cell to
+    take measurements to determine the resistance of a length of nichrome wire.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 5ai
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Define resistance.
+      answer_options: []
+      subquestions: []
+    - number: 5aii
+      question_type: short_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Draw a circuit diagram to show how the components should be connected.
+        Use the symbol for a resistor to represent the nichrome wire.
+      answer_options: []
+      subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The student also measures the length and the diameter of the wire. Table
+      5.1 shows the measurements recorded for each quantity.
+
+
+      \textbf{Table 5.1}
+
+
+      \begin{tabular}{|c|c|}
+
+      \hline
+
+      quantity & measurement \\ \hline
+
+      length & $(0.864 \pm 0.001)\text{ m}$ \\
+
+      diameter & $(0.496 \pm 0.002)\text{ mm}$ \\
+
+      voltmeter reading & $(1.38 \pm 0.02)\text{ V}$ \\
+
+      ammeter reading & $(0.276 \pm 0.001)\text{ A}$ \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: calculation
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that the resistance of the wire is $5.00\ \Omega$.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Calculate, to three significant figures, the resistivity $\rho$ of the
+        nichrome.
+
+
+        $\rho = \hrulefill \ \Omega\text{m}$'
+      answer_options: []
+      subquestions: []
+    - number: 5biii
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the percentage uncertainty in $\rho$.
+
+
+        $\text{percentage uncertainty} = \hrulefill \ \% $'
+      answer_options: []
+      subquestions: []
+    - number: 5biv
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Determine the absolute uncertainty in $\rho$.
+
+
+        $\text{absolute uncertainty} = \hrulefill \ \Omega\text{m}$'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Fig. 6.1 shows four alpha particles W, X, Y and Z moving towards a gold nucleus
+    that is in thin gold foil.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 6ai
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The paths of particles X and Z are shown.
+
+
+        Complete Fig. 6.1 to show possible paths for particles W and Y.'
+      answer_options: []
+      subquestions: []
+    - number: 6aii
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Describe what may be inferred about the structure of an atom from the
+        path of particle X.
+      answer_options: []
+      subquestions: []
+    - number: 6aiii
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'When a beam containing many alpha particles is incident on thin gold
+        foil, nearly all of the alpha particles follow paths that are similar to the
+        path of particle Z.
+
+
+        Describe what may be inferred from this about the structure of an atom.'
+      answer_options: []
+      subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State the mass and the charge, in terms of the atomic mass unit $u$ and
+      the elementary charge $e$, of an alpha particle.
+
+
+      mass = \hrulefill $u$
+
+      charge = \hrulefill $e$'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'There are two types of hadron.
+
+      The hadrons that are in alpha particles are each composed of three quarks.'
+    answer_options: []
+    subquestions:
+    - number: 6ci
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the name of this type of hadron.
+      answer_options: []
+      subquestions: []
+    - number: 6cii
+      question_type: short_answer
+      page: 15
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Show, by reference to their constituent quarks, that the hadrons in an
+        alpha particle have charges of either zero or $+1e$.
+      answer_options: []
+      subquestions: []

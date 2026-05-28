@@ -1,0 +1,60 @@
+[thinking]
+**Analyzing and Transcribing Exam Questions**
+
+Okay, so I'm presented with an image of an exam page (page 15), and the task is to transcribe the questions accurately. My first step is to carefully examine each question and its structure, paying close attention to question numbering and any potential inconsistencies.
+
+I see a sequence of questions starting with "7bi," "7bii," and "7biii."  I'm noting that 7bi asks for an expression for the magnetic force $F$, given certain variables.  7bii involves drawing an arrow on a diagram, and 7biii asks for a path to be drawn on the diagram as well. So far, so good – these are pretty straightforward.
+
+Now, here's where it gets interesting. I'm looking at "7c" in the stub, and the numbering jumps to "(c)(i)" and "(c)(ii)" directly on the page. There is no question labeled `7c` to begin these questions.  That immediately raises a red flag. I recall a rule about this; a stub entry's stem should always be visible.  If it isn't, I need to emit a `STUB ERROR`.
+
+I re-examine the image to confirm: no, there is no separate question stem for a general "7c". It directly starts with the sub-parts.  This definitely indicates a missing stem. Therefore, I'm going to follow the established rule and flag "7c" with `STUB ERROR`.
+
+With that sorted, I refine the transcriptions as follows.
+
+*   **7bi**:  A short answer question requiring an expression for the magnetic force. I carefully capture the variables provided, including the answer line.
+
+*   **7bii**:  A short answer question involving drawing an arrow on a diagram.
+
+*   **7biii**: A short answer question for drawing a path on a diagram.
+
+*   **7c**:  This is the tricky one. Because there is no visible stem, I'm noting the `STUB ERROR`.
+
+*   **7ci**:  A long-answer question explaining the interaction of electric and magnetic fields.
+
+*   **7cii**: A calculation question, asking for a derived expression for the velocity, $v$. Again, I capture the variables provided, including the answer line.
+
+I'm confident that this accurately represents the content of the image while adhering to the instructions regarding stub errors.
+
+
+
+[/thinking]
+
+questions:
+  - number: "7bi"
+    type: short_answer
+    text: |
+      State an expression, in terms of some or all of $m$, $Q$, $B$ and $v$, for the magnetic force $F$ that acts on the particle when it is at point Y.
+
+      $F = \hrulefill$
+  - number: "7bii"
+    type: short_answer
+    text: |
+      On Fig. 7.1, draw an arrow at point Y to indicate the direction of the force in \textbf{(b)(i)}.
+  - number: "7biii"
+    type: short_answer
+    text: |
+      On Fig. 7.1, draw a line to show a possible path for the particle through the region of the magnetic field.
+  - number: "7c"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7ci"
+    type: long_answer
+    text: |
+      Explain how an electric field can be used with the magnetic field to ensure that the particle in \textbf{(b)} now passes through point Z.
+  - number: "7cii"
+    type: calculation
+    text: |
+      Derive an expression for $v$ in terms of $B$ and the electric field strength $E$.
+
+      $v = \hrulefill$

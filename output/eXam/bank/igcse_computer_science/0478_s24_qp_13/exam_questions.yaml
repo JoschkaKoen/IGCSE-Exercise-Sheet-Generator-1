@@ -1,0 +1,614 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The size of a file can be measured in different units.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State how many bits there are in a byte.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State how many kibibytes (KiB) there are in 2 mebibytes (MiB).
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Identify the unit of data that is equal to 4 bits.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An image has a 16-bit colour depth and a resolution of $1000 \times 1750$
+    pixels.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State what is meant by a 16-bit colour depth.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The resolution of the image is changed to $750 \times 1500$ pixels.
+
+
+      Give the effect this will have on the file size of the image.'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A programmer is creating a computer game. One character is \textbf{not} moving
+    correctly.
+
+
+    The programmer needs to debug the program. To do this they need to look at addresses
+    that are locations in memory.
+
+
+    The addresses are displayed as hexadecimal numbers.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: One address is A2F.
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Convert the address to binary.
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Convert the address to denary.
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The binary number stored for another address is 000110011011.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Convert the binary number to hexadecimal.
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Convert the binary number to denary.
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} reason why the addresses are displayed in hexadecimal
+      instead of binary.
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Identify \textbf{two} other ways that hexadecimal is used in computer science.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3e
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The health value for a character in the computer game can sometimes be
+      a negative value. The negative values are stored as two’s complement 8-bit integers.
+
+
+      A character has a health value of $-25$.
+
+
+      Calculate the two’s complement 8-bit integer for $-25$. Show all your working.'
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: 'The table contains statements about types of secondary storage.
+
+
+    Complete the table by writing the correct type of secondary storage for each statement.
+
+
+    \begin{tabular}{|l|l|}
+
+    \hline
+
+    \textbf{type of secondary storage} & \textbf{statement} \\ \hline
+
+    \hrulefill & Pits and lands are created on a reflective surface. \\ \hline
+
+    \hrulefill & NAND or NOR technology is used. \\ \hline
+
+    \hrulefill & Platters are spun that are divided into tracks and sectors. \\ \hline
+
+    \hrulefill & Electromagnets are used to read and write data. \\ \hline
+
+    \hrulefill & Transistors are used as control gates and floating gates. \\ \hline
+
+    \hrulefill & A red or blue laser is used to read and write data. \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer uses both random access memory (RAM) and read only memory (ROM).
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: multiple_choice
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Tick ($\checkmark$) \textbf{one} box to show which statement is correct
+      about RAM.
+    answer_options:
+    - letter: A
+      text: It is non-volatile storage.
+    - letter: B
+      text: It stores the bootloader.
+    - letter: C
+      text: It stores data that is currently in use.
+    - letter: D
+      text: It is \textbf{not} directly accessible by the central processing unit
+        (CPU).
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'ROM is a type of primary storage.
+
+
+      State the characteristic of ROM that makes it a type of primary storage.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A sensor is an input device that is used to capture data from its surrounding
+    environment.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: multiple_choice
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Circle \textbf{three} other input devices.
+
+
+      \begin{itemize}
+
+      \item touch screen
+
+      \item hard disk drive (HDD)
+
+      \item headphones
+
+      \item speaker
+
+      \item microphone
+
+      \item actuator
+
+      \item universal serial bus (USB) drive
+
+      \item printer
+
+      \item keyboard
+
+      \end{itemize}'
+    answer_options:
+    - letter: A
+      text: touch screen
+    - letter: B
+      text: hard disk drive (HDD)
+    - letter: C
+      text: headphones
+    - letter: D
+      text: speaker
+    - letter: E
+      text: microphone
+    - letter: F
+      text: actuator
+    - letter: G
+      text: universal serial bus (USB) drive
+    - letter: H
+      text: printer
+    - letter: I
+      text: keyboard
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Sensors can be used in an automated system.
+
+
+      Give \textbf{two} benefits of using sensors in this type of system.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: "The table contains different types of sensors and a use for each.\n\nComplete\
+      \ the table by giving a suitable use for each type of sensor. The first one\
+      \ has been done for you.\n\n\\begin{tabular}{|l|l|}\n\\hline\n\\textbf{type\
+      \ of sensor} & \\textbf{use} \\\\ \\hline\nacoustic & to monitor whether a water\
+      \ pipe has cracked and is leaking and dripping onto the floor \\\\ \\hline\n\
+      temperature & \\\\\n & \\\\\n & \\\\ \\hline\nhumidity & \\\\\n & \\\\\n & \\\
+      \\ \\hline\ninfra-red & \\\\\n & \\\\\n & \\\\ \\hline\nmagnetic field & \\\\\
+      \n & \\\\\n & \\\\ \\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A company has a network that includes a web server.
+
+
+    Data is transmitted across the network using serial half-duplex data transmission.'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Draw and annotate a diagram to show how the data is transmitted using serial
+      half-duplex data transmission.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} benefits of the company using serial half-duplex data
+      transmission for this purpose.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} drawback of the company using serial half-duplex data
+      transmission for this purpose.
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The company uses a proxy server to help protect the web server and the network
+      from cyber security threats.
+    answer_options: []
+    subquestions:
+    - number: 7di
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Give \textbf{three} cyber security threats that the proxy server can
+        help protect against.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 7dii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Identify \textbf{two} functions of the proxy server that can be used
+        to help protect the web server and the network.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 7e
+    question_type: long_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'Customers access the company''s web pages that are stored on the web server.
+
+
+      Describe how the web pages are located, retrieved and displayed on a customer''s
+      computer.'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student has a computer that has a central processing unit (CPU).
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the role of the CPU in the computer.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The CPU contains registers.
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the purpose of a register.
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'Give \textbf{three} registers that are built into the CPU.
+
+
+        1. \hrulefill
+
+        2. \hrulefill
+
+        3. \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'One component in the CPU is the arithmetic logic unit (ALU).
+
+
+      Describe the purpose of the ALU.'
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The student wants to replace the CPU to increase the performance of the
+      computer.
+
+
+      Explain why a different CPU can increase the performance.'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A printer runs out of ink and needs a new ink cartridge. An interrupt is sent
+    and a message is generated to notify the user that the ink cartridge is empty.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: 'Complete the paragraph about the use of an interrupt in this process.
+
+
+      Use the terms from the list.
+
+
+      Some of the terms in the list will \textbf{not} be used. You should only use
+      a term once.
+
+
+      \begin{itemize}
+
+      \item binary
+
+      \item clock
+
+      \item computer
+
+      \item data
+
+      \item error
+
+      \item fetch–decode–execute cycle
+
+      \item hexadecimal
+
+      \item higher
+
+      \item interrupt queue
+
+      \item interrupt service routine (ISR)
+
+      \item lower
+
+      \item printer
+
+      \item priority level
+
+      \item secondary storage
+
+      \item sorting
+
+      \item transmission
+
+      \end{itemize}
+
+
+      The \underline{\hspace{1.5em}} sends an interrupt to the \underline{\hspace{1.5em}}.
+      The interrupt is given a \underline{\hspace{1.5em}}. The processor completes
+      its current \underline{\hspace{1.5em}} and checks the \underline{\hspace{1.5em}}
+      to see if there is an interrupt with \underline{\hspace{1.5em}} priority than
+      the current task. If there is, it stores the current task and fetches the interrupt.
+      It then calls the \underline{\hspace{1.5em}}, which is a sequence of instructions
+      that handles the interrupt. The interrupt is handled, which generates a message
+      to the user to notify them that the ink cartridge is empty.'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Handling interrupts is one function of an operating system.
+
+
+      Give \textbf{two} functions of an operating system that relate to memory.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []

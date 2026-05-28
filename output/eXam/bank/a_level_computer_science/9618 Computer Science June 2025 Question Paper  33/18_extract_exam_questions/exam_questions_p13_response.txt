@@ -1,0 +1,85 @@
+[thinking]
+**Transcribing and Formatting a Pseudocode Question**
+
+Okay, so the task is to transcribe Question 11, which is a pseudocode completion question. Right, let's get to it. I need to pull both the text and the pseudocode block itself. There are those blank lines represented by dotted lines in the pseudocode, which I need to handle carefully.
+
+The instructions specifically state that any multi-line code needs to be wrapped in a `\begin{alltt}...\end{alltt}` environment, which means verbatim-with-commands. Excellent. They also give explicit guidance on what to escape and what *not* to escape within that environment. Importantly, the assignment operator in the pseudocode needs to be an ASCII arrow `<-`, not a fancy math symbol. Makes sense, because it's text mode within the `alltt` environment. No math commands are allowed.
+
+Now, how to represent those dotted lines inside `alltt`... Ah, the key is `\hrulefill`! It's a command, so it works, and it will fill the space nicely without any confusion. Much cleaner than a series of dots. I'll use that. I reviewed the original lines and made sure I had the right indentation.
+
+After reviewing the specific instructions, I can be confident that I'm using the `\hrulefill` correctly and that the output will compile without error.
+
+Here's the pseudocode I am going to produce for Question 11:
+```latex
+\begin{alltt}
+DECLARE Location : INTEGER
+DECLARE NewStock : STRING
+DECLARE CurrentStock : STRING
+DECLARE Stored : BOOLEAN
+DECLARE Max : INTEGER
+Max <- 100000
+Stored <- FALSE
+Location <- 1
+\hrulefill
+OUTPUT "Enter the new item you wish to store: "
+INPUT NewStock
+WHILE NOT Stored AND Location <= Max
+   \hrulefill
+   GETRECORD "StockList.dat", \hrulefill
+   IF CurrentStock = "" THEN
+      \hrulefill "StockList.dat", NewStock
+      Stored <- TRUE
+   ELSE
+      Location <- Location + 1
+   ENDIF
+ENDWHILE
+\hrulefill THEN
+   OUTPUT "The new item has not been stored as the file was full."
+ENDIF
+CLOSEFILE "StockList.dat"
+\end{alltt}
+```
+That should be perfectly compliant and very readable. I feel confident about it.
+
+
+
+[/thinking]
+
+```yaml
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      The pseudocode algorithm below allows a user to input a new stock item. The random file is searched for the next empty location in the file and the new item is inserted there.
+      A suitable message is displayed if the file is full.
+
+      Complete this pseudocode.
+
+      \begin{alltt}
+      DECLARE Location : INTEGER
+      DECLARE NewStock : STRING
+      DECLARE CurrentStock : STRING
+      DECLARE Stored : BOOLEAN
+      DECLARE Max : INTEGER
+      Max <- 100000
+      Stored <- FALSE
+      Location <- 1
+      \hrulefill
+      OUTPUT "Enter the new item you wish to store: "
+      INPUT NewStock
+      WHILE NOT Stored AND Location <= Max
+         \hrulefill
+         GETRECORD "StockList.dat", \hrulefill
+         IF CurrentStock = "" THEN
+            \hrulefill "StockList.dat", NewStock
+            Stored <- TRUE
+         ELSE
+            Location <- Location + 1
+         ENDIF
+      ENDWHILE
+      \hrulefill THEN
+         OUTPUT "The new item has not been stored as the file was full."
+      ENDIF
+      CLOSEFILE "StockList.dat"
+      \end{alltt}
+```

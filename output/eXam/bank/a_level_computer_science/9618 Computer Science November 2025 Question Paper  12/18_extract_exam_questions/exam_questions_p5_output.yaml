@@ -1,0 +1,18 @@
+questions:
+  - number: "3c"
+    type: long_answer
+    text: |
+      A student buys a new computer. The table shows the specifications of the old computer and the new computer.
+
+      \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Old computer} & \textbf{New computer} \\ \hline
+      1.8 GHz dual core processor & 2.3 GHz dual core processor \\ \hline
+      16 MB cache & 32 MB cache \\ \hline
+      \end{tabular}
+
+      Explain why increasing the clock speed \textbf{and} increasing the cache memory will improve the performance of the computer.
+
+      Clock speed \hrulefill
+
+      Cache memory \hrulefill

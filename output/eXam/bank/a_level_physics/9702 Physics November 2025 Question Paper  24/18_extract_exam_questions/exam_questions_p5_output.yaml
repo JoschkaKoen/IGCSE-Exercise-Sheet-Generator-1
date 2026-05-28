@@ -1,0 +1,29 @@
+questions:
+  - number: "1aiii"
+    type: short_answer
+    text: |
+      On Fig. 1.2, sketch the variation of $v_{\text{H}}$ with time $t$ between $t = 0$ and $t = 3.2\text{ s}$. Label your line H.
+  - number: "1aiv"
+    type: short_answer
+    text: |
+      On Fig. 1.2, sketch the variation of $v_{\text{V}}$ with time $t$ between $t = 0$ and $t = 3.2\text{ s}$. Assume that velocity in the upward direction is positive. Label your line V.
+  - number: "1b"
+    type: short_answer
+    text: |
+      The total change in momentum of the ball between leaving the ground at $t = 0$ and landing on the ground at $t = 3.2\text{ s}$ is $13\text{ kg}\,\text{m}\,\text{s}^{-1}$.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      Define momentum.
+  - number: "1bii"
+    type: calculation
+    text: |
+      Calculate the force that acts on the ball while it is in the air.
+
+      force = \hrulefill N
+  - number: "1biii"
+    type: calculation
+    text: |
+      Determine the mass of the ball.
+
+      mass = \hrulefill kg
