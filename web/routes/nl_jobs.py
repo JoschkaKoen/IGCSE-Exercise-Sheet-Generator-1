@@ -168,9 +168,13 @@ async def create_job(body: CreateJobBody, request: Request) -> dict[str, str]:
 _LOG_LINES_PER_RESPONSE_CAP = 2000
 
 
+def _job_asset_path(job_id: str, suffix: str) -> str:
+    """Same-origin relative path for a job artifact (avoids mixed-content when behind TLS proxy)."""
+    return f"/api/jobs/{job_id}/{suffix}"
+
+
 @router.get("/api/jobs/{job_id}")
 async def job_status(
-    request: Request,
     job_id: str,
     since: int = Query(0, ge=0),
 ) -> JSONResponse:
@@ -183,7 +187,6 @@ async def job_status(
     rec = store.get(job_id)
     if rec is None:
         raise HTTPException(status_code=404, detail="Job not found")
-    base = str(request.base_url).rstrip("/")
     total_lines = len(rec.log_lines)
     start = min(since, total_lines)
     end = min(start + _LOG_LINES_PER_RESPONSE_CAP, total_lines)
@@ -205,26 +208,26 @@ async def job_status(
         ],
     }
     if rec.status == JobStatus.DONE and rec.output_pdf is not None:
-        out["download_url"] = f"{base}/api/jobs/{job_id}/file"
+        out["download_url"] = _job_asset_path(job_id, "file")
         if rec.answers_pdf is not None:
-            out["answers_url"] = f"{base}/api/jobs/{job_id}/answers"
+            out["answers_url"] = _job_asset_path(job_id, "answers")
         if rec.exercise_4up_pdf is not None:
-            out["four_up_url"] = f"{base}/api/jobs/{job_id}/four-up"
+            out["four_up_url"] = _job_asset_path(job_id, "four-up")
         if rec.exercise_2up_pdf is not None:
-            out["two_up_url"] = f"{base}/api/jobs/{job_id}/two-up"
+            out["two_up_url"] = _job_asset_path(job_id, "two-up")
         if rec.answers_4up_pdf is not None:
-            out["answers_four_up_url"] = f"{base}/api/jobs/{job_id}/answers-four-up"
+            out["answers_four_up_url"] = _job_asset_path(job_id, "answers-four-up")
         if rec.answers_2up_pdf is not None:
-            out["answers_two_up_url"] = f"{base}/api/jobs/{job_id}/answers-two-up"
+            out["answers_two_up_url"] = _job_asset_path(job_id, "answers-two-up")
         if rec.ranking_pdf is not None:
-            out["ranking_url"] = f"{base}/api/jobs/{job_id}/ranking"
+            out["ranking_url"] = _job_asset_path(job_id, "ranking")
         out["ranking_status"] = rec.ranking_status
         out["ranking_log_line"] = rec.ranking_log_line
-        out["download_all_url"] = f"{base}/api/jobs/{job_id}/download-all"
+        out["download_all_url"] = _job_asset_path(job_id, "download-all")
         cost_json_path = rec.output_pdf.parent / "ai_costs" / "cost.json"
         if cost_json_path.is_file():
-            out["cost_json_url"] = f"{base}/api/jobs/{job_id}/cost.json"
-            out["cost_md_url"] = f"{base}/api/jobs/{job_id}/cost.md"
+            out["cost_json_url"] = _job_asset_path(job_id, "cost.json")
+            out["cost_md_url"] = _job_asset_path(job_id, "cost.md")
         if rec.overview is not None:
             out["overview"] = rec.overview
     return JSONResponse(

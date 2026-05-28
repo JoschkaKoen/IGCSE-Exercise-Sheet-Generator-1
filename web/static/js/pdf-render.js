@@ -109,11 +109,23 @@ export async function destroyPdfTab(id) {
   if (stack) stack.innerHTML = '';
 }
 
+export function sameOriginAssetUrl(url) {
+  if (!url) return url;
+  if (url.charAt(0) === '/') return url;
+  try {
+    const u = new URL(url, window.location.origin);
+    // Host match only — API may emit http:// behind a TLS-terminating proxy.
+    if (u.hostname === window.location.hostname) return u.pathname + u.search;
+  } catch (e) { /* ignore */ }
+  return url;
+}
+
 export async function loadPdf(id, url) {
   await destroyPdfTab(id);
   const s = getPdfState(id);
   const pdfjs = await ensurePdfJs();
-  const fetchUrl = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'inline=1';
+  const assetUrl = sameOriginAssetUrl(url);
+  const fetchUrl = assetUrl + (assetUrl.indexOf('?') >= 0 ? '&' : '?') + 'inline=1';
   const loadingTask = pdfjs.getDocument({ url: fetchUrl, withCredentials: true });
   s.loadingTask = loadingTask;
   const doc = await loadingTask.promise;

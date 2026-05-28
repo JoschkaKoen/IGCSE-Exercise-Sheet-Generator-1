@@ -5,7 +5,7 @@
  */
 
 import { state, sleep } from './state.js';
-import { loadPdf, hideEmpty } from './pdf-render.js';
+import { loadPdf, hideEmpty, sameOriginAssetUrl } from './pdf-render.js';
 
 // ─── DOM refs private to this module ─────────────────────────────────────────
 
@@ -29,42 +29,43 @@ const tabBtnRanking        = document.getElementById('tab-btn-ranking');
 // ─── Download card population ─────────────────────────────────────────────────
 
 export function applyDoneData(done) {
-  dlMain.href = done.download_url || '#';
+  const dl = (u) => (u ? sameOriginAssetUrl(u) : u);
+  dlMain.href = dl(done.download_url) || '#';
   state.lastDownloadAllUrls = [
     done.download_url, done.answers_url, done.two_up_url,
     done.four_up_url, done.answers_two_up_url, done.answers_four_up_url,
     done.ranking_url,
-  ].filter(Boolean);
+  ].filter(Boolean).map(dl);
   if (dlAll) dlAll.href = '#';
   if (done.answers_url) {
-    dlAnswersMain.href = done.answers_url;
+    dlAnswersMain.href = dl(done.answers_url);
     dlAnswers.classList.remove('hidden');
   } else { dlAnswers.classList.add('hidden'); }
   if (done.answers_two_up_url) {
-    dlAnswersTwoUp.href = done.answers_two_up_url;
+    dlAnswersTwoUp.href = dl(done.answers_two_up_url);
     dlAnswersTwoUp.classList.remove('hidden');
   } else { dlAnswersTwoUp.classList.add('hidden'); }
   if (done.answers_four_up_url) {
-    dlAnswersFourUp.href = done.answers_four_up_url;
+    dlAnswersFourUp.href = dl(done.answers_four_up_url);
     dlAnswersFourUp.classList.remove('hidden');
   } else { dlAnswersFourUp.classList.add('hidden'); }
   if (done.four_up_url) {
-    dlFourUp.href = done.four_up_url;
+    dlFourUp.href = dl(done.four_up_url);
     dlFourUp.classList.remove('hidden');
   } else { dlFourUp.classList.add('hidden'); }
   if (done.two_up_url) {
-    dlTwoUp.href = done.two_up_url;
+    dlTwoUp.href = dl(done.two_up_url);
     dlTwoUp.classList.remove('hidden');
   } else { dlTwoUp.classList.add('hidden'); }
   if (dlCost) {
     if (done.cost_md_url) {
-      dlCost.href = done.cost_md_url;
+      dlCost.href = dl(done.cost_md_url);
       dlCost.classList.remove('hidden');
     } else { dlCost.classList.add('hidden'); }
   }
   if (dlRanking) {
     if (done.ranking_url) {
-      dlRanking.href = done.ranking_url;
+      dlRanking.href = dl(done.ranking_url);
       dlRanking.classList.remove('hidden');
       dlRanking.classList.remove('dl-card--ranking-generating');
       if (rankingIconChart) rankingIconChart.classList.remove('hidden');
