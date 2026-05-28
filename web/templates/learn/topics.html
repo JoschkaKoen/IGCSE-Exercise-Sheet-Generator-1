@@ -22,7 +22,7 @@
 {% endmacro %}
 {% macro content_body(html) %}
 {% if html %}
-<div class="learn-content-body rounded-xl border border-white/[0.06] bg-space-void p-4 sm:p-5">
+<div class="learn-content-body rounded-xl border border-white/[0.06] p-4 sm:p-5">
   {{ html | safe }}
 </div>
 <p class="mt-2 text-xs text-slate-500">{{ t('learn.content.cambridge_note') }}</p>
@@ -36,7 +36,7 @@
   <div class="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-cyan-300/80">
     {{ t('learn.handout.title') }}
   </div>
-  <div class="learn-content-body rounded-xl border border-white/[0.06] bg-space-void p-4 sm:p-5">
+  <div class="learn-content-body rounded-xl border border-white/[0.06] p-4 sm:p-5">
     {{ html | safe }}
   </div>
 </div>
@@ -82,23 +82,16 @@
         <ul class="border-t border-white/[0.06] px-2 py-2 flex flex-col gap-1">
           {% for sub in topic.subtopics %}
           <li>
-            <details class="group/sub rounded-lg">
-              <summary class="flex cursor-pointer list-none items-center gap-3
-                              rounded-lg px-3 py-2 text-sm text-slate-300 transition
-                              hover:bg-white/[0.05] hover:text-white
-                              focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+            <div class="rounded-lg">
+              <div class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-white">
                 <span class="inline-flex min-w-[2.5rem] justify-end font-mono text-xs
                              tabular-nums text-slate-500">{{ sub.number }}</span>
-                <span class="flex-1 truncate">{{ sub.title }}</span>
-                <svg class="h-3.5 w-3.5 text-slate-600 transition-transform group-open/sub:rotate-90"
-                     fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-              </summary>
+                <span class="flex-1 font-semibold">{{ sub.title }}</span>
+              </div>
               <div class="px-3 pb-3 pt-1">
                 {{ content_body(sub.content_html) }}
               </div>
-            </details>
+            </div>
           </li>
           {% endfor %}
         </ul>

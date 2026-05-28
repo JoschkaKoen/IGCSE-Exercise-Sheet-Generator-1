@@ -483,7 +483,8 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 /* ─── Learn subtopic content: markdown-rendered Core/Supplement table ──────── */
 .learn-content-body {
   font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  color: rgb(241, 245, 249);                       /* slate-100 */
+  color: rgb(254, 249, 195);                       /* yellow-100 — normal yellow body text */
+  background-color: rgb(3, 9, 26);                 /* darker navy — higher contrast */
   font-size: 1.0625rem;
   line-height: 1.7;
 }
@@ -504,7 +505,7 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .learn-content-body tbody td {
   vertical-align: top;
   padding: 0.7rem 0.85rem;
-  color: rgb(241, 245, 249);                       /* slate-100 */
+  color: rgb(254, 249, 195);                       /* yellow-100 — match body */
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 .learn-content-body tbody tr:nth-child(odd) td {
@@ -518,7 +519,7 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 }
 .learn-content-body .math.inline,
 .learn-content-body .math.block {
-  color: rgb(241, 245, 249);                       /* slate-100 */
+  color: rgb(255, 255, 255);                       /* white — formulas and numbers */
 }
 /* H3 sub-section headers (IGCSE Physics 1.5.1, 1.5.2, …) between tables. */
 .learn-content-body h3 {
@@ -545,4 +546,66 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .learn-content-body ol > li::marker {
   color: rgb(148, 163, 184);                       /* slate-400 */
   font-variant-numeric: tabular-nums;
+}
+/* Handout markdown elements (handouts use ##/###/#### + paragraphs, bullets, inline + fenced code). */
+.learn-content-body h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgb(165, 243, 252);                       /* cyan-200 — matches h3 family */
+}
+.learn-content-body h2:first-child { margin-top: 0; }
+.learn-content-body h4 {
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+  font-size: 1.0rem;
+  font-weight: 700;
+  color: rgb(255, 255, 255);                       /* white — sub-subsection heading */
+}
+.learn-content-body p { margin: 0.75rem 0; }
+.learn-content-body p:first-child { margin-top: 0; }
+.learn-content-body p:last-child { margin-bottom: 0; }
+.learn-content-body ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 0.75rem 0;
+}
+.learn-content-body ul > li {
+  margin: 0.35rem 0;
+  padding-left: 0.25rem;
+}
+.learn-content-body ul > li::marker {
+  color: rgb(148, 163, 184);                       /* slate-400 */
+}
+.learn-content-body strong {
+  font-weight: 700;
+  color: rgb(253, 224, 71);                        /* yellow-300 — emphasis brighter than body */
+}
+.learn-content-body em { font-style: italic; }
+.learn-content-body code {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.92em;
+  color: rgb(255, 255, 255);                       /* white — inline code */
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.25rem;
+  padding: 0.05rem 0.35rem;
+}
+.learn-content-body pre {
+  margin: 0.85rem 0;
+  padding: 0.85rem 1rem;
+  background-color: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.learn-content-body pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 1em;
+  color: rgb(255, 255, 255);                       /* white — fenced code blocks */
 }
