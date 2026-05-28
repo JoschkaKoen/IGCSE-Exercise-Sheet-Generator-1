@@ -1,0 +1,93 @@
+topic_number: '7'
+topic_title: Waves
+subject_key: a_level_physics
+covered_question_ids:
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '6'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '24'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '25'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '26'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '27'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '28'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '5'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '25'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '26'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '27'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '28'
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 5a
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 5bi
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 5bii
+- paper: 9702 Physics June 2025 Question Paper  22
+  qnum: 3a
+- paper: 9702 Physics June 2025 Question Paper  22
+  qnum: 3bi
+- paper: 9702 Physics June 2025 Question Paper  22
+  qnum: 3d
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 4ai
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 4aii
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 4aiii
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 4bi
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 6cii
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '24'
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '25'
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '26'
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '27'
+- paper: 9702 Physics November 2025 Question Paper  12
+  qnum: '24'
+- paper: 9702 Physics November 2025 Question Paper  12
+  qnum: '25'
+- paper: 9702 Physics November 2025 Question Paper  12
+  qnum: '26'
+- paper: 9702 Physics November 2025 Question Paper  12
+  qnum: '27'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '24'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '25'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '26'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '27'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '24'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '25'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '27'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '28'
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 4c
+- paper: 9702 Physics November 2025 Question Paper  22
+  qnum: 4b
+- paper: 9702 Physics November 2025 Question Paper  23
+  qnum: 4c
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 4bii
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 4biii
+generated_at: '2026-05-28T10:02:41Z'
+author: claude
+prompt_version: v1

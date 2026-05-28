@@ -1,0 +1,59 @@
+topic_number: '13'
+topic_title: Gravitational fields
+subject_key: a_level_physics
+covered_question_ids:
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 1a
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 1bi
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 1bii
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 1ci
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 1cii
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 2ai
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 2aii
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 2ci
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 3a
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 3bi
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 3bii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 3biii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 3c
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 1bii
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 2a
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 3a
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 3bi
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 3bii
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 3biii
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 3c
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 1a
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 1bi
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 1bii
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 1biii
+- paper: 9702 Physics November 2025 Question Paper  52
+  qnum: 2a
+- paper: 9702 Physics November 2025 Question Paper  52
+  qnum: 2e
+generated_at: '2026-05-28T10:07:13Z'
+author: claude
+prompt_version: v1

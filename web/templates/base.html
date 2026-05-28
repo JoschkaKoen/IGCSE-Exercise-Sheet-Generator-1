@@ -148,34 +148,35 @@
 
     <header class="site-header sticky top-0 z-20">
       <div class="site-header-inner mx-auto flex w-full max-w-5xl items-center px-4 py-3.5 sm:px-6">
-        <a href="/" class="site-header-brand shrink-0 font-display text-base font-semibold tracking-tight text-white sm:text-lg
-                           focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/80
-                           focus-visible:ring-offset-2 focus-visible:ring-offset-space-void rounded-md">
-          <span class="site-header-brand-stack">
-            <span class="site-header-brand-eyebrow">{{ t('brand.eyebrow') if t else 'Cambridge IGCSE' }}</span>
-            <span class="site-header-brand-titles">
-              <span class="site-header-brand-title site-header-brand-title--default bg-gradient-to-r from-cyan-300 via-blue-300 to-blue-400 bg-clip-text text-transparent">
-                <span class="">IGCSE &amp; A-Level</span>
-              </span>
-              <span class="site-header-brand-title site-header-brand-title--preview bg-gradient-to-r from-cyan-200 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
-                {{ t('brand.sheet_preview') if t else 'Sheet preview' }}
+        {# Brand + language flag share one grid cell so the flag never forces a new row in preview mode #}
+        <div class="site-header-brand-area shrink-0">
+          <a href="/" class="site-header-brand shrink-0 font-display text-base font-semibold tracking-tight text-white sm:text-lg
+                             focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/80
+                             focus-visible:ring-offset-2 focus-visible:ring-offset-space-void rounded-md">
+            <span class="site-header-brand-stack">
+              <span class="site-header-brand-eyebrow">{{ t('brand.eyebrow') if t else 'Cambridge IGCSE' }}</span>
+              <span class="site-header-brand-titles">
+                <span class="site-header-brand-title site-header-brand-title--default bg-gradient-to-r from-cyan-300 via-blue-300 to-blue-400 bg-clip-text text-transparent">
+                  <span class="">IGCSE &amp; A-Level</span>
+                </span>
+                <span class="site-header-brand-title site-header-brand-title--preview bg-gradient-to-r from-cyan-200 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
+                  {{ t('brand.sheet_preview') if t else 'Sheet preview' }}
+                </span>
               </span>
             </span>
-          </span>
-        </a>
-        {# Language toggle — flag shown is always the *destination* language
-           (UK in Chinese mode, CN in English mode). Sits to the immediate
-           right of the brand title. #}
-        <button type="button" id="lang-toggle"
-                class="site-header-lang-toggle ml-1 inline-flex h-7 w-7 shrink-0 items-center justify-center
-                       rounded-md text-base leading-none transition
-                       hover:bg-white/10 focus:outline-none focus-visible:ring-2
-                       focus-visible:ring-cyan-400/60"
-                style="font-family: 'Twemoji Country Flags', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"
-                aria-label="{{ t('lang.switch_aria') if t else 'Switch language' }}"
-                data-target-lang="{{ 'en' if lang == 'zh' else 'zh' }}">
-          {{ flag | default('🇨🇳') }}
-        </button>
+          </a>
+          {# Flag shown is always the *destination* language (UK in Chinese mode, CN in English mode). #}
+          <button type="button" id="lang-toggle"
+                  class="site-header-lang-toggle inline-flex h-7 w-7 shrink-0 items-center justify-center
+                         rounded-md text-base leading-none transition
+                         hover:bg-white/10 focus:outline-none focus-visible:ring-2
+                         focus-visible:ring-cyan-400/60"
+                  style="font-family: 'Twemoji Country Flags', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"
+                  aria-label="{{ t('lang.switch_aria') if t else 'Switch language' }}"
+                  data-target-lang="{{ 'en' if lang == 'zh' else 'zh' }}">
+            {{ flag | default('🇨🇳') }}
+          </button>
+        </div>
         <div class="site-header-preview-col">
           {% block preview_col_start %}{% endblock %}
           <div class="site-header-middle">

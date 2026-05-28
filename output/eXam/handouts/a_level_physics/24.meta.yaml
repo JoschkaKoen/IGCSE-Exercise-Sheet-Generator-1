@@ -1,0 +1,49 @@
+topic_number: '24'
+topic_title: Medical physics
+subject_key: a_level_physics
+covered_question_ids:
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 8di
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 8dii
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 8diii
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 6ci
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 6ciii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 10a
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 10b
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 10ci
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 10cii
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 10a
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 10bi
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 10bii
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 10biii
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 10c
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 10a
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 10b
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 10ci
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 10cii
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 8a
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 8di
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 8dii
+generated_at: '2026-05-28T10:16:20Z'
+author: claude
+prompt_version: v1

@@ -29,6 +29,11 @@ output/*
 output/eXam/*
 !output/eXam/bank/
 !output/eXam/bank/**
+!output/eXam/handouts/
+!output/eXam/handouts/**
+# Per-topic AI prompt/response logs — large and regeneratable; only the
+# .md and .meta.yaml under output/eXam/handouts/<subject>/ are tracked.
+output/eXam/handouts/**/*_logs/
 
 # Local test assets (scans, rosters)
 Space Physics Unit Test/

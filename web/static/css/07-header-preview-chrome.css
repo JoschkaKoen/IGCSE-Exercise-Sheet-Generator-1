@@ -33,6 +33,14 @@
   gap: 1rem;
 }
 
+/* Wraps the brand link + language flag so the grid sees one cell, not two */
+.site-header-brand-area {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
 /* Header wordmark: single line by default; stacked eyebrow + title in PDF preview */
 .site-header-brand-stack {
   display: flex;
@@ -91,7 +99,7 @@ body.preview-mode-active:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand
 }
 
 /* Wordmark block centered over the left column; text left-aligned inside the block */
-body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-area {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,7 +146,7 @@ body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden]))
     align-items: center;
   }
 
-  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-area {
     grid-column: 1;
   }
 
@@ -183,7 +191,7 @@ body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden]))
     align-items: center;
   }
 
-  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-area {
     grid-column: 1;
     grid-row: 1;
   }
@@ -217,7 +225,7 @@ body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden]))
     padding-bottom: 0.625rem;
     row-gap: 0.375rem;
   }
-  body:not(.preview-mode-active) .site-header-inner .site-header-brand {
+  body:not(.preview-mode-active) .site-header-inner .site-header-brand-area {
     flex: 0 0 100%;
   }
   body:not(.preview-mode-active) .site-header-inner .site-header-preview-col {
@@ -244,6 +252,12 @@ body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden]))
   body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-middle {
     grid-column: 1;
     grid-row: 2;
+  }
+  /* Brand link is hidden above; wrapper still occupies row 1 col 1 so the flag
+     stays visible. Nav sits at justify-self: end in the same cell, so pin the
+     wrapper to the left edge. */
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-area {
+    justify-self: start;
   }
 }
 

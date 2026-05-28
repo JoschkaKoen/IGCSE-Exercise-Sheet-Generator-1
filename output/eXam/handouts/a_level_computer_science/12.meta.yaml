@@ -1,0 +1,85 @@
+topic_number: '12'
+topic_title: Software Development
+subject_key: a_level_computer_science
+covered_question_ids:
+- paper: 9618 Computer Science June 2025 Question Paper  21
+  qnum: 2ai
+- paper: 9618 Computer Science June 2025 Question Paper  21
+  qnum: 2aii
+- paper: 9618 Computer Science June 2025 Question Paper  21
+  qnum: 2c
+- paper: 9618 Computer Science June 2025 Question Paper  21
+  qnum: 6a
+- paper: 9618 Computer Science June 2025 Question Paper  22
+  qnum: 1ai
+- paper: 9618 Computer Science June 2025 Question Paper  22
+  qnum: 1aii
+- paper: 9618 Computer Science June 2025 Question Paper  22
+  qnum: 1bi
+- paper: 9618 Computer Science June 2025 Question Paper  22
+  qnum: 1bii
+- paper: 9618 Computer Science June 2025 Question Paper  22
+  qnum: 2bi
+- paper: 9618 Computer Science June 2025 Question Paper  22
+  qnum: 2bii
+- paper: 9618 Computer Science June 2025 Question Paper  22
+  qnum: 2biii
+- paper: 9618 Computer Science June 2025 Question Paper  22
+  qnum: 5a
+- paper: 9618 Computer Science June 2025 Question Paper  23
+  qnum: 4b
+- paper: 9618 Computer Science June 2025 Question Paper  23
+  qnum: 6b
+- paper: 9618 Computer Science June 2025 Question Paper  23
+  qnum: 6c
+- paper: 9618 Computer Science November 2024 Question paper  21
+  qnum: 1a
+- paper: 9618 Computer Science November 2024 Question paper  21
+  qnum: 4a
+- paper: 9618 Computer Science November 2024 Question paper  21
+  qnum: 5a
+- paper: 9618 Computer Science November 2024 Question paper  21
+  qnum: 5bi
+- paper: 9618 Computer Science November 2024 Question paper  21
+  qnum: 5bii
+- paper: 9618 Computer Science November 2024 Question paper  21
+  qnum: 7a
+- paper: 9618 Computer Science November 2024 Question paper  21
+  qnum: 7b
+- paper: 9618 Computer Science November 2024 Question paper  22
+  qnum: 1a
+- paper: 9618 Computer Science November 2024 Question paper  22
+  qnum: 5a
+- paper: 9618 Computer Science November 2024 Question paper  22
+  qnum: 5b
+- paper: 9618 Computer Science November 2024 Question paper  22
+  qnum: 7c
+- paper: 9618 Computer Science November 2024 Question paper  22
+  qnum: 7d
+- paper: 9618 Computer Science November 2025 Question Paper  21
+  qnum: 1b
+- paper: 9618 Computer Science November 2025 Question Paper  21
+  qnum: 1c
+- paper: 9618 Computer Science November 2025 Question Paper  21
+  qnum: 7a
+- paper: 9618 Computer Science November 2025 Question Paper  21
+  qnum: 7b
+- paper: 9618 Computer Science November 2025 Question Paper  22
+  qnum: 5a
+- paper: 9618 Computer Science November 2025 Question Paper  22
+  qnum: 5b
+- paper: 9618 Computer Science November 2025 Question Paper  22
+  qnum: 7a
+- paper: 9618 Computer Science November 2025 Question Paper  22
+  qnum: 7b
+- paper: 9618 Computer Science November 2025 Question Paper  23
+  qnum: 6a
+- paper: 9618 Computer Science November 2025 Question Paper  23
+  qnum: 7a
+- paper: 9618 Computer Science November 2025 Question Paper  23
+  qnum: 7b
+- paper: 9618 Computer Science November 2025 Question Paper  43
+  qnum: 1dii
+generated_at: '2026-05-28T10:31:23Z'
+author: claude
+prompt_version: v1

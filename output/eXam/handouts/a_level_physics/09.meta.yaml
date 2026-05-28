@@ -1,0 +1,107 @@
+topic_number: '9'
+topic_title: Electricity
+subject_key: a_level_physics
+covered_question_ids:
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '32'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '33'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '34'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '35'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '32'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '33'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '34'
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 3biii
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 3cii
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 6ai
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 6aii
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 6aiii
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 6bii
+- paper: 9702 Physics June 2025 Question Paper  22
+  qnum: 6a
+- paper: 9702 Physics June 2025 Question Paper  22
+  qnum: 6bi
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 5ai
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 5aii
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 5bi
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 5bii
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 6b
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '31'
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '32'
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '33'
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '36'
+- paper: 9702 Physics November 2025 Question Paper  12
+  qnum: '32'
+- paper: 9702 Physics November 2025 Question Paper  12
+  qnum: '33'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '31'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '32'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '33'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '36'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '32'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '34'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '35'
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 3bi
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 3ci
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 3di
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 5bi
+- paper: 9702 Physics November 2025 Question Paper  22
+  qnum: 5biii
+- paper: 9702 Physics November 2025 Question Paper  23
+  qnum: 3bi
+- paper: 9702 Physics November 2025 Question Paper  23
+  qnum: 3ci
+- paper: 9702 Physics November 2025 Question Paper  23
+  qnum: 3di
+- paper: 9702 Physics November 2025 Question Paper  23
+  qnum: 5bi
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 5ai
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 5bi
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 5bii
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 5biii
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 5biv
+- paper: 9702 Physics November 2025 Question Paper  33
+  qnum: 2ai
+- paper: 9702 Physics November 2025 Question Paper  33
+  qnum: 2b
+- paper: 9702 Physics November 2025 Question Paper  33
+  qnum: 2c
+generated_at: '2026-05-28T10:04:07Z'
+author: claude
+prompt_version: v1

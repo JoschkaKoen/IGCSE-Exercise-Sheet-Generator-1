@@ -1,0 +1,51 @@
+topic_number: '5'
+topic_title: System Software
+subject_key: a_level_computer_science
+covered_question_ids:
+- paper: 9618 Computer Science June 2025 Question Paper  11
+  qnum: 6b
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 3a
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 4ai
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 4aii
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 4c
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 4di
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 4dii
+- paper: 9618 Computer Science November 2024 Question paper  12
+  qnum: 4a
+- paper: 9618 Computer Science November 2024 Question paper  12
+  qnum: 4b
+- paper: 9618 Computer Science November 2024 Question paper  22
+  qnum: 1b
+- paper: 9618 Computer Science November 2024 Question paper  22
+  qnum: 1c
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 5ai
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 5aii
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 5bi
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 5bii
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 5c
+- paper: 9618 Computer Science November 2025 Question Paper  12
+  qnum: 8bii
+- paper: 9618 Computer Science November 2025 Question Paper  12
+  qnum: 10a
+- paper: 9618 Computer Science November 2025 Question Paper  13
+  qnum: 8a
+- paper: 9618 Computer Science November 2025 Question Paper  13
+  qnum: 8b
+- paper: 9618 Computer Science November 2025 Question Paper  13
+  qnum: 8d
+- paper: 9618 Computer Science November 2025 Question Paper  21
+  qnum: 1c
+generated_at: '2026-05-28T10:23:51Z'
+author: claude
+prompt_version: v1

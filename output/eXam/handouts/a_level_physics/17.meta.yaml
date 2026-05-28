@@ -1,0 +1,105 @@
+topic_number: '17'
+topic_title: Oscillations
+subject_key: a_level_physics
+covered_question_ids:
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 5ai
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 5aii
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 5b
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 5c
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 5a
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 5bi
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 5bii
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 5biii
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 5biv
+- paper: 9702 Physics November 2025 Question Paper  31
+  qnum: 1aii
+- paper: 9702 Physics November 2025 Question Paper  31
+  qnum: 1b
+- paper: 9702 Physics November 2025 Question Paper  31
+  qnum: 1c
+- paper: 9702 Physics November 2025 Question Paper  31
+  qnum: 1di
+- paper: 9702 Physics November 2025 Question Paper  31
+  qnum: 1dii
+- paper: 9702 Physics November 2025 Question Paper  31
+  qnum: 1diii
+- paper: 9702 Physics November 2025 Question Paper  31
+  qnum: 1e
+- paper: 9702 Physics November 2025 Question Paper  33
+  qnum: 1b
+- paper: 9702 Physics November 2025 Question Paper  33
+  qnum: 1c
+- paper: 9702 Physics November 2025 Question Paper  33
+  qnum: 1di
+- paper: 9702 Physics November 2025 Question Paper  33
+  qnum: 1diii
+- paper: 9702 Physics November 2025 Question Paper  33
+  qnum: 1ei
+- paper: 9702 Physics November 2025 Question Paper  36
+  qnum: 1b
+- paper: 9702 Physics November 2025 Question Paper  36
+  qnum: 1ci
+- paper: 9702 Physics November 2025 Question Paper  36
+  qnum: 1ciii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 1ci
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 1cii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 1ciii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 1civ
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 1di
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 1dii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 1diii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 1e
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 5ai
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 5aii
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 5bi
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 5bii
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 1ci
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 1cii
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 1ciii
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 1civ
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 1di
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 1dii
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 1diii
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 1e
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 4a
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 4bi
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 4bii
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 4biii
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 4biv
+generated_at: '2026-05-28T10:10:24Z'
+author: claude
+prompt_version: v1

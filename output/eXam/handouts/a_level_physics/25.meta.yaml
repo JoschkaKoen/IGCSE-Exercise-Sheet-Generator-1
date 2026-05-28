@@ -1,0 +1,65 @@
+topic_number: '25'
+topic_title: Astronomy and cosmology
+subject_key: a_level_physics
+covered_question_ids:
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 10a
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 10bi
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 10bii
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 10biii
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 10c
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 9a
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 9b
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 9c
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 9cii
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 9d
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 9a
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 9b
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 9c
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 10a
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 10b
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 10c
+- paper: 9702 Physics November 2025 Question Paper  51
+  qnum: 2a
+- paper: 9702 Physics November 2025 Question Paper  51
+  qnum: 2ci
+- paper: 9702 Physics November 2025 Question Paper  51
+  qnum: 2cii
+- paper: 9702 Physics November 2025 Question Paper  51
+  qnum: 2ciii
+- paper: 9702 Physics November 2025 Question Paper  51
+  qnum: 2d
+- paper: 9702 Physics November 2025 Question Paper  51
+  qnum: 2e
+- paper: 9702 Physics November 2025 Question Paper  53
+  qnum: 2a
+- paper: 9702 Physics November 2025 Question Paper  53
+  qnum: 2b
+- paper: 9702 Physics November 2025 Question Paper  53
+  qnum: 2ci
+- paper: 9702 Physics November 2025 Question Paper  53
+  qnum: 2cii
+- paper: 9702 Physics November 2025 Question Paper  53
+  qnum: 2ciii
+- paper: 9702 Physics November 2025 Question Paper  53
+  qnum: 2d
+- paper: 9702 Physics November 2025 Question Paper  53
+  qnum: 2e
+generated_at: '2026-05-28T10:17:11Z'
+author: claude
+prompt_version: v1

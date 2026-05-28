@@ -1,0 +1,55 @@
+topic_number: '18'
+topic_title: Electric fields
+subject_key: a_level_physics
+covered_question_ids:
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 2a
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 2bii
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 2di
+- paper: 9702 Physics June 2025 Question Paper  41
+  qnum: 2dii
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 6a
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 6bi
+- paper: 9702 Physics June 2025 Question Paper  42
+  qnum: 6bii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 5a
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 5bi
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 5bii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 5biii
+- paper: 9702 Physics November 2025 Question Paper  41
+  qnum: 5biv
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 6a
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 6bi
+- paper: 9702 Physics November 2025 Question Paper  42
+  qnum: 6biv
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 5a
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 5bi
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 5bii
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 5biii
+- paper: 9702 Physics November 2025 Question Paper  43
+  qnum: 5biv
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 5a
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 5bi
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 5bii
+- paper: 9702 Physics November 2025 Question Paper  44
+  qnum: 5c
+generated_at: '2026-05-28T10:11:11Z'
+author: claude
+prompt_version: v1

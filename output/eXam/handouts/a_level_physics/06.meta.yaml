@@ -1,0 +1,99 @@
+topic_number: '6'
+topic_title: Deformation of solids
+subject_key: a_level_physics
+covered_question_ids:
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '21'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '22'
+- paper: 9702 Physics June 2025 Question Paper  11
+  qnum: '23'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '21'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '22'
+- paper: 9702 Physics June 2025 Question Paper  12
+  qnum: '23'
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 2ci
+- paper: 9702 Physics June 2025 Question Paper  21
+  qnum: 2cii
+- paper: 9702 Physics June 2025 Question Paper  22
+  qnum: 5a
+- paper: 9702 Physics June 2025 Question Paper  22
+  qnum: 5bi
+- paper: 9702 Physics June 2025 Question Paper  22
+  qnum: 5bii
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 3c
+- paper: 9702 Physics June 2025 Question Paper  24
+  qnum: 3d
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '20'
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '21'
+- paper: 9702 Physics November 2025 Question Paper  11
+  qnum: '23'
+- paper: 9702 Physics November 2025 Question Paper  12
+  qnum: '21'
+- paper: 9702 Physics November 2025 Question Paper  12
+  qnum: '22'
+- paper: 9702 Physics November 2025 Question Paper  12
+  qnum: '23'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '20'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '21'
+- paper: 9702 Physics November 2025 Question Paper  13
+  qnum: '23'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '20'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '21'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '22'
+- paper: 9702 Physics November 2025 Question Paper  14
+  qnum: '23'
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 3a
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 3bii
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 3ci
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 3cii
+- paper: 9702 Physics November 2025 Question Paper  21
+  qnum: 3dii
+- paper: 9702 Physics November 2025 Question Paper  22
+  qnum: 3bii
+- paper: 9702 Physics November 2025 Question Paper  22
+  qnum: 3ci
+- paper: 9702 Physics November 2025 Question Paper  22
+  qnum: 3cii
+- paper: 9702 Physics November 2025 Question Paper  23
+  qnum: 3a
+- paper: 9702 Physics November 2025 Question Paper  23
+  qnum: 3bii
+- paper: 9702 Physics November 2025 Question Paper  23
+  qnum: 3cii
+- paper: 9702 Physics November 2025 Question Paper  23
+  qnum: 3dii
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 3a
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 3bi
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 3bii
+- paper: 9702 Physics November 2025 Question Paper  24
+  qnum: 3cii
+- paper: 9702 Physics November 2025 Question Paper  31
+  qnum: 2d
+- paper: 9702 Physics November 2025 Question Paper  31
+  qnum: 2ei
+- paper: 9702 Physics November 2025 Question Paper  51
+  qnum: '1'
+- paper: 9702 Physics November 2025 Question Paper  53
+  qnum: '1'
+generated_at: '2026-05-28T10:01:46Z'
+author: claude
+prompt_version: v1

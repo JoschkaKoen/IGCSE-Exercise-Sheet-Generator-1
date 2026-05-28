@@ -1,0 +1,109 @@
+topic_number: '4'
+topic_title: Processor Fundamentals
+subject_key: a_level_computer_science
+covered_question_ids:
+- paper: 9618 Computer Science June 2025 Question Paper  11
+  qnum: 6aii
+- paper: 9618 Computer Science June 2025 Question Paper  11
+  qnum: 6aiii
+- paper: 9618 Computer Science June 2025 Question Paper  11
+  qnum: 8a
+- paper: 9618 Computer Science June 2025 Question Paper  11
+  qnum: 8bi
+- paper: 9618 Computer Science June 2025 Question Paper  11
+  qnum: 8bii
+- paper: 9618 Computer Science June 2025 Question Paper  11
+  qnum: 8biii
+- paper: 9618 Computer Science June 2025 Question Paper  12
+  qnum: 1a
+- paper: 9618 Computer Science June 2025 Question Paper  12
+  qnum: 1b
+- paper: 9618 Computer Science June 2025 Question Paper  12
+  qnum: 1c
+- paper: 9618 Computer Science June 2025 Question Paper  12
+  qnum: 7ai
+- paper: 9618 Computer Science June 2025 Question Paper  12
+  qnum: 7aii
+- paper: 9618 Computer Science June 2025 Question Paper  12
+  qnum: 7aiii
+- paper: 9618 Computer Science June 2025 Question Paper  12
+  qnum: 7bi
+- paper: 9618 Computer Science June 2025 Question Paper  12
+  qnum: 7bii
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 2ai
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 2aii
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 2b
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 2c
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 5ai
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 5aii
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 5b
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 7ai
+- paper: 9618 Computer Science June 2025 Question Paper  13
+  qnum: 7aii
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 3a
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 3bi
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 3bii
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 8a
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: 8b
+- paper: 9618 Computer Science November 2024 Question paper  12
+  qnum: 3a
+- paper: 9618 Computer Science November 2024 Question paper  12
+  qnum: 8a
+- paper: 9618 Computer Science November 2024 Question paper  12
+  qnum: 8bi
+- paper: 9618 Computer Science November 2024 Question paper  12
+  qnum: 8bii
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 4a
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 4b
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 4c
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 4d
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 6a
+- paper: 9618 Computer Science November 2025 Question Paper  11
+  qnum: 6b
+- paper: 9618 Computer Science November 2025 Question Paper  12
+  qnum: 3ai
+- paper: 9618 Computer Science November 2025 Question Paper  12
+  qnum: 3aii
+- paper: 9618 Computer Science November 2025 Question Paper  12
+  qnum: 3b
+- paper: 9618 Computer Science November 2025 Question Paper  12
+  qnum: 3c
+- paper: 9618 Computer Science November 2025 Question Paper  13
+  qnum: 2c
+- paper: 9618 Computer Science November 2025 Question Paper  13
+  qnum: 6a
+- paper: 9618 Computer Science November 2025 Question Paper  13
+  qnum: 6b
+- paper: 9618 Computer Science November 2025 Question Paper  13
+  qnum: 6c
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 11a
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 11b
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 5a
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: '11'
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: '13'
+generated_at: '2026-05-28T10:22:54Z'
+author: claude
+prompt_version: v1

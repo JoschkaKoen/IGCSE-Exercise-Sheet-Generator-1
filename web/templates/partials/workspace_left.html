@@ -80,7 +80,37 @@
           aria-live="polite"></span>
     </div>
 
-    <div class="hero-collapse mt-3.5">
+    <div class="mt-5 flex items-center gap-4">
+      <button type="submit" id="submit-btn"
+              class="btn-space-primary shrink-0 inline-flex items-center justify-center gap-2
+                     rounded-xl px-6 py-2.5 text-sm font-semibold text-white
+                     focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400
+                     focus-visible:ring-offset-2 focus-visible:ring-offset-space-deep">
+        <svg id="submit-icon-generate" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+          <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+          <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+        </svg>
+        <svg id="submit-icon-update" class="hidden h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        <span id="submit-label">{{ t('workspace.submit.generate') }}</span>
+      </button>
+      <!-- Inline status (shown while running, replaces button visually) -->
+      <div id="run-indicator" class="run-status-inline hidden" role="status" aria-live="polite">
+        <span class="gen-spinner shrink-0" aria-hidden="true">
+          <span class="gen-spinner-ring gen-spinner-ring--1"></span>
+          <span class="gen-spinner-ring gen-spinner-ring--2"></span>
+          <span class="gen-spinner-dot"></span>
+        </span>
+        <span id="job-log-line" class="min-w-0 flex-1 truncate font-mono text-[0.82rem] text-slate-300/90"></span>
+      </div>
+      <span class="kbd-hint" aria-hidden="true"></span>
+    </div>
+
+    <div class="hero-collapse mt-6">
     <!-- Example prompts (fill textarea on click) -->
     <div class="mb-3 flex items-center gap-3">
       <span class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">{{ t('library.level.igcse') }}</span>
@@ -211,36 +241,6 @@
         <span class="block text-[0.65rem] leading-snug text-rose-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
     </div>
-    </div>
-
-    <div class="mt-5 flex items-center gap-4">
-      <button type="submit" id="submit-btn"
-              class="btn-space-primary shrink-0 inline-flex items-center justify-center gap-2
-                     rounded-xl px-6 py-2.5 text-sm font-semibold text-white
-                     focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400
-                     focus-visible:ring-offset-2 focus-visible:ring-offset-space-deep">
-        <svg id="submit-icon-generate" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
-          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-          <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
-          <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
-        </svg>
-        <svg id="submit-icon-update" class="hidden h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-        </svg>
-        <span id="submit-label">{{ t('workspace.submit.generate') }}</span>
-      </button>
-      <!-- Inline status (shown while running, replaces button visually) -->
-      <div id="run-indicator" class="run-status-inline hidden" role="status" aria-live="polite">
-        <span class="gen-spinner shrink-0" aria-hidden="true">
-          <span class="gen-spinner-ring gen-spinner-ring--1"></span>
-          <span class="gen-spinner-ring gen-spinner-ring--2"></span>
-          <span class="gen-spinner-dot"></span>
-        </span>
-        <span id="job-log-line" class="min-w-0 flex-1 truncate font-mono text-[0.82rem] text-slate-300/90"></span>
-      </div>
-      <span class="kbd-hint" aria-hidden="true"></span>
     </div>
   </form>
   <script>
