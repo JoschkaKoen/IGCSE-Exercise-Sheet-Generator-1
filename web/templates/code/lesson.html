@@ -4,7 +4,11 @@
 <link rel="stylesheet" href="/static/css/16-code.css" />
 <link rel="stylesheet" href="/static/vendor/codemirror/lib/codemirror.css" />
 <script defer src="/static/vendor/codemirror/lib/codemirror.js"></script>
+{% if lesson.language == 'java' %}
+<script defer src="/static/vendor/codemirror/mode/clike/clike.js"></script>
+{% else %}
 <script defer src="/static/vendor/codemirror/mode/python/python.js"></script>
+{% endif %}
 <script defer src="/static/vendor/codemirror/addon/edit/closebrackets.js"></script>
 <script defer src="/static/vendor/codemirror/addon/edit/matchbrackets.js"></script>
 <script defer src="/static/vendor/codemirror/addon/comment/comment.js"></script>
@@ -13,7 +17,7 @@
 <script type="module" src="/static/js/code-playground.js"></script>
 {% endblock %}
 {% block content %}
-<div class="code-lesson" data-slug="{{ lesson.slug }}" data-nn="{{ lesson.nn }}" data-pyodide-url="/static/vendor/pyodide/">
+<div class="code-lesson" data-slug="{{ lesson.slug }}" data-nn="{{ lesson.nn }}" data-language="{{ lesson.language }}" data-pyodide-url="/static/vendor/pyodide/">
   <nav class="mb-2 text-xs text-slate-500">
     <a href="/code" class="hover:text-slate-300">{{ lesson.course_title }}</a>
     <span class="px-1.5">/</span>

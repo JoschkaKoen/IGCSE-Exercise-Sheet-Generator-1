@@ -190,6 +190,25 @@ _MIGRATIONS: list[str] = [
     );
     CREATE INDEX IF NOT EXISTS jobs_by_user ON jobs (user_id, created_at DESC);
     """,
+    # 2 → 3: server-backed progress for the /code Python playground.
+    # One JSON-blob row per (anonymous session, lesson) — mirrors the open_*
+    # pattern (session-keyed, nullable user_id for cross-device once logged in,
+    # backfilled by web.routes.account.link_open_session). ``state`` holds
+    # {"revealed": N, "tasks": {taskId: {done, attempts, ts}}}, the same shape
+    # the browser keeps in localStorage (code.steps.v1 / code.progress.v1).
+    """
+    CREATE TABLE IF NOT EXISTS code_progress (
+      id         INTEGER PRIMARY KEY,
+      session_id TEXT NOT NULL REFERENCES open_sessions(id) ON DELETE CASCADE,
+      user_id    INTEGER REFERENCES users(id),
+      slug       TEXT NOT NULL,
+      nn         TEXT NOT NULL,
+      state      TEXT NOT NULL,
+      updated_at TEXT NOT NULL,
+      UNIQUE (session_id, slug, nn)
+    );
+    CREATE INDEX IF NOT EXISTS code_progress_by_user ON code_progress (user_id, slug, nn);
+    """,
 ]
 
 

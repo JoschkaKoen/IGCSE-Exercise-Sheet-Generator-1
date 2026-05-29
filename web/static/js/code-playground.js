@@ -15,12 +15,21 @@ function t(key) {
   return (window.i18n && window.i18n[key]) || key;
 }
 
+// Like t(), but with an explicit fallback when the key is absent — used for the
+// Java-runtime messages, which may not have i18n keys yet.
+function msg(key, fallback) {
+  return (window.i18n && window.i18n[key]) || fallback;
+}
+
 const ROOT = document.querySelector(".code-lesson");
 if (ROOT) init(ROOT);
 
 function init(root) {
   const slug = root.dataset.slug;
   const nn = root.dataset.nn;
+  // "python" (Pyodide worker) or "java" (CheerpJ worker). Drives the worker URL,
+  // editor mode, the runnable-example selector, and how Stop interrupts.
+  const LANG = root.dataset.language || "python";
   const tasks = readTasks();
   const editors = {};
   const encoder = new TextEncoder();
@@ -29,6 +38,7 @@ function init(root) {
   let workerReady = false;
   let booting = null;
   let active = null;   // { el, mode: "run"|"check", kind: "task"|"example", taskId?, runBtn? }
+  let revealTo = null; // assigned by setupSteps(); lets the async server reconcile push the step count
 
   // Shared memory for the worker — only when cross-origin isolated (else
   // SharedArrayBuffer is undefined). Reading + stepping work without it.
@@ -46,6 +56,7 @@ function init(root) {
   initEditors();    // CodeMirror — regardless of isolation (typing needs no worker)
   wireExamples();   // ▶ on prose code blocks
   setupSteps();     // progressive-disclosure reveal engine
+  reconcileFromServer();   // hydrate revealed-count + completed tasks from the server (cross-device)
 
   if (!isolated) {  // execution disabled, but stepping/reading still works
     root.querySelectorAll(".code-run, .code-check, .code-stop, .code-example-run")
@@ -60,31 +71,36 @@ function init(root) {
     if (!steps.length) { if (wrap) wrap.hidden = true; return; }
 
     const key = `${slug}/${nn}`;
-    let revealed = 1;
-    const saved = readSteps()[key];
-    if (typeof saved === "number" && saved > revealed) revealed = Math.min(saved, steps.length);
-
-    steps.forEach((step, i) => {
-      step.hidden = i >= revealed;
-      if (i < revealed) refreshTaskEditor(step);
-    });
-    updateContinue();
-
-    if (btn) btn.addEventListener("click", () => {
-      if (revealed >= steps.length) return;
-      const step = steps[revealed];
-      step.hidden = false;
-      refreshTaskEditor(step);
-      revealed++;
-      saveSteps(key, revealed);
-      updateContinue();
-      step.scrollIntoView({ behavior: "smooth", block: "start" });
-      step.focus({ preventScroll: true });
-    });
+    let revealed = 0;
 
     function updateContinue() {
       if (wrap) wrap.hidden = revealed >= steps.length;
     }
+
+    // Reveal the first `n` steps. Monotonic — never re-hides — so the async
+    // server reconcile (revealTo) can only ever push the count up, never regress.
+    function show(n) {
+      n = Math.min(Math.max(n, 1), steps.length);
+      if (n <= revealed) { updateContinue(); return; }
+      for (let i = revealed; i < n; i++) {
+        steps[i].hidden = false;
+        refreshTaskEditor(steps[i]);
+      }
+      revealed = n;
+      updateContinue();
+    }
+    revealTo = show;   // expose to init scope for the server reconcile
+
+    show(Number(readSteps()[key]) || 1);
+
+    if (btn) btn.addEventListener("click", () => {
+      if (revealed >= steps.length) return;
+      const target = steps[revealed];   // first currently-hidden step
+      show(revealed + 1);
+      saveSteps(key, revealed);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      target.focus({ preventScroll: true });
+    });
   }
 
   function refreshTaskEditor(step) {
@@ -100,6 +116,7 @@ function init(root) {
     const s = readSteps();
     s[key] = n;
     try { localStorage.setItem(STEPS_KEY, JSON.stringify(s)); } catch (e) { /* quota */ }
+    serverPost({ revealed: n });
   }
 
   // ---- Editors -----------------------------------------------------------
@@ -108,7 +125,7 @@ function init(root) {
     if (!window.CodeMirror) { setTimeout(initEditors, 30); return; }
     root.querySelectorAll("textarea.code-editor").forEach((ta) => {
       const cm = window.CodeMirror.fromTextArea(ta, {
-        mode: "python",
+        mode: LANG === "java" ? "text/x-java" : "python",
         theme: "exercise",
         lineNumbers: false,
         indentUnit: 4,
@@ -139,7 +156,7 @@ function init(root) {
   // Make each ```python block runnable: wrap it, add a ▶ pinned bottom-right,
   // and an output box as a sibling AFTER the wrapper.
   function wireExamples() {
-    root.querySelectorAll(".code-prose pre > code.language-python").forEach((codeEl) => {
+    root.querySelectorAll(".code-prose pre > code.language-python, .code-prose pre > code.language-java").forEach((codeEl) => {
       const pre = codeEl.parentElement;
       if (!pre || pre.closest(".code-example")) return;
       const wrapEl = document.createElement("div");
@@ -172,7 +189,11 @@ function init(root) {
     if (workerReady) return Promise.resolve();
     if (booting) return booting;
     booting = new Promise((resolve, reject) => {
-      worker = new Worker("/static/js/code-worker.js", { type: "module" });
+      // Java uses a CLASSIC worker (it importScripts() the CheerpJ loader); Python
+      // uses the Pyodide module worker. Both speak the same message protocol.
+      worker = LANG === "java"
+        ? new Worker("/static/js/code-worker-java.js")
+        : new Worker("/static/js/code-worker.js", { type: "module" });
       worker.onmessage = (e) => handleWorker(e.data || {}, resolve, reject);
       worker.onerror = (e) => { booting = null; reject(new Error(e.message || "worker failed to load")); };
       worker.postMessage({
@@ -222,8 +243,12 @@ function init(root) {
   // Lazily boot the worker. Returns false (and finishes) if it fails to load.
   async function bootInto(el) {
     if (workerReady) return true;
-    // No "loading" text — the run button's running state is the feedback, and
-    // Pyodide is fetched only once (cached after). On failure, surface the error.
+    // Pyodide is cached after the first fetch, so its boot needs no message. The
+    // Java (CheerpJ) runtime is heavier and compiles helper classes on first boot,
+    // so show a one-time notice rather than a silent ~10–20s wait.
+    if (LANG === "java") {
+      appendSpan(el, msg("code.java.loading", "Loading the Java runtime — the first run downloads it (about 10–20s)…") + "\n", "code-sys");
+    }
     try { await ensureWorker(); }
     catch (err) { appendSpan(el, String(err.message || err) + "\n", "code-err"); finishRun(); return false; }
     return true;
@@ -291,7 +316,28 @@ function init(root) {
   }
 
   // ---- Stop / live input -------------------------------------------------
+  // CheerpJ has no interrupt buffer, so Java's only way to stop a runaway loop is
+  // to terminate the worker; it re-boots lazily on the next Run (cold start again).
+  function killWorker() {
+    if (worker) { try { worker.terminate(); } catch (e) { /* ignore */ } }
+    worker = null; workerReady = false; booting = null;
+  }
+
   function stopActive() {
+    if (LANG === "java") {
+      const a = active;
+      killWorker();
+      if (a) {
+        appendSpan(a.el, t("code.console.stopped") + "\n", "code-sys");
+        if (a.mode === "check") {
+          const box = resultBox(a.taskId);
+          if (box) { box.hidden = false; box.className = "code-result mt-2 code-result-fail"; box.textContent = t("code.console.stopped"); }
+        }
+      }
+      active = null;
+      setBusy(null);
+      return;
+    }
     Atomics.store(interruptView, 0, 2);   // SIGINT for CPU-bound loops
     Atomics.store(stdinMeta, 0, 2);        // EOF to unblock a pending input()
     Atomics.notify(stdinMeta, 0);
@@ -406,6 +452,7 @@ function init(root) {
     const prev = prog[key] || {};
     prog[key] = { done: true, ts: Date.now(), attempts: (prev.attempts || 0) + 1 };
     try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(prog)); } catch (e) { /* quota */ }
+    serverPost({ task: { id, done: true, attempts: prog[key].attempts } });
   }
   function markCompletedFromStorage() {
     const prog = readProgress();
@@ -415,6 +462,46 @@ function init(root) {
         const sec = root.querySelector(`.code-task[data-task-id="${id}"]`);
         if (sec) sec.classList.add("code-done");
       }
+    });
+  }
+
+  // ---- Server sync (cross-device; localStorage stays the offline cache) --
+  // Fire-and-forget: a failed request must never block the lesson. The server
+  // is authoritative across devices, so we merge its state UP into localStorage
+  // (monotonic — completed stays completed, revealed only rises).
+  function serverGet() {
+    return fetch(`/code/progress?slug=${encodeURIComponent(slug)}&nn=${encodeURIComponent(nn)}`,
+                 { credentials: "same-origin", headers: { Accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .catch(() => null);
+  }
+  function serverPost(body) {
+    fetch("/code/progress", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.assign({ slug, nn }, body)),
+    }).catch(() => { /* offline — localStorage already holds it */ });
+  }
+  function reconcileFromServer() {
+    serverGet().then((srv) => {
+      if (!srv) return;
+      if (revealTo && typeof srv.revealed === "number") revealTo(srv.revealed);
+      const prog = readProgress();
+      let changed = false;
+      Object.keys(srv.tasks || {}).forEach((id) => {
+        const t = srv.tasks[id];
+        if (!t || !t.done) return;
+        const k = `${slug}/${nn}/${id}`;
+        const prev = prog[k] || {};
+        const attempts = Math.max(prev.attempts || 0, t.attempts || 0);
+        if (!prev.done || attempts !== (prev.attempts || 0)) {
+          prog[k] = { done: true, ts: prev.ts || Date.now(), attempts };
+          changed = true;
+        }
+      });
+      if (changed) { try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(prog)); } catch (e) { /* quota */ } }
+      markCompletedFromStorage();   // re-apply .code-done after the merge (runs post-CodeMirror too)
     });
   }
 

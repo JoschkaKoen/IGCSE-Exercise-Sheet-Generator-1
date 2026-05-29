@@ -11,6 +11,7 @@ import datetime as _dt
 import os
 import re
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -215,6 +216,45 @@ def collect_questions_for_topic(
 
     out.sort(key=lambda q: (q.paper_stem, _natural_qnum_key(q.qnum_leaf)))
     return out
+
+
+@lru_cache(maxsize=32)
+def topic_qids(subject_key: str) -> dict[str, frozenset[str]]:
+    """Map each syllabus topic number → the set of **top-level** practice question
+    ids (``subject::paper_stem::N``) that touch it.
+
+    Built from the per-paper ``subtopic_matches.yaml`` sidecars alone — no full
+    paper parse (lighter than :func:`collect_questions_for_topic`, which returns
+    leaf text). Those sidecar keys are leaf-level for structured papers
+    (``1a``, ``2ci`` …), so each leaf is rolled up to its top-level integer and a
+    top-level question belongs to every topic that is the leading integer of any
+    of its leaves' codes — e.g. a question whose parts map to ``4.1`` and ``6.2``
+    appears under topics ``4`` and ``6``. MCQ papers are already top-level.
+
+    The picker serves whole top-level questions, so this returns the exact id
+    form ``open_mode.pick_random_question`` uses (``subject::stem::qnum``). Some
+    ids may name a question with no rendered snippet (matched but unservable);
+    the caller intersects with the servable set, so phantoms never get served.
+    ``frozenset`` values keep the lru_cached dict safe to share.
+    """
+    by_topic: dict[str, set[str]] = {}
+    for paper_stem in extracted_questions.list_papers(subject_key):
+        matches = extracted_questions.load_subtopic_matches(subject_key, paper_stem)
+        if not matches:
+            continue
+        # Roll leaf keys up to their top-level integer, unioning the codes.
+        toplevel_codes: dict[str, set[str]] = {}
+        for leaf_key, codes in matches.items():
+            m = re.match(r"\d+", str(leaf_key))
+            if m:
+                toplevel_codes.setdefault(m.group(), set()).update(codes)
+        for n, codes in toplevel_codes.items():
+            qid = f"{subject_key}::{paper_stem}::{n}"
+            for code in codes:
+                topic_num = str(code).split(".")[0].strip()
+                if topic_num.isdigit():
+                    by_topic.setdefault(topic_num, set()).add(qid)
+    return {k: frozenset(v) for k, v in by_topic.items()}
 
 
 # ── Output paths ─────────────────────────────────────────────────────────

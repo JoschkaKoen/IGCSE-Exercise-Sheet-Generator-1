@@ -339,6 +339,9 @@ STRINGS: dict[str, dict[str, str]] = {
         "practice.stat.viewed":    "viewed",
         "practice.stat.attempted": "attempted",
         "practice.stat.correct":   "correct",
+        "practice.topic.all":      "All topics",
+        "practice.topic.heading":  "Practice by topic",
+        "practice.topic.none":     "Topic list coming soon.",
         "practice.card.random":    "random 2025 questions",
         "practice.card.no_papers": "no 2025 papers available yet",
 
@@ -956,6 +959,9 @@ STRINGS: dict[str, dict[str, str]] = {
         "practice.stat.viewed":    "已看",
         "practice.stat.attempted": "已答",
         "practice.stat.correct":   "正确",
+        "practice.topic.all":      "全部主题",
+        "practice.topic.heading":  "按主题练习",
+        "practice.topic.none":     "主题列表即将推出。",
         "practice.card.random":    "随机 2025 年真题",
         "practice.card.no_papers": "暂无 2025 年试卷",
 

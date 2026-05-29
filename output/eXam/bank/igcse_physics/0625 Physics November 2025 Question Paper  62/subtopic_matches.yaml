@@ -1,0 +1,29 @@
+subject_key: igcse_physics
+paper_stem: 0625 Physics November 2025 Question Paper  62
+model: claude
+matched_at: '2026-05-29T11:24:32Z'
+matches:
+  1a: [3.2.1]
+  1b: [3.2.1]
+  1ci: [3.2.1]
+  1cii: [3.2.1]
+  1d: [3.2.1]
+  1e: [3.2.1]
+  1f: [3.2.1]
+  1g: [3.2.1]
+  2a: [4.2.4]
+  2bi: [4.2.4]
+  2bii: [4.2.4]
+  2c: [4.2.4]
+  2d: [4.2.4]
+  2e: [4.2.4]
+  3ai: [2.2.2]
+  3aii: [2.2.2]
+  3bi: [2.2.2]
+  3bii: [2.2.2]
+  3ci: [2.2.2]
+  3cii: [2.2.2]
+  3ciii: [2.2.2]
+  3d: [2.2.2]
+  3ei: [2.2.2]
+  3eii: [2.2.2]

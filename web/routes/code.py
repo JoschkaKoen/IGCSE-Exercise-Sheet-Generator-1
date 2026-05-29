@@ -17,15 +17,18 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, HTTPException, Query, Request, Response
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel, Field
 
+from eXam import open_mode
 from eXam.render_helper import render_helper_markdown
 
-from .. import code_content
+from .. import code_content, code_progress
 from ..i18n import detect_language
 from ..template_ctx import template_ctx
+from ..user_auth import current_user_id
 
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
@@ -71,3 +74,67 @@ async def lesson(request: Request, slug: str, nn: str):
         template_ctx(request, lesson=data),
         headers=_CODE_HTML_HEADERS,
     )
+
+
+# ── Progress sync ───────────────────────────────────────────────────────────
+# Server-backed mirror of the browser's localStorage (code.steps.v1 /
+# code.progress.v1). Keyed on the anonymous open-mode session, attributed to a
+# user_id once logged in (cross-device). The /code HTML pages are public, so
+# these JSON routes are too — they only ever read/write the caller's own row.
+# slug/nn are interpolated into a path, so they're regex-bounded before any
+# filesystem touch; a missing lesson 404s before a session is minted.
+
+_SLUG_RE = r"^[A-Za-z0-9_-]+$"
+_NN_RE = r"^[A-Za-z0-9]+$"
+
+
+def _lesson_exists(slug: str, nn: str) -> bool:
+    """Cheap existence check — avoids a full load_lesson() parse on the hot path."""
+    return (code_content.course_dir(slug) / f"{nn}.meta.yaml").is_file()
+
+
+class _ProgressTask(BaseModel):
+    id: str = Field(min_length=1, max_length=64)
+    done: bool = False
+    attempts: int = Field(default=0, ge=0, le=1_000_000)
+
+
+class _ProgressBody(BaseModel):
+    slug: str = Field(pattern=_SLUG_RE, max_length=64)
+    nn: str = Field(pattern=_NN_RE, max_length=16)
+    revealed: int | None = Field(default=None, ge=0, le=1000)
+    task: _ProgressTask | None = None
+
+
+@router.get("/progress", response_class=JSONResponse)
+async def get_progress(
+    request: Request,
+    response: Response,
+    slug: str = Query(pattern=_SLUG_RE, max_length=64),
+    nn: str = Query(pattern=_NN_RE, max_length=16),
+):
+    if not _lesson_exists(slug, nn):
+        raise HTTPException(status_code=404, detail="Lesson not found")
+    sid = open_mode.ensure_session(request, response)
+    uid = current_user_id(request)
+    data = code_progress.load_progress(sid, uid, slug, nn)
+    response.headers["Cache-Control"] = "no-store"  # per-user data under a shared URL
+    return JSONResponse(data, headers=dict(response.headers))
+
+
+@router.post("/progress", response_class=JSONResponse)
+async def post_progress(body: _ProgressBody, request: Request):
+    if not _lesson_exists(body.slug, body.nn):
+        raise HTTPException(status_code=404, detail="Lesson not found")
+    # Don't mint a session on a write — the page's GET already did. No cookie
+    # yet (e.g. cookies blocked) → no-op; the client keeps its localStorage.
+    sid = open_mode.current_session_id(request)
+    if not sid:
+        return {"ok": False}
+    uid = current_user_id(request)
+    code_progress.save_progress(
+        sid, uid, body.slug, body.nn,
+        revealed=body.revealed,
+        task=(body.task.model_dump() if body.task else None),
+    )
+    return {"ok": True}

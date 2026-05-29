@@ -144,12 +144,33 @@ def _paper_candidates(paper_path: Path, subject: str) -> tuple[int, ...]:
     return tuple(out)
 
 
+@lru_cache(maxsize=64)
+def subject_candidate_qids(
+    subject: str, years: int | tuple[int, ...] | None = None
+) -> frozenset[str]:
+    """Every **servable** question id (``subject::stem::qnum``) for *subject* —
+    the top-level questions with a rendered snippet across recent indexed papers.
+
+    Drives the topic picker's "available" counts (intersect a topic's qids with
+    this). Cached — warming is an offline admin step, so the set is stable."""
+    if years is None:
+        years = _recent_years()
+    out: set[str] = set()
+    for paper in list_practice_papers(subject, years):
+        if not (bank_dir_for(subject, paper) / "exam_questions.yaml").exists():
+            continue
+        for qnum in _paper_candidates(paper, subject):
+            out.add(f"{subject}::{paper.stem}::{qnum}")
+    return frozenset(out)
+
+
 def pick_random_question(
     subject: str,
     years: int | tuple[int, ...] | None = None,
     *,
     rng: random.Random | None = None,
     exclude: Iterable[str] = (),
+    allow: Iterable[str] | None = None,
 ) -> dict:
     """Pick a random recent QP for *subject*, ensure it's bank-indexed, pick a
     random gradable question. Returns the dict shape ``question_metadata`` uses,
@@ -158,11 +179,20 @@ def pick_random_question(
     ``exclude`` is a set of question_ids (``subject::paper_stem::qnum``) to
     avoid — typically what the session has already been shown. If every paper's
     candidates are excluded, falls back to allowing repeats (preferable to a 503).
+
+    ``allow`` restricts the pick to a set of question_ids (used by topic mode).
+    ``None`` means *no restriction* (the default); a set — even empty — means
+    *only these*. The restriction is applied in BOTH the unseen pass and the
+    exhaustion fallback, so an exhausted topic re-serves a repeat **within** the
+    topic rather than leaking an out-of-topic question. An empty allow set with
+    no matching candidate raises (callers pre-validate the topic, so unreachable
+    in normal flow).
     """
     if years is None:
         years = _recent_years()
     rng = rng or random.Random()
     exclude_set = set(exclude)
+    allow_set = None if allow is None else set(allow)
     papers = list(list_practice_papers(subject, years))
     if not papers:
         raise RuntimeError(f"No recent papers for subject {subject!r}")
@@ -176,27 +206,37 @@ def pick_random_question(
     def _qid(paper: Path, qnum: int) -> str:
         return f"{subject}::{paper.stem}::{qnum}"
 
+    def _allowed(cand_paper: Path) -> list[int]:
+        """Servable candidates for *cand_paper*, narrowed to ``allow`` (topic)."""
+        cands = _paper_candidates(cand_paper, subject)
+        if allow_set is None:
+            return list(cands)
+        return [n for n in cands if _qid(cand_paper, n) in allow_set]
+
     # Shuffle papers so the per-paper distribution stays uniform; iterate until
-    # we find one with at least one un-excluded candidate.
+    # we find one with at least one un-excluded candidate (within allow).
     order = list(indexed)
     rng.shuffle(order)
     paper_path: Path | None = None
     qnum: int | None = None
     for cand_paper in order:
-        cands = _paper_candidates(cand_paper, subject)
-        unseen = [n for n in cands if _qid(cand_paper, n) not in exclude_set]
+        unseen = [n for n in _allowed(cand_paper) if _qid(cand_paper, n) not in exclude_set]
         if unseen:
             paper_path = cand_paper
             qnum = rng.choice(unseen)
             break
 
     if paper_path is None:
-        # Pool exhausted for this session — fall back to original behaviour.
-        paper_path = rng.choice(indexed)
-        cands = _paper_candidates(paper_path, subject)
-        if not cands:
-            raise RuntimeError(f"Indexed paper has no rendered questions: {paper_path.name}")
-        qnum = rng.choice(cands)
+        # Pool exhausted for this session — re-serve a repeat, still within
+        # ``allow`` (dropping only ``exclude``). Raises only if nothing matches.
+        choices = [(p, allowed) for p in indexed if (allowed := _allowed(p))]
+        if not choices:
+            raise RuntimeError(
+                f"No rendered questions for subject {subject!r}"
+                + ("" if allow_set is None else " in the requested topic")
+            )
+        paper_path, allowed = rng.choice(choices)
+        qnum = rng.choice(allowed)
 
     # Safety net: snippet should exist (filter above), but ensure cache anyway.
     ensure_question_pdf(paper_path, qnum, subject=subject)

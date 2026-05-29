@@ -1,0 +1,10 @@
+slug: ap-csa
+language: java
+title:
+  en: AP CS A
+  zh: AP 计算机科学 A
+subtitle:
+  en: Java programming for the AP Computer Science A exam.
+  zh: 面向 AP 计算机科学 A 考试的 Java 编程。
+lessons:
+  - "01"

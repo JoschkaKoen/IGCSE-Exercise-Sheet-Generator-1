@@ -1,0 +1,29 @@
+subject_key: igcse_physics
+paper_stem: 0625 Physics November 2025 Question Paper  63
+model: claude
+matched_at: '2026-05-29T11:24:32Z'
+matches:
+  1ai: ['1.4']
+  1aii: ['1.4']
+  1b: ['1.4']
+  1c: ['1.4']
+  1di: ['1.4']
+  1dii: ['1.4']
+  1e: ['1.4']
+  1f: ['1.4']
+  2a: [4.2.4]
+  2bi: [4.2.4]
+  2bii: [4.2.4]
+  2c: [4.2.4]
+  2di: [4.2.4]
+  2dii: [4.2.4]
+  2e: [4.2.4]
+  2f: [4.2.4]
+  3a: [3.2.3]
+  3bi: [3.2.3]
+  3bii: [3.2.3]
+  3c: [3.2.3]
+  3di: [3.2.3]
+  3dii: [3.2.3]
+  3e: [3.2.3]
+  3f: [3.2.3]

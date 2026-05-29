@@ -125,7 +125,7 @@ figures:
     source_page_pdf: 74
     source_page_printed: 58
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [180.0, 125.0, 420.0, 247.0]
+    crop_rect_pts: [180.0, 125.0, 420.0, 217.2]
     placed_under: "### Second law"
   - file: assets/03-p74-newton-third-law-pair.png
     caption: "Newton's third-law pair: R on the book (up) and R′ on the table (down)"
@@ -133,7 +133,7 @@ figures:
     source_page_pdf: 74
     source_page_printed: 58
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [180.0, 393.0, 420.0, 508.0]
+    crop_rect_pts: [180.0, 393.0, 420.0, 480.2]
     placed_under: "### Third law"
   - file: assets/03-p75-book-pulled-on-table.png
     caption: Free-body diagram of a book being pulled on a table
@@ -141,7 +141,7 @@ figures:
     source_page_pdf: 75
     source_page_printed: 59
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [160.0, 30.0, 385.0, 162.0]
+    crop_rect_pts: [160.0, 30.0, 385.0, 155.9]
     placed_under: "### Friction and drag forces"
   - file: assets/03-p75-terminal-velocity-vt-graph.png
     caption: Velocity–time graph for an object falling through air
@@ -149,7 +149,7 @@ figures:
     source_page_pdf: 75
     source_page_printed: 59
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [28.0, 430.0, 130.0, 510.0]
+    crop_rect_pts: [28.0, 430.0, 130.0, 504.4]
     placed_under: "### An object falling through air"
   - file: assets/03-p75-forces-on-falling-object.png
     caption: Forces on a falling object in a fluid
@@ -157,7 +157,7 @@ figures:
     source_page_pdf: 75
     source_page_printed: 59
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [28.0, 608.0, 152.0, 715.0]
+    crop_rect_pts: [28.0, 608.0, 152.0, 702.4]
     placed_under: "### An object falling through air"
   - file: assets/03-p76-free-body-diagram.png
     caption: Free-body diagram showing all forces on a block being pulled at an angle
@@ -165,7 +165,7 @@ figures:
     source_page_pdf: 76
     source_page_printed: 60
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [185.0, 462.0, 378.0, 580.0]
+    crop_rect_pts: [185.0, 462.0, 378.0, 561.4]
     placed_under: "### Second law"
   - file: assets/03-p77-two-particles-system.png
     caption: "Newton's third law in an isolated two-particle system: equal and opposite forces"
@@ -173,7 +173,7 @@ figures:
     source_page_pdf: 77
     source_page_printed: 61
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [28.0, 355.0, 165.0, 445.0]
+    crop_rect_pts: [28.0, 355.0, 165.0, 416.0]
     placed_under: "### The principle"
   - file: assets/03-p78-head-on-collision.png
     caption: Head-on collision — velocities before and after
@@ -181,5 +181,13 @@ figures:
     source_page_pdf: 78
     source_page_printed: 62
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [38.0, 135.0, 170.0, 265.0]
+    crop_rect_pts: [38.0, 135.0, 170.0, 255.5]
     placed_under: "### Solving collision problems (one dimension)"
+  - file: assets/03-p82-glancing-collision.png
+    caption: A glancing collision resolved along two perpendicular axes
+    figure_ref: '3.23'
+    source_page_pdf: 82
+    source_page_printed: 66
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [198.0, 119.0, 452.0, 230.0]
+    placed_under: "### Collisions in two dimensions"

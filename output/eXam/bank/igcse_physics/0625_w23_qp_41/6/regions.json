@@ -1,0 +1,42 @@
+{
+  "detector_version": 4,
+  "is_mcq": false,
+  "pdf_height_pt": 828.3558349609375,
+  "pdf_width_pt": 595.0,
+  "regions": [
+    {
+      "assignment_confident": true,
+      "field_id": "6aii__0",
+      "kind": "equation_blank",
+      "leaf_number": "6aii",
+      "page": 1,
+      "x0": 347.8241271972656,
+      "x1": 539.526611328125,
+      "y0": 531.4364318847656,
+      "y1": 549.4364318847656
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "6b__0",
+      "kind": "lines",
+      "leaf_number": "6b",
+      "page": 1,
+      "x0": 65.47356414794922,
+      "x1": 559.781005859375,
+      "y0": 624.8536376953125,
+      "y1": 677.6484375
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "6c__0",
+      "kind": "lines",
+      "leaf_number": "6c",
+      "page": 1,
+      "x0": 65.47356414794922,
+      "x1": 559.781005859375,
+      "y0": 705.8622863769531,
+      "y1": 786.7059143066406
+    }
+  ],
+  "snippet_sha": "45eda1ee51687dc2"
+}

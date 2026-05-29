@@ -95,21 +95,13 @@ language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T04:59:18Z'
 glossed_at: '2026-05-29T04:59:18Z'
 figures:
-  - file: assets/02-p49-displacement-time-graph-tangent.png
-    caption: Gradient of the tangent on a displacement–time curve gives the instantaneous velocity
-    figure_ref: '2.4'
-    source_page_pdf: 49
-    source_page_printed: 33
-    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [39.0, 355.0, 175.0, 492.0]
-    placed_under: "### Displacement–time graph"
   - file: assets/02-p57-displacement-time-worked-example.png
     caption: Displacement–time graph of a car on a test track
     figure_ref: '2.18'
     source_page_pdf: 57
     source_page_printed: 41
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [170.0, 342.0, 525.0, 462.0]
+    crop_rect_pts: [170.0, 334.0, 525.0, 445.1]
     placed_under: "### Displacement–time graph"
   - file: assets/02-p58-velocity-time-graph.png
     caption: Velocity–time graph — gradient gives acceleration, area gives displacement
@@ -117,7 +109,7 @@ figures:
     source_page_pdf: 58
     source_page_printed: 42
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [183.0, 48.0, 535.0, 222.0]
+    crop_rect_pts: [183.0, 48.0, 535.0, 205.3]
     placed_under: "### Velocity–time graph"
   - file: assets/02-p58-acceleration-time-graph.png
     caption: Acceleration–time graph derived from the same motion
@@ -125,7 +117,7 @@ figures:
     source_page_pdf: 58
     source_page_printed: 42
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [183.0, 250.0, 530.0, 345.0]
+    crop_rect_pts: [183.0, 250.0, 530.0, 325.5]
     placed_under: "### Velocity–time graph"
   - file: assets/02-p57-suvat-displacement-time-parabola.png
     caption: Displacement–time graph for uniform acceleration — the slope at any point equals the instantaneous velocity
@@ -133,7 +125,7 @@ figures:
     source_page_pdf: 57
     source_page_printed: 41
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [35.0, 125.0, 165.0, 262.0]
+    crop_rect_pts: [35.0, 125.0, 165.0, 239.0]
     placed_under: "### Where the SUVAT equations come from"
   - file: assets/02-p53-free-fall-g-experiment.png
     caption: Experimental set-up for measuring the acceleration due to free fall
@@ -141,7 +133,7 @@ figures:
     source_page_pdf: 53
     source_page_printed: 37
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [155.0, 175.0, 555.0, 445.0]
+    crop_rect_pts: [155.0, 175.0, 555.0, 424.1]
     placed_under: "### Experiment to find $g$"
   - file: assets/02-p60-projectile-parabola-sprinkler.png
     caption: Water jets from a garden sprinkler trace parabola paths — a real example of projectile motion
@@ -157,7 +149,7 @@ figures:
     source_page_pdf: 60
     source_page_printed: 44
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [40.0, 296.0, 178.0, 395.0]
+    crop_rect_pts: [40.0, 296.0, 178.0, 375.9]
     placed_under: "### Projectile at an angle"
   - file: assets/02-p60-projectile-range-diagram.png
     caption: Range R of a projectile launched from and landing on level ground
@@ -165,5 +157,5 @@ figures:
     source_page_pdf: 60
     source_page_printed: 44
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [38.0, 390.0, 175.0, 480.0]
+    crop_rect_pts: [38.0, 390.0, 175.0, 463.5]
     placed_under: "### Projectile at an angle"

@@ -151,6 +151,28 @@
   </div>
 </header>
 
+{% if topics and not review_mode %}
+<nav class="mb-5 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1" aria-label="{{ t('practice.topic.heading') }}">
+  <a href="/eXam/practice/{{ subject }}"
+     class="shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium transition focus:outline-none focus:ring-2 focus:ring-cyan-400/40 {% if not active_topic %}border-cyan-400/40 bg-cyan-400/10 text-white{% else %}border-white/[0.08] bg-white/[0.04] text-slate-300 hover:bg-white/[0.08]{% endif %}">
+    {{ t('practice.topic.all') }}
+  </a>
+  {% for topic in topics %}
+  <a href="/eXam/practice/{{ subject }}?topic={{ topic.number }}"
+     class="shrink-0 inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition focus:outline-none focus:ring-2 focus:ring-cyan-400/40 {% if active_topic == topic.number %}border-cyan-400/40 bg-cyan-400/10 text-white{% else %}border-white/[0.08] bg-white/[0.04] text-slate-300 hover:bg-white/[0.08]{% endif %}">
+    <span class="font-medium">{{ topic.number }}. {{ topic.title }}</span>
+    <span class="tabular-nums text-slate-500">{{ topic.available }}</span>
+    {% if topic.correct > 0 %}
+    <span class="inline-flex items-center gap-0.5 text-emerald-300">
+      <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
+      <span class="tabular-nums">{{ topic.correct }}</span>
+    </span>
+    {% endif %}
+  </a>
+  {% endfor %}
+</nav>
+{% endif %}
+
 {% if review_mode %}
 <nav class="mb-4 flex items-center justify-between gap-2 text-sm">
   {% if review_index > 0 %}
@@ -362,6 +384,7 @@ const REVIEW_FILTER = {{ (review_filter or '')|tojson }};
 const REVIEW_INDEX = {{ (review_index or 0)|tojson }};
 const REVIEW_TOTAL = {{ (review_total or 0)|tojson }};
 const REVIEW_SUBJECT = {{ (review_subject or '')|tojson }};
+const TOPIC = {{ (active_topic or '')|tojson }};   // active topic filter (practice mode); "" = all
 
 // Set by renderSnippet once the PDF loads. Used by positionOverlays to map
 // PDF-point bboxes from regions.json to canvas-relative CSS pixels.
@@ -370,7 +393,11 @@ let _pdfHeightPt = {{ meta.pdf_height_pt or 842 }};
 let _regionsPayload = null;
 
 function reviewNextHref() {
-  if (!REVIEW_MODE) return "/eXam/practice/" + encodeURIComponent(SUBJECT);
+  if (!REVIEW_MODE) {
+    // Stay within the active topic across "next question" (and post-submit).
+    return "/eXam/practice/" + encodeURIComponent(SUBJECT)
+         + (TOPIC ? "?topic=" + encodeURIComponent(TOPIC) : "");
+  }
   const subjectQS = REVIEW_SUBJECT ? "?subject=" + encodeURIComponent(REVIEW_SUBJECT) : "";
   if (REVIEW_INDEX + 1 < REVIEW_TOTAL) {
     return "/eXam/practice/review/" + REVIEW_FILTER + "/" + (REVIEW_INDEX + 1) + subjectQS;

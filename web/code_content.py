@@ -128,6 +128,8 @@ def load_lesson(slug: str, nn: str, lang: str) -> dict[str, Any] | None:
             "id": tid,
             "starter": starter,
             "stdin": str(task.get("stdin") or ""),
+            # Optional read-only support files (Java: extra .java compiled alongside).
+            "files": task.get("files") if isinstance(task.get("files"), dict) else {},
             "check": task.get("check") if isinstance(task.get("check"), dict) else {},
         })
 

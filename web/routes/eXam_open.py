@@ -19,6 +19,8 @@ from pydantic import BaseModel, Field, field_validator
 from eXam import open_mode
 from eXam.runtime import pdf_path_for
 
+from ..handouts_collect import topic_qids
+from ..syllabus_topics import load_topics
 from ..template_ctx import template_ctx
 
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
@@ -67,14 +69,58 @@ async def landing(request: Request, response: Response):
     )
 
 
+def _build_topic_picker(subject: str, sid: str) -> list[dict]:
+    """Topic chips for *subject*: ``{number, title, available, attempted, correct}``.
+
+    Drops topics with no servable question (so an empty topic never shows / is
+    never linkable). ``available`` = matched ∩ rendered-snippet; the activity
+    counts intersect the topic's qids with the session's attempted/correct sets
+    (fetched once each — not per topic). Empty when the subject has no topic YAML.
+    """
+    topics = (load_topics(subject) or {}).get("topics") or []
+    if not topics:
+        return []
+    qids_by_topic = topic_qids(subject)
+    servable = open_mode.subject_candidate_qids(subject)
+    correct = {q for q, _ in open_mode.session_filtered_qids(sid, "correct", subject=subject)}
+    attempted = {q for q, _ in open_mode.session_filtered_qids(sid, "attempted", subject=subject)}
+    out: list[dict] = []
+    for t in topics:
+        num = str(t.get("number") or "").strip()
+        if not num:
+            continue
+        qids = qids_by_topic.get(num, frozenset()) & servable
+        if not qids:
+            continue
+        out.append({
+            "number": num,
+            "title": t.get("title") or num,
+            "available": len(qids),
+            "attempted": len(qids & attempted),
+            "correct": len(qids & correct),
+        })
+    return out
+
+
 @router.get("/{subject}", response_class=HTMLResponse)
-async def take(request: Request, response: Response, subject: str):
-    if subject not in {s["slug"] for s in open_mode.subject_grid()}:
+async def take(request: Request, response: Response, subject: str, topic: str | None = None):
+    grid = open_mode.subject_grid()
+    if subject not in {s["slug"] for s in grid}:
         raise HTTPException(status_code=404, detail="Unknown subject")
     sid = open_mode.ensure_session(request, response)
+
+    topics = _build_topic_picker(subject, sid)
+    allow = None
+    active_topic = None
+    if topic is not None:
+        if topic not in {t["number"] for t in topics}:
+            raise HTTPException(status_code=404, detail="Unknown topic")
+        allow = topic_qids(subject).get(topic) or set()
+        active_topic = topic
+
     seen = open_mode.session_seen_qids(sid, subject)
     try:
-        meta = open_mode.pick_random_question(subject, exclude=seen)
+        meta = open_mode.pick_random_question(subject, exclude=seen, allow=allow)
     except RuntimeError as e:
         raise HTTPException(status_code=503, detail=str(e))
     open_mode.record_view(sid, meta["question_id"], subject)
@@ -87,11 +133,13 @@ async def take(request: Request, response: Response, subject: str):
             request,
             subject=subject,
             subject_display=next(
-                (s["display"] for s in open_mode.subject_grid() if s["slug"] == subject),
+                (s["display"] for s in grid if s["slug"] == subject),
                 subject,
             ),
             meta=meta,
             stats=stats,
+            topics=topics,
+            active_topic=active_topic,
         ),
         headers=dict(response.headers),
     )

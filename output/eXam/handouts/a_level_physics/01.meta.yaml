@@ -275,7 +275,7 @@ figures:
     source_page_pdf: 27
     source_page_printed: 11
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [47.3, 505.0, 148.7, 726.0]
+    crop_rect_pts: [47.3, 505.0, 153.0, 722.3]
     placed_under: "### Precision and accuracy"
   - file: assets/01-p30-zero-error-ammeter.png
     caption: "An ammeter with a zero error: the needle reads below zero before any current flows"
@@ -307,7 +307,7 @@ figures:
     source_page_pdf: 36
     source_page_printed: 20
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [181.0, 461.0, 465.0, 628.0]
+    crop_rect_pts: [181.0, 438.0, 465.0, 628.0]
     placed_under: "### Adding and subtracting vectors"
   - file: assets/01-p39-vector-resolution-components.png
     caption: Resolving a vector into horizontal and vertical components

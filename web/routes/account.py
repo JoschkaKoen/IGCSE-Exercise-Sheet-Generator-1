@@ -222,6 +222,10 @@ def link_open_session(uid: int, sid: str) -> None:
                 "UPDATE open_attempts SET user_id = ? WHERE session_id = ? AND user_id IS NULL",
                 (uid, sid),
             )
+            conn.execute(
+                "UPDATE code_progress SET user_id = ? WHERE session_id = ? AND user_id IS NULL",
+                (uid, sid),
+            )
     except sqlite3.Error:
         pass
 

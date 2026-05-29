@@ -168,3 +168,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:03:18Z'
 glossed_at: '2026-05-29T05:03:18Z'
+figures:
+  - file: assets/04-p90-moment-of-a-force.png
+    caption: The moment depends on the perpendicular distance d from the pivot to the line of action of the force
+    figure_ref: '4.2'
+    source_page_pdf: 90
+    source_page_printed: 74
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [50.0, 215.0, 166.0, 355.7]
+    placed_under: "### Moment of a force"
+  - file: assets/04-p91-torque-of-a-couple.png
+    caption: "A couple: two equal and opposite forces, a distance apart, producing a torque"
+    figure_ref: '4.5'
+    source_page_pdf: 91
+    source_page_printed: 75
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [37.0, 225.0, 147.0, 300.0]
+    placed_under: "### Couple and torque"
+  - file: assets/04-p92-principle-of-moments.png
+    caption: Weights on a rule balanced at a pivot — used to test the principle of moments
+    figure_ref: '4.7'
+    source_page_pdf: 92
+    source_page_printed: 76
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [178.0, 82.0, 400.0, 179.0]
+    placed_under: "### Principle of moments"
+  - file: assets/04-p94-hydrostatic-pressure-column.png
+    caption: "A column of liquid of area A: its weight sets the extra pressure at the depth below"
+    figure_ref: '4.12'
+    source_page_pdf: 94
+    source_page_printed: 78
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [55.0, 578.0, 167.0, 705.0]
+    placed_under: "### Hydrostatic pressure"
+  - file: assets/04-p95-upthrust-origin.png
+    caption: Upthrust arises because the pressure on the bottom of the object is greater than on the top
+    figure_ref: '4.13'
+    source_page_pdf: 95
+    source_page_printed: 79
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [46.0, 410.0, 152.0, 611.4]
+    placed_under: "### Upthrust and Archimedes' principle"

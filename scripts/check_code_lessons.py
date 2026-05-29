@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -39,7 +40,18 @@ from web import code_content  # noqa: E402
 PY = sys.executable
 SPLIT_RE = re.compile(r"(?m)^\s*-{3,}\s*$")
 PY_FENCE_RE = re.compile(r"```python\n(.*?)\n```", re.S)
+JAVA_FENCE_RE = re.compile(r"```java\n(.*?)\n```", re.S)
 TIMEOUT = 10
+
+# Java toolchain (only used by `language: java` courses). Language level is pinned
+# to 8 to match the CheerpJ runtime (version 8) the browser uses, so a feature that
+# would compile here but not in-browser is caught. A missing JDK makes the Java
+# compile + solvability checks a skipped warning, never a hard failure.
+JAVAC = shutil.which("javac")
+JAVA = shutil.which("java")
+JAVA_RELEASE = "8"
+TYPE_DECL_RE = re.compile(r"\b(?:class|interface|enum)\s+([A-Za-z_]\w*)")
+PUBLIC_TYPE_RE = re.compile(r"\bpublic\s+(?:final\s+|abstract\s+)?(?:class|interface|enum)\s+([A-Za-z_]\w*)")
 
 # Subprocess harness — mirrors the browser worker's check logic. argv[1] is a JSON
 # task spec {solution, stdin, check}. Exits non-zero (with a message on stderr) if
@@ -70,6 +82,7 @@ if chk.get("kind") == "stdout":
 
 errors: list[str] = []
 warnings: list[str] = []
+_jdk_warned = False
 
 
 def err(where: str, msg: str) -> None:
@@ -109,7 +122,98 @@ def run_solution(where: str, task: dict) -> None:
             (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
 
 
-def check_lesson(slug: str, nn: str) -> None:
+# ---- Java path (mirrors web/static/js/code-worker-java.js) --------------------
+
+def _derive_class_name(src: str) -> str:
+    """Public top-level type name (Java requires it to match the filename)."""
+    m = PUBLIC_TYPE_RE.search(src or "") or TYPE_DECL_RE.search(src or "")
+    return m.group(1) if m else "Main"
+
+
+def _java_files_for(task: dict, solution: str) -> tuple[dict[str, str], str]:
+    """{filename: source} + main class for a Java task's solution run — same
+    filename derivation and harness layout the browser worker uses."""
+    chk = task.get("check") or {}
+    files: dict[str, str] = {}
+    if isinstance(task.get("files"), dict):
+        files.update({str(k): str(v) for k, v in task["files"].items()})
+    student_cls = _derive_class_name(solution)
+    files[f"{student_cls}.java"] = solution
+    main_class = chk.get("main_class") or student_cls
+    if chk.get("kind") == "harness":
+        hc = chk.get("main_class") or "Harness"
+        files[f"{hc}.java"] = chk.get("code") or ""
+        main_class = hc
+    return files, main_class
+
+
+def java_compile_ok(where: str, label: str, src: str, severity: str = "err") -> None:
+    """javac --release 8 a full compilation unit. Snippets without a top-level
+    type (illustrative fences) are skipped, as are runs with no JDK."""
+    if not JAVAC or not TYPE_DECL_RE.search(src or ""):
+        return
+    report = err if severity == "err" else warn
+    with tempfile.TemporaryDirectory() as tmp:
+        name = f"{_derive_class_name(src)}.java"
+        (Path(tmp) / name).write_text(src, encoding="utf-8")
+        try:
+            r = subprocess.run([JAVAC, "--release", JAVA_RELEASE, name],
+                               cwd=tmp, capture_output=True, text=True, timeout=TIMEOUT)
+        except subprocess.TimeoutExpired:
+            report(where, f"{label}: javac timed out")
+            return
+        if r.returncode != 0:
+            report(where, f"{label} does not compile:\n  " +
+                   (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+
+
+def run_solution_java(where: str, task: dict) -> None:
+    """Compile the reference solution (+ files + harness) and run it, applying the
+    same check rules as the worker: stdout strip/normalize, harness = exit 0."""
+    if not (JAVAC and JAVA):
+        return
+    chk = task.get("check") or {}
+    kind = chk.get("kind")
+    files, main_class = _java_files_for(task, task["solution"])
+    with tempfile.TemporaryDirectory() as tmp:
+        for name, s in files.items():
+            (Path(tmp) / name).write_text(s, encoding="utf-8")
+        try:
+            c = subprocess.run([JAVAC, "--release", JAVA_RELEASE, *files.keys()],
+                               cwd=tmp, capture_output=True, text=True, timeout=TIMEOUT)
+        except subprocess.TimeoutExpired:
+            err(where, "solution javac timed out")
+            return
+        if c.returncode != 0:
+            err(where, "reference solution does not compile:\n  " +
+                (c.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+            return
+        try:
+            r = subprocess.run([JAVA, "-cp", ".", main_class],
+                               cwd=tmp, capture_output=True, text=True, timeout=TIMEOUT,
+                               input=task.get("stdin") or "")
+        except subprocess.TimeoutExpired:
+            err(where, f"solution run timed out (>{TIMEOUT}s) — infinite loop?")
+            return
+        if kind == "harness":
+            if r.returncode != 0:
+                err(where, "reference solution fails its harness:\n  " +
+                    (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+            return
+        # stdout
+        if r.returncode != 0:
+            err(where, "reference solution threw at runtime:\n  " +
+                (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+            return
+        norm = chk.get("normalize")
+        got = r.stdout.strip() if norm in (None, "strip") else r.stdout
+        exp = str(chk.get("expected") if chk.get("expected") is not None else "")
+        exp = exp.strip() if norm in (None, "strip") else exp
+        if got != exp:
+            err(where, "reference solution does not pass its check:\n  got: %r\n  exp: %r" % (got, exp))
+
+
+def check_lesson(slug: str, nn: str, language: str = "python") -> None:
     cdir = code_content.course_dir(slug)
     where = f"{slug}/{nn}"
     meta = code_content._read_yaml(cdir / f"{nn}.meta.yaml")
@@ -117,12 +221,20 @@ def check_lesson(slug: str, nn: str) -> None:
         err(where, "missing or empty NN.meta.yaml")
         return
 
+    is_java = language == "java"
+    if is_java and not (JAVAC and JAVA):
+        global _jdk_warned
+        if not _jdk_warned:
+            warn(where, "no javac/java on PATH — Java compile + solvability checks skipped")
+            _jdk_warned = True
+
     title = meta.get("title")
     if not (isinstance(title, dict) and title.get("en") and title.get("zh")):
         err(where, "title must have both 'en' and 'zh'")
 
-    # Parallel step counts + compile python example blocks.
+    # Parallel step counts + compile example fences (python or java per course).
     counts: dict[str, int] = {}
+    fence_re = JAVA_FENCE_RE if is_java else PY_FENCE_RE
     for lang in ("en", "zh"):
         p = cdir / f"{nn}.{lang}.md"
         if not p.is_file():
@@ -130,12 +242,17 @@ def check_lesson(slug: str, nn: str) -> None:
             continue
         text = p.read_text(encoding="utf-8")
         counts[lang] = len([c for c in SPLIT_RE.split(text) if c.strip()])
-        for i, block in enumerate(PY_FENCE_RE.findall(text)):
-            compile_ok(where, f"{lang}.md python block #{i + 1}", block)
+        for i, block in enumerate(fence_re.findall(text)):
+            label = f"{lang}.md {language} block #{i + 1}"
+            if is_java:
+                java_compile_ok(where, label, block)
+            else:
+                compile_ok(where, label, block)
     if "en" in counts and "zh" in counts and counts["en"] != counts["zh"]:
         err(where, f"en/zh step count differs: en={counts['en']} zh={counts['zh']}")
 
     # Tasks.
+    valid_kinds = ("stdout", "harness") if is_java else ("stdout", "asserts")
     for task in meta.get("tasks") or []:
         tid = task.get("id")
         tw = f"{where} task '{tid}'"
@@ -146,8 +263,8 @@ def check_lesson(slug: str, nn: str) -> None:
         if not (isinstance(prompt, dict) and prompt.get("en") and prompt.get("zh")):
             err(tw, "prompt must have both 'en' and 'zh'")
         chk = task.get("check")
-        if not isinstance(chk, dict) or chk.get("kind") not in ("stdout", "asserts"):
-            err(tw, "check.kind must be 'stdout' or 'asserts'")
+        if not isinstance(chk, dict) or chk.get("kind") not in valid_kinds:
+            err(tw, f"check.kind must be one of {valid_kinds}")
             chk = {}
         if chk.get("kind") == "stdout" and chk.get("expected") is None:
             err(tw, "stdout check needs 'expected'")
@@ -156,13 +273,25 @@ def check_lesson(slug: str, nn: str) -> None:
                 err(tw, "asserts check needs 'code'")
             else:
                 compile_ok(tw, "check.code", chk["code"])
-        if task.get("starter"):
-            compile_ok(tw, "starter", task["starter"])
-        if task.get("solution"):
-            compile_ok(tw, "solution", task["solution"])
-            run_solution(tw, task)
+        if chk.get("kind") == "harness" and not chk.get("code"):
+            err(tw, "harness check needs 'code'")
+
+        if is_java:
+            if task.get("starter"):
+                # Starters may legitimately have a fill-in hole → warn, don't fail.
+                java_compile_ok(tw, "starter", task["starter"], severity="warn")
+            if task.get("solution"):
+                run_solution_java(tw, task)   # compiles the solution too
+            else:
+                warn(tw, "no 'solution' — solvability gate skipped")
         else:
-            warn(tw, "no 'solution' — solvability gate skipped")
+            if task.get("starter"):
+                compile_ok(tw, "starter", task["starter"])
+            if task.get("solution"):
+                compile_ok(tw, "solution", task["solution"])
+                run_solution(tw, task)
+            else:
+                warn(tw, "no 'solution' — solvability gate skipped")
 
     # The reference solution must never reach the browser.
     data = code_content.load_lesson(slug, nn, "en")
@@ -185,11 +314,12 @@ def main() -> int:
     total = 0
     for slug in courses:
         manifest = code_content._read_yaml(code_content.course_dir(slug) / "course.yaml")
+        language = str(manifest.get("language") or "python")
         lessons = [str(n) for n in (manifest.get("lessons") or [])]
-        print(f"Course '{slug}': {len(lessons)} lesson(s) listed")
+        print(f"Course '{slug}': {len(lessons)} lesson(s) listed [{language}]")
         for nn in lessons:
             total += 1
-            check_lesson(slug, nn)
+            check_lesson(slug, nn, language)
 
     print(f"\nChecked {total} lesson(s) across {len(courses)} course(s).")
     for w in warnings:

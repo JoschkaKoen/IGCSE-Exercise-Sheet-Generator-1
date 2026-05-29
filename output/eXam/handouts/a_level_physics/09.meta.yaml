@@ -108,3 +108,68 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:18:07Z'
 glossed_at: '2026-05-29T05:18:07Z'
+figures:
+  - file: assets/09-p179-drift-velocity-conductor.png
+    caption: Charge carriers drifting inside a conductor
+    figure_ref: '9.3'
+    source_page_pdf: 179
+    source_page_printed: 163
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [163.2, 605.4, 510.2, 688.5]
+    placed_under: "### Drift velocity equation"
+  - file: assets/09-p184-iv-constantan-wire.png
+    caption: I–V characteristic of an ohmic conductor (metal wire at constant temperature)
+    figure_ref: '9.7'
+    source_page_pdf: 184
+    source_page_printed: 168
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [449.9, 39.4, 560.4, 150.0]
+    placed_under: "### $I$–$V$ characteristics"
+  - file: assets/09-p184-iv-filament-lamp.png
+    caption: I–V characteristic of a filament lamp
+    figure_ref: '9.6'
+    source_page_pdf: 184
+    source_page_printed: 168
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [318.2, 38.4, 428.8, 149.0]
+    placed_under: "### $I$–$V$ characteristics"
+  - file: assets/09-p184-iv-diode.png
+    caption: I–V characteristic of a semiconductor diode
+    figure_ref: '9.9'
+    source_page_pdf: 184
+    source_page_printed: 168
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [55.2, 512.3, 165.8, 642.0]
+    placed_under: "### $I$–$V$ characteristics"
+  - file: assets/09-p186-resistivity-length.png
+    caption: A longer conductor has more resistance — more collisions along the way
+    figure_ref: '9.10'
+    source_page_pdf: 186
+    source_page_printed: 170
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [180.8, 39.0, 543.1, 154.7]
+    placed_under: "### Resistivity"
+  - file: assets/09-p186-resistivity-area.png
+    caption: A wider conductor has less resistance — more parallel paths available
+    figure_ref: '9.11'
+    source_page_pdf: 186
+    source_page_printed: 170
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [180.8, 182.0, 451.4, 358.0]
+    placed_under: "### Resistivity"
+  - file: assets/09-p187-ldr-resistance-vs-light.png
+    caption: Resistance of an LDR decreases as light intensity increases
+    figure_ref: '9.13'
+    source_page_pdf: 187
+    source_page_printed: 171
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [167.0, 455.0, 425.0, 662.0]
+    placed_under: "## Light-dependent resistor (LDR)"
+  - file: assets/09-p188-thermistor-resistance-vs-temp.png
+    caption: Resistance of a thermistor falls as temperature rises
+    figure_ref: '9.15'
+    source_page_pdf: 188
+    source_page_printed: 172
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [181.0, 470.0, 502.0, 718.0]
+    placed_under: "## Thermistor"

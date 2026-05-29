@@ -1,0 +1,54 @@
+title:
+  en: "Java basics: classes, main, and output"
+  zh: "Java 基础:类、main 和输出"
+order: 1
+tasks:
+  - id: hello
+    prompt:
+      en: "Inside `main`, use `System.out.println(...)` to print exactly **Hello, AP CSA!**"
+      zh: "在 `main` 里面,用 `System.out.println(...)` 精确地打印 **Hello, AP CSA!**"
+    starter: |
+      public class Main {
+          public static void main(String[] args) {
+              // Print exactly: Hello, AP CSA!
+          }
+      }
+    solution: |
+      public class Main {
+          public static void main(String[] args) {
+              System.out.println("Hello, AP CSA!");
+          }
+      }
+    check:
+      kind: stdout
+      main_class: Main
+      expected: "Hello, AP CSA!"
+      normalize: strip
+  - id: square
+    prompt:
+      en: "Complete the method `square(int n)` so it returns `n * n`. The checker calls it with several values."
+      zh: "完成方法 `square(int n)`,让它返回 `n * n`。检查器会用多个数值来调用它。"
+    starter: |
+      public class MathUtil {
+          // Return n * n.
+          public static int square(int n) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      public class MathUtil {
+          public static int square(int n) {
+              return n * n;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (MathUtil.square(5) != 25) throw new AssertionError("square(5) should be 25, got " + MathUtil.square(5));
+                if (MathUtil.square(0) != 0) throw new AssertionError("square(0) should be 0, got " + MathUtil.square(0));
+                if (MathUtil.square(3) != 9) throw new AssertionError("square(3) should be 9, got " + MathUtil.square(3));
+            }
+        }

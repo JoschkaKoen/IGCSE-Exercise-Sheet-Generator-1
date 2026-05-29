@@ -1,0 +1,10 @@
+slug: ap-csp
+language: python
+title:
+  en: AP CS Principles
+  zh: AP 计算机科学原理
+subtitle:
+  en: Big ideas of computing — data, algorithms, the Internet, and impact.
+  zh: 计算机科学的核心思想 —— 数据、算法、互联网与影响。
+lessons:
+  - "01"
