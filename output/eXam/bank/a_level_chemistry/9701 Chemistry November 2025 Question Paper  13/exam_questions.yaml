@@ -1,0 +1,630 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the electronic configuration for the particle ? A + l
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: The data in the table gives the 5th to the 10th ionisation energies of three
+    elements from Period 3 of the Periodic Table. element ionisation energy / kJ mol–1
+    5th 6th 7th 8th 9th 10th X 6274 21 269 25 398 29 855 35 868 40 960 Y 7012 8 496
+    27 107 31 671 36 579 43 140 Z 6542 9 362 11 018 33 606 38 601 43 963 What are
+    the correct identities of these three elements? element X element Y element Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: What contains 9.03  1023 oxygen atoms?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Methane and steam react to produce hydrogen. CH4(g)  +  2H2O(g)    CO2(g)  +  4H2(g)
+    0.80 g of methane and 1.35 g of steam react. One of the reactants is used up.
+    Which volume of hydrogen, measured at room conditions, will be produced?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement explains why sodium and potassium have different melting points?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: NH3 and HCN react together to form NH4CN, an ionic compound. Which row states
+    the number of coordinate bonds and the number of  bonds in one formula unit of
+    NH4CN? number of coordinate bonds number of  bonds
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: When 1.0 mol of ethanoic acid, CH3COOH, in aqueous solution is neutralised
+    by an excess of aqueous sodium hydroxide, 55 kJ mol–1 of energy is released. Which
+    statement about this reaction is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: In an experiment, 1.60 g of a fuel is burnt. 45.0% of the energy released
+    is absorbed by 200 g of water. The temperature of the water rises from 18.0 °C
+    to 66.0 °C. What is the total energy released per gram of fuel burnt?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Sulfite ions, SO3 2–, react separately with zinc and with manganese dioxide.
+    a, b, c, d, w, x, y and z are all whole numbers. aSO3 2–(aq)  +  b H2O(l)  +  Zn(s)    Zn2+(aq)  +  c
+    OH–(aq)  +  d S2O4 2–(aq) MnO2(s)  +  w SO3 2–(aq)  +  x H+(aq)    Mn2+(aq)  +  y
+    S2O6 2–(aq)  +  z H2O(l) Which numbers are correct for a, b, w and x? a b w x
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Which equation shows hydrogen acting as an oxidising agent?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: 1.00 g of nitrogen gas is stored in a 2.00 dm3 vessel at 40.0 °C. What is
+    the pressure in the vessel?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: One molecule of haemoglobin, Hb, can bind with four molecules of oxygen according
+    to the equation shown. Hb(aq)  +  4O2(aq) Hb(O2)4(aq) When the equilibrium concentration
+    of O2 is 7.6  10–6 mol dm–3, the equilibrium concentrations of Hb and Hb(O2)4
+    are equal. What is the numerical value of Kc  for this equilibrium?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Aqueous acid P and aqueous alkali Q have the same concentration. 20 cm3 of
+    P is added to a conical flask. Q is slowly added to the flask and the volume of
+    Q and the pH are recorded. The pH titration curve is shown.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: 8 10 12 14 volume of Q added / cm3 16 18 20 22 24 26 28 30 pH Which row gives
+    the identity of P and Q? P Q
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: The reversible reaction between methanol and ethanoic acid liquids is catalysed
+    by adding a small volume of concentrated sulfuric acid. Two statements about this
+    reaction are listed. The sulfuric acid is a homogeneous catalyst. The sulfuric
+    acid lowers the activation energy of the reverse reaction. Which statements are
+    correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: The atomic radii and ionic radii for three elements in Period 3 are shown.
+    atomic radius / nm ionic radius / nm element X 0.118 0.053 element Y 0.099 0.180
+    element Z 0.160 0.072 Using this data, which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Three equations are listed. x, y and z are all whole numbers. x Al  +  y O2    zAl
+    2O3 x Mg  +  y O2    z MgO x Na  +  y O2    z Na2O Which equations can be balanced
+    if x = 4 and z = 2?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Which oxide has a simple structure rather than a giant structure?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: The trends seen in Group 2 can be used to predict the properties of radium
+    and its compounds. Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Equal masses of CaCO3, Ca(NO3)2, BaCO3 and Ba(NO3)2 are thermally decomposed.
+    The volume of gas produced in each experiment is measured under the same conditions.
+    Which compound will produce the greatest volume of gas?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: Equation 1 and equation 2 show two different reactions of halide ion Q– with
+    concentrated sulfuric acid. equation 1 H2SO4  +  Q–    HSO4 –  +  HQ equation
+    2 H2SO4  +  2Q–  +  2H+    SO2  +  Q2  +  2H2O What is Q?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: What happens when iodine solution is added to a solution of sodium bromide?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: When dry ammonia and hydrogen chloride gases are mixed, a solid white ionic
+    compound is formed. Two statements are listed. The formation of the ionic compound
+    is a redox reaction. During the formation of the ionic compound, the H–N–H bond
+    angle increases. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show skeletal formulas of some isomers of C6H12O. O O O O Which
+    statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: The skeletal formulas of two compounds are shown. progesterone O O testosterone
+    OH O Which statements about progesterone and testosterone are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Which intermediate ion forms in the greatest amount during the addition of
+    HBr to propene?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Two hydrocarbons, R–CH3 and R'–CH3, react separately with bromine in the presence
+    of ultraviolet light. One of these hydrocarbons is unsaturated. In each case,
+    free radical substitution reactions occur. R is CH3CHC(CH3). R' is CH3CH(CH3)CH2.
+    Which row is correct? a propagation stage for the saturated hydrocarbon a termination
+    stage for the unsaturated hydrocarbon
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: The fumes from the exhausts of petrol-burning cars contain the following pollutants.
+    unburnt hydrocarbons nitrogen dioxide carbon monoxide Which pollutants are removed
+    by oxidation in a catalytic converter?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Compound X, C7H11ICl 2, is dissolved in ethanol and the solution mixed with
+    warm aqueous silver nitrate. A precipitate is seen immediately. CH2Cl Cl I compound
+    X What is the colour of this precipitate and what is the structural formula of
+    the first organic product? colour of the precipitate structural formula of the
+    first organic product
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: 1,4-dibromobutane reacts with an excess of ethanolic sodium hydroxide until
+    no further reaction takes place. What is the relative formula mass of the major
+    organic product?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: A small section of a polymer produced from two monomers is shown. –CH2–C(CH3)2–CH(CH3)–CH2–
+    What are the two monomers?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: The balanced equation for the reaction of X with an excess of acidified K2Cr2O7
+    is shown. X  +  3[O]    Y  +  H2O Compound Y is the only organic product of the
+    reaction. Which compound is X? HO
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Three mixtures are heated under reflux. Which mixtures will produce sodium
+    propanoate as one product? CH3CH2CHO  +  NaBH4(aq) CH3CH2CH2OH  +  Na(s) CH3CH2CN  +  NaOH(aq)
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Which compound is a product of the hydrolysis of CH3CO2CH2C2H5 using aqueous
+    sodium hydroxide?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Compound Q reacts when heated with HCN in the presence of a catalyst to produce
+    compound R. Molecules of compound R each contain four carbon atoms. What is compound
+    Q? O
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows the reagents and products of three reactions. reagents products
+    ethanoic acid + Na2CO3 CH3CO2Na  +  H2O  +  CO2 ethanoic acid + Mg (CH3CO2)2Mg  +  H2O
+    ethanoic acid + CH3OH CH3CO2CH3  +  H2O Which rows are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Seven aldehydes and ketones ● contain only one oxygen atom per molecule ●
+    have four or fewer carbon atoms in their structures. Alkaline I2(aq) is added
+    to each of these carbonyl compounds separately. How many of these carbonyl compounds
+    produce a yellow precipitate with alkaline I2(aq)?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Some properties of compound X are listed. ● 1.0 mol X reacts with exactly
+    8.5 mol oxygen when completely combusted. ● X does not react when heated with
+    acidified KMnO4. What are the possible identities of X? OH HO OH O
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: A sample of magnesium contains the isotopes 24Mg, 25Mg and 26Mg only. The
+    percentage abundance of 25Mg and 26Mg is the same. The relative atomic mass of
+    magnesium in the sample is 24.3. What is the percentage abundance of 24Mg?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

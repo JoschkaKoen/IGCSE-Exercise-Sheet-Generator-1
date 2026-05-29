@@ -1,0 +1,617 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: Which two changes, when applied at the same time to a fixed amount of gas,
+    cause the greatest increase in volume of the gas? change in pressure change in
+    temperature
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: Solid G is heated until it melts. It is then left to cool to room temperature.
+    The graph shows the cooling curve for G. X Y time temperature Four statements
+    about the cooling curve between X and Y are listed. The speed of the molecules
+    of G decreases. The molecules of G become less closely packed.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: Thermal energy is released by the molecules of G to the surroundings.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: G changes from solid to liquid. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the positions of elements P and Q in the Periodic Table.
+    P Q What is the formula of the compound that is formed between P and Q?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about ionic compounds is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation for the reaction between iron(III) chloride and sodium hydroxide
+    is shown. FeCl 3(aq)  +  3NaOH(aq)    Fe(OH)3(s)  +  3NaCl (aq) What is the ionic
+    equation for this reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: A compound is analysed and found to contain 85.7% carbon and 14.3% hydrogen
+    only. What is its empirical formula?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Aqueous barium hydroxide, Ba(OH)2, reacts with dilute nitric acid, HNO3. The
+    products are aqueous barium nitrate, Ba(NO3)2, and water. In a titration, 15.2
+    cm3 of 0.75 mol / dm3 aqueous barium hydroxide is required to neutralise 20.0
+    cm3 of dilute nitric acid. What is the concentration of the nitric acid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Which particles are responsible for the transfer of charge in the external
+    circuit during the electrolysis of molten lead(II) bromide?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Two statements about hydrogen are listed. Hydrogen is used as a fuel. When
+    hydrogen burns in the air to form water, thermal energy is produced. Which conclusion
+    about these statements is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: Concentrated aqueous copper(II) chloride is electrolysed using carbon electrodes.
+    What is formed at each electrode? negative electrode positive electrode
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes an exothermic reaction? sign of enthalpy change, H temperature
+    of the surroundings
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: A reaction pathway diagram is shown. reactants products energy progress of
+    reaction X Y Which row shows the correct labels for X and Y and the type of reaction
+    taking place? X Y type of reaction
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: The rate of reaction between magnesium and dilute hydrochloric acid is increased
+    by increasing the concentration of the acid. How does this affect the reacting
+    particles? collision rate of particles proportion of particles with sufficient
+    energy to react
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: The reaction between aqueous iron(III) ions, Fe3+, and aqueous thiocyanate
+    ions, SCN–, is reversible. The equation for the reaction is shown. Fe3+(aq)  +  SCN–(aq)
+    FeSCN2+(aq) yellow colourless red At equilibrium, the concentrations of Fe3+ ions,
+    SCN– ions, and FeSCN2+ ions are identical, and the mixture appears orange. When
+    a few drops of aqueous thiocyanate ions are added to the mixture, a new equilibrium
+    forms. How does the colour of the mixture change?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation for the reaction between iron(II) sulfate and bromine is shown.
+    6FeSO4  +  3Br2    2Fe2(SO4)3  +  2FeBr3 Which row identifies the oxidising agent
+    and the reducing agent? oxidising agent reducing agent
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation represents a redox reaction. 2Al  +  Fe2O3    2Fe  +  Al 2O3
+    What is the change in the oxidation number of iron in this reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: Aqueous ammonia forms an equilibrium with water. NH3  +  H2O NH4 +  +  OH–
+    In this equilibrium, which particle acts as an acid and which particle acts as
+    a base? acid base
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row identifies an acidic oxide, a basic oxide and an amphoteric oxide?
+    acidic basic amphoteric
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: A Group I metal (lithium or potassium) is reacted with a Group VII element
+    (chlorine or iodine). Which compound is formed when the Group I metal of highest
+    density reacts with the Group VII element of lowest density?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Element X is in the same group of the Periodic Table as silicon. An atom of
+    element X has more protons than a silicon atom. Which element could be X?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the elements in Group VIII is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Which element is a transition element? melting point in °C density at r.t.p.
+    in g / cm3 colour of oxide at r.t.p.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Four test-tubes contain dilute hydrochloric acid. Each test-tube has one piece
+    of a different metal added to it. The metals are copper, iron, magnesium and zinc.
+    Which test-tube contains iron and dilute hydrochloric acid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Brass is a mixture of copper and zinc. Which statement describes and explains
+    the relative strength of brass compared to copper?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: A sample of calcium carbonate is heated strongly, and substances U and V are
+    formed. Substance U is a white solid. Substance V is a colourless gas. What are
+    substances U and V? U V
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: A sample of water taken from a river contains harmful microbes. What is a
+    source of harmful microbes in the river water?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Anhydrous copper(II) sulfate and anhydrous cobalt(II) chloride change colour
+    when water is added to them. Which row shows the correct colour changes? copper(II)
+    sulfate cobalt(II) chloride
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which gas contributes to increased global warming?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes how greenhouse gases increase global warming?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Nitrogen monoxide is produced in a car engine when petrol is burned. The gases
+    from the car engine are passed through a catalytic converter. In the catalytic
+    converter, the nitrogen monoxide, NO, reacts with carbon monoxide, CO, to form
+    nitrogen and carbon dioxide. Which statement is not correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: The displayed formula of but-2-ene is shown.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes two characteristics of members of the same homologous
+    series? characteristic 1 characteristic 2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Compound W is a hydrocarbon that contains single bonds only. Which homologous
+    series contains W?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Methane forms chloromethane in a photochemical reaction using ultraviolet
+    light. Which statement about this reaction is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about polymers is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: The steps used to separate a mixture of a soluble solid and an insoluble solid
+    are listed. ● A solution is made by adding the mixture to a suitable ......1......
+    . ● The mixture is stirred and then poured through a filter funnel lined with
+    filter paper. ● The insoluble solid is collected on the filter paper as the ......2......
+    . Which words complete gaps 1 and 2?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Which items of apparatus are used to separate a mixture of liquids with different
+    boiling points?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: In paper chromatography, what is the equation for the Rf value?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

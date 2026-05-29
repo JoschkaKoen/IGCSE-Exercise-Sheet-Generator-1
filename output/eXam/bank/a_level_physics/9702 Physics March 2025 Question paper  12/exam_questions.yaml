@@ -1,0 +1,657 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text:   = 8.99  109 m F–1) Planck constant h = 6.63  10–34 J s Stefan–Boltzmann
+    constant  = 5.67  10–8 W m–2 K–4 Formulae uniformly accelerated motion s = ut
+    +
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: 1 at v 2 = u 2 + 2as hydrostatic pressure p =  gh upthrust F =  gV Doppler
+    effect for sound waves of  = s s v v v f  electric current I  = Anvq resistors
+    in series R = R1 + R2 + ... resistors in parallel R 1  = R + R + ...
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: Which quantity is a scalar quantity?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: ''
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the mass of the car?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: .0 m s–2 An object is fired upwards from horizontal ground. The object has
+    an initial velocity of 20 m s–1 at an angle of 45° to the horizontal. Air resistance
+    is negligible. Which statement describes the speed of the object after it is fired
+    until immediately before it reaches the ground again?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Objects P and Q form an isolated system. Object P has mass 6.0 kg and is moving
+    at a speed of 3.0 m s–1. Object Q has mass 2.0 kg and is moving at a speed of
+    4.2 m s–1 at an angle of 35° to the path of P. P 6.0 kg Q 2.0 kg 3.0 m s–1 4.2
+    m s–1 35° Objects P and Q collide and stick together. What is the magnitude of
+    the component of the final momentum of the combined objects in the original direction
+    of P?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: An astronaut of mass m in a spacecraft experiences a gravitational force F
+    = mg when stationary on the launchpad. What is the gravitational force on the
+    astronaut when the spacecraft is launched vertically upwards with an acceleration
+    of 0.2g ?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a child X of mass 20 kg and a child Y of mass 15 kg seated
+    on a uniform plank. plank mass 7.0 kg pivot child X mass 20 kg child Y mass 15
+    kg The plank has a mass of 7.0 kg and has a pivot at its midpoint. The plank is
+    horizontal and in equilibrium. Which statement about the weight of the plank is
+    correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: An object is fully submerged in a liquid. A student determines the ratio .
+    object the of weight object the on acting upthrust Which single change would double
+    the value of this ratio?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: A shop sign weighing 75 N hangs from a frame attached to a vertical wall.
+    30° 0.50 m Y X Z sign weight 75 N wall The frame consists of a horizontal rod
+    XY and a rod YZ that is at an angle of 30° to the horizontal. Rod XY is attached
+    to the wall by a hinge at X and has length 0.50 m. Assume that the weights of
+    the rods are negligible. What is the horizontal force exerted by the wall on rod
+    XY?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: A student takes measurements to calculate the density of a liquid in a beaker.
+    The height of the liquid in the beaker is 0.20 m  2%. The internal diameter of
+    the beaker is 0.05 m  3%. The mass of the liquid is 0.36 kg  10%. What is the
+    percentage uncertainty in the calculated density of the liquid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a uniform plank XY of length 4.0 m and weight 300 N. 4.0
+    m X Y support plank child The plank rests on fixed supports at its ends X and
+    Y. A child of weight 600 N stands in different positions on the plank. The support
+    at end X exerts a force F vertically upwards on the plank. What is the magnitude
+    of F when the child stands at X and when the child stands at Y? F / N when child
+    is at X F / N when child is at Y
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Which relationship is used in the derivation of the equation shown? power
+    = force  velocity
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: "A block is released from rest at the top of a slope inclined at an angle\
+    \ to the horizontal. The slope has length L as shown in the diagram. \x01 L There\
+    \ are no resistive forces acting on the block. What is the speed of the block\
+    \ at the bottom of the slope?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: A skateboarder and her skateboard have a total mass of 70 kg. She pushes on
+    the ground with her foot to create a forward force F of 25 N on herself and the
+    skateboard, as shown in the diagram. F = 25 N total mass of skateboarder and skateboard
+    70 kg The skateboarder and skateboard travel forwards a distance of 0.50 m before
+    the skateboarder lifts her foot from the ground. What is the work done by F on
+    the skateboarder and skateboard?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: A turbine at a hydroelectric power station is situated at a vertical distance
+    of 30 m below the level of the surface of a large lake. The water passes through
+    the turbine at a rate of 340 m3 per minute. The overall efficiency of the turbine
+    and generator system is 90%. The density of water is 1000 kg m–3. What is the
+    useful power output of the power station?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: A projectile is launched at 45° to the horizontal with initial kinetic energy
+    E. Assuming air resistance to be negligible, what will be the kinetic energy of
+    the projectile when it reaches its highest point?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: A wire is extended by a tensile force so that its deformation is elastic.
+    What is meant by elastic deformation?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: A bolt is subjected to a tensile force, as shown. d 2d X Y tensile force tensile
+    force bolt The bolt has a circular cross-section. At end X, the diameter is 2d.
+    At end Y, the diameter is d. What is the ratio X at stress Y at stress ?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the relationship between force acting on a compression spring
+    and change in length of the spring. 180 160 140 120 100 0.0 1.0 2.0 3.0 change
+    in length / mm force / N 4.0 5.0 6.0 7.0 8.0 9.0 10.0 One of these springs is
+    placed in each corner of a horizontal square plate. The axis of each spring is
+    in a vertical direction. These four springs support a total load of 160 N. What
+    is the total elastic potential energy stored in the four springs?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row correctly identifies the properties of all electromagnetic waves?
+    transverse wave longitudinal wave can travel in free space
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the approximate range of wavelengths in free space for infrared radiation?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a car travelling at a constant speed in a straight line
+    between person P and person Q from point X to point Y. X person P person Q Y The
+    car sounds its horn continuously as it travels. The horn emits sound of constant
+    frequency. Which statements about what person P and person Q hear during the motion
+    of the car are correct? Person P hears a sound of increasing frequency. Person
+    Q hears a sound of decreasing frequency. Person Q always hears a sound of higher
+    frequency than person P.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: A progressive wave of frequency 300 Hz is travelling with a speed of 600 m
+    s–1. What is the phase difference between two points on the wave that are a distance
+    of 0.50 m apart?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: A polarised beam of light with intensity I is incident normally on a polarising
+    filter. The transmitted light has intensity I. The filter is rotated about the
+    normal axis through an angle . The transmitted light has intensity 0.75I. What
+    is the angle  ?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Light waves are emitted from two sources. What is a necessary condition for
+    observable interference fringes to be produced?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a water wave in a shallow tank. The wave is diffracted through
+    a gap in a barrier and spreads. The wavelength of the wave is much smaller than
+    the width of the gap. barrier gap The wavelength of the wave and the width of
+    the gap are both changed by a small amount. Which combination of changes must
+    increase the amount of spreading due to diffraction? wavelength width of gap
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Light of wavelength 567 nm is incident normally on a diffraction grating.
+    The grating has 400 lines per mm. A number of diffraction maxima are observed
+    on the far side of the grating. What is the angle between the second-order maximum
+    and the third-order maximum?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Two cylindrical conductors, X and Y, are made from the same material. The
+    conductors have equal lengths, but Y has a smaller diameter than X. X and Y are
+    connected in series to a cell. Which row compares the number of charge carriers
+    per unit time passing through X and through Y and compares the average drift speed
+    of the charge carriers in X and in Y? number of charge carriers per unit time
+    average drift speed of charge carriers
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: A copper wire is 6.4 m long and has a resistance of 0.92 . The resistivity
+    of copper is 1.8  10–8  m. What is the diameter of the wire?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: A thermistor is connected to a cell with negligible internal resistance. Which
+    graph shows the variation with temperature of power, P, dissipated in the thermistor?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: A metal electrical conductor has a resistance of 5.6 k. A potential difference
+    (p.d.) of 9.0 V is applied across its ends. How many electrons pass a point in
+    the conductor in one minute?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which circuit symbol does not represent an electric component that is designed
+    to emit sound waves?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a junction in a circuit where three wires, P, Q and R, meet.
+    The currents in P and Q are 1 A and 3 A respectively, in the directions shown.
+    P 1 A 3 A R Q How much charge passes a given point in wire R in a time of 5 s?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: A cell of electromotive force (e.m.f.) E and internal resistance r is connected
+    in series with a switch S and an external resistor of resistance R. E r R S P
+    Q The potential difference (p.d.) between P and Q is V. Which statement is correct
+    when S is changed from open to closed?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a general description of a baryon?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: A stationary nucleus has nucleon number A. The nucleus decays by emitting
+    a proton with speed v to form a new nucleus with speed u. The new nucleus and
+    the proton move away from one another in opposite directions. Which equation gives
+    v in terms of A and u?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the change to the quark composition of a nucleus that takes place
+    during + decay?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the charge, in terms of the elementary charge e, on a charm quark?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

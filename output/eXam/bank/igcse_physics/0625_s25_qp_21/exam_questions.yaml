@@ -1,0 +1,625 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: The speed–time graph for a racing car is divided into four sections, P, Q,
+    R and S. The car starts the race but soon crashes into a wall of tyres. speed
+    time P Q R S Which sections of the graph show that there is an acceleration that
+    is changing?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the four forces acting on an aircraft in flight. 120 kN
+    60 kN 60 kN 40 kN Which arrow shows the direction of the resultant of the four
+    forces?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show two metal blocks, X and Y, suspended from identical force
+    meters. X and Y have identical dimensions.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: ''
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: N
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: N Y X Which statement about X and Y is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement is not correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: A force acting on a moving ball causes its motion to change. This force stays
+    constant. What makes the force produce a greater change in the motion of the ball?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: A farmer has two carts. The carts have the same weight, but one has four narrow
+    wheels and the other has four wide wheels. narrow wheel wide wheel Which cart
+    wheels sink less into soft ground and what is the reason? cart wheels reason
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: A hot gas and a cool liquid are at the same pressure. Which row describes
+    the separation and the motion of the particles of a hot gas compared to those
+    of a cool liquid? separation of gas particles motion of gas particles
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: A fixed mass of gas has a volume of 1.2 m3 and is at a pressure of 200 kPa.
+    The gas expands at constant temperature to a volume of 1.8 m3. What is the new
+    pressure of the gas?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The specific heat capacity of solid P is greater than that of solid Q. What
+    does this statement mean?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: When water evaporates, what escapes from the surface of the water?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: A sealed container of gas is heated. The pressure of the gas increases. Which
+    statement explains this increase in pressure?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: A student has a copper rod and a wooden rod. Both rods have the same dimensions.
+    The student puts one end of each rod into a beaker of crushed ice. After a few
+    minutes, the student picks up the rods by the ends not in the ice. Which statement
+    is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a black object X at constant temperature. The arrows represent
+    the absorption and emission of thermal radiation at the surface. Object Y is at
+    the same constant temperature as X and is identical except that it has a white
+    surface. Which row correctly compares object X with object Y? rate of absorption
+    for X rate of emission for X
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a cork with a weight attached so that the cork floats upright
+    in water. X Y cork water surface weight Transverse waves travel across the water
+    from X to Y. In which direction do the waves make the cork move?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: A thin converging lens is used as a magnifying glass. How does the image compare
+    with the object?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows two plane mirrors at 90° to each other. A ray of light is
+    incident on one of the mirrors. The ray reflects off both mirrors before reaching
+    a screen. At which labelled point does the ray reach the screen? ray of light
+    screen
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: The speed of light in a material is 50% of the speed of light in air. What
+    is the refractive index of the material?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: A beam of white light is split into a spectrum of seven colours. Which name
+    is given to this process?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Satellites are sometimes used to receive and re-transmit television signals.
+    Which row shows the type of satellite and the electromagnetic waves used? type
+    of satellite electromagnetic waves used
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: A sound wave travels through the air and strikes a solid block of steel. Some
+    of the sound is reflected from the steel, and some is transmitted through the
+    steel. How does the speed and the wavelength of the sound in steel compare to
+    the speed and the wavelength of the sound in air? speed in steel wavelength in
+    steel
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a bracelet containing two magnets. The arrows represent
+    the pattern and the direction of the magnetic field due to the magnets. J K X
+    Y Which row identifies the magnetic pole at J, the magnetic pole at K and where
+    the magnetic field is the strongest? magnetic pole at J magnetic pole at K where
+    the magnetic field is the strongest
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes an electric field and its direction? description of electric
+    field direction of electric field
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Copper wire is available in fixed lengths but in various diameters d. Each
+    wire has a different resistance R. Which relationship between R and d is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows three 20  resistors, R1, R2 and R3, and a switch S connected
+    to a d.c. power supply. R1 R2 S R3 Switch S is open. The potential difference
+    (p.d.) across R3 is 9.0 V. What is the p.d. across R3 when switch S is closed?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: The circuits shown all include a d.c. power supply, one diode and two light-emitting
+    diodes (LEDs). In which circuit will both LEDs be turned on?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: A wire connected to a resistor R is moved in a magnetic field. A current is
+    induced in the direction shown. In which direction is the wire moved? N S
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which component is not found in an a.c. generator?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: There is a current in a straight metal wire in the direction shown. direction
+    of current Which row describes the direction and the pattern of the magnetic field
+    due to the wire when looking from vertically above the wire? direction pattern
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: A simple transformer contains an iron core. What is the function of the iron
+    core in the transformer?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: In an alpha particle scattering experiment, a beam of alpha particles is fired
+    at a very thin piece of gold foil. In which direction do most of the alpha particles
+    travel after hitting the foil? gold foil beam of alpha particles
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: An atom of boron contains 5 protons and 5 electrons. The nucleon number of
+    the atom is 11. How many neutrons are there in the atom?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: A detector placed near a radioactive isotope gives a measured count rate of
+    800 counts / minute. The half-life of the isotope is three hours. The background
+    count rate is 32 counts / minute. What is the count rate on the detector after
+    six hours?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Sodium-24 is a radioactive isotope that emits beta radiation. Which nuclear
+    equation shows how sodium-24 decays? 24Na
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Which safety precautions must be taken when using a source of gamma radiation?
+    Reduce the distance between the source and the person. Reduce the time of exposure
+    to the radiation. Use a suitable shielding material between the source and the
+    person.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: 'A student defines three periods of time: ● the time TS taken for the Earth
+    to orbit the Sun ● the time TR taken for the Earth to rotate once on its axis
+    ● the time TM taken for the Moon to orbit the Earth. Which row shows the shortest
+    period of time and the longest period of time? shortest period of time longest
+    period of time'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the Universe is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the cosmic microwave background radiation (CMBR) is
+    correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

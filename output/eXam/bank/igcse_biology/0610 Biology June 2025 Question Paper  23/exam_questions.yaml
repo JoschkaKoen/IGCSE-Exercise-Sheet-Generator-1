@@ -1,0 +1,621 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows an aquatic plant in light. light water bubbles containing
+    oxygen gas aquatic plant What is a characteristic of all living things that is
+    demonstrated in the diagram?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show four organisms. Which organism is a prokaryote?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: What happens when plant cells are placed in a sugar solution that has a lower
+    water potential than the cytoplasm of the cells?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: In a DNA molecule, bonds between pairs of bases hold two strands together.
+    High temperatures can break these bonds to form two single strands of DNA. The
+    base pair C and G is held together more strongly than the base pair A and T. Two
+    DNA molecules containing the same number of bases were studied. ● In DNA molecule
+    1, 20% of bases are T. ● In DNA molecule 2, 20% of bases are C. Which DNA molecule
+    would require the lowest temperature to break into single strands?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a process involving an enzyme in the human stomach. + +
+    The diagram shows another process, R, that affects this enzyme. R Which row identifies
+    the substrate and the cause of process R? substrate cause of process R
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the balanced chemical equation for photosynthesis?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: A potato was removed from a potato plant. A 5 g cube of potato was cut and
+    put into a beaker of distilled water. What is the most likely mass of the cube
+    of potato after two hours?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the direction of net movement of two substances across a
+    human placenta. placenta tissue P tissue Q substance 1 substance 2 Which tissue
+    represents maternal blood and which substance is identified correctly? tissue
+    that represents maternal blood substance that is identified correctly
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows part of a cross-section of a leaf. Which structure is a
+    palisade mesophyll cell?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: A person has swollen, bleeding gums and slow wound healing. This could be
+    caused by a lack of which nutrient in a diet?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Digested food molecules move into the cells of the body where they are used
+    and become part of the cells. What is this a definition of?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows part of the human digestive system. In which part does protein
+    digestion begin?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show cross-sections of a leaf, a root and a stem. root leaf stem
+    NOT TO SCALE In which row do the numbers represent the xylem in the leaf, the
+    root and the stem? leaf root stem
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Which structures in humans and in plants normally carry amino acids? arteries
+    phloem
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Through which pathway does blood leave the heart?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrograph shows some blood cells. X Which row shows the name and
+    function of the cell labelled X? name function
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the effects of cholera on the human body? movement of chloride
+    ions effect of a build-up of chloride ions on water potential effect on volume
+    of water leaving the body through the anus
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: The plotted points, 1 and 2, on the graph show two different types of structure
+    in the breathing system of a human. relative diameter of lumen distance from the
+    larynx Which row identifies a structure attached to alveoli and a structure containing
+    cartilage? a structure attached to alveoli a structure containing cartilage
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: Which process in plants uses energy from respiration?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which sequence of statements explains the build-up and removal of an oxygen
+    debt? Anaerobic respiration occurs in muscles during vigorous exercise. Faster
+    and deeper breathing continues after exercise. Glucose is converted to lactic
+    acid. Lactic acid builds up in muscles causing an oxygen debt. Oxygen enables
+    the continued aerobic respiration of lactic acid.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: What is filtered out of the blood in the glomerulus and into the nephron?
+    glucose urea
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: What can be broken down to form urea?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a simple reflex arc. receptor P Q R effector What are the
+    names of the structures labelled P, Q and R? P Q R
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a cross-section of an eye. E F G Which row is correct when
+    a person views a near object? E F G refraction
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Which hormones increase the blood glucose concentration in humans?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: A shoot tip was placed on an agar block. Substances can diffuse through agar.
+    Light was shone on the shoot tip from one direction. X Y light shoot tip agar
+    block After three days, the agar was cut in half to form blocks X and Y. Blocks
+    X and Y were placed on the stems of shoots that had the tips cut off. The agar
+    blocks were kept on the shoot stems for one week. Which set of shoots represents
+    the results after one week? Y X
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows reproduction in a potato plant. Potato X was planted into
+    the ground and a plant grew from it. The plant then produced potato Y. potato
+    Y potato X Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about pollination is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows changes in the thickness of the lining of the uterus wall
+    during a menstrual cycle. day of the menstrual cycle thickness of uterus wall
+    lining Which day is the last day of menstruation?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which name is given to different versions of a gene?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the cells of a mammalian embryo shortly after fertilisation.
+    What is the correct description of these cells?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the inheritance, in one family, of a sex-linked recessive
+    disease. unaffected female affected female unaffected male affected male key Which
+    individuals in the diagram are heterozygous for this disease?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes continuous and discontinuous variation? continuous variation
+    discontinuous variation
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements describe an adaptive feature in an organism? It helps an
+    organism to survive and reproduce in its environment. It always shows continuous
+    variation. It is inherited.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the change in the percentage of bacteria resistant to antibiotic
+    X. time percentage of bacteria resistant to antibiotic X What causes the change
+    shown in the graph?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the flow of energy, in units of energy, through a food chain.
+    producers 1000 units primary consumers 100 units secondary consumers 10 units
+    tertiary consumers 1 unit Which percentage of energy is lost between the producers
+    and secondary consumers?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Which process in the nitrogen cycle can be caused by lightning and bacteria?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Which phase in the population growth curve shows when death rates are higher
+    than birth rates? number of organisms time
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a disadvantage of large-scale monocultures of crop plants?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Some processes involved in the production of human insulin by genetic modification
+    are listed. insertion of the human insulin gene DNA into a cut bacterial plasmid
+    bacteria containing recombinant plasmids multiply and make human insulin human
+    insulin gene DNA is isolated using restriction enzymes recombinant plasmids are
+    inserted into bacteria What is the sequence of these processes in genetic modification?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

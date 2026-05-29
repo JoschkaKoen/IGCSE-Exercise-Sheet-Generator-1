@@ -1,0 +1,761 @@
+questions:
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per each correct character in the correct order:
+
+    
+
+    9
+
+    
+
+    3
+
+    
+
+    0
+
+    
+
+    D
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    00001111'
+  mark_scheme: []
+  graphics: []
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    
+
+    The value becomes incorrect/inaccurate as the right most bits are lost
+
+    
+
+    It is divided by 8
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    Easier/quicker to understand/read/write
+
+    
+
+    Easier/quicker to debug
+
+    
+
+    Less likely to make a mistake
+
+    
+
+    Shorter representation // Takes up less screen space
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for two correct characters, two marks for three correct
+    characters in the correct order:
+
+    
+
+    1
+
+    
+
+    2
+
+    
+
+    D
+
+    2
+
+    0478/12
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    
+
+    A character set is used
+
+    
+
+    … such as Unicode/ASCII
+
+    
+
+    Each character has a unique binary value
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    It reduces the file size
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any four from:
+
+    
+
+    A compression algorithm is used
+
+    
+
+    … such as RLE/run length encoding
+
+    
+
+    Repeating words/characters/phrases are identified // Patterns are identified
+
+    
+
+    … and indexed
+
+    
+
+    … with number of occurrences
+
+    
+
+    … with their position
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    e.g.
+
+    
+
+    To save storage space
+
+    
+
+    To make it quicker to transmit
+
+    
+
+    To make it small enough to attach to an email
+
+    
+
+    To reduce the bandwidth needed to transmit
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from:
+
+    
+
+    Data is sent one bit at a time
+
+    
+
+    A single wire is used
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    Data won’t be skewed
+
+    
+
+    Less chance of interference/crosstalk/corruption/error
+
+    
+
+    Transmission speed is adequate
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    The data may be transmitted quicker
+
+    1
+
+    0478/12
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    Router
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    A collection of servers
+
+    
+
+    … that store data in a remote location // that allows data to be accessed remotely
+
+    
+
+    … that are (normally) accessed using an internet connection
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    e.g.
+
+    
+
+    May be less secure // by example
+
+    
+
+    May lose access to them if internet connection lost/not available
+
+    
+
+    Reliant on a third party maintaining the hardware // by example
+
+    
+
+    Could incur an extra/ongoing fee/cost
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    
+
+    It translates the (high-level language) to low-level language/object code/machine
+    code
+
+    
+
+    It translates all the code before it is executed
+
+    
+
+    It creates an executable file
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    It creates an error report after trying to compile
+
+    
+
+    … displaying all errors in the code
+
+    
+
+    … that require correction before execution can take place
+
+    2
+
+    0478/12
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    e.g.
+
+    
+
+    Code editors
+
+    
+
+    Run-time environment
+
+    
+
+    Built-in interpreter
+
+    
+
+    Error diagnostics
+
+    
+
+    Auto-completion
+
+    
+
+    Auto-correction
+
+    
+
+    Prettyprint
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct term.
+
+    
+
+    Text
+
+    
+
+    Web browser // web server
+
+    
+
+    Web server // web browser
+
+    
+
+    Session
+
+    
+
+    Session
+
+    
+
+    Persistent
+
+    6'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    e.g.
+
+    
+
+    Saving personal details
+
+    
+
+    Storing login details
+
+    
+
+    Tracking user preferences
+
+    
+
+    Holding items in an online shopping cart
+
+    3
+
+    0478/12
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each part of the diagram (MAX six).
+
+    The diagram demonstrates:
+
+    
+
+    Malware downloaded to several computers
+
+    
+
+    … turning it into a bot/zombie
+
+    
+
+    … creating a network of bots/zombies
+
+    
+
+    Third party/hacker initiating the attack
+
+    
+
+    Bots send requests to a web server at the same time
+
+    
+
+    The web server fails due to the requests
+
+    
+
+    Legitimate requests cannot reach the web server
+
+    6
+
+    BOT
+
+    BOT
+
+    BOT
+
+    Botnet
+
+    Malware downloaded
+
+    to computers turning
+
+    them into bots
+
+    Web
+
+    server
+
+    Computer
+
+    Third party
+
+    Initiates attack
+
+    Requests
+
+    web server fails due
+
+    to too many requests
+
+    Cannot connect
+
+    to web server
+
+    X
+
+    0478/12
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    e.g.
+
+    
+
+    Revenge
+
+    
+
+    To affect a company’s reputation
+
+    
+
+    Entertainment value
+
+    
+
+    To demand a ransom to stop it
+
+    
+
+    To test a system’s resilience
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    Proxy server
+
+    
+
+    Firewall
+
+    
+
+    Users scanning their computers with anti-malware
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Four marks from:
+
+    Any FOUR from:
+
+    
+
+    It is denary based
+
+    
+
+    … with numbers between 0 and 255
+
+    
+
+    It is 32 bits
+
+    
+
+    4 sets/groups of numbers
+
+    
+
+    … separated by dots
+
+    Any TWO from:
+
+    
+
+    It is a unique address
+
+    
+
+    It can be static or dynamic
+
+    
+
+    It can be public or private
+
+    
+
+    It contains the network prefix
+
+    
+
+    … and the host number
+
+    4
+
+    0478/12
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Three from:
+
+    
+
+    Rule base
+
+    
+
+    Knowledge base
+
+    
+
+    Interface
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    It makes decisions
+
+    
+
+    … by applying the rules/logic to the facts/knowledge …
+
+    
+
+    … to provide a result/diagnosis
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from:
+
+    
+
+    System software provides services that the computer requires
+
+    
+
+    … whereas application software provides services that the user requires
+
+    One from (system software):
+
+    
+
+    Utility software // by example e.g. defragmentation software, antivirus, firewall
+
+    
+
+    Operating system
+
+    One from (application software):
+
+    
+
+    Any suitable example of an application e.g. word processor, web browser, video-editing
+    software
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    Secondary storage // HDD // SSD
+
+    1'
+  mark_scheme: []
+  graphics: []

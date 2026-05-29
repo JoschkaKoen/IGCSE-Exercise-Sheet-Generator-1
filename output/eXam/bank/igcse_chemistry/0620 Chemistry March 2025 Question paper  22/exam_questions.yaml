@@ -1,0 +1,630 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show containers of gas at the same temperature. All containers
+    have the same size. Which container contains gas at the highest pressure?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: A cooling curve for a substance is shown. temperature time U V W X Y Z Which
+    statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: Samples of four gases are released in a room at the same time. The gases are
+    carbon dioxide, CO2, hydrogen chloride, HCl, hydrogen sulfide, H2S, and nitrogen
+    dioxide, NO2. Which gas diffuses fastest?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Sulfur atoms can form the negative ion S2–. Three other atoms or ions are
+    listed. ● argon, Ar ● calcium, Ca ● oxide, O2– How many of these atoms or ions
+    have the same electronic configuration as S2–?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: Element T has two isotopes, T
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: and T. Which statement about these isotopes is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: For which covalent compound does the dot-and-cross diagram correctly show
+    the outer shell electrons? H Cl
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row identifies the positive and the negative particles present in a
+    giant metallic lattice? positive particles negative particles
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Which formula for the named compound is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: 'The equation for the reaction of magnesium with dilute sulfuric acid is shown.
+    Mg  +  H2SO4    MgSO4  +  H2 [Mr:  MgSO4, 120] Which mass of magnesium sulfate
+    is formed when 12 g of magnesium completely reacts with dilute sulfuric acid?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: An organic compound, Q, contains carbon, hydrogen and oxygen only. Q contains
+    40.0% carbon and 6.7% hydrogen by mass. What is the empirical formula of Q?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The value of the Avogadro constant is 6.02  1023. What is the total number
+    of atoms in 2.00 mol of ammonia gas?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Three aqueous solutions, L, M and N, are electrolysed using inert electrodes.
+    L is concentrated hydrochloric acid. M is concentrated aqueous sodium chloride.
+    N is dilute aqueous sodium chloride. Which solutions produce a pale yellow-green
+    gas at the anode?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Dilute sulfuric acid is electrolysed using inert electrodes. What are the
+    ionic half-equations for the reactions that take place at each electrode? positive
+    electrode negative electrode
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about hydrogen–oxygen fuel cells are correct? They convert
+    chemical energy into electrical energy. Hydrogen is reduced in the fuel cells.
+    They do not produce any atmospheric pollutants.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: The reaction pathway diagram for the reaction between P and Q to form R and
+    S is shown. Which letter represents the enthalpy change for the reaction? energy
+    progress of reaction P  +  Q R  +  S
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation for the complete combustion of methane is shown. CH4(g)  +  2O2(g)    CO2(g)  +  2H2O(g)
+    The table shows some bond energies. bond bond energy in kJ / mol C–H 410 C=O 805
+    O=O 496 O–H 460 What is the enthalpy change for this reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Which change is a physical change?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements explain why increasing the temperature in a reaction involving
+    gases increases the rate of reaction? It increases the collision frequency between
+    the gas particles. It lowers the activation energy. It increases the kinetic energy
+    of the gas particles. It increases the number of gas particles per unit volume.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation for the reaction between ammonia and oxygen is shown. 4NH3(g)  +  5O2(g)
+    4NO(g)  +  6H2O(g) H = –909 kJ / mol Which two changes to the reaction conditions
+    will both move the position of equilibrium to the right? change 1 change 2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: Mercury(II) oxide, HgO, decomposes when heated. The equation is shown. 2HgO    2Hg  +  O2
+    Why is this a reduction reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Some information about two dilute acids is shown. dilute acid acid concentration
+    in mol / dm3 pH nitric acid 0.1 1.0 propanoic acid 0.4 2.6 Three statements about
+    the acids are listed. Nitric acid has a lower pH because it dissociates more than
+    propanoic acid. Propanoic acid has a lower concentration of hydrogen ions than
+    nitric acid. Propanoic acid has a higher pH because it has a higher concentration.
+    Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Element E is a metal in Group I of the Periodic Table and element G is a non-metal
+    in Group VII. Both of these elements form oxides. Which statement about their
+    oxides is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Lead(II) sulfate is an insoluble salt. Which method is suitable for obtaining
+    pure solid lead(II) sulfate?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: The elements oxygen and sulfur are in the same group of the Periodic Table.
+    Which statement about oxygen and sulfur is not correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Tennessine, Ts, is at the bottom of Group VII of the Periodic Table. What
+    are the predicted properties of tennessine at room temperature?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: An example of sacrificial protection is the fitting of zinc blocks to the
+    outside of a ship’s steel hull. Which statement explains why zinc is used to protect
+    the iron in the steel from rusting?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about alloys is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Separate pieces of aluminium foil and copper foil are heated in air. The copper
+    foil reacts to give a black solid. The aluminium foil does not react. Which statement
+    explains these observations?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row gives the symbol equation for the formation of carbon monoxide and
+    for the reduction of iron(III) oxide in a blast furnace? equation for the formation
+    of carbon monoxide equation for the reduction of iron(III) oxide
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: A sample of river water contains a high concentration of nitrates from fertilisers.
+    Which statements about the river water are correct? It has a boiling point of
+    100 °C. Its melting point is below 0 °C. It turns anhydrous cobalt(II) chloride
+    from pink to blue. It turns anhydrous copper(II) sulfate from white to blue.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about the treatment of domestic water supplies are correct?
+    The water undergoes sedimentation to remove dissolved solids. The water is filtered
+    to remove insoluble solids. The water is treated with carbon to improve the taste.
+    The water is chlorinated to decrease the pH.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: An experiment to find the percentage of oxygen in 150 cm3 of polluted air
+    is shown. water damp iron wool measuring cylinder 150 cm3 of polluted air The
+    apparatus is left for one week. After this time, the volume of gas in the measuring
+    cylinder is 122 cm3. What is the percentage of oxygen, to the nearest whole number,
+    in the polluted air?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Nitrogen monoxide, NO, and carbon monoxide, CO, are both removed from the
+    exhaust gases of a car by a catalytic converter. Which statement describes how
+    nitrogen monoxide and carbon monoxide are removed by a catalytic converter?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Propan-1-ol is oxidised by acidified aqueous potassium manganate(VII) in a
+    similar way to ethanol. Which compound is produced by the oxidation of propan-1-ol
+    with acidified aqueous potassium manganate(VII)?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: The structural formula of methyl propane is CH3CH(CH3)CH3. The equation represents
+    the reaction of methyl propane with chlorine. C4H10  +  Cl 2    C4H9Cl  +  HCl
+    How many structural isomers with the molecular formula C4H9Cl can be formed from
+    this reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements describe disadvantages of manufacturing ethanol by fermentation?
+    The process uses a renewable resource. The process produces impure ethanol. The
+    process requires a high temperature. The process is slow.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Nylon is made in a polymerisation reaction. Which row describes the type of
+    polymerisation and identifies the other product of the reaction? type of polymerisation
+    other product
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Which ion forms a green precipitate with aqueous sodium hydroxide that dissolves
+    in an excess of aqueous sodium hydroxide?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: A mixture of soluble substances can be separated by paper chromatography.
+    Each substance can be identified using its Rf value. Which formula shows how the
+    Rf value is calculated?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

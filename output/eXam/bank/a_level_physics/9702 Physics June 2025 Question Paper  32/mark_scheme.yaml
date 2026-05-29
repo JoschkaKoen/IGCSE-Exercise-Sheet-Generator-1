@@ -1,0 +1,378 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Value for x in range 8.0–14.0 cm with unit.
+
+    1
+
+    Non-zero value for I less than 2.00 mA with unit.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Six sets of readings of x (different values) and I with correct
+    trend (as x increases, I decreases) and without help from
+
+    Supervisor scores 5 marks, five sets scores 4 marks etc.
+
+    5
+
+    Range: xmin ⩽ 5.0 cm and xmax ⩾ 16.0 cm.
+
+    1
+
+    Column headings:
+
+    Each column heading must contain a quantity and a unit where appropriate.
+
+    The presentation of quantity and unit must conform to accepted scientific convention
+    e.g. I (mA½), I / mA½.
+
+    1
+
+    Consistency: All values of x must be given to the nearest millimetre.
+
+    1
+
+    Significant figures:
+
+    Values of I must be given to the same number of s.f. as (or one more than) the
+    number of s.f. in I.
+
+    1
+
+    Calculation: Values of I calculated correctly.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Axes:
+
+    Axes must be labelled with the required quantities.
+
+    Scales must be chosen so that the plotted points occupy at least half the graph
+    grid in both the x and y directions.
+
+    Scale markings are no more than 2 cm (one large square) apart.
+
+    Sensible scales must be used, no awkward scales (e.g. 3:10 or fractions).
+
+    1
+
+    Plotting of points:
+
+    All observations in the table must be plotted on the grid.
+
+    Diameter of plotted points must be ⩽ half a small square.
+
+    Points must be plotted to an accuracy of half a small square in both x and y directions.
+
+    1
+
+    Quality:
+
+    General trend of points must be negative.
+
+    All points in the table must be plotted (at least 5) for this mark to be awarded.
+
+    It must be possible to draw a straight line that is within  2.0 cm (to scale)
+    on the x-axis of all plotted points.
+
+    1
+
+    9702/32
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Line of best fit:
+
+    ‘Best fit’ is judged by the balance of all points on the grid (at least 5 points)
+    about the candidate’s line.
+
+    There must be an even distribution of points either side of the line along the
+    full length.
+
+    Lines must not be kinked or thicker than half a square.
+
+    Some candidates may choose to identify an anomalous point. If 6 or more points
+    are plotted and they identify one point as
+
+    anomalous (e.g. by circling or labelling) then this point is to be disregarded
+    when judging the line of best fit.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Gradient:
+
+    The hypotenuse of the triangle used must be greater than half the length of the
+    drawn line.
+
+    Both read-offs must be accurate to half a small square in both the x and y directions.
+
+    Method of calculation must be correct, not x / y.
+
+    Gradient sign on answer line must be consistent with graph drawn.
+
+    1
+
+    y-intercept:
+
+    Correct read-off from a point on the line is substituted into y = mx + c or an
+    equivalent expression.
+
+    Read-off accurate to half a small square in both x and y directions.
+
+    Or
+
+    Intercept read directly from the graph, with read-off at x = 0, accurate to half
+    a small square in y direction.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a = candidate’s gradient value and b = candidate’s intercept
+    value.
+
+    Values must not be written as fractions or given to only one significant figure.
+
+    1
+
+    Units for a and b are correct (e.g. mA½ cm–1 for a and mA½ for b).
+
+    1
+
+    9702/32
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Value of B in range 7.50–9.50 cm with unit and to nearest mm.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Percentage uncertainty based on absolute uncertainty in range
+    2–5 mm.
+
+    Correct method of calculation to find percentage uncertainty e.g. (absolute uncertainty
+    / value from (a)(i))  100.
+
+    If repeated readings have been taken, then the uncertainty can be half the range
+    (but not zero) if the working is clearly
+
+    shown.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Value for d in range 2.00–6.00 mm with unit and to nearest
+    0.1 mm.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Value for L in range 20.0–40.0 cm with unit.
+
+    1
+
+    Value of T in range 2.00–9.00 (s).
+
+    1
+
+    Repeat readings for T: at least two values of nT where n ⩾ 2.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Second values of d and L.
+
+    1
+
+    Second value of T.
+
+    1
+
+    Second d smaller than first d.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two values of k calculated correctly.
+
+    Values not written as fractions or given to only one significant figure.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Justification for significant figures in k linked to significant
+    figures in B, L, d and T.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct calculation of percentage difference between candidate’s
+    two k values.
+
+    Comparison of percentage difference with 20%, leading to a consistent conclusion.
+
+    1
+
+    9702/32
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2fi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A
+
+    Two (sets of) readings are not enough to draw a (valid) conclusion (not “not enough
+    for accurate results”, “few
+
+    readings”).
+
+    B
+
+    Difficult to measure B with a reason e.g. difficult to judge the position of the
+    centres of the masses / masses not parallel
+
+    to each other on wire / B changes when clip and masses are suspended.
+
+    C  Difficult to measure L with a reason e.g. parallax error / rubber cord moves
+    when touched by rule / clip moves when
+
+    touched by rule.
+
+    D Difficult to measure d with a reason e.g. jaws of calipers compress width of
+    rubber cord.
+
+    E
+
+    Difficult to measure T with a reason e.g. because oscillations die away (very)
+    quickly / amplitude of oscillations
+
+    decreases quickly / oscillations are heavily damped / difficult to judge start
+    and/or end of oscillations.
+
+    F
+
+    Difficulty with oscillation (of cord/clip/masses) e.g. oscillations in more than
+    one mode / vertical or side-to-side
+
+    oscillations /oscillation affected if rubber cord is not attached at centre of
+    lower clip / wire moves in the clip during
+
+    oscillation.
+
+    1 mark for each point up to a maximum of 4.
+
+    4
+
+    9702/32
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2fii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A
+
+    Take more readings and plot a graph or take more readings and compare k values
+    (not “repeat readings” on its own).
+
+    B
+
+    Improved method of measuring B e.g. measure from left (or right) hand side of
+    one mass to left (or right) hand side of
+
+    the other mass / measure B when clip is suspended.
+
+    C Method to improve measurement of L e.g. clamp rule (to measure L) / use pointers
+    attached to rule or attached to
+
+    edges of clips.
+
+    D Method to improve measurement of d e.g. use a micrometer (to measure d) / use
+    travelling microscope (to measure d).
+
+    E
+
+    Method to improve measurement of T e.g. twist masses through larger angle before
+    releasing / use marker placed at
+
+    midpoint/equilibrium point/rest point of oscillation / record/film/video oscillation
+    with timer in view.
+
+    F
+
+    Workable method to improve release of clip/masses e.g. mark centre of clip for
+    attaching to the rubber cord / marker to
+
+    indicate initial height / marker to indicate initial position of centre of clip
+    vertically under cord.
+
+    1 mark for each point up to a maximum of 4.
+
+    4'
+  mark_scheme: []
+  graphics: []

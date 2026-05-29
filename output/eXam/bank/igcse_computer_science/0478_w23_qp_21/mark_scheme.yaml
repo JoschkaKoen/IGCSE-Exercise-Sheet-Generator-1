@@ -1,0 +1,812 @@
+questions:
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point (max two)
+
+    •
+
+    simplifying the problem
+
+    •
+
+    removing unnecessary details from the problem // selecting elements required
+
+    •
+
+    filtering out irrelevant characteristics from those elements'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point (max three)
+
+    •
+
+    inputs
+
+    •
+
+    processes
+
+    •
+
+    outputs
+
+    •
+
+    storage'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for stage, one mark for matching description (max
+    two)
+
+    •
+
+    design (1) details of solution set out (1)
+
+    •
+
+    coding (1) program is developed (1)
+
+    •
+
+    testing (1) program is tested for errors (1)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Displaying/sort 10 names in alphabetical order 9
+  mark_scheme: []
+  graphics: []
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0478/21
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point (max four)
+
+    •
+
+    Initialisation
+
+    •
+
+    inputting 10 names
+
+    •
+
+    storing the names in an array
+
+    •
+
+    sorting the names in alphabetical order using a bubble sort
+
+    •
+
+    displaying the 10 names
+
+    •
+
+    iteration'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for a meaningful identifier for the array
+
+    A Names  // ArrayNames
+
+    Two marks for 3 meaningful identifiers for variables
+
+    One marks for 1 or 2 meaningful identifiers for variables
+
+    T Temp
+
+    C Counter
+
+    L Length
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point (max two)
+
+    •
+
+    use of comments
+
+    •
+
+    use of procedures/functions
+
+    •
+
+    use of white space
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point
+
+    •
+
+    NOT A
+
+    •
+
+    AND B
+
+    •
+
+    OR NOT C
+
+    •
+
+    expression correct (NOT A AND B) OR NOT C
+
+    4
+
+    0478/21
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A
+
+    B
+
+    C
+
+    X
+
+    0
+
+    0
+
+    0
+
+    1
+
+    0
+
+    0
+
+    1
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+    1
+
+    0
+
+    0
+
+    1
+
+    1
+
+    0
+
+    1
+
+    0
+
+    1
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+    1
+
+    0
+
+    4 marks for 8 correct outputs
+
+    3 marks for 6/7 correct outputs
+
+    2 marks for 4/5 correct outputs
+
+    1 mark for 2/3 correct outputs
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Range check
+
+    1
+
+    0478/21
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '6'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for set of test data, one mark for purpose (max four)
+
+    Example:
+
+    1 and 1 (1) normal data to ensure the algorithm accepts this test data (1)
+
+    –1 and 1 (1) abnormal data for length to ensure that it is rejected (1)
+
+    4
+
+    Yes
+
+    START
+
+    INPUT Length
+
+    Price  Length * Cost
+
+    STOP
+
+    Is Length >=0.5
+
+    AND Length <=
+
+    6.0 ?
+
+    No
+
+    OUTPUT
+
+    "Price ",
+
+    ROUND(Price,2)
+
+    INPUT Cost
+
+    One mark for each of the following points
+
+    •
+
+    correct use of flowchart symbols
+
+    •
+
+    working flow lines and complete
+
+    •
+
+    both inputs correct
+
+    •
+
+    working range check
+
+    •
+
+    working calculation
+
+    •
+
+    correct output rounded to two decimal places
+
+    0478/21
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 8d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for two correct headings
+
+    Two marks for three correct headings
+
+    Three marks for all headings correct and no other headings unless used in 8(b)
+
+    Length
+
+    Cost
+
+    Price
+
+    OUTPUT
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 8e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point (max two)
+
+    •
+
+    validate Cost …
+
+    •
+
+    … with a range/presence check
+
+    •
+
+    add another validation check for Length
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each appropriate field name and correct data type
+
+    CatNo
+
+    text/alphanumeric
+
+    Description         text/alphanumeric
+
+    StockLevel          integer
+
+    Price
+
+    real
+
+    Painted
+
+    Boolean
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 9bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CatNo
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Unique identifier
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'SELECT lists the fields to be displayed
+
+    FROM identifies the table
+
+    WHERE identifies the search criteria
+
+    3
+
+    0478/21
+
+    October/November 2023
+
+    10
+
+    •
+
+    AO2 (maximum 9 marks)
+
+    •
+
+    AO3 (maximum 6 marks)
+
+    Data Structures required names shown underlined must be used as given in the scenario
+
+    2D Array or list Evening[1:10, 1:20] / Evening[0:9, 0:19]
+
+    Variables Counter, SeatCounter, NumSeats, Row, Column
+
+    Requirements (techniques)
+
+    R1 Find number of seats available for each performance and output (searching,
+    nested iteration, output)
+
+    R2 Inputs and validates number of seats (input, iteration, and selection)
+
+    R3 Checking if seats available (selection, assignment, output with appropriate
+    messages)
+
+    Example 15-mark answer in pseudocode
+
+    // meaningful identifier names and appropriate data structures to store the data
+    required
+
+    DECLARE Counter, SeatCounter, NumSeats, Row, Column : INTEGER
+
+    CONSTANT HouseFull = 200
+
+    CONSTANT MaxRow = 10
+
+    CONSTANT MaxColumn = 20
+
+    SeatCounter1  0 // initialise seat counter for performance 1
+
+    15
+
+    0478/21
+
+    October/November 2023
+
+    10
+
+    FOR Row  1 TO 10
+
+    FOR Column  1 TO 20
+
+    IF Evening[Row, Column]
+
+    THEN
+
+    SeatCounter  SeatCounter + 1
+
+    ENDIF
+
+    NEXT Column
+
+    NEXT Row
+
+    // validate input
+
+    OUTPUT "How many seats do you want to book? 1, 2, 3 or 4 "
+
+    INPUT NumSeats
+
+    WHILE 1 < NumSeats OR NumSeats > 4 OR NumSeats <> ROUND(NumSeats, 0)
+
+    OUTPUT "Please enter 1, 2, 3 or 4 for the number of seats "
+
+    INPUT NumSeats
+
+    ENDWHILE
+
+    IF SeatCounter + NumSeats > 200)// check for house full
+
+    THEN
+
+    OUTPUT "House full"
+
+    ELSE
+
+    IF SeatCounter + NumSeats > 200 // checks for not enough seats
+
+    THEN
+
+    OUTPUT "Only ", SeatCounter + NumSeats – 200, " seats left"
+
+    ELSE
+
+    FOR Counter  1 TO NumSeats // book required number of seats for performance
+
+    Evening[MOD(SeatCounter + Counter, MaxColumn), DIV(SeatCounter +
+
+    Counter), MaxColumn]  TRUE
+
+    OUTPUT "Row ", MOD(SeatCounter + Counter, MaxColumn), " seat ",
+
+    DIV(SeatCounter + Counter, MaxColumn)," booked"
+
+    NEXT Counter
+
+    ENDIF
+
+    0478/21
+
+    October/November 2023
+
+    Marking Instructions in italics
+
+    AO2:
+
+    Apply knowledge and understanding of the principles and concepts of computer science
+    to a given context,
+
+    including the analysis and  design of computational or programming problems
+
+    0
+
+    1-3
+
+    4-6
+
+    7-9
+
+    No creditable
+
+    response.
+
+    At least one programming
+
+    technique has been used.
+
+    Any use of selection, iteration,
+
+    counting, totalling, input and
+
+    output.
+
+    Some programming techniques used
+
+    are appropriate to the problem.
+
+    More than one technique seen
+
+    applied to the scenario, check the list
+
+    of techniques needed.
+
+    The range of programming techniques
+
+    used is appropriate to the problem.
+
+    All criteria stated for the scenario have
+
+    been covered by the use of
+
+    appropriate programming techniques,
+
+    check list of techniques needed.
+
+    Some data has been stored but
+
+    not appropriately.
+
+    Any use of variables or arrays or
+
+    other language dependent data
+
+    structures e.g. Python lists.
+
+    Some of the data structures chosen
+
+    are appropriate and store some of the
+
+    data required.
+
+    More than one data structure used to
+
+    store data required by the scenario.
+
+    The data structures chosen are
+
+    appropriate and store all the data
+
+    required.
+
+    The data structures used store all the
+
+    data required by the scenario.
+
+    0478/21
+
+    October/November 2023
+
+    Marking Instructions in italics
+
+    AO3: Provide solutions to problems by:
+
+    evaluating computer systems
+
+    making reasoned judgements
+
+    presenting conclusions
+
+    0
+
+    1-2
+
+    3-4
+
+    5-6
+
+    No creditable
+
+    response.
+
+    Program seen without relevant
+
+    comments.
+
+    Program seen with some relevant
+
+    comment(s).
+
+    The program has been fully
+
+    commented
+
+    Some identifier names used are
+
+    appropriate
+
+    Some of the data structures
+
+    used have meaningful names.
+
+    The majority of identifiers used are
+
+    appropriately named.
+
+    Most of the data structures used have
+
+    meaningful names.
+
+    Suitable identifiers with names
+
+    meaningful to their purpose have been
+
+    used throughout.
+
+    All of the data structures used have
+
+    meaningful names.
+
+    The solution is illogical.
+
+    The solution contains parts that may
+
+    be illogical.
+
+    The program is in a logical order.
+
+    The solution is inaccurate in
+
+    many places.
+
+    Solution contains few lines of
+
+    code with errors that attempt to
+
+    perform a task given in the
+
+    scenario.
+
+    The solution contains parts that are
+
+    inaccurate.
+
+    Solution contains lines of code with
+
+    some errors that logically perform
+
+    tasks given in the scenario. Ignore
+
+    minor syntax errors.
+
+    The solution is accurate.
+
+    Solution logically performs all the
+
+    tasks given in the scenario. Ignore
+
+    minor syntax errors.
+
+    The solution attempts at least
+
+    one of the requirements.
+
+    Solution contains lines of code
+
+    that attempt at least one task
+
+    given in the scenario.
+
+    The solution attempts to meet most of
+
+    the requirements.
+
+    Solution contains lines of code that
+
+    perform most tasks given in the
+
+    scenario.
+
+    The solution meets all the
+
+    requirements given in the question.
+
+    Solution performs all the tasks given in
+
+    the scenario.'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,904 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'forms (one or more) stable ions / compounds / oxidation states
+
+    with incomplete / partially filled (3)d orbital(s) / d shell / d sub-shell
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(orbitals) are at the same energy
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(1s2) 2s2 2p6 3s2 3p6 3d9
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[Cu(NH3)4(H2O)2]2+(aq) deep / dark / royal blue
+
+    AND
+
+    [CuCl4]2–(aq)
+
+    yellow
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1:
+
+    d orbital(s) of different energy / d-d splitting occurs / d sub-shell splits
+
+    M2:
+
+    electron(s) promoted / excited
+
+    M3:
+
+    light / wavelength / frequency / photon absorbed AND complementary colour seen
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: ligand exchange / replacement / substitution / displacement
+
+    M2: [CuCl4]2–  +  4NH3  +  2H2O  →  [Cu(NH3)4(H2O)2]2+  +  4Cl–
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: one correct 3D structure of [Cu(H2O)2(NH3)4]2+
+
+    M2: correct 3D stereoisomer structure of isomer 1
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1diii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cis isomer AND dipoles do not cancel
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ei
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(two) oxygen and (one) nitrogen (can donate) three lone pair(s)
+    of electrons (to the metal ion)
+
+    1
+
+    9701/44
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[Co(C4H5NO4)2]–
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1fi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'equilibrium constant for the formation of the complex (ion)
+
+    in a solvent / water / solution OR from its constituent ions or molecules
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1fii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[Ag(CN)2]–(aq) AND largest (value of) Kstab
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1g
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 M2:   any two [1], all four [2]
+
+    •
+
+    moles MnO4– = 0.015 ×18.70/1000 = 2.805 × 10–4
+
+    •
+
+    moles SO32– = 2.805 × 10–4  × 5/2 = 7.0125 × 10–4 (in 10 cm3)
+
+    •
+
+    moles SO32– = 1.753 × 10–2 (in 250 cm3)
+
+    •
+
+    mass Na2SO3 = 1.753 × 10–2  × 126.1 = 2.21 g
+
+    M3: % purity = 100 × 2.21 / 3.75 = 58.9 – 59.0 %   min 2sf
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1:  (solubility) decreases down the group
+
+    M2: Hlatt and Hhyd decrease /  become less exothermic / less negative
+
+    M3: Hhyd decreases / changes more / dominant factor / becomes less exothermic
+    by a larger extent
+
+    OR Hlatt decreases / changes less / changes slower
+
+    M4: Hsol becomes less exothermic / less negative OR Hsol becomes (more) endothermic / (more)
+    positive
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Ag2CrO4(s)  ⇌  2Ag+(aq)  +  CrO42–(aq)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Ksp = [Ag+]2 [CrO42-]
+
+    M2:  √(1.12× 10−12 ÷ 4)
+
+    3
+
+    = 6.54  10–5
+
+    M3: [Ag+] = 2  6.54  10–5 = 1.31  10–4 (mol dm–3)   min 2sf
+
+    3
+
+    9701/44
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Ka = 10–6.49 = 3.236  10–7
+
+    [H+]2 = 8.08984  10–9
+
+    M1: [H+] = 8.99  10–5
+
+    M2: pH = –log(8.99  10–5) = 4.05    min 2sf
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'conjugate acid
+
+    H2CrO4
+
+    AND
+
+    conjugate base
+
+    CrO42–
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(the energy change / released when) one mole of gaseous atoms
+    become 1– ions / gain one mole of electrons
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'due to repulsion between negative ion and incoming / gained
+    electron
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2diii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2Ag+(g)   S2–(g)  →  Ag2S(s)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2div
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: selection of correct six numbers only: –33, 731, 279, –200,
+    532, –2677
+
+    M2: use of  2 as only multiplier with Ag
+
+    M3: correct signs and evaluation of data
+
+    –33 = 2Hat + (2  731) + 279 + (–200) + 532 + (–2677)
+
+    2Hat = 571 (kJ mol –1)
+
+    Hat = +285.5 (kJ mol –1)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Ag2S smaller / less negative / less exothermic lattice neergy
+    AND larger ionic radius (of cation)
+
+    1
+
+    9701/44
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'number of possible arrangements of particles and energy in
+    a system
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'process
+
+    S is negative
+
+    S is positive
+
+    steam condensing into water
+
+    ✓
+
+    solid KCl dissolving into water
+
+    ✓
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: three numbers and correct multipliers used
+
+    M2: correct signs and evaluation
+
+    So = (3  203.0) + (223.1) – (2  281.6) = (+)268.9 (J K–1 mol–1)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'positive
+
+    AND
+
+    gas produced / on the right OR less / no gas on left
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 and M2: calculation of gradient from the graph for S
+
+    gradient = (–)140 / 900 = (–)0.1556
+
+    So = (–)0.1556  1000
+
+    = (+)155.6 ± 5 (J K–1 mol–1)
+
+    M3: T = 1120 ± 5 (K)
+
+    M4: Ho = (+)172 ± 10 (kJ mol–1)
+
+    4
+
+    9701/44
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'the order of reaction with respect to [H2]
+
+    1
+
+    the order of reaction with respect to [NO]
+
+    2
+
+    overall order of the reaction
+
+    3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'rate   1
+
+    4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'rate  27
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a four-particle collision is unlikely
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4av
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'step 1
+
+    2NO  →  N2O2
+
+    step 2
+
+    N2O2  +  H2  →  N2O  +  H2O
+
+    step 3
+
+    N2O  +  H2  →  N2  +  H2O
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4avi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'intermediate formed (step 2) then used up later (step 3)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'k = 0.693 / 720 = 9.625  10–4   min 2sf
+
+    AND units: s–1
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'homogeneous
+
+    AND Co3+ / catalyst / it is in the same phase / same state as the reactants
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: (equation 1)
+
+    2Co3+  +  2I–  →  2Co2+  +  I2
+
+    M2: (equation 2)
+
+    2Co2+  +  S2O82–  →  2Co3+  +  2SO42–
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'repulsion of two negative / same charge ions slows the reaction / raises
+    EA
+
+    1
+
+    9701/44
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 and M2: any two [1], all three [2]
+
+    •
+
+    (hexagonal ring) planar / (trigonal) planar
+
+    •
+
+    120o
+
+    •
+
+    sp2 hybridised
+
+    M3: p orbitals overlap sideways / laterally (with each other above and below the
+    ring) forming  bonds
+
+    M4:  bonds form when sp2 / hybridised orbitals overlap end-on-end / head on
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: (reaction 5)
+
+    Pt / Ni  +  H2 (+ heat)
+
+    M2: (reaction 6)
+
+    (CH3)2CHCOCl  +  Al Cl 3 (+ heat)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'reduction / hydrogenation
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(CH2CH3 group) directs to 2-, 4- (and 6-) positions AND due
+    to being an electron donating group
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CH3CH2Br  +  FeBr3  →  CH3CH2+  +  FeBr4–
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: curly arrow from inside / touching the hexagon to (CH2)
+    group / C+ charge
+
+    M2: structure of the intermediate
+
+    M3: curly arrow from C-H bond into / onto the ring AND formation / loss of H+
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5civ
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'H+  +  FeBr4–  →  HBr  +  FeBr3
+
+    1
+
+    organic intermediate
+
+    9701/44
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'sp = 1  AND  sp2 = 1  AND  sp3 = 3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'acid-base / neutralisation AND hydrolysis
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two * [1], any three * [2], any five * [3], all six * [4]
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 6ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'five / 5
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'proton environment
+
+    a
+
+    b
+
+    c
+
+    name of splitting pattern
+
+    doublet
+
+    multiplet
+
+    doublet
+
+    chemical shift range,
+
+     / ppm
+
+    2.2–3.0
+
+    3.2– 4.0
+
+    2.0–3.0
+
+    any three [1], all six [2]
+
+    2
+
+    reaction 7
+
+    reaction 8
+
+    reaction 9
+
+    *
+
+    *
+
+    *
+
+    *
+
+    *
+
+    *
+
+    *
+
+    *
+
+    9701/44
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1:
+
+    (most acidic) benzoic acid
+
+    4-methylphenol
+
+    water
+
+    (least acidic) phenylmethanol
+
+    M2: correct link of acidity to
+
+    weakens O—H / H+ more easily lost / anion stabilised / conjugate base stabilised
+
+    M3 and M4: any two [2]
+
+    •
+
+    for benzoic acid: negative inductive effect of C=O / electronegative C=O / two
+    electronegative O / –ve charge delocalised
+
+    (across two O) / resonance in –COO–
+
+    •
+
+    for 4-methylphenol: as lone pair on oxygen delocalised into the ring /  system / delocalised
+    system
+
+    OR p orbital on oxygen overlaps with ring /  system / delocalised system
+
+    •
+
+    for phenylmethanol: positive inductive effect of alkyl group / R / CH2
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 7ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 7cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(reaction 10) addition–elimination / condensation / esterification
+
+    AND
+
+    (reaction 11) addition–elimination / condensation (polymerisation) / esterification
+
+    1
+
+    9701/44
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7ciii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: ester linkage shown
+
+    M2: rest of the structure correct with continuation bonds
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    chlorobenzene is less reactive than ethanoyl chloride
+
+    •
+
+    p orbital / lone pair on Cl / –Cl will overlap / delocalise into the ring
+
+    OR C of COCl has most electron deficient OR has an electronegative oxygen atom
+    / two electronegative atoms / electron
+
+    withdrawing C=O group
+
+    •
+
+    due to partial double C–Cl bond
+
+    OR C–Cl bond strengthened (more) / stronger bond between Cl and benzene / ring
+
+    OR C–Cl weakened in ROCl
+
+    any two [1], all three [2]
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    nitrile
+
+    •
+
+    amide
+
+    •
+
+    ketone / carbonyl
+
+    •
+
+    ester
+
+    any two [1], all four [2]
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '8 / eight
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'no need to separate optical isomers
+
+    1
+
+    9701/44
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: amide bond hydrolysed and COO– and NH2 formed
+
+    M2: nitrile bond hydrolysed and COO– formed
+
+    M3: ester bond hydrolysed and COO– and OH formed
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 8di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'percentage = 100  28 / (28 + 58 + 13 + 42) = 19.9 (%)   min
+    2sf
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'D is attracted more strongly to the stationary phase / forms
+    stronger intermolecular forces with the stationary phase
+
+    1'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,668 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Assignment statement
+
+    Data type
+
+    A  LEFT(MyName, 1)
+
+    CHAR / STRING
+
+    B  Total * 2
+
+    INTEGER / REAL
+
+    C  INT(ItemCost) / 3
+
+    REAL
+
+    D  "Odd OR Even"
+
+    STRING
+
+    One mark per row'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Expression
+
+    Evaluates to
+
+    Tries < 10 AND NOT Sorted
+
+    TRUE
+
+    Tries MOD 4
+
+    1
+
+    TO_LOWER(MID(ID, 3, 1))
+
+    ''a'' // "a"
+
+    LENGTH(ID & "xx") >= Tries
+
+    TRUE
+
+    One mark per row
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The names do not reflect / indicate the purpose of the variable
+    // the names
+
+    are not meaningful
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'They make the program more difficult to understand / debug
+    / maintain
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark from:
+
+    
+
+    Indentation / use of white space
+
+    
+
+    Capitalisation of keywords
+
+    
+
+    Use of comments
+
+    
+
+    Use of modular programming
+
+    
+
+    Use of local variables
+
+    Note: max 1 mark
+
+    1
+
+    9618/21
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per outlined region:
+
+    1
+
+    Initialise both counts
+
+    2
+
+    Increment Tries every time a pair is input
+
+    3
+
+    Compare A > B and increment Count if TRUE
+
+    4
+
+    Test for Count = 10 (10th time A > B) – MUST include Yes / No labels
+
+    5
+
+    If so output Tries, otherwise loop
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per point:
+
+    1
+
+    A (variable of type) string will be input // by example e.g. “67,72”
+
+    2
+
+    A special / identified character would need to be used to separate each
+
+    numeric value // all numbers are fixed length
+
+    2
+
+    9618/21
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per point:
+
+    1
+
+    The PS contains a null pointer
+
+    2
+
+    The PF points to the first element on the free list
+
+    3
+
+    All the nodes are on the free list
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Max 2 marks for ''Variables'':
+
+    The two variables will be of type Integer
+
+    The two variables will be used as pointers / indexes to the
+
+    arrays.
+
+    The values stored in the two variables will indicate the first
+
+    element in each list
+
+    The first 1D array will be of type String
+
+    The first 1D array will be used to store the values // data items
+
+    // User IDs
+
+    The second 1D array will be of type Integer
+
+    The second 1D array will be used to store the pointers // point
+
+    to next item
+
+    Mark as follows:
+
+    One mark for each of the first three rows
+
+    One mark for both Array 1 rows
+
+    One mark for both Array 2 rows
+
+    5
+
+    9618/21
+
+    May/June 2024
+
+    4
+
+    Example:
+
+    FUNCTION Check() RETURNS STRING
+
+    DECLARE Odd, Even, Index : INTEGER
+
+    Odd  0
+
+    Even  0
+
+    FOR Index  1 TO 100
+
+    IF Index MOD 2 = 0 THEN
+
+    Even  Even + Data[Index]
+
+    ELSE
+
+    Odd  Odd + Data[Index]
+
+    ENDIF
+
+    NEXT Index
+
+    ENDFUNCTION
+
+    Mark as follows:
+
+    1. Function heading, ending and return type
+
+    2. Declare local variables Odd, Even and Index as integers
+
+    3. Initialise Odd and Even
+
+    4. Loop for 100 iterations // through array
+
+    5.     Sum Odd and Even element values in a loop
+
+    6. Compare Odd and Even after the loop and Return appropriate string
+
+    6
+
+    9618/21
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per zone.
+
+    6'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'OTHERWISE : CALL Error(C)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'After the ''Z'' clause in the CASE construct // before the
+    ENDCASE
+
+    1
+
+    9618/21
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'FUNCTION IsRA(x1, y1, x2, y2, x3, y3 : INTEGER) RETURNS
+
+    BOOLEAN
+
+    DECLARE Len1, Len2, Len3 : INTEGER
+
+    Len1  (x1 - x2) ^ 2 + (y1 - y2) ^ 2
+
+    Len2  (x1 - x3) ^ 2 + (y1 - y3) ^ 2
+
+    Len3  (x2 - x3) ^ 2 + (y2 - y3) ^ 2
+
+    IF (Len1 = Len2 + Len3) OR__
+
+    (Len2 = Len1 + Len3) OR__
+
+    (Len3 = Len1 + Len2) THEN
+
+    RETURN TRUE
+
+    ELSE
+
+    RETURN FALSE
+
+    ENDIF
+
+    ENDFUNCTION
+
+    Mark as follows:
+
+    1
+
+    Calculate the square of the length of at least one side
+
+    2
+
+    Calculation of all three lengths squared correctly
+
+    3
+
+    One correct comparison of square of three lengths
+
+    4
+
+    All three comparisons…
+
+    5
+
+    combined using logical operators / nested IF // completely correct
+
+    selection
+
+    6
+
+    Return result correctly in both cases
+
+    6'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for statement of problem:
+
+    Problem:
+
+    
+
+    The function will return an incorrect value // the test will fail
+
+    1 mark for solution:
+
+    Solution:
+
+    
+
+    Round the calculated values (to a known number of decimal places)
+
+    
+
+    Define a threshold below which any difference can be ignored
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'To make the solution easier to design / implement / solve
+
+    1
+
+    9618/21
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 7aii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per item and justification
+
+    Item: mobile phone number
+
+    Justification: to send the text message
+
+    Item: name
+
+    Justification: to personalise the text message
+
+    Item: exercise interest
+
+    Justification: to determine whether this member would be interested
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 7aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Examples include:
+
+    
+
+    Add a member to a list of those interested in the new class
+
+    
+
+    Remove the member from future SMS messages
+
+    
+
+    Read/process Message
+
+    
+
+    Identify who from
+
+    One mark for each.
+
+    Max 2 marks
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Means that Update calls (one of) either Sub-A, Sub-B or Sub-C
+
+    One mark for each point:
+
+    
+
+    reference to selection / decision / if
+
+    
+
+    naming all four modules correctly
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'PROCEDURE Sub-A (Name : STRING, BYREF P2 : BOOLEAN)
+
+    FUNCTION Sub-B (P1 : REAL) RETURNS REAL
+
+    One mark per underlined part in each case
+
+    4
+
+    9618/21
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'FUNCTION DeleteComment(Line : STRING) RETURNS STRING
+
+    DECLARE NewLine, TwoChars : STRING
+
+    DECLARE Count, TrimTo : INTEGER
+
+    CONSTANT Comment = "//"
+
+    NewLine  Line
+
+    TrimTo  0
+
+    Count  1
+
+    WHILE Count < LENGTH(Line) AND TrimTo = 0
+
+    TwoChars  MID(Line, Count, 2) // extract 2 chars
+
+    IF TwoChars = Comment THEN
+
+    TrimTo  Count
+
+    ENDIF
+
+    Count  Count + 1
+
+    ENDWHILE
+
+    IF TrimTo <> 0 THEN
+
+    NewLine  LEFT(Line, TrimTo - 1)
+
+    ENDIF
+
+    RETURN NewLine
+
+    ENDFUNCTION
+
+    Mark as follows:
+
+    1
+
+    Loop to length of Line (parameter) // length of Line -1
+
+    2
+
+    Terminate loop on first double slash
+
+    3
+
+    Attempt to extract one/two characters in a loop
+
+    4
+
+    Check for "//" after attempt at extraction in a loop
+
+    5
+
+    Record start position of comment // Calculate amount of trim required
+
+    6
+
+    Attempt to trim Line from start of comment
+
+    7
+
+    Completely correct trimmed Line from start of comment
+
+    8
+
+    Return Line after a reasonable overall attempt
+
+    8
+
+    9618/21
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Example:
+
+    FUNCTION Stage_1(StudentName : STRING) RETURNS INTEGER
+
+    DECLARE OldFile, NewFile, Line : STRING
+
+    DECLARE Count : INTEGER
+
+    OldFile  StudentName & "_src.txt"
+
+    NewFile  StudentName & "_S1.txt"
+
+    OPENFILE OldFile FOR READ
+
+    OPENFILE NewFile FOR WRITE
+
+    Count  0
+
+    WHILE NOT EOF(OldFile)
+
+    READFILE OldFile, Line
+
+    Line  DeleteComment(Line)
+
+    IF LENGTH(Line) <> 0 THEN
+
+    WRITEFILE NewFile, Line
+
+    Count  Count + 1
+
+    ENDIF
+
+    ENDWHILE
+
+    CLOSEFILE OldFile
+
+    CLOSEFILE NewFile
+
+    RETURN Count
+
+    ENDFUNCTION
+
+    Mark as follows:
+
+    1
+
+    Generate filenames condone missing “_”
+
+    2
+
+    Open both files in correct modes and subsequently close
+
+    3
+
+    Loop to EOF(OldFile)
+
+    4
+
+    Read a line from OldFile and execute DeleteComment()in a  loop
+
+    5
+
+    Skip blank lines after DeleteComment()in a loop
+
+    6
+
+    Write Line to stage 1 file and increment Count
+
+    7
+
+    Return the number of lines after a reasonable attempt at counting
+
+    7'
+  mark_scheme: []
+  graphics: []

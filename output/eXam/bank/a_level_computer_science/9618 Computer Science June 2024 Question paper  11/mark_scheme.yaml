@@ -1,0 +1,812 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for:
+
+    (A XOR B) NOR C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for NOT B XOR C
+
+    1 mark for NOT A and final AND plus NOT
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 2:
+
+    •
+
+    The doorbell only performs the specific tasks of motion detection/video
+
+    recording/doorbell ringing
+
+    •
+
+    The motion sensor and digital camera are built into the doorbell
+
+    •
+
+    The CPU/memory/storage/software are all dedicated to this task only
+
+    •
+
+    Only a dedicated microprocessor is required due to the limited processing
+
+    requirements
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'No mark for identification of monitoring or control
+
+    1 mark each to max 2 for justification:
+
+    Monitoring:
+
+    •
+
+    The turning on of the digital camera does not affect the input to the
+
+    sensor/button
+
+    •
+
+    The transmission of the data/video does not affect the input to the
+
+    sensor/button
+
+    •
+
+    The ringing of the doorbell does not affect the input to the button
+
+    Control:
+
+    •
+
+    Video doorbell does not only store the values from the motion sensor
+
+    •
+
+    The data is processed, generating a signal to start the digital camera
+
+    recording
+
+    •
+
+    Button pressed/motion detected causes a signal to be sent over a
+
+    network to the smartphone
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 2:
+
+    •
+
+    Current reading/data from motion sensor
+
+    •
+
+    Current/recent video
+
+    •
+
+    Instructions being executed
+
+    •
+
+    Start-up/BIOS/boot-up instructions
+
+    2
+
+    9618/11
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each row:
+
+    Statement
+
+    The two types of logic gate that can be used to create solid
+
+    state devices
+
+    NAND
+
+    NOR
+
+    The number of transistors contained in each cell
+
+    1 or 2
+
+    The type of gate that can retain electrons without power
+
+    floating
+
+    The type of gate that allows or stops current from passing
+
+    through
+
+    control
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2ciii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 2:
+
+    •
+
+    Captured video is transmitted to buffer
+
+    •
+
+    … video is transmitted from buffer to smartphone
+
+    •
+
+    Store recent data in a buffer for the user to rewind
+
+    •
+
+    … instead of storing everything in secondary storage
+
+    •
+
+    Store readings from motion sensor
+
+    •
+
+    … until the microprocessor can process them
+
+    •
+
+    Store video from digital camera
+
+    •
+
+    … before moving it to secondary storage
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 3:
+
+    •
+
+    Data transmission to user’s smartphone will take longer
+
+    •
+
+    … because there is more data to transmit
+
+    •
+
+    The secondary storage device will fill faster
+
+    •
+
+    … fewer videos will be able to be stored long-term // videos are
+
+    overwritten more often
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for:
+
+    Continuous ordered flow of bits over a communication path
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 2:
+
+    •
+
+    Real-time is direct from source whereas on-demand is pre-
+
+    recorded/downloaded to view later
+
+    •
+
+    Real-time cannot be re-watched, on-demand can be paused, re-watched
+
+    etc.
+
+    •
+
+    Real-time plays continually, on-demand downloads sections/blocks and
+
+    cannot play until next section is downloaded
+
+    2
+
+    9618/11
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 2:
+
+    •
+
+    The interpreter will stop when an error is found
+
+    •
+
+    ... so the error can be corrected in real-time, and the result of changes
+
+    seen immediately
+
+    •
+
+    Only one error is displayed at a time
+
+    •
+
+    … so fewer errors to correct simultaneously and no dependent errors
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 3:
+
+    •
+
+    Program can be distributed without source code
+
+    •
+
+    ... so it cannot be edited/stolen/plagiarised
+
+    •
+
+    Users do not require the translator to run the program
+
+    •
+
+    … so time is not spent retranslating by user
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each correct answer:
+
+    Program
+
+    Number
+
+    Code
+
+    ACC
+
+    Content
+
+    1
+
+    LDD 20
+
+    ADD #2
+
+    4
+
+    2
+
+    LDX 22
+
+    5
+
+    3
+
+    LDI 25
+
+    INC ACC
+
+    SUB 22
+
+    1
+
+    4
+
+    LDD 19
+
+    LDM #5
+
+    LDM #25
+
+    25
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each correct answer:
+
+    Program
+
+    Number
+
+    Code
+
+    ACC Content
+
+    1
+
+    AND 31
+
+    1001 1010
+
+    2
+
+    XOR B01001111
+
+    1101 0101
+
+    3
+
+    OR #30
+
+    1001 1110
+
+    3
+
+    9618/11
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    •
+
+    Identification of server in the bank scenario
+
+    •
+
+    Description e.g. Receives requests, processes the requests
+
+    •
+
+    Identification of client in bank scenario
+
+    •
+
+    Description e.g. Sends request to the server, waits and outputs the
+
+    response
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each correctly completed term:
+
+    •
+
+    odd or even
+
+    •
+
+    7-bits
+
+    •
+
+    odd
+
+    •
+
+    block
+
+    •
+
+    byte
+
+    Computer A and Computer B agree on whether to use odd or even parity.
+
+    Computer A divides the data into groups of 7-bits. The number of 1s in each
+
+    group is counted. If the agreed parity is odd and the group has an even
+
+    number of 1s a parity bit of 1 is appended, otherwise a parity bit of 0 is
+
+    appended.
+
+    In a parity block check the bytes are grouped together, for example in a grid.
+
+    The number of 1s in each column (bit position) is counted. A bit is assigned to
+
+    each column to make the column match the parity. These parity bits are
+
+    transmitted with the data as a parity byte.
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 3:
+
+    •
+
+    Compares all incoming and outgoing transmissions
+
+    •
+
+    ... against set criteria/whitelist/blacklist
+
+    •
+
+    Blocks all transmissions that do not meet rules
+
+    •
+
+    Blocks data entering from specific ports
+
+    •
+
+    Blocks unauthorised/unknown internal software transmitting data
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 4:
+
+    e.g.
+
+    •
+
+    Captures an image of the face
+
+    •
+
+    Uses image recognition
+
+    •
+
+    Trained to identify the features of a face in an image
+
+    •
+
+    … using a large number of images
+
+    •
+
+    Analyse images for facial features
+
+    •
+
+    Uses the probability of a match
+
+    4
+
+    9618/11
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    •
+
+    User table with the username as the Primary Key
+
+    •
+
+    … containing at least email address, date of birth / age and rating
+
+    •
+
+    Quiz table with Quiz ID or date or file name as the Primary Key.
+
+    •
+
+    … containing at least the other field(s) not used as the PK
+
+    •
+
+    A joining table with an appropriate name including at least fields for user
+
+    identification, quiz identification and score
+
+    •
+
+    … with an appropriate Primary Key
+
+    •
+
+    ... and Foreign Keys matching the Primary Keys of the other two tables
+
+    USER(Username, Email, DateOfBirth, Rating)
+
+    QUIZ(QuizID, Date, Filename)
+
+    USER_QUIZ(Username, QuizID, Score)
+
+    6'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each to max 2 for data dictionary and max 2 for logical
+    schema:
+
+    Data dictionary:
+
+    •
+
+    Data about the data in the database // metadata
+
+    •
+
+    Identifies the characteristics of the data that will be stored
+
+    •
+
+    Appropriate example e.g. field names, table name, validation rules, data
+
+    types, primary / foreign keys, relationships etc.
+
+    Logical schema:
+
+    •
+
+    Conceptual design
+
+    •
+
+    Platform/database independent overview of the database
+
+    •
+
+    Is used to design the physical structure
+
+    •
+
+    Appropriate example e.g. Design of entities / E-R diagram / views
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 6ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each correct clause:
+
+    •
+
+    Alter table EVENT
+
+    •
+
+    Adding foreign key as PlayerID referencing correct table
+
+    ALTER TABLE EVENT
+
+    ADD FOREIGN KEY(PlayerID)REFERENCES PLAYER(PlayerID);
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    •
+
+    Selecting PlayerID from EVENT
+
+    •
+
+    Counting EventID
+
+    •
+
+    Grouping by the PlayerID
+
+    Example:
+
+    SELECT PlayerID, COUNT(EventID)
+
+    FROM EVENT
+
+    GROUP BY PlayerID;
+
+    3
+
+    9618/11
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    •
+
+    Working – carried values clearly indicted
+
+    •
+
+    Correct answer 0001 1000
+
+    •
+
+    Overflow clearly indicated as overflow
+
+    Example:
+
+    1 0 0 1 1 1 1 0
+
+    0 1 1 0 0 0 0 1
+
+    +    0 0 0 1 1 0 0 1
+
+    (1) 0 0 0 1 1 0 0 0
+
+    1 1 1 1 1 1 1........................(carries)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each correct row:
+
+    Statement
+
+    Bus
+
+    Star
+
+    Mesh
+
+    all devices connect to one central device
+
+    
+
+    all devices connect to a central cable
+
+    
+
+    multiple paths for the packets to travel
+
+    
+
+    robust against damage because if any line fails,
+
+    the rest of the network retains full functionality
+
+    
+
+    
+
+    most likely to lose data through collisions
+
+    
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for:
+
+    to be visible to and accessible by other devices on the internet
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    •
+
+    IPv4 has 4 groups of digits whilst IPv6 has 8 groups
+
+    •
+
+    IPv4 is usually represented in denary whilst IPv6 is usually represented
+
+    in hexadecimal
+
+    •
+
+    IPv4 groups are between 0 and 255 whilst IPv6 is between 0 and FFFF
+
+    •
+
+    IPv4 is 32 bits whilst IPv6 is 128 bits
+
+    2'
+  mark_scheme: []
+  graphics: []

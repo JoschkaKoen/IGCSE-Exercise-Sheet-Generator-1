@@ -1,0 +1,378 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '38.87 g
+
+    1
+
+    n(MnSO4•H2O) = c  V = 2.3  0.1 = 0.23 mol
+
+    mass MnSO4•H2O = 0.23  169.0 = 38.87 g'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Dissolve the solid / MnSO4.H2O / manganese sulfate (in the
+    beaker) using (a small volume of) distilled water
+
+    M2 transfer / add to a (100 cm3 volumetric) flask
+
+    AND
+
+    rinse (with distilled water)
+
+    M3 top up the 100 cm3 volumetric flask to mark (with distilled water)
+
+    AND
+
+    Invert the (stoppered) flask)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(wear) chemically resistant gloves.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'dissolving NaOH(s) is (very) exothermic
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Oxygen in trapped air could dissolve into the water sample
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(25.0 cm3) volumetric pipette
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1diii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'To observe the end-point more clearly
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ei
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'rough
+
+    1
+
+    2
+
+    3
+
+    12.70
+
+    13.05
+
+    13.15
+
+    1
+
+    M2 13.10 cm3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'titrations 2 and 3 are within 0.10 cm3 of each other
+
+    1
+
+    9701/54
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1eiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'working must be shown
+
+    2  0.05
+
+    13.15
+
+    
+
+     100 = 0.760
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1fi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(e)(i) / (2  106) = 6.55  10–6 (mol)
+
+    1
+
+    n(S2O32-) = (13.10  0.001) / 1000 = 1.31  10–5 mol
+
+    n(I2) in 25.00 cm3 of solution Z = n(S2O32–)/2 = 6.55  10–6 mol'
+  mark_scheme: []
+  graphics: []
+- number: 1fii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(f)(i)  10 = 6.55  10–5 (mol)
+
+    1
+
+    n(O2) in 25.00 cm3 of Z = (f)(i) / 2 = 3.275  10–6 mol
+
+    n (O2) in 500 cm3 of Z = 3.275  10-6  500 / 25 = 6.55  10–5 mol'
+  mark_scheme: []
+  graphics: []
+- number: 1fiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(f)(ii)  1.28  105 = 8.38 (mg dm–3)
+
+    1
+
+    n(O2) in 1dm3 of lake water = (f)(ii)  1000 / 250 = 2.62  10–4 mol
+
+    dissolved oxygen content = (2.62  10–4  32.0  1000) = 8.38 mg dm–3'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to increase the rate of drying / removal of (distilled) water
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'iodine is not (very) soluble (in water)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'mass change is (too / very) small
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'repeat without any iodine
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'time / s
+
+    mass of tin reacted
+
+    / g
+
+    0
+
+    0.000
+
+    100
+
+    0.069
+
+    200
+
+    0.120
+
+    300
+
+    0.218
+
+    400
+
+    0.291
+
+    500
+
+    0.359
+
+    1
+
+    9701/54
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 points plotted correctly
+
+    centre of all crosses should be on line for  value.
+
+    y value should be on the line for point 1, 3
+
+    point 2, 6 – just below line / on line
+
+    4 – midway between two lines
+
+    5 – just above line / on line
+
+    1
+
+    M2 straight line of best fit drawn
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'most anomalous point circled
+
+    (expected to be at time 200 s, point 3, below line of best fit)
+
+    AND
+
+    the balance/mass reading was taken before 200 s / too early
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 two acceptable coordinates from line of best fit expressed
+    in the form (x,y).
+
+    M2 gradient correctly calculated from points listed for M1.
+
+    answer correctly rounded to 3 significant figures.
+
+    2
+
+    9701/54
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ei
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'volume of
+
+    0.400 mol dm–3
+
+    I2 solution
+
+    used / cm3
+
+    volume of
+
+    methylbenzene
+
+    used / cm3
+
+    100.0
+
+    0.0
+
+    75.0
+
+    25.0
+
+    50.0
+
+    50.0
+
+    25.0
+
+    75.0
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[I2]
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 no
+
+    AND
+
+    the rate of reaction is proportional to the concentration of iodine / a conclusion
+    based on calculations done for M2
+
+    1
+
+    M2 explained using actual values from columns 3 and 4 in Table 2.2
+
+    1
+
+    9701/54
+
+    October/November 2025
+
+    Working for answers'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,652 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a stage micrometer, with divisions 0.1 mm apart, viewed
+    through an eyepiece containing a graticule. 10 20 30 40 50 60 70 80 90 100 The
+    same eyepiece is now used to examine a blood smear. How many graticule divisions
+    will cover the diameter of a lymphocyte of 10 m?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: 'Cell structures can be isolated by centrifuging the cells in a sucrose density
+    gradient. This breaks up the cells and separates the cell structures into fractions.
+    The diagram shows the positions of some of these fractions in a sucrose density
+    gradient. fraction 1: ribosomes fraction 2: lysosomes fraction 3: mitochondria
+    fraction 4: chloroplast sucrose density gradient Which fractions contain cell
+    structures that carry out protein synthesis?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a plant cell.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Which labelled organelles would contain nucleotides?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: 'Bacterial ribosomes consist of two subunits and a total of three rRNA molecules
+    per ribosome. An analysis of all the 70S ribosomes from a single cell of the bacterium
+    Escherichia coli showed that there were: ● 57 000 rRNA molecules ● three types
+    of rRNA molecule ● 19 000 copies of each type of rRNA molecule. How many 70S ribosomes
+    were there in the E. coli cell?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Radioactively labelled amino acids are introduced into a tracheal cell that
+    uses them to make mucus (a glycoprotein). Which route will the amino acids take?
+    first last
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which features shown in the diagram can be present in viruses? feature DNA
+    RNA protein coat 70S ribosomes
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows some steps in a laboratory method used to identify the presence
+    of non-reducing sugars in a food sample. Some terms are missing. step X step Y
+    end colour Z Which terms are correct for the expected result for a very low concentration
+    of non-reducing sugar? X Y Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Many biological molecules exist as polymers made up of monomer subunits. Which
+    row correctly identifies the monomer in each of the biological molecules? collagen
+    glycogen cellulose
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement correctly explains the result when the two molecules shown
+    in the diagram react together? CH2OH H OH HO O O H2O
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes amylopectin? -1,4 glycosidic bonds -1,6 glycosidic bonds
+    shape of molecule function of molecule
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a feature of triglyceride molecules?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: An unsaturated fatty acid molecule has 17 carbon atoms in the tail which is
+    attached to its carboxyl group. The tail contains three double bonds. How many
+    hydrogen atoms does the tail contain?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about phospholipids in the bilayer of a cell surface membrane
+    is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Which descriptions of enzymes that use the lock-and-key hypothesis are correct?
+    The active site is complementary to the substrate the enzyme acts on. Bonds that
+    form in the enzyme–substrate complex change the shape of the active site. Most
+    of the amino acids in an enzyme help to maintain the specific shape of the enzyme.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the results of an investigation into the effect of amylase
+    on starch at three different temperatures. concentration of reducing sugar time
+    / minutes 50 °C 60 °C 70 °C Which statements are correct conclusions using these
+    results? The optimum temperature is 50 °C. The initial rate of reaction is highest
+    at 70 °C. The higher the temperature the more quickly the enzyme denatures.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: The rate of enzyme-catalysed reactions in human cells is regulated. What may
+    be involved in this regulation? a change in enzyme concentration a change in substrate
+    concentration inhibition by the final product of the reaction
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Proteins in the cell surface membranes of human cells and mouse cells were
+    labelled with fluorescent dyes. The human cells were labelled with a red dye and
+    the mouse cells were labelled with a green dye. A human cell and a mouse cell
+    were then fused to form a hybrid cell. At first, the different dyes remained separate.
+    After 40 minutes, the two dyes were evenly distributed in the hybrid cell surface
+    membrane. What explains this observation?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about the cell surface membrane are correct? Channel proteins
+    allow water soluble ions and molecules across the membrane. Glucose can pass into
+    the cell via carrier proteins. Oxygen passes freely through the membrane as it
+    is soluble in lipids. Some glycoproteins act as antigens.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows two cylinders of agar. The agar cylinders are placed into
+    a solution of dye at the same time. The time taken for the dye to diffuse into
+    the centre of each cylinder is recorded. 2 cm 1 cm 5 cm 3 cm X Y Which statement
+    explains why the dye reaches the centre of one agar cylinder faster than the other
+    agar cylinder?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: What are roles of adult stem cells in humans? repair other cells by mitosis
+    divide to replace cells in tissues differentiate into a new organism
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements are correct for the mitotic cell cycle? DNA is replicated
+    semi-conservatively during mitosis. DNA is never changed from one generation of
+    cells to the next generation. The daughter cells at the end of a mitotic cell
+    division have the potential to produce the same enzymes as the parent cell. The
+    same quantity of DNA is distributed to the nuclei of two new cells at the end
+    of a mitotic cell division.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrograph shows a stage of the cell cycle. Which stage is shown
+    in the photomicrograph?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram represents a molecule of ATP. J K L What are the components of
+    ATP labelled J, K and L? J K L
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about complementary base pairing are correct? It occurs during
+    translation. Purines and pyrimidines are the same size. The base pairs are of
+    equal length. Uracil forms three hydrogen bonds with adenine.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement is correct for protein synthesis?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: A mutation occurred in this original DNA nucleotide sequence. C T A G A A
+    T C C T C T C C C After the mutation occurred, the new DNA nucleotide sequence
+    coded for the amino acids Asp, Leu, Gly and Glu. The table shows the amino acids
+    that are coded for by each DNA triplet. AAA AAG AAT AAC
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrograph shows a longitudinal section of part of a plant stem.
+    Q P R Which row correctly identifies structures P, Q and R? P Q R
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the pathway taken by a water molecule travelling from
+    the soil to the xylem is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Amino acids move from a phloem sieve tube element into a root cell. What are
+    the changes to the water potential and the volume of liquid in the phloem sieve
+    tube element at the sink, when this event is happening? water potential in the
+    phloem sieve tube element volume of liquid in the phloem sieve tube element
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows the comparison of blood pressure in three main blood vessels
+    during diastole. vessel 1 vessel 2 vessel 3 blood pressure in the vessel during
+    diastole low very high high Which row identifies the three blood vessels? vessel
+    1 vessel 2 vessel 3
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Red blood cells may contain a molecule known as 2,3-bisphosphoglycerate (2,3-BPG).
+    When 2,3-BPG binds to haemoglobin, a higher partial pressure of oxygen is needed
+    to bring about 50% saturation of haemoglobin with oxygen. Which statements about
+    the effect of 2,3-BPG are correct? 2,3-BPG in red blood cells causes the oxygen
+    dissociation curve to shift to the right. The binding of 2,3-BPG to haemoglobin
+    reduces the Bohr effect. The binding of 2,3-BPG to haemoglobin lowers the affinity
+    of the haemoglobin for oxygen.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: A person has a small hole in the septum between the ventricles. This is called
+    a ventricular septal defect (VSD). The person has no other heart defects. What
+    is the direction of the net flow of blood during ventricular systole in the heart
+    of this person?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a transverse section through a human bronchus. Which labelled
+    tissue is the cartilage?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: What helps to maintain a concentration gradient between blood and the air
+    in the alveolus?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row correctly identifies the pathogens causing malaria and TB? malaria
+    TB
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: What could be used to help prevent an outbreak of cholera in a town?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the percentage of tuberculosis (TB) patients who were also
+    known to be infected with HIV, from 2004 to 2011. 2004 2005 2006 2007 2008 2009
+    2010 2011 percentage of TB patients year region P global regions outside region
+    P Which statement about the graph is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Four different treatments were tested in a human volunteer during a year.
+    One of these treatments was a vaccine. The treatments were injected into the volunteer
+    and blood samples were taken after two weeks. The samples were analysed to obtain
+    a cell count for four types of cell. The results are shown in the table. Which
+    treatment was the vaccine? (Assume the volunteer's baseline blood cell count was
+    the same before each treatment.) cell count / cells per cm3 monocytes neutrophils
+    plasma cells macrophages
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: A bacterial pathogen produces a protein that acts as a toxin. This toxin is
+    harmful to humans. People can be vaccinated to protect them from the effects of
+    this pathogen. Which statement describes the sequences of events that occur in
+    a vaccinated person to protect them from the effects of this pathogen?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

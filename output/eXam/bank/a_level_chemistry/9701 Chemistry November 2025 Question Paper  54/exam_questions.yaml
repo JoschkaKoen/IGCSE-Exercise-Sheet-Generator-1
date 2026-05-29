@@ -1,0 +1,199 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    marks: 1
+    text: ''
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    marks: 3
+    text: ''
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+  - number: 1d
+    question_type: short_answer
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 1di
+      question_type: short_answer
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 1dii
+      question_type: short_answer
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 1diii
+      question_type: short_answer
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+  - number: 1e
+    question_type: short_answer
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 1ei
+      question_type: calculation
+      marks: 2
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 1eii
+      question_type: calculation
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 1eiii
+      question_type: calculation
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+  - number: 1f
+    question_type: short_answer
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 1fi
+      question_type: calculation
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 1fii
+      question_type: calculation
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 1fiii
+      question_type: calculation
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2ai
+      question_type: calculation
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 2aii
+      question_type: short_answer
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 2aiii
+      question_type: calculation
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 2aiv
+      question_type: short_answer
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+  - number: 2b
+    question_type: calculation
+    marks: 1
+    text: ''
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      marks: 2
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: calculation
+    marks: 2
+    text: ''
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 2ei
+      question_type: calculation
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 2eii
+      question_type: short_answer
+      marks: 1
+      text: ''
+      answer_options: []
+      subquestions: []
+    - number: 2eiii
+      question_type: calculation
+      marks: 2
+      text: ''
+      answer_options: []
+      subquestions: []

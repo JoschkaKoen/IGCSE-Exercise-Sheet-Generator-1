@@ -1,0 +1,614 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: An ice cube melts. ice cube pool of water What happens to the molecules of
+    water in the ice cube?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: A sample of a liquid, X, is heated to a temperature above its boiling point.
+    X is then cooled, so that it condenses and then freezes. Which graph describes
+    the change in temperature of X over time? temperature / °C time / s
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row gives the number of protons, electrons and neutrons in an atom of
+    zinc? protons electrons neutrons
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Which particles have the electronic configuration 2,8,8? an argon atom, Ar
+    an aluminium ion, Al 3+ a sodium ion, Na+ a chloride ion, Cl –
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: A sample of element Q has two isotopes. Their relative masses and abundances
+    are shown. relative mass of isotope abundance / % 238 244 What is the relative
+    atomic mass of this sample of Q to three significant figures?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about silicon(IV) oxide, SiO2, is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: When 65 g of zinc reacts with 32 g of sulfur, 97 g of zinc sulfide is produced.
+    When 65 g of zinc reacts with 40 g of sulfur, the mass of zinc sulfide produced
+    is still 97 g. Which statement explains this observation?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Aluminium reacts with iron(III) oxide to form aluminium oxide and iron. Which
+    chemical equation for the reaction between aluminium and iron(III) oxide is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: The concentration of a solution of aqueous sodium hydroxide is 0.50 mol /
+    dm3. Which mass of sodium hydroxide is used to make 500 cm3 of this solution?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: g
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Dilute aqueous sodium chloride is electrolysed using platinum electrodes.
+    What is the half-equation for the reaction at the cathode?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: Hydrogen–oxygen fuel cells can be used to power vehicles. Which statement
+    about hydrogen–oxygen fuel cells is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: A reaction pathway diagram is shown. reactants products energy progress of
+    reaction Which row identifies the type of reaction and how the temperature of
+    the surroundings changes during the reaction? type of reaction temperature of
+    the surroundings
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: The average bond energy for the C–H bond is 413 kJ / mol. What is the enthalpy
+    change when 1.0 mol of methane molecules is formed from carbon and hydrogen atoms?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes the effect of adding a catalyst to a chemical reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes the conditions used in the manufacture of sulfuric acid
+    by the Contact process? catalyst pressure temperature
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Which equations show the underlined species acting as a reducing agent? Fe2O3  +  3CO    2Fe  +  3CO2
+    Fe  +  CuSO4    FeSO4  +  Cu 5Fe2+  +  MnO4 –  +  8H+    5Fe3+  +  Mn2+  +  4H2O
+    Fe(OH)2  +  H2SO4    FeSO4  +  2H2O
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: A farmer incorrectly adds two substances to the soil at the same time. They
+    react together to form a gas which turns damp red litmus paper blue. What are
+    the two substances?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: "Which row shows the equations for the dissociation of hydrochloric acid and\
+    \ of ethanoic acid in aqueous solution? HCl (aq)  \x01  H+(aq)  +  Cl –(aq) hydrochloric\
+    \ acid HCl (aq) H+(aq)  +  Cl –(aq) HCl (aq)  \x01  H+(aq)  +  Cl –(aq)"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which three oxides are all acidic?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows some properties of noble gases. noble gas density in g / dm3
+    boiling point in °C helium 0.2 –269 neon 0.9 –246 argon 1.8 –186 krypton xenon
+    5.9 –108 Which row predicts the density and the boiling point of krypton? density
+    in g / dm3 boiling point in C
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Sodium is a Group I metal. What is a physical property of sodium?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Tennessine (atomic number 117) is a manufactured element that is below astatine
+    in Group VII of the Periodic Table. What is the expected state of tennessine at
+    room temperature and pressure?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: When chlorine is bubbled into aqueous sodium bromide, a displacement reaction
+    occurs. Which description of this reaction is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Brass is an alloy of copper. Which statement about brass or copper is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: The ionic equations for some reactions between metals and aqueous metal ions
+    are shown. Cu  +  2Ag+    2Ag  +  Cu2+ Mg  +  Zn2+    Mg2+  +  Zn Zn  +  Cu2+    Cu  +  Zn2+
+    Sn  +  Cu2+    Sn2+  +  Cu Which further information can be used to place copper,
+    magnesium, silver, tin and zinc in order of their reactivity?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Zinc is used to galvanise iron to prevent it from rusting. Which statements
+    are correct? Galvanising is an example of a barrier method. If the zinc is scratched,
+    the iron will rust very quickly. Galvanising is an example of sacrificial protection.
+    Zinc is more reactive than iron and so accepts electrons more readily.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Which equation represents a reaction that occurs in a blast furnace during
+    the extraction of iron from hematite?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Water is added separately to anhydrous copper(II) sulfate and to anhydrous
+    cobalt(II) chloride. Which row shows the colour changes? anhydrous copper(II)
+    sulfate anhydrous cobalt(II) chloride
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Gases which cause acid rain form in car engines. These gases can be removed
+    using a catalytic converter. Which equation represents the removal of one of these
+    gases using a catalytic converter?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about carbon dioxide are correct? Carbon dioxide absorbs
+    thermal energy from the Earth. Carbon dioxide increases the thermal energy loss
+    to space. The level of carbon dioxide in the atmosphere has increased due to the
+    burning of fossil fuels. Carbon dioxide is the only gas that causes global warming.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the structural formula of butan-2-ol?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Methanol reacts with ethanoic acid to form an ester. What is the displayed
+    formula for this ester? H
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Petroleum can be separated into useful fractions by fractional distillation.
+    Which row shows a correct use of the named fraction? fraction use
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Ethane reacts with chlorine in the presence of ultraviolet light. Which products
+    are formed?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Ethanol can be made by the fermentation of aqueous glucose and by the catalytic
+    addition of steam to ethene. What are two advantages of making ethanol by the
+    catalytic addition of steam to ethene rather than by the fermentation of aqueous
+    glucose?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The structure of a polymer repeat unit is shown. N H
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Which item of apparatus is used to measure exactly 26.3 cm3 of a liquid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: A mixture containing an aqueous salt and an insoluble salt is filtered. X
+    Y Which row describes X and Y? X Y
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Pure ethanol has a melting point of –114 °C and a boiling point of 78 °C.
+    What are the melting and boiling points of a sample of ethanol with glucose dissolved
+    in it? melting point / °C boiling point / °C
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

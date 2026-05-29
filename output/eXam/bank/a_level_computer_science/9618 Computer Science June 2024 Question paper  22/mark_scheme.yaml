@@ -1,0 +1,824 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Pseudocode example
+
+    Selection
+
+    Iteration
+
+    Input/Output
+
+    FOR Index  1 TO 10
+
+    Data[Index]  0
+
+    NEXT Index
+
+    
+
+    WRITEFILE ThisFile,
+
+    "****"
+
+    
+
+    UNTIL Level > 25
+
+    
+
+    IF Mark > 74 THEN
+
+    READFILE OldFile,
+
+    Data
+
+    ENDIF
+
+    
+
+    
+
+    One mark per row.'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Expression
+
+    MyInt  INT (3.1415926)
+
+    MyChar  MID  ("Elwood", 3, 1)
+
+    Any of:
+
+    
+
+    MyString  NUM_TO_STR (INT (27.509))
+
+    
+
+    MyString  CHR (INT (27.509))
+
+    
+
+    MyString  TO_UPPER( NUM_TO_STR( 27.509))
+
+    
+
+    MyString  TO_LOWER( NUM_TO_STR( 27.509))
+
+    Any of:
+
+    
+
+    MyInt  STR_TO_NUM  (  RIGHT  ("ABC123", 3))
+
+    
+
+    MyInt  LENGTH  (  RIGHT  ("ABC123", 3))
+
+    
+
+    MyInt  LENGTH  (  LEFT ("ABC123", 3))
+
+    One mark per row
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for stating a suitable way of documenting:
+
+    
+
+    Identifier table
+
+    1 mark for giving one piece of information that should be recorded.
+
+    examples include:
+
+    Explanation of what (each) variable is used for
+
+    The purpose of (each) variable
+
+    An example of data values stored // Initialisation value
+
+    2
+
+    9618/22
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Mark points
+
+    1
+
+    Condition for selecting one of the input numbers as largest value
+
+    2
+
+    … and assign to Ans
+
+    3
+
+    Condition for selecting largest number for all three number input and
+
+    assigning to Ans
+
+    4
+
+    Average calculated using Num1, Num2 and Num3 and stored in a variable.
+
+    Reject use of DIV
+
+    5
+
+    Output of Ans and average in output symbol / parallelogram
+
+    5
+
+    9618/22
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Example solutions:
+
+    Flag  GetStat()
+
+    WHILE Flag <> TRUE
+
+    FOR Port  1 TO 3
+
+    CALL Reset(Port)
+
+    NEXT Port
+
+    Flag  GetStat()
+
+    ENDWHILE
+
+    Alternative:
+
+    REPEAT
+
+    Flag  GetStat()
+
+    IF Flag <> TRUE THEN
+
+    FOR Port  1 TO 3
+
+    CALL Reset(Port)
+
+    NEXT Port
+
+    ENDIF
+
+    UNTIL Flag = TRUE
+
+    One mark per point:
+
+    1
+
+    (Outer) conditional loop testing Flag
+
+    2
+
+    Correct assignment of Flag from GetStat() in a loop
+
+    3
+
+    (Inner) loop checking / counting port // Check if Port is different to 4
+
+    4
+
+    … loop for 3 iterations
+
+    5
+
+    a call to Reset()in a loop
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Pseudocode:
+
+    TYPE Component
+
+    DECLARE Item_Num : INTEGER
+
+    DECLARE Reject   : BOOLEAN
+
+    DECLARE Stage    : CHAR
+
+    DECLARE Limit_1  : REAL
+
+    DECLARE Limit_2  : REAL
+
+    ENDTYPE
+
+    Mark as follows:
+
+    1
+
+    One mark for TYPE and ENDTYPE statements
+
+    2
+
+    One mark for Item_Num and Reject fields
+
+    3
+
+    One mark for Stage field
+
+    4
+
+    One mark for Limit fields as REAL
+
+    4
+
+    9618/22
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'DECLARE Item : ARRAY [1:2000] OF Component//
+
+    DECLARE Item : ARRAY [2000] OF Component//
+
+    DECLARE Item : ARRAY [0:1999] OF Component
+
+    One mark per underlined phrase
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per point:
+
+    1
+
+    Allows for iteration / can use a loop to access the records / data items
+
+    2
+
+    Use of index to directly access a record in the  array // Example of
+
+    simplification of code e.g. use of dot notation Item[1].Stage
+
+    3
+
+    Simplifies the code / algorithm // Reduces duplication of code // Program
+
+    easier to write / understand / maintain / test / debug // Data items/record
+
+    easier to search / sort / manipulate
+
+    3
+
+    4
+
+    Example solution:
+
+    PROCEDURE IsRA()
+
+    DECLARE a, b, c : INTEGER
+
+    OUTPUT "Input length of the first side"
+
+    INPUT a
+
+    OUTPUT "Input length of the second side"
+
+    INPUT b
+
+    OUTPUT "Input length of the third side"
+
+    INPUT c
+
+    IF (a * a = (b * b) + (c * c)) OR__
+
+    (b * b = (a * a) + (c * c)) OR__
+
+    (c * c = (a * a) + (b * b)) THEN
+
+    OUTPUT "It is right-angled"
+
+    ELSE
+
+    OUTPUT "Not right-angled"
+
+    ENDIF
+
+    ENDPROCEDURE
+
+    Mark as follows:
+
+    1. Procedure heading and ending and declaration of all variables used
+
+    2. Appropriate prompt and input for each length
+
+    3. One correct length test
+
+    4. All three length tests // selection of which test is required
+
+    5. Output one of two messages following a reasonable attempt at MP3
+
+    5
+
+    9618/22
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per error:
+
+    Syntax:
+
+    1. NEXT Index (should be ENDWHILE)
+
+    2. ''&'' used to concatenate an integer (in OUTPUT statement)
+
+    Other:
+
+    3.
+
+    Accesses element outside range // Accesses element 0
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per point:
+
+    Statement:
+
+    
+
+    The OTHERWISE statement
+
+    Explanation:
+
+    
+
+    The result of MOD 2 can only be 0 or 1
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Run-time
+
+    1
+
+    9618/22
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Example solution:
+
+    Function Trim(Name : STRING) RETURNS STRING
+
+    CONSTANT Dots = "..."
+
+    CONSTANT Space = " "
+
+    IF LENGTH(Name) <= 16 THEN
+
+    RETURN Name
+
+    ENDIF
+
+    // Otherwise it has to be trimmed
+
+    WHILE LENGTH(Name) > 13
+
+    REPEAT
+
+    Name  LEFT(Name, LENGTH(Name) - 1) // strip
+
+    last char
+
+    UNTIL RIGHT(Name, 1) = Space // back to SPACE
+
+    ENDWHILE
+
+    Name  LEFT(Name, LENGTH(Name) - 1) // remove the
+
+    space
+
+    Name  Name & Dots
+
+    RETURN Name
+
+    ENDFUNCTION
+
+    Mark as follows:
+
+    1. Function heading, ending, parameter and return type
+
+    2. If length of original string <= 16 then return original string
+
+    3. Any Conditional loop...
+
+    4.     until string is short enough
+
+    5.     Inner conditional loop / second condition to identify word(s) to
+
+    remove from the end of string // Check to identify word(s) to remove
+
+    from the end of string
+
+    6. Attempt to strip characters back to space
+
+    7. Correct removal of word/words from end of string and remove final
+
+    space
+
+    8. Concatenate Dots and return result
+
+    Max 7 marks
+
+    7'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A (very) large file is created // redundant zeroes are stored
+    in the file
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for:
+
+    
+
+    Values are delimited by a special character / a separator character
+
+    
+
+    First character indicates sample length
+
+    Max 1 mark
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The algorithm to store / extract / separate the individual
+    values is more
+
+    complex / takes longer to execute / run / process
+
+    NE Algorithm is more complicated
+
+    1
+
+    9618/22
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Examples include:
+
+    Module: IdentifyMember()
+
+    Use: Identifies a club member who has expressed an interest in a given class
+
+    Module: GetMemberPhoneNumber()
+
+    Use: Gets the mobile phone number of a member
+
+    Module: CreateMessage()
+
+    Use: Generates a text message to a member
+
+    Module: SendMessage()
+
+    Use: Sends a text message to a member in the waiting list
+
+    One mark for name and use
+
+    Note: max 3 marks
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Input
+
+    Output
+
+    Next state
+
+    S1
+
+    Input-A
+
+    none
+
+    S3
+
+    Input-A
+
+    Output-W
+
+    S3
+
+    Input-B
+
+    none
+
+    S2
+
+    Input-B
+
+    none
+
+    S5
+
+    Input-A
+
+    none
+
+    S2
+
+    Input-A
+
+    Output-X
+
+    S4
+
+    One mark per row 3 to 7
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Input-B, Input-A
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for reason, one for benefit
+
+    Reason: (Program is) easier to design / implement / test / debug / modify
+
+    Benefit: Easier to check that each stage works as expected
+
+    2
+
+    9618/22
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Example algorithm based on finding position of first non-space
+    character and
+
+    then using substring function:
+
+    FUNCTION DeleteSpaces(Line : STRING) RETURNS STRING
+
+    DECLARE NewLine : STRING
+
+    DECLARE EndOfLeading : BOOLEAN
+
+    DECLARE Count, NumSpaces : INTEGER
+
+    DECLARE NextChar : CHAR
+
+    CONSTANT Space = " "
+
+    NumSpaces  0
+
+    EndOfLeading  FALSE
+
+    FOR Count  1 TO LENGTH(Line)
+
+    NextChar  MID(Line, Count, 1)
+
+    IF NextChar <> Space AND EndOfLeading = FALSE
+
+    THEN
+
+    NumSpaces  Count - 1 // the number to trim
+
+    EndOfLeading = TRUE
+
+    ENDIF
+
+    NEXT Count
+
+    NewLine  RIGHT(Line, LENGTH(Line) - NumSpaces)
+
+    RETURN NewLine
+
+    ENDFUNCTION
+
+    Mark as follows:
+
+    1
+
+    Loop to length of parameter // Loop until first non-space
+
+    character in Line
+
+    2
+
+    Extract a character in a loop
+
+    3
+
+    Identify first non-space character in a loop
+
+    4
+
+    Attempt at removing leading spaces in Line
+
+    5
+
+    Leading spaces removed from Line / / Create new string without leading
+
+    space
+
+    6
+
+    Return a string following a reasonable attempt at removing leading spaces
+
+    in Line
+
+    6
+
+    9618/22
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Example:
+
+    PROCEDURE Stage_2(F1, F2 : STRING)
+
+    DECLARE Line : STRING
+
+    DECLARE Count : INTEGER
+
+    Count  0
+
+    OPEN F1 FOR READ
+
+    OPEN F2 FOR APPEND
+
+    WHILE NOT EOF(F1)
+
+    READFILE F1, Line
+
+    Line  DeleteSpaces(Line)
+
+    Line  DeleteComment(Line)
+
+    IF Line <> "" THEN
+
+    WRITEFILE F2, Line  // skip blank lines
+
+    ELSE
+
+    Count  Count + 1
+
+    ENDIF
+
+    ENDWHILE
+
+    CLOSEFILE F1
+
+    CLOSEFILE F2
+
+    OUTPUT Count, " blank lines were removed"
+
+    ENDPROCEDURE
+
+    Mark as follows:
+
+    1
+
+    Procedure heading, parameters, ending
+
+    2
+
+    Open both files in correct modes and subsequently close
+
+    3
+
+    Loop to EOF(F1)
+
+    4
+
+    Read a line from F1 in a loop
+
+    5
+
+    Assign return values from DeleteComment() and DeleteSpaces()
+
+    in a loop
+
+    6
+
+    Check return value following both MP5 function calls is not an empty
+
+    string and if so write to F2 in a loop
+
+    7
+
+    Count the blank lines in a loop
+
+    8
+
+    Output number of blank lines removed following a reasonable attempt
+
+    after the loop
+
+    8'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,619 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: The photograph shows an animal called a margay. Four processes that occur
+    in the margay are listed. ● excretion ● growth ● digestion ● respiration How many
+    of the processes that occur in the margay are characteristics of all living organisms?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: ''
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: ''
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Part of the base sequence of DNA from four species was determined. species
+    1 T C A G G A T T species 2 T G A G C A A T species 3 T G A G C A A G species
+    4 T G A G G A T T Which two species are the least closely related?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: A student measured the length of a structure using a microscope. The magnification
+    used was 250. The image size of the structure was 5.00 mm. What was the actual
+    length of the structure?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the conditions when diffusion of oxygen into the blood is
+    fastest? alveolar surface area concentration gradient diffusion path distance
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Uncooked potato cylinders of identical size were placed in four different
+    liquids for two hours. The different liquids are listed. pure water a sugar solution
+    that was less concentrated than the contents of the potato cells a sugar solution
+    that was more concentrated than the contents of the potato cells a sugar solution
+    that was the same concentration as the contents of the potato cells In which liquids
+    will the potato cylinders increase in length?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the correct definition of enzymes?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: A student investigated how the rate of photosynthesis is affected by carbon
+    dioxide concentration, temperature and light intensity. The graphs show the results.
+    rate of photosynthesis carbon dioxide concentration rate of photosynthesis light
+    intensity rate of photosynthesis temperature What is a correct statement for these
+    results?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a cross-section of part of a leaf. X What is the cell labelled
+    X?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: In which parts of the digestive system does physical digestion occur?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows the substrates and end products in four enzyme-controlled
+    chemical reactions. Which reaction was controlled by lipase? substrate end product
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the function of microvilli in the small intestine?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the features of xylem vessels? vessel walls mitochondria present
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: A student wanted to investigate the effect of humidity on transpiration. She
+    set up two sets of apparatus with identical-sized plants of the same species.
+    tube X tube Y oil water plastic bag The masses of the water in both tubes were
+    measured at the start of the investigation and again after five days. The table
+    shows the results of the investigation. tube mass of the water in the tube at
+    the start / g mass of the water in the tube at the end / g X 40.3 34.6 Y 41.0
+    39.4 Which statement describes and explains these results?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: What is an advantage of a double circulatory system?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Which structure in the heart separates oxygenated and deoxygenated blood?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the features of a vein? relative thickness of the wall to
+    total vessel diameter diameter of the lumen presence or absence of valves
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: Three statements about immunity are listed. The transfer of antibodies from
+    mother to baby in breast milk is an example of passive immunity. Passive immunity
+    results in long-term immunity because of the production of memory cells. Active
+    immunity is gained after vaccination with antigens. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows the breathing rate and the average total volume of air breathed
+    by a student when exercising for 20 minutes. time / minutes breathing rate / breaths
+    per minute average total volume of air breathed / cm3 per minute 5 000 9 000 15
+    000 20 000 25 000 Which conclusion can be made from the data in the table about
+    the effect of exercise on breathing?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the chemical formula of glucose?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: After a race, athletes experience oxygen debt. The diagram shows how the oxygen
+    debt is removed. lactic acid forms in the muscles lactic acid moves in the blood
+    to the liver faster breathing supplies extra oxygen X What happens at X?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Which organ produces urea?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a vertical section through part of a human eye. A fly is
+    coming nearer to the eye. The eye begins to focus the image of the fly on the
+    retina. Q R S fly How do the labelled parts of the diagram change? Q R S
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Which organ produces glucagon?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: A young seedling is growing underground. The shoot grows towards the surface
+    of the ground. The root grows away from the surface of the ground. Which row describes
+    the responses involved? gravitropism phototropism root shoot root shoot
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Clostridium difficile is a species of bacterium that is resistant to many
+    antibiotics. From 2002 to 2006, the number of people in one country infected with
+    Clostridium difficile increased from 1300 to 6200 people. What was the percentage
+    increase in the number of people infected with Clostridium difficile from 2002
+    to 2006 to the nearest whole number?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: What are the characteristics of asexual reproduction? fusion of gamete nuclei
+    genetic variety in the offspring
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Which description of cross-pollination is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row correctly links the named process with its description? process
+    description
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the inheritance of a genetic condition in one family. female
+    with condition female without condition male with condition male without condition
+    key What can be concluded about this genetic condition?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a way in which new alleles are formed?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: How does artificial selection differ from natural selection?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which diagram of a xerophyte is labelled correctly? waxy layer to stop water
+    evaporation extensive root systems to maximise water uptake
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes the energy flow into and through a food chain that starts
+    with a plant? energy entering a food chain energy transferred between organisms
+    in a food chain
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: In a food chain, zebras are large mammals that eat grass. The zebras have
+    many insects living on them which suck their blood. Birds eat the insects. The
+    diagrams show some biological pyramids. Which row identifies the types of pyramids
+    for this food chain? pyramid of energy pyramid of numbers
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows part of the nitrogen cycle. organic material nitrogen gas
+    ammonium ions nitrate ions X What is the process labelled X in the diagram?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the number of water fleas in a newly-created pond. time number
+    of water fleas Y Which event could be responsible for the shape of the graph at
+    Y?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: When managing fish stocks as a sustainable resource, what is a reason for
+    harvesting only the larger fish of a particular species?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Which features make bacteria useful in biotechnology? They are unaffected
+    by antibiotics. They do not contain plasmids. They make complex molecules. They
+    reproduce rapidly.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

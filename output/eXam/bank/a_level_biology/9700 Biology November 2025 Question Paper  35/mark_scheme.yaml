@@ -1,0 +1,305 @@
+questions:
+- number: 1ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    correct concentrations (0.5, 0.25, 0.125, 0.0625) and % at least once ;
+
+    2
+
+    shows transfer of 10 (cm3) to each beaker from the previous beaker ;
+
+    3
+
+    shows 10 (cm3) of water added to each beaker ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    heading for independent variable: percentage concentration of glucose (before
+    heading for
+
+    dependent variable) and no units in body of table ;
+
+    2
+
+    heading for dependent variable: time / seconds and no units in body of table ;
+
+    3
+
+    records a time for each concentration ;
+
+    4
+
+    time for highest concentration of glucose is shorter than for the lowest concentration
+    of glucose ;
+
+    5
+
+    records time in whole seconds ;
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 1aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'records a time for R1 and S1 ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correct estimate for R1 and S1 based on candidate’s results
+    ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1av
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    R1 has, more glucose molecules / a steeper concentration gradient, than S1 ;
+
+    2
+
+    faster rate of diffusion ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1avi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'calculates average rate of diffusion for R to two significant
+    figures ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1avii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    use standard glucose concentrations with narrower intervals ;
+
+    2
+
+    stated concentrations each side of the estimate for R1 ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1aviii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'systematic and no effect ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    x-axis: type of sugar and apple and pineapple and bars labelled glucose, fructose,
+    sucrose
+
+    and
+
+    y-axis: mass of sugar / g per 100 g fruit ;
+
+    2
+
+    scale on x-axis: even width of six bars
+
+    and
+
+    scale on y-axis: 2 g per 100 g to 2 cm and labelled at least every 2 cm ;
+
+    3
+
+    correct plotting of all six bars ;
+
+    4
+
+    horizontal and vertical lines joined precisely ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'shows 5.2 minus 1.9 divided by 5.2 and multiplied by 100
+
+    or 1.9 minus 5.2 divided by 1.9 and multiplied by 100 ;
+
+    1
+
+    9700/35
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    appropriate size and no shading ;
+
+    2
+
+    draws correct section of the stem ;
+
+    3
+
+    draws at least three vascular bundles and the correct proportion of vascular bundles
+    to the cortex and
+
+    no cells drawn ;
+
+    4
+
+    draws correct shape of outline and continuous vascular tissue ;
+
+    5
+
+    label line and label to xylem ;
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    appropriate size and lines are sharp and continuous ;
+
+    2
+
+    draws only four xylem vessel elements and each xylem vessel element touches at
+    least one other
+
+    xylem vessel element ;
+
+    3
+
+    two lines around each xylem vessel element and three lines where xylem vessel
+    elements touch ;
+
+    4
+
+    draws correct shape of xylem vessel elements ;
+
+    5
+
+    label line and label to the wall of one xylem vessel element ;
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    draws a table and includes a heading for M1 and Fig. 2.2 ;
+
+    2, 3, 4  three observable differences ;;;
+
+    any three (correct differences) from:
+
+    Feature
+
+    Fig. 2.2
+
+    Shape
+
+    circular
+
+    5 sides ;
+
+    vascular bundles
+
+    one ring
+
+    two rings ;
+
+    vascular tissue
+
+    continuous
+
+    separate ;
+
+    central tissue
+
+    cells
+
+    no cells ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    correct number of eyepiece graticule units ;
+
+    2
+
+    shows division of eyepiece graticule units by one and multiplies by 1000 ;
+
+    3
+
+    answer to three significant figures ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    correct number of eyepiece graticule units ;
+
+    2
+
+    shows the answer from 2(c)(i) multiplied by the number of eyepiece graticule units
+    ;
+
+    2'
+  mark_scheme: []
+  graphics: []

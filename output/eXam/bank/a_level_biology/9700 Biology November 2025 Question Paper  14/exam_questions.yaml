@@ -1,0 +1,669 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: Which structures are visible in an appropriately stained plant cell using
+    a high power (400) light microscope? centrioles mitochondria starch grains
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: The images show an eyepiece graticule and a stage micrometer scale viewed
+    through a microscope. The smallest divisions of the stage micrometer scale are
+    0.01 mm. The images also show a photomicrograph of a transverse section through
+    a plant root using the same eyepiece graticule and the same magnification. 0.0
+    0.1 0.2 0.3 eyepiece graticule stage micrometer scale X Y What is the actual width
+    of the vascular tissue in the plant root between X and Y?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: It is thought that some organelles in eukaryotic cells evolved from free-living
+    prokaryotes. Which organelles have features that suggest they evolved from free-living
+    prokaryotic ancestors?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: "A student completed a table showing the structures that are found in four\
+    \ different types of cells. cell structure cell Q cell R cell S cell T cell surface\
+    \ membrane \x16 \x16 \x16 \x16 cellulose cell wall \x16 \x16 \x1A \x16 key chloroplast\
+    \ \x16 \x1A \x1A \x1A \x16 = present mitochondrion \x16 \x16 \x1A \x16 \x1A =\
+    \ not present nucleus \x16 \x16 \x1A \x1A How many of these types of cells can\
+    \ be found in plants?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: Some features of cells are listed. cytoplasm cell surface membrane ribosomes
+    Which features are found in animal cells and also in prokaryotic cells?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Trehalose is a non-reducing disaccharide. Separate samples of a mixture of
+    fructose and trehalose were tested with Benedict’s solution before and after acid
+    hydrolysis. What will be the results of these Benedict’s tests? before acid hydrolysis
+    after acid hydrolysis
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which molecules have a structural formula that contains C=O bonds? glucose
+    glycerol protein
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about monosaccharides and disaccharides is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row is correct for glycogen? glycogen is hydrolysed rapidly due to its
+    branched structure glycogen is insoluble so the water potential of cells is unaffected
+    glycogen is a compact molecule because it contains many -glucose molecules
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a section of a polysaccharide. O O H H H H CH2OH OH H OH
+    O
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: 'Thermostable enzymes can maintain their tertiary structure at high temperatures.
+    Scientists studying the primary structure of a thermostable enzyme found that
+    the enzyme contained: ● more charged amino acids ● fewer polar amino acids that
+    are not charged ● more hydrophobic amino acids than enzymes that are not thermostable.
+    Which row shows a correct comparison between this thermostable enzyme and an enzyme
+    that is not thermostable? number of amino acids forming interactions at the centre
+    of a thermostable enzyme compared to an enzyme that is not thermostable number
+    of ionic bonds in a thermostable enzyme compared to the number in an enzyme that
+    is not thermostable'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: Collagen is a strong, elastic molecule that is often found in the connective
+    tissues of animals. Glycine is an amino acid found at regular positions in the
+    primary structure of a collagen polypeptide. Which row shows features of collagen
+    that contribute to its strength and elasticity? glycine is found on the outside
+    of the helical polypeptides to allow them to lie closer together disulfide bonds
+    form between glycine amino acids to join the polypeptides together
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements describe the action of an extracellular enzyme? synthesis
+    of a polynucleotide in the nucleus during DNA replication digestion of macromolecules
+    in the lumen of the small intestine synthesis of ATP molecules in the mitochondria
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the induced-fit hypothesis of enzyme action is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Graph J shows the effect of pH on the rate of an enzyme reaction. Graph K
+    shows the effect of substrate concentration on the rate of an enzyme reaction.
+    rate of reaction rate of reaction pH substrate concentration graph J graph K P
+    Q R A student wrote four statements about the graphs. In graph J, the enzyme is
+    denatured at point Q. In graph J, the enzyme is inactive at point P. In graph
+    K, the rate of reaction is directly proportional to the substrate concentration.
+    In graph K, Vmax is reached at point R. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a section through a cell surface membrane. P Q R S What
+    is a correct role for a labelled molecule?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: When red blood cells are put into distilled water they burst (haemolysis).
+    Which statements explain this haemolysis? The water potential of the surrounding
+    liquid is lower than the water potential of the contents of the red blood cell.
+    The cell surface membranes of red blood cells are not supported by cell walls.
+    More water moves into the red blood cells by osmosis than leaves the cells. Water
+    enters the red blood cells by osmosis but does not leave the cells.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show the shape and size of two types of cell. 10 μm 10 μm 50
+    μm 10 μm 5 μm 45 μm palisade mesophyll cell surface area = 2200 μm2 columnar epithelial
+    cell volume = 2250 μm3 not to scale Which statement about the palisade cell and
+    epithelial cell shown in the diagrams is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: The DNA content of a cell changes as the mitotic cell cycle proceeds through
+    a series of stages. time DNA content per cell Which row correctly identifies when
+    DNA replicates and when the nuclear envelope breaks down? DNA replicates nuclear
+    envelope breaks down
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows three cycles of cell division from an original cell of cell
+    type P in bone marrow. Some of the cells that form are cell type Q. not to scale
+    key cell type P cell type Q Which row correctly identifies cell type P and cell
+    type Q? cell type P cell type Q
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: A student made a drawing of two chromosomes at stage K of a mitotic cell cycle.
+    no chromosomes were visible stage J stage K stage M stage L Which row shows the
+    possible events that occur in stages J, L and M? J L M
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: During DNA replication, the two original strands of a DNA molecule separate.
+    Which diagram shows the direction in which DNA polymerase moves along each of
+    the original strands during DNA replication?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about anticodons are correct? The base sequence of an anticodon
+    will always be the same as that of the corresponding triplet on the transcribed
+    DNA strand. There are 20 naturally occurring amino acids, so therefore there are
+    only 20 anticodons as each anticodon is specific for only one amino acid. The
+    formation of hydrogen bonds between the bases of the anticodon with those of the
+    complementary mRNA codon must occur before the new peptide bond can form.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Part of a DNA molecule is transcribed to form an RNA molecule that is then
+    modified. Which row describes the RNA molecule before and after modification?
+    before modification after modification
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: When a gene mutation occurs, which of the following may be altered, resulting
+    in the production of a non-functional protein? amino acid sequence DNA nucleotide
+    sequence mRNA nucleotide sequence
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show the arrangements of phloem and xylem tissues in some plant
+    organs. R Q epidermis phloem xylem epidermis phloem xylem T S epidermis phloem
+    xylem epidermis phloem xylem Where will arrangements Q, R, S and T be found in
+    plants? Q R S T
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Which feature of xylem vessel elements allows them to have reduced resistance
+    to water movement?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes movement through a plant in the apoplast pathway?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the correct name for the attraction due to the hydrogen bonding between
+    water molecules during mass flow in plants?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the cause of mass flow in the phloem and the direction of
+    movement of phloem sap by mass flow? cause of mass flow in the phloem direction
+    of movement of phloem sap by mass flow
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the thickness of the walls of the main blood vessels to and
+    from a mammalian heart. Which blood vessel is the pulmonary artery? 1.2 1.0 0.8
+    0.6 0.4 0.2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrographs show blood smears from two different people. Person J
+    does not have a disorder that affects their blood. Person K does have a disorder
+    that affects their blood. person J person K The table shows some disorders that
+    increase or decrease the number of neutrophils, red blood cells or lymphocytes.
+    disorders related to blood count changes increase decrease neutrophil chronic
+    inflammation autoimmune neutropenia red blood cell heart failure anaemia lymphocyte
+    chronic leukaemia sepsis Which disorder does person K have?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement correctly describes the Bohr shift?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row correctly describes the features for two of the heart chambers?
+    left atrium left ventricle
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrograph shows a transverse section of part of the human gas exchange
+    system. Which row shows the correct name and function of one of the labelled structures
+    in the photomicrograph?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Infectious diseases may be caused by bacteria, protoctists and viruses. Different
+    pathogens may be transmitted by airborne droplets, from faeces to mouth (faecal-oral),
+    by sexual intercourse and by vectors. Four examples of infectious diseases are
+    listed. cholera HIV/AIDS malaria tuberculosis Which table classifies the four
+    diseases correctly to show the type of pathogen that causes the disease and the
+    mode of transmission? droplet faecal-oral sexual vector bacterium protoctist virus
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Scientists investigated the sensitivity and resistance of a bacterium called
+    Clostridium difficile to four antibiotics. Colonies of bacteria were grown on
+    agar plates for 24 hours, after which a different antibiotic was added to each
+    plate. The number of bacterial colonies that died, stopped growing and continued
+    growing were then counted. A bacterial colony is a group of bacterial cells that
+    have multiplied from one bacterium. Which antibiotic would be the best to treat
+    a person infected with Clostridium difficile? antibiotic number of colonies that
+    died number of colonies that stopped growing number of colonies that continued
+    growing
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: A vaccine is used to create artificial active immunity. After a person has
+    been given a vaccine, it takes a period of time before they develop long-term
+    immunity to the disease. Which statement about this period of time explains the
+    delay in developing long-term immunity?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: An antiserum to a snake toxin can be obtained by injecting the toxin into
+    a horse. The antiserum is made from blood plasma taken from the horse a few weeks
+    later. The antiserum is injected into a person who has been bitten by the same
+    species of snake. Which type of immunity occurs as a result of using this antiserum?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes the feature of monoclonal antibodies that allows
+    them to accurately treat a specific disease?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

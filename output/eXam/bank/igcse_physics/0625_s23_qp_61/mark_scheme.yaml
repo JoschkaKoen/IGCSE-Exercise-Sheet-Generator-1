@@ -1,0 +1,343 @@
+questions:
+- number: 1ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '10.0
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'obtaining exact balance
+
+    OR judging position of (centre of) load
+
+    OR masses sliding on ruler
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'graph:
+
+    
+
+    axes right way round and correctly labelled with quantity and unit
+
+    1
+
+    
+
+    suitable scales
+
+    1
+
+    
+
+    all five plots correct to ½ small square
+
+    1
+
+    
+
+    good line judgement, thin, continuous line
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'method shown correctly on graph
+
+    1
+
+    candidate’s value read correctly to ½ small square
+
+    1
+
+    value in range 25.0–29.0 cm
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'balance ruler (on pivot with no loads)
+
+    1
+
+    pivot point is read / balance point shows centre of mass
+
+    1
+
+    0625/61
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '21 (°C)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 's, °C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0, 30, 60, 90, 120, 150, 180
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '  = 25
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'R = 0.14 or 0.139 to 2 or 3 significant figures ONLY
+
+    1
+
+    unit °C / s
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'continue taking temperatures / continue for a longer time (until
+    close to room temperature)
+
+    OR use lower / higher starting temperature (of water)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'plot a graph
+
+    1
+
+    of temperature against time OR cooling rate against time / temperature
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to avoid parallax error owtte
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'read at bottom of meniscus OR ensure measuring cylinder is
+    on horizontal surface
+
+    1
+
+    0625/61
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'normal at 90° and in centre of AB
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CD is in lower left quadrant and i = 30°± 2°
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P1 and P2 at least 5.0 cm apart
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'straight line through pins P3 and P4 to AB
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'all three lines LN, CD and CE drawn and meet or would meet
+    at C within approx. 2 mm (by eye), drawn neatly and not too
+
+    thick
+
+    1
+
+     in range 47(°)  51(°)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    
+
+    view bases of pins
+
+    
+
+    place pins (as) far apart (as possible)
+
+    
+
+    ensure pins are vertical
+
+    
+
+    sharp pencil / thin lines / thin pins
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' in range 70(°) 73(°)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correct answer for  (which is 90 )
+
+    1
+
+    correct working shown (90 )
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'statement to match results with justification including the
+    concept of within or beyond the limits of experimental accuracy
+
+    1
+
+    0625/61
+
+    May/June 2023
+
+    4
+
+    MP1
+
+    circuit diagram – power supply, lamp and ammeter in series, voltmeter in suitable
+    position to read V across lamp
+
+    1
+
+    MP2
+
+    measure the current and potential difference
+
+    1
+
+    MP3
+
+    calculate resistance
+
+    1
+
+    MP4
+
+    repeat with at least two other currents / voltages / settings of variable resistor / power
+    supply
+
+    1
+
+    MP5  a way to change the current/voltage (e.g. adjusting / using variable resistor
+    OR changing voltage of power supply
+
+    OR adding batteries)
+
+    1
+
+    MP6  table with columns for potential difference, current and resistance, headed
+    with quantities and appropriate units
+
+    1
+
+    MP7  plot graph of resistance against current OR compare values of resistance
+    and current in table
+
+    1'
+  mark_scheme: []
+  graphics: []

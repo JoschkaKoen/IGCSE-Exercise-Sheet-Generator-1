@@ -1,0 +1,479 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: The demand for a product is inversely related to its price, ceteris paribus.
+    What does ceteris paribus mean in this context?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: What is likely to be introduced in the market for bus travel if an economy
+    moves from a mixed economy to a market economy?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows that the production possibility curve (PPC) of maize and
+    beans has changed from PPC1 to PPC2. 100 100 200 output of beans (tonnes) output
+    of maize (tonnes) PPC2 PPC1 What has happened to the opportunity cost of maize
+    and the returns to factors producing beans? opportunity cost of maize returns
+    to factors producing beans
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: An individual buys a ticket to visit a government-owned art gallery. How would
+    this visit be classified by an economist?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a shift in a firm’s supply curve from S1 to S2. O price
+    quantity S2 S1 What may have caused the shift from S1 to S2?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: What is not an example of the role of the factor enterprise in a modern economy?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: A manufacturer increases the price of a product from $4 in an attempt to increase
+    total expenditure on the product. The table shows the outcome of the policy. price
+    ($) total expenditure 000s ($) 400 500 600 What is the price elasticity of demand
+    for the product?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: A firm establishes that the price elasticity of supply of its product has
+    a value of 0.3. What is likely to be true about the firm?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the market for oil. The original equilibrium price is P.
+    O S1 P4 P3 P2 P1 P S2 D2 S D1
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: The demand for a good falls at the same time as its costs of production decrease.
+    What will be the combined effect of these changes on the price and on the quantity
+    supplied of the good? price quantity supplied
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: A government imposes a specific indirect tax on a product. When will the tax
+    cause the greatest reduction in consumer surplus for the buyers of the product?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows the maximum amount three students would each be willing to
+    pay for a taxi to take them home from a nightclub. $ Jane 10.00 Sara 8.00 Yasmin
+    6.00 The fare for the taxi is $12. Assume they share the taxi fare as shown in
+    the table below. Which row shows how much they each should pay so that they each
+    obtain the same consumer surplus? Jane $ Sara $ Yasmin $
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: A government fixes a minimum price for a service. What will be the outcome
+    of such a policy?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram illustrates the effects of placing a specific indirect tax equal
+    to JM on a good. price quantity O J L M K
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the demand curve, D1, and the supply curve, S1, for a good.
+    D2 S3 S4 S1 S2 D1 O quantity price The government decides to pay producers a specific
+    subsidy for each unit supplied to the market. Which curve shows the new effective
+    demand or supply curve?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Planned government expenditure for a country in the fiscal year 2016 is estimated
+    at $760 billion. The top five areas of expenditure are given in the table. $ billion
+    pensions 153 healthcare 138 welfare 111 education defence total top five 536 What
+    is the total amount, in billions of dollars, spent on transfer payments shown
+    in the table?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a shift in the Aggregate Demand curve, from AD1 to AD2.
+    O price level real output AD1 AD2 What might have caused this shift?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the change in an economy’s rate of inflation over 4 years.
+    year inflation rate (%) What happened to the general price level over the 4 years?
+    year 1 year 2 year 3 year 4
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the short-run Aggregate Supply (SRAS) curve of an economy.
+    At which equilibrium level of national income is a reduction in the rate of interest
+    likely to cause the greatest inflationary increase for the economy? price level
+    O
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: A large coal mine is forced to close because of falling demand for coal as
+    consumers switch to less polluting fuels. The government organises retraining
+    courses and recruitment events for the coal mine workers. Which type of unemployment
+    is the government trying to reduce?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: A government succeeds in changing a current account deficit into a current
+    account surplus. Why might this current account surplus increase the country’s
+    inflation rate?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a government’s revenue and expenditure for three years.
+    2008 2009 2010 revenue expenditure revenue expenditure revenue expenditure $m
+    What can be concluded from the diagram?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: In recent years an economy has experienced changes in its price level as shown.
+    2010 2015 –2 percentage change of price level Which government policy is most
+    effective in reversing the trend shown in the price level?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows Greece’s trade position with the EU and Russia between 2005
+    and 2014. 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 imports from EU exports
+    to EU imports from Russia exports to Russia key Greek trade $bn What can be concluded
+    about the period 2005 to 2014?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: There is a rise in the exchange rate of the US$. Which would cause the greatest
+    increase in the US current account deficit?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Since 2000 a country’s export prices have increased on average by 50% and
+    its import prices by 25%. What is the current figure for the country’s terms of
+    trade (2000 = 100)?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Each diagram shows the production possibility curves (PPCs) of two economies,
+    X and Y, which produce food and clothes. In which diagram would both economies
+    benefit by specialising in the good in which they have comparative advantage and
+    trading at an exchange rate of 1 unit of clothes to 1.5 units of food?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Which government policy is most likely to focus on an increase in the quantity
+    of skilled labour?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: A small trading country decides on a policy of import substitution by producing
+    more goods and services itself rather than purchasing them from other countries.
+    What is the most likely reason for this policy?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: The monetary authorities of a country, whose currency is floating freely,
+    raise the market rates of interest. Other things being equal, the exchange rate
+    of the currency is most likely to
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

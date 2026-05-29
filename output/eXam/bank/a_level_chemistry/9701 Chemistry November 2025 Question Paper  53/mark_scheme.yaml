@@ -1,0 +1,379 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.12 g
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 add a (small) volume of (distilled) water (to the small
+    beaker)
+
+    AND
+
+    dissolve the solid / AgNO3 (s)
+
+    Transfer the solution and washings (using a funnel)
+
+    AND
+
+    into a 250 cm3 volumetric flask.
+
+    M3 Make up to the (calibration) mark / line with distilled water.
+
+    AND
+
+    then invert the (stoppered) flask (several times)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(20(.0) cm3) pipette.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'barium (ions) could react with chromate (ions).
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Potassium chromate(VI) / K2CrO4(aq) is an irritant / corrosive
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'They are (the only ones that are) concordant.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    0.05 100
+
+    20.60
+
+    
+
+    
+
+    = 0.48(54%)
+
+    Correct working must be shown.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '20.65  0.05 / 1000 = 0.00103(25)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '= ((d)(i) / 2) *(250 / 20)
+
+    = (d)(i)  6.25
+
+    1
+
+    9701/53
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1diii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Mr = 1.58 / (d)(ii)
+
+    M2 x= (M1 – 208.3) / 18
+
+    AND
+
+    x must be an integer.
+
+    Some working must be shown.
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Heat to drive off water of crystallisation.
+
+    M1 Apparatus
+
+    1
+
+    Bunsen burner.
+
+    2
+
+    Crucible (supported by pipeclay triangle)
+
+    M2 Measurements
+
+    1
+
+    Measure mass of crucible (+ lid) (empty).
+
+    2
+
+    Measure mass crucible (+ lid) + solid before heating
+
+    3
+
+    Measure mass of crucible (+ lid) + residue (after heating.)
+
+    M3 Key step in method
+
+    •
+
+    Description of heat to constant mass.
+
+    OR
+
+    Produce a suitable precipitate using a viable reaction.
+
+    M1 Apparatus and method
+
+    •
+
+    Chooses suitable reagent.
+
+    •
+
+    Filter the precipitate.
+
+    •
+
+    Wash and (allow to) dry
+
+    M2 Measurements
+
+    •
+
+    Measure mass of hydrated barium chloride used.
+
+    •
+
+    Measure mass of precipitate.
+
+    M3 Key step in method
+
+    •
+
+    Description of dry to constant mass.
+
+    3
+
+    9701/53
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'To ensure no air / other gas remains in the syringe
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    Mr
+
+    0.707
+
+    0.500
+
+    0.222
+
+    0.158
+
+    0.109
+
+    Rate of effusion /cm3s-1
+
+    4.63
+
+    3.27
+
+    1.45
+
+    1.26
+
+    0.71
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Time (taken).
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'size of hole
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 all 5 points plotted correctly.
+
+    M2 Straight line of best fit drawn
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Point most anomalous to the plotted line of best fit circled.
+
+    AND
+
+    If point above LOBF
+
+    (Measured rate of effusion is higher than the true rate predicted by LOBF.)
+
+    for this point …
+
+    measured / recorded (effusion) time < true / actual time
+
+    OR
+
+    If point below LOBF
+
+    (Measured rate of effusion is lower than the true rate predicted by LOBF.)
+
+    for this point …
+
+    measured / recorded (effusion) time > true / actual time
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Yes AND The graph / LOBF…
+
+    is a straight-line AND it goes through the origin.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The results are not reliable as there is an anomalous result.
+
+    1
+
+    9701/53
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2gi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Effusion rate = 50/31.6 = (1.58)
+
+    Correct value for
+
+    1
+
+    Mr  read from x-axis
+
+    1
+
+    M2 Value correctly converted to M.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2gii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'If calculated M > 16
+
+    (The average) M (of the other components) is greater than 16 / calculated value
+    for g(i).
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2h
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(Rate of effusion) increases
+
+    AND
+
+    (At higher temperature) gas particles move more quickly.
+
+    1'
+  mark_scheme: []
+  graphics: []

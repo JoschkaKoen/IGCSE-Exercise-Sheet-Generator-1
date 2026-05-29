@@ -1,0 +1,514 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'I
+
+    Unambiguous headings AND units for all six recorded readings and calculated values
+    in experiment 1:
+
+    •
+
+    (mass of) container + FB 2 / solid / g
+
+    •
+
+    (mass of) container (+ residue) / g
+
+    •
+
+    (mass of) FB 2 / solid (used / added) / g
+
+    •
+
+    initial temperature OR temperature of FB 1 / oC
+
+    •
+
+    final temperature / oC
+
+    •
+
+    temperature change / oC
+
+    1
+
+    II
+
+    •
+
+    All four weighings recorded to same decimal places (either 2 or 3).
+
+    •
+
+    All four temperatures recorded to .0 or .5°C
+
+    1
+
+    III Correct subtractions to give all four calculated values:
+
+    •
+
+    mass of FB 2 used and mass of FB 3 used
+
+    •
+
+    changes in temperature for experiments 1 and 2.
+
+    1
+
+    Accuracy (Q) marks
+
+    Calculate the candidate’s temperature to mass ratio for experiment 1 to 2 d.p.:
+    Ratio = ∆T (experiment 1) / mass of FB2.
+
+    Calculate the supervisor’s ratio for experiment 1 to 2 d.p.
+
+    Calculate the difference, , between the candidate’s value (rounded to 2 d.p.)
+    and the supervisor’s value (rounded to 2 d.p.).
+
+    IV award if  ⩽ 0.50
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Correctly calculates both Mr values:
+
+    Mr of NaHCO3 = 84  AND  Mr of Na2CO3 = 106
+
+    1
+
+    M2: Correctly calculates both amounts using subtractions from (a)
+
+    n = mass in (a) / Mr (mol)
+
+    AND both answers given to 2–4 sf
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correctly calculates both values of energy change
+
+    energy change = 20  4.18  T  (J)
+
+    AND both answers given to 2−4 sf
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Correct display of H = (b)(ii) / (b)(i) for experiment
+    1 or experiment 2.
+
+    1
+
+    9701/34
+
+    October/November 2025
+
+    Question Answer
+
+    M2: Correctly uses H = (b)(ii) / ((b)(i)  1000)
+
+    AND + sign for H1 AND – sign for H2
+
+    AND both answers given to 2−4 sf
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Drawing of enthalpy cycle
+
+    1
+
+    M2: Correctly calculates Hr = 2H1 – H2
+
+    1
+
+    9701/34
+
+    October/November 2025
+
+    Question Answer'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'I
+
+    All the following data are recorded
+
+    •
+
+    two burette readings AND titre for the rough titration
+
+    •
+
+    initial and final burette readings for two (or more) accurate titrations
+
+    1
+
+    II
+
+    Titre values recorded for accurate titrations, AND Correct headings and units
+    in the accurate titration table
+
+    •
+
+    initial / start AND (burette) reading / volume
+
+    •
+
+    final / end AND (burette) reading / volume
+
+    •
+
+    titre OR volume used / added / or FB 5 used / added
+
+    •
+
+    unit: / cm3 OR (cm3) OR in cm3 (for each heading) OR cm3 unit given for each volume
+    recorded.
+
+    1
+
+    Ill All accurate burette readings are recorded to the nearest 0.05 cm3.
+
+    1
+
+    lV: The final accurate titre recorded is within 0.10 cm3 of any other accurate
+    titre
+
+    1
+
+    Accuracy (Q) marks
+
+    Round burette readings to the nearest 0.05 cm3. Check and correct titre subtractions
+    where necessary.
+
+    Select the best mean titre, using the following hierarchy:
+
+    •
+
+    two (or more) accurate identical titres (ignoring any that are labelled ‘rough’),
+    then
+
+    •
+
+    two (or more) accurate titres within 0.05 cm3, then
+
+    •
+
+    two (or more) accurate titres within 0.10 cm3, etc
+
+    Calculate the candidate’s mean titre value.
+
+    Calculate the supervisor’s mean titre value.
+
+    Calculate the difference () between the candidate’s mean titre and the supervisor’s
+    mean titre.
+
+    Award accuracy Q marks as follows:
+
+    V award if  ⩽ 0.60 cm3
+
+    VI award if  ⩽ 0.40 cm3
+
+    VII award if  ⩽ 0.20 cm3
+
+    3
+
+    9701/34
+
+    October/November 2025
+
+    Question Answer'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correctly calculates mean titre to 2 d.p.
+
+    •
+
+    Candidate must take the average of two (or more) titres that are within a total
+    spread of not more than 0.20 cm3.
+
+    •
+
+    Working / explanation must be shown OR ticks must be put next to the two (or more)
+    accurate readings selected.
+
+    •
+
+    The mean should be quoted to 2 d.p. and rounded to nearest 0.01 cm3.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Final answers to both parts (c)(ii) and (c)(iii) quoted to
+    3 or 4 sf.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correctly calculates
+
+    amount of HCl = 0.2  (b) / 1000 (mol)
+
+    AND gives same answer for amount of NaHCO3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correctly uses
+
+    mass of NaHCO3 = (c)(ii)  40  84(.0) (g)
+
+    1
+
+    Correctly uses
+
+    percentage by mass = [(17.20 – mass of NaHCO3) / 17.20]  100
+
+    OR percentage by mass = 100 – [(mass of NaHCO3 / 17.20)  100]
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: (H1) smaller / less positive (for impure NaHCO3)
+
+    1
+
+    M2: Impurity does not react with the acid / FB 5
+
+    1
+
+    9701/34
+
+    October/November 2025
+
+    Question Answer
+
+    FB 7 is CuCO3(s); FB 8 is FeSO4(aq)'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    selects (aqueous) silver nitrate and (aqueous) ammonia *
+
+    •
+
+    white ppt *
+
+    •
+
+    soluble in (aqueous) ammonia *
+
+    •
+
+    NaCl *
+
+    2 * = 1 mark
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(The acid) removes / reacts with the hydrogencarbonate ions
+    OR silver ions react with hydrogencarbonate ions
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    green (at start) *
+
+    •
+
+    turns to a black powder / solid *
+
+    •
+
+    powder very fluid / moves around the test-tube *
+
+    •
+
+    condensation (on walls of test-tube) *
+
+    2 * = 1 mark
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    forms green-blue solution *
+
+    •
+
+    effervescence *
+
+    •
+
+    vigorous reaction *
+
+    •
+
+    attempts to test with limewater *
+
+    •
+
+    gas / carbon dioxide gives white precipitate / solid with limewater *
+
+    2 * = 1 mark
+
+    2
+
+    9701/34
+
+    October/November 2025
+
+    Question Answer'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Test 1
+
+    Add NaOH(aq)
+
+    (pale) blue precipitate insoluble in excess *
+
+    Test 2
+
+    Add NH3(aq)
+
+    (pale) blue precipitate *
+
+    (precipitate dissolves forming) dark / deep blue solution in excess *
+
+    Test 3
+
+    Add aluminium
+
+    foil
+
+    effervescence / fizzing*
+
+    (gas) pops with a lighted splint *
+
+    pink-brown solid *
+
+    turns colourless / pale blue solution formed *
+
+    gets hotter *
+
+    Metal ion in FB 7: Cu2+ *
+
+    2 * = 1 mark
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Test 1
+
+    Add NaOH(aq)
+
+    green precipitate *
+
+    insoluble in excess *
+
+    (precipitate) turns brown (on surface) *
+
+    Test 2
+
+    Add acidified
+
+    KMnO4
+
+    purple to colourless / (pale) yellow solution
+
+    OR KMnO4 decolourised*
+
+    2 * = 1 mark
+
+    2
+
+    Metal ion in FB 8: Fe2+
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Redox reaction
+
+    AND change to colourless linked to reduction of manganate(VII) ions OR change
+    to yellow colour linked to oxidation of
+
+    Fe2+ or production of Fe3+.
+
+    1'
+  mark_scheme: []
+  graphics: []

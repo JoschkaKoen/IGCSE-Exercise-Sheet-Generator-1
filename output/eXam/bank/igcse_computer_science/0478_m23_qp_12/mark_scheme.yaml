@@ -1,0 +1,1009 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'D
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for identification. E.g. One mark per bullet for description
+    to max
+
+    two each.
+
+    Virus
+
+    •
+
+    Software/code that replicates
+
+    •
+
+    …when the user runs it // with an active host
+
+    •
+
+    Deletes/damages/corrupts data/files // takes up storage/memory space
+
+    Worm
+
+    •
+
+    Software/code that replicates itself on a network
+
+    •
+
+    …without user input // without active host
+
+    •
+
+    Takes-up bandwidth
+
+    •
+
+    Deletes/damages/corrupts data/files // takes up storage/memory space
+
+    •
+
+    Opens back doors to computers over the network
+
+    •
+
+    Used to deposit other malware on networked computers
+
+    Trojan horse
+
+    •
+
+    Software/code that is hidden within other software // Software that is
+
+    disguised as authentic software
+
+    •
+
+    …when downloaded/installed the other malware/by example it
+
+    contains is installed
+
+    Adware
+
+    •
+
+    Software/code that generates/displays (unwanted) adverts on a user''s
+
+    computer
+
+    •
+
+    Some may contain spyware/other malware
+
+    •
+
+    Some when clicked may link to viruses
+
+    •
+
+    Reduces device performance // reduces internet speed
+
+    •
+
+    Redirects internet searches/user to fake websites
+
+    Ransomware
+
+    •
+
+    Software/code that stops a user accessing/using their computer/data
+
+    •
+
+    …by encrypting the data/files/computer
+
+    •
+
+    A fee has to be paid to decrypt the data // A fee has to be paid to
+
+    ''release'' the computer/device/data
+
+    6
+
+    0478/12
+
+    February/March 2023'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each similarity to max two. One mark for difference
+    (both
+
+    sides needed unless clearly and accurately implied).
+
+    Similarities e.g.
+
+    •
+
+    Check incoming and outgoing signals // filter traffic
+
+    •
+
+    Store whitelist/blacklist
+
+    •
+
+    Block incoming/outgoing signals
+
+    •
+
+    Both block unauthorised access
+
+    •
+
+    Keep a log of traffic
+
+    •
+
+    Both can be hardware or software (or both)
+
+    Differences e.g.
+
+    •
+
+    Proxy can hide user''s IP address, firewall does not hide the user''s IP
+
+    address
+
+    •
+
+    Proxy intention is to divert attack from server, firewall is to stop
+
+    unauthorised access
+
+    •
+
+    Proxy protects a server, firewall protects individual computer
+
+    •
+
+    Proxy examines/processes requests for a website but a firewall does
+
+    not (checks type of signal) // Proxy processes client-side requests
+
+    whereas firewall filters packets
+
+    •
+
+    Proxy transmits website data to the user, but a firewall does not (it
+
+    allows valid signals)
+
+    •
+
+    Proxy allows faster access to a web page using cache, but a firewall
+
+    does not (allow faster access or have cache)
+
+    •
+
+    Proxy can hide internal network from internet, but a firewall cannot
+
+    3
+
+    0478/12
+
+    February/March 2023'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'No mark for choice.
+
+    Any four from matching choice.
+
+    High-level
+
+    •
+
+    Easier for programmer to read/write/understand/edit
+
+    •
+
+    … therefore, the programmer is less likely to make mistakes // can write
+
+    in shorter timeframe
+
+    •
+
+    Easier to debug // Easier to find/correct errors
+
+    •
+
+    …so, the programmer can find and correct errors in less time
+
+    •
+
+    Game will be machine independent  //  Game will be portable (between
+
+    hardware)
+
+    •
+
+    …the game can be used on any computer without a need for
+
+    understanding of the hardware / compilation for that hardware
+
+    •
+
+    Programmer can focus on the problem instead of the manipulation of
+
+    memory/hardware
+
+    Low-level
+
+    •
+
+    More memory/RAM efficient
+
+    •
+
+    … 3D graphics will have high memory consumption anyway
+
+    •
+
+    Allows direct manipulation of memory
+
+    •
+
+    … allows for more efficient control/response time
+
+    •
+
+    Allows for use of specialised hardware
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from for each compiler and interpreter.
+
+    Compiler
+
+    •
+
+    Checks all code before executing any code
+
+    •
+
+    Produces error report with all errors found for the whole code (before
+
+    translating/running any of the code)
+
+    •
+
+    Produces executable file
+
+    Interpreter
+
+    •
+
+    Checks/translates one line of code and then executes it before moving
+
+    on to the next line
+
+    •
+
+    Stops when an error is found
+
+    •
+
+    … when corrected the program can be run from the same position //
+
+    allows error correction in real time
+
+    4
+
+    0478/12
+
+    February/March 2023'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark each:
+
+    8 bytes = 16 nibbles
+
+    512 KiB = 0.5 MiB
+
+    4 GiB = 4096 MiB
+
+    1 EiB = 1024 PiB
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    •
+
+    Currently running data
+
+    •
+
+    Currently running (application) software
+
+    •
+
+    Currently running instructions
+
+    •
+
+    Currently running parts of OS
+
+    •
+
+    Currently running utility software
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    •
+
+    For non-volatile/permanent/long-term storage of files/data
+
+    •
+
+    To store data that is not currently required by the CPU
+
+    •
+
+    To store data to transfer it to another computer
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark each:
+
+    Pixel:
+
+    •
+
+    One square/circle of one colour // the smallest component of the
+
+    image
+
+    Resolution:
+
+    •
+
+    The number of pixels per set area/cm/inch // the number of pixels wide
+
+    by the number of pixels high // number of pixels in an image
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for answer:
+
+    •
+
+    2 000 000 bytes
+
+    One mark for working from:
+
+    •
+
+    1000  1000 (= 1 000 000)
+
+    •
+
+    1 000 000 * 2 (= 2 000 000)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each term:
+
+    Solid-state storage is non-volatile. This means that the data is not lost
+
+    when the power is turned off.
+
+    Solid-state storage is made of transistors that are laid out in a grid.
+
+    Gates are used to control the flow of the electrons through the transistors.
+
+    This changes the data in the transistors from 1 to 0, or from 0 to 1.
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    •
+
+    Reduce the file size
+
+    •
+
+    Increase transmission speed // Reduce transmission time
+
+    •
+
+    Reduce storage space required
+
+    •
+
+    Less bandwidth required for transmission
+
+    1
+
+    0478/12
+
+    February/March 2023'
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    e.g.
+
+    •
+
+    Destination IP/address
+
+    •
+
+    Packet number
+
+    •
+
+    Originators IP/address
+
+    •
+
+    Error detection method
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark each:
+
+    •
+
+    Payload
+
+    •
+
+    Trailer
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'No mark for choice.
+
+    Three from for justification that matches choice.
+
+    Serial
+
+    •
+
+    Data arrives in order sent // does not need reordering
+
+    •
+
+    Less likely to experience interference
+
+    •
+
+    … less likely to have errors
+
+    •
+
+    Can transmit over a longer distance (i.e. another room)
+
+    •
+
+    Still fast transmission…
+
+    •
+
+    …sufficient for this purpose
+
+    Parallel
+
+    •
+
+    Faster transmission speed than serial
+
+    •
+
+    … faster response to requests
+
+    •
+
+    Very long connection not needed
+
+    •
+
+    …next room is (likely) within distance for parallel
+
+    •
+
+    … unlikely to error/arrive out of sequence/skew
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark each:
+
+    •
+
+    Data goes in both directions…
+
+    •
+
+    …at the same time
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark each:
+
+    0
+
+    1
+
+    1
+
+    0
+
+    0
+
+    0
+
+    1
+
+    1
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark each:
+
+    •
+
+    In parity check, interchange of bits will not be detected // Parity check
+
+    cannot detect even number of changes // Parity check cannot detect
+
+    error if parity stays correct …
+
+    •
+
+    …the (possible) position of all changes will be highlighted // will identify
+
+    the horizontal and vertical position of all differences/changes
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark each:
+
+    •
+
+    Bit 6
+
+    •
+
+    Byte 4
+
+    2
+
+    0478/12
+
+    February/March 2023'
+  mark_scheme: []
+  graphics: []
+- number: 5di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    e.g.
+
+    •
+
+    Storing bookmarks/favourites
+
+    •
+
+    Storing history
+
+    •
+
+    Allow multiple tabs/web pages to be open
+
+    •
+
+    Allow movement back and forth between web pages // provides
+
+    navigation tools
+
+    •
+
+    Allows the user to enter a URL/IP into the address bar
+
+    •
+
+    Manages HTTP/HTTPS protocol
+
+    •
+
+    Search cache for IP // Request IP from DNS // Send URL to DNS
+
+    •
+
+    Sends a request to the IP address/web server (to obtain the contents
+
+    of a web page)
+
+    •
+
+    Runs active script/JavaScript/client-side script
+
+    •
+
+    Allows files to be downloaded from website/internet
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    e.g.
+
+    •
+
+    Storing preferences // so the user does not have to select their
+
+    preferences each time they visit the site
+
+    •
+
+    Storing account details // so the user does not have to remember/enter
+
+    their username and password each time they visit the site
+
+    •
+
+    Storing recent purchases // to allow the user to quickly re-order more
+
+    items
+
+    •
+
+    Storing the pages visited/items selected // to display relevant adverts
+
+    •
+
+    Storing shopping basket // so when the user leaves the site the items
+
+    are still in their basket
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark each
+
+    Movement
+
+    Binary
+
+    Denary
+
+    Hexadecimal
+
+    forward 1 step
+
+    00011111
+
+    31
+
+    1F
+
+    back 1 step
+
+    10001100
+
+    140
+
+    8C
+
+    turn right
+
+    01011010
+
+    90
+
+    5A
+
+    turn left
+
+    (0)1111000
+
+    120
+
+    78
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    •
+
+    The design of robots (to perform tasks/operations/functions)
+
+    •
+
+    The construction of robots (to perform tasks/operations/functions)
+
+    •
+
+    The operation of robots (to perform tasks/operations/functions)
+
+    2
+
+    0478/12
+
+    February/March 2023'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Seven from:
+
+    •
+
+    Uses an infra-red/proximity sensor
+
+    •
+
+    Sensor continuously sends the digitised value/reading/distance to the
+
+    microprocessor
+
+    •
+
+    Microprocessor compares the data/signal to the stored value of 10(cm)
+
+    •
+
+    If the data/signal is greater than the stored value/10 …
+
+    •
+
+    …a signal is sent to make the robot move forward
+
+    •
+
+    If the data/signal is less than or equal to the stored value/10 …
+
+    •
+
+    …a signal is sent to make robot turn
+
+    •
+
+    An actuator is used to make the robot turn/move forward
+
+    •
+
+    The whole process repeats continuously until turned off/stopped
+
+    7'
+  mark_scheme: []
+  graphics: []
+- number: 6di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    e.g.
+
+    •
+
+    Collects data
+
+    •
+
+    Stores rules for using the data
+
+    •
+
+    The ability to reason
+
+    •
+
+    The ability to learn // uses machine learning
+
+    •
+
+    … by adapting what it does
+
+    •
+
+    … for example, from mistakes to not make them again // result from
+
+    previous decisions impacts future
+
+    •
+
+    … by changing its own rules
+
+    •
+
+    …by changing its own data
+
+    •
+
+    …by being trained
+
+    •
+
+    Makes one or more predictions (to make a decision)
+
+    •
+
+    Find/analyse patterns
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Four from:
+
+    e.g.
+
+    •
+
+    Use machine learning algorithms
+
+    •
+
+    Collects data about where it has been
+
+    •
+
+    Collect data about obstacles/problems
+
+    •
+
+    Store successful actions
+
+    •
+
+    Stores unsuccessful actions
+
+    •
+
+    Identify/store patterns
+
+    •
+
+    … to make sure it does not repeat the same incorrect route
+
+    •
+
+    … so, it knows how to react to obstacles next time
+
+    •
+
+    …so, it knows what is most likely to work next time
+
+    4'
+  mark_scheme: []
+  graphics: []

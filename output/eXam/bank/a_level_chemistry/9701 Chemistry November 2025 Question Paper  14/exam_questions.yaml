@@ -1,0 +1,643 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: Helium forms an ion . He+
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: Three statements about this ion are listed. It contains two protons. It contains
+    three neutrons.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: It contains one electron. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: A solution containing 4.4 g of an organic acid is exactly neutralised by 25.0
+    cm3 of 2.0 mol dm–3 sodium hydroxide. The acid has one COOH group in each molecule.
+    What is the empirical formula of the acid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: In which set do all the molecules have all their atoms arranged in one plane?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the bonding in a molecule of propyne.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: The boiling point of water, H2O, is higher than that of hydrogen sulfide,
+    H2S. Which statement explains this difference in boiling points?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes silicon dioxide? electrical conductivity in liquid state
+    solubility in water
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: The data shown are needed for this question. (P4O10(s)) = –3012 kJ mol–1 (H2O(l))
+    = –286 kJ mol–1 (H3PO4(s)) = –1279 kJ mol–1 What is H o for the reaction shown?
+    P4O10(s)  +  6H2O(l)    4H3PO4(s)
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: In an experiment to measure the enthalpy change of neutralisation of hydrochloric
+    acid, 20 cm3 of solution containing 0.04 mol of HCl is placed in a plastic cup
+    of negligible heat capacity. A 20 cm3 sample of aqueous sodium hydroxide containing
+    0.04 mol of NaOH, at the same initial temperature, is added and the temperature
+    rises by 15 K. If the heat capacity per unit volume of the final solution is 4.2
+    J K–1 cm–3, what is the enthalpy change of neutralisation of hydrochloric acid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Acidified potassium manganate(VII) reacts with iron(II) ethanedioate, FeC2O4.
+    The reactions taking place are shown. MnO4 –  +  8H+  +  5e–    Mn2+  +  4H2O
+    Fe2+    Fe3+  +  e– C2O4 2–    2CO2  +  2e– How many moles of iron(II) ethanedioate
+    react with one mole of potassium manganate(VII)?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: Nitrogen dioxide decomposes on heating according to the equation shown. 2NO2(g)
+    2NO(g)  +  O2(g) When 4 mol of nitrogen dioxide were put into a 1 dm3 container
+    and heated to a constant temperature, the equilibrium mixture contained 0.8 mol
+    of oxygen. What is the value of the equilibrium constant, Kc, at the temperature
+    of the experiment?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: One particle of X reacts with one particle of Y in a single-step reaction
+    to produce two particles of Z. This reaction is exothermic and reversible. X  +  Y
+    2Z Three statements about the forward and reverse reactions are listed. The activation
+    energy of the forward reaction is equal to the activation energy of the reverse
+    reaction. At equilibrium, the frequency of collisions between one particle of
+    X and one particle of Y is equal to the frequency of collisions between two particles
+    of Z. At equilibrium, the frequency of effective collisions between one particle
+    of X and one particle of Y is equal to the frequency of effective collisions between
+    two particles of Z. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: When two aqueous solutions are mixed, the reaction between them is very slow.
+    An effective catalyst is added to the mixture without any change in temperature.
+    Which statement about this catalyst is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: A mixture of gases reacts faster as its temperature increases. Which row explains
+    this? the activation energy remains unchanged more particles have energy equal
+    to or above the activation energy there is an increase in the rate of successful
+    collisions
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: A student investigated the chloride of a Period 3 element. This is what the
+    student wrote down as their observations. The compound was a white crystalline
+    solid. It dissolved easily in water to give a solution of pH 12. When placed in
+    a test-tube and heated in a roaring Bunsen flame, the compound melted after several
+    minutes’ heating. What can be deduced from these observations?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Which graph shows the relative melting points of the elements Mg, Al, Si and
+    P plotted against their relative electronegativities? melting point electronegativity
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Caesium and barium are in Period 6 of the Periodic Table. Which row is correct?
+    the larger ionic radius the higher melting point
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: Magnesium nitrate, Mg(NO3)2, will decompose when heated to give a white solid
+    and a mixture of gases. One of the gases released is oxygen. 29.7 g of anhydrous
+    magnesium nitrate is heated until no further reaction takes place. Which mass
+    of oxygen is produced?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the trends in the named properties going down the Group 2
+    nitrates? thermal stability volume of gas produced, measured at room conditions,
+    when 1.0 g of anhydrous solid nitrate is thermally decomposed
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: X, Y and Z are three aqueous solutions. Equal volumes of pairs of the solutions
+    are mixed and observations noted. X mixed with Y shows no reaction. X mixed with
+    Z shows an immediate reaction. Z mixed with Y shows no reaction. What are X, Y
+    and Z? X Y Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: An excess of chlorine gas is bubbled into hot potassium hydroxide solution.
+    Which chlorine-containing species are present in the final solution?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: The oxides of nitrogen, NO and NO2, act as pollutants in the Earth’s atmosphere
+    in a number of different ways. Three statements about the oxides of nitrogen are
+    listed. They react with oxygen and water vapour to form nitric acid, a constituent
+    of acid rain. They react with carbon monoxide to form photochemical smog. They
+    catalyse the oxidation of sulfur dioxide in the formation of sulfuric acid, another
+    constituent of acid rain. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Which reagent, when mixed with ammonium sulfate and then heated, liberates
+    ammonia?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Two hydrocarbons, CH3CHC(CH3)CH3 and CH3CH(CH3)CH2CH3, react separately with
+    chlorine in the presence of ultraviolet light. In each reaction, free-radical
+    substitution occurs. Which row is correct? identity of the hydrocarbon that can
+    also undergo electrophilic addition a termination stage of the free-radical substitution
+    of the saturated hydrocarbon
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: "The structure of the compound -ionone is shown. O \x02-ionone Including\
+    \ -ionone, how many stereoisomers exist with this molecular formula?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Structural and stereoisomerism should be considered when answering this question.
+    A mixture of 1-chlorobutane and 2-chlorobutane is heated with an excess of NaOH
+    in ethanol. How many different organic molecules will be produced?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the skeletal formula of the hormone testosterone. O OH What
+    is the molecular formula of testosterone?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: "Pinenes are unsaturated compounds. The structures of two pinenes are shown.\
+    \ \x03-pinene \x04-pinene A mixture of these two pinenes reacts with hot concentrated\
+    \ acidified KMnO4. What are the molecular formulae of the organic products?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: An organic ion containing a carbon atom with a negative charge is called a
+    carbanion. An organic ion containing a carbon atom with a positive charge is called
+    a carbocation. The reaction between NaOH(aq) and 1-bromobutane proceeds by an
+    SN2 mechanism. What is the first step in the mechanism?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: 2-chloropropane and 2-bromopropane react separately with aqueous NaOH. Which
+    row is correct? comparison of rates of reaction explanation of the difference
+    in reaction rates
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the structure of compound X. Br Br Br X X undergoes hydrolysis
+    to form product Y in which all of the bromine atoms are replaced by hydroxyl groups.
+    Product Z is formed by oxidation of Y. Two suggestions are listed. Y is a secondary
+    alcohol. Z is a ketone. Which suggestions are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Cyclohexanol is converted to cyclohexane-1,2-diol via a two-step synthesis
+    that proceeds via intermediate Q. OH Q step 1 step 2 OH OH Which row identifies
+    the type of reaction in step 1 and in step 2? step 1 step 2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Three tests were performed on an unknown organic compound. test reagent test
+    result 2,4-DNPH reagent orange ppt Tollens’ reagent no change alkaline I2(aq)
+    yellow ppt What is the organic compound tested?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Butanone, CH3CH2COCH3, and HCN mixed with a little KCN react together in a
+    nucleophilic addition reaction. Which description of the mechanism of this nucleophilic
+    addition reaction is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: The structural formula of compound P is CH3CH2COOCH2CH3. P can be formed by
+    reacting together two organic compounds in the presence of a suitable catalyst.
+    Which pair of compounds could react together to produce P?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The structures of three organic compounds are shown.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: When bromoethane, C2H5Br, is heated with NaOH in ethanol, which type of reaction
+    occurs?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: PMMA is a rigid polymer. The repeat unit of PMMA is shown. n H CO2CH3 H CH3
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: A sample of gallium contains two isotopes only. In every 10 atoms in the sample,
+    there are 6 that have 38 neutrons and 4 that have 40 neutrons. What is the relative
+    atomic mass, Ar, of the gallium in the sample?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

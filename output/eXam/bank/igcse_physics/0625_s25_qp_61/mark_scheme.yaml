@@ -1,0 +1,329 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'two measurements in cm 2.7 and 2.5, both given to nearest mm
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correct average: expect 2.6 (cm)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any reasonable advantage for the method in the question given OR it
+    is difficult to measure the diameter directly OR hard to
+
+    find centre of ball
+
+    1
+
+    a ruler for measuring the diameter directly would give rise to parallax errors
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'V = 9.1(4)
+
+    1
+
+    unit: cm3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correct method for calculation of mB shown
+
+    1
+
+    mB = 11.6 (g)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' on answer line correctly calculated to 2 or more significant
+    figures
+
+    1
+
+    unit: g / cm3
+
+    1
+
+    answer given to 2 or 3 significant figures
+
+    1
+
+    0625/61
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '22 (°C) correctly shown
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cm3, °C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'axes correctly labelled with quantity AND unit AND right way
+    round
+
+    1
+
+    suitable scales (occupying at least ½ the grid)
+
+    1
+
+    plots correct to  ½ small square AND precise plots
+
+    1
+
+    good best-fit line judgement, thin, continuous line
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'so that temperature change is due to cold water added rather
+    than heat losses to the surroundings
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to ensure even / constant temperature (throughout the liquid)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    •
+
+    some form of insulation
+
+    •
+
+    add a lid
+
+    •
+
+    shield from draughts
+
+    •
+
+    white / shiny surface
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'measuring cylinder
+
+    1
+
+    0625/61
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'normal neat and at 90°
+
+    1
+
+    incident ray in correct quadrant at 40°  2°
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P1 P2 separation at least 5.0 cm
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'incident ray and reflected ray and normal meeting at B within
+    2 mm
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' = 48°  2°
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'new reflected ray drawn above MR in an appropriate quadrant
+
+    1
+
+    angle of reflection drawn 50°  2°
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'statement to match results
+
+    1
+
+    justification to include idea of results being equal within the limits of experimental
+    error OR unequal if beyond the limits of
+
+    experimental error
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    •
+
+    thin pins
+
+    •
+
+    thin lines / sharp pencil
+
+    •
+
+    view bases of pins / pins vertical
+
+    •
+
+    pins far apart / at least 5 cm
+
+    2
+
+    0625/61
+
+    May/June 2025
+
+    4
+
+    MP1      circuit used:
+
+    correct circuit diagram
+
+    1
+
+    MP2      measurements made:
+
+    measure wire diameter
+
+    AND measure voltage and current OR record voltmeter and ammeter readings
+
+    1
+
+    MP3      analysis of readings:
+
+    calculate / work out resistance of wire
+
+    1
+
+    MP4      performing the investigation:
+
+    repeat for at least two other diameters of wire
+
+    1
+
+    MP5      variable kept constant:
+
+    length / material of wire
+
+    1
+
+    MP6      table:
+
+    with columns for diameter of wire, voltage, current and resistance
+
+    each column must be labelled with both quantity and unit
+
+    1
+
+    MP7      conclusion:
+
+    plot a graph of resistance against diameter
+
+    OR an answer which suggests comparing values of diameter AND resistance in table
+
+    1'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,627 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: Which vector diagram correctly shows the force Z as the resultant of forces
+    X and Y?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: An object falls towards the surface of the Earth. The object is falling at
+    its terminal velocity. Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph represents the motion of a vehicle. 400 time / s speed m / s What
+    is the distance travelled by the vehicle in 400 s?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: On the Earth, a spring stretches by 5.0 cm when a mass of 3.0 kg is suspended
+    from one end. The gravitational field strength on the Moon is 1 6  of that on
+    the Earth. Which mass, on the Moon, would stretch the spring by the same extension?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: .0 kg
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: spring balance rice dish A customer buys some pasta. The shopkeeper notices
+    that the reading on the spring balance, with just pasta in the dish, is the same
+    as it was with just rice in the dish. Which quantity must be the same for the
+    rice and for the pasta?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: A train is travelling horizontally in a straight line. A book is on a table
+    in the train. The diagram shows all the forces acting on the book. contact force
+    weight of book frictional force book table How is the train moving?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show four beams, each of negligible weight and freely pivoted.
+    Which beam is not in equilibrium?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: An object of mass 1.2 kg is moving with a velocity of 2.0 m / s when it is
+    acted on by a force of 4.0 N. The velocity of the object increases to 5.0 m /
+    s in the same direction. For which period of time does the force act on the object?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row about the change of energy in the energy store must be correct?
+    process energy store change of energy in store
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: A woman of mass 50 kg has 81 J of kinetic energy. What is her speed?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: A child runs up a set of stairs four times. The time taken for each run is
+    recorded. Which time is measured when the child’s useful power is greatest?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: A dam holds water in a reservoir. The height of the water in the reservoir
+    is 15 m. dam 15 m water in reservoir The density of water is 1000 kg / m3. What
+    is the pressure due to the water at the bottom of the dam?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: A student uses a microscope to observe pollen moving on the surface of water.
+    Which statement describes the reason for this movement?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about evaporation of water are correct? Evaporation causes
+    the remaining liquid to cool. During evaporation, the more energetic particles
+    escape from the surface of the liquid. Evaporation only happens at 100 C.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Some hot water is sealed inside a metal can. The can is in a vacuum in outer
+    space. The hot water slowly cools down. How does the thermal energy escape into
+    space?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show graphs of displacement against time for four waves. All
+    the graphs are drawn to the same scale. Which wave has the largest amplitude and
+    the highest frequency? displacement
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: "The diagram shows a ray of light entering a glass block. 50\x01 25\x01 air\
+    \ glass Which calculation gives the refractive index of the glass?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: An object O is placed at point P near to a thin converging lens. The diagram
+    shows three rays from the top of O passing through the lens. Each point F is one
+    focal length from the centre of the lens. Each point 2F is two focal lengths from
+    the centre of the lens. P Q O 2F 2F F F image The object O is moved to point Q
+    on the diagram. Which type of image is produced when the object O is at point
+    Q?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which diagram shows the dispersion of white light by a glass prism? violet
+    red
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: Visible light has wavelengths in the range 4.0  10–7 m to 7.0  10–7 m. What
+    is the range of the frequencies of visible light?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Student X fires a starting pistol which produces smoke and sound. Student
+    Y is standing 100 m away and sees the smoke the instant it is produced. The speed
+    of sound in air is 340 m / s. What is the time delay between student Y seeing
+    the smoke and hearing the sound?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: An unmagnetised piece of soft iron is placed close to a strong permanent magnet,
+    as shown. S X N permanent magnet soft iron What is the induced polarity of end
+    X of the soft iron and in which direction does the magnetic force act on the soft
+    iron? polarity of end X direction of force on the soft iron
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: A plastic rod is rubbed with a cloth. plastic rod cloth The rod and the cloth
+    both become charged as electrons move between them. The rod becomes negatively
+    charged. Which diagram shows how the rod becomes negatively charged and shows
+    the final charge on the cloth?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: A wire has a uniform circular cross-sectional area. Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the current–voltage graph for a metal wire. voltage current
+    What can be deduced from the graph?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: A battery is connected to a circuit. It is switched on for 1.0 minute. During
+    that time, there is a current of 0.40 A in the circuit and the battery supplies
+    a total of 48 J of energy. Which row gives the charge that passes and the electromotive
+    force (e.m.f.) of the battery? charge that passes in 1.0 minute / C e.m.f. of
+    the battery / V
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: The circuit diagram shows two identical lamps connected in parallel to a cell.
+    Three ammeters, X, Y and Z, are also connected in the circuit, as shown. X Y Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: A student connects the circuit shown. bell Which switches must be closed for
+    the bell to ring without lighting the lamp?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows an a.c. generator. N S X Y V The graph shows the potential
+    difference (p.d.) between points X and Y plotted against time. A positive value
+    of p.d. indicates that X is more positive than Y. p.d. between X and Y time P
+    Which diagram shows the position of the coil at point P on the graph? X Y X Y
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: An electron moves into a uniform magnetic field. The arrow shows the initial
+    direction of motion of the electron. The direction of the magnetic field is into
+    the plane of the page. uniform magnetic field electron In which direction does
+    a force act on the electron when it enters the magnetic field?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about a transformer is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: How are positive and negative ions formed from atoms? positive ion negative
+    ion
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: A nucleus of element X is represented as . 26X Which is an isotope of element
+    X?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: A radioactive source is placed near a detector connected to a counter. 210
+    counts are recorded by the counter in 3 minutes. The background count rate is
+    20 counts per minute (cpm). What is the corrected count rate for the radioactive
+    source?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: The background count rate measured by a radiation counter is 40 counts per
+    minute (cpm). With the counter close to a radioactive source, the counter reading
+    is 960 cpm. The half-life of the source is 20 minutes. What is the counter reading
+    one hour later?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Which planet in our Solar System is nearest to the Sun and what is the nature
+    of the planet? planet nature
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: A space station orbits the Earth at a distance of 7000 km from the Earth’s
+    centre. It makes 15 orbits in every 24-hour period. What is the speed of the space
+    station in its orbit?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Which nuclear reaction powers a stable star?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Which stages in the life cycle of a star are listed in the order that they
+    occur?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

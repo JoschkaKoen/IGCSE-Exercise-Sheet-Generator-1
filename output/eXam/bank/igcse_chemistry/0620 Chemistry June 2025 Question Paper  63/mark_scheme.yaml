@@ -1,0 +1,363 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A
+
+    (conical) flask
+
+    1
+
+    B
+
+    (gas) syringe
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to keep (the contents of the flask) warm / at 25 oC to 35 oC
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'gas volume still increasing / gas volume not constant
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(turns) milky / cloudy
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'no more bubbles
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(fractional) distillation
+
+    1
+
+    0620/63
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 volume of aqueous sodium thiosulfate and volume of water
+    correctly recorded for all five experiments
+
+    and
+
+    volume of dilute hydrochloric acid shown as 5 cm3 for all experiments.
+
+    50
+
+    0
+
+    5
+
+    40
+
+    10
+
+    5
+
+    30
+
+    20
+
+    5
+
+    25
+
+    25
+
+    5
+
+    20
+
+    30
+
+    5
+
+    1
+
+    M2 all five stop clock reading correct
+
+    30
+
+    37
+
+    49
+
+    59
+
+    73
+
+    1
+
+    M3 all times in whole number of seconds only
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 y-axis linear scale linear and points extend over more than
+    half of the y-axis
+
+    1
+
+    M2 and M3 all points plotted correctly
+
+    2
+
+    M4 line of best fit
+
+    1
+
+    0620/63
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correct evaluation of 1  time for experiment one.
+
+    expected answer is 1 / 30 = 0.033
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 13
+
+    1
+
+    M2 cm3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 correct working shown at 37 cm3 on graph to show where value
+    read
+
+    1
+
+    M2 correct reading from their working shown on graph.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2diii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'so depth of liquid in beaker is the same in all experiments / so
+    concentration of dilute hydrochloric acid in mixture is the
+
+    same for all experiments
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a burette is more accurate than a measuring cylinder
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    •
+
+    volume of aqueous sodium thiosulfate is not 25 cm3
+
+    •
+
+    volume of aqueous sodium thiosulfate is not constant / fixed
+
+    •
+
+    volumetric pipettes not available in those sizes
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (different size beaker would) change depth
+
+    1
+
+    M2 so changes time measured
+
+    1
+
+    0620/63
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 dropwise: white precipitate
+
+    1
+
+    M2 excess: precipitate dissolves
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 dropwise: white precipitate
+
+    1
+
+    M2 excess: precipitate remains / no change
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'white precipitate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'no change
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ammonia / NH3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 barium / Ba2+
+
+    1
+
+    M2 nitrate / NO3–
+
+    Ba(NO3)2 = 2
+
+    1
+
+    0620/63
+
+    May/June 2025
+
+    4
+
+    any 6 points from:
+
+    •
+
+    add sodium chloride / lead nitrate to water
+
+    •
+
+    stir / mix / shake (to dissolve)
+
+    •
+
+    add / combine / mix the two reactants together
+
+    •
+
+    use of a suitable container
+
+    •
+
+    filter (to obtain lead(II) chloride as residue)
+
+    •
+
+    pour water over the residue (in the funnel)
+
+    •
+
+    description of how to dry the solid
+
+    6'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,847 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for:
+
+    Output is only 1 if one input is 1 and the other is 0 // Output is only 1 if both
+
+    inputs are different // Output is only 0 if both inputs are the same
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    •
+
+    ((A NOR B) AND (A OR B))
+
+    •
+
+    NAND (B AND C)
+
+    X = ((A NOR B) AND (A OR B)) NAND (B AND C)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for NOT gate, 2 correct AND gates and the NAND gate
+
+    1 mark for OR gate and the final AND gate
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each difference
+
+    e.g.
+
+    •
+
+    DRAM requires constant refreshing, but SRAM does not need to be
+
+    constantly refreshed
+
+    •
+
+    DRAM generally has greater capacities per chip, but SRAM generally has
+
+    lower capacities per chip
+
+    •
+
+    DRAM has slower access times than SRAM
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point (max 4)
+
+    •
+
+    The computer and the hard disk drive transmit and receive at different
+
+    speeds // The computer transfers data faster than the HDD can receive
+
+    •
+
+    The buffer is used for temporary storage
+
+    •
+
+    … so that the computer can transfer data to the buffer at the higher speed
+
+    •
+
+    ... and is not held up waiting for data to transfer
+
+    •
+
+    … and so that data is transferred to hard disk drive from the buffer at the
+
+    slower rate
+
+    4
+
+    9618/13
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point (max 3)
+
+    •
+
+    The system uses feedback
+
+    •
+
+    The system acts independently
+
+    •
+
+    Input data causes the car to brake
+
+    •
+
+    … braking decreases the/changes the distance to the object
+
+    •
+
+    … this new distance is used to determine whether/how hard the car
+
+    needs to brake
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    •
+
+    Foreign key: BatchID, table BATCH
+
+    •
+
+    Foreign key: CustomerID, table CUSTOMER
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    •
+
+    SELECT SUM(Quantity)
+
+    •
+
+    FROM SALE WHERE and one correct condition
+
+    •
+
+    AND with remainder correct conditions
+
+    e.g.
+
+    SELECT SUM(Quantity)
+
+    FROM SALE
+
+    WHERE CustomerID = "0034E"
+
+    AND Date >= #01/01/2023# AND Date <= #31/12/2023#;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point
+
+    •
+
+    Create table BATCH with opening and closing brackets, all statements
+
+    within brackets
+
+    •
+
+    BatchID, Type and Flavour as varchar or equivalent
+
+    •
+
+    …with suitable constraint(s)
+
+    •
+
+    Size as decimal, SellingPrice as currency, EndDate as date (or
+
+    equivalent)
+
+    •
+
+    Primary key identified as BatchID
+
+    e.g.
+
+    CREATE TABLE BATCH(
+
+    BatchID VARCHAR(6) NOT NULL,
+
+    Type VARCHAR (20) NOT NULL,
+
+    Flavour VARCHAR (20) NOT NULL,
+
+    Size FLOAT,
+
+    SellingPrice CURRENCY,
+
+    EndDate DATE,
+
+    PRIMARY KEY(BatchID)
+
+    );
+
+    5
+
+    9618/13
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 4cii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point each (max 4)
+
+    e.g.
+
+    •
+
+    Ice cream table with an appropriate name
+
+    •
+
+    … containing type, flavour, size, selling price
+
+    •
+
+    … with suitable primary key
+
+    •
+
+    … foreign key identified in BATCH that links to the primary key in
+
+    ICECREAM
+
+    Example table definitions – not example answer:
+
+    BATCH(BatchID, IceCreamID, EndDate)
+
+    ICE_CREAM(IceCreamID, Type, Flavour, Size,
+
+    SellingPrice)
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each definition
+
+    Entity:
+
+    •
+
+    A real-life object that is represented as a table
+
+    Attribute:
+
+    •
+
+    An item of data about an entity
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point each (max 3)
+
+    •
+
+    Referential integrity is enforced
+
+    •
+
+    … such as cascade update/delete // if the data is changed in one place it
+
+    is updated in every other place
+
+    •
+
+    ... and ensures each foreign key has a corresponding primary key
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each correct licence
+
+    Statement
+
+    Software Licence
+
+    A fee is charged for the software. The source code
+
+    cannot be accessed. Users do not get a free trial.
+
+    Commercial
+
+    Users can try the software before buying it. Users
+
+    may not be able to access all features during the trial.
+
+    Shareware
+
+    Software is usually free of charge. Users can access
+
+    the source code and alter the program to their needs.
+
+    Open Source //
+
+    Free software
+
+    3
+
+    9618/13
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point (max 3)
+
+    e.g.
+
+    •
+
+    The professional ethical body has ethical guidelines to follow
+
+    •
+
+    … so clients/other staff know the standards being applied
+
+    •
+
+    … so the computer programmer does not have to decide what is ethical
+
+    it''s written down
+
+    •
+
+    Clients/staff know the computer programmer is reputable
+
+    •
+
+    … there may be a test/requirement for entry
+
+    •
+
+    … giving recognition of the computer programmer''s skills/knowledge
+
+    •
+
+    The professional ethical body provides help and support
+
+    •
+
+    … for example, if the computer programmer needs legal advice
+
+    •
+
+    The professional ethical body runs training courses
+
+    •
+
+    … to keep the computer programmer''s skills up to date
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for identification 1 mark for matching description
+
+    e.g.
+
+    •
+
+    ASCII
+
+    •
+
+    7/8 bits per character // represents 128/256 characters // represents all
+
+    characters from Latin alphabet
+
+    •
+
+    UNICODE
+
+    •
+
+    8/16/32 bits per character // represents 256/65536+ characters //
+
+    represents all characters in all languages
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for:
+
+    256 // 28
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for:
+
+    Increased file size
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point (max 2)
+
+    e.g.
+
+    •
+
+    The change may not be noticeable // Data removed is usually not noticed
+
+    by the human eye
+
+    •
+
+    … for example, changes in shade/detail
+
+    •
+
+    It produces a larger decrease in file size compared to lossless // Lossy
+
+    decreases file size considerably
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point (max 2)
+
+    •
+
+    Value/magnitude/size of the analogue sound wave is measured a set
+
+    number of times each second/time / at set intervals
+
+    •
+
+    Each sample/reading/measurement is given the binary number and
+
+    stored in sequence
+
+    2
+
+    9618/13
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 6cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each correct point and 1 mark for matching expansion
+
+    e.g.
+
+    •
+
+    Decrease sample rate
+
+    •
+
+    … fewer samples/readings/measurements stored per second // fewer bits
+
+    per second stored
+
+    •
+
+    Decrease sample resolution
+
+    •
+
+    … fewer bits per sample/reading/measurement // each sample has
+
+    fewer  bits
+
+    •
+
+    Sound outside of set/human hearing range is removed
+
+    •
+
+    … fewer measurements are stored / decreases the number of possible
+
+    binary values so fewer bits are stored
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    Instructions
+
+    ACC content
+
+    1
+
+    LDD 50
+
+    ADD #4
+
+    ADD 54
+
+    158
+
+    2
+
+    LDI 53
+
+    DEC ACC
+
+    ADD 56
+
+    99
+
+    3
+
+    LDM #55
+
+    SUB #5
+
+    50
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point for the explanation
+
+    1 mark for correct instruction
+
+    •
+
+    A bit manipulation operation is required to set all the bits to zero
+
+    •
+
+    Compare the result of the masking with 0
+
+    •
+
+    … the result of comparison will be true if the register is cleared
+
+    •
+
+    AND B00000000 / #00 / &00
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for:
+
+    Denary value: 8107
+
+    1
+
+    9618/13
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point for the method (max 2)
+
+    e.g.
+
+    •
+
+    Flip each bit then add 1 …
+
+    •
+
+    … method of converting the new binary number into denary
+
+    •
+
+    Most significant 1 bit is treated as the corresponding negative
+
+    denary  value …
+
+    •
+
+    … add the other positive corresponding denary values
+
+    1 mark for correct conversion
+
+    Denary value: −97
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark each:
+
+    •
+
+    A logical shift moves all bits to the right and inserts zeros in the
+
+    appropriate leftmost bits
+
+    •
+
+    An arithmetic shift moves all bits to the right but copies the sign bit into
+
+    the Most Significant Bit (MSB)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point (max 2)
+
+    •
+
+    A WAN covers a large geographical area
+
+    •
+
+    External/public infrastructure is used
+
+    •
+
+    Non-dedicated hardware
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for correct media 1 mark for matching description e.g.
+
+    •
+
+    Fibre optic
+
+    •
+
+    Transmits data as pulses of light
+
+    •
+
+    Radio waves / microwaves
+
+    •
+
+    Transmits electromagnetic waves on different frequencies
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 9c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point (max 4)
+
+    •
+
+    Data is compressed before transmitting
+
+    •
+
+    The video and audio are transmitted continuously as a series of bits
+
+    •
+
+    The video is uploaded to a media server
+
+    •
+
+    On download, the media server sends the data to a buffer
+
+    •
+
+    The buffer stores data from server until the receiving device can
+
+    process it
+
+    •
+
+    The receiving device receives the bit stream from the buffer
+
+    4
+
+    9618/13
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 9di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for public IP address and 1 mark for private IP address:
+
+    Public IP address:
+
+    •
+
+    So that the router is visible to the Internet/external network/WAN
+
+    Private IP address:
+
+    •
+
+    So that the router is identified to computers within the LAN
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each bullet point (max 2)
+
+    •
+
+    It allows the network to be divided into smaller networks
+
+    •
+
+    … which reduces traffic in some parts of the network // reduces
+
+    congestion
+
+    •
+
+    … because traffic only travels through the parts necessary
+
+    •
+
+    … which hides the complexity of network
+
+    •
+
+    … and allows for easier maintenance of the network
+
+    2'
+  mark_scheme: []
+  graphics: []

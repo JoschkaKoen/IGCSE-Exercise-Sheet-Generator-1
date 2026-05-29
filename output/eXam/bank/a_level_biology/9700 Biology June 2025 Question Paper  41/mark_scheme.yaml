@@ -1,0 +1,1025 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    glucose (phosphate) ;
+
+    fructose (phosphate / bisphosphate) ;
+
+    triose phosphate ;
+
+    (named) fatty acid / keto-acid ;
+
+    glycerol ;
+
+    amino acid ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    breaks down / hydrolyses to, ADP / AMP, and Pi ;
+
+    2
+
+    releases, energy / 30.5 kJ mol-1 ;
+
+    3
+
+    reversible reaction / high turnover / can be regenerated ;
+
+    4
+
+    small / soluble, so can, diffuse / move (freely), in cell ;
+
+    5
+
+    AVP ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'substrate-linked / substrate-level (phosphorylation) ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'oxygen ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'presence of oxygen:
+
+    1
+
+    (ATP yield) increases / is higher ;
+
+    plus any two from:
+
+    2
+
+    oxygen acts as final, electron / proton, acceptor ;
+
+    3
+
+    oxidative phosphorylation / chemiosmosis (occurs) ;
+
+    4
+
+    energy from, reduced NAD / reduced FAD / electron transport chain ;
+
+    5
+
+    proton gradient / H+ → into intermembrane space ;
+
+    6
+
+    ATP made in Krebs cycle ;
+
+    3
+
+    9700/41
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    sodium hydroxide absorbs, carbon dioxide / CO2, released by, woodlice / respiration
+    ;
+
+    2
+
+    oxygen / O2, taken in reduces pressure (in boiling tube) ;
+
+    3
+
+    drop of liquid moves towards, boiling tube / bung / woodlice / left ;
+
+    4
+
+    measure, distance / length, moved by drop, in set time ;
+
+    5
+
+    rate = distance divided by time ;
+
+    6
+
+    detail of calculation of volume of O2 used ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'rate at 5 °C:
+
+    lower / slower
+
+    and
+
+    less / lower, kinetic energy
+
+    or
+
+    fewer enzyme-substrate, collisions / complexes
+
+    or
+
+    fewer, enzyme-catalysed / respiration / glycolysis / link reaction / Krebs cycle,
+    reactions ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'dominant ;
+
+    3 / daughter, has disease but, 2 / father, does not
+
+    or
+
+    3 / daughter, could not have the disease if allele were recessive ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    founder effect ;
+
+    2
+
+    allele / variegate porphyria, present in, migrants / settlers / founding population
+    ;
+
+    3
+
+    higher frequency than in, Dutch / Europeans / original population ;
+
+    4
+
+    genetic drift has large effect in small, population / gene pool ;
+
+    5
+
+    inbreeding / migrants married within their own population ;
+
+    6
+
+    high frequency of allele maintained over, time / generations ;
+
+    7
+
+    AVP ;
+
+    3
+
+    9700/41
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    use mRNA (from person’s cells) to make, cDNA / ssDNA ;
+
+    2
+
+    add fluorescent, label / tag / dye / chemical / marker, to (this ss) DNA ;
+
+    3
+
+    cDNA / ssDNA, hybridises with / binds to / complementary base pairs with, probe(s) / microarray
+    ;
+
+    4
+
+    fluorescence shows, disease / mutant, gene / allele, expression / transcription
+    ;
+
+    5
+
+    AVP ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    1
+
+    find out / diagnose, person’s disease ;
+
+    2
+
+    so can, choose / develop, right treatment ;
+
+    3
+
+    global, research resource / access ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    change from T to C
+
+    or
+
+    replacement / substitution, of T, with / by, C
+
+    or
+
+    substitution of C for T ;
+
+    2
+
+    functional / working / correct / normal, enzyme / protein, produced ;
+
+    3
+
+    gRNA, is specific to / only finds / just alters, CEP /disease / mutant, allele
+    / gene
+
+    or
+
+    gRNA does not bind to genes other than CEP ;
+
+    4
+
+    AVP ;
+
+    3
+
+    9700/41
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    (both processes)
+
+    1
+
+    use / require, carbon dioxide / CO2 ;
+
+    2
+
+    use / require, water / H2O ;
+
+    3
+
+    use / require, (sun) light energy / source of energy is light ;
+
+    4
+
+    make an organic, molecule / product ;
+
+    5
+
+    produce / release, oxygen / O2 ;
+
+    6
+
+    involve transduction of energy (from one form to another) ;
+
+    7
+
+    involve electron flow ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A
+
+    starch, grain / granule ;
+
+    B
+
+    thylakoid (membrane) / lamella / granum ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ATP and reduced NADP (and oxygen) ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    electron carriers / electron transport chain / to carry electrons ;
+
+    2
+
+    to release energy to, move / pump, protons (into, thylakoid space / lumen)
+
+    or
+
+    to release energy to generate proton gradient ;
+
+    3
+
+    oxygen-evolving, complex / enzyme ;
+
+    4
+
+    (to catalyse) splitting / photolysis, of water ;
+
+    5
+
+    LHC / antenna complex / photosystem, proteins hold pigments ;
+
+    6
+
+    ATP synth(et)ase to make ATP ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'triose phosphate ;
+
+    1
+
+    9700/41
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two plus one opposing arguments based on correct ref. to:
+
+    1
+
+    percentage / amount, of sunlight, absorbed / used ;
+
+    2
+
+    absorption / action, spectrum
+
+    or
+
+    wavelengths / colours of light, used ;
+
+    3
+
+    respiration of organism ;
+
+    4, 5 stage/transition, where, energy lost ; ;
+
+    6, 7 (named) limiting factor(s) ; ;'
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'energy storage capability
+
+    or
+
+    night / dark, process ;
+
+    9
+
+    quality / nutrition in / palatability, of food product ;
+
+    10 proportion edible ;
+
+    11,12
+
+    additional energy inputs ; ;
+
+    13, 14 additional resources needed ; ;
+
+    15 labour / maintenance, needed ;
+
+    16 amount of space needed ;
+
+    17 plant, hormones / coordination ;
+
+    18 evolutionary adaptation ;
+
+    3
+
+    9700/41
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'directional (selection) ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'curve with starting point (on x-axis), peak and end point (on
+    x-axis) all to the right of the original positions ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    disruptive / diversifying (selection) ;
+
+    2
+
+    selection pressure is, seed / food (availability / size) ;
+
+    3
+
+    competition for, food / seeds ;
+
+    4
+
+    (birds with) intermediate bills cannot eat small and large seeds ;
+
+    5
+
+    extreme / small and large, phenotypes / bills, more likely to survive / have selective
+    advantage / selected for ;
+
+    6
+
+    correct description of change in allele frequency ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'r / 0.930 / calculated value, is greater than critical value
+    for n = 5 ;
+
+    at (probability level) 0.05 ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    invasive alien species / they, may:
+
+    1
+
+    change / disrupt, food, chains / webs ;
+
+    2
+
+    compete for food with / feed on same food as / occupy same niche as, native, species / organisms
+    ;
+
+    3
+
+    prey on / graze / eat, native, species / organisms ;
+
+    4
+
+    introduce (new), disease / parasites ;
+
+    5
+
+    change / damage, the habitat ;
+
+    6
+
+    be toxic / threaten human health ;
+
+    7
+
+    damage, tourism / agriculture ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 5ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    climate change ;
+
+    2
+
+    hunting by humans ;
+
+    3
+
+    degradation / loss, of habitat ;
+
+    4
+
+    (named) pollution ;
+
+    5
+
+    disease ;
+
+    6
+
+    (named) natural disasters ;
+
+    2
+
+    9700/41
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P: selective reabsorption ;
+
+    Q: osmoregulation ;
+
+    R: ultrafiltration ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P: proximal convoluted tubule ;
+
+    Q: collecting duct / distal convoluted tubule ;
+
+    R: Bowman’s capsule ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    B / interstitial fluid / tissue fluid / medulla, has more, salt / sodium chloride / Na+ / Cl–;
+
+    plus one from:
+
+    2
+
+    salt gradient helps reabsorb water from collecting duct ;
+
+    3
+
+    AVP ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    insulin / it, is a hormone ;
+
+    2
+
+    (described) stimulus causes insulin to be secreted from (named) endocrine, gland / tissue / cells
+    ;
+
+    3
+
+    insulin travels in blood ;
+
+    4
+
+    binds to receptors on (named) target cells ;
+
+    5
+
+    to cause (described) response ;
+
+    6
+
+    AVP ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    at 21 min, blood glucose concentration / it, rises to 110 mg 100 cm–3  ;
+
+    2
+
+    (high / increase in, blood glucose concentration) detected by pancreas / causes
+    response in pancreas ;
+
+    3
+
+    insulin rises to 500 pmol dm-3 ;
+
+    4
+
+    (insulin) increase GLUT proteins in membrane / increases glucose uptake into cells / increases
+    cell permeability to
+
+    glucose
+
+    or
+
+    (insulin) increases rate of respiration of glucose ;
+
+    5
+
+    (insulin) causes / stimulates, glycogenesis / lipogenesis ;
+
+    6
+
+    (mean) blood glucose concentration / it, falls, to normal / within normal range / below
+    starting point / to set point ;
+
+    4
+
+    9700/41
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    blood glucose concentration falls as glucose is respired ;
+
+    2
+
+    blood glucose concentration falls below, set point / normal ;
+
+    3
+
+    insulin, secretion / release, stops ;
+
+    4
+
+    glucagon (secreted / released / rises) ;
+
+    5
+
+    glycogen, (in cells) converted to glucose
+
+    or
+
+    glycogenolysis ;
+
+    6
+
+    (stored) protein / fat, converted to glucose
+
+    or
+
+    gluconeogenesis
+
+    or
+
+    (stored) protein / fat, used for respiration ;
+
+    3
+
+    8
+
+    any six from:
+
+    1
+
+    gibberellin binds to (gibberellin) receptor (-enzyme-complex) ;
+
+    2
+
+    DELLA (protein) destroyed ;
+
+    3
+
+    transcription factor / PIF, released / free / no longer bound to DELLA ;
+
+    4
+
+    transcription factor / PIF / RNA polymerase, binds to, DNA / promoter ;
+
+    5
+
+    growth / expansion / XET / xyloglucan endotransglucosylase, gene, switched on / expressed / transcribed
+    ;
+
+    6
+
+    loosens cell walls / breaks bonds between cellulose ;
+
+    7
+
+    water enters (cells) by osmosis causing cell elongation ;
+
+    8
+
+    AVP ;
+
+    6
+
+    9700/41
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    (domains are) Archaea and Bacteria ;
+
+    2
+
+    membrane lipids ester-linked (Bacteria) vs. ether-linked / not ester-linked (Archaea)
+    ;
+
+    3
+
+    single type of rRNA (Bacteria) vs. 3 types (Archaea)
+
+    or
+
+    Archaea, rRNA / ribosomal subunit, similar to eukaryotic ;
+
+    4
+
+    peptidoglycan (Bacteria) vs. not peptidoglycan / different (Archaea) ;
+
+    5
+
+    AVP ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'taxon
+
+    name
+
+    domain
+
+    Eukarya ;
+
+    kingdom
+
+    Animalia ;
+
+    phylum
+
+    Chordata
+
+    class
+
+    Mammalia
+
+    order
+
+    Carnivora
+
+    family
+
+    Felidae
+
+    genus
+
+    Panthera ;
+
+    3
+
+    9700/41
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'causing X / –70 (mV) any three from:
+
+    1
+
+    active transport / sodium-potassium pump ;
+
+    2
+
+    moves three Na+ out of and two K+ in (to neurone) ;
+
+    3
+
+    more K+ diffuses out than Na+ diffuses in ;
+
+    4
+
+    makes outside of membrane (relatively) more positive ;
+
+    5
+
+    maintaining / establishing, resting potential ;
+
+    causing Y / +40 (mV) any two from:
+
+    6
+
+    depolarisation ;
+
+    7
+
+    Na+ / sodium ion, channels open ;
+
+    8
+
+    Na+, moves / diffuses, in (to neurone) ;
+
+    causing Z / –90 (mV) any two from:
+
+    9
+
+    hyperpolarisation ;
+
+    10 (voltage-gated) K+ / potassium ion, channels open ;
+
+    11 K+, moves / diffuses, out (of neurone) ;
+
+    7'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    local, circuit / current ;
+
+    2
+
+    from, depolarised / positive, area to, resting / negative, area ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 10c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    speeds up (nerve) impulse / impulse transmission faster ;
+
+    2
+
+    (as) myelin sheath / Schwann cells, act(s) as an insulator ;
+
+    3
+
+    (as) local circuits flow between, nodes of Ranvier / gaps in sheath ;
+
+    4
+
+    saltatory conduction ;
+
+    5
+
+    fast(er), (described) response / muscle contraction ;
+
+    3'
+  mark_scheme: []
+  graphics: []

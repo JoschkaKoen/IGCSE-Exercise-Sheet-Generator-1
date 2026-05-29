@@ -1,0 +1,644 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text:   = 8.99  109 m F–1) Planck constant h = 6.63  10–34 J s Stefan–Boltzmann
+    constant  = 5.67  10–8 W m–2 K–4 Formulae uniformly accelerated motion s = ut
+    +
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: 1 at v 2 = u 2 + 2as hydrostatic pressure p =  gh upthrust F =  gV Doppler
+    effect for sound waves of  = s s v v v f  electric current I  = Anvq resistors
+    in series R = R1 + R2 + ... resistors in parallel R 1  = R + R + ...
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: The number of atoms in a mobile phone handset may be estimated by dividing
+    the approximate volume of the handset by the approximate volume of an atom. What
+    is a reasonable estimate of the number of atoms in a mobile phone handset?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows two fixed pins, Y and Z. A length of elastic is stretched
+    between Y and Z and around pin X, which is attached to a trolley. X Y Z 50 mm
+    80 mm 30 mm P trolley X is at the centre of the elastic and the trolley is to
+    be propelled in the direction P at right angles to YZ. The tension in the elastic
+    is 4.0 N. What is the force accelerating the trolley in the direction P when the
+    trolley is released?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: A student cycles uphill from home to a shop, taking 10 minutes. The student
+    then spends 5 minutes in the shop before cycling home downhill at twice the initial
+    speed. Which graph could show the variation with time of the distance travelled
+    by the student?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: A ball is released from rest from a window at a height of 12 m above the ground.
+    Air resistance is negligible. What is the time taken after release for the ball
+    to reach the ground?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which word equation is not correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: A skydiver is falling vertically with terminal velocity when their parachute
+    opens fully. Which statement describes the motion of the skydiver for the first
+    few seconds after the parachute opens fully?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Two gliders are travelling towards each other on a horizontal air track. Glider
+    P has mass 0.30 kg and is moving with a constant speed of 1.2 m s–1. Glider Q
+    has mass 0.60 kg and is moving with a constant speed of 1.8 m s–1. 1.2 m s–1 1.8
+    m s–1 glider P mass 0.30 kg air track glider Q mass 0.60 kg air The gliders have
+    a perfectly elastic collision. What are the speeds of the two gliders after the
+    collision? speed of P / m s–1 speed of Q / m s–1
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about a couple is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: A picture frame hangs from a string. The string is supported by a pin. The
+    frame is in equilibrium. string pin frame Which diagram shows the vector triangle
+    of forces acting on the picture frame?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: A solid metal cuboid of density 2700 kg m–3 has sides of lengths 1.0 m, 2.0
+    m and 4.0 m. 4.0 m 1.0 m 2.0 m cuboid The cuboid can be placed on a horizontal
+    surface so that it rests on any one of its six faces. What is the largest pressure
+    that the cuboid can exert on the surface due to its weight when it rests on one
+    of its six faces?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: A cylindrical iceberg of height H floats in sea water. The top of the iceberg
+    is at height h above the surface of the water. H h sea water iceberg The density
+    of ice is  i and the density of sea water is  w. What is the height h of the
+    iceberg above the sea water?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: In which situation is work done on an object?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: An electric motor operating a lift has an output power of 20 kW. 20 m 1500
+    kg motor cable lift and passengers The lift and passengers have a combined mass
+    of 1500 kg. The motor raises the lift at constant speed through a distance of
+    20 m. How long does it take?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: In which situation is the least amount of energy transferred?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the definition of strain?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: A spring of unstretched length 0.10 m is suspended vertically from a support.
+    A weight of 2.0 N is attached to the bottom of the spring and its length increases
+    to 0.15 m. An additional weight of 4.0 N is then added to the bottom of the spring.
+    The spring obeys Hooke’s law. How much extra elastic potential energy is stored
+    in the spring due to the addition of the 4.0 N weight?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: Two progressive waves meet at a fixed point P. The variation with time of
+    the displacement of each wave at point P is shown in the graph. 0.1 0.2 0.3 0.4
+    0.5 0.6 0.7 0.8 0.9 1.0 1.1 1.2 displacement time / s What is the phase difference
+    between the two waves at point P?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: A microphone is connected to a cathode-ray oscilloscope (CRO). The diagram
+    shows the waveform on the display of the CRO when the microphone detects a sound.
+    The y-gain is set to 1 V div–1. The time-base is set to 2.0 ms div–1. Which row
+    gives the amplitude and frequency of the waveform? amplitude / V frequency / Hz
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: A progressive longitudinal wave is travelling horizontally from left to right.
+    A graphical representation of the wave at one instant in time is shown. Which
+    row could give the correct labels for the x-axis and y-axis of this graph? x-axis
+    y-axis
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: A vehicle is moving with a speed of 30.0 m s–1 directly towards a stationary
+    observer. The horn of the vehicle emits sound of frequency 440 Hz. The speed of
+    sound in air is 340 m s–1. What is the frequency of the sound heard by the observer?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row could describe electromagnetic waves? type of wave speed in free
+    space
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: A horizontal beam of light is incident normally on a polarising filter. The
+    incident light is vertically polarised and has an intensity of 24 W m–2. The direction
+    of the transmission axis of the filter is at an angle of 30 to the vertical.
+    What is the intensity of the light in the transmitted beam?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: A pipe of length 100 cm is open at both ends. A loudspeaker situated at one
+    end of the pipe can emit sound of different wavelengths. pipe loudspeaker 100
+    cm Which wavelength can produce a stationary wave in the pipe?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: A student makes a sound at point R near a building. A second student, standing
+    at point S around the corner of the building, hears the sound. The building is
+    a solid structure and there are no other structures nearby. building R S Which
+    effect best explains how the student at point S is able to hear the student at
+    point R?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Red light of a single wavelength from a laser is incident on a double slit.
+    A pattern of interference fringes is observed on a flat screen that is placed
+    parallel to the double slit. Which change increases the separation of the interference
+    fringes on the screen?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: An electromagnetic wave is incident normally on a diffraction grating. A second-order
+    maximum is produced at an angle of 30 to the direction of the incident light.
+    The grating has 5000 lines per cm. What is the wavelength of the wave?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: The resistance of a lamp is 10  and the potential difference across it is
+    6.0 V. How many electrons pass through the lamp in a time of 24 hours?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: What is equivalent to one volt?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: The resistance of some electrical components may change with changing conditions.
+    Which component’s resistance increases?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Gold is sometimes used to make very small connecting wires in electronic circuits.
+    A particular gold wire has length 2.50  10–3 m and cross-sectional area 6.25
+     10–8 m2. Gold has resistivity 2.3  10–8  m. What is the resistance of the
+    wire?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: A cell of constant electromotive force (e.m.f.) and negligible internal resistance
+    is separately connected into four different circuits. In which circuit does the
+    power dissipated by the lamp stay the same as the variable resistor is adjusted?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: The sum of the electrical currents into a point in a circuit is equal to the
+    sum of the currents out of the point. Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: "A battery of electromotive force (e.m.f.) 6.0 V and negligible internal resistance\
+    \ is connected to three resistors, as shown. 30 \x01 6.0 V 0.12 A 60 \x01 R The\
+    \ current in the battery is 0.12 A. What is resistance R?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: A potentiometer circuit may be used to determine the unknown electromotive
+    force (e.m.f.) E of a cell. The circuit diagrams shown include a battery of known
+    e.m.f. and negligible internal resistance, a uniform resistance wire XY and a
+    galvanometer. Which circuit diagram shows a suitable arrangement for determining
+    E? E X
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: A uranium atom with a charge of +2e has a nucleon number of 235 and a proton
+    number of 92. e is the elementary charge. What is the total number of protons,
+    neutrons and electrons in this charged atom?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: A nucleus W of a radioactive isotope emits a – particle and forms nucleus
+    X. Nucleus X emits an -particle to form nucleus Y. Nucleus Y emits a – particle
+    to form nucleus Z. Which statement about Z is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Which particle is not a lepton?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: How many flavours (types) of antiquark are there?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

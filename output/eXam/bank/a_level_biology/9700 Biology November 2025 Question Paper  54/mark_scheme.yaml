@@ -1,0 +1,455 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any sensible concentrations ;
+
+    corresponding volumes of distilled water and sucrose;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any seven from:
+
+    1
+
+    same / stated, variety / age / AW, of beetroots ;
+
+    2
+
+    remove the outer skin (of the beetroot) / AW ;
+
+    3
+
+    same / stated, dimensions / AW, of (beetroot) block / AW ;
+
+    4
+
+    ref. to apparatus for obtaining same size of (beetroot) blocks ;
+
+    5
+
+    for each sucrose concentration, place (beetroot) block in a suitable container
+    and submerge / AW (in sucrose solution);
+
+    6
+
+    (for each sucrose concentration) measure the initial mass and the final mass ;
+
+    7
+
+    (measure final mass) after a (suitable) stated time ;
+
+    8
+
+    method to remove excess liquid from beetroot (before measuring final mass) ;
+
+    9
+
+    use at least three different (beetroot) blocks and calculate a mean, for each
+    sucrose concentration ;
+
+    10 safety comment with named hazard and risk and precaution ;
+
+    hazard
+
+    risk
+
+    precaution
+
+    beetroot
+
+    allergy / irritant
+
+    gloves / mask / PPE
+
+    knife / scalpel / cork borer / AW cut
+
+    cut away from the hand / cut onto a, board / tile / AW
+
+    7'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    appropriate axis labels and units ;
+
+    2
+
+    sketch shows decreasing line crossing x-axis ;
+
+    2
+
+    9700/54
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(identify the) x-axis intercept point
+
+    or
+
+    (identify the point on the x-axis where the mean) percentage change in mass is
+    zero ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'rinse (beetroot) blocks (after cutting / before adding to sucrose
+    solution) ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'method for measuring a curved claw (on the image) ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    colour of disc ;
+
+    material of disc ;
+
+    type of particle ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(level of) roughness
+
+    or
+
+    (mean) particle diameter (on disc) ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '24 or 25 (feeding visits) ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    as the particle diameter increases, (percentage of feeding visits when buff-tailed
+    bumblebees) gripped (on to the disc)
+
+    increases ; ora
+
+    2
+
+    at 30 µm and 53 µm / over 30 µm, there is no, difference / change / increase /
+    AW (in percentage of feeding visits when
+
+    buff-tailed bumblebees gripped on to the disc) ;
+
+    3
+
+    3. at 5 µm, (buff-tailed bumblebees) only hover ;
+
+    2
+
+    9700/54
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Table 2.2 completed
+
+    mean particle
+
+    diameter on the
+
+    disc / μm
+
+    rank of mean
+
+    particle diameter
+
+    on the disc
+
+    percentage of feeding
+
+    visits when the buff-
+
+    tailed bumblebees
+
+    gripped on to the disc
+
+    rank of percentage of
+
+    feeding visits when the
+
+    buff-tailed bumblebees
+
+    gripped on to the disc
+
+    Difference in
+
+    rank, D
+
+    D2
+
+    5
+
+    1
+
+    0
+
+    1
+
+    0
+
+    0
+
+    9
+
+    2
+
+    4
+
+    2
+
+    0
+
+    0
+
+    12
+
+    3
+
+    16
+
+    3
+
+    0
+
+    0
+
+    16
+
+    4
+
+    79
+
+    4
+
+    0
+
+    0
+
+    30
+
+    5
+
+    99
+
+    5.5
+
+    0.5
+
+    0.25
+
+    53
+
+    6
+
+    99
+
+    5.5 ;
+
+    0.5
+
+    0.25
+
+    D2 = 0.5 ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(rs =) 0.99 / 0.986 ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.99 / calculated value for rs, is greater than 0.83 ;
+
+    1
+
+    9700/54
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Table 3.1 completed correctly ;
+
+    type of fruit
+
+    mean of
+
+    samples
+
+    apple
+
+    17 / 16.7
+
+    orange
+
+    33 / 33.3
+
+    pineapple
+
+    43 / 43.3
+
+    grapes
+
+    14 / 14.3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Table 3.2 completed correctly ;
+
+    type of variable
+
+    type of data
+
+    type of fruit
+
+    categoric / qualitative
+
+    nominal
+
+    volume of juice extracted quantitative
+
+    continuous
+
+    2
+
+    9700/54
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    standardise, (total) mass / volume, of fruit used
+
+    or
+
+    standardise number of pieces of fruit used
+
+    or
+
+    standardise, dimensions / mass / volume / size / surface area / AW, of (each fruit)
+    piece ;
+
+    2
+
+    use same, age / ripeness of each fruit ;
+
+    3
+
+    use a more accurate method to measuring the volume (of pectinase)
+
+    or
+
+    use a more accurate method to measure the volume (of juice) ;
+
+    4
+
+    replace pectinase with, (distilled) water / denatured pectinase / boiled pectinase
+    / AW ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    idea that the volume of juice may not be correlated with the quantity of pectin
+    ;
+
+    2
+
+    age / ripeness, of fruit affects quantity of juice ;
+
+    3
+
+    idea of cell walls of different fruits have different compositions ;
+
+    2'
+  mark_scheme: []
+  graphics: []

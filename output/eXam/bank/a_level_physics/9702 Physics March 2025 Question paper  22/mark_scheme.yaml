@@ -1,0 +1,432 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: how close the (measured) value is to the true value (of the
+    quantity)
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '( =) m / V
+
+    = 31.3  10–3 / (1.53  10–2)3 = 8.7  103 (kg m–3)'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(0.5 / 31.3) or (0.01 / 1.53)
+
+    % uncertainty = (0.016  100) + 3  (0.0065  100)
+
+    = 4%'
+  mark_scheme: []
+  graphics: []
+- number: 1biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The ranges (of the densities of A and B) overlap or
+
+    the (calculated) density of A is within the range of the density of B or
+
+    the difference in densities is within the uncertainty (of B)
+
+    (so) they could be the same'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'in (rotational) equilibrium
+
+    sum / total of CW moments about a point = sum / total of ACW moments about the
+    (same) point.'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The magnitudes of the moments about A are:
+
+    (1700  3.0) (660 x) (1300  5)
+
+    Correct magnitude of any one moment about A.
+
+    Correct magnitudes of a second moment about A.
+
+    (1700  3.0) + (660 x) = (1300  5)
+
+    x = 2.1 m
+
+    9702/22
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (Upthrust =) 11  9.81 + 1300 = 1400 (N)
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'y = Upthrust / gA
+
+    = 1400 / (990  9.81    (0.78 / 2)2)
+
+    = 0.30 m
+
+    OR
+
+    [P = F / A = 1400 /   (0.78 / 2)2 = 2930]
+
+    y = P / g
+
+    = 2930 / (990  9.81)
+
+    (C1)
+
+    = 0.30 m
+
+    (A1)'
+  mark_scheme: []
+  graphics: []
+- number: 2biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'line with a non-zero value of depth at distance = 0
+
+    A line from distance = 0 to distance = 6.0 m with a gradient that is always positive
+
+    9702/22
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a = (v2 – u2) / 2s
+
+    = (222 – 132) / (2  180)
+
+    = 0.88 m s–2
+
+    OR
+
+    [t = (180  2) / (22 + 13) = 10.3]
+
+    180 = 13  10.3 + ½ a  10.32 or
+
+    180 = 22  10.3 – ½ a  10.3 2 or
+
+    22 = 13 + a  10.3
+
+    (C1)
+
+    a = 0.88 m s–2
+
+    (A1)'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '()E = ½m()v2
+
+    gain in KE = ½m(v2 – u2)
+
+    = ½  9400  (222 – 132)
+
+    = 1.5  106 J
+
+    OR
+
+    W = Fs
+
+    = ma  d
+
+    (C1)
+
+    gain in KE = 9400  0.88  180
+
+    (C1)
+
+    = 1.5  106 J
+
+    (A1)'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: rate of change of momentum
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(Force =) (2.5  104 – 21  104) / 15 = – 1.2  104 (N)
+
+    9702/22
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The change of momentum (for S and R to come to rest) is the
+    same
+
+    (Average) force on R (to come to rest) is
+
+    (–21  104 / 23 =) 0.91  104 N or
+
+    (Average) force on R (to come to rest) is less than the force on S / less than
+    F
+
+    (S will come to rest in) less time (than R).
+
+    OR
+
+    The change of momentum (for S and R to come to rest) is the same
+
+    (B1)
+
+    Time for S to come to rest is (–21  104 / 1.2  104 =) 17.5 s (and time for R
+    to come to rest is 23 s)
+
+    (B1)
+
+    (S comes to rest in) less time (than R).
+
+    (B1)'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(micro)wave (from the transmitter) reflects (at metal/sheet)
+
+    The incident and reflected waves superpose
+
+    (resultant) amplitude is maximum at an antinode
+
+    (resultant) amplitude is minimum/zero at a node'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' = c / f
+
+    = 3  108 / 6.3  109
+
+    = 0.048 m'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'distance PQ = ¼
+
+    = 0.048 / 4
+
+    = 0.012 m
+
+    9702/22
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(Distance QR is the) same (as PQ) and one of:
+
+    •
+
+    Distance (between maxima / minima) does not depend on intensity
+
+    •
+
+    distance depends only on wavelength
+
+    •
+
+    wavelength is unchanged / constant'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'T = 5.8  5.0  10–4
+
+    = 2.9  10–3
+
+     = vT or v = f  and f = 1 / T
+
+      = 330  2.9  10–3 or  = 330 / 345
+
+    = 0.96 m'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(loudspeaker) moves away (from the microphone)
+
+    at an increasing speed / whilst accelerating'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'V = IR
+
+    = 0.85  3.3  10–3
+
+    = 2.8 10–3 V'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(A =) L / R
+
+    = 1.8  10–8  0.24 / 3.3  10–3 = 1.3  10–6 (m2)'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(n =) 2.6  1022 / (1.3  10–6  0.24) = 8.3  1028 (m–3)
+
+    9702/22
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'v = I / nAq
+
+    = 0.85 / (8.3  1028  1.3  10–6  1.6  10–19)
+
+    = 4.9  10–5 m s–1
+
+    OR
+
+    v = IL / Nq
+
+    = 0.85  0.24 / (2.6  1022  1.6  10–19)
+
+    (C1)
+
+    = 4.9  10–5 m s–1
+
+    (A1)'
+  mark_scheme: []
+  graphics: []
+- number: 6ci
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Length (of Q) is greater (than P)
+
+    (Average cross-sectional) area (of Q) is less (than P)
+
+    Resistance is proportional to length / (cross-sectional) area
+
+    (so) the resistance (of Q) is greater (than P)'
+  mark_scheme: []
+  graphics: []
+- number: 6cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A line starting from a non-zero value of drift speed at distance
+    = 0
+
+    A line with an increasing positive gradient'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: nucleon number of Q = 226 and proton number of R = 86
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4(u)  1.5  107 or 222(u)  v
+
+    v = 4(u)  1.5  107 / 222(u)
+
+    = 2.7  105 m s–1
+
+    9702/22
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    •
+
+    momentum
+
+    •
+
+    charge
+
+    •
+
+    nucleon number
+
+    •
+
+    neutron number
+
+    •
+
+    proton number'
+  mark_scheme: []
+  graphics: []

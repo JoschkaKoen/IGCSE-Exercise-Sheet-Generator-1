@@ -1,0 +1,527 @@
+questions:
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '83'
+  mark_scheme: []
+  graphics: []
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Acute
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '22 32 or 10 32pm
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '<
+
+    =
+
+    =
+
+    2 B1 for two correct'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '44
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '27
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4
+
+    5  or 0.8
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '61
+
+    2 M1 for [reflex = ]360 – 138 oe
+
+    or for 138 – 49 – 28 oe'
+  mark_scheme: []
+  graphics: []
+- number: '9'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '234
+
+    2 M1 for
+
+    
+
+    
+
+    3000
+
+    2.6 3
+
+    100
+
+    
+
+    '
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '34
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '23 nfww
+
+    2 M1 for 3[…] – 1 = 68 oe or better'
+  mark_scheme: []
+  graphics: []
+- number: '11'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '632 or 631.9 to 632.0…
+
+    3 B2 for 63.2 or 63.19 to 63.20…. as diameter
+
+    or M1 for 198.55
+
+    1985.5
+
+    or
+
+    
+
+    
+
+    If zero scored, then B1 for a correct conversion
+
+    from cm to mm'
+  mark_scheme: []
+  graphics: []
+- number: '12'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 2 B1 for 1 line correct
+  mark_scheme: []
+  graphics: []
+- number: 13a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–10
+
+    2 B1 for 18 or –28
+
+    or M1 for 6 × 3 + 7 × −4'
+  mark_scheme: []
+  graphics: []
+- number: 13b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4
+
+    5  or 0.8
+
+    2 M1 for 8 – 4 = 11x – 6x or better
+
+    0580/11
+
+    October/November 2024
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: '14'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '42.5
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '15'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.48
+
+    3 M1 for
+
+    [0 × 1] + (1 × 6) + (2 × 7) + (3 × 4) + (4 × 5) + (5 ×
+
+    2)
+
+    or [0] + 6 +14 + 12 + 20 + 10 soi or 62 soi
+
+    M1dep for their
+
+    25
+
+    
+
+    
+
+    fx'
+  mark_scheme: []
+  graphics: []
+- number: '16'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7.5
+
+    2 M1 for (
+
+    )
+
+    12
+
+    8
+
+    78'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '+
+
+    
+
+    =
+
+    w
+
+    oe or better'
+  mark_scheme: []
+  graphics: []
+- number: '17'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '34.55 34.65
+
+    2 B1 for each
+
+    or SC1 for both correct but reversed'
+  mark_scheme: []
+  graphics: []
+- number: 18a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(0, 5)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 18b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(14, 11)
+
+    2 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: 18c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '60
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 19a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cao
+
+    2 B1 for 12 or 27 in the correct position
+
+    or n(M) = 39 provided
+
+    the intersection is not empty'
+  mark_scheme: []
+  graphics: []
+- number: 19b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '120
+
+    1 FT their complete diagram'
+  mark_scheme: []
+  graphics: []
+- number: 19c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '12
+
+    1 FT their intersection provided not empty'
+  mark_scheme: []
+  graphics: []
+- number: '20'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '32.5
+
+    2 M1 for
+
+    
+
+    
+
+    7800
+
+    5265 100
+
+    7800
+
+    −
+
+    
+
+    oe
+
+    or
+
+    
+
+    
+
+    7800
+
+    5265
+
+    1
+
+    100
+
+    7800
+
+    −
+
+    
+
+    
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    oe
+
+    or 
+
+    5265
+
+    100
+
+    100
+
+    7800
+
+    
+
+    
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 21a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7(4x – 5) final answer
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 21b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4T + 4p or 4(T + p)
+
+    final answer
+
+    2 M1 for T + p = 4
+
+    r  or 4T = r – 4p
+
+    22
+
+    Correctly eliminating one
+
+    variable
+
+    0580/11
+
+    October/November 2024
+
+    Partial Marks
+
+    x = –3
+
+    y = 4
+
+    A1 If A0 scored, SC1 for 2 values satisfying one of the
+
+    original equations.
+
+    23
+
+    16
+
+    3  or 25
+
+    7
+
+    1
+
+    4
+
+    23
+
+    7
+
+    −
+
+    B1 Correct step for dealing with mixed numbers
+
+    Allow 16
+
+    3
+
+    k
+
+    k  or 25
+
+    7
+
+    k
+
+    k
+
+    112
+
+    21  and 75
+
+    21
+
+    7
+
+    2 21 and
+
+    12
+
+    21
+
+    M1 Correct method to find common denominator
+
+    e.g. 5 7
+
+    21  and 312
+
+    21
+
+    16
+
+    121  cao
+
+    24
+
+    15
+
+    3 B2 for [x =] 24
+
+    OR
+
+    M1 for x + x + 132 = 180 oe soi
+
+    M1 for 360
+
+    their x  oe provided this gives an integer
+
+    answer'
+  mark_scheme: []
+  graphics: []

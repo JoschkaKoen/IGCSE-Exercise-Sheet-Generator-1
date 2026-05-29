@@ -1,0 +1,785 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    B
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per each correct conversion
+
+    
+
+    00110010
+
+    
+
+    01100110
+
+    
+
+    11011101
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for full method of working e.g. conversion to binary
+    then flipping and adding 1
+
+    One mark for correct answer
+
+    
+
+    10110010
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One marks per each correct nibble
+
+    One mark for correct working in binary (showing 4 correct carries)
+
+    1  1                1 1
+
+    0  0  1  1  0  0  1  1
+
+    0  1  1  0  0  0  0  1
+
+    10 0 1
+
+    0 1 0 0
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from:
+
+    
+
+    The result of the calculation is greater than 255 // The value generated is larger
+    than can be stored in the register
+
+    
+
+    The result of the calculation would require more than 8 bits to be represented
+    // A register has a predetermined
+
+    number of bits and there are too many bits for it
+
+    2
+
+    0478/11
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct definition:
+
+    
+
+    The sample rate is the number of samples taken in a second/per time unit
+
+    
+
+    The sample resolution is the number of bits per sample
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    Lossy compression
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    e.g.
+
+    
+
+    Destination/receivers (IP) address
+
+    
+
+    Packet number
+
+    
+
+    Originator’s/senders (IP) address
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any five from:
+
+    
+
+    Data is broken/split/divided into packets
+
+    
+
+    Each packet (could) take a different route
+
+    
+
+    A router controls the route/path a packet takes
+
+    
+
+    … selecting the shortest/fastest available route/path
+
+    
+
+    Packets may arrive out of order
+
+    
+
+    Once the last packet has arrived, packets are reordered
+
+    
+
+    If a packet is missing/corrupted, it is requested again
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correctly circled storage device:
+
+    
+
+    Compact disk (CD)
+
+    
+
+    Solid-state drive (SSD)
+
+    
+
+    Hard disk drive (HDD)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    C
+
+    1
+
+    0478/11
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct term in the correct place:
+
+    
+
+    System
+
+    
+
+    Application
+
+    
+
+    Operating
+
+    
+
+    Hardware
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    
+
+    Level
+
+    
+
+    Pressure
+
+    
+
+    Moisture
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any Six from:
+
+    
+
+    Sensor continually sends digitised data to microprocessor
+
+    
+
+    Microprocessor compares data to stored value(s)
+
+    
+
+    If value is outside range / matches microprocessor sends signal to release water
+    to refill water bowl
+
+    
+
+    … bowl filled by set amount // bowl filled for certain time
+
+    
+
+    Actuator used to release water
+
+    
+
+    Whole process repeats until turned off/stopped
+
+    6'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    Network interface card/controller // NIC // WNIC
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    Media access control/MAC address // MAC
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    Router
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Three from:
+
+    
+
+    It can be used to uniquely identify a device (on a network)
+
+    
+
+    It can change …
+
+    
+
+    … each time the device is connected to the network
+
+    3
+
+    0478/11
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    Close to the language processed by computers
+
+    
+
+    May use mnemonics
+
+    
+
+    An example is assembly language/machine code
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    Can directly manipulate the hardware
+
+    
+
+    No requirement for the program to be portable
+
+    
+
+    Program will be more memory efficient
+
+    
+
+    No requirement for a compiler/interpreter
+
+    
+
+    Quicker to execute
+
+    
+
+    Can use specialised hardware
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Three from:
+
+    
+
+    Trial and error to guess a password
+
+    
+
+    Combinations are repeatedly entered …
+
+    
+
+    … until correct password is found
+
+    
+
+    Can be carried out manually or automatically by software
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    e.g.
+
+    
+
+    Steal/view/access data
+
+    
+
+    Delete data
+
+    
+
+    Change data
+
+    
+
+    Lock account // Encrypt data
+
+    
+
+    Damage reputation of a business
+
+    2
+
+    0478/11
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    e.g.
+
+    
+
+    Virus
+
+    
+
+    Worm
+
+    
+
+    Trojan horse
+
+    
+
+    Spyware
+
+    
+
+    Adware
+
+    
+
+    Ransomware
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    Two-step verification//Two-factor authentication//by example
+
+    
+
+    Biometrics
+
+    
+
+    Firewall // Proxy-server
+
+    
+
+    Strong/complex password // by example
+
+    
+
+    Setting a limit for login attempts
+
+    
+
+    Drop-down boxes
+
+    
+
+    Request for partial entry of password
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    
+
+    It has a mechanical structure/framework
+
+    
+
+    It has electrical components // by example
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    e.g.
+
+    
+
+    Employees don’t need to lift heavy furniture
+
+    
+
+    Employees can be protected from dangerous tasks
+
+    
+
+    Employees can utilise their skills in other tasks
+
+    
+
+    Employees don’t need to perform repetitive/mundane tasks
+
+    2
+
+    0478/11
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 9c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    e.g.
+
+    
+
+    Expensive to install/purchase/setup
+
+    
+
+    High ongoing costs/maintenance costs
+
+    
+
+    May deskill the workforce
+
+    
+
+    If they malfunction, production may stop
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    To obtain personal data/details // by example
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct part of the diagram.
+
+    Diagram shows:
+
+    
+
+    User clicks/opens attachment/link that triggers download
+
+    
+
+    Malicious software downloaded onto user''s computer
+
+    
+
+    User enters website address
+
+    
+
+    User is redirected to fake website
+
+    e.g.
+
+    4
+
+    User
+
+    computer
+
+    Real
+
+    website
+
+    Fake
+
+    website
+
+    User clicks link that
+
+    downloads malware
+
+    to computer
+
+    User types in
+
+    web address
+
+    Request
+
+    gets
+
+    redirected
+
+    malware
+
+    0478/11
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 10c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from:
+
+    Displays web pages
+
+    … by rendering HTML
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 10d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    e.g.
+
+    
+
+    Storing bookmarks/favourites
+
+    
+
+    Recording user history
+
+    
+
+    Allowing use of multiple tabs
+
+    
+
+    Providing navigation tools // by example
+
+    
+
+    Providing an address bar
+
+    
+
+    Managing protocols // by example // checking digital certificate
+
+    
+
+    Send URL to DNS
+
+    
+
+    Sends a request to the IP address/web server (to obtain the contents of a webpage)
+
+    
+
+    Runs active script/JavaScript/client-side script
+
+    
+
+    Allows files to be downloaded from website/internet
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 10e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any four from:
+
+    
+
+    Session cookies are stored in memory/RAM
+
+    
+
+    … whereas persistent cookies are stored on the hard drive/secondary storage
+
+    
+
+    When the browser is closed a session cookie is lost
+
+    
+
+    … whereas a persistent cookie is not lost
+
+    
+
+    … until deleted by the user/they expire
+
+    4'
+  mark_scheme: []
+  graphics: []

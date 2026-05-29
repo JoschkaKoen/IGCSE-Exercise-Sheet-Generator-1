@@ -1,0 +1,476 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (acceleration is) rate of change in velocity OR change in velocity
+    per unit time OR (a =) ∆v / ∆t
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.021 N
+
+    F = ma OR (F =) ma OR 0.0075  2.8'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    
+
+    (acceleration) decreases
+
+    
+
+    (acceleration decreases) to zero (at approximately 0.03 s)
+
+    
+
+    resistive force increases / resistance increases (as speed / velocity increases)
+
+    
+
+    resultant force (downwards) decreases
+
+    
+
+    (until) terminal velocity / constant speed (is reached)
+
+    
+
+    (when) resistive force = weight OR resultant force is zero OR forces are balanced'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'tangent drawn at t = 0.010 s
+
+    1.2 m / s2 ⩽ acceleration ⩽ 1.8 m / s2
+
+    (a =) gradient of tangent OR (a =) {y / x}
+
+    0625/41
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.16 m / s
+
+    conservation of momentum OR mP vP = mQvQ OR  2.7  vP = 1.2  0.36 OR (mQvQ =)
+    0.432 seen
+
+    (vP =) mQvQ / mP OR 1.2  0.36 / 2.7'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.078 J
+
+    (k.e. =) ½mv2 OR (k.e. =) ½  1.2  0.362
+
+    (k.e. =) ½  1.2  0.362'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(from) elastic (energy store in the compressed spring)
+
+    to kinetic (as final energy store of trolleys)'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (they / particles in ice) vibrate (about a fixed position) OR
+    particles in water move throughout the liquid
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: conduction
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.6  104 J
+
+    c = (E / m OR (E =) mcOR 0.34  4200  18 OR 2.6  10N (J)'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'density (of water next to the ice) increases
+
+    cold(er) water sinks
+
+    warm(er) water replaces cold water OR warm(er) water rises OR making a convection
+    current
+
+    0625/41
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 3biv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'internal energy decreases AND (average) kinetic energy (of
+    particles) decreases
+
+    kinetic energy decreases'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(point on principal axis) where rays of light parallel (to
+    the principal axis, incident on converging lens)
+
+    (rays) meet / converge after passing through lens / refraction'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: X marked between one of the focal points and the lens AND E
+    marked on other side of lens
+  mark_scheme: []
+  graphics: []
+- number: 4aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: virtual AND upright
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.0  108 m / s
+
+    n = c / vg OR (vg =) c / n OR (vg =) 3(.0)  108 / 1.5'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (wavelength) decreases
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'long-sightedness
+
+    it moves the image towards the lens / back of the eye / retina OR reduces / shortens
+    focal length of (combined lens)
+
+    (converging lens) focuses image on back of eye / retina
+
+    0625/41
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    
+
+    (longitudinal) vibration / oscillation in wave parallel to propagation direction / direction
+    of travel
+
+    
+
+    transverse wave vibrates / oscillates perpendicular to propagation direction / direction
+    of travel
+
+    
+
+    (longitudinal) consists of compressions and rarefactions
+
+    
+
+    transverse wave consists of crests / peaks and troughs
+
+    
+
+    (longitudinal) needs a medium (to travel)'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: P-wave AND it is longitudinal
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.8  104 m OR 18 km
+
+    1.5OR 1.5  1.2  104 OR 1.8  10N'
+  mark_scheme: []
+  graphics: []
+- number: 5biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'v = f OR v=  / t OR (t =)  / v OR f =
+
+    4
+
+    4600 / 1.2
+
+    10
+
+    
+
+    OR (t / 5 =) 1.2  104 / 4600 OR (t =) 6(.0)  104 / 4600
+
+    13 s
+
+    t = 1 / f OR (time for one wave = ) 2.6 (s)'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(region) where (an electric) charge experiences a force
+
+    OR
+
+    (region) where a force acts on a (an electric) charge'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'at least four straight radial lines AND evenly spaced (by eye)
+    surrounding sphere
+
+    four lines touching sphere AND no lines inside sphere
+
+    at least one arrowhead towards sphere AND no incorrect arrowheads
+
+    0625/41
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'electrons move (through the wire) from the sphere
+
+    OR
+
+    electrons move (through the wire) to(wards) the Earth
+
+    electrons move (in the wire)'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.5 A
+
+    I = Q / t OR (I =) Q / t OR 3.5  10–10 / 1.4  10–10
+
+    2.5  10N'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(electrical) work done moving a unit charge around a (complete)
+    circuit
+
+    work done AND moving a charge (in a circuit)'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correct symbols for five cells in series
+
+    correct symbols for variable resistor AND fixed resistor
+
+    cells, variable resistor and fixed resistor connected in series'
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'curve with negative gradient of decreasing magnitude from 0
+     to 150 AND does not reach the x-axis
+
+    curve / line with negative gradient from 0  to 150 
+
+    y-axis labelled 0.25 where candidate’s line meets the y-axis OR the mark on the
+    y-axis labelled 0.25
+
+    R = V / I OR (Imax =) V / R OR 7.5 / 30
+
+    0625/41
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 8ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    –1
+
+    0
+
+    Pb
+
+    …..
+
+    208
+
+    Pb
+
+    82
+
+    …..'
+  mark_scheme: []
+  graphics: []
+- number: 8aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: -emission / it consists of waves / rays OR -emission has no
+    mass / charge
+  mark_scheme: []
+  graphics: []
+- number: 8aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (it contains) too many / excess of neutrons OR (nucleus is)
+    too heavy
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'smooth curve (through magnetic field) AND labelled 
+
+    path towards bottom of page AND no upward component AND labelled 
+
+    (continuation of beam along) horizontal line through magnetic field AND labelled
+    '
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ultraviolet AND visible light AND infrared only
+
+    any two from: ultraviolet; visible light; infrared and no more than one incorrect
+    addition'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.5  1011 m
+
+    v = s / t OR (s =) vt OR 3.0  108  500 OR 1.5  10N'
+  mark_scheme: []
+  graphics: []
+- number: 9ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    
+
+    cloud / nebula / it collapses
+
+    
+
+    due to (internal) gravitational attraction
+
+    
+
+    (internal) temperature increases
+
+    0625/41
+
+    May/June 2024'
+  mark_scheme: []
+  graphics: []
+- number: 9cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    
+
+    (nuclear) fusion / nuclear reactions (in the star)
+
+    
+
+    forces are balanced
+
+    
+
+    gravitational force is inwards
+
+    
+
+    outwards force is due to high temperature'
+  mark_scheme: []
+  graphics: []

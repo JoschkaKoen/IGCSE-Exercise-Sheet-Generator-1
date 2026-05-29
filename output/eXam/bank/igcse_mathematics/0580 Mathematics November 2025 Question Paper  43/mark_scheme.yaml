@@ -1,0 +1,1180 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–7
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '51
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '43
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '37.5
+
+    2 M1 for 6
+
+    16
+
+    oe
+
+    3
+
+    432
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'B marked 6 cm from A on a bearing of
+
+    080°.
+
+    2 M1 for a correct bearing of 080° but
+
+    incorrect length or for a 6 cm line from A'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '310
+
+    2 M1 for 180 + 130 oe
+
+    or indicates required bearing on a sketch'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '72
+
+    3
+
+    M2 for
+
+    (
+
+    )
+
+    180 10
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: '10'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    −
+
+    or 180 – 360
+
+    10
+
+    or M1 for 180 × (10 – 2) or 360
+
+    10'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'y3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '15x8 final answer
+
+    2 B1 for kx8 or 15xk as final answer or for
+
+    correct answer spoilt'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Translation
+
+    2
+
+    8
+
+    
+
+    
+
+    
+
+    
+
+    −
+
+    
+
+    
+
+    2 B1 for translation
+
+    B1 for    2
+
+    8
+
+    
+
+    
+
+    
+
+    
+
+    −
+
+    
+
+    '
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Enlargement
+
+    [scale factor]
+
+    1
+
+    3
+
+    −
+
+    [centre] (–3, 4)
+
+    3 B1 for each
+
+    8
+
+    320% of 10
+
+    m   33% of m  1
+
+    3  of m  m
+
+    2 B1 for three in the correct order'
+  mark_scheme: []
+  graphics: []
+- number: '9'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'n × 5
+
+    13   identified
+
+    1
+
+    10
+
+    x = 10
+
+    y = –5
+
+    2 B1 for each
+
+    0580/43
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: '11'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.3 × 10–2
+
+    1.3 × 1012
+
+    2.03 × 10–5
+
+    2 B1 for two correct'
+  mark_scheme: []
+  graphics: []
+- number: '12'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.55 oe
+
+    2 B1 for P(red) = 0.1 or P(pink) = 0.35
+
+    or M1 for 0.9 + 0.65 – 1 or 1 – (0.1 +
+
+    0.35)'
+  mark_scheme: []
+  graphics: []
+- number: '13'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.0625 or 1
+
+    16
+
+    3 B2 for c = 4 soi
+
+    or M1 for 1024 = c5'
+  mark_scheme: []
+  graphics: []
+- number: '14'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–5
+
+    5 B3 for x = 4
+
+    or M2 for 5
+
+    3
+
+    30
+
+    2
+
+    x
+
+    x
+
+    +
+
+    =
+
+    +  or better
+
+    or M1 for
+
+    (
+
+    )
+
+    5
+
+    2
+
+    3 10
+
+    x
+
+    x
+
+    −
+
+    =
+
+    −
+
+    or better
+
+    M1 10 – their x = y + 11 or better
+
+    or 5
+
+    2
+
+    1 1
+
+    3
+
+    
+
+    −
+
+    =
+
+    +
+
+    their x
+
+    y
+
+    or better
+
+    Alternative method:
+
+    B4 for 3y + 5y = –5 – 2 – 33
+
+    or B3 for –5 – 5y – 2 = 3y + 33
+
+    or B2 for (
+
+    )
+
+    5
+
+    1
+
+    2
+
+    3
+
+    −−
+
+    −
+
+    y
+
+    = y + 11
+
+    or B1 for x = –1 – y'
+  mark_scheme: []
+  graphics: []
+- number: 15a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4192 or 4193
+
+    3 B2 for 49 807 to 49 808
+
+    or M2 for
+
+    4
+
+    2
+
+    54 000  54 000  1 100
+
+    
+
+    
+
+    −
+
+    
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    oe
+
+    or M1 for
+
+    4
+
+    2
+
+    54 000  1 100
+
+    
+
+    
+
+    
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 15b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '11 nfww
+
+    2
+
+    M1 for
+
+    2
+
+    54 000  1 100
+
+    
+
+    
+
+    
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    n
+
+    evaluated
+
+    with n = 10 or n = 11
+
+    or B1 for 10.1 or 10.13 to 10.14'
+  mark_scheme: []
+  graphics: []
+- number: 16a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '19x – 6 final answer
+
+    2 B1 for 7x + 14 or 12x – 20
+
+    or for 19x – 6 seen then spoilt'
+  mark_scheme: []
+  graphics: []
+- number: 16b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '15x2 + xy – 2y2 final answer
+
+    2 B1 for 15x2 + 6xy – 5xy – 2y2 with at least
+
+    three terms correct
+
+    0580/43
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: '17'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5
+
+    7
+
+    +
+
+    x
+
+    x
+
+    oe final answer
+
+    3 M1 for correctly clearing the
+
+    denominator and expanding bracket
+
+    M1FT for correctly collecting terms in t
+
+    on one side and terms not in t on the
+
+    other
+
+    M1FT for correct factorising and for
+
+    correct division
+
+    Maximum 2 marks for an incorrect
+
+    answer'
+  mark_scheme: []
+  graphics: []
+- number: 18a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '38.8 or 38.77 to 38.78
+
+    3 M2 for [sin x =] 41.3sin102
+
+    64.5
+
+    oe or better
+
+    or M1 for 64.5
+
+    41.3
+
+    sin102
+
+    sin
+
+    =
+
+    x
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 18b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '73.2 or 73.16…
+
+    3
+
+    M2 for
+
+    2
+
+    2
+
+    2
+
+    64.5
+
+    52.1
+
+    70.2
+
+    2 64.5 52.1
+
+    +
+
+    −
+
+    
+
+    
+
+    or M1 for 70.22 = 64.52 + 52.12 –2 × 64.5
+
+    × 52.1 × cos y'
+  mark_scheme: []
+  graphics: []
+- number: 19a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3125
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 19b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '24x – 2 or 2(12x – 1) final answer
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 19c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    3
+
+    +
+
+    x
+
+    or
+
+    2
+
+    3
+
+    3
+
+    +
+
+    x
+
+    final answer
+
+    2 M1 for correct first step
+
+    e.g. x = 3y – 2 or y + 2 = 3x or
+
+    2
+
+    3
+
+    3
+
+    =
+
+    −
+
+    y
+
+    x
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 19d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '11
+
+    3 M2 for 3x2 + 1 = 364 or better
+
+    or M1 for 3(x2 + 1) – 2
+
+    Alternative method:
+
+    M2 for x2 + 1 = (364 + 2) ÷ 3
+
+    or M1 for 3x – 2 = 364'
+  mark_scheme: []
+  graphics: []
+- number: 19e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '12
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 20a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3x2 + 6x – 13 final answer
+
+    2 B1 for two terms correct or correct
+
+    answer seen then spoilt'
+  mark_scheme: []
+  graphics: []
+- number: 20b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '32
+
+    2 FT their d
+
+    d
+
+    y
+
+    x  dep on B1 earned in (a)
+
+    M1 for correct substitution of x = 3 into
+
+    their d
+
+    d
+
+    y
+
+    x
+
+    0580/43
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: '21'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '35
+
+    4
+
+    M3 for
+
+    (
+
+    )
+
+    
+
+    
+
+    27  75 12.5     100 100
+
+    4 1 2.5
+
+    
+
+    −
+
+    
+
+    −
+
+    
+
+    oe
+
+    or
+
+    (
+
+    )
+
+    
+
+    
+
+    27  75 12.5     1  100
+
+    4 1 2.5
+
+    
+
+    
+
+    −
+
+    
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    oe
+
+    or
+
+    (
+
+    ) (
+
+    )
+
+    
+
+    
+
+    27  75 12.5
+
+    4 1 2.5      100
+
+    4 1 2.5
+
+    
+
+    −
+
+    −
+
+    
+
+    
+
+    
+
+    oe
+
+    or 12.5
+
+    62.5
+
+    4
+
+    27
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    × 100[– 100]
+
+    OR
+
+    M1 for 4 ÷ 12.5 oe
+
+    M1 for 27 ÷ (75 –12.5) oe'
+  mark_scheme: []
+  graphics: []
+- number: 22a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '63
+
+    2 M1 for 14
+
+    10
+
+    45
+
+    =
+
+    x
+
+    oe or better'
+  mark_scheme: []
+  graphics: []
+- number: 22b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '189
+
+    3
+
+    M2 for
+
+    3
+
+    2
+
+    279
+
+    124
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    [× 56] or [56 ÷]
+
+    3
+
+    2
+
+    124
+
+    279
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    oe or better
+
+    or M1 for
+
+    1
+
+    2
+
+    279
+
+    124
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    or
+
+    1
+
+    2
+
+    124
+
+    279
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    or better
+
+    or
+
+    3
+
+    2
+
+    279
+
+    124
+
+    56
+
+    
+
+    
+
+    
+
+    
+
+    =
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    x
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 23a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '208
+
+    4 M1 for midpoints soi
+
+    190, 205, 212.5, 222.5
+
+    M1 for use of Σfx where x is in the
+
+    correct interval including boundaries
+
+    190 × 32 + 205 × 64 + 212.5 × 74 +
+
+    222.5 × 30
+
+    M1 (dep on second M1) for Σfx ÷ 200'
+  mark_scheme: []
+  graphics: []
+- number: 23b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.8     3.2     1
+
+    3 B2 for two correct
+
+    or B1 for one correct
+
+    or M1 for three of 1.6, 6.4, 14.8 and 2
+
+    seen
+
+    0580/43
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 24a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '10.1 or 10.10…
+
+    3 M2 for EF2 + 6.42 + 5.12 = 132 or better
+
+    or M1 for 6.42 + 5.12 or 132 – 6.42 or 132
+
+    – 5.12'
+  mark_scheme: []
+  graphics: []
+- number: 24b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '29.5 or 29.49… to 29.54…
+
+    3 M2 for sin [… =] 6.4
+
+    13
+
+    oe
+
+    or M1 for identifying angle AGE'
+  mark_scheme: []
+  graphics: []
+- number: '25'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[LB =] 52.7
+
+    [UB =] 53.9
+
+    3 B2 for answer [LB=] 52.7 or [UB=] 53.9
+
+    or M1 for 68 + 0.5 or 68 – 0.5
+
+    or 4.7 + 0.05 or 4.7 – 0.05
+
+    or 10[.0] + 0.05 or 10[.0] – 0.05. oe seen'
+  mark_scheme: []
+  graphics: []
+- number: 26a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'm + 7
+
+    15
+
+    p
+
+    3 M2 for correct unsimplified expression in
+
+    terms of m and p
+
+    or M1 for a correct route'
+  mark_scheme: []
+  graphics: []
+- number: 26b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3
+
+    7
+
+    m
+
+    2 M1 for using the ratio 
+
+    2
+
+    3 p : 
+
+    1
+
+    5 p'
+  mark_scheme: []
+  graphics: []

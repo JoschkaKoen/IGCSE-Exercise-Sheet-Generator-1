@@ -1,0 +1,601 @@
+questions:
+- number: 1ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(magnitude of velocity =) 0.90 m / s
+
+    use of Pythagoras’ theorem e.g. a2 + b2 = c2 OR (speed =) 
+
+    
+
+    
+
+    
+
+    2
+
+    2
+
+    0.54
+
+    0.72
+
+    OR
+
+    correct vector triangle or rectangle drawn
+
+    (direction of velocity =) 53° (to riverbank)
+
+    use of trigonometry to find angle e.g. tan = 0.72 / 0.54
+
+    OR
+
+    (only) angle with horizontal identified on the diagram'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(distance =) 81 m
+
+    v = s / t OR (s =) vt OR (s =) 0.9(0)  90
+
+    (time =) 1.5  60 (= 90) OR (time =) 90'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'friction (of water backwards) OR resistance (on swimmer backwards)
+
+    (friction / resistance) balances forward force OR (there is) no resultant force'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(speed =) 38 m / s
+
+    a = ∆v / ∆t OR (∆v =) a∆t OR (∆v =) 7.2  5.3'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(resultant force = ) 1 700 N
+
+    F = ma OR (F =) ma OR (F =) 240  7.2'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(vector) has direction (as well as magnitude) OR scalar does
+    not have direction
+
+    0625/41
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (velocity) changes (as direction of motion changes) OR direction
+    (of velocity) changes
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    
+
+    because there is an acceleration / change in velocity / change in direction / change
+    in momentum (which needs a
+
+    resultant force)
+
+    
+
+    motorcyclist accelerates / changes momentum (because velocity / direction changes)
+
+    
+
+    (resultant) force is perpendicular to the motion (of the motorcycle) OR a ∝ F'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'heated / hot(ter) / warm(er) air is less dense OR cool(er)
+    air is more dense
+
+    heated / hot(ter) / warm(er) air rises (to ceiling displacing cooler air) OR cool(er)
+    air falls (displaced by warm(er) air)'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: speed / velocity (of particles) increases OR (they) move faster
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(higher temperature means) particles collide (with rubber)
+    harder / with more force / with greater momentum (change)
+
+    (larger volume means) particles collide (with rubber) less frequently
+
+    OR
+
+    (larger volume means) larger (surface) area (for particle collisions)
+
+    effect of larger volume cancels effect of increased temperature / owtte
+
+    OR
+
+    the effect of larger area cancels the effect of larger force / owtte
+
+    OR
+
+    P = F / A so the two changes cancel each other / owtte
+
+    0625/41
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'c = (∆)E / m∆ OR (∆E =) mc∆
+
+    (∆ =) 21.5 – 19 OR (∆ =) 2.5 (°C)
+
+    (∆E =) 0.6(0)  4200  2.5 OR (∆E =) 0.6(0)  4200  {21.5 – 19}'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(maximum possible efficiency =) 3.1% or 0.031
+
+    E = Pt OR (E =) Pt OR (E =) 13  500 OR (E =) 6500
+
+    (useful energy output =) 6500 – 6300 OR (useful energy output =) 200
+
+    efficiency = useful energy (output) / total energy (input) ( 100%)
+
+    OR (efficiency =) useful energy (output) / total energy (input) ( 100%)
+
+    OR (efficiency =) {6500 – 6300} / 6500
+
+    OR (efficiency =) 200 / 6500 ( 100%)
+
+    OR
+
+    P = E/t OR (P =) E / t OR (P =) 6 300 / 500 OR (P =) 12.6 (W)
+
+    (C1)
+
+    (useful power output =) total power (output) – wasted power (output)
+
+    OR (useful power output =) 13 – {6300 / 500}
+
+    OR (useful power output =) 13–12.6
+
+    (C1)
+
+    efficiency = useful power (output) / total power (input) ( 100%)
+
+    OR (efficiency =) useful power (output) / total power (input) ( 100%)
+
+    OR (efficiency =) 0.4 / 13 ( 100%)
+
+    (C1)'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    
+
+    temperature change is an underestimate (due to thermal energy losses)
+
+    
+
+    (thermal energy is) transferred from the water (to air / beaker / bench)
+
+    
+
+    energy (other than light) transferred in lamp (filament / glass / internal structure)
+
+    
+
+    (some) water evaporates
+
+    0625/41
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (light / electromagnetic radiation) of a single frequency
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'angle of incidence / i = 0 OR incident ray along normal
+
+    OR all of wavefront enters block at same time
+
+    angle of refraction / r = 0 OR no refraction
+
+    OR whole wavefront slows down at same time'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(c =) sin–1{1 /1.5} (= 42°)
+
+    OR
+
+    (c =) sin–1 {1 / n} = 41.8°
+
+    n = 1 / sin c OR (c =) sin-1 {1 / n} OR (c =) 41.8°'
+  mark_scheme: []
+  graphics: []
+- number: 5di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'all light is reflected
+
+    𝜃 / angle of incidence > c / critical angle'
+  mark_scheme: []
+  graphics: []
+- number: 5dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: all light is reflected OR reflected ray at 90° to incident ray
+    OR reflected ray is parallel to original ray
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(wavelength =) 0.16 m
+
+    v = f OR ( =) v / f OR ( =) 3  108 / 1.9  109'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(microwaves) only need short aerials / antennas
+
+    (microwaves) penetrate (some) walls
+
+    0625/41
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 6ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'labelled diagram of digital (signal) with blocks of high (1)
+    and low (0) AND labelled diagram of analogue with continuously
+
+    variable signal
+
+    digital (signal) consists of two values owtte
+
+    analogue (signal) varies over a range (of values) owtte'
+  mark_scheme: []
+  graphics: []
+- number: 6cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    
+
+    faster (data) transmission rate OR data can be compressed
+
+    
+
+    data / signal transmitted over long(er) distances (as signal can be regenerated)
+
+    
+
+    noise easily removed (from signal / data) OR signal can be regenerated'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    
+
+    (potential divider) splits / shares / divides the e.m.f. / voltage / potential
+    difference / p.d. (of a power source / in a circuit)
+
+    
+
+    (e.m.f. is) split between (two) resistors / components (connected in series to
+    power source)
+
+    
+
+    (potential divider shares e.m.f.) in proportion to the resistances (of the resistors / components)'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (e.m.f. =) 15 V
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(resistance =) 60 
+
+    (Rll =) R2R3  / (R2 + R3) OR (Rll =) 40  40 / (40 + 40) OR (Rll =) 1600 / 80
+
+    OR 1 / Rll = 1 / R2 + 1 / R3 OR 1 / Rll = 1 / 40 + 1 / 40 OR (Rll =) (1 / 40 +
+    1 / 40)–1 OR (Rll =) 20 ()
+
+    (resistance =) 40 + (candidate’s value for combined resistance of R2 and R3)
+
+    0625/41
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(reading =) 10 V
+
+    emf shared in same proportion as resistance
+
+    OR e.g. R1 / Rll = V1 / Vll
+
+    OR (reading =) 15  40 / 60 OR (reading =) 0.25  40'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    
+
+    alternating current in (primary coil)
+
+    
+
+    (current in primary generates) changing magnetic field
+
+    
+
+    iron core concentrates (magnetic) field OR iron core transfers (magnetic) field
+    (to secondary coil)
+
+    
+
+    secondary coil is in alternating / changing (magnetic) field OR secondary coil
+    cuts (magnetic) field
+
+    
+
+    e.m.f. induced (in secondary coil)'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(number of turns =) 3000
+
+    Np/ Ns = Vp/ Vs OR (Np =) Ns Vp/ Vs OR (Np =) 450  220 000 / 33 000'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(current =) 350 A
+
+    P = IV OR (I =) P / V OR (I =) 7.7  107 / 220 000
+
+    (I =) 3.5  10N
+
+    0625/41
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(number of neutrons =) 7
+
+    any one from:
+
+    
+
+    number of electrons = number of protons
+
+    
+
+    white dots are protons / there are 5 protons
+
+    
+
+    grey dots are neutrons
+
+    
+
+    (number of neutrons) = 12 – 5'
+  mark_scheme: []
+  graphics: []
+- number: 9bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(X2 has) one more proton more and one fewer neutron (than X1)
+    OR (X2 has) 6 protons and 6 neutrons
+
+    (X2 has) one neutron fewer / one more proton (than X1)
+
+    OR (X2 has) 6 protons / 6 neutrons'
+  mark_scheme: []
+  graphics: []
+- number: 9bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (X2) has fewer (excess) neutrons (in its nucleus) ORA
+  mark_scheme: []
+  graphics: []
+- number: 9ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'time (taken)
+
+    for number of (radioactive) nuclei / atoms (in a sample of X1) to halve OR for
+    rate of decay to halve'
+  mark_scheme: []
+  graphics: []
+- number: 9cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: large number of particles produced in short time OR high / large
+    decay rate OR high dose (of radiation) in short time
+  mark_scheme: []
+  graphics: []
+- number: 10ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(speed) decreases (from X to Y) and then increases (from Y
+    to X)
+
+    0625/41
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 10aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    
+
+    gravitational (potential) energy (GPE) transfers to kinetic energy (KE) or vice
+    versa
+
+    
+
+    KE transfers to GPE from X to Y AND GPE transfers to KE from Y to X
+
+    
+
+    speed decreases as KE decreases / ORA
+
+    
+
+    most GPE at Y OR least GPE at X
+
+    
+
+    total (of GPE + KE) energy is constant'
+  mark_scheme: []
+  graphics: []
+- number: 10bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: –230 (°C)
+  mark_scheme: []
+  graphics: []
+- number: 10bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(white surface) is a poor absorber / good reflector / poor
+    emitter of IR / radiation
+
+    OR black / other surface is a good absorber / poor reflector / good emitter of
+    IR / radiation
+
+    any one from:
+
+    
+
+    (the white surface) increases in temperature less when facing the Sun
+
+    
+
+    (the white surface) decreases in temperature less when facing away (from Sun)
+
+    
+
+    the black / other surfaces increases in temperature more when facing the Sun
+
+    
+
+    the black / other surface decreases in temperature more when facing away (from
+    Sun)
+
+    
+
+    less variation in temperature on white surface (during one whole rotation)'
+  mark_scheme: []
+  graphics: []

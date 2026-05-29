@@ -1,0 +1,619 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: Which characteristic of living things requires carbon dioxide to diffuse into
+    a leaf?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: Which set of features is characteristic only of birds?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: Which structures are found in both plant and animal cells?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: A student made the following statements about the movement of ions by active
+    transport. It is the net movement of particles from a low concentration to a high
+    concentration. It is the net movement of particles from a high concentration to
+    a low concentration. It requires the use of energy from respiration. It can only
+    take place in living cells. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: A DNA molecule contains pairs of bases. What is a correct combination of a
+    pair of bases?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the test for protein? name of the test heat colour change
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows how enzyme activity is affected by temperature. enzyme activity
+    temperature / °C Why is enzyme activity lower at 55 °C than it is at 40 °C?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Which descriptions of adaptations for photosynthesis are correct for spongy
+    mesophyll tissue? air spaces for efficient gas exchange long, rectangular cells
+    to absorb light
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows the recommended daily allowance (RDA) of some nutrients for
+    young children. The table also shows the masses of these nutrients eaten by a
+    child in one day. mass of vitamin C / mg mass of vitamin D / g mass of iron /
+    mg mass of calcium / mg RDA
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: ''
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: 260 mass eaten in one day 150 Which conditions will the child be at risk of
+    developing if they consume the same diet for a long period of time? anaemia (not
+    having enough red blood cells) rickets scurvy
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the structure of a villus. Which label shows a lacteal?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Which graph shows the effect of humidity in the air on the rate of transpiration
+    in a plant? 100 rate of transpiration percentage humidity
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: In some countries, spring is the time of year when daffodil plants have green
+    leaves and produce flowers. Which parts of the daffodil plants act as sources
+    and sinks in spring? flowers leaves
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: In a fish, what is the sequence of structures that blood passes through after
+    it leaves the heart?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows what happens in the body during active immunity. pathogens
+    enter the body W are detected lymphocytes become active marking of pathogens occurs
+    so that they can be destroyed by Y Z are produced for long-term immunity X destroy
+    pathogens directly Which structures or cells represent W, X, Y and Z? antibodies
+    antigens memory cells phagocytes
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Cholera is a disease caused by a bacterium called Vibrio cholerae which produces
+    a toxin in the infected person’s gut. What is the effect of this toxin?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows how the volume of air in lungs changes when a person is breathing
+    at rest. time volume of air in lungs X Which processes are occurring to change
+    the volume at the point marked X?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: The processes listed occur in living organisms. cell division diffusion muscle
+    contraction osmosis Which processes require energy from respiration?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a role of the glomerulus?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a synapse. P Q R S neurone 1 neurone 2 What are the labelled
+    parts? P Q R S
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the function of rod cells? night vision colour vision
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the positions of two endocrine glands in the human body.
+    kidneys endocrine glands What is a response of the body to the hormone released
+    from these glands?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a response of the human body to overheating?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: What is an example of phototropism?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes the effect of antibiotics?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows one parent Hydra growing and releasing an offspring from
+    the side of its body. parent Hydra offspring Which row is correct? parent and
+    offspring are genetically identical involves asexual reproduction
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the changing concentrations of some hormones involved in
+    the menstrual cycle. hormone concentration 8 10 12 14 days 16 18 20 22 24 26 28
+    W Y Which letters identify two of the hormones?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the chromosomes in the nucleus of a cell that divides by
+    mitosis. Which diagram shows the chromosomes in the nucleus of one of the daughter
+    cells produced?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: 'A farmer bred together male cattle with white hair and female cattle with
+    red hair. All the offspring produced had roan hair (a mixture of red and white).
+    He then repeatedly bred together two roan cattle, and the offspring were in the
+    ratio of 1 red : 2 roan : 1 white. What explains why the farmer obtained this
+    ratio?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Phagocytes and neurones are two types of specialised cell. Which statements
+    are correct? Phagocytes and neurones express the same genes. Both types of cell
+    have the same genes. Both types of cell only express the genes that make the proteins
+    needed for the cell to function.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows some features of leaves. Which leaf is adapted to survive
+    in hot, dry habitats? number of stomata thickness of waxy cuticle surface area
+    of leaf
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row correctly describes a type of selection? type of selection humans
+    involved example
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about a pyramid of energy for a food chain is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: The food web shows part of an ocean ecosystem. sea urchin mussel clam prawn
+    kelp algae diatom sea otter seal sea lion orca whale Which row shows the number
+    of secondary consumers and the number of tertiary consumers in the food web? number
+    of secondary consumers number of tertiary consumers
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: A student investigated the effect of high temperature on the production of
+    nitrate ions in soil. Two samples of soil were taken. One sample was heated to
+    100 °C. All the nitrate ions were completely removed from both soil samples. Ammonium
+    ions were then added to both soil samples. After two weeks, both soil samples
+    were tested for the presence of nitrate ions. The results are shown. soil sample
+    nitrate ions present or absent not heated to 100 °C present heated to 100 °C absent
+    Which statement explains the results?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Which letter represents the lag phase in the population graph shown?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Which term describes the number of different species living in an area?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Which source of pollution can cause eutrophication?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Some of the processes involved in the production of insulin by genetic modification
+    are listed. cutting of bacterial plasmid DNA with restriction enzymes expression
+    in bacteria of the human gene to make insulin insertion of recombinant plasmids
+    into bacteria multiplication of bacteria containing recombinant plasmids In which
+    order do these processes occur?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

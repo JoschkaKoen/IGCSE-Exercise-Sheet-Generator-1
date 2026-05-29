@@ -1,0 +1,582 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '20 J
+
+    (.Ep =) mg()h OR
+
+    ( )
+
+    0.2 0   9.8 1 0
+
+    
+
+    '
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '14 J
+
+    (Ek =) ½mv2 OR ½  0.2(0)  122'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'p = mv OR (p =) mv−mu
+
+    (p =)
+
+    ( ) 
+
+    
+
+    0.2 0
+
+    14
+
+    12
+
+    
+
+    +
+
+    OR
+
+    ( )
+
+    0.2 0
+
+    {14
+
+    12
+
+    
+
+    −−
+
+    }
+
+    OR
+
+    p before = 0.2(0)  14 AND p after = 0.2(0)  (–)12
+
+    (p =)
+
+    
+
+    
+
+    2.8
+
+    2.4
+
+    −−
+
+    (= 5.2 kg m / s) OR (p =)
+
+    ( ) 
+
+    
+
+    0.2 0
+
+    14
+
+    12
+
+    
+
+    −−'
+  mark_scheme: []
+  graphics: []
+- number: 1biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '21 N
+
+    (F =) p / ( )t OR F = (∆)mv / (∆)t OR 5.2 / 0.25
+
+    0625/41
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    •
+
+    free / delocalised / mobile electrons
+
+    •
+
+    (electrons) gain (thermal) energy from hotplate / particles
+
+    •
+
+    (electrons) move through(out) copper / metal OR (electrons) move to distant particles
+
+    •
+
+    electrons transfer energy from higher temperature (region) to lower temperature
+    (region) OR (electrons) collide with
+
+    (distant) particles / transfer energy to (distant) particles'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(shiny surfaces are) poor emitters of radiation
+
+    reduces energy loss (from the pan / copper) OR less energy transferred to surroundings'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'convection
+
+    0625/41
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'particles (of liquid) are touching / close to each other
+
+    forces (of repulsion) between particles (of liquid) are large'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(p =)  g()h
+
+    1000  9.8  0.087 OR (p =) 852.6 (Pa)'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '12 N
+
+    p = F / A OR (F =) pA OR 850  0.014'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.2 kg
+
+    g = W / m OR (m =) F / g OR 12 / 9.8
+
+    0625/41
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (point / place / position) where (all) the weight (seems to)
+    acts
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a small tilt / rotation makes G no longer vertically above
+    the base OR small tilt / rotation produces moment (that topples
+
+    transmitter)'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: arrow(head) marked along wire W towards ground
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'moment = F  d AND correct indication of F and d on Fig. 4.1.
+
+    (moment is ) force  (perpendicular) distance (from base / pivot)
+
+    (moment is ) force  perpendicular distance (from base / pivot)'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a use of radio waves, e.g. RFID / astronomy / Bluetooth / RADAR / wifi
+
+    0625/41
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    •
+
+    description of how the (energy from) water is released
+
+    •
+
+    mention of transfers between energy stores
+
+    •
+
+    (moving) water turns turbine
+
+    •
+
+    turbine turns / drives generator
+
+    •
+
+    name of method to match description'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'advantage of generating electricity from energy stored in water
+
+    disadvantage of generating electricity from energy stored in water'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    •
+
+    geothermal (energy / power)
+
+    •
+
+    tidal (energy / power)
+
+    •
+
+    nuclear (energy / power)
+
+    0625/41
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    •
+
+    ray from top / bottom of object, parallel to principal axis, refracted through
+    right-hand principal focus
+
+    •
+
+    straight ray from same point on object through optical centre
+
+    •
+
+    ray that (seems to) come from left-hand principal focus through same point of
+    object and refracted parallel to principal
+
+    axis
+
+    rays traced back to intersection AND intersection / image labelled I'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(distance = ) 35.5 cm to 38.5 cm
+
+    7.1 to 7.7 (cm) OR (distance =) 35.0 (cm) to 40.0 (cm)'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'virtual AND any one from:
+
+    •
+
+    cannot be projected on a screen
+
+    •
+
+    (real) light (ray) does not pass through image
+
+    •
+
+    light only seems to come from image'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    •
+
+    long-sightedness focuses image behind retina / back of eye OR longsightedness
+    produces blurry / fuzzy images (of
+
+    close objects)
+
+    •
+
+    converging lens reduces focal length (of eye)
+
+    •
+
+    (converging lens) puts image further away (from the eye)
+
+    (converging lens gives) sharp/focussed image on retina / back of eye OR (with
+    lens) rays converge on retina / back of eye
+
+    0625/41
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'electrons move from cloth to rod
+
+    (plastic) rod gains electrons'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (region) where an (electric) charge experiences a force
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At least three radial field lines distributed evenly around
+    outside of S AND touching S AND not inside S
+
+    arrow on (at least one) field line pointing towards S'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'arrow through Z and away from (centre of) sphere
+
+    0625/41
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 8ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '900 C
+
+    I = Q / t OR (Q =) It OR 1.5  600'
+  mark_scheme: []
+  graphics: []
+- number: 8aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.0 
+
+    R = V / I OR (Rtot =) V / I OR 9.(0) / 1.5 or 6.(0)
+
+    (Rcyl =) total resistance – P OR (Rcyl =) 6.0 – 4.0'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1200 s
+
+    R is directly proportional to l OR (new cylinder) twice as long means twice R
+
+    R is inversely proportional to A OR (new cylinder) half cross-sectional area means
+    twice R
+
+    (resistance of cylinder =) 4  (a)(ii) ()
+
+    0625/41
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 9ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (americium-241 has) one neutron fewer (in the nucleus)
+  mark_scheme: []
+  graphics: []
+- number: 9aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(different) number of protons (in nucleus)
+
+    (different) number of neutrons (in nucleus)'
+  mark_scheme: []
+  graphics: []
+- number: 9bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '241
+
+    237
+
+    4
+
+    95
+
+    93
+
+    2
+
+    Am
+
+    Np
+
+    a
+
+    →
+
+    +
+
+    any two from:
+
+    95Am
+
+    237Np
+
+    4
+
+    2a'
+  mark_scheme: []
+  graphics: []
+- number: 9bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(-particles have) more kinetic energy (than -particles)
+
+    (-particles have) more charge (than -particles)'
+  mark_scheme: []
+  graphics: []
+- number: 9biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Low(er) (initial) activity OR Few emissions per unit time
+
+    so smoke detectors are not hazardous to humans OR so disposal of old detectors
+    is cheap / easy
+
+    0625/41
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'hydrogen nuclei fuse to become helium nuclei
+
+    nuclear reactions OR (nuclear) fusion
+
+    hydrogen fuses into helium'
+  mark_scheme: []
+  graphics: []
+- number: 10bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(observed) wavelength is longer / wavelength is shifted towards
+    the red end of the spectrum
+
+    (light from galaxy) redshifted / shifted towards red (end of spectrum)'
+  mark_scheme: []
+  graphics: []
+- number: 10bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: change in wavelength (or starlight due to redshift)
+  mark_scheme: []
+  graphics: []
+- number: 10ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5.9  1024 m
+
+    H0 = v/d OR (d =) v / H0 OR 1.3  107 / 2.2  10–18 OR 5.9  10N (m)'
+  mark_scheme: []
+  graphics: []
+- number: 10cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.4  1010 (years)
+
+    (age =) 1 / H0 or 1 / 2.2  10–18 or 4.5  1017'
+  mark_scheme: []
+  graphics: []

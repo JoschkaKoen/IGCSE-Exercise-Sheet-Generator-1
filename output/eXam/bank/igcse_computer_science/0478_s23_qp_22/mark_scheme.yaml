@@ -1,0 +1,1027 @@
+questions:
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point (max three).
+
+    
+
+    range check with acceptable values is (greater than) zero and less than 1000
+
+    
+
+    presence check to ensure the program will not continue until a value has been
+    entered
+
+    
+
+    type/character check to ensure that a number is entered
+
+    
+
+    length check to ensure there are no more than 3 digits entered'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: To verify the data / for verification / as a verification check
+    // to make sure that no changes are made to the data on entry
+  mark_scheme: []
+  graphics: []
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point (max three).
+
+    
+
+    use of iteration
+
+    
+
+    use of two inputs
+
+    
+
+    to check that the two inputs are the same / different
+
+    
+
+    use of the given variable Measurement
+
+    For example
+
+    REPEAT
+
+    OUTPUT "Please enter measurement "
+
+    INPUT Measurement
+
+    OUTPUT "Please re-enter measurement "
+
+    INPUT MeasurementCheck
+
+    UNTIL Measurement = MeasurementCheck
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Due to an issue with Question 5, the question has been removed
+    from the question paper.
+
+    0478/22
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each feature and one mark for corresponding example
+    (max six)
+
+    
+
+    ensuring that all identifiers have meaningful names …
+
+    
+
+    … example using Total to store a running total
+
+    
+
+    using comments to explain how the program works …
+
+    
+
+    … example // all values are zeroed before the next calculation
+
+    
+
+    using procedures and functions for the tasks within a program …
+
+    
+
+    … example CalculateInterest(Deposit, Rate)
+
+    6'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    07
+
+    
+
+    04/12 or 16/18
+
+    
+
+    02/20
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each error identified and correction
+
+    
+
+    Line 07 Total  Total + Number * Counter
+
+    should be Total  Total + Number[Counter] * Counter
+
+    
+
+    Line 08 IF Number[Counter] = 0
+
+    should be IF Number[Counter] = -1 // should be IF Number[Counter] < 0
+
+    
+
+    Line 16 FOR Counter  0 TO 5
+
+    should be FOR Counter  1 TO 5
+
+    3
+
+    0478/22
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for place in algorithm (max one)
+
+    
+
+    around lines 05 and 06
+
+    
+
+    line 07
+
+    
+
+    (immediately) after the input of the number
+
+    Three marks pseudocode
+
+    One mark for each point (max three)
+
+    
+
+    Use of REPEAT … UNTIL // any working loop structure
+
+    
+
+    check for >0 // >=0
+
+    
+
+    check for <10 // >9
+
+    
+
+    check for whole number
+
+    
+
+    check for -1
+
+    
+
+    check for length of digit <> 1
+
+    Example
+
+    REPEAT
+
+    OUTPUT "Enter a digit "
+
+    INPUT Number[Counter]
+
+    UNTIL Number[Counter] = Round(Number[Counter],0) AND ((Number[Counter] = -1) OR
+
+    (Number[Counter] > 0 AND Number[Counter] < 10))
+
+    4
+
+    0478/22
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4 marks for 8 correct outputs
+
+    3 marks for 6/7 correct outputs
+
+    2 marks for 4/5 correct outputs
+
+    1 mark for 2/3 correct outputs
+
+    A
+
+    B
+
+    C
+
+    X
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    1
+
+    0
+
+    0
+
+    1
+
+    0
+
+    0
+
+    0
+
+    1
+
+    1
+
+    0
+
+    1
+
+    0
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+    1
+
+    0
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    4
+
+    0478/22
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each column F, C and T
+
+    Two marks for columns X[1] to X[5] all entries correct or
+
+    One mark for columns X[1] to X[5] with one error
+
+    F
+
+    C
+
+    X[1]
+
+    X[2]
+
+    X[3]
+
+    X[4]
+
+    X[5]
+
+    T
+
+    10
+
+    1
+
+    5
+
+    7
+
+    11
+
+    0
+
+    1
+
+    10
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    10
+
+    10
+
+    1
+
+    3
+
+    5
+
+    10
+
+    10
+
+    1
+
+    4
+
+    7
+
+    10
+
+    5
+
+    0
+
+    1
+
+    2
+
+    3
+
+    4
+
+    5
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point
+
+    
+
+    (bubble) sort data in array
+
+    
+
+    in ascending order
+
+    2
+
+    0478/22
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'SongNumber
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for every two correct data types
+
+    Field
+
+    Data Type
+
+    SongNumber Text/Alphanumeric
+
+    Title
+
+    Text/Alphanumeric
+
+    Recorded
+
+    Date/time
+
+    Minutes
+
+    Real
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 10c
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point
+
+    
+
+    to find the total number of minutes of music
+
+    
+
+    to find the total number of songs
+
+    
+
+    available for the genre rock
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for any two correct lines
+
+    DECLARE P : STRING
+
+    P  "The world"
+
+    DECLARE Q : CHAR
+
+    Q  ''W''
+
+    2
+
+    0478/22
+
+    May/June 2023'
+  mark_scheme: []
+  graphics: []
+- number: 11b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each point (max four)
+
+    
+
+    converting P to upper case
+
+    
+
+    finding the length of P
+
+    
+
+    using a loop to check for position of Q
+
+    
+
+    using the string operation substring
+
+    
+
+    storing the loop counter in Position if the value is found
+
+    For example:
+
+    P  UCASE(P)
+
+    Counter  1
+
+    Position  0
+
+    REPEAT
+
+    IF SUBSTRING(P, Counter, 1) = Q
+
+    THEN
+
+    Position  Counter
+
+    ENDIF
+
+    Counter  Counter + 1
+
+    UNTIL Position <> 0 OR Counter = LENGTH(P)
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 11c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5
+
+    1
+
+    0478/22
+
+    May/June 2023
+
+    12
+
+    Read the whole answer:
+
+    Check if each requirement listed below has been met.  Requirements may be met
+    using a suitable built-in function from the
+
+    programming language used (Python, VB.NET or Java)
+
+    Mark SEEN on script if requirement met, cross if no attempt seen, NE if partially
+    met (see marked scripts).
+
+    Use the tables for A02 and A03 below to award a mark in a suitable band using
+    a best fit approach
+
+    Then add up the total.
+
+    Marks are available for:
+
+    
+
+    AO2 (maximum 9 marks)
+
+    
+
+    AO3 (maximum 6 marks)
+
+    Data Structures required names shown underlined must be used as given in the scenario
+
+    Arrays or lists Account, AccDetails
+
+    Variable Size, AccountNumber
+
+    Requirements (techniques)
+
+    R1 Check account number and password (iteration and validation, selection, input,
+    output)
+
+    R2 Display menu and make a selection (output, input and selection)
+
+    R3 Perform actions selected (use of arrays and procedures with parameters)
+
+    Example 15 mark answer in pseudocode
+
+    // Procedures to be called
+
+    PROCEDURE CheckDetails(AccID : INTEGER)
+
+    DECLARE Name, Password : STRING // local variables
+
+    Valid  FALSE
+
+    IF AccID <0 OR AccID > Size
+
+    THEN
+
+    OUTPUT "Invalid Account Number"
+
+    ELSE
+
+    OUTPUT "Please Enter Name "
+
+    INPUT Name
+
+    OUTPUT "Please Enter Password "
+
+    INPUT Password
+
+    IF Name <> Account[AccID,1] OR Password <> Account[AccID,2]
+
+    THEN
+
+    OUTPUT "Invalid name or password"
+
+    ELSE
+
+    15
+
+    0478/22
+
+    May/June 2023
+
+    12
+
+    Valid  True
+
+    ENDIF
+
+    ENDIF
+
+    ENDPROCEDURE
+
+    PROCEDURE Balance(AccID : INTEGER)
+
+    OUTPUT "Your balance is ", AccDetails[AccID,1]
+
+    ENDPROCEDURE
+
+    PROCEDURE WithDrawal(AccID : INTEGER)
+
+    DECLARE Amount : REAL // local variable
+
+    REPEAT
+
+    OUTPUT "Please enter amount to withdraw "
+
+    INPUT Amount
+
+    IF Amount > AccDetails[AccID,3]
+
+    THEN
+
+    OUTPUT "Amount greater than withdrawal limit"
+
+    ENDIF
+
+    IF Amount > AccDetails[AccID,2] + AccDetails[AccID,1]
+
+    THEN
+
+    OUTPUT "Amount greater than cash available"
+
+    ENDIF
+
+    IF Amount <= AccDetails[AccID,3] AND Amount < AccDetails[AccID,2] +
+
+    AccDetails[AccID,1]
+
+    THEN
+
+    AccDetails[AccID,1]  AccDetails[AccID,1] - Amount
+
+    ENDIF
+
+    UNTIL Amount<= AccDetails[AccID,3] AND Amount > AccDetails[AccID,2] +
+
+    AccDetails[AccID,1] AND Amount > 0
+
+    ENDPROCEDURE
+
+    PROCEDURE Deposit(AccID : INTEGER)
+
+    DECLARE Amount : REAL // local variable
+
+    REPEAT
+
+    OUTPUT "Please enter a positive amount to deposit "
+
+    INPUT Amount
+
+    UNTIL Amount >0
+
+    AccDetails[AccID,1]  AccDetails[AccID,1] + Amount
+
+    0478/22
+
+    May/June 2023
+
+    12
+
+    ENDPROCEDURE
+
+    // Declarations of global variables for information – not required in candidate
+    responses
+
+    DECLARE AccountNumber, Choice : INTEGER
+
+    DECLARE Valid, Exit : BOOLEAN
+
+    OUTPUT "Please enter your account number "
+
+    INPUT AccountNumber
+
+    CheckDetails(AccountNumber)
+
+    IF Valid
+
+    THEN
+
+    REPEAT
+
+    OUTPUT "Menu"
+
+    OUTPUT "1. display balance"
+
+    OUTPUT "2. withdraw money"
+
+    OUTPUT "3. deposit money"
+
+    OUTPUT "4. exit"
+
+    OUTPUT "please choose 1, 2, 3 or 4"
+
+    INPUT Choice
+
+    CASE OF Choice
+
+    1 : Balance(AccountNumber)
+
+    2 : Withdrawal(AccountNumber)
+
+    3 : Deposit(AccountNumber)
+
+    4 : Exit  TRUE
+
+    OTHERWISE OUTPUT "Invalid choice"
+
+    ENDCASE
+
+    UNTIL Choice = 4
+
+    ELSE
+
+    OUTPUT "Invalid account number "
+
+    ENDIF
+
+    0478/22
+
+    May/June 2023
+
+    Marking Instructions in italics
+
+    AO2: Apply knowledge and understanding of the principles and concepts of computer
+    science to a given context, including the
+
+    analysis and design of computational or programming problems
+
+    0
+
+    1–3
+
+    4–6
+
+    7–9
+
+    No creditable
+
+    response.
+
+    At least one programming technique
+
+    has been used.
+
+    Any use of selection, iteration,
+
+    counting, totalling, input and output.
+
+    Some programming techniques used
+
+    are appropriate to the problem.
+
+    More than one technique seen applied
+
+    to the scenario, check the list of
+
+    techniques needed.
+
+    The range of programming techniques
+
+    used is appropriate to the problem.
+
+    All criteria stated for the scenario have
+
+    been covered by the use of
+
+    appropriate programming techniques,
+
+    check the list of techniques needed.
+
+    Some data has been stored but not
+
+    appropriately.
+
+    Any use of variables or arrays or other
+
+    language dependent data structures
+
+    e.g. Python lists.
+
+    Some of the data structures chosen
+
+    are appropriate and store some of the
+
+    data required.
+
+    More than one data structure used to
+
+    store data required by the scenario.
+
+    The data structures chosen are
+
+    appropriate and store all the data
+
+    required.
+
+    The data structures used store all the
+
+    data required by the scenario.
+
+    0478/22
+
+    May/June 2023
+
+    Marking Instructions in italics
+
+    AO3: Provide solutions to problems by:
+
+    
+
+    evaluating computer systems
+
+    
+
+    making reasoned judgements
+
+    
+
+    presenting conclusions
+
+    0
+
+    1–2
+
+    3–4
+
+    5–6
+
+    No creditable
+
+    response.
+
+    Program seen without relevant
+
+    comments.
+
+    Program seen with some relevant
+
+    comment(s).
+
+    The program has been fully
+
+    commented.
+
+    Some identifier names used are
+
+    appropriate.
+
+    Some of the data structures used have
+
+    meaningful names.
+
+    The majority of identifiers used are
+
+    appropriately named.
+
+    Most of the data structures used have
+
+    meaningful names.
+
+    Suitable identifiers with names
+
+    meaningful to their purpose have been
+
+    used throughout.
+
+    All of the data structures used have
+
+    meaningful names.
+
+    The solution is illogical.
+
+    The solution contains parts that may
+
+    be illogical.
+
+    The program is in a logical order.
+
+    The solution is inaccurate in many
+
+    places.
+
+    Solution contains few lines of code
+
+    with errors that attempt to perform a
+
+    task given in the scenario.
+
+    The solution contains parts that are
+
+    inaccurate.
+
+    Solution contains lines of code with
+
+    some errors that logically perform
+
+    tasks given in the scenario. Ignore
+
+    minor syntax errors.
+
+    The solution is accurate.
+
+    Solution logically performs all the tasks
+
+    given in the scenario. Ignore minor
+
+    syntax errors.
+
+    The solution attempts at least one of
+
+    the requirements.
+
+    Solution contains lines of code that
+
+    attempt at least one task given in the
+
+    scenario.
+
+    The solution meets most of the
+
+    requirements.
+
+    Solution contains lines of code that
+
+    perform most tasks given in the
+
+    scenario.
+
+    The solution meets all the
+
+    requirements given in the question.
+
+    Solution performs all the tasks given in
+
+    the scenario.'
+  mark_scheme: []
+  graphics: []

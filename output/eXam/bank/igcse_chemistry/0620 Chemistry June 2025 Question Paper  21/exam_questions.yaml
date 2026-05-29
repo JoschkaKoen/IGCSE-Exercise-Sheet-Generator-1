@@ -1,0 +1,621 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: A gas is placed in a sealed container with a fixed volume. The gas is heated.
+    Which statements are correct? The gas molecules move around faster.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: The gas particles collide with the walls of the container more frequently.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: The pressure in the container decreases.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: ''
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: ''
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the heating curve is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about silicon(IV) oxide is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Three organic molecules are described. ● The molecular formula of propanoic
+    acid is CH3CH2COOH. ● The molecular formula of lactic acid is CH3CH(OH)COOH. ●
+    A glucose molecule consists of 6 carbon atoms, 6 oxygen atoms and 12 hydrogen
+    atoms only. Which molecules have the same empirical formula?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Calcium carbonate reacts with dilute hydrochloric acid. The equation for the
+    reaction is shown. CaCO3  +  2HCl    CaCl 2  +  H2O  +  CO2 1.00 g of calcium
+    carbonate is added to 50.0 cm3 of 0.0500 mol / dm3 hydrochloric acid. Which volume
+    of carbon dioxide is made in this reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the electroplating of a steel object. steel object copper
+    electrode aqueous copper(II) sulfate + – power supply A student makes three statements.
+    The steel object turns a reddish-brown colour. The aqueous copper(II) sulfate
+    changes to a paler blue colour. The copper electrode becomes thinner. Which statements
+    are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Concentrated aqueous sodium chloride is electrolysed using inert electrodes.
+    Which equation shows the correct ionic half-equation for the reaction at the anode?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: Which equation represents the overall reaction in a hydrogen–oxygen fuel cell?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Water is added to anhydrous copper(II) sulfate in a test-tube. The mixture
+    becomes hot. Which type of reaction and reaction pathway diagram apply to this
+    reaction? type of reaction reaction pathway diagram
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation represents the reaction between ethanoic acid and ethanol. CH3COOH  +  CH3CH2OH
+    CH3COOCH2CH3  +  H2O Which type of reaction does this show?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the results of adding excess calcium carbonate to hydrochloric
+    acid at 50 °C and at 30 °C. Only the temperature is changed. total volume of carbon
+    dioxide given off / cm3 time / s 50 °C 30 °C Which row describes the reacting
+    particles at 30 °C compared to those at 50 °C? frequency of collisions between
+    particles average kinetic energy of particles
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Industrially, ammonia is made by the Haber process. The equation is shown.
+    N2(g)  +  3H2(g) 2NH3(g) H = –92 kJ / mol The conditions used are 450 °C and
+    200 atm. Which statements about the conditions are correct? Temperatures below
+    450 °C give a lower rate of reaction. Temperatures below 450 °C give a lower yield
+    of ammonia. Pressures above 200 atm give a lower yield of ammonia. Pressures above
+    200 atm are too expensive to maintain.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Ethanol is warmed with acidified aqueous potassium manganate(VII). Which row
+    describes the type of reaction of the ethanol and the colour change observed in
+    the reaction mixture? type of reaction colour change
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Two experiments involving acids R or S are done. ● 0.10 mol of acid R completely
+    dissolves in 500 cm3 of water. 0.0048 mol of acid R is dissociated in the solution.
+    ● 0.10 mol of acid S completely dissolves in 500 cm3 of water. 0.0179 mol of acid
+    S is dissociated in the solution. Which statement about acids R and S is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: Lead(II) sulfate is an insoluble salt. Which process is not used to prepare
+    a pure sample of this salt?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: The formulae of two hydrated salts are shown. ● CuSO4•xH2O ● CoCl 2•yH2O What
+    are the values of x and y? x y
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: The properties of the elements change from left to right across the Periodic
+    Table. Which statement describes how the properties change across Period 3?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Which property decreases down Group VII of the Periodic Table, from chlorine
+    to iodine?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Some properties of elements are listed. They have good electrical conductivity.
+    They have high melting points. They are malleable. They have ions with variable
+    oxidation numbers. Which properties are correct for both iron and lithium?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Two statements about noble gases are listed. Noble gases are reactive, monatomic
+    gases. Noble gases all have a full outer shell of electrons. Which statements
+    about noble gases are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the properties and uses of copper is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Three statements about solid Z are listed. ● It reacts with dilute hydrochloric
+    acid to produce hydrogen. ● It reacts very slowly with cold water and quickly
+    with steam. ● It is a good thermal conductor. What is solid Z?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: "Four metals J, K, L and M are added separately to aqueous solutions of their\
+    \ ions. The results are shown. aqueous ions metal J2+ K2+ L2+ M2+ J \x1A \x16\
+    \ \x16 \x16 key K \x1A \x1A \x1A \x16 \x16 = reaction L \x1A \x16 \x1A \x16 \x1A\
+    \ = no reaction M \x1A \x1A \x1A \x1A Which statement about the metals is correct?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Which process is used in the extraction of iron from hematite?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Galvanising prevents iron from rusting. Which statements about galvanising
+    are correct? Galvanising involves coating the iron with silver. Galvanising prevents
+    oxygen and water from coming into contact with the iron. Galvanising works because
+    the metal coating loses electrons more readily than iron.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Nitrogen, phosphorus and potassium are essential elements for improved plant
+    growth. Which mixture provides all three essential elements? mixture formulae
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements help explain why an increasing amount of carbon dioxide or
+    methane in the atmosphere causes global warming? Carbon dioxide absorbs thermal
+    energy from the Earth. Methane does not absorb thermal energy from the Sun. Carbon
+    dioxide does not reflect thermal energy from the Sun to the Earth. Methane reflects
+    thermal energy from the Earth back to the Earth.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The exhaust gases from cars contain oxides of nitrogen. How are these oxides
+    of nitrogen formed?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: The structural formula of methyl ethanoate is CH3COOCH3. Which compounds are
+    structural isomers of methyl ethanoate? HCOOCH2CH3 CH3CH2COOH HOCH2CH2CH2OH
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the total number of covalent bonds in one molecule of propane?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Industrially, ethanol is produced by fermentation or by the reaction of ethene
+    with steam. Which row is correct? fermentation ethene + steam
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Some properties of an organic compound, J, are listed. ● It is a liquid at
+    room temperature. ● It is soluble in water. ● A solution of J reacts with calcium
+    carbonate to form carbon dioxide. ● A solution of J has a pH of 3. In which homologous
+    series does J belong?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The structures of two monomers that are used to make a condensation polymer
+    are shown. HO
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Which item of apparatus is used to measure 25.0 cm3 of aqueous sodium hydroxide?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Which method is used to obtain copper(II) sulfate crystals from an aqueous
+    solution of copper(II) sulfate?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: A mixture of four different colourless amino acids is analysed by paper chromatography.
+    The final chromatogram is shown. solvent front baseline Why does the chromatogram
+    only show three spots?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

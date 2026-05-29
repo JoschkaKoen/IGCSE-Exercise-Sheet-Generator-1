@@ -1,0 +1,679 @@
+questions:
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Chord
+  mark_scheme: []
+  graphics: []
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Radius drawn
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    4  or equivalent fraction
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '50
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.07 cao
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Cylinder
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Equilateral
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Blue
+
+    1
+
+    0580/33
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    5
+
+    oe
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3
+
+    5
+
+    oe
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'or 0.125
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '6859
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Bar width not equal oe
+
+    Scale not linear oe
+
+    2 B1 for each
+
+    8
+
+    23 400
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '9'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '171
+
+    2 M1 for 12 × 8 + 5 × 15 oe
+
+    or 23 × 5 + 8 × 7 oe
+
+    or 15 × 5 + 8 × 7 + 8 × 5 oe
+
+    or 23 × 12 – 15 × 7 oe'
+  mark_scheme: []
+  graphics: []
+- number: 10ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '18
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '16
+
+    2 M1 for (26 × 6) and (28 × 5) oe'
+  mark_scheme: []
+  graphics: []
+- number: '11'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '8.79 cao
+
+    2 M1 for 19
+
+    100  × 46.25 oe
+
+    or B1 for correctly rounding their more
+
+    accurate answer'
+  mark_scheme: []
+  graphics: []
+- number: 12a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7b – 11c final answer
+
+    2 B1 for 7b or – 11c in final answer
+
+    or for 7b – 11c seen then spoilt
+
+    12 (b)
+
+    5
+
+    2 M1 for 37 = 3 × 4 + 5t oe'
+  mark_scheme: []
+  graphics: []
+- number: '13'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '51 85
+
+    2 M1 for 136 ÷ (3 + 5) × k where k is 1, 3 or 5
+
+    0580/33
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: '14'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct working shown leading to
+
+    answer No with a correct statement.
+
+    e.g.
+
+    980 ÷ 68 [= 14.4…]
+
+    No, he would need 15 boxes oe
+
+    or
+
+    14 × 68 [= 952]
+
+    No, he can only pack 952
+
+    or he has 28 remaining oe
+
+    or
+
+    980 14 [ = 70]
+
+    No, each box would need to hold
+
+    70 pens oe
+
+    2 B1 for 980 ÷ 68
+
+    or No, he would need 15 boxes oe
+
+    or 14 × 68
+
+    or No, he can only pack 952
+
+    or he has 28 remaining oe
+
+    or 980 14
+
+    or No, each box would need to hold
+
+    70 pens oe'
+  mark_scheme: []
+  graphics: []
+- number: '15'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '114
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 16a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5.39 or 5.385…
+
+    2 M1 for 52 + 22 oe'
+  mark_scheme: []
+  graphics: []
+- number: 16b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct net of the pyramid
+
+    3 B2 for a 4 by 4 square and 4 identical
+
+    isosceles triangles correctly placed on the
+
+    square
+
+    or 3 correct faces
+
+    e.g. a 4 by 4 square and at least two
+
+    correct triangles correctly placed on the
+
+    square
+
+    or B1 for one correct face on a net
+
+    or 4 isosceles triangles with height 5 on
+
+    the sides of a square'
+  mark_scheme: []
+  graphics: []
+- number: '17'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '46.18 cao
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 18a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.74 or 1.735 to 1.736
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 18b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.015625 or 1
+
+    64
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '19'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '11x + 2 final answer
+
+    2 B1 for 15x + 6 or – 4x – 4
+
+    or for 11x + 2 seen then spoilt
+
+    or for 11x or 2 in the final answer'
+  mark_scheme: []
+  graphics: []
+- number: '20'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Due to an issue with question 20,
+
+    the question has been removed from
+
+    the question paper. AWARD 2
+
+    MARKS
+
+    2
+
+    0580/33
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 21a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Rotation
+
+    [centre] (0,0)
+
+    90 clockwise
+
+    3 B1 for rotation
+
+    B2 90 clockwise and centre (0,0)
+
+    or 90 [anticlockwise] and centre (0,5)
+
+    OR
+
+    B1 for 90 clockwise or 90 [anticlockwise]
+
+    or centre (0,0) or centre (0,5)'
+  mark_scheme: []
+  graphics: []
+- number: 21b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Points plotted at
+
+    (–4, 2) (–2, –2) (–3,–3) (–1, –3)
+
+    2 B1 for reflection in y = k or in x = 0'
+  mark_scheme: []
+  graphics: []
+- number: 22a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5   – 4   5
+
+    2 B1 for 2 correct'
+  mark_scheme: []
+  graphics: []
+- number: 22b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct curve
+
+    4 B3FT for 8 points correctly plotted
+
+    B2FT for 6 points correctly plotted
+
+    B1FT for 4 points correctly plotted'
+  mark_scheme: []
+  graphics: []
+- number: 23a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '45
+
+    2 M1 for 4.64 3.2
+
+    3.2
+
+    −
+
+    [×100] oe
+
+    or 4.64
+
+    3.20
+
+    ×100[–100] oe
+
+    or 4.64
+
+    3.20
+
+    – 1 [×100] oe'
+  mark_scheme: []
+  graphics: []
+- number: 23b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '10.4 or 10.36…
+
+    3
+
+    M2 for
+
+    900
+
+    3
+
+    8π
+
+    
+
+    oe
+
+    or
+
+    M1 for [r2 =] 900   3
+
+    8π
+
+    
+
+    oe
+
+    or for
+
+    2
+
+    1
+
+    900
+
+    π
+
+    8
+
+    3
+
+    =
+
+    
+
+    r
+
+    oe and a correct first
+
+    step'
+  mark_scheme: []
+  graphics: []
+- number: '24'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'p =
+
+    32
+
+    9
+
+    −
+
+    m
+
+    final answer oe
+
+    2 M1 for m – 32 = 9p or 9
+
+    m  = p + 32
+
+    9  oe'
+  mark_scheme: []
+  graphics: []
+- number: '25'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '180
+
+    2 B1 for 180k as final answer
+
+    or M1 for [20 =] 2 × 2 × 5
+
+    and [36 =] 2 × 2 × 3 × 3
+
+    or 2 correct factor trees or tables or lists
+
+    or a list of multiples of both 20 and 36 with at
+
+    least 3 of each
+
+    or 2 × 2 × 3 × 3 × 5 oe
+
+    0580/33
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: '26'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[y=] 3x + 9 cao final answer
+
+    3 B2 for 3x + c
+
+    or for a correct unsimplified answer
+
+    or M1 for a correct rise/run
+
+    or for a right-angled triangle with run = 1 and
+
+    rise = 3 marked on graph oe
+
+    or B1 for mx + 9 where m is their gradient'
+  mark_scheme: []
+  graphics: []
+- number: '27'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Due to an issue with question 27,
+
+    the question has been removed from
+
+    the question paper. AWARD 4
+
+    MARKS
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: '28'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '9
+
+    3 M2 for 5.4
+
+    36
+
+    × 60 oe
+
+    or M1 for
+
+    distance
+
+    time
+
+    their
+
+    their'
+  mark_scheme: []
+  graphics: []
+- number: 29a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3.2
+
+    2 M1 for 20.8
+
+    x
+
+    = 9.1
+
+    1.4
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 29b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4.26 or 4.255..
+
+    2 M1 for cos38
+
+    5.4
+
+    = y  or better
+
+    or sin 52 =
+
+    5.4
+
+    y  or better'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,541 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'arrow vertically downwards labelled ‘weight’ and arrow perpendicular
+    to cone, inwards and upwards, labelled ‘normal
+
+    contact force’'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'vertical component of contact force = weight (so no resultant
+    force vertically)
+
+    horizontal component of contact force is resultant force towards centre (of circle)'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a = v2 / r
+
+    a = g tan 52°
+
+    9.81  tan 52° = v2 / 0.15 leading to v = 1.4 m s–1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'v = r or a = r2
+
+     = 1.4 / 0.15 or √(9.81  tan 52° / 0.15)
+
+    = 9.3 rad s–1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: same resultant force / same acceleration so v2 is proportional
+    to r (so if speed increases radius must also increase)
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'sketch:
+
+    line from x = R to x = 4R entirely in the negative  region
+
+    curve with continuously decreasing magnitude and with gradient of continuously
+    decreasing magnitude, starting at (R, )
+
+    line passing through (2R, ½) and (4R, ¼)'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'horizontal straight line from t = 0 to t = 24 hours
+
+    line starting at (0, –)
+
+    9702/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'straight line with non-zero gradient from 0 to d
+
+    line with negative gradient from (0, V) to (d, 0)'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(P and Q are at the) same temperature
+
+    no net transfer of thermal energy (between P and Q)'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Q = mcT
+
+    24  103 = (0.54  390  T) + (0.37  910  T)
+
+    T = 44 K'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'work done = pV
+
+    = (1.6  105)  (0.18 – 0.32)
+
+    = –2.2  104 J'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'pV = NkT
+
+    N = (1.6  105  0.18) / (1.38  10–23  273)
+
+    = 7.6  1024'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '½m<c2> = (3 / 2)kT
+
+    r.m.s. speed = √[(3  1.38  10–23  (210 + 273) / (4.7  10–26)]
+
+    = 650 m s–1
+
+    9702/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' = 2 / T
+
+    = 2 / (0.15  10–6) = 4.2  107 rad s–1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a0 = 2x0
+
+    = (4.2  107)2  40  10–6
+
+    = 7.1  1010 m s–2'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'E = ½m2xo2
+
+    = ½  2.4  10–4  (4.2  107)2  (40  10–6)2
+
+    = 340 J'
+  mark_scheme: []
+  graphics: []
+- number: 4di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'apply alternating p.d. (to / across crystal)
+
+    applying p.d. to / across crystal causes it to distort'
+  mark_scheme: []
+  graphics: []
+- number: 4dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Z =  c
+
+    Zm = 1100  1600 (= 1.76  106)
+
+    Zb = 1900  4100 (= 7.79  106)
+
+    intensity reflection co-efficient= [(7.79 – 1.76) / (7.79 + 1.76)]2
+
+    = 0.40 or 40%
+
+    percentage transmitted = 60%
+
+    9702/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Q = Q1 = Q2 and V = V1 + V2
+
+    V = Q / C so:
+
+    Q / C = Q / C1 + Q / C2 leading to 1 / C = 1 / C1 + 1 / C2'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'total capacitance = C + ½C = (3 / 2)C
+
+    total capacitance  = gradient
+
+    = 400  10–6 / 6.0
+
+    either: C = (2  400  10–6) / (3  6.0) = 4.4  10–5 F = 44 F
+
+    or:
+
+    C = (2  400) / (3  6.0) = 44 F'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'τ = RC
+
+    = 54  103  (3/2)  44  10–6
+
+    = 3.6 s'
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.15 = exp(–t / 3.6)
+
+    t = 6.8 s'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'FB = FE
+
+    either: Bqu = qE and E = V / d leading to u = V / Bd
+
+    or:
+
+    Bqu = qV / d leading to u = V / Bd
+
+    9702/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'EK = ½mu2
+
+    u = √[(2  4.1  10–17) / (3.2  10–27)]
+
+    = 1.6  105 m s–1
+
+    B = 980 / (3.6  10–2  1.6  105)
+
+    = 0.17 T'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: expression is independent of mass and charge
+  mark_scheme: []
+  graphics: []
+- number: 6d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'either: electric force is downwards so magnetic force is upwards
+
+    or:
+
+    no resultant force so magnetic force is upwards
+
+    (positive ions so) current is from left to right
+
+    from (Fleming’s) left-hand rule, magnetic field is into the page'
+  mark_scheme: []
+  graphics: []
+- number: 6e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'curved path inside plates with consistent direction of curvature
+    and with no discontinuity at entry or in curvature
+
+    direction of deflection is upwards'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(induced) e.m.f. is (directly) proportional to rate
+
+    of change of (magnetic) flux (linkage)'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(uniform acceleration so) velocity is (directly) proportional
+    to time
+
+    (Fig. 7.2 shows) e.m.f. is (directly) proportional to time so E is proportional
+    to v.
+
+    9702/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(v = at so) distance moved in time t = att
+
+     = BA
+
+    E = ( / t) = B  L  (att) / t = BLat'
+  mark_scheme: []
+  graphics: []
+- number: 7biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'B = (0.30  10–3) / (0.45  7.8  2.0)
+
+    = 4.3  10–5 T'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    quantum of energy
+
+    •
+
+    of electromagnetic radiation'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '()E = hc / 
+
+     = (6.63  10–34  3.00  108) / (1.96  1.60  10–19)
+
+    = 6.3  10–7 m'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'number per unit time = power / energy per photon
+
+    = (1.0  10–2) / (1.96  1.60  10–19)
+
+    = 3.2  1016 s–1
+
+    9702/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'either: force = rate of change of momentum
+
+    or:
+
+    F = p / t
+
+    p = E / c
+
+    half the photons have change in momentum p, the other half have change in momentum
+    2p
+
+    F = [(1.96  1.60  10–19) / (3.00  108)]  3.2  1016  [(2 + 1) / 2]
+
+    = 5.0  10–11 N'
+  mark_scheme: []
+  graphics: []
+- number: 9ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'either: cannot predict when a (particular) nucleus will decay
+
+    or:
+
+    cannot predict which nucleus will decay next'
+  mark_scheme: []
+  graphics: []
+- number: 9aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: not affected by external / environmental factors
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: time for activity to halve
+  mark_scheme: []
+  graphics: []
+- number: 9c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'energy = (189  7.826) + (4  7.074) – (193  7.774)
+
+    = 7.03 eV'
+  mark_scheme: []
+  graphics: []
+- number: 9di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: decay constant
+  mark_scheme: []
+  graphics: []
+- number: 9dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'decay constant / magnitude of gradient = 1.4 / 0.84
+
+    half-life = ln2 / (1.4 / 0.84)
+
+    = 0.42 ms'
+  mark_scheme: []
+  graphics: []
+- number: 9ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: positrons collide with electrons and annihilate
+  mark_scheme: []
+  graphics: []
+- number: 9eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'long enough to have time to conduct investigation, not so long
+    as to cause patient unnecessary exposure to radiation
+
+    9702/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 10ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: total power of radiation emitted (by the star)
+  mark_scheme: []
+  graphics: []
+- number: 10aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'standard candle has known luminosity
+
+    measure the radiant flux intensity
+
+    use F = L / (4d 2) to calculate d'
+  mark_scheme: []
+  graphics: []
+- number: 10bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'v = 2R / T
+
+    v = 3.00  108  (656.2877 – 656.2831) / 656.2831
+
+    R = [3.00  108  (656.2877 – 656.2831) / 656.2831]  (2.07  106) / 2 = 6.93
+     108 m'
+  mark_scheme: []
+  graphics: []
+- number: 10bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Z is moving towards Earth
+
+    so observed wavelength is less than the emitted wavelength'
+  mark_scheme: []
+  graphics: []
+- number: 10biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'L = 4 r 2T 4
+
+    3.8  1026 = 4  5.67  10–8  (6.93  108)2  T 4
+
+    T = 5800 K'
+  mark_scheme: []
+  graphics: []

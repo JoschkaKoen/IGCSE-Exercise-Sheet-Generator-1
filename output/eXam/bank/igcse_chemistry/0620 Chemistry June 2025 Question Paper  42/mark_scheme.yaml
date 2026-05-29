@@ -1,0 +1,567 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '78(%)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '450
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any value between 25 to 35 inclusive
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1g
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '8
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1h
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7
+
+    1
+
+    0620/42
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 pair of electrons
+
+    M2 electron(s) shared between two atoms
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 the oxidation number of chlorine / Cl
+
+    M2 (oxidation number) is +1
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 O with 1 dot-cross bonding pair with each Cl
+
+    M2 4 non-bonding dots for O
+
+    M3 6 non-bonding crosses for each Cl
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (forces of) attraction between molecules are broken (during
+    boiling)
+
+    M2 covalent bonds (between Cl and O atoms) are broken (during thermal decomposition)
+
+    M3 weak attraction between molecules and strong covalent bonds / bonding between
+    atoms correctly applied
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2biv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 no ions
+
+    M2 no mobile electrons
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'graphite
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'electrons
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 5 correct Si atoms
+
+    M2 4 correct O atoms
+
+    2
+
+    0620/42
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 ionic
+
+    M2 molten
+
+    M3 in aqueous solution
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'increase
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'becomes paler blue
+
+    or
+
+    becomes colourless
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'bubbles
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3biv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4OH– → 2H2O + O2 + 4e-
+
+    M1 any negatively charged OH species losing electrons
+
+    OR
+
+    H2O + O2 as only products (other than electrons) on RHS
+
+    M2 any negatively charged OH species losing electrons
+
+    AND
+
+    H2O + O2 as only products (other than electrons) on RHS
+
+    M3 correct equation
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'increases
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'no change
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'bauxite
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cryolite
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3diii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 anodes or carbon / graphite react with oxygen / O2
+
+    M2 (form) carbon dioxide
+
+    2
+
+    0620/42
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4CO
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'chromium will need to be separated from iron
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'alloy
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 use of –14 or 7  –2
+
+    M2 +6
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 mol (NH4)2Cr2O7 = 1.26 / 252 = 0.005(00)
+
+    M2 mol of N2 = 0.005(00)
+
+    M3 vol of N2 = 0.005  24000 = 120 (cm3)
+
+    3
+
+    0620/42
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'I
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'lithium  /  Li
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'francium  /  Fr
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'lithium  /  Li
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'potassium  /  K
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5bv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'potassium  /  K
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 8 dots in second shell of each Na
+
+    M2 6 crosses and 2 dots in third shell of S
+
+    M3 ‘+’ charge on each Na ion on correct answer line and ‘2–‘ charge on S ion on
+    correct answer line
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'isotopes
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'mark by row
+
+    p = 37 and 37
+
+    n = 48 and 50
+
+    e = 37 and 36
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5diii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '75(%)
+
+    1
+
+    0620/42
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'homologous series
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '14
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C2H4 + 3O2 → 2CO2 + 2H2O
+
+    M1 CO2 + H2O
+
+    M2 correct equation
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6di
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 decreases
+
+    M2 decreases
+
+    M3 decreases
+
+    M4 no change
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 6dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 kinetic energy of particles increases
+
+    M2 frequency of collisions between particles increases
+
+    M3 higher percentage / proportion / fraction of collisions / particles have energy
+    greater than / equal to activation energy
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C5H6O4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'it has a carbon-carbon bond which is not a single bond
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6eiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 one C – C single bond with continuation bonds
+
+    M2 correct structure
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6eiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'compound B has two carboxylic acid groups
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6ev
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (mol of NaOH reacting) = 0.2(00)
+
+    M2 volume = 1000  0.2(00) / 0.250 = 800 cm3
+
+    2'
+  mark_scheme: []
+  graphics: []

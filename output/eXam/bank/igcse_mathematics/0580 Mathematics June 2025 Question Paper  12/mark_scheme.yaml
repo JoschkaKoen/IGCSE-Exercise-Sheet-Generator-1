@@ -1,0 +1,968 @@
+questions:
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.75'
+  mark_scheme: []
+  graphics: []
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '75
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1000 cao
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '83
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ruled perpendicular line through P
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '70
+
+    1
+
+    6
+
+    14 squares shaded
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    8
+
+    cao
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(
+
+    )'
+  mark_scheme: []
+  graphics: []
+- number: '12'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4
+
+    2
+
+    3
+
+    16
+
+    −
+
+    +
+
+    
+
+    −
+
+    = −
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(
+
+    )
+
+    3
+
+    4
+
+    5
+
+    7
+
+    5
+
+    −−
+
+    +
+
+    −
+
+    = −
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '9'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '13 5 2 3 11
+
+    24 8 3 4 12
+
+    2 B1 for 4 fractions in the correct order
+
+    or
+
+    M1 for 3 fractions correctly changed to have
+
+    the same denominator, 24k
+
+    or for 3 correct decimal equivalents'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Fully correct net
+
+    3 B2 for 4 correct faces in correct places
+
+    or B1 for 2 correct faces in correct places'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '30 cm3
+
+    2 B1 for 30
+
+    B1 for cm3'
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 11b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 11c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.5 or 2 1
+
+    2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 11d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3
+
+    2
+
+    M1 for 
+
+    
+
+    0
+
+    2
+
+    2
+
+    3
+
+    4
+
+    7
+
+    6
+
+    +
+
+    +
+
+    +
+
+    +
+
+    +
+
+    0580/12
+
+    May/June 2025
+
+    Guidance
+
+    12
+
+    85 × 99
+
+    85 100 85
+
+    
+
+    −
+
+    8500 85
+
+    −
+
+    8415'
+  mark_scheme: []
+  graphics: []
+- number: 13a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'rhombus
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 13b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'two properties stated that are better
+
+    than any applying to all quadrilaterals.
+
+    2 B1 for one property'
+  mark_scheme: []
+  graphics: []
+- number: 13c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A correct drawing of a trapezium with
+
+    perpendicular height 3 cm and parallel
+
+    sides 4 cm and 6 cm
+
+    3 B2 for trapezium perpendicular height 3 cm
+
+    or B1 for a trapezium drawn with sides 4 cm
+
+    and 6 cm but height ≠ 3
+
+    Or
+
+    M1 for
+
+    (
+
+    )
+
+    1 4
+
+    6'
+  mark_scheme: []
+  graphics: []
+- number: '15'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    +
+
+    
+
+    =
+
+    h
+
+    or better
+
+    A1 [h =] 3
+
+    If 0 scored, SC1 for a parallelogram or
+
+    rectangle drawn with height 3 cm
+
+    or h = 3 with no/wrong working'
+  mark_scheme: []
+  graphics: []
+- number: 14a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[6], 0, [−4], -6, -6, [−4], 0, 6
+
+    3 B2 for 3 correct
+
+    B1 for 1 correct'
+  mark_scheme: []
+  graphics: []
+- number: 14b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct curve
+
+    4 B3FT for 7 points correctly plotted
+
+    or B2FT for 5 points correctly plotted
+
+    or B1FT for 3 points correctly plotted'
+  mark_scheme: []
+  graphics: []
+- number: 14c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '( 0.5
+
+    −
+
+    , k) where 6.6
+
+    6
+
+    −
+
+    −
+
+    k
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 14d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.5
+
+    = −
+
+    x
+
+    oe
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 14e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−3.6 to −3.4       2.4 to 2.6
+
+    2 FT their curve
+
+    B1 for each
+
+    or B1 for
+
+    3
+
+    =
+
+    y
+
+    drawn
+
+    15
+
+    8
+
+    2 B1 for 64 seen
+
+    or M1 for
+
+    2
+
+    55
+
+    9
+
+    −
+
+    =
+
+    n
+
+    or better.'
+  mark_scheme: []
+  graphics: []
+- number: 16a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '6
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 16bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4, –3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 16bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–16, 9
+
+    1 FT their (b)(i)'
+  mark_scheme: []
+  graphics: []
+- number: 16c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Triangle drawn with coordinates
+
+    (
+
+    ) (
+
+    )
+
+    (
+
+    )
+
+    1, 2 , 2, 2  and 2, 5
+
+    −
+
+    −
+
+    −
+
+    2 B1 for reflection in
+
+    =
+
+    y
+
+    k  or in
+
+    1
+
+    = −
+
+    x
+
+    0580/12
+
+    May/June 2025
+
+    Guidance'
+  mark_scheme: []
+  graphics: []
+- number: 16di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Enlargement
+
+    [scale factor] 2
+
+    [centre] (
+
+    )
+
+    1,0
+
+    −
+
+    3 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: 16dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Rotation
+
+    90˚ clockwise
+
+    [centre] (2,3 )
+
+    3 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: '17'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '20'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '10
+
+    6
+
+    +
+
+    nfww
+
+    5 nfww
+
+    A1 If 0 scored SC1 for 2 correct roundings or for
+
+    all correct but with trailing zeros'
+  mark_scheme: []
+  graphics: []
+- number: '18'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '22'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2 B1 for answer 2 or 11
+
+    or M1 for 2 11
+
+    
+
+    as final answer
+
+    or 66
+
+    2 3 11
+
+    = 
+
+    and 110
+
+    2 5 11
+
+    = 
+
+    or for 2 correct tables or factor trees'
+  mark_scheme: []
+  graphics: []
+- number: 19a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '17
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 19b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    7
+
+    −
+
+    
+
+    x
+
+    final answer
+
+    2 B1 for
+
+    2
+
+    −
+
+    x
+
+    or
+
+    7
+
+    
+
+    x
+
+    20
+
+    J U K
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '21'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3 1
+
+    3 cao nfww
+
+    3 B2 for 10
+
+    3
+
+    OR
+
+    M1 for 25
+
+    9  and 6
+
+    5
+
+    A1 for 150
+
+    45
+
+    If 0 scored SC1 for 25
+
+    9  or 6
+
+    5  seen.
+
+    22
+
+    3.15   3.25
+
+    2 B1 for each
+
+    If 0 scored SC1 for both correct but reversed
+
+    or for 3150
+
+    3250
+
+    
+
+    
+
+    m'
+  mark_scheme: []
+  graphics: []
+- number: 23a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(
+
+    )
+
+    3
+
+    3
+
+    2
+
+    −
+
+    x
+
+    y  final answer
+
+    2 B1 for answer of (
+
+    )
+
+    3 3
+
+    2
+
+    −
+
+    x
+
+    xy  or (
+
+    )
+
+    9
+
+    6
+
+    −
+
+    x
+
+    y
+
+    or for
+
+    (
+
+    )
+
+    3
+
+    3
+
+    2
+
+    −
+
+    x
+
+    y  seen then spoilt'
+  mark_scheme: []
+  graphics: []
+- number: 23b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    2
+
+    5
+
+    12
+
+    −
+
+    −
+
+    x
+
+    x
+
+    final answer
+
+    2 B1 for
+
+    2
+
+    2
+
+    3
+
+    8
+
+    12
+
+    +
+
+    −
+
+    −
+
+    x
+
+    x
+
+    x
+
+    with at least 3 terms
+
+    correct
+
+    or for
+
+    2
+
+    2
+
+    5
+
+    12
+
+    −
+
+    −
+
+    x
+
+    x
+
+    seen then spoilt
+
+    0580/12
+
+    May/June 2025
+
+    Guidance
+
+    24
+
+    
+
+    
+
+    3
+
+    = −
+
+    x
+
+    
+
+    9
+
+    =
+
+    y
+
+    nfww
+
+    3 M1 for correctly eliminating one variable
+
+    A1 for
+
+    3
+
+    = −
+
+    x
+
+    A1 for
+
+    9
+
+    =
+
+    y
+
+    If A0 scored SC1 for 2 values satisfying one
+
+    of the original equations
+
+    25
+
+    11π
+
+    6
+
+    +  final answer
+
+    3 B2 for 11π
+
+    ,k
+
+    +
+
+    0
+
+    k
+
+    as final answer
+
+    or for correct answer seen and spoilt
+
+    or M2 for
+
+    (
+
+    )
+
+    7π
+
+    4π
+
+    2
+
+    7
+
+    4
+
+    +
+
+    +
+
+    
+
+    −
+
+    oe
+
+    or M1 for 7π or 4π or [2×](7 – 4) oe'
+  mark_scheme: []
+  graphics: []

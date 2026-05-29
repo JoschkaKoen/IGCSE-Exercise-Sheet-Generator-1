@@ -1,0 +1,863 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Pseudocode example
+
+    Selection Iteration Subroutine
+
+    FOR Index  1 TO 3
+
+    IF Safe[Index] = TRUE THEN
+
+    Flap[Index]  0
+
+    ENDIF
+
+    NEXT Index
+
+    
+
+    
+
+    CASE OF Compound(3)
+
+    
+
+    
+
+    REPEAT UNTIL AllDone() = TRUE
+
+    
+
+    
+
+    WHILE Result[3] <> FALSE
+
+    
+
+    One mark per row
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Variable
+
+    Example data value
+
+    Data type
+
+    Available
+
+    TRUE
+
+    BOOLEAN
+
+    Received
+
+    "18/04/2021"
+
+    STRING
+
+    Index
+
+    100
+
+    INTEGER
+
+    One mark per row
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Expression
+
+    Evaluates to
+
+    Available AND NOT(Index > 100)
+
+    TRUE
+
+    Index MOD 30
+
+    10
+
+    NUM_TO_STR(Index + "33")
+
+    ERROR
+
+    One mark per row
+
+    3
+
+    9618/23
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'DECLARE Count, Total, NextNumber : INTEGER
+
+    Total  0
+
+    FOR Count  1 TO 100
+
+    OUTPUT "Input an integer value"
+
+    INPUT NextNumber
+
+    IF NextNumber > 0 THEN
+
+    Total  Total + NextNumber
+
+    ENDIF
+
+    NEXT Count
+
+    OUTPUT Total
+
+    Mark as follows:
+
+    MP1
+
+    Declarations of all variables used
+
+    MP2
+
+    Loop for 100 iterations
+
+    MP3
+
+    Prompt and input a value in a loop and
+
+    MP4
+
+    Test for value > 0 // >=1 in a loop
+
+    MP5
+
+    Sum the Total in a loop
+
+    MP6
+
+    Output of Total after the loop
+
+    Max 5 marks
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'MP1
+
+    Construct: Iteration / Repetition
+
+    MP2
+
+    Use: To loop through all 100 inputs // To loop 100 times
+
+    ALTERNATIVE:
+
+    MP1
+
+    Construct: Selection
+
+    MP2
+
+    Use: To test whether the value input is positive
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0 is not a valid array / List index value // No 0th element
+    in the array
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0 to 200
+
+    1
+
+    9618/23
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Mark as follows:
+
+    MP1 Use of variable as array index and initialisation to 1 / to first element
+    of
+
+    array
+
+    MP2 Loop for 199 / 200 iterations
+
+    MP3 Assign Index+1 to each pointer field in a loop
+
+    MP4 Assign 0 to 200th pointer field
+
+    4
+
+    9618/23
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per step:
+
+    MP1 Assign HeadPointer to ThisPointer / Current Pointer // Identify
+
+    first node using headpointer
+
+    MP2 Loop the following until ThisPointer value is 0 (zero) / null pointer
+
+    reached
+
+    MP3 … Output data (field) from array element at index ThisPointer //
+
+    Output data (field) of the current node / array element
+
+    MP4 … Assign pointer field from current array element / index / to
+
+    ThisPointer / Current Pointer // Assign pointer field from current
+
+    node to  ThisPointer / Current Pointer
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per highlighted part:
+
+    FOR Index  1 TO 5
+
+    Lower  GB[Index] - 2
+
+    Upper  GB[Index] + 2  // Lower + 4
+
+    IF Mark >= Lower AND Mark <= Upper THEN
+
+    //IF Mark <= Upper AND Mark >= Lower THEN
+
+    OUTPUT "Check this paper"
+
+    ENDIF
+
+    NEXT Index
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'MP1 Use Mark as the index to the Check array // to specify
+    an array
+
+    element
+
+    MP2 If value of indexed element is TRUE, then the paper will need to be
+
+    checked
+
+    2
+
+    9618/23
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Example:solution
+
+    PROCEDURE GBInitialise()
+
+    DECLARE GBIndex, GBMark, ThisIndex : INTEGER
+
+    FOR ThisIndex  0 TO 75
+
+    Check[ThisIndex]  FALSE // initialise all values
+
+    NEXT ThisIndex
+
+    FOR GBIndex  1 TO 5
+
+    GBMark  GB[GBIndex]
+
+    FOR ThisIndex  GBMark - 2 TO GBMark + 2
+
+    Check[ThisIndex]  TRUE //Set GBMark  2 to
+
+    TRUE
+
+    NEXT ThisIndex
+
+    NEXT GBIndex
+
+    ENDPROCEDURE
+
+    Mark as follows:
+
+    MP1 Procedure heading and ending
+
+    MP2 Initialise Check array to FALSE
+
+    MP3 Loop through GB array
+
+    MP4 Extract the GB mark
+
+    MP5 Loop for 5 elements across GBMark  2 // Check if within  GBMark
+
+     2
+
+    MP6 Assign each element of Check array to TRUE
+
+    ALTERNATIVE – Example using selection Version 1
+
+    FOR ThisIndex  0 TO 75
+
+    CASE ThisIndex
+
+    GB[1] – 2 TO GB[1] + 2 : Check[ThisIndex]  TRUE
+
+    GB[2] – 2 TO GB[2] + 2 : Check[ThisIndex]  TRUE
+
+    GB[3] – 2 TO GB[3] + 2 : Check[ThisIndex]  TRUE
+
+    GB[4] – 2 TO GB[4] + 2 : Check[ThisIndex]  TRUE
+
+    GB[5] – 2 TO GB[5] + 2 : Check[ThisIndex]  TRUE
+
+    OTHERWISE: Check[ThisIndex]  FALSE
+
+    ENDCASE
+
+    NEXT ThisIndex
+
+    ALTERNATIVE – Example using selection Version 2
+
+    DECLARE ThisIndex, GBIndex : INTEGER
+
+    DECLARE Lower, Higher : INTEGER
+
+    FOR ThisIndex  0 TO 75
+
+    For GBIndex  1 T0 5
+
+    Lower  GB[GBIndex] - 2
+
+    Higher  GB[GBIndex] + 2
+
+    IF ThisIndex >= Lower AND ThisIndex <= Higher
+
+    THEN
+
+    Check[ThisIndex]  TRUE
+
+    ELSE
+
+    Check[ThisIndex]  FALSE
+
+    ENDIF
+
+    NEXT Index
+
+    NEXT ThisIndex
+
+    Mark as follows:
+
+    MP1 Procedure heading and ending
+
+    MP2 Loop through Check array// loop from 0 to 75
+
+    MP3 Attempt at using CASE / Selection structure with five clauses/ five
+
+    checks for range
+
+    MP4 Extract GB grade
+
+    MP5 Compare ThisIndex with each element in GB array 2
+
+    MP6 Assign each element of Check array to TRUE if in range or FALSE if
+
+    not in range'
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '9618/23
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Activity
+
+    Name of life
+
+    cycle stage
+
+    A compiler is be used.
+
+    Coding
+
+    A program that has been released for general use
+
+    is modified
+
+    Maintenance
+
+    The dry run method is used.
+
+    Testing
+
+    The program structure is specified.
+
+    Design
+
+    One mark per row
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for method – two marks for the description
+
+    MP1 Stub testing
+
+    MP2 The modules Test_A() and Test_B()are replaced by dummy
+
+    modules
+
+    MP3 ... which return a known result // An output statement is displayed
+
+    when called (to check it works) // gives expected output
+
+    3
+
+    9618/23
+
+    October/November
+
+    2024
+
+    6
+
+    Loop Solution
+
+    Example solution:
+
+    FUNCTION AdjustClock(ThisYear : INTEGER) RETURNS INTEGER
+
+    DECLARE ThisDayNumber, SundayCount : INTEGER
+
+    DECLARE ThisDate : DATE
+
+    ThisDayNumber  0
+
+    SundayCount  0
+
+    REPEAT
+
+    ThisDayNumber  ThisDayNumber + 1
+
+    ThisDate  SETDATE(ThisDayNumber, 3, ThisYear)
+
+    IF DAYINDEX(ThisDate) = 1 THEN
+
+    SundayCount  SundayCount + 1
+
+    ENDIF
+
+    UNTIL SundayCount = 3
+
+    RETURN ThisDayNumber
+
+    ENDFUNCTION
+
+    Mark as follows:
+
+    MP1 Function heading, parameter, ending and return type
+
+    MP2 Declare local integer variable that is used to create a date
+
+    MP3 Loop until 3rd Sunday found
+
+    MP4 Attempt to use both SETDATE() and DAYINDEX() in a loop
+
+    MP5 Correctly generate value of type DATE using SETDATE() in a loop
+
+    MP6 Test if value represents a Sunday using DAYINDEX() in a loop
+
+    MP7 Increment Sunday count in a loop and initialised correctly before loop
+
+    MP8 Return day number of third Sunday
+
+    Max 7 marks
+
+    Non-loop solution
+
+    Example solution:
+
+    FUNCTION AdjustClock(ThisYear : INTEGER) RETURNS INTEGER
+
+    DECLARE FirstDayIndex: INTEGER
+
+    DECLARE ThisDate : DATE
+
+    ThisDate  SETDATE(1, 3, ThisYear)
+
+    FirstDayIndex  DAYINDEX(ThisDate)
+
+    IF FirstDayIndex = 1 THEN
+
+    ThirdSunday  FirstDayIndex + 14 //First day is
+
+    Sunday
+
+    ELSE
+
+    ThirdSunday  23 – FirstDayIndex // Other days
+
+    ENDIF
+
+    RETURN ThirdSunday
+
+    ENDFUNCTION
+
+    7
+
+    9618/23
+
+    October/November
+
+    2024
+
+    6
+
+    Mark as follows:
+
+    MP1 Function heading, parameter, ending and return type
+
+    MP2 Declare local integer variable that is used to hold a day number
+
+    MP4 Attempt to use both SETDATE() and DAYINDEX()
+
+    MP5 Correctly generate value of type DATE using SETDATE() for first of
+
+    March /  specific day in March
+
+    MP6 Test if date represents a Sunday / specific day using DAYINDEX()
+
+    and calculate third Sunday  // Correctly calculate third Sunday for a
+
+    value returned by DAYINDEX()for one day
+
+    MP7 Calculate third Sunday for other six days
+
+    MP8 Return day number of third Sunday
+
+    Max 7 marks'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per answer:
+
+    MP1 Analysis
+
+    MP2 Named document, examples include:
+
+    •
+
+    A requirement specification
+
+    •
+
+    Definition of System Objectives
+
+    •
+
+    List of problems with existing system
+
+    •
+
+    Survey results
+
+    •
+
+    Feasibility study
+
+    •
+
+    Interview notes
+
+    Max 2 marks
+
+    2
+
+    9618/23
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for name and use
+
+    Mark as follows:
+
+    Examples include:
+
+    Sub-module: ScanCard()/ GetID()
+
+    Use: Read the barcode from the loyalty card / Get the customer ID from the
+
+    barcode
+
+    Sub-module: GetPoints()
+
+    Use: Get the number of points the customer has
+
+    Sub-module: ExchangePoints() / UpdateCard()
+
+    Use: Reduce the number of loyalty points
+
+    Sub-module: GetDiscount() / CalculateDiscount()
+
+    Use: Calculate the discount
+
+    Sub-module: CalculatePoints()
+
+    Use: Calculate points (following a purchase)
+
+    Sub-module: UpdatePoints()
+
+    Use: Update total points a customer has (following a purchase)
+
+    Sub-module: ShowDiscount()
+
+    Use: Display the discount
+
+    Max 4 marks
+
+    4
+
+    9618/23
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Example solution
+
+    PROCEDURE Count(ThisPlayer : INTEGER, ThisRole : STRING)
+
+    DECLARE Index, Num, Total : INTEGER
+
+    Num  0
+
+    Total  0
+
+    FOR Index  1 TO 45
+
+    IF Character[Index].Player = ThisPlayer AND __
+
+    Character[Index].Role = ThisRole THEN
+
+    Num  Num + 1
+
+    Total  Total + Character[Index].SkillLevel
+
+    NEXT Index
+
+    IF Num > 0 THEN
+
+    OUTPUT "Player ", ThisPlayer, __
+
+    " has ", Num, " characters with the role of
+
+    ", ThisRole, " and the total skill level is
+
+    ", Total
+
+    ELSE
+
+    OUTPUT "No characters with that role are
+
+    assigned to this player"
+
+    ENDIF
+
+    ENDPROCEDURE
+
+    MP1 Initialisation of local integers for Num and Total
+
+    MP2 Loop through 45 elements
+
+    MP3 Attempt to check Player and Role fields in a loop
+
+    MP4 Correctly compare Player field with parameter in a loop
+
+    MP5 Correctly compare Role field with parameter in a loop
+
+    MP6 ... if player and role found, increment Num and sum Skill Total in a
+
+    loop
+
+    MP7 Test for any matches after the loop
+
+    MP8 Both possible OUTPUT statements correctly formed following an
+
+    attempt at MP6 but outputting one only
+
+    Max 7 marks
+
+    7
+
+    9618/23
+
+    October/November
+
+    2024'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Example solution:
+
+    PROCEDURE Restore()
+
+    DECLARE Index : INTEGER
+
+    DECLARE Line  : STRING
+
+    OPENFILE "SaveFile.txt" FOR READ
+
+    FOR Index  1 TO 45
+
+    READFILE "SaveFile.txt", Line
+
+    Character[Index].Player  STR_TO_NUM(Extract(Line,
+
+    1))
+
+    Character[Index].Role  Extract(Line, 2)
+
+    Character[Index].Name  Extract(Line, 3)
+
+    Character[Index].Skill  STR_TO_NUM(Extract(Line,
+
+    4))
+
+    NEXT Index
+
+    CLOSEFILE "SaveFile.txt"
+
+    ENDPROCEDURE
+
+    Mark as follows:
+
+    MP1 Open the file in read mode and subsequently close
+
+    MP2 Loop through 45 elements
+
+    MP3 Read a line from the file in a loop
+
+    MP4 Attempt to use Extract() in a loop
+
+    MP5 Correct use of Extract() for all fields in a loop
+
+    MP6 Use of STR_TO_NUM() on Player and Skill in a loop
+
+    MP7 Completely correct extraction and assignment of all fields in a loop
+
+    7'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'MP1 The Character array / character data can be saved before
+    the
+
+    program is closed
+
+    MP2 Allowing the game to continue using the same data / from the point it
+
+    was saved
+
+    2'
+  mark_scheme: []
+  graphics: []

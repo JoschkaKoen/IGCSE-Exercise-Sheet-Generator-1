@@ -1,0 +1,810 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Seventy million(s) cao
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5
+
+    100
+
+    or 1
+
+    20
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4
+
+    2 M1 for
+
+    1
+
+    0.25
+
+    oe or 4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Obtuse
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Congruent
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '13'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '16'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    100
+
+    or 0.01
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '9
+
+    2  or 4.5 or 4 1
+
+    2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.032
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Rhombus
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '60
+
+    2 M1 for a + 2a = 180 oe or better'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '31
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '32
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '10
+
+    2 M1 for at least the first four or last four
+
+    correctly ordered'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '70
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 1.25 or 1
+  mark_scheme: []
+  graphics: []
+- number: '14'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '20
+
+    3 M2 for
+
+    15 7
+
+    70
+
+    15
+
+    3
+
+    
+
+    
+
+    
+
+    −
+
+    +
+
+    
+
+    
+
+    
+
+    
+
+    oe
+
+    or M1 for 15
+
+    ,
+
+    3 k  k = 1, 7 or 10'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3,   3,   5
+
+    1
+
+    0580/13
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Fully correct net
+
+    3 B2 for 2 correct extra faces in correct
+
+    places
+
+    or
+
+    B1 for 1 correct extra face in correct
+
+    place'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '45
+
+    2 FT their dimensions from (a)
+
+    M1 for 3 × 3 × 5 oe'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '65
+
+    2 M1 for
+
+    1
+
+    4
+
+    5 4  +  5 5
+
+    2
+
+    
+
+    
+
+     oe'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '8
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Circle around the statement
+
+    Line A is parallel to line B
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct graph of y = 2x – 1
+
+    2 B1 for short or unruled line or for two
+
+    correct coordinates plotted
+
+    or for line with positive gradient passing
+
+    through (0, –1)
+
+    or for line with gradient 2'
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '30 nfww
+
+    2 M1 for 120 90
+
+    360
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 11b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Sector 80 drawn on pie chart
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 11ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '36
+
+    2 M1 for 9
+
+    360
+
+    90 
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 11cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Completed pie chart
+
+    1 FT their (c)(i) dependent
+
+    on their (c)(i)  60'
+  mark_scheme: []
+  graphics: []
+- number: 12a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2 B1 for two correct values in the correct
+
+    position'
+  mark_scheme: []
+  graphics: []
+- number: 12b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '24
+
+    1 FT their diagram provided a value in
+
+    both sections of C
+
+    13
+
+    60
+
+    10 0.5
+
+    
+
+    12
+
+    A1 If 0 scored, SC1 for 2 correct roundings
+
+    or for all correct but with any trailing
+
+    zeros
+
+    F
+
+    E
+
+    C
+
+    5
+
+    7
+
+    17
+
+    1
+
+    0580/13
+
+    May/June 2025
+
+    Partial Marks
+
+    14
+
+    6 nfww
+
+    2 M1 for 1 (4 10)
+
+    42
+
+    2
+
+    +
+
+    =
+
+    h
+
+    oe or better'
+  mark_scheme: []
+  graphics: []
+- number: 15a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–4 ⩽ x < 3
+
+    2 B1 for –4 ⩽ x or x < 3'
+  mark_scheme: []
+  graphics: []
+- number: 15b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–3 cao
+
+    1
+
+    16
+
+    27
+
+    3 B2 for 10 or 10x
+
+    or M1 for [5 ×]
+
+    20
+
+    100
+
+    
+
+    
+
+    +
+
+    
+
+    
+
+    
+
+    
+
+    x
+
+    x  oe'
+  mark_scheme: []
+  graphics: []
+- number: 17a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'y10
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 17b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'p–3 or
+
+    3
+
+    1
+
+    p
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 17c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'w12
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 18a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '25
+
+    base angles of an isosceles triangle are
+
+    equal
+
+    2 B1 for either'
+  mark_scheme: []
+  graphics: []
+- number: 18b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '140
+
+    3 M2 for
+
+    [ORS = ]180 – (90 + their 25 + 25) oe
+
+    or B1 for OSR= 90 or ROS = 50
+
+    19
+
+    3 π
+
+    2
+
+    , 1
+
+    1
+
+    π
+
+    2
+
+    , or 1.5π
+
+    2 M1 for
+
+    2
+
+    60
+
+    π 3
+
+    360 
+
+    oe
+
+    20
+
+    18
+
+    2 B1 for answer 2 or 3 or 6 or 9
+
+    or M1 for 2  3  3 oe as final answer
+
+    or 36 = 2  2  3  3 and
+
+    54 = 2  3  3  3
+
+    or 2 correct factor trees or tables
+
+    21
+
+    3x = 15
+
+    M3 M2 for 2x + 1 + x + 3 + 9 = 2(x + 2x – 1)
+
+    or better
+
+    or
+
+    M1 for rearranging their equation to give
+
+    ax = b
+
+    or
+
+    B1 for 3x + 13 or 6x – 2
+
+    5
+
+    A1 dep on at least M2
+
+    If 0 scored, SC1 for answer 5 with no
+
+    algebra
+
+    0580/13
+
+    May/June 2025
+
+    Partial Marks
+
+    22
+
+    3(g + 8) or 3g + 24
+
+    2 M1 for
+
+    8
+
+    3
+
+    +
+
+    = h
+
+    g
+
+    or 3g = h – 24
+
+    23
+
+    6 nfww
+
+    2 M1 for 1.5
+
+    2
+
+    8
+
+    =
+
+    x
+
+    oe or better
+
+    24
+
+    13
+
+    114
+
+    cao nfww
+
+    3 B2 for 27
+
+    14
+
+    or B1 for 7
+
+    11
+
+    or
+
+    2
+
+    7
+
+    k
+
+    k
+
+    k
+
+    k
+
+    M1 for 49
+
+    22
+
+    and
+
+    14
+
+    14
+
+    or
+
+    7
+
+    8
+
+    3
+
+    and  1
+
+    14
+
+    14
+
+    or
+
+    7 7
+
+    11 2
+
+    and
+
+    2 7
+
+    7 2
+
+    
+
+    
+
+    
+
+    
+
+    their
+
+    their
+
+    or21
+
+    8
+
+    1
+
+    and
+
+    14
+
+    14
+
+    or 35
+
+    8
+
+    and
+
+    14
+
+    14
+
+    or 7
+
+    8
+
+    2
+
+    and
+
+    14
+
+    14
+
+    25
+
+    [x = ] 3 final answer nfww
+
+    [y = ] –4
+
+    3 M1 for correctly eliminating one variable
+
+    OR
+
+    M1 for correct substitution of x or y into
+
+    the other equation
+
+    A1 for x = 3
+
+    A1 for y = –4
+
+    If A0 scored, SC1 for 2 values satisfying
+
+    one of the original equations.'
+  mark_scheme: []
+  graphics: []

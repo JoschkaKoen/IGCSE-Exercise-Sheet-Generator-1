@@ -1,0 +1,757 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    A
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    Control unit
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    −
+
+    (The CPU completes) 2.4 billion
+
+    −
+
+    … cycles/clock pulses per second
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1ei
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    −
+
+    Stores data …
+
+    −
+
+    … that has been fetched/to be written to memory
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    −
+
+    Memory address register // MAR
+
+    −
+
+    Program counter // PC
+
+    −
+
+    Current instruction register // CIR
+
+    −
+
+    Accumulator // ACC'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct part of the fee, in the correct order:
+
+    −
+
+    17
+
+    −
+
+    70
+
+    (Correct fee $17.70)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct binary value:
+
+    Register 1
+
+    −
+
+    00001110
+
+    Register 2
+
+    −
+
+    01100010
+
+    2
+
+    0478/11
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct hexadecimal value, in the correct
+    order.
+
+    −
+
+    A
+
+    −
+
+    0
+
+    −
+
+    3
+
+    −
+
+    D
+
+    (Ticket number A03D)
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from:
+
+    −
+
+    It contains logic gates/switches …
+
+    −
+
+    … that process the values 1 and 0 // have two states
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any four from:
+
+    −
+
+    Compares the ticket number received to stored data
+
+    −
+
+    … that is a database/file of ticket numbers
+
+    −
+
+    … checks the ticket number is listed as paid
+
+    −
+
+    If the data matches/cost is paid it sends a signal to raise the barrier
+
+    −
+
+    If the data does not match/cost is not paid, the barrier remains down
+
+    4
+
+    0478/11
+
+    October/November 2023
+
+    3
+
+    One mark for each correct term:
+
+    Term
+
+    Description
+
+    hardware
+
+    A collective term for the physical
+
+    components of the computer system.
+
+    application software
+
+    A type of software that provides
+
+    services that the user requires and
+
+    allows the user to perform tasks on the
+
+    computer.
+
+    operating system
+
+    A type of software that manages the
+
+    main functions of the computer,
+
+    including managing files and managing
+
+    memory.
+
+    firmware
+
+    A type of software that is stored in the
+
+    read only memory (ROM). It includes
+
+    the basic input output system (BIOS)
+
+    and the bootloader.
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct transmission method:
+
+    −
+
+    Serial half-duplex
+
+    −
+
+    Serial full-duplex
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any four from:
+
+    −
+
+    The number of 1 s/0 s are counted
+
+    −
+
+    A parity bit is added to each byte/7 bits before transmission
+
+    −
+
+    … to make the sum of the bits/1 or 0 s in each byte odd
+
+    −
+
+    After transmission, if the number is odd no error is detected
+
+    −
+
+    After transmission, if the number is even an error is detected
+
+    4
+
+    0478/11
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–
+
+    Echo (check)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any five from:
+
+    −
+
+    (The analogue sound is) recorded using a microphone
+
+    −
+
+    The sound wave is sampled
+
+    −
+
+    … measuring the height/amplitude
+
+    −
+
+    Each amplitude has a unique binary value
+
+    −
+
+    The sample rate is set
+
+    −
+
+    … that is the number of samples taken per second
+
+    −
+
+    The sample resolution is set
+
+    −
+
+    … that is the number of bits used for each sample
+
+    −
+
+    Each sample taken is converted to binary
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from:
+
+    −
+
+    Increase the sample rate
+
+    −
+
+    Increase the sample resolution
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    −
+
+    They want to be able to edit the original sound file
+
+    −
+
+    They want the highest sound quality for the file // They want the sound to be
+    closest to the original recording
+
+    −
+
+    … using lossy would reduce the sound quality
+
+    −
+
+    … using lossy will permanently remove some of the data // no data will be permanently
+    removed with lossless
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any four from (MAX 3 for ASCII/Unicode alone):
+
+    −
+
+    ASCII has limited/fewer characters // Unicode has a more characters
+
+    −
+
+    ASCII covers a limited set of languages/fewer languages
+
+    −
+
+    Unicode includes many/more languages/emojis
+
+    −
+
+    ASCII requires 7/8 bits per character
+
+    −
+
+    Unicode requires up to 16/32 bits per character
+
+    −
+
+    ASCII has 128/256 characters
+
+    −
+
+    Unicode has 65 536/4 294 967 296 characters // approx. 60/70 thousand/4 billion
+    characters
+
+    4
+
+    0478/11
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The diagram includes (any four from):
+
+    −
+
+    Traffic passing both ways through the firewall
+
+    −
+
+    An indication that criteria is set for the firewall
+
+    −
+
+    Traffic is compared to criteria
+
+    −
+
+    Traffic being rejected if it does/does not meet criteria
+
+    −
+
+    Traffic being accepted if it does/does not meet criteria
+
+    e.g.
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct term, in the correct order:
+
+    −
+
+    header
+
+    −
+
+    destination address
+
+    −
+
+    routers
+
+    −
+
+    last
+
+    4
+
+    0478/11
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    −
+
+    Data is stored on platters
+
+    −
+
+    (Platters) are divided into tracks and sectors
+
+    −
+
+    Has components that are spun
+
+    −
+
+    Data is read/written using a read/write arm
+
+    −
+
+    Data is read/written using electromagnets
+
+    −
+
+    Magnetic field determines the binary value
+
+    −
+
+    It is non-volatile
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three from:
+
+    −
+
+    Flashes data onto chips
+
+    −
+
+    Uses transistors
+
+    −
+
+    Uses NAND/NOR technology
+
+    −
+
+    Uses control gates
+
+    −
+
+    Uses flow gates
+
+    −
+
+    Controls the flow of electrons
+
+    −
+
+    It can be volatile or non-volatile
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for an example in each storage type e.g.:
+
+    Magnetic
+
+    −
+
+    HDD
+
+    −
+
+    Magnetic tape
+
+    −
+
+    Floppy disk
+
+    −
+
+    Magnetic strip
+
+    Solid state
+
+    −
+
+    SSD
+
+    −
+
+    USB drive
+
+    −
+
+    SD card
+
+    −
+
+    RAM
+
+    Optical
+
+    −
+
+    CD
+
+    −
+
+    DVD
+
+    −
+
+    Blu-ray
+
+    3
+
+    0478/11
+
+    October/November 2023'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    −
+
+    Operating system // Interrupt handler
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any five from:
+
+    e.g.
+
+    −
+
+    Key press generates the interrupt
+
+    −
+
+    Interrupt given a priority
+
+    −
+
+    Interrupt is sent to CPU
+
+    −
+
+    Interrupt is placed in a queue
+
+    −
+
+    CPU stops current task to check the queue/service the interrupt …
+
+    −
+
+    … using an interrupt service routine
+
+    −
+
+    If key press is highest priority the interrupt is processed
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 9ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two suitable hardware example e.g.:
+
+    −
+
+    Moving the mouse
+
+    −
+
+    Clicking a mouse button
+
+    −
+
+    Plugging in a device
+
+    −
+
+    Paper jam in printer
+
+    −
+
+    Printer out of paper
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two suitable software examples e.g.:
+
+    −
+
+    Division by zero
+
+    −
+
+    Two processes accessing the same memory location
+
+    −
+
+    Null value
+
+    2'
+  mark_scheme: []
+  graphics: []

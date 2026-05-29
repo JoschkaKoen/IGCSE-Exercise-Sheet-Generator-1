@@ -1,0 +1,612 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: force per unit mass
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'radial
+
+    towards (centre of) planet'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(changes in) height (very) much smaller than radius
+
+    (radius + height)2  radius2
+
+    or
+
+    field lines are approximately parallel'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '9.81  R2 = 3.99  1014
+
+    R = 6.38  106 m'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'gravitational potential = – (GM / R)
+
+    = – (3.99  1014) / (6.38  106)
+
+    = – 6.25  107 J kg–1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'potential (energy) zero at infinite separation
+
+    (gravitational) force is attractive
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'same temperature (as each other)
+
+    no net transfer of thermal energy (between them)'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: E1 = XL
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: E2 = Mc(t – )
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: E3 = Xc
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'E2 = E1 + E3
+
+    Mc(t – ) = XL + Xc
+
+    and
+
+    completion of algebra to reach  = (Mct – XL) / c(M + X)
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(gas that obeys) pV  T (at all values of p, V and T)
+
+    where T is thermodynamic temperature'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'pV = ⅓ Nm〈c2〉  and  Nm / V = 
+
+    (p = ⅓  〈c2〉 )
+
+    r.m.s. speed = √〈c2〉
+
+    1.6  105 = ⅓  1.9 × 〈c2〉 leading to r.m.s. speed = 500 m s–1
+
+    or
+
+    r.m.s. speed = √(3  1.6  105 / 1.9) = 500 m s–1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(pV =) ⅓ Nm〈c2〉 = NkT
+
+    (so) ½ m〈c2〉 = (3 / 2) kT
+
+    ½  4.7  10–26  5032 = (3 / 2)  1.38  10–23  T
+
+    T = 290 K
+
+    or
+
+    pV = NkT  and  Nm / V = 
+
+    (so) T = pm / k
+
+    (C1)
+
+    T = 1.6  105  4.7  10–26 / (1.9  1.38  10–23)
+
+    = 290 K
+
+    (A1)
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'potential energy (of molecules) is zero
+
+    U = N  ½ m〈c2〉 = 6.0  6.02  1023  ½  4.7  10–26  5032
+
+    or
+
+    U = N  (3 / 2) kT = 6.0  6.02  1023  (3 / 2)  1.38  10–23  287
+
+    or
+
+    U = n  (3 / 2) RT = 6.0  (3 / 2)  8.31  287
+
+    U = 21000 J
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(motion in which) acceleration is (directly) proportional to
+    displacement
+
+    (motion in which)
+
+    acceleration is (always) in the opposite direction to displacement
+
+    or
+
+    acceleration is (always) directed towards a fixed point'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 't1 and t5
+
+    or
+
+    t3 and t7'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'f = 1 / T
+
+    period = 2.2 / 1.25
+
+    f = 1.25 / 2.2
+
+    = 0.57 Hz'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'v0 = x0  and   = 2f
+
+    0.080 = 2  0.57  x0
+
+    x0 = 0.022 m
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'work done per unit charge
+
+    work done (on charge) in moving positive charge from infinity (to the point)'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'electric field strength inversely proportional to distance2
+
+    E = 32  2.0  105
+
+    = 1.8  106 N C–1'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'V = Q / 40r  and  E = Q / 40r2 (so E = V / r)
+
+    r = (9.0  104) / (1.8  106) = 0.050 m = 5.0 cm'
+  mark_scheme: []
+  graphics: []
+- number: 5biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Q = 40Vr
+
+    = 4  8.85  10–12  9.0  104  0.050
+
+    = 5.0  10–7 C'
+  mark_scheme: []
+  graphics: []
+- number: 5biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C = Q / V
+
+    = (5.0  10–7) / (9.0  104)
+
+    = 5.6  10–12 F
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'F = BIL
+
+    force on QR = 5.2  10–3  1.2  0.054  190
+
+    = 0.064 N'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'torque = force  perpendicular distance between forces
+
+    = 0.064  0.025 cos  = (1.6  10–3) cos   N m'
+  mark_scheme: []
+  graphics: []
+- number: 6aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'one complete cycle of a sinusoidal curve between 0 and 360°
+
+    τ axis labelled to show maximum and minimum torques at ± 1.6  10–3 N m
+
+    maximum at 0 and 360° and minimum at 180° (or vice versa), with torque shown as
+    zero at 90° and 270°'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(ferrous core) increases magnetic flux density
+
+    amplitude of torque increases
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'loss of energy (of oscillations)
+
+    due to resistive forces'
+  mark_scheme: []
+  graphics: []
+- number: 7aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'amplitude (of oscillations) decreases gradually
+
+    or
+
+    oscillations continue (for several periods)'
+  mark_scheme: []
+  graphics: []
+- number: 7aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cutting of (magnetic) flux causes induced e.m.f. (in coil)
+
+    or
+
+    induced e.m.f. causes current (in resistor / circuit)
+
+    current causes dissipation of thermal energy in resistor
+
+    or
+
+    current in resistor causes dissipation of thermal energy
+
+    thermal energy comes from energy of oscillations'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(for any given e.m.f.) current is lower so thermal energy dissipated
+    at a lower rate
+
+    or
+
+    (for any given e.m.f.) current is lower so the resistive force is lower
+
+    oscillations are less damped
+
+    or
+
+    smaller decrease in amplitude of oscillations (in each period)
+
+    or
+
+    oscillations continue for longer
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'four diodes shown (one in each gap) with correct circuit symbols
+
+    all four diodes connected in correct direction (pointing left to right)'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'three lines showing exponential decay from the peaks at 0.5T,
+    1.0T and 1.5T, ending at the point where the decay meets
+
+    the next rising peak
+
+    three curved lines rising along the upwards dotted lines from the minima to the
+    peaks at 1.0T, 1.5T and 2.0T
+
+    minimum V at (2 / 3) V0'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'from graph: discharge time (from V0 to (2 / 3)V0) = (11 / 30) T
+
+    (2 / 3) V0 = V0 exp (– (11 / 30)T / τ)
+
+    ln (2 / 3) = – 11T / 30τ
+
+    τ = 0.90 T'
+  mark_scheme: []
+  graphics: []
+- number: 8biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'time constant is increased
+
+    line shows a larger minimum voltage
+
+    or
+
+    smaller difference between maximum and minimum voltages
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 9ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'electromagnetic wave can behave like a particle
+
+    moving particle can behave like a wave'
+  mark_scheme: []
+  graphics: []
+- number: 9aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' = h / p
+
+    h is the Planck constant'
+  mark_scheme: []
+  graphics: []
+- number: 9bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two points from:
+
+    •
+
+    pattern similar to diffraction of light
+
+    •
+
+    diffraction (pattern) is characteristic of wave behaviour
+
+    •
+
+    rings show constructive and destructive interference'
+  mark_scheme: []
+  graphics: []
+- number: 9bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(de Broglie) wavelength decreases
+
+    rings become closer together
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'alternating p.d. (applied to crystal) makes crystal vibrate
+
+    when frequency of applied p.d. equals natural frequency of crystal, crystal resonates
+
+    natural frequency of crystal is in ultrasound range'
+  mark_scheme: []
+  graphics: []
+- number: 10bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'product of density and speed
+
+    speed is speed of ultrasound in medium (and density of medium)'
+  mark_scheme: []
+  graphics: []
+- number: 10bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '( is close to) 0 when Z1 and Z2 are equal
+
+    ( is close to) 1 when Z1 and Z2 are very different'
+  mark_scheme: []
+  graphics: []
+- number: 10c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'I = I0 exp (–x)
+
+    ln (I / I0) = – x
+
+    ln 0.62 = –   2.1
+
+     = 0.23 cm–1
+
+    9702/44
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 11ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (nuclear) fusion
+  mark_scheme: []
+  graphics: []
+- number: 11aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '∆m = [0.030377 – (3  0.002388)] u
+
+    ( = 0.023213 u)
+
+    E = ∆m c2
+
+    = 0.023213  1.66  10–27  (3.00  108)2 = 3.47  10–12 J'
+  mark_scheme: []
+  graphics: []
+- number: 11bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'mass of 1 mol of helium-4 = 4 g
+
+    or
+
+    mass of 1 helium atom = 4 u
+
+    N rate = (6.02  1023  7.34  1011) / (4  10–3)
+
+    or
+
+    N rate = (7.34  1011) / (4  1.66  10–27)
+
+    luminosity = 1.10  1038  3.47  10–12
+
+    = 3.83  1026 W'
+  mark_scheme: []
+  graphics: []
+- number: 11bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'L = 4r2T4
+
+    3.83  1026 = 4  5.67  10–8  (6.96  108)2  T4
+
+    T = 5770 K'
+  mark_scheme: []
+  graphics: []

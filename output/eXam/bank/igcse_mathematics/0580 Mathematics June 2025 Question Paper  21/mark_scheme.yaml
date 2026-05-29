@@ -1,0 +1,1154 @@
+questions:
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct line drawn
+
+    2 M1 for a line with gradient 2 or for a line with
+
+    positive gradient and intercept at y = 1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[x =] 2, [y =] 5
+
+    1 FT intersection of their (a) with the given line'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '15
+
+    3 B2 for 24
+
+    90  oe
+
+    or M1 for 26.66… – 2.66… oe
+
+    or for 90x = 24 oe
+
+    or for 2
+
+    10  + 6
+
+    90  oe'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '14
+
+    13
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    2 B1 for 14
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    k
+
+    or for 13
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    k
+
+    or for 22
+
+    10
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    '
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '24
+
+    2 M1 for y + 52 = 72 or better'
+  mark_scheme: []
+  graphics: []
+- number: '9'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4 nfww
+
+    3 M2 for 8 + 20 + 8n = 6(2 + 4 + n) or better
+
+    or M1 for 2  4  4  5    8
+
+    2  4
+
+    + + 
+
+    + +
+
+    n
+
+    n
+
+    [= 6] oe
+
+    or 8 + 20 + 8n or 6(2 + 4 + n)
+
+    0580/21
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '110'
+  mark_scheme: []
+  graphics: []
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '55
+
+    1 FT their 110  2'
+  mark_scheme: []
+  graphics: []
+- number: 10c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '55
+
+    1 FT their (b)
+
+    Provided their (b) < 90'
+  mark_scheme: []
+  graphics: []
+- number: 10d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '15
+
+    1 FT 70 – their (b)
+
+    Provided their (b) < 70'
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'For correct ruled tangent and
+
+    [a =] 1, [b =] 2
+
+    2 B1 for correct ruled tangent or both values
+
+    correct without a correct tangent'
+  mark_scheme: []
+  graphics: []
+- number: 11b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[y =] 5 – 3x
+
+    3 3FT their (a) provided m < 0, c ≠ 0
+
+    B1 for (their –3)x + c
+
+    or M1 for correct rise
+
+    run
+
+    for their line
+
+    B1 for mx + c where c is the correct intercept
+
+    for their graph, m ≠ 0'
+  mark_scheme: []
+  graphics: []
+- number: 12a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.4
+
+    2 B1 for [UQ =] 5.6 or for [LQ =] 4.2
+
+    or SC1 for 0.7'
+  mark_scheme: []
+  graphics: []
+- number: 12b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5.4
+
+    2 B1 for 84 seen'
+  mark_scheme: []
+  graphics: []
+- number: 13a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '12.5 oe
+
+    5 M4 for 8[]h = 100[]
+
+    OR
+
+    M3 for'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    π 6 10
+
+    2 π 6
+
+    2 π 4
+
+    2 π 4 h
+
+    
+
+    + 
+
+    =
+
+    
+
+    + 
+
+    oe
+
+    OR
+
+    M1 for π 6 10
+
+    
+
+    +
+
+    2
+
+    2
+
+    π
+
+    6
+
+    
+
+    
+
+    oe
+
+    2
+
+    2 π
+
+    4
+
+    2 π
+
+    4 h
+
+    
+
+    +  oe
+
+    OR
+
+    SC2 for answer 16.5'
+  mark_scheme: []
+  graphics: []
+- number: 13b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '14
+
+    3 M2 for
+
+    2
+
+    2
+
+    10
+
+    6
+
+    −
+
+    or M1 for 62 + x2 = 102'
+  mark_scheme: []
+  graphics: []
+- number: 14a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–10
+
+    1
+
+    0580/21
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 14b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '+
+
+    x
+
+    oe
+
+    2 M1 for correct first step
+
+    y + 4 = 3x or x = 3y – 4
+
+    or
+
+    4
+
+    3
+
+    3
+
+    =
+
+    −
+
+    y
+
+    x'
+  mark_scheme: []
+  graphics: []
+- number: 14c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a = 12, b = –1
+
+    2 B1 for either a or b correct
+
+    or M1 for 3(4x + 1) – 4'
+  mark_scheme: []
+  graphics: []
+- number: 14d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(
+
+    )(
+
+    )
+
+    22
+
+    7
+
+    3
+
+    4
+
+    4
+
+    1
+
+    −
+
+    −
+
+    +
+
+    x
+
+    x
+
+    x
+
+    or
+
+    2
+
+    22
+
+    7
+
+    12
+
+    13
+
+    4
+
+    −
+
+    −
+
+    −
+
+    x
+
+    x
+
+    x
+
+    final answer
+
+    3 B1 for 2(4x + 1) – 5(3x – 4) oe or better isw
+
+    B1 for common denominator (3x – 4)(4x + 1)
+
+    oe isw'
+  mark_scheme: []
+  graphics: []
+- number: 15a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '17 – 7 5  final answer
+
+    2 B1 for 3 correct terms from
+
+    2 – 6 5  – 5  + 3  5   5  oe'
+  mark_scheme: []
+  graphics: []
+- number: 15b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 3 10
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cao
+
+    2
+
+    M1 for
+
+    6
+
+    10
+
+    10
+
+    10
+
+    
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: '16'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3x3 + 5x2 – 34x – 24 final answer
+
+    3 B2 for correct expansion unsimplified
+
+    or simplified four-term expression of correct
+
+    form with 3 terms correct
+
+    or B1 for one pair of brackets expanded with at
+
+    least 3 terms out of 4 correct'
+  mark_scheme: []
+  graphics: []
+- number: 17a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '9
+
+    100  oe
+
+    2 M1 for 3
+
+    10   3
+
+    10'
+  mark_scheme: []
+  graphics: []
+- number: 17bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    5
+
+    4
+
+    5
+
+    1
+
+    5
+
+    2 B1 for 2
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 17bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '16
+
+    30  oe
+
+    3 3FT their tree diagram dep on probabilities < 1
+
+    M2FT for 4
+
+    6   2
+
+    5  + 2
+
+    6   4
+
+    5
+
+    or M1FT for 4
+
+    6   2
+
+    5  or for 2
+
+    6   4
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 18a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '12
+
+    x
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 18b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '10
+
+    4
+
+    −
+
+    x
+
+    1
+
+    0580/21
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 18c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'their 10
+
+    4
+
+    −
+
+    x
+
+    – their 12
+
+    x
+
+    = 1 oe
+
+    10x – 12x + 48 = x2 – 4x
+
+    M2 Correctly multiplying their brackets and
+
+    clearing algebraic fractions
+
+    e.g. (
+
+    ) 12
+
+    4
+
+    1
+
+    10
+
+    
+
+    
+
+    −
+
+    +
+
+    =
+
+    
+
+    
+
+    
+
+    
+
+    x
+
+    x
+
+    leading to
+
+    48
+
+    12
+
+    4
+
+    10
+
+    −
+
+    +
+
+    −
+
+    =
+
+    x
+
+    x
+
+    and then
+
+    2
+
+    12
+
+    48
+
+    4
+
+    10
+
+    −
+
+    +
+
+    −
+
+    =
+
+    x
+
+    x
+
+    x
+
+    x
+
+    or M1 for correctly clearing, or correctly
+
+    collecting into a single fraction, two fractions
+
+    both with different algebraic denominators
+
+    e.g. 10x – 12(x – 4) = x(x – 4)
+
+    or
+
+    (
+
+    )
+
+    (
+
+    )
+
+    10
+
+    12
+
+    4
+
+    4
+
+    −
+
+    −
+
+    −
+
+    x
+
+    x
+
+    x x
+
+    [= 1]
+
+    Leading to 0 = x2 – 2x – 48
+
+    With no errors or omissions seen, dep on M3'
+  mark_scheme: []
+  graphics: []
+- number: 18d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(x + 6)(x – 8)
+
+    M2 M1 for x(x – 8) + 6(x – 8)
+
+    or x(x + 6) – 8(x + 6)
+
+    or (x + a)(x + b) where ab = –48 or a + b = –2
+
+    –6, 8'
+  mark_scheme: []
+  graphics: []
+- number: 18e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.5 or 1 1
+
+    2
+
+    1 FT
+
+    12
+
+    8
+
+    their'
+  mark_scheme: []
+  graphics: []
+- number: '19'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    9
+
+    2 M1 for 9–1 or for
+
+    2
+
+    1
+
+    3  or 3
+
+    1
+
+    729'
+  mark_scheme: []
+  graphics: []
+- number: '20'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '6 3  oe
+
+    4
+
+    B1 for tan30 = 1
+
+    3
+
+    or
+
+    3
+
+    3
+
+    or for
+
+    3
+
+    sin60
+
+    2
+
+    =
+
+    and
+
+    1
+
+    sin30
+
+    2
+
+    =
+
+    M2 for
+
+    6
+
+    tan30  or
+
+    (
+
+    )
+
+    (
+
+    )
+
+    6sin 60
+
+    sin 30
+
+    or M1 for 6
+
+    tan30
+
+    =
+
+    x
+
+    or sin60
+
+    sin30
+
+    6
+
+    =
+
+    x'
+  mark_scheme: []
+  graphics: []
+- number: 21ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2m – n
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 21aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2m + n
+
+    1
+
+    0580/21
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 21b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CD  = 10m – 5n
+
+    M2 Allow M2 for equivalents
+
+    CD  = –2n + 10m – 3n
+
+    or CD  = (
+
+    )
+
+    2
+
+    2
+
+    10
+
+    3
+
+    −
+
+    +
+
+    +
+
+    −
+
+    +
+
+    −
+
+    m
+
+    n
+
+    m
+
+    n
+
+    m
+
+    n
+
+    For M2, FT their (a) e.g.
+
+    1 0
+
+    3
+
+    CD
+
+    their CO
+
+    their OA
+
+    =
+
+    +
+
+    +
+
+    −
+
+    m
+
+    n
+
+    or M1 for correct route for CD  using the lines
+
+    of the diagram with AD
+
+    e.g.
+
+    CD
+
+    CA
+
+    AD
+
+    =
+
+    +
+
+    oe
+
+    CD  = 5 OA
+
+    leading to CD is parallel to OA
+
+    [ OACD is a trapezium]
+
+    A1 Dependent on M2'
+  mark_scheme: []
+  graphics: []
+- number: 22a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[n =] 3, [q =] – 6
+
+    2 B1 for each correct value'
+  mark_scheme: []
+  graphics: []
+- number: 22b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(1, 4) and (3, 0)
+
+    4 B3 for (1, 4) or (3, 0)
+
+    or for two correct values of x
+
+    or M2 for [3](x – 1)(x – 3) [ = 0] oe
+
+    or
+
+    (
+
+    )
+
+    (
+
+    )
+
+    2
+
+    12
+
+    12
+
+    4 3 9
+
+    2 3
+
+    −−
+
+    
+
+    −
+
+    −
+
+    =
+
+    
+
+    x
+
+    oe
+
+    or M1 for writing d
+
+    d
+
+    y
+
+    x  = 0
+
+    or for
+
+    2
+
+    3
+
+    12
+
+    9
+
+    0
+
+    −
+
+    +
+
+    =
+
+    x
+
+    x
+
+    23
+
+    2
+
+    5
+
+    −
+
+    x
+
+    x
+
+    final answer
+
+    3 B1 for 2x(x + 5)
+
+    B1 for (x – 5)(x + 5)'
+  mark_scheme: []
+  graphics: []

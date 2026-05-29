@@ -1,0 +1,843 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    A
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    −
+
+    Spyware // Keylogger
+
+    −
+
+    Adware
+
+    −
+
+    Trojan horse
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    Anti-malware
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    227
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct character in the correct order:
+
+    −
+
+    E3
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    0
+
+    0
+
+    0
+
+    1
+
+    1
+
+    0
+
+    0
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for suitable working method e.g. flip and add 1
+
+    One mark for correct answer
+
+    −
+
+    10011101
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct nibble (max 2)
+
+    One mark for correct working e.g. correct carry
+
+    One mark for showing overflow bit
+
+    1
+
+    1 1 1 0 0 0 1 1
+
+    +  0 1 0 0 1 1 0 0
+
+    1  0 0 1 0  1 1 1 1
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    The maximum number of FDE cycles/instructions a CPU can
+
+    perform/process/execute in a second
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    Increases/improves the performance // Tasks can be performed
+
+    quicker/faster
+
+    −
+
+    … because more FDE cycles/instructions can be processed in a second
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    Stores addresses …
+
+    −
+
+    … of next instruction/data to be fetched // where data is to be written to
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    Instruction set
+
+    1
+
+    0478/12
+
+    October/November
+
+    2023'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    −
+
+    Performs a single/limited/dedicated function/task
+
+    −
+
+    It has a microprocessor
+
+    −
+
+    It has dedicated hardware
+
+    −
+
+    Uses firmware
+
+    −
+
+    It is normally built into a larger device/system
+
+    −
+
+    User normally cannot reprogram
+
+    −
+
+    It does not require much power
+
+    −
+
+    It is cheap to manufacture
+
+    −
+
+    Works automatically // works without human intervention
+
+    −
+
+    It is small (in size)
+
+    −
+
+    It is a real-time system
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct system:
+
+    −
+
+    security light system
+
+    −
+
+    freezer
+
+    −
+
+    vending machine
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    −
+
+    The recording of the song is more accurate/closer to original
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    −
+
+    The file size will be increased
+
+    −
+
+    The file will require more storage space
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    −
+
+    The number of bits that are used per sample
+
+    −
+
+    … that provides the variation in amplitude that can be stored for each
+
+    sample // defines the number of different amplitudes that can be recorded
+
+    −
+
+    … that determines how quiet/loud the sounds are that can be recorded
+
+    −
+
+    Example e.g. 16-bit
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    Lossless
+
+    1
+
+    0478/12
+
+    October/November
+
+    2023'
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct data transmission method:
+
+    Data transmission method
+
+    Description
+
+    serial simplex
+
+    Data is transmitted down a single
+
+    wire, one bit at a time, in one
+
+    direction only.
+
+    parallel half-duplex
+
+    Data is transmitted down multiple
+
+    wires, multiple bits at a time, in both
+
+    directions, but only one direction at
+
+    a time.
+
+    serial full-duplex
+
+    Data is transmitted down a single
+
+    wire, one bit at a time, in both
+
+    directions at the same time.
+
+    parallel simplex
+
+    Data is transmitted down multiple
+
+    wires, multiple bits at a time, in one
+
+    direction only.
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from e.g.
+
+    −
+
+    Barcode scanner
+
+    −
+
+    QR code scanner
+
+    −
+
+    Digital camera
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any six from:
+
+    −
+
+    Proximity/infrared/pressure sensor used
+
+    −
+
+    Sensor continually sends digitised data to microprocessor // When
+
+    driver pushes button, sensor sends digitised data to the microprocessor
+
+    −
+
+    Microprocessor compares data to stored value(s)
+
+    −
+
+    If in range/out of range/matches, microprocessor sends signal to close
+
+    the door
+
+    −
+
+    Actuator used to close door
+
+    −
+
+    If not in range/out of range/does not match door will not close //
+
+    If not in range/out of range/does not match actuator not activated/signal
+
+    not sent as passenger in door //
+
+    If not in range/out of range/does not match a timer is set to check again //
+
+    If not in range/out of range/does not match a signal is sent to alert the
+
+    driver/output a message
+
+    −
+
+    This process repeats until the door can close
+
+    6
+
+    0478/12
+
+    October/November
+
+    2023'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The diagram demonstrates (One mark for each part of the diagram):
+
+    −
+
+    Data is being sent from one device to another
+
+    −
+
+    The data is being examined during transmission
+
+    −
+
+    Packet sniffer is used
+
+    −
+
+    Intercepted data is reported to a third-party during transmission …
+
+    −
+
+    … and analysed for anything useful
+
+    −
+
+    Connection hacked to spoof destination address
+
+    e.g.
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    Encryption …
+
+    −
+
+    … if the data is intercepted it will be meaningless (because they do not
+
+    have the decryption key)
+
+    2
+
+    0478/12
+
+    October/November
+
+    2023'
+  mark_scheme: []
+  graphics: []
+- number: '9'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Term
+
+    Description
+
+    world wide web
+
+    the collective name for all the
+
+    web pages available
+
+    cookie
+
+    a small text file, stored by the
+
+    web browser, that can store a
+
+    user’s personal data
+
+    uniform resource locator (URL)
+
+    the text-based address for a
+
+    website // It is made up of the
+
+    protocol, domain name and
+
+    filename/folder name
+
+    web server
+
+    Stores web pages // receives
+
+    requests from clients and returns
+
+    requested web page
+
+    hypertext markup language //
+
+    HTML
+
+    the language used to create a
+
+    website. Example tags are
+
+    <head> and <body>
+
+    hypertext transfer protocol //
+
+    HTTP
+
+    a protocol that is used to request
+
+    and send web pages
+
+    6'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    −
+
+    The ability to learn/adapt // machine learning abilities
+
+    −
+
+    The collection of data and the rules for using that data
+
+    −
+
+    The ability to reason // has problem solving abilities // makes predictions
+
+    −
+
+    Simulates intelligent/human behaviour
+
+    −
+
+    Analyses patterns
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any six from:
+
+    −
+
+    It has an interface …
+
+    −
+
+    … used to input data/view output
+
+    −
+
+    It has a knowledge base
+
+    −
+
+    It has a rule base
+
+    −
+
+    It has an inference engine
+
+    −
+
+    Applies the rule base to/and the knowledge base to provide
+
+    output/diagnosis/result/solution/decision
+
+    −
+
+    Decides what to ask next based on the data input
+
+    6
+
+    0478/12
+
+    October/November
+
+    2023'
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    Amount of liquid/gas/steam flowing/moving through an environment
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 11b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from (for benefit and matching description)
+
+    e.g.:
+
+    −
+
+    Increases safety
+
+    −
+
+    …meaning that workers do not need to go into dangerous areas to collect
+
+    data/make checks/do dangerous tasks
+
+    −
+
+    Can increase jobs/skills
+
+    −
+
+    …as employees are needed to learn/maintain the equipment
+
+    −
+
+    No need to do repetitive tasks
+
+    −
+
+    … so, they can use their time on other/more skilled tasks
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 11c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from (for drawback and matching description)
+
+    e.g.:
+
+    −
+
+    High set-up/installation costs
+
+    −
+
+    … it would mean the company need to find a lot of money up front to pay
+
+    for the equipment // employees will need training
+
+    −
+
+    Utility/maintenance/repair costs
+
+    −
+
+    … increase in bills such as electricity // skilled employees will be required
+
+    to maintain the system // equipment will break/need updating
+
+    −
+
+    Deskilling of the workforce
+
+    −
+
+    … may mean that workers will no longer have the skills for some of the
+
+    manufacturing jobs, should the equipment break
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 12a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any two from:
+
+    −
+
+    Only exists electronically
+
+    −
+
+    Can be a decentralised system
+
+    −
+
+    Can be a centralised system
+
+    −
+
+    Usually encrypted
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 12b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    Blockchain
+
+    1
+
+    0478/12
+
+    October/November
+
+    2023'
+  mark_scheme: []
+  graphics: []
+- number: 13ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−
+
+    C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 13aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any one from:
+
+    −
+
+    Directly accessed by the CPU
+
+    −
+
+    Has both volatile and non-volatile storage
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 13b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark for each correct term in the correct order:
+
+    −
+
+    Random access memory (RAM)
+
+    −
+
+    Hard disk drive (HDD)
+
+    −
+
+    Pages
+
+    −
+
+    Random access memory (RAM)
+
+    −
+
+    Virtual memory // Hard disk drive (HDD)
+
+    5'
+  mark_scheme: []
+  graphics: []

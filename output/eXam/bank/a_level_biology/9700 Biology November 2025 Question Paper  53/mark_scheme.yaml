@@ -1,0 +1,342 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    (presence of) juglone (with a concentration of 1.0  10-3 moldm-3)
+
+    and
+
+    control (treatment) / absence of juglone ;
+
+    concentration, of juglone ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5 cm3 of (original / 0.1 mol dm-3) juglone (solution) ;
+
+    495 cm3 of the (mixture of) solvents ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    use, syringe / graduated pipette / micropipette / burette ;
+
+    use, volumetric flask ;
+
+    use larger (stated) volumes (of both juglone and mixture of solvents) ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    (mixture of) solvents / solution, with no juglone ;
+
+    2
+
+    idea that to show that any effects observed (on the, germination / growth, of
+    seeds) are a result of juglone ;
+
+    2
+
+    9700/53
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any seven from:
+
+    1
+
+    method for standardising the exposure of the seeds to juglone ;
+
+    2
+
+    ref. to use, same / stated, (cucumber) seeds ;
+
+    3
+
+    method to maintain a, constant / stated, temperature ;
+
+    4
+
+    method to maintain a, constant / stated, light intensity ;
+
+    5
+
+    ref. to standardise another key variable ;
+
+    6
+
+    idea of reapply juglone (to seedlings) after germination ;
+
+    7
+
+    count / note / record / AW, number of seeds planted and count number of seeds
+    that germinate, after a, set / stated,
+
+    time ;
+
+    8
+
+    method for measuring growth at 10 days (after the appearance of the seedling above
+    the soil) ;
+
+    9
+
+    for juglone solution and control treatment, use a large number of seeds and calculate
+    the mean (growth) for
+
+    each group ;
+
+    10 safety comment with hazard and risk and precaution ;
+
+    hazard
+
+    risk
+
+    precaution
+
+    juglone
+
+    irritant / toxin / allergy
+
+    gloves / mask / PPE
+
+    solvents
+
+    irritant / toxin / allergy
+
+    gloves / mask / PPE
+
+    cucumber
+
+    seeds / plants
+
+    irritant / allergy
+
+    gloves / mask / PPE
+
+    soil
+
+    biohazard / pathogens /
+
+    allergy / irritant
+
+    gloves / mask / PPE
+
+    7
+
+    9700/53
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    data is continuous ;
+
+    2
+
+    comparing means (from the two groups) ;
+
+    3
+
+    data is (from populations that are) normally distributed ;
+
+    4
+
+    standard deviations (approximately) the same (between the two groups) ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    (the critical value at 18 d.f. and p = 0.05 is) 2.101 ;
+
+    2
+
+    calculated value of t / 2.090, is less than, critical value / 2.101 (at p = 0.05)
+    ; ora
+
+    3
+
+    null hypothesis is accepted (at p = 0.05) ;
+
+    4
+
+    there is no significant difference (at p = 0.05) ;
+
+    3
+
+    9700/53
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    (initial) volume / population / number, of bacteria (in bacterial suspensions)
+
+    or
+
+    volume of (bacterial) suspension
+
+    or
+
+    (original) optical density of (bacterial) suspensions ;
+
+    2
+
+    volume of nitrite (ion solution) ;
+
+    3
+
+    concentration / volume, of nutrient broth ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(species of bacterium:) nominal ;
+
+    (lowest nitrite concentration:) continuous ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    correct reading of values from Figure 2.1
+
+    (Salmonella enteritidis =) 0.7 and (Salmonella typhimurium =) 5 ;
+
+    2
+
+    correct working ;
+
+    3
+
+    correct value for percentage difference ;
+
+    614 (%) / 86 (%)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(most affected =) Yersinia enterocolitica
+
+    (least affected =) Salmonella typhimurium ;
+
+    1
+
+    9700/53
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    idea that investigation, not carried out in a person / carried out in a laboratory
+    ;
+
+    2
+
+    idea that investigation only carried out for 24 hours / no information about longer
+    term effects ;
+
+    3
+
+    idea that experiment, only used 5 species of (pathogenic) bacteria / did not use
+    other bacteria ;
+
+    4
+
+    pH in the, digestive system / stomach / intestines / AW, is not 4.8 / is different
+    ;
+
+    5
+
+    idea that nitrites may, kill / reduce growth / AW, of / beneficial / AW, bacteria
+    (in the digestive system) ;
+
+    6
+
+    nitrites could, cause side effects / be toxic / AW (in humans) ;
+
+    7
+
+    no evidence of control experiment ;
+
+    8
+
+    no statistical, test / analysis ;
+
+    9
+
+    idea that (bacterial) population sizes may not have decreased (as only measured
+    when no bacterial population growth
+
+    occurred) ;
+
+    4'
+  mark_scheme: []
+  graphics: []

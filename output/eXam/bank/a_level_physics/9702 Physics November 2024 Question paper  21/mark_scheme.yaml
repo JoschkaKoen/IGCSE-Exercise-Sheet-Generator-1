@@ -1,0 +1,386 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: mass per unit volume
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'density = 0.243 / (0.0541  0.1109  0.0162)
+
+    = 2500 kg m–3'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(0.001 / 0.243)  or  (0.01 / 5.41)  or  (0.01 / 11.09)  or  (0.01 / 1.62)
+
+    ( / ) = (m / m) + (x / x) + (y / y) + (z / z)
+
+    = (0.001 / 0.243) + (0.01 / 5.41) + (0.01 / 11.09) + (0.01 / 1.62)
+
+    ( = 0.013)
+
+    percentage uncertainty in   = 0.013  100
+
+    = 1.3% (allow 1 s.f. answer of 1%)'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'zero error (on calipers / balance)
+
+    or
+
+    incorrect calibration (of calipers / balance)
+
+    9702/21
+
+    October/November 2024'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: product of mass and velocity
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'maximum speed = 7.2  104 / 1800
+
+    = 40 m s–1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'kinetic energy = ½ mv2
+
+    = ½  1800  402
+
+    = 1.4  106 J'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a = gradient of line / mass  or  a = (v – u) / t  or  a = v / t
+
+    a = e.g. (3.6  104) / (4.0  1800) = 5.0 m s–2
+
+    or
+
+    a = e.g. 20 (– 0) / 4 = 5.0 m s–2
+
+    or
+
+    F = e.g. 3.6  104 / 4.0 = 9.0  103  and  a = 9.0  103 / 1800 = 5.0 m s–2'
+  mark_scheme: []
+  graphics: []
+- number: 2biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'distance = ½  40  (8 + 4)
+
+    or
+
+    distance = ½ × 72 000  (8 + 4) / 1800
+
+    or
+
+    distance = [402 / (2  5)] + [402 / (2  10)]
+
+    or
+
+    distance = ½  5  82 + (40  4 – ½  10  42)
+
+    distance = 240 m
+
+    9702/21
+
+    October/November 2024'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'stepped shape, showing one constant value up to 8.0 s then
+    stepping to a different constant value from 8.0 s with no time
+
+    delay
+
+    horizontal straight line from (0, 5.0) to (8.0, 5.0)
+
+    horizontal straight line from (8.0, –10.0) to (12.0, –10.0)'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: product of force and displacement in direction of force
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'weight/force = mg, and g identified as acceleration of free
+    fall
+
+    EP identified as work (done by lifting force/weight), and so = mg  h'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 240  150 = 36 kJ
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P = W / t
+
+    = 36 000 / 60
+
+    = 600 W'
+  mark_scheme: []
+  graphics: []
+- number: 3ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'efficiency = useful output power / total input power
+
+    = 600 / 900
+
+    = 0.67'
+  mark_scheme: []
+  graphics: []
+- number: 3civ
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P = I2R  and  R = L / A
+
+    280 = I2  (1.7  10–8  23) / (2.6  10–8)
+
+    I = 4.3 A
+
+    9702/21
+
+    October/November 2024'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: stress per unit strain
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: straight line with positive gradient passing through origin
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: spring constant
+  mark_scheme: []
+  graphics: []
+- number: 4biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: elastic potential energy (stored in wire)
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'length (of Q) is half (the length of P)
+
+    extension is proportional to length, and inversely proportional to area and Young
+    modulus
+
+    extension of Q is = ½ / (2  2)
+
+    = ⅛ times the extension of P'
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P = 40  and  R = 0
+
+    Q = 20  and  S = –1'
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (electron) antineutrino
+  mark_scheme: []
+  graphics: []
+- number: 5aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: leptons
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(alpha particle consists of) 2 protons and 2 neutrons
+
+    quark composition of proton = up up down
+
+    or
+
+    quark composition of neutron = up down down
+
+    quark composition (of alpha particle) = 6 up, 6 down
+
+    9702/21
+
+    October/November 2024'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'for maximum intensity, waves must be in phase (at detection)
+
+    (phase difference at source means) waves are not in phase / have a 90° phase difference
+    at O'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'point B labelled on the line PQ below O
+
+    distance OB = distance OA'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'v = f
+
+     = (3.00  108) / (2.5  1010) = 0.012 m'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'x = 0.012 / 4
+
+    = 0.0030 m'
+  mark_scheme: []
+  graphics: []
+- number: 6biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' = ax / D
+
+    distance  = D / a = 0.012  2.3 / 0.18
+
+    = 0.15 m
+
+    9702/21
+
+    October/November 2024'
+  mark_scheme: []
+  graphics: []
+- number: 7ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(V =) 1.50 – 1.36
+
+    (= 0.14 V)
+
+    current = V / R
+
+    = 0.14 / 0.28 = 0.50 A'
+  mark_scheme: []
+  graphics: []
+- number: 7aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'resistance = V / I
+
+    = 1.36 / 0.50
+
+    = 2.7 '
+  mark_scheme: []
+  graphics: []
+- number: 7aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'R = 2.7 – 1.0
+
+    = 1.7 '
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: two resistors correctly shown in parallel with cell and no other
+    components
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(external) resistance is now smaller
+
+    and
+
+    (so) current (in cell) is greater / (external) resistance smaller fraction of
+    total resistance / internal resistance larger fraction of
+
+    total resistance
+
+    (greater p.d. across internal resistance so) terminal p.d. is less'
+  mark_scheme: []
+  graphics: []

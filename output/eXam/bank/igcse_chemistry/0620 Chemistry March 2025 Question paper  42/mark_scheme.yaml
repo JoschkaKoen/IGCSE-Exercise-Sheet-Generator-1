@@ -1,0 +1,578 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '21
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '450
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '8
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '16
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '6.02  1023
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (strong) (electrostatic) attraction between ions
+
+    M2 ions have opposite charges
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 8 dots in third shell of each K
+
+    M2 6 crosses and 2 dots in third shell of S
+
+    M3 ‘+’ charge on each K ion on correct answer line
+
+    and ‘2–‘ charge on S ion on correct answer line
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 3 correctly positioned positive ions next to given negative
+
+    M2 all ions correct
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cation(s)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'electrolysis
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2Br– → Br2  +  2e–
+
+    M1 any negative Br species losing electron(s)
+
+    M2 correct ionic half equation
+
+    2
+
+    0620/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2diii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 hydrogen
+
+    M2 bubbles
+
+    M3 oxygen M4 water
+
+    M5 bubbles
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'VII
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '6
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'tennessine / Ts / Ts2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'fluorine / F / F2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'halide(s)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'krypton
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3gi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Cl 2  + 2I– →  2Cl – + I2
+
+    M1 Cl–
+
+    M2 correct ionic equation
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3gii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 I– loses e –
+
+    M2 Cl2 gains e –
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3h
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 grey-black
+
+    M2 solid
+
+    2
+
+    0620/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'no reactants or products can enter or leave
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'enthalpy change (of reaction)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(The value of H is) negative
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '+105 (kJ / mol)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4e
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'decreases
+
+    increases
+
+    increases
+
+    no change
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Bond energy in breaking bonds
+
+    = 1075 + 240 = (+) 1315
+
+    M2 Bond energy of COCl2 = 1315 – (–105) = 1420
+
+    M3 C=O = 1420 – 2  C–Cl
+
+    = 1420 – (2  340) = (+) 740
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4g
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 both single bonding dot and cross pairs correct
+
+    M2 double C=O bond dot and cross pairs are correct
+
+    M3 Complete diagram is correct
+
+    3
+
+    0620/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '55Mn
+
+    42Ca2+
+
+    protons
+
+    25
+
+    20
+
+    neutrons
+
+    30
+
+    22
+
+    electrons
+
+    25
+
+    18
+
+    Each row ✔
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(Mn is a) transition element
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'variable oxidation state
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'MnO
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a substance that reduces another substance and is itself oxidised
+
+    M1 ‘a substance’ reduces another substance
+
+    M2 is itself oxidised
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3Mn3O4  +  8Al  →  4Al2O3  +  9Mn
+
+    M1 Al2O3
+
+    M2 correct equation
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 50  0.200÷1000 = 0.01(00)
+
+    M2 0.01÷4 = 0.0025(0) / 2.5(0)  10–3
+
+    M3 = 0.0025  24000 = 60(.0)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(damp) litmus (paper)
+
+    and
+
+    is bleached / goes white
+
+    1
+
+    0620/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5diii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 kinetic energy of particles decreases
+
+    M2 frequency of collisions between particles decreases
+
+    M3 lower percentage / proportion / fraction of collisions / particles have energy
+    greater than / equal to activation energy
+
+    OR
+
+    Fewer of the collisions / particles have energy greater than / equal to activation
+    energy'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (have a) general formula of CnH2n
+
+    M2 (have a) C=C functional group
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'compounds made of C and H only
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2C3H6 + 9O2 → 6CO2 + 6H2O
+
+    M1 CO2 + H2O as only products
+
+    M2 correct equation
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CH2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'but-2-ene
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'displayed formula of but-1-ene
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6gi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'only one product is formed
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6gii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'orange to colourless
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6giii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2,3-dibromobutane
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6hi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'displayed formula of ethanoic acid
+
+    1
+
+    0620/42
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6hii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ethanoic acid
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6hiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CH3CH=CHCH3  +  2O2 → 2CH3COOH
+
+    1'
+  mark_scheme: []
+  graphics: []

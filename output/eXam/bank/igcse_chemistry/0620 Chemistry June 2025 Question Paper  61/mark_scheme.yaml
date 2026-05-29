@@ -1,0 +1,284 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '14.6
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(least concentrated solution) potassium carbonate
+
+    and
+
+    (because) a larger volume of potassium carbonate was used
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(volumetric) pipette / burette
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 methyl orange
+
+    1
+
+    M2 yellow to orange
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'swirl / mix (the contents of the flask)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 mix / add / combine together 25.0 cm3 aqueous potassium
+    carbonate and 14.6 cm3 dilute sulfuric acid (without indicator)
+
+    1
+
+    M2 (place in an evaporating basin) and warm until crystals start to form / warm
+    until crystalising point / warm until
+
+    saturated / half / most water gone
+
+    1
+
+    M3 cool (solution) (so that crystals form) / leave solution from M2 so that crystals
+    form
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 times are correct for all five experiments (20, 25, 42,
+    56, 95)
+
+    1
+
+    M2 All times recorded in whole numbers of seconds only
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 y-axis scale is linear and points take up over half of space
+    available
+
+    1
+
+    M2 and M3 All points plotted correctly
+
+    2
+
+    M4 best fit line
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 correct working shown  at a concentration of 1.3 on graph
+
+    1
+
+    M2 correct reading from their working shown on graph
+
+    1
+
+    0620/61
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 0.25
+
+    1
+
+    M2 cm / s
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Experiment 5
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to check / verify / compare results / to get concordant results /
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2fi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 both temperatures are correct (24.0, 46.5)
+
+    1
+
+    M2 temperature change calculated correctly (22.5) and all temperatures and temperature
+    change given to one dp
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2fii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a change of temperature will change the rate of reaction
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2fiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'the polystyrene would prevent heat escaping
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2fiv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'use a water bath (at room temperature / at starting temperature)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 limewater becomes milky
+
+    1
+
+    M2 effervescence / fizzing / bubbling
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'no change
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'dropwise: white precipitate
+
+    1
+
+    excess: no (further) change / precipitate remains / white precipitate / insoluble
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'white precipitate
+
+    1
+
+    0620/61
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 potassium / K+
+
+    M2 bromide / Br–
+
+    1
+
+    KBr = 2
+
+    1
+
+    4
+
+    any 6 from
+
+    MP1 known / specified mass of sodium hydrogencarbonate
+
+    MP2  known / specified volume (and concentration) of hydrochloric or ethanoic
+    acid
+
+    MP3 use of a named suitable container for the reaction and named suitable apparatus
+    to measure volume of acid
+
+    MP4 measure temperature of acid before mixing
+
+    MP5 add reagents together and mix / stir
+
+    MP6 measure temperature of mixture / acid after mixing / reaction
+
+    MP7 biggest temperature decrease is most endothermic
+
+    max 6
+
+    6'
+  mark_scheme: []
+  graphics: []

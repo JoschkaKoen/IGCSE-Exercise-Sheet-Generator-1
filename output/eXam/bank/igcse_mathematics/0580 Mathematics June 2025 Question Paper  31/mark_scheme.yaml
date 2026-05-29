@@ -1,0 +1,639 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '19'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5 correctly shown in diagram
+
+    3 B2 for 5
+
+    OR
+
+    B1 for 38
+
+    OR
+
+    M1 for 43 – (13 + 19 + 6) oe
+
+    B1 for a correct diagram from their 5'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Obtuse
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '60
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two correct lines
+
+    2 B1 for one correct line only or two
+
+    correct lines and one incorrect line'
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct triangle with correct arcs
+
+    2 B1 for correct triangle with
+
+    no/insufficient arcs or 2 correct arcs
+
+    with no or incorrect lines
+
+    If 0 scored SC1 for triangle with two
+
+    arcs but lines interchanged'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '6
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '160
+
+    2 M1 for 3(5×12 – 8) + 4 oe or better'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '90.25
+
+    2 M1 for 369 – 8 = 4t oe or better
+
+    or 369
+
+    8
+
+    4
+
+    4
+
+    t
+
+    = +
+
+    oe or better
+
+    or
+
+    8
+
+    4
+
+    −
+
+    W
+
+    [= t] oe or better'
+  mark_scheme: []
+  graphics: []
+- number: '9'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2 B1 for correct line and one end correct
+
+    or both ends correct and no line'
+  mark_scheme: []
+  graphics: []
+- number: '10'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.41 17
+
+    41  42% 3
+
+    7
+
+    2 B1 for three in the correct order
+
+    or M1 for conversion to common
+
+    format e.g. 0.428…or 0.429 [0.41]
+
+    0.414…or 0.415 0.42
+
+    42.8…% or 42.9% 41%
+
+    41.4…% or 41.5% [42%]
+
+    0580/31
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: '11'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Wednesday and 10 25
+
+    3 B2 for 10 25
+
+    or B1 for one correct time calculation
+
+    or M1 for 07 30 + 10 55 + 16 00'
+  mark_scheme: []
+  graphics: []
+- number: 12a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 12b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5x + k (k ≠ −3)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '13'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct point marked
+
+    2 B1 for bearing of B from A 105°
+
+    B1 for AB drawn length 6 cm'
+  mark_scheme: []
+  graphics: []
+- number: '14'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4 nfww
+
+    3 B2 for 3.15
+
+    OR
+
+    M1 for 225 × 70
+
+    10
+
+    oe
+
+    M1 for their 1575 ÷ 500 oe
+
+    If 0 or 1 scored SC1 for their decimal
+
+    rounded up to an integer'
+  mark_scheme: []
+  graphics: []
+- number: 15a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'E
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 15b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'B
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '16'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '109.2
+
+    3 M2 for 7.8 × 7.8 + 4 × 1
+
+    2  × 7.8 ×
+
+    14
+
+    7.8
+
+    2
+
+    −
+
+    oe
+
+    or M1 for 7.8 × 7.8 oe
+
+    or [ 1
+
+    2 ×] 7.8 × 14
+
+    7.8
+
+    2
+
+    −
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: '17'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4.73 or 4.726 to 4.727…
+
+    3 M2 for 863.5 ÷ 12.3π oe
+
+    or M1 for πr2×12.3 = 863.5 or better'
+  mark_scheme: []
+  graphics: []
+- number: '18'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '166 or 167 or 166.7 to 166.8[0]
+
+    1
+
+    19
+
+    2.38
+
+    2 M1 for
+
+    (1 × 14 + 2 × 15 + 3 × 9 + 4 × 12) ÷ 50
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: '20'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[0].13
+
+    2 B1 for 0.87
+
+    or M1 for 1 – (0.68 + 0.05 + 0.14) oe'
+  mark_scheme: []
+  graphics: []
+- number: '21'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '28 nfww
+
+    3 M2 for 59.52 – 52.52 oe
+
+    or M1 for 52.52 + […]2 = 59.52 oe
+
+    0580/31
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 22a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4 : 15 cao
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 22b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '252 cao
+
+    2 M1 for 72
+
+    9
+
+    5
+
+    −
+
+    × k, k = 1, 5, 9 or 14 oe'
+  mark_scheme: []
+  graphics: []
+- number: 22c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '751 or 750.7…
+
+    3 B2 for 4750 or 4751 or 4750.7…
+
+    or M2 for
+
+    5
+
+    3.5
+
+    4000
+
+    1
+
+    4000
+
+    100)
+
+    (
+
+    
+
+    +
+
+    −
+
+    oe
+
+    or M1 for
+
+    5
+
+    3.5
+
+    4000 (1
+
+    )
+
+    100
+
+    
+
+    +
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: '23'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7.5
+
+    2 M1 for 19 780 18 400
+
+    18 400
+
+    −
+
+    [× 100] oe
+
+    or 19 780
+
+    18 400
+
+    × 100 [– 100] oe
+
+    or (19 780
+
+    18 400
+
+    – 1) [× 100] oe'
+  mark_scheme: []
+  graphics: []
+- number: '24'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '8
+
+    2 M1 for 12
+
+    21
+
+    14
+
+    =
+
+    AB
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: '25'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1004.64
+
+    3 M1 for 2 × 4 × 6.5 oe implied by 52
+
+    M1 for
+
+    
+
+    
+
+    19.32
+
+    52
+
+    = mass
+
+    their
+
+    or better'
+  mark_scheme: []
+  graphics: []
+- number: 26a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 2 B1 for one value in the correct place.
+  mark_scheme: []
+  graphics: []
+- number: 26b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '10
+
+    1 FT their diagram (dep total = 28)'
+  mark_scheme: []
+  graphics: []
+- number: 26c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '22
+
+    1 FT their diagram (dep total = 28)'
+  mark_scheme: []
+  graphics: []
+- number: '27'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '104.5   105.5
+
+    2 B1 for each in correct position
+
+    If 0 scored SC1 for both correct but
+
+    reversed'
+  mark_scheme: []
+  graphics: []
+- number: 28ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7, [1], [−3], –5, –5, [−3], [1], 7
+
+    2 B1 for 2 correct'
+  mark_scheme: []
+  graphics: []
+- number: 28aii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct graph
+
+    4 B3FT for 7 points accurately plotted
+
+    or B2FT for 5 points accurately plotted
+
+    or B1FT for 3 points accurately plotted'
+  mark_scheme: []
+  graphics: []
+- number: 28b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'x = 1
+
+    2  oe
+
+    1
+
+    0580/31
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 28c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–1.9 to –1.7    2.7 to 2.9
+
+    2 FT their curve
+
+    B1 for each
+
+    29
+
+    55.7 or 55.70 to 55.71
+
+    3 M2 for
+
+    16 + 9 + 9 + (16 – 10)
+
+    + their( 1
+
+    2
+
+    ×π×10) oe
+
+    or M1 for π × 10 [× 1
+
+    2
+
+    ]
+
+    or 2× π × 5 [× 1
+
+    2
+
+    ] oe
+
+    or 16 + 9 + 9 + (16 – 10) oe
+
+    30
+
+    48.6 or 48.59…
+
+    2 M1 for sin […=] 6
+
+    8
+
+    oe'
+  mark_scheme: []
+  graphics: []

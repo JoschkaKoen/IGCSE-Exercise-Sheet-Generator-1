@@ -1,0 +1,617 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: In which row are quantities correctly categorised into scalar quantities and
+    vector quantities? scalar quantities vector quantities
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: Which name is given to the quantity of matter in an object?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: A body is moved from place X to place Y where the gravitational field strength
+    is different. What happens to its mass and to its weight due to the move? mass
+    weight
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: The mass of an object is 2.5 kg. The volume of the object is 480 cm3. What
+    is the density of the object?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: .2  10–3 g / cm3
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: A ball of mass m falls vertically and hits a hard surface. Its speed on hitting
+    the surface is v1. It rebounds vertically upwards with speed v2. What is the change
+    in momentum of the ball?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: A stone is dropped from a tall tower and falls a distance of 50 m to the ground.
+    The stone has a mass of 3.0 kg. At which speed does the stone hit the ground?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: A coal-fired power station generates electricity. Coal is burned and the energy
+    released is used to boil water. The steam from the water makes the generator move
+    and this produces electricity. Which row gives the name of the energy store in
+    the coal and the energy store of the moving generator? coal generator
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: A man puts some ice into a glass of water on a warm day. After a short time,
+    he notices that the ice disappears and that water droplets appear on the outside
+    of the glass. ice droplets of water Which two changes of state are taking place?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Gas of volume 200 cm3 is trapped inside a container by a piston. The piston
+    is pushed to the right and the volume of the gas decreases to 100 cm3. The temperature
+    of the gas remains constant. piston container trapped gas Which row states the
+    effect that this has on the kinetic energy of the gas particles and the force
+    per unit area exerted by the particles colliding with the inside walls of the
+    container? kinetic energy force per unit area
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Which graph shows the relationship between the pressure and volume of a fixed
+    mass of gas at constant temperature? pressure volume
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: During evaporation of a liquid, the most energetic particles escape. The temperature
+    of the remaining liquid changes. Which row identifies where these particles escape
+    from and describes the temperature change? place from which the particles escape
+    temperature of remaining liquid
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Wet clothes are put out on a line to allow the water in the clothes to evaporate.
+    Which type of weather would cause the water to evaporate most quickly?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: A solar water heater is designed to absorb energy from sunlight. Which surface
+    texture and colour would be best for the solar water heater?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about waves is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: The angle of incidence of a ray of light incident on a plane mirror is gradually
+    increased. To the nearest degree, what is the maximum possible angle between the
+    incident and reflected rays?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Which conditions are necessary for light to be totally internally reflected?
+    incident light angle of incidence
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: "The diagram shows a ray of light passing from air into a transparent substance.\
+    \ 30.0\x01 40.0\x01 air transparent substance What is the refractive index of\
+    \ the transparent substance?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a ray of light in an optical fibre. Which statement correctly
+    explains the condition for the maximum transmission of light by the optical fibre?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: Which region of the electromagnetic spectrum is used for detecting fake bank
+    notes?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: A sound wave travels at 330 m / s. The distance between the centre of a compression
+    and the centre of the nearest rarefaction in the sound wave is 2.5 cm. What is
+    the frequency of the sound wave?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Which waves are used in the medical scanning of soft tissue?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes suitable materials for use in a temporary magnet and in
+    a permanent magnet? temporary magnet permanent magnet
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: A magnetic field is represented in the diagram by magnetic field lines. At
+    which point is the magnetic field strongest?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: A student determines the resistance of resistor R. She uses a circuit including
+    a voltmeter and an ammeter. Which circuit does she use?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: A diode and a resistor are connected across a variable d.c. supply. Terminal
+    X is initially positive and at a maximum value. The potential difference (p.d.)
+    across XY is adjusted so that it changes, as shown by the graph. X Y p.d. across
+    XY time Which graph shows how the current in the circuit (from X to Y) varies
+    during the same time interval?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: When a conductor in a complete circuit cuts across a magnetic field, a current
+    is induced in the conductor. Which statement about the induced current is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a solenoid carrying an electric current. X Y Z X Y Z Which
+    row compares the strength of the magnetic field due to the solenoid at points
+    Y and Z with the strength of the magnetic field at point X? magnetic field strength
+    at Y magnetic field strength at Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: A conducting wire is placed between the poles of a magnet. When an electric
+    current in the wire is in the direction shown, then the force on the wire acts
+    out of the page. N S wire Three statements of different conditions and how the
+    wire is affected are given. When the current is towards the top of the page and
+    the direction of the magnetic field is unchanged, the force produced acts into
+    the page. When the current is towards the bottom of the page and the magnetic
+    field is reversed, the force produced acts into the page. When the current in
+    the wire is alternating, the wire vibrates into and out of the page. Which statements
+    are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Which types of electric current are in the primary coil and the secondary
+    coil of a step-up transformer? primary coil secondary coil
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: A scientist fires alpha-particles at a very thin sheet of gold and detects
+    the particles that pass through. Which statement about the results of the scattering
+    experiment is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: The notation represents the nucleus of a gold atom. 197Au The relative charge
+    on a proton is +1. What is the relative charge on the gold nucleus?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: An isotope of hydrogen has the nuclide notation H. How many neutrons are in
+    the nucleus of this isotope and what is the relative charge on the nucleus? number
+    of neutrons relative charge
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: A radioactive source is placed near a detector. The radiation arriving at
+    the detector from the source is measured for 10 minutes with different materials
+    placed between the source and the detector. materials placed here detector radioactive
+    source material between source and detector radiation detected / counts none 5626
+    sheet of paper 5629 thick sheet of aluminium 2226 thick sheet of lead 255 Which
+    types of radiation are emitted by the source?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: The reading on a detector placed near a radioactive material is 536 counts
+    per second. The background count rate is 44 counts per second. The half-life of
+    the radioactive material is 34 hours. What is the reading on the detector after
+    68 hours?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: A planet in the Solar System is at the point in its orbit where it is closest
+    to the Sun. Which row is correct? orbital speed energy in gravitational potential
+    store
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the main process that powers the Sun?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: A galaxy is 3.0  1020 km from the Earth. At which speed is the galaxy moving
+    away from the Earth?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: An astronomer observes a distant galaxy. The table shows how the distance
+    and the speed of recession of the galaxy are determined. Which row is correct?
+    distance speed of recession
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

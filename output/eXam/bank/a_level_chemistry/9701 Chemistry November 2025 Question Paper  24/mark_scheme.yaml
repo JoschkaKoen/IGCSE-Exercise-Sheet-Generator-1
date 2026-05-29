@@ -1,0 +1,455 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(halogens can) remove electron(s) (from a reactant)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2Al + 3Cl 2 → 2Al Cl 3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'purple (gas) disappears
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Br—Br is weaker (than Cl —Cl) AND Br atoms are larger
+
+    M2 less (significant) overlap of orbitals (in Br-Br)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'HCl is more thermally stable
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (enthalpy change / energy change) when one mole of a compound / substance
+    is formed
+
+    M2 from its (constituent) elements in their standard state(s)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (6 × –92) – (2 × –46) =
+
+    M2 –460 (kJ mol−1)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1bv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (trigonal) pyramidal
+
+    M2 three bonding pairs AND one lone pair (of electrons)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'NaCl
+
+    NaBr
+
+    NaI
+
+    with Ag+(aq)
+
+    white precipitate
+
+    M1 cream / off-white
+
+    ppt
+
+    M2 yellow ppt
+
+    with conc.
+
+    H2SO4
+
+    acid – base
+
+    acid – base,
+
+    then redox
+
+    acid – base,
+
+    then redox
+
+    observations
+
+    with conc.
+
+    H2SO4
+
+    M3 steamy fumes
+
+    OR
+
+    fizzing
+
+    M4 brown liquid
+
+    OR
+
+    fizzing
+
+    •
+
+    black solid
+
+    •
+
+    yellow solid
+
+    •
+
+    effervescence
+
+    4
+
+    9701/24
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 black solid = iodine / I2 AND yellow solid = sulfur / S(8)
+
+    M2 effervescence = hydrogen sulfide / H2S(g)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 MgCl2 (is ionic and) has mobile ions
+
+    M2 SiCl 4 is covalent AND no charge carriers
+
+    OR (no ions and) no delocalised electrons
+
+    OR no mobile / moving ions
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 MgCl 2 pH = 7
+
+    M2 SiCl 4 pH 0 – 4
+
+    2
+
+    9701/24
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Al 2O3 is ionic
+
+    M2 P4O10 is a (simple) molecule
+
+    M3 ionic bonds are stronger than intermolecular forces
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'mol–2 dm6
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 at equilibrium: moles of CO = 0.120 AND moles of H2 = 0.240
+
+    M2 [CH3OH] = 0.056 AND [CO] = 0.024 AND [H2 ] = 0.048
+
+    M3 use of Kc with correct evaluation = 1.01  103
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'no effect AND Kc is not affected by pressure
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'increases rate by providing a different mechanism with a lower
+    activation energy
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2CH3OH → CH3OCH3 + H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P4O10 + 6H2O → 4H3PO4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'yellow precipitate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'elimination
+
+    1
+
+    9701/24
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(CH3)2CHOH + Na → (CH3)2CHO(–)Na(+) +  1
+
+    2
+
+    H2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 correct dipole on δ+C—Brδ– AND curly arrow from C—Br  bond
+    to Br
+
+    M2 intermediate
+
+    M3 curly arrow from lone pair of (CH3)2CHO– to C+
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 rate would decrease
+
+    M2 C—Br is weaker (than C—Cl, so breaks more easily)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3biv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C6H14O + 9O2 → 6CO2 + 7H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (molecules with the) same molecular formula / same number
+    of atoms of each element
+
+    M2 different structural formulae/structures
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M2 restricted / lack of / no rotation about C=C
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'electrophilic addition
+
+    1
+
+    9701/24
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4aiv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 CH3COCH3 + CH3COOH as products
+
+    M2 (CH3)2C = CHCH3 + 3[O] → CH3COCH3 + CH3COOH
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4av
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (reaction proceeds via a) more stable intermediate / carbocation
+
+    M2 because of greater positive inductive effect of more alkyl groups
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4avi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'KCN in ethanol (and heat)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(C2H5)2CHCN + 2H2O + HCl → (C2H5)2CHCOOH + NH4Cl
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'reaction of V with
+
+    propan-2-ol
+
+    type of reaction
+
+    M1 condensation
+
+    functional group formed
+
+    M2 ester
+
+    molecular formula of
+
+    organic product W
+
+    M3 C9H18O2
+
+    3'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,439 @@
+questions:
+- number: 2a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: gradient =
+  mark_scheme: []
+  graphics: []
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'K
+
+    −
+
+    y-intercept =
+
+    (
+
+    )
+
+    0
+
+    R
+
+    ln 
+
+    
+
+    −
+
+    1
+
+    9702/52
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '( – R) / C
+
+    ln (( – R) / C)
+
+    56.5  1.0
+
+    4.034 or 4.0342  0.018
+
+    46.0  1.0
+
+    3.829 or 3.8286  0.022
+
+    38.5  1.0
+
+    3.651 or 3.6507  0.026
+
+    31.5  1.0
+
+    3.450 or 3.4500  0.032
+
+    26.0  1.0
+
+    3.258 or 3.2581  0.038
+
+    22.5  1.0
+
+    3.114 or 3.1135  0.044
+
+    Values of ( – R) / C and ln (( – R) / C)
+
+    1
+
+    Uncertainties in ( – R) and ln (( – R) / C)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Six points from (b) plotted correctly.
+
+    Must be within half a small square. Diameter of points must be less than half
+    a small square.
+
+    1
+
+    Error bars in ln (( – R) / C) plotted correctly.
+
+    All error bars to be plotted. Total length of bar must be accurate to less than
+    half a small square and symmetrical.
+
+    1
+
+    9702/52
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Straight line of best fit drawn.
+
+    Do not accept line from top plot to bottom plot.
+
+    Line must pass between
+
+    (31.5, 3.2) and (33.0, 3.2) and between
+
+    (16.0, 3.7) and (17.0, 3.7)
+
+    1
+
+    Worst acceptable line drawn.
+
+    Steepest or shallowest possible line that passes through all the error bars.
+
+    All error bars must be plotted.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Gradient must be negative.
+
+    Gradient determined with clear substitution of data into y / x; distance between
+    data points must be greater than half the
+
+    length of the drawn line.
+
+    1
+
+    Gradient determined of worst acceptable line with clear substitution of data into
+    y / x;
+
+    uncertainty = (gradient of line of best fit – gradient of worst acceptable line)
+
+    or
+
+    uncertainty = ½ (steepest worst line gradient – shallowest worst line gradient)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2civ
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'y-intercept determined by substitution of correct point with
+    consistent unit of time into y = mx + c
+
+    1
+
+    y-intercept of worst acceptable line determined by substitution into y = mx +
+    c.
+
+    uncertainty = y-intercept of line of best fit – y-intercept of worst acceptable
+    line, or
+
+    uncertainty = ½ (steepest worst line y-intercept – shallowest worst line y-intercept)
+
+    Do not accept ecf from false origin method.
+
+    1
+
+    9702/52
+
+    February/March 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'K determined using gradient and
+
+    K and 0 given to 3 or 4 sf.
+
+    1
+
+    gradient
+
+    K = −
+
+    1
+
+    0 determined using y-intercept and
+
+    K and 0 given with units with appropriate powers of ten
+
+    -intercept
+
+    0
+
+    18.5
+
+    y
+
+    e
+
+    =
+
+    +
+
+    Unit of K: min or minute(s)
+
+    unit of 0: C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Absolute uncertainty determined with clear method shown.
+
+    (
+
+    )
+
+    max
+
+    -intercept
+
+    -intercept
+
+    0
+
+    19
+
+    (
+
+    18.5)
+
+    y
+
+    y
+
+    e
+
+    e
+
+    
+
+    
+
+    =
+
+    +
+
+    −
+
+    +
+
+    OR
+
+    (
+
+    )
+
+    -intercept
+
+    min -intercept
+
+    0
+
+    (
+
+    18.5)
+
+    18
+
+    y
+
+    y
+
+    e
+
+    e
+
+    
+
+    
+
+    =
+
+    +
+
+    −
+
+    +
+
+    OR
+
+    (
+
+    ) (
+
+    )
+
+    max
+
+    -intercept
+
+    min -intercept
+
+    0
+
+    19
+
+    18
+
+    2
+
+    y
+
+    y
+
+    e
+
+    e
+
+    
+
+    +
+
+    −
+
+    +
+
+    
+
+    =
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 't determined to a minimum of 2sf from (c)(iii) and (c)(iv)
+    OR (d)(i) with correct substitution and correct power of ten.
+
+    ln(25.0
+
+    18.5)
+
+    -intercept
+
+    gradient
+
+    y
+
+    t
+
+    −
+
+    −
+
+    =
+
+    OR
+
+    (
+
+    )
+
+    ln(25.0
+
+    18.5)
+
+    -intercept
+
+    t
+
+    K
+
+    y
+
+    = −
+
+    
+
+    −
+
+    −
+
+    OR
+
+    0
+
+    25.0
+
+    18.5
+
+    ln
+
+    18.5
+
+    t
+
+    K
+
+    
+
+    
+
+    
+
+    −
+
+    = −
+
+    
+
+    
+
+    
+
+    −
+
+    
+
+    
+
+    1'
+  mark_scheme: []
+  graphics: []
