@@ -106,6 +106,8 @@ STRINGS: dict[str, dict[str, str]] = {
         "footer.tagline":      "Exercise sheet generator",
         "lang.switch_aria":    "Switch language",
         "a11y.skip_to_content": "Skip to content",
+        "meta.og_title":       "IGCSE & A-Level — exercises, grading, practice & code",
+        "meta.description":    "Generate Cambridge IGCSE & A-Level exercise sheets, mark exam scans with AI, practice past-paper questions with instant feedback, and learn to code — all in one place.",
         # ===== Learn page =====
         "title.learn_landing":      "Learn",
         "learn.hero.title":         "Browse the syllabus",
@@ -741,6 +743,8 @@ STRINGS: dict[str, dict[str, str]] = {
         "footer.tagline":      "习题单生成器",
         "lang.switch_aria":    "切换语言",
         "a11y.skip_to_content": "跳到主要内容",
+        "meta.og_title":       "IGCSE & A-Level —— 习题生成、批改、练习与编程",
+        "meta.description":    "生成剑桥 IGCSE 与 A-Level 习题单,用 AI 批改试卷扫描件,练习历年真题并即时反馈,还能学习编程 —— 一站式平台。",
         # ===== Learn page =====
         "title.learn_landing":      "学习",
         "learn.hero.title":         "浏览大纲",
