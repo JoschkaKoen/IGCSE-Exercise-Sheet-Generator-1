@@ -130,3 +130,31 @@
   }
 }
 
+/* ─── Dark-theme scrollbars (site-wide default) ──────────────────────────────
+ * The default OS scrollbar is bright/light and clashes with the dark shell on
+ * Windows/Linux (where scrollbars are always visible). Theme it once here:
+ *   - scrollbar-width/-color are INHERITED, so setting them on the root cascades
+ *     to every scroll box (Firefox).
+ *   - WebKit pseudo-elements aren't inherited, so the ``*`` selector covers
+ *     descendant scroll containers (code console, helper drawers, lists, …).
+ * Specific accent scrollbars (.pdf-viewport-scroll, .lib-subject-tab-scroll)
+ * win by higher selector specificity, so this never overrides them.        */
+.space-root {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.28) transparent;  /* slate-400 thumb / transparent track */
+}
+
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.26);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.42);
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-corner { background: transparent; }
+
