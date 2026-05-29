@@ -152,7 +152,7 @@ Beyond pip, the pipelines need:
 - `pdfjam` (`texlive-extra-utils`) — PDF post-processing.
 - `poppler` (`pdftoppm`) — PDF rasterization fallback.
 - `tesseract` — OCR fallback when vision-model OCR fails.
-- `openjdk-17-jdk-headless` (`javac`/`java`) — server-side Java runner for the AP CS code page (`web/java_runner.py`); compiles at `--release 8`.
+- `openjdk-21-jdk-headless` (`javac`/`java`) — server-side Java runner for the AP CS code page (`web/java_runner.py`); compiles at `--release 8` (Debian trixie has no openjdk-17).
 
 `Dockerfile` is the canonical install list; mirror it on a new dev machine.
 

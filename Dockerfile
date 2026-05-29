@@ -11,7 +11,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 #   pdfjam / pdftk : 2-up / 4-up variants (via pdftk-java in texlive-extra-utils)
 #   poppler-utils  : pdfinfo / pdfimages / pdftotext used by scan pipeline
 #   tesseract-ocr  : OCR fallback used by some preprocessing steps
-#   openjdk-17-*   : javac/java for the server-side Java runner (web/java_runner.py)
+#   openjdk-21-*   : javac/java for the server-side Java runner (web/java_runner.py).
+#                    Base image is Debian trixie (no openjdk-17); JDK 21 + `--release 8`
+#                    still emits Java-8 bytecode, so the runner is unchanged.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-extra-utils \
     texlive-latex-extra \
@@ -19,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-xetex \
     poppler-utils \
     tesseract-ocr \
-    openjdk-17-jdk-headless \
+    openjdk-21-jdk-headless \
  && rm -rf /var/lib/apt/lists/*
 
 # mhchem (chemistry notation) is not a standalone apt package in this Debian
