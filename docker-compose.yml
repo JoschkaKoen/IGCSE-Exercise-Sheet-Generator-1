@@ -2,6 +2,7 @@
 services:
   web:
     build: .
+    image: exercise-app
     restart: unless-stopped
     ports:
       - "127.0.0.1:8000:8000"
@@ -11,6 +12,12 @@ services:
         required: true
       - path: .env
         required: false
+    environment:
+      # Delegate Java execution to the isolated sidecar below (server-side run path).
+      - JAVA_SANDBOX_URL=http://java-sandbox:8090/run
+    networks:
+      - default            # internet egress (AI APIs) + the host port mapping
+      - sandbox_internal   # private link to java-sandbox
     volumes:
       # Persist generated output and logs across container restarts / rebuilds.
       - output_data:/app/output
@@ -22,6 +29,33 @@ services:
       - log_data:/app/logs
       # Exam PDFs live on the host — bind-mount so they never enter the image.
       - ./exams:/app/exams:ro
+
+  # Isolated runner for untrusted student Java. No internet (internal network),
+  # no secrets (no env_file), no bind-mounts, read-only root FS (+ tmpfs workdir),
+  # all Linux caps dropped, no-new-privileges, pid/mem limits. Reachable ONLY from
+  # `web` over the private network — NEVER expose a host port for it.
+  java-sandbox:
+    build: .
+    image: exercise-app
+    restart: unless-stopped
+    command: ["uvicorn", "web.java_sandbox_server:app", "--host", "0.0.0.0", "--port", "8090"]
+    networks:
+      - sandbox_internal
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 256
+    mem_limit: 1g
+    # Intentionally NO env_file, NO volumes, NO ports.
+
+networks:
+  default:
+  sandbox_internal:
+    internal: true   # no gateway → no internet egress for the sandbox or its children
 
 volumes:
   output_data:

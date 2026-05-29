@@ -30,9 +30,9 @@ function init(root) {
   // "python" (Pyodide worker) or "java" (CheerpJ worker). Drives the worker URL,
   // editor mode, the runnable-example selector, and how Stop interrupts.
   const LANG = root.dataset.language || "python";
-  // Java only: "server" (POST /api/code/run-java) vs "cheerpj" (in-browser worker).
-  // Toggle with ?runtime=server for the head-to-head benchmark; default cheerpj.
-  const RUNTIME = (LANG === "java" && new URLSearchParams(location.search).get("runtime") === "server")
+  // Java executes server-side by default (sandboxed POST /api/code/run-java). The
+  // legacy in-browser CheerpJ path is kept but dormant — opt in via ?runtime=cheerpj.
+  const RUNTIME = (LANG === "java" && new URLSearchParams(location.search).get("runtime") !== "cheerpj")
     ? "server" : "cheerpj";
   const tasks = readTasks();
   const editors = {};

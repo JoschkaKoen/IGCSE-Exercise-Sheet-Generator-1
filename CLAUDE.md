@@ -14,7 +14,7 @@ This repo holds three Python pipelines plus a small FastAPI web UI that consumes
 
 ## Web UI
 
-`web/app.py` is a FastAPI app that wraps both pipelines. Run with:
+`web/app.py` is a FastAPI app that wraps all three pipelines. Run with:
 
 ```
 uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
@@ -35,6 +35,20 @@ Per-syllabus-topic markdown handouts live under `output/eXam/handouts/<subject>/
 **Tooling.** `web/handouts_collect.py` gathers context: `collect_questions_for_topic(subject, topic_num)` walks the bank's `subtopic_matches.yaml` + `exam_questions.yaml`; `load_syllabus_content_for_topic(subject, topic)` concatenates the `syllabi/content/<subject>/<N.M>.md` files. `scripts/dump_handout_context.py` prints both. After authoring `<NN>.md`, run `python -m scripts.build_handout_glossary <subject> <topic> <pairs.tsv>` (auto-pinyin via pypinyin, writes the glossaries, stamps meta, warns on inconsistent Chinese) and `python -m scripts.check_handout_glosses <subject> [topic]` (no CJK in math/code; each gloss once per file; glossary↔inline agreement). For incremental updates use the Edit tool for line-level changes.
 
 **Backup + review.** Frozen English originals are at `output/eXam/handouts_en_backup/<subject>/<NN>.md` (gitignored). The Learn page renders the live `<NN>.md` directly (`web/routes/learn.py` → `load_handout_md`), so editing a file swaps it in place. A dev/review route `GET /learn/handout-review[/<subject>/<topic>]` shows original vs current side-by-side (`?left=`/`?right=` pick versions). Markdown → LaTeX/PDF rendering arrives in a follow-up PR (will need a CJK font: xeCJK/ctex + Noto Sans CJK SC).
+
+### Code page
+
+`web/routes/code.py` serves an in-browser coding playground at `/code` — a course/lesson index plus per-lesson pages (prose + editor + console + auto-checked tasks). Student **Python runs entirely client-side** via Pyodide in a Web Worker (nothing executes on the server); the `/code` HTML responses carry cross-origin-isolation headers (COOP + COEP) so the worker can use `SharedArrayBuffer` for the Stop-button interrupt and blocking `input()`. **These headers are scoped to `/code` only** — the rest of the site is unaffected.
+
+**Lesson content** is committed authored source under `content/code/<course>/` (NOT `output/`): a `course.yaml` manifest plus per-lesson `NN.en.md` / `NN.zh.md` (bilingual prose) and `NN.meta.yaml` (title + task list — each task has `starter` code, an optional scripted `stdin`, and a client-side `check` spec, `{kind: stdout, …}` or `{kind: asserts, …}`). Loaded by `web/code_content.py` at request time (no in-process cache, like the Learn page); this mirrors the handouts authored-markdown-plus-YAML-sidecar pattern. Four courses today: `python-basics` (14 lessons), `a-level-cs` (12, Python), `ap-csp` (Python) and `ap-csa` (Java). Validate authored lessons with `python -m scripts.check_code_lessons`.
+
+**Progress** is server-backed in the `code_progress` table (`eXam/db.py` migration 2→3, keyed by the anonymous open-mode `session_id` with a nullable `user_id` that `web.routes.account.link_open_session` fills on login, so progress follows a learner across devices). `web/code_progress.py` merges **monotonically** — `revealed` only rises, a task `done` flag only sets — so a stale client can never lower what the server knows.
+
+**Java runner (server-side, the default for `language: java`).** Java executes on the server, not in the browser — benchmarked ~7× faster than CheerpJ warm and far better cold (CheerpJ's runtime CDN is ~90 s from China). The client-side CheerpJ path (`code-worker-java.js` + the 18 MB `tools.jar`) is **kept as dormant legacy**, reachable only via `?runtime=cheerpj`; `code-playground.js` defaults Java to `server`.
+
+`web/java_runner.py` is the shared compile+run core: deliberately stdlib-only and FastAPI-free so `scripts/check_code_lessons.py` imports its pure helpers (validator-pass ⇒ server-pass); it runs `javac`/`java` (`--release 8`) with a **scrubbed environment** (no API keys), rlimits, a wall-clock timeout, and process-group kill, in a throwaway temp dir.
+
+Execution is delegated to the **isolated `java-sandbox` sidecar** (`web/java_sandbox_server.py`, `docker-compose.yml`): a container with **no internet** (an `internal` network), **no secrets** (no `env_file`), **no bind-mounts**, a **read-only FS** + tmpfs workdir, all caps dropped, `no-new-privileges`, and pid/mem limits. The public endpoint `web/routes/code_run.py` (`POST /api/code/run-java`, under `/api/` so `site_access_gate` requires the cookie) forwards to it via `JAVA_SANDBOX_URL`; with no sandbox URL (local dev) it runs in-process (NOT sandboxed). Access on top: `JAVA_RUNNER_OPEN=1` opens it to any logged-in user (safe once sandboxed); otherwise a secret `X-Java-Runner-Token` is required (staging), **fail-closed 404** if neither is set.
 
 ## xscore pipeline structure
 
@@ -69,7 +83,7 @@ Transient state shared across the scaffold-building steps lives on `ctx.scaffold
 
 `eXam/` is the on-screen practice/marking runtime. All `xscore.*` imports are colocated in `eXam/xscore_adapter.py` (lazy: defers xscore's heavy deps until the pre-indexer runs). Consumers in `eXam/bank.py` call `load_scaffold_api()` once to get a `SimpleNamespace` of ten scaffold/format symbols: `detect_layout_phase`, `cut_exam_pdf_phase`, `assign_scheme_questions_phase`, `detect_scheme_graphics_phase`, `parse_mark_scheme_phase`, `get_scaffold_format`, `extract_exam_question_numbers`, `extract_exam_questions`, `extract_question_numbers_model_config`, `extract_questions_model_config`. Other eXam modules (`db.py`, `marker.py`, `runtime.py`, `auth.py`, `users.py`, `roster.py`, `test_builder.py`, `cost_tracker.py`, `pregenerate.py`, `render_helper.py`, `results_export.py`, `open_mode.py`, `flush_cache.py`, `warm_bank.py`) have no xscore dependency.
 
-**Open-mode + warmed bank.** `eXam/open_mode.py` serves anonymous practice (random question per subject, no login) via the FastAPI `eXam_open` routes. It depends on a pre-indexed bank: `python -m eXam.warm_bank --year <YYYY> --subject <slug>` indexes every QP up front — each paper costs several xscore-scaffold AI calls but is then cached forever under `output/eXam/bank/` (tracked in git as the deploy-time bank). Helper drawers (hint / solution / example / kb) are generated lazily by `eXam/pregenerate.py` and cached per-question; `eXam/flush_cache.py` clears them when the snippet format changes. `eXam/render_helper.py` is the markdown→HTML pipeline that preserves `$…$` so in-browser KaTeX still renders.
+**Open-mode + warmed bank.** `eXam/open_mode.py` serves anonymous practice (random question per subject, no login) via the FastAPI `eXam_open` routes. The landing page also offers a per-syllabus-topic accordion: `?topic=<N>` restricts the random pick to that topic's question IDs (`subtopic_matches.yaml` → `topic_qids`), while no topic and `?topic=all` both draw from every topic. It depends on a pre-indexed bank: `python -m eXam.warm_bank --year <YYYY> --subject <slug>` indexes every QP up front — each paper costs several xscore-scaffold AI calls but is then cached forever under `output/eXam/bank/` (tracked in git as the deploy-time bank). Helper drawers (hint / solution / example / kb) are generated lazily by `eXam/pregenerate.py` and cached per-question; `eXam/flush_cache.py` clears them when the snippet format changes. `eXam/render_helper.py` is the markdown→HTML pipeline that preserves `$…$` so in-browser KaTeX still renders.
 
 ## Prompts
 
@@ -129,7 +143,7 @@ For low-risk changes that can't shift output schema (file splits, import rewrite
 
 ## Exam directories
 
-Convention is `exams/<level>/<subject>_<syllabus_code>/`, with `<level>` ∈ {`igcse`, `a_level`}. Code slugs (in `EXAM_ROOT_BY_KEY`) are `<level>_<subject>`: `igcse_physics`, `igcse_chemistry`, `igcse_biology`, `igcse_mathematics`, `igcse_computer_science`, `igcse_business_studies`, `igcse_economics`, `a_level_physics`, `a_level_biology`, `a_level_chemistry`, `a_level_computer_science`, `a_level_business`, `a_level_economics`. The natural-language exam resolver looks here when the user names an exam in the prompt.
+Convention is `exams/<level>/<subject>_<syllabus_code>/`, with `<level>` ∈ {`igcse`, `a_level`}. Code slugs (in `EXAM_ROOT_BY_KEY`) are `<level>_<subject>` — fifteen today: `igcse_physics`, `igcse_chemistry`, `igcse_biology`, `igcse_mathematics`, `igcse_computer_science`, `igcse_business_studies`, `igcse_economics`, `a_level_physics`, `a_level_biology`, `a_level_chemistry`, `a_level_computer_science`, `a_level_business`, `a_level_economics`, `a_level_mathematics` (9709), `a_level_further_mathematics` (9231). The natural-language exam resolver looks here when the user names an exam in the prompt. Adding a subject means touching the same set in several places: `eXercise/config.py` (three dicts — `EXAM_ROOT_BY_KEY`, `SYLLABUS_CODE_BY_KEY`, `PAGE_HEADER_BY_EXAM`), `eXercise/labels.py` (`_SUBJECT_PREFIXES`), `eXercise/natural_language.py` (the resolver prompt's subject list), `xscore/shared/subjects.py` (`KNOWN_SUBJECTS`, with `filename_patterns` for detection), and `scripts/subtopic_match_tool.py` (`ALL_SUBJECTS`).
 
 ## Python environment
 
