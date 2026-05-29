@@ -2,16 +2,24 @@ english	简体中文	pinyin
 absolute temperature	绝对温度	jué duì wēn dù
 absolute uncertainty	绝对不确定度	juéduì bùquèdìngdù
 absolute zero	绝对零度	jué duì líng dù
+absorption spectrum	吸收光谱	xī shōu guāng pǔ
 acceleration	加速度	jiāsùdù
 accuracy	准确度	zhǔnquèdù
+activity	活度	huó dù
+adiabatic	绝热	jué rè
 air resistance	空气阻力	kōng qì zǔ lì
 alpha particle	α粒子	α lì zi
+alternating current	交流电	jiāo liú diàn
 ammeter	电流表	diàn liú biǎo
+amount of substance	物质的量	wù zhì dì liàng
 ampere	安培	ānpéi
 amplitude	振幅	zhèn fú
 angular acceleration	角加速度	jiǎo jiā sù dù
 angular displacement	角位移	jiǎo wèi yí
+angular frequency	角频率	jiǎo pín lǜ
 angular speed	角速度	jiǎo sù dù
+annihilate	湮灭	yān miè
+anode	阳极	yáng jí
 anticlockwise	逆时针	nì shí zhēn
 antineutrino	反中微子	fǎn zhōng wēi zi
 antinode	波腹	bō fù
@@ -21,46 +29,84 @@ antiquark	反夸克	fǎn kuā kè
 arc	弧	hú
 Archimedes' principle	阿基米德原理	ā jī mǐ dé yuán lǐ
 atmospheric pressure	大气压强	dà qì yā qiáng
+atom	原子	yuán zi
+attenuate	衰减	shuāi jiǎn
 attenuated	衰减	shuāi jiǎn
+attenuation coefficient	衰减系数	shuāi jiǎn xì shù
+Avogadro constant	阿伏伽德罗常量	ā fú gā dé luó cháng liàng
 banked	倾斜	qīng xié
+bar magnet	条形磁铁	tiáo xíng cí tiě
 baryons	重子	zhòng zǐ
 base quantity	基本量	jīběnliàng
+becquerel	贝克勒尔	bèi kè lēi ěr
 beta particle	β粒子	β lì zi
+Big Bang	大爆炸	dà bào zhà
+binding energy	结合能	jié hé néng
+binding energy per nucleon	比结合能	bǐ jié hé néng
+blackbody	黑体	hēi tǐ
+blueshifted	蓝移	lán yí
+Boltzmann constant	玻尔兹曼常量	bō ěr zī màn cháng liàng
+bound	束缚	shù fù
+Boyle's law	玻意耳定律	bō yì ěr dìng lǜ
+Bremsstrahlung	轫致辐射	rèn zhì fú shè
+bridge rectifier	桥式整流器	qiáo shì zhěng liú qì
 calibration	校准	jiàozhǔn
+capacitance	电容	diàn róng
 capacitor	电容器	diàn róng qì
 capillary	毛细管	máo xì guǎn
+cathode	阴极	yīn jí
 cathode-ray oscilloscope	示波器	shì bō qì
+cathode-ray tube	阴极射线管	yīn jí shè xiàn guǎn
 cell	电池	diàn chí
 Celsius	摄氏度	shè shì dù
 centre of gravity	重心	zhòng xīn
 centre of mass	质心	zhì xīn
 centripetal acceleration	向心加速度	xiàng xīn jiā sù dù
 centripetal force	向心力	xiàng xīn lì
+Cepheid variables	造父变星	zào fù biàn xīng
+chain reaction	链式反应	liàn shì fǎn yìng
+characteristic	特征	tè zhēng
 charge carrier	载流子	zài liú zi
+Charles's law	查理定律	chá lǐ dìng lǜ
 chemical energy	化学能	huà xué néng
 circumference	周长	zhōu cháng
 clockwise	顺时针	shùn shí zhēn
 closed system	封闭系统	fēng bì xì tǒng
 coefficient	系数	xì shù
 coherent	相干	xiāng gān
+coil	线圈	xiàn quān
 collision	碰撞	pèng zhuàng
 comparator	比较器	bǐ jiào qì
 component	分量	fēnliàng
 compression	压缩	yā suō
+computed tomography	计算机断层扫描	jì suàn jī duàn céng sǎo miáo
+conductor	导体	dǎo tǐ
 conservation of charge	电荷守恒	diàn hè shǒu héng
 conservation of energy	能量守恒	néng liàng shǒu héng
 conservation of momentum	动量守恒	dòng liàng shǒu héng
 constructive interference	相长干涉	xiāng zhǎng gān shè
 continuous	连续	lián xù
+contrast	对比度	duì bǐ dù
+contrast medium	造影剂	zào yǐng jì
 conventional current	常规电流	cháng guī diàn liú
 coplanar	共面	gòngmiàn
 cosine rule	余弦定理	yú xián dìng lǐ
+cosmic microwave background	宇宙微波背景	yǔ zhòu wēi bō bèi jǐng
 coulomb	库仑	kù lún
+Coulomb's law	库仑定律	kù lún dìng lǜ
+count rate	计数率	jì shù lǜ
 couple	力偶	lì ǒu
+coupling gel	耦合剂	ǒu hé jì
 crest	波峰	bō fēng
+critical damping	临界阻尼	lín jiè zǔ ní
+critical mass	临界质量	lín jiè zhì liàng
 cross-sectional area	横截面积	héng jié miàn jī
+crystal lattice	晶格	jīng gé
 current	电流	diànliú
+damping	阻尼	zǔ ní
 daughter nucleus	子核	zi hé
+de Broglie wavelength	德布罗意波长	dé bù luó yì bō cháng
+decay constant	衰变常数	shuāi biàn cháng shù
 deceleration	减速度	jiǎn sù dù
 deflection	偏转	piān zhuǎn
 deformation	形变	xíng biàn
@@ -70,9 +116,11 @@ derived quantity	导出量	dǎochūliàng
 derived unit	导出单位	dǎochū dānwèi
 destructive interference	相消干涉	xiāng xiāo gān shè
 diameter	直径	zhíjìng
+dielectric	电介质	diàn jiè zhì
 diffraction	衍射	yǎn shè
 diffraction grating	衍射光栅	yǎn shè guāng shān
 diode	二极管	èr jí guǎn
+dipole	偶极子	ǒu jí zi
 discrete	分立	fēn lì
 displaced	排开	pái kāi
 displacement	位移	wèiyí
@@ -81,6 +129,8 @@ Doppler effect	多普勒效应	duō pǔ lè xiào yìng
 double-slit	双缝	shuāng fèng
 drag	阻力	zǔ lì
 drift velocity	漂移速度	piāo yí sù dù
+driving frequency	驱动频率	qū dòng pín lǜ
+eddy currents	涡流	wō liú
 efficiency	效率	xiào lǜ
 elastic	弹性	tán xìng
 elastic collision	弹性碰撞	tán xìng pèng zhuàng
@@ -88,29 +138,48 @@ elastic limit	弹性极限	tán xìng jí xiàn
 elastic potential energy	弹性势能	tán xìng shì néng
 electric charge	电荷	diànhè
 electric current	电流	diàn liú
+electric field	电场	diàn chǎng
+electric field strength	电场强度	diàn chǎng qiáng dù
+electric potential	电势	diàn shì
+electric potential energy	电势能	diàn shì néng
 electrical energy	电能	diàn néng
 electrolyte	电解质	diàn jiě zhì
+electromagnet	电磁铁	diàn cí tiě
+electromagnetic induction	电磁感应	diàn cí gǎn yìng
 electromagnetic spectrum	电磁波谱	diàn cí bō pǔ
 electromagnetic wave	电磁波	diàn cí bō
 electromotive force	电动势	diàn dòng shì
 electron	电子	diàn zi
+electron diffraction	电子衍射	diàn zi yǎn shè
+electronvolt	电子伏特	diàn zi fú tè
 electrostatic	静电	jìng diàn
 elementary charge	基本电荷	jī běn diàn hè
+emission spectrum	发射光谱	fā shè guāng pǔ
 energy	能量	néngliàng
+energy level	能级	néng jí
+equation of state	状态方程	zhuàng tài fāng chéng
 equator	赤道	chì dào
 equilibrium	平衡	píng héng
+equipotential	等势面	děng shì miàn
 escape velocity	逃逸速度	táo yì sù dù
 estimate	估算	gūsuàn
 excited state	激发态	jī fā tài
 explosion	爆炸	bào zhà
+exponential decay	指数衰减	zhǐ shù shuāi jiǎn
 extension	伸长量	shēn cháng liàng
 external force	外力	wài lì
+farad	法拉	fǎ lā
+Faraday's law	法拉第定律	fǎ lā dì dìng lǜ
 field line	场线	chǎng xiàn
 filament lamp	灯丝灯泡	dēng sī dēng pào
+first law of thermodynamics	热力学第一定律	rè lì xué dì yí dìng lǜ
 flavours	味	wèi
+Fleming's left-hand rule	弗莱明左手定则	fú lái míng zuǒ shǒu dìng zé
 floating	漂浮	piāo fú
 fluid	流体	liú tǐ
+flux linkage	磁链	cí liàn
 force	力	lì
+forced oscillation	受迫振动	shòu pò zhèn dòng
 free fall	自由落体	zì yóu luò tǐ
 free-body diagram	受力图	shòu lì tú
 frequency	频率	pín lǜ
@@ -118,12 +187,14 @@ friction	摩擦力	mó cā lì
 frictionless	无摩擦	wú mó cā
 fringe	条纹	tiáo wén
 fringe spacing	条纹间距	tiáo wén jiān jù
+full-wave rectification	全波整流	quán bō zhěng liú
 fundamental	基频	jī pín
 fuse	保险丝	bǎo xiǎn sī
 fusion	熔化	róng huà
 galvanometer	检流计	jiǎn liú jì
 gamma ray	γ射线	γ shè xiàn
 gamma-rays	γ射线	γ shè xiàn
+Geiger counter	盖革计数器	gài gé jì shù qì
 geostationary	地球同步	dì qiú tóng bù
 gradient	斜率	xié lǜ
 gravitational attraction	引力	yǐn lì
@@ -132,15 +203,28 @@ gravitational field strength	重力场强度	zhòng lì chǎng qiáng dù
 gravitational potential	引力势	yǐn lì shì
 gravitational potential energy	重力势能	zhòng lì shì néng
 gravity	重力	zhòng lì
+ground state	基态	jī tài
 hadrons	强子	qiáng zi
+half-life	半衰期	bàn shuāi qī
+half-value thickness	半值厚度	bàn zhí hòu dù
+half-wave rectification	半波整流	bàn bō zhěng liú
+Hall effect	霍尔效应	huò ěr xiào yìng
+Hall probe	霍尔探头	huò ěr tàn tóu
+Hall voltage	霍尔电压	huò ěr diàn yā
 head-on	正面	zhèng miàn
 heat	热量	rè liàng
+heat capacity	热容	rè róng
+heavy damping	过阻尼	guò zǔ ní
+helix	螺旋	luó xuán
 hertz	赫兹	hè zī
 hole	空穴	kōng xué
 homogeneous	量纲一致	liànggāng yīzhì
 Hooke's law	胡克定律	hú kè dìng lǜ
 horizontal	水平	shuǐ píng
+Hubble constant	哈勃常数	hā bó cháng shù
+Hubble's law	哈勃定律	hā bó dìng lǜ
 hydrostatic pressure	流体静压强	liú tǐ jìng yā qiáng
+ideal gas	理想气体	lǐ xiǎng qì tǐ
 impulse	冲量	chōng liàng
 in phase	同相	tóng xiāng
 inclined plane	斜面	xiémiàn
@@ -152,12 +236,16 @@ instrument	仪器	yí qì
 insulation	隔热	gé rè
 insulator	绝缘体	jué yuán tǐ
 intensity	强度	qiáng dù
+intensity reflection coefficient	强度反射系数	qiáng dù fǎn shè xì shù
 interference	干涉	gān shè
 intermolecular	分子间	fèn zǐ jiān
 internal energy	内能	nèi néng
 internal resistance	内阻	nèi zǔ
+inverse-square law	平方反比定律	píng fāng fǎn bǐ dìng lǜ
 ion	离子	lí zi
 ionising	电离	diàn lí
+iron core	铁芯	tiě xīn
+isothermal	等温	děng wēn
 isotope	同位素	tóng wèi sù
 jockey	滑动触头	huá dòng chù tóu
 joule	焦耳	jiāo'ěr
@@ -166,14 +254,17 @@ kelvin	开尔文	kāi'ěrwén
 Kepler's third law	开普勒第三定律	kāi pǔ lēi dì sān dìng lǜ
 kinematics	运动学	yùn dòng xué
 kinetic energy	动能	dòng néng
+kinetic theory	分子动理论	fèn zǐ dòng lǐ lùn
 Kirchhoff's first law	基尔霍夫第一定律	jī ěr huò fū dì yí dìng lǜ
 Kirchhoff's second law	基尔霍夫第二定律	jī ěr huò fū dì èr dìng lǜ
 latent heat	潜热	qián rè
 lattice vibration	晶格振动	jīng gé zhèn dòng
 LED	发光二极管	fā guāng èr jí guǎn
 length	长度	chángdù
+Lenz's law	楞次定律	léng cì dìng lǜ
 leptons	轻子	qīng zi
 lever arm	力臂	lì bì
+light damping	轻阻尼	qīng zǔ ní
 light gate	光电门	guāng diàn mén
 light intensity	光强	guāng qiáng
 light-dependent resistor	光敏电阻	guāng mǐn diàn zǔ
@@ -181,23 +272,38 @@ limit of proportionality	比例极限	bǐ lì jí xiàn
 line of action	作用线	zuò yòng xiàn
 linear momentum	动量	dòng liàng
 load	负载	fù zài
+longitudinal	纵波	zòng bō
 longitudinal wave	纵波	zòng bō
 loop	回路	huí lù
+luminosity	光度	guāng dù
 magnetic field	磁场	cí chǎng
+magnetic flux	磁通量	cí tōng liàng
+magnetic flux density	磁通密度	cí tōng mì dù
 magnitude	大小	dàxiǎo
 Malus's law	马吕斯定律	mǎ lǚ sī dìng lǜ
 mass	质量	zhìliàng
+mass defect	质量亏损	zhì liàng kuī sǔn
+mass-energy equivalence	质能等价	zhì néng děng jià
 mass-flow rate	质量流率	zhì liàng liú lǜ
 maximum	极大	jí dà
 mean	平均值	píngjūnzhí
+mean square	均方	jūn fāng
+mean-square speed	均方速率	jūn fāng sù lǜ
 measurement	测量	cèliáng
 medium	介质	jiè zhì
 mesons	介子	jiè zi
+metabolism	代谢	dài xiè
 micrometer	螺旋测微器	luó xuán cè wēi qì
 microwaves	微波	wēi bō
 minimum	极小	jí xiǎo
+molar gas constant	摩尔气体常量	mó ěr qì tǐ cháng liàng
+molar mass	摩尔质量	mó ěr zhì liàng
+mole	摩尔	mó ěr
+molecule	分子	fèn zǐ
 moment	力矩	lì jǔ
 momentum	动量	dòngliàng
+monatomic	单原子	dān yuán zi
+natural frequency	固有频率	gù yǒu pín lǜ
 negative temperature coefficient	负温度系数	fù wēn dù xì shù
 neutrino	中微子	zhōng wēi zi
 neutron	中子	zhōng zi
@@ -207,6 +313,9 @@ Newton's law of gravitation	万有引力定律	wàn yǒu yǐn lì dìng lǜ
 node	波节	bō jié
 normal	法线	fǎ xiàn
 normal contact force	支持力	zhī chí lì
+nuclear fission	核裂变	hé liè biàn
+nuclear fusion	核聚变	hé jù biàn
+nuclear reaction	核反应	hé fǎn yìng
 nucleon	核子	hé zǐ
 nucleon number	核子数	hé zǐ shù
 nucleus	原子核	yuán zǐ hé
@@ -222,34 +331,49 @@ orbit	轨道	guǐ dào
 order	级次	jí cì
 order of magnitude	数量级	shùliàngjí
 oscillate	振动	zhèn dòng
+parabolic	抛物线	pāo wù xiàn
 parachutist	跳伞者	tiào sǎn zhě
 parallax	视差	shìchā
 parallel	并联	bìng lián
 pascal	帕斯卡	pàsīkǎ
 path difference	路程差	lù chéng chà
+peak value	峰值	fēng zhí
+peak-to-peak value	峰峰值	fēng fēng zhí
+pendulum	单摆	dān bǎi
 percentage uncertainty	百分比不确定度	bǎifēnbǐ bùquèdìngdù
 period	周期	zhōu qī
+permanent magnet	永磁体	yǒng cí tǐ
+permittivity of free space	真空电容率	zhēn kōng diàn róng lǜ
 perpendicular	垂直	chuízhí
 perpendicular distance	垂直距离	chuí zhí jù lí
 phase change	相变	xiāng biàn
 phase difference	相位差	xiàng wèi chà
+photoelectric effect	光电效应	guāng diàn xiào yìng
+photoelectron	光电子	guāng diàn zi
 photon	光子	guāng zi
 physical quantity	物理量	wùlǐliàng
+piezo-electric	压电	yā diàn
+piston	活塞	huó sāi
 pivot	支点	zhī diǎn
+Planck constant	普朗克常量	pǔ lǎng kè cháng liàng
 plane-polarised	平面偏振	píng miàn piān zhèn
 plastic	塑性	sù xìng
+point charge	点电荷	diǎn diàn hè
 point mass	质点	zhì diǎn
 point source	点源	diǎn yuán
 polarisation	偏振	piān zhèn
 polarising filter	偏振片	piān zhèn piàn
 positron	正电子	zhèng diàn zi
+positron emission tomography	正电子发射断层扫描	zhèng diàn zi fā shè duàn céng sǎo miáo
 potential difference	电势差	diàn shì chà
 potential divider	分压器	fēn yā qì
+potential gradient	电势梯度	diàn shì tī dù
 potentiometer	电位差计	diàn wèi chà jì
 power	功率	gōnglǜ
 precision	精密度	jīngmìdù
 prefix	词头	cítóu
 pressure	压强	yāqiáng
+pressure law	气体压强定律	qì tǐ yā qiáng dìng lǜ
 principle of moments	力矩原理	lì jǔ yuán lǐ
 progressive wave	行波	xíng bō
 projectile	抛体	pāo tǐ
@@ -257,28 +381,45 @@ propagate	传播	chuán bō
 proton	质子	zhì zi
 proton number	质子数	zhì zi shù
 pulley	滑轮	huá lún
+pulse-echo	脉冲回波	mài chōng huí bō
+quanta	量子	liàng zǐ
 quantised	量子化	liàng zǐ huà
 quark	夸克	kuā kè
 radial	径向	jìng xiàng
 radian	弧度	hú dù
+radiant flux intensity	辐射通量密度	fú shè tōng liàng mì dù
 radiation	辐射	fú shè
 radioactive	放射性	fàng shè xìng
+radionuclide	放射性核素	fàng shè xìng hé sù
 ramp	斜坡	xié pō
+random	随机	suí jī
 random error	随机误差	suíjī wùchā
+random motion	无规则运动	wú guī zé yùn dòng
 range	射程	shè chéng
 rarefaction	稀疏	xī shū
 reaction-time	反应时间	fǎn yìng shí jiān
+recession	退行	tuì xíng
 recoil	反冲	fǎn chōng
+rectification	整流	zhěng liú
+redshift	红移	hóng yí
 reflected	反射	fǎn shè
 relative speed	相对速率	xiāng duì sù lǜ
 resistance	电阻	diàn zǔ
 resistivity	电阻率	diàn zǔ lǜ
+resistor	电阻器	diàn zǔ qì
+resonance	共振	gòng zhèn
+resonance curve	共振曲线	gòng zhèn qū xiàn
 resonance tube	共鸣管	gòng míng guǎn
 resultant	合矢量	héshǐliàng
 resultant force	合力	hé lì
+reverse-biased	反向偏置	fǎn xiàng piān zhì
 revolution	圈	quān
 rheostat	变阻器	biàn zǔ qì
+right-hand grip rule	右手定则	yòu shǒu dìng zé
+ripple	纹波	wén bō
 ripple tank	水波槽	shuǐ bō cáo
+root-mean-square	均方根	jūn fāng gēn
+rotational	转动	zhuǎn dòng
 satellite	卫星	wèi xīng
 scalar	标量	biāoliàng
 scatters	散射	sǎn shè
@@ -288,52 +429,78 @@ series	串联	chuàn lián
 short circuit	短路	duǎn lù
 SI units	国际单位制	guójì dānwèizhì
 significant figures	有效数字	yǒuxiào shùzì
+simple harmonic motion	简谐运动	jiǎn xié yùn dòng
 sine curve	正弦曲线	zhèng xián qū xiàn
 sine rule	正弦定理	zhèng xián dìng lǐ
 slit	狭缝	xiá fèng
 slit spacing	缝间距	fèng jiān jù
+smoothing	平滑	píng huá
+solenoid	螺线管	luó xiàn guǎn
 source	波源	bō yuán
+specific acoustic impedance	声阻抗	shēng zǔ kàng
 specific heat capacity	比热容	bǐ rè róng
 specific latent heat	比潜热	bǐ qián rè
+spectral lines	谱线	pǔ xiàn
 speed	速率	sùlǜ
+spontaneous	自发	zì fā
 spring	弹簧	tán huáng
 spring constant	劲度系数	jìn dù xì shù
+standard candle	标准烛光	biāo zhǔn zhú guāng
 stationary	静止	jìng zhǐ
 stationary wave	驻波	zhù bō
+Stefan–Boltzmann constant	斯特藩-玻尔兹曼常量	sī tè fān - bō ěr zī màn cháng liàng
+Stefan–Boltzmann law	斯特藩-玻尔兹曼定律	sī tè fān - bō ěr zī màn dìng lǜ
 strain	应变	yìng biàn
 stress	应力	yìnglì
+strong nuclear force	强核力	qiáng hé lì
 submerged	浸没	jìn mò
+supernovae	超新星	chāo xīn xīng
 superposition	叠加	dié jiā
 symmetric	对称	duì chèn
 systematic error	系统误差	xìtǒng wùchā
 tangent	切线	qiè xiàn
 tangential	切向	qiè xiàng
+target	靶	bǎ
 temperature	温度	wēndù
 tensile	拉伸	lā shēn
 tension	张力	zhāng lì
 terminal p.d.	端电压	duān diàn yā
 terminal velocity	收尾速度	shōu wěi sù dù
+tesla	特斯拉	tè sī lā
+test charge	检验电荷	jiǎn yàn diàn hè
 test mass	检验质量	jiǎn yàn zhì liàng
 thermal energy	热能	rè néng
 thermal equilibrium	热平衡	rè píng héng
+thermionic emission	热电子发射	rè diàn zi fā shè
 thermistor	热敏电阻	rè mǐn diàn zǔ
 thermocouple	热电偶	rè diàn ǒu
 thermodynamic temperature	热力学温度	rè lì xué wēn dù
 thermometer	温度计	wēn dù jì
 threshold	阈值	yù zhí
+threshold frequency	极限频率	jí xiàn pín lǜ
 thrust	推力	tuī lì
+time constant	时间常数	shí jiān cháng shù
 time-base	时基	shí jī
 torque	力偶矩	lì ǒu jǔ
+tracer	示踪剂	shì zōng jì
+transducer	换能器	huàn néng qì
+transformer	变压器	biàn yā qì
 transistor	晶体管	jīng tǐ guǎn
+transition	跃迁	yuè qiān
 translation	平动	píng dòng
+translational	平动	píng dòng
+translational kinetic energy	平动动能	píng dòng dòng néng
 transmission axis	透光轴	tòu guāng zhóu
 transverse wave	横波	héng bō
 trapezia	梯形	tī xíng
 trapezium	梯形	tī xíng
 trough	波谷	bō gǔ
+tungsten	钨	wū
+ultrasound	超声波	chāo shēng bō
 ultraviolet	紫外线	zǐ wài xiàn
 uncertainty	不确定度	bùquèdìngdù
 unified atomic mass unit	统一原子质量单位	tǒng yī yuán zi zhì liàng dān wèi
+uniform	匀强场	yún qiáng chǎng
 uniform acceleration	匀加速	yún jiā sù
 uniform field	匀强场	yún qiáng chǎng
 unit	单位	dānwèi
@@ -345,7 +512,9 @@ vector	矢量	shǐliàng
 vector sum	矢量和	shǐ liàng hé
 vector triangle	矢量三角形	shǐ liàng sān jiǎo xíng
 velocity	速度	sùdù
+velocity selector	速度选择器	sù dù xuǎn zé qì
 vertical	竖直	shù zhí
+vibrational	振动	zhèn dòng
 viscous	黏性	nián xìng
 volt	伏特	fú tè
 voltage	电压	diàn yā
@@ -355,8 +524,13 @@ watt	瓦特	wǎtè
 wave	波	bō
 wavefront	波前	bō qián
 wavelength	波长	bō cháng
+wave–particle duality	波粒二象性	bō lì èr xiàng xìng
+weber	韦伯	wéi bó
 weight	重力	zhònglì
+Wien's displacement law	维恩位移定律	wéi ēn wèi yí dìng lǜ
 work	功	gōng
+work function	逸出功	yì chū gōng
+X-ray tube	X射线管	X shè xiàn guǎn
 X-rays	X射线	X shè xiàn
 y-gain	垂直增益	chuí zhí zēng yì
 Young modulus	杨氏模量	yáng shì mó liàng

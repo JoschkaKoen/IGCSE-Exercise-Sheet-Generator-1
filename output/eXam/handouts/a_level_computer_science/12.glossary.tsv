@@ -1,0 +1,37 @@
+english	简体中文	pinyin
+development life cycle	开发生命周期	kāi fā shēng mìng zhōu qī
+requirements	需求	xū qiú
+waterfall	瀑布模型	pù bù mó xíng
+iterative model	迭代模型	dié dài mó xíng
+rapid application development	快速应用开发	kuài sù yìng yòng kāi fā
+prototype	原型	yuán xíng
+agile	敏捷	mǐn jié
+implementation	实现	shí xiàn
+maintenance	维护	wéi hù
+structure chart	结构图	jié gòu tú
+decomposition	分解	fēn jiě
+subroutines	子程序	zi chéng xù
+parameters	参数	cān shù
+state-transition diagram	状态转换图	zhuàng tài zhuǎn huàn tú
+states	状态	zhuàng tài
+syntax error	语法错误	yǔ fǎ cuò wù
+run-time error	运行时错误	yùn xíng shí cuò wù
+logic error	逻辑错误	luó jí cuò wù
+dry run	手工跟踪	shǒu gōng gēn zōng
+walkthrough	走查	zǒu chá
+white-box testing	白盒测试	bái hé cè shì
+black-box testing	黑盒测试	hēi hé cè shì
+integration testing	集成测试	jí chéng cè shì
+alpha testing	α测试	α cè shì
+beta testing	β测试	β cè shì
+acceptance testing	验收测试	yàn shōu cè shì
+stub	桩	zhuāng
+test strategy	测试策略	cè shì cè lüè
+test plan	测试计划	cè shì jì huà
+normal data	正常数据	zhèng cháng shù jù
+abnormal data	异常数据	yì cháng shù jù
+boundary data	边界数据	biān jiè shù jù
+perfective maintenance	完善性维护	wán shàn xìng wéi hù
+adaptive maintenance	适应性维护	shì yìng xìng wéi hù
+corrective maintenance	纠正性维护	jiū zhèng xìng wéi hù
+regression testing	回归测试	huí guī cè shì

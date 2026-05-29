@@ -61,20 +61,47 @@ async def _lifespan(app: FastAPI):
 app = FastAPI(title="eXercise", lifespan=_lifespan)
 
 
-class NoCacheStaticFiles(StaticFiles):
-    """StaticFiles subclass that disables browser caching (dev only)."""
+def _with_isolation_headers(headers: list, *, no_cache: bool) -> list:
+    """Add cross-origin isolation headers (and optionally disable caching).
+
+    The /code playground is cross-origin isolated (COOP+COEP). Under
+    ``COEP: require-corp`` every subresource it loads — and, critically, the
+    Pyodide module worker's own script — must itself be served with
+    ``Cross-Origin-Embedder-Policy: require-corp`` and pass the CORP check, or
+    the browser refuses to load it (the worker fails with an empty error). So we
+    stamp these on the whole /static tree. They are inert on non-isolated pages.
+    """
+    drop = {b"cross-origin-resource-policy", b"cross-origin-embedder-policy"}
+    if no_cache:
+        drop |= {b"cache-control", b"etag", b"last-modified"}
+    out = [(k, v) for k, v in headers if k.lower() not in drop]
+    out.append((b"cross-origin-resource-policy", b"same-origin"))
+    out.append((b"cross-origin-embedder-policy", b"require-corp"))
+    if no_cache:
+        out.append((b"cache-control", b"no-store, no-cache, must-revalidate, max-age=0"))
+    return out
+
+
+class IsolatedStaticFiles(StaticFiles):
+    """StaticFiles that adds cross-origin isolation headers (CORP + COEP) so the
+    cross-origin-isolated /code page can load these assets and spawn the Pyodide
+    module worker. ``no_cache=True`` also disables browser caching (used for the
+    frequently-edited /static tree; the pinned /static/vendor tree stays
+    cacheable so the ~12 MB Pyodide download is fetched once)."""
+
+    def __init__(self, *args, no_cache: bool = False, **kwargs):
+        self._no_cache = no_cache
+        super().__init__(*args, **kwargs)
 
     async def __call__(self, scope, receive, send):
-        async def send_with_no_cache(message):
+        async def send_wrapped(message):
             if message["type"] == "http.response.start":
-                headers = list(message.get("headers", []))
-                # Remove any existing cache headers
-                headers = [(k, v) for k, v in headers if k.lower() not in (b"cache-control", b"etag", b"last-modified")]
-                headers.append((b"cache-control", b"no-store, no-cache, must-revalidate, max-age=0"))
-                message["headers"] = headers
+                message["headers"] = _with_isolation_headers(
+                    list(message.get("headers", [])), no_cache=self._no_cache
+                )
             await send(message)
 
-        await super().__call__(scope, receive, send_with_no_cache)
+        await super().__call__(scope, receive, send_wrapped)
 
 
 # Pyodide's WASM must be served as ``application/wasm`` so the browser uses
@@ -88,9 +115,9 @@ if VENDOR_DIR.is_dir():
     # Pinned external CDN assets — let the browser cache these (default
     # StaticFiles emits ETag/Last-Modified). Mounted before /static so its
     # prefix wins in Starlette's route-iteration order.
-    app.mount("/static/vendor", StaticFiles(directory=str(VENDOR_DIR)), name="static-vendor")
+    app.mount("/static/vendor", IsolatedStaticFiles(directory=str(VENDOR_DIR)), name="static-vendor")
 if STATIC_DIR.is_dir():
-    app.mount("/static", NoCacheStaticFiles(directory=str(STATIC_DIR)), name="static")
+    app.mount("/static", IsolatedStaticFiles(directory=str(STATIC_DIR), no_cache=True), name="static")
 
 _favicon_svg = STATIC_DIR / "favicon.svg"
 

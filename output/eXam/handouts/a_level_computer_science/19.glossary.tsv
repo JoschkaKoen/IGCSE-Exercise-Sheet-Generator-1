@@ -1,0 +1,29 @@
+english	简体中文	pinyin
+array	数组	shù zǔ
+linear search	线性查找	xiàn xìng chá zhǎo
+binary search	二分查找	èr fēn chá zhǎo
+bubble sort	冒泡排序	mào pào pái xù
+insertion sort	插入排序	chā rù pái xù
+in place	原地	yuán dì
+stable	稳定	wěn dìng
+stack	栈	zhàn
+queue	队列	duì liè
+linked list	链表	liàn biǎo
+node	节点	jié diǎn
+pointers	指针	zhǐ zhēn
+binary tree	二叉树	èr chā shù
+time complexity	时间复杂度	shí jiān fù zá dù
+Big-O notation	大O表示法	dà O biǎo shì fǎ
+space complexity	空间复杂度	kōng jiān fù zá dù
+recursion	递归	dì guī
+base case	基本情形	jī běn qíng xíng
+recursive case	递归情形	dì guī qíng xíng
+factorial	阶乘	jiē chéng
+divide-and-conquer	分治	fēn zhì
+stack overflow	栈溢出	zhàn yì chū
+memoisation	记忆化	jì yì huà
+parameters	参数	cān shù
+local variables	局部变量	jú bù biàn liàng
+call stack	调用栈	diào yòng zhàn
+stack frame	栈帧	zhàn zhēn
+return address	返回地址	fǎn huí dì zhǐ

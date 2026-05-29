@@ -1,0 +1,31 @@
+english	简体中文	pinyin
+data type	数据类型	shù jù lèi xíng
+record	记录	jì lù
+field	字段	zì duàn
+array	数组	shù zǔ
+index	索引	suǒ yǐn
+element	元素	yuán sù
+bounds	边界	biān jiè
+dimension	维度	wéi dù
+linear search	线性查找	xiàn xìng chá zhǎo
+file	文件	wén jiàn
+secondary storage	辅助存储器	fǔ zhù cún chǔ qì
+text file	文本文件	wén běn wén jiàn
+end of file	文件结束	wén jiàn jié shù
+abstract data type	抽象数据类型	chōu xiàng shù jù lèi xíng
+stack	栈	zhàn
+LIFO	后进先出	hòu jìn xiān chū
+push	入栈	rù zhàn
+pop	出栈	chū zhàn
+queue	队列	duì liè
+FIFO	先进先出	xiān jìn xiān chū
+enqueue	入队	rù duì
+dequeue	出队	chū duì
+linked list	链表	liàn biǎo
+node	节点	jié diǎn
+pointer	指针	zhǐ zhēn
+traverse	遍历	biàn lì
+overflow	溢出	yì chū
+underflow	下溢	xià yì
+circular array	循环数组	xún huán shù zǔ
+free list	空闲列表	kòng xián liè biǎo

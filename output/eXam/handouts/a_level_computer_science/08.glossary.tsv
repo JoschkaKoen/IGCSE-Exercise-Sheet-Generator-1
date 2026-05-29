@@ -1,0 +1,35 @@
+english	简体中文	pinyin
+flat files	平面文件	píng miàn wén jiàn
+data redundancy	数据冗余	shù jù rǒng yú
+data inconsistency	数据不一致	shù jù bù yī zhì
+integrity	完整性	wán zhěng xìng
+relational database	关系数据库	guān xì shù jù kù
+table	表	biǎo
+entity	实体	shí tǐ
+record	记录	jì lù
+field	字段	zì duàn
+primary key	主键	zhǔ jiàn
+foreign key	外键	wài jiàn
+composite key	复合键	fù hé jiàn
+candidate key	候选键	hòu xuǎn jiàn
+referential integrity	参照完整性	cān zhào wán zhěng xìng
+entity-relationship diagram	实体关系图	shí tǐ guān xì tú
+cardinality	基数	jī shù
+one-to-many	一对多	yī duì duō
+link table	连接表	lián jiē biǎo
+normalisation	规范化	guī fàn huà
+normal forms	范式	fàn shì
+atomic	原子	yuán zi
+transitive dependency	传递依赖	chuán dì yī lài
+DBMS	数据库管理系统	shù jù kù guǎn lǐ xì tǒng
+data dictionary	数据字典	shù jù zì diǎn
+concurrent access	并发访问	bìng fā fǎng wèn
+backup	备份	bèi fèn
+transactions	事务	shì wù
+views	视图	shì tú
+SQL	结构化查询语言	jié gòu huà chá xún yǔ yán
+Data Definition Language	数据定义语言	shù jù dìng yì yǔ yán
+Data Manipulation Language	数据操纵语言	shù jù cāo zòng yǔ yán
+query	查询	chá xún
+join	连接	lián jiē
+aggregate functions	聚合函数	jù hé hán shù

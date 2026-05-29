@@ -1,0 +1,35 @@
+english	简体中文	pinyin
+programming paradigm	编程范式	biān chéng fàn shì
+machine code	机器码	jī qì mǎ
+assembly language	汇编语言	huì biān yǔ yán
+registers	寄存器	jì cún qì
+memory addresses	内存地址	nèi cún dì zhǐ
+low-level	低级	dī jí
+imperative programming	命令式编程	mìng lìng shì biān chéng
+variables	变量	biàn liàng
+object-oriented programming	面向对象编程	miàn xiàng duì xiàng biān chéng
+objects	对象	duì xiàng
+attributes	属性	shǔ xìng
+methods	方法	fāng fǎ
+instances	实例	shí lì
+classes	类	lèi
+encapsulation	封装	fēng zhuāng
+inheritance	继承	jì chéng
+subclass	子类	zi lèi
+superclass	父类	fù lèi
+overriding	重写	zhòng xiě
+polymorphism	多态	duō tài
+abstraction	抽象	chōu xiàng
+constructor	构造函数	gòu zào hán shù
+declarative programming	声明式编程	shēng míng shì biān chéng
+functional programming	函数式编程	hán shù shì biān chéng
+pure functions	纯函数	chún hán shù
+side effects	副作用	fù zuò yòng
+logic programming	逻辑编程	luó jí biān chéng
+SQL	结构化查询语言	jié gòu huà chá xún yǔ yán
+file	文件	wén jiàn
+array	数组	shù zǔ
+exception	异常	yì cháng
+exception handling	异常处理	yì cháng chǔ lǐ
+raise	抛出	pāo chū
+call stack	调用栈	diào yòng zhàn

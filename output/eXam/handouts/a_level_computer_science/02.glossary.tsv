@@ -1,0 +1,49 @@
+english	简体中文	pinyin
+network	网络	wǎng luò
+local area network	局域网	jú yù wǎng
+latency	延迟	yán chí
+wide area network	广域网	guǎng yù wǎng
+server	服务器	fú wù qì
+client	客户端	kè hù duān
+peer-to-peer	对等网络	duì děng wǎng luò
+thin client	瘦客户端	shòu kè hù duān
+thick client	胖客户端	pàng kè hù duān
+topology	拓扑	tuò pū
+bus	总线	zǒng xiàn
+bandwidth	带宽	dài kuān
+star	星形	xīng xíng
+mesh	网状	wǎng zhuàng
+fault-tolerant	容错	róng cuò
+cloud computing	云计算	yún jì suàn
+scalability	可扩展性	kě kuò zhǎn xìng
+Ethernet	以太网	yǐ tài wǎng
+twisted-pair	双绞线	shuāng jiǎo xiàn
+fibre-optic	光纤	guāng xiān
+network interface card	网络接口卡	wǎng luò jiē kǒu kǎ
+MAC address	MAC地址	MAC dì zhǐ
+switch	交换机	jiāo huàn jī
+hub	集线器	jí xiàn qì
+wireless access point	无线接入点	wú xiàn jiē rù diǎn
+router	路由器	lù yóu qì
+packet	数据包	shù jù bāo
+IP address	IP地址	IP dì zhǐ
+routing table	路由表	lù yóu biǎo
+network address translation	网络地址转换	wǎng luò dì zhǐ zhuǎn huàn
+DHCP	动态主机配置协议	dòng tài zhǔ jī pèi zhì xié yì
+firewall	防火墙	fáng huǒ qiáng
+collision	冲突	chōng tū
+CSMA/CD	载波侦听多路访问	zài bō zhēn tīng duō lù fǎng wèn
+full-duplex	全双工	quán shuāng gōng
+bit streaming	流式传输	liú shì chuán shū
+buffer	缓冲	huǎn chōng
+compression	压缩	yā suō
+lossy	有损	yǒu sǔn
+internet	互联网	hù lián wǎng
+protocol	协议	xié yì
+World Wide Web	万维网	wàn wéi wǎng
+subnets	子网	zi wǎng
+subnet mask	子网掩码	zi wǎng yǎn mǎ
+ISP	互联网服务提供商	hù lián wǎng fú wù tí gōng shāng
+URL	统一资源定位符	tǒng yī zī yuán dìng wèi fú
+domain name	域名	yù míng
+Domain Name System	域名系统	yù míng xì tǒng

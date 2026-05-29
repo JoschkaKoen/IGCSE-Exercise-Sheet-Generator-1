@@ -1,0 +1,35 @@
+english	简体中文	pinyin
+CISC	复杂指令集	fù zá zhǐ lìng jí
+RISC	精简指令集	jīng jiǎn zhǐ lìng jí
+register	寄存器	jì cún qì
+pipeline	流水线	liú shuǐ xiàn
+ALU	算术逻辑单元	suàn shù luó jí dān yuán
+hazard	冒险	mào xiǎn
+Flynn's taxonomy	弗林分类	fú lín fēn lèi
+SIMD	单指令多数据	dān zhǐ lìng duō shù jù
+MIMD	多指令多数据	duō zhǐ lìng duō shù jù
+massively parallel	大规模并行	dà guī mó bìng xíng
+distributed memory	分布式内存	fēn bù shì nèi cún
+machine learning	机器学习	jī qì xué xí
+supercomputers	超级计算机	chāo jí jì suàn jī
+virtual machine	虚拟机	xū nǐ jī
+hypervisor	虚拟机监控器	xū nǐ jī jiān kòng qì
+sandboxing	沙箱	shā xiāng
+bytecode	字节码	zì jié mǎ
+just-in-time compilation	即时编译	jí shí biān yì
+Boolean algebra	布尔代数	bù ěr dài shù
+Boolean	布尔	bù ěr
+De Morgan's laws	德摩根定律	dé mó gēn dìng lǜ
+absorption	吸收律	xī shōu lǜ
+Karnaugh map	卡诺图	kǎ nuò tú
+Gray code	格雷码	gé léi mǎ
+half adder	半加器	bàn jiā qì
+carry	进位	jìn wèi
+full adder	全加器	quán jiā qì
+flip-flop	触发器	chù fā qì
+bistable	双稳态	shuāng wěn tài
+SR flip-flop	SR触发器	SR chù fā qì
+JK flip-flop	JK触发器	JK chù fā qì
+toggle	翻转	fān zhuǎn
+counters	计数器	jì shù qì
+SRAM	静态RAM	jìng tài RAM

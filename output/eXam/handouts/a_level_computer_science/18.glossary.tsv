@@ -1,0 +1,40 @@
+english	简体中文	pinyin
+artificial intelligence	人工智能	rén gōng zhì néng
+machine learning	机器学习	jī qì xué xí
+deep learning	深度学习	shēn dù xué xí
+neural networks	神经网络	shén jīng wǎng luò
+graph	图	tú
+nodes	节点	jié diǎn
+edges	边	biān
+minimax	极小化极大	jí xiǎo huà jí dà
+semantic network	语义网络	yǔ yì wǎng luò
+knowledge graph	知识图谱	zhī shí tú pǔ
+breadth-first search	广度优先搜索	guǎng dù yōu xiān sōu suǒ
+depth-first search	深度优先搜索	shēn dù yōu xiān sōu suǒ
+artificial neuron	人工神经元	rén gōng shén jīng yuán
+weight	权重	quán zhòng
+bias term	偏置项	piān zhì xiàng
+activation function	激活函数	jī huó hán shù
+hidden layers	隐藏层	yǐn cáng céng
+deep neural network	深度神经网络	shēn dù shén jīng wǎng luò
+image recognition	图像识别	tú xiàng shí bié
+speech recognition	语音识别	yǔ yīn shí bié
+machine translation	机器翻译	jī qì fān yì
+supervised learning	监督学习	jiān dū xué xí
+labels	标签	biāo qiān
+classification	分类	fēn lèi
+unsupervised learning	无监督学习	wú jiān dū xué xí
+cluster	聚类	jù lèi
+reinforcement learning	强化学习	qiáng huà xué xí
+agent	智能体	zhì néng tǐ
+reward	奖励	jiǎng lì
+policy	策略	cè lüè
+backpropagation	反向传播	fǎn xiàng chuán bō
+gradient descent	梯度下降	tī dù xià jiàng
+loss function	损失函数	sǔn shī hán shù
+learning rate	学习率	xué xí lǜ
+epochs	训练轮次	xùn liàn lún cì
+regression	回归	huí guī
+linear regression	线性回归	xiàn xìng huí guī
+optical character recognition	光学字符识别	guāng xué zì fú shí bié
+text-to-speech	文本转语音	wén běn zhuǎn yǔ yīn

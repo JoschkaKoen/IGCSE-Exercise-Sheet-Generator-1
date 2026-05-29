@@ -1,0 +1,45 @@
+english	简体中文	pinyin
+multi-tasking	多任务	duō rèn wù
+paging	分页	fēn yè
+spooling	假脱机	jiǎ tuō jī
+cache	高速缓存	gāo sù huǎn cún
+process	进程	jìn chéng
+scheduler	调度器	diào dù qì
+round robin	轮转	lún zhuàn
+time slice	时间片	shí jiān piàn
+blocked	阻塞	zǔ sè
+process control block	进程控制块	jìn chéng kòng zhì kuài
+context switch	上下文切换	shàng xià wén qiè huàn
+inter-process communication	进程间通信	jìn chéng jiān tōng xìn
+pipes	管道	guǎn dào
+shared memory	共享内存	gòng xiǎng nèi cún
+virtual address space	虚拟地址空间	xū nǐ dì zhǐ kōng jiān
+pages	页	yè
+frames	页框	yè kuāng
+page fault	缺页	quē yè
+swap file	交换文件	jiāo huàn wén jiàn
+thrashing	抖动	dǒu dòng
+segmentation	分段	fēn duàn
+interpreter	解释器	jiě shì qì
+compiler	编译器	biān yì qì
+machine code	机器码	jī qì mǎ
+lexical analysis	词法分析	cí fǎ fēn xī
+tokens	词法单元	cí fǎ dān yuán
+syntax analysis (parsing)	语法分析	yǔ fǎ fēn xī
+abstract syntax tree	抽象语法树	chōu xiàng yǔ fǎ shù
+syntax error	语法错误	yǔ fǎ cuò wù
+semantic analysis	语义分析	yǔ yì fēn xī
+code generation	代码生成	dài mǎ shēng chéng
+code optimisation	代码优化	dài mǎ yōu huà
+grammar	文法	wén fǎ
+Backus-Naur Form	巴科斯-诺尔范式	bā kē sī - nuò ěr fàn shì
+production rule	产生式	chǎn shēng shì
+terminal	终结符	zhōng jié fú
+non-terminal	非终结符	fēi zhōng jié fú
+syntax diagram	语法图	yǔ fǎ tú
+infix	中缀	zhōng zhuì
+Reverse Polish Notation	逆波兰表示法	nì bō lán biǎo shì fǎ
+postfix	后缀	hòu zhuì
+stack	栈	zhàn
+precedence	优先级	yōu xiān jí
+bytecode	字节码	zì jié mǎ

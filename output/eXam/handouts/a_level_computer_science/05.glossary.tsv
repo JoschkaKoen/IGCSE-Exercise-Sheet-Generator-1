@@ -1,0 +1,39 @@
+english	简体中文	pinyin
+operating system	操作系统	cāo zuò xì tǒng
+processor	处理器	chǔ lǐ qì
+process management	进程管理	jìn chéng guǎn lǐ
+process	进程	jìn chéng
+memory management	内存管理	nèi cún guǎn lǐ
+virtual memory	虚拟内存	xū nǐ nèi cún
+paging	分页	fēn yè
+RAM	随机存取存储器	suí jī cún qǔ cún chǔ qì
+secondary storage	辅助存储器	fǔ zhù cún chǔ qì
+device driver	设备驱动	shè bèi qū dòng
+utility program	实用程序	shí yòng chéng xù
+disk defragmenter	碎片整理	suì piàn zhěng lǐ
+backup	备份	bèi fèn
+antivirus	杀毒软件	shā dú ruǎn jiàn
+firewall	防火墙	fáng huǒ qiáng
+compression	压缩	yā suō
+program library	程序库	chéng xù kù
+subroutines	子程序	zi chéng xù
+static library	静态库	jìng tài kù
+dynamic library	动态库	dòng tài kù
+machine code	机器码	jī qì mǎ
+translator	翻译器	fān yì qì
+assembler	汇编器	huì biān qì
+assembly language	汇编语言	huì biān yǔ yán
+compiler	编译器	biān yì qì
+executable	可执行文件	kě zhí xíng wén jiàn
+interpreter	解释器	jiě shì qì
+bytecode	字节码	zì jié mǎ
+virtual machine	虚拟机	xū nǐ jī
+just-in-time compilation	即时编译	jí shí biān yì
+integrated development environment	集成开发环境	jí chéng kāi fā huán jìng
+syntax highlighting	语法高亮	yǔ fǎ gāo liàng
+auto-complete	自动补全	zì dòng bǔ quán
+debugger	调试器	tiáo shì qì
+breakpoints	断点	duàn diǎn
+version control	版本控制	bǎn běn kòng zhì
+refactoring	重构	zhòng gòu
+unit test	单元测试	dān yuán cè shì

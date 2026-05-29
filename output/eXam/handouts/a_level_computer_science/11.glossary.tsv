@@ -1,0 +1,33 @@
+english	简体中文	pinyin
+flowchart	流程图	liú chéng tú
+structured English	结构化英语	jié gòu huà yīng yǔ
+pseudocode	伪代码	wěi dài mǎ
+variables	变量	biàn liàng
+data types	数据类型	shù jù lèi xíng
+constant	常量	cháng liàng
+assignment	赋值	fù zhí
+operators	运算符	yùn suàn fú
+precedence	优先级	yōu xiān jí
+library routines	库例程	kù lì chéng
+selection	选择	xuǎn zé
+nested	嵌套	qiàn tào
+iteration	迭代	dié dài
+count-controlled loop	计数循环	jì shù xún huán
+array	数组	shù zǔ
+pre-condition loop	前测循环	qián cè xún huán
+post-condition loop	后测循环	hòu cè xún huán
+structured programming	结构化编程	jié gòu huà biān chéng
+subroutines	子程序	zi chéng xù
+procedure	过程	guò chéng
+parameters	参数	cān shù
+function	函数	hán shù
+arguments	实参	shí cān
+pass by value	传值	chuán zhí
+pass by reference	传引用	chuán yǐn yòng
+local variable	局部变量	jú bù biàn liàng
+global variable	全局变量	quán jú biàn liàng
+scope	作用域	zuò yòng yù
+decomposition	分解	fēn jiě
+signature	签名	qiān míng
+invariant	不变量	bù biàn liàng
+linear search	线性查找	xiàn xìng chá zhǎo
