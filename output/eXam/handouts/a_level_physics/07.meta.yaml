@@ -91,3 +91,6 @@ covered_question_ids:
 generated_at: '2026-05-28T10:02:41Z'
 author: claude
 prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T05:07:39Z'
+glossed_at: '2026-05-29T05:07:39Z'

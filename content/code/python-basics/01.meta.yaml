@@ -1,0 +1,41 @@
+title:
+  en: Your first program
+  zh: 你的第一个程序
+order: 1
+tasks:
+  - id: hello
+    prompt:
+      en: "Use `print(...)` to make Python show the words **Hello, world!** exactly (same spelling, same punctuation)."
+      zh: "使用 `print(...)` 让 Python 精确地显示 **Hello, world!**(拼写和标点都要一样)。"
+    starter: |
+      # Type your code below, then click Run.
+    check:
+      kind: stdout
+      expected: "Hello, world!"
+      normalize: strip
+  - id: greet
+    prompt:
+      en: "The first line reads a name with `input()`. Print `Hi, ` then the name then `!`. For the input `Sam`, the output should be `Hi, Sam!`."
+      zh: "第一行用 `input()` 读取一个名字。请输出 `Hi, `、名字,再加 `!`。当输入为 `Sam` 时,应输出 `Hi, Sam!`。"
+    starter: |
+      name = input()
+      # Print the greeting below
+    stdin: "Sam\n"
+    check:
+      kind: stdout
+      expected: "Hi, Sam!"
+      normalize: strip
+  - id: add-two
+    prompt:
+      en: "Write a function `add(a, b)` that **returns** the sum of `a` and `b`."
+      zh: "编写一个函数 `add(a, b)`,**返回** `a` 与 `b` 的和。"
+    starter: |
+      def add(a, b):
+          # Return the sum of a and b
+          pass
+    check:
+      kind: asserts
+      code: |
+        assert add(2, 3) == 5, "add(2, 3) should be 5"
+        assert add(-1, 1) == 0, "add(-1, 1) should be 0"
+        assert add(10, 0.5) == 10.5, "add should work with decimals too"

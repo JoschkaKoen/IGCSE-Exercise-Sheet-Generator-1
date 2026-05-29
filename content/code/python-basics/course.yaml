@@ -1,0 +1,9 @@
+slug: python-basics
+title:
+  en: Python Basics
+  zh: Python 基础
+subtitle:
+  en: Your very first steps in programming — no experience needed.
+  zh: 编程的第一步 —— 无需任何基础。
+lessons:
+  - "01"

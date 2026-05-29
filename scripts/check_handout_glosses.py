@@ -60,22 +60,27 @@ def _load_glossary(path: Path) -> list[tuple[str, str]]:
     return rows
 
 
-def _tile_counts(text: str, zh_terms: list[str]) -> dict[str, int]:
-    """Greedy longest-match tiling: walk the text, at each position match the
-    longest glossary Chinese string; count one hit for that term and skip past
-    it. Ensures a term contained inside a longer term isn't double-counted."""
+def _tile(text: str, zh_terms: list[str]) -> tuple[dict[str, int], list[bool]]:
+    """Greedy longest-match tiling over the whole text. At every position, try
+    to match the longest glossary Chinese string; record a hit and mark those
+    characters as matched. Matching at every position (not only CJK positions)
+    handles terms whose Chinese begins with a non-CJK char, e.g. ``X射线``.
+
+    Returns (per-term counts, matched-char mask)."""
     by_len = sorted(set(zh_terms), key=len, reverse=True)
     counts = {z: 0 for z in zh_terms}
+    matched = [False] * len(text)
     i, n = 0, len(text)
     while i < n:
-        if _CJK.match(text[i]):
-            hit = next((z for z in by_len if text.startswith(z, i)), None)
-            if hit is not None:
-                counts[hit] = counts.get(hit, 0) + 1
-                i += len(hit)
-                continue
+        hit = next((z for z in by_len if text.startswith(z, i)), None)
+        if hit is not None:
+            counts[hit] = counts.get(hit, 0) + 1
+            for j in range(i, i + len(hit)):
+                matched[j] = True
+            i += len(hit)
+            continue
         i += 1
-    return counts
+    return counts, matched
 
 
 def check_file(md_path: Path, gloss_path: Path) -> list[str]:
@@ -91,8 +96,8 @@ def check_file(md_path: Path, gloss_path: Path) -> list[str]:
             line = text.count("\n", 0, m.start()) + 1
             errors.append(f"CJK char {m.group()!r} inside math/code at line {line}")
 
-    # 2. Each glossary term glossed exactly once.
-    counts = _tile_counts(text, zh_terms)
+    # 2. Each glossary term glossed exactly once. 3. No stray CJK.
+    counts, matched = _tile(text, zh_terms)
     for eng, zh in glossary:
         c = counts.get(zh, 0)
         if c == 0:
@@ -100,20 +105,10 @@ def check_file(md_path: Path, gloss_path: Path) -> list[str]:
         elif c > 1:
             errors.append(f"glossary term {eng!r} ({zh}) appears {c}× (first-occurrence rule)")
 
-    # 3. Stray CJK not covered by any glossary term.
-    covered = 0
-    i, n = 0, len(text)
-    by_len = sorted(set(zh_terms), key=len, reverse=True)
     stray_lines: set[int] = set()
-    while i < n:
-        if _CJK.match(text[i]):
-            hit = next((z for z in by_len if text.startswith(z, i)), None)
-            if hit is not None:
-                i += len(hit)
-                covered += 1
-                continue
-            stray_lines.add(text.count("\n", 0, i) + 1)
-        i += 1
+    for m in _CJK.finditer(text):
+        if not matched[m.start()]:
+            stray_lines.add(text.count("\n", 0, m.start()) + 1)
     if stray_lines:
         errors.append(f"stray CJK not in glossary at line(s): {sorted(stray_lines)}")
 
