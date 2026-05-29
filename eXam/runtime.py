@@ -189,8 +189,12 @@ def question_order_for_student(test_id: str, student_id: int) -> list[str]:
     qids = json.loads(row["question_ids"])
     if not row["randomize"]:
         return qids
-    seed = hash(f"{test_id}::{student_id}")
-    rnd = random.Random(seed)
+    # Seed with the string itself, NOT builtin hash(): hash() of a str is salted
+    # per process (PYTHONHASHSEED), so the "stable per-student" order would change
+    # on every server restart / across uvicorn workers — a student could see their
+    # questions reshuffle mid-exam. random.Random(str) derives its seed via sha512,
+    # which is deterministic across processes.
+    rnd = random.Random(f"{test_id}::{student_id}")
     qids = list(qids)
     rnd.shuffle(qids)
     return qids
