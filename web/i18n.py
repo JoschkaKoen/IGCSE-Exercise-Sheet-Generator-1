@@ -102,6 +102,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "nav.subjects":        "Subjects",
         "nav.grade":           "Grade",
         "nav.practice":        "Practice",
+        "nav.code":            "Code",
         "footer.tagline":      "Exercise sheet generator",
         "lang.switch_aria":    "Switch language",
         # ===== Learn page =====
