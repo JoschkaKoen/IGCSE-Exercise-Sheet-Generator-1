@@ -98,6 +98,14 @@ class AnalyticsMiddleware(BaseHTTPMiddleware):
         if _should_skip(path):
             return await call_next(request)
 
+        # Speculative prefetch/prerender hits aren't real navigations — don't
+        # mint a session or record a pageview. Chromium sets Sec-Purpose;
+        # legacy engines use Purpose.
+        sec_purpose = request.headers.get("sec-purpose", "").lower()
+        purpose = request.headers.get("purpose", "").lower()
+        if sec_purpose.startswith("prefetch") or purpose == "prefetch":
+            return await call_next(request)
+
         t0 = time.perf_counter()
 
         # Mint (or read) the session id *before* call_next so route handlers

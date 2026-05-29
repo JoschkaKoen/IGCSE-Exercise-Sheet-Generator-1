@@ -165,3 +165,6 @@ covered_question_ids:
 generated_at: '2026-05-28T10:00:24Z'
 author: claude
 prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T05:03:18Z'
+glossed_at: '2026-05-29T05:03:18Z'

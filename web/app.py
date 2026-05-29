@@ -15,6 +15,7 @@ from eXercise.env_load import load_project_env
 
 load_project_env()
 
+import mimetypes
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -30,6 +31,7 @@ from .auth_gate import (
 )
 from .routes.account import router as account_router
 from .routes.admin_stats import router as admin_stats_router
+from .routes.code import router as code_router
 from .routes.dashboard import router as dashboard_router
 from .routes.eXam_open import router as eXam_open_router
 from .routes.eXam_student import router as eXam_student_router
@@ -74,6 +76,12 @@ class NoCacheStaticFiles(StaticFiles):
 
         await super().__call__(scope, receive, send_with_no_cache)
 
+
+# Pyodide's WASM must be served as ``application/wasm`` so the browser uses
+# ``WebAssembly.instantiateStreaming`` (faster, lower memory). Starlette's StaticFiles
+# derives Content-Type from Python's ``mimetypes``, whose ``.wasm`` registration is
+# inconsistent across OS/Python versions — register it explicitly before the mounts.
+mimetypes.add_type("application/wasm", ".wasm")
 
 VENDOR_DIR = STATIC_DIR / "vendor"
 if VENDOR_DIR.is_dir():
@@ -161,4 +169,5 @@ app.include_router(eXam_teacher_router)
 # /eXam/practice/* in the /api/* gate above analogously to /api/auth/login.
 app.include_router(eXam_open_router)
 app.include_router(learn_router)
+app.include_router(code_router)
 app.include_router(admin_stats_router)

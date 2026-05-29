@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Review — {{ subject_display }} topic {{ topic }}{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/06-landing.css" />
+<link rel="stylesheet" href="/static/vendor/katex/katex.min.css">
+<script defer src="/static/vendor/katex/katex.min.js"></script>
+<script defer src="/static/vendor/katex/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+  .review-col { max-height: calc(100vh - 12rem); overflow-y: auto; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-7xl px-4 py-6">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <a href="/learn/handout-review" class="text-sm text-sky-300 hover:underline">← all handouts</a>
+    <h1 class="text-xl font-semibold text-white">{{ subject_display }} — Topic {{ topic }}: {{ title }}</h1>
+  </div>
+
+  <div class="mb-4 flex flex-wrap gap-x-6 gap-y-1 text-xs text-slate-400">
+    <span>left:
+      {% for v in versions %}<a class="px-1 {% if v == left_key %}text-white font-semibold{% else %}text-sky-300 hover:underline{% endif %}"
+         href="?left={{ v }}&right={{ right_key }}">{{ v }}</a>{% endfor %}
+    </span>
+    <span>right:
+      {% for v in versions %}<a class="px-1 {% if v == right_key %}text-white font-semibold{% else %}text-sky-300 hover:underline{% endif %}"
+         href="?left={{ left_key }}&right={{ v }}">{{ v }}</a>{% endfor %}
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div>
+      <div class="mb-2 text-sm font-medium text-slate-400">{{ left_label }}</div>
+      <div class="review-col learn-content-body rounded-xl border border-white/10 p-4 sm:p-5">
+        {% if left_html %}{{ left_html | safe }}{% else %}<p class="text-slate-500">Version not found.</p>{% endif %}
+      </div>
+    </div>
+    <div>
+      <div class="mb-2 text-sm font-medium text-emerald-300">{{ right_label }}</div>
+      <div class="review-col learn-content-body rounded-xl border border-emerald-500/20 p-4 sm:p-5">
+        {% if right_html %}{{ right_html | safe }}{% else %}<p class="text-slate-500">Version not found.</p>{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

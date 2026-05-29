@@ -26,18 +26,44 @@ TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
 
 router = APIRouter(prefix="/eXam/practice", tags=["eXam-open"])
 
+# Browser may cache but must revalidate — lets the landing-page prefetch warm
+# the HTTP cache while keeping content fresh on the real click.
+_HTML_NO_CACHE = {"Cache-Control": "no-cache, must-revalidate"}
+
+
+def _is_prefetch(request: Request) -> bool:
+    """True when the browser is speculatively fetching, not really navigating.
+
+    Chromium sets ``Sec-Purpose: prefetch`` on speculation-rules and
+    ``<link rel="prefetch">`` requests; older engines use ``Purpose: prefetch``.
+    A speculative hit must not mint an anonymous session or set a cookie.
+    """
+    return (
+        request.headers.get("sec-purpose", "").lower().startswith("prefetch")
+        or request.headers.get("purpose", "").lower() == "prefetch"
+    )
+
 
 @router.get("", response_class=HTMLResponse)
 @router.get("/", response_class=HTMLResponse)
 async def landing(request: Request, response: Response):
+    subjects = open_mode.subject_grid()
+    if _is_prefetch(request):
+        # Warm the cache without minting a session or setting a cookie.
+        stats = {"viewed": 0, "attempted": 0, "correct": 0}
+        return TEMPLATES.TemplateResponse(
+            request,
+            "eXam/practice_landing.html",
+            template_ctx(request, subjects=subjects, stats=stats),
+            headers=_HTML_NO_CACHE,
+        )
     sid = open_mode.ensure_session(request, response)
     stats = open_mode.session_stats(sid)
-    subjects = open_mode.subject_grid()
     return TEMPLATES.TemplateResponse(
         request,
         "eXam/practice_landing.html",
         template_ctx(request, subjects=subjects, stats=stats),
-        headers=dict(response.headers),
+        headers={**dict(response.headers), **_HTML_NO_CACHE},
     )
 
 

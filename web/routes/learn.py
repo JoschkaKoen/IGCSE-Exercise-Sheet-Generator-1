@@ -29,7 +29,13 @@ from eXam import open_mode
 from eXam.render_helper import render_helper_markdown
 
 from .. import extracted_questions
-from ..handouts_collect import load_handout_md
+from ..handouts_collect import (
+    HANDOUTS_ROOT,
+    load_handout_md,
+    load_meta,
+    meta_path,
+    padded_topic,
+)
 from ..syllabus_content import load_content
 from ..syllabus_topics import load_topics
 from ..template_ctx import template_ctx
@@ -40,7 +46,25 @@ TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
 # math survives as $…$ for KaTeX auto-render to pick up client-side).
 TEMPLATES.env.filters["render_md"] = render_helper_markdown
 
+# Browser may cache but must revalidate — lets the landing-page prefetch warm
+# the HTTP cache while keeping content fresh on the real click. Mirrors
+# web/routes/site.py's _HTML_NO_CACHE.
+_HTML_NO_CACHE = {"Cache-Control": "no-cache, must-revalidate"}
+
 router = APIRouter(prefix="/learn", tags=["learn"])
+
+# Handout review (dev/review aid): compare the frozen English original against
+# the live simplified + Chinese-glossed handout, side by side, in the browser.
+BACKUP_ROOT = HANDOUTS_ROOT.parent / "handouts_en_backup"
+REVIEW_SUBJECTS = ("a_level_physics", "a_level_computer_science")
+
+
+def _read_backup_md(subject: str, topic: str) -> str | None:
+    p = BACKUP_ROOT / subject / f"{padded_topic(topic)}.md"
+    try:
+        return p.read_text(encoding="utf-8") if p.is_file() else None
+    except OSError:
+        return None
 
 
 def _display_name(subject_key: str) -> str:
@@ -71,6 +95,7 @@ async def landing(request: Request):
         request,
         "learn/landing.html",
         template_ctx(request, subjects=subjects),
+        headers=_HTML_NO_CACHE,
     )
 
 
@@ -122,6 +147,101 @@ async def extracted_paper(request: Request, subject: str, paper_stem: str):
             subject_display=_display_name(subject),
             paper_stem=paper_stem,
             questions=questions,
+        ),
+    )
+
+
+@router.get("/handout-review", response_class=HTMLResponse)
+async def handout_review_index(request: Request):
+    groups = []
+    for subj in REVIEW_SUBJECTS:
+        data = load_topics(subj) or {}
+        rows = []
+        for topic in data.get("topics") or []:
+            num = str(topic.get("number") or "")
+            if not num or load_handout_md(subj, num) is None:
+                continue
+            meta = load_meta(meta_path(subj, num))
+            if meta.get("glossed_at"):
+                status = "glossed"
+            elif meta.get("simplified_at"):
+                status = "simplified"
+            else:
+                status = "original"
+            rows.append({"topic": num, "title": topic.get("title") or "", "status": status})
+        groups.append({"subject": subj, "display": _display_name(subj), "rows": rows})
+    return TEMPLATES.TemplateResponse(
+        request,
+        "learn/handout_review_index.html",
+        template_ctx(request, groups=groups),
+    )
+
+
+def _version_label(key: str) -> str:
+    return {"original": "Original (English)", "current": "Current"}.get(key, key)
+
+
+def _load_version_md(subject: str, topic: str, key: str) -> str | None:
+    """Resolve a version key to its markdown: 'original' (backup), 'current'
+    (live NN.md), or 'vN' (candidate NN.vN.md)."""
+    if key == "original":
+        return _read_backup_md(subject, topic)
+    if key == "current":
+        return load_handout_md(subject, topic)
+    if re.fullmatch(r"v\d+", key or ""):
+        p = HANDOUTS_ROOT / subject / f"{padded_topic(topic)}.{key}.md"
+        try:
+            return p.read_text(encoding="utf-8") if p.is_file() else None
+        except OSError:
+            return None
+    return None
+
+
+def _available_versions(subject: str, topic: str) -> list[str]:
+    keys = ["original", "current"]
+    pt = padded_topic(topic)
+    for p in sorted((HANDOUTS_ROOT / subject).glob(f"{pt}.v*.md")):
+        suffix = p.name[len(pt) + 1 : -3]  # "01.v3.md" → "v3"
+        if re.fullmatch(r"v\d+", suffix):
+            keys.append(suffix)
+    return keys
+
+
+@router.get("/handout-review/{subject}/{topic}", response_class=HTMLResponse)
+async def handout_review(
+    request: Request,
+    subject: str,
+    topic: str,
+    left: str = "original",
+    right: str = "current",
+):
+    if subject not in REVIEW_SUBJECTS:
+        raise HTTPException(status_code=404, detail="Unknown subject")
+    if load_handout_md(subject, topic) is None:
+        raise HTTPException(status_code=404, detail="No handout for this topic")
+    left_md = _load_version_md(subject, topic, left)
+    right_md = _load_version_md(subject, topic, right)
+    data = load_topics(subject) or {}
+    title = next(
+        (t.get("title") for t in data.get("topics") or [] if str(t.get("number")) == str(topic)),
+        "",
+    )
+    return TEMPLATES.TemplateResponse(
+        request,
+        "learn/handout_review.html",
+        template_ctx(
+            request,
+            subject=subject,
+            subject_display=_display_name(subject),
+            topic=str(topic),
+            title=title or "",
+            left_key=left,
+            right_key=right,
+            left_label=_version_label(left),
+            right_label=_version_label(right),
+            left_html=(render_helper_markdown(left_md) if left_md else None),
+            right_html=(render_helper_markdown(right_md) if right_md else None),
+            versions=_available_versions(subject, topic),
         ),
     )
 

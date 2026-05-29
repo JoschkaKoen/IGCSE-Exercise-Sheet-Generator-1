@@ -5,6 +5,23 @@
   <link rel="stylesheet" href="/static/css/06-landing.css" />
   <link rel="stylesheet" href="/static/css/08-workspace-pdf-preview.css" />
   <link rel="stylesheet" href="/static/css/09-overview.css" />
+
+  {# Warm the other header destinations so clicking Library / Learn / Practice
+     feels instant. The browser issues these at low priority, after the landing
+     page's own resources. <link rel="prefetch"> is the Safari/Firefox fallback;
+     Chromium uses the speculation-rules block below (prerender) for Library +
+     Learn. Practice stays on plain prefetch only — prerender would run its JS
+     speculatively, and its handler mints an anonymous session. #}
+  <link rel="prefetch" href="/library" />
+  <link rel="prefetch" href="/learn" />
+  <link rel="prefetch" href="/eXam/practice" />
+  <script type="speculationrules">
+    {
+      "prerender": [
+        {"source": "list", "urls": ["/library", "/learn"], "eagerness": "moderate"}
+      ]
+    }
+  </script>
 {% endblock %}
 {% block title %}{{ t('title.generate') if t else 'Generate — eXercise' }}{% endblock %}
 

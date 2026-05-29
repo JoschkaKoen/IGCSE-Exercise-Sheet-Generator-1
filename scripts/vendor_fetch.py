@@ -11,6 +11,8 @@ Resources fetched:
   - KaTeX 0.16.11 (CSS + JS + auto-render + ~20 font files)
   - pdfjs-dist 4.6.82 (pdf.mjs + pdf.worker.mjs)
   - Chart.js 4.4.6 (UMD min)
+  - Pyodide 0.29.4 (pyodide.mjs + asm.js + asm.wasm + python_stdlib.zip + lock.json)
+  - CodeMirror 5.65.18 (lib + python mode + edit/selection/display addons + dracula theme)
 """
 from __future__ import annotations
 
@@ -175,6 +177,42 @@ def main() -> int:
         "https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js",
         VENDOR_DIR / "chartjs" / "chart.umd.min.js",
     )
+
+    # 7. Pyodide 0.29.4 — minimal in-browser Python runtime + full stdlib for the Code
+    # page. Served at runtime from /static/vendor/pyodide/ (NOT a CDN — students are in
+    # mainland China, where the Pyodide CDN is blocked/unreliable). No scientific packages.
+    PYODIDE_VER = "0.29.4"
+    for f in (
+        "pyodide.mjs",
+        "pyodide.asm.js",
+        "pyodide.asm.wasm",
+        "python_stdlib.zip",
+        "pyodide-lock.json",
+    ):
+        download(
+            f"https://cdn.jsdelivr.net/pyodide/v{PYODIDE_VER}/full/{f}",
+            VENDOR_DIR / "pyodide" / f,
+        )
+
+    # 8. CodeMirror 5.65.18 — code editor for the Code page. CM5 ships plain UMD JS/CSS
+    # (no bundler), so it drops in like Chart.js above. (CM6 would require a build step.)
+    # Subdirectory layout (lib/, mode/, addon/, theme/) is preserved under the vendor dir.
+    CM_VER = "5.65.18"
+    for p in (
+        "lib/codemirror.js",
+        "lib/codemirror.css",
+        "mode/python/python.js",
+        "addon/edit/closebrackets.js",
+        "addon/edit/matchbrackets.js",
+        "addon/comment/comment.js",
+        "addon/selection/active-line.js",
+        "addon/display/placeholder.js",
+        "theme/dracula.css",
+    ):
+        download(
+            f"https://cdn.jsdelivr.net/npm/codemirror@{CM_VER}/{p}",
+            VENDOR_DIR / "codemirror" / p,
+        )
 
     print("\nDone.")
     return 0
