@@ -1,0 +1,315 @@
+questions:
+- number: 1ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    states 1%, 0.5%, 0.25% and 0.125% under the appropriate beaker ;
+
+    2
+
+    shows transfer of 10cm3 to each beaker from the previous beaker ;
+
+    3
+
+    shows 10 cm3 of W added to each beaker ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    (heading for independent variable)
+
+    concentration of H2O2 and % and to the left of the dependent variable ;
+
+    2
+
+    (heading for dependent variable)
+
+    time / seconds ;
+
+    3
+
+    result for each concentration ;
+
+    4
+
+    expected pattern of results (the highest concentration has the shortest time)
+    ;
+
+    5
+
+    results recorded to the nearest whole second ;
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 1aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'the times for U1, U2 and U3 recorded and seconds ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'shows the three times added and divided by 3 ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1av
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'estimates the concentration of hydrogen peroxide in sample
+    U according to results ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1avi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'shows that there are no anomalies ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1avii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'states that using smaller intervals between concentrations
+    of hydrogen peroxide around the estimate would allow a more
+
+    accurate estimate ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    x-axis: time / hours
+
+    and
+
+    y-axis: percentage of bacterial cells able to produce hydrogen peroxide  ;
+
+    2
+
+    scale on x-axis: 40 to 2 cm, labelled at least every 2 cm
+
+    and
+
+    y-axis: 4 to 2 cm, labelled at least every 2 cm ;
+
+    3
+
+    correct plotting of points using small dots in circles or crosses ;
+
+    4
+
+    plots joined with thin line passing through all points ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    percentage increases as time progresses (for both temperatures) ;
+
+    2
+
+    greater increase at lower temperature ;
+
+    2
+
+    9700/31
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    value estimated from graph ;
+
+    2
+
+    suitable line shown on the graph ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'states one of these variables – species of bacteria / pH / nutrient
+    status / oxygen ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    uses most of the available space and the correct number of tissues ;
+
+    2
+
+    draws whole stem and no cells ;
+
+    3
+
+    draws the vascular tissue correctly ;
+
+    4
+
+    draws details of the tissue layers ;
+
+    5
+
+    label line to identify the xylem and the label xylem ;
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    drawing of a minimum size and lines continuous, thin and sharp and no shading
+    ;
+
+    2
+
+    draws only four cells and each cell touching at least one other cell ;
+
+    3
+
+    cell wall drawn as two lines ;
+
+    4
+
+    correct shapes of the cells ;
+
+    5
+
+    label line to identify the waxy cuticle and the label waxy cuticle ;
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 2aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(differences) 1, 2 and 3 ; ; ;
+
+    Any three from :
+
+    feature
+
+    J1
+
+    Fig. 2.1
+
+    cuticle
+
+    thicker
+
+    thinner ;
+
+    presence of trichomes
+
+    absent
+
+    present ;
+
+    size of cortex cells
+
+    smaller
+
+    larger ;
+
+    central tissue
+
+    larger
+
+    smaller ;
+
+    3
+
+    9700/31
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'states number of whole vascular bundles in sector P ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    shows 360 divided by 15 ;
+
+    2
+
+    correct calculation of 24 multiplied by value from Q2(b)(i)  ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    shows value from Q2(b)(ii) divided by 44 ;
+
+    2
+
+    correct answer given to two significant figures ;
+
+    2'
+  mark_scheme: []
+  graphics: []

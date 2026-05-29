@@ -1,0 +1,645 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: In a photomicrograph of magnification 5000, a chloroplast measures 25 mm
+    in diameter. What is the actual diameter of the chloroplast?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: m
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: A cell in the human body is specialised for synthesis and secretion of lipids.
+    Which row shows the organelles required by the cell for synthesis and secretion
+    of lipids? mitochondria smooth endoplasmic reticulum vesicles
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrograph shows part of a cell. Which row is correct? this cell
+    will contain 70S ribosomes this could be part of a plant cell the organelles shown
+    could be used to make antibodies
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about viruses is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Solution X was tested for the presence of non-reducing sugars. It did not
+    contain reducing sugars. Some steps that can be used to test for the presence
+    of biological molecules are listed. Add Benedict’s solution to the test-tube.
+    Add dilute hydrochloric acid to the test-tube. Add sodium hydrogencarbonate to
+    the test-tube. Heat the test-tube in a water-bath. Which order of steps to identify
+    the presence of non-reducing sugars in solution X is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the structure of part of a biological molecule. OH OH HO
+    OH OH CH2 O CH2OH HOH2C O O HO OH O CH2 HOH2C HOH2C O HO OH O CH2 CH2 O HO OH
+    O CH2OH CH2 O HO OH O CH2 HOH2C O HO OH O CH2 HOH2C O HO OH O CH2OH O Which statements
+    about this biological molecule are correct? It has monomers joined by ester bonds.
+    It is a macromolecule. It is a polysaccharide.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Which diagram has a covalent bond that joins monomers together to form a biological
+    polymer in eukaryotes? O P O R O– O R R NH3 + –O R O O R
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Which feature of storage polysaccharides means they do not change the water
+    potential of cells?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Which molecules contain at least four double bonds? saturated triglyceride
+    collagen haemoglobin
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: In some people a mutation can affect the beta chains in their haemoglobin
+    molecules. As a result polar amino acids on the outer surfaces of the chains are
+    replaced by non-polar amino acids. What will be the effect on haemoglobin?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the effect of substrate concentration on an enzyme-catalysed
+    reaction with and without a competitive inhibitor. rate of reaction substrate
+    concentration key with inhibitor without inhibitor What is the effect of the competitive
+    inhibitor on Vmax and Km?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows energy changes in a chemical reaction. energy progress of
+    reaction What is the activation energy when an enzyme is added?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows an enzyme, its substrate and an enzyme–substrate complex.
+    enzyme substrate enzyme–substrate complex Which statement explains how this substrate
+    is able to enter the active site of this enzyme?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: What are the main roles of glycolipids in cell surface membranes? to help
+    cells to attach to each other to form tissues to act as antigens for cell-to-cell
+    recognition to increase fluidity for the cell surface membrane
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: A sample of healthy plant cells taken from the same tissue is placed in a
+    beaker containing distilled water. The cells change in size. What would explain
+    this change in size?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: A student studying surface area to volume ratio and diffusion made a cuboid,
+    S1, using agar stained blue with a pH indicator. The dimensions of S1 are shown
+    in the diagram. The student made a second agar cuboid, S2. Each dimension of S2,
+    (the length, the width and the height), was half that of S1. 8 mm 5 mm 30 mm 4
+    mm S1 S2 2.5 mm 15 mm not to scale The student placed each cuboid in a test-tube
+    and covered it in acid. The time taken for each cuboid to completely change colour
+    was recorded. All variables other than the size of the cuboids were standardised.
+    Which row shows the surface area to volume ratio of S1 and the time taken for
+    S1 to change colour completely in acid compared to the time taken for S2 to change
+    colour completely? surface area to volume ratio of S1 time taken for S1 to change
+    colour completely in acid compared to S2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Two test-tubes, labelled X and Y, were set up containing equal volumes of
+    solution X or solution Y respectively. A large number of type P cells and a large
+    number of type Q cells were added into test-tube X and also into test-tube Y.
+    After a few minutes, samples of the solutions were taken and the cells were observed
+    with a microscope. ● In solution X, all of cell type P had burst and cell type
+    Q had not burst. ● In solution Y, no cells had burst. Which row correctly identifies
+    cell type Q and solutions X and Y? cell type Q solution X solution Y
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: A human muscle cell contains 46 chromosomes. How many centromeres will be
+    present in a cell during the stages of the mitotic cell cycle? early prophase
+    metaphase anaphase
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Telomeres become shorter during each cell cycle of a specialised cell. In
+    which phase of the cell cycle do telomeres shorten?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrographs show stages of mitosis. What is the correct order for
+    the stages of mitosis?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: The gene that codes for protein R is 130 kb long. Protein R is 220 kDa in
+    mass. The typical mass of an amino acid is 110 Da. (1000 base pairs = 1 kb, 1000
+    Da = 1 kDa) Which row is correct? approximate length of introns in this gene /
+    base pairs approximate length of mRNA for this gene / base pairs
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a section of DNA. Two of the bases in this section are labelled
+    1 and 2. O O O O O O Which row correctly identifies the bases 1 and 2? base 1
+    base 2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes the role of the enzymes DNA polymerase and DNA ligase?
+    DNA polymerase DNA ligase
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows some of the DNA triplet codes for some amino acids. amino
+    acid DNA triplet code amino acid DNA triplet code arginine GCA glycine CCA arginine
+    GCC glycine CCG arginine GCG glycine CCT asparagine TTA lysine TTC asparagine
+    TTG lysine TTT cysteine ACA proline GGA cysteine ACG proline GGC STOP ATC valine
+    CAC The base sequence on the template DNA strand coding for part of a polypeptide
+    is shown. CCA TTC ACG GCG TTA GCA Two mutations occur in this sequence during
+    DNA replication. Which mutated DNA would result in two different amino acids?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a vertical section through part of the stem of a dicotyledonous
+    plant. Three types of structures are labelled. W U V What are the structures U,
+    V and W? companion cells phloem sieve tube elements xylem vessel elements
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Which features of xylem vessels help to reduce the resistance to water flow?
+    Lignin forms an incomplete secondary wall. There are no cross walls between the
+    vessel elements. The xylem vessels form narrow tubes.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: What causes water to move from the root hair cells to the endodermis?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Which changes occur as carbohydrate is moved into a sink? water potential
+    of the sieve tube element becomes volume of liquid of the sieve tube element
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement correctly compares blood plasma and tissue fluid in a healthy
+    person?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: The body maintains an average normal blood pH of 7.4. Which row describes
+    the conditions that would increase the dissociation rate of haemoglobin the most
+    during periods of intense exercise? blood pH blood CO2 partial pressure / kPa
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows changes in blood pressure during one cardiac cycle. 0.75 time
+    / s blood pressure / kPa X key aorta ventricle atrium What is happening at time
+    X? aortic semilunar valve atrium
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: How many times must a carbon dioxide molecule pass through a cell surface
+    membrane to travel from the tissue fluid into the blood plasma? (Assume there
+    are no pores between the cells the carbon dioxide molecule must pass through.)
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Two types of epithelial cells, 1 and 2, occur in the mammalian gas exchange
+    system in a healthy human. Which row shows the function and distribution of these
+    types of epithelial cells? cell type 1 cell type 2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Which tissues would be seen in a photomicrograph of the wall of the trachea?
+    elastic fibres smooth muscle
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the decrease in cases of tuberculosis (TB) in a country between
+    1910 and 2000. 1910 1920 1940 1960 year 1980 2000 90 000 80 000 70 000 60 000
+    50 000 40 000 30 000 20 000 10 000 number of cases per year Which factors could
+    have contributed to the fall over this period? pasteurisation of milk the provision
+    of new housing to reduce overcrowding removing large pools of stagnant water identification
+    of contacts of people infected with TB
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The pathogens for some diseases are transmitted by vectors. Which disease
+    is transmitted with the help of a vector that could be controlled by the removal
+    of pools of water?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: How does penicillin affect bacteria?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: The hybridoma method is used for the production of monoclonal antibodies.
+    Which two types of cell are used in this method?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: What describes a non-specific immune response?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

@@ -1,0 +1,1411 @@
+questions:
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Triangle accurately completed
+
+    with arcs at C.
+
+    2 B1 for accurate triangle with no/incorrect arcs or
+
+    for accurate triangle with arcs but with AC and
+
+    BC reversed'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '80 to 85
+
+    1 FT their triangle if 0 scored in (a)'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.8
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '270
+
+    1
+
+    6
+
+    2
+
+    3
+
+    2
+
+    −
+
+    g
+
+    g  final answer
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–3 < x ⩽ 2
+
+    2 B1 for –3 < x or x ⩽ 2'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–1, 0, 1, 2, 3, 4
+
+    2 B1 for 5 correct (and no extras) or 6 correct with
+
+    one extra
+
+    or B1 for –2 < x ⩽ 4
+
+    8
+
+    1.13 or 1.125…
+
+    1
+
+    9
+
+    34.2
+
+    2 M1 for figs 342 or for k × 60 × 60 or
+
+    for k ÷ 1000
+
+    10
+
+    (4, 5)
+
+    2 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '51
+
+    2 M1 for
+
+    100 15
+
+    60
+
+    100
+
+    −
+
+    
+
+    oe
+
+    or B1 for 9'
+  mark_scheme: []
+  graphics: []
+- number: 11b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '68.40
+
+    2 M1 for [ ] 100 15 58.14
+
+    100
+
+    −
+
+    
+
+    =
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 12a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '37
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 12b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    F
+
+    R  oe
+
+    1
+
+    0580/41
+
+    October/November 2025
+
+    Partial Marks
+
+    13
+
+    18.6 or 18.59…
+
+    3 M2 for tan = 12.6 1.5
+
+    33
+
+    −
+
+    oe
+
+    or M1 identifying the correct angle of elevation
+
+    or for 18.6 or 18.59… seen and spoiled
+
+    After 0 scored SC1 for [angle ETP =] 71.4 or
+
+    71.4[0…] or 71.41'
+  mark_scheme: []
+  graphics: []
+- number: 14a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3
+
+    4
+
+    π
+
+    4
+
+    3 
+
+    [= 256 π
+
+    3
+
+    ]
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 14b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '47.6 nfww or
+
+    47.63 to 47.64… nfww
+
+    3 B2 for 52.4 or 52.35 to 52.37 or 50
+
+    3
+
+    π  nfww
+
+    OR
+
+    M2 for
+
+    3
+
+    3
+
+    256
+
+    8
+
+    π
+
+    3
+
+    100
+
+    8
+
+    −
+
+    
+
+    oe
+
+    or M1 for
+
+    3
+
+    3
+
+    256
+
+    8
+
+    π
+
+    3
+
+    [ 100]
+
+    8
+
+    −
+
+    
+
+    oe or
+
+    3
+
+    256 π
+
+    3
+
+    100
+
+    8
+
+    
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 14c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.11 or 2.107…
+
+    2 M1 for 256 π 7.86
+
+    3
+
+    '
+  mark_scheme: []
+  graphics: []
+- number: 14d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '233 or 233.3 to 233.4
+
+    4 M1 for
+
+    2
+
+    256
+
+    π 3.1
+
+    π
+
+    3
+
+    h
+
+    
+
+    
+
+    =
+
+    M2dep for
+
+    2
+
+    2
+
+    π
+
+    3.1
+
+    2
+
+    π
+
+    3.1 their h
+
+    
+
+    
+
+    + 
+
+    
+
+    
+
+    or M1dep for 2 π 3.1 theirh
+
+    
+
+    
+
+    or M1 for
+
+    2
+
+    2π
+
+    3.1
+
+    
+
+    0580/41
+
+    October/November 2025
+
+    Partial Marks
+
+    15
+
+    46
+
+    3 M2 for [angle ATB] = 180 – 2 × 67 oe
+
+    OR
+
+    M1 for [obtuse] angle AOB = 2 × 67
+
+    M1 for angle OAT or angle OBT = 90
+
+    OR
+
+    M1 for angle TBA = 67 or angle TAB = 67
+
+    M1 for angle TDA or TDB = 90 where D is the
+
+    intersection of OT and AB
+
+    OR
+
+    M1 for angle BOT = 67 or angle AOT = 67
+
+    M1 for angle OTB = 180 – 67 – 90 or
+
+    angle OTA = 180 – 67 – 90
+
+    16
+
+    13.09
+
+    4 M1 for mid-values 7.5, 11 and 16 soi
+
+    M1 for fx where x-values in correct interval
+
+    (including boundaries)
+
+    M1dep on second M1 for 50
+
+    fx
+
+    17
+
+    [y =] –2x + 4
+
+    3 M1 for gradient = 4
+
+    0
+
+    0
+
+    2
+
+    −
+
+    −
+
+    oe
+
+    M1 for answer mx + 4'
+  mark_scheme: []
+  graphics: []
+- number: 18a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '72
+
+    2 M1 for 8 × 8 or for 1
+
+    2 8
+
+    2 
+
+    or
+
+    (
+
+    )
+
+    1 10
+
+    8
+
+    8
+
+    2
+
+    +
+
+    '
+  mark_scheme: []
+  graphics: []
+- number: 18b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '13.5 or
+
+    1
+
+    13 2
+
+    2 B1 for 3.5 oe
+
+    or M1 for 100
+
+    72
+
+    8
+
+    their
+
+    −
+
+    [+ 10]
+
+    0580/41
+
+    October/November 2025
+
+    Partial Marks
+
+    19
+
+    29
+
+    3 B2 for 28.4[3…]
+
+    OR
+
+    M2 for 20 × 0.928 or 20× 0.929 evaluated to at
+
+    least 1 dp or for 0.928 or 0.929 evaluated to at
+
+    least 2 dp
+
+    or M1 for at least two trials of [20 ×] 0.9n soi
+
+    or for
+
+    10
+
+    1
+
+    20 1 100
+
+    
+
+    
+
+    
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    n
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 20a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.5 or 1
+
+    3
+
+    1
+
+    or
+
+    2
+
+    2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 20b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    96
+
+    2
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    n
+
+    oe final answer
+
+    2
+
+    M1 for answer
+
+    1
+
+    96
+
+    2
+
+    +
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    n k
+
+    oe
+
+    or for
+
+    1
+
+    96
+
+    2
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    n
+
+    oe seen
+
+    21
+
+    27.6 or 27.57 to 27.58
+
+    2 M1 for 1
+
+    9 8 sin50
+
+    2 
+
+    oe
+
+    22
+
+    1.65 or 1.649[9…]
+
+    3
+
+    M2 for 25 301.10
+
+    200
+
+    oe
+
+    or M1 for
+
+    25
+
+    200 [
+
+    ]
+
+    301.10
+
+    
+
+    =
+
+    23
+
+    [y =]
+
+    9
+
+    1
+
+    x +
+
+    oe final answer
+
+    2 M1 for 3
+
+    8 1
+
+    =
+
+    +
+
+    k
+
+    oe or for
+
+    9
+
+    1
+
+    +
+
+    x
+
+    seen and
+
+    spoiled
+
+    0580/41
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 24a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '10
+
+    x
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 24b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'their10
+
+    5
+
+    7
+
+    4
+
+    2
+
+    +
+
+    =
+
+    +
+
+    x
+
+    x
+
+    oe
+
+    2
+
+    20
+
+    80
+
+    10
+
+    7
+
+    28
+
+    +
+
+    +
+
+    =
+
+    +
+
+    x
+
+    x
+
+    x
+
+    x oe
+
+    M2 Strict FT for correctly clearing fractions from
+
+    their three-term equation with two algebraic
+
+    denominators in x and x + 4 and expanding all
+
+    brackets
+
+    Strict M1FT for correctly expressing their two
+
+    algebraic fractions with two denominators in x
+
+    and x + 4 as a single fraction or with a common
+
+    denominator within a correct equation
+
+    or for correctly clearing fractions from their
+
+    three-term equation with two algebraic
+
+    denominators in x and x + 4 but not all brackets
+
+    expanded
+
+    Leading to
+
+    2
+
+    7
+
+    2
+
+    80
+
+    0
+
+    −
+
+    −
+
+    =
+
+    x
+
+    x
+
+    A1 No errors or omissions'
+  mark_scheme: []
+  graphics: []
+- number: 24c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(
+
+    )
+
+    ( )(
+
+    )
+
+    ( )
+
+    2
+
+    2
+
+    ([ ]2)
+
+    4 7
+
+    80
+
+    2 7
+
+    −−
+
+    
+
+    −
+
+    −
+
+    −
+
+    oe
+
+    B2 or B1 for
+
+    ( )(
+
+    )
+
+    2
+
+    ([ ]2)
+
+    4 7
+
+    80
+
+    −
+
+    −
+
+    −
+
+    oe or for
+
+    ( 2)
+
+    2(7)
+
+    −−
+
+    −
+
+    p  oe or for
+
+    ( 2)
+
+    2(7)
+
+    −−
+
+    +
+
+    p  oe
+
+    or
+
+    2
+
+    2
+
+    14
+
+    
+
+    
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    x
+
+    –3.24 and 3.53'
+  mark_scheme: []
+  graphics: []
+- number: 24d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2h 10min
+
+    3 B2 for 2.168 to 2.18 [h] or for
+
+    130.08 to 130.8 [min] or for
+
+    2hours 10.08 min to 2 hours 10.8 min
+
+    OR
+
+    M2 for
+
+    10
+
+    5
+
+    4
+
+    −
+
+    +
+
+    their positive x
+
+    their positive x
+
+    or
+
+    M1 for
+
+    10
+
+    5
+
+    or
+
+    4
+
+    their positive x
+
+    their positive x +
+
+    0580/41
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 25a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '40
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 25b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct column, from 2 to 5 and
+
+    height 34
+
+    2 M1 for 102
+
+    5
+
+    2
+
+    −
+
+    26
+
+    
+
+    
+
+    2
+
+    2
+
+    5
+
+    0
+
+    −
+
+    =
+
+    x
+
+    x
+
+    or better or
+
+    
+
+    
+
+    2
+
+    2
+
+    18
+
+    28
+
+    0
+
+    +
+
+    +
+
+    =
+
+    y
+
+    y
+
+    or better
+
+    M2 M1 for
+
+    2
+
+    2
+
+    3
+
+    7
+
+    2
+
+    7
+
+    x
+
+    x
+
+    x
+
+    −
+
+    −
+
+    =
+
+    −
+
+    oe or for
+
+    2
+
+    7
+
+    7
+
+    2
+
+    3
+
+    7
+
+    2
+
+    2
+
+    +
+
+    +
+
+    
+
+    
+
+    
+
+    
+
+    =
+
+    −
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    y
+
+    y
+
+    y
+
+    x = 0, y = –7
+
+    x = 2.5, y = –2
+
+    B2 B1 for x = 0, y = –7, or for x = 0 and x = 2.5 or
+
+    for x = 2.5, y = –2 or for y = –2 and y = –7
+
+    If M1B0 or M2B0 scored then SC1 for correct
+
+    substitution seen of both of their x-values
+
+    or their y-values into
+
+    2
+
+    2
+
+    3
+
+    7
+
+    y
+
+    x
+
+    x
+
+    =
+
+    −
+
+    −
+
+    or
+
+    2
+
+    7
+
+    =
+
+    −
+
+    y
+
+    x
+
+    27
+
+    16.8 or 16.80 to 16.81
+
+    4 M3 for
+
+    2
+
+    2
+
+    5
+
+    tan
+
+    15
+
+    7
+
+    =
+
+    +
+
+    oe or
+
+    2
+
+    2
+
+    2
+
+    5
+
+    sin
+
+    15
+
+    7
+
+    5
+
+    =
+
+    +
+
+    +
+
+    oe or
+
+    2
+
+    2
+
+    2
+
+    2
+
+    2
+
+    15
+
+    7
+
+    cos
+
+    15
+
+    7
+
+    5
+
+    +
+
+    =
+
+    +
+
+    +
+
+    oe
+
+    or M2 for
+
+    2
+
+    2
+
+    15
+
+    7
+
+    +
+
+    or
+
+    2
+
+    2
+
+    2
+
+    15
+
+    7
+
+    5
+
+    +
+
+    +
+
+    or M1 for indication of correct angle'
+  mark_scheme: []
+  graphics: []
+- number: 28a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 28b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    343
+
+    2 M1 for [x =] f(1) or better'
+  mark_scheme: []
+  graphics: []
+- number: 29a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '63.0 or 63.02 to 63.03
+
+    3
+
+    M2 for [cos y =]
+
+    2
+
+    2
+
+    2
+
+    10
+
+    14
+
+    13
+
+    2 10 14
+
+    +
+
+    −
+
+    
+
+    
+
+    oe
+
+    or M1 for 132 = 102 + 142 – 2 × 10 × 14 × cos y oe'
+  mark_scheme: []
+  graphics: []
+- number: 29b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '15.1 or 15.13 to 15.14
+
+    5 M2 for [AD] = 14sin38
+
+    sin97
+
+    or M1 for
+
+    14
+
+    sin38
+
+    sin97
+
+    =
+
+    AD
+
+    oe
+
+    M2 for 102 + (their AD)2 – 2 × 10 × their AD ×
+
+    cos(their y + 180 – 97 – 38)
+
+    or M1 for angle BAD = their y + 180 – 97 – 38 soi'
+  mark_scheme: []
+  graphics: []

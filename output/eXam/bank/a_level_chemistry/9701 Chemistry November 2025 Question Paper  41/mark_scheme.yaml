@@ -1,0 +1,782 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Sr(HCO3)2  →  SrCO3  +  CO2  +  H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: radius of cation / M2+ increases OR charge density of cation / M2+
+    decreases
+
+    M2: less polarisation / less distortion of the anion / carbonate ion
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: least soluble CaF2 < SrF2 < BaF2 most soluble
+
+    M2: Hlatt and Hhyd both become less exothermic / less negative
+
+    M3: Hhyd changes less / becomes less exothermic by a smaller extent
+
+    OR Hlatt changes more / becomes less exothermic by a larger extent
+
+    M4: Hsol becomes more exothermic / more negative
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'enthalpy change when one mole of gaseous ions dissolve in water
+    to form a solution
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: ionic radii AND ionic charge
+
+    M2: (ionic) radii increase / charge density decreases AND ∆Hhyd decreases/less
+    exothermic AND less attraction between
+
+    water molecules and (gaseous) ions
+
+    OR
+
+    as ionic charge increases / charge density increases AND ∆Hhyd increases/more
+    exothermic AND more attraction between
+
+    water molecules and (gaseous) ions
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: use of –2957 / –1926 / –505 AND 2  (–505)
+
+    M2: correct signs and evaluation
+
+    ∆Hsol of MgF2(s) = –1926 + (2  –505) – (–2957) = (+)21 kJ mol–1
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1ei
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Ksp = [Hg22+] [F–]2
+
+    M2: units = mol3 dm–9
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Ksp = 22  (9.20  10–3)3 = 3.11  10–6 min 2sf
+
+    1
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'the (3)d and (4)s sub-shells / orbitals / electrons are close / similar
+    in energy
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'species or ion formed by a central metal atom/ion AND surrounded
+    by/bonded to (one or more) ligands
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'NaOH / OH–(aq) AND precipitation / ligand exchange / deprotonation / acid–base
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Fe(H2O)4(OH)2 is oxidised (from + 2 to + 3 on standing)
+
+    M2: Eo of Fe(H2O)3(OH)3 is more negative than Eo of O2
+
+    OR Eocell = 0.40 – (–0.56) = (+)0.96 V
+
+    M3: 4Fe(H2O)4(OH)2  +  O2  →  4Fe(H2O)3(OH)3  +  2H2O
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '∆Go = –2  1.67  96 500 = –322 310 J mol–1
+
+    M1: ∆Go = –nEocellF AND n = 2
+
+    OR –2  1.67  96 500
+
+    M2: ∆Go = –322.3 kJ mol–1
+
+    2
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'heterogeneous AND MnO2 is in a different state / phase to the
+    reactants / H2O2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: (expt 2 and 3) [I–]  2
+
+    initial rate  2
+
+    so 1st order wrt [I–]
+
+    M2: (expt 1 and 2) [I–]  2,  [H2O2]  0.5  initial rate  1
+
+    so 1st order wrt [H2O2]
+
+    OR (expt 1 and 4) [I–]  4
+
+    initial rate  4 AND [H+]  4              so zero order wrt [H+]
+
+    OR (expt 1 and 3) [I–]  4,  [H2O2]  0.5
+
+    initial rate  2              so 1st order wrt [H2O2]
+
+    M3: (expt 1 and 4) [I–] x 4 ,  [H+]  4   initial rate  4
+
+    so zero order wrt [H+]
+
+    OR (expt 3 and 4) [H2O2]  2   initial rate  2AND  [H+] x 4             so zero
+    order wrt [H+]
+
+    OR (expt 3 and 4) [H2O2]  2,  [H+]  4    initial rate  2
+
+    so 1st order wrt [H2O2]
+
+    M4: rate = k [H2O2] [I–]  OR  rate = k [H2O2] [I–] [H+]0
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: k = 2.42  10–3 ÷ (0.045  0.030) = 1.79 min 2sf
+
+    M2: units = dm3 mol-1 s-1
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: calculation of one t1/2 = 60 s ± 5 s
+
+    M2: two t1/2 calculated that are constant
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'k = In2 ÷ 60 = 0.0116  OR  k = 0.693 ÷ 60 = 0.0116 min 2sf
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'increases k and increases the rate of reaction
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: potential difference / voltage / EMF AND between two half-cells / two
+    electrodes (in a cell)
+
+    M2: (at concentration of) 1 mol dm–3 AND (pressure of) 1 atm / 101 kPa AND (temperature
+    of) 298 K / 25 °C
+
+    2
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: salt bridge labelled AND voltmeter / V  AND  wire to electrode
+    and liquid level shown [complete circuit]
+
+    M2: Cu(s) AND Cu2+(aq)
+
+    M3: Zn(s) AND Zn2+(aq)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ions  AND  electrons
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Nernst equation E = Eo + (0.059/z) log(Zn2+/Zn)
+
+    M2: E = –0.76 + (0.059 / 2) log(0.25) = –0.778 V
+
+    OR E = –0.76 + (8.31  298) / (96 500  2) ln(0.25) = –0.778 V min 2sf
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(from) +4 (to) +3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Zn  +  2MnO2  →  ZnO  +  Mn2O3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Eo (MnO2 / Mn2O3) = 1.47 – 1.28 = (+)0.19 V
+
+    1
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    five 3d orbitals (lines, boxes) in the isolated Cu2+ ion of the same energy
+
+    •
+
+    splitting: three higher and two lower d orbitals
+
+    •
+
+    energy of all five d orbitals in complex higher than all d orbitals in isolated
+    ion
+
+    any two [1], all three [2]
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: more than one (stable) oxidation state / exist in variable
+    oxidation states
+
+    M2: vacant / empty (d) orbitals are energetically accessible
+
+    OR vacant / empty (d) orbitals can form dative bonds with ligands
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'each row [1]
+
+    2
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1:
+
+    M2: (shape) square planar AND (bond angle) 180o
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5fi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: moles MnO4– = 0.075  0.0225 = 1.6875  10–3
+
+    M2: moles V2+ = 5 / 3  1.6875  10–3 = 2.8125  10–3
+
+    M3: mass V = 50.9  2.8125  10–3 = 0.143 g
+
+    % of V = 0.143 / 0.250  100 = 57.3 min 2sf
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5fii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2VO3–  +  3Zn  +  12H+  →  2V2+  +  3Zn2+  +  6H2O
+
+    M1: 2 : 3 ratio on both sides
+
+    M2: rest of the equation correct
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: (Rf value) is distance moved by a component / spot / solute
+    AND divided by distance moved by solvent
+
+    OR (Rf value) is the ratio of distance moved by a component / spot / solute AND
+    by distance moved by solvent
+
+    M2: (retention time) is (the time) between injection and detection (of a component)
+
+    2
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'thin-layer chromatography: polar solvent OR non-polar solvent
+    OR named solvent
+
+    gas-liquid chromatography: non-volatile liquid OR high boiling point liquid
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A is more soluble in the mobile phase OR A has less adsorption
+    to the stationary phase
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 6cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Y (two) singlet(s)
+
+    M2: Z triplet AND quartet
+
+    2
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Cl CH2COOH
+
+    BrCH2COOH   CH3COOH  CH3CH2OH
+
+    most acidic
+
+    least acidic
+
+    M2: electron withdrawing groups / electronegative groups / negative inductive
+    effect
+
+    AND weakens O–H bond / more stable anion
+
+    OR
+
+    electron donating groups / positive inductive effect AND strengthens O-H bond / less
+    stable anion
+
+    M3 M4:
+
+    •
+
+    chlorine is more electron-withdrawing / electronegative than bromine (related
+    to XCH2COOH)
+
+    •
+
+    electron withdrawing of C=O / negative inductive effect of C=O (related to COOH)
+
+    •
+
+    positive inductive effect / electron donating of alkyl / ethyl / R group (related
+    to ROH)
+
+    any two [1], all three [2]
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1:
+
+    M2: CO2
+
+    2
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: correct displayed amide bond with C=O, (C6H5)−N and (C–)C=O
+
+    M2: rest of the structure correct with continuation bonds
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 7di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1:
+
+    M2:
+
+    2
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'HNO2 (and HCl) AND ⩽10 °C
+
+    OR
+
+    NaNO2 AND HCl AND ⩽10 °C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'NO2 group directs to 3 (and 5) / meta position AND due to being
+    an electron-withdrawing / electronegative group
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'HNO3  +  H2SO4  →  NO2+  +  HSO4–  +  H2O
+
+    OR HNO3  +  2H2SO4  →  NO2+  +  2HSO4–  +  H3O+
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: (reaction 1)  ethanoyl chloride / CH3COCl AND Al Cl 3
+
+    M2: (reaction 2)  2-bromopropane / (CH3)2CHBr AND FeBr3
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1:
+
+    with C6H5Br
+
+    no change / no precipitate  AND
+
+    with C6H5CH2Br
+
+    cream precipitate
+
+    in C6H5Br
+
+    M2: lone pair / p-orbital on Br delocalised / overlaps with ring /  system
+
+    M3: C–Br bond stronger / has partially double bond character
+
+    3
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(nucleophilic) addition–elimination
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 M2:
+
+    •
+
+    lone pair on O
+
+    •
+
+    curly arrow from (lone pair) O (in H2O) to C (of C=O)
+
+    •
+
+    correct dipole on C=O
+
+    •
+
+    curly arrow from the C=O bond to O atom
+
+    any two [1], all four [2]
+
+    M3: correct intermediate
+
+    M4: curly arrow from (lone pair on) O(–) to C–O bond AND curly arrow from C–Br
+    to Br
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: (basicity linked to) ability of lone pair / p-orbital to
+
+    AND accept / coordinate with a proton / H+
+
+    M2: (lone pair of) electrons on N is delocalised into C=O group (and make amides
+    neutral)
+
+    2
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 9bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1:  M
+
+    M2:  N
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'LiAl H4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ketone / carbonyl AND secondary / 2o
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'curly arrow 1: from O lone pair to C atom (in C=C)
+
+    curly arrow 2: from C=C bond to the right-hand O atom in O=O
+
+    curly arrow 3: from O=O bond to O+
+
+    2
+
+    9701/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 9dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []

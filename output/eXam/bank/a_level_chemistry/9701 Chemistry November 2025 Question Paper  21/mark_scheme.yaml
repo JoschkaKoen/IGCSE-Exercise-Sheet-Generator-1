@@ -1,0 +1,471 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '24 protons
+
+    28 neutrons 24 electrons
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(54Cr  has two) more neutrons (than 52Cr)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(relative) abundance (of each isotope)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The fourth isotope has any value of RIM less than 51.996
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1s2 2s2 2p6 3s2 3p6 (3d5 4s1)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '6
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Cr / Cr2O72– AND it gains electrons
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(+)4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Due to an issue with question 1(c)(iii), the question has been
+    removed from the question paper.
+
+    N/A'
+  mark_scheme: []
+  graphics: []
+- number: 1civ
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 CO2 has only instantaneous / temporary dipole–induced dipole
+    forces
+
+    AND methanal has permanent dipole–permanent dipole (and id-id) forces
+
+    M2 IMF’s in methanal are stronger than IMF’s in CO2
+
+    2
+
+    9701/21
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'rate of forward and backward (reaction) are the same / equal
+
+    OR concentrations of reactants and products are constant
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'closed system
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1diii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (mixture becomes more) orange
+
+    M2 forward reaction is endothermic
+
+    M3 (mixture becomes more) orange
+
+    M4 equilibrium moves (forwards/right) to compensate for extra acid / H+
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 hydrolysis
+
+    M2 CrF4 + 2H2O  →  CrO2 + 4HF
+
+    2
+
+    9701/21
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 nuclear charge increases (across period) AND similar shielding
+
+    M2 greater / stronger attraction to nucleus
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Al loses (3) electrons / Al is 3+, and P gains (3) electrons / P
+    is 3–
+
+    M2 Al (3+) has (one) fewer shell (than P(3–))
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(+)1
+
+    (+)2
+
+    (+)3
+
+    (+)4
+
+    (+)5
+
+    (+)6
+
+    12-14
+
+    8-10
+
+    —
+
+    —
+
+    0-4
+
+    0-4
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'they are insoluble
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Na2O + 2HCl →  2NaCl + H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Al2O3 + 2NaOH  →  2NaAlO2 + H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(thermal stability) increases (down the group)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'NO2 AND O2
+
+    1
+
+    9701/21
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'simplest /lowest (whole number / integer) ratio of atoms (of
+    each element) in a compound / molecule
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'two of:
+
+    OR
+
+    OR
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'homolytic
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 C5H10 + Cl●  →  C5H9● + HCl
+
+    M2 C5H9● + Cl2  →  C5H9Cl + Cl●
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3ciii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'termination
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'HCl (g)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (reaction 1): –3115  –286 + 3292 = –109 (kJ mol–1)
+
+    M2 ∆H2 = – 53 – (–109) = (+)56 (kJ mol–1)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 3eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 absorption labelled at approx. 3000 cm–1 identified as O—H
+
+    M2 absorption labelled at approx. 1720 cm–1 identified as C=O
+
+    2
+
+    9701/21
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'reduction
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'PCl5 / PCl3 / SOCl2
+
+    OR KCl / NaCl AND conc. H2SO4 / conc.H3PO4
+
+    1
+
+    M1 C2H5CH2Cl + NaOH  →  C3H6 + H2O + NaCl
+
+    M2 ethanol (solvent) AND heat / reflux
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'conc. H2SO4 OR conc. H3PO4 OR Al2O3 AND heat
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'addition
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (molecules that have the) same structural formula (and same
+    molecular formula)
+
+    M2 but different 3D / spatial arrangement of atoms / groups
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M2 optical isomerism
+
+    M3 the methylated carbon has four different groups attached
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4biv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 non-biodegradability
+
+    M2 harmful combustion products
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2,3-dimethylbut-1-ene
+
+    1
+
+    9701/21
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(The spectrum is of) X
+
+    AND
+
+    41 is [CH2=CCH3]+ / 41 is C3H5+
+
+    OR 43 is [CH3CHCH3]+ / 43 is C3H7+
+
+    OR X would NOT have significant peak at 54 / [(CH3)2C=C+] / C4H6+
+
+    OR  X would NOT have significant peak at 42 due to [(CH3)2C+] / C3H6+
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '([M+1]+ / 34.7  100 / 1.1 = 6)
+
+    [M+1]+ = 2.29
+
+    1'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,1154 @@
+questions:
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Translation
+
+    3
+
+    1
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    2 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Triangle at (3, 1) , (3, –1) (–1, –1)
+
+    2 B1 for correct size and orientation but
+
+    wrong position'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 cao
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '25 cao
+
+    2
+
+    M1 for (
+
+    )
+
+    2
+
+    3 125
+
+    or 3
+
+    2
+
+    125  or ( )
+
+    2
+
+    3
+
+    3
+
+    5
+
+    or B1 for 3 125
+
+    = 5'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    p  final answer
+
+    2 M1 for
+
+    2
+
+    
+
+    p
+
+    t
+
+    t
+
+    or for cross cancelling of t'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    4
+
+    +
+
+    x
+
+    or 4
+
+    x  + 1
+
+    2  final answer
+
+    2
+
+    M1 for
+
+    (
+
+    )
+
+    3
+
+    2
+
+    1
+
+    4
+
+    −
+
+    −
+
+    x
+
+    x
+
+    oe
+
+    If 0 scored, SC1 for final answer
+
+    2
+
+    4
+
+    −
+
+    x
+
+    oe
+
+    8
+
+    3t + w = 51
+
+    6t + 5w = 129
+
+    2 B1 for each
+
+    Correctly eliminating one variable from
+
+    their equations
+
+    M1 e.g. 6t + 2w = 102 and 6t + 5w = 129
+
+    leading to 3w = 27
+
+    or w = 51 − 3t and 6t + 5(51 − 3t ) = 129
+
+    [t =] 14
+
+    [w =] 9
+
+    A2 A1 for [t =] 14
+
+    A1 for [w =] 9
+
+    If M1A0A0 scored, M1 SC1 for two
+
+    values satisfying one of their original
+
+    equations
+
+    or if M0 scored, SC1 for 2 correct
+
+    answers
+
+    0580/21
+
+    October/November 2025
+
+    Partial Marks
+
+    9
+
+    9
+
+    2 B1 for 4.5 seen'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1, 3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5
+
+    1
+
+    11
+
+    8
+
+    33
+
+    cao
+
+    2 B1 for 24
+
+    99
+
+    oe
+
+    or M1 for 24.24… – 0.24… oe
+
+    12
+
+    9π
+
+    4 M3 for a fully correct method
+
+    e.g.
+
+    2
+
+    2
+
+    9
+
+    2
+
+    9
+
+    π
+
+    π
+
+    π
+
+    
+
+    
+
+    oe
+
+    OR
+
+    B2 for 40 or 1
+
+    9
+
+    oe
+
+    or M1 for 18 +
+
+    π
+
+    2
+
+    9
+
+    1
+
+    π
+
+    8
+
+    2
+
+    k =
+
+    +
+
+    oe
+
+    M1 for
+
+    2
+
+    (
+
+    )
+
+    π
+
+    9
+
+    their k 
+
+    
+
+    oe
+
+    OR
+
+    SC2 for answer 81 + 9π oe
+
+    13
+
+    68
+
+    2
+
+    8
+
+    10
+
+    +
+
+    =
+
+    x
+
+    or better
+
+    x = 6
+
+    Lower quartile = 6.5 or 6.75 or 7
+
+    or upper quartile = 9
+
+    2 or 2.25 or 2.5 nfww'
+  mark_scheme: []
+  graphics: []
+- number: 14a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '37
+
+    Angle sum of triangle = 180
+
+    2 B1 for each
+
+    55
+
+    Angles in the same segment are equal
+
+    2 B1 for each
+
+    125
+
+    Opposite angles of cyclic quadrilateral
+
+    sum to 180
+
+    2 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: 14bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5.4
+
+    2 M1 for 4
+
+    2.7
+
+    8 = CX  oe'
+  mark_scheme: []
+  graphics: []
+- number: 14bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4 : 1 oe
+
+    1
+
+    0580/21
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 15a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '6.6 × 104
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 15b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4.07 × 108
+
+    2 M1 for figs 407 or for 0.37 × 108 or
+
+    37 × 107 or 107(3.7 × 10 + 3.7) or
+
+    108(3.7+ 3.7 ÷ 10) oe
+
+    16
+
+    x ⩽ 2.5
+
+    y > 3
+
+    y ⩽ 4
+
+    y ⩽ 2x
+
+    4 B3 for answer
+
+    x < 2.5     y ⩾ 3     y < 4     y < 2x
+
+    OR
+
+    B1 for each
+
+    If 0 or 1 scored, instead award SC2 for
+
+    recognition of x = 2.5, y = 3, y = 4,
+
+    y = 2x
+
+    If 0 scored, SC1 for recognition of y = 2x'
+  mark_scheme: []
+  graphics: []
+- number: 17a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '91
+
+    2 M1 for 7(32 + 22) oe'
+  mark_scheme: []
+  graphics: []
+- number: 17b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '
+
+    2
+
+    
+
+    −
+
+    I
+
+    c
+
+    M
+
+    or 
+
+    2
+
+    −
+
+    
+
+    I
+
+    Mc
+
+    M
+
+    final answer
+
+    3 M1 for correctly dividing by M
+
+    M1 for correctly isolating term in k2
+
+    M1 for correctly taking square root
+
+    Maximum M2 if answer is incorrect
+
+    18
+
+    [a =] 4
+
+    [b =] 16
+
+    [c =] 10
+
+    4 B3 for two correct nfww
+
+    OR
+
+    B2 for
+
+    2
+
+    4
+
+    20
+
+    25
+
+    x
+
+    x
+
+    +
+
+    +
+
+    or B1 for three terms correct
+
+    from
+
+    2
+
+    4
+
+    10
+
+    10
+
+    25
+
+    x
+
+    x
+
+    x
+
+    +
+
+    +
+
+    +
+
+    M1 for 2(2x + 5) + 5 soi
+
+    19
+
+    8
+
+    3
+
+    −
+
+    or
+
+    2
+
+    2 3
+
+    −
+
+    oe
+
+    3 M2 for –x = 2(x + 4) oe
+
+    or M1 for (3–1)x, 3−x , (32)x+4
+
+    (
+
+    )
+
+    2
+
+    4
+
+    ,  3
+
+    +
+
+    x
+
+    or
+
+    (
+
+    )
+
+    2
+
+    4
+
+    1
+
+    3
+
+    −
+
+    +
+
+    
+
+    
+
+    
+
+    x
+
+    oe
+
+    0580/21
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 20a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 20bi
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2 B1 for 3
+
+    8
+
+    or for 3
+
+    4
+
+    and 1
+
+    4
+
+    correctly placed on the
+
+    same pair of branches'
+  mark_scheme: []
+  graphics: []
+- number: 20bii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '18
+
+    32
+
+    oe
+
+    3 M2 for 5
+
+    3
+
+    3
+
+    1
+
+    8
+
+    4
+
+    8
+
+    4
+
+    
+
+    +
+
+    
+
+    their
+
+    their
+
+    their
+
+    oe
+
+    or M1 for one correct branch e.g.
+
+    5
+
+    3
+
+    8
+
+    4
+
+    their
+
+    
+
+    or
+
+    3
+
+    1
+
+    8
+
+    4
+
+    their
+
+    their
+
+    
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 20c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '11
+
+    40  oe
+
+    3 M2 for 5
+
+    1
+
+    3
+
+    2
+
+    8
+
+    5
+
+    8
+
+    5
+
+    
+
+    +
+
+    
+
+    oe
+
+    or M1 for one product of the form
+
+    5
+
+    3
+
+    or
+
+    8
+
+    5
+
+    8
+
+    5
+
+    
+
+    
+
+    k
+
+    k oe (k = 1, 2, 3 or 4)'
+  mark_scheme: []
+  graphics: []
+- number: 21a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[a =] –9
+
+    [b =] 7
+
+    2 B1 for each
+
+    or for three correct terms from
+
+    6
+
+    9 5
+
+    2 5
+
+    3 5 5
+
+    +
+
+    −
+
+    −
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 21b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3 2  final answer
+
+    2
+
+    M1 for
+
+    2
+
+    2
+
+    
+
+    oe
+
+    22
+
+    –1 and 4
+
+    5 B2 for x2 – 3x – 4 [= 0]
+
+    or M1 for 2(x + 2) = x(x – 1) or better
+
+    M2 for a correct method to solve their
+
+    three-term quadratic in the numerator
+
+    or M1 for (x + a)(x + b) where ab = –4 or
+
+    a + b = –3 or (
+
+    4)
+
+    [1](
+
+    4)
+
+    x x
+
+    x
+
+    −
+
+    +
+
+    −
+
+    or
+
+    (
+
+    1)
+
+    4(
+
+    1)
+
+    x x
+
+    x
+
+    +
+
+    −
+
+    +
+
+    or M1 for
+
+    2
+
+    ( 3)
+
+    4 [1]
+
+    4
+
+    −
+
+    −
+
+    − or better
+
+    or if in the form
+
+    +
+
+    p
+
+    q
+
+    r
+
+    or
+
+    −
+
+    p
+
+    q
+
+    r
+
+    then
+
+    M1 for p = −(−3) and r = 2(1) or better
+
+    0580/21
+
+    October/November 2025
+
+    Partial Marks
+
+    23
+
+    (–1, 8)
+
+    4 B3 for x = –1
+
+    OR
+
+    M1 for –2 – 2x
+
+    M1 for their derivative = 0
+
+    OR
+
+    M2 for [x =] (
+
+    )
+
+    (
+
+    )
+
+    2
+
+    2
+
+    1
+
+    −−
+
+    −
+
+    or better
+
+    or B1 for 2
+
+    −b
+
+    a
+
+    OR
+
+    M2 for – ((x + 1)2 – 8) [= 0] oe
+
+    or M1 for [±](x + 1)2 + k
+
+    24
+
+    1
+
+    6 a + 5
+
+    4 b final answer
+
+    4 B3 for
+
+    
+
+    DM  or
+
+    
+
+    MC  =
+
+    1
+
+    4
+
+    −
+
+    b + 1
+
+    6 a
+
+    or
+
+    
+
+    MD  or
+
+    
+
+    CM  = 1
+
+    4 b – 1
+
+    6 a
+
+    or B2 for
+
+    
+
+    BD  = 1
+
+    2 b or
+
+    
+
+    OD  = 3
+
+    2 b
+
+    or M1 for a correct route for
+
+    
+
+    OM
+
+    25
+
+    5   3
+
+    2   5
+
+    +
+
+    +
+
+    a
+
+    b
+
+    x
+
+    final answer
+
+    4 B2 for (5
+
+    3 )(2
+
+    5)
+
+    a
+
+    b
+
+    x
+
+    +
+
+    −
+
+    or B1 for 5 (2
+
+    5)
+
+    3 (2
+
+    5)
+
+    a
+
+    x
+
+    b
+
+    x
+
+    −
+
+    +
+
+    −
+
+    or for 2 (5
+
+    3 )
+
+    5(5
+
+    3 )
+
+    x
+
+    a
+
+    b
+
+    a
+
+    b
+
+    +
+
+    −
+
+    +
+
+    B1 for (2
+
+    5)(2
+
+    5)
+
+    x
+
+    x
+
+    +
+
+    −
+
+    26
+
+    150 and 330
+
+    3 B2 for one correct answer
+
+    or B1 for [tan–1…] = 30 or –30
+
+    If 0 scored, SC1 for two answers in range
+
+    with a difference of 180'
+  mark_scheme: []
+  graphics: []
