@@ -1,0 +1,67 @@
+title:
+  en: Exceptions
+  zh: 异常处理
+order: 3
+tasks:
+  - id: safe-int
+    prompt:
+      en: "Write `safe_int(text)` that **returns** `int(text)`. If the text is not a valid number, catch the `ValueError` and return `-1` instead."
+      zh: "编写 `safe_int(text)`,**返回** `int(text)`。如果文字不是有效的数字,就捕获 `ValueError`,改为返回 `-1`。"
+    starter: |
+      def safe_int(text):
+          # Try to convert; return -1 if it fails
+          pass
+    solution: |
+      def safe_int(text):
+          try:
+              return int(text)
+          except ValueError:
+              return -1
+    check:
+      kind: asserts
+      code: |
+        assert safe_int("42") == 42, "valid text should convert"
+        assert safe_int("hello") == -1, "bad text should give -1"
+        assert safe_int("7") == 7, "valid text should convert"
+  - id: safe-divide
+    prompt:
+      en: "Write `divide(a, b)` that **returns** `a / b`. If `b` is `0`, catch the `ZeroDivisionError` and return `None` instead."
+      zh: "编写 `divide(a, b)`,**返回** `a / b`。如果 `b` 是 `0`,就捕获 `ZeroDivisionError`,改为返回 `None`。"
+    starter: |
+      def divide(a, b):
+          # Return a / b, or None if b is 0
+          pass
+    solution: |
+      def divide(a, b):
+          try:
+              return a / b
+          except ZeroDivisionError:
+              return None
+    check:
+      kind: asserts
+      code: |
+        assert divide(10, 2) == 5.0, "10 / 2 should be 5.0"
+        assert divide(5, 0) is None, "dividing by 0 should return None"
+  - id: withdraw
+    prompt:
+      en: "Write `withdraw(balance, amount)`. If `amount` is more than `balance`, `raise ValueError`. Otherwise **return** the new balance (`balance - amount`)."
+      zh: "编写 `withdraw(balance, amount)`。如果 `amount` 大于 `balance`,就 `raise ValueError`。否则**返回**新的余额(`balance - amount`)。"
+    starter: |
+      def withdraw(balance, amount):
+          # Raise ValueError if amount is too big, else return the new balance
+          pass
+    solution: |
+      def withdraw(balance, amount):
+          if amount > balance:
+              raise ValueError("not enough money")
+          return balance - amount
+    check:
+      kind: asserts
+      code: |
+        assert withdraw(100, 30) == 70, "a valid withdrawal reduces the balance"
+        ok = False
+        try:
+            withdraw(50, 80)
+        except ValueError:
+            ok = True
+        assert ok, "withdrawing more than the balance should raise ValueError"

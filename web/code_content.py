@@ -80,6 +80,9 @@ def load_course(slug: str, lang: str) -> dict[str, Any] | None:
         "slug": slug,
         "title": _pick(manifest.get("title"), lang),
         "subtitle": _pick(manifest.get("subtitle"), lang),
+        # Runtime selector for the playground: "python" (Pyodide) or "java".
+        # Absent → "python" so every existing course keeps working unchanged.
+        "language": str(manifest.get("language") or "python"),
         "lessons": lessons,
     }
 
@@ -142,6 +145,8 @@ def load_lesson(slug: str, nn: str, lang: str) -> dict[str, Any] | None:
         "nn": nn,
         "title": _pick(meta.get("title"), lang),
         "course_title": (course or {}).get("title", slug),
+        # Per-lesson override wins, else the course default, else "python".
+        "language": str(meta.get("language") or (course or {}).get("language") or "python"),
         "prose_md": prose_md,
         "prose_chunks": prose_chunks,
         "tasks": tasks,

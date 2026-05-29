@@ -244,3 +244,76 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T04:15:19Z'
 glossed_at: '2026-05-29T04:56:30Z'
+figures:
+  - file: assets/01-p25-micrometer-screw-gauge.png
+    caption: A micrometer screw gauge measures to the nearest 0.01 mm
+    figure_ref: '1.9'
+    source_page_pdf: 25
+    source_page_printed: 9
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [166.6, 300.0, 440.6, 491.1]
+    placed_under: "## Errors and uncertainties"
+  - file: assets/01-p26-micrometer-scale-reading.png
+    caption: "Reading a micrometer: add the main scale reading to the thimble reading"
+    figure_ref: '1.13'
+    source_page_pdf: 26
+    source_page_printed: 10
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [180.0, 205.0, 540.0, 268.0]
+    placed_under: "## Errors and uncertainties"
+  - file: assets/01-p27-precision-distribution.png
+    caption: "Precision: how narrow the distribution is around the true value T"
+    figure_ref: '1.14'
+    source_page_pdf: 27
+    source_page_printed: 11
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [47.3, 256.0, 165.0, 467.0]
+    placed_under: "### Precision and accuracy"
+  - file: assets/01-p27-accuracy-distribution.png
+    caption: "Accuracy: whether the peak of the distribution is centred on the true value T"
+    figure_ref: '1.15'
+    source_page_pdf: 27
+    source_page_printed: 11
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [47.3, 505.0, 148.7, 726.0]
+    placed_under: "### Precision and accuracy"
+  - file: assets/01-p30-zero-error-ammeter.png
+    caption: "An ammeter with a zero error: the needle reads below zero before any current flows"
+    figure_ref: '1.18'
+    source_page_pdf: 30
+    source_page_printed: 14
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [53.8, 144.0, 153.0, 206.4]
+    placed_under: "### Systematic and random errors"
+  - file: assets/01-p30-parallax-error.png
+    caption: "Parallax error: different viewing angles give different scale readings"
+    figure_ref: '1.20'
+    source_page_pdf: 30
+    source_page_printed: 14
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [55.6, 461.4, 166.2, 557.4]
+    placed_under: "### Systematic and random errors"
+  - file: assets/01-p36-vector-representation.png
+    caption: Vectors represented as arrows drawn to scale
+    figure_ref: '1.22'
+    source_page_pdf: 36
+    source_page_printed: 20
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [186.8, 119.0, 505.0, 250.0]
+    placed_under: "### Adding and subtracting vectors"
+  - file: assets/01-p36-vector-addition-subtraction.png
+    caption: Adding and subtracting parallel vectors
+    figure_ref: '1.23'
+    source_page_pdf: 36
+    source_page_printed: 20
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [181.0, 461.0, 465.0, 628.0]
+    placed_under: "### Adding and subtracting vectors"
+  - file: assets/01-p39-vector-resolution-components.png
+    caption: Resolving a vector into horizontal and vertical components
+    figure_ref: '1.32'
+    source_page_pdf: 39
+    source_page_printed: 23
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [44.4, 496.4, 133.4, 585.4]
+    placed_under: "### Splitting a vector into perpendicular parts"

@@ -1,0 +1,48 @@
+title:
+  en: Counting loops
+  zh: 计数循环
+order: 7
+tasks:
+  - id: count-to-five
+    prompt:
+      en: "Use a `for` loop to print the numbers `1` to `5`, each on its own line."
+      zh: "用 `for` 循环打印数字 `1` 到 `5`,每个数字单独占一行。"
+    starter: |
+      # Loop and print 1, 2, 3, 4, 5
+    solution: |
+      for i in range(1, 6):
+          print(i)
+    check:
+      kind: stdout
+      expected: "1\n2\n3\n4\n5"
+      normalize: strip
+  - id: sum-to-100
+    prompt:
+      en: "Use a loop and an accumulator to add up every whole number from `1` to `100`. Store the total in `total`."
+      zh: "用一个循环和累加器,把从 `1` 到 `100` 的每个整数加起来。把总和存进 `total`。"
+    starter: |
+      total = 0
+      # Add 1 to 100 into total
+    solution: |
+      total = 0
+      for n in range(1, 101):
+          total = total + n
+    check:
+      kind: asserts
+      code: |
+        assert total == 5050, "1 + 2 + ... + 100 should be 5050"
+  - id: product-to-five
+    prompt:
+      en: "Multiply together every whole number from `1` to `5` (that is 1×2×3×4×5). Start `product` at `1` and store the result there."
+      zh: "把从 `1` 到 `5` 的每个整数相乘(即 1×2×3×4×5)。把 `product` 从 `1` 开始,并把结果存进它。"
+    starter: |
+      product = 1
+      # Multiply 1 through 5 into product
+    solution: |
+      product = 1
+      for n in range(1, 6):
+          product = product * n
+    check:
+      kind: asserts
+      code: |
+        assert product == 120, "1 * 2 * 3 * 4 * 5 should be 120"

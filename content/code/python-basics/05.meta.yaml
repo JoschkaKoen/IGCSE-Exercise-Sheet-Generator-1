@@ -1,0 +1,55 @@
+title:
+  en: Working with strings
+  zh: 处理字符串
+order: 5
+tasks:
+  - id: index-and-slice
+    prompt:
+      en: "`word` is `\"computer\"`. Store its **first** character in `first`, and its first **four** characters in `first_four`, using indexing and a slice."
+      zh: "`word` 是 `\"computer\"`。用索引和切片,把它的**第一个**字符存进 `first`,把它的前**四个**字符存进 `first_four`。"
+    starter: |
+      word = "computer"
+      # first = ...        (one character)
+      # first_four = ...   (a slice)
+    solution: |
+      word = "computer"
+      first = word[0]
+      first_four = word[:4]
+    check:
+      kind: asserts
+      code: |
+        assert first == "c", "first should be 'c'"
+        assert first_four == "comp", "first_four should be 'comp'"
+  - id: length-and-case
+    prompt:
+      en: "`phrase` is `\"Hello World\"`. Store its length in `n` with `len(...)`, and an UPPERCASE copy in `loud` with `.upper()`."
+      zh: "`phrase` 是 `\"Hello World\"`。用 `len(...)` 把它的长度存进 `n`,用 `.upper()` 把它的全大写副本存进 `loud`。"
+    starter: |
+      phrase = "Hello World"
+      # n = ...      (the length)
+      # loud = ...   (uppercase)
+    solution: |
+      phrase = "Hello World"
+      n = len(phrase)
+      loud = phrase.upper()
+    check:
+      kind: asserts
+      code: |
+        assert n == 11, "len('Hello World') is 11"
+        assert loud == "HELLO WORLD", "loud should be 'HELLO WORLD'"
+  - id: f-string-sentence
+    prompt:
+      en: "`name` is `\"Mia\"` and `age` is `12`. Use an **f-string** to print exactly: `Mia is 12 years old.`"
+      zh: "`name` 是 `\"Mia\"`,`age` 是 `12`。用 **f-string** 精确打印:`Mia is 12 years old.`"
+    starter: |
+      name = "Mia"
+      age = 12
+      # Print the sentence with an f-string
+    solution: |
+      name = "Mia"
+      age = 12
+      print(f"{name} is {age} years old.")
+    check:
+      kind: stdout
+      expected: "Mia is 12 years old."
+      normalize: strip

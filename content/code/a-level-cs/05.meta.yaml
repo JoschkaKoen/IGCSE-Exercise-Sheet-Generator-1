@@ -1,0 +1,60 @@
+title:
+  en: Queues
+  zh: 队列
+order: 5
+tasks:
+  - id: enqueue-dequeue
+    prompt:
+      en: "Start with an empty queue. **Enqueue** `\"a\"`, then `\"b\"`, then `\"c\"`. Then **dequeue** once, storing the removed value in `first`. (`first` should be `\"a\"` and the queue should be `[\"b\", \"c\"]`.)"
+      zh: "从一个空队列开始。依次**入队** `\"a\"`、`\"b\"`、`\"c\"`。然后**出队**一次,把移除的值存进 `first`。(`first` 应为 `\"a\"`,队列应为 `[\"b\", \"c\"]`。)"
+    starter: |
+      queue = []
+      # Enqueue "a", "b", "c" then dequeue once into first
+    solution: |
+      queue = []
+      queue.append("a")
+      queue.append("b")
+      queue.append("c")
+      first = queue.pop(0)
+    check:
+      kind: asserts
+      code: |
+        assert first == "a", "the first item enqueued leaves first"
+        assert queue == ["b", "c"], "b and c remain, in order"
+  - id: fifo-order
+    prompt:
+      en: "Enqueue `1`, `2`, `3` onto a queue, then dequeue them all into `result`. Unlike a stack, a queue keeps the **same** order. (`result` should be `[1, 2, 3]`.)"
+      zh: "把 `1`、`2`、`3` 入队,然后全部出队到 `result`。和栈不同,队列保持**相同**的顺序。(`result` 应为 `[1, 2, 3]`。)"
+    starter: |
+      queue = []
+      result = []
+      # Enqueue 1, 2, 3 then dequeue them all into result
+    solution: |
+      queue = []
+      result = []
+      for x in [1, 2, 3]:
+          queue.append(x)
+      while len(queue) > 0:
+          result.append(queue.pop(0))
+    check:
+      kind: asserts
+      code: |
+        assert result == [1, 2, 3], "a queue keeps the original order"
+  - id: serve
+    prompt:
+      en: "Write `serve(queue)` that **dequeues** the front item: remove it from the list and **return** it. The caller's list should get shorter."
+      zh: "编写 `serve(queue)`,把队首元素**出队**:从列表中移除它并**返回**它。调用者的列表会因此变短。"
+    starter: |
+      def serve(queue):
+          # Remove and return the front item
+          pass
+    solution: |
+      def serve(queue):
+          return queue.pop(0)
+    check:
+      kind: asserts
+      code: |
+        line = ["Sam", "Mia", "Leo"]
+        served = serve(line)
+        assert served == "Sam", "the front of the line is served first"
+        assert line == ["Mia", "Leo"], "the served person leaves the line"

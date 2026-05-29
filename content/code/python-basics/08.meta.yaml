@@ -1,0 +1,56 @@
+title:
+  en: While loops
+  zh: while 循环
+order: 8
+tasks:
+  - id: countdown
+    prompt:
+      en: "Use a `while` loop to print a countdown from `5` down to `1`, each number on its own line."
+      zh: "用 `while` 循环打印从 `5` 到 `1` 的倒数,每个数字单独占一行。"
+    starter: |
+      count = 5
+      # Print 5, 4, 3, 2, 1 using a while loop
+    solution: |
+      count = 5
+      while count > 0:
+          print(count)
+          count = count - 1
+    check:
+      kind: stdout
+      expected: "5\n4\n3\n2\n1"
+      normalize: strip
+  - id: sum-with-while
+    prompt:
+      en: "Use a `while` loop to add up the numbers `1` to `10`. Store the total in `total` (the answer is 55)."
+      zh: "用 `while` 循环把 `1` 到 `10` 的数字加起来。把总和存进 `total`(答案是 55)。"
+    starter: |
+      total = 0
+      n = 1
+      # Use a while loop to add 1..10 into total
+    solution: |
+      total = 0
+      n = 1
+      while n <= 10:
+          total = total + n
+          n = n + 1
+    check:
+      kind: asserts
+      code: |
+        assert total == 55, "1 + 2 + ... + 10 should be 55"
+  - id: first-over-fifty
+    prompt:
+      en: "Use `while True:` with a `break` to find the smallest whole number `n` (starting at 1) whose square `n * n` is greater than `50`. Leave the answer in `n` (it is 8)."
+      zh: "用 `while True:` 配合 `break`,找出最小的整数 `n`(从 1 开始),使得它的平方 `n * n` 大于 `50`。把答案留在 `n` 里(它是 8)。"
+    starter: |
+      n = 1
+      # Stop when n * n is greater than 50
+    solution: |
+      n = 1
+      while True:
+          if n * n > 50:
+              break
+          n = n + 1
+    check:
+      kind: asserts
+      code: |
+        assert n == 8, "8 * 8 = 64 is the first square over 50"

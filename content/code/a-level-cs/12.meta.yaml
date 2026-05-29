@@ -1,0 +1,66 @@
+title:
+  en: Programming paradigms
+  zh: 编程范式
+order: 12
+tasks:
+  - id: procedural-sum
+    prompt:
+      en: "**Procedural style.** Write `sum_list(nums)` that uses a loop and an accumulator to add up the list and **return** the total."
+      zh: "**过程式风格。** 编写 `sum_list(nums)`,用一个循环和累加器把列表加起来,并**返回**总和。"
+    starter: |
+      def sum_list(nums):
+          # Loop and accumulate, then return the total
+          pass
+    solution: |
+      def sum_list(nums):
+          result = 0
+          for n in nums:
+              result = result + n
+          return result
+    check:
+      kind: asserts
+      code: |
+        assert sum_list([1, 2, 3, 4]) == 10, "1+2+3+4 should be 10"
+        assert sum_list([]) == 0, "an empty list totals 0"
+        assert sum_list([5]) == 5, "a one-item list totals that item"
+  - id: declarative-evens
+    prompt:
+      en: "**Declarative style.** Write `evens(nums)` that **returns** a list of the even numbers, using a single **list comprehension** `[... for ... if ...]`."
+      zh: "**声明式风格。** 编写 `evens(nums)`,用一个**列表推导式** `[... for ... if ...]`,**返回**所有偶数组成的列表。"
+    starter: |
+      def evens(nums):
+          # Return [n for n in nums if n is even]
+          pass
+    solution: |
+      def evens(nums):
+          return [n for n in nums if n % 2 == 0]
+    check:
+      kind: asserts
+      code: |
+        assert evens([1, 2, 3, 4, 5, 6]) == [2, 4, 6], "the even numbers"
+        assert evens([1, 3, 5]) == [], "no evens gives an empty list"
+        assert evens([]) == [], "an empty list gives an empty list"
+  - id: oo-bag
+    prompt:
+      en: "**Object-oriented style.** Write a class `Bag` whose `__init__(self, items)` stores a list, and whose method `total(self)` **returns** the sum of those items."
+      zh: "**面向对象风格。** 编写一个类 `Bag`,它的 `__init__(self, items)` 存下一个列表,方法 `total(self)` **返回**这些元素的总和。"
+    starter: |
+      class Bag:
+          def __init__(self, items):
+              # Store the items
+              pass
+          def total(self):
+              # Return the sum of the items
+              pass
+    solution: |
+      class Bag:
+          def __init__(self, items):
+              self.items = items
+          def total(self):
+              return sum(self.items)
+    check:
+      kind: asserts
+      code: |
+        assert Bag([1, 2, 3]).total() == 6, "1+2+3 should be 6"
+        assert Bag([]).total() == 0, "an empty bag totals 0"
+        assert Bag([10, 20]).total() == 30, "10+20 should be 30"

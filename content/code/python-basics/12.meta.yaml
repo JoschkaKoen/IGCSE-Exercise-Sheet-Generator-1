@@ -1,0 +1,52 @@
+title:
+  en: Dictionaries (records)
+  zh: 字典(记录)
+order: 12
+tasks:
+  - id: make-record
+    prompt:
+      en: "Create a dictionary `book` with two keys: `title` set to `\"Python\"` and `pages` set to `200`."
+      zh: "创建一个字典 `book`,有两个键:`title` 设为 `\"Python\"`,`pages` 设为 `200`。"
+    starter: |
+      # Create the book dictionary
+    solution: |
+      book = {"title": "Python", "pages": 200}
+    check:
+      kind: asserts
+      code: |
+        assert book["title"] == "Python", "book['title'] should be 'Python'"
+        assert book["pages"] == 200, "book['pages'] should be 200"
+  - id: update-record
+    prompt:
+      en: "The dictionary `student` already has `name` and `score`. Change `score` to `85`, and add a new key `passed` set to `True`."
+      zh: "字典 `student` 已经有 `name` 和 `score`。把 `score` 改为 `85`,再添加一个新键 `passed`,设为 `True`。"
+    starter: |
+      student = {"name": "Sam", "score": 70}
+      # Change score and add passed
+    solution: |
+      student = {"name": "Sam", "score": 70}
+      student["score"] = 85
+      student["passed"] = True
+    check:
+      kind: asserts
+      code: |
+        assert student["score"] == 85, "score should now be 85"
+        assert student["passed"] is True, "passed should be True"
+        assert student["name"] == "Sam", "name should still be 'Sam'"
+  - id: sum-values
+    prompt:
+      en: "Loop over the dictionary `prices` and add up its values. Store the total in `total` (the answer is 10)."
+      zh: "遍历字典 `prices`,把它的值加起来。把总和存进 `total`(答案是 10)。"
+    starter: |
+      prices = {"apple": 3, "pear": 2, "plum": 5}
+      total = 0
+      # Add up the values in prices
+    solution: |
+      prices = {"apple": 3, "pear": 2, "plum": 5}
+      total = 0
+      for key in prices:
+          total = total + prices[key]
+    check:
+      kind: asserts
+      code: |
+        assert total == 10, "3 + 2 + 5 should be 10"

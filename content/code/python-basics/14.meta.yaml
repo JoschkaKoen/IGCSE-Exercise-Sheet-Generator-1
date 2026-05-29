@@ -1,0 +1,62 @@
+title:
+  en: Errors & testing
+  zh: 错误与测试
+order: 14
+tasks:
+  - id: fix-add
+    prompt:
+      en: "This function should **add** `a` and `b`, but it has a logic error — it subtracts. Fix it so it returns the sum."
+      zh: "这个函数本应把 `a` 和 `b` **相加**,但有一个逻辑错误 —— 它做的是减法。修复它,让它返回两者的和。"
+    starter: |
+      def add(a, b):
+          return a - b
+    solution: |
+      def add(a, b):
+          return a + b
+    check:
+      kind: asserts
+      code: |
+        assert add(2, 3) == 5, "add(2, 3) should be 5"
+        assert add(10, 0) == 10, "add(10, 0) should be 10"
+        assert add(-4, 4) == 0, "add(-4, 4) should be 0"
+  - id: fix-sum
+    prompt:
+      en: "`sum_to(n)` should return `1 + 2 + ... + n`, but it stops one number too early (an off-by-one logic error). Fix the `range` so it includes `n`."
+      zh: "`sum_to(n)` 应返回 `1 + 2 + ... + n`,但它提前少算了一个数(差一错误)。修正 `range`,让它包含 `n`。"
+    starter: |
+      def sum_to(n):
+          total = 0
+          for i in range(1, n):
+              total = total + i
+          return total
+    solution: |
+      def sum_to(n):
+          total = 0
+          for i in range(1, n + 1):
+              total = total + i
+          return total
+    check:
+      kind: asserts
+      code: |
+        assert sum_to(5) == 15, "1+2+3+4+5 should be 15"
+        assert sum_to(1) == 1, "sum_to(1) should be 1"
+        assert sum_to(10) == 55, "sum_to(10) should be 55"
+  - id: safe-divide
+    prompt:
+      en: "Write `safe_divide(a, b)` that returns `a / b`, but **prevents** a runtime crash: if `b` is `0`, return `0` instead."
+      zh: "编写 `safe_divide(a, b)`,返回 `a / b`,但要**预防**运行时崩溃:如果 `b` 是 `0`,就改为返回 `0`。"
+    starter: |
+      def safe_divide(a, b):
+          # Guard against dividing by zero
+          pass
+    solution: |
+      def safe_divide(a, b):
+          if b == 0:
+              return 0
+          return a / b
+    check:
+      kind: asserts
+      code: |
+        assert safe_divide(10, 2) == 5.0, "10 / 2 should be 5.0"
+        assert safe_divide(5, 0) == 0, "dividing by 0 should return 0"
+        assert safe_divide(9, 3) == 3.0, "9 / 3 should be 3.0"

@@ -1,0 +1,63 @@
+title:
+  en: Planning & pseudocode
+  zh: 规划与伪代码
+order: 13
+tasks:
+  - id: even-or-odd
+    prompt:
+      en: "Follow this plan: read a whole number; if it divides by 2 with no remainder print `Even`, otherwise print `Odd`. For input `4`, print `Even`."
+      zh: "按这个规划做:读取一个整数;如果它能被 2 整除(没有余数)就打印 `Even`,否则打印 `Odd`。当输入为 `4` 时,打印 `Even`。"
+    starter: |
+      n = int(input())
+      # Decide Even or Odd
+    stdin: "4\n"
+    solution: |
+      n = int(input())
+      if n % 2 == 0:
+          print("Even")
+      else:
+          print("Odd")
+    check:
+      kind: stdout
+      expected: "Even"
+      normalize: strip
+  - id: sum-to-n
+    prompt:
+      en: "Follow this plan: read a number `N`; add up every whole number from `1` to `N`; print the total. For input `5`, print `15`."
+      zh: "按这个规划做:读取一个数 `N`;把从 `1` 到 `N` 的每个整数加起来;打印总和。当输入为 `5` 时,打印 `15`。"
+    starter: |
+      n = int(input())
+      total = 0
+      # Add 1..n, then print total
+    stdin: "5\n"
+    solution: |
+      n = int(input())
+      total = 0
+      for i in range(1, n + 1):
+          total = total + i
+      print(total)
+    check:
+      kind: stdout
+      expected: "15"
+      normalize: strip
+  - id: count-vowels
+    prompt:
+      en: "Decompose this into a function. Write `count_vowels(word)` that **returns** how many letters of `word` are vowels (`a e i o u`, lowercase)."
+      zh: "把它分解成一个函数。编写 `count_vowels(word)`,**返回** `word` 中有多少个字母是元音(小写的 `a e i o u`)。"
+    starter: |
+      def count_vowels(word):
+          # Count the vowels and return the count
+          pass
+    solution: |
+      def count_vowels(word):
+          count = 0
+          for letter in word:
+              if letter in "aeiou":
+                  count = count + 1
+          return count
+    check:
+      kind: asserts
+      code: |
+        assert count_vowels("hello") == 2, "hello has 2 vowels"
+        assert count_vowels("sky") == 0, "sky has 0 vowels"
+        assert count_vowels("aeiou") == 5, "aeiou has 5 vowels"

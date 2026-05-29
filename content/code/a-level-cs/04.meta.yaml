@@ -1,0 +1,62 @@
+title:
+  en: Stacks
+  zh: 栈
+order: 4
+tasks:
+  - id: push-and-pop
+    prompt:
+      en: "Start with an empty stack. **Push** `1`, then `2`, then `3`. Then **pop** once, storing the removed value in `top`. (`top` should be 3 and the stack should be `[1, 2]`.)"
+      zh: "从一个空栈开始。依次**入栈** `1`、`2`、`3`。然后**出栈**一次,把移除的值存进 `top`。(`top` 应为 3,栈应为 `[1, 2]`。)"
+    starter: |
+      stack = []
+      # Push 1, 2, 3 then pop once into top
+    solution: |
+      stack = []
+      stack.append(1)
+      stack.append(2)
+      stack.append(3)
+      top = stack.pop()
+    check:
+      kind: asserts
+      code: |
+        assert top == 3, "the last item pushed (3) is popped first"
+        assert stack == [1, 2], "after popping, 1 and 2 remain"
+  - id: reverse-with-stack
+    prompt:
+      en: "Use a stack to **reverse** the list `items`. Push every item onto a stack, then pop them all into `result`. (`result` should be `[3, 2, 1]`.)"
+      zh: "用一个栈来**反转**列表 `items`。把每个元素都入栈,然后全部出栈到 `result`。(`result` 应为 `[3, 2, 1]`。)"
+    starter: |
+      items = [1, 2, 3]
+      stack = []
+      result = []
+      # Push every item, then pop them all into result
+    solution: |
+      items = [1, 2, 3]
+      stack = []
+      result = []
+      for x in items:
+          stack.append(x)
+      while len(stack) > 0:
+          result.append(stack.pop())
+    check:
+      kind: asserts
+      code: |
+        assert result == [3, 2, 1], "a stack reverses the order"
+  - id: peek-top
+    prompt:
+      en: "Write `top(stack)` that **returns** the top item (the last one) without removing it. If the stack is empty, return `None`."
+      zh: "编写 `top(stack)`,**返回**栈顶元素(最后一个)且不移除它。如果栈是空的,返回 `None`。"
+    starter: |
+      def top(stack):
+          # Return the top item, or None if empty
+          pass
+    solution: |
+      def top(stack):
+          if len(stack) == 0:
+              return None
+          return stack[-1]
+    check:
+      kind: asserts
+      code: |
+        assert top([1, 2, 3]) == 3, "the top of [1, 2, 3] is 3"
+        assert top([]) is None, "the top of an empty stack is None"

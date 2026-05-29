@@ -1,0 +1,53 @@
+title:
+  en: Lists (1-D arrays)
+  zh: 列表(一维数组)
+order: 9
+tasks:
+  - id: build-list
+    prompt:
+      en: "Create a list `colors` holding `\"red\"`, `\"green\"`, `\"blue\"`. Then `append` `\"yellow\"` so the list has four items."
+      zh: "创建一个列表 `colors`,包含 `\"red\"`、`\"green\"`、`\"blue\"`。然后 `append` 一个 `\"yellow\"`,让列表有四个元素。"
+    starter: |
+      # Create colors, then append "yellow"
+    solution: |
+      colors = ["red", "green", "blue"]
+      colors.append("yellow")
+    check:
+      kind: asserts
+      code: |
+        assert colors == ["red", "green", "blue", "yellow"], "colors should end with four items"
+  - id: sum-list
+    prompt:
+      en: "Loop over the list `nums` and add up its values. Store the total in `total` (the answer is 66)."
+      zh: "遍历列表 `nums`,把它的值加起来。把总和存进 `total`(答案是 66)。"
+    starter: |
+      nums = [4, 8, 15, 16, 23]
+      total = 0
+      # Add up every value in nums
+    solution: |
+      nums = [4, 8, 15, 16, 23]
+      total = 0
+      for n in nums:
+          total = total + n
+    check:
+      kind: asserts
+      code: |
+        assert total == 66, "4 + 8 + 15 + 16 + 23 should be 66"
+  - id: find-largest
+    prompt:
+      en: "Find the **largest** value in `nums` with a loop. Start `largest` at the first item, then check the rest. Store the answer in `largest` (it is 23)."
+      zh: "用循环找出 `nums` 中**最大**的值。把 `largest` 设为第一个元素,再检查其余元素。把答案存进 `largest`(它是 23)。"
+    starter: |
+      nums = [4, 8, 15, 16, 23]
+      largest = nums[0]
+      # Check the other items and keep the biggest
+    solution: |
+      nums = [4, 8, 15, 16, 23]
+      largest = nums[0]
+      for n in nums:
+          if n > largest:
+              largest = n
+    check:
+      kind: asserts
+      code: |
+        assert largest == 23, "the largest value in nums is 23"

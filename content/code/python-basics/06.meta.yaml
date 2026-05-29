@@ -1,0 +1,61 @@
+title:
+  en: Making decisions
+  zh: 做出判断
+order: 6
+tasks:
+  - id: pass-or-fail
+    prompt:
+      en: "Read a score with `int(input())`. Print `Pass` if it is `50` or more, otherwise print `Fail`. For input `72`, print `Pass`."
+      zh: "用 `int(input())` 读取一个分数。如果它大于或等于 `50`,打印 `Pass`,否则打印 `Fail`。当输入为 `72` 时,打印 `Pass`。"
+    starter: |
+      score = int(input())
+      # Print Pass or Fail
+    stdin: "72\n"
+    solution: |
+      score = int(input())
+      if score >= 50:
+          print("Pass")
+      else:
+          print("Fail")
+    check:
+      kind: stdout
+      expected: "Pass"
+      normalize: strip
+  - id: grade
+    prompt:
+      en: "Read a score. Print `A` if it is `80`+, `B` if it is `60`+, otherwise `C`. Use `if` / `elif` / `else`. For input `75`, print `B`."
+      zh: "读取一个分数。如果是 `80` 及以上打印 `A`,`60` 及以上打印 `B`,否则打印 `C`。使用 `if` / `elif` / `else`。当输入为 `75` 时,打印 `B`。"
+    starter: |
+      score = int(input())
+      # Print A, B, or C
+    stdin: "75\n"
+    solution: |
+      score = int(input())
+      if score >= 80:
+          print("A")
+      elif score >= 60:
+          print("B")
+      else:
+          print("C")
+    check:
+      kind: stdout
+      expected: "B"
+      normalize: strip
+  - id: teenager
+    prompt:
+      en: "Read an age. Print `Yes` if the age is from `13` to `19` (a teenager), otherwise `No`. Use `and`. For input `16`, print `Yes`."
+      zh: "读取一个年龄。如果年龄在 `13` 到 `19` 之间(青少年),打印 `Yes`,否则打印 `No`。使用 `and`。当输入为 `16` 时,打印 `Yes`。"
+    starter: |
+      age = int(input())
+      # Print Yes or No
+    stdin: "16\n"
+    solution: |
+      age = int(input())
+      if age >= 13 and age <= 19:
+          print("Yes")
+      else:
+          print("No")
+    check:
+      kind: stdout
+      expected: "Yes"
+      normalize: strip

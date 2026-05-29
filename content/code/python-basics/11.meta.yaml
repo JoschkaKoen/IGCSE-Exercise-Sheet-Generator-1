@@ -1,0 +1,55 @@
+title:
+  en: Scope & arguments
+  zh: 作用域与参数
+order: 11
+tasks:
+  - id: greet-default
+    prompt:
+      en: "Write `greet(name, greeting=\"Hi\")` that **returns** `greeting`, then `, `, then `name`, then `!`. So `greet(\"Sam\")` is `Hi, Sam!` and `greet(\"Sam\", \"Hello\")` is `Hello, Sam!`."
+      zh: "编写 `greet(name, greeting=\"Hi\")`,**返回** `greeting`、`, `、`name`、再加 `!`。即 `greet(\"Sam\")` 是 `Hi, Sam!`,`greet(\"Sam\", \"Hello\")` 是 `Hello, Sam!`。"
+    starter: |
+      def greet(name, greeting="Hi"):
+          # Return the greeting
+          pass
+    solution: |
+      def greet(name, greeting="Hi"):
+          return greeting + ", " + name + "!"
+    check:
+      kind: asserts
+      code: |
+        assert greet("Sam") == "Hi, Sam!", "default greeting should be 'Hi'"
+        assert greet("Sam", "Hello") == "Hello, Sam!", "given greeting should be used"
+  - id: add-item
+    prompt:
+      en: "Write `add_item(lst, x)` that appends `x` to the list `lst`. Do **not** return anything — the caller's list should change because lists are mutable."
+      zh: "编写 `add_item(lst, x)`,把 `x` 追加到列表 `lst`。**不要**返回任何东西 —— 因为列表是可变的,调用者的列表会被改变。"
+    starter: |
+      def add_item(lst, x):
+          # Append x to lst (no return needed)
+          pass
+    solution: |
+      def add_item(lst, x):
+          lst.append(x)
+    check:
+      kind: asserts
+      code: |
+        data = [1, 2]
+        add_item(data, 3)
+        assert data == [1, 2, 3], "the caller's list should now end with 3"
+  - id: between
+    prompt:
+      en: "Write `between(low, high, x)` that **returns** `True` if `x` is from `low` to `high` (inclusive), otherwise `False`."
+      zh: "编写 `between(low, high, x)`,如果 `x` 在 `low` 到 `high` 之间(含两端),**返回** `True`,否则返回 `False`。"
+    starter: |
+      def between(low, high, x):
+          # Return True or False
+          pass
+    solution: |
+      def between(low, high, x):
+          return low <= x <= high
+    check:
+      kind: asserts
+      code: |
+        assert between(1, 10, 5) is True, "5 is between 1 and 10"
+        assert between(1, 10, 20) is False, "20 is not between 1 and 10"
+        assert between(1, 10, 1) is True, "the low end is included"

@@ -127,5 +127,5 @@ figures:
     source_page_pdf: 351
     source_page_printed: 335
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    crop_rect_pts: [168.3, 148.4, 481.5, 284.8]
+    crop_rect_pts: [172.0, 148.4, 481.5, 284.8]
     placed_under: "### Demonstrations"

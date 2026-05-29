@@ -15,35 +15,30 @@ tasks:
       kind: stdout
       expected: "Hello, world!"
       normalize: strip
-  - id: greet
+  - id: two-lines
     prompt:
-      en: "The first line reads a name with `input()`. Print `Hi, ` then the name then `!`. For the input `Sam`, the output should be `Hi, Sam!`."
-      zh: "第一行用 `input()` 读取一个名字。请输出 `Hi, `、名字,再加 `!`。当输入为 `Sam` 时,应输出 `Hi, Sam!`。"
+      en: "Print **two** lines. The first line must be `My name is Pat`. The second line must be `I am learning Python`. (Use two `print(...)` calls.)"
+      zh: "打印**两**行。第一行必须是 `My name is Pat`,第二行必须是 `I am learning Python`。(使用两次 `print(...)`。)"
     starter: |
-      name = input()
-      # Print the greeting below
-    stdin: "Sam\n"
+      # Print two lines below
     solution: |
-      name = input()
-      print("Hi, " + name + "!")
+      print("My name is Pat")
+      print("I am learning Python")
     check:
       kind: stdout
-      expected: "Hi, Sam!"
+      expected: "My name is Pat\nI am learning Python"
       normalize: strip
-  - id: add-two
+  - id: comment-then-print
     prompt:
-      en: "Write a function `add(a, b)` that **returns** the sum of `a` and `b`."
-      zh: "编写一个函数 `add(a, b)`,**返回** `a` 与 `b` 的和。"
+      en: "Keep the comment line, then `print` the number **42**. Notice the comment never appears in the output."
+      zh: "保留那行注释,然后用 `print` 打印数字 **42**。注意注释永远不会出现在输出里。"
     starter: |
-      def add(a, b):
-          # Return the sum of a and b
-          pass
+      # This is a comment — Python ignores it
+      # Print 42 on the next line
     solution: |
-      def add(a, b):
-          return a + b
+      # This is a comment — Python ignores it
+      print(42)
     check:
-      kind: asserts
-      code: |
-        assert add(2, 3) == 5, "add(2, 3) should be 5"
-        assert add(-1, 1) == 0, "add(-1, 1) should be 0"
-        assert add(10, 0.5) == 10.5, "add should work with decimals too"
+      kind: stdout
+      expected: "42"
+      normalize: strip

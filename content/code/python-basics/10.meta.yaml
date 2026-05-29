@@ -1,0 +1,58 @@
+title:
+  en: Functions
+  zh: 函数
+order: 10
+tasks:
+  - id: add-two
+    prompt:
+      en: "Write a function `add(a, b)` that **returns** the sum of `a` and `b`."
+      zh: "编写一个函数 `add(a, b)`,**返回** `a` 与 `b` 的和。"
+    starter: |
+      def add(a, b):
+          # Return the sum of a and b
+          pass
+    solution: |
+      def add(a, b):
+          return a + b
+    check:
+      kind: asserts
+      code: |
+        assert add(2, 3) == 5, "add(2, 3) should be 5"
+        assert add(-1, 1) == 0, "add(-1, 1) should be 0"
+        assert add(10, 0.5) == 10.5, "add should work with decimals too"
+  - id: greet
+    prompt:
+      en: "Write a function `greet(name)` that **returns** the string `Hello, ` then the name then `!`. So `greet(\"Sam\")` returns `Hello, Sam!`."
+      zh: "编写一个函数 `greet(name)`,**返回**字符串 `Hello, `、名字、再加 `!`。即 `greet(\"Sam\")` 返回 `Hello, Sam!`。"
+    starter: |
+      def greet(name):
+          # Return the greeting
+          pass
+    solution: |
+      def greet(name):
+          return "Hello, " + name + "!"
+    check:
+      kind: asserts
+      code: |
+        assert greet("Sam") == "Hello, Sam!", "greet('Sam') should be 'Hello, Sam!'"
+        assert greet("Mia") == "Hello, Mia!", "greet('Mia') should be 'Hello, Mia!'"
+  - id: biggest
+    prompt:
+      en: "Write a function `biggest(a, b)` that **returns** the larger of the two values. If they are equal, return either one."
+      zh: "编写一个函数 `biggest(a, b)`,**返回**两个值中较大的那个。如果两者相等,返回其中之一即可。"
+    starter: |
+      def biggest(a, b):
+          # Return the larger value
+          pass
+    solution: |
+      def biggest(a, b):
+          if a > b:
+              return a
+          else:
+              return b
+    check:
+      kind: asserts
+      code: |
+        assert biggest(3, 9) == 9, "biggest(3, 9) should be 9"
+        assert biggest(10, 2) == 10, "biggest(10, 2) should be 10"
+        assert biggest(5, 5) == 5, "biggest(5, 5) should be 5"

@@ -1,0 +1,54 @@
+title:
+  en: Numbers & operators
+  zh: 数字与运算符
+order: 3
+tasks:
+  - id: area
+    prompt:
+      en: "Set `length` to `8` and `width` to `5`. Then store their product in a variable called `area`."
+      zh: "把 `length` 设为 `8`,`width` 设为 `5`。然后把它们的乘积存进变量 `area`。"
+    starter: |
+      length = 8
+      width = 5
+      # Store length * width in area
+    solution: |
+      length = 8
+      width = 5
+      area = length * width
+    check:
+      kind: asserts
+      code: |
+        assert area == 40, "area should be 8 * 5 = 40"
+  - id: share
+    prompt:
+      en: "You share `17` sweets among `5` children. Store how many **each** child gets in `each` (use `//`), and how many are **left over** in `left` (use `%`)."
+      zh: "把 `17` 颗糖分给 `5` 个小孩。把**每人**分到的数量存进 `each`(用 `//`),把**剩下**的数量存进 `left`(用 `%`)。"
+    starter: |
+      total = 17
+      children = 5
+      # each = ...   left = ...
+    solution: |
+      total = 17
+      children = 5
+      each = total // children
+      left = total % children
+    check:
+      kind: asserts
+      code: |
+        assert each == 3, "each should be 17 // 5 = 3"
+        assert left == 2, "left should be 17 % 5 = 2"
+  - id: precedence
+    prompt:
+      en: "Store `3 ** 2 + 1` in `result`. Then use parentheses to store `(3 + 1) ** 2` in `grouped`."
+      zh: "把 `3 ** 2 + 1` 的结果存进 `result`。再用括号把 `(3 + 1) ** 2` 的结果存进 `grouped`。"
+    starter: |
+      # result = ...
+      # grouped = ...
+    solution: |
+      result = 3 ** 2 + 1
+      grouped = (3 + 1) ** 2
+    check:
+      kind: asserts
+      code: |
+        assert result == 10, "3 ** 2 + 1 should be 10"
+        assert grouped == 16, "(3 + 1) ** 2 should be 16"

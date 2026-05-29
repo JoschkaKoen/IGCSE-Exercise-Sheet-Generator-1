@@ -1,0 +1,62 @@
+title:
+  en: Recursion
+  zh: 递归
+order: 9
+tasks:
+  - id: sum-to
+    prompt:
+      en: "Write a **recursive** `sum_to(n)` that returns `1 + 2 + ... + n`. The base case is `sum_to(0)` which is `0`."
+      zh: "编写一个**递归**的 `sum_to(n)`,返回 `1 + 2 + ... + n`。基本情形是 `sum_to(0)`,结果为 `0`。"
+    starter: |
+      def sum_to(n):
+          # Base case: n == 0. Otherwise add n to sum_to(n - 1)
+          pass
+    solution: |
+      def sum_to(n):
+          if n == 0:
+              return 0
+          return n + sum_to(n - 1)
+    check:
+      kind: asserts
+      code: |
+        assert sum_to(0) == 0, "sum_to(0) is the base case, 0"
+        assert sum_to(1) == 1, "sum_to(1) should be 1"
+        assert sum_to(5) == 15, "1+2+3+4+5 should be 15"
+  - id: power
+    prompt:
+      en: "Write a **recursive** `power(base, exp)` that returns `base` raised to `exp`. The base case is `exp == 0`, which gives `1`."
+      zh: "编写一个**递归**的 `power(base, exp)`,返回 `base` 的 `exp` 次方。基本情形是 `exp == 0`,结果为 `1`。"
+    starter: |
+      def power(base, exp):
+          # Base case: exp == 0 -> 1. Otherwise base * power(base, exp - 1)
+          pass
+    solution: |
+      def power(base, exp):
+          if exp == 0:
+              return 1
+          return base * power(base, exp - 1)
+    check:
+      kind: asserts
+      code: |
+        assert power(2, 3) == 8, "2 ** 3 should be 8"
+        assert power(5, 0) == 1, "anything to the power 0 is 1"
+        assert power(3, 2) == 9, "3 ** 2 should be 9"
+  - id: count-up
+    prompt:
+      en: "Write a **recursive** `count_up(n)` that returns the list `[1, 2, ..., n]`. The base case is `count_up(0)` which is the empty list `[]`."
+      zh: "编写一个**递归**的 `count_up(n)`,返回列表 `[1, 2, ..., n]`。基本情形是 `count_up(0)`,结果为空列表 `[]`。"
+    starter: |
+      def count_up(n):
+          # Base case: n == 0 -> []. Otherwise count_up(n - 1) + [n]
+          pass
+    solution: |
+      def count_up(n):
+          if n == 0:
+              return []
+          return count_up(n - 1) + [n]
+    check:
+      kind: asserts
+      code: |
+        assert count_up(0) == [], "count_up(0) is the empty list"
+        assert count_up(1) == [1], "count_up(1) should be [1]"
+        assert count_up(3) == [1, 2, 3], "count_up(3) should be [1, 2, 3]"

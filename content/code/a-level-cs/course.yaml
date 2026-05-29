@@ -1,0 +1,20 @@
+slug: a-level-cs
+title:
+  en: Python for A-Level CS
+  zh: A-Level 计算机科学 Python
+subtitle:
+  en: Data structures, algorithms, and OOP for Cambridge 9618.
+  zh: 面向剑桥 9618 的数据结构、算法与面向对象编程。
+lessons:
+  - "01"
+  - "02"
+  - "03"
+  - "04"
+  - "05"
+  - "06"
+  - "07"
+  - "08"
+  - "09"
+  - "10"
+  - "11"
+  - "12"

@@ -1,0 +1,85 @@
+title:
+  en: Classes & objects
+  zh: 类与对象
+order: 10
+tasks:
+  - id: make-class
+    prompt:
+      en: "Define a class `Dog` whose `__init__` takes `name` and `age` and stores them as attributes `self.name` and `self.age`."
+      zh: "定义一个类 `Dog`,它的 `__init__` 接收 `name` 和 `age`,并把它们存为属性 `self.name` 和 `self.age`。"
+    starter: |
+      class Dog:
+          def __init__(self, name, age):
+              # Store name and age as attributes
+              pass
+    solution: |
+      class Dog:
+          def __init__(self, name, age):
+              self.name = name
+              self.age = age
+    check:
+      kind: asserts
+      code: |
+        d = Dog("Rex", 3)
+        assert d.name == "Rex", "d.name should be 'Rex'"
+        assert d.age == 3, "d.age should be 3"
+  - id: rectangle-area
+    prompt:
+      en: "Define a class `Rectangle` with `__init__(self, width, height)` and a method `area(self)` that **returns** `width * height`."
+      zh: "定义一个类 `Rectangle`,有 `__init__(self, width, height)` 和一个方法 `area(self)`,**返回** `width * height`。"
+    starter: |
+      class Rectangle:
+          def __init__(self, width, height):
+              self.width = width
+              self.height = height
+
+          def area(self):
+              # Return the area
+              pass
+    solution: |
+      class Rectangle:
+          def __init__(self, width, height):
+              self.width = width
+              self.height = height
+
+          def area(self):
+              return self.width * self.height
+    check:
+      kind: asserts
+      code: |
+        assert Rectangle(4, 5).area() == 20, "4 * 5 should be 20"
+        assert Rectangle(3, 3).area() == 9, "3 * 3 should be 9"
+  - id: bank-account
+    prompt:
+      en: "Define a class `BankAccount`. `__init__` sets `self.balance` to `0`. Add `deposit(self, amount)` to add money and `withdraw(self, amount)` to take it away."
+      zh: "定义一个类 `BankAccount`。`__init__` 把 `self.balance` 设为 `0`。添加 `deposit(self, amount)` 来存钱,`withdraw(self, amount)` 来取钱。"
+    starter: |
+      class BankAccount:
+          def __init__(self):
+              self.balance = 0
+
+          def deposit(self, amount):
+              # Add amount to the balance
+              pass
+
+          def withdraw(self, amount):
+              # Take amount off the balance
+              pass
+    solution: |
+      class BankAccount:
+          def __init__(self):
+              self.balance = 0
+
+          def deposit(self, amount):
+              self.balance = self.balance + amount
+
+          def withdraw(self, amount):
+              self.balance = self.balance - amount
+    check:
+      kind: asserts
+      code: |
+        a = BankAccount()
+        assert a.balance == 0, "a new account starts at 0"
+        a.deposit(100)
+        a.withdraw(30)
+        assert a.balance == 70, "100 in, 30 out leaves 70"

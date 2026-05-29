@@ -1,0 +1,58 @@
+title:
+  en: Nested loops & 2-D lists
+  zh: 嵌套循环与二维列表
+order: 1
+tasks:
+  - id: star-grid
+    prompt:
+      en: "Use a **nested** loop to print a 3-by-3 square of stars: three lines, each with three `*` characters."
+      zh: "用**嵌套**循环打印一个 3×3 的星号方块:三行,每行三个 `*`。"
+    starter: |
+      # Build each row with an inner loop, then print it
+    solution: |
+      for r in range(3):
+          row = ""
+          for c in range(3):
+              row = row + "*"
+          print(row)
+    check:
+      kind: stdout
+      expected: "***\n***\n***"
+      normalize: strip
+  - id: sum-grid
+    prompt:
+      en: "Add up **every** number in the 2-D list `grid` with a nested loop. Store the total in `total` (the answer is 21)."
+      zh: "用嵌套循环把二维列表 `grid` 中的**每个**数字加起来。把总和存进 `total`(答案是 21)。"
+    starter: |
+      grid = [[1, 2, 3], [4, 5, 6]]
+      total = 0
+      # Visit every cell and add it to total
+    solution: |
+      grid = [[1, 2, 3], [4, 5, 6]]
+      total = 0
+      for row in grid:
+          for value in row:
+              total = total + value
+    check:
+      kind: asserts
+      code: |
+        assert total == 21, "1+2+3+4+5+6 should be 21"
+  - id: count-zeros
+    prompt:
+      en: "Count how many cells in the 2-D list `grid` are equal to `0`. Store the count in `count` (the answer is 3)."
+      zh: "统计二维列表 `grid` 中有多少个单元格等于 `0`。把数量存进 `count`(答案是 3)。"
+    starter: |
+      grid = [[1, 0, 2], [0, 5, 0]]
+      count = 0
+      # Count the zeros with a nested loop
+    solution: |
+      grid = [[1, 0, 2], [0, 5, 0]]
+      count = 0
+      for row in grid:
+          for value in row:
+              if value == 0:
+                  count = count + 1
+    check:
+      kind: asserts
+      code: |
+        assert count == 3, "there are three 0 cells"

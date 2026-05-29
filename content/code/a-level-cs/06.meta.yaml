@@ -1,0 +1,64 @@
+title:
+  en: Linked lists
+  zh: 链表
+order: 6
+tasks:
+  - id: build-chain
+    prompt:
+      en: "Build a linked list `1 → 2 → 3` using dictionaries. Make the three nodes, link each to the next, and point `head` at the first one. The last node's `\"next\"` must be `None`."
+      zh: "用字典构建一个链表 `1 → 2 → 3`。创建三个节点,把每个节点链接到下一个,并让 `head` 指向第一个节点。最后一个节点的 `\"next\"` 必须是 `None`。"
+    starter: |
+      # Make nodes for 1, 2, 3 and link them; point head at the first
+    solution: |
+      n3 = {"data": 3, "next": None}
+      n2 = {"data": 2, "next": n3}
+      n1 = {"data": 1, "next": n2}
+      head = n1
+    check:
+      kind: asserts
+      code: |
+        assert head["data"] == 1, "head holds 1"
+        assert head["next"]["data"] == 2, "the second node holds 2"
+        assert head["next"]["next"]["data"] == 3, "the third node holds 3"
+        assert head["next"]["next"]["next"] is None, "the chain ends in None"
+  - id: traverse-sum
+    prompt:
+      en: "Walk the linked list starting at `head` and add up every node's `\"data\"`. Store the total in `total` (the answer is 60)."
+      zh: "从 `head` 开始遍历链表,把每个节点的 `\"data\"` 加起来。把总和存进 `total`(答案是 60)。"
+    starter: |
+      head = {"data": 10, "next": {"data": 20, "next": {"data": 30, "next": None}}}
+      total = 0
+      # Walk the chain and add each node's data to total
+    solution: |
+      head = {"data": 10, "next": {"data": 20, "next": {"data": 30, "next": None}}}
+      total = 0
+      node = head
+      while node is not None:
+          total = total + node["data"]
+          node = node["next"]
+    check:
+      kind: asserts
+      code: |
+        assert total == 60, "10 + 20 + 30 should be 60"
+  - id: length
+    prompt:
+      en: "Write `length(head)` that **returns** how many nodes are in the linked list. An empty list (`head` is `None`) has length `0`."
+      zh: "编写 `length(head)`,**返回**链表中有多少个节点。空链表(`head` 是 `None`)的长度为 `0`。"
+    starter: |
+      def length(head):
+          # Count the nodes by walking the chain
+          pass
+    solution: |
+      def length(head):
+          count = 0
+          node = head
+          while node is not None:
+              count = count + 1
+              node = node["next"]
+          return count
+    check:
+      kind: asserts
+      code: |
+        chain = {"data": 1, "next": {"data": 2, "next": {"data": 3, "next": None}}}
+        assert length(chain) == 3, "the chain has three nodes"
+        assert length(None) == 0, "an empty list has length 0"

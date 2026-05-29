@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Extract one textbook figure as a print-quality PNG (600 DPI) + vector PDF crop.
+"""Extract one textbook figure as web + print crops (dual-resolution + vector PDF).
+
+Each figure yields THREE files sharing the stem ``<NN>-p<PDFpage>-<slug>``:
+  - ``<stem>.png``        — WEB raster at --web-dpi (default 300). What the handout
+                            markdown references; small + API-readable for verification.
+  - ``<stem>.print.png``  — PRINT raster at --print-dpi (default 600), for printing.
+  - ``<stem>.pdf``        — vector crop (resolution-independent), for the print/LaTeX path.
 
 Deterministic caption-anchored crop (no AI on the main path):
   1. Locate the ``▲ Figure N.M`` caption line on the page (the label line, not an
@@ -8,8 +14,7 @@ Deterministic caption-anchored crop (no AI on the main path):
      caption line *below* it.
   3. Union the figure's own drawings + images + label words within that band
      (dropping the full-page background rect), add a small margin → crop rect.
-  4. Crop to PNG at 600 DPI and to a 1-page vector PDF (lines/text stay sharp for
-     print). Filenames: ``<NN>-p<PDFpage>-<slug>.{png,pdf}``.
+  4. Crop the same rect to all three outputs above.
 
 Fallback ``--qwen``: when a caption is not locatable as text (e.g. it lives inside
 a rasterised image), seed the region with the xscore graphics detector
@@ -25,9 +30,10 @@ Usage:
       "BOOK.pdf" --page-index 333 --caption "Figure 20.10" \\
       --out-dir output/eXam/handouts/a_level_physics/assets \\
       --handout 20 --slug flemings-left-hand-rule
-  optional: --rect x0,y0,x1,y1   crop an exact PDF-point rect (skip auto-location)
-            --qwen               vision fallback to seed the region
-            --dpi 600            raster DPI (default 600)
+  batch:    --manifest <file.yaml>   (rows of {page_index, caption|rect, slug})
+  optional: --rect x0,y0,x1,y1       crop an exact PDF-point rect (skip auto-location)
+            --qwen                   vision fallback to seed the region
+            --web-dpi 300 --print-dpi 600
 """
 from __future__ import annotations
 
@@ -186,13 +192,22 @@ def union_in_band(page: fitz.Page, top: float, bottom: float) -> fitz.Rect | Non
     return r
 
 
-def crop(doc: fitz.Document, page_index: int, rect: fitz.Rect,
-         out_png: Path, out_pdf: Path, dpi: int) -> None:
-    """Write a high-DPI PNG and a vector PDF crop of *rect* on *page_index*."""
+def crop(doc: fitz.Document, page_index: int, rect: fitz.Rect, *,
+         out_png: Path, out_print_png: Path, out_pdf: Path,
+         web_dpi: int, print_dpi: int) -> None:
+    """Write three crops of *rect*: a web PNG (web_dpi), a print PNG (print_dpi),
+    and a resolution-independent vector PDF.
+
+    The web PNG is what the handout markdown references — smaller, fast to load,
+    and small enough to read back through the image API (a 600-DPI crop is
+    ~3000 px and exceeds the API's per-image limit). The print PNG + vector PDF
+    are the print-quality assets for the future PDF/LaTeX path.
+    """
     page = doc[page_index]
-    m = fitz.Matrix(dpi / 72, dpi / 72)
-    pix = page.get_pixmap(matrix=m, colorspace=fitz.csRGB, clip=rect)
-    pix.save(str(out_png))
+    page.get_pixmap(matrix=fitz.Matrix(web_dpi / 72, web_dpi / 72),
+                    colorspace=fitz.csRGB, clip=rect).save(str(out_png))
+    page.get_pixmap(matrix=fitz.Matrix(print_dpi / 72, print_dpi / 72),
+                    colorspace=fitz.csRGB, clip=rect).save(str(out_print_png))
     # Vector PDF crop — replicated core of _extract_scheme_graphics (no rotation).
     try:
         with fitz.open() as out:
@@ -200,7 +215,7 @@ def crop(doc: fitz.Document, page_index: int, rect: fitz.Rect,
             np.show_pdf_page(np.rect, doc, page_index, clip=rect)
             out.save(str(out_pdf), garbage=4, deflate=True, clean=True)
     except Exception as exc:  # noqa: BLE001
-        print(f"  ! vector PDF crop failed ({exc.__class__.__name__}) — PNG only")
+        print(f"  ! vector PDF crop failed ({exc.__class__.__name__}) — PNGs only")
 
 
 def _qwen_seed_rect(book_pdf: Path, page_index: int, caption: str) -> fitz.Rect | None:
@@ -227,12 +242,37 @@ def _qwen_seed_rect(book_pdf: Path, page_index: int, caption: str) -> fitz.Rect 
     return fitz.Rect(g["x0"] * W, g["y0"] * H, g["x1"] * W, g["y1"] * H)
 
 
+def _exclude_caption_y1(page: fitz.Page, rect: fitz.Rect) -> float:
+    """A ``y1`` for *rect* that excludes the figure's own ``▲ Figure N.M`` caption
+    line, if one sits in the rect's lower half.
+
+    The caption-anchored path already excludes the caption (band bottom = caption
+    top). Manual ``--rect`` rows do not, and in practice they almost always reach
+    down into the caption (it sits just below the figure). This guards rect mode
+    against that slip. Only a caption line that horizontally overlaps the rect and
+    *starts below the rect's vertical midpoint* is trimmed, so figure-internal
+    labels and sub-panel tags ("a)", "b)") are never affected.
+    """
+    mid = rect.y0 + 0.5 * rect.height
+    cap_tops = [
+        ln["y0"] for ln in _text_lines(page)
+        if _is_fig_label(ln["text"])
+        and ln["x0"] < rect.x1 and ln["x0"] + ln["width"] > rect.x0
+        and mid <= ln["y0"] < rect.y1 + 1
+    ]
+    return (min(cap_tops) - 3) if cap_tops else rect.y1
+
+
 def resolve_rect(doc: fitz.Document, page_index: int, *, caption: str | None,
                  rect_str: str | None, use_qwen: bool, book_pdf: Path) -> fitz.Rect | None:
     """Resolve the crop rect for one figure via rect override / caption / qwen."""
     page = doc[page_index]
     if rect_str:
         rect = fitz.Rect(*[float(v) for v in rect_str.split(",")])
+        trimmed = _exclude_caption_y1(page, rect)
+        if trimmed < rect.y1 - 0.5:
+            print(f"  [rect override] caption-trim y1 {rect.y1:.1f} -> {trimmed:.1f}")
+            rect.y1 = trimmed
         print(f"  [rect override] {tuple(round(v, 1) for v in rect)}")
         return rect
     if use_qwen:
@@ -266,7 +306,8 @@ def resolve_rect(doc: fitz.Document, page_index: int, *, caption: str | None,
 
 def extract_one(doc: fitz.Document, *, page_index: int, caption: str | None,
                 rect_str: str | None, use_qwen: bool, book_pdf: Path,
-                out_dir: Path, handout: str, slug: str, dpi: int) -> dict | None:
+                out_dir: Path, handout: str, slug: str,
+                web_dpi: int, print_dpi: int) -> dict | None:
     """Resolve + crop one figure; returns a meta dict (for the figures: block) or None."""
     page = doc[page_index]
     pdf_page = page_index + 1
@@ -280,9 +321,13 @@ def extract_one(doc: fitz.Document, *, page_index: int, caption: str | None,
             and (w[1] < rect.y0 - 1 or w[3] > rect.y1 + 1)]
     out_dir.mkdir(parents=True, exist_ok=True)
     stem = f"{handout}-p{pdf_page}-{slug}"
-    out_png, out_pdf = out_dir / f"{stem}.png", out_dir / f"{stem}.pdf"
-    crop(doc, page_index, rect, out_png, out_pdf, dpi)
-    print(f"  [wrote] {out_png.name} ({out_png.stat().st_size // 1024} KB) + .pdf"
+    out_png = out_dir / f"{stem}.png"            # web (web_dpi) — referenced by the handout
+    out_print_png = out_dir / f"{stem}.print.png"  # print (print_dpi)
+    out_pdf = out_dir / f"{stem}.pdf"            # print (vector)
+    crop(doc, page_index, rect, out_png=out_png, out_print_png=out_print_png,
+         out_pdf=out_pdf, web_dpi=web_dpi, print_dpi=print_dpi)
+    print(f"  [wrote] {out_png.name} ({out_png.stat().st_size // 1024} KB web) "
+          f"+ .print.png ({out_print_png.stat().st_size // 1024} KB) + .pdf"
           f"  rect=[{rect.x0:.1f},{rect.y0:.1f},{rect.x1:.1f},{rect.y1:.1f}]"
           + (f"  ⚠ leak={leak}" if leak else ""))
     return {"file": f"{out_dir.name}/{stem}.png", "figure_ref": (caption or "").replace("Figure ", ""),
@@ -296,7 +341,10 @@ def main(argv: list[str]) -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("book_pdf", type=Path)
     ap.add_argument("--out-dir", type=Path, required=True)
-    ap.add_argument("--dpi", type=int, default=600)
+    ap.add_argument("--web-dpi", type=int, default=300,
+                    help="DPI for the web PNG the handout references (default 300; API-readable)")
+    ap.add_argument("--print-dpi", type=int, default=600,
+                    help="DPI for the .print.png print asset (default 600)")
     # batch mode
     ap.add_argument("--manifest", type=Path,
                     help="YAML/JSON list of {page_index, caption|rect, slug} rows for one handout")
@@ -326,7 +374,7 @@ def main(argv: list[str]) -> int:
                 doc, page_index=int(row["page_index"]), caption=row.get("caption"),
                 rect_str=row.get("rect"), use_qwen=bool(row.get("qwen")),
                 book_pdf=args.book_pdf, out_dir=args.out_dir, handout=handout,
-                slug=row["slug"], dpi=args.dpi)
+                slug=row["slug"], web_dpi=args.web_dpi, print_dpi=args.print_dpi)
             if m:
                 metas.append(m)
         print(f"\n[done] {len(metas)}/{len(rows)} figures extracted")
@@ -336,7 +384,8 @@ def main(argv: list[str]) -> int:
         ap.error("single mode needs --page-index, --handout, --slug")
     m = extract_one(doc, page_index=args.page_index, caption=args.caption,
                     rect_str=args.rect, use_qwen=args.qwen, book_pdf=args.book_pdf,
-                    out_dir=args.out_dir, handout=args.handout, slug=args.slug, dpi=args.dpi)
+                    out_dir=args.out_dir, handout=args.handout, slug=args.slug,
+                    web_dpi=args.web_dpi, print_dpi=args.print_dpi)
     return 0 if m else 2
 
 

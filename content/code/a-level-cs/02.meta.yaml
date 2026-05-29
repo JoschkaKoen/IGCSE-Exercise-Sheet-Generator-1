@@ -1,0 +1,60 @@
+title:
+  en: Text files
+  zh: 文本文件
+order: 2
+tasks:
+  - id: write-then-read
+    prompt:
+      en: "In one run: write the two lines `Hello` and `World` to a file called `notes.txt`, then open it again, read it, and `print` what you read."
+      zh: "在一次运行里:把 `Hello` 和 `World` 两行写入名为 `notes.txt` 的文件,然后重新打开它、读取它,并 `print` 出读到的内容。"
+    starter: |
+      # Write notes.txt, then read it back and print it
+    solution: |
+      with open("notes.txt", "w") as f:
+          f.write("Hello\nWorld\n")
+      with open("notes.txt", "r") as f:
+          print(f.read())
+    check:
+      kind: stdout
+      expected: "Hello\nWorld"
+      normalize: strip
+  - id: count-lines
+    prompt:
+      en: "Write three lines to a file, then read it back and count the lines with a loop. Store the count in `count` (the answer is 3)."
+      zh: "把三行写入一个文件,然后读回来,用循环数出行数。把数量存进 `count`(答案是 3)。"
+    starter: |
+      with open("data.txt", "w") as f:
+          f.write("apple\nbanana\ncherry\n")
+      count = 0
+      # Read data.txt and count the lines
+    solution: |
+      with open("data.txt", "w") as f:
+          f.write("apple\nbanana\ncherry\n")
+      count = 0
+      with open("data.txt", "r") as f:
+          for line in f:
+              count = count + 1
+    check:
+      kind: asserts
+      code: |
+        assert count == 3, "the file has three lines"
+  - id: sum-file-numbers
+    prompt:
+      en: "Write the numbers `10`, `20`, `30` to a file, one per line. Then read them back, convert each line with `int(...)`, and add them up in `total` (the answer is 60)."
+      zh: "把数字 `10`、`20`、`30` 写入一个文件,每行一个。然后读回来,用 `int(...)` 转换每一行,并把它们加进 `total`(答案是 60)。"
+    starter: |
+      with open("nums.txt", "w") as f:
+          f.write("10\n20\n30\n")
+      total = 0
+      # Read each line, convert to int, and add to total
+    solution: |
+      with open("nums.txt", "w") as f:
+          f.write("10\n20\n30\n")
+      total = 0
+      with open("nums.txt", "r") as f:
+          for line in f:
+              total = total + int(line)
+    check:
+      kind: asserts
+      code: |
+        assert total == 60, "10 + 20 + 30 should be 60"

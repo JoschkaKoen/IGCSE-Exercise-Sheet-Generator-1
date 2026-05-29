@@ -1,0 +1,105 @@
+title:
+  en: Inheritance & encapsulation
+  zh: 继承与封装
+order: 11
+tasks:
+  - id: subclass
+    prompt:
+      en: "The class `Animal` is given. Write a subclass `Cat(Animal)` that **inherits** from it and adds a method `speak(self)` returning `\"Meow\"`. (It should still have the inherited `name_is`.)"
+      zh: "已给出类 `Animal`。编写一个子类 `Cat(Animal)`,从它**继承**,并添加一个方法 `speak(self)`,返回 `\"Meow\"`。(它应仍然拥有继承来的 `name_is`。)"
+    starter: |
+      class Animal:
+          def __init__(self, name):
+              self.name = name
+          def name_is(self):
+              return self.name
+
+      class Cat(Animal):
+          # Add a speak method that returns "Meow"
+          pass
+    solution: |
+      class Animal:
+          def __init__(self, name):
+              self.name = name
+          def name_is(self):
+              return self.name
+
+      class Cat(Animal):
+          def speak(self):
+              return "Meow"
+    check:
+      kind: asserts
+      code: |
+        c = Cat("Felix")
+        assert c.name_is() == "Felix", "name_is is inherited from Animal"
+        assert c.speak() == "Meow", "Cat adds its own speak()"
+  - id: override
+    prompt:
+      en: "The class `Shape` is given (its `area` returns `0`). Write `Square(Shape)`: its `__init__(self, side)` should call `super().__init__(\"square\")`, store `side`, and **override** `area` to return `side * side`."
+      zh: "已给出类 `Shape`(它的 `area` 返回 `0`)。编写 `Square(Shape)`:它的 `__init__(self, side)` 应调用 `super().__init__(\"square\")`,存下 `side`,并**重写** `area`,使其返回 `side * side`。"
+    starter: |
+      class Shape:
+          def __init__(self, name):
+              self.name = name
+          def area(self):
+              return 0
+
+      class Square(Shape):
+          def __init__(self, side):
+              # Call super().__init__("square"), then store side
+              pass
+          # Override area to return side * side
+    solution: |
+      class Shape:
+          def __init__(self, name):
+              self.name = name
+          def area(self):
+              return 0
+
+      class Square(Shape):
+          def __init__(self, side):
+              super().__init__("square")
+              self.side = side
+          def area(self):
+              return self.side * self.side
+    check:
+      kind: asserts
+      code: |
+        s = Square(4)
+        assert s.name == "square", "super().__init__ should set name to 'square'"
+        assert s.area() == 16, "Square overrides area to return 4 * 4 = 16"
+  - id: polymorphism
+    prompt:
+      en: "Classes `Dog` and `Cat` are given, each with a `speak()`. Write `speak_all(animals)` that **returns** a list of each animal's `speak()` result, in order."
+      zh: "已给出类 `Dog` 和 `Cat`,各有一个 `speak()`。编写 `speak_all(animals)`,**返回**一个列表,按顺序装入每个动物 `speak()` 的结果。"
+    starter: |
+      class Dog:
+          def speak(self):
+              return "Woof"
+
+      class Cat:
+          def speak(self):
+              return "Meow"
+
+      def speak_all(animals):
+          # Return a list of each animal's speak() result
+          pass
+    solution: |
+      class Dog:
+          def speak(self):
+              return "Woof"
+
+      class Cat:
+          def speak(self):
+              return "Meow"
+
+      def speak_all(animals):
+          result = []
+          for a in animals:
+              result.append(a.speak())
+          return result
+    check:
+      kind: asserts
+      code: |
+        assert speak_all([Dog(), Cat(), Dog()]) == ["Woof", "Meow", "Woof"], "each object speaks in its own way"
+        assert speak_all([]) == [], "no animals gives an empty list"

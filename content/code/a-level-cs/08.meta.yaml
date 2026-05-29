@@ -1,0 +1,72 @@
+title:
+  en: Sorting
+  zh: 排序
+order: 8
+tasks:
+  - id: swap
+    prompt:
+      en: "Write `swap(items, i, j)` that exchanges the items at index `i` and index `j` in the list. Change the list **in place** (no return)."
+      zh: "编写 `swap(items, i, j)`,交换列表中索引 `i` 和索引 `j` 处的元素。**就地**修改列表(不返回)。"
+    starter: |
+      def swap(items, i, j):
+          # Exchange items[i] and items[j]
+          pass
+    solution: |
+      def swap(items, i, j):
+          items[i], items[j] = items[j], items[i]
+    check:
+      kind: asserts
+      code: |
+        data = [10, 20, 30]
+        swap(data, 0, 2)
+        assert data == [30, 20, 10], "items at 0 and 2 should be swapped"
+  - id: bubble-sort
+    prompt:
+      en: "Write `bubble_sort(items)` that sorts the list into ascending order using bubble sort. Change the list **in place**."
+      zh: "编写 `bubble_sort(items)`,用冒泡排序把列表排成升序。**就地**修改列表。"
+    starter: |
+      def bubble_sort(items):
+          # Compare neighbours and swap until sorted
+          pass
+    solution: |
+      def bubble_sort(items):
+          n = len(items)
+          for i in range(n - 1):
+              for j in range(n - 1 - i):
+                  if items[j] > items[j + 1]:
+                      items[j], items[j + 1] = items[j + 1], items[j]
+    check:
+      kind: asserts
+      code: |
+        data = [5, 2, 4, 1, 3]
+        bubble_sort(data)
+        assert data == [1, 2, 3, 4, 5], "the list should be sorted"
+        single = [7]
+        bubble_sort(single)
+        assert single == [7], "a one-item list stays the same"
+  - id: insertion-sort
+    prompt:
+      en: "Write `insertion_sort(items)` that sorts the list into ascending order using insertion sort. Change the list **in place**."
+      zh: "编写 `insertion_sort(items)`,用插入排序把列表排成升序。**就地**修改列表。"
+    starter: |
+      def insertion_sort(items):
+          # Insert each item into the sorted left part
+          pass
+    solution: |
+      def insertion_sort(items):
+          for i in range(1, len(items)):
+              key = items[i]
+              j = i - 1
+              while j >= 0 and items[j] > key:
+                  items[j + 1] = items[j]
+                  j = j - 1
+              items[j + 1] = key
+    check:
+      kind: asserts
+      code: |
+        data = [5, 2, 4, 1, 3]
+        insertion_sort(data)
+        assert data == [1, 2, 3, 4, 5], "the list should be sorted"
+        already = [1, 2, 3]
+        insertion_sort(already)
+        assert already == [1, 2, 3], "an already-sorted list stays sorted"

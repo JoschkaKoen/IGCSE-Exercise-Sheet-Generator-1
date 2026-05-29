@@ -1,0 +1,43 @@
+title:
+  en: Variables
+  zh: 变量
+order: 2
+tasks:
+  - id: create-age
+    prompt:
+      en: "Create a variable called `age` and store the number `15` in it."
+      zh: "创建一个名为 `age` 的变量,把数字 `15` 存进去。"
+    starter: |
+      # Store 15 in a variable called age
+    solution: |
+      age = 15
+    check:
+      kind: asserts
+      code: |
+        assert age == 15, "age should be 15"
+  - id: reassign-color
+    prompt:
+      en: "The variable `color` starts as `\"red\"`. **Reassign** it so that it becomes `\"blue\"`."
+      zh: "变量 `color` 一开始是 `\"red\"`。**重新赋值**,让它变成 `\"blue\"`。"
+    starter: |
+      color = "red"
+      # Change color to "blue" below
+    solution: |
+      color = "red"
+      color = "blue"
+    check:
+      kind: asserts
+      code: |
+        assert color == "blue", "color should be 'blue' after reassigning"
+  - id: constant-max
+    prompt:
+      en: "Constants are written in UPPERCASE by convention. Create a constant `MAX_SCORE` and set it to `100`."
+      zh: "常量按惯例写成全大写。创建一个常量 `MAX_SCORE`,并把它设为 `100`。"
+    starter: |
+      # Create the constant MAX_SCORE
+    solution: |
+      MAX_SCORE = 100
+    check:
+      kind: asserts
+      code: |
+        assert MAX_SCORE == 100, "MAX_SCORE should be 100"

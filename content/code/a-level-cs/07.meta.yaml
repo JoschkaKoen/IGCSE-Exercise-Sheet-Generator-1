@@ -1,0 +1,75 @@
+title:
+  en: Searching
+  zh: 查找
+order: 7
+tasks:
+  - id: linear-search
+    prompt:
+      en: "Write `linear_search(items, target)` that **returns** the index of `target` in `items`, or `-1` if it is not there. Check the items one by one."
+      zh: "编写 `linear_search(items, target)`,**返回** `target` 在 `items` 中的索引,如果不存在则返回 `-1`。逐个检查元素。"
+    starter: |
+      def linear_search(items, target):
+          # Check each item; return its index, or -1
+          pass
+    solution: |
+      def linear_search(items, target):
+          for i in range(len(items)):
+              if items[i] == target:
+                  return i
+          return -1
+    check:
+      kind: asserts
+      code: |
+        assert linear_search([5, 3, 9, 1], 9) == 2, "9 is at index 2"
+        assert linear_search([5, 3, 9, 1], 7) == -1, "7 is not in the list"
+        assert linear_search([5, 3, 9, 1], 5) == 0, "5 is at index 0"
+  - id: binary-search
+    prompt:
+      en: "Write `binary_search(items, target)` for a **sorted** list. **Return** the index of `target`, or `-1` if it is missing. Halve the range each step."
+      zh: "为**已排序**的列表编写 `binary_search(items, target)`。**返回** `target` 的索引,找不到则返回 `-1`。每一步把范围减半。"
+    starter: |
+      def binary_search(items, target):
+          low = 0
+          high = len(items) - 1
+          # Look at the middle and halve the range each step
+          pass
+    solution: |
+      def binary_search(items, target):
+          low = 0
+          high = len(items) - 1
+          while low <= high:
+              mid = (low + high) // 2
+              if items[mid] == target:
+                  return mid
+              elif items[mid] < target:
+                  low = mid + 1
+              else:
+                  high = mid - 1
+          return -1
+    check:
+      kind: asserts
+      code: |
+        assert binary_search([1, 3, 5, 7, 9], 7) == 3, "7 is at index 3"
+        assert binary_search([1, 3, 5, 7, 9], 1) == 0, "1 is at index 0"
+        assert binary_search([1, 3, 5, 7, 9], 9) == 4, "9 is at index 4"
+        assert binary_search([1, 3, 5, 7, 9], 4) == -1, "4 is not in the list"
+  - id: first-negative
+    prompt:
+      en: "Write `first_negative(items)` that scans the list and **returns** the index of the first number less than `0`, or `-1` if there are none."
+      zh: "编写 `first_negative(items)`,扫描列表并**返回**第一个小于 `0` 的数字的索引,如果没有则返回 `-1`。"
+    starter: |
+      def first_negative(items):
+          # Return the index of the first negative number, or -1
+          pass
+    solution: |
+      def first_negative(items):
+          for i in range(len(items)):
+              if items[i] < 0:
+                  return i
+          return -1
+    check:
+      kind: asserts
+      code: |
+        assert first_negative([3, 5, -2, 8]) == 2, "the first negative is at index 2"
+        assert first_negative([1, 2, 3]) == -1, "there are no negatives"
+        assert first_negative([-7, 4]) == 0, "the first negative is at index 0"
