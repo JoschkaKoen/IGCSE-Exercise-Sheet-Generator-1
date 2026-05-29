@@ -22,6 +22,7 @@ from eXam.db import connect
 _HUMAN_PAPER_RE = re.compile(
     r"(January|February|March|April|May|June|July|August|September|October|November|December)"
     r"\s+(\d{4}).*?Question Paper\s+(\d+)",
+    re.IGNORECASE,  # Cambridge files vary: "Question Paper" / "Question paper"
 )
 _CODE_PAPER_RE = re.compile(r"_([smw])(\d{2})_qp_(\d+)")
 _CODE_SESSION = {"s": "June", "w": "November", "m": "March"}

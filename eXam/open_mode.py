@@ -31,11 +31,12 @@ _COOKIE_TTL_S: Final[int] = 30 * 24 * 60 * 60  # 30 days
 # ── Library scanning ────────────────────────────────────────────────────────
 
 def _recent_years() -> tuple[int, ...]:
-    """The exam years open mode serves, most-recent-first. Self-maintaining: as
-    new series ship we follow the calendar (current + previous year) so the
-    practice page always offers the *most recent* papers without a code edit."""
+    """The exam years open mode serves, most-recent-first. Self-maintaining: we
+    follow the calendar (current + previous three years) so the practice page
+    offers a deep bank of recent papers without a code edit. Warming selects
+    newest-first, so the served set stays the most recent regardless of depth."""
     y = _dt.date.today().year
-    return (y, y - 1)
+    return (y, y - 1, y - 2, y - 3)
 
 
 @lru_cache(maxsize=64)
@@ -64,12 +65,13 @@ def list_practice_papers(
     out: list[Path] = []
     for p in sorted(root.glob("*.pdf")):
         name = p.name
+        low = name.lower()  # Cambridge files vary: "Question Paper" / "Question paper"
         if not any(ys in name for ys in year_strs) and not code_re.search(name):
             continue
         # Must be a question paper (human-readable label or `_qp_` code).
-        if "Question Paper" not in name and "_qp_" not in name:
+        if "question paper" not in low and "_qp_" not in low:
             continue
-        if any(tag in name for tag in ("Mark Scheme", "Examiner Report", "Grade Threshold")):
+        if any(tag in low for tag in ("mark scheme", "examiner report", "grade threshold")):
             continue
         out.append(p)
     return tuple(out)
@@ -80,14 +82,19 @@ def pair_mark_scheme(qp_path: Path) -> Path | None:
     (``Question Paper`` → ``Mark Scheme``) and Cambridge code (``_qp_`` →
     ``_ms_``) filename schemes."""
     name = qp_path.name
-    if "Question Paper" in name:
-        ms_name = name.replace("Question Paper", "Mark Scheme")
-    elif "_qp_" in name:
-        ms_name = name.replace("_qp_", "_ms_")
-    else:
+    low = name.lower()
+    if "question paper" in low:
+        # Replace the paper token (any case) with each known MS casing; return the
+        # first that exists on disk ("Mark Scheme" / "Mark scheme" both occur).
+        for cand in ("Mark Scheme", "Mark scheme", "mark scheme"):
+            ms = qp_path.with_name(re.sub("question paper", cand, name, flags=re.IGNORECASE))
+            if ms.exists():
+                return ms
         return None
-    ms = qp_path.with_name(ms_name)
-    return ms if ms.exists() else None
+    if "_qp_" in low:
+        ms = qp_path.with_name(name.replace("_qp_", "_ms_"))
+        return ms if ms.exists() else None
+    return None
 
 
 def subject_has_papers(
