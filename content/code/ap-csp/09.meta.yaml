@@ -1,0 +1,77 @@
+title:
+  en: "Algorithms: searching"
+  zh: 算法:搜索
+order: 9
+tasks:
+  - id: linear-search
+    prompt:
+      en: "Write `linear_search(lst, target)`. Return the **index** of `target` in `lst`, or `-1` if it is not there. Check items one by one."
+      zh: "写 `linear_search(lst, target)`。返回 `target` 在 `lst` 中的**索引**,如果不在就返回 `-1`。一个一个地检查元素。"
+    starter: |
+      def linear_search(lst, target):
+          # loop with index; return i if found, else -1
+          pass
+    solution: |
+      def linear_search(lst, target):
+          for i in range(len(lst)):
+              if lst[i] == target:
+                  return i
+          return -1
+    check:
+      kind: asserts
+      code: |
+        assert linear_search([4, 8, 15, 16], 15) == 2, "15 is at index 2"
+        assert linear_search([4, 8, 15, 16], 4) == 0, "4 is at index 0"
+        assert linear_search([4, 8, 15, 16], 99) == -1, "99 is missing -> -1"
+        assert linear_search([], 1) == -1, "empty list -> -1"
+  - id: binary-search
+    prompt:
+      en: "Write `binary_search(sorted_lst, target)` for a list sorted small to big. Return the **index** of `target`, or `-1`. Look at the middle and cut the search in half each time."
+      zh: "为一个从小到大排好序的列表写 `binary_search(sorted_lst, target)`。返回 `target` 的**索引**,或 `-1`。看中间元素,每次把搜索范围减半。"
+    starter: |
+      def binary_search(sorted_lst, target):
+          low = 0
+          high = len(sorted_lst) - 1
+          # while low <= high: check the middle
+          pass
+    solution: |
+      def binary_search(sorted_lst, target):
+          low = 0
+          high = len(sorted_lst) - 1
+          while low <= high:
+              mid = (low + high) // 2
+              if sorted_lst[mid] == target:
+                  return mid
+              elif sorted_lst[mid] < target:
+                  low = mid + 1
+              else:
+                  high = mid - 1
+          return -1
+    check:
+      kind: asserts
+      code: |
+        assert binary_search([1, 3, 5, 7, 9], 7) == 3, "7 is at index 3"
+        assert binary_search([1, 3, 5, 7, 9], 1) == 0, "1 is at index 0"
+        assert binary_search([1, 3, 5, 7, 9], 9) == 4, "9 is at index 4"
+        assert binary_search([1, 3, 5, 7, 9], 4) == -1, "4 is missing -> -1"
+        assert binary_search([], 5) == -1, "empty list -> -1"
+  - id: contains
+    prompt:
+      en: "Write `contains(lst, target)` that returns `True` if `target` is in `lst`, else `False`. You may reuse linear search and compare the result to `-1`."
+      zh: "写 `contains(lst, target)`,如果 `target` 在 `lst` 里就返回 `True`,否则返回 `False`。你可以复用线性搜索,把结果和 `-1` 比较。"
+    starter: |
+      def contains(lst, target):
+          # return True if found, else False
+          pass
+    solution: |
+      def contains(lst, target):
+          for item in lst:
+              if item == target:
+                  return True
+          return False
+    check:
+      kind: asserts
+      code: |
+        assert contains([2, 4, 6], 4) is True, "4 is in the list"
+        assert contains([2, 4, 6], 5) is False, "5 is not in the list"
+        assert contains([], 1) is False, "empty list -> False"

@@ -1,0 +1,46 @@
+title:
+  en: Bits and binary
+  zh: 比特与二进制
+order: 2
+tasks:
+  - id: decimal-to-binary
+    prompt:
+      en: "Use `bin(...)` to print the binary form of **20**. The output should look like `0b10100`."
+      zh: "用 `bin(...)` 打印 **20** 的二进制形式。输出应该是 `0b10100` 这样的样子。"
+    starter: |
+      # Print the binary form of 20
+    solution: |
+      print(bin(20))
+    check:
+      kind: stdout
+      expected: "0b10100"
+      normalize: strip
+  - id: binary-to-decimal
+    prompt:
+      en: "The binary string `\"110\"` is a number. Use `int(s, 2)` to print it as a normal (decimal) number."
+      zh: "二进制字符串 `\"110\"` 是一个数字。用 `int(s, 2)` 把它打印成普通的(十进制)数字。"
+    starter: |
+      s = "110"
+      # Print s as a decimal number
+    solution: |
+      s = "110"
+      print(int(s, 2))
+    check:
+      kind: stdout
+      expected: "6"
+      normalize: strip
+  - id: overflow
+    prompt:
+      en: "A counter has **5 bits**, so it holds `2**5 = 32` values. Store `2**5` in `size`. Then store `(30 + 5) % size` in `result` to show how the value wraps around (overflow)."
+      zh: "一个计数器有 **5 个比特**,所以它能存 `2**5 = 32` 个值。把 `2**5` 存进 `size`。然后把 `(30 + 5) % size` 存进 `result`,展示数值如何绕回(溢出)。"
+    starter: |
+      # size = number of values 5 bits hold
+      # result = (30 + 5) wrapped by size
+    solution: |
+      size = 2 ** 5
+      result = (30 + 5) % size
+    check:
+      kind: asserts
+      code: |
+        assert size == 32, f"size should be 32 but was {size}"
+        assert result == 3, f"result should wrap to 3 but was {result}"

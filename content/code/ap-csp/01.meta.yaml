@@ -1,29 +1,5 @@
 title:
-  en: Variables and MOD
-  zh: 变量与取余(MOD)
+  en: What computing is
+  zh: 什么是计算
 order: 1
-tasks:
-  - id: remainder
-    prompt:
-      en: "Use `%` (MOD) to print the remainder when **23** is divided by **5**. Your program should print just the number."
-      zh: "用 `%`(MOD)打印 **23** 除以 **5** 的余数。你的程序只需要打印这个数字。"
-    starter: |
-      # Print the remainder of 23 divided by 5
-    solution: |
-      print(23 % 5)
-    check:
-      kind: stdout
-      expected: "3"
-      normalize: strip
-  - id: total
-    prompt:
-      en: "Create a variable named `total` equal to the sum of **8**, **13**, and **21**. (You do not need to print it.)"
-      zh: "创建一个名为 `total` 的变量,值等于 **8**、**13** 和 **21** 的和。(不需要打印它。)"
-    starter: |
-      # Make total equal 8 + 13 + 21
-    solution: |
-      total = 8 + 13 + 21
-    check:
-      kind: asserts
-      code: |
-        assert total == 42, f"total should be 42 but was {total}"
+tasks: []

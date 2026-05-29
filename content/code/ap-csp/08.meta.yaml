@@ -1,0 +1,74 @@
+title:
+  en: Procedures and abstraction
+  zh: 过程与抽象
+order: 8
+tasks:
+  - id: square
+    prompt:
+      en: "Write a procedure `square(n)` that **returns** `n` multiplied by itself. Do not print inside it — use `return`."
+      zh: "写一个过程 `square(n)`,**返回** `n` 乘以它自己。不要在里面打印 —— 用 `return`。"
+    starter: |
+      def square(n):
+          # return n times n
+          pass
+    solution: |
+      def square(n):
+          return n * n
+    check:
+      kind: asserts
+      code: |
+        assert square(5) == 25, "square(5) should be 25"
+        assert square(0) == 0, "square(0) should be 0"
+        assert square(-3) == 9, "square(-3) should be 9"
+  - id: rectangle-area
+    prompt:
+      en: "Write a procedure `area(width, height)` with **two** parameters that **returns** the area (width times height)."
+      zh: "写一个过程 `area(width, height)`,它有**两个**参数,**返回**面积(宽乘以高)。"
+    starter: |
+      def area(width, height):
+          # return the area
+          pass
+    solution: |
+      def area(width, height):
+          return width * height
+    check:
+      kind: asserts
+      code: |
+        assert area(4, 5) == 20, "area(4, 5) should be 20"
+        assert area(1, 1) == 1, "area(1, 1) should be 1"
+        assert area(7, 0) == 0, "area(7, 0) should be 0"
+  - id: combine-steps
+    prompt:
+      en: "Write `to_seconds(minutes, seconds)` that **returns** the total number of seconds. (One minute is 60 seconds.) Then it combines a multiply step and an add step."
+      zh: "写一个 `to_seconds(minutes, seconds)`,**返回**总秒数。(一分钟是 60 秒。)它把一个乘法步骤和一个加法步骤组合在一起。"
+    starter: |
+      def to_seconds(minutes, seconds):
+          # minutes * 60, then add seconds
+          pass
+    solution: |
+      def to_seconds(minutes, seconds):
+          return minutes * 60 + seconds
+    check:
+      kind: asserts
+      code: |
+        assert to_seconds(1, 0) == 60, "1 min 0 sec should be 60"
+        assert to_seconds(2, 30) == 150, "2 min 30 sec should be 150"
+        assert to_seconds(0, 45) == 45, "0 min 45 sec should be 45"
+  - id: call-it
+    prompt:
+      en: "The procedure `double(x)` is given. **Call** it with `21` and store the result in a variable named `result`."
+      zh: "已经给好了过程 `double(x)`。用 `21` **调用**它,并把结果存进一个名为 `result` 的变量。"
+    starter: |
+      def double(x):
+          return x * 2
+
+      # call double with 21 and store in result
+    solution: |
+      def double(x):
+          return x * 2
+
+      result = double(21)
+    check:
+      kind: asserts
+      code: |
+        assert result == 42, f"result should be 42 but was {result}"

@@ -1,0 +1,53 @@
+title:
+  en: Lists and data abstraction
+  zh: 列表与数据抽象
+order: 5
+tasks:
+  - id: build-and-append
+    prompt:
+      en: "Start from the list `colors = [\"red\", \"green\"]`. Use `.append(...)` to add `\"blue\"` to the end, so the list becomes `[\"red\", \"green\", \"blue\"]`."
+      zh: "从列表 `colors = [\"red\", \"green\"]` 开始。用 `.append(...)` 把 `\"blue\"` 加到末尾,使列表变成 `[\"red\", \"green\", \"blue\"]`。"
+    starter: |
+      colors = ["red", "green"]
+      # Append "blue" to the end
+    solution: |
+      colors = ["red", "green"]
+      colors.append("blue")
+    check:
+      kind: asserts
+      code: |
+        assert colors == ["red", "green", "blue"], f"colors should end as ['red', 'green', 'blue'] but was {colors}"
+  - id: sum-a-list
+    prompt:
+      en: "`nums` is `[4, 8, 15, 16, 23]`. Traverse it with a `for` loop to add up every value, then `print` the total. (It should print `66`.)"
+      zh: "`nums` 是 `[4, 8, 15, 16, 23]`。用 `for` 循环遍历它,把每个值加起来,然后 `print` 出总和。(应打印 `66`。)"
+    starter: |
+      nums = [4, 8, 15, 16, 23]
+      # Add up every value, then print the total
+    solution: |
+      nums = [4, 8, 15, 16, 23]
+      total = 0
+      for n in nums:
+          total = total + n
+      print(total)
+    check:
+      kind: stdout
+      expected: "66"
+      normalize: strip
+  - id: first-and-last
+    prompt:
+      en: "`days = [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"]`. Store the **first** day in `first` and the **last** day in `last` using indexing."
+      zh: "`days = [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"]`。用索引把**第一个**工作日存进 `first`,把**最后一个**存进 `last`。"
+    starter: |
+      days = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+      # first = ...   (the first day)
+      # last = ...    (the last day)
+    solution: |
+      days = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+      first = days[0]
+      last = days[-1]
+    check:
+      kind: asserts
+      code: |
+        assert first == "Mon", f"first should be 'Mon' but was {first}"
+        assert last == "Fri", f"last should be 'Fri' but was {last}"

@@ -1,0 +1,55 @@
+title:
+  en: Iteration
+  zh: 迭代(循环)
+order: 7
+tasks:
+  - id: sum-to-ten
+    prompt:
+      en: "Use a `for` loop with `range(...)` to add the whole numbers `1` through `10`. Store the result in `total`. (It should be `55`.)"
+      zh: "用带 `range(...)` 的 `for` 循环把整数 `1` 到 `10` 加起来。把结果存进 `total`。(应为 `55`。)"
+    starter: |
+      total = 0
+      # Add 1 through 10 into total
+    solution: |
+      total = 0
+      for n in range(1, 11):
+          total = total + n
+    check:
+      kind: asserts
+      code: |
+        assert total == 55, f"total should be 55 but was {total}"
+  - id: countdown
+    prompt:
+      en: "Use a `while` loop to print the numbers `5, 4, 3, 2, 1`, each on its own line, then print `Go`. Start from `n = 5`."
+      zh: "用 `while` 循环打印 `5, 4, 3, 2, 1`,每个数字一行,然后打印 `Go`。从 `n = 5` 开始。"
+    starter: |
+      n = 5
+      # Print 5 down to 1, then print Go
+    solution: |
+      n = 5
+      while n > 0:
+          print(n)
+          n = n - 1
+      print("Go")
+    check:
+      kind: stdout
+      expected: "5\n4\n3\n2\n1\nGo"
+      normalize: strip
+  - id: count-evens
+    prompt:
+      en: "`nums` is `[3, 6, 7, 8, 10, 11]`. Loop over it with a for-each loop and count how many values are **even** (use `% 2 == 0`). Store the count in `evens`. (It should be `3`.)"
+      zh: "`nums` 是 `[3, 6, 7, 8, 10, 11]`。用 for-each 循环遍历它,数一数有多少个值是**偶数**(用 `% 2 == 0`)。把个数存进 `evens`。(应为 `3`。)"
+    starter: |
+      nums = [3, 6, 7, 8, 10, 11]
+      evens = 0
+      # Count how many values are even
+    solution: |
+      nums = [3, 6, 7, 8, 10, 11]
+      evens = 0
+      for n in nums:
+          if n % 2 == 0:
+              evens = evens + 1
+    check:
+      kind: asserts
+      code: |
+        assert evens == 3, f"evens should be 3 but was {evens}"

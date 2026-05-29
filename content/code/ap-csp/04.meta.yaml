@@ -1,0 +1,49 @@
+title:
+  en: Variables and expressions
+  zh: 变量与表达式
+order: 4
+tasks:
+  - id: remainder
+    prompt:
+      en: "Use `%` (MOD) to print the remainder when **29** is divided by **4**. Your program should print just the number."
+      zh: "用 `%`(MOD)打印 **29** 除以 **4** 的余数。你的程序只需要打印这个数字。"
+    starter: |
+      # Print the remainder of 29 divided by 4
+    solution: |
+      print(29 % 4)
+    check:
+      kind: stdout
+      expected: "1"
+      normalize: strip
+  - id: divide-and-remainder
+    prompt:
+      en: "You pack **50** apples into boxes of **6**. Store the number of **full boxes** in `boxes` using `//`, and the **apples left over** in `leftover` using `%`."
+      zh: "你把 **50** 个苹果装进每箱 **6** 个的箱子。用 `//` 把**装满的箱子数**存进 `boxes`,用 `%` 把**剩下的苹果数**存进 `leftover`。"
+    starter: |
+      # boxes = full boxes of 6 from 50 apples
+      # leftover = apples that do not fill a box
+    solution: |
+      boxes = 50 // 6
+      leftover = 50 % 6
+    check:
+      kind: asserts
+      code: |
+        assert boxes == 8, f"boxes should be 8 but was {boxes}"
+        assert leftover == 2, f"leftover should be 2 but was {leftover}"
+  - id: boolean-expression
+    prompt:
+      en: "`n` is `17`. Store `True`/`False` for \"is `n` odd?\" in `is_odd` (use `%`), and for \"is `n` between 10 and 20?\" in `in_range` (use `>`, `<`, and `and`)."
+      zh: "`n` 是 `17`。把“`n` 是奇数吗?”的 `True`/`False` 存进 `is_odd`(用 `%`),把“`n` 在 10 和 20 之间吗?”存进 `in_range`(用 `>`、`<` 和 `and`)。"
+    starter: |
+      n = 17
+      # is_odd = ...    (True if n is odd)
+      # in_range = ...  (True if n is between 10 and 20)
+    solution: |
+      n = 17
+      is_odd = (n % 2 == 1)
+      in_range = (n > 10 and n < 20)
+    check:
+      kind: asserts
+      code: |
+        assert is_odd == True, f"is_odd should be True but was {is_odd}"
+        assert in_range == True, f"in_range should be True but was {in_range}"

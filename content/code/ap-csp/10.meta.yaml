@@ -1,0 +1,81 @@
+title:
+  en: Randomness and simulation
+  zh: 随机性与模拟
+order: 10
+tasks:
+  - id: roll-die
+    prompt:
+      en: "Write `roll_die()` (no parameters) that **returns** a random whole number from **1 to 6** using `random.randint`. Remember `import random`."
+      zh: "写一个 `roll_die()`(没有参数),用 `random.randint` **返回**一个从 **1 到 6** 的随机整数。记得 `import random`。"
+    starter: |
+      import random
+
+      def roll_die():
+          # return a random number from 1 to 6
+          pass
+    solution: |
+      import random
+
+      def roll_die():
+          return random.randint(1, 6)
+    check:
+      kind: asserts
+      code: |
+        import random
+        random.seed(0)
+        for _ in range(200):
+            r = roll_die()
+            assert isinstance(r, int), "roll should be a whole number"
+            assert 1 <= r <= 6, f"roll {r} is not between 1 and 6"
+        # over many rolls we should see more than one face
+        random.seed(0)
+        faces = {roll_die() for _ in range(200)}
+        assert len(faces) > 1, "a die should produce different faces"
+  - id: roll-two
+    prompt:
+      en: "Write `roll_two()` that rolls **two** dice (each 1 to 6) and **returns** their total. The total is always between 2 and 12."
+      zh: "写一个 `roll_two()`,掷**两个**骰子(每个 1 到 6),**返回**它们的总和。总和总是在 2 到 12 之间。"
+    starter: |
+      import random
+
+      def roll_two():
+          # add two dice rolls and return the total
+          pass
+    solution: |
+      import random
+
+      def roll_two():
+          return random.randint(1, 6) + random.randint(1, 6)
+    check:
+      kind: asserts
+      code: |
+        import random
+        random.seed(0)
+        for _ in range(300):
+            total = roll_two()
+            assert 2 <= total <= 12, f"total {total} is not between 2 and 12"
+  - id: count-heads
+    prompt:
+      en: "Copy this exactly: set `random.seed(7)`, then flip a coin **20** times with `random.randint(0, 1)` (1 means heads), count the heads, and `print` the count. With this seed the answer is always the same."
+      zh: "完全照这样做:设置 `random.seed(7)`,然后用 `random.randint(0, 1)` 抛硬币 **20** 次(1 表示正面),数出正面的次数,并 `print` 这个次数。用这个种子,答案每次都一样。"
+    starter: |
+      import random
+
+      random.seed(7)
+      heads = 0
+      # flip 20 times; add 1 to heads when randint(0, 1) is 1
+      # then print heads
+    solution: |
+      import random
+
+      random.seed(7)
+      heads = 0
+      for i in range(20):
+          flip = random.randint(0, 1)
+          if flip == 1:
+              heads = heads + 1
+      print(heads)
+    check:
+      kind: stdout
+      expected: "6"
+      normalize: strip

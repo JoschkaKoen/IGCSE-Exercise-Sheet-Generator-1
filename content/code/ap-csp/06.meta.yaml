@@ -1,0 +1,58 @@
+title:
+  en: Selection
+  zh: 选择(分支)
+order: 6
+tasks:
+  - id: grade-bands
+    prompt:
+      en: "Read a score with `int(input())`. Print `A` if it is `80` or more, `B` if it is `60` or more, otherwise `C`. Use `if` / `elif` / `else`. For input `75`, print `B`."
+      zh: "用 `int(input())` 读取一个分数。如果是 `80` 及以上打印 `A`,`60` 及以上打印 `B`,否则打印 `C`。使用 `if` / `elif` / `else`。当输入为 `75` 时,打印 `B`。"
+    starter: |
+      score = int(input())
+      # Print A, B, or C
+    stdin: "75\n"
+    solution: |
+      score = int(input())
+      if score >= 80:
+          print("A")
+      elif score >= 60:
+          print("B")
+      else:
+          print("C")
+    check:
+      kind: stdout
+      expected: "B"
+      normalize: strip
+  - id: in-range
+    prompt:
+      en: "`temp` is `22`. Set `comfortable` to `True` when `temp` is from `18` to `25` (inclusive), else `False`. Use one comparison with `and`."
+      zh: "`temp` 是 `22`。当 `temp` 在 `18` 到 `25` 之间(含两端)时,把 `comfortable` 设为 `True`,否则为 `False`。用一个带 `and` 的比较。"
+    starter: |
+      temp = 22
+      # comfortable = ...   (True when 18 <= temp <= 25)
+    solution: |
+      temp = 22
+      comfortable = temp >= 18 and temp <= 25
+    check:
+      kind: asserts
+      code: |
+        assert comfortable is True, f"comfortable should be True for temp=22 but was {comfortable}"
+  - id: weekend-or-holiday
+    prompt:
+      en: "`day` is `\"Sun\"` and `is_holiday` is `False`. Print `Day off` if it is a weekend (`\"Sat\"` or `\"Sun\"`) **or** a holiday; otherwise print `Work day`. Use `or`."
+      zh: "`day` 是 `\"Sun\"`,`is_holiday` 是 `False`。如果是周末(`\"Sat\"` 或 `\"Sun\"`)**或**节假日,就打印 `Day off`,否则打印 `Work day`。用 `or`。"
+    starter: |
+      day = "Sun"
+      is_holiday = False
+      # Print "Day off" or "Work day"
+    solution: |
+      day = "Sun"
+      is_holiday = False
+      if day == "Sat" or day == "Sun" or is_holiday:
+          print("Day off")
+      else:
+          print("Work day")
+    check:
+      kind: stdout
+      expected: "Day off"
+      normalize: strip
