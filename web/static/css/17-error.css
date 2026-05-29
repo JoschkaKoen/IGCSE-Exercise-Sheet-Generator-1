@@ -1,0 +1,91 @@
+/* ─── Themed error page (404 / 403 / 401 / 500) ──────────────────────────────
+ * Replaces FastAPI's raw-JSON-on-white default for browser navigations with a
+ * page that matches the space shell. Loaded only by templates/error.html.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 58vh;
+}
+
+.error-card {
+  width: 100%;
+  max-width: 30rem;
+  border-radius: 1.25rem;
+  padding: 2.25rem 1.75rem 2rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .error-card { padding: 2.75rem 2.5rem 2.5rem; }
+}
+
+/* Big gradient status code — echoes the brand cyan→indigo wordmark. */
+.error-code {
+  font-family: 'Sora', 'Outfit', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(3.75rem, 14vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #67e8f9 0%, #60a5fa 52%, #818cf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 28px rgba(56, 189, 248, 0.22));
+}
+
+.error-title {
+  margin-top: 0.85rem;
+  font-family: 'Sora', 'Outfit', system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #f1f5f9;            /* slate-100 */
+}
+
+@media (min-width: 640px) {
+  .error-title { font-size: 1.55rem; }
+}
+
+.error-body {
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #94a3b8;            /* slate-400 */
+}
+
+/* The server-supplied detail (e.g. the teacher-gate hint) — muted, in a chip. */
+.error-detail {
+  margin-top: 1rem;
+  display: inline-block;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(148, 163, 184, 0.06);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #cbd5e1;            /* slate-300 */
+}
+
+.error-actions {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.error-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.85rem;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.error-home-btn svg { width: 1.05rem; height: 1.05rem; }

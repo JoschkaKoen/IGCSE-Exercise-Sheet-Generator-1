@@ -171,6 +171,20 @@ STRINGS: dict[str, dict[str, str]] = {
         "auth.err.rate_limit":      "Too many attempts. Wait a minute and try again.",
         "auth.err.network":         "Could not reach the server. Try again.",
 
+        # ===== Error pages (themed 404 / 403 / 401 / 500) =====
+        "title.error":           "Error · eXercise",
+        "error.home":            "Back to home",
+        "error.generic.title":   "Something went wrong",
+        "error.generic.body":    "An unexpected error occurred. Please try again.",
+        "error.404.title":       "Page not found",
+        "error.404.body":        "We couldn't find the page you were looking for. It may have moved, or the link may be wrong.",
+        "error.403.title":       "Access restricted",
+        "error.403.body":        "You don't have permission to view this page.",
+        "error.401.title":       "Sign-in required",
+        "error.401.body":        "Please sign in to continue.",
+        "error.500.title":       "Something went wrong",
+        "error.500.body":        "The server hit an unexpected error. Please try again in a moment.",
+
         # ===== User account (header Account button + modal + chip) =====
         "account.button":               "Account",
         "account.menu.logout":          "Log out",
@@ -790,6 +804,20 @@ STRINGS: dict[str, dict[str, str]] = {
         "auth.err.bad_code":        "访问码无效。",
         "auth.err.rate_limit":      "尝试次数过多,请稍后再试。",
         "auth.err.network":         "无法连接到服务器,请重试。",
+
+        # ===== Error pages (themed 404 / 403 / 401 / 500) =====
+        "title.error":           "出错了 · eXercise",
+        "error.home":            "返回首页",
+        "error.generic.title":   "出错了",
+        "error.generic.body":    "发生了意外错误,请重试。",
+        "error.404.title":       "页面未找到",
+        "error.404.body":        "找不到你要访问的页面。它可能已被移动,或链接有误。",
+        "error.403.title":       "访问受限",
+        "error.403.body":        "你没有权限查看此页面。",
+        "error.401.title":       "需要登录",
+        "error.401.body":        "请登录后继续。",
+        "error.500.title":       "出错了",
+        "error.500.body":        "服务器遇到意外错误,请稍后再试。",
 
         # ===== User account (header Account button + modal + chip) =====
         "account.button":               "账号",

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{# Themed error page. All display strings are computed + localized in the
+   exception handler (web/app.py) and passed in — keeps the template free of
+   per-status-code branching and missing-key fallbacks. #}
+{% block title %}{{ page_title }}{% endblock %}
+{% block extra_head %}
+  <link rel="stylesheet" href="/static/css/17-error.css" />
+{% endblock %}
+{% block content %}
+<section class="error-page">
+  <div class="error-card glass-panel form-glow">
+    <p class="error-code" aria-hidden="true">{{ status_code }}</p>
+    <h1 class="error-title">{{ error_title }}</h1>
+    <p class="error-body">{{ error_body }}</p>
+    {% if detail %}<p class="error-detail">{{ detail }}</p>{% endif %}
+    <div class="error-actions">
+      <a href="/" class="btn-space-primary error-home-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12 12 2.25 21.75 12M4.5 9.75v9.75a.75.75 0 0 0 .75.75H9.75V15a2.25 2.25 0 0 1 4.5 0v5.25H18.75a.75.75 0 0 0 .75-.75V9.75"/>
+        </svg>
+        {{ home_label }}
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
