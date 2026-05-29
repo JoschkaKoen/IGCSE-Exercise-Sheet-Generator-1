@@ -1,0 +1,621 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show a plant at the start of an experiment, and the same plant
+    two weeks later. start of the experiment after two weeks light from one side Which
+    characteristics of living organisms are demonstrated by this experiment?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: What can be used to classify organisms?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a single cell from an organism called Spirogyra. vacuole
+    cytoplasm chloroplast cell wall nucleus strand of cytoplasm Which features does
+    Spirogyra share with plant cells? cell wall chloroplast cytoplasm nucleus vacuole
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows an image of a chloroplast. The image is 5 cm long. The actual
+    length of the chloroplast is 5 m. What is the magnification of the image?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: A potato was used as a source of plant tissue. Four potato sticks of identical
+    size were cut from the same potato. At the start of the investigation, each potato
+    stick was 10 squares long. The potato sticks were put into four separate Petri
+    dishes. Each Petri dish contained a different concentration of sugar solution.
+    The diagram shows the four Petri dishes after 24 hours. Which dish contains a
+    sugar solution that has a higher water potential than the potato tissue?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows correct statements about active transport? direction of movement
+    requires a partially permeable membrane
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the effect of temperature on an enzyme-controlled reaction.
+    rate of reaction temperature / °C Which statement describes the effect of temperature
+    on this reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the rate of photosynthesis of a plant in full sunlight in
+    different concentrations of carbon dioxide. All other factors were kept constant.
+    rate of photosynthesis percentage carbon dioxide concentration 0.00 0.02 0.04
+    0.06 0.08 0.10 0.12 0.14 What limits the rate of photosynthesis at 0.02% carbon
+    dioxide concentration?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: A student wrote some statements about the palisade mesophyll and spongy mesophyll
+    tissues. The spongy mesophyll tissue is near the stomata for gas exchange. Only
+    palisade mesophyll cells have chloroplasts for photosynthesis. Palisade cells
+    are closely packed but there are air spaces in the spongy mesophyll tissue. Which
+    statements are correct descriptions of the two tissues?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a role of bile?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Where in the alimentary canal is the enzyme trypsin found and what are the
+    products of the reaction trypsin catalyses? where trypsin is found products
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a structural feature of xylem vessels?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: During the growing season, tomato plants produce flowers and fruits. Which
+    parts of a growing tomato plant are sources, and which parts are sinks? flowers
+    fruits leaves
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements are correct descriptions of methods of preventing pathogens
+    from entering the body? Fibrin is converted to fibrinogen to form a mesh. Phagocytes
+    produce antibodies. Platelets clot blood. Lymphocytes engulf pathogens.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes a double circulatory system?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Three statements about immunity are listed. Specific antibodies are produced
+    in response to specific antigens. Pathogens have specific antigens. A vaccination
+    stimulates an immune response. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Which muscles in the breathing system contract during inspiration?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Which process requires energy from respiration?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: What is produced by anaerobic respiration in human muscles? carbon dioxide
+    lactic acid water
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements are correct for a healthy person? Blood leaving a glomerulus
+    has the same concentration of glucose as blood entering a glomerulus. There is
+    no glucose in the fluid leaving a nephron. A nephron reabsorbs all of the water
+    and some of the ions filtered out of the blood by a glomerulus.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: When moving from an area with low light intensity to an area with high light
+    intensity, how do the circular and radial muscles of the iris react? circular
+    muscles radial muscles
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the change in the percentage of infections caused by antibiotic-resistant
+    bacteria in one country. 1981 1986 1991 year 1996 2001 percentage of infections
+    caused by antibiotic-resistant bacteria Which statements could explain the change
+    in the percentage of infections caused by antibiotic-resistant bacteria? The use
+    of antibiotics has resulted in natural selection for resistant bacteria. The use
+    of antibiotics has caused a decrease in viral diseases. The use of antibiotics
+    when not essential increased the percentage of antibiotic-resistant infections.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: A gardener has a strawberry plant that produces large, sweet fruits. How does
+    the gardener grow more strawberry plants that all produce large, sweet fruits?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Where does fertilisation occur in a plant?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the concentrations of two hormones during pregnancy. concentration
+    of hormone time oestrogen hormone X Which organ secretes the most hormone X in
+    the late stages of pregnancy?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: A person has a 28-day menstrual cycle. On which day is the lining of the uterus
+    thickest?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements describe the sex chromosomes in human gametes? Egg cells
+    contain either an X or a Y chromosome. Egg cells contain only X chromosomes. Sperm
+    cells contain either an X or a Y chromosome. Sperm cells contain only Y chromosomes.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes the effect of meiosis on chromosome number?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: A female with red-green colour blindness has a child with a male who does
+    not have red-green colour blindness. The child is male. What is the chance of
+    this child having red-green colour blindness?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a source of genetic variation that alters the base sequence of DNA?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Which technique is not used to conserve endangered animal species?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Which flowchart shows how energy is transferred from the Sun to an organism?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about a food chain are correct? Between trophic level 1 and
+    trophic level 2, energy is passed from a herbivore to a carnivore. Between trophic
+    level 2 and trophic level 3, energy is passed from a primary consumer to a secondary
+    consumer. Between trophic level 3 and trophic level 4, energy is passed from a
+    secondary consumer to a tertiary consumer.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which process in the nitrogen cycle is involved in the breakdown of amino
+    acids in living organisms?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows part of the carbon cycle. Which arrow represents photosynthesis?
+    carbon dioxide in the atmosphere animals combustion plants decomposers
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows how the size of a population changes over time. population
+    size time Which row identifies the phases of population growth? death phase exponential
+    phase lag phase
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Eutrophication results in a reduction in the dissolved oxygen in streams and
+    lakes. What causes the reduction in dissolved oxygen?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: What are reasons for using chemical fertilisers in food production? to reduce
+    the use of herbicides to increase crop yields to reduce competition between crops
+    and weeds
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Why is pectinase useful in fruit juice production?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show the stages in the production of human insulin. Which stage
+    uses the enzyme DNA ligase?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

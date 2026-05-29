@@ -1,0 +1,627 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: A sealed balloon contains air. The temperature of the balloon is increased.
+    Which row describes how the pressure in the balloon and the kinetic energy of
+    the particles in air change? pressure kinetic energy of particles
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: Ammonia gas is reacted with hydrogen chloride gas using the apparatus shown.
+    Solid ammonium chloride is produced. cotton wool soaked in aqueous ammonia cotton
+    wool soaked in aqueous hydrogen chloride long glass tube solid ammonium chloride
+    Which statement explains why the solid ammonium chloride is formed nearer to the
+    hydrogen chloride?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: The table shows information about four different particles. particle nucleon
+    number number of protons number of neutrons number of electrons Na W Na+ X O Y
+    O2– Z What are the values of W, X, Y and Z? W X Y Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Substances with giant covalent structures can be used as lubricants and as
+    cutting tools for hard materials. The diagrams show how the atoms are arranged
+    in two giant covalent substances, P and Q. P Q key strong covalent bond weak attraction
+    Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: Symbols representing four particles are shown. W  20X Y Z The letters are
+    not the chemical symbols. Which particles have the same number of neutrons?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes the formation of bonds in lithium bromide?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement explains why solid magnesium is a good conductor of electricity?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation for the reaction between dilute ethanoic acid and aqueous lithium
+    hydroxide is shown. CH3COOH  +  LiOH    CH3COOLi  +  H2O In an experiment, 20.0
+    cm3 of 0.050 mol / dm3 aqueous lithium hydroxide is exactly neutralised by 12.5
+    cm3 of dilute ethanoic acid. Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: The molecular formulae of four compounds are listed. CH4 C2H6 C3H8 C3H6 Which
+    molecular formulae are also the empirical formulae for the compounds?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: 'The equation for the reaction between copper(II) oxide, CuO, and ammonia
+    is given. 3CuO  +  2NH3    3Cu  +  3H2O  +  N2 [Mr:  CuO, 80;  NH3, 17;  H2O,
+    18;  N2, 28] [Ar:  Cu, 64] Which statements about this reaction are correct? 80.0
+    g of copper(II) oxide reacts exactly with 17.0 g of ammonia. 4.0 g of copper(II)
+    oxide reacts with excess ammonia to produce 3.2 g of copper. The mass of water
+    produced in this reaction is greater than the mass of nitrogen.'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: How many atoms are present in 1.00 mol of argon?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: Aqueous copper(II) sulfate is electrolysed using copper electrodes. Which
+    statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes the reactions during the electrolysis of dilute aqueous
+    sodium chloride? anode reaction cathode reaction
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Information about two reactions is given. ● The neutralisation reaction between
+    citric acid and sodium hydrogencarbonate is endothermic. ● The displacement reaction
+    between magnesium and carbon dioxide is exothermic. Which statements about the
+    two reactions are correct? The energy of the products formed in the neutralisation
+    reaction is greater than the energy of the reactants. The energy of magnesium
+    and carbon dioxide is greater than the energy of magnesium oxide and carbon. In
+    an exothermic reaction, the energy required to break the bonds is greater than
+    the energy released when the new bonds are formed.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: The reaction pathway diagram for a reaction is shown. energy progress of reaction
+    Which row identifies the activation energy, Ea, and the enthalpy change, H, for
+    this reaction? Ea H
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Hydrogen peroxide solution decomposes very slowly at room temperature to produce
+    oxygen gas. This gas forms a rising foam when liquid detergent is added. Five
+    test-tubes are half-filled with hydrogen peroxide solution. A drop of liquid detergent
+    is added to each one. Different metal oxides are added to four of the test-tubes
+    and the height of the foam formed after one minute is measured. The results are
+    shown. metal oxide height of foam / cm no metal oxide added 0.1 aluminium oxide
+    0.1 calcium oxide 0.2 copper(II) oxide 2.3 manganese(IV) oxide 5.4 Which conclusion
+    can be drawn from these results?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Which equation represents one of the reactions in the Contact process?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: The ionic equation for the redox reaction between acidified manganate(VII)
+    ions and iodide ions is shown. 2MnO4 –(aq)  +  16H+(aq)  +  10I–(aq)    2Mn2+(aq)  +  5I2(aq)  +  8H2O(l)
+    Which row shows the changes in oxidation number for manganese and for iodine during
+    this reaction? manganese iodine from to from to
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: In the Haber process, nitrogen and hydrogen react to form ammonia. N2  +  3H2
+    2NH3 The forward reaction is exothermic. Which changes in pressure and temperature
+    increase the yield of ammonia? change in pressure change in temperature
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes a property of ethanoic acid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: A student adds different solid salts to an excess of water. The student stirs
+    the mixtures to determine the solubilities of the salts. The results are shown.
+    W X Y Z What could the four different salts be? W X Y Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Four metal oxides are listed. Al 2O3 CaO CuO ZnO Which metal oxides are amphoteric?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: The ions formed when element X and element Y react together are shown. ● Element
+    X forms X– ions. ● Element Y forms Y2+ ions. Which row identifies the position
+    of X and of Y in the Periodic Table? X Y
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Which properties decrease down the group of alkali metals? melting point density
+    reactivity
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Some halide ions are displaced from aqueous potassium halides by halogens.
+    In which mixtures are the halide ions displaced? potassium bromide and chlorine
+    potassium bromide and iodine potassium iodide and chlorine potassium chloride
+    and iodine
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the correct order of reactivity of the following metals, from least
+    reactive to most reactive?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation for the reaction between aluminium and iron(III) oxide is shown.
+    2Al  +  Fe2O3    Al 2O3  +  2Fe Which statement about this reaction is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row identifies methods used to prevent iron from rusting? greasing painting
+    washing with distilled water
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the extraction of aluminium by electrolysis is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Catalytic converters are used to remove oxides of nitrogen from exhaust gases.
+    The equation represents one of the reactions that occur in a catalytic converter.
+    2NO  +  2CO    N2  +  2CO2 What is a disadvantage of using a catalytic converter
+    to remove oxides of nitrogen?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Some gases are present in clean, dry air, while other gases are only present
+    in polluted air. Which row is correct? a gas present in clean, dry air a gas only
+    present in polluted air
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Petroleum is separated by fractional distillation. Which statement about the
+    fractions produced is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Which structure represents a compound in the alcohol homologous series?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Ethane reacts with chlorine. Which row identifies the type of reaction and
+    the formulae of the products formed? reaction products
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Which equation represents the formation of poly(propene) from propene? n
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Ethene reacts with hydrogen in an addition reaction to form ethane. Which
+    catalyst is used for this reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: What is produced by the bacterial oxidation of ethanol?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about addition polymers or condensation polymers is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: The results of flame tests on three metal salts, X, Y and Z, are shown. metal
+    salt flame test colour X yellow Y lilac Z blue-green Which row identifies the
+    cations present in X, Y and Z? X Y Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Ethanol can be made by fermentation of sugar, using yeast. This produces a
+    mixture of ethanol and water. How is ethanol separated from this mixture?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
