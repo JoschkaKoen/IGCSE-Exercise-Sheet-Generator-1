@@ -100,3 +100,20 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:05:20Z'
 glossed_at: '2026-05-29T05:05:20Z'
+figures:
+  - file: assets/05-p104-work-force-at-angle.png
+    caption: Only the component of the force along the displacement (F cos θ) does work
+    figure_ref: '5.4'
+    source_page_pdf: 104
+    source_page_printed: 88
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [57.0, 496.0, 171.0, 564.0]
+    placed_under: "### Work done by a force"
+  - file: assets/05-p104-positive-negative-work.png
+    caption: Work done by the force (top) and work done on the force (bottom)
+    figure_ref: '5.2'
+    source_page_pdf: 104
+    source_page_printed: 88
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [180.0, 132.0, 520.0, 324.0]
+    placed_under: "### Work done by a force"

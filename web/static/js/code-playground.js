@@ -63,6 +63,15 @@ function init(root) {
       .forEach((b) => { b.disabled = true; });
   }
 
+  // Java's runtime is heavy — it downloads the JVM and compiles helper classes on
+  // first boot (~10–30 s). Warm it the moment the page loads, while the student
+  // reads the prose, so the first Run only has to compile their code. Pyodide keeps
+  // its lazy boot (it's lighter and cached fast). Fire-and-forget: a preload failure
+  // is surfaced later by the real Run/Check, never here.
+  if (isolated && LANG === "java") {
+    ensureWorker().catch(() => { /* surfaced on first Run/Check */ });
+  }
+
   // ---- Step-through (progressive disclosure) ----------------------------
   function setupSteps() {
     const steps = Array.from(root.querySelectorAll(".code-step"));
