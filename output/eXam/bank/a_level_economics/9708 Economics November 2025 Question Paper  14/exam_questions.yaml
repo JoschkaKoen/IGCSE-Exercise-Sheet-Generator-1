@@ -1,0 +1,431 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: one that has zero opportunity cost
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: land labour enterprise capital wages rent profit interest
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: introduce tariffs on imported goods
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: O capital goods consumer goods Y X Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: In the short run all factors are fixed; in the long run all factors are varied.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: availability of stocks
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: '10400'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: price of fruit O quantity of fruit S2 S1 D1 D2 Y X What is the most likely
+    cause of the equilibrium point moving from X to Y? a fall in real income and a
+    depreciation of the exchange rate
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: providing incentives for government intervention to reduce income inequality
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: ''
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Households cannot accurately value the benefits of a good.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The tax falls entirely on the consumer.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: a charity hospital funded by public donations that offers free treatment to
+    the rural poor
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Higher paid workers maintain pay differentials.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: They are paid to firms.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: not in labour force unemployed employed
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Additional productive capacity must be created.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: import spending ($ million) export spending ($ million) 100 100
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: indirect tax rates
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: income from abroad
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: an increase in income tax
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: rate of interest exchange rate budget deficit decreases depreciates decreases
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: an import quota to restrict the supply of goods
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: indirect
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: contractionary fiscal policy
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: outcome 2 outcome 1 government measure encourage illegal trade and corruption
+    protect against import of harmful materials embargoes
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: terms of trade index (2018 = 100) year 101 104 109 2019 2020 2021 What can
+    be concluded from the table? The quantity of imports rose relative to the quantity
+    of exports.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Engaging in international trade enables the country to achieve a higher average
+    standard of living.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: the protection of consumers against excessive prices
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: US dollar–euro rate of exchange year 0.84 dollars per euro 2000 1.59 dollars
+    per euro 2008 1.00 dollar per euro 2022 What would explain the changes in the
+    US dollar–euro rate of exchange? changes in the supply and demand for dollars
+    and euros in the foreign exchange market
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

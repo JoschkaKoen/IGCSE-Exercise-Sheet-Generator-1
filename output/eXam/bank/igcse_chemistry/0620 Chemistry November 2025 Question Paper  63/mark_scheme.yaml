@@ -1,0 +1,259 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'funnel
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to cool / to condense (AND) the water/steam/(water) vapour
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 anhydrous cobalt(II) chloride / anhydrous copper(II) sulfate
+
+    M2 blue to pink if cobalt(II) chloride
+
+    OR
+
+    white to blue if copper(II) sulfate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'boiling tube
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'circle must include the bottom of the left-hand tube but not
+    the right-hand tube. It can overlap the surface of the liquid.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'sulfur dioxide (made when the fuel is burned)
+
+    1
+
+    0620/63
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 all initial temperatures correct
+
+    (21.0, 21.5, 21.5, 22.0, 22.0)
+
+    M2 all readings for temperature after one minute correct
+
+    (29.0, 36.5, 33.5, 38.5, 46.0)
+
+    M3 temperature changes correct
+
+    (8.0, 15.0, 12.0, 16.5, 24.0)
+
+    M4 all temperatures and temperature changes recorded to 1 decimal place
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 y-axis scale is linear, and points extend above halfway
+    up the scale
+
+    M2 and M3 all points plotted correctly
+
+    M4 best fit curve correctly drawn
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 the larger the volume of acid, the lower the temperature
+    (increase/change)
+
+    M2 same amount of heat energy given out (as same length of magnesium and acid
+    is in excess)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 extrapolation shown on graph, this must be a smooth continuation
+    of line
+
+    M2 correct reading from their working shown on graph
+
+    M3 oC
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'sketched line is below plotted line for all volumes of acid
+    and does not drop to or below zero
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2fi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(burette is more) accurate (than a measuring cylinder)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2fii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to mix them / to evenly distribute acid/heat energy
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2g
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 change: insulate the boiling tube
+
+    M2 explanation: reduce/no heat loss
+
+    2
+
+    0620/63
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 dropwise: red-brown precipitate
+
+    M2 excess: no further change / precipitate remains / red-brown precipitate
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'red-brown precipitate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(damp red) litmus (paper) turns blue
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ammonia / NH3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'no change
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'carbon dioxide / CO2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 barium / Ba2+
+
+    M2 carbonate / CO3 2–
+
+    1
+
+    4
+
+    any 6 from:
+
+    MP1 find mass of duralumin
+
+    MP2 add (dilute) nitric acid
+
+    MP3 acid in excess
+
+    MP4 heat/warm
+
+    MP5 filter
+
+    MP6 wash (the residue/solid/aluminium with distilled water) and dry the residue
+    and then find the mass (of the aluminium)
+
+    MP7 percentage aluminium = (mass of aluminium  mass alloy)  100
+
+    6'
+  mark_scheme: []
+  graphics: []

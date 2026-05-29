@@ -1,0 +1,339 @@
+questions:
+- number: 1ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'l  = 6.9 (cm) w = 2.5 (cm)  h = 3.0 (cm)
+
+    all to nearest mm
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'VA = 52 (cm3)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'irregular dimensions / owtte
+
+    repeat in several places (for each dimension) and take averages
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'effect of uncertainties increased/
+
+    larger % uncertainty/owtte
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'V1 = 152 (cm3)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'line of sight perpendicular / owtte
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: V2 present and VB = V2 -V1
+  mark_scheme: []
+  graphics: []
+- number: 1f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'suitable source of inaccuracy
+
+    e.g. graduations on measuring cylinder too large /
+
+    thread affects volume / cylinder is wide / clay may absorb water
+
+    matching improvement
+
+    e.g. use smaller measuring cylinder / more precise scale / thinner thread / no
+    thread and place carefully / measure volume of
+
+    thread / narrower cylinder / cover clay with paint or cling film
+
+    2
+
+    0625/63
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correct voltmeter symbol connected in parallel
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'arrow between left-hand end of wire and left-hand side of crocodile
+    clip
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'V  = 2.9 (V)
+
+    I = 0.36 (A)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'R = 8.06 and 3.73 and 2.50 () OR
+
+    8.1 and 3.7 and 2.5 ()
+
+    consistent 2 or consistent 3 significant figures
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'RA = 8.06, RB = 7.46 and RC = 7.50 () OR
+
+    RA = 8.1, RB = 7.4 OR 7.5 and RC = 7.5 ()
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'statement matching results
+
+    within limits of experimental accuracy / within 10% / owtte
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'limits current / current could exceed fsd value of ammeter
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'suitable action:
+
+    reduce voltage of power supply /
+
+    connect to longer wire /
+
+    use RP of greater value /
+
+    switch off circuit between taking readings
+
+    1
+
+    0625/63
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'move screen backwards and forwards / move screen slowly
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'hI = 6.0 (cm)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'D = 0.17 (cm-1)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'graph:
+
+    •
+
+    axes labelled with quantity and unit
+
+    •
+
+    appropriate scales (occupying at least ½ grid)
+
+    •
+
+    plots all correct to ½ small square, precise plots
+
+    •
+
+    well judged line and thin line
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'intercept read correctly from graph
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'G recorded and triangle method shown on graph
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'hO present and
+
+    f in range 13.5 to 16.5 (cm)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any appropriate difficulty:
+
+    e.g. hand/ruler in way of image / person creating a shadow
+
+    and matching improvement:
+
+    e.g. use translucent screen and view from behind /
+
+    fix ruler or grid to screen / mark image on screen before measuring / take a photo
+    with ruler in view
+
+    1
+
+    0625/63
+
+    October/November 2025
+
+    4
+
+    MP1 apparatus:
+
+    ruler and balance / measuring cylinder
+
+    MP2 method:
+
+    measure mass / volume of water
+
+    switch on lamp
+
+    measure new mass / volume of water
+
+    MP3 repeat for dish with new diameter
+
+    MP4 control variable (one from):
+
+    initial mass / volume of water,
+
+    time lamp turned on,
+
+    height / angle/distance of lamp,
+
+    power of lamp,
+
+    initial temperature of water
+
+    MP5 table:
+
+    columns for diameter and final mass / volume of water with units
+
+    MP6 analysis:
+
+    compare readings in a table to see if a change in diameter produces a change in
+    mass / volume of water evaporated /
+
+    plot line graph (with axes specified)
+
+    MP7 additional point (one from):
+
+    at least 5 sets of data taken,
+
+    repeat each measurement and take average,
+
+    2nd control variable stated,
+
+    7'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,318 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'states 19 cm3 as the volume of distilled water, W to use ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    shows transfer of 10cm3 to each beaker from the previous beaker ;
+
+    2
+
+    shows 10 cm3 of W added to each beaker ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'states the volume of Benedict’s to add as 2 cm3 or a volume
+    greater than 2 cm3 and explains that this is because equal or
+
+    excess volume of Benedict’s solution is needed ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'results show the correct trend for times of known concentrations,
+    the higher the percentage concentration of glucose the
+
+    shorter the time to first colour change ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1av
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    (heading for independent variable)
+
+    sample time and minutes and to the left of the dependent variable ;
+
+    2
+
+    (heading for dependent variable)
+
+    time to first appearance of a colour change and s and no units in the body of
+    the table ;
+
+    3
+
+    results for each sampling time ;
+
+    4
+
+    results recorded to nearest whole second ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1avi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'states source of error as the time to first colour change is
+    subjective ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1avii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'results used correctly to estimate the concentration of glucose
+    in the samples taken at 5, 10 and 15 minutes ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aviii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(concentration higher at 15 minutes) glucose had more time
+    to diffuse out of the dialysis tubing into the water ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    x-axis: time sample was taken from the blood / min
+
+    and
+
+    y-axis: concentration in the blood / arbitrary units ;
+
+    2
+
+    scale on x-axis: 5 to 2 cm, labelled at least every 2 cm
+
+    and
+
+    y-axis: 50 to 2 cm, labelled at least every 2 cm ;
+
+    3
+
+    correct plotting of points using small dots in circles or crosses ;
+
+    4
+
+    plots joined with thin line passing through all points ;
+
+    4
+
+    9700/33
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    shows (280 – 75) / 280  100 ;
+
+    2
+
+    correct answer to 2 significant figures ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    (0 to 10 minutes) reference to a steep concentration gradient (between the blood
+    and dialysate) ;
+
+    2
+
+    (10 to 20 minutes) reference to a less steep concentration gradient (between the
+    blood and dialysate) ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    uses most of the available space and the correct number of tissues ;
+
+    2
+
+    draws half the root and no cells ;
+
+    3
+
+    draws the outer region of the vascular tissue as 2 lines drawn close together
+    ;
+
+    4
+
+    draws the correct proportion of the vascular tissue ;
+
+    5
+
+    label line to the tissue involved in transport of substances throughout the plant
+    and the label T ;
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    lines continuous, thin and sharp and no shading ;
+
+    2
+
+    draws only four cells and each cell touching at least one of the other cells ;
+
+    3
+
+    cell wall drawn as two lines ;
+
+    4
+
+    correct shapes of the cells ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    states only observable differences ;
+
+    (differences) 2, 3 and 4 ;
+
+    Any three from :
+
+    feature
+
+    Fig. 2.2
+
+    K1
+
+    area of vascular tissue
+
+    larger
+
+    smaller ;
+
+    presence of trichomes
+
+    absent
+
+    present ;
+
+    number of xylem vessels
+
+    more
+
+    less ;
+
+    presence of endodermis
+
+    absent
+
+    present ;
+
+    4
+
+    9700/33
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    records a value for the length of the line A – B ;
+
+    2
+
+    shows the length of line A – B divided by 35 to calculate actual length of line
+    A – B ;
+
+    3
+
+    shows ½ actual length of line A – B squared and multiplied by 𝜋 ;
+
+    4
+
+    correct answer ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    take sections of the root from plants at different ages ;
+
+    2
+
+    keep the species of the plants the same ;
+
+    3
+
+    keep the variables for growing the plants the same ;
+
+    3'
+  mark_scheme: []
+  graphics: []

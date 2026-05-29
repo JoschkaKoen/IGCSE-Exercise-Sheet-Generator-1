@@ -1,0 +1,349 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'thermometer ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'table drawn with a minimum of two columns and a header
+
+    line ;
+
+    appropriate column / row headings ;
+
+    three colours recorded correctly for tubes A, B and W ;
+
+    3 e.g.
+
+    test-tube
+
+    colour (of liquid)
+
+    A
+
+    B
+
+    W
+
+    brick-red
+
+    green
+
+    blue'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'the greater the (invertase/enzyme) concentration the greater
+
+    the concentration of, reducing sugars / glucose, produced ;
+
+    ora
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'as a control ;
+
+    idea that, water does not break down sucrose / sucrose
+
+    does not break down on its own ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'concentration of invertase/enzyme (extract) ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    to make sure test-tubes are at the same temperature ;
+
+    to give a sufficient / high rate of reaction / AW ;
+
+    so that the test-tubes are at the same temperature as the
+
+    water-bath ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1g
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to prevent contamination / AW ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1h
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'biuret ;
+
+    1
+
+    0610/63
+
+    October/November 2025
+
+    Guidance'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    volume of yeast ;
+
+    time for equilibration / AW ;
+
+    same time for, counting bubbles / respiration ;
+
+    same type of yeast ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'error:
+
+    bubbles may be different sizes / too fast to count / AW ;
+
+    improvement:
+
+    measure the volume ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '26 ;;
+
+    2 MP1 correct division by 3 = 26.33333
+
+    MP2 correct rounding to two significant figures to match
+
+    table values'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'axes labelled ;
+
+    suitable linear scale and plotted area occupies at least half
+
+    the grid in both directions ;
+
+    plots accurate to ± half small square ;
+
+    smooth line / curve of best fit or points joined with straight
+
+    lines ;
+
+    4 (water) temperature / °C and  rate (of bubble production) /
+
+    bubbles per minute'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'as temperature increases, the number of bubbles / rate of
+
+    bubble production, increases and then decreases ;
+
+    reference to, peak / AW, at 50°C ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'use limewater ;
+
+    turns cloudy / milky / forms a white precipitate ;
+
+    OR
+
+    hydrogencarbonate indicator ;
+
+    turns yellow ;
+
+    2
+
+    0610/63
+
+    October/November 2025
+
+    Guidance'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'outline clear and continuous, no shading ;
+
+    size greater than half of space provided ;
+
+    detail 1: tear-shaped white patch on the left with a border
+
+    and tear-shaped white patch below the beak ;
+
+    detail 2: two or more lines on the beak ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '46±1 (mm) ;
+
+    109.5 (mm) ;;
+
+    3 MP1 correct measurement of line AB
+
+    MP2 correct calculation to any number of decimal places
+
+    i.e. 46 ÷ 0.42 = 109.5238
+
+    MP3 correct rounding to one decimal place
+
+    ecf from previous MP'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    Gentoo has:
+
+    less white area / white patch around eye is triangular-
+
+    shaped vs semicircular-shaped ;
+
+    rounder / bigger / wider eye ;
+
+    slimmer / narrower / thinner / sharper, beak ;
+
+    larger pale area on beak / no stripe vs black-footed has a
+
+    stripe ;
+
+    smoother beak ;
+
+    2
+
+    0610/63
+
+    October/November 2025
+
+    Guidance'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 independent variable
+
+    at least two different thicknesses of insulation (used as an
+
+    insulator) ;
+
+    2 dependent variable
+
+    change in temperature / time taken for a stated fall in
+
+    temperature ;
+
+    3 and 4 method ;;
+
+    •
+
+    method of insulating beaker with named material
+
+    •
+
+    measure the starting temperature and final temperature
+
+    5, 6 and 7 variables kept constant ;;;
+
+    •
+
+    volume of water
+
+    •
+
+    size
+
+    •
+
+    type of beaker
+
+    •
+
+    time left to cool / stated fall in temperature
+
+    •
+
+    starting temperature
+
+    •
+
+    type of insulator
+
+    •
+
+    same surroundings / environmental temperature
+
+    8 repeat investigation twice more / at least two replicates ;
+
+    9 relevant safety precaution ;
+
+    6'
+  mark_scheme: []
+  graphics: []

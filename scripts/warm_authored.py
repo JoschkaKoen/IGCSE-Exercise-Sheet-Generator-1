@@ -64,9 +64,15 @@ def _year(name: str) -> int:
     return int(g) if len(g) == 4 else 2000 + int(g)
 
 
-def select_papers(subject: str, want: int = 5) -> list[Path]:
-    """Most-recent-first, type-diverse (round-robin by paper family)."""
+def select_papers(subject: str, want: int = 5, skip_warmed: bool = False) -> list[Path]:
+    """Most-recent-first, type-diverse (round-robin by paper family).
+
+    ``skip_warmed`` excludes papers already in the bank, so repeated runs warm the
+    next-newest set rather than re-selecting the same papers."""
     papers = [p for p in list_practice_papers(subject) if pair_mark_scheme(p)]
+    if skip_warmed:
+        papers = [p for p in papers
+                  if not (bank_dir_for(subject, p) / "exam_questions.yaml").exists()]
     allowed = _SCIENCE_FAMILIES.get(subject)
     if allowed:
         papers = [p for p in papers if _family(p.name) in allowed]
@@ -132,6 +138,8 @@ def main() -> int:
     ap.add_argument("--subject", required=True)
     ap.add_argument("--want", type=int, default=5)
     ap.add_argument("--variants", nargs="*", help="force specific QP variants instead of auto-select")
+    ap.add_argument("--skip-warmed", action="store_true",
+                    help="exclude already-warmed papers (warm the next-newest set)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -139,7 +147,7 @@ def main() -> int:
         papers = [p for p in list_practice_papers(args.subject)
                   if _variant(p.name) in args.variants and pair_mark_scheme(p)]
     else:
-        papers = select_papers(args.subject, args.want)
+        papers = select_papers(args.subject, args.want, skip_warmed=args.skip_warmed)
     if not papers:
         print(f"no papers selected for {args.subject}", file=sys.stderr)
         return 1
@@ -151,7 +159,16 @@ def main() -> int:
         if args.dry_run:
             print(f"   P{_variant(qp.name)}  {'MCQ' if is_mcq(qp) else 'struct':6}  {qp.name}")
             continue
-        info = warm_one(args.subject, qp, ms)
+        try:
+            info = warm_one(args.subject, qp, ms)
+        except SystemExit as e:  # e.g. pure-essay paper with no per-part MS table
+            print(f"   P{_variant(qp.name):3} SKIPPED: {e}")
+            bad += 1
+            continue
+        except Exception as e:  # noqa: BLE001
+            print(f"   P{_variant(qp.name):3} ERROR: {type(e).__name__}: {str(e)[:70]}")
+            bad += 1
+            continue
         flag = ""
         if info["mism"] or info["missing"] or info["snippets"] < info["n"]:
             flag = f"  <-- mism={info['mism']} missing={len(info['missing'])} snip={info['snippets']}/{info['n']}"

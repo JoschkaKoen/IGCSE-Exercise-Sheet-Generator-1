@@ -1,0 +1,513 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'I
+
+    Five experiments completed
+
+    AND
+
+    Table to show Volume of FA 1, Volume of water, Time and Rate
+
+    1
+
+    II  Correct units for all data
+
+    Volume: / cm3 OR (cm3) OR in cm3 OR cm3 by each volume
+
+    Time: / s OR (s) OR in s OR s by each time
+
+    Rate: / s–1 OR (s–1) OR in s–1 OR s–1 by each rate
+
+    1
+
+    III  All times recorded to nearest second
+
+    AND
+
+    Volumes of FA 1 and water both given 2 d.p. ending with 0 or 5
+
+    1
+
+    IV  Three additional experiments with volume FA 1 ⩾ 15.00 cm3, < 40.00 cm3 and
+    no volume closer than 5.00 cm3 to
+
+    another volume.
+
+    AND
+
+    Volumes of water chosen so that total volume = 40.00 cm3 for additional experiments.
+
+    1
+
+    V  Correctly calculates rate for all experiments and shown to 2 – 4 s.f.
+
+    1
+
+    VI  Award if all times recorded increase with decreasing volume of FA 1.
+
+    1
+
+    Examiner corrects time for VFA1 = 40.00 cm3 and VFA1 = 20.00 cm3 to the nearest
+    s then calculates 20
+
+    40
+
+    /
+
+    t
+
+    t
+
+    to 2 d.p.
+
+    VII  Award if candidate’s ratio is within the range 1.80 to 2.30.
+
+    1
+
+    VIII  Award if candidate’s ratio is within the range 1.90 to 2.20.
+
+    1
+
+    9701/33
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'l
+
+    Unambiguous labelled axes with rate on the y-axis and volume of FA 1 on the x-axis
+    OR correct units
+
+    AND
+
+    suitable linear scales starting at (0,0).
+
+    1
+
+    II  Points plotted correctly.
+
+    1
+
+    III  Line of best fit drawn, straight line or smooth curve, that ignores anomalous
+    results identified by the candidate.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Correct line(s) drawn
+
+    AND
+
+    Rate correctly read within half a small square.
+
+    M2 1000 / rate
+
+    AND
+
+    correctly calculates answer to 2 – 4 s.f.
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Correct line of best fit
+
+    M2 (Rate and volume of FA 1 are) not directly proportional as the (straight) line / data / results
+    does not / do not pass
+
+    through the origin / (0,0)
+
+    OR
+
+    M1 unavailable for line of best fit through the origin.
+
+    M2 (Rate and volume of FA 1 are) directly proportional as the (straight) line / data / results
+    pass through the origin / (0,0)
+
+    2
+
+    9701/33
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'I
+
+    6 correct unambiguous headings shown, with units, in list / table
+
+    •
+
+    (mass of) container + FA 3 / solid / Na2S2O3•5H2O
+
+    •
+
+    (mass of) container (empty OR with residual FA 3)
+
+    •
+
+    (mass of) FA 3 / solid / Na2S2O3•5H2O OR mass used OR mass added
+
+    •
+
+    initial temperature / thermometer reading
+
+    •
+
+    lowest / minimum / final temperature / thermometer reading
+
+    •
+
+    temperature change / decrease
+
+    Mass units: /g OR in g OR (g) OR g by every reading
+
+    Temperature units: / °C OR in °C OR (°C) OR °C by every reading
+
+    1
+
+    II  All readings shown to appropriate precision
+
+    •
+
+    all four balance / thermometer readings shown
+
+    •
+
+    both thermometer readings to .0 OR .5
+
+    •
+
+    both weighings consistently to either 2 d.p. OR to 3 d.p.
+
+    1
+
+    III  Subtractions correctly calculated
+
+    •
+
+    mass of solid correct AND temperature change correct
+
+    1
+
+    IV  T is within 1.0 ºC of expected temperature change for the mass used
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correctly calculates
+
+    amount of FA 3 = mass FA 3 in 2(a) / 248.2 mol
+
+    AND
+
+    answer given to 2–4 s.f.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correctly calculates
+
+    energy change = 30  4.18  T  J
+
+    AND
+
+    answer given to 2 – 4 sf
+
+    1
+
+    9701/33
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correctly uses
+
+    (b)(ii) / (b)(i)  1000
+
+    AND
+
+    plus sign shown
+
+    AND
+
+    answer given to 2 – 4 sf
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 repeating experiment with Na2S2O3 OR adding Na2S2O3 in water
+
+    M2 any two from:
+
+    •
+
+    known volume of water
+
+    •
+
+    known mass of solid
+
+    •
+
+    measuring the temperature change.
+
+    M3 indicating that use of Hess’s law is needed
+
+    M4 Hr = H from their additional experiment – (b)(iii)
+
+    4
+
+    9701/33
+
+    October/November 2025
+
+    FA 4 is acidified Fe2(SO4)3(aq); FA 5 is Al 2(SO4)3(aq); FA 6 is HCOOH(aq); FA
+    7 is CH3CH(OH)CH3(l)'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2 * = 1 mark (round down). Max 5 marks.
+
+    test
+
+    observations
+
+    FA 4
+
+    FA 5
+
+    1
+
+    + NaOH(aq)
+
+    red-brown / brown ppt
+
+    AND
+
+    insoluble in excess *
+
+    white ppt *
+
+    soluble in excess *
+
+    2
+
+    + NH3(aq)
+
+    red-brown / brown ppt
+
+    AND
+
+    insoluble in excess *
+
+    white ppt
+
+    AND
+
+    insoluble in excess *
+
+    3
+
+    + Na2CO3(aq)
+
+    fizzing *
+
+    gas gives white ppt with
+
+    limewater *
+
+    red-brown ppt *
+
+    white ppt *
+
+    fizzing *
+
+    gas gives white ppt with
+
+    limewater (award if not awarded
+
+    for FA 4)
+
+    4
+
+    + BaCl 2(aq) /
+
+    Ba(NO3)2(aq)
+
+    white ppt
+
+    AND
+
+    white ppt *
+
+    5
+
+    + H+ / KMnO4(aq)
+
+    stays purple / no change    AND stays purple / no change *
+
+    5
+
+    9701/33
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ions
+
+    FA 4
+
+    FA 5
+
+    cations
+
+    Fe3+; H+
+
+    Al 3+
+
+    anions
+
+    SO42−
+
+    SO42−
+
+    5 ions correct = 3 marks
+
+    3 or 4 ions correct = 2 marks
+
+    2 ions correct = 1 mark
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2 * = 1 mark (round down)
+
+    test
+
+    observations
+
+    FA 6
+
+    FA 7
+
+    1
+
+    + H+ / KMnO4(aq)
+
+    (turns paler pink)
+
+    (purple fades slightly)
+
+    and warm
+
+    decolourises / turns colourless /
+
+    turns (pale) yellow *
+
+    decolourises / turns colourless /
+
+    turns (pale) yellow *
+
+    2
+
+    + I2(aq) + NaOH
+
+    (and warm)
+
+    no change *
+
+    ppt * that is (pale) yellow *
+
+    3
+
+    + Na2CO3(aq)
+
+    fizzing *
+
+    no change *
+
+    3
+
+    9701/33
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (FA 6 is) methanoic acid because it produces CO2 / reacts
+    with sodium carbonate
+
+    AND it can be oxidised / it reacts with KMnO4
+
+    M2 (FA 7 is) propan-2-ol as it gives a ppt in test 2
+
+    OR gives a positive tri-iodomethane/iodoform test
+
+    OR has the −CH(OH)CH3 group
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct equation
+
+    CH3CH2COOH + CH3CH2OH → CH3CH2COOCH2CH3 + H2O
+
+    OR
+
+    C2H5COOH + C2H5OH → C2H5COOC2H5 + H2O
+
+    1'
+  mark_scheme: []
+  graphics: []

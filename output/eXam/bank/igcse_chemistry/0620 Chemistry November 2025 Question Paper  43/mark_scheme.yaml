@@ -1,0 +1,590 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'neutron
+
+    0
+
+    1
+
+    proton
+
+    +1
+
+    1
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 18
+
+    M2 10
+
+    M3 17 above 8 to the left of the symbol
+
+    M4 O
+
+    M5 2- / -2 /  –  –
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '12C / carbon-12
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '85 (%)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'B
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'F
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'D
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 A
+
+    M2 high melting point AND/OR high boiling point
+
+    M3 poor conductor of electricity when solid AND molten
+
+    3
+
+    0620/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 C
+
+    M2 only conducts electricity when molten
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'aluminium oxide
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cryolite
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'carbon
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Al 3+  +  3e–  →  Al
+
+    M1 only Al 3+  +  3e– on the left
+
+    M2 equation completely correct
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'unreactive coating of aluminium oxide
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2Al  +  3Zn2+  →  2Al 3+  +  3Zn
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Zn2+ = +2
+
+    M2 Zn = 0 / zero
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3biv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'decrease in oxidation number
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'enthalpy change (of reaction)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(forward) reaction is exothermic
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'oxides that react with acids AND with bases to produce a salt
+    and water
+
+    1
+
+    0620/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2NaOH  +  Ga2O3  →  2NaGaO2  +  H2O
+
+    M1 NaGaO2 on the right-hand side of an equation
+
+    M2 equation fully correct
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 GaBr3
+
+    M2 Ga2(SO4)3
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    rates are equal
+
+    •
+
+    concentrations are no longer changing
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 decreases
+
+    M2 decreases
+
+    M3 no change
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'forward reaction is exothermic
+
+    1
+
+    0620/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'USUAL METHOD
+
+    M1 2490
+
+    M2 2670
+
+    M3 -180
+
+    ALTERNATIVE METHOD
+
+    M1 850
+
+    M2 1030
+
+    M3 -180
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 3 dot and cross bonding pairs
+
+    M2 one lone pair on the N atom (to complete the N octet)
+
+    M3 three lone pairs on each Cl atom (to complete each Cl octet)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 solid disappears
+
+    M2 effervescence/bubbling/fizzing
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 0.005 ÷ 5  10-3 (mol)
+
+    M2 0.0025 ÷ 2.5  10-3 (mol)
+
+    M3 60 (cm3)
+
+    3
+
+    0620/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Pb2+(aq)  +   SO42– (aq)  →  PbSO4(s)
+
+    M1 PbSO4 as the ONLY formula on the right
+
+    M2 ONLY Pb2+ and SO42– on the left
+
+    M3 state symbols
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'lead(II) nitrate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'sodium sulfate / potassium sulfate / ammonium sulfate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'residue
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5av
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 wash with distilled water
+
+    M2 suitable method of drying
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    •
+
+    good conductor of electricity
+
+    •
+
+    soluble salts
+
+    •
+
+    basic oxides
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    •
+
+    variable oxidation states
+
+    •
+
+    coloured compounds
+
+    •
+
+    catalyst
+
+    2
+
+    0620/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 C 50(.00) ÷ 12
+
+    H 5.56 ÷ 1
+
+    O 44.44 ÷ 16
+
+    OR
+
+    4.17:5.56:2.78
+
+    M2 fractions shown dividing all by smallest
+
+    OR
+
+    1.5:2:1
+
+    OR
+
+    3:4:2
+
+    M3 C3H4O2
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C4H4O4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'water
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'acid
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6ciii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 propanoic acid
+
+    M2 butan-1-ol
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'addition
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'polymers are of indefinite length
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6diii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3 / three
+
+    1
+
+    0620/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6div
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 C = C
+
+    M2 displayed formula of but-2-ene
+
+    OR
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 –NH2 displayed
+
+    M2 –COOH displayed
+
+    functional groups can be on either side
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'one circle around either amide linkage
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6eiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'proteins
+
+    1'
+  mark_scheme: []
+  graphics: []

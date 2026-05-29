@@ -1,0 +1,616 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: What happens to the volume of a fixed mass of gas when pressure and temperature
+    are separately increased? volume of gas pressure increased temperature increased
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: Which gas diffuses most quickly at room temperature and pressure?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement defines nucleon number?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: The symbols of four atoms are listed.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes all positive ions?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: A sample of copper has a relative atomic mass of 63.5. What are the relative
+    abundances of the isotopes in this sample of copper?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which diagram shows the outer shell electron arrangement for a molecule of
+    methanol, CH3OH?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Rescuers are drilling through fallen rock in order to rescue some people trapped
+    in a cave. The drill needs lubricating from time to time. Four statements are
+    made about the materials used for the drill tip and the lubricant to explain the
+    reasons for their use. Diamond is used for the drill tip as it does not conduct
+    electricity. Diamond is used for the drill tip as it is very hard. Graphite is
+    used as the lubricant as it conducts electricity. Graphite is used as the lubricant
+    as it is soft and slippery. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Which compound has an empirical formula that is the same as its molecular
+    formula?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row identifies the charge on the chromium ion and on the sulfate ion
+    in Cr2(SO4)3? Cr SO4
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes a saturated solution?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: Calcium carbonate decomposes when heated strongly. CaCO3(s)    CaO(s)  +  CO2(g)
+    How many gaseous molecules are produced when 10.0 g of calcium carbonate is completely
+    decomposed?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Which product is initially obtained at each electrode during the electrolysis
+    of concentrated aqueous sodium chloride? cathode anode
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Molten lead(II) bromide is electrolysed using inert electrodes. + – X Y power
+    supply Which statement describes the movement of electrons?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: In a fuel cell, a fuel is oxidised to produce electricity. Which row describes
+    the fuel and the oxidising agent used? fuel oxidising agent
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about reactions is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Ethene reacts with hydrogen to form ethane.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Zinc reacts with dilute hydrochloric acid. Which statement about the particles
+    in the reaction is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: Ethanol is manufactured by the addition of steam to ethene. C2H4(g)  +  H2O(g)
+    C2H5OH(g) The reaction conditions are 300 °C and 60 atm. The forward reaction
+    is exothermic. Which rows describe the effect on the equilibrium yield of C2H5OH
+    when the stated change is made? change equilibrium yield of C2H5OH adding a catalyst
+    no change decreasing the temperature increases decreasing the pressure increases
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row identifies the conditions used to make sulfur trioxide in the Contact
+    process? pressure / kPa catalyst
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes a base?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation shows the reaction between copper and concentrated nitric acid.
+    Cu(s)  +  4HNO3(aq)    Cu(NO3)2(aq)  +  2NO2(g)  +  2H2O(l) Which element is
+    reduced in this reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: The Periodic Table shows the position of four different elements.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Dilute acid R and dilute acid S have the same concentration. The same volume
+    of each dilute acid is reacted separately with the same mass of magnesium ribbon.
+    Both reactions are carried out at room temperature and pressure. The volume of
+    hydrogen produced is measured. A graph of the results is shown. total volume of
+    hydrogen time R S Which statement about the reactions is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Which metal oxide reacts with aqueous sodium hydroxide to form a salt and
+    water?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row identifies a transition element? melting point density at r.t.p.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about Group I or Group VII elements is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Some information about four metals P, Q, R and S is listed. Metal P does not
+    react with dilute hydrochloric acid. Metal Q is more reactive than magnesium.
+    Metal R reacts rapidly with cold water to produce hydrogen. Metal S reacts with
+    dilute hydrochloric acid to produce hydrogen. Which row identifies P, Q, R and
+    S? P Q R S
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Cars are fitted with catalytic converters. Which equation represents a reaction
+    that takes place in a catalytic converter?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Three statements about greenhouse gases and global warming are listed. A greenhouse
+    gas molecule can absorb and emit thermal energy. The Earth is a source of thermal
+    energy. Thermal energy emitted by a greenhouse gas molecule is sent out in all
+    directions. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Which type of reaction takes place when methane reacts with chlorine in the
+    presence of ultraviolet light?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Iron is extracted from iron(III) oxide in the blast furnace. Three steps in
+    the process are listed. Carbon (coke) is completely oxidised. Iron(III) oxide
+    is reduced. Carbon dioxide is reduced to carbon monoxide. What is the correct
+    order of the steps in the extraction of iron?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Three different reactions that occur during the extraction of aluminium from
+    purified bauxite are listed. Al 3+  +  3e–    Al C  +  O2    CO2 2O2–    O2  +  4e–
+    Which reactions occur at the anode?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about aqueous ethanoic acid is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: 'The diagrams represent four monomers. H2N NH2 HOOC NH2 HO NH2 HO OH The monomers
+    each react in a 1 : 1 ratio with the dicarboxylic acid shown. HOOC COOH How many
+    of the four monomers shown can react with the dicarboxylic acid to form a polymer?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Propene undergoes addition reactions with bromine, hydrogen and steam. Which
+    structures represent a product of these reactions? H
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The structures of four compounds are shown.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about ethanoic acid is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Substance X contains one cation. Two tests are completed on aqueous X. test
+    1 flame test test 2 addition of aqueous sodium hydroxide dropwise and then in
+    excess Which row shows a possible combination of observations for the tests? observation
+    for test 1 observation for test 2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: A colourless mixture is separated by paper chromatography. The steps below
+    describe the method. These steps are not in the correct order. Remove the chromatography
+    paper from the solvent when the solvent front is near the top of the paper. Place
+    the chromatography paper in the solvent. Spray the chromatography paper with a
+    locating agent. Place a spot of the mixture on the pencil line. Draw a pencil
+    line at the bottom of the chromatography paper. Draw a pencil line to mark the
+    position of the solvent front. What is the correct order for these steps?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

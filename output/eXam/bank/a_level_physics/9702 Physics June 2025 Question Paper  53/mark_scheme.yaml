@@ -1,0 +1,319 @@
+questions:
+- number: 2a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'gradient = R
+
+    E
+
+    y-intercept = Z
+
+    E'
+  mark_scheme: []
+  graphics: []
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    I  / 103 A–1
+
+    2.20 or 2.198
+
+    1.90 or 1.905
+
+    1.72 or 1.724
+
+    1.57 or 1.575
+
+    1.46 or 1.460
+
+    1.31 or 1.307
+
+    Values of 1
+
+    I  / 103 A–1 correct as shown above.
+
+    1
+
+    9702/53
+
+    May/June 2025
+
+    Uncertainties in 1
+
+    I  / 103 A–1 from  0.02 or  0.03 decreasing to  0.01.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Six points from (b) plotted correctly.
+
+    Must be within half a small square. Diameter of points must be less than half
+    a small square.
+
+    1
+
+    Error bars in 1
+
+    I  plotted correctly.
+
+    All error bars to be plotted. Total length of bar must be accurate to less than
+    half a small square and symmetrical.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Straight line of best fit drawn.
+
+    Thickness of the line must be less than half a small square.
+
+    Do not accept line from top point to bottom point.
+
+    Line must pass between (0.101, 1.40) and (0.104, 1.40) and between (0.189, 2.10)
+    and (0.194, 2.10)
+
+    1
+
+    Worst acceptable straight line drawn (steepest or shallowest possible line that
+    passes through all the error bars).
+
+    Thickness of the line must be less than half a small square.
+
+    All error bars must be plotted.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Gradient determined with clear substitution of data points
+    into y / x.
+
+    Distance between data points must be greater than half the length of the drawn
+    line.
+
+    1
+
+    Gradient determined of worst acceptable line with clear substitution of data points
+    into y / x.
+
+    uncertainty = (gradient of line of best fit – gradient of worst acceptable line)
+
+    or
+
+    uncertainty = ½ (steepest worst line gradient – shallowest worst line gradient)
+
+    1
+
+    9702/53
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2civ
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'y-intercept determined by substitution of correct point with
+    consistent power of ten in m and y into y = mx + c.
+
+    1
+
+    y-intercept of worst acceptable line determined by substitution into y = mx +
+    c.
+
+    uncertainty = y-intercept of line of best fit – y-intercept of worst acceptable
+    line
+
+    or
+
+    uncertainty = ½ (steepest worst line y-intercept – shallowest worst line y-intercept)
+
+    Do not accept ECF from false origin method.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'R determined using gradient and R and Z given to 2 or 3 significant
+    figures.
+
+    R = gradient  5.8
+
+    1
+
+    Z determined using y-intercept and R and Z given with units with appropriate powers
+    of ten.
+
+    Z = y-intercept  5.8
+
+    unit of R:  or V A–1
+
+    unit of Z:  or V A–1
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Percentage uncertainty determined using E = 0.2 (V) with method
+    shown.
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    =
+
+    +
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    gradient
+
+    %
+
+    100
+
+    gradient
+
+    E
+
+    R
+
+    E
+
+    or
+
+    
+
+    
+
+    
+
+    
+
+    =
+
+    +
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    0.2
+
+    gradient
+
+    %
+
+    100
+
+    5.8
+
+    gradient
+
+    R
+
+    1
+
+    9702/53
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'I determined to a minimum of 2 significant figures from (c)(iii)
+    and (c)(iv) or (d)(i) with correct substitution.
+
+    =
+
+    1
+
+    gradient + -intercept
+
+    20
+
+    y
+
+    I
+
+    or
+
+    =
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    +
+
+    20
+
+    E
+
+    R
+
+    Z
+
+    I
+
+    1'
+  mark_scheme: []
+  graphics: []

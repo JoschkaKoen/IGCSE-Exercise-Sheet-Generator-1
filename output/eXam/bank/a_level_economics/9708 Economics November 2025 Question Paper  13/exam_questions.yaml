@@ -1,0 +1,432 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: ‘The economies of the poorest nations have large international debts; the
+    richest nations should cancel the debts of these nations and reduce poverty.’
+    What is the nature of each statement? richest nations should cancel these debts
+    to reduce poverty poorest nations have large international debts normative normative
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: A process is split into a series of individual tasks.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: the faster growth of services than of manufacturing
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: A minimum price guarantee for apple producers is removed.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: O good Y good X PPC1 PPC0 PPC3 PPC2 What is the effect on the PPC following
+    the emigration of a large number of workers? the PPC remains at PPC0
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: complementary good
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: price of good X quantity demanded O D2 D1 D3 What would cause a movement along
+    D1 for good X and not a shift to either D2 or D3? advertising of good X increases
+    sales
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: O P1 Q1 price quantity
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: a normal good that is a complement to good Y
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: PES for furniture firm 2.5
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: O price quantity
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: maximum price for good X ($)
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: consumer expenditures
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: spending on new road building
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: ''
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: reason for intervention good X to decrease consumption demerit good
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: $ billion 300 GDP at basic prices Indirect taxes Subsidies What is GDP at
+    market prices? $324bn
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: rate of change in general price level (% per year) rate of change in nominal
+    GDP (% per year) −2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: The initial rise in injections is greater than the initial rise in leakages.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: imports become more competitive
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: cyclical
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: –1 –2 –3 2020 2025 2024 2023 2022 2021 year price change % from the start
+    of 2020 to the end of 2025
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: supply side policy monetary policy fiscal policy key ✓ ✓ ✓
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: LRAS P O Y YFE real output AD price level Which fiscal policy change is most
+    likely to achieve this aim? decreasing the rate of income tax
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: It is both a contractionary fiscal policy and a supply-side policy.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: a reduction in income tax rates
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: dividends received by a Pakistani resident from shares in a domestic firm
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: One country can produce a product at a lower opportunity cost than another
+    country.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: the production possibility curve
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: current account terms of trade increases increases
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

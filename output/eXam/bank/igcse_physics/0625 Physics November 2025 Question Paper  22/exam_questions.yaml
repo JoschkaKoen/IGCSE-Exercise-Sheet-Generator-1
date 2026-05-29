@@ -1,0 +1,640 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: Which quantities are both vectors?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: How is the deceleration of an object calculated from a speed–time graph?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: A space probe that has a mass of 600 kg is on the planet Mars. The acceleration
+    of free fall on Mars is 4.0 m / s2. What is the weight of the space probe on Mars?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Students are asked to predict the order in which three liquids, P, Q and R,
+    will float on each other. They are told that the liquids will not mix. The diagrams
+    show how the density of liquid P is determined. 45.00 g 69.00 g measuring cylinder
+    liquid P electric balance 20 cm3 The table shows the densities of Q and R. liquid
+    cm / g density Q 0.75 R 1.1 The liquids are poured gently into a tall beaker and
+    allowed to settle. Which diagram shows the liquids settled in the correct order?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: A force F is applied to a spanner, as shown. F nut spanner handle Which action
+    increases the moment of F about the centre of the nut?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Diagram 1 shows a ball X of mass 0.15 kg travelling horizontally with a velocity
+    of 2.1 m / s towards ball Y travelling at 0.4 m / s in the opposite direction.
+    Diagram 2 shows the velocities of the balls immediately after they collide. 2.1
+    m / s 0.4 m / s X diagram 1 Y 1.4 m / s 1.1 m / s X diagram 2 Y What is the mass
+    of ball Y?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: A mass is suspended from a vertical spring. The mass is pulled downwards causing
+    the spring to extend further. The mass is held in this position and then released.
+    Which energy changes occur during the initial movement of the mass when the mass
+    is released? gravitational potential energy store kinetic energy store elastic
+    potential energy store
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Which energy resource stores kinetic energy?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Two beakers are filled to the same depth, one with water and one with oil.
+    The density of water is 1000 kg / m3. The density of oil is 920 kg / m3. In which
+    position is the pressure the greatest?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: The pressure of the air in a car tyre rises after a long journey. This is
+    caused by a change in the average speed of the air particles and a change in the
+    temperature of the air in the tyre. Which row describes the changes that have
+    caused the air pressure in the tyre to rise? average speed of the air particles
+    temperature of the air
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: In which range of temperatures is water a liquid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram represents the particle arrangements in samples of three different
+    substances, P, Q and R. substance Q substance R substance P The samples have equal
+    volumes and the same temperature. The samples are heated. The temperature increase
+    of each sample is the same and no changes of state take place. Which row shows
+    possible percentage increases in volume for the three samples? sample of substance
+    P / % sample of substance Q / % sample of substance R / %
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: A cup contains 0.25 kg of water at 60 °C. Some time later, the water has cooled
+    to 20 °C. How much energy has been transferred from the water to the surroundings?
+    (The specific heat capacity of water is 4200 J / (kg °C).)
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: A pure substance is heated slowly. The temperature of the substance is measured
+    as it starts to melt and when it finishes melting. Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: A lamp has a metal filament that glows when heated by an electric current.
+    The middle of the filament has a very high temperature. The ends of the filament
+    are connected to the base of the lamp and are cooler. Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: A liquid passes through pipes inside a refrigerator. The liquid warms as the
+    inside of the refrigerator cools. The warm liquid is then passed through pipes
+    on the outside of the refrigerator to cool it before it goes back through the
+    refrigerator. The diagrams show two designs for the outside cooling pipes. One
+    design has copper rods, called fins, attached to the pipes. warm liquid cool liquid
+    outside pipes warm liquid cool liquid outside pipes fins The outside pipes and
+    fins can be painted silver or black. Which design of outside pipes will cool the
+    liquid most quickly?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: An earthquake-monitoring station records the arrival of 16 complete wavelengths
+    of an earthquake wave in a time of 20 s. The speed of the earthquake wave is 6.0
+    km / s. What is the wavelength of the earthquake wave?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: A water droplet is falling towards a horizontal plane mirror. At one moment,
+    the droplet is a distance of 1.5 m above the mirror and falling at a speed of
+    2.0 m / s. What is the distance between the droplet and its image and what is
+    the speed of the image at this moment? distance between water droplet and its
+    image / m s / m image of speed
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Total internal reflection may occur when light reaches an air–glass boundary.
+    Under which conditions is light totally internally reflected? medium in which
+    light travels towards the boundary angle of incidence
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: A long-sighted person cannot see objects clearly that are a short distance
+    away because the image is blurred. Where is the image formed relative to the retina
+    and which type of lens is used to correct long-sightedness? position of image
+    lens used for correction
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the speed of infrared radiation in glass with a refractive index of
+    1.5?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Sound travels through air as a series of compressions and rarefactions. Which
+    statement correctly compares a compression with a rarefaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about magnets are correct? Permanent magnets are made of
+    steel. Electromagnets are temporary magnets. A magnet can be used to induce magnetism
+    in an iron bar.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: In a circuit, two identical lamps are in parallel. The parallel pair of lamps
+    is in series with a resistor and a battery. The battery does 120 J of work moving
+    50 C of charge around the circuit in time t. In each lamp, 40 J of work is done
+    by the charge that passes through it in time t. The electromotive force (e.m.f.)
+    of the battery is E and the potential difference (p.d.) across one lamp is V.
+    Which statement about E and V is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Two wires, X and Y, are made from the same metal and have the same resistance.
+    Which row identifies a possible pair of values for X and for Y? length of X /
+    cm diameter of X / mm length of Y / cm diameter of Y / mm
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Which circuit contains a light-dependent resistor (LDR)?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: A teacher asks three students to write down an equation to determine the combined
+    resistance RC of resistors with resistances RY and RZ. RY RZ Which students are
+    correct? student 1
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: An electrical appliance has a symbol on it to indicate it is double-insulated.
+    Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: A length of wire moves across the space between the poles of a magnet. A voltmeter
+    measures the electromotive force (e.m.f.) generated between the two ends of the
+    wire. What gives the highest reading on the voltmeter? speed of wire strength
+    of magnet
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a simple a.c. generator. G H N S What is connected to G
+    and H so that alternating current can be provided to an external circuit?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show the coil in a d.c. electric motor in two positions. As the
+    coil rotates through 180°, the direction of the current in the coil reverses from
+    PQRS to SRQP. P Q S R S R P Q Which part of the motor is responsible for reversing
+    the current?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: The arrow shows the path of an -particle travelling towards the centre of
+    a gold nucleus. gold nucleus Which description of the path of the -particle after
+    striking the gold nucleus is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: "A teacher writes the nuclide equation for a fusion reaction. 2H  + 4Q  +\
+    \ 1n XH  \x01 What is the missing number X and the missing element Q? X Q"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Radon gas is a source of radiation that contributes to background radiation.
+    What does not contribute to background radiation?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Two beams of radiation, P and S, enter an electric field, as shown. + + +
+    + + + + + – – – – – – – – P S Which types of radiation are P and S? P S
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Which change takes place in the nucleus when it decays by beta () emission?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: A space probe measures the gravitational field strength at four different
+    distances from a planet. The point furthest from the planet is measured first
+    and the point nearest the planet is measured last. In which order were the measurements
+    taken?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: The galaxy Draco II is a distance of 6.6  1020 m from Earth. What is this
+    distance in light-years?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a possible result of a supernova explosion?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

@@ -1,0 +1,631 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the electrons in boxes notation for the Fe3+ ion?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: Which equation has an energy change that is equal to the first ionisation
+    energy of bromine?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: The reaction of hydrogen sulfide with sulfur dioxide gives sulfur as one of
+    the products. The two relevant redox equations are shown. H2S(aq) S(s)  +  2H+(aq)  +  2e–
+    SO2(aq)  +  4H+(aq)  +  4e– S(s)  +  2H2O(l) How many moles of hydrogen sulfide
+    are needed to react with sulfur dioxide to produce 1 mol of sulfur?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: The bonding between two atoms of nitrogen in an N2 molecule involves the hybridisation
+    of atomic orbitals to form sp orbitals. Which row is correct? formation of the
+     bond between the nitrogen atoms in N2 type of orbital which contains the lone
+    pair of electrons on each nitrogen atom in N2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Three bond angles are labelled on the molecule shown. H S
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: X and Y are different elements in Period 3. Atoms of X and Y each have only
+    one completely filled orbital in their highest occupied energy sub-shell. Y has
+    a greater first ionisation energy than X. Which row shows the structure and bonding
+    in X and Y? X Y
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: A pure sample of a gas has a density of 2.62 g dm–3 at 101 000 Pa and 25 °C.
+    The gas behaves ideally under these conditions. Which expression gives the Mr
+    of the gas?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: When 0.47 g of a hydrocarbon is completely burnt in air, the energy released
+    heats 200 g of water from 23.7 °C to 41.0 °C. What is the amount of energy absorbed,
+    in Joules, by the water?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: One commercially available ‘heat pad’ contains iron, activated carbon and
+    water. The ‘heat pad’ is activated by air. This causes the pad to get hotter.
+    Which statement describes the chemical reaction occurring in the ‘heat pad’ when
+    it is exposed to air?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: In which substance is the average oxidation number of sulfur the highest?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: An equilibrium can be represented by the equation shown. P(aq)  +  Q(aq) 2R(aq)  +  S(aq)
+    In a certain mixture, of volume 1.0 dm3, the equilibrium concentration of Q is
+    10 mol dm–3. What will be the new equilibrium concentration of Q if 5.0 mol of
+    pure Q is completely dissolved in the mixture?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: In the Contact process, sulfur dioxide and oxygen react to form sulfur trioxide.
+    In the Haber process, nitrogen and hydrogen react to form ammonia. Which statement
+    about these processes is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: 20.0 cm3 of hydrogen peroxide decomposes to water and oxygen in the presence
+    of a suitable catalyst. 160 cm3 of oxygen, measured at room conditions, is produced
+    in 5.00 minutes. What is the average rate of decomposition of hydrogen peroxide
+    during this reaction period?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Which reaction pathway diagram shows an endothermic reaction that occurs in
+    two steps and in which the second step of the reaction is likely to be faster
+    than the first? energy extent of reaction
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Oxides of nitrogen, NOx, are involved in formation of photochemical smog and
+    acid rain. Which oxides of nitrogen are involved in each of these processes? photochemical
+    smog acid rain NO NO2 NO NO2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Sodium and sulfur react together to form sodium sulfide, Na2S. How do the
+    atomic radius and ionic radius of sodium compare with those of sulfur? atomic
+    radius ionic radius
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Compound X is an oxide of a Period 3 element. Compound X is a white solid
+    at 25 °C. It reacts with water to form an acidic solution. What is compound X?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: When heated, magnesium nitrate decomposes. Which equation for the thermal
+    decomposition of magnesium nitrate is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: R is the aqueous solution of an ionic compound. ● A white precipitate is formed
+    when R is added to Sr(NO3)2(aq). ● No visible reaction is seen when R is added
+    to dilute HNO3(aq). What is the anion present in compound R?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: In an experiment, 0.600 mol of chlorine gas, Cl 2, is reacted with an excess
+    of hot aqueous sodium hydroxide. One of the products is NaCl O3. Which mass of
+    NaCl O3 is formed?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: X and Y are sodium salts of Group 17 elements. When X reacts with concentrated
+    sulfuric acid, hydrogen sulfide, H2S, is produced. When Y reacts with concentrated
+    sulfuric acid, there is no change in the oxidation number of the sulfur. Which
+    statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Element E is in Period 3. It forms a chloride which reacts with a small amount
+    of water to produce a white precipitate and steamy fumes. This precipitate is
+    soluble in NaOH(aq) and in HCl (aq). What is element E?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Four reaction mixtures are listed. (NH4)2SO4(aq) and NaOH NH4Cl (aq) and Ba(OH)2
+    NH4Cl (aq) and Na2O (NH4)3PO4(aq) and HCl Which reaction mixtures produce ammonia
+    as a product?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Two statements about a molecule of methanal are given. It is planar. It contains
+    three  bonds. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: The structure of disodium cromoglycate is shown. O O CH OH O O NaO2C OCH2
+    CH2O CO2Na disodium cromoglycate How many chiral centres are there in this molecule?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the major product when 2-methylpent-2-ene reacts with hydrogen bromide?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Pent-2-ene is reacted with cold, dilute, acidified manganate(VII) ions. What
+    is the major product?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Limonene is an oil formed in the peel of citrus fruits.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which reaction mixture produces a nitrile?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Which reaction is classified as SN1?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Which reaction mixture produces a primary alcohol as the major product?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: HOCH2CHO is heated under reflux with an excess of acidified K2Cr2O7 until
+    there is no further reaction. What is the final product of this reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: An organometallic lithium compound, RLi, contains the nucleophile R–. CH3CH2Li
+    reacts with pentan-2-one. The mechanism is nucleophilic addition. The first step
+    produces an anion which is then protonated to form the final product. Which organic
+    product is formed? OH
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: The structure of a naturally occurring compound, Q, is shown. HO OH O O O
+    compound Q Compound Q is heated under reflux with an excess of acidified KMnO4.
+    Organic product R is formed. Which row is correct? results of tests with compound
+    Q results of tests with organic product R
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Which organic starting material could be used in a single reaction to produce
+    propanoic acid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: In four separate reactions, W, X, Y and Z, 1 mol of an organic compound reacts
+    with an excess of a reagent. organic compound reagent W (CH2COOH)2 Na X CH3CH(OH)CH2COOH
+    Na2CO3 Y CH3CH(OH)CH2COOH NaOH Z CH(OH)(COOH)CH2COOH Na The volume of any gas
+    produced is collected and measured. All gas volumes are measured at the same temperature
+    and pressure. What is the order of the reactions from greatest total volume of
+    gas collected to least total volume of gas collected? greatest volume least volume
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Butylamine can be produced by the reaction of butanenitrile with hydrogen
+    in the presence of a suitable catalyst. Which volume of hydrogen, measured at
+    room conditions, is required to react completely with 0.500 g of butanenitrile?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: A section of an addition polymer is shown.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: The purity of a compound can be determined using infrared spectroscopy. The
+    table gives the characteristic infrared absorption frequencies for some selected
+    bonds. bond functional groups containing the bond characteristic infrared absorption
+    range (in wavenumbers) / cm–1 C–O hydroxy, ester 1040–1300 C=O amide carbonyl,
+    carboxyl ester 1640–1690 1670–1740 1710–1750 C=C aromatic compound, alkene 1500–1680
+    C–H alkane 2850–2950 O–H carboxyl hydroxy 2500–3000 3200–3650 N–H amine, amide
+    3300–3500 C≡N nitrile 2200–2250 Propan-2-ol is made by hydration of propene. A
+    sample of the product is obtained. Which feature of the infrared spectrum of the
+    product would show that no propene remains in the product?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

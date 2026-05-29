@@ -1,0 +1,31 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    marks: 3
+    text: ''
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: long_answer
+    marks: 4
+    text: ''
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: long_answer
+    marks: 6
+    text: ''
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: calculation
+    marks: 7
+    text: ''
+    answer_options: []
+    subquestions: []

@@ -1,0 +1,613 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: The photographs show two different rats. Rattus norvegicus Rattus rattus Which
+    statement about the rats is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show cells of organisms from three different kingdoms.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: not to scale Which row shows the kingdoms for the organism cells labelled
+    1, 2 and 3? cell 1 cell 2 cell 3
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Which term describes each structure? structure brain liver neurone
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the order of bases along part of one strand of DNA. A―C―T―T―A―G―A―T
+    What is the order of bases on the complementary part of the other strand?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Which substance is an enzyme?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which function is performed in the duodenum?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the changes in pH in the oesophagus, stomach and duodenum.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: X oesophagus stomach region of the alimentary canal duodenum pH Which substance
+    causes the change in pH at the point labelled X?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: A student cut one stalk of celery from a celery plant. They put the celery
+    stalk into a beaker of blue dye. The celery stalk was removed from the blue dye
+    after two hours and was cut into sections. celery stalk blue dye two hours blue
+    circles visible in the cut section What is shown by the blue circles in the cut
+    sections of celery stalk?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Which process moves water from the surfaces of the mesophyll cells into the
+    air spaces during transpiration?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The mass of water lost from a plant was investigated. The leaves of the plant
+    were covered with a type of grease that acts as a waterproof barrier. The environmental
+    conditions remained the same throughout the experiment. The table shows the results
+    of the investigation. treatment mass lost in seven days / g no grease applied
+    12.0 grease applied only to the upper surface of every leaf 8.7 grease applied
+    to both surfaces of every leaf 0.0 What is the mean daily rate of water loss through
+    the upper surface of the leaves?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: What is translocation?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row names the blood vessel containing the highest blood urea concentration
+    and the blood vessel containing the lowest blood urea concentration? highest blood
+    urea concentration lowest blood urea concentration
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the human digestive system. Where do cholera bacteria cause
+    the secretion of chloride ions? mouth anus
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes what happens when breathing in? diaphragm external intercostal
+    muscles
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: A person exercised vigorously for one minute and then rested for one hour.
+    Which statements about lactic acid are correct? During exercise, lactic acid is
+    produced in the muscles and diffuses into the blood. The blood transports lactic
+    acid to the liver. Lactic acid is broken down by anaerobic respiration.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the parts of the nervous system involved in a reflex arc.
+    Which letter identifies a synapse?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: A person looks at a distant object in a dark area. The person then moves to
+    a bright area and looks at a near object. Which statement describes some of the
+    changes that take place in the person’s eyes?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which effect does adrenaline have on blood glucose concentration and pulse
+    rate? blood glucose concentration pulse rate
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows an experiment using two wheat shoot tips, X and Y. X Y X
+    Y shoot tip removed after two days in even light Which statement is supported
+    by the evidence provided by this experiment?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Which action would help to limit the development of antibiotic resistance
+    in bacteria?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: What is an example of asexual reproduction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows parts of two different plants, 1 and 2, of the same species.
+    The transfer of pollen between the flowers of these two plants is shown by the
+    arrows labelled P and Q. Q P Which arrows show cross-pollination, and which transfer
+    of pollen would produce the most variation in the offspring? cross-pollination
+    transfer of pollen that produces the most variation in the offspring
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Which substance is a hormone that is involved in the development and regulation
+    of male secondary sexual characteristics?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes the net direction of movement of a substance across
+    the placenta?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the human female reproductive system. Which label identifies
+    the uterus?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Which methods can transmit HIV? hugging a person infected with HIV sharing
+    a needle with a person infected with HIV using a plate that a person infected
+    with HIV has used
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Which chromosomes can be found in a single sperm?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Why are lymphocytes the only cells that produce antibody proteins?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: During protein synthesis, what is the function of the ribosome?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The photograph shows a speckled chicken. Speckled chickens have white feathers
+    and black feathers. When a chicken with only white feathers and a chicken with
+    only black feathers are crossed, all of the offspring are speckled. What would
+    be the expected phenotypic ratio if a speckled chicken was crossed with a chicken
+    with only white feathers?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: What are stem cells?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: What are features of hydrophytes which have leaves that float?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Which unit could be used for the measurements needed to construct a pyramid
+    of energy?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Which process needs microorganisms to break down protein to produce ammonium
+    ions?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows part of a growth curve for a bacterial population. population
+    size time What is not shown in the graph?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: What is an advantage of large scale monocultures?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the global emissions of carbon dioxide and methane from 1990
+    to 2015.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: 000 35 000 30 000 25 000 20 000 15 000 10 000 5000 emissions / million tonnes
+    1990 2015 2010 2005 2000 year 1995 key carbon dioxide methane A student makes
+    four statements about carbon dioxide and methane. ● Carbon dioxide and methane
+    were the only sources of greenhouse gases produced in 1990. ● Carbon dioxide emissions
+    continue to rise to the present day. ● Carbon dioxide has a greater effect on
+    climate change than methane. ● Methane emissions were lower than carbon dioxide
+    emissions between 1990 and 2015. How many statements are supported by these data?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

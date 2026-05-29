@@ -1,0 +1,337 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'independent: sucrose concentration ;
+
+    dependent: width of stomata ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.5 and 17.5 (to produce a 2.5% sucrose solution) ;
+
+    5 and 15 (to produce a 5.0% sucrose solution) ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    use all sucrose concentrations ;
+
+    any four from:
+
+    2
+
+    leave the epidermis in sucrose solution for the same time ;
+
+    3
+
+    calibrate, the eyepiece graticule ;
+
+    4
+
+    measure the width of the stomata ;
+
+    5
+
+    measure stomata at their widest point ;
+
+    6
+
+    idea of (measuring) 3 or more (different) stomata (for any single concentration)
+    ;
+
+    7
+
+    calculate the mean (width of the stomata) for any single concentration ;
+
+    8
+
+    named hazard and risk and precaution ;
+
+    hazard
+
+    risk
+
+    Precaution
+
+    plant material
+
+    allergy / irritant
+
+    gloves / eye protection / PPE
+
+    slides / cover slip cuts
+
+    ensure it is not placed near edge of bench
+
+    or
+
+    use glass bin / dustpan and brush / AW, for disposal.
+
+    scalpel / knife
+
+    cuts
+
+    cut away from hand / cut onto board / tile / AW
+
+    5
+
+    9700/52
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1aiv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'predict:
+
+    (as sucrose concentration increases width of stomata) decreases ;
+
+    Explain (must match the prediction):
+
+    (as the sucrose concentration increases) water leaves the guard cells, by, osmosis / down
+    a water potential gradient / from
+
+    high to low water potential ;
+
+    or
+
+    (as the sucrose concentration increases) less water enters the guard cells, by
+    osmosis / down a water potential gradient
+
+    from high to low water potential ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    stomatal density = 367 (mm-2) ;
+
+    Any three of:
+
+    2
+
+    (number of stomata) = 13 ;
+
+    3
+
+    diameter of picture = 8.5 cm / 85 mm
+
+    or
+
+    radius of picture = 4.25 cm / 42.5 mm
+
+    or
+
+    length of scale bar / 40 µm = 1.6 cm / 16 mm ;
+
+    4
+
+    show stomatal density calculation ;
+
+    5
+
+    show magnification (calculation) ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'use more than one, field of view / slide / epidermis / (plantain
+    lily) leaf ;
+
+    1
+
+    9700/52
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 Environmental condition ;
+
+    2 Explanation ;
+
+    dry / arid / less water
+
+    So less water lost / less transpiration
+
+    low humidity
+
+    high temperature / warm / hot
+
+    windy / high wind speed
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(0 µmoldm-3 ABA = ) 1.85 and (400 µmoldm-3 ABA = ) 1.35 ;
+
+    27 ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    as ABA concentration increases, transpiration rate decreases, except at (ABA concentration
+    of) 50 ;
+
+    2
+
+    error bars for (ABA concs) 10 or 50 overlap with (ABA conc) 0 so, there is no
+    significant difference
+
+    (in transpiration rates)
+
+    or
+
+    error bars for (ABA concs) 100 overlap with (ABA conc) 10 so, there is no significant
+    difference
+
+    (in transpiration rates)
+
+    or
+
+    error bars for (ABA concs) 100 overlap with (ABA conc) 400 so, there is no significant
+    difference
+
+    (in transpiration rates) ;
+
+    3
+
+    error bars for (ABA concs) 100 or 400 do not overlap with (ABA conc) 0 so, there
+    maybe, a significant difference
+
+    (in transpiration rates) ;
+
+    2
+
+    9700/52
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    data for the non-mutant variety ;
+
+    2
+
+    need to carry out a statistical test ;
+
+    3 & 4
+
+    ref. to a named standardised variable ; ;
+
+    5
+
+    ref. to knowing that water is lost from a named part of plant (somewhere other
+    than the stomata) ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    age of seeds ;
+
+    2
+
+    all awns are straight / all awns are twisted at the start ;
+
+    3
+
+    temperature ;
+
+    4
+
+    light intensity / carry out in a dark room ;
+
+    5
+
+    time seeds left in the different humidities (before measuring them) ;
+
+    6
+
+    type / thickness / absorbency / size / dimensions / area, of filter paper ;
+
+    2
+
+    9700/52
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    add different volumes of water (to the filter paper) ;
+
+    2
+
+    leave one (filter paper) with no water ;
+
+    3
+
+    ref. to measuring appearance of awn ;
+
+    4
+
+    idea of repeat, for each humidity ;
+
+    3'
+  mark_scheme: []
+  graphics: []

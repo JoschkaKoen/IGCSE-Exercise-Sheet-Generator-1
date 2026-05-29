@@ -1,0 +1,634 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text:   = 8.99  109 m F–1) Planck constant h = 6.63  10–34 J s Stefan–Boltzmann
+    constant  = 5.67  10–8 W m–2 K–4 Formulae uniformly accelerated motion s = ut
+    +
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: 1 at v 2 = u 2 + 2as hydrostatic pressure p =  gh upthrust F =  gV Doppler
+    effect for sound waves of  = s s v v v f  electric current I  = Anvq resistors
+    in series R = R1 + R2 + ... resistors in parallel R 1  = R + R + ...
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: What represents a vector quantity?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: s later What is a reasonable estimate of the current in an electric kettle
+    that is in use?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the variation of velocity with time t of an object moving
+    in a straight line. –1 –2 –3 –4 velocity / m s–1 t / s At t = 0, the displacement
+    of the object is zero. What is the displacement of the object at t = 20 s?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: A science museum designs an experiment to show the fall of a feather in a
+    vertical glass vacuum tube. The time of fall from rest in the vacuum is to be
+    close to 0.5 s. Which length of tube is required?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Two coins are projected from a horizontal table at the same initial speed
+    u. Coin X is projected horizontally. Coin Y is projected upwards at an angle of
+    30° to the horizontal. u u coin X coin Y 30° Both coins hit the horizontal ground
+    without bouncing. Assume the air resistance on each coin is negligible. Which
+    statement about the motion of the coins is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Two spheres are released from rest at equal heights above the ground. Both
+    spheres reach terminal velocity. One sphere has a larger density than the other
+    sphere. Both spheres have equal volumes. Which statement is correct while both
+    spheres are at terminal velocity?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement defines force?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Four forces, all in the same plane, act on an object. 12 N 12 N 20 N 20 N
+    What could describe the motion of the object?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: A nucleus collides with a stationary nucleus in a vacuum. The diagrams show
+    the paths of the nuclei before and after the collision. No other particles are
+    involved in the collision. Which diagram is not possible?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: A non-uniform bar PQ has length 50 cm and weight 200 N. P Q 50 cm 360 N block
+    non-uniform bar A block of weight 400 N is attached to the top of the bar at its
+    centre. The bar rests on horizontal ground. A vertical force of 360 N is now exerted
+    upwards on the bar at end Q and is just sufficient to lift end Q from the ground.
+    What is the distance from the centre of gravity of the bar to end P?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the definition of density?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: A block is in equilibrium on a slope. block Which vector triangle represents
+    the three forces acting on the block?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: A measuring cylinder contains 80 cm3 of a liquid. The pressure due to the
+    liquid at the 60 cm3 mark is 1200 Pa. What is the pressure due to the liquid at
+    the base of the measuring cylinder?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Four identical uniform blocks are spread on a table. Each block has mass m
+    and thickness h. h h The acceleration of free fall is g. How much work is done
+    on the blocks in stacking them on top of one another?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: An electric motor uses 1.7 kW of power when operating normally. The efficiency
+    of the motor is 53%. What is the useful output power of the motor?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: A ball is released from rest and falls vertically to the ground. The kinetic
+    energy EK of the ball varies as the height h of the ball above the ground changes.
+    Air resistance is negligible. Which graph shows the variation of EK with h?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: An object travelling with a speed of 10 m s–1 has kinetic energy of 1500 J.
+    The speed of the object is increased to 40 m s–1. What is the new kinetic energy
+    of the object?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: What are the units of stress, strain and the Young modulus? stress strain
+    Young modulus
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: The force–extension graph for a metal wire is shown. force extension Which
+    quantity is represented by the area under the graph?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: A wire of length L0 is attached at one end to a fixed point. A tensile force
+    is applied to the other end so that the wire extends and has a new length L1.
+    What is the strain of the wire?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: A wire of length L is stretched to determine its limit of proportionality.
+    The graph shows the variation of the extension x with the force F applied to the
+    wire. P F x The limit of proportionality is shown by point P on the graph. The
+    experiment is repeated with another wire of length 2L but of the same material
+    and same diameter as the first wire. Which point on the graph shows the limit
+    of proportionality for the new wire? P F x
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the variation with distance along the wave of the displacement
+    of water particles at a particular instant in time for a transverse water wave.
+    –2 –4 distance / m displacement / m P Q R P, Q and R show the positions of three
+    water particles in the wave. Which particle has the greatest speed at the instant
+    shown?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Which phenomenon is only associated with transverse waves?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: 'A wave is displayed on an oscilloscope. The oscilloscope settings are: time–base:
+    300 s div–1 y-gain: 40 V div–1. What is the frequency of the wave?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: An electromagnetic wave travelling in free space is not visible to the human
+    eye. What is a possible wavelength of the wave?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Electromagnetic waves of equal wavelengths are emitted from two sources, X
+    and Y. The waves are emitted from X and Y with a phase difference of 180°. A detector
+    moves along a path that is parallel to the line XY and detects a pattern of intensity
+    maxima and minima. The diagram shows the arrangement of the sources and the path
+    of the detector. Z X Y 110 cm path of detector 70 cm An intensity maximum is detected
+    at point Z. Length XZ is 70 cm and length YZ is 110 cm. What is a possible wavelength
+    of the waves?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Two waves of the same type overlap. When does the principle of superposition
+    apply?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: A ripple tank contains water at a constant depth. A water wave of constant
+    frequency travels towards a gap in a barrier placed in the ripple tank. The gap
+    is made smaller. Which diagram represents the wave before and after the barrier?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Light of a single frequency from two coherent sources interferes to produce
+    a pattern of bright and dark fringes on a screen. Which change results in a larger
+    fringe separation?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The current I in a metallic conductor of cross-sectional area A is given by
+    I = Anve where e is the elementary charge and v is the mean drift velocity of
+    the conduction electrons. What is represented by the letter n in the equation?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: What cannot be the charge on a charge carrier?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: A steel wire with a length of 2.20 m is connected to a battery as shown.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Two resistors of resistance R and two resistors of resistance 3R are connected
+    to a cell of e.m.f. 8.0 V as shown. The cell has negligible internal resistance.
+    V 8.0 V R 3R 3R R What is the reading on the voltmeter?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: A battery has an e.m.f. E and internal resistance r. The battery delivers
+    a current I to a variable resistor and the p.d. across its terminals is V. r E
+    I V The variable resistor is adjusted so that I increases. Why does V decrease?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: "An electrical device of fixed resistance 20  is connected in series with\
+    \ a variable resistor and a battery of e.m.f. 16 V and negligible internal resistance.\
+    \ 20 \x01 device 16 V The power dissipated in the electrical device is 4.0 W.\
+    \ What is the resistance of the variable resistor?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: A nucleus decays by emitting a + particle. Which particle must also be emitted
+    from the nucleus?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: What are the charges on an antidown quark and on an antistrange quark? antidown
+    quark antistrange quark
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: The nucleus of a radioactive isotope of an element emits an -particle. The
+    daughter nucleus then emits a – particle and then the daughter nucleus of that
+    reaction emits another – particle. Which statement describes the final nuclide
+    that is formed?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

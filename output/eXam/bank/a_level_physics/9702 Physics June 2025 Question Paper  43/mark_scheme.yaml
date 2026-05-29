@@ -1,0 +1,665 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'work done per unit mass
+
+    work (done in) moving mass from infinity (to the point)'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'evidence of addition of 3.4 × 106 to 1.7 × 106 or 6.8 × 106
+
+    GM × 122 / (5.1 × 106)  or  GM × 122 / (10.2 × 106)
+
+    6.67 × 10–11 × M × 122 × [(5.1 × 106)–1 – (10.2 × 106)–1] = 5.1 × 108
+
+    leading to M = 6.4 × 1023 kg'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' = (–) (6.67 × 10–11 × 6.4 × 1023) / (3.4 × 106)
+
+    = –1.3 × 107 J kg–1'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Mars takes (just under) 25 hours to rotate once on its axis
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'orbit is equatorial
+
+    or
+
+    orbit is in same direction as direction of rotation of Mars
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(electric) force is (directly) proportional to product of charges
+
+    force (between point charges) is inversely proportional to the square of their
+    separation'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: charge = (+)2e
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: F = 2 × (1.60 × 10–19)2 / [4 × 8.85 × 10–12 × (170 × 10–12)2] = 1.6 × 10–8 N
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'F = mv2 / r
+
+    v = [ (1.6 × 10–8 × 170 × 10–12) / (9.11 × 10–31) ]½
+
+    = 1.7 × 106 m s–1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'F = mr2  and   = 2 / T
+
+    F = 42mr / T2
+
+    T =  [ (42 × 9.11 × 10–31 × 170 × 10–12) / (1.6 × 10–8) ]½
+
+    = 6.2 × 10–16 s
+
+    or
+
+    v = 2r / T
+
+    (C1)
+
+    T = (2 × 170 × 10–12)  / (1.73 × 106)
+
+    = 6.2 × 10–16 s
+
+    (A1)
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'E  Q / r2
+
+    ratio = [1.60 × 10–19 × (170 × 10–12)2] / [3.2 × 10–19 × (340 × 10–12)2]
+
+    = 0.13'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'resultant force slightly less (than 1.6 × 10–8 N) so speed
+    lower
+
+    or
+
+    resultant force slightly less (than 1.6 × 10–8 N) so period greater
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(thermal) energy per unit mass (to cause state change)
+
+    (thermal) energy to change state at constant temperature'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(for vaporisation):
+
+    involves greater change in volume (of substance)
+
+    or
+
+    involves greater increase in separation of molecules
+
+    more work has to be done by molecules (to separate)
+
+    or
+
+    greater increase in potential energy of molecules
+
+    kinetic energy of molecules unchanged, so more thermal energy needed'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Q = mc  and  Q = mL
+
+     for the water = 26.4 – 10.3
+
+    (37.0 × L) + (37.0 × 4.18 × 10.3) = (208 × 4.18 × 16.1)
+
+    L = 335 J g–1
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'sum of potential energy and kinetic energy
+
+    (total) energy of random motion of particles'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'potential energy (of molecules) (in an ideal gas) is zero,
+    so the internal energy of the gas is equal to the total kinetic energy
+
+    (of molecules)
+
+    kinetic energy of molecules is proportional to (thermodynamic) temperature (so
+    internal energy is proportional to
+
+    (thermodynamic) temperature))'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cooling work done = 0
+
+    compression increase in internal energy = +2U
+
+    cooling change in internal energy = –U
+
+    both rows: thermal energy adds to work to give increase in internal energy in
+    terms of U and/or W
+
+    (if fully correct, thermal energy for compression = 2U – W and thermal energy
+    for cooling = –U:
+
+    compression
+
+    +W
+
+    2U – W
+
+    +2U
+
+    cooling
+
+    0
+
+    –U
+
+    –U
+
+    )
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: amplitude = 0.60 m
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: oscillations are simple harmonic
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Any three points from:
+
+    •
+
+    mean / equilibrium position is at h = 1.4 m
+
+    •
+
+    total energy of oscillations = 9.0 J
+
+    •
+
+    angular frequency of oscillations = 1.2 rad s–1
+
+    or
+
+    period of oscillations = 5.1 s
+
+    or
+
+    frequency of oscillation = 0.19 Hz
+
+    •
+
+    maximum speed of block = 0.73 m s–1
+
+    •
+
+    mass of block = 33 kg'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'U-shaped curve resting on h axis (with minimum at EP = 0)
+
+    curve from h = 0.8 m to h = 2.0 m, with minimum EP shown at h = 1.4 m
+
+    both end-points of curve shown at EP = 9.0 J
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: conversion from a.c. to d.c.
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: smoothing
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A = 12 V
+
+    B = 2 / (20 × 10–3)
+
+    = 310 rad s–1'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: full-wave (rectification)
+  mark_scheme: []
+  graphics: []
+- number: 6biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'four diodes shown, with correct circuit symbols
+
+    four diodes correctly connected to form a bridge rectifier'
+  mark_scheme: []
+  graphics: []
+- number: 6biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'V = V0 exp (–t / )
+
+    or
+
+    V = V0 exp (–t / RC)  and   = RC
+
+    8.0 = 12 exp (– 7.3 × 10–3 / )
+
+     = 0.018 s'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'time constant = RC
+
+    R = (0.018 / 570 × 10–6)
+
+    = 32 
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    force per unit length
+
+    •
+
+    force per unit current
+
+    •
+
+    length / current perpendicular to field
+
+    1 mark for any two points, 2 marks for all three points.'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: F = BQv
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: arrow at Y pointing vertically upwards
+  mark_scheme: []
+  graphics: []
+- number: 7biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: upwards deflection showing circular path
+  mark_scheme: []
+  graphics: []
+- number: 7ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'electric field applied vertically downwards (may be shown on
+    a labelled diagram)
+
+    electric force on particle in opposite direction to magnetic force (may be shown
+    on a labelled diagram)
+
+    particle undeflected when magnitudes of electric and magnetic forces are equal'
+  mark_scheme: []
+  graphics: []
+- number: 7cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'EQ = BQv
+
+    v = E / B
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: wavelength associated with a moving particle
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' = h / p
+
+    = (6.63 × 10–34) / (9.11 × 10–31 × 4.9 × 107)
+
+    = 1.5 × 10–11 m'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'similarity: any one point from:
+
+    •
+
+    same mass
+
+    •
+
+    same magnitude of charge
+
+    •
+
+    both leptons
+
+    difference: any one point from:
+
+    •
+
+    electron has negative charge, positron has positive charge
+
+    •
+
+    positron is anti-particle of electron
+
+    •
+
+    electron is a particle, positron is an anti-particle'
+  mark_scheme: []
+  graphics: []
+- number: 8di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (pair) annihilation
+  mark_scheme: []
+  graphics: []
+- number: 8dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'their mass gets converted into energy
+
+    (their mass–energy) becomes the energy of the gamma photons'
+  mark_scheme: []
+  graphics: []
+- number: 8diii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: they travel in opposite directions to conserve momentum
+  mark_scheme: []
+  graphics: []
+- number: 8div
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'kinetic energy = ½ × 9.11 × 10–31 × (4.9 × 107)2 = 1.1 × 10–15 J
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8dv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'E = mc2
+
+    E = hc / 
+
+    or
+
+    E = hf  and  c = f
+
+    (1.1 × 10–15) + (9.11 × 10–31 × (3.00 × 108)2) = (6.63 × 10–34 × 3.00 × 108) / 
+
+     = 2.39 × 10–12 m
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: number of nuclear disintegrations per unit time
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'activity is proportional to the number of undecayed nuclei
+
+    activity = (–) rate of change of number of undecayed nuclei
+
+    N is proportional to the rate of change of N (so exponential variation)'
+  mark_scheme: []
+  graphics: []
+- number: 9ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '120 = 180 exp (–  × 8.4)
+
+     = 0.048 min–1'
+  mark_scheme: []
+  graphics: []
+- number: 9cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'half-life = ln 2 / 0.048
+
+    = 14 min'
+  mark_scheme: []
+  graphics: []
+- number: 9ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'line with negative gradient throughout, starting at (0, 180)
+
+    curve with negative gradient passing through (8.4, 120)
+
+    curve with decreasing negative gradient, from t = 0 to t = 24 min, passing through
+    (14, 90)
+
+    9702/43
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'speed is (directly) proportional to distance
+
+    speed is speed of recession of galaxy from an observer, and distance is the distance
+    of the galaxy from the observer'
+  mark_scheme: []
+  graphics: []
+- number: 10bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'galaxy is receding from the Earth
+
+    observed wavelength is redshifted from emitted wavelength'
+  mark_scheme: []
+  graphics: []
+- number: 10bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' /  = v / c
+
+    (4.91 – 4.62) / 4.62 = v / (3.00 × 108)
+
+    v = 1.9 × 107 m s–1'
+  mark_scheme: []
+  graphics: []
+- number: 10biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'wavelength (of maximum intensity) is inversely proportional
+    to temperature
+
+    observed wavelength too high, so determined temperature too low'
+  mark_scheme: []
+  graphics: []
+- number: 10c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'v = H0d
+
+    d = (1.9 × 107) / (2.3 × 10–18)
+
+    = 8.3 × 1024 m'
+  mark_scheme: []
+  graphics: []

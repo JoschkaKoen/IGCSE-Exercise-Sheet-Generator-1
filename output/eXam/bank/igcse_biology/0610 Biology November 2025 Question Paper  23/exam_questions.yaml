@@ -1,0 +1,620 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a characteristic of all living organisms?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: What are the two parts of the scientific name of an organism?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: A palisade cell and a neurone are observed under a light microscope. Which
+    cell component is found only in the palisade cell?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: In a human, the diameter of the aorta as it leaves the heart is 36 mm. The
+    thickness of the wall of the aorta at this point is 9 mm. What is the diameter
+    of the lumen of the aorta at this point?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: Diffusion may be defined as the net movement of particles from a region of
+    their ......1...... concentration, to a region of their ......2...... concentration,
+    where movement is ......3...... a concentration gradient. Which words complete
+    gaps 1, 2 and 3?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Cylinders of potato tissue were placed in sugar solutions of different concentrations
+    and left overnight. The lengths of the potato cylinders were measured before and
+    after they were placed in the sugar solutions. The graph shows the results of
+    the investigation. 0.1 0.2 0.3 0.4 0.5 1.2 1.1 1.0 0.9 0.8 ratio of final length
+    to initial length sugar solution concentration / moles per dm3 In which sugar
+    solution concentrations did the potato cells gain water?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagrams show the same mass of oil arranged in drops of different sizes
+    at the same temperature. In which combination of oil drop size and enzyme will
+    the oil be digested the fastest?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Which substance contains magnesium ions?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows part of a cross-section of a leaf. Which part is the xylem?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows an experiment to investigate gas exchange in a leaf. leaf
+    substance that absorbs carbon dioxide black cover ink drop In which direction
+    does the ink drop move and for what reason? direction reason
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: What is an example of chemical digestion?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a villus. X Which row shows the name and function of the
+    part labelled X? name function
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: Which environmental conditions will result in the highest rate of transpiration?
+    high air humidity very windy low air temperature
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements describe sources and sinks? Palisade mesophyll cells only
+    act as sinks. Roots can act as sinks. Sink cells only receive glucose from the
+    phloem. Spongy mesophyll cells can act as sources.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: What is a feature of veins?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a section through a human heart. Which structure is an atrioventricular
+    valve in the right side of the heart?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: What is an example of active immunity?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Which changes cause expiration? external intercostal muscles diaphragm
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: What shows the pathway of urea from where it is produced to where it is excreted?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the state of the ciliary muscles and suspensory ligaments
+    when the eye is focusing on a near object? ciliary muscles suspensory ligaments
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: Events that occur at a synapse are listed. They are not in the correct order.
+    An impulse is stimulated in the next neurone. An impulse stimulates the release
+    of neurotransmitter molecules from vesicles into the synaptic gap. Neurotransmitter
+    molecules bind with receptor proteins on the next neurone. The neurotransmitter
+    molecules diffuse across the gap. What is the actual sequence of events?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Which actions can prevent a mammal’s internal body temperature falling too
+    low?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the position of some of the human endocrine glands. X Which
+    hormone is secreted by X?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the correct speed and duration for the type of control? type
+    of control speed of action duration of effect
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: A student writes four statements about auxin. Auxin becomes more concentrated
+    on the lower side of a horizontal stem. Auxin becomes more concentrated on the
+    side of the shoot that has more light. Auxin is made in the shoot tip. Auxin prevents
+    cell elongation in the shoot. Which statements describe what happens during chemical
+    control of plant growth?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: What can antibiotics treat?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows two methods of pollination, V and W. The two flowers are
+    on different plants of the same species. V W A student made three conclusions
+    about these two methods of pollination. Method V will produce genetically identical
+    offspring. Method W will produce genetically different offspring. Method W increases
+    the ability of the species to adapt to its surroundings. Which conclusions are
+    correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the blood supply between a fetus and a placenta. capillary
+    in the placenta fetus umbilical artery umbilical cord umbilical vein placenta
+    key direction of blood flow Which row shows the concentration of substances in
+    the umbilical artery and umbilical vein? umbilical artery umbilical vein
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Which hormone is produced by cells in the placenta of a developing fetus?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: What are alleles?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Polydactyly in cats is a dominant condition that causes affected cats to be
+    born with extra toes. What is the probability of two cats that are heterozygous
+    for polydactyly having an offspring with no extra toes?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes red-green colour blindness?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Four features of cell division are listed. Haploid cells are produced. New
+    cells are genetically identical. It is a reduction division. It results in variation.
+    Which features would be associated with meiosis?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which term is used to describe a characteristic that helps an organism to
+    survive and reproduce in its environment?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Which process removes carbon dioxide from the atmosphere?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows part of the nitrogen cycle. nitrogen in the atmosphere plant
+    and animal waste proteins in animals and plants nitrate ions in soil ammonia amino
+    acids in plants and animals process X process Y What are the names of process
+    X and process Y? X Y
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows how the population of the world increased from 1650 until
+    the present day. 1700 1750 1650 1800 1850 1900 1950 2000 year world population
+    / billions Which phases of a sigmoid curve of population growth are not shown
+    on this graph?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: In which trophic level are herbivores found?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: The graph shows the relative amounts of bacteria and dissolved oxygen at different
+    locations along a river. Fertiliser has entered the river. At which distance along
+    the river did the fertiliser enter the river? dissolved oxygen bacteria relative
+    amount
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Human insulin can be produced in large quantities by genetically modified
+    bacteria. Four of the steps in the processes of genetic modification and insulin
+    production are listed. Insulin is removed from the bacterial culture. An enzyme
+    is used to cut out the insulin gene from a human chromosome. The insulin gene
+    is placed into the plasmid of a bacterium. Bacteria with the insulin gene reproduce
+    very rapidly. What is the order of these steps?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

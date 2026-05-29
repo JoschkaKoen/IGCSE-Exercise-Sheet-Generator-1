@@ -1,0 +1,664 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: constant acceleration
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'area under the graph OR ½ bh OR average speed  time
+
+    0.5  5.9  0.6 OR 1.77 (to ⩾ 3 sf)'
+  mark_scheme: []
+  graphics: []
+- number: 1aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '9.5 J
+
+    (Ep =) mg()h OR 0.54  9.8  1.8'
+  mark_scheme: []
+  graphics: []
+- number: 1aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: candidate’s 1(a)(iii) value  0.5 (2sf)
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    •
+
+    (initially there is acceleration due to) an unbalanced force OR resultant force
+    OR downward force OR weight OR
+
+    gravitational force acting on the ball
+
+    •
+
+    as speed increases the air resistance increases
+
+    •
+
+    (as air resistance increases) resultant force downwards decreases
+
+    OR acceleration decreases
+
+    •
+
+    (eventually) ball falls with constant speed when air resistance = weight OR ball
+    falls with terminal velocity when air
+
+    resistance = weight'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(some of the) energy is:
+
+    transferred to the thermal energy (store) of the ground (when ball hits ground)
+
+    OR converted / transferred to thermal energy (store) of the air
+
+    OR used to deform ball / transferred to the elastic energy (store) of the ball
+    (as it contacts the ground)
+
+    gravitational potential energy (in the store at C) will be less (than at A)
+
+    OR
+
+    (ball has) less kinetic energy (in its store just after B)
+
+    0625/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(–) 3.5 kgm / s
+
+    (p =) m()u OR m{v – u} OR 0.14  {25 (– 0)}'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '360 N
+
+    0.0097 (s) OR 9.7  10–3 (s) OR 3.6  10n
+
+    (F =) ()p / t OR 3.5 / 0.0097'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(wasted power =) 2200 + 40 + 25 OR 2265
+
+    OR (useful power output =) power input – wasted power
+
+    1140 (MW) (⩾ 3 sf)'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.32 OR 32%
+
+    (efficiency =) {useful power output / total power input} ( 100%)
+
+    OR 1100 / 3400'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'water is pumped into the ground and heated by hot rocks
+
+    OR
+
+    heat from hot rocks underground is used to turn water into steam
+
+    steam used to heat buildings
+
+    OR
+
+    steam used to turn generator / turbine / produce electricity
+
+    0625/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 930 kg / m3
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1400 N
+
+    (∆)p = ρg(∆)h OR 930  9.8  1.1 OR 10 000 (N / m2)
+
+    area = length  width OR 0.45  0.30 OR 0.14 (m2)
+
+    (F=) p  A OR 10 000  0.14
+
+    Alternative method:
+
+    1400 N
+
+    volume (of liquid above block) = length  width  height OR 0.45  0.30  1.1
+    OR 0.15 (m3)
+
+    mass (of liquid above block) = ρ  v OR 930  0.15 OR 140 (kg)
+
+    (F =) mg OR 140  9.8'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'thermal expansion
+
+    OR to prevent buckling / bending when heated
+
+    any one from:
+
+    •
+
+    particles vibrate faster
+
+    •
+
+    particles have greater speed / kinetic energy / momentum
+
+    •
+
+    vibrations (of particles) take up more space
+
+    •
+
+    (average) space / separation between particles increases'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(plastic is a good) insulator / poor conductor
+
+    (handle) will not get too hot to touch
+
+    OR reduces heat flow to hand
+
+    0625/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'all four correct = 2 marks; any two correct = 1 mark
+
+    security marking
+
+    gamma rays
+
+    Bluetooth
+
+    ultraviolet
+
+    optical fibres
+
+    infrared
+
+    detection of cancer
+
+    radio waves'
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    •
+
+    only require a short aerial / antenna
+
+    •
+
+    can pass through the atmosphere / ionosphere to satellites
+
+    •
+
+    can transmit large amounts of data at high speeds / high rate of data transmission'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    transverse:
+
+    •
+
+    oscillations / vibrations are at right angles to direction of propagation
+
+    •
+
+    medium not required / can travel through a vacuum (for e-m wave)
+
+    •
+
+    have crests / peaks and troughs
+
+    longitudinal:
+
+    •
+
+    oscillations / vibrations are parallel to direction of propagation
+
+    •
+
+    medium is required
+
+    •
+
+    have rarefactions and compressions'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: longitudinal
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'refraction
+
+    any one from:
+
+    •
+
+    change in speed of the wave
+
+    •
+
+    change in density of the medium
+
+    0625/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'increase in carbon dioxide / greenhouse gases (in the atmosphere)
+
+    OR
+
+    increase in methane / water vapour (in the atmosphere)
+
+    any one from:
+
+    prevents / reduces (re-emitted) radiation escaping (into space)
+
+    OR
+
+    radiation re-emitted / reflected back to surface (by atmosphere / greenhouse gases)
+
+    OR
+
+    (amount of) radiation absorbed is greater than (the amount of) radiation leaving
+    the atmosphere'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.008(0) A OR 8(.0) mA OR 8(.0)  10–3 A
+
+    (p.d. across 400  resistor =) 5 – 1.8 OR 3.2 (V)
+
+    (I =) V / R OR 3.2 / 400'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'increases
+
+    resistance of LDR increases
+
+    ratio of potential differences (across each component) equals ratio of the two
+    resistances OR R1 / R2 = V1 / V2
+
+    OR
+
+    LDR has greater share of the total / supply voltage
+
+    OR
+
+    potential difference of the source is divided between the resistor (R) and LDR'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '56 mA OR 5.6  10–2 A
+
+    44 (mA) OR 12 (mA)'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0 (A)
+
+    0625/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'provide a continuous connection (between the coil and the lamp)
+
+    OR
+
+    prevent the contacts reversing every half turn / 180°
+
+    OR
+
+    prevent the wires (to the lamp) twisting / tangling'
+  mark_scheme: []
+  graphics: []
+- number: 7aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    •
+
+    coil is rotated / moved in magnetic field
+
+    •
+
+    coil cuts (magnetic) field OR changing (magnetic) field through coil
+
+    •
+
+    e.m.f. / voltage induced
+
+    •
+
+    coil forms part of a complete circuit (through the lamp) so there is a current
+
+    •
+
+    as one side of the coil starts to move in the opposite direction, current is induced
+    in the opposite direction
+
+    OR direction of current in coil is reversed every half turn / 180°'
+  mark_scheme: []
+  graphics: []
+- number: 7aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    •
+
+    increase strength of magnetic field
+
+    •
+
+    increase speed of rotation (of the coil)
+
+    •
+
+    increase number of turns (of coil)'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.5 (revolutions)
+
+    0625/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any 1 correct = 1 mark
+
+    any 2 or 3 correct = 2 marks
+
+    all 4 correct = 3 marks
+
+    Time Label
+
+    from graph
+
+    coil position
+
+    A
+
+    B
+
+    C
+
+    D
+
+    N
+
+    S
+
+    N
+
+    S
+
+    N
+
+    S
+
+    N
+
+    S
+
+    0625/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'most of the atom is empty space
+
+    OR
+
+    nucleus is (very) much smaller than the atom'
+  mark_scheme: []
+  graphics: []
+- number: 8aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'nucleus must have a positive charge
+
+    OR
+
+    (the positive) charge is concentrated at the centre of the atom
+
+    OR
+
+    most of the mass (of the atom) is concentrated in the nucleus'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P
+
+    alpha particles have greater mass so are deflected less (than the beta particles)'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'upwards
+
+    AND
+
+    alpha particles are positively charged so attracted towards negatively charged
+    plate OR direction of field is direction of force
+
+    on positive charge'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.9  10–2 g OR 1.9  10–5 kg
+
+    3 half-lives OR 2.4  10–3  23 OR 1 / 8
+
+    0625/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 9ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: (shortly after) Big Bang OR when Universe was formed
+  mark_scheme: []
+  graphics: []
+- number: 9aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Increased
+
+    Universe has expanded
+
+    OR
+
+    Universe accelerated outwards'
+  mark_scheme: []
+  graphics: []
+- number: 9bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '120 000 (km / h) OR 1.2  105 (km / h)
+
+    (v =) 2r / T OR {2    108 ( 106 ) } / {0.62  365  24}
+
+    (T =) 0.62  365  24 OR (T =) 5431 OR (T =) 226.3  24 OR 1.2  10n'
+  mark_scheme: []
+  graphics: []
+- number: 9bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'decreases
+
+    0625/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'elliptical shape drawn
+
+    S at a focus of the ellipse by eye'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: L furthest away from their S / Sun
+  mark_scheme: []
+  graphics: []
+- number: 10c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'total energy = gravitational (potential) energy + kinetic energy
+
+    (energy stored as) GPE decreases and (energy stored as) KE increases closer to
+    the Sun
+
+    when the comet has more kinetic energy it has a greater speed
+
+    S
+
+    OR S
+
+    S
+
+    L'
+  mark_scheme: []
+  graphics: []

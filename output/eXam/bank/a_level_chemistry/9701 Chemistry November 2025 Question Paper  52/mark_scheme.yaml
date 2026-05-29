@@ -1,0 +1,351 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.486 g
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Dissolve the solid / KSCN(s) in (the beaker) (using a small
+    volume of) (distilled) water
+
+    M2 Transfer/add to a (250 cm3 volumetric) flask
+
+    and
+
+    Rinse (with distilled water)
+
+    M3 Top the 250 cm3 volumetric flask up to mark (with distilled water)
+
+    and
+
+    Invert the (stoppered) flask
+
+    Allow ‘250 volumetric flask’ (i.e. units need not be seen)
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to avoid oxidation (of contents of flask)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to ensure that equilibrium has been reached
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Silver / Ag
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(yes)
+
+    and
+
+    two titres (2 and 3) are within 0.10 cm³ (of each other)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Working must be shown
+
+    = 2  0.05
+
+    21.90
+
+    
+
+     100 = 0.457%
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1diii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'percentage error (in larger titre) is lower
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.0437 mol dm–3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.00630 mol dm–3
+
+    1
+
+    9701/52
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1eiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Kc = 0.00630 / (0.04370)2 = 3.30
+
+    1
+
+    M2 units = dm3 mol–1
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1fi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'No
+
+    and
+
+    As temperature increases, Kc decreases
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1fii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(data points that obey a line of best fit are reliable because)
+    there are no anomalous points.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1fiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'exothermic
+
+    and
+
+    As temperature increases:
+
+    Kc decreases
+
+    or
+
+    equilibrium shifts to left
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(25.0 cm3) volumetric pipette
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(wear) chemically resistant gloves
+
+    1
+
+    9701/52
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Total volume
+
+    in beaker /
+
+    cm3
+
+    Corrected
+
+    conductivity
+
+    / S cm–1
+
+    25.00
+
+    37000
+
+    30.00
+
+    27600
+
+    35.00
+
+    16800
+
+    40.00
+
+    3680
+
+    45.00
+
+    9000
+
+    50.00
+
+    24000
+
+    55.00
+
+    39600
+
+    60.00
+
+    50400
+
+    65.00
+
+    63700
+
+    M1 Total volume in beaker values
+
+    M2 Corrected conductivity values
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'volume of 0.100 mol dm–3 Ba(OH)2(aq) added to beaker
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: all points 1–4 and 5–9 plotted correctly
+
+    M2: two straight lines of best fit line drawn going through most points.
+
+    lines must intersect.
+
+    Place M2 tick in ‘V’ of graph
+
+    Place M1 tick or cross on left hand side of grid
+
+    Place cross (or highlight) against mis-plot
+
+    2
+
+    9701/52
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'intersection point volume (read from within grid)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'nSO42– =0.100  ans (d)(i) / 1000 = mol
+
+    [SO42–(aq)] = [0.100  (d)(i) / 1000] / 0.025
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'diagram showing labelled filter paper in a labelled (filter)
+    funnel
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'wash the residue with distilled water
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'heat to constant mass
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eiv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'higher value
+
+    and
+
+    (water would cause) (measured) mass / amount (of residue) would be greater
+
+    1'
+  mark_scheme: []
+  graphics: []

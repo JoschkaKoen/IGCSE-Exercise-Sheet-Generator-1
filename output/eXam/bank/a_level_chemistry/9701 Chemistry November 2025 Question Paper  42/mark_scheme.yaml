@@ -1,0 +1,832 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Mg(NO3)2 → MgO + 2NO2 + ½O2  OR  2Mg(NO3)2 → 2MgO + 4NO2 +
+    O2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Mg(NO3)2 / magnesium nitrate
+
+    AND magnesium ion / Mg2+
+
+    AND is smaller / has higher charge density
+
+    M2: nitrate ion / anion is more distorted / polarised
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'magnesium sulfate and water / MgSO4 and H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: magnesium sulfate / A has a more exothermic Hlatt and
+    Hhyd
+
+    M2: difference in Hhyd is greater
+
+    M3: magnesium sulfate / A has a more exothermic Hsol
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'homolytic fission
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 2aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '115–120o
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: 3.825  10–3 / 0.003825 / 0.00383 / 0.0038 / 3.8  10–3
+
+    M2: units = mol–1 dm3 s–1
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'not constant half-life because overall second order
+
+    1
+
+    9701/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '8.17 / 8.2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    reactants are adsorbed onto the catalyst surface
+
+    •
+
+    bonds within reactant molecules are weakened
+
+    •
+
+    products are desorbed from catalyst surface
+
+    Any two [1], all three [2]
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'two species that differ by one proton / H+
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'H2PO4– AND PO43–
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: [H+] = 2.51  10–4
+
+    M2: [CH3CH2COOH] = 4.67  10–3
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3.98  10–11
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[HCl ] = 2.51  10–4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: top box ticked AND weaker acid
+
+    M2: alkyl group is electron donating
+
+    M3: O–H bond strengthened / anion is destabilised
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'NaOH AND CH3CH2COOH + OH– → CH3CH2COO– + H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'H2SO4 AND conjugate base of CH3CH2COOH is not present
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3.69  10–5
+
+    1
+
+    9701/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Ksp = [Mn2+][OH–]2
+
+    M2: units = mol3 dm–9
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3diii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.0  10–13
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'energy required when one mole of gaseous atoms is formed from
+    the element
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'energy released when one mole of gaseous atoms gains one mole
+    of electrons and becomes one mole of  gaseous 1– ions
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: iodine atom has greater radius
+
+    M2: less attraction between nucleus and incoming electron in iodine
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: ½ (–486 + (2  364) )
+
+    M2: +121
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Co2+ = [Ar] 3d7 AND Co3+ = [Ar] 3d6
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'has vacant d orbitals that are energetically accessible
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    pink
+
+    •
+
+    blue
+
+    •
+
+    aqueous
+
+    Any two [1], all three [2]
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5aiv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[Co(H2O)6]2+ + 4HCl → [CoCl4]2– + 6H2O + 4H+ OR  [Co(H2O)6]2+
+    + 4Cl– → [CoCl4]2– + 6H2O
+
+    1
+
+    9701/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5av
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ligand exchange
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5avi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[Co(H2O)6]2+ + 2OH– → Co(OH)2(H2O)4 + 2H2O OR
+
+    [Co(H2O)6]2+ + 2OH– → Co(OH)2 + 6H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Nernst equation E = Eo + (0.059 / z) × log( [oxidised]
+
+    [reduced] )
+
+    M2: E = –0.28 + (0.059 / 2) × log(0.02)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.66 V
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3Co + Cr2O72– + 14H+ → 3Co2+ + 2Cr3+ + 7H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5biv
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Co2+ / Co, Co2+ / Co, Cr2O72– / Cr3+
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: moles of cobalt = 0.547 / 58.9 = 0.00929
+
+    M2: coulombs required = 0.00929  96500  2 = 1792
+
+    M3: time required = 1792 / 0.50 = 3584.8 s = 59.7 minutes 3sf
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Ni(CO)4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    ethanedioate given as C2O4
+
+    •
+
+    formula shows one Ni and three ligands
+
+    •
+
+    charge = 4–
+
+    any two [1], all three [2]
+
+    Ni(C2O4)34– scores [2]
+
+    2
+
+    9701/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'F AND optical
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'N atom can donate one lone pair of electrons
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[Cd(en)2]2+ AND has a larger Kstab / is more stable
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[[Cd(CH3NH2)4]2+]
+
+    [Cd2+][CH3NH2]4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: Q CH3CH2CH(CH3)CHO
+
+    M2:
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'T CH3CH2CH2COCH3 AND V (CH3)2CHCOCH3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    yellow solid
+
+    •
+
+    CH3CH2CH2COOH OR (CH3)2CHCOOH
+
+    •
+
+    CHI3
+
+    Any two [1], all three [2]
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 7ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'S (CH3)3CCHO
+
+    1
+
+    AND
+
+    9701/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'U CH3CH2COCH2CH3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7ciii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'triplet AND two hydrogen atoms on neighbouring carbon atoms
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7civ
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'TMS / tetramethylsilane / Si(CH3)4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4
+
+    3
+
+    5
+
+    3
+
+    Any two [1], all four [2]
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'the pH at which an amino acid exists as a zwitterion
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: [HOOCCH(NH3)CH2CONH2]+
+
+    M2: [HOOCCH(NH3)CH2COOH]+
+
+    2
+
+    9701/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: HOCH2CH(NH2)CH2CH2NH2
+
+    M2: HOCH2CH(NH2)CH2CH2OH
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'HOOCCH2COOH + 2SOCl2 → ClOCCH2COCl + 2SO2 + 2HCl
+
+    [1]
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'HOOCCH(CH2CONH2)NHCOCH2CONHCH(CH2CONH2)COOH
+
+    M1: three molecules joined, with four correct amide groups only
+
+    M2: whole structure correct as above, displayed formula accepted, skeletal formula
+    as below accepted
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: hydrolysis of amide to carboxylate ion
+
+    M2: hydrolysis of –COOH to carboxylate ion and rest of molecule
+
+    –OOCCH(NH2)CH2COO–
+
+    2
+
+    9701/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    three monomer residues
+
+    •
+
+    all linkages correct
+
+    •
+
+    correct trailing bonds
+
+    •
+
+    repeat unit marked contains correct atoms
+
+    Any two [1], any three [2], all four [3]
+
+    CH2CONH2                        CH2CONH2
+
+    |                                         |
+
+    –COCHNH–[–COCHNH–]–COCHNH–
+
+    |
+
+    CH2CONH2
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 8gi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    rotate the plane of the plane polarised light
+
+    •
+
+    by the same angle
+
+    •
+
+    in opposite directions
+
+    Any two [1], all three [2]
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 8gii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'racemic mixture
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '•
+
+    all C atoms are sp2 hybridised
+
+    •
+
+    bonds between C atoms are  and 
+
+    •
+
+    C–C  bonds are formed by overlap of sp2 hybrid orbitals
+
+    •
+
+    C–C  bonds are formed by overlap of p orbitals
+
+    •
+
+    bonds between C and H atoms are 
+
+    •
+
+    C–H bonds are formed by overlap of sp2 hybrid orbitals and s orbitals
+
+    Any two [1], any four [2], all six [3]
+
+    3
+
+    9701/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CH3Cl and Al Cl 3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: curly arrow from within hexagon towards +C
+
+    M2: intermediate, usual rules for horseshoe and + charge
+
+    M3: curly arrow from C–H bond into ring AND H+ product
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 9d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: HNO3 AND H2SO4
+
+    M2: concentrated AND 25 °C ⩽ T ⩽ 60 °C
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'alkaline KMnO4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4-nitrobenzoic acid
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9g
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(hot) concentrated HCl and Sn
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9h
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1: perform step 3 before step 2 OR perform step 2 before step
+    1
+
+    M2: COOH is 3-directing OR NO2 is 3-directing
+
+    2'
+  mark_scheme: []
+  graphics: []

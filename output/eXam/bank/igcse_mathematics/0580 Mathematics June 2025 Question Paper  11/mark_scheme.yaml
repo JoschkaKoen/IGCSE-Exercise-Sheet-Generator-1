@@ -1,0 +1,646 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Ten thousand [and] sixty-nine
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '10 070
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '100.69
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.6[0]
+
+    2 B1 for 3.4[0]
+
+    or M1 for 5 – 10 × 0.34 oe'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–5    3
+
+    2 B1 for answer of two numbers that
+
+    add to –2 or multiply to –15'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '112
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '49
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    5  or [0].2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(7 – 5) × 4 + 8 = 16
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7 – (5 × 4 + 8) = – 21
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '18t final answer
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'n + 16 final answer
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '9
+
+    10  cao
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[0].03
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Subtract 7 oe
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5    –2
+
+    2 B1 for either in this order
+
+    or SC1 for second number = first number
+
+    – 7'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4n + 15 oe final answer
+
+    2 B1 for final answer 4n + j
+
+    or kn + 15 ( k ≠ 0)
+
+    or 4n + 15 seen then spoilt'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ''
+  mark_scheme: []
+  graphics: []
+- number: '14'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '40
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 10c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '11 50
+
+    1
+
+    0580/11
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 10d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Ruled line from
+
+    (9 40, 0) to (10 20, 14)
+
+    2 M1 for'
+  mark_scheme: []
+  graphics: []
+- number: '21'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'their(a)  oe
+
+    or a parallel line'
+  mark_scheme: []
+  graphics: []
+- number: '11'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '27
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '12'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−5 cao final answer
+
+    2 M1 for 5x – 3x = – 2 – 8 oe or better'
+  mark_scheme: []
+  graphics: []
+- number: 13a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '20
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 13b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–11
+
+    1
+
+    14
+
+    6 final answer
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '15'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct net
+
+    3 B2 for 3 correct extra faces in correct
+
+    places
+
+    or B1 for 1 correct extra face in correct
+
+    place'
+  mark_scheme: []
+  graphics: []
+- number: 16a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5a – b final answer
+
+    2 B1 for 5a or −b in final answer
+
+    or for 5a – b seen then spoilt'
+  mark_scheme: []
+  graphics: []
+- number: 16bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3(2x + 5y) final answer
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 16bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'xy( x – 5) final answer
+
+    2 B1 for x( xy – 5y) or y( x2 – 5x)
+
+    or xy( x – 5) seen then spoilt'
+  mark_scheme: []
+  graphics: []
+- number: '17'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '40  20
+
+    2  6
+
+    +
+
+    
+
+    5 nfww
+
+    A1 If 0 scored SC1 for 3 correct roundings
+
+    or for all correct but with trailing zeros'
+  mark_scheme: []
+  graphics: []
+- number: 18a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '50
+
+    alternate angles
+
+    2 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: 18b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '110
+
+    corresponding angles
+
+    2 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: 18c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '60
+
+    2 M1 for 180 – (180 – 110) – 50 oe
+
+    or 70 marked as third angle in triangle'
+  mark_scheme: []
+  graphics: []
+- number: 19a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct tree diagram
+
+    3 B1 for 1
+
+    5  oe and 4
+
+    5  seen oe
+
+    M1 for either 1 5  or 4
+
+    5  in the correct place
+
+    in the first branch
+
+    If 0 scored, SC1 for their two
+
+    probabilities adding to 1 in the first
+
+    branch
+
+    0580/11
+
+    May/June 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 19b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '16
+
+    25
+
+    oe
+
+    2 FT their (a) probabilities
+
+    provided 0 < each of their 4
+
+    5
+
+    < 1
+
+    M1 for their 4
+
+    5
+
+    × their 4
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 20a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2 points accurately plotted
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 20b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Negative
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 20ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct ruled line of best fit
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 20cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '275
+
+    1 FT their straight line of best fit
+
+    with negative gradient
+
+    21
+
+    51
+
+    2 M1 for 90 – 39 oe
+
+    or angle ABC identified as 90'
+  mark_scheme: []
+  graphics: []
+- number: 22a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 22b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '360
+
+    2 B1 for answer 360k, k > 1
+
+    or M1 for 23×32×5 oe
+
+    or for 24, 48, 72… and 45, 90, 135…
+
+    seen'
+  mark_scheme: []
+  graphics: []
+- number: 23a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct rotation, points at
+
+    (1, –1), (3, –1) and (1, –4)
+
+    2 B1 for correct rotation 90° anti-clockwise
+
+    or correct rotation with incorrect centre'
+  mark_scheme: []
+  graphics: []
+- number: 23b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Translation
+
+    6
+
+    4
+
+    −
+
+    
+
+    
+
+    
+
+    
+
+    −
+
+    
+
+    
+
+    2 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: 23c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Enlargement
+
+    [scale factor] 2
+
+    [centre] (0, -2)
+
+    3 B1 for each
+
+    Angle mentioned'
+  mark_scheme: []
+  graphics: []
+- number: '24'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3 1
+
+    12  nfww
+
+    3 B1 for 4
+
+    3  or 7
+
+    4  oe
+
+    or for 2 + 1 3  + 3
+
+    4  oe
+
+    M1 for 16
+
+    12  and 21
+
+    12  or 4
+
+    12  and 9
+
+    12'
+  mark_scheme: []
+  graphics: []
+- number: 25a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3.25 × 104
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 25b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[0].0056
+
+    1
+
+    0580/11
+
+    May/June 2025
+
+    Partial Marks
+
+    26
+
+    [x =] 5
+
+    [y =] −1 nfww
+
+    4 M1 for correctly equating one set of
+
+    coefficients
+
+    M1 for correct method to eliminate one
+
+    variable
+
+    A1 for x = 5
+
+    A1 for y = −1
+
+    If A0 scored, SC1 for 2 values satisfying
+
+    one of the original equations.'
+  mark_scheme: []
+  graphics: []

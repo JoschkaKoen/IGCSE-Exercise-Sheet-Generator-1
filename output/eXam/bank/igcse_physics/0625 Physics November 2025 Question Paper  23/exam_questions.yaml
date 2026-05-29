@@ -1,0 +1,628 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: When a pendulum passes a marker, a timer displays 1 minute 30 seconds. The
+    pendulum passes the marker 12 more times from the same direction. On the final
+    pass, the timer displays a time of 2 minutes 18 seconds. What is the time period
+    of oscillation of the pendulum?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: A car driver applies the brakes to bring a car to rest with a constant deceleration
+    of 4.0 m / s2 in a time of 8.0 s. What is the average speed of the car during
+    this time?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: An object is falling in a uniform gravitational field. After a certain time,
+    it reaches terminal velocity. Which row is correct? velocity of object acceleration
+    of object
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Which measuring instrument is used to compare masses?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: Three different liquids are poured into a tall beaker. The liquids do not
+    mix. The liquid densities are shown in the table. liquid cm / g density P 1.8
+    Q 2.4 R 1.2 What is the correct order of the liquids from the top of the beaker
+    to the bottom?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: A car is moving in a straight line on a level road. Its engine provides a
+    forward force on the car. A second force of equal size acts on the car in the
+    opposite direction. Which statement describes what happens?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which beam is balanced? (Ignore the weight of the beam.)
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: A ball is at rest on the ground. A boy kicks the ball. The boy’s boot is in
+    contact with the ball for a time of 0.040 s. The average force on the ball is
+    200 N. The ball leaves the boy’s boot with a speed of 20 m / s. Which row gives
+    the impulse of the boot on the ball and the average acceleration of the ball during
+    the time of 0.040 s? s N ball on impulse s / m ball of on accelerati average
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Which device transfers energy from a chemical energy store to a kinetic energy
+    store?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: For which energy resource is the Sun the main source?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: A football is inflated in a warm room and then taken outside where the temperature
+    is much lower. The pressure and temperature inside the ball both decrease. The
+    volume of the ball is unchanged. Which row explains the decrease in pressure in
+    terms of the movement of air particles? kinetic energy of air particles frequency
+    of collisions between air particles and inside surface of ball
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: A fixed mass of gas has a volume of 25 cm3. The pressure of the gas is 100
+    kPa. The volume of the gas is slowly decreased by 15 cm3 at constant temperature.
+    What is the change in pressure of the gas?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: The specific heat capacity of ice is 2000 J / kg °C. Which thermal energy
+    is required to raise the temperature of 100 g of ice by 5 °C?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows four labelled changes of state, P, Q, R and S, between solid,
+    liquid and gas. solid liquid gas P S Q R Which changes need an energy input?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row about the movement of electrons and ions during conduction of thermal
+    energy through a metal is correct? electrons ions
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: A scientist measures the air temperature at different heights from the floor
+    in a cave. The results are recorded in the table. height / m temperature / °C
+    Why does altering the height affect the temperature of the air?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Star X has a larger diameter than star Y but they both emit radiation with
+    the same power. Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: When water waves pass through a gap, they diffract. The diagrams show wavefronts
+    approaching a gap. In which diagram will the diffraction be least?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a scale drawing of the formation of an image by the reflection
+    of light from a plane mirror. object image mirror What are the relationships between
+    the labelled angles?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: The speed of light in a vacuum is 3.0  108 m / s. The speed of light in glass
+    is 2.2  108 m / s. A light ray in a vacuum enters glass with an angle of incidence
+    of 40°. What is the angle of refraction within the glass?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a human eye that correctly focuses the light on the retina.
+    lens of eye retina Which row shows a short-sighted eye and use of the correct
+    lens to focus the image? lens lens lens lens
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Visible light, X-rays and microwaves are all components of the electromagnetic
+    spectrum. Which statement about the waves is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Both the amplitude and the frequency of a sound wave decrease. What happens
+    to the sound that is heard?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the magnetic field due to a current in a solenoid. current
+    direction X Y Z Which graph represents the strength of the magnetic field at positions
+    X, Y and Z? strength of magnetic field position
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Why does a plastic rod become negatively charged when it is rubbed with a
+    cloth?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: There is an electric current in a circuit with a battery. This question refers
+    to the positive and negative terminals of the battery. Which row correctly describes
+    the directions of the conventional current and the electron flow in the circuit?
+    direction of conventional current direction of electron flow
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: Which electrical quantity is defined in terms of the energy supplied by a
+    source in driving charge round a complete circuit?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: A torch has a simple circuit with a 3.0 V battery and a lamp. There is a 20
+    mA current in the lamp. How much energy is transferred to the lamp in 5.0 minutes?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: In which circuit does the lamp light?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which circuit shows possible correct values for the currents?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: The circuit diagrams show circuits that can control the potential difference
+    (p.d.) across a lamp. Which circuit allows the p.d. across the lamp to be varied
+    from 0 V to 6.0 V? 6.0 V
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a wire between two magnetic poles. The wire is connected
+    in a circuit with an ammeter. N S
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Some students set up an experiment to measure the count rate for a radioactive
+    source. First, they measure the radioactive background count rate in the laboratory
+    by taking three measurements. Each measurement is taken over a 10-minute period.
+    The table shows their results. number of counts in 10 minutes first measurement
+    second measurement third measurement 170 164 185 Next, the students measure the
+    counts near the radioactive source. This count rate is measured as 949 counts
+    per minute. What is the corrected count rate for the source?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: A radioactive source emits -particles, -particles and -rays into a vacuum
+    where there is a magnetic field. The magnetic field acts perpendicularly into
+    the plane of the paper. The paths J, K and L of the three types of radiation through
+    the magnetic field are shown. J K L radioactive source magnetic field into paper
+    Which radiation follows path J, path K and path L? J K L
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: Radioactive decay is a change in an unstable nucleus which may result in emission
+    of alpha-particles or beta-particles. Which statement describes how these emissions
+    happen?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Which change occurs in the nucleus of a radioactive atom when a beta-particle
+    is emitted?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: A radioactive source that emits -particles, -particles and -radiation is
+    stored safely in a container. From which material should the container be made?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: An artificial satellite orbits planet X at a distance r = 7.0  106 m from
+    the centre of planet X. The average orbital speed v of the satellite is 3500 m
+    / s. What is the orbital period?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: The table lists data about four different stars. Which star is the Sun? main
+    elements in the star regions of electromagnetic spectrum where most energy is
+    radiated by the star
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: What can be formed directly following a supernova?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

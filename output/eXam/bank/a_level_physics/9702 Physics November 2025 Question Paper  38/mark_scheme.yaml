@@ -1,0 +1,393 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Value of P in range 5.00 to 15.00 s, with unit seen somewhere
+
+    1
+
+    Evidence of repeated measurement of P
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Six sets of readings of z (different values) and P with correct
+    overall trend and without help scores 5 marks, five sets scores
+
+    4 marks etc.
+
+    Correct trend is P decreases as z increases.
+
+    5
+
+    Range: at least one reading of z ⩽ 10 g and at least one reading of z ⩾ 70 g
+
+    1
+
+    Column headings:
+
+    Each column heading must contain a quantity and a unit where appropriate.
+
+    The presentation of quantity and unit must conform to accepted scientific convention
+    e.g. 1 / M (g-½)
+
+    1
+
+    Consistency:
+
+    All raw values of P must be given to the nearest 0.01 s or all to the nearest
+    0.1 s.
+
+    1
+
+    Significant figures:
+
+    All values of 1 / M must be given to 3 s.f. or 4 s.f.
+
+    1
+
+    Calculation:
+
+    1 / M calculated correctly
+
+    1
+
+    9702/38
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Axes:
+
+    Axes must be labelled with the correct quantities.
+
+    Scales must be chosen so that the plotted points occupy
+
+    at least half the graph grid in both the x and y directions.
+
+    Scale markings are no more than 2 cm (one large square) apart.
+
+    Sensible scales must be used, no awkward scales (e.g. 3:10 or fractions).
+
+    1
+
+    Plotting of points:
+
+    All observations in the table must be plotted on the grid.
+
+    Diameter of plotted points must be ⩽ half a small square.
+
+    Points must be plotted to an accuracy of half a small square in both x and y directions.
+
+    1
+
+    Quality:
+
+    General trend of points must be negative.
+
+    All points in the table must be plotted (at least 5) for this mark to be awarded.
+
+    It must be possible to draw a straight line that is within  0.001 g–1/2 on the
+    1 / M axis of all plotted points.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Line of best fit:
+
+    ‘Best fit’ is judged by the balance of all points on the grid (at least 5 points)
+    about the candidate’s line.
+
+    There must be an even distribution of points either side of the line along the
+    full length.
+
+    Lines must not be kinked or thicker than half a square.
+
+    Some candidates may choose to identify an anomalous point. If they identify one
+    point as anomalous (e.g. by circling or
+
+    labelling) then this point is to be disregarded when judging the line of best
+    fit. There must be at least 5 points left after the
+
+    anomalous point is disregarded.
+
+    1
+
+    9702/38
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 1ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Gradient:
+
+    Gradient sign on answer line consistent with graph drawn.
+
+    The hypotenuse of the triangle used should be greater than half the length of
+    the drawn line.
+
+    Both read offs must be accurate to half a small square in both the x and y directions.
+
+    Method of calculation must be correct, not x / y.
+
+    1
+
+    y-intercept:
+
+    Either
+
+    Intercept read directly from the graph, with read off at
+
+    x = 0, accurate to half a small square in y direction.
+
+    Or
+
+    Correct read off from a point on the line is substituted into y = mx + c or an
+    equivalent expression.
+
+    Read-off accurate to half a small square in both x and y directions
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Value of a = candidate’s gradient value and
+
+    Value of b = candidate’s y-intercept value.
+
+    The values must not be written as fractions or given to only one significant figure.
+
+    1
+
+    Units for a and b correct and consistent with readings
+
+    (e.g. g½s-1 for a and s-1 for b)
+
+    1
+
+    9702/38
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Raw values of d to the nearest mm and final value in range
+    5.00 to 7.00 cm.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct calculation of T given to 3 or 4 significant figures
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Raw value (s) of x to nearest mm
+
+    1
+
+    Evidence of repeat readings of x
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Absolute uncertainty of 2 mm to 6 mm and correct method of
+    calculation to obtain percentage uncertainty in x.
+
+    If several readings have been taken, then the absolute uncertainty can be half
+    the range, provided the working is shown
+
+    clearly, but not zero if values are equal.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ciii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct calculation of y
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Second value of T
+
+    1
+
+    Second value of x
+
+    1
+
+    Quality – second x less than first x
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two values of k calculated correctly.
+
+    Final values not written as fractions or given only to one significant figure.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Justification based on the significant figures in T, x and
+    y.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Calculation of percentage difference between candidate’s two
+    k values.
+
+    Comparison of percentage difference with 20% leading to a consistent conclusion.
+
+    1
+
+    9702/38
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2gi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each point up to a maximum of 4.
+
+    A
+
+    Two readings are not enough to draw a conclusion owtte e.g. reference to relationship
+
+    OR
+
+    Not enough k values to draw a conclusion.
+
+    B
+
+    Difficulty with F with reason, e.g. maintaining steady reading or 5.0 N / keeping
+    newton meter steady / checking value of
+
+    F at the same time as measuring x / holding newton meter horizontally / zero error
+    on newton meter
+
+    C
+
+    x has a large percentage uncertainty.
+
+    D
+
+    Difficulty with x with reason e.g. parallax / no reference point at start or end
+    position / hard to hold ruler
+
+    steady / checking newton meter at the same time as measuring x (award checking
+    newton meter/checking value of F
+
+    only once).
+
+    E
+
+    Friction over nails affects T.
+
+    F
+
+    Difficulty with d with reason e.g. nails not aligned vertically / judging the
+    centre of the nails
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2gii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 mark for each point up to a maximum of 4.
+
+    A
+
+    Take more readings (for different values of M) and plot a graph OR calculate more
+    k values and compare.
+
+    B
+
+    Clamp newton meter / use (spirit) level to ensure newton meter is horizontal / video / record / film
+    with newton meter and
+
+    ruler in view / use mass hanger over pulley
+
+    C
+
+    Increase d / increase F / decrease T
+
+    D
+
+    Use of a vertical reference e.g. plumb line / string between bottom two nails / grid
+    behind string / clamped pointer (for x)
+
+    or clamped ruler (for x)
+
+    E
+
+    Replace nails with pulleys / use smoother string with example e.g. waxed thread / nylon
+    string
+
+    F
+
+    Use plumb line / measure from the top of one nail to the top of the other nail
+    owtte / use (vernier) caliper and subtract or
+
+    add diameter (award plumb line only once).
+
+    4'
+  mark_scheme: []
+  graphics: []

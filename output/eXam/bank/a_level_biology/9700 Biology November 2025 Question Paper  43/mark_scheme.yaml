@@ -1,0 +1,1141 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'AABB     AABb      AaBB      AaBb ; ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'long chocolate ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ';
+
+    AB
+
+    Ab
+
+    aB
+
+    Ab
+
+    AB
+
+    AABB
+
+    AABb
+
+    AaBB
+
+    AaBb
+
+    Ab
+
+    AABb
+
+    AAbb
+
+    AaBb
+
+    Aabb
+
+    aB
+
+    AaBB
+
+    AaBb
+
+    aaBB
+
+    aaBb
+
+    Ab
+
+    AaBb
+
+    Aabb
+
+    aaBb
+
+    aabb ;
+
+    F2 offspring phenotype number ratio:
+
+    9              :                 3               :                 3           :                1      ;
+
+    short                          short                           long                        long
+
+    black                      chocolate                       black                 chocolate
+    ;
+
+    Mp 4 need phenotypes linked to genotypes by colour, symbol or initials
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    structural gene codes for, (named) structural / functional, protein / polypeptide
+    ;
+
+    2
+
+    regulatory gene codes for, transcription factor / repressor protein
+
+    or
+
+    regulatory gene, controls / helps / restricts, expression of (other) genes ;
+
+    2
+
+    A
+
+    b
+
+    A
+
+    B
+
+    a
+
+    B
+
+    a
+
+    b
+
+    A
+
+    b
+
+    A
+
+    B
+
+    a
+
+    B
+
+    a
+
+    b
+
+    9700/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'E. turcicum
+
+    Z. mays
+
+    1
+
+    structural
+
+    difference
+
+    chitin cell wall
+
+    or
+
+    no chloroplasts
+
+    or
+
+    hyphae / cells long and branching
+
+    or
+
+    syncytial / multinucleate / several nuclei per cell
+
+    cellulose cell wall
+
+    or
+
+    chloroplasts
+
+    or
+
+    no hyphae / cells not long and branching
+
+    or
+
+    one nucleus per cell ;
+
+    2
+
+    functional
+
+    difference
+
+    heterotroph(ic) / parasitic / obtain food from host / do
+
+    not photosynthesise
+
+    autotroph(ic) / phototrophic
+
+    / photosynthesis(e) ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    large groups divide into smaller groups ;
+
+    2
+
+    common / similar / shared, features within a group ;
+
+    3
+
+    ref. three of: kingdom – phylum – class – order – family ;
+
+    4
+
+    genus and species = binomial / Linnaean / Latin / scientific, name ;
+
+    5
+
+    (both in domain) Eukarya ;
+
+    6
+
+    different kingdoms / Fungi and Plantae ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    low percentage leaf damage means high resistance (to infection) ;
+
+    2
+
+    SKV50 = 22% and CML153 = 58% ;
+
+    3
+
+    SKV50 shows greater resistance (to infection) ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'continuous ;
+
+    1
+
+    9700/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    many / different / several / multiple, genes ;
+
+    2
+
+    affect, same trait / (percentage) area of leaf damage / resistance ;
+
+    3
+
+    alleles of, one / each, gene have a small effect ;
+
+    4
+
+    (different) genes have, additive / combined / interactive, effects ;
+
+    5
+
+    mathematical treatment to illustrate additive effect ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.95 (no units) ; ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any two from:
+
+    1
+
+    B, run for less time / stopped early ;
+
+    2
+
+    chlorophyll, converted / changed, to phaeophytin ;
+
+    3
+
+    AVP ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    1
+
+    different solvents ;
+
+    2
+
+    different, TLC plate / chromatogram / stationary phase (material) ;
+
+    3
+
+    different temperatures ;
+
+    1
+
+    9700/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    similarities
+
+    1
+
+    both absorb, blue / between 400 and 475 nm ;
+
+    2
+
+    both absorb, little / no, light between 525 and, 600 / 630, nm
+
+    or
+
+    both absorb, little / no, green / yellow, light ;
+
+    3
+
+    AVP ;
+
+    max three differences
+
+    4
+
+    chlorophyll a absorbs, at more / a larger range of, wavelengths ;
+
+    5
+
+    chlorophyll a absorbs, more / better, between 400 and 445 nm ;
+
+    6
+
+    carotenoids absorb, more / better, between 445 and 525 nm ;
+
+    7
+
+    chlorophyll a absorbs between, 600 / 640, and, 680 / 690 nm, and carotenoids do
+    not ;
+
+    8
+
+    chlorophyll a (blue absorption) peak / highest, at 425 / 430 nm and
+
+    carotenoids (blue absorption) peak / highest, at 460 / 465 nm ;
+
+    9
+
+    chlorophyll a has blue peak and red peak but
+
+    carotenoids have two blue peaks and no red peak
+
+    or
+
+    chlorophyll a has two peaks but
+
+    carotenoids have three peaks ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    gibberellin, moves to / acts on / stimulates, aleurone layer ;
+
+    2
+
+    binds to, (gibberellin) receptor / GID(1) ;
+
+    3
+
+    breaks down DELLA (protein) ;
+
+    4
+
+    releases, PIF / transcription factor ;
+
+    5
+
+    switches on gene for, amylase / maltase / protease ;
+
+    6
+
+    amylase, breaks down / hydrolyses, starch to maltose ;
+
+    7
+
+    sugars / glucose, for, respiration / growth, of embryo ;
+
+    4
+
+    9700/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    diploid ;
+
+    2
+
+    allele ;
+
+    3
+
+    dominant (allele) ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    CDV acts as a selection pressure ;
+
+    2
+
+    DNA / allele, for black (coat) gives resistance to CDV
+
+    or
+
+    DNA / allele, for black (coat), gives (selective) advantage / is selected for,
+    if / when, CDV is common / dogs are
+
+    common ;
+
+    in the south (context must be established at least once):
+
+    3
+
+    more CDV (infection) in wolves ;
+
+    4
+
+    black wolves, more likely to survive / have selective advantage / are selected
+    for ; ORA greys
+
+    5
+
+    black wolves more likely to, breed / reproduce ; ORA greys
+
+    6
+
+    pass on / increase the frequency of, allele for black coat ; ORA grey
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    positive (linear) correlation / positive relationship / direct relationship / directly
+    proportional
+
+    or
+
+    as % with (anti-CDV) antibodies increases the % of black wolvesincreases ;
+
+    plus any three from:
+
+    2
+
+    wolves that survive CDV will, later / as a result, have antibodies ;
+
+    3
+
+    high % of antibodies show population with high level of CDV ;
+
+    4
+
+    in population with high % antibodies, grey wolves have died / more black wolves
+    are left ;
+
+    5
+
+    gene / DNA / allele / protein, that gives black coat, helps survival / gives resistance
+    to CDV / defends against CDV ;
+
+    6
+
+    AVP ;
+
+    4
+
+    9700/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'feature
+
+    ADH
+
+    glucagon
+
+    insulin
+
+    binds to receptors on cell surface
+
+    membranes
+
+    ✓
+
+    ✓
+
+    ✓
+
+    ;
+
+    results in molecules moving from
+
+    cells into the blood
+
+    ✓
+
+    ✓
+
+    
+
+    ;
+
+    is secreted as a result of detection by
+
+    osmoreceptors
+
+    ✓
+
+    
+
+    
+
+    ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    impulses / action potentials / neurotransmitters, in nervous system and hormones
+    in endocrine system ;
+
+    2
+
+    electrical in nervous system and chemical in endocrine system ;
+
+    3
+
+    neurones / nerve cells, in nervous system and blood in endocrine system ;
+
+    4
+
+    effects are / target is, specific / localised, in nervous system and (can be)
+    widespread in endocrine system ;
+
+    5
+
+    effect / response, happens quickly in nervous system and slowly in endocrine system
+    ;
+
+    6
+
+    effect / response, lasts a short time in nervous system and long time in endocrine
+    system ;
+
+    7
+
+    AVP ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'B ;
+
+    1
+
+    9700/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    (D / it), shortens / contracts / decreases ;
+
+    and any three from:
+
+    2
+
+    calcium ions / Ca2+, bind to troponin ;
+
+    3
+
+    tropomyosin, moves / shifts position / exposes binding sites on actin ;
+
+    4
+
+    myosin (head) binds to actin / myosin-actin cross-bridges form ;
+
+    5
+
+    power stroke / myosin head, pulls actin ;
+
+    6
+
+    more actin, enters / overlaps with, A band / B
+
+    or
+
+    more overlap between actin and myosin ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 6ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    identify / protect / prioritise, species most at risk ;
+
+    2
+
+    provide data to / advise, governments / scientists / zoos / industry ;
+
+    3
+
+    so action can be taken to protect a species ;
+
+    4
+
+    example of conservation action ;
+
+    5
+
+    AVP ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 6aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'in Europe / west or where, endangered / EN (context must be
+    stated)
+
+    1
+
+    P. arion less abundant (compared to, Asia / NT) ;
+
+    2
+
+    more threatened / higher risk of extinction ;
+
+    3
+
+    AVP ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    habitat, degradation / change / loss ;
+
+    2
+
+    due to, (change in) farming / development ;
+
+    3
+
+    lack of, food plants / flowers for food ;
+
+    2
+
+    9700/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    prevent extinction / allow survival (of species) ;
+
+    2
+
+    maintain / increase, biodiversity ;
+
+    3
+
+    aesthetic / recreational / wellbeing (reasons / benefits) ;
+
+    4
+
+    for, scientific interest / research / education ;
+
+    5
+
+    ethical / moral / stewardship (obligation) ;
+
+    6
+
+    local cultural significance / save local heritage / ecotourism ;
+
+    7
+
+    maintain / protect / restore / stability of, food chains / food webs ;
+
+    8
+
+    pollination / ecosystem, services ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    1
+
+    breaks down / hydrolyses to / converted to, ADP / AMP, and Pi ;
+
+    2
+
+    releases energy / energy donor ;
+
+    3
+
+    reversible reaction / high turnover / can be regenerated ;
+
+    4
+
+    small / soluble, so can, diffuse / move (freely), in cell ;
+
+    5
+
+    AVP ;
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any six from:
+
+    1
+
+    ETC / electron flow, less / stops ;
+
+    2
+
+    no / less, energy, available / released / supplied (from electron flow) ;
+
+    3
+
+    no / fewer, H+ ions / protons, pumped to intermembrane space ;
+
+    4
+
+    no / smaller, H+ / proton, gradient ;
+
+    5
+
+    no / fewer, protons diffuse through ATP synthase ;
+
+    6
+
+    no / fewer, electrons reach, last carrier / end of chain ;
+
+    7
+
+    no / fewer, electrons can react with oxygen to form water ;
+
+    8
+
+    (oxidised) NAD not regenerated / lack of NAD ;
+
+    9
+
+    no / less, glycolysis / link reaction / Krebs cycle ;
+
+    10
+
+    AVP ;
+
+    6
+
+    9700/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    (Liberty Link soybean / it, is) not harmed by / not killed by / resistant to,
+    herbicide / glufosinate ;
+
+    2
+
+    herbicide / glufosinate, kills, weeds / unwanted plants ;
+
+    3
+
+    reduces / removes / less / no, competition (with, weeds / unwanted plants) ;
+
+    4
+
+    ref. to (sun)light / water / (named) soil minerals ;
+
+    5
+
+    higher yield or more crop, harvested / produced ;
+
+    6
+
+    AVP ;
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'restriction, enzyme / endonuclease ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(DNA) ligase ;
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any three from:
+
+    some / other / 21, countries:
+
+    1
+
+    may, have, unsuitable / described problem in, climate / weather / soil ;
+
+    2
+
+    no regulatory approval / may have banned (GM / Liberty Link) ;
+
+    3
+
+    may have, (activist) groups / people, opposed to GM crops ;
+
+    4
+
+    may not have land space available ;
+
+    5
+
+    may have banned, herbicide / glufosinate ;
+
+    6
+
+    AVP ;
+
+    3
+
+    9700/43
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(X =) (renal) pelvis ;
+
+    (Y =) medulla ;
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any four from:
+
+    1
+
+    glucose oxidase (present / immobilised, in sensor / on strip) ;
+
+    2
+
+    glucose → hydrogen peroxide ;
+
+    3
+
+    hydrogen peroxide (oxidised) → oxygen / electrons ;
+
+    4
+
+    (magnitude of) e– flow / current / voltage, (generated) is proportional to, hydrogen
+    peroxide / glucose, concentration ;
+
+    5
+
+    digital / numerical / quantitative, reading / result / value (on screen) ;
+
+    6
+
+    AVP ;
+
+    4
+
+    9700/43
+
+    October/November 2025
+
+    10
+
+    marks from any two groups of mark points to max 6:
+
+    1
+
+    mutant TYR gene codes for non-functioning tyrosinase ;
+
+    2
+
+    albinism / albino, recessive (disorder / allele) ;
+
+    3
+
+    lack of melanin / no melanin produced ;
+
+    4
+
+    giving, pale / fair, skin / hair or giving, transparent / pink, iris ;
+
+    5
+
+    mutant HBB gene codes for, abnormal (β) globin / haemoglobin S ;
+
+    6
+
+    sickle cell, anaemia / disease, codominant (disorder / allele) ;
+
+    7
+
+    less soluble / sticky / rod-forming, haemoglobin makes red blood cells sickle
+    ;
+
+    8
+
+    sickle cells, block capillaries / cause pain (in low O2 conditions) ;
+
+    9
+
+    mutant F8 gene codes for non-functional factor VIII ;
+
+    10
+
+    haemophilia, recessive / sex -linked / on X chromosome  ;
+
+    11
+
+    fibrinogen not changed to fibrin ;
+
+    12
+
+    blood clotting problem / risk of excessive bleeding ;
+
+    13
+
+    mutant HTT gene codes for abnormal huntingtin protein ;
+
+    14
+
+    Huntington’s disease dominant (disorder / allele) ;
+
+    15
+
+    ref. to additional / number of, CAG repeats ;
+
+    16
+
+    cognitive / movement, difficulty ;
+
+    other human genetic conditions (max 2 conditions with 4 possible marks each)
+
+    17
+
+    mutant named gene codes for abnormal named protein ; ;
+
+    18
+
+    type of allele that causes named condition ; ;
+
+    19
+
+    biochemical detail re. gene / protein / molecule ; ;
+
+    20
+
+    physiological effect ; ;
+
+    6'
+  mark_scheme: []
+  graphics: []

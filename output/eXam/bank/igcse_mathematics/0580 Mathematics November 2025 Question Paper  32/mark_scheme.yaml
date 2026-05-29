@@ -1,0 +1,759 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'radius
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'chord
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1    2     4     8      16     32
+
+    2 B1 for 4 correct and no errors
+
+    or 6 correct and one extra'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '<
+
+    =
+
+    <
+
+    2 B1 for 2 correct'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '–2, 3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correct ruled line
+
+    =
+
+    y
+
+    x
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correct ruled line
+
+    1
+
+    =−+
+
+    y
+
+    x
+
+    1 FT their straight y = x'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5
+
+    8  or 0.625
+
+    1
+
+    0580/32
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1 or 81 accept 0
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '59
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '20
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '650
+
+    3250
+
+    2 B1 for each'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'trapezium
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'rhombus
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '10'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3.06 or 3.057…
+
+    3 M1 for
+
+    (1 × 7) + (2 × 5) + (3 × 8) + (4 × 9) + (5 × 6)
+
+    M1dep for
+
+    (
+
+    )
+
+    7
+
+    5
+
+    8
+
+    9
+
+    6
+
+    
+
+    
+
+    +
+
+    +
+
+    +
+
+    +
+
+    their
+
+    fx'
+  mark_scheme: []
+  graphics: []
+- number: '11'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '102
+
+    2 B1 for 108 or – 6
+
+    or M1 for 3 × 62 + 2 × − 3 oe'
+  mark_scheme: []
+  graphics: []
+- number: 12a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '64
+
+    136
+
+    160
+
+    2 B1 for 1 correct
+
+    or M1 for 360
+
+    90  × k (k = 1, 16, 34 or 40) oe'
+  mark_scheme: []
+  graphics: []
+- number: 12b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Accurate pie chart
+
+    2 B2FT if their angles add up to 360°
+
+    or B1FT for one correct sector or one correct
+
+    FT sector (may or may not add up to 360°)'
+  mark_scheme: []
+  graphics: []
+- number: '13'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '32 800 cao
+
+    2 B1 for 32 768 or
+
+    their answer of more than 3 figures correctly
+
+    rounded to 3 sf'
+  mark_scheme: []
+  graphics: []
+- number: 14a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '40
+
+    2 B1 for 8 or 22 1
+
+    2  or 17 1
+
+    2
+
+    if 0 scored SC1 for 45 as final answer'
+  mark_scheme: []
+  graphics: []
+- number: 14b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '608
+
+    1 FT their (a) × 15.20 correct to at least 3sf'
+  mark_scheme: []
+  graphics: []
+- number: 14c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '22.8[0]
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 14d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '400
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '15'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct point marked
+
+    2 B1 for B on bearing 140° from A
+
+    or
+
+    B1 for B 5.5cm from A
+
+    0580/32
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: '16'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '72.96
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '17'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct diagram
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 18a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'positive
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 18b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Acceptable ruled line of best fit
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 18c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '42 – 47
+
+    1 FT their straight line of best fit with positive
+
+    gradient'
+  mark_scheme: []
+  graphics: []
+- number: '19'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '9.8[0] or 9.804 to 9.805
+
+    3 M2 for x3 = π × 52 × 12 oe
+
+    or M1 for π × 52 × 12 oe
+
+    or for x3 = their 942.7'
+  mark_scheme: []
+  graphics: []
+- number: 20a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Flix AND higher mean oe
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 20b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Movie Scene AND higher range oe
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: '21'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.33 × 102 or 2.33[3…] × 102
+
+    2 B1 for 233[.3…] oe
+
+    or correct value not in correct standard form
+
+    or their value seen given in correct standard
+
+    form
+
+    if 0 scored SC1 for 2.3 × 102 as answer'
+  mark_scheme: []
+  graphics: []
+- number: 22a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '78.5 or 78.6 or 78.53 to 78.55
+
+    2
+
+    M1 for π ×
+
+    2
+
+    10
+
+    2
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    oe'
+  mark_scheme: []
+  graphics: []
+- number: 22b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '121 or 120.7 to 120.8
+
+    2 FT
+
+    M1FT for 10 × 16 − 1
+
+    2
+
+    × their (a) oe'
+  mark_scheme: []
+  graphics: []
+- number: 22c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '60.4 to 60.8
+
+    2
+
+    M1FT for
+
+    ( )
+
+    ( )
+
+    1
+
+    10 16
+
+    2
+
+    
+
+    +
+
+    their
+
+    their
+
+    b
+
+    a
+
+    [100] oe
+
+    or
+
+    ( )
+
+    ( )
+
+    ( )
+
+    +
+
+    their
+
+    their
+
+    their
+
+    b
+
+    b
+
+    a  [100] oe
+
+    0580/32
+
+    October/November 2025
+
+    Partial Marks'
+  mark_scheme: []
+  graphics: []
+- number: '23'
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '52
+
+    4 B3 for 17
+
+    OR
+
+    B1 for 8 correctly identified
+
+    M1 for 152 + (their 8)2 oe
+
+    M1dep for 14 + 15 + 6 + their 17 soi'
+  mark_scheme: []
+  graphics: []
+- number: '24'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '18
+
+    2 M1 for 42
+
+    x
+
+    = 28
+
+    12
+
+    oe or better'
+  mark_scheme: []
+  graphics: []
+- number: 25a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[ y = ] 1
+
+    4
+
+    x + 2 final answer
+
+    3 B2 for 1
+
+    4
+
+    x + c
+
+    or for a correct unsimplified answer
+
+    or M1 for a correct rise/run
+
+    or for a right-angled triangle with
+
+    run = a and rise = b labelled with
+
+    numerical values where b
+
+    a  = 1
+
+    4  oe
+
+    or B1 for mx + 2 where m is their gradient'
+  mark_scheme: []
+  graphics: []
+- number: 25b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '[ y = ] −3x + 8 final answer
+
+    2 B1 for −3x + c as answer, c ≠ 5
+
+    or M1 for 5 = −3[ 1]
+
+    
+
+    + c'
+  mark_scheme: []
+  graphics: []
+- number: '26'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '9.04 or 9.042 to 9.043
+
+    2 M1 for tan 37 = 12
+
+    x  or better
+
+    or tan 53 = 12
+
+    x  or better'
+  mark_scheme: []
+  graphics: []
+- number: 27a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '−3   −12   12   3
+
+    2 B1 for 2 correct'
+  mark_scheme: []
+  graphics: []
+- number: 27b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Correct curve
+
+    4 B3FT for 7 points correctly plotted
+
+    B2FT for 5 points correctly plotted
+
+    B1FT for 3 points correctly plotted'
+  mark_scheme: []
+  graphics: []
+- number: 27c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1.1 to 1.3
+
+    1 FT their curve
+
+    0580/32
+
+    October/November 2025
+
+    Partial Marks
+
+    28
+
+    For showing Ali and Bob’s final
+
+    investment values to compare
+
+    e.g. 4140  or  4144  to  4145
+
+    and 4080
+
+    e.g. 174000 or 174449 to 174450
+
+    and 15960
+
+    5 B2 for final value of the compound interest
+
+    investment for comparison
+
+    e.g. 4140 or 4144 to 4145
+
+    e.g.174000 or 174449 to 174450
+
+    or M1 for 2950 ×
+
+    12
+
+    (1
+
+    )
+
+    100
+
+    +
+
+    k
+
+    where k = 3, 12, 36 or a time frame clearly
+
+    shown in the working.
+
+    AND
+
+    B3 for final value of the total simple interest
+
+    investment for comparison
+
+    e.g. 4080
+
+    e.g.15960
+
+    or B2 for value of simple interest
+
+    e.g.1080
+
+    e.g.12960
+
+    or M2 for 3000 + 3000 1 2
+
+    100
+
+    
+
+    k  oe
+
+    where k = 3, 12, 36 or a time frame clearly
+
+    shown in the working.
+
+    or M1 for
+
+    
+
+    
+
+    3000 1 2
+
+    100
+
+    
+
+    k
+
+    oe
+
+    where k = 3, 12, 36 or a time frame clearly
+
+    shown in the working.'
+  mark_scheme: []
+  graphics: []

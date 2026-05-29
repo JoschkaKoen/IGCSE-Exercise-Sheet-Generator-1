@@ -1,0 +1,459 @@
+questions:
+- number: 1ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '25 protons   30 neutrons   25 electrons
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(atoms of an element) with the same number of protons and different
+    number of neutrons
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (relative) isotopic mass.
+
+    OR (relative isotopic) mass of Mn-55 and Mn-53
+
+    M2 (relative) abundance of each isotope
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1s2 2s2 2p6 3s2 3p6 (3d5 4s2)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '5
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Mn / MnO2 AND it gains electrons
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(+)4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Due to an issue with question 1(c)(iii), the question has been
+    removed from the question paper.
+
+    N/A'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'delocalised electrons move (through the structure / between
+    layers)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'P / S / Cl have no charge carriers
+
+    OR (no ions and) no delocalised electrons
+
+    OR no mobile / moving ions
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Si has (lots of) strong covalent bonds broken
+
+    M2 P / S / Cl (only) has weak Van der Waals’ (forces) broken
+
+    2
+
+    9701/22
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '+1
+
+    +2
+
+    +3
+
+    +4
+
+    +5
+
+    7
+
+    6.5
+
+    0–4
+
+    0–4
+
+    0–4
+
+    I
+
+    I
+
+    I
+
+    C
+
+    C
+
+    G
+
+    G
+
+    G
+
+    S
+
+    S
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2Al + 3Cl2  →  2AlCl3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'PCl5 + 4H2O  →  H3PO4 + 5HCl
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2ei
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'rate of forward and backward (reaction) are the same / equal
+
+    OR (ratio of) concentrations of reactants and products are constant
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'closed system
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (mixture / solution becomes more) yellow
+
+    M2 (forward) reaction is exothermic (equilibrium shifts left)
+
+    OR equilibrium / reaction shifts (left) to absorb (additional) heat / energy
+
+    M3 (mixture / solution becomes more) red
+
+    M4 fewer moles of gas on right-hand side
+
+    OR (gas on left and) no gas on the right
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2fi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'MgCl2(aq) + Na2CO3(aq)  →  MgCO3(s) + 2NaCl(aq)
+
+    M1 formulae in balanced equation
+
+    M2 state symbols
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2fii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'MgO / magnesium oxide AND CO2 / carbon dioxide
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2fiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(thermal stability) increases (down the group)
+
+    1
+
+    9701/22
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (family of molecules / compounds / series with) same general
+    formula
+
+    OR (family of molecules where) molecular formula differs (only) by (units of)
+    CH2(n).
+
+    M2 similar chemical properties / reactions
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 strong C—H (bonds)
+
+    M2 non-polar (C—H / molecule / bonds)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cracking
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2'
+  mark_scheme: []
+  graphics: []
+- number: 3dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 B < A < hexane.
+
+    M2 hexane / unbranched has stronger / more IMFs
+
+    M3 hexane / unbranched requires most / more energy
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 3ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'H2 ((g)) OR hydrogen (gas)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 +215 + (–156) – (+48) =
+
+    M2 +11 kJ mol–1
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3eiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C6H14 + 9½O2  →  6CO2 + 7H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'free-radical substitution
+
+    1
+
+    9701/22
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 C3H8 + Cl●  →  CH3CH2CH2● + HCl
+
+    OR C3H8 + Cl●  →  C3H7● + HCl
+
+    M2 CH3CH2CH2● + Cl2  →  CH3CH2CH2Cl  + Cl●
+
+    OR C3H7● + Cl2  →  C3H7Cl  + Cl●  etc
+
+    M3 CH3CH2CH2● + Cl●  →  CH3CH2CH2Cl
+
+    OR C3H7● + Cl●  →  CH3CH2CH2Cl
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'homolytic
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1,2-dichloropropane
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4av
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (type of structural isomerism) positional
+
+    M2 (type of stereoisomerism) optical
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'sodium hydroxide AND water
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'orange to green
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CH3CH2CH2OH + 2[O]  →  CH3CH2COOH + H2O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'condensation
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 absorption labelled at approx. 1750 cm–1 identified as C=O
+
+    M2 absorption labelled at approx. 1650 cm–1 identified as C=C
+
+    M3 absorption labelled at approx. 1170 cm–1 identified as C—O
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4diii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(0.31 / 4.7  100 / 1.1) = 6 carbon atoms
+
+    1'
+  mark_scheme: []
+  graphics: []

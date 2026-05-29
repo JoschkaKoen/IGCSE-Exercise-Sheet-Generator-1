@@ -1,0 +1,639 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: A student observed some cells using a microscope with an eyepiece graticule.
+    X They then replaced the slide containing the cells with a stage micrometer with
+    a millimetre scale, and lined up the eyepiece graticule as shown. graticule 0.1
+    0.2 stage micrometer What is the maximum diameter of the cell labelled X?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: Which structures will be present in a cell that causes cholera? circular DNA
+    cytoplasmic DNA
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: 70S ribosomes
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: ribosome
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: The electron micrograph shows a section through a cell. What would be present
+    in this type of cell? mitochondria peptidoglycan cell wall histone proteins
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: A student carried out four tests for biological molecules. The observations
+    are shown in the table. test observations iodine orange biuret purple Benedict’s
+    orange emulsion clear The diagrams show molecules or parts of molecules. Which
+    pair is present in the solution? O OH H H
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows some relationships between features of carbohydrates. α-glucose
+    1,4 bonds highly branched Which row correctly matches the carbohydrate with some
+    of its features?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows a triglyceride molecule. O
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Enzyme P has been found in a tropical grass. ● The enzyme catalyses the hydrolysis
+    of the fungal polysaccharide, chitin, into amino sugars. ● It also inhibits the
+    activity of an enzyme in locust guts which catalyses the digestion of amylose.
+    Which row describes the actions of enzyme P? reaction catalysed reaction inhibited
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: Which bonds between amino acids hold the shape of the secondary structure
+    and also the tertiary structure of proteins?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Resilin is a protein found in the wings of insects. It is an elastic, fibrous
+    protein and scientists have suggested that it may have an important role in allowing
+    the wings of an insect to fold and unfold without damage. Peptidyl transferase
+    is an enzyme which catalyses the condensation of amino acids during translation
+    to form resilin. Which statements are correct? Peptidyl transferase and resilin
+    have structural roles in the insect. Peptidyl transferase is a globular protein.
+    Peptidyl transferase is soluble in water.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: Collagen is a protein that helps to strengthen and increase the elasticity
+    and hydration of the skin. Aging can lead to dry skin and the formation of wrinkles,
+    due to the body producing less collagen. Which row is correct for the structure
+    of collagen in the skin? every fourth amino acid is glycine fibrous protein
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the effect of an enzyme in an enzyme-catalysed reaction?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: How is the Michaelis–Menten constant (Km) used?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Some students investigated the effect of pH on the rate of starch digestion
+    by amylase at 20 °C. ● They added 2 cm3 of a 1% amylase solution and 1 cm3 of
+    pH 4 buffer to a test-tube. ● They added 2 cm3 of a starch solution, containing
+    0.02 g of starch, to the test-tube. ● They measured the time taken for the starch
+    to be digested (to disappear). The students then repeated these steps with pH
+    5, pH 6, pH 7 and pH 8 buffers. The table shows the results. pH time taken for
+    starch to be digested / minutes 4.0 1.5 1.0 2.5 6.0 Which graph is correct for
+    these data? pH
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements are correct for a non-competitive inhibitor of enzyme action?
+    Increasing the concentration of the enzyme’s substrate will reduce its effect.
+    It reduces the activation energy required for a reaction to take place. It reduces
+    the maximum rate of reaction.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: What can increase the fluidity of the cell surface membrane at low temperatures?
+    double bonds between carbon atoms in the fatty acid chains cholesterol fatty acids
+    having shorter chains
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statements about the proteins and glycoproteins in cell surface membranes
+    are correct? They can allow cells to bond together to form tissues. They can recognise
+    messenger molecules like hormones. They can be antigens and allow cell-to-cell
+    recognition.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: In an experiment, four different-sized cubes of colourless agar were placed
+    into a blue dye. The time taken for each cube to turn blue was recorded. Which
+    row shows the surface area and volume of the cube that took the longest time to
+    turn completely blue? surface area / cm2 volume / cm3
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: The stalk of a dandelion flower is a hollow tube called a scape. Pieces of
+    the scape are cut as shown by the dotted lines and placed in sucrose solutions
+    of different water potentials. hollow centre of scape thick-walled outer cells
+    thin-walled inner cells cuts Which diagram shows the piece that is placed in the
+    sucrose solution with the highest water potential?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: Telomeres prevent the loss of genes during DNA replication. Which row correctly
+    shows cell types that contain telomeres? typical animal cell typical plant cell
+    typical bacterial cell
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Which events listed are part of mitosis? interphase prophase cytokinesis
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrograph shows 17 cells in different stages of the mitotic cell
+    cycle. cell 1 Which row is correct for this photomicrograph? the role of a centromere
+    in cell 1 the proportion of the cells in the photomicrograph in telophase
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The flow diagram shows some of the stages in the replication of a lagging
+    strand of DNA. Which stage of DNA replication uses the enzyme DNA ligase? The
+    DNA double helix begins to unwind. The single strands of DNA are exposed. New
+    complementary DNA fragments are synthesised in the 5′ to 3′ direction. The fragments
+    of newly formed DNA are linked together.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: In a gene, the 20 common amino acids are each coded for by three bases in
+    adjacent nucleotides. Why is there a difference between the number of amino acids
+    and the number of possible triplet codes?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: How is a primary transcript modified to form mRNA?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows protein synthesis in a prokaryote. tRNA 1 tRNA 2 AUG–CCU–AAG–UUG–CCC–
+    DNA cell wall mRNA X Y NOT TO SCALE Which row is correct for molecule X, structure
+    Y and the anticodon of tRNA 1? molecule X structure Y anticodon of tRNA 1
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrographs show sections of two organs of a plant. Which letter
+    identifies a cell found with companion cells in a tissue in a root?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row correctly describes the pressure in the xylem and the water potential
+    in the root hair cells used in the transport of water in a transpiring plant?
+    pressure in the xylem water potential in root hair cells
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row correctly identifies the definitions for each of the key terms used
+    in transpiration? attraction between water molecules and walls of the xylem vessel
+    effect created by evaporation of water from the surface of the leaf
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Which combination of features is characteristic of a phloem sieve tube element
+    immediately after it is loaded from a source? water potential of the phloem sieve
+    tube element lignification of the cell wall
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Which blood vessel carries blood with the lowest pressure?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrograph shows cells found in mammalian blood. P What is cell P?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the Bohr shift in actively respiring cells. 100 partial
+    pressure of oxygen / kPa percentage saturation of haemoglobin with oxygen L M
+    What causes the shift from L to M?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: The bar chart shows the mean thickness of the walls of the main chambers in
+    a mammalian heart. mean wall thickness / mm heart chamber P Q R S Which row correctly
+    identifies the heart chambers? right atrium left atrium right ventricle left ventricle
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows parts of the gas exchange system in humans and the associated
+    cells or structures. alveolus bronchiole bronchus trachea ciliated cells squamous
+    epithelial cells C-shaped rings of cartilage ciliated cells and goblet cells Which
+    diagram shows the lines that correctly match the parts to their cells or structures?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: The photomicrograph shows the wall of a bronchus as seen with a light microscope.
+    X Y Z Which row correctly identifies the structures labelled? X Y Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Which factors affect the global pattern of distribution of malaria? the disease
+    is mainly restricted to tropical and subtropical environments the effective vaccine
+    has eradicated the disease in many countries the vector required for transmission
+    of malaria parasites
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Which molecule could be a self antigen?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows an antibody molecule with some parts labelled. V U Q R P
+    S W T Which row is correct about the parts that form an antigen-binding site and
+    have identical amino acid sequences? form an antigen-binding site have identical
+    amino acid sequences
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

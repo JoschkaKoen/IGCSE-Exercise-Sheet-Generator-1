@@ -1,0 +1,443 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Rate of change of displacement
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'For object A:
+
+    2
+
+    1
+
+    2
+
+    s
+
+    ut
+
+    at
+
+    =
+
+    +
+
+    so
+
+    2 10
+
+    9.81
+
+    t
+
+    
+
+    =
+
+    =1.4
+
+    Then for object B:
+
+    2
+
+    1
+
+    2
+
+    s
+
+    ut
+
+    at
+
+    =
+
+    +
+
+    h = −(3 1.4) + (0.5  9.81  1.42)
+
+    = 5.7 m
+
+    OR
+
+    h = −(3 1.4) + 10
+
+    (C1)
+
+    = 5.7 m
+
+    (A1)'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'time taken (to reach the ground is) same
+
+    The initial vertical (component of the) velocity is the same (as in part (1b))'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The (total) initial energy is greater (than in part (1b))
+
+    change in gravitational potential energy is same, so speed is greater
+
+    9702/23
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: force  perpendicular distance (of line of action of force to / from
+    the point)
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '150  9.81  4.5 or 90  9.81  4.5 or 3.0  9.81  m
+
+    (150  9.81  4.5) = (90  9.81  4.5) + (3.0  9.81  m)
+
+    m = 90 kg'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Young modulus = σ / ε or F / Aε or FL / Ax
+
+    Area of wire =   (1.8  10–3 / 2)2
+
+    = 2.5  10–6
+
+    So Young modulus = ((90  9.81) /   (9.010–4)2 ) / 1.210–3
+
+    = 2.9 1011 Pa'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Moment provided by B will decrease / moment due to wire will
+    increase
+
+    So force acting on wire will increase (Young’s modulus and area remain constant)
+    and the strain will increase'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'W = Fd
+
+    P = Fd / t = Fv    or     P = Fvt / t = Fv'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '()E(P) = mg()h
+
+    increase of gravitational potential energy of car in 1.0 s
+
+    = 1500  9.81  30  sin 6.0 = 46 000 J
+
+    9702/23
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(Power to overcome total resistive forces)
+
+    = 1600  30
+
+    = 48 000 W
+
+    power = 48 000 + 46 000
+
+    = 9.4  104 W'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Air resistance is the same, as the speed is the same
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Mass / weight has increased so (power will) increase
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'sum / total momentum (of a system of bodies) is constant
+
+    or
+
+    sum / total momentum before = sum / total momentum after
+
+    for an isolated system / no (resultant) external force'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'p = mv or 4.0  6.0 or 2.0  3.0
+
+    (4.0  6.0) + (2.0  3.0) = 6.0  v
+
+    so v = 5.0 m s−1
+
+    9702/23
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'KE before
+
+    = (0.5  4.0  6.02) + (0.5  2.0  3.02)
+
+    = 81 J
+
+    KE after
+
+    = (0.5  6.0  5.02)
+
+    = 75 J
+
+    (C1)
+
+    percentage transferred
+
+    = [(81 – 75) / 81]  100
+
+    = 7%'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: sound waves are longitudinal / not transverse (and only transverse
+    waves can be polarised)
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A periodic curve of at least one period with minimum 0 and
+    maximum I0
+
+    Smooth continuous sin2 curve
+
+    Peaks at 90° and 270° and troughs at 0, 180° and 360°'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'I ∝ A2
+
+    I = I0 cos2 θ
+
+    At  = 20 the angle between the planes of polarisation of light and filter is
+    70° (or 110°)
+
+    I = I0 cos2 70 or I = I0 cos2 110
+
+    (I = 0.12 I0)
+
+    amplitude = 0.34 A0
+
+    9702/23
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'wave passes (through) an aperture and spreads
+
+    or
+
+    wave passes (by / through / around) an edge and spreads'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'v = f
+
+    f = 3.00  108 / 720  10−9
+
+    = 4.2  1014 Hz'
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'd = nλ / sin θ
+
+    d = (2  720  10−9) / sin 26
+
+    (= 3.3  10−6 m)
+
+    number of lines per m = 1 / (3.3  10−6)
+
+    = 3.0  105 m−1'
+  mark_scheme: []
+  graphics: []
+- number: 6biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '  3 = 720  2 or
+
+    5
+
+    1
+
+    sin 26
+
+    3
+
+    3.0 10
+
+    = 
+
+    
+
+     = 480 nm'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'R  = L / A
+
+    = (1.12  10−6  1.5) / 2.45  10−7
+
+    = 6.86 '
+  mark_scheme: []
+  graphics: []
+- number: 7bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(A method where the) reading (on the galvanometer) is zero.
+
+    9702/23
+
+    May/June 2025'
+  mark_scheme: []
+  graphics: []
+- number: 7bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'e.m.f. / 1.2 = 64 / 150
+
+    e.m.f.  = (64 / 150)  1.2
+
+    = 0.51 V'
+  mark_scheme: []
+  graphics: []
+- number: 7biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(the internal resistance will cause a) drop in p.d. across
+    the wire / the terminal p.d. is lower
+
+    So the null point will move to the right'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'flavour
+
+    charge / e
+
+    up / u
+
+    2
+
+    3
+
+    −
+
+    down / d
+
+    ( ) 1
+
+    3
+
+    +
+
+    down / d
+
+    ( ) 1
+
+    3
+
+    +
+
+    3 correct quark flavours
+
+    Charge on anti-up quark –⅔(e)
+
+    Charge on anti-down quark (+)⅓(e)'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'particle: (electron) neutrino
+
+    antiparticle: positron'
+  mark_scheme: []
+  graphics: []

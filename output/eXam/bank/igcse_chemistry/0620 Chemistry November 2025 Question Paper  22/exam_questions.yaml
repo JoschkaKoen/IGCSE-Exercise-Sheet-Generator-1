@@ -1,0 +1,627 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: What happens to the volume of a fixed mass of gas when the temperature is
+    increased or the pressure is decreased? increased temperature decreased pressure
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows the heating curve for a substance. temperature time Q P
+    R S T U Between which two points do the particles of the substance change from
+    being in fixed positions to being mobile?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: A student investigates the diffusion of ammonia gas, NH3, and hydrogen chloride
+    gas, HCl. Two sets of apparatus are set up as shown at room temperature and pressure.
+    apparatus 1 source of ammonia gas damp red litmus paper apparatus 2 source of
+    hydrogen chloride gas damp blue litmus paper The damp red litmus paper in apparatus
+    1 changes colour after 30 seconds. How long does it take for the damp blue litmus
+    paper in apparatus 2 to change colour?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes elements, compounds and mixtures? elements compounds mixtures
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about atoms or ions is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Which two values are used to calculate the relative atomic mass of a sample
+    of boron? value 1 value 2
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement describes the structure of sodium chloride?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: Graphite and diamond are both forms of the element carbon. Which row shows
+    the number of other carbon atoms that each carbon atom is covalently bonded to
+    in graphite and in diamond? graphite diamond
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes the structure and bonding in cobalt? structure bonding
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation for the combustion of ethanol is shown. C2H5OH  +  3O2    2CO2  +  3H2O
+    The relative molecular mass, Mr, of ethanol is 46. Which statement about the reaction
+    is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: A compound contains 40.0% carbon, 6.7% hydrogen and 53.3% oxygen only. The
+    relative molecular mass, Mr, of the compound is 60. Which row shows the empirical
+    formula and the molecular formula of the compound? empirical formula molecular
+    formula
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: Hydrogen–oxygen fuel cells are used in electric cars. Three statements about
+    these fuel cells are listed. The process in the cell is called electrolysis. Water
+    is broken down in the cell to produce hydrogen, oxygen and electricity. Water
+    is the only chemical product formed in the reaction. Which statements are correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: A solution of copper(II) sulfate can be electrolysed using copper electrodes
+    or carbon electrodes. Which statements are correct? Using copper electrodes, oxygen
+    gas forms at the anode. Using copper electrodes, copper atoms lose electrons at
+    the anode. Using carbon electrodes, copper metal forms at the cathode. Using carbon
+    electrodes, copper ions gain electrons at the cathode.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: "The equation for the combustion of hydrazine, N2H4, is shown. + \x01 O +\
+    \ 2 O N N O H H N N H H H H bond bond energy in kJ / mol N–H 391 N=N 409 N≡N 944\
+    \ O–H 463 O=O 496 What is the overall enthalpy change for the combustion of one\
+    \ mole of hydrazine?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Dissolving ammonium chloride in water is an endothermic change. Which row
+    shows the energy change and temperature change of the mixture during the dissolving
+    of ammonium chloride? energy change temperature change
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Aqueous sodium thiosulfate, Na2S2O3, reacts with dilute hydrochloric acid
+    to form a yellow precipitate of sulfur. Na2S2O3(aq)  +  2HCl (aq)    2NaCl (aq)  +  H2O(l)  +  S(s)  +  SO2(g)
+    The precipitate forms more quickly when the reactants are heated. Which statements
+    explain this observation? The reacting particles collide more frequently. The
+    collisions between reacting particles have more energy. The activation energy
+    of the reaction is lower.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the conditions used in the Haber process and in the
+    Contact process is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation shows the equilibrium between dinitrogen tetroxide, N2O4, and
+    nitrogen dioxide, NO2. The colours of the reactant and product are shown. N2O4(g)
+    2NO2(g) colourless brown The forward reaction is endothermic. Which statement
+    is not correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the oxidation number of chromium in the Cr2O7 2– ion?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which method is used to prepare a pure, dry sample of lead(II) chloride?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: Phosphorus is an element in Group V of the Periodic Table. It burns in air
+    to form an oxide that dissolves in water to form a solution with a pH of 1. Which
+    row describes this oxide of phosphorus? metal oxide non-metal oxide acidic oxide
+    basic oxide
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: The equation shows the reaction between aqueous hydrogen bromide and aqueous
+    ammonia. HBr(aq)  +  NH3(aq)    NH4 +(aq)  +  Br –(aq) Which statement describes
+    the role of aqueous hydrogen bromide?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the elements in Group I is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row describes the colour and state of iodine at room temperature and
+    pressure? colour state
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: Part of the Periodic Table is shown. Which element is an inert gas?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: Four different metals are separately added to water. The oxide of each metal
+    is separately heated with carbon. The results are shown. metal metal with water
+    metal oxide with carbon Q no reaction brown solid forms R rapid fizzing no reaction
+    S a few bubbles no reaction T a few bubbles grey solid forms What is the order
+    of reactivity of the four metals, least reactive first?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: An iron nail is fully covered with zinc to prevent it from rusting. Which
+    row describes this method of protection and explains why zinc is used to protect
+    the iron nail? method of protection reason zinc is used
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: Iron is extracted from hematite in the blast furnace. Which reaction increases
+    the temperature in the blast furnace to over 1500 °C?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Aluminium is extracted by the electrolysis of purified bauxite. Which row
+    shows the half-equations at the electrodes and explains why one of the electrodes
+    has to be replaced regularly? half-equation at anode half-equation at cathode
+    electrode replacement
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: Which flow chart describes the correct treatment sequence of the domestic
+    water supply?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about oxides of nitrogen is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: The alkenes are a homologous series. Which statement about the members of
+    the homologous series of the alkenes is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram represents two processes, X and Y, and their effect, Z, in increasing
+    global warming. emission of thermal energy from the Earth X Y Z Which row identifies
+    X, Y and Z? X Y Z
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Which structures are structural isomers of each other? H
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: The structure of an ester is shown. H
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Which row shows the products obtained by the cracking of a large alkane? alkene
+    hydrogen water
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: Ethanol is produced by the fermentation of aqueous glucose or by the catalytic
+    addition of steam to ethene. Which row shows some advantages and disadvantages
+    of these processes? fermentation of aqueous glucose catalytic addition of steam
+    to ethene advantage disadvantage advantage disadvantage
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: Propenoic acid is an organic compound that is both an alkene and a carboxylic
+    acid. The structure of propenoic acid is shown.
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Which item of apparatus is used to measure 13.7 cm3 of dilute hydrochloric
+    acid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: Chromatography is used to separate and analyse mixtures of soluble substances.
+    The first steps of the process are listed. ● apply sample to baseline ● develop
+    chromatogram in solvent What is the next step in the process to detect soluble
+    colourless substances?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
