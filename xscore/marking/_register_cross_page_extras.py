@@ -14,12 +14,16 @@ from __future__ import annotations
 import os
 from collections.abc import Iterator
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-# Runtime imports of names defined in the parent module. ``marking_page_register``
-# imports this module at the BOTTOM of its file (after these names are
-# defined), so they are available by the time this module's body executes.
-from xscore.marking.marking_page_register import _AttachMap, _FIGURE_RE  # noqa: E402
+if TYPE_CHECKING:
+    # `_AttachMap` appears only in annotations (lazy under ``from __future__
+    # import annotations``) and `_FIGURE_RE` is imported lazily where used
+    # (see ``_walk_figure_mentions``). Keeping both off the module top level
+    # makes this module importable regardless of import order — previously a
+    # top-level ``from …marking_page_register import …`` created a circular
+    # import that only resolved because the parent imports this module last.
+    from xscore.marking.marking_page_register import _AttachMap
 
 
 def apply_cross_page_extras(
@@ -253,6 +257,7 @@ def _walk_figure_mentions(questions: list[dict]) -> Iterator[tuple[str, int]]:
     Recurses into ``subquestions``. The same (figure_label, page) pair can be
     yielded multiple times — that's fine; consumers normalise.
     """
+    from xscore.marking.marking_page_register import _FIGURE_RE
     for q in questions:
         page = q.get("page")
         text = q.get("text") or ""
