@@ -30,6 +30,10 @@ function init(root) {
   // "python" (Pyodide worker) or "java" (CheerpJ worker). Drives the worker URL,
   // editor mode, the runnable-example selector, and how Stop interrupts.
   const LANG = root.dataset.language || "python";
+  // Java only: "server" (POST /api/code/run-java) vs "cheerpj" (in-browser worker).
+  // Toggle with ?runtime=server for the head-to-head benchmark; default cheerpj.
+  const RUNTIME = (LANG === "java" && new URLSearchParams(location.search).get("runtime") === "server")
+    ? "server" : "cheerpj";
   const tasks = readTasks();
   const editors = {};
   const encoder = new TextEncoder();
@@ -68,7 +72,7 @@ function init(root) {
   // reads the prose, so the first Run only has to compile their code. Pyodide keeps
   // its lazy boot (it's lighter and cached fast). Fire-and-forget: a preload failure
   // is surfaced later by the real Run/Check, never here.
-  if (isolated && LANG === "java") {
+  if (isolated && LANG === "java" && RUNTIME !== "server") {
     ensureWorker().catch(() => { /* surfaced on first Run/Check */ });
   }
 
@@ -227,6 +231,57 @@ function init(root) {
     }
   }
 
+  // ---- Server executor (Java ?runtime=server): POST /api/code/run-java, then feed
+  // the result into the SAME finishRun/finishCheck the in-browser worker path uses.
+  function runnerToken() { try { return sessionStorage.getItem("jrt") || ""; } catch (e) { return ""; } }
+
+  async function execServer(act, code, task, isCheck) {
+    const t0 = performance.now();
+    const check = (isCheck && task.check) ? task.check : {};
+    const body = { code, files: task.files || {}, stdin: isCheck ? (task.stdin || "") : "", check };
+    let json;
+    try {
+      const res = await fetch("/api/code/run-java", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json", "X-Java-Runner-Token": runnerToken() },
+        body: JSON.stringify(body),
+        signal: act.abort ? act.abort.signal : undefined,
+      });
+      if (!res.ok) {
+        let detail = "server error " + res.status;
+        try { const e = await res.json(); if (e && e.detail) detail = e.detail; } catch (e2) { /* non-JSON */ }
+        throw new Error(detail);
+      }
+      json = await res.json();
+    } catch (err) {
+      if (err && err.name === "AbortError") return;   // stopActive already rendered the stopped state
+      if (isCheck) finishCheck({ pass: false, error: String(err.message || err), kind: check.kind || null });
+      else { appendSpan(act.el, String(err.message || err) + "\n", "code-err"); finishRun(); }
+      return;
+    }
+    const ms = Math.round(performance.now() - t0);
+    const note = `server: ${ms}ms (compile+run ${json.ms != null ? json.ms : "?"}ms)\n`;
+    if (isCheck) {
+      appendSpan(act.el, note, "code-sys");
+      finishCheck({
+        pass: !!json.pass,
+        error: json.error || null,
+        output: json.output != null ? json.output : (json.stdout || ""),
+        expected: json.expected != null ? json.expected : null,
+        kind: json.kind || check.kind || null,
+      });
+    } else {
+      if (json.compile_errors) appendSpan(act.el, json.compile_errors + "\n", "code-err");
+      else {
+        if (json.stdout) appendSpan(act.el, json.stdout, "code-out");
+        if (json.stderr) appendSpan(act.el, json.stderr, "code-err");
+      }
+      appendSpan(act.el, note, "code-sys");
+      finishRun();
+    }
+  }
+
   // ---- Run (free) — tasks and examples share this path -------------------
   async function runTask(id) {
     if (active) return;
@@ -234,6 +289,7 @@ function init(root) {
     setBusy(active);
     clearPre(active.el);
     hideResult(id);
+    if (RUNTIME === "server") { active.abort = new AbortController(); return execServer(active, editors[id].getValue(), tasks[id] || {}, false); }
     Atomics.store(interruptView, 0, 0);
     if (!(await bootInto(active.el))) return;
     worker.postMessage({ type: "run", code: editors[id].getValue() });
@@ -244,6 +300,7 @@ function init(root) {
     active = { el: outputEl, mode: "run", kind: "example", runBtn };
     setBusy(active);            // disables other run triggers BEFORE the async boot
     clearPre(outputEl);         // box stays hidden until the first output (appendSpan reveals it)
+    if (RUNTIME === "server") { active.abort = new AbortController(); return execServer(active, codeText, {}, false); }
     Atomics.store(interruptView, 0, 0);
     if (!(await bootInto(outputEl))) return;
     worker.postMessage({ type: "run", code: codeText });
@@ -283,6 +340,7 @@ function init(root) {
     box.hidden = false;
     box.className = "code-result mt-2 code-result-pending";
     box.textContent = t("code.task.checking");
+    if (RUNTIME === "server") { active.abort = new AbortController(); return execServer(active, editors[id].getValue(), tasks[id] || {}, true); }
     Atomics.store(interruptView, 0, 0);
     if (!workerReady) {
       try { await ensureWorker(); }
@@ -335,6 +393,7 @@ function init(root) {
   function stopActive() {
     if (LANG === "java") {
       const a = active;
+      if (a && a.abort) { try { a.abort.abort(); } catch (e) { /* ignore */ } }  // server mode: cancel the fetch
       killWorker();
       if (a) {
         appendSpan(a.el, t("code.console.stopped") + "\n", "code-sys");

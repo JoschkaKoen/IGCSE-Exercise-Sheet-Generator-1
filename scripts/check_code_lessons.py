@@ -26,7 +26,6 @@ from __future__ import annotations
 
 import json
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -36,22 +35,24 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from web import code_content  # noqa: E402
+from web.java_runner import (  # noqa: E402  — single source of truth, shared with the server runner
+    JAVA,
+    JAVA_RELEASE,
+    JAVAC,
+    TYPE_DECL_RE,
+    build_files,
+    compare_stdout,
+    derive_class_name,
+)
 
 PY = sys.executable
 SPLIT_RE = re.compile(r"(?m)^\s*-{3,}\s*$")
 PY_FENCE_RE = re.compile(r"```python\n(.*?)\n```", re.S)
 JAVA_FENCE_RE = re.compile(r"```java\n(.*?)\n```", re.S)
 TIMEOUT = 10
-
-# Java toolchain (only used by `language: java` courses). Language level is pinned
-# to 8 to match the CheerpJ runtime (version 8) the browser uses, so a feature that
-# would compile here but not in-browser is caught. A missing JDK makes the Java
-# compile + solvability checks a skipped warning, never a hard failure.
-JAVAC = shutil.which("javac")
-JAVA = shutil.which("java")
-JAVA_RELEASE = "8"
-TYPE_DECL_RE = re.compile(r"\b(?:class|interface|enum)\s+([A-Za-z_]\w*)")
-PUBLIC_TYPE_RE = re.compile(r"\bpublic\s+(?:final\s+|abstract\s+)?(?:class|interface|enum)\s+([A-Za-z_]\w*)")
+# JAVAC / JAVA / JAVA_RELEASE / TYPE_DECL_RE and the file-layout + stdout-compare
+# helpers are imported from web.java_runner above, so the validator and the server
+# runner can never drift. A missing JDK makes the Java checks a skipped warning.
 
 # Subprocess harness — mirrors the browser worker's check logic. argv[1] is a JSON
 # task spec {solution, stdin, check}. Exits non-zero (with a message on stderr) if
@@ -122,30 +123,7 @@ def run_solution(where: str, task: dict) -> None:
             (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
 
 
-# ---- Java path (mirrors web/static/js/code-worker-java.js) --------------------
-
-def _derive_class_name(src: str) -> str:
-    """Public top-level type name (Java requires it to match the filename)."""
-    m = PUBLIC_TYPE_RE.search(src or "") or TYPE_DECL_RE.search(src or "")
-    return m.group(1) if m else "Main"
-
-
-def _java_files_for(task: dict, solution: str) -> tuple[dict[str, str], str]:
-    """{filename: source} + main class for a Java task's solution run — same
-    filename derivation and harness layout the browser worker uses."""
-    chk = task.get("check") or {}
-    files: dict[str, str] = {}
-    if isinstance(task.get("files"), dict):
-        files.update({str(k): str(v) for k, v in task["files"].items()})
-    student_cls = _derive_class_name(solution)
-    files[f"{student_cls}.java"] = solution
-    main_class = chk.get("main_class") or student_cls
-    if chk.get("kind") == "harness":
-        hc = chk.get("main_class") or "Harness"
-        files[f"{hc}.java"] = chk.get("code") or ""
-        main_class = hc
-    return files, main_class
-
+# ---- Java path (compile/run helpers shared via web.java_runner) ---------------
 
 def java_compile_ok(where: str, label: str, src: str, severity: str = "err") -> None:
     """javac --release 8 a full compilation unit. Snippets without a top-level
@@ -154,7 +132,7 @@ def java_compile_ok(where: str, label: str, src: str, severity: str = "err") -> 
         return
     report = err if severity == "err" else warn
     with tempfile.TemporaryDirectory() as tmp:
-        name = f"{_derive_class_name(src)}.java"
+        name = f"{derive_class_name(src)}.java"
         (Path(tmp) / name).write_text(src, encoding="utf-8")
         try:
             r = subprocess.run([JAVAC, "--release", JAVA_RELEASE, name],
@@ -174,7 +152,7 @@ def run_solution_java(where: str, task: dict) -> None:
         return
     chk = task.get("check") or {}
     kind = chk.get("kind")
-    files, main_class = _java_files_for(task, task["solution"])
+    files, main_class = build_files(task["solution"], task.get("files"), chk)
     with tempfile.TemporaryDirectory() as tmp:
         for name, s in files.items():
             (Path(tmp) / name).write_text(s, encoding="utf-8")
@@ -205,11 +183,11 @@ def run_solution_java(where: str, task: dict) -> None:
             err(where, "reference solution threw at runtime:\n  " +
                 (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
             return
-        norm = chk.get("normalize")
-        got = r.stdout.strip() if norm in (None, "strip") else r.stdout
-        exp = str(chk.get("expected") if chk.get("expected") is not None else "")
-        exp = exp.strip() if norm in (None, "strip") else exp
-        if got != exp:
+        if not compare_stdout(r.stdout, chk):
+            norm = chk.get("normalize")
+            got = r.stdout.strip() if norm in (None, "strip") else r.stdout
+            exp = str(chk.get("expected") if chk.get("expected") is not None else "")
+            exp = exp.strip() if norm in (None, "strip") else exp
             err(where, "reference solution does not pass its check:\n  got: %r\n  exp: %r" % (got, exp))
 
 

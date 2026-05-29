@@ -32,6 +32,23 @@ let ready = false;
 
 function post(type, extra) { self.postMessage(Object.assign({ type }, extra || {})); }
 
+// Serialize all CheerpJ JVM work (compile/run) so one job's captured files
+// (/files/diag.txt, out.txt, err.txt) never overlap another's.
+let chain = Promise.resolve();
+function enqueue(fn) {
+  const run = chain.then(fn, fn);   // run fn whether or not the previous job errored
+  chain = run.catch(() => {});      // keep the queue alive past a failure
+  return run;
+}
+
+// javac is itself a large Java program, and CheerpJ JIT-compiles it over its first
+// few runs (~27s → ~8s per compile). We run a couple of throwaway compiles in the
+// background right after init so the student's FIRST real compile is already fast.
+// realRequested flips the instant the student runs code, so any not-yet-started
+// warmup skips — a warmup never delays real work.
+const WARMUP_COMPILES = 2;
+let realRequested = false;
+
 // --- helper classes, compiled once at init -------------------------------------
 
 // Runs javac and routes ALL diagnostics to /files/diag.txt (the PrintWriter
@@ -161,6 +178,13 @@ async function init() {
     }
     ready = true;
     post("ready");
+    // Background JIT warmup for javac (skipped the moment real work is requested).
+    for (let i = 0; i < WARMUP_COMPILES; i++) {
+      enqueue(async () => {
+        if (realRequested) return;
+        await compile({ "Warmup.java": "public class Warmup { public static void main(String[] a) { int s = 0; for (int i = 0; i < 5; i++) s += i; } }" });
+      });
+    }
   } catch (err) {
     post("initError", { error: String((err && err.message) || err) });
   }
@@ -227,7 +251,8 @@ async function runCheck(payload) {
 
 self.onmessage = (e) => {
   const msg = e.data || {};
-  if (msg.type === "init") init();
-  else if (msg.type === "run") runFree(msg.code);
-  else if (msg.type === "check") runCheck(msg);
+  if (msg.type === "init") { init(); return; }
+  realRequested = true;   // a real run/check arrived → let pending warmups skip
+  if (msg.type === "run") enqueue(() => runFree(msg.code));
+  else if (msg.type === "check") enqueue(() => runCheck(msg));
 };

@@ -16,6 +16,8 @@ from eXercise.env_load import load_project_env
 load_project_env()
 
 import mimetypes
+import os
+import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -33,6 +35,7 @@ from .handouts_collect import HANDOUTS_ROOT
 from .routes.account import router as account_router
 from .routes.admin_stats import router as admin_stats_router
 from .routes.code import router as code_router
+from .routes.code_run import router as code_run_router
 from .routes.dashboard import router as dashboard_router
 from .routes.eXam_open import router as eXam_open_router
 from .routes.eXam_student import router as eXam_student_router
@@ -45,6 +48,26 @@ from .service import list_library_pdfs
 
 PACKAGE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = PACKAGE_DIR / "static"
+
+
+def _warn_if_no_app_secret_key() -> None:
+    """Warn loudly (do NOT hard-fail) if site login is enabled but ``APP_SECRET_KEY``
+    is unset: the cookie signing key then falls back to a public dev constant
+    (``web/auth_gate.py``), making the access cookie forgeable. We warn rather than
+    refuse to start so a deploy can't brick the live site when the key isn't set yet —
+    but it SHOULD be set in the server ``.env``. (The Java run endpoint stays protected
+    by ``JAVA_RUNNER_TOKEN`` regardless of this.)"""
+    login_enabled = os.environ.get("DISABLE_LOGIN", "true").strip().lower() in ("0", "false", "no", "off")
+    if login_enabled and not os.environ.get("APP_SECRET_KEY", "").strip():
+        print(
+            "[startup] WARNING: APP_SECRET_KEY is unset while site login is enabled — the auth "
+            "cookie signing key falls back to a public dev constant (forgeable cookie). Set a "
+            "high-entropy APP_SECRET_KEY in the server .env.",
+            file=sys.stderr, flush=True,
+        )
+
+
+_warn_if_no_app_secret_key()
 
 
 @asynccontextmanager
@@ -206,4 +229,5 @@ app.include_router(eXam_teacher_router)
 app.include_router(eXam_open_router)
 app.include_router(learn_router)
 app.include_router(code_router)
+app.include_router(code_run_router)
 app.include_router(admin_stats_router)
