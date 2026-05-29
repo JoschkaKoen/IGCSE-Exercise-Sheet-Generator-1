@@ -1,0 +1,577 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'particle separation
+
+    particle
+
+    arrangement
+
+    particle motion
+
+    solid
+
+    uniform
+
+    vibrate
+
+    liquid
+
+    touching
+
+    random
+
+    random
+
+    gas
+
+    apart
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 melting
+
+    M2 condensing / condensation
+
+    M3 dissolving
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'motion / movement of particles
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'relative molecular mass
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 photochemical smog
+
+    M2 respiratory problems
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'carbon monoxide
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'nitrogen
+
+    carbon dioxide
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'hematite
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'burning of carbon (coke)
+
+    1
+
+    0620/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'carbon monoxide
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3CO  +  Fe2O3  →  2Fe  +  3CO2
+
+    M1 species
+
+    M2 correct equation
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2av
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 CaCO3  →  CaO  +  CO2
+
+    M2 CaO  +  SiO2  →  CaSiO3
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 atoms of the same element that have the same number of protons
+
+    M2 but different numbers of neutrons
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'p = 26 and 26
+
+    n = 28 and 32
+
+    e = 24 and 23
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 NaOH(aq) OR NH3(aq)
+
+    M2 green ppt.
+
+    (insoluble in excess, ppt. turns brown near surface on standing)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a substance that oxidises another substance and is itself reduced
+
+    M1 ‘a substance’ oxidises another substance
+
+    M2 is itself reduced
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'loss of (one) electron
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2diii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'acidified
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'iodine
+
+    1
+
+    0620/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '→  BaSO4(s)  +  2NaCl(aq)
+
+    M1 2NaCl (only)
+
+    M2 (s) and (aq)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Mr BaCl2 = 208
+
+    M2 208  0.1 = 20.8
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.100  1.25 ( 1000) = 80 (cm3)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'white
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'residue
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 rinsing the residue (with water)
+
+    M2 (mass was greater) because (dry) residue contains solid sodium chloride / NaCl
+    adds to the mass (of residue)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3g
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'precipitation
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3h
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 named soluble barium salt other than barium chloride e.g.
+    (barium) nitrate
+
+    M2 named soluble sulfate salt other than sodium sulphate e.g. potassium (sulfate)
+    / ammonium (sulfate)
+
+    M3 named insoluble barium salt other than barium sulfate e.g. (barium) carbonate
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'H+
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 complete (dissociation)
+
+    M2 partial (dissociation)
+
+    2
+
+    0620/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4aiii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ethanoic (acid)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4aiv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'colourless
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4av
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 SO42–
+
+    M2 CH3COO –
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4avi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 hydrogen
+
+    M2 oxygen
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 4avii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'calcium ethanoate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'proton acceptor
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'insoluble
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'aluminium oxide
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 4biv
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 use of –18 or (9  –2) or (3  3  –2)
+
+    M2 +5
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (have a) general formula of CnH2n+2
+
+    M2 differ from one member to the next by a –CH2– unit
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'increases
+
+    1
+
+    0620/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 physical property
+
+    M2 change as chain length increases
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'all carbon–carbon bonds are single (bonds)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ultraviolet light
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5dii
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 CH3CH2CH2Cl
+
+    M3 1-chloropropane
+
+    M2 CH3CHClCH3
+
+    M4 2-chloropropane
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 5diii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(compounds with) the same molecular formula but different structural
+    formulae or structure
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'correctly circled ester link (including 2 C atoms and 2 O atoms)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ethyl butanoate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C3H6O
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 butanoic acid
+
+    M2 ethanol
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 6dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'acid
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 6f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2C5H10O2  +  13O2  →  10CO2  +  10H2O
+
+    1
+
+    0620/42
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []

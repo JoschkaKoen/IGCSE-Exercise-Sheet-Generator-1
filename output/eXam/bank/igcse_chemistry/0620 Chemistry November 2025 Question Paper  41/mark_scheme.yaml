@@ -1,0 +1,503 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'particle
+
+    relative
+
+    mass
+
+    relative
+
+    charge
+
+    proton
+
+    1
+
+    neutron
+
+    1
+
+    0 / nil
+
+    electron
+
+    – 1
+
+    ✓(1)
+
+    ✓(1)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 atoms of the same element that have the same number of protons
+
+    M2 but different numbers of neutrons
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'they have the same number of electrons and therefore the same
+    electronic configuration
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 22
+
+    M2 16 and 18
+
+    M3 50 and 22 and to the left of the symbol
+
+    M4 Ti
+
+    M5 2+
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'nucleon number
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 mol Ar = 2.0  40 = 0.05 (mol)
+
+    M2 number of atoms = 0.05  6.02  1023 = 3.01  1022
+
+    2
+
+    0620/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'strontium / Sr
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 metallic
+
+    M2 positive ions / cations
+
+    M3 sea of electrons / mobile electrons / delocalised electrons
+
+    M4 attraction between positive ions and electrons
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 effervescence
+
+    M2 solid dissolves
+
+    M3 solution turns blue
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'calcium hydroxide (1)
+
+    hydrogen (1)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'orange-red
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2Ca + O2  →  2CaO
+
+    M1 CaO as only product
+
+    M2 correct equation
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'water(s) of crystallisation
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 3.28  164 = 0.02(00)
+
+    M2 1.44  18 = 0.08(00)
+
+    M3 = M2  M1 = 4
+
+    3
+
+    0620/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 2H2O
+
+    M2 state symbols (aq) and (l)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'neutralisation
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.0100  1000  40 = 0.25(0)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'burette
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 mol H2SO4 needed = 0.0100  2 = 0.005(00)
+
+    M2 vol of H2SO4 needed = 0.005(00)  0.200  1000 = 25 (cm3)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 yellow
+
+    M2 orange
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3g
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'repeat steps 1 and 3 without indicator
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3hi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (a solution containing the) maximum concentration of a solute
+    dissolved in the solvent
+
+    M2 at a specified temperature
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3hii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'solubility decreases as temperature decreases
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3hiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'none
+
+    1
+
+    0620/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 energy level of products below energy level of reactants
+
+    M2 label of SO2(g) + 4HF(g) on product line
+
+    M3 upward arrow labelled Ea from energy level of reactants to the highest point
+    of the curve
+
+    M4 one downward arrow labelled H
+
+    AND
+
+    energy change starting from energy level of reactants and finishing at energy
+    level of products
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 = (4  S–F) + (4  O–H) = (4  330) + (4  460) = 3160
+
+    M2 bond energy of products – 3160 = –54
+
+    = 3160 – (–54) = 3214
+
+    M3 (2  S=O) + (4  H–F) = 3214 therefore 2  S=O = 3214 – (4  570) = 934
+
+    M4 S=O = M3  2 = 934  2 = 467
+
+    4'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'increased temperature:
+
+    M1 (position of) equilibrium moves to left hand side
+
+    M2 reaction is exothermic
+
+    increased pressure:
+
+    M3 (position of) equilibrium moves to left hand side
+
+    M4 less (gaseous) moles on left hand side
+
+    M5 no change / catalyst does not affect position of equilibrium
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 4d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 kinetic energy of particles decreases
+
+    M2 frequency of collisions between particles decreases
+
+    M3 lower percentage/proportion/fraction of collisions / particles have energy
+    greater than / equal to activation energy
+
+    3
+
+    0620/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CnH2n+1OH
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(same) functional group
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 25–35
+
+    M2 300
+
+    M3 yeast
+
+    M4 acid
+
+    M5 absence
+
+    of oxygen
+
+    M6 60 atm
+
+    6'
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C6H12O6  →  2C2H5OH  +  2CO2
+
+    M1 C6H12O6 as the only reactant on left
+
+    M2 correct equation
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C2H4 + H2O  →  C2H5OH
+
+    M1 both C2H4 + H2O only on left
+
+    M2 correct equation
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 5ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C4H10O2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5cii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'C2H3O2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 5dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'hydrogen
+
+    1
+
+    0620/41
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 5ei
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 any one correct fully displayed ester link between any two
+    blocks
+
+    M2 three fully displayed inter-block ester links with correct orientation
+
+    M3 fully correct diagram showing two complete repeat units of polyester including
+    continuation bonds
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 5eii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'condensation (polymerisation)
+
+    1'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,313 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(conical) flask
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(concentrated) hydrochloric acid
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Bunsen (burner)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any one from:
+
+    •
+
+    collection tube needs to be the other way up
+
+    •
+
+    use downward delivery
+
+    •
+
+    use upward displacement of air
+
+    •
+
+    collect chlorine in a gas syringe
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'chlorine is toxic
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 all five experiments have volume of hydrochloric acid recorded
+    as 25.0 (cm3)
+
+    1
+
+    M2 final and initial burette readings for experiment 1 correct and recorded the
+    correct way round (46.1, 0.6)
+
+    1
+
+    M3 final and initial burette readings for experiment 2 correct and recorded the
+    correct way round (41.3, 1.3)
+
+    1
+
+    M4 all titres calculated correctly (45.5, 40.0, 34.6, 23.8)
+
+    1
+
+    M5 all readings recorded to 1 decimal place
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 y-axis scale is linear, and the points extend over halfway
+    up the scale
+
+    1
+
+    M2 AND M3 all points plotted correctly
+
+    2
+
+    M4 best-fit line correctly drawn
+
+    1
+
+    0620/61
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 line is extrapolated to reach x-axis (to the right)
+
+    1
+
+    M2 correct reading from graph at volume of sodium hydroxide = 0.0 cm3
+
+    1
+
+    M3 units of g
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(volumetric pipette is) more accurate (than a measuring cylinder)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'volumetric pipettes measure a fixed volume
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 no sharp colour change / keeps changing colour / many colours / more
+    than two colours / gradual colour change / sharp
+
+    colour change is needed
+
+    1
+
+    M2 so cannot determine end-point / end-point not clear / difficult to tell when
+    to stop adding /
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 sketch line is below plotted line at all volumes
+
+    1
+
+    M2 line is straight, starts on y-axis between 20 and 25 and ends on x-axis between
+    2.0 and 2.2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'red
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(yellow flame) not hot enough
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'white precipitate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'no change
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(solid K is) hydrated
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 Fe2+ / iron(II)
+
+    1
+
+    M2 Cr3+ / chromium(III)
+
+    1
+
+    0620/61
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 add excess aqueous sodium hydroxide
+
+    M2 chromium and forms a solution / (green) precipitate dissolves
+
+    OR
+
+    M1 add excess aqueous sodium hydroxide
+
+    M2 iron(II) and forms a (green) precipitate which doesn’t dissolve
+
+    OR
+
+    M1 add aqueous sodium hydroxide and leave to stand
+
+    M2 iron(II) and (green) precipitate becomes brown
+
+    OR
+
+    M1 add aqueous sodium hydroxide and leave to stand
+
+    M2 chromium and (green) precipitate does not turn brown
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'carbon dioxide / CO2
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'sulfate / SO42–
+
+    1
+
+    0620/61
+
+    October/November 2025
+
+    4
+
+    any six from:
+
+    MP1 use a specified/known volume of aqueous copper(II) sulfate
+
+    MP2 use of a (volumetric) pipette / measuring cylinder / burette to measure volume
+    of solution
+
+    MP3 measure initial temperature of aqueous copper(II) sulfate
+
+    MP4 known / specified mass of one of the metals
+
+    MP5 add metal to aqueous copper(II) sulfate and stir / mix
+
+    MP6 measure highest temperature (reached)
+
+    MP7 biggest temperature rise is most reactive / lowest temperature rise is least
+    reactive
+
+    6'
+  mark_scheme: []
+  graphics: []

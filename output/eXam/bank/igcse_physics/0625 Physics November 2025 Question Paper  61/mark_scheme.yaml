@@ -1,0 +1,383 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '40(.0)
+
+    1
+
+    given to nearest 0.1 cm
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'W = 1.075 / 1.08 / 1.1
+
+    1
+
+    W given to 2 or 3 significant figures
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'New W given to same number of significant figures as in (i)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Statement to match results
+
+    1
+
+    Explanation with (W values quoted and) matching statement and results
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A diagram clearly showing a suitable approach e.g. edges of
+    object Q symmetrically either side of 90.0 cm mark.
+
+    Or wording describing the method.
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Repeat and average OR Move the load back and forth / slowly
+    (to establish the range within which the balance point resides
+
+    or until best balance).
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1f
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3 mm OR 0.3 cm
+
+    1
+
+    Correct working shown
+
+    1
+
+    0625/61
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.32
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2.5
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7.81
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cm, V, 
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Graph:
+
+    Axes correctly labelled and right way round
+
+    1
+
+    Suitable scales
+
+    15 1.25
+
+    40 3.44
+
+    60 4.38
+
+    80 6.56
+
+    100 7.81
+
+    or ecf
+
+    1
+
+    All plots correct to ½ small square
+
+    1
+
+    Good line judgement, thin, continuous line
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Method clearly shown
+
+    Candidate’s R75 correctly read to ½ small square
+
+    R75 in range 5.6 – 6.4
+
+    1
+
+    1
+
+    1
+
+    0625/61
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Normal at 90°
+
+    1
+
+    2 cm ( 2 mm) from A
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Incident ray at 30°  2° to left of normal
+
+    1
+
+    P1 P2 separation at least 5.0 cm
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Single, neat line through P3 and P4 and continued to meet normal
+
+    1
+
+    r 32°  1°
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3di
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Third box only ticked
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Two from:
+
+    1
+
+    Draw thin lines / use sharp pencil
+
+    2
+
+    Ensure pins are vertical / view bases of pins
+
+    3
+
+    Use thin pins
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At least 3 extra values (all < 90°) given
+
+    1
+
+    Range to spread over at least 30°
+
+    1
+
+    0625/61
+
+    October/November 2025
+
+    4
+
+    MP1
+
+    APPARATUS: A suitable timer
+
+    AND a thermometer (so same initial temp.)
+
+    1
+
+    MP2
+
+    MEASURE time taken to heat water to boiling point
+
+    1
+
+    MP3
+
+    INVESTIGATION: Repeat a correct investigation for other heaters
+
+    1
+
+    MP4
+
+    TWO VARIABLES TO KEEP CONSTANT:
+
+    Initial temperature of water
+
+    1
+
+    MP5
+
+    Volume / mass / amount of water
+
+    1
+
+    MP6
+
+    TABLE with clear columns for heater and time with unit.
+
+    1
+
+    MP7
+
+    CONCLUSION:
+
+    Construct a bar chart with heater against heating time
+
+    OR compare times for each heater to see if / how / whether the heater affects
+    the time (to reach b.p.).
+
+    OR see if the differences are significant / large / beyond experimental accuracy
+    or wtte.
+
+    1
+
+    0625/61
+
+    October/November 2025
+
+    Q4.
+
+    Further guidance on the mark scheme for this question
+
+    Please put ticks / crosses by the side of the response in the order of the marking
+    points.
+
+    Each marking point should be judged independently: if the correct answer is seen,
+    the mark is awarded. If a wrong investigation is described, an
+
+    ECF should be applied only for MP6 and MP7 (the table and conclusion).
+
+    A few candidates answer Q4 with a series of bullet points which may correspond
+    to the bullet points in the question. Be aware of this.
+
+    Thus the third bullet point of the response might say merely ‘Volume of water’.
+    That then scores MP5.
+
+    Q2.
+
+    Additional graph notes:
+
+    NOTE: The principle to apply here is ‘could I draw a significantly better line,
+    using these points, under examination conditions?’ If the answer is
+
+    definitely ‘yes’, do not award the mark.
+
+    NOTE: –
+
+    •
+
+    If candidate’s scale consists of actual readings at equal intervals this will
+    produce a perfect straight line! The only marks available in this case
+
+    are the first (axes right way round and labelled). So maximum 1.
+
+    •
+
+    If axes are wrong way round, the other 3 marks are still available.
+
+    Guidance on significant figures.
+
+    Some questions are intended to assess this, and give the number of figures which
+    are acceptable in the final answer.
+
+    Where the mark scheme does not mention them, accept any number of significant
+    figures from two upwards so long as the answer rounds to the
+
+    value in the mark scheme. This includes recurring notation.
+
+    Guidance on rounding errors.
+
+    A rounding error in an answer should be penalised, but only where it occurs within
+    one of the first three figures. Beyond that it may be ignored.'
+  mark_scheme: []
+  graphics: []

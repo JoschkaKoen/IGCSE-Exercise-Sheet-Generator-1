@@ -1,0 +1,321 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'normal correct (by eye), extended to cross PR and Q labelled
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: ' = 10  1 and end of line labelled O
+
+    MO = 14.0  0.2 cm
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'line joining M to the crosses, continued to cross PR
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'a =  1.7  0.1 cm
+
+    b = 10.3  0.1 cm
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'r correct
+
+    answer to 2 significant figures
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'statement to match results (expect YES)
+
+    values from table used to justify statement
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'extend the investigation for different values of 
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1g
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'reflecting surface of the mirror is at the back/thickness of
+    mirror/small variations in protractor angle have a much larger
+
+    effect on a and b/ thickness of light ray/difficult to locate centre of light
+    ray/experiment not done in a dark room
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '4.4(0) (V)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '0.135 /0.14 (A)
+
+    0.14 (A)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3.0(1)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'scales labelled with quantity and unit, correct way around
+
+    suitable scales (occupying at least ½ the grid)
+
+    plots correct to  ½ small square and precise plots
+
+    good best-fit line judgement, thin, continuous line
+
+    4
+
+    0625/62
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'indication on the graph as to how gradient found and correct
+    method of calculation of gradient i.e. y / x
+
+    at least ½ the distance between the extreme plotted points used
+
+    (I  0.045)
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'any integer from 19–25 inclusive
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '87.0 (C)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'min/minute(s) and 1, 2, 3, 4, 5
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to get the highest temperature reached/to allow the liquid
+    in the thermometer time to expand/to allow the beaker to warm
+
+    up/to allow the thermometer to reach the temperature of the hot water/to allow
+    the thermometer (time) to respond/to ensure
+
+    that the temperature has stopped rising
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'read thermometer perpendicular to the scale/at eye level /
+    hold the stopwatch close to the thermometer/thermometer not
+
+    touching the sides/base of the beaker/stir the water before taking a reading
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ci
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '11.5 C
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'R1 = 5.75 / candidate’s (c)(i)  2
+
+    C / min
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 3ciii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'R2 = 3.5 (C / min) or 0.0583 (C / s)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'cooling rate decreases (with temperature/time)
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ei
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '45–55 (C) inclusive
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3eii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'room temperature/21.5 C
+
+    1
+
+    0625/62
+
+    October/November 2025
+
+    4
+
+    variable
+
+    MP1
+
+    valid variable which may affect h stated
+
+    1
+
+    apparatus
+
+    MP2
+
+    ruler/measuring tape and
+
+    additional apparatus to measure the independent variable (if not height of release
+    or diameter of ball)
+
+    1
+
+    method
+
+    MP3
+
+    measure the independent variable and release the ball
+
+    MP4
+
+    measure h and repeat for a new value of independent variable
+
+    2
+
+    control variable
+
+    MP5
+
+    any significant variable appropriate to the independent variable
+
+    1
+
+    table
+
+    MP6
+
+    columns with units, for independent variable and dependent variable
+
+    1
+
+    conclusion
+
+    MP7
+
+    compare readings in the table to see if/how/whether a change in the variable produces
+    a change in h
+
+    OR plot a (line) graph with axes specified
+
+    1'
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,277 @@
+questions:
+- number: 1ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'effervescence/fizzing/bubbles
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 1aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 test with universal indicator
+
+    M2 turns red/orange
+
+    OR
+
+    M1 add (more) acid
+
+    M2 no fizzing/bubbles/effervescence
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 diagram showing filter paper in a funnel (both funnel and
+    paper must be visible)
+
+    M2 labels
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (dilute) hydrochloric acid
+
+    M2 calcium chloride
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 1biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 2.00 – 0.11 = 1.89
+
+    M2 (1.89  2.00)  100 = 94.5
+
+    2
+
+    0620/62
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 all burette readings correct in experiment 1 (21.2, 41.0,
+    1.6)
+
+    M2 all burette readings correct in experiment 2 (10.2, 20.1, 0.4)
+
+    M3 burette readings recorded in correct place in table
+
+    M4 all four titres in experiment 1 and 2 calculated correctly (19.6, 39.4, 9.8,
+    19.7)
+
+    M5 all ten readings/volumes given to 1 decimal place or better and a consistent
+    number of decimal places
+
+    5'
+  mark_scheme: []
+  graphics: []
+- number: 2bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'to clean / to remove contaminants / to remove impurities
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 (volume (added) is) greater / more / higher / bigger (if
+    not rinsed with C)
+
+    M2 water left in the burette dilutes solution C / solution C becomes less concentrated
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2biii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'colour (changes) easier to see / colour change can be seen
+    easily/clearly/better/accurately
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 D / experiment 2 is more concentrated (than C/experiment
+    1)
+
+    OR
+
+    C / experiment 1 is less concentrated (than D/experiment 2)
+
+    M2 smaller volume of D (required to reach end point/neutralisation) OR larger
+    volume C (required to reach
+
+    end-point/neutralisation)
+
+    M3 answer is quantitative. Either D is 2 x concentration of C OR the volume of
+    C is 2 x the volume of D
+
+    3'
+  mark_scheme: []
+  graphics: []
+- number: 2di
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 39.2
+
+    M2 units given as cm3
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2dii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'volume would be more than burette can hold
+
+    1
+
+    0620/62
+
+    October/November 2025'
+  mark_scheme: []
+  graphics: []
+- number: 2e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 none / no change / same volume needed
+
+    M2 (warming) does not change moles / concentration
+
+    2'
+  mark_scheme: []
+  graphics: []
+- number: 2f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'use a volumetric pipette instead of a measuring cylinder
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(damp red) litmus (paper) turns blue
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'ammonia / NH3
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'white precipitate
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '(solution) becomes pink
+
+    1'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'M1 sodium / Na+
+
+    M2 zinc / Zn2+
+
+    M3 iodide / I–
+
+    3
+
+    0620/62
+
+    October/November 2025
+
+    4
+
+    There are two valid approaches, either measuring time for a set temperature increase
+    OR measuring temperature increase
+
+    in a set time.
+
+    any 6 from:
+
+    MP1 specified/set/measured volume water
+
+    MP2 measure (start/initial) temperature (of water)
+
+    MP3 volume of water measured using a measuring cylinder or burette or (volumetric)
+    pipette
+
+    AND
+
+    HEAT TO SET TEMPERATURE (change)
+
+    MP4 start timing when heating started / burner put under tube
+
+    MP5 heat to set temperature / set temperature rise
+
+    MP6 record/measure time taken to heat water
+
+    MP7 shortest time is fuel that heats fastest
+
+    OR
+
+    HEAT FOR A SET TIME
+
+    MP4 heat water for a specified time
+
+    MP5 measure final temp of water
+
+    MP6 calculate temperature rise
+
+    MP7 highest temperature (rise) is fuel that heats fastest
+
+    6'
+  mark_scheme: []
+  graphics: []
