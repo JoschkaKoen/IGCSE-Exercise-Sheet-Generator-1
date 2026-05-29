@@ -56,3 +56,12 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:29:21Z'
 glossed_at: '2026-05-29T05:30:17Z'
+figures:
+  - file: assets/20-p334-flemings-left-hand-rule.png
+    caption: Fleming's left-hand rule
+    figure_ref: '20.10'
+    source_page_pdf: 334
+    source_page_printed: 318
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [174.8, 349.9, 398.6, 459.6]
+    placed_under: "### Direction — Fleming's left-hand rule"

@@ -1,11 +1,11 @@
 /* Code page — in-browser Python playground (editor + console + tasks). */
 
 /* ---- Lesson prose (rendered markdown) ---- */
-.code-prose h2 { font-size: 1.12rem; font-weight: 600; color: #e2e8f0; margin: 1.3rem 0 .5rem; }
-.code-prose h3 { font-size: 1rem; font-weight: 600; color: #cbd5e1; margin: 1rem 0 .4rem; }
-.code-prose p { margin: .55rem 0; }
-.code-prose ul, .code-prose ol { margin: .55rem 0 .55rem 1.25rem; list-style: revert; }
-.code-prose li { margin: .2rem 0; }
+.code-prose h2 { font-size: 1.5rem; font-weight: 600; color: #e2e8f0; margin: 1.7rem 0 .6rem; }
+.code-prose h3 { font-size: 1.25rem; font-weight: 600; color: #cbd5e1; margin: 1.3rem 0 .45rem; }
+.code-prose p { margin: .9rem 0; }
+.code-prose ul, .code-prose ol { margin: .9rem 0 .9rem 1.5rem; list-style: revert; }
+.code-prose li { margin: .4rem 0; }
 .code-prose strong { color: #f1f5f9; }
 .code-prose code {
   background: rgba(148, 163, 184, .16);
@@ -21,6 +21,8 @@
   padding: .7rem .9rem;
   overflow-x: auto;
   margin: .6rem 0;
+  font-size: 15px;     /* keep code compact; don't inherit the larger prose body size */
+  line-height: 1.5;    /* and not the airy prose line-height */
 }
 .code-prose pre code { background: none; padding: 0; }
 
@@ -34,14 +36,46 @@
 /* ---- Editor (CodeMirror 5 replaces the textarea) ---- */
 .code-editor { display: none; }
 .code-task .CodeMirror {
+  margin-top: .85rem;   /* CodeMirror replaces the <textarea> and drops its mt-3, so add the gap here */
   height: auto;
   min-height: 5.5rem;
   border-radius: .6rem;
   border: 1px solid rgba(148, 163, 184, .18);
-  font-size: 13px;
+  font-size: 15px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 .code-task .CodeMirror-scroll { min-height: 5.5rem; }
+
+/* ---- Editor theme "exercise": calm dark, matched to the site (replaces Dracula) ---- */
+/* codemirror.css defaults to a WHITE editor + #f7f7f7 gutter — the wrapper and gutter
+   backgrounds MUST be set here, or dropping Dracula would render the editor bright. */
+.cm-s-exercise.CodeMirror { background: #0b1020; color: #e2e8f0; }
+.cm-s-exercise .CodeMirror-gutters { background: #0b1020; border: none; }
+.cm-s-exercise .CodeMirror-linenumber { color: #4b5872; }
+.cm-s-exercise .CodeMirror-cursor { border-left: 1px solid #67e8f9; }
+.cm-s-exercise .CodeMirror-selected { background: rgba(99, 102, 241, .3); }
+.cm-s-exercise.CodeMirror-focused .CodeMirror-selected { background: rgba(99, 102, 241, .3); }
+.cm-s-exercise .CodeMirror-line::selection,
+.cm-s-exercise .CodeMirror-line > span::selection,
+.cm-s-exercise .CodeMirror-line > span > span::selection { background: rgba(99, 102, 241, .35); }
+.cm-s-exercise .CodeMirror-activeline-background { background: rgba(255, 255, 255, .025); }
+.cm-s-exercise .CodeMirror-matchingbracket { color: #67e8f9 !important; text-decoration: underline; }
+.cm-s-exercise .cm-comment { color: #76859f; font-style: italic; }
+.cm-s-exercise .cm-keyword { color: #c4b5fd; }
+.cm-s-exercise .cm-builtin { color: #7dd3fc; }
+.cm-s-exercise .cm-def { color: #67e8f9; }
+.cm-s-exercise .cm-variable { color: #e2e8f0; }
+.cm-s-exercise .cm-variable-2 { color: #cbd5e1; }
+.cm-s-exercise .cm-variable-3, .cm-s-exercise .cm-type { color: #7dd3fc; }
+.cm-s-exercise .cm-property { color: #93c5fd; }
+.cm-s-exercise .cm-operator { color: #94a3b8; }
+.cm-s-exercise .cm-string { color: #86efac; }
+.cm-s-exercise .cm-string-2 { color: #86efac; }
+.cm-s-exercise .cm-number { color: #fcd34d; }
+.cm-s-exercise .cm-atom { color: #c4b5fd; }
+.cm-s-exercise .cm-meta { color: #94a3b8; }
+.cm-s-exercise .cm-bracket { color: #94a3b8; }
+.cm-s-exercise .cm-error { color: #fca5a5; }
 
 /* ---- Toolbar buttons ---- */
 .code-btn {
@@ -62,19 +96,6 @@
 .code-btn-check { background: rgba(99, 102, 241, .16); color: #c7d2fe; border-color: rgba(99, 102, 241, .3); }
 .code-btn-check:hover:not(:disabled) { background: rgba(99, 102, 241, .26); color: #e0e7ff; }
 
-/* ---- Live input row ---- */
-.code-input {
-  border-radius: .5rem;
-  padding: .3rem .6rem;
-  font-size: .82rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  color: #e2e8f0;
-  background: rgba(2, 6, 23, .6);
-  border: 1px solid rgba(34, 211, 238, .35);
-  outline: none;
-}
-.code-input:focus { border-color: rgba(34, 211, 238, .7); }
-
 /* ---- Console ---- */
 .code-console {
   background: #05070f;
@@ -85,17 +106,34 @@
   max-height: 16rem;
   overflow: auto;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 12.5px;
+  font-size: 15px;
   line-height: 1.5;
   color: #cbd5e1;
   white-space: pre-wrap;
   word-break: break-word;
 }
 .code-console-empty { color: #475569; font-style: italic; }
-.code-line { display: block; white-space: pre-wrap; }
-.code-line-err { color: #fca5a5; }
-.code-line-sys { color: #64748b; font-style: italic; }
-.code-line-in  { color: #67e8f9; }
+/* Output is appended as inline spans whose text carries its own newlines; the
+   console <pre> (white-space: pre-wrap) renders the breaks. The inline input is
+   appended after the last span, so a newline-less prompt keeps it on the same
+   line — like a local terminal. */
+.code-out  { color: #cbd5e1; }
+.code-err  { color: #fca5a5; }
+.code-sys  { color: #64748b; font-style: italic; }
+.code-echo { color: #67e8f9; }
+.code-console-input {
+  display: inline;
+  width: 24ch;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #e2e8f0;
+  font: inherit;
+  caret-color: #22d3ee;
+}
 
 /* ---- Check result ---- */
 .code-result { border-radius: .6rem; padding: .55rem .8rem; font-size: .82rem; }
@@ -117,3 +155,85 @@
   color: #fca5a5;
   font-size: .85rem;
 }
+
+/* ---- Runnable examples in lesson prose (```python blocks) ---- */
+/* Prefixed with .code-prose so these win over the generic .code-prose pre rules. */
+.code-prose .code-example { position: relative; margin: .6rem 0; }
+.code-prose .code-example > pre { margin: 0; }
+
+.code-example-run {
+  position: absolute;
+  bottom: .6rem;   /* ≈ centered on the last code line (sits just above the bottom padding) */
+  right: .5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 9999px;
+  background: rgba(11, 16, 32, .82);   /* near the code-block bg, opaque enough to sit over code */
+  color: #67e8f9;
+  border: 1px solid rgba(148, 163, 184, .22);
+  cursor: pointer;
+  opacity: .85;
+  transition: opacity .15s, background .15s, color .15s, border-color .15s;
+}
+.code-example-run:hover:not(:disabled) { opacity: 1; background: rgba(34, 211, 238, .28); color: #a5f3fc; border-color: rgba(34, 211, 238, .4); }
+.code-example-run:disabled { opacity: .3; cursor: not-allowed; }
+.code-example-run:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(34, 211, 238, .6); }
+.code-example-run .icon-play, .code-example-run .icon-stop { width: 13px; height: 13px; display: block; }
+.code-example-run .icon-stop { display: none; }
+.code-example-run.is-running { background: rgba(11, 16, 32, .82); color: #fca5a5; border-color: rgba(248, 113, 113, .45); }
+.code-example-run.is-running .icon-play { display: none; }
+.code-example-run.is-running .icon-stop { display: block; }
+
+.code-prose .code-example-output {
+  margin: -.1rem 0 .8rem;
+  background: #070b16;
+  border: 1px solid rgba(148, 163, 184, .14);
+  border-radius: .6rem;
+  padding: .5rem .8rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #cbd5e1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 14rem;
+  overflow: auto;
+}
+.code-prose .code-example-output::before {
+  content: attr(data-label);
+  display: block;
+  font-size: .66rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: #475569;
+  margin-bottom: .3rem;
+}
+
+/* ---- Lesson layout + step-through (progressive disclosure) ---- */
+/* Narrow, centered reading column so lines stay short (ESL readability). */
+.code-lesson { max-width: 42rem; margin-inline: auto; }
+.code-step { scroll-margin-top: 5rem; }     /* auto-scroll clears the sticky header */
+.code-step:focus { outline: none; }          /* programmatic focus on reveal — no ring on the section */
+.code-step + .code-step { margin-top: 1.5rem; }
+
+.code-continue-wrap { display: flex; justify-content: flex-end; margin-top: 1.5rem; }
+.code-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  border-radius: 9999px;
+  padding: .5rem 1.15rem;
+  font-size: .95rem;
+  font-weight: 600;
+  color: #67e8f9;
+  background: rgba(34, 211, 238, .16);
+  border: 1px solid rgba(34, 211, 238, .35);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.code-continue:hover { background: rgba(34, 211, 238, .26); color: #a5f3fc; border-color: rgba(34, 211, 238, .5); }
+.code-continue:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(34, 211, 238, .6); }
+.code-continue svg { width: 15px; height: 15px; }

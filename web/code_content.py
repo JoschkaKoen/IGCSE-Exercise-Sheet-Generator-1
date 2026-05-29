@@ -21,6 +21,7 @@ system (``web/handouts_collect.py``). The web route reads these at request time
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -103,6 +104,11 @@ def load_lesson(slug: str, nn: str, lang: str) -> dict[str, Any] | None:
     except OSError:
         prose_md = ""
 
+    # Split the prose into step chunks on thematic-break lines (`---`). Split the
+    # RAW markdown before rendering, so a "text\n---" sequence can't be parsed as
+    # a setext <h2>. A lesson with no `---` is simply one chunk.
+    prose_chunks = [c.strip() for c in re.split(r"(?m)^\s*-{3,}\s*$", prose_md) if c.strip()]
+
     tasks: list[dict[str, Any]] = []
     client: list[dict[str, Any]] = []
     for task in meta.get("tasks") or []:
@@ -137,6 +143,7 @@ def load_lesson(slug: str, nn: str, lang: str) -> dict[str, Any] | None:
         "title": _pick(meta.get("title"), lang),
         "course_title": (course or {}).get("title", slug),
         "prose_md": prose_md,
+        "prose_chunks": prose_chunks,
         "tasks": tasks,
         "tasks_client_json": json.dumps(client, ensure_ascii=False),
         "prev": prev_nn,

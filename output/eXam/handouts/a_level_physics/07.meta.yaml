@@ -94,3 +94,22 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:07:39Z'
 glossed_at: '2026-05-29T05:07:39Z'
+figures:
+  - file: assets/07-fig-1-transverse-wave.png
+    figure_ref: '7.1'
+    source_page_pdf: 127
+    source_page_printed: 111
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    caption: "Transverse wave on a rope"
+  - file: assets/07-fig-2-longitudinal-wave.png
+    figure_ref: '7.2'
+    source_page_pdf: 127
+    source_page_printed: 111
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    caption: "Longitudinal wave on a slinky spring"
+  - file: assets/07-fig-3-em-spectrum.png
+    figure_ref: '7.16'
+    source_page_pdf: 137
+    source_page_printed: 121
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    caption: "The electromagnetic spectrum"

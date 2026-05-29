@@ -31,7 +31,8 @@ You are writing (or amending) a Cambridge syllabus topic handout. The audience i
 
 - Headings: `##` top-level, `###` subsection. Never `#` (reserved page title).
 - Emphasis `**bold**` / `*italic*`; lists `-` / `1.`; inline math `$…$`; display math `$$…$$` (multi-line: `$$\begin{aligned} a &= b \\ c &= d \end{aligned}$$`); inline code `` `code` ``; fenced code blocks (CS) with a language tag.
-- Allowed: simple pipe tables (used for truth tables, comparisons, data). No raw HTML, images, hyperlinks, footnotes, or document-level frontmatter.
+- Allowed: simple pipe tables (used for truth tables, comparisons, data) and textbook figures (below). No raw HTML, hyperlinks, footnotes, or document-level frontmatter.
+- **Figures** (textbook diagrams, where they genuinely aid understanding): `![alt](/handout-media/<subject>/assets/<NN>-fig-<n>-<slug>.png)` on its own line, then a short plain-italic caption on the **very next line, no blank line between** — e.g. `*Transverse wave on a rope*`. No "Figure N.M" number or source/copyright credit in the caption; record provenance in the `<NN>.meta.yaml` `figures:` list instead. Crop diagram-only (no surrounding body text); in-syllabus figures only, one per concept.
 
 ### Authoring workflow (tooling)
 

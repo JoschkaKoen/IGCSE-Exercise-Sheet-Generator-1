@@ -142,8 +142,9 @@ STRINGS: dict[str, dict[str, str]] = {
         "code.console.ready":        "Python ready.",
         "code.console.stopped":      "Stopped.",
         "code.input.label":          "Program input",
-        "code.input.placeholder":    "Type here, then press Enter",
-        "code.input.waiting":        "Your program is waiting for input…",
+        "code.example.run":          "Run example",
+        "code.example.output":       "Output",
+        "code.example.no_output":    "(no output)",
         "code.task.heading":         "Task",
         "code.task.check":           "Check answer",
         "code.task.checking":        "Checking…",
@@ -156,6 +157,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "code.needs_modern_browser": "This page needs a recent browser (with SharedArrayBuffer support). Please update Chrome, Edge, Firefox or Safari to the latest version.",
         "code.lesson.next":          "Next lesson",
         "code.lesson.prev":          "Back",
+        "code.continue":             "Continue",
 
         # ===== Auth dialog (site-wide) =====
         "auth.dialog.title":        "Sign in",
@@ -757,8 +759,9 @@ STRINGS: dict[str, dict[str, str]] = {
         "code.console.ready":        "Python 已就绪。",
         "code.console.stopped":      "已停止。",
         "code.input.label":          "程序输入",
-        "code.input.placeholder":    "在此输入,然后按回车",
-        "code.input.waiting":        "你的程序正在等待输入……",
+        "code.example.run":          "运行示例",
+        "code.example.output":       "输出",
+        "code.example.no_output":    "(无输出)",
         "code.task.heading":         "任务",
         "code.task.check":           "检查答案",
         "code.task.checking":        "检查中……",
@@ -771,6 +774,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "code.needs_modern_browser": "此页面需要较新的浏览器(需支持 SharedArrayBuffer)。请将 Chrome、Edge、Firefox 或 Safari 更新到最新版本。",
         "code.lesson.next":          "下一课",
         "code.lesson.prev":          "返回",
+        "code.continue":             "继续",
 
         # ===== Auth dialog =====
         "auth.dialog.title":        "登录",

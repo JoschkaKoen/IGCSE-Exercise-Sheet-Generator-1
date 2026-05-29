@@ -12,7 +12,7 @@ Resources fetched:
   - pdfjs-dist 4.6.82 (pdf.mjs + pdf.worker.mjs)
   - Chart.js 4.4.6 (UMD min)
   - Pyodide 0.29.4 (pyodide.mjs + asm.js + asm.wasm + python_stdlib.zip + lock.json)
-  - CodeMirror 5.65.18 (lib + python mode + edit/selection/display addons + dracula theme)
+  - CodeMirror 5.65.18 (lib + python mode + edit/selection/display addons; theme is custom CSS)
 """
 from __future__ import annotations
 
@@ -207,7 +207,6 @@ def main() -> int:
         "addon/comment/comment.js",
         "addon/selection/active-line.js",
         "addon/display/placeholder.js",
-        "theme/dracula.css",
     ):
         download(
             f"https://cdn.jsdelivr.net/npm/codemirror@{CM_VER}/{p}",

@@ -1,12 +1,15 @@
-// Code page playground — wires CodeMirror editors to a Pyodide Web Worker.
+// Code page playground — CodeMirror editors + a Pyodide worker, runnable ```python
+// examples, and a step-through reveal engine (one step at a time, Continue ▶).
 //
-// One worker per page, lazily booted on the first Run/Check. Python runs in the
-// worker so the main thread can (a) interrupt infinite loops via a shared
-// interrupt buffer (Stop) and (b) feed live input() through a SharedArrayBuffer
-// the worker blocks on with Atomics.wait. Checks also run in the worker, but
-// with scripted stdin and captured output — deterministic, never blocking.
+// Output routing is element-based: `active.el` is the target <pre> (a task console
+// OR an example output box), so tasks and examples share one code path. Python runs
+// in a worker so the main thread can interrupt loops (Stop) and feed live input()
+// through a SharedArrayBuffer the worker blocks on with Atomics.wait.
 
 const PROGRESS_KEY = "code.progress.v1";
+const STEPS_KEY = "code.steps.v1";
+const PLAY_SVG = '<svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+const STOP_SVG = '<svg class="icon-stop" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg>';
 
 function t(key) {
   return (window.i18n && window.i18n[key]) || key;
@@ -16,50 +19,107 @@ const ROOT = document.querySelector(".code-lesson");
 if (ROOT) init(ROOT);
 
 function init(root) {
-  // Cross-origin isolation + SharedArrayBuffer are required (Stop + live input).
-  // Target browsers are modern, so this guard should essentially never fire.
-  if (!self.crossOriginIsolated || typeof SharedArrayBuffer === "undefined") {
-    const warn = document.getElementById("code-runtime-warning");
-    if (warn) warn.hidden = false;
-    root.querySelectorAll(".code-run, .code-check, .code-stop").forEach((b) => { b.disabled = true; });
-    return;
-  }
-
   const slug = root.dataset.slug;
   const nn = root.dataset.nn;
   const tasks = readTasks();
   const editors = {};
   const encoder = new TextEncoder();
 
-  // Shared memory for the worker.
-  const interruptSab = new SharedArrayBuffer(4);
-  const stdinMetaSab = new SharedArrayBuffer(8);
-  const stdinDataSab = new SharedArrayBuffer(8192);
-  const interruptView = new Int32Array(interruptSab);
-  const stdinMeta = new Int32Array(stdinMetaSab);
-  const stdinData = new Uint8Array(stdinDataSab);
-
   let worker = null;
   let workerReady = false;
   let booting = null;
-  let active = null;   // { taskId, mode: "run" | "check" }
+  let active = null;   // { el, mode: "run"|"check", kind: "task"|"example", taskId?, runBtn? }
 
-  initEditors();
+  // Shared memory for the worker — only when cross-origin isolated (else
+  // SharedArrayBuffer is undefined). Reading + stepping work without it.
+  let interruptView = null, stdinMeta = null, stdinData = null;
+  const isolated = self.crossOriginIsolated && typeof SharedArrayBuffer !== "undefined";
+  if (isolated) {
+    interruptView = new Int32Array(new SharedArrayBuffer(4));
+    stdinMeta = new Int32Array(new SharedArrayBuffer(8));   // [0]=state, [1]=byte length
+    stdinData = new Uint8Array(new SharedArrayBuffer(8192));
+  } else {
+    const warn = document.getElementById("code-runtime-warning");
+    if (warn) warn.hidden = false;
+  }
 
+  initEditors();    // CodeMirror — regardless of isolation (typing needs no worker)
+  wireExamples();   // ▶ on prose code blocks
+  setupSteps();     // progressive-disclosure reveal engine
+
+  if (!isolated) {  // execution disabled, but stepping/reading still works
+    root.querySelectorAll(".code-run, .code-check, .code-stop, .code-example-run")
+      .forEach((b) => { b.disabled = true; });
+  }
+
+  // ---- Step-through (progressive disclosure) ----------------------------
+  function setupSteps() {
+    const steps = Array.from(root.querySelectorAll(".code-step"));
+    const wrap = root.querySelector(".code-continue-wrap");
+    const btn = root.querySelector(".code-continue");
+    if (!steps.length) { if (wrap) wrap.hidden = true; return; }
+
+    const key = `${slug}/${nn}`;
+    let revealed = 1;
+    const saved = readSteps()[key];
+    if (typeof saved === "number" && saved > revealed) revealed = Math.min(saved, steps.length);
+
+    steps.forEach((step, i) => {
+      step.hidden = i >= revealed;
+      if (i < revealed) refreshTaskEditor(step);
+    });
+    updateContinue();
+
+    if (btn) btn.addEventListener("click", () => {
+      if (revealed >= steps.length) return;
+      const step = steps[revealed];
+      step.hidden = false;
+      refreshTaskEditor(step);
+      revealed++;
+      saveSteps(key, revealed);
+      updateContinue();
+      step.scrollIntoView({ behavior: "smooth", block: "start" });
+      step.focus({ preventScroll: true });
+    });
+
+    function updateContinue() {
+      if (wrap) wrap.hidden = revealed >= steps.length;
+    }
+  }
+
+  function refreshTaskEditor(step) {
+    const tid = step.dataset.taskId;
+    if (tid && editors[tid]) editors[tid].refresh();   // CM mis-measures while hidden
+  }
+
+  function readSteps() {
+    try { return JSON.parse(localStorage.getItem(STEPS_KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function saveSteps(key, n) {
+    const s = readSteps();
+    s[key] = n;
+    try { localStorage.setItem(STEPS_KEY, JSON.stringify(s)); } catch (e) { /* quota */ }
+  }
+
+  // ---- Editors -----------------------------------------------------------
   function initEditors() {
     // CodeMirror 5 loads as a classic deferred script; wait until the global exists.
     if (!window.CodeMirror) { setTimeout(initEditors, 30); return; }
     root.querySelectorAll("textarea.code-editor").forEach((ta) => {
-      editors[ta.dataset.taskId] = window.CodeMirror.fromTextArea(ta, {
+      const cm = window.CodeMirror.fromTextArea(ta, {
         mode: "python",
-        theme: "dracula",
-        lineNumbers: true,
+        theme: "exercise",
+        lineNumbers: false,
         indentUnit: 4,
         matchBrackets: true,
         autoCloseBrackets: true,
         styleActiveLine: true,
         viewportMargin: Infinity,
       });
+      editors[ta.dataset.taskId] = cm;
+      const step = ta.closest(".code-step");
+      if (step && !step.hidden) cm.refresh();   // a task step restored visible before CM loaded
     });
     wireButtons();
     markCompletedFromStorage();
@@ -74,10 +134,37 @@ function init(root) {
       b.addEventListener("click", () => resetTask(b.dataset.taskId)));
     root.querySelectorAll(".code-stop").forEach((b) =>
       b.addEventListener("click", stopActive));
-    root.querySelectorAll(".code-input").forEach((inp) =>
-      inp.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") { e.preventDefault(); submitInput(inp.dataset.taskId); }
-      }));
+  }
+
+  // Make each ```python block runnable: wrap it, add a ▶ pinned bottom-right,
+  // and an output box as a sibling AFTER the wrapper.
+  function wireExamples() {
+    root.querySelectorAll(".code-prose pre > code.language-python").forEach((codeEl) => {
+      const pre = codeEl.parentElement;
+      if (!pre || pre.closest(".code-example")) return;
+      const wrapEl = document.createElement("div");
+      wrapEl.className = "code-example";
+      pre.parentNode.insertBefore(wrapEl, pre);
+      wrapEl.appendChild(pre);
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "code-example-run";
+      btn.setAttribute("aria-label", t("code.example.run"));
+      btn.innerHTML = PLAY_SVG + STOP_SVG;
+      wrapEl.appendChild(btn);
+
+      const out = document.createElement("pre");
+      out.className = "code-example-output";
+      out.setAttribute("data-label", t("code.example.output"));
+      out.hidden = true;
+      wrapEl.parentNode.insertBefore(out, wrapEl.nextSibling);
+
+      btn.addEventListener("click", () => {
+        if (active && active.runBtn === btn) { stopActive(); return; }  // ■ pressed
+        runExample(codeEl.textContent, out, btn);
+      });
+    });
   }
 
   // ---- Worker lifecycle --------------------------------------------------
@@ -88,7 +175,12 @@ function init(root) {
       worker = new Worker("/static/js/code-worker.js", { type: "module" });
       worker.onmessage = (e) => handleWorker(e.data || {}, resolve, reject);
       worker.onerror = (e) => { booting = null; reject(new Error(e.message || "worker failed to load")); };
-      worker.postMessage({ type: "init", interruptSab, stdinMetaSab, stdinDataSab });
+      worker.postMessage({
+        type: "init",
+        interruptSab: interruptView.buffer,
+        stdinMetaSab: stdinMeta.buffer,
+        stdinDataSab: stdinData.buffer,
+      });
     });
     return booting;
   }
@@ -97,42 +189,62 @@ function init(root) {
     switch (msg.type) {
       case "ready": workerReady = true; bootResolve(); break;
       case "initError": booting = null; bootReject(new Error(msg.error)); break;
-      case "stdout": if (active) appendConsole(active.taskId, msg.text, "out"); break;
-      case "stderr": if (active) appendConsole(active.taskId, msg.text, "err"); break;
-      case "inputRequest": if (active && active.mode === "run") showInput(active.taskId); break;
+      case "stdout": if (active) appendSpan(active.el, msg.text, "code-out"); break;
+      case "stderr": if (active) appendSpan(active.el, msg.text, "code-err"); break;
+      case "inputRequest": if (active && active.mode === "run") showInput(active.el); break;
       case "runDone": finishRun(); break;
       case "checkDone": finishCheck(msg); break;
     }
   }
 
-  // ---- Run (free) --------------------------------------------------------
+  // ---- Run (free) — tasks and examples share this path -------------------
   async function runTask(id) {
     if (active) return;
-    active = { taskId: id, mode: "run" };
-    setBusy(id, true);
-    clearConsole(id);
+    active = { el: consoleEl(id), mode: "run", kind: "task", taskId: id };
+    setBusy(active);
+    clearPre(active.el);
     hideResult(id);
     Atomics.store(interruptView, 0, 0);
-    if (!workerReady) {
-      appendConsole(id, t("code.console.loading"), "sys");
-      try { await ensureWorker(); }
-      catch (err) { appendConsole(id, String(err.message || err), "err"); finishRun(); return; }
-      clearConsole(id);
-    }
+    if (!(await bootInto(active.el))) return;
     worker.postMessage({ type: "run", code: editors[id].getValue() });
   }
 
-  function finishRun() {
-    const id = active ? active.taskId : null;
-    active = null;
-    if (id != null) { setBusy(id, false); hideInput(id); }
+  async function runExample(codeText, outputEl, runBtn) {
+    if (active) return;
+    active = { el: outputEl, mode: "run", kind: "example", runBtn };
+    setBusy(active);            // disables other run triggers BEFORE the async boot
+    clearPre(outputEl);         // box stays hidden until the first output (appendSpan reveals it)
+    Atomics.store(interruptView, 0, 0);
+    if (!(await bootInto(outputEl))) return;
+    worker.postMessage({ type: "run", code: codeText });
   }
 
-  // ---- Check -------------------------------------------------------------
+  // Lazily boot the worker. Returns false (and finishes) if it fails to load.
+  async function bootInto(el) {
+    if (workerReady) return true;
+    // No "loading" text — the run button's running state is the feedback, and
+    // Pyodide is fetched only once (cached after). On failure, surface the error.
+    try { await ensureWorker(); }
+    catch (err) { appendSpan(el, String(err.message || err) + "\n", "code-err"); finishRun(); return false; }
+    return true;
+  }
+
+  function finishRun() {
+    const a = active;
+    active = null;
+    setBusy(null);
+    if (!a) return;
+    removeInlineInput(a.el);
+    if (a.kind === "example" && a.el && !a.el.querySelector(".code-out, .code-err, .code-echo")) {
+      appendSpan(a.el, t("code.example.no_output"), "code-sys");
+    }
+  }
+
+  // ---- Check (tasks only) ------------------------------------------------
   async function checkTask(id) {
     if (active) return;
-    active = { taskId: id, mode: "check" };
-    setBusy(id, true);
+    active = { el: consoleEl(id), mode: "check", kind: "task", taskId: id };
+    setBusy(active);
     const box = resultBox(id);
     box.hidden = false;
     box.className = "code-result mt-2 code-result-pending";
@@ -143,7 +255,7 @@ function init(root) {
       catch (err) {
         box.className = "code-result mt-2 code-result-fail";
         box.textContent = String(err.message || err);
-        active = null; setBusy(id, false); return;
+        active = null; setBusy(null); return;
       }
     }
     const task = tasks[id] || {};
@@ -151,10 +263,11 @@ function init(root) {
   }
 
   function finishCheck(msg) {
-    const id = active ? active.taskId : null;
+    const a = active;
     active = null;
-    if (id == null) return;
-    setBusy(id, false);
+    setBusy(null);
+    if (!a) return;
+    const id = a.taskId;
     const box = resultBox(id);
     box.hidden = false;
     if (msg.pass) {
@@ -164,8 +277,8 @@ function init(root) {
     } else if (msg.error) {
       box.className = "code-result mt-2 code-result-fail";
       box.textContent = t("code.task.error");
-      clearConsole(id);
-      appendConsole(id, msg.error, "err");
+      clearPre(a.el);
+      appendSpan(a.el, msg.error + "\n", "code-err");
     } else {
       box.className = "code-result mt-2 code-result-fail";
       box.innerHTML = "";
@@ -182,59 +295,75 @@ function init(root) {
     Atomics.store(interruptView, 0, 2);   // SIGINT for CPU-bound loops
     Atomics.store(stdinMeta, 0, 2);        // EOF to unblock a pending input()
     Atomics.notify(stdinMeta, 0);
-    if (active) appendConsole(active.taskId, t("code.console.stopped"), "sys");
+    if (active) { removeInlineInput(active.el); appendSpan(active.el, t("code.console.stopped") + "\n", "code-sys"); }
   }
 
-  function submitInput(id) {
-    const inp = root.querySelector(`.code-input[data-task-id="${id}"]`);
-    if (!inp) return;
-    appendConsole(id, inp.value, "in");
-    const bytes = encoder.encode(inp.value + "\n");
+  function showInput(el) {
+    if (!el) return;
+    const empty = el.querySelector(".code-console-empty");
+    if (empty) empty.remove();
+    const inp = document.createElement("input");
+    inp.type = "text";
+    inp.className = "code-console-input";
+    inp.setAttribute("aria-label", t("code.input.label"));
+    inp.autocomplete = "off";
+    inp.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") { e.preventDefault(); submitInput(el, inp); }
+    });
+    el.appendChild(inp);  // flows right after the last output → same line as a prompt
+    inp.focus();
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function submitInput(el, inp) {
+    const value = inp.value;
+    const echo = document.createElement("span");
+    echo.className = "code-echo";
+    echo.textContent = value + "\n";
+    inp.replaceWith(echo);
+    const bytes = encoder.encode(value + "\n");
     const n = Math.min(bytes.length, stdinData.length);
     stdinData.set(bytes.subarray(0, n));
     Atomics.store(stdinMeta, 1, n);
     Atomics.store(stdinMeta, 0, 1);
     Atomics.notify(stdinMeta, 0);
-    inp.value = "";
+    el.scrollTop = el.scrollHeight;
   }
 
-  function showInput(id) {
-    const row = root.querySelector(`.code-input-row[data-task-id="${id}"]`);
-    if (!row) return;
-    row.hidden = false;
-    const inp = row.querySelector(".code-input");
-    if (inp) inp.focus();
-  }
-  function hideInput(id) {
-    const row = root.querySelector(`.code-input-row[data-task-id="${id}"]`);
-    if (row) row.hidden = true;
+  function removeInlineInput(el) {
+    if (el) el.querySelectorAll(".code-console-input").forEach((x) => x.remove());
   }
 
-  // ---- Reset -------------------------------------------------------------
+  // ---- Reset (tasks) -----------------------------------------------------
   function resetTask(id) {
     if (active) return;
     const task = tasks[id] || {};
     if (editors[id]) editors[id].setValue(task.starter || "");
-    clearConsole(id);
+    clearPre(consoleEl(id));
     hideResult(id);
   }
 
-  // ---- Console / result helpers -----------------------------------------
+  // ---- Output helpers (element-based) -----------------------------------
   function consoleEl(id) { return root.querySelector(`.code-console[data-task-id="${id}"]`); }
   function resultBox(id) { return root.querySelector(`.code-result[data-task-id="${id}"]`); }
-  function clearConsole(id) { const p = consoleEl(id); if (p) p.innerHTML = ""; }
+  function clearPre(el) { if (el) el.innerHTML = ""; }
   function hideResult(id) { const b = resultBox(id); if (b) { b.hidden = true; b.textContent = ""; } }
 
-  function appendConsole(id, text, kind) {
-    const pre = consoleEl(id);
-    if (!pre) return;
-    const empty = pre.querySelector(".code-console-empty");
+  // Append an output chunk (exact text, may contain newlines) as an inline,
+  // stream-colored span; the <pre> renders the line breaks. New output goes
+  // before any pending input field so order stays correct.
+  function appendSpan(el, text, cls) {
+    if (!el || !text) return;
+    if (el.hidden) el.hidden = false;   // reveal an example output box on first write
+    const empty = el.querySelector(".code-console-empty");
     if (empty) empty.remove();
     const span = document.createElement("span");
-    span.className = "code-line code-line-" + (kind || "out");
+    span.className = cls;
     span.textContent = text;
-    pre.appendChild(span);
-    pre.scrollTop = pre.scrollHeight;
+    const input = el.querySelector(".code-console-input");
+    if (input) el.insertBefore(span, input);
+    else el.appendChild(span);
+    el.scrollTop = el.scrollHeight;
   }
 
   function textDiv(text) { const d = document.createElement("div"); d.textContent = text; return d; }
@@ -250,14 +379,21 @@ function init(root) {
   }
 
   // ---- Busy state --------------------------------------------------------
-  function setBusy(activeId, busy) {
+  // `act` is the current active descriptor, or null when idle.
+  function setBusy(act) {
+    const busy = act != null;
     root.querySelectorAll(".code-run, .code-check, .code-reset").forEach((b) => { b.disabled = busy; });
     root.querySelectorAll(".code-stop").forEach((b) => {
-      b.disabled = !(busy && b.dataset.taskId === activeId);
+      b.disabled = !(busy && act.kind === "task" && b.dataset.taskId === act.taskId);
+    });
+    root.querySelectorAll(".code-example-run").forEach((b) => {
+      const isActive = busy && act.kind === "example" && b === act.runBtn;
+      b.disabled = busy && !isActive;       // the running example's ▶ stays clickable as ■
+      b.classList.toggle("is-running", !!isActive);
     });
   }
 
-  // ---- Progress (localStorage) ------------------------------------------
+  // ---- Task completion (localStorage) -----------------------------------
   function readProgress() {
     try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
     catch (e) { return {}; }

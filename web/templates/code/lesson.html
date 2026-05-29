@@ -3,7 +3,6 @@
 {% block extra_head %}
 <link rel="stylesheet" href="/static/css/16-code.css" />
 <link rel="stylesheet" href="/static/vendor/codemirror/lib/codemirror.css" />
-<link rel="stylesheet" href="/static/vendor/codemirror/theme/dracula.css" />
 <script defer src="/static/vendor/codemirror/lib/codemirror.js"></script>
 <script defer src="/static/vendor/codemirror/mode/python/python.js"></script>
 <script defer src="/static/vendor/codemirror/addon/edit/closebrackets.js"></script>
@@ -22,18 +21,19 @@
   </nav>
   <h1 class="font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl">{{ lesson.title }}</h1>
 
-  <article class="code-prose mt-4 text-sm leading-relaxed text-slate-300">
-    {{ lesson.prose_md | render_md | safe }}
-  </article>
-
   <div id="code-runtime-warning" class="code-runtime-warning mt-6" hidden>
     {{ t('code.needs_modern_browser') }}
   </div>
 
-  <div class="code-tasks mt-6 space-y-6">
+  <div class="code-steps mt-5">
+    {% for chunk in lesson.prose_chunks %}
+      <section class="code-step" tabindex="-1"{% if not loop.first %} hidden{% endif %}>
+        <div class="code-prose text-lg leading-8 text-slate-300">{{ chunk | render_md | safe }}</div>
+      </section>
+    {% endfor %}
     {% for task in lesson.tasks %}
-      <section class="code-task rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4" data-task-id="{{ task.id }}">
-        <div class="code-task-prompt text-sm leading-relaxed text-slate-200">{{ task.prompt_md | render_md | safe }}</div>
+      <section class="code-step code-task rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4" tabindex="-1" data-task-id="{{ task.id }}" hidden>
+        <div class="code-task-prompt text-base leading-7 text-slate-200">{{ task.prompt_md | render_md | safe }}</div>
         <textarea class="code-editor mt-3" data-task-id="{{ task.id }}" spellcheck="false">{{ task.starter }}</textarea>
         <div class="code-toolbar mt-2 flex flex-wrap items-center gap-2">
           <button type="button" class="code-btn code-btn-primary code-run" data-task-id="{{ task.id }}">{{ t('code.run') }}</button>
@@ -42,15 +42,17 @@
           <span class="flex-1"></span>
           <button type="button" class="code-btn code-btn-check code-check" data-task-id="{{ task.id }}">{{ t('code.task.check') }}</button>
         </div>
-        <div class="code-input-row mt-2 flex items-center gap-2" data-task-id="{{ task.id }}" hidden>
-          <span class="code-input-label shrink-0 text-xs text-slate-400">{{ t('code.input.label') }}</span>
-          <input type="text" class="code-input min-w-0 flex-1" data-task-id="{{ task.id }}"
-                 placeholder="{{ t('code.input.placeholder') }}" autocomplete="off" />
-        </div>
         <pre class="code-console mt-2" data-task-id="{{ task.id }}"><span class="code-console-empty">{{ t('code.console.empty') }}</span></pre>
         <div class="code-result mt-2" data-task-id="{{ task.id }}" hidden></div>
       </section>
     {% endfor %}
+  </div>
+
+  <div class="code-continue-wrap">
+    <button type="button" class="code-continue">
+      {{ t('code.continue') }}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </button>
   </div>
 
   <div class="code-lesson-nav mt-8 flex items-center justify-between text-sm">
@@ -60,4 +62,5 @@
 
   <script type="application/json" id="code-tasks">{{ lesson.tasks_client_json | safe }}</script>
 </div>
+<noscript><style>.code-step[hidden]{display:block !important}.code-continue-wrap{display:none !important}</style></noscript>
 {% endblock %}

@@ -29,6 +29,7 @@ from .auth_gate import (
     parse_login_disabled,
     request_is_authenticated,
 )
+from .handouts_collect import HANDOUTS_ROOT
 from .routes.account import router as account_router
 from .routes.admin_stats import router as admin_stats_router
 from .routes.code import router as code_router
@@ -118,6 +119,14 @@ if VENDOR_DIR.is_dir():
     app.mount("/static/vendor", IsolatedStaticFiles(directory=str(VENDOR_DIR)), name="static-vendor")
 if STATIC_DIR.is_dir():
     app.mount("/static", IsolatedStaticFiles(directory=str(STATIC_DIR), no_cache=True), name="static")
+
+# Handout figures live beside the handout markdown under
+# ``output/eXam/handouts/<subject>/assets/`` (tracked in git like the ``.md``). Mount the handouts
+# tree read-only so the Learn page can load them as ``/handout-media/<subject>/assets/<file>``.
+# IsolatedStaticFiles keeps ETag/Last-Modified caching and adds CORP same-origin; its COEP header
+# is inert on the (non-isolated) Learn page.
+if HANDOUTS_ROOT.is_dir():
+    app.mount("/handout-media", IsolatedStaticFiles(directory=str(HANDOUTS_ROOT)), name="handout-media")
 
 _favicon_svg = STATIC_DIR / "favicon.svg"
 

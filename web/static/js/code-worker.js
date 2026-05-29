@@ -47,9 +47,23 @@ function stdin() {
   return readLiveLine();
 }
 
-function onText(stream, text) {
-  if (capturing) captured += text + "\n";
-  else post(stream, { text });
+// Stream Pyodide output as exact byte chunks (write mode, not batched) so a
+// newline-less prompt from input("…") reaches the console immediately and the
+// inline input can sit on the same line. Per-stream streaming decoders handle a
+// multibyte character split across chunks.
+const outDecoder = new TextDecoder();
+const errDecoder = new TextDecoder();
+
+function makeWriter(stream, dec) {
+  return (buf) => {
+    // Decode immediately — do not retain the view into WASM memory.
+    const text = dec.decode(buf, { stream: true });
+    if (text) {
+      if (capturing) captured += text;
+      else post(stream, { text });
+    }
+    return buf.length;
+  };
 }
 
 function errText(err) {
@@ -72,9 +86,13 @@ async function init(msg) {
   try {
     pyodide = await loadPyodide({ indexURL: PYODIDE_INDEX_URL });
     pyodide.setInterruptBuffer(interruptBuf);
-    pyodide.setStdout({ batched: (s) => onText("stdout", s) });
-    pyodide.setStderr({ batched: (s) => onText("stderr", s) });
-    pyodide.setStdin({ stdin, isatty: false, autoEOF: false });
+    pyodide.setStdout({ write: makeWriter("stdout", outDecoder) });
+    pyodide.setStderr({ write: makeWriter("stderr", errDecoder) });
+    // autoEOF: true → each stdin() call returns ONE complete line and is then
+    // auto-terminated, so input() returns right after the user's Enter. (With
+    // autoEOF:false Pyodide keeps calling stdin() to refill its buffer, which
+    // spawns a fresh input prompt after every Enter — input() never settles.)
+    pyodide.setStdin({ stdin, isatty: false, autoEOF: true });
     post("ready");
   } catch (err) {
     post("initError", { error: errText(err) });

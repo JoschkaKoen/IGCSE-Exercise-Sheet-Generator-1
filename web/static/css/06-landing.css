@@ -521,6 +521,25 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .learn-content-body .math.block {
   color: rgb(255, 255, 255);                       /* white — formulas and numbers */
 }
+/* Textbook figures: white padded card so dark/transparent line art stays legible on navy. */
+.learn-content-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.25rem auto 0;
+  border-radius: 0.5rem;
+  background: #fff;
+  padding: 0.5rem;
+}
+/* Italic caption directly after a figure (image + *caption* on consecutive lines, no blank line). */
+.learn-content-body img + em {
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: rgb(148, 163, 184);                       /* slate-400 */
+  margin: 0.35rem 0 0.75rem;
+}
 /* H3 sub-section headers (IGCSE Physics 1.5.1, 1.5.2, …) between tables. */
 .learn-content-body h3 {
   margin-top: 1.5rem;
