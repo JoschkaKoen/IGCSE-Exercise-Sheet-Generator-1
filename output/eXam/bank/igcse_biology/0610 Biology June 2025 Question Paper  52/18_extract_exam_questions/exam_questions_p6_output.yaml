@@ -1,9 +1,0 @@
-questions:
-  - number: "1c"
-    type: short_answer
-    text: |
-      Fig. 1.3 shows a leaf from a potato plant.
-  - number: "1ci"
-    type: short_answer
-    text: |
-      Draw a large diagram of the leaf shown in Fig. 1.3.

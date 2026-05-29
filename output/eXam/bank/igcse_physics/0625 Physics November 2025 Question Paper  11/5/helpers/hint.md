@@ -1,2 +1,0 @@
-- Think about what **intrinsic** properties depend only on the object itself.
-- Consider if **mass** changes when you push or pull an item.

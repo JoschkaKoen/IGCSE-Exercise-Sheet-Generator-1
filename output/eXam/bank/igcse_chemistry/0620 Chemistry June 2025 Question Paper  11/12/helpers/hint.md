@@ -1,1 +1,0 @@
-You need to know the **percentage** of oxygen in clean, dry air. Use this ratio to calculate the total **volume of air**.

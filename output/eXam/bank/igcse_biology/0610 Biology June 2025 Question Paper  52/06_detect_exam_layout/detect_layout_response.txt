@@ -1,1 +1,0 @@
-{"rows": 1, "cols": 1, "reading_order": [[1, 1]]}

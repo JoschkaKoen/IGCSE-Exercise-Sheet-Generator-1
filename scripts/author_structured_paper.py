@@ -63,6 +63,28 @@ def _norm_key(qnum: str, groups: str) -> str:
     return qnum + "".join(_GROUP_RE.findall(groups))
 
 
+def _inject_bare_questions(
+    parts: list[tuple[str, list[str]]]
+) -> list[tuple[str, list[str]]]:
+    """Recover bare-number top-level questions (e.g. an ATP "plan an experiment" Q
+    labelled just ``2``, which the ``N(a)`` label regex skips). Such a question's
+    label + answer get appended to the *previous* part; detect the gap in the
+    top-number sequence and split it back out at the bare ``N`` line."""
+    present = {int(re.match(r"\d+", k).group()) for k, _ in parts}
+    if not present:
+        return parts
+    missing = [n for n in range(1, max(present) + 1) if n not in present]
+    for n in missing:
+        token = str(n)
+        for i, (key, lines) in enumerate(parts):
+            if token in lines:
+                j = lines.index(token)
+                parts[i] = (key, lines[:j])
+                parts.insert(i + 1, (token, lines[j + 1:]))
+                break
+    return parts
+
+
 def parse_ms_table(ms_pdf: Path) -> list[tuple[str, str]]:
     """Return ``[(leaf_key, answer_text), …]`` in paper order from the MS table.
 
@@ -86,6 +108,9 @@ def parse_ms_table(ms_pdf: Path) -> list[tuple[str, str]]:
         if cur is None or _CODE_RE.match(s) or _NOISE.search(s):
             continue
         parts[-1][1].append(s)
+
+    parts = _inject_bare_questions(parts)
+
     merged: dict[str, list[str]] = {}
     order: list[str] = []
     for key, body in parts:
