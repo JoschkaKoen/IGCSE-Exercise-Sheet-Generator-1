@@ -3,9 +3,9 @@
 
 For every course (a directory with ``course.yaml``) and every lesson it lists, check:
 
-  - **Schema** — ``meta.yaml`` has a bilingual ``title``; each task has ``id``, a
-    bilingual ``prompt``, and a valid ``check`` (``stdout`` needs ``expected``;
-    ``asserts`` needs ``code``).
+  - **Schema** — ``meta.yaml`` has a bilingual ``title``; each task has a unique
+    ``id`` (progress is keyed by it), a bilingual ``prompt``, and a valid ``check``
+    (``stdout`` needs ``expected``; ``asserts`` needs ``code``).
   - **Parallel languages** — ``NN.en.md`` and ``NN.zh.md`` exist and split into the
     SAME number of ``---`` step chunks.
   - **Python validity** — every ```` ```python ```` example block, every ``starter``,
@@ -272,12 +272,18 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
 
     # Tasks.
     valid_kinds = ("stdout", "harness") if is_java else ("stdout", "asserts")
+    seen_ids: set[str] = set()
     for task in meta.get("tasks") or []:
         tid = task.get("id")
         tw = f"{where} task '{tid}'"
         if not tid:
             err(where, "a task is missing 'id'")
             continue
+        # Progress (code_progress table) is keyed by task id, so duplicates would
+        # silently conflate two tasks' done/revealed state.
+        if tid in seen_ids:
+            err(where, f"duplicate task id '{tid}' in this lesson")
+        seen_ids.add(tid)
         prompt = task.get("prompt")
         if not (isinstance(prompt, dict) and prompt.get("en") and prompt.get("zh")):
             err(tw, "prompt must have both 'en' and 'zh'")
