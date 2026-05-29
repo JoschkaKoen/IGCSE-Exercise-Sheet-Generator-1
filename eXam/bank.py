@@ -200,6 +200,61 @@ def ensure_paper_indexed(
     return out_dir
 
 
+def finalize_authored_paper(
+    paper_path: Path,
+    ms_path: Path | None,
+    subject: str,
+) -> Path:
+    """Finalize a paper whose ``exam_questions.yaml`` / ``mark_scheme.yaml`` were
+    authored by hand (no AI extraction): render the per-question snippet PDFs and
+    stamp ``paper_sha.txt`` so a later ``ensure_paper_indexed`` cache-hits instead
+    of re-running the (paid) scaffold chain.
+
+    The ``(paper_sha, ms_sha)`` stamp must match what ``ensure_paper_indexed``
+    would compute, so pass the same *ms_path* ``open_mode.pair_mark_scheme`` finds
+    next to the QP — otherwise the lazy-index path would see a mismatch and re-run
+    the AI chain, overwriting the authored YAMLs.
+    """
+    paper_path = Path(paper_path)
+    ms_path = Path(ms_path) if ms_path else None
+    out_dir = bank_dir_for(subject, paper_path)
+    qy = out_dir / "exam_questions.yaml"
+    if not qy.exists():
+        raise RuntimeError(
+            f"{qy} not found — author exam_questions.yaml before --authored finalize."
+        )
+    raw_questions = (yaml.safe_load(qy.read_text(encoding="utf-8")) or {}).get(
+        "questions"
+    ) or []
+
+    cfg = get_subject_config(subject)
+    rendered = 0
+    skipped = 0
+    for q in raw_questions:
+        qnum_raw = q.get("number") if isinstance(q, dict) else None
+        try:
+            qnum_int = int(qnum_raw)
+        except (TypeError, ValueError):
+            skipped += 1
+            continue
+        try:
+            ensure_question_pdf(paper_path, qnum_int, subject=subject, cfg=cfg)
+            rendered += 1
+        except Exception as e:  # noqa: BLE001
+            print(f"[bank] snippet render failed q{qnum_int}: {e}")
+            skipped += 1
+
+    ms_sha = _file_sha(ms_path) if ms_path else ""
+    (out_dir / "paper_sha.txt").write_text(
+        f"{_file_sha(paper_path)}\n{ms_sha}\n", encoding="utf-8"
+    )
+    print(
+        f"[bank] {paper_path.name}: finalized authored "
+        f"({rendered} snippets, {skipped} skipped) → {out_dir}"
+    )
+    return out_dir
+
+
 def _cli() -> int:
     p = argparse.ArgumentParser(prog="eXam.bank")
     p.add_argument("--paper", required=True, help="question-paper PDF")
@@ -219,6 +274,12 @@ def _cli() -> int:
         default=None,
         help="if set, only render the snippet for this question (no xscore enrichment)",
     )
+    p.add_argument(
+        "--authored",
+        action="store_true",
+        help="skip AI extraction; render snippets + stamp the cache from "
+        "hand-authored exam_questions.yaml / mark_scheme.yaml already in the bank dir",
+    )
     args = p.parse_args()
     paper = Path(args.paper).resolve()
     if not paper.exists():
@@ -231,6 +292,10 @@ def _cli() -> int:
     if args.question is not None:
         out = ensure_question_pdf(paper, args.question, subject=args.subject)
         print(f"snippet: {out}")
+        return 0
+    if args.authored:
+        out = finalize_authored_paper(paper, ms, args.subject)
+        print(f"bank dir: {out}")
         return 0
     out = ensure_paper_indexed(paper, ms, args.subject)
     print(f"bank dir: {out}")

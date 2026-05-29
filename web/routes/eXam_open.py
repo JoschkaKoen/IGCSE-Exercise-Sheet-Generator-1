@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""eXam open-mode (public) routes: anonymous practice from random 2025 papers.
+"""eXam open-mode (public) routes: anonymous practice from random recent papers.
 
 No login. Anonymous session cookie tracks per-session stats. Mounted at
 ``/eXam/practice/*`` so it does not collide with class-mode routes at

@@ -1,7 +1,7 @@
 """Open-mode practice: random picker + anonymous session helpers + stats.
 
 Public, no login. A visitor picks a subject; we serve a random question from a
-2025 paper for that subject; submit goes through ``eXam/marker.py``; helpers
+recent paper for that subject; submit goes through ``eXam/marker.py``; helpers
 go through ``eXam/pregenerate.py`` (file cache, lazy generation).
 """
 
@@ -30,10 +30,22 @@ _COOKIE_TTL_S: Final[int] = 30 * 24 * 60 * 60  # 30 days
 
 # ── Library scanning ────────────────────────────────────────────────────────
 
+def _recent_years() -> tuple[int, ...]:
+    """The exam years open mode serves, most-recent-first. Self-maintaining: as
+    new series ship we follow the calendar (current + previous year) so the
+    practice page always offers the *most recent* papers without a code edit."""
+    y = _dt.date.today().year
+    return (y, y - 1)
+
+
 @lru_cache(maxsize=64)
-def list_practice_papers(subject: str, year: int = 2025) -> tuple[Path, ...]:
-    """Return QPs (not mark schemes) under ``exams/<subject>/`` for *year*.
-    Tuple so lru_cache stays hashable.
+def list_practice_papers(
+    subject: str, years: int | tuple[int, ...] | None = None
+) -> tuple[Path, ...]:
+    """Return QPs (not mark schemes) under ``exams/<subject>/`` for *years*.
+
+    *years* accepts a single int (legacy callers, e.g. ``warm_bank``), a tuple of
+    ints, or ``None`` → :func:`_recent_years`. Tuple so lru_cache stays hashable.
 
     Handles two filename conventions:
     - Human-readable: ``0625 Physics June 2025 Question Paper 11.pdf``
@@ -42,12 +54,17 @@ def list_practice_papers(subject: str, year: int = 2025) -> tuple[Path, ...]:
     root = EXAM_ROOT_BY_KEY.get(subject)
     if root is None or not root.is_dir():
         return ()
-    year_s = str(year)
-    code_re = re.compile(rf"_[smw]{year_s[-2:]}_")  # _s25_ / _w25_ / _m25_
+    if years is None:
+        years = _recent_years()
+    elif isinstance(years, int):
+        years = (years,)
+    year_strs = [str(y) for y in years]
+    # _s25_ / _w25_ / _m26_ … any of the requested years, either series letter.
+    code_re = re.compile(r"_[smw](?:" + "|".join(y[-2:] for y in year_strs) + r")_")
     out: list[Path] = []
     for p in sorted(root.glob("*.pdf")):
         name = p.name
-        if year_s not in name and not code_re.search(name):
+        if not any(ys in name for ys in year_strs) and not code_re.search(name):
             continue
         # Must be a question paper (human-readable label or `_qp_` code).
         if "Question Paper" not in name and "_qp_" not in name:
@@ -73,15 +90,19 @@ def pair_mark_scheme(qp_path: Path) -> Path | None:
     return ms if ms.exists() else None
 
 
-def subject_has_papers(subject: str, year: int = 2025) -> bool:
-    """True iff *subject* has at least one *year* paper already indexed into the
+def subject_has_papers(
+    subject: str, years: int | tuple[int, ...] | None = None
+) -> bool:
+    """True iff *subject* has at least one recent paper already indexed into the
     bank. Drives the landing page's enabled/disabled card state — only warmed
     subjects are clickable. Lazy-indexing on click would take ~30s and block
     the FastAPI event loop, so pre-warming is an offline admin step
     (``python -m eXam.warm_bank --subject <slug>``)."""
+    if years is None:
+        years = _recent_years()
     return any(
         (bank_dir_for(subject, p) / "exam_questions.yaml").exists()
-        for p in list_practice_papers(subject, year)
+        for p in list_practice_papers(subject, years)
     )
 
 
@@ -118,12 +139,12 @@ def _paper_candidates(paper_path: Path, subject: str) -> tuple[int, ...]:
 
 def pick_random_question(
     subject: str,
-    year: int = 2025,
+    years: int | tuple[int, ...] | None = None,
     *,
     rng: random.Random | None = None,
     exclude: Iterable[str] = (),
 ) -> dict:
-    """Pick a random QP for *subject*+*year*, ensure it's bank-indexed, pick a
+    """Pick a random recent QP for *subject*, ensure it's bank-indexed, pick a
     random gradable question. Returns the dict shape ``question_metadata`` uses,
     plus ``paper_path`` and ``ms_path``.
 
@@ -131,11 +152,13 @@ def pick_random_question(
     avoid — typically what the session has already been shown. If every paper's
     candidates are excluded, falls back to allowing repeats (preferable to a 503).
     """
+    if years is None:
+        years = _recent_years()
     rng = rng or random.Random()
     exclude_set = set(exclude)
-    papers = list(list_practice_papers(subject, year))
+    papers = list(list_practice_papers(subject, years))
     if not papers:
-        raise RuntimeError(f"No {year} papers for subject {subject!r}")
+        raise RuntimeError(f"No recent papers for subject {subject!r}")
     # Prefer already-indexed papers (instant); fall back to lazy-indexing if none.
     indexed = [p for p in papers if (bank_dir_for(subject, p) / "exam_questions.yaml").exists()]
     if not indexed:

@@ -1,0 +1,634 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  marks: 1
+  text: A student determines the diameter of a metal ball. Which apparatus is needed
+    to get an accurate measurement?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  marks: 1
+  text: An athlete runs at a speed of 8 m / s for 10 s, and then at a speed of 6 m
+    / s for 12 s. Which calculation gives the average speed of the athlete in m /
+    s?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  marks: 1
+  text: A piece of paper torn out of an exercise book is shown. What is being described?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows one liquid floating on top of another liquid. liquid P liquid
+    Q Which statement explains why liquid P floats on top of liquid Q?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  marks: 1
+  text: A spring has a spring constant k. What is a possible unit for k ?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about the moment of a force is not correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  marks: 1
+  text: The momentum of a car changes from 10 000 kg m / s to 15 000 kg m / s in a
+    time of 8.0 s. What is the resultant force acting on the car?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  marks: 1
+  text: A machine is very efficient. What does this mean?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  marks: 1
+  text: Diagram 1 shows a conical flask containing water. Diagram 2 shows a beaker
+    with the same base area as the flask and containing water of the same depth d.
+    d d diagram 1 diagram 2 water water X P Y Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  marks: 1
+  text: A flask with a tight-fitting stopper contains a gas. The gas and flask are
+    initially at room temperature. tight-fitting stopper gas The gas and flask are
+    cooled. Which row describes the average speed of the gas particles and the pressure
+    of the gas as the temperature decreases? average speed of the gas particles pressure
+    of the gas
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  marks: 1
+  text: Brownian motion is the random movement of microscopic particles in a liquid
+    or gas. Which statement about Brownian motion is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  marks: 1
+  text: The distance between two electricity pylons is 60 m. The cable that connects
+    the two pylons is 62 m in length. Why is the cable longer than the distance between
+    the two pylons?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  marks: 1
+  text: A glass beaker contains a mass of 0.20 kg of water at a temperature of 20
+    °C. The specific heat capacity of water is 4200 J / (kg °C). A brass block of
+    mass 0.15 kg is at a temperature of 170 °C. The block is carefully lowered into
+    the beaker of water. The final temperature of both the water and brass is 30 °C.
+    What is the specific heat capacity of the brass? (Assume that no water is lost
+    and no thermal energy has been transferred to the beaker or the surroundings.)
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about convection is not correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  marks: 1
+  text: Iron is a better conductor of thermal energy than rubber. Which statement
+    explains this?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  marks: 1
+  text: Two metal cans are identical, except that one has a shiny silver outer surface
+    and the other has a dull black outer surface. They each have the same mass of
+    hot water at the same temperature sealed inside them. They are both in a vacuum
+    in the darkness of outer space. How does the temperature of the water in each
+    one change?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  marks: 1
+  text: A ray of light reflects from a plane mirror. The angle between the incident
+    ray and the surface of the mirror is 35°. Which statement is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  marks: 1
+  text: Parallel waves in a ripple tank are diffracted as they pass through a gap
+    in a barrier. Three changes that can be made to this arrangement are listed. Decrease
+    the wavelength of the waves. Increase the amplitude of the waves. Decrease the
+    size of the gap. Which changes will cause the shape of the diffracted waves to
+    be less curved?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  marks: 1
+  text: A beam of light passes through a vacuum and then enters a transparent liquid.
+    The diagram shows the path it takes. 40° 25° vacuum liquid The light travels through
+    the vacuum at a speed of 3.0  108 m / s. What is the speed of light in the liquid?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  marks: 1
+  text: Which statement about a thin converging lens is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows two narrow beams of light, P and then Q, passing through
+    the same prism. Beams P and Q are both incident on the same point on the prism
+    and at the same angle. P Q Which row correctly compares beams P and Q? dispersion
+    nature of light
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  marks: 1
+  text: Ultraviolet radiation and infrared radiation are both parts of the electromagnetic
+    spectrum. However, they differ in wavelength and frequency. Which row describes
+    how they differ? ultraviolet infrared
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  marks: 1
+  text: A police car with its siren sounding is stationary in heavy traffic. A pedestrian
+    notices that, although the loudness of the sound produced does not change, the
+    pitch varies. Which row describes the amplitude and the frequency of the sound?
+    amplitude frequency
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  marks: 1
+  text: The diagram shows part of the magnetic field around two magnets. P R Q P S
+    S N N Which list gives the order of magnetic field strengths at the positions
+    P, Q and R, from weakest to strongest?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  marks: 1
+  text: A fully charged battery stores a charge of 18 000 C. The battery is charged
+    with a current of 830 mA. How long does it take to fully charge a completely discharged
+    battery?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  marks: 1
+  text: What is the definition of electromotive force?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  marks: 1
+  text: A cell passes a current of 2.0 A in a circuit for 30 s. In this time, the
+    cell transfers 120 J of energy. What is the electromotive force (e.m.f.) of the
+    cell?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  marks: 1
+  text: "The diagram shows two resistors in series connected to a power supply. 6.0\
+    \ \x01 R S 12.0 V + – V The reading on the voltmeter is 3.0 V when the switch\
+    \ is closed. What is the resistance of resistor R?"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  marks: 1
+  text: Lamps can be connected in series or in parallel to a power supply. What is
+    an advantage of connecting the lamps in parallel rather than in series?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  marks: 1
+  text: The lamps on a bicycle are powered by a simple electrical generator. A permanent
+    magnet rotates around a stationary coil of wire wound on an iron core. Which statement
+    is correct?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  marks: 1
+  text: A current-carrying coil in the magnetic field between the poles of two magnets
+    experiences a turning effect. Which change would decrease the turning effect?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  marks: 1
+  text: Cables transmit electrical power from the output of the transformer at a power
+    station to the input of another transformer at a substation. transformer at power
+    station transformer at substation cables output input The power at the output
+    of the transformer at the power station is 400 MW. Which situation delivers the
+    most power to the input of the transformer at the substation? potential difference
+    at power station transformer output / kV diameter of cables
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  marks: 1
+  text: Pu 239 is an isotope of plutonium. The nucleus can absorb a neutron and then
+    split to form two other nuclei. Two nuclei that form are gold, Au, 207 and phosphorus,
+    P. In this reaction, neutrons are also produced. What is the number of neutrons
+    produced when the nucleus splits?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  marks: 1
+  text: Three statements about alpha () particles and beta () particles are listed.
+    The magnitude of the charge on an -particle is twice the charge on a -particle.
+    The mass of an -particle is large compared with the mass of a -particle. The
+    kinetic energy of an -particle is small compared to the kinetic energy of a -particle.
+    Which statements help to explain the different ionising effects of -particles
+    and -particles?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  marks: 1
+  text: A beta-particle is a fast-moving electron. Which statement explains how beta-particles
+    are emitted from an atom?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  marks: 1
+  text: Which properties must a radioisotope have for its radiation to make it suitable
+    to kill bacteria in food? half-life type of radiation emitted
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  marks: 1
+  text: A student tries to predict the effect of exposure time on the radiation dose
+    received from a source of ionising radiation. Radiation dose measures the amount
+    of ionising radiation received by a living organism. Which graph shows the correct
+    trend between the variables?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  marks: 1
+  text: A satellite is in orbit around the Earth. The orbit has radius r and period
+    T. Which expression gives the orbital speed of the satellite?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  marks: 1
+  text: Comets move round the Sun. Which statement describes the orbit of a comet?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  marks: 1
+  text: A galaxy is at a distance of 60 million light-years from the Earth. The galaxy
+    is moving away at a speed of 1300 km / s. One light-year is about 9.5  1012 km.
+    There are about 3.2  107 seconds in one year. Which expression can be used to
+    estimate the age of the Universe in years?
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
