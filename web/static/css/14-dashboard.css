@@ -210,6 +210,10 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+.dashboard-submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.6);
+}
 .dashboard-form-err {
   color: rgb(252, 165, 165);
   font-size: 0.82rem;
