@@ -99,7 +99,8 @@ def resume_pipeline(ctx: "_Ctx") -> None:
 
     resume_dir = ctx.resume_dir
     if resume_dir is None:
-        assert ctx.folder is not None
+        if ctx.folder is None:
+            raise RuntimeError('invariant failed: ctx.folder is not None')
         exam_output_root = Path("output") / "xscore" / ctx.folder.name.replace(" ", "_")
         candidates = sorted(
             (p for p in exam_output_root.iterdir()
@@ -152,7 +153,8 @@ def resume_pipeline(ctx: "_Ctx") -> None:
             + "\n".join(f"  {m}" for m in missing)
         )
 
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     copy_artifacts(resume_dir, ctx.artifact_dir, ctx.from_step)
 
     ctx.cleaned_pdf = ctx.artifact_dir / "scanned_exam_merged_and_angles_adjusted.pdf"

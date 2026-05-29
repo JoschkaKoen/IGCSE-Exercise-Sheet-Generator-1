@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import os
 import time
+from functools import lru_cache
 
 from .ai_helpers import parse_json_safe
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
@@ -23,6 +24,17 @@ def _read_model_config() -> tuple[str, int | None, int | None]:
     return parse_model_spec(raw)
 
 
+@lru_cache(maxsize=1)
+def _system_prompt() -> str:
+    """Load the parse-instructions system prompt lazily (cached).
+
+    Loading at import time would crash the whole module import if the prompt
+    file were ever missing or renamed; deferring it keeps ``import`` safe and
+    surfaces a clear error only when a parse is actually attempted.
+    """
+    return load_prompt("parse_grading_instructions")[1]
+
+
 def _call_text(user_message: str, out: dict | None = None) -> str:
     """Make a text-only call (any provider) and return the raw response string.
 
@@ -35,7 +47,7 @@ def _call_text(user_message: str, out: dict | None = None) -> str:
     model_name, thinking_tokens, max_tokens = _read_model_config()
     if out is not None:
         out["model"]    = model_name
-        out["system"]   = _SYSTEM_PROMPT
+        out["system"]   = _system_prompt()
         out["user"]     = user_message
         out["raw"]      = ""
         out["thinking"] = ""
@@ -67,7 +79,7 @@ def _call_text(user_message: str, out: dict | None = None) -> str:
                 model=model_name,
                 contents=user_message,
                 config=gai_types.GenerateContentConfig(
-                    system_instruction=_SYSTEM_PROMPT,
+                    system_instruction=_system_prompt(),
                     **gen_config_kwargs,
                 ),
             )
@@ -97,7 +109,7 @@ def _call_text(user_message: str, out: dict | None = None) -> str:
     _timeout = make_request_timeout("quick")
     _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
     msgs = [
-        {"role": "system", "content": _SYSTEM_PROMPT},
+        {"role": "system", "content": _system_prompt()},
         {"role": "user", "content": user_message},
     ]
     if use_stream:
@@ -143,9 +155,6 @@ def _call_text(user_message: str, out: dict | None = None) -> str:
     if out is not None:
         out["raw"], out["thinking"] = raw, thinking
     return raw
-
-
-_SYSTEM_PROMPT = load_prompt("parse_grading_instructions")[1]
 
 
 def parse_prompt(

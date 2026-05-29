@@ -250,7 +250,8 @@ def _prepare_duplex(
                         merged.insert_pdf(doc_b, from_page=i, to_page=i)
                     total_pages += len(doc_b)
                 continue
-            assert front is not None and back is not None
+            if front is None or back is None:
+                raise RuntimeError('invariant failed: front is not None and back is not None')
             front_rot = results[front].rotation_cw if front in results else 0
             back_rot  = results[back].rotation_cw  if back  in results else 0
             with fitz.open(str(front)) as doc_f, fitz.open(str(back)) as doc_b:
@@ -304,7 +305,8 @@ def _describe_pair(pair: tuple[Path | None, Path | None]) -> str:
         return f"{front.stem}+{back.stem}"
     if front is not None:
         return front.stem
-    assert back is not None  # surviving_pairs never contains (None, None)
+    if back is None:  # surviving_pairs never contains (None, None)
+        raise RuntimeError('invariant failed: back is not None')
     return back.stem
 
 

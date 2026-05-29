@@ -62,7 +62,8 @@ from xscore.shared.terminal_ui import (
 
 
 def cover_page_empty_exam(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None and ctx.folder is not None
+    if ctx.artifact_dir is None or ctx.folder is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None and ctx.folder is not None')
     announce_step_model(
         model_env="EMPTY_EXAM_COVER_MODEL",
         default_model="gemini-2.5-flash",
@@ -79,7 +80,8 @@ def cover_page_empty_exam(ctx: _Ctx) -> None:
 
 
 def cover_page_scan_first(ctx: _Ctx) -> None:
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    if ctx.cleaned_pdf is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.cleaned_pdf is not None and ctx.artifact_dir is not None')
     announce_step_model(
         model_env="COVER_PAGE_DETECTION_MODEL",
         default_model="gemini-2.5-flash",
@@ -92,7 +94,8 @@ def cover_page_scan_first(ctx: _Ctx) -> None:
 
 
 def exam_geometry(ctx: _Ctx) -> None:
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    if ctx.cleaned_pdf is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.cleaned_pdf is not None and ctx.artifact_dir is not None')
     exam_pages = ctx.scaffold.page_count if ctx.scaffold else exam_pdf_page_count(ctx.folder)
     try:
         ctx.geo = compute_geometry(
@@ -154,7 +157,8 @@ def detect_subject(ctx: _Ctx) -> None:
         get_subject,
     )
 
-    assert ctx.artifact_dir is not None and ctx.folder is not None
+    if ctx.artifact_dir is None or ctx.folder is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None and ctx.folder is not None')
 
     available = available_subjects_from_env()
     if not available:
@@ -337,7 +341,8 @@ def _detect_subject_via_ai(
 
 
 def student_names(ctx: _Ctx) -> None:
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    if ctx.cleaned_pdf is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.cleaned_pdf is not None and ctx.artifact_dir is not None')
     announce_step_model(
         model_env="NAME_DETECTION_MODEL",
         default_model="gemini-2.5-flash",
@@ -389,7 +394,8 @@ def page_order_check(ctx: _Ctx) -> None:
     the empty-exam layout. On mismatches, renders detail tables and asks
     the user whether to continue.
     """
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
+    if ctx.cleaned_pdf is None or ctx.artifact_dir is None or ctx.folder is None:
+        raise RuntimeError('invariant failed: ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and (ctx.folder is not None)')
     from xscore.marking.page_order_check import PageOrderStatus, render_problem_tables
     t0 = time.perf_counter()
     result = check_page_order(
@@ -447,10 +453,10 @@ def classify_empty_exam_pages(ctx: _Ctx) -> None:
     from xscore.shared.exam_paths import artifact_empty_exam_classifications_json_path
     from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
 
-    assert ctx.artifact_dir is not None
-    assert ctx.scaffold_state is not None and ctx.scaffold_state.actual_exam_pdf is not None, (
-        "classify_empty_exam_pages needs the post-cut empty exam PDF (set by cut_exam_pdf cut_exam_pdf)"
-    )
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
+    if ctx.scaffold_state is None or ctx.scaffold_state.actual_exam_pdf is None:
+        raise RuntimeError('classify_empty_exam_pages needs the post-cut empty exam PDF (set by cut_exam_pdf cut_exam_pdf)')
 
     announce_step_model(
         model_env="EMPTY_EXAM_PAGE_CLASSIFICATION_MODEL",
@@ -471,7 +477,8 @@ def classify_empty_exam_pages(ctx: _Ctx) -> None:
             note="rasterized fallback",
         )
 
-    assert ctx.scaffold_state is not None, "scaffold_setup must run before classify_empty_exam_pages"
+    if ctx.scaffold_state is None:
+        raise RuntimeError('scaffold_setup must run before classify_empty_exam_pages')
     empty_pdf = ctx.scaffold_state.actual_exam_pdf
     import fitz as _fitz  # noqa: PLC0415
     with _fitz.open(str(empty_pdf)) as _d:
@@ -542,8 +549,10 @@ def student_handwriting_check(ctx: _Ctx) -> None:
     )
     from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
 
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-    assert ctx.pages_per_student is not None and ctx.pages_per_student > 0
+    if ctx.cleaned_pdf is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.cleaned_pdf is not None and ctx.artifact_dir is not None')
+    if not (ctx.pages_per_student is not None and ctx.pages_per_student > 0):
+        raise RuntimeError('invariant failed: ctx.pages_per_student is not None and ctx.pages_per_student > 0')
 
     classifications_path = artifact_empty_exam_classifications_json_path(ctx.artifact_dir)
     if classifications_path.is_file():
@@ -614,7 +623,8 @@ def build_marking_register_v1(ctx: _Ctx) -> None:
     writing-space pages with handwriting → attach to the previous question
     page) is applied later by detect_cross_page_context (detect_cross_page_context).
     """
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     from xscore.marking.marking_page_register import (
         build_initial_register, write_register,
     )

@@ -18,7 +18,8 @@ from xscore.shared.timing_report import _step_label, print_step_durations, write
 
 
 def timing_summary(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     wall_clock_s = time.perf_counter() - ctx.run_started_at if ctx.run_started_at else None
     print_step_durations(
         ctx.step_timings, ctx.marking_api_calls, wall_clock_s=wall_clock_s
@@ -38,7 +39,8 @@ def _xscore_phase_order(name: str) -> int:
 
 
 def ai_costs(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     run_usage = get_run_usage()
     write_cost_report(
         ctx.artifact_dir / AI_COSTS_DIR,

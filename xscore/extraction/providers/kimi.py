@@ -66,7 +66,8 @@ class KimiProvider:
 
         base_url = os.getenv("KIMI_BASE_URL", "https://api.moonshot.cn/v1")
 
-        assert _OpenAIClient is not None
+        if _OpenAIClient is None:
+            raise RuntimeError('invariant failed: _OpenAIClient is not None')
         return _OpenAIClient(api_key=api_key, base_url=base_url)
 
     def extract(

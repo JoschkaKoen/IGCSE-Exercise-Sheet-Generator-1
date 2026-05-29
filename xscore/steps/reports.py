@@ -66,7 +66,8 @@ def _is_valid_pdf(path: Path) -> bool:
 
 
 def per_student_reports(ctx: _Ctx) -> None:
-    assert ctx.scaffold is not None and ctx.artifact_dir is not None
+    if ctx.scaffold is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.scaffold is not None and ctx.artifact_dir is not None')
     build_per_student_reports(ctx)
     n = len(ctx.student_summaries or [])
     ok_line(f"{n} student report" if n == 1 else f"{n} student reports")
@@ -76,7 +77,8 @@ def per_student_reports(ctx: _Ctx) -> None:
 
 
 def class_stats_curve(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     compute_class_stats(ctx)
     summaries = ctx.student_summaries or []
     known = [s["percentage"] for s in summaries if s["percentage"] is not None]
@@ -90,7 +92,8 @@ def class_stats_curve(ctx: _Ctx) -> None:
 
 
 def per_student_pdfs(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     render_per_student_pdfs(ctx)
     n = len(ctx.student_summaries or [])
     has_parsed_exam = artifact_exam_questions_path(
@@ -141,7 +144,8 @@ def per_student_pdfs(ctx: _Ctx) -> None:
 
 
 def class_report(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     result = render_class_report(ctx)
     if result == "done":
         n = len(ctx.student_summaries or [])
@@ -158,7 +162,8 @@ def class_report(ctx: _Ctx) -> None:
 
 
 def review_queue(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     entries = build_review_queue(ctx)
     n = len(entries)
     if n == 0:
@@ -175,7 +180,8 @@ def _print_review_queue_breakdown(
     """Echo the lowest-confidence rows to the terminal in the same per-entry
     format as ``review.txt``. The full sorted list lives in the .txt artifact;
     only the top N are echoed here."""
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     n = len(entries)
     shown = min(n, TERMINAL_TOP_N)
     for line in format_review_entry_lines(entries[:shown]):

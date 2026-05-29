@@ -128,7 +128,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
             key = (q.subpage_row, q.subpage_col)
             subpage_counters[key] = subpage_counters.get(key, 0) + 1
             page_qs.append({
-                "number": re.sub(r"_\d+$", "", q.number),
+                "number": re.sub(r"_\d+$", "", q.number or ""),
                 "question_type": q.question_type,
                 "subpage_row": q.subpage_row,
                 "subpage_col": q.subpage_col,

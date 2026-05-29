@@ -11,6 +11,16 @@ from difflib import SequenceMatcher
 from pathlib import Path
 
 
+def _safe_mtime(d: Path) -> float:
+    """``d.stat().st_mtime`` but tolerant of the directory vanishing between
+    ``iterdir()`` and ``stat()`` (e.g. an IDE cleaning temp dirs). Returns 0.0
+    on any OS error so the surrounding ``sorted()`` never crashes."""
+    try:
+        return d.stat().st_mtime
+    except OSError:
+        return 0.0
+
+
 def find_folder(
     instruction_hint: str | None = None,
     cli_override: str | None = None,
@@ -73,7 +83,7 @@ def find_folder(
     # 5. Heuristic: newest dir whose name contains "test" or "exam"
     exam_dirs = sorted(
         [d for d in candidates if any(kw in d.name.lower() for kw in ("test", "exam"))],
-        key=lambda d: d.stat().st_mtime,
+        key=_safe_mtime,
         reverse=True,
     )
     if exam_dirs:

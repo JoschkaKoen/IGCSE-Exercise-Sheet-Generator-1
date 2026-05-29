@@ -122,7 +122,7 @@ class Question:
     continuation_bboxes: list[BBox] = field(default_factory=list)
 
     def __post_init__(self) -> None:
-        if self.page == 0 and self.bbox.page:
+        if self.page == 0 and self.bbox is not None and self.bbox.page:
             self.page = self.bbox.page
 
 def flatten_questions(questions: list[Question]) -> list[Question]:
