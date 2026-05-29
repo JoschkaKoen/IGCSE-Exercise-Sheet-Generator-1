@@ -9,6 +9,8 @@ tasks:
       zh: "使用 `print(...)` 让 Python 精确地显示 **Hello, world!**(拼写和标点都要一样)。"
     starter: |
       # Type your code below, then click Run.
+    solution: |
+      print("Hello, world!")
     check:
       kind: stdout
       expected: "Hello, world!"
@@ -21,6 +23,9 @@ tasks:
       name = input()
       # Print the greeting below
     stdin: "Sam\n"
+    solution: |
+      name = input()
+      print("Hi, " + name + "!")
     check:
       kind: stdout
       expected: "Hi, Sam!"
@@ -33,6 +38,9 @@ tasks:
       def add(a, b):
           # Return the sum of a and b
           pass
+    solution: |
+      def add(a, b):
+          return a + b
     check:
       kind: asserts
       code: |

@@ -57,6 +57,30 @@ language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:29:21Z'
 glossed_at: '2026-05-29T05:30:17Z'
 figures:
+  - file: assets/20-p331-iron-filings-bar-magnet.png
+    caption: Iron filings reveal the field of a bar magnet
+    figure_ref: '20.1'
+    source_page_pdf: 331
+    source_page_printed: 315
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.6, 445.6, 543.1, 686.8]
+    placed_under: "### Field lines"
+  - file: assets/20-p343-field-around-straight-wire.png
+    caption: Field around a long straight wire
+    figure_ref: '20.22'
+    source_page_pdf: 343
+    source_page_printed: 327
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [366.0, 37.0, 545.0, 142.0]
+    placed_under: "### Field lines"
+  - file: assets/20-p343-solenoid-field.png
+    caption: Field of a solenoid
+    figure_ref: '20.25'
+    source_page_pdf: 343
+    source_page_printed: 327
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [315.0, 381.0, 512.0, 461.0]
+    placed_under: "### Field lines"
   - file: assets/20-p334-flemings-left-hand-rule.png
     caption: Fleming's left-hand rule
     figure_ref: '20.10'
@@ -65,3 +89,43 @@ figures:
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
     crop_rect_pts: [174.8, 349.9, 398.6, 459.6]
     placed_under: "### Direction — Fleming's left-hand rule"
+  - file: assets/20-p337-charged-particle-circular-path.png
+    caption: Circular path of a charged particle in a magnetic field
+    figure_ref: '20.12'
+    source_page_pdf: 337
+    source_page_printed: 321
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.6, 132.9, 524.9, 253.6]
+    placed_under: "### Circular motion in a uniform field"
+  - file: assets/20-p341-hall-effect.png
+    caption: The Hall effect
+    figure_ref: '20.19'
+    source_page_pdf: 341
+    source_page_printed: 325
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.6, 167.2, 424.5, 283.8]
+    placed_under: "### Hall effect"
+  - file: assets/20-p340-velocity-selector.png
+    caption: Velocity selector
+    figure_ref: '20.18'
+    source_page_pdf: 340
+    source_page_printed: 324
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [177.5, 229.0, 508.0, 371.2]
+    placed_under: "### Velocity selector"
+  - file: assets/20-p347-electromagnetic-induction-apparatus.png
+    caption: Demonstrating electromagnetic induction
+    figure_ref: '20.32'
+    source_page_pdf: 347
+    source_page_printed: 331
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.6, 267.1, 445.8, 470.5]
+    placed_under: "### Demonstrations"
+  - file: assets/20-p351-eddy-current-damping.png
+    caption: Eddy-current damping
+    figure_ref: '20.36'
+    source_page_pdf: 351
+    source_page_printed: 335
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [168.3, 148.4, 481.5, 284.8]
+    placed_under: "### Demonstrations"
