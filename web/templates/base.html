@@ -142,6 +142,10 @@
   </script>
   <div class="z-content flex min-h-screen flex-col"{% if needs_site_login | default(false) %} inert="" aria-hidden="true"{% endif %}>
 
+    {# Keyboard / screen-reader skip link — first focusable element, hidden
+       until focused, jumps past the sticky nav to the page content. #}
+    <a href="#site-main" class="skip-to-content">{{ t('a11y.skip_to_content') if t else 'Skip to content' }}</a>
+
     <header class="site-header sticky top-0 z-20">
       <div class="site-header-inner mx-auto flex w-full max-w-5xl items-center px-4 py-3.5 sm:px-6">
         {# Brand + language flag share one grid cell so the flag never forces a new row in preview mode #}
@@ -277,7 +281,7 @@
       </div>
     </header>
 
-    <main id="site-main" class="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:py-12 sm:px-6">
+    <main id="site-main" tabindex="-1" class="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:py-12 sm:px-6">
       {% block content %}{% endblock %}
     </main>
 

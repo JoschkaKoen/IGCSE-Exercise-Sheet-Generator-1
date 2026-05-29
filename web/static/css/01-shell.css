@@ -158,3 +158,35 @@
 }
 *::-webkit-scrollbar-corner { background: transparent; }
 
+/* ─── Skip-to-content link (keyboard / screen-reader a11y) ───────────────────
+ * First focusable element on the page. Off-screen until focused, then slides in
+ * as a branded pill so keyboard users can jump past the sticky nav.            */
+.skip-to-content {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 60;                     /* above the sticky header (z-20) */
+  transform: translateY(-150%);
+  opacity: 0;
+  padding: 0.55rem 1rem;
+  border-radius: 0.6rem;
+  background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 58%, #6366f1 100%);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.6);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.skip-to-content:focus {
+  transform: translateY(0);
+  opacity: 1;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+/* The skip target receives programmatic focus on activation — no focus ring. */
+#site-main:focus { outline: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-to-content { transition: none; }
+}
+

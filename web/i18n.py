@@ -105,6 +105,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "nav.code":            "Code",
         "footer.tagline":      "Exercise sheet generator",
         "lang.switch_aria":    "Switch language",
+        "a11y.skip_to_content": "Skip to content",
         # ===== Learn page =====
         "title.learn_landing":      "Learn",
         "learn.hero.title":         "Browse the syllabus",
@@ -739,6 +740,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "nav.code":            "编程",
         "footer.tagline":      "习题单生成器",
         "lang.switch_aria":    "切换语言",
+        "a11y.skip_to_content": "跳到主要内容",
         # ===== Learn page =====
         "title.learn_landing":      "学习",
         "learn.hero.title":         "浏览大纲",
