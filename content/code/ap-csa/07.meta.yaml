@@ -1,0 +1,165 @@
+title:
+  en: "Encapsulation: private fields, getters, setters"
+  zh: "封装:私有字段、getter 和 setter"
+order: 7
+tasks:
+  - id: bank-account
+    prompt:
+      en: "Complete `BankAccount`. Keep `balance` private. `deposit(amount)` adds the amount only if it is greater than 0. `withdraw(amount)` subtracts only if the amount is greater than 0 **and** not more than the balance (no overdraft). `getBalance()` returns the balance."
+      zh: "完成 `BankAccount`。让 `balance` 保持私有。`deposit(amount)` 只有在金额大于 0 时才加上。`withdraw(amount)` 只有在金额大于 0 **并且**不超过余额时才扣除(不允许透支)。`getBalance()` 返回余额。"
+    starter: |
+      public class BankAccount {
+          private int balance;
+
+          public BankAccount(int start) {
+              this.balance = start;
+          }
+
+          public void deposit(int amount) {
+              // TODO: add amount only if amount > 0
+          }
+
+          public void withdraw(int amount) {
+              // TODO: subtract amount only if amount > 0 and amount <= balance
+          }
+
+          public int getBalance() {
+              // TODO: return the balance
+              return -1;
+          }
+      }
+    solution: |
+      public class BankAccount {
+          private int balance;
+
+          public BankAccount(int start) {
+              this.balance = start;
+          }
+
+          public void deposit(int amount) {
+              if (amount > 0) {
+                  this.balance = this.balance + amount;
+              }
+          }
+
+          public void withdraw(int amount) {
+              if (amount > 0 && amount <= this.balance) {
+                  this.balance = this.balance - amount;
+              }
+          }
+
+          public int getBalance() {
+              return this.balance;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                BankAccount a = new BankAccount(100);
+                if (a.getBalance() != 100) throw new AssertionError("start balance should be 100, got " + a.getBalance());
+                a.deposit(50);
+                if (a.getBalance() != 150) throw new AssertionError("after deposit(50) balance should be 150, got " + a.getBalance());
+                a.deposit(-30);
+                if (a.getBalance() != 150) throw new AssertionError("a negative deposit must be ignored; balance should still be 150, got " + a.getBalance());
+                a.withdraw(20);
+                if (a.getBalance() != 130) throw new AssertionError("after withdraw(20) balance should be 130, got " + a.getBalance());
+                a.withdraw(1000);
+                if (a.getBalance() != 130) throw new AssertionError("overdraft must be rejected; balance should still be 130, got " + a.getBalance());
+                a.withdraw(-5);
+                if (a.getBalance() != 130) throw new AssertionError("a negative withdraw must be ignored; balance should still be 130, got " + a.getBalance());
+                a.withdraw(130);
+                if (a.getBalance() != 0) throw new AssertionError("withdrawing the whole balance should give 0, got " + a.getBalance());
+            }
+        }
+  - id: temperature-tostring
+    prompt:
+      en: "Complete `Temperature`. The constructor stores an `int degrees` in a private field. `toString()` returns the degrees followed by `C` — for `21` it returns `21C`."
+      zh: "完成 `Temperature`。构造方法把一个 `int degrees` 存进一个私有字段。`toString()` 返回度数后面加上 `C` —— 对 `21` 返回 `21C`。"
+    starter: |
+      public class Temperature {
+          private int degrees;
+
+          public Temperature(int degrees) {
+              // TODO: store degrees into the field
+          }
+
+          public String toString() {
+              // TODO: return the degrees followed by "C", e.g. "21C"
+              return "";
+          }
+      }
+    solution: |
+      public class Temperature {
+          private int degrees;
+
+          public Temperature(int degrees) {
+              this.degrees = degrees;
+          }
+
+          public String toString() {
+              return this.degrees + "C";
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Temperature t = new Temperature(21);
+                if (!t.toString().equals("21C")) throw new AssertionError("expected '21C' but got '" + t.toString() + "'");
+                Temperature z = new Temperature(0);
+                if (!z.toString().equals("0C")) throw new AssertionError("expected '0C' but got '" + z.toString() + "'");
+                Temperature n = new Temperature(-4);
+                if (!n.toString().equals("-4C")) throw new AssertionError("expected '-4C' but got '" + n.toString() + "'");
+                // Java uses toString() automatically when joining with +
+                String joined = "It is " + t;
+                if (!joined.equals("It is 21C")) throw new AssertionError("expected 'It is 21C' but got '" + joined + "'");
+            }
+        }
+  - id: widget-counter
+    prompt:
+      en: "Complete `Widget`. A private `static` field `count` starts at 0. Every time a `Widget` is built, the constructor adds 1 to `count`. The `static` method `getCount()` returns how many widgets have been built."
+      zh: "完成 `Widget`。一个私有的 `static` 字段 `count` 初始为 0。每当创建一个 `Widget` 时,构造方法就让 `count` 加 1。`static` 方法 `getCount()` 返回一共创建了多少个 widget。"
+    starter: |
+      public class Widget {
+          private static int count = 0;
+
+          public Widget() {
+              // TODO: add 1 to the shared count
+          }
+
+          public static int getCount() {
+              // TODO: return the shared count
+              return -1;
+          }
+      }
+    solution: |
+      public class Widget {
+          private static int count = 0;
+
+          public Widget() {
+              count = count + 1;
+          }
+
+          public static int getCount() {
+              return count;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Widget.getCount() != 0) throw new AssertionError("before building any Widget the count should be 0, got " + Widget.getCount());
+                new Widget();
+                new Widget();
+                if (Widget.getCount() != 2) throw new AssertionError("after building 2 widgets the count should be 2, got " + Widget.getCount());
+                new Widget();
+                if (Widget.getCount() != 3) throw new AssertionError("after building 3 widgets the count should be 3, got " + Widget.getCount());
+            }
+        }

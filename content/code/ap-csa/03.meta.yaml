@@ -1,0 +1,95 @@
+title:
+  en: "Booleans and selection: if/else and logic"
+  zh: "布尔值与选择:if/else 和逻辑"
+order: 3
+tasks:
+  - id: sign-of-number
+    prompt:
+      en: "The variable `n` is `-4`. Use `if` / `else if` / `else` to print exactly one word: `positive` if `n > 0`, `negative` if `n < 0`, or `zero` otherwise."
+      zh: "变量 `n` 是 `-4`。用 `if` / `else if` / `else` 精确地打印一个词:如果 `n > 0` 打印 `positive`,如果 `n < 0` 打印 `negative`,否则打印 `zero`。"
+    starter: |
+      public class Main {
+          public static void main(String[] args) {
+              int n = -4;
+              // Print "positive", "negative", or "zero".
+          }
+      }
+    solution: |
+      public class Main {
+          public static void main(String[] args) {
+              int n = -4;
+              if (n > 0) {
+                  System.out.println("positive");
+              } else if (n < 0) {
+                  System.out.println("negative");
+              } else {
+                  System.out.println("zero");
+              }
+          }
+      }
+    check:
+      kind: stdout
+      main_class: Main
+      expected: "negative"
+      normalize: strip
+  - id: strings-equal
+    prompt:
+      en: "Complete `equal(String a, String b)` so it returns `true` when the two Strings have the same letters. Use `.equals`, not `==`."
+      zh: "完成 `equal(String a, String b)`,当两个字符串有相同的字母时返回 `true`。使用 `.equals`,不要用 `==`。"
+    starter: |
+      public class Compare {
+          // Return true if a and b have the same letters.
+          public static boolean equal(String a, String b) {
+              return false;   // change this
+          }
+      }
+    solution: |
+      public class Compare {
+          public static boolean equal(String a, String b) {
+              return a.equals(b);
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Compare.equal("yes", "yes") != true)
+                    throw new AssertionError("equal(\"yes\", \"yes\") should be true");
+                if (Compare.equal("yes", "no") != false)
+                    throw new AssertionError("equal(\"yes\", \"no\") should be false");
+                if (Compare.equal("a", new String("a")) != true)
+                    throw new AssertionError("equal must use .equals, not ==");
+            }
+        }
+  - id: in-range
+    prompt:
+      en: "Complete `inRange(int x)` so it returns `true` when `x` is between 10 and 20, **including** both ends (10 and 20 count). Use `&&`."
+      zh: "完成 `inRange(int x)`,当 `x` 在 10 到 20 之间(**包含**两端,10 和 20 都算)时返回 `true`。使用 `&&`。"
+    starter: |
+      public class Range {
+          // Return true if 10 <= x <= 20.
+          public static boolean inRange(int x) {
+              return false;   // change this
+          }
+      }
+    solution: |
+      public class Range {
+          public static boolean inRange(int x) {
+              return x >= 10 && x <= 20;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Range.inRange(10) != true) throw new AssertionError("inRange(10) should be true");
+                if (Range.inRange(20) != true) throw new AssertionError("inRange(20) should be true");
+                if (Range.inRange(15) != true) throw new AssertionError("inRange(15) should be true");
+                if (Range.inRange(9) != false)  throw new AssertionError("inRange(9) should be false");
+                if (Range.inRange(21) != false) throw new AssertionError("inRange(21) should be false");
+            }
+        }

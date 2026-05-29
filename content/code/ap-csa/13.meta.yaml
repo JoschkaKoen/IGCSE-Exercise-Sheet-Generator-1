@@ -1,0 +1,105 @@
+title:
+  en: "Searching: linear and binary"
+  zh: "查找:线性查找与二分查找"
+order: 13
+tasks:
+  - id: linear-search
+    prompt:
+      en: "Complete `linearSearch(int[] a, int target)`. Return the **index** of the first item equal to `target`, or `-1` if it is not in the array. Check items from index `0` upward."
+      zh: "完成 `linearSearch(int[] a, int target)`。返回第一个等于 `target` 的元素的**下标**,如果数组里没有就返回 `-1`。从下标 `0` 开始向后检查。"
+    starter: |
+      public class SearchUtil {
+          // Return the index of target, or -1 if not found.
+          public static int linearSearch(int[] a, int target) {
+              return -1;   // change this
+          }
+      }
+    solution: |
+      public class SearchUtil {
+          public static int linearSearch(int[] a, int target) {
+              for (int i = 0; i < a.length; i++) {
+                  if (a[i] == target) {
+                      return i;
+                  }
+              }
+              return -1;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                int[] a = {4, 8, 15, 16, 23};
+                if (SearchUtil.linearSearch(a, 15) != 2)
+                    throw new AssertionError("15 is at index 2, got " + SearchUtil.linearSearch(a, 15));
+                if (SearchUtil.linearSearch(a, 4) != 0)
+                    throw new AssertionError("4 is at index 0, got " + SearchUtil.linearSearch(a, 4));
+                if (SearchUtil.linearSearch(a, 23) != 4)
+                    throw new AssertionError("23 is at index 4, got " + SearchUtil.linearSearch(a, 23));
+                if (SearchUtil.linearSearch(a, 99) != -1)
+                    throw new AssertionError("99 is missing, should be -1, got " + SearchUtil.linearSearch(a, 99));
+
+                int[] empty = {};
+                if (SearchUtil.linearSearch(empty, 5) != -1)
+                    throw new AssertionError("empty array should give -1, got " + SearchUtil.linearSearch(empty, 5));
+            }
+        }
+  - id: binary-search
+    prompt:
+      en: "Complete `binarySearch(int[] a, int target)` for a **sorted** array. Use `low`/`high` bounds and check the middle each step. Return the index of `target`, or `-1` if it is missing."
+      zh: "为一个**已排序**的数组完成 `binarySearch(int[] a, int target)`。使用 `low`/`high` 边界,每一步检查中间的元素。返回 `target` 的下标,如果不存在就返回 `-1`。"
+    starter: |
+      public class SearchUtil {
+          // Binary search on a sorted array. Return index or -1.
+          public static int binarySearch(int[] a, int target) {
+              int low = 0;
+              int high = a.length - 1;
+              // your loop here
+              return -1;
+          }
+      }
+    solution: |
+      public class SearchUtil {
+          public static int binarySearch(int[] a, int target) {
+              int low = 0;
+              int high = a.length - 1;
+              while (low <= high) {
+                  int mid = (low + high) / 2;
+                  if (a[mid] == target) {
+                      return mid;
+                  } else if (a[mid] < target) {
+                      low = mid + 1;
+                  } else {
+                      high = mid - 1;
+                  }
+              }
+              return -1;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                int[] a = {2, 5, 8, 12, 16, 23, 38};
+                // hits at every position
+                for (int i = 0; i < a.length; i++) {
+                    if (SearchUtil.binarySearch(a, a[i]) != i)
+                        throw new AssertionError("value " + a[i] + " is at index " + i + ", got " + SearchUtil.binarySearch(a, a[i]));
+                }
+                // misses: too small, in the middle, too big
+                if (SearchUtil.binarySearch(a, 1) != -1)
+                    throw new AssertionError("1 is missing, should be -1, got " + SearchUtil.binarySearch(a, 1));
+                if (SearchUtil.binarySearch(a, 7) != -1)
+                    throw new AssertionError("7 is missing, should be -1, got " + SearchUtil.binarySearch(a, 7));
+                if (SearchUtil.binarySearch(a, 40) != -1)
+                    throw new AssertionError("40 is missing, should be -1, got " + SearchUtil.binarySearch(a, 40));
+
+                int[] empty = {};
+                if (SearchUtil.binarySearch(empty, 5) != -1)
+                    throw new AssertionError("empty array should give -1, got " + SearchUtil.binarySearch(empty, 5));
+            }
+        }

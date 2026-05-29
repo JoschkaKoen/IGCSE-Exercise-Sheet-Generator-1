@@ -1,0 +1,104 @@
+title:
+  en: "Strings and nested loops"
+  zh: "字符串与嵌套循环"
+order: 5
+tasks:
+  - id: count-char
+    prompt:
+      en: "Complete `countChar(String s, char c)` so it returns how many times `c` appears in `s`. Use `charAt` and `==`. For example `countChar(\"balloon\", 'o')` is `2`."
+      zh: "完成 `countChar(String s, char c)`,让它返回 `c` 在 `s` 中出现的次数。使用 `charAt` 和 `==`。例如 `countChar(\"balloon\", 'o')` 是 `2`。"
+    starter: |
+      public class Text {
+          // Count how many times c appears in s.
+          public static int countChar(String s, char c) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      public class Text {
+          public static int countChar(String s, char c) {
+              int count = 0;
+              for (int i = 0; i < s.length(); i++) {
+                  if (s.charAt(i) == c) {
+                      count++;
+                  }
+              }
+              return count;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Text.countChar("balloon", 'o') != 2) throw new AssertionError("countChar(\"balloon\", 'o') should be 2, got " + Text.countChar("balloon", 'o'));
+                if (Text.countChar("balloon", 'l') != 2) throw new AssertionError("countChar(\"balloon\", 'l') should be 2, got " + Text.countChar("balloon", 'l'));
+                if (Text.countChar("balloon", 'z') != 0) throw new AssertionError("countChar(\"balloon\", 'z') should be 0, got " + Text.countChar("balloon", 'z'));
+                if (Text.countChar("", 'a') != 0)        throw new AssertionError("countChar(\"\", 'a') should be 0, got " + Text.countChar("", 'a'));
+            }
+        }
+  - id: reverse
+    prompt:
+      en: "Complete `reverse(String s)` so it returns `s` with the letters in the opposite order. For example `reverse(\"code\")` is `\"edoc\"`. Build a new String with `+`."
+      zh: "完成 `reverse(String s)`,让它返回字母顺序相反的 `s`。例如 `reverse(\"code\")` 是 `\"edoc\"`。用 `+` 构建一个新字符串。"
+    starter: |
+      public class Reverser {
+          // Return s with the letters in the opposite order.
+          public static String reverse(String s) {
+              return "";   // change this
+          }
+      }
+    solution: |
+      public class Reverser {
+          public static String reverse(String s) {
+              String result = "";
+              for (int i = s.length() - 1; i >= 0; i--) {
+                  result = result + s.charAt(i);
+              }
+              return result;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (!Reverser.reverse("code").equals("edoc"))   throw new AssertionError("reverse(\"code\") should be \"edoc\", got " + Reverser.reverse("code"));
+                if (!Reverser.reverse("a").equals("a"))         throw new AssertionError("reverse(\"a\") should be \"a\", got " + Reverser.reverse("a"));
+                if (!Reverser.reverse("").equals(""))           throw new AssertionError("reverse(\"\") should be \"\", got " + Reverser.reverse(""));
+                if (!Reverser.reverse("abcde").equals("edcba")) throw new AssertionError("reverse(\"abcde\") should be \"edcba\", got " + Reverser.reverse("abcde"));
+            }
+        }
+  - id: triangle
+    prompt:
+      en: "Use **nested loops** to print a triangle of stars: line 1 has one `*`, line 2 has two, line 3 has three, line 4 has four. Print each line with `System.out.println`."
+      zh: "用**嵌套循环**打印一个星号三角形:第 1 行有一个 `*`,第 2 行有两个,第 3 行有三个,第 4 行有四个。每行用 `System.out.println` 打印。"
+    starter: |
+      public class Main {
+          public static void main(String[] args) {
+              // Print:
+              // *
+              // **
+              // ***
+              // ****
+          }
+      }
+    solution: |
+      public class Main {
+          public static void main(String[] args) {
+              for (int row = 1; row <= 4; row++) {
+                  String line = "";
+                  for (int col = 1; col <= row; col++) {
+                      line = line + "*";
+                  }
+                  System.out.println(line);
+              }
+          }
+      }
+    check:
+      kind: stdout
+      main_class: Main
+      expected: "*\n**\n***\n****"
+      normalize: strip

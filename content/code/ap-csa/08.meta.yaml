@@ -1,0 +1,108 @@
+title:
+  en: "1-D arrays: store, index, and traverse"
+  zh: "一维数组:存储、下标和遍历"
+order: 8
+tasks:
+  - id: print-sum
+    prompt:
+      en: "The array `nums` is already filled. Use a loop to add up all its values and print the total on one line. For `{4, 8, 15, 16, 23, 42}` the output is `108`."
+      zh: "数组 `nums` 已经填好了。用一个循环把它所有的值加起来,并在一行里打印总和。对 `{4, 8, 15, 16, 23, 42}`,输出是 `108`。"
+    starter: |
+      public class Main {
+          public static void main(String[] args) {
+              int[] nums = {4, 8, 15, 16, 23, 42};
+              int total = 0;
+              // TODO: loop over nums and add each value to total
+              // TODO: print total on one line
+          }
+      }
+    solution: |
+      public class Main {
+          public static void main(String[] args) {
+              int[] nums = {4, 8, 15, 16, 23, 42};
+              int total = 0;
+              for (int i = 0; i < nums.length; i++) {
+                  total = total + nums[i];
+              }
+              System.out.println(total);
+          }
+      }
+    check:
+      kind: stdout
+      main_class: Main
+      expected: "108"
+      normalize: strip
+  - id: sum-method
+    prompt:
+      en: "Complete `sum(int[] a)` so it returns the sum of all values in the array. An empty array should return 0. The checker calls it with several arrays."
+      zh: "完成 `sum(int[] a)`,让它返回数组里所有值的和。空数组应当返回 0。检查器会用多个数组来调用它。"
+    starter: |
+      public class ArrayUtil {
+          // Return the sum of every value in a.
+          public static int sum(int[] a) {
+              // TODO: add up all the values and return the total
+              return -1;
+          }
+      }
+    solution: |
+      public class ArrayUtil {
+          public static int sum(int[] a) {
+              int total = 0;
+              for (int v : a) {
+                  total = total + v;
+              }
+              return total;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (ArrayUtil.sum(new int[]{4, 8, 15, 16, 23, 42}) != 108) throw new AssertionError("sum of {4,8,15,16,23,42} should be 108, got " + ArrayUtil.sum(new int[]{4, 8, 15, 16, 23, 42}));
+                if (ArrayUtil.sum(new int[]{1, 2, 3}) != 6) throw new AssertionError("sum of {1,2,3} should be 6, got " + ArrayUtil.sum(new int[]{1, 2, 3}));
+                if (ArrayUtil.sum(new int[]{-5, 5}) != 0) throw new AssertionError("sum of {-5,5} should be 0, got " + ArrayUtil.sum(new int[]{-5, 5}));
+                if (ArrayUtil.sum(new int[]{7}) != 7) throw new AssertionError("sum of {7} should be 7, got " + ArrayUtil.sum(new int[]{7}));
+                if (ArrayUtil.sum(new int[]{}) != 0) throw new AssertionError("sum of an empty array should be 0, got " + ArrayUtil.sum(new int[]{}));
+            }
+        }
+  - id: double-all
+    prompt:
+      en: "Complete `doubleAll(int[] a)`. It does not return anything. Instead it changes the array in place so every value becomes twice as big. `{1, 2, 3}` becomes `{2, 4, 6}`."
+      zh: "完成 `doubleAll(int[] a)`。它不返回任何东西。它直接就地修改数组,让每个值变成原来的两倍。`{1, 2, 3}` 变成 `{2, 4, 6}`。"
+    starter: |
+      public class ArrayUtil {
+          // Change a in place: every value becomes twice as big.
+          public static void doubleAll(int[] a) {
+              // TODO: loop with an index and set a[i] = a[i] * 2
+          }
+      }
+    solution: |
+      public class ArrayUtil {
+          public static void doubleAll(int[] a) {
+              for (int i = 0; i < a.length; i++) {
+                  a[i] = a[i] * 2;
+              }
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                int[] a = {1, 2, 3};
+                ArrayUtil.doubleAll(a);
+                int[] want = {2, 4, 6};
+                for (int i = 0; i < want.length; i++) {
+                    if (a[i] != want[i]) throw new AssertionError("after doubleAll, index " + i + " should be " + want[i] + ", got " + a[i]);
+                }
+                int[] b = {0, -3, 10};
+                ArrayUtil.doubleAll(b);
+                int[] want2 = {0, -6, 20};
+                for (int i = 0; i < want2.length; i++) {
+                    if (b[i] != want2[i]) throw new AssertionError("after doubleAll, index " + i + " should be " + want2[i] + ", got " + b[i]);
+                }
+            }
+        }

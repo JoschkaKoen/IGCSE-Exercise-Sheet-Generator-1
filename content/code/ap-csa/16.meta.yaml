@@ -1,0 +1,105 @@
+title:
+  en: "Text files: write and read with Scanner"
+  zh: "文本文件:用 Scanner 写和读"
+order: 16
+tasks:
+  - id: write-then-sum
+    prompt:
+      en: "First write the numbers `10`, `20`, `5`, `7` to `data.txt` (one per line) with a `PrintWriter`. Then open it with `new Scanner(new File(\"data.txt\"))` and use `hasNextInt`/`nextInt` to add them up. Print only the total. Expected output: **42**."
+      zh: "先用 `PrintWriter` 把数字 `10`、`20`、`5`、`7` 写到 `data.txt`(每行一个)。然后用 `new Scanner(new File(\"data.txt\"))` 打开它,用 `hasNextInt`/`nextInt` 把它们加起来。只打印总和。期望输出:**42**。"
+    starter: |
+      import java.io.*;
+      import java.util.Scanner;
+
+      public class SumFile {
+          public static void main(String[] args) throws IOException {
+              // 1) Write 10, 20, 5, 7 to data.txt (one number per line).
+              PrintWriter writer = new PrintWriter("data.txt");
+              // TODO: writer.println(...) for each number, then writer.close();
+              writer.close();
+
+              // 2) Open data.txt and add the numbers with hasNextInt / nextInt.
+              int total = 0;
+              // TODO: Scanner in = new Scanner(new File("data.txt")); ... in.close();
+
+              System.out.println(total);
+          }
+      }
+    solution: |
+      import java.io.*;
+      import java.util.Scanner;
+
+      public class SumFile {
+          public static void main(String[] args) throws IOException {
+              PrintWriter writer = new PrintWriter("data.txt");
+              writer.println(10);
+              writer.println(20);
+              writer.println(5);
+              writer.println(7);
+              writer.close();
+
+              Scanner in = new Scanner(new File("data.txt"));
+              int total = 0;
+              while (in.hasNextInt()) {
+                  total = total + in.nextInt();
+              }
+              in.close();
+
+              System.out.println(total);
+          }
+      }
+    check:
+      kind: stdout
+      main_class: SumFile
+      expected: "42"
+      normalize: strip
+  - id: write-then-count
+    prompt:
+      en: "First write the lines `apple`, `banana`, `cherry` to `words.txt` with a `PrintWriter`. Then open it with a `Scanner` and use `hasNextLine`/`nextLine` to count the lines. Print only the count. Expected output: **3**."
+      zh: "先用 `PrintWriter` 把 `apple`、`banana`、`cherry` 三行写到 `words.txt`。然后用 `Scanner` 打开它,用 `hasNextLine`/`nextLine` 数出有多少行。只打印行数。期望输出:**3**。"
+    starter: |
+      import java.io.*;
+      import java.util.Scanner;
+
+      public class CountLines {
+          public static void main(String[] args) throws IOException {
+              // 1) Write apple, banana, cherry to words.txt (one per line).
+              PrintWriter writer = new PrintWriter("words.txt");
+              // TODO: writer.println(...) for each word, then writer.close();
+              writer.close();
+
+              // 2) Open words.txt and count lines with hasNextLine / nextLine.
+              int count = 0;
+              // TODO: Scanner in = new Scanner(new File("words.txt")); ... in.close();
+
+              System.out.println(count);
+          }
+      }
+    solution: |
+      import java.io.*;
+      import java.util.Scanner;
+
+      public class CountLines {
+          public static void main(String[] args) throws IOException {
+              PrintWriter writer = new PrintWriter("words.txt");
+              writer.println("apple");
+              writer.println("banana");
+              writer.println("cherry");
+              writer.close();
+
+              Scanner in = new Scanner(new File("words.txt"));
+              int count = 0;
+              while (in.hasNextLine()) {
+                  String line = in.nextLine();
+                  count = count + 1;
+              }
+              in.close();
+
+              System.out.println(count);
+          }
+      }
+    check:
+      kind: stdout
+      main_class: CountLines
+      expected: "3"
+      normalize: strip

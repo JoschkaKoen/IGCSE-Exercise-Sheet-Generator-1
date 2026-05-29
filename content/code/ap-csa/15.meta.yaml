@@ -1,0 +1,105 @@
+title:
+  en: "Recursion: base case and recursive case"
+  zh: "递归:基本情形与递归情形"
+order: 15
+tasks:
+  - id: factorial
+    prompt:
+      en: "Complete `factorial(int n)` so it returns `n * (n-1) * ... * 1` using recursion. Use a base case for `n <= 1`. The checker tests several values."
+      zh: "用递归完成 `factorial(int n)`,让它返回 `n * (n-1) * ... * 1`。当 `n <= 1` 时用基本情形。检查器会测试多个值。"
+    starter: |
+      public class Recursion {
+          // Return n! = n * (n-1) * ... * 1, using recursion.
+          public static int factorial(int n) {
+              // TODO: base case for n <= 1, then n * factorial(n - 1)
+              return 0;
+          }
+      }
+    solution: |
+      public class Recursion {
+          public static int factorial(int n) {
+              if (n <= 1) {
+                  return 1;
+              }
+              return n * factorial(n - 1);
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Recursion.factorial(0) != 1) throw new AssertionError("factorial(0) should be 1, got " + Recursion.factorial(0));
+                if (Recursion.factorial(1) != 1) throw new AssertionError("factorial(1) should be 1, got " + Recursion.factorial(1));
+                if (Recursion.factorial(3) != 6) throw new AssertionError("factorial(3) should be 6, got " + Recursion.factorial(3));
+                if (Recursion.factorial(5) != 120) throw new AssertionError("factorial(5) should be 120, got " + Recursion.factorial(5));
+                if (Recursion.factorial(7) != 5040) throw new AssertionError("factorial(7) should be 5040, got " + Recursion.factorial(7));
+            }
+        }
+  - id: sum-to
+    prompt:
+      en: "Complete `sumTo(int n)` so it returns `1 + 2 + ... + n` using recursion. Use a base case for `n <= 0`. The checker tests several values."
+      zh: "用递归完成 `sumTo(int n)`,让它返回 `1 + 2 + ... + n`。当 `n <= 0` 时用基本情形。检查器会测试多个值。"
+    starter: |
+      public class Recursion {
+          // Return 1 + 2 + ... + n, using recursion.
+          public static int sumTo(int n) {
+              // TODO: base case for n <= 0, then n + sumTo(n - 1)
+              return 0;
+          }
+      }
+    solution: |
+      public class Recursion {
+          public static int sumTo(int n) {
+              if (n <= 0) {
+                  return 0;
+              }
+              return n + sumTo(n - 1);
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Recursion.sumTo(0) != 0) throw new AssertionError("sumTo(0) should be 0, got " + Recursion.sumTo(0));
+                if (Recursion.sumTo(1) != 1) throw new AssertionError("sumTo(1) should be 1, got " + Recursion.sumTo(1));
+                if (Recursion.sumTo(5) != 15) throw new AssertionError("sumTo(5) should be 15, got " + Recursion.sumTo(5));
+                if (Recursion.sumTo(10) != 55) throw new AssertionError("sumTo(10) should be 55, got " + Recursion.sumTo(10));
+            }
+        }
+  - id: array-sum
+    prompt:
+      en: "Complete `arraySum(int[] a, int i)` so it returns the sum of `a[i]` to the end, using recursion. Base case: when `i` is past the last spot, return `0`. The checker tests several arrays."
+      zh: "用递归完成 `arraySum(int[] a, int i)`,让它返回从 `a[i]` 到末尾的和。基本情形:当 `i` 越过最后一个位置时,返回 `0`。检查器会测试多个数组。"
+    starter: |
+      public class Recursion {
+          // Return a[i] + a[i+1] + ... + a[last], using recursion.
+          public static int arraySum(int[] a, int i) {
+              // TODO: base case when i >= a.length, then a[i] + arraySum(a, i + 1)
+              return 0;
+          }
+      }
+    solution: |
+      public class Recursion {
+          public static int arraySum(int[] a, int i) {
+              if (i >= a.length) {
+                  return 0;
+              }
+              return a[i] + arraySum(a, i + 1);
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Recursion.arraySum(new int[]{}, 0) != 0) throw new AssertionError("arraySum of empty should be 0");
+                if (Recursion.arraySum(new int[]{4}, 0) != 4) throw new AssertionError("arraySum of {4} should be 4");
+                if (Recursion.arraySum(new int[]{1, 2, 3, 4}, 0) != 10) throw new AssertionError("arraySum of {1,2,3,4} should be 10");
+                if (Recursion.arraySum(new int[]{-2, 5, 0, -9, 4}, 0) != -2) throw new AssertionError("arraySum of {-2,5,0,-9,4} should be -2");
+            }
+        }

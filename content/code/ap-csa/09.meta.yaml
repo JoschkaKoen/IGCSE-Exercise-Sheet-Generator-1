@@ -1,0 +1,153 @@
+title:
+  en: "Array algorithms: max, count, search, average"
+  zh: "数组算法:最大值、计数、查找、平均值"
+order: 9
+tasks:
+  - id: max
+    prompt:
+      en: "Complete `max(int[] a)` so it returns the largest value in the array. You may assume the array has at least one value. It must work with negative numbers too."
+      zh: "完成 `max(int[] a)`,让它返回数组里最大的值。你可以假设数组至少有一个值。它对负数也必须有效。"
+    starter: |
+      public class ArrayAlgo {
+          // Return the largest value in a (a has at least one value).
+          public static int max(int[] a) {
+              // TODO: start with a[0] as the best guess, then check the rest
+              return 0;
+          }
+      }
+    solution: |
+      public class ArrayAlgo {
+          public static int max(int[] a) {
+              int best = a[0];
+              for (int i = 1; i < a.length; i++) {
+                  if (a[i] > best) {
+                      best = a[i];
+                  }
+              }
+              return best;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (ArrayAlgo.max(new int[]{3, 9, 2, 7}) != 9) throw new AssertionError("max of {3,9,2,7} should be 9, got " + ArrayAlgo.max(new int[]{3, 9, 2, 7}));
+                if (ArrayAlgo.max(new int[]{5}) != 5) throw new AssertionError("max of {5} should be 5, got " + ArrayAlgo.max(new int[]{5}));
+                if (ArrayAlgo.max(new int[]{-4, -1, -9}) != -1) throw new AssertionError("max of {-4,-1,-9} should be -1, got " + ArrayAlgo.max(new int[]{-4, -1, -9}));
+                if (ArrayAlgo.max(new int[]{10, 10, 2}) != 10) throw new AssertionError("max of {10,10,2} should be 10, got " + ArrayAlgo.max(new int[]{10, 10, 2}));
+            }
+        }
+  - id: count-even
+    prompt:
+      en: "Complete `countEven(int[] a)` so it returns how many values are even. A value is even when `v % 2 == 0`. An empty array returns 0."
+      zh: "完成 `countEven(int[] a)`,让它返回有多少个值是偶数。当 `v % 2 == 0` 时,该值是偶数。空数组返回 0。"
+    starter: |
+      public class ArrayAlgo {
+          // Return how many values in a are even.
+          public static int countEven(int[] a) {
+              // TODO: count the values where v % 2 == 0
+              return -1;
+          }
+      }
+    solution: |
+      public class ArrayAlgo {
+          public static int countEven(int[] a) {
+              int count = 0;
+              for (int v : a) {
+                  if (v % 2 == 0) {
+                      count = count + 1;
+                  }
+              }
+              return count;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (ArrayAlgo.countEven(new int[]{3, 4, 7, 10}) != 2) throw new AssertionError("countEven of {3,4,7,10} should be 2, got " + ArrayAlgo.countEven(new int[]{3, 4, 7, 10}));
+                if (ArrayAlgo.countEven(new int[]{2, 4, 6}) != 3) throw new AssertionError("countEven of {2,4,6} should be 3, got " + ArrayAlgo.countEven(new int[]{2, 4, 6}));
+                if (ArrayAlgo.countEven(new int[]{1, 3, 5}) != 0) throw new AssertionError("countEven of {1,3,5} should be 0, got " + ArrayAlgo.countEven(new int[]{1, 3, 5}));
+                if (ArrayAlgo.countEven(new int[]{0, -2, -3}) != 2) throw new AssertionError("countEven of {0,-2,-3} should be 2, got " + ArrayAlgo.countEven(new int[]{0, -2, -3}));
+                if (ArrayAlgo.countEven(new int[]{}) != 0) throw new AssertionError("countEven of an empty array should be 0, got " + ArrayAlgo.countEven(new int[]{}));
+            }
+        }
+  - id: index-of
+    prompt:
+      en: "Complete `indexOf(int[] a, int target)`. Return the index of the **first** time `target` appears. If it is not in the array, return `-1`."
+      zh: "完成 `indexOf(int[] a, int target)`。返回 `target` **第一次**出现的下标。如果它不在数组里,就返回 `-1`。"
+    starter: |
+      public class ArrayAlgo {
+          // Return the index of the first target, or -1 if not found.
+          public static int indexOf(int[] a, int target) {
+              // TODO: loop with an index; return i when a[i] == target
+              // TODO: return -1 if the loop finds nothing
+              return -1;
+          }
+      }
+    solution: |
+      public class ArrayAlgo {
+          public static int indexOf(int[] a, int target) {
+              for (int i = 0; i < a.length; i++) {
+                  if (a[i] == target) {
+                      return i;
+                  }
+              }
+              return -1;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (ArrayAlgo.indexOf(new int[]{5, 8, 13, 21}, 13) != 2) throw new AssertionError("indexOf 13 should be 2, got " + ArrayAlgo.indexOf(new int[]{5, 8, 13, 21}, 13));
+                if (ArrayAlgo.indexOf(new int[]{5, 8, 13, 21}, 5) != 0) throw new AssertionError("indexOf 5 should be 0, got " + ArrayAlgo.indexOf(new int[]{5, 8, 13, 21}, 5));
+                if (ArrayAlgo.indexOf(new int[]{5, 8, 13, 21}, 99) != -1) throw new AssertionError("indexOf 99 should be -1, got " + ArrayAlgo.indexOf(new int[]{5, 8, 13, 21}, 99));
+                if (ArrayAlgo.indexOf(new int[]{7, 7, 7}, 7) != 0) throw new AssertionError("indexOf should return the FIRST match (0), got " + ArrayAlgo.indexOf(new int[]{7, 7, 7}, 7));
+                if (ArrayAlgo.indexOf(new int[]{}, 1) != -1) throw new AssertionError("indexOf in an empty array should be -1, got " + ArrayAlgo.indexOf(new int[]{}, 1));
+            }
+        }
+  - id: average
+    prompt:
+      en: "Complete `average(int[] a)`. Return the average of the values as a `double`. Divide by `(double) a.length` so you get a decimal, not integer division. You may assume the array is not empty."
+      zh: "完成 `average(int[] a)`。把这些值的平均值作为 `double` 返回。除以 `(double) a.length`,这样你得到的是小数,而不是整数除法。你可以假设数组不是空的。"
+    starter: |
+      public class ArrayAlgo {
+          // Return the average of the values as a double.
+          public static double average(int[] a) {
+              // TODO: add up the values, then divide by (double) a.length
+              return 0.0;
+          }
+      }
+    solution: |
+      public class ArrayAlgo {
+          public static double average(int[] a) {
+              int total = 0;
+              for (int v : a) {
+                  total = total + v;
+              }
+              return total / (double) a.length;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                double r1 = ArrayAlgo.average(new int[]{2, 3, 10});
+                if (Math.abs(r1 - 5.0) > 0.0001) throw new AssertionError("average of {2,3,10} should be 5.0, got " + r1);
+                double r2 = ArrayAlgo.average(new int[]{1, 2});
+                if (Math.abs(r2 - 1.5) > 0.0001) throw new AssertionError("average of {1,2} should be 1.5, got " + r2);
+                double r3 = ArrayAlgo.average(new int[]{4});
+                if (Math.abs(r3 - 4.0) > 0.0001) throw new AssertionError("average of {4} should be 4.0, got " + r3);
+                double r4 = ArrayAlgo.average(new int[]{-2, 2, -2, 2});
+                if (Math.abs(r4 - 0.0) > 0.0001) throw new AssertionError("average of {-2,2,-2,2} should be 0.0, got " + r4);
+            }
+        }

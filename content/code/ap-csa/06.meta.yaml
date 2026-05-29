@@ -1,0 +1,161 @@
+title:
+  en: "Writing a class: fields, constructor, methods"
+  zh: "编写类:字段、构造方法和方法"
+order: 6
+tasks:
+  - id: counter
+    prompt:
+      en: "Complete the `Counter` class. It has an `int` field `count` that starts at 0. `increment()` adds 1 to it. `getCount()` returns the current value."
+      zh: "完成 `Counter` 类。它有一个 `int` 字段 `count`,初始为 0。`increment()` 让它加 1。`getCount()` 返回当前的值。"
+    starter: |
+      public class Counter {
+          int count;
+
+          public Counter() {
+              // TODO: start count at 0
+          }
+
+          public void increment() {
+              // TODO: add 1 to count
+          }
+
+          public int getCount() {
+              // TODO: return the current count
+              return -1;
+          }
+      }
+    solution: |
+      public class Counter {
+          int count;
+
+          public Counter() {
+              this.count = 0;
+          }
+
+          public void increment() {
+              this.count = this.count + 1;
+          }
+
+          public int getCount() {
+              return this.count;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Counter c = new Counter();
+                if (c.getCount() != 0) throw new AssertionError("new Counter should start at 0, got " + c.getCount());
+                c.increment();
+                c.increment();
+                c.increment();
+                if (c.getCount() != 3) throw new AssertionError("after 3 increments count should be 3, got " + c.getCount());
+                Counter d = new Counter();
+                if (d.getCount() != 0) throw new AssertionError("a second Counter should start at 0, got " + d.getCount());
+                d.increment();
+                if (d.getCount() != 1) throw new AssertionError("second Counter should be 1, got " + d.getCount());
+                if (c.getCount() != 3) throw new AssertionError("each Counter should keep its own count; first one changed");
+            }
+        }
+  - id: rectangle
+    prompt:
+      en: "Complete the `Rectangle` class. The constructor takes width `w` and height `h` and stores them. `area()` returns width times height. `perimeter()` returns 2 times (width plus height)."
+      zh: "完成 `Rectangle` 类。构造方法接收宽 `w` 和高 `h` 并把它们存起来。`area()` 返回宽乘以高。`perimeter()` 返回 2 乘以(宽加高)。"
+    starter: |
+      public class Rectangle {
+          int width;
+          int height;
+
+          public Rectangle(int w, int h) {
+              // TODO: store w and h in the fields
+          }
+
+          public int area() {
+              // TODO: return width * height
+              return -1;
+          }
+
+          public int perimeter() {
+              // TODO: return 2 * (width + height)
+              return -1;
+          }
+      }
+    solution: |
+      public class Rectangle {
+          int width;
+          int height;
+
+          public Rectangle(int w, int h) {
+              this.width = w;
+              this.height = h;
+          }
+
+          public int area() {
+              return this.width * this.height;
+          }
+
+          public int perimeter() {
+              return 2 * (this.width + this.height);
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Rectangle r = new Rectangle(3, 4);
+                if (r.area() != 12) throw new AssertionError("3x4 area should be 12, got " + r.area());
+                if (r.perimeter() != 14) throw new AssertionError("3x4 perimeter should be 14, got " + r.perimeter());
+                Rectangle s = new Rectangle(5, 5);
+                if (s.area() != 25) throw new AssertionError("5x5 area should be 25, got " + s.area());
+                if (s.perimeter() != 20) throw new AssertionError("5x5 perimeter should be 20, got " + s.perimeter());
+                Rectangle t = new Rectangle(7, 2);
+                if (t.area() != 14) throw new AssertionError("7x2 area should be 14, got " + t.area());
+                if (t.perimeter() != 18) throw new AssertionError("7x2 perimeter should be 18, got " + t.perimeter());
+            }
+        }
+  - id: greeter
+    prompt:
+      en: "Complete the `Greeter` class. The constructor takes a `String name` and stores it in the field `name`. `greet()` returns the text `Hello, ` followed by the name and a `!` (for `\"Ana\"` it returns `Hello, Ana!`)."
+      zh: "完成 `Greeter` 类。构造方法接收一个 `String name` 并把它存进字段 `name`。`greet()` 返回文字 `Hello, ` 加上名字再加一个 `!`(对 `\"Ana\"` 返回 `Hello, Ana!`)。"
+    starter: |
+      public class Greeter {
+          String name;
+
+          public Greeter(String name) {
+              // TODO: store the parameter into this.name
+          }
+
+          public String greet() {
+              // TODO: return "Hello, " + name + "!"
+              return "";
+          }
+      }
+    solution: |
+      public class Greeter {
+          String name;
+
+          public Greeter(String name) {
+              this.name = name;
+          }
+
+          public String greet() {
+              return "Hello, " + this.name + "!";
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Greeter g = new Greeter("Ana");
+                if (!g.greet().equals("Hello, Ana!")) throw new AssertionError("expected 'Hello, Ana!' but got '" + g.greet() + "'");
+                Greeter h = new Greeter("Bo");
+                if (!h.greet().equals("Hello, Bo!")) throw new AssertionError("expected 'Hello, Bo!' but got '" + h.greet() + "'");
+                if (!g.greet().equals("Hello, Ana!")) throw new AssertionError("each Greeter should keep its own name");
+            }
+        }

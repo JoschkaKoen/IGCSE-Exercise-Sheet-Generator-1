@@ -1,0 +1,128 @@
+title:
+  en: "2-D arrays: working with a grid"
+  zh: "二维数组:操作网格"
+order: 12
+tasks:
+  - id: sum-grid
+    prompt:
+      en: "Complete `sumGrid(int[][] g)` so it returns the **total** of every cell in the grid. Use a nested loop with `g.length` rows and `g[0].length` columns."
+      zh: "完成 `sumGrid(int[][] g)`,让它返回网格里**所有格子**的总和。使用嵌套循环,行数是 `g.length`,列数是 `g[0].length`。"
+    starter: |
+      public class GridUtil {
+          // Return the sum of every cell in g.
+          public static int sumGrid(int[][] g) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      public class GridUtil {
+          public static int sumGrid(int[][] g) {
+              int total = 0;
+              for (int r = 0; r < g.length; r++) {
+                  for (int c = 0; c < g[0].length; c++) {
+                      total = total + g[r][c];
+                  }
+              }
+              return total;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                int[][] g = {
+                    {1, 2, 3},
+                    {4, 5, 6}
+                };
+                if (GridUtil.sumGrid(g) != 21)
+                    throw new AssertionError("sum should be 21, got " + GridUtil.sumGrid(g));
+
+                int[][] one = { {10} };
+                if (GridUtil.sumGrid(one) != 10)
+                    throw new AssertionError("single cell sum should be 10, got " + GridUtil.sumGrid(one));
+
+                int[][] zeros = new int[3][4];
+                if (GridUtil.sumGrid(zeros) != 0)
+                    throw new AssertionError("all-zero grid should sum to 0, got " + GridUtil.sumGrid(zeros));
+            }
+        }
+  - id: row-sum
+    prompt:
+      en: "Complete `rowSum(int[][] g, int r)` so it returns the total of the cells in **row `r` only**. Loop over the columns of that one row."
+      zh: "完成 `rowSum(int[][] g, int r)`,让它**只**返回第 `r` 行各格子的总和。遍历那一行的各列即可。"
+    starter: |
+      public class GridUtil {
+          // Return the sum of the cells in row r.
+          public static int rowSum(int[][] g, int r) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      public class GridUtil {
+          public static int rowSum(int[][] g, int r) {
+              int total = 0;
+              for (int c = 0; c < g[0].length; c++) {
+                  total = total + g[r][c];
+              }
+              return total;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                int[][] g = {
+                    {1, 2, 3},
+                    {4, 5, 6},
+                    {7, 8, 9}
+                };
+                if (GridUtil.rowSum(g, 0) != 6)
+                    throw new AssertionError("row 0 should sum to 6, got " + GridUtil.rowSum(g, 0));
+                if (GridUtil.rowSum(g, 1) != 15)
+                    throw new AssertionError("row 1 should sum to 15, got " + GridUtil.rowSum(g, 1));
+                if (GridUtil.rowSum(g, 2) != 24)
+                    throw new AssertionError("row 2 should sum to 24, got " + GridUtil.rowSum(g, 2));
+            }
+        }
+  - id: print-grid
+    prompt:
+      en: "In `main`, the grid is given. Print each **row** on its own line, with the numbers joined by a single space. For the grid shown, the output is `1 2 3` then `4 5 6`. (Build each line in row-major order, then println it.)"
+      zh: "在 `main` 中,网格已经给好了。把每一**行**单独打印在一行上,数字之间用一个空格隔开。对于给出的网格,输出是 `1 2 3` 然后是 `4 5 6`。(按行优先顺序拼好每一行,再 println 它。)"
+    starter: |
+      public class Main {
+          public static void main(String[] args) {
+              int[][] g = {
+                  {1, 2, 3},
+                  {4, 5, 6}
+              };
+              // Print each row on one line: numbers joined by a space.
+          }
+      }
+    solution: |
+      public class Main {
+          public static void main(String[] args) {
+              int[][] g = {
+                  {1, 2, 3},
+                  {4, 5, 6}
+              };
+              for (int r = 0; r < g.length; r++) {
+                  String line = "";
+                  for (int c = 0; c < g[0].length; c++) {
+                      if (c > 0) {
+                          line = line + " ";
+                      }
+                      line = line + g[r][c];
+                  }
+                  System.out.println(line);
+              }
+          }
+      }
+    check:
+      kind: stdout
+      main_class: Main
+      expected: "1 2 3\n4 5 6"
+      normalize: strip

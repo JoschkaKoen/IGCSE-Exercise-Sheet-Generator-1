@@ -1,0 +1,171 @@
+title:
+  en: "ArrayList algorithms: filter and the remove bug"
+  zh: "ArrayList 算法:筛选与删除的 bug"
+order: 11
+tasks:
+  - id: count-odds
+    prompt:
+      en: "Complete `countOdds(ArrayList<Integer> a)` so it returns **how many** numbers in the list are odd. A number is odd when `x % 2 != 0`."
+      zh: "完成 `countOdds(ArrayList<Integer> a)`,让它返回列表里**有多少个**奇数。当 `x % 2 != 0` 时这个数是奇数。"
+    starter: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          // Return how many numbers in a are odd.
+          public static int countOdds(ArrayList<Integer> a) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          public static int countOdds(ArrayList<Integer> a) {
+              int count = 0;
+              for (int x : a) {
+                  if (x % 2 != 0) {
+                      count = count + 1;
+                  }
+              }
+              return count;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        import java.util.ArrayList;
+
+        public class Harness {
+            public static void main(String[] args) {
+                ArrayList<Integer> a = new ArrayList<Integer>();
+                a.add(4);
+                a.add(7);
+                a.add(10);
+                a.add(3);
+                if (ListUtil.countOdds(a) != 2)
+                    throw new AssertionError("[4, 7, 10, 3] has 2 odds, got " + ListUtil.countOdds(a));
+
+                ArrayList<Integer> none = new ArrayList<Integer>();
+                none.add(2);
+                none.add(8);
+                if (ListUtil.countOdds(none) != 0)
+                    throw new AssertionError("[2, 8] has 0 odds, got " + ListUtil.countOdds(none));
+
+                ArrayList<Integer> empty = new ArrayList<Integer>();
+                if (ListUtil.countOdds(empty) != 0)
+                    throw new AssertionError("empty list has 0 odds, got " + ListUtil.countOdds(empty));
+            }
+        }
+  - id: keep-positives
+    prompt:
+      en: "Complete `keepPositives(ArrayList<Integer> a)`. Build and return a **new** `ArrayList<Integer>` that holds only the numbers greater than `0`, in their original order. Do **not** change `a`."
+      zh: "完成 `keepPositives(ArrayList<Integer> a)`。创建并返回一个**新的** `ArrayList<Integer>`,里面只保留大于 `0` 的数,并保持原来的顺序。**不要**改变 `a`。"
+    starter: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          // Return a new list with only the numbers > 0.
+          public static ArrayList<Integer> keepPositives(ArrayList<Integer> a) {
+              ArrayList<Integer> result = new ArrayList<Integer>();
+              // add the positives here
+              return result;
+          }
+      }
+    solution: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          public static ArrayList<Integer> keepPositives(ArrayList<Integer> a) {
+              ArrayList<Integer> result = new ArrayList<Integer>();
+              for (int x : a) {
+                  if (x > 0) {
+                      result.add(x);
+                  }
+              }
+              return result;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        import java.util.ArrayList;
+
+        public class Harness {
+            public static void main(String[] args) {
+                ArrayList<Integer> a = new ArrayList<Integer>();
+                a.add(-3);
+                a.add(5);
+                a.add(0);
+                a.add(8);
+                a.add(-1);
+                ArrayList<Integer> kept = ListUtil.keepPositives(a);
+                if (kept.size() != 2)
+                    throw new AssertionError("expected 2 positives, got size " + kept.size());
+                if (kept.get(0) != 5 || kept.get(1) != 8)
+                    throw new AssertionError("expected [5, 8], got " + kept);
+                if (a.size() != 5)
+                    throw new AssertionError("original list must not change, got " + a);
+            }
+        }
+  - id: remove-evens
+    prompt:
+      en: "Complete `removeEvens(ArrayList<Integer> a)` so it removes **every** even number from `a` itself. Loop **backwards** by index so you do not skip items. Return nothing (`void`)."
+      zh: "完成 `removeEvens(ArrayList<Integer> a)`,让它从 `a` 本身删除**每一个**偶数。用下标**倒着**循环,这样才不会跳过元素。不返回任何东西(`void`)。"
+    starter: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          // Remove every even number from a. Loop backwards!
+          public static void removeEvens(ArrayList<Integer> a) {
+              // your code here
+          }
+      }
+    solution: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          public static void removeEvens(ArrayList<Integer> a) {
+              for (int i = a.size() - 1; i >= 0; i--) {
+                  if (a.get(i) % 2 == 0) {
+                      a.remove(i);
+                  }
+              }
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        import java.util.ArrayList;
+
+        public class Harness {
+            public static void main(String[] args) {
+                ArrayList<Integer> a = new ArrayList<Integer>();
+                a.add(2);
+                a.add(4);
+                a.add(5);
+                ListUtil.removeEvens(a);
+                if (a.size() != 1 || a.get(0) != 5)
+                    throw new AssertionError("expected [5], got " + a);
+
+                // Two evens in a row: the buggy forward loop fails this one.
+                ArrayList<Integer> b = new ArrayList<Integer>();
+                b.add(6);
+                b.add(8);
+                b.add(1);
+                b.add(2);
+                b.add(3);
+                ListUtil.removeEvens(b);
+                if (b.size() != 2 || b.get(0) != 1 || b.get(1) != 3)
+                    throw new AssertionError("expected [1, 3], got " + b);
+
+                ArrayList<Integer> allEven = new ArrayList<Integer>();
+                allEven.add(2);
+                allEven.add(4);
+                ListUtil.removeEvens(allEven);
+                if (allEven.size() != 0)
+                    throw new AssertionError("expected empty list, got " + allEven);
+            }
+        }

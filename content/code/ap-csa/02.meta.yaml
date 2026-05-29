@@ -1,0 +1,93 @@
+title:
+  en: "Using objects: String, Math, and wrappers"
+  zh: "使用对象:String、Math 和包装类"
+order: 2
+tasks:
+  - id: length-and-substring
+    prompt:
+      en: "The String `word` is `\"programming\"`. Print its length on the first line, then print the first 4 letters (use `substring(0, 4)`) on the second line."
+      zh: "字符串 `word` 是 `\"programming\"`。第一行打印它的长度,第二行打印前 4 个字母(用 `substring(0, 4)`)。"
+    starter: |
+      public class Main {
+          public static void main(String[] args) {
+              String word = "programming";
+              // Line 1: print word.length()
+              // Line 2: print the first 4 letters with substring(0, 4)
+          }
+      }
+    solution: |
+      public class Main {
+          public static void main(String[] args) {
+              String word = "programming";
+              System.out.println(word.length());
+              System.out.println(word.substring(0, 4));
+          }
+      }
+    check:
+      kind: stdout
+      main_class: Main
+      expected: "11\nprog"
+      normalize: strip
+  - id: hypotenuse
+    prompt:
+      en: "Complete `hypotenuse(double a, double b)` so it returns the length of the longest side of a right triangle: the square root of `a*a + b*b`. Use `Math.sqrt` and `Math.pow` (or `a*a`)."
+      zh: "完成 `hypotenuse(double a, double b)`,让它返回直角三角形最长边的长度:`a*a + b*b` 的平方根。使用 `Math.sqrt` 和 `Math.pow`(或 `a*a`)。"
+    starter: |
+      public class Triangle {
+          // Return sqrt(a*a + b*b).
+          public static double hypotenuse(double a, double b) {
+              return 0.0;   // change this
+          }
+      }
+    solution: |
+      public class Triangle {
+          public static double hypotenuse(double a, double b) {
+              return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Math.abs(Triangle.hypotenuse(3, 4) - 5.0) > 1e-9)
+                    throw new AssertionError("hypotenuse(3, 4) should be 5.0, got " + Triangle.hypotenuse(3, 4));
+                if (Math.abs(Triangle.hypotenuse(6, 8) - 10.0) > 1e-9)
+                    throw new AssertionError("hypotenuse(6, 8) should be 10.0, got " + Triangle.hypotenuse(6, 8));
+                if (Math.abs(Triangle.hypotenuse(0, 0) - 0.0) > 1e-9)
+                    throw new AssertionError("hypotenuse(0, 0) should be 0.0, got " + Triangle.hypotenuse(0, 0));
+            }
+        }
+  - id: same-word
+    prompt:
+      en: "Complete `sameWord(String a, String b)` so it returns `true` when the two Strings have the same letters, and `false` otherwise. Use `.equals` (not `==`)."
+      zh: "完成 `sameWord(String a, String b)`,当两个字符串有相同的字母时返回 `true`,否则返回 `false`。使用 `.equals`(不要用 `==`)。"
+    starter: |
+      public class Words {
+          // Return true if a and b have the same letters.
+          public static boolean sameWord(String a, String b) {
+              return false;   // change this
+          }
+      }
+    solution: |
+      public class Words {
+          public static boolean sameWord(String a, String b) {
+              return a.equals(b);
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Words.sameWord("cat", "cat") != true)
+                    throw new AssertionError("sameWord(\"cat\", \"cat\") should be true");
+                if (Words.sameWord("cat", "dog") != false)
+                    throw new AssertionError("sameWord(\"cat\", \"dog\") should be false");
+                String built = new String("cat");
+                if (Words.sameWord("cat", built) != true)
+                    throw new AssertionError("sameWord should compare letters, not identity");
+            }
+        }

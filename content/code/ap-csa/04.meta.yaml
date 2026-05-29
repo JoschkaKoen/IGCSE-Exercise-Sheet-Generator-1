@@ -1,0 +1,96 @@
+title:
+  en: "Loops: while, for, and accumulation"
+  zh: "循环:while、for 和累加"
+order: 4
+tasks:
+  - id: count-up
+    prompt:
+      en: "Use a `for` loop to print the numbers `1` to `5`, each on its own line."
+      zh: "用一个 `for` 循环打印数字 `1` 到 `5`,每个数字单独占一行。"
+    starter: |
+      public class Main {
+          public static void main(String[] args) {
+              // Print 1, 2, 3, 4, 5 — one per line.
+          }
+      }
+    solution: |
+      public class Main {
+          public static void main(String[] args) {
+              for (int i = 1; i <= 5; i++) {
+                  System.out.println(i);
+              }
+          }
+      }
+    check:
+      kind: stdout
+      main_class: Main
+      expected: "1\n2\n3\n4\n5"
+      normalize: strip
+  - id: sum-to
+    prompt:
+      en: "Complete `sumTo(int n)` so it returns the sum `1 + 2 + ... + n`. For example `sumTo(5)` is `15`. If `n` is `0` or less, return `0`."
+      zh: "完成 `sumTo(int n)`,让它返回和 `1 + 2 + ... + n`。例如 `sumTo(5)` 是 `15`。如果 `n` 小于或等于 `0`,返回 `0`。"
+    starter: |
+      public class Adder {
+          // Return 1 + 2 + ... + n.
+          public static int sumTo(int n) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      public class Adder {
+          public static int sumTo(int n) {
+              int sum = 0;
+              for (int i = 1; i <= n; i++) {
+                  sum += i;
+              }
+              return sum;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Adder.sumTo(5) != 15)  throw new AssertionError("sumTo(5) should be 15, got " + Adder.sumTo(5));
+                if (Adder.sumTo(1) != 1)   throw new AssertionError("sumTo(1) should be 1, got " + Adder.sumTo(1));
+                if (Adder.sumTo(100) != 5050) throw new AssertionError("sumTo(100) should be 5050, got " + Adder.sumTo(100));
+                if (Adder.sumTo(0) != 0)   throw new AssertionError("sumTo(0) should be 0, got " + Adder.sumTo(0));
+            }
+        }
+  - id: count-multiples
+    prompt:
+      en: "Complete `countMultiples(int n, int k)` so it returns how many numbers from `1` to `n` divide evenly by `k` (use `% == 0`). For example `countMultiples(10, 3)` is `3` (that is 3, 6, 9)."
+      zh: "完成 `countMultiples(int n, int k)`,让它返回从 `1` 到 `n` 中能被 `k` 整除的数字有多少个(用 `% == 0`)。例如 `countMultiples(10, 3)` 是 `3`(也就是 3、6、9)。"
+    starter: |
+      public class Counter {
+          // Count numbers from 1 to n that divide evenly by k.
+          public static int countMultiples(int n, int k) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      public class Counter {
+          public static int countMultiples(int n, int k) {
+              int count = 0;
+              for (int i = 1; i <= n; i++) {
+                  if (i % k == 0) {
+                      count++;
+                  }
+              }
+              return count;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (Counter.countMultiples(10, 3) != 3)  throw new AssertionError("countMultiples(10, 3) should be 3, got " + Counter.countMultiples(10, 3));
+                if (Counter.countMultiples(10, 2) != 5)  throw new AssertionError("countMultiples(10, 2) should be 5, got " + Counter.countMultiples(10, 2));
+                if (Counter.countMultiples(12, 5) != 2)  throw new AssertionError("countMultiples(12, 5) should be 2, got " + Counter.countMultiples(12, 5));
+                if (Counter.countMultiples(1, 1) != 1)   throw new AssertionError("countMultiples(1, 1) should be 1, got " + Counter.countMultiples(1, 1));
+            }
+        }

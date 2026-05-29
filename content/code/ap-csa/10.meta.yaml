@@ -1,0 +1,151 @@
+title:
+  en: "ArrayList: a list that grows"
+  zh: "ArrayList:可以增长的列表"
+order: 10
+tasks:
+  - id: sum-list
+    prompt:
+      en: "Complete `sumList(ArrayList<Integer> a)` so it returns the **total** of all numbers in the list. An empty list totals `0`. Traverse with a loop."
+      zh: "完成 `sumList(ArrayList<Integer> a)`,让它返回列表里所有数字的**总和**。空列表的总和是 `0`。用循环来遍历。"
+    starter: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          // Return the sum of every number in a.
+          public static int sumList(ArrayList<Integer> a) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          public static int sumList(ArrayList<Integer> a) {
+              int total = 0;
+              for (int x : a) {
+                  total = total + x;
+              }
+              return total;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        import java.util.ArrayList;
+
+        public class Harness {
+            public static void main(String[] args) {
+                ArrayList<Integer> empty = new ArrayList<Integer>();
+                if (ListUtil.sumList(empty) != 0)
+                    throw new AssertionError("empty list should sum to 0, got " + ListUtil.sumList(empty));
+
+                ArrayList<Integer> a = new ArrayList<Integer>();
+                a.add(3);
+                a.add(5);
+                a.add(8);
+                if (ListUtil.sumList(a) != 16)
+                    throw new AssertionError("[3, 5, 8] should sum to 16, got " + ListUtil.sumList(a));
+
+                ArrayList<Integer> b = new ArrayList<Integer>();
+                b.add(-4);
+                b.add(10);
+                if (ListUtil.sumList(b) != 6)
+                    throw new AssertionError("[-4, 10] should sum to 6, got " + ListUtil.sumList(b));
+            }
+        }
+  - id: count-up
+    prompt:
+      en: "Complete `countUp(int n)` so it makes a **new** `ArrayList<Integer>`, adds the numbers `1, 2, ..., n` in order, and returns it. If `n` is `0`, return an empty list."
+      zh: "完成 `countUp(int n)`,让它创建一个**新的** `ArrayList<Integer>`,按顺序加入数字 `1, 2, ..., n`,然后返回它。如果 `n` 是 `0`,就返回一个空列表。"
+    starter: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          // Build a list 1, 2, ..., n and return it.
+          public static ArrayList<Integer> countUp(int n) {
+              ArrayList<Integer> result = new ArrayList<Integer>();
+              // add the numbers here
+              return result;
+          }
+      }
+    solution: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          public static ArrayList<Integer> countUp(int n) {
+              ArrayList<Integer> result = new ArrayList<Integer>();
+              for (int i = 1; i <= n; i++) {
+                  result.add(i);
+              }
+              return result;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        import java.util.ArrayList;
+
+        public class Harness {
+            public static void main(String[] args) {
+                ArrayList<Integer> zero = ListUtil.countUp(0);
+                if (zero.size() != 0)
+                    throw new AssertionError("countUp(0) should have size 0, got " + zero.size());
+
+                ArrayList<Integer> five = ListUtil.countUp(5);
+                if (five.size() != 5)
+                    throw new AssertionError("countUp(5) should have size 5, got " + five.size());
+                for (int i = 0; i < 5; i++) {
+                    if (five.get(i) != i + 1)
+                        throw new AssertionError("countUp(5) item at " + i + " should be " + (i + 1) + ", got " + five.get(i));
+                }
+            }
+        }
+  - id: get-set
+    prompt:
+      en: "Complete `doubleAt(ArrayList<Integer> a, int i)`. Read the value at index `i` with `get`, then use `set` to store **two times** that value back at index `i`. Return nothing (`void`)."
+      zh: "完成 `doubleAt(ArrayList<Integer> a, int i)`。用 `get` 读取下标 `i` 上的值,然后用 `set` 把那个值的**两倍**存回下标 `i`。不返回任何东西(`void`)。"
+    starter: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          // Replace the value at index i with twice that value.
+          public static void doubleAt(ArrayList<Integer> a, int i) {
+              // your code here
+          }
+      }
+    solution: |
+      import java.util.ArrayList;
+
+      public class ListUtil {
+          public static void doubleAt(ArrayList<Integer> a, int i) {
+              int value = a.get(i);
+              a.set(i, value * 2);
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        import java.util.ArrayList;
+
+        public class Harness {
+            public static void main(String[] args) {
+                ArrayList<Integer> a = new ArrayList<Integer>();
+                a.add(4);
+                a.add(7);
+                a.add(10);
+                ListUtil.doubleAt(a, 1);
+                if (a.get(1) != 14)
+                    throw new AssertionError("index 1 should become 14, got " + a.get(1));
+                if (a.get(0) != 4 || a.get(2) != 10)
+                    throw new AssertionError("other items must not change, got " + a);
+                if (a.size() != 3)
+                    throw new AssertionError("size must stay 3, got " + a.size());
+
+                ListUtil.doubleAt(a, 0);
+                if (a.get(0) != 8)
+                    throw new AssertionError("index 0 should become 8, got " + a.get(0));
+            }
+        }
