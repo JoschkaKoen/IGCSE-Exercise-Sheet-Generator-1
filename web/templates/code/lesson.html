@@ -6,6 +6,8 @@
 <script defer src="/static/vendor/codemirror/lib/codemirror.js"></script>
 {% if lesson.language in ['java', 'c'] %}
 <script defer src="/static/vendor/codemirror/mode/clike/clike.js"></script>
+{% elif lesson.language == 'sql' %}
+<script defer src="/static/vendor/codemirror/mode/sql/sql.js"></script>
 {% else %}
 <script defer src="/static/vendor/codemirror/mode/python/python.js"></script>
 {% endif %}

@@ -1,0 +1,31 @@
+title:
+  en: Joins with grouping
+  zh: 连接与分组
+dataset: shop
+tasks:
+  - id: report
+    prompt:
+      en: "For each customer **who has orders**, show their `name`, their number of orders as `orders`, and their total spend (2 d.p.) as `spent`. Join, group by `customer.id`, and order by `name`."
+      zh: "对每位**有订单**的顾客,显示其 `name`、订单数(命名为 `orders`)和总消费额(两位小数,命名为 `spent`)。连接后按 `customer.id` 分组,并按 `name` 排序。"
+    starter: |
+      SELECT customer.name,
+             COUNT(*) AS orders,
+             ROUND(SUM(orders.total), 2) AS spent
+      FROM customer
+      INNER JOIN orders ON customer.id = orders.customer_id
+      GROUP BY ...
+      ORDER BY customer.name;
+    solution: |
+      SELECT customer.name,
+             COUNT(*) AS orders,
+             ROUND(SUM(orders.total), 2) AS spent
+      FROM customer
+      INNER JOIN orders ON customer.id = orders.customer_id
+      GROUP BY customer.id
+      ORDER BY customer.name;
+    check:
+      kind: rows
+      expected: |
+        name | orders | spent
+        Ada | 2 | 34.5
+        Cara | 2 | 52

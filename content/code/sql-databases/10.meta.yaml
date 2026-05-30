@@ -1,0 +1,49 @@
+title:
+  en: INNER JOIN
+  zh: 内连接 INNER JOIN
+dataset: shop
+tasks:
+  - id: join
+    prompt:
+      en: "List each customer's `name` next to the `total` of each of their orders. Join `customer` to `orders` on the key, ordered by `orders.id`."
+      zh: "把每位顾客的 `name` 和他们每张订单的 `total` 并排列出。在键上把 `customer` 连接到 `orders`,按 `orders.id` 排序。"
+    starter: |
+      SELECT customer.name, orders.total
+      FROM customer
+      INNER JOIN orders ON ...
+      ORDER BY orders.id;
+    solution: |
+      SELECT customer.name, orders.total
+      FROM customer
+      INNER JOIN orders ON customer.id = orders.customer_id
+      ORDER BY orders.id;
+    check:
+      kind: rows
+      expected: |
+        name | total
+        Ada | 25
+        Ada | 9.5
+        Cara | 40
+        Cara | 12
+  - id: join-where
+    prompt:
+      en: "Show the customer `name` and order `total` for orders of **25 or more**, largest total first."
+      zh: "显示金额在 **25 或以上**的订单的顾客 `name` 和订单 `total`,金额最大的排最前。"
+    starter: |
+      SELECT customer.name, orders.total
+      FROM customer
+      INNER JOIN orders ON customer.id = orders.customer_id
+      WHERE ...
+      ORDER BY orders.total DESC;
+    solution: |
+      SELECT customer.name, orders.total
+      FROM customer
+      INNER JOIN orders ON customer.id = orders.customer_id
+      WHERE orders.total >= 25
+      ORDER BY orders.total DESC;
+    check:
+      kind: rows
+      expected: |
+        name | total
+        Cara | 40
+        Ada | 25

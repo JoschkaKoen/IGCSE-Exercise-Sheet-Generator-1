@@ -1,0 +1,42 @@
+title:
+  en: Grouping with GROUP BY
+  zh: 用 GROUP BY 分组
+dataset: students
+tasks:
+  - id: groupby
+    prompt:
+      en: "For **each** `form`, show the form, the number of students as `n`, and the average score (2 d.p.) as `avg_score`. Group by `form`."
+      zh: "对**每个** `form`,显示该 form、学生人数(命名为 `n`)和平均分(两位小数,命名为 `avg_score`)。按 `form` 分组。"
+    starter: |
+      SELECT form, COUNT(*) AS n, ROUND(AVG(score), 2) AS avg_score
+      FROM student
+      GROUP BY ...;
+    solution: |
+      SELECT form, COUNT(*) AS n, ROUND(AVG(score), 2) AS avg_score
+      FROM student
+      GROUP BY form;
+    check:
+      kind: rows
+      expected: |
+        form | n | avg_score
+        11A | 3 | 90.33
+        11B | 2 | 68
+  - id: having
+    prompt:
+      en: "Show each `form` and its student count `n`, but only for forms with **3 or more** students. Use `HAVING`."
+      zh: "显示每个 `form` 及其学生人数 `n`,但只保留人数在 **3 或以上**的 form。用 `HAVING`。"
+    starter: |
+      SELECT form, COUNT(*) AS n
+      FROM student
+      GROUP BY form
+      HAVING ...;
+    solution: |
+      SELECT form, COUNT(*) AS n
+      FROM student
+      GROUP BY form
+      HAVING COUNT(*) >= 3;
+    check:
+      kind: rows
+      expected: |
+        form | n
+        11A | 3

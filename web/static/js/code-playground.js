@@ -62,6 +62,19 @@ function init(root) {
     if (warn) warn.hidden = false;
   }
 
+  // Warm the execution worker the instant the page loads — while the student reads
+  // the prose — so the first Run only has to compile their own code, not boot the
+  // whole runtime. Fired before the editor/highlight setup so the worker's network
+  // fetch starts as early as possible; it boots off the main thread, so this never
+  // blocks page paint, and ensureWorker() self-guards against a double boot.
+  // Fire-and-forget: a preload failure is surfaced later by the real Run/Check.
+  // Gated to the runtimes that use a client worker — a non-"server" runtime that can
+  // run (cross-origin isolated): Python (Pyodide, ~12 MB once, immutable-cached) and
+  // the dormant ?runtime=cheerpj Java path. Server-side Java and C have no worker.
+  if (isolated && RUNTIME !== "server") {
+    ensureWorker().catch(() => { /* surfaced on first Run/Check */ });
+  }
+
   initEditors();    // CodeMirror — regardless of isolation (typing needs no worker)
   wireExamples();   // ▶ on prose code blocks
   highlightExamples();   // syntax-color the read-only example blocks (reuses the editor theme)
@@ -71,15 +84,6 @@ function init(root) {
   if (!isolated) {  // execution disabled, but stepping/reading still works
     root.querySelectorAll(".code-run, .code-check, .code-stop, .code-example-run")
       .forEach((b) => { b.disabled = true; });
-  }
-
-  // Java's runtime is heavy — it downloads the JVM and compiles helper classes on
-  // first boot (~10–30 s). Warm it the moment the page loads, while the student
-  // reads the prose, so the first Run only has to compile their code. Pyodide keeps
-  // its lazy boot (it's lighter and cached fast). Fire-and-forget: a preload failure
-  // is surfaced later by the real Run/Check, never here.
-  if (isolated && LANG === "java" && RUNTIME !== "server") {
-    ensureWorker().catch(() => { /* surfaced on first Run/Check */ });
   }
 
   // ---- Step-through (progressive disclosure) ----------------------------
@@ -138,25 +142,13 @@ function init(root) {
     serverPost({ revealed: n });
   }
 
-  // Warm the Pyodide worker the moment the student focuses an editor (intent to
-  // run) so the first Run skips the ~12 MB download wait. Bandwidth-respectful:
-  // fires only on interaction, never for read-only visitors. Python only — Java
-  // either warms on load (client runtime, above) or runs server-side with no
-  // worker; non-isolated pages can't execute. ensureWorker() self-guards re-boot.
-  let warmedByFocus = false;
-  function warmOnFocus() {
-    if (warmedByFocus || !isolated || LANG === "java" || LANG === "c") return;
-    warmedByFocus = true;
-    ensureWorker().catch(() => { /* surfaced on first Run/Check */ });
-  }
-
   // ---- Editors -----------------------------------------------------------
   function initEditors() {
     // CodeMirror 5 loads as a classic deferred script; wait until the global exists.
     if (!window.CodeMirror) { setTimeout(initEditors, 30); return; }
     root.querySelectorAll("textarea.code-editor").forEach((ta) => {
       const cm = window.CodeMirror.fromTextArea(ta, {
-        mode: LANG === "java" ? "text/x-java" : LANG === "c" ? "text/x-csrc" : "python",
+        mode: LANG === "java" ? "text/x-java" : LANG === "c" ? "text/x-csrc" : LANG === "sql" ? "text/x-sql" : "python",
         theme: "exercise",
         lineNumbers: false,
         indentUnit: 4,
@@ -166,7 +158,6 @@ function init(root) {
         viewportMargin: Infinity,
       });
       editors[ta.dataset.taskId] = cm;
-      cm.on("focus", warmOnFocus);
       const step = ta.closest(".code-step");
       if (step && !step.hidden) cm.refresh();   // a task step restored visible before CM loaded
     });
@@ -226,11 +217,12 @@ function init(root) {
   function highlightExamples() {
     const CM = window.CodeMirror;
     if (!CM || !CM.runMode) { setTimeout(highlightExamples, 30); return; }   // CM is a deferred global
-    root.querySelectorAll(".code-prose pre > code.language-python, .code-prose pre > code.language-java, .code-prose pre > code.language-c").forEach((codeEl) => {
+    root.querySelectorAll(".code-prose pre > code.language-python, .code-prose pre > code.language-java, .code-prose pre > code.language-c, .code-prose pre > code.language-sql").forEach((codeEl) => {
       const pre = codeEl.parentElement;
       if (!pre || pre.classList.contains("cm-s-exercise")) return;   // already highlighted
       const mode = codeEl.classList.contains("language-java") ? "text/x-java"
-        : codeEl.classList.contains("language-c") ? "text/x-csrc" : "python";
+        : codeEl.classList.contains("language-c") ? "text/x-csrc"
+        : codeEl.classList.contains("language-sql") ? "text/x-sql" : "python";
       const src = codeEl.textContent;
       codeEl.textContent = "";
       CM.runMode(src, mode, codeEl);
@@ -247,6 +239,8 @@ function init(root) {
       // uses the Pyodide module worker. Both speak the same message protocol.
       worker = LANG === "java"
         ? new Worker("/static/js/code-worker-java.js")
+        : LANG === "sql"
+        ? new Worker("/static/js/code-worker-sql.js")
         : new Worker("/static/js/code-worker.js", { type: "module" });
       worker.onmessage = (e) => handleWorker(e.data || {}, resolve, reject);
       worker.onerror = (e) => { booting = null; reject(new Error(e.message || "worker failed to load")); };
@@ -333,7 +327,7 @@ function init(root) {
     if (RUNTIME === "server") { active.abort = new AbortController(); return execServer(active, editors[id].getValue(), tasks[id] || {}, false); }
     Atomics.store(interruptView, 0, 0);
     if (!(await bootInto(active.el))) return;
-    worker.postMessage({ type: "run", code: editors[id].getValue() });
+    worker.postMessage({ type: "run", code: editors[id].getValue(), seed: (tasks[id] || {}).seed || "" });
   }
 
   async function runExample(codeText, outputEl, runBtn) {
@@ -350,11 +344,15 @@ function init(root) {
   // Lazily boot the worker. Returns false (and finishes) if it fails to load.
   async function bootInto(el) {
     if (workerReady) return true;
-    // Pyodide is cached after the first fetch, so its boot needs no message. The
-    // Java (CheerpJ) runtime is heavier and compiles helper classes on first boot,
-    // so show a one-time notice rather than a silent ~10–20s wait.
+    // The runtime boots on first use. The page-load warm-up usually finishes first,
+    // so we only get here when the student ran within a second or two of landing —
+    // show a one-time notice rather than a silent multi-second wait.
     if (LANG === "java") {
       appendSpan(el, msg("code.java.loading", "Loading the Java runtime — the first run downloads it (about 10–20s)…") + "\n", "code-sys");
+    } else if (LANG === "sql") {
+      appendSpan(el, msg("code.sql.loading", "Starting SQL…") + "\n", "code-sys");
+    } else {
+      appendSpan(el, msg("code.python.loading", "Starting Python…") + "\n", "code-sys");
     }
     try { await ensureWorker(); }
     catch (err) { appendSpan(el, String(err.message || err) + "\n", "code-err"); finishRun(); return false; }
@@ -392,7 +390,7 @@ function init(root) {
       }
     }
     const task = tasks[id] || {};
-    worker.postMessage({ type: "check", code: editors[id].getValue(), stdin: task.stdin || "", check: task.check || {} });
+    worker.postMessage({ type: "check", code: editors[id].getValue(), stdin: task.stdin || "", seed: task.seed || "", check: task.check || {} });
   }
 
   function finishCheck(msg) {
@@ -416,7 +414,11 @@ function init(root) {
       box.className = "code-result mt-2 code-result-fail";
       box.innerHTML = "";
       box.appendChild(textDiv(t("code.task.fail")));
-      if (msg.kind === "stdout") {
+      if (msg.kind === "rows") {
+        // SQL result grids are multi-line — render in <pre> blocks so rows/columns line up.
+        box.appendChild(gridDiff(t("code.task.expected"), msg.expected));
+        box.appendChild(gridDiff(t("code.task.got"), msg.output));
+      } else if (msg.kind === "stdout") {
         box.appendChild(diffLine(t("code.task.expected"), msg.expected));
         box.appendChild(diffLine(t("code.task.got"), msg.output));
       }
@@ -432,7 +434,7 @@ function init(root) {
   }
 
   function stopActive() {
-    if (LANG === "java" || LANG === "c") {
+    if (LANG === "java" || LANG === "c" || LANG === "sql") {
       const a = active;
       if (a && a.abort) { try { a.abort.abort(); } catch (e) { /* ignore */ } }  // server mode: cancel the fetch
       killWorker();
@@ -522,6 +524,21 @@ function init(root) {
   }
 
   function textDiv(text) { const d = document.createElement("div"); d.textContent = text; return d; }
+  // Like diffLine, but renders the value in a <pre> so a multi-line SQL result grid
+  // keeps its rows and column alignment (a plain div collapses the newlines).
+  function gridDiff(label, value) {
+    const wrap = document.createElement("div");
+    wrap.className = "code-result-line";
+    const l = document.createElement("div");
+    l.className = "code-result-label";
+    l.textContent = label;
+    wrap.appendChild(l);
+    const pre = document.createElement("pre");
+    pre.className = "code-result-grid";
+    pre.textContent = value == null ? "" : value;
+    wrap.appendChild(pre);
+    return wrap;
+  }
   function diffLine(label, value) {
     const d = document.createElement("div");
     d.className = "code-result-line";

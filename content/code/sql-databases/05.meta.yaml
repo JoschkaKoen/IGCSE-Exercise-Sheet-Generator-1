@@ -1,0 +1,39 @@
+title:
+  en: Sorting with ORDER BY
+  zh: 用 ORDER BY 排序
+dataset: students
+tasks:
+  - id: order-desc
+    prompt:
+      en: "Show every student's `name` and `score`, **highest score first**."
+      zh: "显示每名学生的 `name` 和 `score`,**分数最高的排在最前**。"
+    starter: |
+      SELECT name, score FROM student ORDER BY score ...;
+    solution: |
+      SELECT name, score FROM student ORDER BY score DESC;
+    check:
+      kind: rows
+      expected: |
+        name | score
+        Sara | 95
+        Mei | 88
+        Lin | 88
+        Jamal | 72
+        Tom | 64
+  - id: order-name
+    prompt:
+      en: "Show every student's `name`, sorted **alphabetically** (A to Z)."
+      zh: "显示每名学生的 `name`,按**字母顺序**(A 到 Z)排列。"
+    starter: |
+      SELECT name FROM student ORDER BY ...;
+    solution: |
+      SELECT name FROM student ORDER BY name;
+    check:
+      kind: rows
+      expected: |
+        name
+        Jamal
+        Lin
+        Mei
+        Sara
+        Tom

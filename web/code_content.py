@@ -37,7 +37,7 @@ CODE_DIR = Path(__file__).resolve().parents[1] / "content" / "code"
 # easiest → hardest (CS Principles, then CS A / Java). Any course not listed here
 # sorts after the curated ones (by slug), so a newly-added course is always shown
 # — just uncurated — rather than dropped.
-COURSE_ORDER = ("python-basics", "a-level-cs", "ap-csp", "ap-csa")
+COURSE_ORDER = ("python-basics", "a-level-cs", "sql-databases", "ap-csp", "ap-csa")
 
 
 def _pick(value: Any, lang: str) -> str:
@@ -57,6 +57,26 @@ def _read_yaml(path: Path) -> dict[str, Any]:
 
 def course_dir(slug: str) -> Path:
     return CODE_DIR / slug
+
+
+def resolve_seed(slug: str, meta: dict[str, Any], task: dict[str, Any]) -> str:
+    """Resolve a SQL task's seed script (the CREATE + INSERT run before the
+    student's code). Precedence: task ``seed`` > task ``dataset`` > lesson ``seed``
+    > lesson ``dataset`` (the latter two on ``meta``). ``dataset: <name>`` names
+    ``datasets/<name>.sql`` under the course dir. Returns ``""`` when none is
+    declared — so non-SQL courses simply get no ``seed`` field."""
+    for src in (task, meta):
+        if not isinstance(src, dict):
+            continue
+        if src.get("seed") is not None:
+            return str(src["seed"])
+        name = src.get("dataset")
+        if name:
+            try:
+                return (course_dir(slug) / "datasets" / f"{name}.sql").read_text(encoding="utf-8")
+            except OSError:
+                return ""
+    return ""
 
 
 def _course_sort_key(path: Path) -> tuple[int, str]:
@@ -112,6 +132,8 @@ def load_course(slug: str, lang: str) -> dict[str, Any] | None:
     course_dir(slug) / f"{nn}.{lang}.md",
     course_dir(slug) / f"{nn}.en.md",
     course_dir(slug) / "course.yaml",
+    # SQL courses seed from shared datasets/*.sql — editing one must bust the cache.
+    *sorted((course_dir(slug) / "datasets").glob("*.sql")),
 ])
 def load_lesson(slug: str, nn: str, lang: str) -> dict[str, Any] | None:
     """One lesson resolved to ``lang`` (English fallback). ``None`` if missing.
@@ -150,14 +172,20 @@ def load_lesson(slug: str, nn: str, lang: str) -> dict[str, Any] | None:
             "prompt_md": _pick(task.get("prompt"), lang),
             "starter": starter,
         })
-        client.append({
+        entry = {
             "id": tid,
             "starter": starter,
             "stdin": str(task.get("stdin") or ""),
             # Optional read-only support files (Java: extra .java compiled alongside).
             "files": task.get("files") if isinstance(task.get("files"), dict) else {},
             "check": task.get("check") if isinstance(task.get("check"), dict) else {},
-        })
+        }
+        # SQL courses: the database to load before the student's query runs (seeds
+        # aren't secret). Absent for non-SQL courses, so their client JSON is unchanged.
+        seed = resolve_seed(slug, meta, task)
+        if seed:
+            entry["seed"] = seed
+        client.append(entry)
 
     # Previous / next lesson within the course, for footer navigation.
     course = load_course(slug, lang)

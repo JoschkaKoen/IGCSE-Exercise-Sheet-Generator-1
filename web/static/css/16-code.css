@@ -150,6 +150,8 @@
 .code-result-fail { background: rgba(248, 113, 113, .1); border: 1px solid rgba(248, 113, 113, .3); color: #fca5a5; }
 .code-result-line { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .78rem; color: #e2e8f0; margin-top: .25rem; white-space: pre-wrap; }
 .code-result-label { color: #94a3b8; }
+/* Multi-line SQL result grid in the check result box (expected vs got). */
+.code-result-grid { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .78rem; color: #e2e8f0; white-space: pre; overflow-x: auto; margin: .15rem 0 .4rem; padding: .35rem .55rem; background: rgba(2, 6, 23, .5); border-radius: .35rem; }
 
 /* ---- Completed task ---- */
 .code-task.code-done { border-color: rgba(34, 197, 94, .35); }
@@ -251,50 +253,93 @@
    course (set on the [data-course] wrapper so the section label inherits it too)
    drives the badge, label, hover border/gradient, chevron, and focus ring. The
    neutral glass base stays on the card via Tailwind utilities; only accent-driven
-   bits live here, plus a polish layer (hover lift + glow, badge ring). */
-/* Cool palette (cyan→blue→indigo→violet, matching the hero gradient and the
+   bits + the glass/gloss polish live here. */
+/* Cool palette (cyan→blue→indigo→violet→sky, matching the hero gradient and the
    site's space theme) — warm/green accents clashed with the dark-blue background. */
 [data-course]                 { --accent-rgb: 34, 211, 238; }   /* default cyan */
 [data-course="python-basics"] { --accent-rgb: 34, 211, 238; }   /* cyan */
 [data-course="a-level-cs"]    { --accent-rgb: 96, 165, 250; }   /* blue */
 [data-course="ap-csp"]        { --accent-rgb: 129, 140, 248; }  /* indigo */
 [data-course="ap-csa"]        { --accent-rgb: 167, 139, 250; }  /* violet */
+[data-course="c-basics"]      { --accent-rgb: 56, 189, 248; }   /* sky */
+[data-course="sql-databases"] { --accent-rgb: 45, 212, 191; }   /* teal */
 
-/* Transparency glass: a translucent fill plus a backdrop blur so the page (starfield
-   + gradient) shows through, frosted. Not glossy — see-through frosted glass. The
-   `background` shorthand intentionally clears Tailwind's gradient; `backdrop-filter`
-   overrides Tailwind's backdrop-blur-sm (this stylesheet loads after the bundle). */
+/* Glossy frosted glass, tinted + glowing in each course's accent. Layers:
+   1. a top-lit ACCENT gradient FILL — brightest top-left, fading down: the
+      gloss/sheen, now carrying the course colour at rest (a flat fill looks matte).
+   2. backdrop-filter blur + saturate — the page (starfield + gradient) frosts
+      through, so the card is genuinely see-through, not a flat dark panel.
+   3. an inset 1px top highlight — the bright specular edge that reads as glass.
+   4. an outer accent GLOW (the 0 0 …-blur shadow) — soft at rest, bright on hover.
+   5. a soft drop shadow — lifts the card off the background for depth.
+   The `background` shorthand intentionally clears Tailwind's gradient; the
+   `backdrop-filter` overrides Tailwind's backdrop-blur-sm (this stylesheet loads
+   after the bundle). */
 .code-card {
-  background: rgba(255, 255, 255, .05);
-  backdrop-filter: blur(16px) saturate(135%);
-  -webkit-backdrop-filter: blur(16px) saturate(135%);
-  border-color: rgba(255, 255, 255, .12);
+  background: linear-gradient(155deg, rgba(var(--accent-rgb), .12) 0%, rgba(var(--accent-rgb), .05) 46%, rgba(255, 255, 255, .025) 100%);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-color: rgba(var(--accent-rgb), .26);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .22), 0 0 16px -4px rgba(var(--accent-rgb), .34), 0 10px 26px -16px rgba(0, 0, 0, .7);
   transition: border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease;
 }
 .code-card:hover {
-  border-color: rgba(var(--accent-rgb), .45);
-  background: rgba(var(--accent-rgb), .08);
+  border-color: rgba(var(--accent-rgb), .62);
+  background: linear-gradient(155deg, rgba(var(--accent-rgb), .26) 0%, rgba(var(--accent-rgb), .11) 50%, rgba(255, 255, 255, .035) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px -12px rgba(var(--accent-rgb), .45);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .3), 0 0 30px -2px rgba(var(--accent-rgb), .6), 0 18px 38px -14px rgba(var(--accent-rgb), .5);
 }
 .code-card:focus-visible { outline: 2px solid rgba(var(--accent-rgb), .6); outline-offset: 1px; }
 
-/* Number square — translucent glass tile: see-through accent fill + its own frost,
-   ringed by a faint accent edge. Brightens with the card on hover. */
+/* Number square — a glossy, glowing accent glass chip: top-lit accent gradient
+   fill, a bright inset top edge + accent ring, an outer accent glow, and a faint
+   text-glow on the number. Glows harder with the card on hover. */
 .code-card-badge {
-  background: rgba(var(--accent-rgb), .12);
+  background: linear-gradient(150deg, rgba(var(--accent-rgb), .44) 0%, rgba(var(--accent-rgb), .16) 100%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: rgb(var(--accent-rgb));
-  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .28);
+  text-shadow: 0 0 10px rgba(var(--accent-rgb), .45);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .35), inset 0 0 0 1px rgba(var(--accent-rgb), .42), 0 0 12px -2px rgba(var(--accent-rgb), .5);
   transition: background .18s ease, box-shadow .18s ease;
 }
 .code-card:hover .code-card-badge {
-  background: rgba(var(--accent-rgb), .2);
-  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .45);
+  background: linear-gradient(150deg, rgba(var(--accent-rgb), .58) 0%, rgba(var(--accent-rgb), .24) 100%);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .45), inset 0 0 0 1px rgba(var(--accent-rgb), .6), 0 0 18px 0 rgba(var(--accent-rgb), .7);
 }
 .code-card-sub { color: #94a3b8; }   /* slate-400 — lifted from slate-500 for readability */
-.code-card-chevron { color: rgba(var(--accent-rgb), .5); transition: color .18s ease, transform .18s ease; }
+.code-card-chevron { color: rgba(var(--accent-rgb), .55); transition: color .18s ease, transform .18s ease; }
 .code-card:hover .code-card-chevron { color: rgb(var(--accent-rgb)); transform: translateX(2px); }
 
 .code-course-label { color: rgb(var(--accent-rgb)); }   /* section label, colored to its block */
+
+/* ---- Landing index: collapsible course accordion ----
+   Each course is a <details> styled as a SUBTLE glass card — a faint neutral
+   fill + a low-alpha accent border — so the header reads as a card without
+   competing with the inner .code-card lesson tiles (avoid glass-on-glass). The
+   accent (per [data-course]) colours the title, the lesson-count pill, and the
+   chevron. No backdrop-filter here: the closed list is small and the subtle fill
+   is enough; the frosted glass stays reserved for the lesson tiles. */
+.code-course {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .05) 0%, rgba(255, 255, 255, .02) 100%);
+  border-color: rgba(var(--accent-rgb), .2);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .04), 0 8px 24px -18px rgba(0, 0, 0, .8);
+  transition: border-color .18s ease, background .18s ease;
+}
+/* Brighten the (rounded) card on header hover via :has, so the fill follows the
+   border radius — a summary:hover background would square off the top corners
+   since the <details> is intentionally not overflow-hidden. */
+.code-course:has(> summary:hover) {
+  border-color: rgba(var(--accent-rgb), .34);
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), .08) 0%, rgba(var(--accent-rgb), .03) 100%);
+}
+.code-course[open] { border-color: rgba(var(--accent-rgb), .3); }
+
+.code-course-count {
+  color: rgb(var(--accent-rgb));
+  background: rgba(var(--accent-rgb), .12);
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .24);
+}
+.code-course-chevron { color: rgba(var(--accent-rgb), .6); }
+.code-course[open] .code-course-chevron,
+.code-course:has(> summary:hover) .code-course-chevron { color: rgb(var(--accent-rgb)); }

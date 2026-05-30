@@ -136,8 +136,8 @@ STRINGS: dict[str, dict[str, str]] = {
 
         # ===== Code page (in-browser Python playground) =====
         "title.code":                "Code",
-        "code.hero.title":           "Learn Python by doing",
-        "code.hero.subtitle":        "Write real Python in your browser and run it instantly — no installation needed.",
+        "code.hero.title":           "Learn to code by doing",
+        "code.hero.subtitle":        "Write real code and run it instantly in your browser — Python, Java, C, and SQL, with nothing to install.",
         "code.course.cta":           "Lessons",
         "code.lesson.start":         "Start lesson",
         "code.run":                  "Run",
@@ -150,6 +150,8 @@ STRINGS: dict[str, dict[str, str]] = {
         "code.console.running":      "Running…",
         "code.console.ready":        "Python ready.",
         "code.console.stopped":      "Stopped.",
+        "code.python.loading":       "Starting Python…",
+        "code.sql.loading":          "Starting SQL…",
         "code.input.label":          "Program input",
         "code.example.run":          "Run example",
         "code.example.output":       "Output",
@@ -790,8 +792,8 @@ STRINGS: dict[str, dict[str, str]] = {
 
         # ===== Code page (in-browser Python playground) =====
         "title.code":                "编程",
-        "code.hero.title":           "在动手中学习 Python",
-        "code.hero.subtitle":        "直接在浏览器里编写并即时运行真正的 Python —— 无需安装。",
+        "code.hero.title":           "在动手中学习编程",
+        "code.hero.subtitle":        "直接在浏览器里编写并即时运行真正的代码 —— 支持 Python、Java、C 和 SQL，无需安装。",
         "code.course.cta":           "课程",
         "code.lesson.start":         "开始学习",
         "code.run":                  "运行",
@@ -804,6 +806,8 @@ STRINGS: dict[str, dict[str, str]] = {
         "code.console.running":      "运行中……",
         "code.console.ready":        "Python 已就绪。",
         "code.console.stopped":      "已停止。",
+        "code.python.loading":       "正在启动 Python……",
+        "code.sql.loading":          "正在启动 SQL……",
         "code.input.label":          "程序输入",
         "code.example.run":          "运行示例",
         "code.example.output":       "输出",

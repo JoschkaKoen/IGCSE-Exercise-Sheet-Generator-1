@@ -1,0 +1,31 @@
+title:
+  en: Counting and averaging
+  zh: 计数与求平均
+dataset: students
+tasks:
+  - id: count-avg
+    prompt:
+      en: "In one query, show how many students there are as `n`, and their average score (to 2 decimal places) as `avg_score`."
+      zh: "用一条查询,显示学生人数(命名为 `n`),以及他们的平均分(保留两位小数,命名为 `avg_score`)。"
+    starter: |
+      SELECT COUNT(*) AS n, ... FROM student;
+    solution: |
+      SELECT COUNT(*) AS n, ROUND(AVG(score), 2) AS avg_score FROM student;
+    check:
+      kind: rows
+      expected: |
+        n | avg_score
+        5 | 81.4
+  - id: min-max-sum
+    prompt:
+      en: "Show the lowest score as `lowest`, the highest as `highest`, and the total of all scores as `total`."
+      zh: "显示最低分(命名为 `lowest`)、最高分(命名为 `highest`)和所有分数的总和(命名为 `total`)。"
+    starter: |
+      SELECT MIN(score) AS lowest, ... FROM student;
+    solution: |
+      SELECT MIN(score) AS lowest, MAX(score) AS highest, SUM(score) AS total FROM student;
+    check:
+      kind: rows
+      expected: |
+        lowest | highest | total
+        64 | 95 | 407

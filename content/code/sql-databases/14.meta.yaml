@@ -1,0 +1,24 @@
+title:
+  en: Inserting rows
+  zh: 插入行
+dataset: shop
+tasks:
+  - id: insert
+    prompt:
+      en: "Add a new product to the `product` table: code `'P04'`, title `'Ruler'`, price `1.20`, in_stock `75`."
+      zh: "给 `product` 表添加一个新产品:code 为 `'P04'`、title 为 `'Ruler'`、price 为 `1.20`、in_stock 为 `75`。"
+    starter: |
+      INSERT INTO product (code, title, price, in_stock)
+      VALUES (...);
+    solution: |
+      INSERT INTO product (code, title, price, in_stock)
+      VALUES ('P04', 'Ruler', 1.20, 75);
+    check:
+      kind: rows
+      probe: "SELECT code, title, price FROM product ORDER BY code;"
+      expected: |
+        code | title | price
+        P01 | Notebook | 2.5
+        P02 | Pen | 0.8
+        P03 | Backpack | 18
+        P04 | Ruler | 1.2

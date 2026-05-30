@@ -1,0 +1,34 @@
+title:
+  en: Filtering with WHERE
+  zh: 用 WHERE 筛选
+dataset: students
+tasks:
+  - id: where-ge
+    prompt:
+      en: "Show the `name` and `score` of every student who scored **80 or more**."
+      zh: "显示分数在 **80 或以上**的每名学生的 `name` 和 `score`。"
+    starter: |
+      SELECT name, score FROM student WHERE ...;
+    solution: |
+      SELECT name, score FROM student WHERE score >= 80;
+    check:
+      kind: rows
+      expected: |
+        name | score
+        Mei | 88
+        Sara | 95
+        Lin | 88
+  - id: where-form
+    prompt:
+      en: "Show the `name` of every student in form `11B`. (Text goes in single quotes.)"
+      zh: "显示 `11B` 班每名学生的 `name`。(文本要放在单引号里。)"
+    starter: |
+      SELECT name FROM student WHERE form = ...;
+    solution: |
+      SELECT name FROM student WHERE form = '11B';
+    check:
+      kind: rows
+      expected: |
+        name
+        Jamal
+        Tom

@@ -1,0 +1,23 @@
+title:
+  en: Databases and SELECT
+  zh: 数据库与 SELECT
+dataset: students
+tasks:
+  - id: select-all
+    prompt:
+      en: "Show the **whole** `student` table — every column and every row. Use `SELECT * FROM ...;`."
+      zh: "显示**整张** `student` 表 —— 所有列、所有行。使用 `SELECT * FROM ...;`。"
+    starter: |
+      -- Type your query below, then click Run.
+      SELECT
+    solution: |
+      SELECT * FROM student;
+    check:
+      kind: rows
+      expected: |
+        id | name | form | score
+        1 | Mei | 11A | 88
+        2 | Jamal | 11B | 72
+        3 | Sara | 11A | 95
+        4 | Tom | 11B | 64
+        5 | Lin | 11A | 88

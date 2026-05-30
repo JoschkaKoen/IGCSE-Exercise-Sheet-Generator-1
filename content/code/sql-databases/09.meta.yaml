@@ -1,0 +1,37 @@
+title:
+  en: Tables, keys and relationships
+  zh: 表、键与关系
+dataset: shop
+tasks:
+  - id: customers
+    prompt:
+      en: "Show the whole `customer` table so you can see the rows and their primary key `id`."
+      zh: "显示整张 `customer` 表,看看里面的行和它们的主键 `id`。"
+    starter: |
+      SELECT * FROM ...;
+    solution: |
+      SELECT * FROM customer;
+    check:
+      kind: rows
+      expected: |
+        id | name | city
+        1 | Ada | London
+        2 | Ben | Leeds
+        3 | Cara | London
+        4 | Dan | Hull
+  - id: orders
+    prompt:
+      en: "Show each order's `id`, its `customer_id` (the foreign key), and its `total`, ordered by `id`."
+      zh: "显示每张订单的 `id`、它的 `customer_id`(外键)和 `total`,按 `id` 排序。"
+    starter: |
+      SELECT id, customer_id, total FROM orders ORDER BY ...;
+    solution: |
+      SELECT id, customer_id, total FROM orders ORDER BY id;
+    check:
+      kind: rows
+      expected: |
+        id | customer_id | total
+        10 | 1 | 25
+        11 | 1 | 9.5
+        12 | 3 | 40
+        13 | 3 | 12

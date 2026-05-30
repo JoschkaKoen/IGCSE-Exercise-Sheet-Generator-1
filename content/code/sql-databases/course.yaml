@@ -1,0 +1,26 @@
+slug: sql-databases
+language: sql
+title:
+  en: Databases & SQL
+  zh: 数据库与 SQL
+subtitle:
+  en: Query, design, and change relational databases — right in your browser, no setup.
+  zh: 查询、设计并修改关系数据库 —— 直接在浏览器中完成,无需安装。
+lessons:
+  - "01"
+  - "02"
+  - "03"
+  - "04"
+  - "05"
+  - "06"
+  - "07"
+  - "08"
+  - "09"
+  - "10"
+  - "11"
+  - "12"
+  - "13"
+  - "14"
+  - "15"
+  - "16"
+  - "17"

@@ -1,0 +1,33 @@
+title:
+  en: AND, OR, NOT
+  zh: AND、OR、NOT
+dataset: students
+tasks:
+  - id: and
+    prompt:
+      en: "Show the `name` of every student who is in form `11A` **and** scored more than 88."
+      zh: "显示既在 `11A` 班、**并且**分数高于 88 的每名学生的 `name`。"
+    starter: |
+      SELECT name FROM student WHERE form = '11A' ... score > 88;
+    solution: |
+      SELECT name FROM student WHERE form = '11A' AND score > 88;
+    check:
+      kind: rows
+      expected: |
+        name
+        Sara
+  - id: or
+    prompt:
+      en: "Show the `name` of every student who is in form `11B` **or** scored 95 or more."
+      zh: "显示在 `11B` 班、**或者**分数在 95 或以上的每名学生的 `name`。"
+    starter: |
+      SELECT name FROM student WHERE form = '11B' ... score >= 95;
+    solution: |
+      SELECT name FROM student WHERE form = '11B' OR score >= 95;
+    check:
+      kind: rows
+      expected: |
+        name
+        Jamal
+        Sara
+        Tom

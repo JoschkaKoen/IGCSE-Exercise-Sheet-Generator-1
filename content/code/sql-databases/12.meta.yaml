@@ -1,0 +1,27 @@
+title:
+  en: Creating tables
+  zh: 创建表
+tasks:
+  - id: create
+    prompt:
+      en: "Create a table called `teacher` with three columns: `id` (`INTEGER`, the primary key), `name` (`VARCHAR(20)`), and `subject` (`VARCHAR(15)`)."
+      zh: "创建一张名为 `teacher` 的表,有三列:`id`(`INTEGER`,主键)、`name`(`VARCHAR(20)`)和 `subject`(`VARCHAR(15)`)。"
+    starter: |
+      CREATE TABLE teacher (
+        id INTEGER PRIMARY KEY,
+        -- add the name and subject columns here
+      );
+    solution: |
+      CREATE TABLE teacher (
+        id INTEGER PRIMARY KEY,
+        name VARCHAR(20),
+        subject VARCHAR(15)
+      );
+    check:
+      kind: rows
+      probe: "SELECT name, UPPER(REPLACE(type, ' ', '')) AS type FROM pragma_table_info('teacher') ORDER BY cid;"
+      expected: |
+        name | type
+        id | INTEGER
+        name | VARCHAR(20)
+        subject | VARCHAR(15)

@@ -1,0 +1,21 @@
+title:
+  en: Updating rows
+  zh: 更新行
+dataset: shop
+tasks:
+  - id: update
+    prompt:
+      en: "Change the price of the product with code `'P02'` to `0.95`. Be sure to use a `WHERE` so only that product changes."
+      zh: "把 code 为 `'P02'` 的产品的 price 改为 `0.95`。一定要用 `WHERE`,这样只改这一个产品。"
+    starter: |
+      UPDATE product SET price = ... WHERE code = 'P02';
+    solution: |
+      UPDATE product SET price = 0.95 WHERE code = 'P02';
+    check:
+      kind: rows
+      probe: "SELECT code, price FROM product ORDER BY code;"
+      expected: |
+        code | price
+        P01 | 2.5
+        P02 | 0.95
+        P03 | 18

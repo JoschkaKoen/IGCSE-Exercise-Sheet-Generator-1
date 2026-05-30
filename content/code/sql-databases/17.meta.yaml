@@ -1,0 +1,27 @@
+title:
+  en: Normalisation
+  zh: 规范化
+dataset: norm
+tasks:
+  - id: join-norm
+    prompt:
+      en: "Reassemble the data: list each booking's `student` next to their club's `coach`, by joining `booking` to `club` on `club_id`, ordered by `booking.booking_id`."
+      zh: "把数据重新拼起来:通过在 `club_id` 上把 `booking` 连接到 `club`,列出每条预约的 `student` 和其社团的 `coach`,按 `booking.booking_id` 排序。"
+    starter: |
+      SELECT booking.student, club.coach
+      FROM booking
+      INNER JOIN club ON ...
+      ORDER BY booking.booking_id;
+    solution: |
+      SELECT booking.student, club.coach
+      FROM booking
+      INNER JOIN club ON booking.club_id = club.club_id
+      ORDER BY booking.booking_id;
+    check:
+      kind: rows
+      expected: |
+        student | coach
+        Mei | Mr Ng
+        Tom | Mr Ng
+        Sara | Ms Patel
+        Lin | Dr Sato

@@ -1,0 +1,38 @@
+title:
+  en: Changing the schema
+  zh: 修改表结构
+dataset: shop
+tasks:
+  - id: alter
+    prompt:
+      en: "Add a new column `weight` of type `DECIMAL(5, 2)` to the `product` table using `ALTER TABLE`."
+      zh: "用 `ALTER TABLE` 给 `product` 表添加一个新列 `weight`,类型为 `DECIMAL(5, 2)`。"
+    starter: |
+      ALTER TABLE product ADD ...;
+    solution: |
+      ALTER TABLE product ADD weight DECIMAL(5, 2);
+    check:
+      kind: rows
+      probe: "SELECT name, UPPER(REPLACE(type, ' ', '')) AS type FROM pragma_table_info('product') ORDER BY cid;"
+      expected: |
+        name | type
+        code | CHAR(3)
+        title | VARCHAR(20)
+        price | DECIMAL(6,2)
+        in_stock | INTEGER
+        weight | DECIMAL(5,2)
+  - id: drop
+    prompt:
+      en: "Delete the entire `product` table with `DROP TABLE`. (Afterwards only `customer` and `orders` remain.)"
+      zh: "用 `DROP TABLE` 删除整张 `product` 表。(之后只剩下 `customer` 和 `orders`。)"
+    starter: |
+      DROP TABLE ...;
+    solution: |
+      DROP TABLE product;
+    check:
+      kind: rows
+      probe: "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;"
+      expected: |
+        name
+        customer
+        orders

@@ -50,6 +50,7 @@ from web.java_runner import (  # noqa: E402  — single source of truth, shared 
     derive_class_name,
 )
 from web.c_runner import CC, CC_FLAGS, build_c_files  # noqa: E402  — shared with the C server runner
+from web.sql_runner import compare_rows, render_grid, run_sql  # noqa: E402  — same SQLite engine as the browser's sql.js
 
 PY = sys.executable
 SPLIT_RE = re.compile(r"(?m)^\s*-{3,}\s*$")
@@ -306,7 +307,32 @@ def run_solution_c(where: str, task: dict, *, source: str | None = None,
         return True
 
 
-def starter_must_fail(where: str, task: dict, language: str) -> None:
+# ---- SQL path (execution + render helpers shared via web.sql_runner) ----------
+
+def run_solution_sql(where: str, task: dict, seed: str, *, source: str | None = None,
+                     report: bool = True) -> bool:
+    """Run *source* (default ``task['solution']``) against the seeded in-memory DB
+    via ``web.sql_runner`` (Python ``sqlite3`` — the same SQLite engine as the
+    browser's sql.js), render the result grid, and compare to ``check['expected']``.
+    Returns True iff it matches. With ``report=False`` failures are silent — used to
+    probe that a *starter* does not already pass."""
+    chk = task.get("check") or {}
+    code = task["solution"] if source is None else source
+    cols, rows, error = run_sql(seed, code or "", chk.get("probe"))
+    if error:
+        if report:
+            err(where, f"reference solution raised a SQL error:\n  {error}")
+        return False
+    got = render_grid(cols, rows, chk.get("ordered") is not False)
+    if not compare_rows(got, chk.get("expected")):
+        if report:
+            exp = str(chk.get("expected") if chk.get("expected") is not None else "").strip()
+            err(where, "reference solution does not pass its check:\n  got: %r\n  exp: %r" % (got.strip(), exp))
+        return False
+    return True
+
+
+def starter_must_fail(where: str, task: dict, language: str, *, seed: str = "") -> None:
     """A task whose STARTER already passes its check is a no-op — the student
     would have nothing to do. Probe the starter against the check (report=False,
     so a normal "starter fails" outcome is silent) and flag it only if it passes.
@@ -316,13 +342,12 @@ def starter_must_fail(where: str, task: dict, language: str) -> None:
     chk = task.get("check") or {}
     if not starter or not chk.get("kind"):
         return
-    if language == "java":
-        runner = run_solution_java
-    elif language == "c":
-        runner = run_solution_c
+    if language == "sql":
+        passed = run_solution_sql(where, task, seed, source=starter, report=False)
     else:
-        runner = run_solution
-    if runner(where, task, source=starter, report=False):
+        runner = run_solution_java if language == "java" else run_solution_c if language == "c" else run_solution
+        passed = runner(where, task, source=starter, report=False)
+    if passed:
         err(where, f"task '{task.get('id')}' starter already passes its check — "
                    "the task is a no-op; the starter must leave something to complete")
 
@@ -337,6 +362,7 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
 
     is_java = language == "java"
     is_c = language == "c"
+    is_sql = language == "sql"
     if is_java and not (JAVAC and JAVA):
         global _jdk_warned
         if not _jdk_warned:
@@ -362,6 +388,8 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
             continue
         text = p.read_text(encoding="utf-8")
         counts[lang] = len([c for c in SPLIT_RE.split(text) if c.strip()])
+        if is_sql:
+            continue   # no cheap SQL syntax-only check; the solvability gate covers it
         for i, block in enumerate(fence_re.findall(text)):
             label = f"{lang}.md {language} block #{i + 1}"
             if is_java:
@@ -378,7 +406,12 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
         err(where, f"en/zh step count differs: en={counts['en']} zh={counts['zh']}")
 
     # Tasks.
-    valid_kinds = ("stdout", "harness") if (is_java or is_c) else ("stdout", "asserts")
+    if is_sql:
+        valid_kinds = ("rows",)
+    elif is_java or is_c:
+        valid_kinds = ("stdout", "harness")
+    else:
+        valid_kinds = ("stdout", "asserts")
     seen_ids: set[str] = set()
     for task in meta.get("tasks") or []:
         tid = task.get("id")
@@ -400,6 +433,8 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
             chk = {}
         if chk.get("kind") == "stdout" and chk.get("expected") is None:
             err(tw, "stdout check needs 'expected'")
+        if chk.get("kind") == "rows" and chk.get("expected") is None:
+            err(tw, "rows check needs 'expected'")
         if chk.get("kind") == "asserts":
             if not chk.get("code"):
                 err(tw, "asserts check needs 'code'")
@@ -407,6 +442,9 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
                 compile_ok(tw, "check.code", chk["code"])
         if chk.get("kind") == "harness" and not chk.get("code"):
             err(tw, "harness check needs 'code'")
+
+        # SQL seed (CREATE+INSERT run before the student's code); "" for non-SQL tasks.
+        seed = code_content.resolve_seed(slug, meta, task)
 
         if is_java:
             if task.get("starter"):
@@ -424,6 +462,11 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
                 run_solution_c(tw, task)   # compiles the solution too
             else:
                 warn(tw, "no 'solution' — solvability gate skipped")
+        elif is_sql:
+            if task.get("solution"):
+                run_solution_sql(tw, task, seed)
+            else:
+                warn(tw, "no 'solution' — solvability gate skipped")
         else:
             if task.get("starter"):
                 compile_ok(tw, "starter", task["starter"])
@@ -435,7 +478,7 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
 
         # A well-formed task's starter must NOT already pass — else it teaches
         # nothing. (Independent of whether a reference solution is present.)
-        starter_must_fail(tw, task, language)
+        starter_must_fail(tw, task, language, seed=seed)
 
     # The reference solution must never reach the browser.
     data = code_content.load_lesson(slug, nn, "en")

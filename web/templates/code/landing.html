@@ -13,34 +13,58 @@
   </p>
 </header>
 
-<section class="space-y-8">
+<section class="space-y-3">
   {% for course in courses %}
-    <div data-course="{{ course.slug }}">
-      <div class="mb-2 flex items-center gap-3">
-        <span class="code-course-label text-xs font-semibold uppercase tracking-[0.22em]">{{ course.title }}</span>
-        <span class="h-px flex-1 bg-gradient-to-r from-white/18 to-transparent" aria-hidden="true"></span>
+    {# Course = a collapsible card: the user first sees only the title row and
+       unfolds it to reveal the lesson grid. data-course stays on the <details>
+       so the --accent-rgb cascade reaches the header and the nested .code-cards.
+       No overflow-hidden — the .code-card hover lift + glow must not be clipped. #}
+    <details data-course="{{ course.slug }}" id="{{ course.slug }}"
+             class="code-course group/course rounded-2xl border">
+      <summary class="flex cursor-pointer list-none items-center gap-3 p-4
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40
+                      [&::-webkit-details-marker]:hidden">
+        <div class="min-w-0 flex-1">
+          <div class="code-course-label truncate text-base font-semibold tracking-tight">{{ course.title }}</div>
+          {% if course.subtitle %}<div class="truncate text-xs text-slate-400">{{ course.subtitle }}</div>{% endif %}
+        </div>
+        <span class="code-course-count shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold">{{ course.lessons|length }} {{ t('code.course.cta') }}</span>
+        <svg class="code-course-chevron h-4 w-4 shrink-0 transition-transform duration-200 group-open/course:rotate-90"
+             fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </summary>
+      <div class="border-t border-white/[0.06] p-3">
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {% for lesson in course.lessons %}
+            <a href="/code/{{ course.slug }}/{{ lesson.nn }}"
+               class="code-card flex items-center gap-3 rounded-2xl border p-4 focus:outline-none">
+              <div class="code-card-badge flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
+                <span class="text-sm font-semibold">{{ lesson.nn }}</span>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="truncate text-sm font-semibold text-white">{{ lesson.title }}</div>
+                <div class="code-card-sub text-xs">{{ t('code.lesson.start') }}</div>
+              </div>
+              <svg class="code-card-chevron h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          {% endfor %}
+        </div>
       </div>
-      {% if course.subtitle %}<p class="mb-3 text-sm text-slate-400">{{ course.subtitle }}</p>{% endif %}
-      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {% for lesson in course.lessons %}
-          <a href="/code/{{ course.slug }}/{{ lesson.nn }}"
-             class="code-card flex items-center gap-3 rounded-2xl border p-4 focus:outline-none">
-            <div class="code-card-badge flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
-              <span class="text-sm font-semibold">{{ lesson.nn }}</span>
-            </div>
-            <div class="min-w-0 flex-1">
-              <div class="truncate text-sm font-semibold text-white">{{ lesson.title }}</div>
-              <div class="code-card-sub text-xs">{{ t('code.lesson.start') }}</div>
-            </div>
-            <svg class="code-card-chevron h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-          </a>
-        {% endfor %}
-      </div>
-    </div>
+    </details>
   {% else %}
     <p class="text-sm text-slate-400">No lessons yet.</p>
   {% endfor %}
 </section>
+<script>
+  // Re-open + scroll to the course accordion named by the URL hash (e.g. /code#a-level-cs).
+  (function () {
+    var id = (location.hash || "").slice(1);
+    if (!id) return;
+    var el = document.getElementById(decodeURIComponent(id));
+    if (el && el.tagName === "DETAILS") { el.open = true; el.scrollIntoView({ block: "start" }); }
+  })();
+</script>
 {% endblock %}

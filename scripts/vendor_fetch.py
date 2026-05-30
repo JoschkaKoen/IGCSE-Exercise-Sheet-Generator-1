@@ -12,7 +12,8 @@ Resources fetched:
   - pdfjs-dist 4.6.82 (pdf.mjs + pdf.worker.mjs + cmaps/ + standard_fonts/)
   - Chart.js 4.4.6 (UMD min)
   - Pyodide 0.29.4 (pyodide.mjs + asm.js + asm.wasm + python_stdlib.zip + lock.json)
-  - CodeMirror 5.65.18 (lib + python/clike modes + edit/selection/display/runmode addons; theme is custom CSS)
+  - CodeMirror 5.65.18 (lib + python/clike/sql modes + edit/selection/display/runmode addons; theme is custom CSS)
+  - sql.js 1.13.0 (sql-wasm.js + sql-wasm.wasm — SQLite-in-WASM for the client-side SQL course runner)
 """
 from __future__ import annotations
 
@@ -233,6 +234,7 @@ def main() -> int:
         "lib/codemirror.css",
         "mode/python/python.js",
         "mode/clike/clike.js",
+        "mode/sql/sql.js",
         "addon/edit/closebrackets.js",
         "addon/edit/matchbrackets.js",
         "addon/comment/comment.js",
@@ -243,6 +245,18 @@ def main() -> int:
         download(
             f"https://cdn.jsdelivr.net/npm/codemirror@{CM_VER}/{p}",
             VENDOR_DIR / "codemirror" / p,
+        )
+
+    # 9. sql.js 1.13.0 — SQLite compiled to WebAssembly, for the client-side SQL
+    # course runner (web/static/js/code-worker-sql.js). Vendored same-origin (NOT a
+    # CDN, like Pyodide) so it loads under the /code page's COEP: require-corp and is
+    # reachable from mainland China. sql-wasm.js is the Emscripten UMD loader the
+    # classic worker importScripts()es; it fetches sql-wasm.wasm via locateFile.
+    SQLJS_VER = "1.13.0"
+    for f in ("sql-wasm.js", "sql-wasm.wasm"):
+        download(
+            f"https://cdn.jsdelivr.net/npm/sql.js@{SQLJS_VER}/dist/{f}",
+            VENDOR_DIR / "sqljs" / f,
         )
 
     print("\nDone.")

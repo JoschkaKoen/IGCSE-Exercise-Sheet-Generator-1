@@ -1,0 +1,40 @@
+title:
+  en: Choosing columns
+  zh: 选择列
+dataset: students
+tasks:
+  - id: pick-cols
+    prompt:
+      en: "Select only the `name` and `score` columns from `student`, in that order."
+      zh: "只从 `student` 选择 `name` 和 `score` 两列,按此顺序。"
+    starter: |
+      -- Name the two columns you want, separated by a comma:
+      SELECT FROM student;
+    solution: |
+      SELECT name, score FROM student;
+    check:
+      kind: rows
+      expected: |
+        name | score
+        Mei | 88
+        Jamal | 72
+        Sara | 95
+        Tom | 64
+        Lin | 88
+  - id: alias
+    prompt:
+      en: "Select `name` and `score`, but rename the headings to `pupil` and `mark` using `AS`."
+      zh: "选择 `name` 和 `score`,但用 `AS` 把标题改成 `pupil` 和 `mark`。"
+    starter: |
+      SELECT name, score FROM student;
+    solution: |
+      SELECT name AS pupil, score AS mark FROM student;
+    check:
+      kind: rows
+      expected: |
+        pupil | mark
+        Mei | 88
+        Jamal | 72
+        Sara | 95
+        Tom | 64
+        Lin | 88

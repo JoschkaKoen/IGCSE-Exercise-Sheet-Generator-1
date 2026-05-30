@@ -1,0 +1,20 @@
+title:
+  en: Deleting rows
+  zh: 删除行
+dataset: shop
+tasks:
+  - id: delete
+    prompt:
+      en: "Delete the product with code `'P03'` from the `product` table. (Afterwards only `P01` and `P02` remain.)"
+      zh: "从 `product` 表删除 code 为 `'P03'` 的产品。(之后只剩下 `P01` 和 `P02`。)"
+    starter: |
+      DELETE FROM product WHERE ...;
+    solution: |
+      DELETE FROM product WHERE code = 'P03';
+    check:
+      kind: rows
+      probe: "SELECT code, title FROM product ORDER BY code;"
+      expected: |
+        code | title
+        P01 | Notebook
+        P02 | Pen
