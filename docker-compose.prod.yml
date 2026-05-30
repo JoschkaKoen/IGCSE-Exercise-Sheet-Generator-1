@@ -1,0 +1,18 @@
+# Server-only override for PULL-mode deploys: use the pre-built GHCR image instead
+# of building on the box. Selected by scripts/pull-and-deploy.sh when IMAGE_TAG is
+# set (the GitHub Actions deploy job):
+#
+#   IMAGE_TAG=<sha> docker compose -f docker-compose.yml -f docker-compose.prod.yml pull
+#   IMAGE_TAG=<sha> docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# `build: !reset null` removes the build section inherited from docker-compose.yml so
+# Compose pulls the registry image rather than rebuilding (the !reset tag needs
+# Compose v2.24+). Everything else (volumes, env_file, networks, ports, sandbox
+# hardening) is inherited from the base file. Requires a one-time `docker login
+# ghcr.io` on the server (PAT scoped read:packages; the package is private).
+services:
+  web:
+    image: ghcr.io/joschkakoen/exercise-app:${IMAGE_TAG:-latest}
+    build: !reset null
+  java-sandbox:
+    image: ghcr.io/joschkakoen/exercise-app:${IMAGE_TAG:-latest}

@@ -1,16 +1,17 @@
-# Event-driven deploy: SSH into the server only when `main` changes on GitHub
-# (push or manual workflow run). The server pulls and rebuilds Docker only if
-# `pull-and-deploy.sh` fast-forwards to new commits — no polling.
+# Event-driven deploy: build the image in GitHub Actions, push it to GHCR, then SSH
+# into the server which only *pulls* it — no apt/pip/gcc compile on the VPS.
 #
 # Required GitHub repository secrets (Settings → Secrets and variables → Actions):
-#   DEPLOY_HOST       — server hostname or IP (e.g. 43.160.216.10)
-#   DEPLOY_USER       — SSH login (e.g. root)
-#   DEPLOY_SSH_KEY    — private key PEM (full file, including -----BEGIN ... END-----)
+#   DEPLOY_HOST    — server hostname or IP (e.g. 43.160.216.10)
+#   DEPLOY_USER    — SSH login (e.g. root)
+#   DEPLOY_SSH_KEY — private key PEM (full file, incl. -----BEGIN ... END-----)
+# Optional DEPLOY_PORT (default 22).
 #
-# Optional secret DEPLOY_PORT (e.g. 2222) if SSH is not on 22; omitted secret → port 22.
+# ONE-TIME server setup for the pull path: `docker login ghcr.io` with a PAT scoped
+# read:packages (the GHCR package is private), persisted in /root/.docker/config.json.
+# Without it the pull 404s and the deploy fails — the old container keeps running.
 #
-# On the server, install the matching *public* key in ~/.ssh/authorized_keys
-# for DEPLOY_USER. The server clone must live at DEPLOY_PATH below (or edit it).
+# The build job authenticates to GHCR with the per-run GITHUB_TOKEN (packages: write).
 
 name: Deploy
 
@@ -23,22 +24,49 @@ concurrency:
   group: deploy-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  IMAGE: ghcr.io/joschkakoen/exercise-app
+
 jobs:
+  build:
+    runs-on: ubuntu-latest          # amd64 — matches the VPS (uname -m = x86_64)
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1            # repo .git is ~3.6 GB; shallow clone keeps checkout fast
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: app
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=min   # min: final-stage layers only → stays under GitHub's 10 GB Actions-cache cap
+
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: SSH deploy
+      - name: SSH deploy (pull mode)
         uses: appleboy/ssh-action@v1.2.2
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           port: ${{ secrets.DEPLOY_PORT || '22' }}
-          # Cold `docker compose up --build` (TeX + JDK + pip) can exceed 10m on a
-          # small VPS — export/unpack alone is often 5+ minutes.
-          command_timeout: 30m
+          command_timeout: 15m        # pull, not build
           script: |
             set -euo pipefail
-            DEPLOY_PATH="/root/esg"
-            cd "$DEPLOY_PATH"
-            ./scripts/pull-and-deploy.sh
+            cd /root/esg
+            IMAGE_TAG=${{ github.sha }} ./scripts/pull-and-deploy.sh
