@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Waves}\\[0.35em]
+  {\large Igcse Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{General properties of waves}
+
+A \textbf{wave} 波 carries \textbf{energy} 能量 from place to place \textbf{without} carrying matter. For example, a water wave makes a floating cork bob up and down, but the cork does not travel along with the wave.
+
+\subsection*{Describing a wave}
+
+\begin{itemize}
+\item \textbf{wavefront} 波前: a line joining points on a wave that move together (for example, the top of one ripple)
+
+\item \textbf{wavelength} 波长 ($\lambda$): the distance between two neighbouring wavefronts (one full wave)
+
+\item \textbf{frequency} 频率 ($f$): the number of waves passing a point each second, measured in hertz (Hz)
+
+\item \textbf{crest} 波峰 (top) and \textbf{trough} 波谷 (bottom)
+
+\item \textbf{amplitude} 振幅: the largest distance a point moves from its rest position
+
+\item \textbf{wave speed} 波速 ($v$): how fast a wavefront travels
+
+\end{itemize}
+
+These are linked by the \textbf{wave equation}:
+
+\[
+v = f\lambda
+\]
+
+\subsection*{Two types of wave}
+
+\begin{itemize}
+\item In a \textbf{transverse wave} 横波 the particles vibrate at right angles (90°) to the direction the wave travels (its \textbf{propagation} 传播). Light and water waves are transverse.
+
+\item In a \textbf{longitudinal wave} 纵波 the particles vibrate along the same direction as the wave travels. Sound is longitudinal.
+
+\end{itemize}
+
+\subsection*{Wave behaviour}
+
+All waves can show three behaviours, which you can see in a \textbf{ripple tank} 波纹水槽:
+
+\begin{itemize}
+\item \textbf{reflection} 反射: the wave bounces off a surface.
+
+\item \textbf{refraction} 折射: the wave changes speed (and usually direction) when it enters a different material or depth.
+
+\item \textbf{diffraction} 衍射: the wave spreads out after passing through a gap or around an edge. The spreading is greatest when the gap is about the same size as the wavelength.
+
+\end{itemize}
+
+\section*{Light 光}
+
+\subsection*{Reflection}
+
+When light hits a mirror, it reflects. We measure angles from the \textbf{normal} 法线 (a line at 90° to the surface).
+
+The \textbf{law of reflection}: the \textbf{angle of incidence} 入射角 equals the \textbf{angle of reflection} 反射角.
+
+A \textbf{plane mirror} 平面镜 forms an image that is the same size as the object, the same distance behind the mirror, and \textbf{virtual} (it cannot be caught on a screen).
+
+\subsection*{Refraction}
+
+When light passes from one material into another, it changes speed and bends. The angle in the second material is the \textbf{angle of refraction} 折射角.
+
+The \textbf{refractive index} 折射率 $n$ compares the speed of light in the two materials:
+
+\[
+n = \frac{\sin i}{\sin r}
+\]
+
+When light tries to leave glass or water and the angle is too large, it cannot get out and instead reflects completely. This is \textbf{total internal reflection} 全反射. It happens when the angle inside is bigger than the \textbf{critical angle} 临界角 $c$:
+
+\[
+n = \frac{1}{\sin c}
+\]
+
+This effect is used in \textbf{optical fibres} 光纤, thin glass threads that carry light signals for telephones and the internet.
+
+\subsection*{Lenses}
+
+A \textbf{converging lens} 凸透镜 (fat in the middle) bends parallel rays inwards to a point called the \textbf{principal focus} 焦点. The distance from the lens to this point is the \textbf{focal length} 焦距. A \textbf{diverging lens} 凹透镜 (thin in the middle) spreads rays out.
+
+A converging lens can form a \textbf{real image} 实像 (rays really meet; can be shown on a screen) or, when the object is very close, a \textbf{virtual image} 虚像 (rays only seem to come from it). Used close to the eye, a converging lens is a \textbf{magnifying glass} 放大镜.
+
+\subsection*{Dispersion}
+
+A glass \textbf{prism} 棱镜 splits white light into the colours of the \textbf{spectrum} 光谱. This splitting is called \textbf{dispersion} 色散. The order of colours is red, orange, yellow, green, blue, indigo, violet. Red light has the longest wavelength and the lowest frequency; violet is the opposite. Light of a single frequency (one pure colour) is \textbf{monochromatic} 单色.
+
+\section*{The electromagnetic spectrum 电磁波谱}
+
+The \textbf{electromagnetic spectrum} is a family of waves that all travel at the same high speed in a \textbf{vacuum} 真空, $3.0 \times 10^8\ \text{m/s}$. In order from longest wavelength (lowest frequency) to shortest:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Region} & \textbf{A typical use} & \textbf{Danger from too much} \\
+\midrule
+\textbf{radio waves} 无线电波 & radio and TV signals & — \\
+\textbf{microwaves} 微波 & mobile phones, satellite TV, cooking & heating of body cells \\
+\textbf{infrared} 红外线 & remote controls, thermal imaging, grills & skin burns \\
+visible light & seeing, photography & — \\
+\textbf{ultraviolet} 紫外线 & sterilising water, checking bank notes & skin cancer, eye damage \\
+\textbf{X-rays} X射线 & medical and security scans & damage to cells \\
+\textbf{gamma rays} 伽马射线 & sterilising equipment, treating cancer & mutation of cells \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+As you go from radio waves to gamma rays, the frequency rises, the wavelength falls, and the energy (and danger) rises.
+
+\section*{Sound 声音}
+
+\textbf{Sound} is made by a vibrating object. It is a \textbf{longitudinal wave}: the air is squeezed into a \textbf{compression} 压缩 (particles close together) and stretched into a \textbf{rarefaction} 稀疏 (particles far apart).
+
+\begin{itemize}
+\item Sound needs a \textbf{medium} 介质 (a material) to travel through, so it cannot travel through a vacuum.
+
+\item Humans can hear frequencies from about $20\ \text{Hz}$ to $20\,000\ \text{Hz}$.
+
+\item Sound travels much slower than light (about $340\ \text{m/s}$ in air), and faster in liquids and solids than in gases.
+
+\end{itemize}
+
+A reflected sound is an \textbf{echo} 回声. You can find the speed of sound by timing an echo over a known distance.
+
+
+\end{document}

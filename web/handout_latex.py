@@ -36,6 +36,7 @@ __all__ = [
     "render_body",
     "build_preamble",
     "resolve_print_image",
+    "escape_latex",
     "CJK_MAIN_FONT",
 ]
 
@@ -90,6 +91,11 @@ def _esc(text: str) -> str:
     """Escape LaTeX specials in prose text (single pass). Unicode (CJK, ×, °)
     passes through untouched — xelatex renders it directly."""
     return _LATEX_RE.sub(lambda m: _LATEX_MAP[m.group()], text)
+
+
+# Public alias: ``web.vocab_latex`` escapes glossary cells with the same single-pass
+# escaper (CJK / pinyin diacritics pass through untouched).
+escape_latex = _esc
 
 
 def _subject_display(subject_key: str) -> str:

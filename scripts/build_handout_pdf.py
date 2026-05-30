@@ -7,7 +7,7 @@ committed; the website keeps serving the live markdown.
 
 Usage:
   .venv/bin/python -m scripts.build_handout_pdf <subject> [topic]   # one subject, or one NN
-  .venv/bin/python -m scripts.build_handout_pdf --all               # all TARGET_SUBJECTS
+  .venv/bin/python -m scripts.build_handout_pdf --all               # every subject with handout .md
   .venv/bin/python -m scripts.build_handout_pdf <subject> [topic] --no-regen  # compile existing .tex as-is
 
 A ``% handout-pdf: manual`` sentinel on line 1 of a ``.tex`` protects hand-edits:
@@ -17,18 +17,14 @@ convenience that compiles the existing ``.tex`` without re-running the converter
 
 from __future__ import annotations
 
-import datetime as _dt
-import os
-import shutil
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
+from scripts._latex_build import compile_tex, source_date_epoch
 from web.handout_latex import build_document
 from web.handouts_collect import (
-    TARGET_SUBJECTS,
     handout_dir,
+    handout_subjects,
     load_meta,
     logs_dir,
     md_path,
@@ -39,23 +35,6 @@ from web.handouts_collect import (
 )
 
 MANUAL_SENTINEL = "% handout-pdf: manual"
-
-
-def _find_xelatex() -> str | None:
-    for c in ("/Library/TeX/texbin/xelatex", "/usr/local/bin/xelatex", "/usr/bin/xelatex"):
-        if Path(c).is_file():
-            return c
-    return shutil.which("xelatex")
-
-
-def _source_date_epoch(meta: dict) -> str:
-    """Stable PDF timestamp from the content stamp → no git churn on rebuild."""
-    stamp = meta.get("glossed_at") or meta.get("generated_at") or "2020-01-01T00:00:00Z"
-    try:
-        d = _dt.datetime.strptime(stamp, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=_dt.timezone.utc)
-        return str(int(d.timestamp()))
-    except (ValueError, TypeError):
-        return "1577836800"  # 2020-01-01T00:00:00Z
 
 
 def _topics(subject: str) -> list[str]:
@@ -70,38 +49,6 @@ def _is_manual(tex_file: Path) -> bool:
             return f.readline().strip() == MANUAL_SENTINEL
     except OSError:
         return False
-
-
-def _compile(tex_file: Path, out_pdf: Path, *, sde: str, log_target: Path) -> tuple[bool, str]:
-    xelatex = _find_xelatex()
-    if not xelatex:
-        return False, "xelatex not found"
-    env = {**os.environ, "SOURCE_DATE_EPOCH": sde, "FORCE_SOURCE_DATE": "1"}
-    with tempfile.TemporaryDirectory(prefix="handout_pdf_") as tmp:
-        tmp_path = Path(tmp)
-        work = tmp_path / tex_file.name
-        work.write_text(tex_file.read_text(encoding="utf-8"), encoding="utf-8")
-        cmd = [xelatex, "-interaction=nonstopmode", f"-output-directory={tmp_path}", str(work)]
-        try:
-            result = subprocess.run(
-                cmd, capture_output=True, text=True, timeout=120, cwd=str(tmp_path), env=env
-            )
-        except subprocess.TimeoutExpired:
-            return False, "xelatex timed out (120s)"
-        except OSError as exc:
-            return False, f"xelatex error: {exc}"
-        produced = tmp_path / (work.stem + ".pdf")
-        if not produced.is_file():
-            try:
-                log_target.parent.mkdir(parents=True, exist_ok=True)
-                log_target.write_text(result.stdout or "", encoding="utf-8")
-                loc = f" (full log: {log_target})"
-            except OSError:
-                loc = ""
-            return False, f"no PDF produced{loc}\n     …{(result.stdout or '')[-900:]}"
-        out_pdf.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(str(produced), str(out_pdf))
-        return True, ""
 
 
 def _build_one(subject: str, topic: str, *, no_regen: bool) -> tuple[bool, list[str], str]:
@@ -120,11 +67,12 @@ def _build_one(subject: str, topic: str, *, no_regen: bool) -> tuple[bool, list[
         tex_file.write_text(tex, encoding="utf-8")
     elif not tex_file.is_file():
         return False, warnings, "no .tex to compile (run without --no-regen first)"
-    ok, err = _compile(
+    ok, err = compile_tex(
         tex_file,
         pdf_path(subject, topic),
-        sde=_source_date_epoch(meta),
+        sde=source_date_epoch(meta),
         log_target=logs_dir(subject, topic) / "xelatex.log",
+        prefix="handout_pdf_",
     )
     if protected and ok:
         warnings.append("manual .tex (not regenerated)")
@@ -139,7 +87,7 @@ def main(argv: list[str]) -> int:
     argv = [a for a in argv if a != "--no-regen"]
 
     if argv == ["--all"]:
-        targets = [(s, t) for s in TARGET_SUBJECTS for t in _topics(s)]
+        targets = [(s, t) for s in handout_subjects() for t in _topics(s)]
     elif argv and not argv[0].startswith("--"):
         subject = argv[0]
         if not handout_dir(subject).is_dir():

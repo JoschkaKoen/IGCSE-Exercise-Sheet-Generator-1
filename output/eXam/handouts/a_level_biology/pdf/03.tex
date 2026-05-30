@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Enzymes}\\[0.35em]
+  {\large A Level Biology}
+\end{center}
+\vspace{0.6em}
+
+\section*{What enzymes are}
+
+\textbf{Enzymes} 酶 are \textbf{globular proteins} 球状蛋白质 — a type of \textbf{protein} 蛋白质 with a rounded, soluble shape. They are biological catalysts: they \textbf{catalyse} 催化 (speed up) the chemical reactions in living things, and they are not used up, so each enzyme works again and again.
+
+Enzymes work in two places:
+
+\begin{itemize}
+\item \textbf{intracellular} 细胞内 enzymes work inside the \textbf{cell} 细胞 that made them. An example is \textbf{catalase} 过氧化氢酶, which breaks down harmful hydrogen peroxide.
+
+\item \textbf{extracellular} 细胞外 enzymes are \textbf{secreted} 分泌 (sent out) to work outside the cell. An example is \textbf{amylase} 淀粉酶, which is released into the gut to \textbf{digest} 消化 \textbf{starch} 淀粉.
+
+\end{itemize}
+
+\section*{How enzymes work}
+
+Each enzyme has a special pocket called the \textbf{active site} 活性位点. The molecule it acts on is its \textbf{substrate} 底物. The substrate fits into the active site to form an \textbf{enzyme–substrate complex} 酶底物复合物. The reaction then happens, and the \textbf{products} 产物 leave, freeing the active site for the next substrate.
+
+\subsection*{Specificity}
+
+An enzyme is \textbf{specific}: it usually works on only one substrate. This is because the shape of the active site is \textbf{complementary} 互补 to (fits) the shape of that substrate and no other. We call this \textbf{specificity} 专一性.
+
+Two ideas explain how the substrate fits:
+
+\begin{itemize}
+\item the \textbf{lock-and-key hypothesis} 锁钥学说 — the active site is a fixed shape, and only a substrate with the matching shape fits, like a key in a lock.
+
+\item the \textbf{induced-fit hypothesis} 诱导契合学说 — the active site is not quite the right shape at first. When the substrate binds, the active site changes shape a little to wrap around it tightly. This idea fits the evidence better.
+
+\end{itemize}
+
+\subsection*{Lowering activation energy}
+
+Every reaction needs a small "push" of energy to start, called the \textbf{activation energy} 活化能. An enzyme lowers the activation energy. This lets the reaction go quickly at the cell's normal \textbf{temperature} 温度, instead of needing high heat.
+
+\section*{Measuring the rate of a reaction}
+
+You can follow an enzyme reaction in two ways:
+
+\begin{itemize}
+\item measure how fast \textbf{product} is made. With catalase, oxygen gas is a product, so you collect the gas and measure its volume over time.
+
+\item measure how fast substrate disappears. With amylase, you remove samples and use the iodine test; the blue-black colour fades as the starch is used up.
+
+\end{itemize}
+
+A \textbf{colorimeter} 比色计 makes this exact. It shines light through the tube and measures how much light is absorbed, so a colour change becomes a number you can plot.
+
+The \textbf{rate of reaction} 反应速率 is steepest at the start (most substrate present), so the \textbf{initial rate} (the slope at time zero) is the fairest value to compare.
+
+\section*{Factors that affect enzyme activity}
+
+\subsection*{Temperature}
+
+As temperature rises, molecules gain more \textbf{kinetic energy} 动能 and \textbf{collide} 碰撞 more often, so the rate rises. But above the \textbf{optimum temperature} 最适温度 the enzyme begins to \textbf{denature} 变性: the heat breaks the bonds holding its shape, so the active site changes and no longer fits the substrate. The rate then falls quickly.
+
+\subsection*{pH}
+
+Each enzyme has an optimum pH. If the pH moves too far from it, the enzyme denatures and the rate drops. To study pH fairly, you keep it steady with a \textbf{buffer solution} 缓冲液.
+
+\subsection*{Enzyme concentration}
+
+With plenty of substrate, more enzyme means more active sites, so the rate goes up in proportion to enzyme concentration.
+
+\subsection*{Substrate concentration}
+
+At first, adding more substrate speeds the reaction. But once every active site is busy, adding more makes no difference — the rate levels off at a maximum.
+
+\subsection*{Inhibitor concentration}
+
+An \textbf{inhibitor} 抑制剂 is a molecule that slows an enzyme. The more inhibitor present, the lower the rate.
+
+\section*{V\_max and the Michaelis–Menten constant}
+
+The levelling-off rate, when all active sites are full, is the maximum rate, written $V_{\text{max}}$.
+
+The \textbf{Michaelis–Menten constant} 米氏常数 ($K_{\text{m}}$) is the substrate concentration that gives \textbf{half} of $V_{\text{max}}$. It tells you about the enzyme's \textbf{affinity} 亲和力 (pulling power) for its substrate:
+
+\begin{itemize}
+\item a \textbf{low} $K_{\text{m}}$ means the enzyme reaches half-speed at a low substrate concentration, so it has a \textbf{high} affinity.
+
+\item a \textbf{high} $K_{\text{m}}$ means a \textbf{low} affinity.
+
+\end{itemize}
+
+So $K_{\text{m}}$ lets you compare how strongly different enzymes hold their substrates.
+
+\section*{Reversible inhibitors}
+
+Some inhibitors are \textbf{reversible} 可逆: they can leave the enzyme again. There are two types.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{Type} & \textbf{Where it binds} & \textbf{Effect of adding more substrate} & \textbf{Effect on $V_{\text{max}}$ and $K_{\text{m}}$} \\
+\midrule
+\textbf{competitive inhibitor} 竞争性抑制剂 & in the active site (it has a similar shape to the substrate) & more substrate out-competes it, so its effect is reduced & $V_{\text{max}}$ unchanged; $K_{\text{m}}$ rises \\
+\textbf{non-competitive inhibitor} 非竞争性抑制剂 & at another site, changing the active site's shape & adding more substrate does not help & $V_{\text{max}}$ falls; $K_{\text{m}}$ unchanged \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Immobilised enzymes}
+
+An \textbf{immobilised enzyme} 固定化酶 is fixed in place — for example, trapped inside small beads of \textbf{alginate} 海藻酸盐 — instead of floating free in solution. The substrate solution flows past the beads.
+
+A free enzyme usually works a little faster, because the substrate can reach it easily. But immobilised enzymes have big practical advantages:
+
+\begin{itemize}
+\item the enzyme is not washed away, so it can be used again and again.
+
+\item the product is pure — it is not mixed with enzyme.
+
+\item the enzyme is more stable, so it survives changes in temperature and pH better.
+
+\item the process can run continuously, with substrate flowing in and product flowing out.
+
+\end{itemize}
+
+
+\end{document}

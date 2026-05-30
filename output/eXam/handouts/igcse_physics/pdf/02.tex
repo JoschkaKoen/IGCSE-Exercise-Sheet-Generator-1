@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Thermal physics}\\[0.35em]
+  {\large Igcse Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{States of matter 物态}
+
+Matter exists in three states: \textbf{solid} 固体, \textbf{liquid} 液体 and \textbf{gas} 气体.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{State} & \textbf{Shape} & \textbf{Volume} & \textbf{Particles} \\
+\midrule
+Solid & fixed & fixed & close together, in a regular pattern, vibrating \\
+Liquid & takes the shape of the container & fixed & close together, no pattern, can move past each other \\
+Gas & fills the container & changes & far apart, fast, random motion \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+The changes of state are: melting (solid → liquid), boiling/evaporating (liquid → gas), \textbf{condensation} 凝结 (gas → liquid) and \textbf{solidification} 凝固 (liquid → solid).
+
+\section*{The kinetic particle model 分子动理论}
+
+All matter is made of tiny \textbf{particles} 粒子 that are always moving. This is the kinetic particle model.
+
+\begin{itemize}
+\item In a solid the particles only \textbf{vibrate} 振动 about fixed positions.
+
+\item In a liquid they are still close but can slide past each other.
+
+\item In a gas they are far apart and move quickly in random directions.
+
+\end{itemize}
+
+\subsection*{Temperature and particle energy}
+
+When you heat a substance, its particles move faster, so they have more \textbf{kinetic energy} 动能. \textbf{Temperature} 温度 is a measure of the average kinetic energy of the particles.
+
+The lowest possible temperature is \textbf{absolute zero} 绝对零度, $-273\,^{\circ}\text{C}$. At this point the particles have the least possible energy.
+
+\subsection*{Gas pressure}
+
+Gas particles hit the walls of their container. Each hit is a tiny push. The \textbf{pressure} 压强 of the gas is the total force of these hits per unit area.
+
+\begin{itemize}
+\item Heating a gas (at constant volume) makes particles move faster and hit harder and more often, so the pressure rises.
+
+\item Squeezing a gas into a smaller volume (at constant temperature) means more hits per second on each unit of area, so the pressure rises.
+
+\end{itemize}
+
+For a fixed mass of gas at constant temperature:
+
+\[
+pV = \text{constant}
+\]
+
+So if the volume halves, the pressure doubles.
+
+\subsection*{Brownian motion}
+
+If you look at smoke in air under a microscope, you see tiny specks moving in a jerky, random way. This is \textbf{Brownian motion} 布朗运动. The specks are pushed by fast, invisible air particles hitting them. It is strong evidence for the kinetic particle model.
+
+\subsection*{The kelvin scale}
+
+Scientists often use the \textbf{kelvin} 开尔文 (K) temperature scale, which starts at absolute zero. To convert:
+
+\[
+T\text{ (in K)} = \theta\text{ (in }^{\circ}\text{C}) + 273
+\]
+
+So $0\,^{\circ}\text{C} = 273\ \text{K}$.
+
+\section*{Thermal expansion 热膨胀}
+
+When matter is heated, its particles move more and take up more space, so the material expands. Gases expand the most, then liquids, then solids.
+
+Everyday examples: gaps are left between railway lines; bridges sit on rollers; a tight metal lid loosens when heated.
+
+\section*{Internal energy and specific heat capacity}
+
+The \textbf{internal energy} 内能 of an object is the total energy of all its particles. Heating an object raises its internal energy and usually its temperature.
+
+The \textbf{specific heat capacity} 比热容 is the energy needed to raise the temperature of 1 kg of a material by 1 °C.
+
+\[
+c = \frac{\Delta E}{m\,\Delta\theta}
+\]
+
+A material with a high specific heat capacity (like water) needs a lot of energy to warm up and cools down slowly.
+
+\section*{Melting, boiling and evaporation}
+
+\textbf{Melting} 熔化 and \textbf{boiling} 沸腾 need energy, but the temperature stays the same while the state changes. This energy breaks the forces between particles. For water at normal air pressure, melting is at $0\,^{\circ}\text{C}$ and boiling at $100\,^{\circ}\text{C}$.
+
+\textbf{Evaporation} 蒸发 is when a liquid changes to a gas at its surface, below the boiling point. The fastest particles escape from the surface. Because the fastest (most energetic) particles leave, the average energy of those left behind falls, so the liquid \textbf{cools down} 冷却.
+
+Evaporation is faster when the temperature is higher, the surface area is larger, and there is more air movement over the surface.
+
+\section*{Transfer of thermal energy 热能传递}
+
+Thermal energy moves from hotter places to colder places in three ways.
+
+\subsection*{Conduction}
+
+\textbf{Conduction} 热传导 is the transfer of thermal energy through a material without the material moving. Heated particles vibrate more and pass the energy to their neighbours. In metals, free (\textbf{delocalised}) \textbf{electrons} 自由电子 carry energy quickly, so metals are good \textbf{thermal conductors} 热导体.
+
+Materials that conduct badly (like air, wood and plastic) are \textbf{thermal insulators} 热绝缘体.
+
+\subsection*{Convection}
+
+\textbf{Convection} 对流 happens in liquids and gases. When a fluid is heated it expands, becomes less dense, and rises. Cooler, denser fluid sinks to take its place. This circle of moving fluid is a \textbf{convection current}.
+
+Convection cannot happen in a solid because the particles cannot move from place to place.
+
+\subsection*{Radiation}
+
+\textbf{Thermal radiation} 热辐射 is energy carried by \textbf{infrared} 红外线 waves. All objects emit it, and it needs no material to travel through — it can cross empty space (this is how energy reaches us from the Sun).
+
+A surface that is \textbf{dull} 暗淡 and black is a good \textbf{emitter} 发射体 and a good \textbf{absorber} 吸收体 of infrared. A surface that is shiny and white is a poor emitter and a good \textbf{reflector} 反射体.
+
+An object stays at a constant temperature when it emits energy at the same rate as it absorbs energy. The rate of emission is greater when the surface is hotter and larger.
+
+
+\end{document}

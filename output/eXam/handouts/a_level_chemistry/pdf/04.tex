@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries States of matter}\\[0.35em]
+  {\large A Level Chemistry}
+\end{center}
+\vspace{0.6em}
+
+\section*{The gaseous state}
+
+\subsection*{Where gas pressure comes from}
+
+Gas molecules move fast in all directions. They keep hitting — \textbf{colliding} 碰撞 with — the walls of their container. Each hit gives the wall a tiny push. The \textbf{pressure} 压强 of the gas is the overall result of these many collisions on the walls.
+
+\subsection*{Ideal gases}
+
+An \textbf{ideal gas} 理想气体 is a simple model. We assume two things:
+
+\begin{itemize}
+\item the particles themselves take up zero volume.
+
+\item there are no \textbf{intermolecular forces} 分子间作用力 of attraction between the particles.
+
+\end{itemize}
+
+A \textbf{real gas} 实际气体 follows this model closely at low pressure and high temperature. It behaves least like an ideal gas at high pressure and low temperature, when the particles are squeezed close together and the forces between them start to matter.
+
+\subsection*{The ideal gas equation}
+
+The \textbf{ideal gas equation} 理想气体方程 links pressure, volume, amount and temperature:
+
+\[
+pV = nRT
+\]
+
+where $p$ is the pressure in Pa, $V$ is the volume in $\text{m}^3$, $n$ is the amount in moles, $T$ is the temperature in \textbf{kelvin} 开尔文 (K), and $R$ is the \textbf{gas constant} 气体常量 ($8.31\ \text{J K}^{-1}\,\text{mol}^{-1}$).
+
+Always change the units first: °C to K (add 273), and $\text{cm}^3$ or $\text{dm}^3$ to $\text{m}^3$.
+
+You can also use the equation to find a \textbf{molar mass} 摩尔质量. Since $n = m/M$:
+
+\[
+pV = \frac{m}{M}RT \qquad\Rightarrow\qquad M = \frac{mRT}{pV}
+\]
+
+This lets you work out $M_r$ from the mass (or the density) of a gas.
+
+\section*{Bonding and structure}
+
+How a substance behaves depends on how its particles are joined. There are four main structures of a \textbf{crystalline solid} 晶体.
+
+\subsection*{Giant ionic}
+
+A \textbf{giant ionic} 离子晶体 structure is a huge regular \textbf{lattice} 晶格 of positive and negative \textbf{ions} 离子, held together by strong attraction in every direction. Examples are sodium chloride and magnesium oxide.
+
+\subsection*{Simple molecular}
+
+A \textbf{simple molecular} 分子晶体 structure is made of small \textbf{molecules} 分子. The bonds inside each molecule are strong, but the intermolecular forces between the molecules are weak. Examples are iodine ($\text{I}_2$), \textbf{fullerene} 富勒烯 ($\text{C}_{60}$) and ice.
+
+\subsection*{Giant molecular}
+
+A \textbf{giant molecular} 原子晶体 structure (also called giant covalent) is a huge network of atoms joined by strong \textbf{covalent bonds} 共价键. Examples are \textbf{silicon(IV) oxide} 二氧化硅, \textbf{graphite} 石墨 and \textbf{diamond} 金刚石.
+
+\subsection*{Giant metallic}
+
+A \textbf{giant metallic} 金属晶体 structure is a lattice of positive metal ions in a "sea" of \textbf{delocalised electrons} 离域电子. An example is copper.
+
+\subsection*{Physical properties}
+
+The structure decides the physical properties:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{Structure} & \textbf{Melting/boiling point} & \textbf{Conducts electricity?} & \textbf{Solubility in water} \\
+\midrule
+giant ionic & high & only when molten or dissolved & usually soluble \\
+simple molecular & low & no & usually low \\
+giant molecular & very high & no (except graphite) & insoluble \\
+giant metallic & high & yes (solid and molten) & insoluble \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\begin{itemize}
+\item \textbf{melting point} 熔点 and \textbf{boiling point} 沸点 are high when strong forces (ionic, covalent or metallic) must be broken, and low when only weak intermolecular forces break.
+
+\item \textbf{electrical conductivity} 导电性 needs charged particles that can move — ions that are free (when molten or dissolved) or delocalised electrons. Graphite conducts because some of its electrons are delocalised.
+
+\item \textbf{solubility} 溶解度 in water is usually high for ionic solids and low for molecular and giant covalent solids.
+
+\end{itemize}
+
+You can work backwards too: from the melting point, conductivity and solubility of an unknown substance, deduce the type of structure and bonding it has.
+
+
+\end{document}

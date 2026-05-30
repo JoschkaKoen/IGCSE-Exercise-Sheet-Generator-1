@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Chemical energetics}\\[0.35em]
+  {\large A Level Chemistry}
+\end{center}
+\vspace{0.6em}
+
+\section*{Enthalpy change, ΔH}
+
+Every chemical reaction takes in or gives out energy. This energy change, measured at constant pressure, is the \textbf{enthalpy change} 焓变, with symbol $\Delta H$.
+
+\begin{itemize}
+\item in an \textbf{exothermic} 放热 reaction the system gives out heat, so the products have less energy than the reactants and $\Delta H$ is \textbf{negative}.
+
+\item in an \textbf{endothermic} 吸热 reaction the system takes in heat, so the products have more energy than the reactants and $\Delta H$ is \textbf{positive}.
+
+\end{itemize}
+
+\subsection*{Reaction pathway diagrams}
+
+A \textbf{reaction pathway diagram} 反应路径图 shows the energy of the reactants and products, and the energy "hill" between them. The height of the hill is the \textbf{activation energy} 活化能 — the least energy the particles need before they can react.
+
+\begin{itemize}
+\item exothermic: products sit \textbf{lower} than reactants ($\Delta H < 0$).
+
+\item endothermic: products sit \textbf{higher} than reactants ($\Delta H > 0$).
+
+\end{itemize}
+
+\subsection*{Standard conditions and types of enthalpy change}
+
+Energy values are compared under \textbf{standard conditions} 标准条件: $298\ \text{K}$ and $101\ \text{kPa}$, shown by the symbol $^{\ominus}$. Each substance is in its normal physical state at those conditions.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Symbol} & \textbf{Name} & \textbf{Definition (per mole, under standard conditions)} \\
+\midrule
+$\Delta H_r^{\ominus}$ & \textbf{enthalpy change of reaction} 反应焓变 & for the amounts shown in the equation \\
+$\Delta H_f^{\ominus}$ & \textbf{enthalpy change of formation} 生成焓变 & one mole of a compound forms from its elements \\
+$\Delta H_c^{\ominus}$ & \textbf{enthalpy change of combustion} 燃烧焓变 & one mole of a substance burns completely in oxygen \\
+$\Delta H_{\text{neut}}^{\ominus}$ & \textbf{enthalpy change of neutralisation} 中和焓变 & one mole of water forms from an acid and an alkali \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{Energy from breaking and making bonds}
+
+During a reaction, old bonds break and new bonds form. \textbf{Breaking} a bond needs energy (endothermic); \textbf{making} a bond releases energy (exothermic). The enthalpy change of the reaction is the difference between the two:
+
+\[
+\Delta H_r = \sum (\text{bond energies broken}) - \sum (\text{bond energies made})
+\]
+
+The \textbf{bond energy} 键能 is the energy needed to break one mole of a particular bond in the gas state, so it is always positive. Some bond energies are exact (for one specific molecule); others are averages taken over many different molecules, so calculations using them are only approximate.
+
+\subsection*{Measuring enthalpy change in the lab}
+
+When a reaction heats up (or cools down) a known mass of water or solution, the heat transferred is:
+
+\[
+q = mc\Delta T
+\]
+
+where $m$ is the mass, $c$ is the \textbf{specific heat capacity} 比热容 (how much energy raises 1 g by 1 K), and $\Delta T$ is the temperature change. The enthalpy change per mole is then:
+
+\[
+\Delta H = -\frac{mc\Delta T}{n}
+\]
+
+The minus sign makes $\Delta H$ negative when the temperature rises (an exothermic reaction).
+
+\section*{Hess's law}
+
+\textbf{Hess's law} 盖斯定律 says that the total enthalpy change for a reaction is the same, no matter which route you take from reactants to products. This is because energy is conserved.
+
+This lets you draw an \textbf{energy cycle} 能量循环: link the reactants and products by a direct step and by an indirect route, then add the steps so that both routes give the same total.
+
+Hess's law is useful in two ways:
+
+\begin{itemize}
+\item it lets you find an enthalpy change that you \textbf{cannot} measure directly (for example, the formation of a compound that forms slowly or with side reactions).
+
+\item it lets you calculate $\Delta H_r$ from bond energy data, or from formation or combustion data given in the question.
+
+\end{itemize}
+
+
+\end{document}

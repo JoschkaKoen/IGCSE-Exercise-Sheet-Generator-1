@@ -28,11 +28,14 @@ from eXam import open_mode
 from .. import extracted_questions
 from ..handouts_collect import (
     HANDOUTS_ROOT,
+    descriptive_pdf_name,
+    load_glossary,
     load_handout_md,
     load_meta,
     meta_path,
     padded_topic,
     pdf_path,
+    vocab_pdf_path,
 )
 from ..syllabus_content import load_content
 from ..syllabus_topics import load_topics
@@ -278,15 +281,28 @@ async def topics_page(request: Request, subject: str):
         else:
             topic["content_html"] = _render_subtopic(subject, str(topic.get("number") or ""))
         topic_num = str(topic.get("number") or "")
+        topic_title = str(topic.get("title") or "")
         md = load_handout_md(subject, topic_num) if topic_num else None
         topic["handout_html"] = render_md(md) if md else None
-        pf = pdf_path(subject, topic_num) if topic_num else None
-        if pf is not None and pf.is_file():
+        # Vocab table renders wherever a glossary TSV exists (broader than the PDFs);
+        # the download buttons below are gated separately on the compiled .pdf files.
+        topic["vocab_rows"] = (load_glossary(subject, topic_num) or []) if topic_num else []
+        if topic_num:
             pt = padded_topic(topic_num)
             # Served by the existing /handout-media static mount; ?v=<mtime> busts
             # the browser cache when a regenerated PDF is re-committed.
-            topic["handout_pdf_url"] = f"/handout-media/{subject}/pdf/{pt}.pdf?v={int(pf.stat().st_mtime)}"
-            topic["handout_pdf_name"] = f"{_display_name(subject).replace(' ', '-')}-{pt}.pdf"
+            pf = pdf_path(subject, topic_num)
+            if pf.is_file():
+                topic["handout_pdf_url"] = f"/handout-media/{subject}/pdf/{pt}.pdf?v={int(pf.stat().st_mtime)}"
+                topic["handout_pdf_name"] = descriptive_pdf_name(
+                    subject, topic_num, kind="handout", title=topic_title
+                )
+            vf = vocab_pdf_path(subject, topic_num)
+            if vf.is_file():
+                topic["vocab_pdf_url"] = f"/handout-media/{subject}/pdf/{pt}.vocab.pdf?v={int(vf.stat().st_mtime)}"
+                topic["vocab_pdf_name"] = descriptive_pdf_name(
+                    subject, topic_num, kind="vocab", title=topic_title
+                )
     return TEMPLATES.TemplateResponse(
         request,
         "learn/topics.html",

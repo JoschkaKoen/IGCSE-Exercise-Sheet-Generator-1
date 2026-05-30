@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Reaction kinetics}\\[0.35em]
+  {\large A Level Chemistry}
+\end{center}
+\vspace{0.6em}
+
+\section*{Rate equations and orders}
+
+A \textbf{rate equation} 速率方程 shows how the rate depends on the concentrations of the reactants:
+
+\[
+\text{rate} = k\,[\text{A}]^m[\text{B}]^n
+\]
+
+\begin{itemize}
+\item $m$ is the \textbf{order of reaction} 反应级数 with respect to A, and $n$ the order with respect to B. Each is $0$, $1$ or $2$.
+
+\item the \textbf{overall order of reaction} 总反应级数 is $m + n$.
+
+\item $k$ is the \textbf{rate constant} 速率常数. The rate equation can only be found by experiment, not from the balanced equation.
+
+\end{itemize}
+
+\subsection*{Finding the order}
+
+\begin{itemize}
+\item \textbf{initial rates method}: change one concentration at a time and see how the starting rate changes. If doubling $[\text{A}]$ doubles the rate, the order in A is 1; if it quadruples the rate, the order is 2; if the rate is unchanged, the order is 0.
+
+\item \textbf{graphs}: a concentration–time graph for a first-order reaction has a constant \textbf{half-life} 半衰期 (the time for the concentration to halve). A rate–concentration graph is a straight line through the origin for first order, and a curve for second order.
+
+\end{itemize}
+
+\subsection*{Half-life and the rate constant}
+
+For a \textbf{first-order} reaction the half-life is \textbf{constant} — it does not depend on the concentration. You can find the rate constant from it:
+
+\[
+k = \frac{0.693}{t_{\frac{1}{2}}}
+\]
+
+You can also find $k$ by putting initial-rate data into the rate equation.
+
+\section*{Reaction mechanisms}
+
+Most reactions happen in several steps. The slowest step is the \textbf{rate-determining step} 决速步骤, and it controls the overall rate. Only the species involved up to and including this step appear in the rate equation.
+
+\begin{itemize}
+\item an \textbf{intermediate} 中间体 is a species made in one step and then used up in a later step. It is not in the overall equation.
+
+\item you can suggest a mechanism that fits both the rate equation and the overall equation, predict the order from a given mechanism, or pick out the rate-determining step.
+
+\end{itemize}
+
+If you compare the \textbf{initial rate} 初始速率 of different mixtures, you can deduce the rate equation, and from that work out the mechanism.
+
+\subsection*{Effect of temperature}
+
+Raising the temperature increases the rate constant $k$ (more molecules pass the activation energy), so the rate goes up.
+
+\section*{Catalysts}
+
+\textbf{Catalysts} 催化剂 can be homogeneous or heterogeneous.
+
+\subsection*{Heterogeneous catalysts}
+
+A \textbf{heterogeneous catalyst} 多相催化剂 is in a different physical state from the reactants (usually a solid with gases). It works in three stages:
+
+\begin{enumerate}
+\item \textbf{adsorption} 吸附: reactant molecules stick to the catalyst surface.
+
+\item the bonds in the reactants are weakened, so they react more easily.
+
+\item \textbf{desorption} 脱附: the product molecules leave the surface.
+
+\end{enumerate}
+
+Examples are iron in the Haber process, and platinum, palladium and rhodium in a catalytic converter.
+
+\subsection*{Homogeneous catalysts}
+
+A \textbf{homogeneous catalyst} 均相催化剂 is in the same physical state as the reactants. It is used up in one step and then reformed in a later step, so it comes back unchanged. Examples are oxides of nitrogen helping to oxidise atmospheric sulfur dioxide, and $\text{Fe}^{2+}$ or $\text{Fe}^{3+}$ speeding up the reaction between $\text{I}^-$ and $\text{S}_2\text{O}_8^{2-}$.
+
+
+\end{document}

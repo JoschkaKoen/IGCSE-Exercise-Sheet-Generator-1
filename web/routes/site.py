@@ -29,6 +29,7 @@ from ..grade_auth import (
     enforce_grade_rate_limit,
     is_grade_unlocked,
 )
+from ..handouts_collect import descriptive_pdf_name, pdf_dir
 from ..service import invalidate_library_cache, list_library_pdfs
 from ..template_ctx import template_ctx as _template_ctx
 from ..templating import TEMPLATES
@@ -85,6 +86,26 @@ def _validate_syllabus_path(subject: str, filename: str) -> Path:
     if found is None:
         raise HTTPException(status_code=404, detail="File not found")
     path = found.resolve()
+    try:
+        path.relative_to(root)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="Invalid path") from exc
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="File not found")
+    return path
+
+
+def _validate_pdf_dir_path(subject: str, filename: str) -> Path:
+    """Confine *filename* to ``<handouts>/<subject>/pdf/`` (handout + vocab PDFs are flat there)."""
+    if subject not in ALLOWED_SUBJECTS:
+        raise HTTPException(status_code=404, detail="Unknown subject")
+    if "/" in filename or "\\" in filename or filename.strip() != filename:
+        raise HTTPException(status_code=400, detail="Invalid filename")
+    safe = Path(filename).name
+    if safe != filename:
+        raise HTTPException(status_code=400, detail="Invalid filename")
+    root = pdf_dir(subject).resolve()
+    path = (root / safe).resolve()
     try:
         path.relative_to(root)
     except ValueError as exc:
@@ -224,6 +245,20 @@ async def refresh_library_cache() -> dict[str, str]:
 async def library_syllabus_file(subject: str, filename: str) -> FileResponse:
     path = _validate_syllabus_path(subject, filename)
     return FileResponse(path, filename=path.name, media_type="application/pdf")
+
+
+@router.get("/api/library/{subject}/handout/{filename}")
+async def library_handout_file(subject: str, filename: str) -> FileResponse:
+    path = _validate_pdf_dir_path(subject, filename)
+    name = descriptive_pdf_name(subject, filename.split(".")[0], kind="handout")
+    return FileResponse(path, filename=name, media_type="application/pdf")
+
+
+@router.get("/api/library/{subject}/vocab/{filename}")
+async def library_vocab_file(subject: str, filename: str) -> FileResponse:
+    path = _validate_pdf_dir_path(subject, filename)
+    name = descriptive_pdf_name(subject, filename.split(".")[0], kind="vocab")
+    return FileResponse(path, filename=name, media_type="application/pdf")
 
 
 @router.get("/api/library/{subject}/{filename}")

@@ -1,0 +1,350 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Programming}\\[0.35em]
+  {\large Igcse Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Variables and constants}
+
+A \textbf{variable} 变量 is a named store that holds a value which \textbf{can change} while the program runs. A \textbf{constant} 常量 is a named store whose value is \textbf{fixed} and does not change.
+
+You should \textbf{declare} 声明 them (say their name and type) before use:
+
+\begin{Verbatim}
+DECLARE score : INTEGER
+DECLARE name : STRING
+CONSTANT Pi = 3.142
+\end{Verbatim}
+
+Use a constant for a value that never changes (like Pi), so it is set in one place and is easy to read.
+
+\section*{Data types}
+
+A \textbf{data type} 数据类型 says what kind of value a variable holds. You must know five basic types.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Type} & \textbf{Holds} & \textbf{Example} \\
+\midrule
+\textbf{integer} 整数 & a whole number & \texttt{42}, \texttt{-7} \\
+\textbf{real} 实数 & a number with a decimal point & \texttt{3.14}, \texttt{-0.5} \\
+\textbf{char} 字符 & a single character & \texttt{'A'}, \texttt{'?'} \\
+\textbf{string} 字符串 & a sequence of characters & \texttt{"Hello"} \\
+\textbf{Boolean} 布尔值 & one of two values & \texttt{TRUE} or \texttt{FALSE} \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Input and output}
+
+\textbf{Input} 输入 reads a value from the user. \textbf{Output} 输出 shows a value on the screen.
+
+\begin{Verbatim}
+OUTPUT "What is your name?"
+INPUT name
+OUTPUT "Hello ", name
+\end{Verbatim}
+
+\section*{The three basic structures}
+
+Every program is built from three control structures.
+
+\subsection*{Sequence}
+
+\textbf{Sequence} 顺序 means the steps run one after another, in order, from top to bottom.
+
+\begin{Verbatim}
+INPUT length
+INPUT width
+area ← length * width
+OUTPUT area
+\end{Verbatim}
+
+\subsection*{Selection}
+
+\textbf{Selection} 选择 chooses which steps to run, based on a condition. Use an \texttt{IF} statement, or a \texttt{CASE} statement when there are many choices.
+
+\begin{Verbatim}
+IF score >= 50 THEN
+    OUTPUT "Pass"
+ELSE
+    OUTPUT "Fail"
+ENDIF
+\end{Verbatim}
+
+\begin{Verbatim}
+CASE OF grade
+    'A' : OUTPUT "Excellent"
+    'B' : OUTPUT "Good"
+    OTHERWISE : OUTPUT "Keep trying"
+ENDCASE
+\end{Verbatim}
+
+\subsection*{Iteration}
+
+\textbf{Iteration} 迭代 (a loop 循环) repeats steps. There are three kinds.
+
+A \textbf{count-controlled loop} 计数循环 repeats a fixed number of times:
+
+\begin{Verbatim}
+FOR i ← 1 TO 5
+    OUTPUT "Hello"
+NEXT i
+\end{Verbatim}
+
+A \textbf{pre-condition loop} 前测循环 checks the condition \textbf{before} each repeat, so it may run zero times:
+
+\begin{Verbatim}
+WHILE answer <> "stop" DO
+    INPUT answer
+ENDWHILE
+\end{Verbatim}
+
+A \textbf{post-condition loop} 后测循环 checks the condition \textbf{after} each repeat, so it always runs \textbf{at least once}:
+
+\begin{Verbatim}
+REPEAT
+    INPUT password
+UNTIL password = "secret"
+\end{Verbatim}
+
+\section*{Totalling and counting}
+
+\begin{itemize}
+\item \textbf{totalling} 求和 — keep adding values to a running total: \texttt{total ← total + value}.
+
+\item \textbf{counting} 计数 — add 1 to a counter each time: \texttt{count ← count + 1}.
+
+\end{itemize}
+
+\begin{Verbatim}
+total ← 0
+FOR i ← 1 TO 10
+    INPUT mark
+    total ← total + mark
+NEXT i
+OUTPUT total
+\end{Verbatim}
+
+\section*{Operators}
+
+\subsection*{Arithmetic operators}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Operator} & \textbf{Meaning} \\
+\midrule
+\texttt{+} \texttt{-} \texttt{*} \texttt{/} & add, subtract, multiply, divide \\
+\texttt{\textasciicircum{}} & raised to the power of \\
+\texttt{MOD} & the \textbf{remainder} 余数 after division \\
+\texttt{DIV} & the whole-number part of a division \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+For example, \texttt{17 MOD 5} is \texttt{2}, and \texttt{17 DIV 5} is \texttt{3}.
+
+\subsection*{Relational operators}
+
+These compare two values and give a Boolean result: \texttt{=}, \texttt{\textless{}}, \texttt{\textless{}=}, \texttt{\textgreater{}}, \texttt{\textgreater{}=}, and \texttt{\textless{}\textgreater{}} (not equal to).
+
+\subsection*{Logical operators}
+
+These join conditions: \texttt{AND} (both must be true), \texttt{OR} (at least one must be true), \texttt{NOT} (reverses true/false).
+
+\begin{Verbatim}
+IF age >= 13 AND age <= 19 THEN
+    OUTPUT "Teenager"
+ENDIF
+\end{Verbatim}
+
+\section*{String handling}
+
+A string is made of characters. Useful operations:
+
+\begin{itemize}
+\item \textbf{length} 长度 — the number of characters in the string;
+
+\item \textbf{substring} 子串 — a smaller part taken from the string;
+
+\item \textbf{upper case} 大写 — change letters to capitals;
+
+\item \textbf{lower case} 小写 — change letters to small letters.
+
+\end{itemize}
+
+\begin{Verbatim}
+name ← "Computer"
+OUTPUT LENGTH(name)          // 8
+OUTPUT SUBSTRING(name, 1, 4) // "Comp"
+OUTPUT UCASE(name)           // "COMPUTER"
+OUTPUT LCASE(name)           // "computer"
+\end{Verbatim}
+
+(The first character may be counted as position 0 or position 1, depending on the language.)
+
+\section*{Nested statements}
+
+A \textbf{nested statement} 嵌套语句 is one control structure placed \textbf{inside} another. You can nest selection and iteration.
+
+\begin{Verbatim}
+FOR i ← 1 TO 3
+    IF i MOD 2 = 0 THEN
+        OUTPUT i, " is even"
+    ELSE
+        OUTPUT i, " is odd"
+    ENDIF
+NEXT i
+\end{Verbatim}
+
+You will not have to write more than three levels of nesting.
+
+\section*{Procedures and functions}
+
+To avoid repeating code, you can break a program into named blocks.
+
+\begin{itemize}
+\item A \textbf{procedure} 过程 is a named block of code that does a task. You run it with \texttt{CALL}.
+
+\item A \textbf{function} 函数 is like a procedure, but it \textbf{returns a value} back to where it was called.
+
+\end{itemize}
+
+A \textbf{parameter} 参数 is a value passed into a procedure or function (up to three parameters).
+
+\begin{Verbatim}
+PROCEDURE Greet(personName : STRING)
+    OUTPUT "Hello ", personName
+ENDPROCEDURE
+
+CALL Greet("Sam")
+\end{Verbatim}
+
+\begin{Verbatim}
+FUNCTION Square(n : INTEGER) RETURNS INTEGER
+    RETURN n * n
+ENDFUNCTION
+
+answer ← Square(5)   // answer is 25
+\end{Verbatim}
+
+\subsection*{Local and global variables}
+
+\begin{itemize}
+\item A \textbf{local variable} 局部变量 is declared inside a procedure or function. It can only be used there.
+
+\item A \textbf{global variable} 全局变量 is declared in the main program. It can be used anywhere.
+
+\end{itemize}
+
+Local variables are safer, because they cannot be changed by mistake from another part of the program.
+
+\section*{Library routines}
+
+A \textbf{library routine} 库程序 is a ready-made piece of code you can use. You must know these:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Routine} & \textbf{What it does} \\
+\midrule
+\texttt{MOD} & gives the remainder of a division \\
+\texttt{DIV} & gives the whole-number part of a division \\
+\texttt{ROUND} & rounds a real number to a number of decimal places \\
+\texttt{RANDOM} & gives a random number \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Writing a maintainable program}
+
+A \textbf{maintainable} 可维护的 program is easy for other people to read and change later. To make one:
+
+\begin{itemize}
+\item use \textbf{meaningful identifiers} 有意义的标识符 — clear names for variables, constants, arrays, procedures and functions (\texttt{totalScore}, not \texttt{x});
+
+\item add \textbf{comments} 注释 to explain what parts of the code do;
+
+\item use procedures and functions to split the work into small blocks.
+
+\end{itemize}
+
+\section*{Arrays}
+
+An \textbf{array} 数组 is a single variable that holds \textbf{many values} of the same type, found by an \textbf{index} 索引 (a position number).
+
+\subsection*{One-dimensional arrays}
+
+A \textbf{one-dimensional (1D) array} 一维数组 is like a single list.
+
+\begin{Verbatim}
+DECLARE scores : ARRAY[1:5] OF INTEGER
+scores[1] ← 90
+scores[2] ← 75
+OUTPUT scores[1]
+\end{Verbatim}
+
+You can use a loop to fill or read an array:
+
+\begin{Verbatim}
+FOR i ← 1 TO 5
+    INPUT scores[i]
+NEXT i
+\end{Verbatim}
+
+\subsection*{Two-dimensional arrays}
+
+A \textbf{two-dimensional (2D) array} 二维数组 is like a table with rows and columns. It uses two indexes.
+
+\begin{Verbatim}
+DECLARE grid : ARRAY[1:3, 1:3] OF INTEGER
+grid[1, 1] ← 5
+grid[2, 3] ← 8
+\end{Verbatim}
+
+You read a 2D array with a loop inside a loop (nested iteration).
+
+\section*{File handling}
+
+A program can store data in a \textbf{file} 文件 so it is kept after the program stops. You must \textbf{open} the file, use it, then \textbf{close} it.
+
+\begin{Verbatim}
+OPENFILE "data.txt" FOR WRITE
+WRITEFILE "data.txt", "Hello"
+CLOSEFILE "data.txt"
+
+OPENFILE "data.txt" FOR READ
+READFILE "data.txt", line
+CLOSEFILE "data.txt"
+\end{Verbatim}
+
+You can read and write single items of data or a whole line of text. Always close a file when you have finished with it.
+
+
+\end{document}

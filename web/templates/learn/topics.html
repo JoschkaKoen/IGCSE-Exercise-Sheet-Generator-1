@@ -22,7 +22,7 @@
 {% endmacro %}
 {% macro content_body(html) %}
 {% if html %}
-<div class="learn-content-body rounded-xl border border-white/[0.06] p-4 sm:p-5">
+<div class="learn-content-body learn-content-body--syllabus rounded-xl border border-white/[0.06] p-4 sm:p-5">
   {{ html | safe }}
 </div>
 <p class="mt-2 text-xs text-slate-500">{{ t('learn.content.cambridge_note') }}</p>
@@ -30,28 +30,63 @@
 {{ coming_soon() }}
 {% endif %}
 {% endmacro %}
-{% macro handout_block(html, pdf_url=None, pdf_name=None) %}
-{% if html %}
+{% macro _dl_button(url, name, label) %}
+<a href="{{ url }}" download="{{ name }}"
+   class="inline-flex items-center gap-1 rounded-md border border-cyan-400/30 bg-cyan-400/10
+          px-2 py-1 text-xs font-medium text-cyan-200 hover:bg-cyan-400/20 transition">
+  <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
+  </svg>
+  {{ label }}
+</a>
+{% endmacro %}
+{% macro handout_block(html, pdf_url=None, pdf_name=None, vocab_url=None, vocab_name=None, vocab_rows=None) %}
+{% if html or vocab_rows %}
 <div class="border-t border-white/[0.06] px-4 py-3">
   <div class="mb-2 flex items-center justify-between gap-2 px-1">
     <span class="text-xs font-semibold uppercase tracking-wider text-cyan-300/80">
       {{ t('learn.handout.title') }}
     </span>
-    {% if pdf_url %}
-    <a href="{{ pdf_url }}" download="{{ pdf_name }}"
-       class="inline-flex items-center gap-1 rounded-md border border-cyan-400/30 bg-cyan-400/10
-              px-2 py-1 text-xs font-medium text-cyan-200 hover:bg-cyan-400/20 transition">
-      <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
-      </svg>
-      {{ t('learn.handout.download') }}
-    </a>
-    {% endif %}
+    <div class="flex items-center gap-2">
+      {% if pdf_url %}{{ _dl_button(pdf_url, pdf_name, t('learn.handout.download')) }}{% endif %}
+      {% if vocab_url %}{{ _dl_button(vocab_url, vocab_name, t('learn.vocab.download')) }}{% endif %}
+    </div>
   </div>
+  {% if html %}
   <div class="learn-content-body rounded-xl border border-white/[0.06] p-4 sm:p-5">
     {{ html | safe }}
   </div>
+  {% endif %}
+  {% if vocab_rows %}
+  <div class="mt-3">
+    <div class="mb-2 px-1">
+      <span class="text-xs font-semibold uppercase tracking-wider text-cyan-300/80">
+        {{ t('learn.vocab.title') }}
+      </span>
+    </div>
+    <div class="overflow-x-auto rounded-xl border border-white/[0.06] p-4 sm:p-5">
+      <table class="w-full border-collapse text-sm">
+        <thead>
+          <tr class="text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+            <th class="pb-2 pr-4">{{ t('learn.vocab.col_en') }}</th>
+            <th class="pb-2 pr-4">{{ t('learn.vocab.col_zh') }}</th>
+            <th class="pb-2">{{ t('learn.vocab.col_pinyin') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for en, zh, pinyin in vocab_rows %}
+          <tr class="border-t border-white/[0.06]">
+            <td class="py-1.5 pr-4 align-top text-slate-100">{{ en }}</td>
+            <td class="py-1.5 pr-4 align-top text-slate-100">{{ zh }}</td>
+            <td class="py-1.5 align-top text-slate-400">{{ pinyin }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
 </div>
 {% endif %}
 {% endmacro %}
@@ -108,7 +143,7 @@
           </li>
           {% endfor %}
         </ul>
-        {{ handout_block(topic.handout_html, topic.handout_pdf_url, topic.handout_pdf_name) }}
+        {{ handout_block(topic.handout_html, topic.handout_pdf_url, topic.handout_pdf_name, topic.vocab_pdf_url, topic.vocab_pdf_name, topic.vocab_rows) }}
       </details>
       {% else %}
       {# Topic without subtopics (IGCSE CS topics 7-10) — single inline-expandable card. #}
@@ -130,7 +165,7 @@
         <div class="border-t border-white/[0.06] px-4 py-3">
           {{ content_body(topic.content_html) }}
         </div>
-        {{ handout_block(topic.handout_html, topic.handout_pdf_url, topic.handout_pdf_name) }}
+        {{ handout_block(topic.handout_html, topic.handout_pdf_url, topic.handout_pdf_name, topic.vocab_pdf_url, topic.vocab_pdf_name, topic.vocab_rows) }}
       </details>
       {% endif %}
     </li>

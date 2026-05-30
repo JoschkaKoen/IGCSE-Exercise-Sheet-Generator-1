@@ -1,0 +1,153 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Statistics}\\[0.35em]
+  {\large Igcse Mathematics}
+\end{center}
+\vspace{0.6em}
+
+This handout covers Topic 9, Statistics. Parts marked \textbf{(Extended)} are only tested on the Extended papers; everything else is for both levels.
+
+\section*{Collecting and showing data}
+
+To organise \textbf{statistical} 统计 \textbf{data} 数据, use:
+
+\begin{itemize}
+\item a \textbf{tally table} 计数表 — make a mark for each value, then count.
+
+\item a \textbf{two-way table} 双向表 — sorts data by two features at once (for example, boys/girls against walk/bus).
+
+\end{itemize}
+
+When you read a diagram, only draw conclusions the data really supports.
+
+\section*{Averages and range}
+
+Three averages describe a typical value of the data, and the range shows how spread out it is. Each is used for a different purpose:
+
+\begin{itemize}
+\item \textbf{mean} 平均数 $= \dfrac{\text{sum of all values}}{\text{how many values}}$.
+
+\item \textbf{median} 中位数 $=$ the middle value when the data is put in order.
+
+\item \textbf{mode} 众数 $=$ the value that appears most often.
+
+\item \textbf{range} 极差 $=$ largest value $-$ smallest value (it shows how spread out the data is).
+
+\end{itemize}
+
+\textbf{Worked example.} Find the mean, median, mode and range of $4, 7, 7, 2, 5$.
+
+Order the data: $2, 4, 5, 7, 7$.
+
+\[
+\text{mean} = \frac{4 + 7 + 7 + 2 + 5}{5} = \frac{25}{5} = 5, \quad \text{median} = 5, \quad \text{mode} = 7, \quad \text{range} = 7 - 2 = 5.
+\]
+
+\section*{Averages from a frequency table}
+
+When data is listed with its \textbf{frequency} 频数 (how many times each value occurs), the mean is
+
+\[
+\text{mean} = \frac{\sum (\text{value} \times \text{frequency})}{\sum \text{frequency}}.
+\]
+
+\textbf{Worked example.} Values $1, 2, 3$ occur with frequencies $4, 5, 1$. Find the mean.
+
+\[
+\text{mean} = \frac{1(4) + 2(5) + 3(1)}{4 + 5 + 1} = \frac{17}{10} = 1.7.
+\]
+
+\subsection*{Grouped data (Extended)}
+
+For \textbf{grouped data} 分组数据, you cannot find the exact mean, so estimate it using the \textbf{midpoint} of each group as the value. The \textbf{modal class} 众数组 is simply the group with the highest frequency.
+
+\section*{Measures of spread (Extended)}
+
+When data is in order, the \textbf{quartiles} 四分位数 cut it into four equal parts. The lower quartile (LQ) is one quarter of the way up; the upper quartile (UQ) is three quarters of the way up. The \textbf{interquartile range} 四分位距 measures the spread of the middle half:
+
+\[
+\text{interquartile range} = \text{UQ} - \text{LQ}.
+\]
+
+The interquartile range is useful because, unlike the range, it ignores extreme values.
+
+\section*{Charts and diagrams}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Chart} & \textbf{What it shows} \\
+\midrule
+\textbf{bar chart} 条形图 & a bar for each category; height is the frequency \\
+\textbf{pie chart} 饼图 & a circle split into slices, each a fraction of $360^{\circ}$ \\
+\textbf{pictogram} 象形图 & uses a symbol to stand for a number of items \\
+\textbf{stem-and-leaf diagram} 茎叶图 & keeps the digits of ordered data, with a key \\
+\textbf{frequency distribution} 频数分布 & a table of values and their frequencies \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\textbf{Worked example (pie chart).} Out of $120$ people, $30$ chose tea. Find the angle of the tea slice.
+
+\[
+\frac{30}{120} \times 360^{\circ} = 90^{\circ}.
+\]
+
+\section*{Scatter diagrams and correlation}
+
+A \textbf{scatter diagram} 散点图 plots pairs of values as points to show whether two things are linked. The link is the \textbf{correlation} 相关性:
+
+\begin{itemize}
+\item \textbf{positive correlation} 正相关 — as one goes up, the other goes up.
+
+\item \textbf{negative correlation} 负相关 — as one goes up, the other goes down.
+
+\item \textbf{zero correlation} 零相关 — no clear link.
+
+\end{itemize}
+
+If there is correlation, draw a \textbf{line of best fit} 最佳拟合线: one straight ruled line through the middle of the points, with about the same number of points on each side. Use it to predict values.
+
+\section*{Cumulative frequency diagrams (Extended)}
+
+The \textbf{cumulative frequency} 累积频数 is a running total of the frequencies. Plot it against the upper end of each class and join the points with a smooth curve.
+
+From the curve you can read the median (at half the total), the quartiles (at one quarter and three quarters), and any \textbf{percentile} 百分位数 (for example, the $90$th percentile is at $90\%$ of the total).
+
+\section*{Histograms (Extended)}
+
+A \textbf{histogram} 直方图 looks like a bar chart, but the bars can have different widths and the area of each bar (not its height) shows the frequency. The vertical axis is the \textbf{frequency density} 频数密度:
+
+\[
+\text{frequency density} = \frac{\text{frequency}}{\text{class width}}.
+\]
+
+\textbf{Worked example.} A class has \textbf{class width} 组距 $10$ and frequency $25$. Find the frequency density.
+
+\[
+\text{frequency density} = \frac{25}{10} = 2.5.
+\]
+
+
+\end{document}

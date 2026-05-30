@@ -1,0 +1,146 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Equilibria}\\[0.35em]
+  {\large A Level Chemistry}
+\end{center}
+\vspace{0.6em}
+
+\section*{Reversible reactions and dynamic equilibrium}
+
+A \textbf{reversible reaction} 可逆反应 can go both ways. The \textbf{forward reaction} 正反应 makes products; the \textbf{reverse reaction} 逆反应 turns products back into reactants. We show this with the sign $\rightleftharpoons$.
+
+In a \textbf{closed system} 封闭系统 (nothing enters or leaves), the reaction reaches a \textbf{dynamic equilibrium} 动态平衡 when:
+
+\begin{itemize}
+\item the rate of the forward reaction equals the rate of the reverse reaction.
+
+\item the concentrations of reactants and products stay constant.
+
+\end{itemize}
+
+It is called \emph{dynamic} because both reactions are still happening — they just cancel out. A closed system is needed, or products would escape and equilibrium could never be reached.
+
+\section*{Le Chatelier's principle}
+
+\textbf{Le Chatelier's principle} 勒夏特列原理 says: if you change a system at equilibrium, the position of \textbf{equilibrium} 平衡 moves to oppose (reduce) that change.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Change you make} & \textbf{Which way the equilibrium moves} \\
+\midrule
+increase concentration of a reactant & towards the products \\
+increase pressure & towards the side with fewer gas molecules \\
+increase temperature & towards the \textbf{endothermic} direction \\
+add a \textbf{catalyst} 催化剂 & no shift (it speeds up both ways equally) \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+A catalyst lets equilibrium be reached faster, but it does \textbf{not} change the position of equilibrium.
+
+\section*{Equilibrium constants}
+
+For a reaction at equilibrium, the \textbf{equilibrium constant} 平衡常数 links the amounts of products and reactants. For the reaction $a\text{A} + b\text{B} \rightleftharpoons c\text{C} + d\text{D}$:
+
+\[
+K_c = \frac{[\text{C}]^c\,[\text{D}]^d}{[\text{A}]^a\,[\text{B}]^b}
+\]
+
+where the square brackets mean concentration in $\text{mol dm}^{-3}$.
+
+For reactions of gases, we use \textbf{partial pressure} 分压 instead of concentration. The partial pressure of a gas is the share of the total pressure that it provides. It is found from the \textbf{mole fraction} 摩尔分数 (the fraction of all the moles that are that gas):
+
+\[
+\text{partial pressure} = \text{mole fraction} \times \text{total pressure}
+\]
+
+The constant written with partial pressures is $K_p$.
+
+Only \textbf{temperature} changes the value of $K_c$ or $K_p$. Changing concentration or pressure, or adding a catalyst, shifts the position of equilibrium but leaves the constant unchanged.
+
+\section*{The Haber and Contact processes}
+
+These two industrial processes are chosen by balancing yield, rate and cost using Le Chatelier's principle.
+
+\begin{itemize}
+\item the \textbf{Haber process} 哈伯法 makes ammonia: $\text{N}_2 + 3\text{H}_2 \rightleftharpoons 2\text{NH}_3$ (exothermic). It uses about $450\,°\text{C}$, $200\ \text{atm}$ and an iron catalyst. A low temperature would give more ammonia but too slowly, so a moderate temperature is a compromise.
+
+\item the \textbf{Contact process} 接触法 makes sulfur trioxide: $2\text{SO}_2 + \text{O}_2 \rightleftharpoons 2\text{SO}_3$ (exothermic). It uses about $450\,°\text{C}$, near $1$–$2\ \text{atm}$ and a vanadium(V) oxide catalyst.
+
+\end{itemize}
+
+\section*{Acids and bases: the Brønsted–Lowry theory}
+
+A \textbf{proton} 质子 is simply an $\text{H}^+$ ion. The Brønsted–Lowry theory defines acids and bases by what they do with protons:
+
+\begin{itemize}
+\item an \textbf{acid} 酸 is a \textbf{proton donor} 质子供体 (it gives away $\text{H}^+$).
+
+\item a \textbf{base} 碱 is a \textbf{proton acceptor} 质子受体 (it takes $\text{H}^+$). A base that dissolves in water is called an alkali.
+
+\end{itemize}
+
+Common acids you must know: hydrochloric acid ($\text{HCl}$), sulfuric acid ($\text{H}_2\text{SO}_4$), nitric acid ($\text{HNO}_3$) and ethanoic acid ($\text{CH}_3\text{COOH}$). Common alkalis: sodium hydroxide ($\text{NaOH}$), potassium hydroxide ($\text{KOH}$) and ammonia ($\text{NH}_3$).
+
+\section*{Strong and weak acids and bases}
+
+This is about how fully an acid or base splits up in water — not how concentrated it is.
+
+\begin{itemize}
+\item a \textbf{strong acid} 强酸 or \textbf{strong base} 强碱 is fully \textbf{dissociated} 解离 in water (almost every molecule splits into ions).
+
+\item a \textbf{weak acid} 弱酸 or \textbf{weak base} 弱碱 is only partly dissociated (most molecules stay whole).
+
+\end{itemize}
+
+The \textbf{pH} scale measures how acidic a solution is: pure water is pH 7, acids are below 7, and alkalis are above 7. A strong acid has a lower pH than a weak acid of the same concentration.
+
+You can tell strong and weak acids apart by:
+
+\begin{itemize}
+\item \textbf{reaction with a reactive metal}: a strong acid fizzes faster.
+
+\item \textbf{pH}: measured with a pH meter or \textbf{universal indicator} 通用指示剂.
+
+\item \textbf{electrical conductivity}: a strong acid conducts better, because it has more ions.
+
+\end{itemize}
+
+\section*{Neutralisation, salts and titration curves}
+
+\textbf{Neutralisation} 中和 happens when the hydrogen ions from an acid react with the hydroxide ions from an alkali:
+
+\[
+\text{H}^+(\text{aq}) + \text{OH}^-(\text{aq}) \rightarrow \text{H}_2\text{O}(\text{l})
+\]
+
+A \textbf{salt} 盐 is also formed, from the rest of the acid and base.
+
+In a \textbf{titration} 滴定 you add one solution to another and follow the pH. The \textbf{titration curve} 滴定曲线 has a steep, almost vertical jump near the end point. The exact shape depends on whether each reactant is strong or weak.
+
+To pick an \textbf{indicator} 指示剂, choose one whose colour change falls inside that steep jump. For a strong acid with a strong base most indicators work; for a weak acid with a strong base you need one that changes in the higher pH range.
+
+
+\end{document}

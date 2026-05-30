@@ -1,0 +1,243 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Topic 07}\\[0.35em]
+  {\large Igcse Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{The program development life cycle}
+
+The \textbf{program development life cycle} 程序开发生命周期 is the set of stages used to make a program. There are four stages.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Stage} & \textbf{What you do} \\
+\midrule
+\textbf{analysis} 分析 & study the problem and work out what is needed \\
+\textbf{design} 设计 & plan how the program will work \\
+\textbf{coding} 编码 & write the program code and test it as you go \\
+\textbf{testing} 测试 & run the finished program with test data to find errors \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{Analysis}
+
+In analysis you understand the problem. Two key skills help:
+
+\begin{itemize}
+\item \textbf{abstraction} 抽象 — keep only the important details and ignore the rest;
+
+\item \textbf{decomposition} 分解 — break a big problem into smaller, easier parts.
+
+\end{itemize}
+
+\subsection*{Design}
+
+In design you plan the solution, often using decomposition. You can show the parts as \textbf{sub-systems} 子系统 in a \textbf{structure diagram} 结构图 (a chart that splits a system into smaller boxes).
+
+\subsection*{Coding and testing}
+
+In \textbf{coding} you write the program code. You use \textbf{iterative testing} 迭代测试 — test small parts again and again as you build them. In \textbf{testing} you run the whole program with \textbf{test data} 测试数据 to check it works.
+
+\section*{Design tools}
+
+You can plan a solution in three main ways.
+
+\begin{itemize}
+\item a \textbf{structure diagram} — shows the parts of a system and how they fit together;
+
+\item a \textbf{flowchart} 流程图 — a diagram using boxes and arrows to show the steps in order;
+
+\item \textbf{pseudocode} 伪代码 — steps written in simple, code-like English (not a real language).
+
+\end{itemize}
+
+\section*{Algorithms}
+
+An \textbf{algorithm} 算法 is a set of steps, in the right order, that solves a problem. Every algorithm can be split into three parts:
+
+\begin{itemize}
+\item \textbf{input} 输入 — the data that goes in;
+
+\item \textbf{processing} 处理 — the work done on the data;
+
+\item \textbf{output} 输出 — the result that comes out.
+
+\end{itemize}
+
+This is called decomposition into inputs, processes and outputs. For example, for "find the average of three marks": the inputs are the three marks; the processing is adding them and dividing by 3; the output is the average.
+
+\section*{Validation and verification}
+
+When data is entered, you check it to reduce mistakes.
+
+\textbf{Validation} 验证 checks that the data is \textbf{sensible} and follows the rules. It cannot check that the data is true, only that it is allowed.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Validation check} & \textbf{What it checks} \\
+\midrule
+\textbf{range check} 范围检查 & the value is between a lowest and highest allowed value \\
+\textbf{length check} 长度检查 & the number of characters is allowed (e.g. a password ≥ 8) \\
+\textbf{type check} 类型检查 & the data is the right type (e.g. a number, not letters) \\
+\textbf{presence check} 存在性检查 & something has actually been entered (not left blank) \\
+\textbf{format check} 格式检查 & the data is in the right pattern (e.g. a date as dd/mm/yyyy) \\
+\textbf{check digit} 校验码 & an extra digit confirms a number was entered correctly \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\textbf{Verification} 核实 checks that data was \textbf{copied or entered correctly} (no mistakes while typing it in). Two methods:
+
+\begin{itemize}
+\item \textbf{visual check} 目视检查 — a person compares the typed data with the original;
+
+\item \textbf{double entry} 双重输入 — the data is entered twice and the two copies are compared.
+
+\end{itemize}
+
+\section*{Trace tables}
+
+A \textbf{trace table} 追踪表 records the value of each variable as an algorithm runs, step by step. It helps you:
+
+\begin{itemize}
+\item check that an algorithm works correctly;
+
+\item work out \textbf{what an algorithm does} by following it with given data.
+
+\end{itemize}
+
+Example: trace this algorithm with the input 5.
+
+\begin{Verbatim}
+INPUT n
+total ← 0
+FOR i ← 1 TO n
+    total ← total + i
+NEXT i
+OUTPUT total
+\end{Verbatim}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{i} & \textbf{total} & \textbf{OUTPUT} \\
+\midrule
+1 & 1 &  \\
+2 & 3 &  \\
+3 & 6 &  \\
+4 & 10 &  \\
+5 & 15 & 15 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+The trace shows the algorithm adds up 1 to n. With input 5 the output is 15.
+
+\section*{Test data}
+
+\textbf{Test data} is data you use to test a program. There are four types you must know.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Type} & \textbf{Meaning} & \textbf{Example (age 0–120 allowed)} \\
+\midrule
+\textbf{normal} 正常数据 & sensible data that should be accepted & 25 \\
+\textbf{abnormal} 异常数据 & wrong data that should be rejected & -4 or "cat" \\
+\textbf{extreme} 极端数据 & the largest and smallest values still allowed & 0 and 120 \\
+\textbf{boundary} 边界数据 & the values on each side of a limit (one allowed, one not) & 120 and 121 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Standard methods of solution}
+
+You must know these common algorithms.
+
+\subsection*{Linear search}
+
+A \textbf{linear search} 线性查找 checks each item in a list, one by one, until it finds the value it wants or reaches the end.
+
+\begin{Verbatim}
+found ← FALSE
+FOR i ← 0 TO 9
+    IF list[i] = searchValue THEN
+        found ← TRUE
+    ENDIF
+NEXT i
+OUTPUT found
+\end{Verbatim}
+
+\subsection*{Bubble sort}
+
+A \textbf{bubble sort} 冒泡排序 puts a list in order. It compares each pair of side-by-side items and swaps them if they are in the wrong order. It repeats this until no more swaps are needed.
+
+\begin{Verbatim}
+FOR i ← 0 TO 8
+    IF list[i] > list[i + 1] THEN
+        temp ← list[i]
+        list[i] ← list[i + 1]
+        list[i + 1] ← temp
+    ENDIF
+NEXT i
+\end{Verbatim}
+
+\subsection*{Totalling and counting}
+
+\begin{itemize}
+\item \textbf{totalling} 求和 — keep adding values to a running total (\texttt{total ← total + value}).
+
+\item \textbf{counting} 计数 — add 1 to a counter each time something happens (\texttt{count ← count + 1}).
+
+\end{itemize}
+
+\subsection*{Maximum, minimum and average}
+
+\begin{itemize}
+\item to find the \textbf{maximum} 最大值: keep the largest value seen so far.
+
+\item to find the \textbf{minimum} 最小值: keep the smallest value seen so far.
+
+\item to find the \textbf{average} 平均值: divide the total by how many values there are.
+
+\end{itemize}
+
+\begin{Verbatim}
+total ← 0
+FOR i ← 0 TO 9
+    total ← total + list[i]
+NEXT i
+average ← total / 10
+OUTPUT average
+\end{Verbatim}
+
+
+\end{document}

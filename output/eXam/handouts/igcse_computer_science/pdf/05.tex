@@ -1,0 +1,208 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries The internet and its uses}\\[0.35em]
+  {\large Igcse Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{The internet and the world wide web}
+
+People often mix up these two terms, but they are not the same.
+
+\begin{itemize}
+\item The \textbf{internet} 互联网 is the \textbf{infrastructure} 基础设施 — the huge worldwide network of computers and the cables, routers and connections that join them.
+
+\item The \textbf{world wide web} 万维网 (WWW) is a collection of \textbf{websites} 网站 and web pages that you view using the internet.
+
+\end{itemize}
+
+So the internet is the network; the web is one of the things you use \emph{on} that network.
+
+\section*{URL}
+
+A \textbf{uniform resource locator} 统一资源定位符 (URL) is a text-based address for a web page. You type it into a \textbf{web browser} 网页浏览器 to visit a page, for example \texttt{https://www.example.com/index.html}.
+
+\section*{The web browser}
+
+A web browser is the program you use to view web pages. Its role includes:
+
+\begin{itemize}
+\item \textbf{rendering} 渲染 the \textbf{hypertext markup language} 超文本标记语言 (HTML) — turning the page's code into what you see;
+
+\item \textbf{displaying web pages} on the screen;
+
+\item \textbf{managing how a web page is presented} — its layout, text and images.
+
+\end{itemize}
+
+\section*{How a web page reaches you}
+
+When you type a URL and press enter, several steps happen:
+
+\begin{enumerate}
+\item The browser needs the website's \textbf{IP address} 网际协议地址, but a URL uses a name, not a number.
+
+\item The browser asks a \textbf{domain name service} 域名服务 (DNS) — a system that stores the IP address for each web address.
+
+\item The DNS finds the matching IP address and sends it back to the browser.
+
+\item The browser uses the IP address to contact the \textbf{web server} 网络服务器 that stores the page.
+
+\item The web server sends the page's HTML back to the browser.
+
+\item The browser turns the HTML into the page and displays it.
+
+\end{enumerate}
+
+If the DNS does not have the address, it asks another DNS server until the address is found.
+
+\section*{Cookies}
+
+A \textbf{cookie} is a small text file that a website stores on your device. It lets the website remember things about you. There are two types.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Type} & \textbf{Kept when you close the browser?} & \textbf{Used for} \\
+\midrule
+\textbf{session} 会话 cookie & no — deleted when you close the browser & short-term data, e.g. items in a shopping basket \\
+\textbf{persistent} 持久 cookie & yes — saved on the device & remembering you between visits \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Cookies are used to:
+
+\begin{itemize}
+\item \textbf{save personal details} so you do not type them again (such as login or address);
+
+\item \textbf{track user preferences} 用户偏好, such as your language or the things you like, so the site can suggest content.
+
+\end{itemize}
+
+\section*{Digital currency}
+
+A \textbf{digital currency} 数字货币 is money that exists only in \textbf{electronic form} 电子形式. There are no coins or notes. It is stored and moved between people using computers, and can be used to pay for things online.
+
+A problem with digital money is trust: how do you stop someone spending the same money twice, or changing the records? Blockchain solves this.
+
+\section*{Blockchain}
+
+A \textbf{blockchain} 区块链 is a \textbf{digital ledger} 数字账本 — a shared record of every \textbf{transaction} 交易. The record is copied across many computers, so no single person controls it and it is very hard to change.
+
+The transactions are kept in blocks joined in a chain. Each block holds:
+
+\begin{itemize}
+\item the \textbf{data} of the transaction (who paid whom, and how much);
+
+\item a \textbf{timestamp} 时间戳 (the date and time);
+
+\item a \textbf{hash value} 哈希值 — a special code worked out from the block's contents.
+
+\end{itemize}
+
+Each block also stores the hash of the block before it. If someone changes an old block, its hash changes, so it no longer matches the next block. This breaks the chain and the change is spotted at once. This is how blockchain tracks transactions safely.
+
+\section*{Cyber security threats}
+
+\textbf{Cyber security} 网络安全 means keeping computers, networks and data safe from attack. You must know these threats.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Threat} & \textbf{What it is} \\
+\midrule
+\textbf{brute force attack} 暴力破解 & trying many passwords very quickly until the right one is found \\
+\textbf{data interception} 数据拦截 & "listening in" to steal data while it travels across a network \\
+\textbf{distributed denial of service} 分布式拒绝服务 (DDoS) attack & flooding a server with so many requests that it cannot respond, so the website goes down \\
+\textbf{hacking} 黑客攻击 & gaining access to a computer system without permission \\
+\textbf{malware} 恶意软件 & harmful software (see the table below) \\
+\textbf{pharming} 域名欺骗 & secret code sends you to a fake website even when you type the correct address \\
+\textbf{phishing} 网络钓鱼 & fake emails or messages that trick you into giving away private details \\
+\textbf{social engineering} 社会工程 & tricking a person (not a computer) into breaking security, e.g. pretending to be the boss \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{Types of malware}
+
+Malware is any software made to harm a computer. The main types are:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Malware} & \textbf{What it does} \\
+\midrule
+\textbf{virus} 病毒 & attaches to a file and copies itself when the file is opened; can delete or damage data \\
+\textbf{worm} 蠕虫 & copies itself across a network on its own, without needing a file to be opened \\
+\textbf{Trojan horse} 特洛伊木马 & pretends to be useful software, but harms the computer once installed \\
+\textbf{spyware} 间谍软件 & secretly records what you do, such as the keys you press \\
+\textbf{adware} 广告软件 & floods you with unwanted adverts \\
+\textbf{ransomware} 勒索软件 & locks your files and demands payment to unlock them \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{Impact of the threats}
+
+These attacks can \textbf{steal personal data}, \textbf{delete or change files}, \textbf{stop a service from working}, cost money, and make users lose trust in a company. For example, a DDoS attack can make an online shop unusable, so it loses sales.
+
+\section*{Keeping data safe}
+
+You can protect data using these methods.
+
+\begin{itemize}
+\item \textbf{access levels} 访问权限 — each user can only see or change the data they need, nothing more.
+
+\item \textbf{anti-malware} 反恶意软件 software, including \textbf{anti-virus} 杀毒软件 and \textbf{anti-spyware} 反间谍软件 — scans for and removes harmful software.
+
+\item \textbf{authentication} 身份验证 — proving who you are before you get access. Methods include:
+
+\begin{itemize}
+\item \textbf{biometrics} 生物识别 (fingerprint or face),
+
+\item a \textbf{password} 密码,
+
+\item \textbf{two-step verification} 两步验证 (a code sent to your phone as well as a password).
+
+\end{itemize}
+
+\item \textbf{automating software updates} — updates fix weak points (bugs) in software automatically.
+
+\item \textbf{checking the spelling and tone} of messages — bad spelling or an odd, urgent tone can show a message is fake (phishing).
+
+\item \textbf{checking the URL attached to a link} — a wrong or strange web address warns you the link is unsafe.
+
+\item \textbf{firewall} 防火墙 — checks data going in and out of a network and blocks anything not allowed.
+
+\item \textbf{privacy settings} 隐私设置 — control who can see your information online.
+
+\item \textbf{proxy server} 代理服务器 — sits between the user and the internet, hiding the user's IP address and filtering out unsafe content.
+
+\end{itemize}
+
+
+\end{document}

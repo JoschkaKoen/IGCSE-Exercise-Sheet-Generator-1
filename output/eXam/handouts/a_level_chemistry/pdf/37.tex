@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Analytical techniques}\\[0.35em]
+  {\large A Level Chemistry}
+\end{center}
+\vspace{0.6em}
+
+\section*{Thin-layer chromatography}
+
+\textbf{Chromatography} 色谱 separates a mixture using two "phases" — one that stays still and one that moves. In \textbf{thin-layer chromatography} 薄层色谱 (TLC):
+
+\begin{itemize}
+\item the \textbf{stationary phase} 固定相 stays still (for example aluminium oxide on a plate).
+
+\item the \textbf{mobile phase} 流动相 moves (a polar or non-polar solvent that travels up the plate).
+
+\item the \textbf{baseline} 基线 is the starting line where the spots are placed; the \textbf{solvent front} 溶剂前沿 is the highest level the solvent reaches.
+
+\end{itemize}
+
+The $R_{\text{f}}$ value compares how far a spot moves with how far the solvent moves:
+
+\[
+R_{\text{f}} = \frac{\text{distance moved by the spot}}{\text{distance moved by the solvent front}}
+\]
+
+It is always between 0 and 1. A substance that sticks more strongly to the stationary phase, or is less soluble in the mobile phase, moves less and has a \textbf{smaller} $R_{\text{f}}$.
+
+\section*{Gas/liquid chromatography}
+
+In \textbf{gas/liquid chromatography} 气液色谱 (GLC):
+
+\begin{itemize}
+\item the stationary phase is a high-boiling-point non-polar liquid on a solid support.
+
+\item the mobile phase is an unreactive carrier gas.
+
+\item the \textbf{retention time} 保留时间 is how long a component takes to pass through.
+
+\end{itemize}
+
+The area of each peak gives the percentage of that component in the mixture. A component that interacts more with the stationary phase has a longer retention time.
+
+\section*{Carbon-13 NMR spectroscopy}
+
+\textbf{NMR} 核磁共振 (nuclear magnetic resonance) studies how certain nuclei behave in a strong magnetic field.
+
+In carbon-13 NMR, each different \textbf{chemical environment} 化学环境 of carbon gives one peak. So:
+
+\begin{itemize}
+\item the \textbf{number of peaks} tells you how many different carbon environments there are (equivalent carbons share a peak).
+
+\item the position of each peak (its chemical shift) suggests the type of carbon, which helps you deduce possible structures.
+
+\end{itemize}
+
+\section*{Proton (¹H) NMR spectroscopy}
+
+Proton NMR looks at the hydrogen atoms (\textbf{proton} 质子 nuclei). From the spectrum you read off:
+
+\begin{itemize}
+\item \textbf{chemical environments}: protons in different environments appear at different \textbf{chemical shift} 化学位移 values.
+
+\item \textbf{relative numbers}: the relative peak \textbf{areas} give the ratio of each type of proton.
+
+\item \textbf{splitting} 裂分: a peak is split by the protons on the neighbouring carbon, following the \textbf{$n+1$ rule} — $n$ equivalent neighbours split a peak into $n+1$ lines:
+
+\end{itemize}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Neighbours ($n$)} & \textbf{Pattern} \\
+\midrule
+0 & \textbf{singlet} 单峰 \\
+1 & \textbf{doublet} 双峰 \\
+2 & \textbf{triplet} 三峰 \\
+3 & \textbf{quartet} 四峰 \\
+many & \textbf{multiplet} 多重峰 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{Practical points}
+
+\begin{itemize}
+\item \textbf{tetramethylsilane} 四甲基硅烷 (TMS) is the standard, set at a chemical shift of $0$.
+
+\item a \textbf{deuterated solvent} 氘代溶剂 (such as $\text{CDCl}_3$) is used so that the solvent itself gives no proton signal.
+
+\item shaking the sample with $\text{D}_2\text{O}$ makes the O–H and N–H peaks disappear (their hydrogen is swapped for deuterium), which identifies those protons.
+
+\end{itemize}
+
+
+\end{document}

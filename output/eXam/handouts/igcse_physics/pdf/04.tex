@@ -1,0 +1,464 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Electricity and magnetism}\\[0.35em]
+  {\large Igcse Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Magnetism}
+
+A \textbf{magnet} 磁体 can attract some metals. Every magnet has two ends, called \textbf{poles} 磁极: a \textbf{north pole} 北极 (N pole) and a \textbf{south pole} 南极 (S pole).
+
+The rule for two poles is like the rule for charges:
+
+\begin{itemize}
+\item Poles that are the same (N and N, or S and S) \textbf{repel} 排斥 (push apart).
+
+\item Poles that are different (N and S) \textbf{attract} 吸引 (pull together).
+
+\end{itemize}
+
+A magnet attracts a \textbf{magnetic material} 磁性材料, such as iron, steel, cobalt and nickel. Other materials (copper, plastic, wood) are non-magnetic and feel no force.
+
+\subsection*{Induced magnetism}
+
+Put a piece of iron near or touching a magnet, and the iron becomes a magnet itself. This is \textbf{induced magnetism} 感应磁性. The end of the iron nearest the magnet gains the opposite pole, so the two then attract.
+
+\subsection*{Temporary and permanent magnets}
+
+\begin{itemize}
+\item \textbf{Soft iron} 软铁 is easy to \textbf{magnetise} 磁化 but loses its magnetism quickly. It is used for a \textbf{temporary magnet} 临时磁体.
+
+\item \textbf{Steel} 钢 is harder to magnetise but keeps its magnetism. It is used for a \textbf{permanent magnet} 永磁体.
+
+\end{itemize}
+
+So an \textbf{unmagnetised} 未磁化 piece of soft iron is the best core for an electromagnet, while steel is best for a bar magnet.
+
+\subsection*{Magnetic fields}
+
+A \textbf{magnetic field} 磁场 is a \textbf{region} 区域 where a magnetic pole feels a force. We draw it with \textbf{magnetic field lines} 磁场线:
+
+\begin{itemize}
+\item The lines come \emph{out of} the N pole and go \emph{into} the S pole.
+
+\item The field direction at a point is the direction of the force on the N pole of a small test magnet placed there.
+
+\item Where the lines are close together the field is strong; where they are far apart the field is weak.
+
+\end{itemize}
+
+You can show the pattern by sprinkling \textbf{iron filings} 铁屑 on paper over a magnet, or by moving a small plotting \textbf{compass} 指南针 around it (the needle points along the field).
+
+\subsection*{Uses of magnets}
+
+\begin{itemize}
+\item \textbf{Permanent magnets}: fridge door catches, compass needles, loudspeakers.
+
+\item \textbf{Electromagnets} 电磁铁 (magnetic only while a current flows): cranes that lift scrap iron, electric bells, relays. An electromagnet can be switched on and off and made stronger, which a permanent magnet cannot.
+
+\end{itemize}
+
+Magnetic forces happen because the fields of the two magnets push and pull on each other.
+
+\section*{Static electricity}
+
+There are two kinds of \textbf{electric charge} 电荷: \textbf{positive charge} 正电荷 and \textbf{negative charge} 负电荷. The rule is like the rule for poles — same charges repel, different charges attract.
+
+\subsection*{Charging by friction}
+
+When you rub two different materials together, \textbf{electrons} 电子 (tiny negative particles) move from one to the other. This is \textbf{charging by friction} 摩擦起电.
+
+\begin{itemize}
+\item The material that gains electrons becomes negative.
+
+\item The material that loses electrons becomes positive.
+
+\end{itemize}
+
+Only the negative electrons move; the positive charge stays in place. For example, a plastic rod rubbed with a cloth becomes negative because electrons move from the cloth onto the rod, leaving the cloth positive.
+
+\subsection*{Conductors and insulators}
+
+\begin{itemize}
+\item A \textbf{conductor} 导体 (copper and other metals) lets charge flow through it easily, because it has free electrons that can move.
+
+\item An \textbf{insulator} 绝缘体 (plastic, rubber, glass) does not let charge flow, because its electrons cannot move freely.
+
+\end{itemize}
+
+To test a material, join it in a circuit with a lamp and a battery: the lamp lights only for a conductor.
+
+\subsection*{Electric fields and ions}
+
+Charge is measured in \textbf{coulombs} 库仑 (C). An \textbf{electric field} 电场 is a region where an electric charge feels a force. Its direction at a point is the direction of the force on a positive charge. Simple field patterns (the arrows show the direction):
+
+\begin{itemize}
+\item around a \textbf{point charge} 点电荷: straight lines, pointing away from a positive charge and towards a negative charge;
+
+\item around a charged ball (sphere): the same, spreading out evenly all around;
+
+\item between two parallel plates with opposite charges: straight, evenly spaced lines from the positive plate to the negative plate.
+
+\end{itemize}
+
+An atom is normally neutral. If it loses electrons it becomes a positive \textbf{ion} 离子; if it gains electrons it becomes a negative ion.
+
+\section*{Electric current}
+
+An \textbf{electric current} 电流 is a flow of electric charge. It is measured in \textbf{amperes} 安培 (A) with an \textbf{ammeter} 电流表, joined in series in the circuit.
+
+Current is the charge that passes a point each second:
+
+\[
+I = \frac{Q}{t}
+\]
+
+Here $I$ is current (A), $Q$ is charge (C) and $t$ is time (s). Rearranged, $Q = It$.
+
+In a metal the current is a flow of \textbf{free electrons} 自由电子. There are two "directions" to know:
+
+\begin{itemize}
+\item \textbf{Conventional current} 常规电流 is taken to flow from + to − round the outside of the cell.
+
+\item The free electrons really drift the other way, from − to +.
+
+\end{itemize}
+
+A \textbf{direct current} 直流电 (d.c.) always flows one way, as from a battery. An \textbf{alternating current} 交流电 (a.c.) keeps swapping direction many times each second, as from the \textbf{mains supply} 市电.
+
+\section*{E.m.f. and potential difference}
+
+A cell gives \textbf{energy} 能量 to the charges that move through it. Two quantities describe this, and both are measured in \textbf{volts} 伏特 (V).
+
+\begin{itemize}
+\item The \textbf{electromotive force} 电动势 (e.m.f.) of a source is the electrical work it does to drive unit charge all the way round a complete \textbf{circuit} 电路.
+
+\item The \textbf{potential difference} 电势差 (p.d.) across a component is the work done by unit charge as it passes \emph{through that component}.
+
+\end{itemize}
+
+A \textbf{voltmeter} 电压表 measures e.m.f. or p.d. It is joined in parallel (across the component).
+
+Both are work done per unit charge:
+
+\[
+E = \frac{W}{Q}, \qquad V = \frac{W}{Q}
+\]
+
+where $W$ is the energy transferred (J) and $Q$ is the charge (C). For example, if a cell does $120\ \text{J}$ of work moving $60\ \text{C}$ of charge round a circuit, its e.m.f. is $120 / 60 = 2\ \text{V}$.
+
+\section*{Resistance}
+
+\textbf{Resistance} 电阻 measures how hard it is for current to flow. A bigger resistance gives a smaller current. It is measured in \textbf{ohms} 欧姆 (Ω).
+
+\[
+R = \frac{V}{I}
+\]
+
+To find the resistance of a component, join an ammeter in series (to read $I$) and a voltmeter across it (to read $V$), then divide.
+
+For a metal wire at constant temperature:
+
+\begin{itemize}
+\item a longer wire has a bigger resistance — resistance is \textbf{directly proportional} 成正比 to length, $R \propto l$;
+
+\item a thicker wire has a smaller resistance — resistance is \textbf{inversely proportional} 成反比 to \textbf{cross-sectional area} 横截面积, $R \propto \dfrac{1}{A}$.
+
+\end{itemize}
+
+So doubling the length doubles the resistance; doubling the area halves it. (Area depends on the diameter squared, so a small change in diameter changes the resistance a lot.)
+
+Current–voltage graphs show how three components behave:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Component} & \textbf{Shape of the I–V graph} & \textbf{What it tells you} \\
+\midrule
+\textbf{resistor} 电阻器 (fixed) & straight line through the origin & resistance is constant, so $I \propto V$ \\
+\textbf{filament lamp} 灯丝灯泡 & S-shaped, getting flatter as $V$ rises & the wire heats up, so its resistance rises \\
+\textbf{diode} 二极管 & current one way only & very high resistance the "wrong" way \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Electrical energy and power}
+
+A circuit transfers energy from a source (a cell or the mains) to the components, and then into the surroundings (often as heat, light or sound).
+
+\textbf{Electrical power} 电功率 is the energy transferred each second, measured in \textbf{watts} 瓦特 (W):
+
+\[
+P = IV
+\]
+
+The \textbf{electrical energy} 电能 transferred in a time $t$, measured in \textbf{joules} 焦耳 (J), is:
+
+\[
+E = IVt
+\]
+
+\subsection*{The kilowatt-hour}
+
+Home electricity bills use a bigger energy unit, the \textbf{kilowatt-hour} 千瓦时 (kWh). One kilowatt-hour is the energy used by a $1\ \text{kW}$ \textbf{appliance} 电器 in $1$ hour.
+
+\[
+\text{energy (kWh)} = \text{power (kW)} \times \text{time (h)}
+\]
+
+\[
+\text{cost} = \text{energy (kWh)} \times \text{price per kWh}
+\]
+
+For example, a $2\ \text{kW}$ \textbf{heater} 加热器 used for $3$ hours uses $2 \times 3 = 6\ \text{kWh}$. If one kWh costs $20$ cents, the cost is $6 \times 20 = 120$ cents.
+
+\section*{Circuits}
+
+\subsection*{Circuit components}
+
+You should know these components and how they behave:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Component} & \textbf{What it does} \\
+\midrule
+\textbf{cell} 电池 / \textbf{battery} 电池组 & drives current round the circuit (a battery is two or more cells) \\
+\textbf{power supply} 电源 & a source of d.c. or a.c. \\
+\textbf{switch} 开关 & breaks or completes the circuit \\
+resistor (fixed) & gives a fixed resistance \\
+\textbf{variable resistor} 可变电阻器 & a resistance you can change, to control the current \\
+\textbf{fuse} 保险丝 & melts and breaks the circuit if the current is too big \\
+lamp / \textbf{heater} & turns electrical energy into light / into heat \\
+\textbf{thermistor} 热敏电阻 & its resistance falls as it gets hotter \\
+\textbf{light-dependent resistor} 光敏电阻 (LDR) & its resistance falls as the light gets brighter \\
+diode / \textbf{light-emitting diode} 发光二极管 (LED) & lets current one way only; an LED also gives out light \\
+\textbf{relay} 继电器 & a switch worked by an electromagnet (small current controls a big one) \\
+\textbf{motor} 电动机 & turns electrical energy into movement \\
+\textbf{bell} 电铃 & makes a sound \\
+\textbf{transformer} 变压器 & changes the size of an a.c. voltage \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{Series and parallel}
+
+In a \textbf{series} 串联 circuit the parts form one single loop:
+
+\begin{itemize}
+\item the current is the same at every point;
+
+\item the supply p.d. is shared between the components;
+
+\item cells in series add their e.m.f.s (when they point the same way);
+
+\item resistors in series add up: $R_{\text{total}} = R_1 + R_2 + \dots$
+
+\end{itemize}
+
+In a \textbf{parallel} 并联 circuit the parts are on separate branches:
+
+\begin{itemize}
+\item each branch gets the full supply p.d.;
+
+\item the current splits, so the current from the source is bigger than the current in any one branch;
+
+\item the \textbf{total resistance} 总电阻 is less than the smallest single resistance.
+
+\end{itemize}
+
+Lamps in a home are wired in parallel: each gets the full voltage, and if one fails the others stay on.
+
+For calculations (with the rules above):
+
+\begin{itemize}
+\item at a \textbf{junction} 节点, the total current flowing in equals the total current flowing out;
+
+\item in series, the supply p.d. equals the sum of the p.d.s across the components;
+
+\item in parallel, the p.d. across each branch is the same;
+
+\item two resistors in parallel combine as
+
+\end{itemize}
+
+\[
+\frac{1}{R_{\text{total}}} = \frac{1}{R_1} + \frac{1}{R_2}
+\]
+
+\subsection*{Potential dividers}
+
+Two resistors in series share the supply voltage. This is a \textbf{potential divider} 分压器. For the same current, a bigger resistance has a bigger p.d. across it, so the bigger resistor takes the bigger share:
+
+\[
+\frac{R_1}{R_2} = \frac{V_1}{V_2}
+\]
+
+A \emph{variable} potential divider (or a variable resistor) lets you change the output voltage smoothly, for example from $0\ \text{V}$ up to the full supply. If you use a thermistor or an LDR as one of the resistors, the output voltage changes with temperature or light — handy for switching a heater or a lamp on and off automatically.
+
+\section*{Electrical safety}
+
+A home is fed by the mains. The mains is dangerous if it is used wrongly.
+
+\subsection*{Hazards}
+
+These are \textbf{hazards} 危险 (dangers) with mains electricity:
+
+\begin{itemize}
+\item damaged \textbf{insulation} 绝缘层 — bare wires can give a shock or start a fire;
+
+\item \textbf{overheating} 过热 cables — too much current makes a cable hot, which can start a fire;
+
+\item \textbf{damp} 潮湿 conditions — water lets current pass into a person, raising the risk of a shock;
+
+\item \textbf{overloading} 过载 — plugging too many appliances into one \textbf{socket} 插座 draws too much current.
+
+\end{itemize}
+
+\subsection*{Live, neutral and earth}
+
+A mains cable has three wires:
+
+\begin{itemize}
+\item the \textbf{live wire} 火线 carries the high voltage;
+
+\item the \textbf{neutral wire} 零线 completes the circuit at about zero voltage;
+
+\item the \textbf{earth wire} 地线 is a safety wire joined to the ground.
+
+\end{itemize}
+
+A switch (and a fuse) must be fitted in the \emph{live} wire. Then, when the switch is off, the appliance is cut off from the high voltage and is safe to touch.
+
+\subsection*{Fuses, trip switches and earthing}
+
+A fuse is a thin wire that melts if the current gets too big, breaking the circuit before the cable overheats. Choose a \textbf{fuse rating} 额定值 just above the normal working current — for example a $13\ \text{A}$ fuse for an appliance that normally uses about $10\ \text{A}$.
+
+A \textbf{trip switch} 跳闸开关 (circuit breaker) does the same job but acts faster and can be reset instead of replaced.
+
+The metal \textbf{casing} 外壳 of an appliance must be made safe in one of two ways:
+
+\begin{itemize}
+\item \textbf{earthed} 接地: the casing is joined to the earth wire. If a live wire touches the casing, a large current flows to earth and blows the fuse.
+
+\item \textbf{double-insulated} 双重绝缘: the casing is plastic, so it can never become live. Such an appliance needs no earth wire; its fuse still protects the cable.
+
+\end{itemize}
+
+\section*{Electromagnetic effects}
+
+\subsection*{The magnetic effect of a current}
+
+A current in a wire makes a magnetic field around it.
+
+\begin{itemize}
+\item Around a straight wire the field lines are circles around the wire; the field is stronger close to the wire. Reverse the current and the field reverses.
+
+\item A \textbf{solenoid} 螺线管 (a long \textbf{coil} 线圈 of wire) makes a field just like a bar magnet, with a N pole at one end and a S pole at the other. The field inside is strong and even.
+
+\end{itemize}
+
+You can show both patterns with iron filings or a plotting compass. The field gets stronger if you increase the current, add more turns, or place a soft-iron core inside.
+
+The magnetic effect is used in a relay and in a loudspeaker: in a \textbf{loudspeaker} 扬声器 a changing current in a coil makes the coil push and pull a paper cone, which moves the air and makes sound.
+
+\subsection*{Electromagnetic induction}
+
+When a wire moves across a magnetic field, or the field through a coil changes, an e.m.f. is \textbf{induced} in the wire. If the wire is part of a complete circuit, this e.m.f. drives a current. This is \textbf{electromagnetic induction} 电磁感应.
+
+To show it: move a magnet in and out of a coil joined to a sensitive meter, and watch the needle flick. The induced e.m.f. is bigger when you use a stronger magnet, move faster, or use more turns on the coil. The induced e.m.f. always acts to \emph{oppose} the change that causes it.
+
+\subsection*{The a.c. generator}
+
+An \textbf{a.c. generator} 交流发电机 turns movement into electricity. A coil is spun in a magnetic field (or a magnet is spun near a coil). As it turns, the field through the coil keeps changing, so an alternating e.m.f. is induced.
+
+\begin{itemize}
+\item \textbf{Slip rings} 滑环 and carbon \textbf{brushes} 电刷 carry the current out to the circuit while the coil keeps turning.
+
+\item The e.m.f. is largest when the coil is flat (moving fastest across the field) and zero when the coil is upright (moving along the field). So the e.m.f.–time graph is a wave: peak, zero, opposite peak, zero, for each turn.
+
+\end{itemize}
+
+\subsection*{Force on a current-carrying conductor}
+
+When a current-carrying wire lies in a magnetic field, the field of the wire and the field of the magnet push on each other, so the wire feels a force. This is the \textbf{motor effect}.
+
+\begin{itemize}
+\item Reverse the current, \emph{or} reverse the field, and the force reverses.
+
+\item Make the current bigger or the field stronger, and the force is bigger.
+
+\end{itemize}
+
+The force, the field and the current are at right angles to one another. You can find the force direction with the left-hand rule: thumb = force (motion), first finger = field (N to S), second finger = current.
+
+A moving stream of charged particles is a current, so a magnetic field pushes it sideways too — it \textbf{deflects} 偏转 the beam. (Remember electrons flow opposite to the conventional current.)
+
+\subsection*{The d.c. motor}
+
+A coil carrying a current in a magnetic field feels a \textbf{turning effect} 转动效应, because the forces on its two sides act in opposite directions. This is a \textbf{d.c. motor} 直流电动机. The turning effect is bigger with more turns on the coil, a bigger current, or a stronger field.
+
+A \textbf{split-ring commutator} 换向器 swaps the current direction in the coil every half-turn. This keeps the coil turning the same way instead of stopping after half a turn.
+
+\subsection*{The transformer}
+
+A \textbf{transformer} changes the size of an a.c. voltage. It has two coils wound on a \textbf{soft-iron core} 软铁芯:
+
+\begin{itemize}
+\item the \textbf{primary coil} 原线圈 takes in the a.c. voltage;
+
+\item the \textbf{secondary coil} 副线圈 gives out the changed voltage.
+
+\end{itemize}
+
+The a.c. in the primary makes a changing magnetic field in the core. The core carries this field to the secondary, where it induces an a.c. e.m.f. The voltages and the numbers of turns are linked by:
+
+\[
+\frac{V_p}{V_s} = \frac{N_p}{N_s}
+\]
+
+If the secondary has more turns it is a \textbf{step-up} 升压 transformer (voltage rises); fewer turns make a \textbf{step-down} 降压 transformer (voltage falls). For example, a transformer changing $240\ \text{V}$ to $12\ \text{V}$ is a step-down type, and the primary has $20$ times as many turns as the secondary.
+
+If a transformer is 100\% efficient, the power in equals the power out:
+
+\[
+I_p V_p = I_s V_s
+\]
+
+So a step-up transformer raises the voltage but lowers the current.
+
+\subsection*{Why we use high voltage to send power}
+
+Electricity is sent across the country by \textbf{high-voltage transmission} 高压输电. The power lost as heat in the cables is
+
+\[
+P = I^2 R
+\]
+
+where $R$ is the resistance of the cables. A step-up transformer raises the voltage and so lowers the current for the same power ($P = IV$). A smaller current means much less power wasted in the cables. A step-down transformer then lowers the voltage again to a safe value before it reaches homes.
+
+
+\end{document}

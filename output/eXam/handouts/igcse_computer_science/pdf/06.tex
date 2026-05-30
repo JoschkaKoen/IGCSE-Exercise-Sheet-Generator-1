@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Automated and emerging technologies}\\[0.35em]
+  {\large Igcse Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Automated systems}
+
+An \textbf{automated system} 自动化系统 is a mix of software and hardware that senses and responds to data in its \textbf{environment} 环境, with no need for \textbf{human intervention} 人工干预. In other words, it works on its own.
+
+Examples of automated systems:
+
+\begin{itemize}
+\item a central heating 中央供暖 system;
+
+\item a chemical process 化学过程 in a factory;
+
+\item a \textbf{greenhouse} 温室 (for growing plants);
+
+\item a \textbf{car park barrier} 停车场道闸.
+
+\end{itemize}
+
+\subsection*{Sensors, microprocessors and actuators}
+
+Three parts work together in an automated system.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Part} & \textbf{Job} \\
+\midrule
+\textbf{sensor} 传感器 & measures a physical quantity (such as temperature or light) and sends the data \\
+\textbf{microprocessor} 微处理器 & compares the data with stored values and makes decisions \\
+\textbf{actuator} 执行器 & receives a signal and causes movement or action (such as opening a valve) \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+The cycle works like this:
+
+\begin{enumerate}
+\item The sensor sends data to the microprocessor.
+
+\item The microprocessor compares this data with \textbf{stored values} 存储值 and makes a decision.
+
+\item The microprocessor sends signals to the actuators to take action.
+
+\end{enumerate}
+
+For example, in a greenhouse: a temperature sensor reads the heat; the microprocessor compares it with the wanted value; if it is too hot, the microprocessor signals an actuator to open a window.
+
+\subsection*{Advantages and disadvantages}
+
+Automated systems are used in many situations, such as industry, transport, agriculture 农业 (farming), weather (gathering data), gaming and lighting.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Advantages} & \textbf{Disadvantages} \\
+\midrule
+work all day and night, without rest & cost a lot to buy and set up \\
+faster and more \textbf{consistent} 一致的 than people & can break down and need expert repair \\
+can work in places unsafe for people & may replace people's jobs \\
+fewer human mistakes & cannot easily react to a situation they were not built for \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Robotics}
+
+\textbf{Robotics} 机器人技术 is the branch of technology that deals with the design, building and operation of \textbf{robots} 机器人.
+
+A robot has these characteristics:
+
+\begin{itemize}
+\item a \textbf{physical structure} 物理结构 (a mechanical 机械的 body, such as arms);
+
+\item \textbf{electrical components} 电子元件 (motors, sensors and wiring);
+
+\item \textbf{programmable instructions} 可编程指令 — it follows a program that can be changed.
+
+\end{itemize}
+
+\subsection*{What robots do}
+
+Robots can perform many roles, for example:
+
+\begin{itemize}
+\item \textbf{factory equipment} 工厂设备 — building cars, welding, moving heavy parts;
+
+\item \textbf{domestic appliances} 家用电器 — such as a robotic \textbf{vacuum cleaner} 吸尘器.
+
+\end{itemize}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Advantages} & \textbf{Disadvantages} \\
+\midrule
+do dull or dangerous jobs & expensive to buy and maintain \\
+work quickly and accurately & can replace human workers \\
+do not get tired or bored & a robot has a \textbf{lack of independent decision-making} 缺乏独立决策 — it only does what it is programmed to do \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+A key limit of a robot is that it cannot think for itself. It cannot make its own choices when something unexpected happens.
+
+\section*{Artificial intelligence}
+
+\textbf{Artificial intelligence} 人工智能 (AI) is the \textbf{simulation} 模拟 of human intelligence by computer systems. This means a computer doing tasks that normally need human thinking.
+
+\subsection*{Characteristics of AI}
+
+AI systems usually have these features:
+
+\begin{itemize}
+\item they \textbf{collect data} and the \textbf{rules} 规则 for using that data;
+
+\item they have the ability to \textbf{reason} 推理 (work things out using the rules);
+
+\item they have the ability to \textbf{draw conclusions} 得出结论, which may be \textbf{approximate} 近似的 (a best guess) or \textbf{definite} 确定的 (certain);
+
+\item they have the ability to \textbf{learn} 学习 from data;
+
+\item they have the ability to \textbf{adapt} 适应 — to change their behaviour as they get new data.
+
+\end{itemize}
+
+\subsection*{Examples of AI}
+
+\begin{itemize}
+\item \textbf{expert systems} 专家系统 — software that gives advice like a human expert (for example, helping a doctor with a diagnosis);
+
+\item \textbf{natural language processing} 自然语言处理 — understanding human speech or text;
+
+\item \textbf{self-driving cars} 自动驾驶汽车.
+
+\end{itemize}
+
+\subsection*{Narrow, general and strong AI}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Type} & \textbf{What it means} \\
+\midrule
+\textbf{narrow AI} 弱人工智能 & can do only one task or a small set of tasks (for example, a chess program). All AI today is narrow AI. \\
+\textbf{general AI} 通用人工智能 & could do any task a human can do, switching between many different tasks. \\
+\textbf{strong AI} 强人工智能 & would think and be aware like a real human mind. This does not exist yet. \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+
+\end{document}

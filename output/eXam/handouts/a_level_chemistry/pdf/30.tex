@@ -1,0 +1,93 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Hydrocarbons}\\[0.35em]
+  {\large A Level Chemistry}
+\end{center}
+\vspace{0.6em}
+
+\section*{Arenes}
+
+\textbf{Arenes} 芳烃 are aromatic hydrocarbons, built on the \textbf{benzene} 苯 ring. The delocalised ring of electrons is stable and electron-rich, so benzene mostly reacts by \textbf{electrophilic substitution} 亲电取代 — keeping the ring — rather than by addition.
+
+\subsection*{Reactions of benzene and methylbenzene}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Reaction} & \textbf{Reagents and conditions} & \textbf{Product} \\
+\midrule
+halogenation & $\text{Cl}_2$ or $\text{Br}_2$, with $\text{AlCl}_3$ or $\text{AlBr}_3$ as a \textbf{catalyst} 催化剂 & a \textbf{halogenoarene} 卤代芳烃 (aryl halide) \\
+\textbf{nitration} 硝化 & concentrated $\text{HNO}_3$ + concentrated $\text{H}_2\text{SO}_4$, $25$–$60\,°\text{C}$ & nitrobenzene \\
+\textbf{Friedel–Crafts alkylation} 傅克烷基化 & $\text{CH}_3\text{Cl}$ + $\text{AlCl}_3$, heat & methylbenzene (adds an alkyl group) \\
+\textbf{Friedel–Crafts acylation} 傅克酰基化 & $\text{CH}_3\text{COCl}$ + $\text{AlCl}_3$, heat & a phenyl ketone (adds an acyl group) \\
+side-chain oxidation & hot alkaline $\text{KMnO}_4$, then dilute acid & \textbf{benzoic acid} 苯甲酸 \\
+\textbf{hydrogenation} 氢化 & $\text{H}_2$, $\text{Pt/Ni}$ catalyst, heat & cyclohexane \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+In the side-chain oxidation, the whole \textbf{side-chain} 侧链 (such as the $\text{–CH}_3$ on methylbenzene) is turned into a $\text{–COOH}$ group, giving benzoic acid. In the hydrogenation, three molecules of $\text{H}_2$ add to the \textbf{benzene ring} 苯环 to make a saturated cyclohexane ring.
+
+\subsection*{The mechanism: electrophilic substitution}
+
+Take nitration as the example. The acid mix makes the electrophile $\text{NO}_2^+$. Then:
+
+\begin{enumerate}
+\item the delocalised electrons of the ring form a bond to the electrophile, giving an unstable intermediate.
+
+\item an $\text{H}^+$ is lost from that carbon, which restores the stable ring.
+
+\end{enumerate}
+
+Substitution wins over addition because the \textbf{delocalisation} 离域 (aromatic stabilisation) of the ring is kept. Addition would destroy this stable system, so it is not favoured.
+
+\subsection*{Side-chain or ring?}
+
+Where a halogen reacts depends on the conditions:
+
+\begin{itemize}
+\item with a halogen-carrier catalyst (such as $\text{AlCl}_3$) and \textbf{no} UV light → substitution in the \textbf{ring}.
+
+\item with UV light and \textbf{no} catalyst → free-radical substitution in the \textbf{side-chain}.
+
+\end{itemize}
+
+\subsection*{Directing effects}
+
+A group already on the ring decides where the next group goes — its \textbf{directing effect} 定位效应:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Group already present} & \textbf{Directs the new group to} \\
+\midrule
+$\text{–NH}_2$, $\text{–OH}$, $\text{–R}$ & positions 2 and 4 \\
+$\text{–NO}_2$, $\text{–COOH}$, $\text{–COR}$ & position 3 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+
+\end{document}

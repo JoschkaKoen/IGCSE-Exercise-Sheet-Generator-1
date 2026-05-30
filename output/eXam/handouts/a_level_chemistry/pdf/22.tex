@@ -1,0 +1,82 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Analytical techniques}\\[0.35em]
+  {\large A Level Chemistry}
+\end{center}
+\vspace{0.6em}
+
+\section*{Infrared spectroscopy}
+
+\textbf{Infrared spectroscopy} 红外光谱 helps you find the \textbf{functional group} 官能团 in a molecule. Each kind of bond soaks up (absorbs) infrared radiation at its own range of frequencies. Where the bond shows strong \textbf{absorption} 吸收, the spectrum has a dip.
+
+The position is measured in \textbf{wavenumber} 波数 (in $\text{cm}^{-1}$). You are given a data table, so you do not memorise the numbers. You just match the dips to bonds:
+
+\begin{itemize}
+\item a broad dip around $3200$–$3650\ \text{cm}^{-1}$ → an O–H bond in an alcohol.
+
+\item a dip around $1700\ \text{cm}^{-1}$ → a C=O bond (aldehyde, ketone, acid or ester).
+
+\item a broad dip $2500$–$3000\ \text{cm}^{-1}$ together with a C=O dip → a carboxylic acid.
+
+\end{itemize}
+
+This is useful for checking a reaction. For example, if propene has been turned into propan-2-ol, the C=C dip should be gone and an O–H dip should appear.
+
+\section*{Mass spectrometry}
+
+In \textbf{mass spectrometry} 质谱, a molecule is turned into ions and sorted by its \textbf{mass-to-charge ratio} 质荷比 ($m/e$). The spectrum is a set of peaks at different $m/e$ values.
+
+\subsection*{Relative atomic mass from isotopes}
+
+An element's \textbf{isotope} 同位素 mixture gives several peaks. From the \textbf{isotopic abundance} 同位素丰度 (how common each isotope is) you can find the \textbf{relative atomic mass} 相对原子质量 — a weighted average:
+
+\[
+A_r = \frac{\sum (\text{isotope mass} \times \text{abundance})}{\sum \text{abundance}}
+\]
+
+For example, chlorine is 75\% $^{35}\text{Cl}$ and 25\% $^{37}\text{Cl}$, giving $A_r = \dfrac{35 \times 75 + 37 \times 25}{100} = 35.5$.
+
+\subsection*{The molecular ion and fragmentation}
+
+The peak at the highest $m/e$ (the \textbf{molecular ion} 分子离子 peak, or \textbf{molecular ion peak} 分子离子峰, $M^+$) gives the relative molecular mass of the whole molecule.
+
+The molecule also breaks into smaller pieces — this is \textbf{fragmentation} 碎裂. The gap between two peaks tells you the mass of the lost piece, so you can suggest each \textbf{fragment} 碎片. For example, a loss of 15 means a $\text{CH}_3$ group was lost, and a loss of 29 means $\text{CHO}$ or $\text{C}_2\text{H}_5$.
+
+\subsection*{The [M + 1] and [M + 2] peaks}
+
+\begin{itemize}
+\item a small \textbf{[M + 1]} peak comes from the $^{13}\text{C}$ isotope. The number of carbon atoms $n$ is:
+
+\end{itemize}
+
+\[
+n = \frac{100 \times \text{abundance of } [M + 1]^+}{1.1 \times \text{abundance of } M^+}
+\]
+
+\begin{itemize}
+\item an \textbf{[M + 2]} peak shows chlorine or bromine. One chlorine gives an $[M + 2]$ peak about one third the height of $M^+$ (from $^{37}\text{Cl}$); one bromine gives an $[M + 2]$ peak about the \textbf{same} height as $M^+$ (from $^{81}\text{Br}$).
+
+\end{itemize}
+
+
+\end{document}

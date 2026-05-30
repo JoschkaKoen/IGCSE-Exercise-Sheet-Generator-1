@@ -1,0 +1,124 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Probability}\\[0.35em]
+  {\large Igcse Mathematics}
+\end{center}
+\vspace{0.6em}
+
+This handout covers Topic 8, Probability. Parts marked \textbf{(Extended)} are only tested on the Extended papers; everything else is for both levels.
+
+\section*{The probability scale}
+
+\textbf{Probability} 概率 measures how likely an \textbf{event} 事件 is. It runs on a scale from $0$ (impossible) to $1$ (certain), and can be written as a fraction, decimal or percentage. We write $\text{P}(A)$ for the probability of event $A$.
+
+For equally likely \textbf{outcomes} 结果,
+
+\[
+\text{P}(\text{event}) = \frac{\text{number of favourable outcomes}}{\text{total number of outcomes}}.
+\]
+
+The probability that an event does \textbf{not} happen is
+
+\[
+\text{P}(A') = 1 - \text{P}(A).
+\]
+
+\textbf{Worked example.} A bag has $3$ red and $5$ blue counters. Find the probability of \emph{not} drawing red.
+
+\[
+\text{P}(\text{red}) = \frac{3}{8}, \qquad \text{P}(\text{not red}) = 1 - \frac{3}{8} = \frac{5}{8}.
+\]
+
+\section*{Relative frequency and expected frequency}
+
+When outcomes are not equally likely, do an experiment. The \textbf{relative frequency} 相对频率 estimates the probability:
+
+\[
+\text{relative frequency} = \frac{\text{number of times it happened}}{\text{total number of trials}}.
+\]
+
+The more trials you do, the better the estimate. A \textbf{fair} 公平 object gives equal chances; one with \textbf{bias} 偏倚 does not; \textbf{random} 随机 means each outcome happens by chance.
+
+The \textbf{expected frequency} 期望频数 is how many times you expect an event in $n$ trials:
+
+\[
+\text{expected frequency} = \text{P}(\text{event}) \times n.
+\]
+
+\textbf{Worked example.} The probability of rolling a six is $\tfrac{1}{6}$. How many sixes are expected in $300$ rolls?
+
+\[
+\frac{1}{6} \times 300 = 50.
+\]
+
+\section*{Combined events}
+
+For two or more events together (\textbf{combined events} 组合事件), two rules help:
+
+\begin{itemize}
+\item \textbf{AND} (both happen): \textbf{multiply} the probabilities — when the events are \textbf{independent} 独立事件 (one does not affect the other).
+
+\item \textbf{OR} (either happens): \textbf{add} the probabilities — when the events are \textbf{mutually exclusive} 互斥 (they cannot both happen).
+
+\end{itemize}
+
+Three pictures help you organise the work.
+
+\subsection*{Sample space diagrams}
+
+A \textbf{sample space diagram} 样本空间图 is a table or grid listing every possible outcome — useful for two dice or two spinners. Count the outcomes you want out of the total.
+
+\subsection*{Venn diagrams}
+
+A \textbf{Venn diagram} 维恩图 sorts outcomes into overlapping sets. From it you can read $\text{P}(A \cap B)$ (in both) and $\text{P}(A \cup B)$ (in either).
+
+\subsection*{Tree diagrams}
+
+A \textbf{tree diagram} 树状图 shows each stage as a set of branches. Write the probability on each branch and the outcome at the end. \textbf{Multiply along} the branches, then \textbf{add} the paths you want.
+
+\textbf{Worked example (with replacement).} From the bag ($3$ red, $5$ blue), a counter is drawn, replaced, then a second is drawn. This is \textbf{with replacement} 有放回, so the chances do not change. Find the probability of two reds.
+
+\[
+\text{P}(\text{red, red}) = \frac{3}{8} \times \frac{3}{8} = \frac{9}{64}.
+\]
+
+\textbf{Worked example (without replacement, Extended).} Now the first counter is \emph{not} replaced — drawing \textbf{without replacement} 无放回. After one red is taken, $2$ reds remain out of $7$:
+
+\[
+\text{P}(\text{red, red}) = \frac{3}{8} \times \frac{2}{7} = \frac{6}{56} = \frac{3}{28}.
+\]
+
+\section*{Conditional probability (Extended)}
+
+\textbf{Conditional probability} 条件概率 is the probability of one event \emph{given that} another has already happened. Read it from a Venn diagram, two-way table or tree diagram by looking only at the part that matches the condition.
+
+\textbf{Worked example.} In a class of $30$, $18$ study French and, of those, $7$ also study German. A French student is picked. Find the probability they also study German.
+
+Look only at the $18$ French students:
+
+\[
+\text{P}(\text{German} \mid \text{French}) = \frac{7}{18}.
+\]
+
+
+\end{document}

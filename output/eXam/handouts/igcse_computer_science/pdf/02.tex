@@ -1,0 +1,260 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Data transmission}\\[0.35em]
+  {\large Igcse Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{What is data transmission?}
+
+\textbf{Data transmission} 数据传输 means moving data from one place to another — for example from your computer to a website, or from a phone to a printer.
+
+Before it is sent, the data is broken down into small, equal-sized pieces called \textbf{packets} 数据包. Each packet travels separately and they are put back together at the other end.
+
+Using packets has benefits:
+
+\begin{itemize}
+\item if one packet is lost or damaged, only that packet is sent again, not the whole file;
+
+\item packets can take different routes, so a busy or broken route can be avoided;
+
+\item many users can share the same connection at the same time.
+
+\end{itemize}
+
+\section*{The structure of a packet}
+
+Every packet has three parts.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Part} & \textbf{What it holds} \\
+\midrule
+\textbf{packet header} 包头 & control information (see below) \\
+\textbf{payload} 有效载荷 & the actual data being carried \\
+\textbf{trailer} 尾部 & shows where the packet ends, plus an error check \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+The \textbf{packet header} holds:
+
+\begin{itemize}
+\item the sender's IP address 地址 (where the packet came from),
+
+\item the receiver's IP address (where it is going),
+
+\item the \textbf{packet number} (so the packets can be put back in the right order).
+
+\end{itemize}
+
+\section*{Packet switching}
+
+\textbf{Packet switching} 数据包交换 is the way packets are sent across a network.
+
+\begin{itemize}
+\item Special devices called \textbf{routers} 路由器 read each packet's header and choose the best route for it.
+
+\item Each packet may take its \textbf{own path}, so packets can travel different ways.
+
+\item Packets may \textbf{arrive out of order}.
+
+\item When the last packet has arrived, the packets are \textbf{reordered} using their packet numbers.
+
+\end{itemize}
+
+\section*{Methods of data transmission}
+
+\subsection*{Serial and parallel}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{} & \textbf{Serial 串行} & \textbf{Parallel 并行} \\
+\midrule
+How & one bit at a time, down one wire & several bits at once, down several wires \\
+Distance & good over long distances & good over short distances only \\
+Cost & cheaper (fewer wires) & more expensive (more wires) \\
+Errors & bits stay in order & bits can arrive at slightly different times over long wires \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\textbf{Serial} sends one bit after another along a single wire. \textbf{Parallel} sends several bits at the same time along several wires, so it is faster over short distances.
+
+\subsection*{Simplex, half-duplex and full-duplex}
+
+These describe the \emph{direction} data can travel.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Method} & \textbf{Direction} \\
+\midrule
+\textbf{simplex} 单工 & one direction only (e.g. computer → printer) \\
+\textbf{half-duplex} 半双工 & both directions, but only one at a time (e.g. walkie-talkie) \\
+\textbf{full-duplex} 全双工 & both directions at the same time (e.g. phone call) \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{Choosing a method}
+
+The choice depends on the \textbf{distance}, the \textbf{speed} needed, the \textbf{cost}, and whether data must travel both ways at once.
+
+\section*{USB}
+
+The \textbf{universal serial bus} 通用串行总线 (USB) is a common \textbf{interface} 接口 (a connection point) for joining devices to a computer.
+
+\textbf{Benefits:}
+
+\begin{itemize}
+\item the same connector is used by many devices (one standard);
+
+\item the device is detected automatically and the correct driver is loaded;
+
+\item it carries power, so it can charge or run a device;
+
+\item the connector only fits one way, so it is hard to plug in wrongly.
+
+\end{itemize}
+
+\textbf{Drawbacks:}
+
+\begin{itemize}
+\item the cable can only be a limited length (a few metres);
+
+\item older USB versions are slower than newer ones;
+
+\item transfer speeds can be lower than some other connection types.
+
+\end{itemize}
+
+\section*{Why we check for errors}
+
+While data travels, \textbf{interference} 干扰 can change it. Three things can go wrong:
+
+\begin{itemize}
+\item \textbf{data loss} — some bits do not arrive;
+
+\item \textbf{data gain} — extra bits are added;
+
+\item \textbf{data change} — some bits are flipped.
+
+\end{itemize}
+
+So the receiver checks whether the data arrived correctly.
+
+\section*{Error detection methods}
+
+\subsection*{Parity check}
+
+A \textbf{parity check} 奇偶校验 adds one extra bit, the \textbf{parity bit} 奇偶校验位, to each byte. There are two types:
+
+\begin{itemize}
+\item \textbf{even parity} — the total number of 1s in the byte (including the parity bit) must be \textbf{even};
+
+\item \textbf{odd parity} — the total number of 1s must be \textbf{odd}.
+
+\end{itemize}
+
+Example (even parity): the data \texttt{1011001} has four 1s, which is already even, so the parity bit is \texttt{0}:
+
+\begin{Verbatim}
+parity bit + data
+    0        1011001
+\end{Verbatim}
+
+To find an error: the receiver counts the 1s. If even parity was agreed but a byte arrives with an \textbf{odd} number of 1s, an error has happened during transmission.
+
+A parity check cannot find every error. If two bits flip, the count may still look correct.
+
+\subsection*{Checksum}
+
+A \textbf{checksum} 校验和 is a value worked out from all the data before sending. The receiver works out the checksum again from the data it received. If the two values do not match, an error has occurred and the data is resent.
+
+\subsection*{Echo check}
+
+In an \textbf{echo check} 回送校验, the receiver sends the data back to the sender. The sender compares it with the original. If they differ, an error happened. (This needs the data to be sent twice, so it is slow.)
+
+\subsection*{Automatic Repeat reQuest (ARQ)}
+
+\textbf{Automatic Repeat reQuest} 自动重传请求 (ARQ) uses messages called \textbf{acknowledgements} 确认.
+
+\begin{itemize}
+\item The receiver sends a \textbf{positive acknowledgement} if a packet arrived correctly, or a \textbf{negative acknowledgement} if it did not.
+
+\item The sender starts a \textbf{timeout} 超时 timer. If no positive acknowledgement comes back in time, the sender sends the packet again.
+
+\end{itemize}
+
+\subsection*{Check digit}
+
+A \textbf{check digit} 校验码 is an extra digit placed at the end of a number, worked out from the other digits. It is used to find mistakes when a number is \textbf{typed in}.
+
+When the number is entered, the check digit is calculated again and compared. It can catch:
+
+\begin{itemize}
+\item an \textbf{incorrect digit} entered,
+
+\item a \textbf{transposition error} 换位错误 (two digits swapped, e.g. 21 typed as 12),
+
+\item a digit \textbf{left out or an extra digit} added,
+
+\item a \textbf{phonetic error} (a digit that sounds similar, e.g. 13 and 30).
+
+\end{itemize}
+
+Check digits are used in \textbf{barcodes} 条形码 and ISBNs (book numbers).
+
+\section*{Encryption}
+
+\subsection*{Why we need encryption}
+
+\textbf{Encryption} 加密 scrambles data so that it cannot be understood if it is \textbf{intercepted} 拦截 (caught) by the wrong person. The readable data is called \textbf{plaintext} 明文; after encryption it becomes \textbf{ciphertext} 密文.
+
+Encryption does \textbf{not} stop data from being intercepted. It only stops the data from being understood.
+
+\subsection*{Symmetric encryption}
+
+\textbf{Symmetric encryption} 对称加密 uses a single \textbf{key} 密钥 to both encrypt and decrypt the data. The sender and receiver must share this same secret key. The risk is that the key itself could be stolen while being shared.
+
+\subsection*{Asymmetric encryption}
+
+\textbf{Asymmetric encryption} 非对称加密 uses two different keys:
+
+\begin{itemize}
+\item a \textbf{public key} 公钥 that anyone can have, used to encrypt;
+
+\item a \textbf{private key} 私钥 that is kept secret, used to decrypt.
+
+\end{itemize}
+
+Data encrypted with the public key can only be decrypted with the matching private key, so the key never has to be shared. This is safer than sharing one secret key.
+
+
+\end{document}

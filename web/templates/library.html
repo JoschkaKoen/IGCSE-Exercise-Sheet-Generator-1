@@ -25,6 +25,22 @@
         </svg>
         {{ t('library.year.syllabus') }}
       </span>
+      {% elif year_block.year == '_handouts' %}
+      <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-{{ theme }}-400">
+        <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        {{ t('library.year.handouts') }}
+      </span>
+      {% elif year_block.year == '_vocab' %}
+      <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-{{ theme }}-400">
+        <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+        </svg>
+        {{ t('library.year.vocab') }}
+      </span>
       {% else %}
       <span class="text-xs font-semibold tabular-nums text-slate-200">{{ year_block.year }}</span>
       {% endif %}
@@ -442,16 +458,20 @@ function buildSubjectGrid(tab) {
     var yg = document.createElement('div');
     yg.className = 'lib-year-group';
     var isOther    = yearBlock.year === '_other';
-    var isSyllabus = yearBlock.year === '_syllabus';
+    // Icon-labelled blocks (syllabus / handouts / vocab) — mirrors the server macro.
+    var labelled = {
+      '_syllabus': { i18n: 'library.year.syllabus', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
+      '_handouts': { i18n: 'library.year.handouts', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
+      '_vocab':    { i18n: 'library.year.vocab',    icon: 'M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129' },
+    }[yearBlock.year];
     var headerInner;
-    if (isSyllabus) {
+    if (labelled) {
       headerInner =
         '<span class="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-' + th + '-400">' +
           '<svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">' +
-            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"' +
-            ' d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="' + labelled.icon + '"/>' +
           '</svg>' +
-          _esc(window.i18n['library.year.syllabus']) +
+          _esc(window.i18n[labelled.i18n]) +
         '</span>';
     } else {
       headerInner =

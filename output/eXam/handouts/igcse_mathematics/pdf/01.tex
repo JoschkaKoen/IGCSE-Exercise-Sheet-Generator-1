@@ -1,0 +1,554 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Number}\\[0.35em]
+  {\large Igcse Mathematics}
+\end{center}
+\vspace{0.6em}
+
+This handout covers Topic 1, Number. Cambridge Maths has two levels: Core and Extended. Parts marked \textbf{(Extended)} are only tested on the Extended papers; everything else is for both levels.
+
+\section*{Types of number}
+
+You must know the words for the different kinds of number. Examiners give marks for using them correctly.
+
+\subsection*{Counting numbers and integers}
+
+\begin{itemize}
+\item \textbf{natural numbers} 自然数 — the counting numbers $1, 2, 3, 4, \dots$
+
+\item \textbf{integers} 整数 — whole numbers that can be positive, negative or zero: $\dots, -2, -1, 0, 1, 2, \dots$
+
+\end{itemize}
+
+\subsection*{Factors and multiples}
+
+\begin{itemize}
+\item A \textbf{factor} 因数 of a number divides into it exactly, leaving no \textbf{remainder} 余数. The factors of $18$ are $1, 2, 3, 6, 9, 18$.
+
+\item A \textbf{multiple} 倍数 of a number is that number times an integer. Multiples of $6$ are $6, 12, 18, 24, \dots$
+
+\item A \textbf{common factor} 公因数 of two numbers is a factor of both.
+
+\item A \textbf{common multiple} 公倍数 of two numbers is a multiple of both.
+
+\end{itemize}
+
+\subsection*{Prime, square and cube numbers}
+
+\begin{itemize}
+\item A \textbf{prime number} 质数 has exactly two factors: $1$ and itself. The first primes are $2, 3, 5, 7, 11, 13, \dots$ Note that $1$ is \textbf{not} prime.
+
+\item A \textbf{square number} 平方数 is a whole number times itself: $1, 4, 9, 16, 25, \dots$
+
+\item A \textbf{cube number} 立方数 uses a whole number three times: $1, 8, 27, 64, \dots$
+
+\end{itemize}
+
+\subsection*{Rational, irrational and reciprocal}
+
+\begin{itemize}
+\item A \textbf{rational number} 有理数 can be written as a \textbf{fraction} 分数 $\frac{a}{b}$ of two integers. Examples: $\frac{3}{4}$, $5$, $0.7$.
+
+\item An \textbf{irrational number} 无理数 cannot be written this way. Examples: $\pi$ and $\sqrt{2}$.
+
+\item The \textbf{reciprocal} 倒数 of a number is $1$ divided by that number. The reciprocal of $4$ is $\frac{1}{4}$; the reciprocal of $0.25$ is $4$; the reciprocal of $\frac{2}{3}$ is $\frac{3}{2}$.
+
+\end{itemize}
+
+\subsection*{Prime factors, HCF and LCM}
+
+Every integer above $1$ is prime, or can be written as a \textbf{product} 乘积 of prime numbers. To write a number as a product of its \textbf{prime factors} 质因数, keep dividing by the smallest prime that fits.
+
+\textbf{Worked example.} Write $72$ as a product of its prime factors.
+
+\[
+72 = 2 \times 36 = 2 \times 2 \times 18 = 2 \times 2 \times 2 \times 9 = 2 \times 2 \times 2 \times 3 \times 3 = 2^{3} \times 3^{2}.
+\]
+
+The \textbf{highest common factor (HCF)} 最大公因数 of two numbers is the largest factor they share. The \textbf{lowest common multiple (LCM)} 最小公倍数 is the smallest multiple they share. Prime factors give a quick method.
+
+\textbf{Worked example.} Find the HCF and LCM of $72$ and $120$.
+
+First write each as a product of primes:
+
+\[
+72 = 2^{3} \times 3^{2}, \qquad 120 = 2^{3} \times 3 \times 5.
+\]
+
+\begin{itemize}
+\item HCF: take the \textbf{lowest} power of each prime that appears in \emph{both}: $2^{3} \times 3 = 24$.
+
+\item LCM: take the \textbf{highest} power of \emph{every} prime that appears: $2^{3} \times 3^{2} \times 5 = 360$.
+
+\end{itemize}
+
+\section*{Sets and Venn diagrams}
+
+A \textbf{set} 集合 is a collection of objects. Each object in the set is an \textbf{element} 元素 of the set. You should know this notation:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$n(A)$ & the number of elements in set $A$ \\
+$x \in A$ & $x$ is an element of $A$ \\
+$x \notin A$ & $x$ is not an element of $A$ \\
+$\mathscr{E}$ & the \textbf{universal set} 全集 — everything being talked about \\
+$A'$ & the \textbf{complement} 补集 of $A$ — everything not in $A$ \\
+$\varnothing$ & the \textbf{empty set} 空集 — a set with no elements \\
+$A \subseteq B$ & $A$ is a \textbf{subset} 子集 of $B$ — every element of $A$ is also in $B$ \\
+$A \cup B$ & the \textbf{union} 并集 — elements in $A$ or $B$ or both \\
+$A \cap B$ & the \textbf{intersection} 交集 — elements in both $A$ and $B$ \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+A \textbf{Venn diagram} 维恩图 draws each set as a circle inside a rectangle (the universal set). Core uses two sets; Extended may use three.
+
+\textbf{Worked example.} $\mathscr{E} = \{1,2,3,4,5,6,7,8,9,10\}$, $A = \{\text{even numbers}\}$, $B = \{\text{multiples of } 3\}$.
+
+\begin{itemize}
+\item $A = \{2,4,6,8,10\}$ and $B = \{3,6,9\}$.
+
+\item $A \cap B = \{6\}$ — the only number in both.
+
+\item $A \cup B = \{2,3,4,6,8,9,10\}$ — the numbers in either set.
+
+\item $n(A \cup B) = 7$.
+
+\end{itemize}
+
+You may also see a set written as a rule, e.g. $C = \{x : 1 \leqslant x \leqslant 5\}$ means "all values $x$ such that $1 \leqslant x \leqslant 5$".
+
+\section*{Powers and roots}
+
+\begin{itemize}
+\item A \textbf{power} 幂 (also called an \textbf{index} 指数, plural \emph{indices}) shows how many times to multiply a number by itself: $2^{5} = 2 \times 2 \times 2 \times 2 \times 2 = 32$.
+
+\item A \textbf{square root} 平方根 of a number gives that number when squared: $\sqrt{169} = 13$ because $13^{2} = 169$.
+
+\item A \textbf{cube root} 立方根 works the same way for cubes: $\sqrt[3]{8} = 2$ because $2^{3} = 8$.
+
+\end{itemize}
+
+You should be able to recall the squares from $1^2$ to $15^2$ (and their roots), and the cubes of $1, 2, 3, 4, 5$ and $10$.
+
+\textbf{Worked example.} Work out $5^{2} \times \sqrt[3]{8}$.
+
+\[
+5^{2} \times \sqrt[3]{8} = 25 \times 2 = 50.
+\]
+
+\section*{The laws of indices}
+
+When you multiply or divide powers of the \textbf{same base} 底数, use these rules:
+
+\[
+a^{m} \times a^{n} = a^{m+n}, \qquad a^{m} \div a^{n} = a^{m-n}, \qquad (a^{m})^{n} = a^{mn}.
+\]
+
+Some special powers:
+
+\[
+a^{0} = 1, \qquad a^{-n} = \frac{1}{a^{n}}, \qquad a^{\frac{1}{n}} = \sqrt[n]{a}, \qquad a^{\frac{m}{n}} = \left(\sqrt[n]{a}\right)^{m}.
+\]
+
+(Fractional powers like $a^{\frac{m}{n}}$ are \textbf{Extended}.)
+
+\textbf{Worked examples.}
+
+\begin{itemize}
+\item $2^{-3} \times 2^{4} = 2^{-3+4} = 2^{1} = 2.$
+
+\item $(2^{3})^{2} = 2^{6} = 64.$
+
+\item $2^{3} \div 2^{4} = 2^{3-4} = 2^{-1} = \dfrac{1}{2}.$
+
+\item $7^{-2} = \dfrac{1}{7^{2}} = \dfrac{1}{49}.$
+
+\item $81^{\frac{1}{2}} = \sqrt{81} = 9.$
+
+\item $8^{-\frac{2}{3}} = \dfrac{1}{8^{\frac{2}{3}}} = \dfrac{1}{\left(\sqrt[3]{8}\right)^{2}} = \dfrac{1}{2^{2}} = \dfrac{1}{4}.$
+
+\end{itemize}
+
+\section*{Standard form}
+
+\textbf{Standard form} 科学记数法 writes a number as $A \times 10^{n}$, where $1 \leqslant A < 10$ and $n$ is an integer. It is used for very large or very small numbers.
+
+To convert, count how many places the decimal point moves:
+
+\begin{itemize}
+\item $4\,500\,000 = 4.5 \times 10^{6}$ — the point moves $6$ places left, so the power is positive.
+
+\item $0.00072 = 7.2 \times 10^{-4}$ — the point moves $4$ places right, so the power is negative.
+
+\end{itemize}
+
+\textbf{Worked example.} Work out $(3 \times 10^{5}) \times (2 \times 10^{-2})$.
+
+Multiply the front numbers and add the powers:
+
+\[
+3 \times 2 = 6, \qquad 10^{5} \times 10^{-2} = 10^{3}, \qquad \text{so the answer is } 6 \times 10^{3}.
+\]
+
+\section*{Surds (Extended)}
+
+A \textbf{surd} 根式 is a root that is irrational, such as $\sqrt{5}$. Leave it in exact form instead of rounding. Two useful rules:
+
+\[
+\sqrt{a} \times \sqrt{b} = \sqrt{ab}, \qquad \sqrt{\frac{a}{b}} = \frac{\sqrt{a}}{\sqrt{b}}.
+\]
+
+Simplify a surd by taking out the largest square factor.
+
+\textbf{Worked example.} Simplify $\sqrt{20}$ and $\sqrt{200} - \sqrt{32}$.
+
+\[
+\sqrt{20} = \sqrt{4 \times 5} = \sqrt{4}\,\sqrt{5} = 2\sqrt{5}.
+\]
+
+\[
+\sqrt{200} - \sqrt{32} = \sqrt{100 \times 2} - \sqrt{16 \times 2} = 10\sqrt{2} - 4\sqrt{2} = 6\sqrt{2}.
+\]
+
+To \textbf{rationalise the denominator} 分母有理化 means to remove a surd from the bottom of a fraction (the \textbf{denominator} 分母). Multiply the top and bottom by a value that clears the surd.
+
+\textbf{Worked example.} Rationalise $\dfrac{10}{\sqrt{5}}$ and $\dfrac{1}{-1+\sqrt{3}}$.
+
+\[
+\frac{10}{\sqrt{5}} = \frac{10}{\sqrt{5}} \times \frac{\sqrt{5}}{\sqrt{5}} = \frac{10\sqrt{5}}{5} = 2\sqrt{5}.
+\]
+
+\[
+\frac{1}{-1+\sqrt{3}} = \frac{1}{\sqrt{3}-1} \times \frac{\sqrt{3}+1}{\sqrt{3}+1} = \frac{\sqrt{3}+1}{3-1} = \frac{1+\sqrt{3}}{2}.
+\]
+
+\section*{Fractions, decimals and percentages}
+
+A fraction has a \textbf{numerator} 分子 (the top) and a \textbf{denominator} (the bottom).
+
+\begin{itemize}
+\item \textbf{proper fraction} 真分数: numerator smaller than denominator, e.g. $\frac{3}{4}$.
+
+\item \textbf{improper fraction} 假分数: numerator the same or larger, e.g. $\frac{7}{4}$.
+
+\item \textbf{mixed number} 带分数: a whole number plus a fraction, e.g. $1\frac{3}{4}$.
+
+\end{itemize}
+
+Change between improper and mixed: $\frac{7}{4} = 1\frac{3}{4}$ because $7 \div 4 = 1$ remainder $3$.
+
+A \textbf{decimal} 小数 uses place value after a point. A \textbf{percentage} 百分比 means "out of $100$", so $37\% = \frac{37}{100} = 0.37$.
+
+\subsection*{Converting between forms}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{To change} & \textbf{Method} & \textbf{Example} \\
+\midrule
+fraction → decimal & divide top by bottom & $\frac{3}{8} = 3 \div 8 = 0.375$ \\
+decimal → percentage & multiply by $100$ & $0.07 = 7\%$ \\
+percentage → fraction & put over $100$, then simplify & $7\% = \frac{7}{100}$ \\
+percentage → decimal & divide by $100$ & $34\% = 0.34$ \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Write a fraction in its \textbf{simplest form} 最简形式 by dividing the top and bottom by their HCF: $\frac{18}{24} = \frac{3}{4}$ (both divided by $6$).
+
+\subsection*{Recurring decimals (Extended)}
+
+A \textbf{recurring decimal} 循环小数 repeats the same digits forever. Dots mark the repeating part: $0.1\dot{7} = 0.1777\ldots$ and $0.\dot{1}2\dot{3} = 0.123123\ldots$
+
+To turn a recurring decimal into a fraction, multiply so the repeating parts line up, then subtract.
+
+\textbf{Worked example.} Write $0.1\dot{7}$ as a fraction.
+
+Let $x = 0.1777\ldots$ Only the $7$ repeats, so use $10x$ and $100x$:
+
+\[
+100x = 17.777\ldots, \qquad 10x = 1.777\ldots
+\]
+
+\[
+100x - 10x = 16, \qquad 90x = 16, \qquad x = \frac{16}{90} = \frac{8}{45}.
+\]
+
+\section*{The four operations}
+
+\subsection*{Order of operations}
+
+Work in this order — the \textbf{order of operations} 运算顺序: brackets first, then indices (powers and roots), then multiply and divide (left to right), then add and subtract (left to right).
+
+\textbf{Worked example.} Work out $-6 \times -3 + 7 \times 2$.
+
+Do the multiplications first: $-6 \times -3 = 18$ and $7 \times 2 = 14$. Then add: $18 + 14 = 32$.
+
+\subsection*{Negative numbers}
+
+\begin{itemize}
+\item Adding a negative: $5 + (-3) = 5 - 3 = 2$.
+
+\item Subtracting a negative: $5 - (-3) = 5 + 3 = 8$.
+
+\item Multiplying or dividing: same signs give a positive; different signs give a negative. So $-6 \times -3 = 18$ but $-12 \div 4 = -3$.
+
+\end{itemize}
+
+A change in temperature from $-5\,^{\circ}\text{C}$ to $3\,^{\circ}\text{C}$ is a rise of $8\,^{\circ}\text{C}$.
+
+\subsection*{Calculating with fractions}
+
+\begin{itemize}
+\item \textbf{Multiply:} multiply the tops, multiply the bottoms: $\frac{2}{3} \times \frac{4}{5} = \frac{8}{15}$.
+
+\item \textbf{Divide:} multiply by the reciprocal of the second fraction: $\frac{2}{3} \div \frac{4}{5} = \frac{2}{3} \times \frac{5}{4} = \frac{10}{12} = \frac{5}{6}$.
+
+\item \textbf{Add or subtract:} use a common denominator (the LCM of the bottoms).
+
+\end{itemize}
+
+\textbf{Worked example.} Work out $1\frac{7}{15} - \frac{4}{5}$, giving the answer in its simplest form.
+
+Change the mixed number to an improper fraction, then use denominator $15$:
+
+\[
+1\frac{7}{15} = \frac{22}{15}, \qquad \frac{4}{5} = \frac{12}{15}, \qquad \frac{22}{15} - \frac{12}{15} = \frac{10}{15} = \frac{2}{3}.
+\]
+
+\section*{Ordering}
+
+Use these symbols to compare numbers by \textbf{magnitude} 大小 (size):
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$=$ & is equal to \\
+$\neq$ & is not equal to \\
+$>$ & is greater than \\
+$<$ & is less than \\
+$\geqslant$ & is greater than or equal to \\
+$\leqslant$ & is less than or equal to \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+To put a mixed list in order, change every value to a decimal first.
+
+\textbf{Worked example.} Put $34\%$, $\frac{1}{3}$ and $\frac{3}{10}$ in order, smallest first.
+
+As decimals: $34\% = 0.34$, $\frac{1}{3} = 0.333\ldots$, $\frac{3}{10} = 0.3$. So the order is
+
+\[
+\frac{3}{10} < \frac{1}{3} < 34\%.
+\]
+
+\section*{Percentages}
+
+\textbf{Find a percentage of an amount.} $15\%$ of $\$80 = 0.15 \times 80 = \$12$.
+
+\textbf{Write one amount as a percentage of another.} A score of $18$ out of $25$ is $\frac{18}{25} \times 100\% = 72\%$.
+
+\textbf{Percentage increase or decrease} uses
+
+\[
+\text{percentage change} = \frac{\text{change}}{\text{original amount}} \times 100\%.
+\]
+
+\textbf{Worked example.} A price rises from $\$40$ to $\$50$. Find the percentage increase.
+
+The change is $\$10$, so $\frac{10}{40} \times 100\% = 25\%$ increase.
+
+A quick way is a \textbf{multiplier} 乘数. To increase by $15\%$, multiply by $1.15$; to decrease by $15\%$, multiply by $0.85$.
+
+\subsection*{Simple and compound interest}
+
+\textbf{Interest} 利息 is money paid for borrowing or for saving. The \textbf{principal} 本金 is the starting amount.
+
+\begin{itemize}
+\item \textbf{Simple interest} 单利 pays the same amount each year, worked out on the principal only: \[I = \frac{P \times r \times t}{100},\] where $P$ is the principal, $r$ is the rate per year (as a percentage) and $t$ is the number of years.
+
+\item \textbf{Compound interest} 复利 adds the interest on each year, so the next year earns interest on a larger total: \[\text{final value} = P\left(1 + \frac{r}{100}\right)^{t}.\]
+
+\end{itemize}
+
+\textbf{Worked example.} Find the value of $\$500$ saved at $4\%$ compound interest for $3$ years.
+
+\[
+500 \times 1.04^{3} = 500 \times 1.124864 = \$562.43 \ (\text{to the nearest cent}).
+\]
+
+\subsection*{Reverse percentages (Extended)}
+
+A \textbf{reverse percentage} 逆百分比 problem gives the amount \textbf{after} a change and asks for the original. To solve it, divide by the multiplier — do not just take the percentage off.
+
+\textbf{Worked example.} A coat costs $\$60$ after a $20\%$ increase. Find the original price.
+
+$\$60$ is $120\%$ of the original, so the original price is $60 \div 1.2 = \$50$.
+
+\section*{Exponential growth and decay (Extended)}
+
+When a quantity changes by the same percentage in each time period, it shows \textbf{exponential growth} 指数增长 (it gets bigger) or \textbf{exponential decay} 指数衰减 (it gets smaller). Use the compound formula. \textbf{Depreciation} 折旧, where something like a car loses value each year, is decay.
+
+\textbf{Worked example.} A car worth $\$20\,000$ loses $15\%$ of its value each year. Find its value after $4$ years.
+
+The multiplier is $0.85$, so
+
+\[
+20\,000 \times 0.85^{4} = 20\,000 \times 0.522\ldots = \$10\,440 \ (\text{to the nearest dollar}).
+\]
+
+\section*{Ratio and proportion}
+
+A \textbf{ratio} 比 compares quantities, written like $a:b$. Simplify it like a fraction by dividing by the HCF: $20:30:40 = 2:3:4$.
+
+\textbf{Dividing in a ratio.} Share $\$48$ in the ratio $3:5$.
+
+The total number of parts is $3 + 5 = 8$. One part is $48 \div 8 = \$6$. So the shares are $3 \times 6 = \$18$ and $5 \times 6 = \$30$.
+
+\textbf{Proportion} 比例 means two ratios are equal. Use it for recipes, map \textbf{scales} 比例尺 and finding best value.
+
+\textbf{Worked example.} $3$ pens cost $\$1.80$. Find the cost of $7$ pens.
+
+One pen costs $1.80 \div 3 = \$0.60$. So $7$ pens cost $7 \times 0.60 = \$4.20$.
+
+\section*{Rates and average speed}
+
+A \textbf{rate} 比率 compares two quantities measured in different units, such as price per kilogram, or distance per hour.
+
+\textbf{Average speed} 平均速度 uses
+
+\[
+\text{average speed} = \frac{\text{total distance}}{\text{total time}}.
+\]
+
+\textbf{Worked example.} A cyclist travels $45\text{ km}$ in $3$ hours $45$ minutes. Find the average speed.
+
+First change the time to hours: $3$ h $45$ min $= 3.75$ h. Then
+
+\[
+\text{average speed} = \frac{45}{3.75} = 12\text{ km/h}.
+\]
+
+Other rates work the same way. \textbf{Density} 密度 is found from \textbf{mass} 质量 and \textbf{volume} 体积:
+
+\[
+\text{density} = \frac{\text{mass}}{\text{volume}}.
+\]
+
+Other examples are flow rate, fuel consumption and \textbf{population density} 人口密度. If a rate needs a special formula (such as \textbf{pressure} 压强), the question will give it to you.
+
+\section*{Rounding and estimation}
+
+\subsection*{Rounding}
+
+\begin{itemize}
+\item \textbf{decimal places (d.p.)} 小数位: digits counted after the point. $3.14159$ to $2$ d.p. is $3.14$.
+
+\item \textbf{significant figures (s.f.)} 有效数字: digits counted from the first non-zero digit. $5764$ to $1$ s.f. is $6000$; $0.004067$ to $2$ s.f. is $0.0041$.
+
+\end{itemize}
+
+Rule: look at the next digit. If it is $5$ or more, round up; if it is less, round down.
+
+\subsection*{Estimation}
+
+To \textbf{estimate} 估算 an answer, round every number to $1$ s.f., then calculate.
+
+\textbf{Worked example.} Estimate $\dfrac{41.3}{9.79 \times 0.765}$.
+
+\[
+\frac{41.3}{9.79 \times 0.765} \approx \frac{40}{10 \times 0.8} = \frac{40}{8} = 5.
+\]
+
+\section*{Limits of accuracy}
+
+A rounded value could really be anything that rounds to it. The smallest possible value is the \textbf{lower bound} 下界; the largest is the \textbf{upper bound} 上界. For a value rounded to the nearest unit, the bounds lie half a unit on each side.
+
+\textbf{Worked example.} A height $h$ is $635\text{ m}$, correct to the nearest metre. Give the bounds.
+
+\[
+634.5 \leqslant h < 635.5.
+\]
+
+So the lower bound is $634.5\text{ m}$ and the upper bound is $635.5\text{ m}$.
+
+\subsection*{Bounds in calculations (Extended)}
+
+Combine the bounds to get the bound you want.
+
+\textbf{Worked example.} A rectangle is $8\text{ cm}$ by $5\text{ cm}$, each side to the nearest cm. Find the largest possible \textbf{area} 面积.
+
+Use the upper bounds of both sides: $8.5 \times 5.5 = 46.75\text{ cm}^{2}$. (The smallest area uses the lower bounds: $7.5 \times 4.5 = 33.75\text{ cm}^{2}$.)
+
+For a divided quantity such as $\text{speed} = \dfrac{\text{distance}}{\text{time}}$, the \textbf{largest} speed comes from the \textbf{largest} distance divided by the \textbf{smallest} time.
+
+\section*{Time}
+
+\begin{itemize}
+\item $60$ seconds $= 1$ minute, $60$ minutes $= 1$ hour, $24$ hours $= 1$ day, and $1$ year $= 365$ days.
+
+\item The 24-hour clock writes a time as four digits: $3.15$ p.m. is $15\,15$.
+
+\end{itemize}
+
+\textbf{Worked example.} A film starts at $19\,35$ and lasts $70$ minutes. Find the time it finishes.
+
+$70$ min $= 1$ h $10$ min. Adding $1$ hour gives $20\,35$; adding $10$ minutes gives $20\,45$.
+
+For timetables and \textbf{time zone} 时区 problems, add or subtract the time difference between the places.
+
+\section*{Money}
+
+Work with money as ordinary decimals, but give answers to $2$ d.p. (so $\$4.8$ is written $\$4.80$).
+
+\textbf{Currency conversion.} Use the \textbf{exchange rate} 汇率 as a multiplier.
+
+\textbf{Worked example.} The exchange rate is $\$1 = €0.92$. Convert $\$150$ to euros, and convert $€138$ back to dollars.
+
+\[
+150 \times 0.92 = €138, \qquad 138 \div 0.92 = \$150.
+\]
+
+\section*{Using a calculator}
+
+\begin{itemize}
+\item Do not round part-way through a calculation. Keep the full value and round only the final answer.
+
+\item Enter time as a decimal of an hour: $2$ hours $30$ minutes is $2.5$ hours, not $2.30$.
+
+\item Read the display in context: in money, $4.8$ means $\$4.80$; in time, $3.25$ hours means $3$ hours $15$ minutes.
+
+\end{itemize}
+
+
+\end{document}

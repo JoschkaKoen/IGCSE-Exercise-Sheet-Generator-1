@@ -201,6 +201,65 @@ def _newest_syllabus_block(subject_key: str) -> dict[str, Any] | None:
     }
 
 
+def _topic_titles(subject_key: str) -> dict[str, str]:
+    """``{topic_number: title}`` for a subject (empty when topics.yaml is absent)."""
+    from web.syllabus_topics import load_topics
+
+    data = load_topics(subject_key)
+    return {
+        str(t.get("number")): str(t.get("title") or "")
+        for t in (data or {}).get("topics") or []
+        if t.get("number") is not None
+    }
+
+
+def _pdf_artifact_block(
+    subject_key: str, *, kind: str, titles: dict[str, str]
+) -> dict[str, Any] | None:
+    """A library year-block of per-topic handout / vocab PDFs (None when none on disk).
+
+    Mirrors the syllabus-block shape so the template + JS render it like any other row.
+    On-disk names stay terse (``<NN>.pdf`` / ``<NN>.vocab.pdf``); the descriptive download
+    filename is applied by the ``/api/library/<subject>/<kind>/`` endpoint.
+    """
+    from urllib.parse import quote
+
+    from web.handouts_collect import pdf_dir
+
+    d = pdf_dir(subject_key)
+    if not d.is_dir():
+        return None
+    pattern, year, seg = (
+        ("[0-9][0-9].vocab.pdf", "_vocab", "vocab")
+        if kind == "vocab"
+        else ("[0-9][0-9].pdf", "_handouts", "handout")
+    )
+    rows: list[dict[str, Any]] = []
+    for p in sorted(d.glob(pattern), key=lambda q: int(q.name.split(".")[0])):
+        n = str(int(p.name.split(".")[0]))
+        title = titles.get(n) or f"Topic {n}"
+        rows.append(
+            {
+                "name": title,
+                "display_name": f"{n}. {title}",
+                "download_url": f"/api/library/{subject_key}/{seg}/{quote(p.name, safe='')}",
+                "group_year": year,
+                "group_session": "_",
+                "paper_kind": kind,
+                "session_heading": "",
+                "session_title": "",
+            }
+        )
+    if not rows:
+        return None
+    return {
+        "year": year,
+        "sessions": [
+            {"session": "_", "session_heading": "", "session_title": "", "rows": rows}
+        ],
+    }
+
+
 def list_library_pdfs() -> dict[str, list[dict[str, Any]]]:
     """Scan bundled exam dirs; nested year → session → file rows for the library page."""
     global _LIBRARY_CACHE
@@ -217,6 +276,13 @@ def list_library_pdfs() -> dict[str, list[dict[str, Any]]]:
             syllabus = _newest_syllabus_block(key)
             if syllabus is not None:
                 blocks.append(syllabus)
+            titles = _topic_titles(key)
+            handouts = _pdf_artifact_block(key, kind="handout", titles=titles)
+            if handouts is not None:
+                blocks.append(handouts)
+            vocab = _pdf_artifact_block(key, kind="vocab", titles=titles)
+            if vocab is not None:
+                blocks.append(vocab)
             if root.is_dir():
                 names = sorted((p.name for p in root.glob("*.pdf")), key=library_pdf_sort_key)
                 blocks.extend(_library_grouped_blocks(key, names))

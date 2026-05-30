@@ -1,0 +1,173 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Databases}\\[0.35em]
+  {\large Igcse Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{What is a database?}
+
+A \textbf{database} 数据库 is an organised store of data, kept so that it is easy to search, sort and update. At IGCSE you work with a \textbf{single-table database} 单表数据库 — all the data is held in one table.
+
+\section*{Records and fields}
+
+A database table is made of records and fields.
+
+\begin{itemize}
+\item A \textbf{record} 记录 is one row in the table — all the data about one thing (for example one student).
+
+\item A \textbf{field} 字段 is one column in the table — one piece of data that every record has (for example "First name").
+
+\end{itemize}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lllll}
+\toprule
+\textbf{StudentID} & \textbf{FirstName} & \textbf{DateOfBirth} & \textbf{FormClass} & \textbf{FeesPaid} \\
+\midrule
+1 & Amy & 14/03/2009 & 10A & TRUE \\
+2 & Ben & 02/11/2008 & 10B & FALSE \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Here each \textbf{row} is a record, and each \textbf{column} is a field.
+
+\section*{Data types for fields}
+
+Each field stores one \textbf{data type} 数据类型. You choose the type that best fits the data.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Data type} & \textbf{Used for} & \textbf{Example} \\
+\midrule
+\textbf{text/alphanumeric} 文本 & letters, digits and symbols & "10A", "Amy" \\
+\textbf{character} 字符 & a single character & 'M' \\
+\textbf{Boolean} 布尔值 & one of two values & TRUE / FALSE \\
+\textbf{integer} 整数 & a whole number & 42 \\
+\textbf{real} 实数 & a number with a decimal point & 3.5 \\
+\textbf{date/time} 日期时间 & a date or a time & 14/03/2009 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{The primary key}
+
+A \textbf{primary key} 主键 is a field that holds a \textbf{unique} 唯一的 value for every record. No two records can have the same primary key, so it lets you pick out exactly one record.
+
+In the table above, \texttt{StudentID} is a good primary key because every student has a different number. A field like \texttt{FormClass} would be a bad primary key, because many students share the same class.
+
+\section*{Validation in a database}
+
+When data is put into a database, \textbf{validation} 验证 checks make sure it is sensible — for example a range check on an age field, or a presence check so a field is not left empty. (You saw these checks in topic 7.)
+
+\section*{Structured Query Language (SQL)}
+
+\textbf{Structured Query Language} 结构化查询语言 (SQL) is a language used to \textbf{query} 查询 a database — to pick out the records you want. You must understand and complete SQL scripts.
+
+\subsection*{SELECT, FROM and WHERE}
+
+\begin{itemize}
+\item \texttt{SELECT} says \textbf{which fields} to show.
+
+\item \texttt{FROM} says \textbf{which table} to use.
+
+\item \texttt{WHERE} gives a \textbf{condition} 条件, so only matching records are shown.
+
+\end{itemize}
+
+\begin{Verbatim}
+SELECT FirstName, FormClass
+FROM Student
+WHERE FeesPaid = TRUE;
+\end{Verbatim}
+
+This shows the first name and class of every student who has paid the fees.
+
+Use \texttt{*} to select \textbf{all} fields:
+
+\begin{Verbatim}
+SELECT *
+FROM Student
+WHERE FormClass = '10A';
+\end{Verbatim}
+
+\subsection*{ORDER BY}
+
+\texttt{ORDER BY} sorts the results. Use \texttt{ASC} for \textbf{ascending} 升序 (smallest first, A→Z) or \texttt{DESC} for \textbf{descending} 降序 (largest first, Z→A).
+
+\begin{Verbatim}
+SELECT FirstName, DateOfBirth
+FROM Student
+ORDER BY DateOfBirth ASC;
+\end{Verbatim}
+
+\subsection*{AND and OR}
+
+Join conditions with \texttt{AND} (both must be true) or \texttt{OR} (at least one must be true).
+
+\begin{Verbatim}
+SELECT FirstName
+FROM Student
+WHERE FormClass = '10A' AND FeesPaid = FALSE;
+\end{Verbatim}
+
+\subsection*{SUM and COUNT}
+
+\begin{itemize}
+\item \texttt{SUM} adds up the values in a number field.
+
+\item \texttt{COUNT} counts how many records match.
+
+\end{itemize}
+
+\begin{Verbatim}
+SELECT COUNT(StudentID)
+FROM Student
+WHERE FeesPaid = FALSE;
+\end{Verbatim}
+
+This counts how many students have not paid. \texttt{SUM} works the same way but adds a number field instead of counting rows.
+
+\subsection*{Working out the output}
+
+To find the output of an SQL script, read it in this order:
+
+\begin{enumerate}
+\item \texttt{FROM} — which table;
+
+\item \texttt{WHERE} — keep only the records that match the condition;
+
+\item \texttt{SELECT} — show only the chosen fields;
+
+\item \texttt{ORDER BY} — put the results in order.
+
+\end{enumerate}
+
+Following these steps, you can write down exactly which rows and columns the query returns.
+
+
+\end{document}

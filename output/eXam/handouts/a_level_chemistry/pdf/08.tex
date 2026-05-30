@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Reaction kinetics}\\[0.35em]
+  {\large A Level Chemistry}
+\end{center}
+\vspace{0.6em}
+
+\section*{Rate of reaction}
+
+The \textbf{rate of reaction} 反应速率 is how fast reactants turn into products. We measure it as the change in concentration (or amount) in each unit of time.
+
+To react, particles must \textbf{collide} 碰撞. The \textbf{collision frequency} 碰撞频率 is how often the particles hit each other. But not every collision leads to a reaction:
+
+\begin{itemize}
+\item an \textbf{effective collision} 有效碰撞 has enough energy \emph{and} the correct direction, so a reaction happens.
+
+\item a \textbf{non-effective collision} 无效碰撞 does not have enough energy, or the particles hit at the wrong angle, so nothing happens.
+
+\end{itemize}
+
+So the rate depends on the \textbf{frequency of effective collisions} — how many useful collisions happen each second.
+
+\subsection*{Concentration and pressure}
+
+If you increase the concentration of a solution (or the pressure of a gas), the particles are packed closer together. They collide more often, so there are more effective collisions each second, and the rate goes up.
+
+You can calculate a rate from experimental data — for example, the volume of gas made divided by the time taken.
+
+\section*{Temperature and activation energy}
+
+The \textbf{activation energy} 活化能 ($E_A$) is the minimum energy a collision needs in order to be effective.
+
+The \textbf{Boltzmann distribution} 玻尔兹曼分布 is a graph showing how the energies of the molecules are spread out at one temperature. The curve starts at the origin, rises to a peak, then falls away in a long tail. The total area under the curve is the total number of molecules. Only the molecules to the right of $E_A$ have enough energy to react.
+
+When you raise the temperature:
+
+\begin{itemize}
+\item the curve flattens and spreads to the right, so a \textbf{much larger fraction} of molecules now have energy greater than $E_A$.
+
+\item the molecules also move faster and collide more often.
+
+\end{itemize}
+
+The first effect is the bigger one. This is why a small rise in temperature gives a large rise in rate.
+
+\section*{Catalysts}
+
+A \textbf{catalyst} 催化剂 speeds up a reaction but is not used up itself. \textbf{Catalysis} 催化作用 is the name for this action.
+
+A catalyst works by giving the reaction a different \textbf{reaction mechanism} 反应机理 — a new route with a \textbf{lower} activation energy. On the Boltzmann distribution, lowering $E_A$ moves the line to the left, so more molecules now have enough energy. This means more effective collisions each second, and a faster rate.
+
+On a \textbf{reaction pathway diagram} 反应路径图, the catalysed route has a lower energy "hill". The enthalpy change of the reaction, $\Delta H$, is \textbf{not} changed by the catalyst.
+
+There are two types:
+
+\begin{itemize}
+\item a \textbf{homogeneous catalyst} 均相催化剂 is in the \textbf{same} physical state as the reactants — for example, an acid catalyst dissolved in a solution of liquids.
+
+\item a \textbf{heterogeneous catalyst} 多相催化剂 is in a \textbf{different} state from the reactants — for example, solid iron speeding up the reaction of gases in the Haber process.
+
+\end{itemize}
+
+
+\end{document}

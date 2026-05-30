@@ -1,0 +1,224 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Software}\\[0.35em]
+  {\large Igcse Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Hardware and software}
+
+A computer system is made of two parts that work together.
+
+\begin{itemize}
+\item \textbf{Hardware} 硬件 is the \textbf{physical} 物理的 parts of the computer — the parts you can touch. Examples: the CPU, memory, keyboard, screen and hard disk.
+
+\item \textbf{Software} 软件 is the \textbf{programs} 程序 that control the computer and tell the hardware what to do.
+
+\end{itemize}
+
+Hardware cannot do anything useful on its own. Software needs hardware to run on. Both are needed.
+
+\section*{Types of software}
+
+Software is split into two types.
+
+\subsection*{System software}
+
+\textbf{System software} 系统软件 controls the computer itself and gives a base for other programs to run on. Examples:
+
+\begin{itemize}
+\item \textbf{operating system} 操作系统 (see below);
+
+\item \textbf{compiler} 编译器 and \textbf{linker} 链接器 (tools that turn programs into a form the computer can run);
+
+\item \textbf{device driver} 设备驱动程序 — software that lets the operating system control a piece of hardware;
+
+\item \textbf{utility software} 实用程序 — small tools that look after the computer (for example anti-virus, backup, disk clean-up).
+
+\end{itemize}
+
+\subsection*{Application software}
+
+\textbf{Application software} 应用软件 lets the user do a useful task. Examples:
+
+\begin{itemize}
+\item \textbf{word processing} 文字处理 software (writing documents);
+
+\item \textbf{spreadsheet} 电子表格 software (working with numbers in a grid);
+
+\item \textbf{database management system} 数据库管理系统 (storing and searching data);
+
+\item \textbf{web browser} 网页浏览器 (viewing web pages).
+
+\end{itemize}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{} & \textbf{System software} & \textbf{Application software} \\
+\midrule
+Job & runs and manages the computer & helps the user do a task \\
+Used by & the computer (in the background) & the user (directly) \\
+Examples & operating system, drivers, utilities & word processor, browser, games \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{The operating system}
+
+An \textbf{operating system} (OS) is the main system software. It controls the whole computer and lets the hardware, the application software and the user work together. Without an OS the computer is very hard to use.
+
+The OS has many roles:
+
+\begin{itemize}
+\item \textbf{managing files} — saving, opening, naming, moving and deleting files;
+
+\item \textbf{handling interrupts} (see below);
+
+\item \textbf{providing a user interface} 用户界面 so the user can control the computer;
+
+\item \textbf{managing memory} — deciding what is kept in RAM and where;
+
+\item \textbf{managing peripherals} 外围设备 and their drivers — controlling devices like printers;
+
+\item \textbf{managing multitasking} 多任务处理 — letting several programs run at once;
+
+\item \textbf{providing a platform} 平台 for running application software;
+
+\item \textbf{managing security} — user accounts, passwords and access rights.
+
+\end{itemize}
+
+\section*{Interrupts}
+
+An \textbf{interrupt} 中断 is a signal sent to the \textbf{processor} 处理器 to tell it that something needs attention now.
+
+An interrupt can come from three sources:
+
+\begin{itemize}
+\item \textbf{hardware} — for example a key is pressed, or a printer runs out of paper;
+
+\item \textbf{software} — for example a program tries to divide by zero;
+
+\item \textbf{the user} — for example the user presses a "cancel" key.
+
+\end{itemize}
+
+When an interrupt arrives, the processor \textbf{stops} what it is doing, saves its place, and \textbf{services} (deals with) the interrupt. When that is done, it goes back to what it was doing before. This lets the computer react quickly to important events.
+
+\section*{Programming languages}
+
+All computers process data using the \textbf{central processing unit} 中央处理器 (CPU). To make the CPU do work, people write \textbf{programs} in a \textbf{programming language} 编程语言. There are two kinds.
+
+\subsection*{High-level languages}
+
+A \textbf{high-level language} 高级语言 is written in words that look a bit like English (for example Python). It is:
+
+\begin{itemize}
+\item \textbf{easy} for people to read, write and fix;
+
+\item \textbf{independent of the computer} — the same program can run on different types of computer.
+
+\end{itemize}
+
+\subsection*{Low-level languages}
+
+A \textbf{low-level language} 低级语言 is close to what the hardware actually uses. It includes:
+
+\begin{itemize}
+\item \textbf{machine code} 机器码 — instructions written in binary (0s and 1s), which the CPU runs directly;
+
+\item \textbf{assembly language} 汇编语言 — machine code written with short word codes (mnemonics) instead of binary.
+
+\end{itemize}
+
+A low-level language relates to the \textbf{specific} 特定的 type of CPU, so a program written for one CPU may not run on another. It is used when the programmer needs full control of the hardware or very fast, small code.
+
+\section*{Translators}
+
+The CPU can only run machine code. A high-level program must first be changed into machine code. The software that does this is a \textbf{translator} 翻译程序. There are two types.
+
+\subsection*{Compiler}
+
+A \textbf{compiler} translates the \textbf{whole} program into machine code \textbf{before} it is run. After translating, the machine code can be run many times without translating again.
+
+\begin{itemize}
+\item translation happens once, in full;
+
+\item it reports all the errors together, at the end of translating;
+
+\item the finished program runs fast and does not need the compiler to run.
+
+\end{itemize}
+
+\subsection*{Interpreter}
+
+An \textbf{interpreter} 解释器 translates and runs the program \textbf{one line at a time}.
+
+\begin{itemize}
+\item it stops at the \textbf{first error} it finds, which helps when testing;
+
+\item the program runs more slowly, because it is translated each time it runs;
+
+\item the interpreter must be present every time the program runs.
+
+\end{itemize}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{} & \textbf{Compiler} & \textbf{Interpreter} \\
+\midrule
+Translates & the whole program at once & one line at a time \\
+Errors & all reported at the end & stops at the first error \\
+Speed of finished program & faster & slower \\
+Needed to run later? & no & yes \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Use a \textbf{compiler} when you want to share a fast, finished program. Use an \textbf{interpreter} when you are writing and testing a program and want to find errors easily.
+
+\section*{Integrated development environment (IDE)}
+
+An \textbf{integrated development environment} 集成开发环境 (IDE) is software that helps you write programs. It puts many useful tools in one place:
+
+\begin{itemize}
+\item a \textbf{code editor} 代码编辑器 — for typing in your program;
+
+\item a \textbf{run time environment} 运行时环境 — for running the program to test it;
+
+\item a \textbf{translator} — a compiler or interpreter to turn your code into machine code;
+
+\item \textbf{error diagnostics} 错误诊断 — messages that help you find and understand mistakes;
+
+\item \textbf{auto-completion} 自动补全 and \textbf{auto-correction} 自动纠错 — the IDE finishes or fixes code as you type;
+
+\item \textbf{prettyprinting} 美化打印 — laying out the code neatly with colour and indentation so it is easy to read.
+
+\end{itemize}
+
+
+\end{document}

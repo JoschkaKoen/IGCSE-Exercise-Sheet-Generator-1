@@ -1,0 +1,278 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Geometry}\\[0.35em]
+  {\large Igcse Mathematics}
+\end{center}
+\vspace{0.6em}
+
+This handout covers Topic 4, Geometry. Parts marked \textbf{(Extended)} are only tested on the Extended papers; everything else is for both levels. In the exam you must \textbf{give reasons} using the correct names below, not just the numbers.
+
+\section*{Lines and angles}
+
+A corner where two lines meet is a \textbf{vertex} 顶点. Two lines are \textbf{parallel} 平行 if they never meet, and \textbf{perpendicular} 垂直 if they meet at a right angle. Angles are named by their size:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Name} & \textbf{Size} \\
+\midrule
+\textbf{acute angle} 锐角 & less than $90^{\circ}$ \\
+\textbf{right angle} 直角 & exactly $90^{\circ}$ \\
+\textbf{obtuse angle} 钝角 & between $90^{\circ}$ and $180^{\circ}$ \\
+\textbf{reflex angle} 优角 & between $180^{\circ}$ and $360^{\circ}$ \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+We name an angle with three letters, e.g. angle $ABC$ is the angle at $B$.
+
+\section*{Angle facts}
+
+Learn these basic facts. Each one is a valid reason in the exam.
+
+\begin{itemize}
+\item Angles at a point add up to $360^{\circ}$.
+
+\item Angles on a straight line add up to $180^{\circ}$.
+
+\item \textbf{Vertically opposite angles} 对顶角 (made by two crossing lines) are equal.
+
+\end{itemize}
+
+\textbf{Worked example.} Three angles on a straight line are $x$, $50^{\circ}$ and $70^{\circ}$. Find $x$.
+
+\[
+x + 50 + 70 = 180 \;\Rightarrow\; x = 60^{\circ}.
+\]
+
+\section*{Angles in parallel lines}
+
+When a line crosses two parallel lines:
+
+\begin{itemize}
+\item \textbf{Corresponding angles} 同位角 (in matching positions, an "F" shape) are equal.
+
+\item \textbf{Alternate angles} 内错角 (opposite sides of the crossing line, a "Z" shape) are equal.
+
+\item \textbf{Co-interior angles} 同旁内角 (a "C" shape) add up to $180^{\circ}$; we say they are \textbf{supplementary} 互补.
+
+\end{itemize}
+
+\textbf{Worked example.} A straight line crosses two parallel lines. One angle is $110^{\circ}$. The co-interior angle $y$ satisfies $110 + y = 180$, so $y = 70^{\circ}$.
+
+\section*{Triangles}
+
+A \textbf{triangle} 三角形 has three sides and angles that add up to $180^{\circ}$.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Type} & \textbf{Property} \\
+\midrule
+\textbf{equilateral} 等边 & all sides equal, all angles $60^{\circ}$ \\
+\textbf{isosceles} 等腰 & two sides equal, two angles equal \\
+\textbf{scalene} 不等边 & all sides and angles different \\
+right-angled & has one right angle \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\textbf{Worked example.} A triangle has angles $x$, $2x$ and $90^{\circ}$. Find $x$.
+
+\[
+x + 2x + 90 = 180 \;\Rightarrow\; 3x = 90 \;\Rightarrow\; x = 30^{\circ}.
+\]
+
+\section*{Quadrilaterals}
+
+A \textbf{quadrilateral} 四边形 has four sides and angles that add up to $360^{\circ}$.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Shape} & \textbf{Property} \\
+\midrule
+\textbf{square} 正方形 & four equal sides, four right angles \\
+\textbf{rectangle} 矩形 & opposite sides equal, four right angles \\
+\textbf{parallelogram} 平行四边形 & opposite sides parallel and equal \\
+\textbf{rhombus} 菱形 & four equal sides, opposite sides parallel \\
+\textbf{kite} 鸢形 & two pairs of equal sides next to each other \\
+\textbf{trapezium} 梯形 & one pair of parallel sides \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Polygons}
+
+A \textbf{polygon} 多边形 is a shape with straight sides. A \textbf{regular polygon} 正多边形 has all sides and all angles equal.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Sides} & \textbf{Name} \\
+\midrule
+5 & \textbf{pentagon} 五边形 \\
+6 & \textbf{hexagon} 六边形 \\
+8 & \textbf{octagon} 八边形 \\
+10 & \textbf{decagon} 十边形 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+For a polygon with $n$ sides:
+
+\[
+\text{sum of interior angles} = (n - 2) \times 180^{\circ}, \qquad \text{sum of exterior angles} = 360^{\circ}.
+\]
+
+The \textbf{interior angle} 内角 and the \textbf{exterior angle} 外角 at each corner add up to $180^{\circ}$.
+
+\textbf{Worked example.} Find each interior angle of a regular hexagon.
+
+The exterior angle is $\dfrac{360^{\circ}}{6} = 60^{\circ}$, so each interior angle is $180^{\circ} - 60^{\circ} = 120^{\circ}$.
+
+\section*{Symmetry}
+
+\begin{itemize}
+\item A shape has \textbf{line symmetry} 轴对称 if a mirror line splits it into two matching halves.
+
+\item A shape has \textbf{rotational symmetry} 旋转对称 if it fits onto itself as you turn it. The order is how many times it fits in one full turn.
+
+\end{itemize}
+
+For solids (\textbf{Extended}), a flat slice that splits the solid into mirror halves is a \textbf{plane of symmetry} 对称面, and a line you can spin it around is an \textbf{axis of symmetry} 对称轴.
+
+\section*{Circles: the parts}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Term} & \textbf{Meaning} \\
+\midrule
+\textbf{circle} 圆 & all points the same distance from a centre \\
+\textbf{centre} 圆心 & the middle point \\
+\textbf{radius} 半径 & centre to edge (plural \emph{radii}) \\
+\textbf{diameter} 直径 & right across through the centre ($= 2 \times$ radius) \\
+\textbf{circumference} 圆周 & the distance all the way round \\
+\textbf{chord} 弦 & a straight line joining two points on the circle \\
+\textbf{arc} 弧 & part of the circumference \\
+\textbf{sector} 扇形 & a "pizza slice" between two radii \\
+\textbf{segment} 弓形 & the region cut off by a chord \\
+\textbf{semicircle} 半圆 & half a circle \\
+\textbf{tangent} 切线 & a line that touches the circle at one point \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Circle theorems}
+
+Use these to find unknown angles, always giving the reason.
+
+\textbf{For both levels:}
+
+\begin{itemize}
+\item The angle in a \textbf{semicircle} is $90^{\circ}$.
+
+\item The angle between a \textbf{tangent} and a \textbf{radius} is $90^{\circ}$.
+
+\end{itemize}
+
+\textbf{Extended (theorems I):}
+
+\begin{itemize}
+\item The angle at the \textbf{centre} is twice the angle at the \textbf{circumference} (standing on the same arc).
+
+\item Angles in the same \textbf{segment} are equal.
+
+\item Opposite angles of a \textbf{cyclic quadrilateral} 圆内接四边形 add up to $180^{\circ}$.
+
+\item The \textbf{alternate segment theorem} 弦切角定理: the angle between a tangent and a chord equals the angle in the other segment.
+
+\end{itemize}
+
+\textbf{Extended (theorems II):} equal chords are the same distance from the centre; the perpendicular bisector of a chord passes through the centre; two tangents from the same outside point are equal in length.
+
+\textbf{Worked example.} A, B, C are on a circle. The angle at the circumference $ABC$ is $40^{\circ}$. Find the angle $AOC$ at the centre $O$.
+
+The angle at the centre is twice the angle at the circumference: $2 \times 40^{\circ} = 80^{\circ}$.
+
+\section*{Similar shapes}
+
+Two shapes are \textbf{similar} 相似 if one is an enlargement of the other: same angles, and all sides multiplied by the same \textbf{scale factor} 比例因子 $k$. (Shapes that are exactly the same size and shape are \textbf{congruent} 全等.)
+
+For similar shapes and solids:
+
+\[
+\frac{\text{area of } A}{\text{area of } B} = k^{2}, \qquad \frac{\text{volume of } A}{\text{volume of } B} = k^{3}.
+\]
+
+\textbf{Worked example.} Two similar solids have lengths in the ratio $2 : 3$. The smaller has volume $40\text{ cm}^{3}$. Find the volume of the larger.
+
+The volume ratio is $2^{3} : 3^{3} = 8 : 27$. So the larger volume is $40 \times \dfrac{27}{8} = 135\text{ cm}^{3}$.
+
+\section*{Bearings}
+
+A \textbf{bearing} 方位角 gives a direction as a three-figure angle, measured \textbf{clockwise} 顺时针 from north, from $000^{\circ}$ to $360^{\circ}$. So due east is $090^{\circ}$ and due south is $180^{\circ}$.
+
+\textbf{Worked example.} The bearing of $B$ from $A$ is $025^{\circ}$. Find the bearing of $A$ from $B$.
+
+The return (back) bearing differs by $180^{\circ}$: $025^{\circ} + 180^{\circ} = 205^{\circ}$.
+
+\section*{Constructions, nets and solids}
+
+\begin{itemize}
+\item To \textbf{construct} 作图 a triangle from three given sides, draw the base with a ruler, then use a pair of \textbf{compasses} 圆规 to mark each other side as an arc. Leave the construction arcs showing.
+
+\item A \textbf{net} 展开图 is a flat shape that folds up into a solid. You can use a net to work out surface areas.
+
+\item A \textbf{scale drawing} 比例图 shows a real object smaller (or larger) by a fixed scale, such as $1\text{ cm}$ to $5\text{ m}$.
+
+\end{itemize}
+
+Common \textbf{solids} 几何体 and their parts:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Solid} & \textbf{Note} \\
+\midrule
+\textbf{cube} 立方体 / \textbf{cuboid} 长方体 & box shapes \\
+\textbf{prism} 棱柱 & the same shape all along its length \\
+\textbf{cylinder} 圆柱 & a circular prism \\
+\textbf{pyramid} 棱锥 / \textbf{cone} 圆锥 & come to a point \\
+\textbf{sphere} 球 / \textbf{hemisphere} 半球 & a ball / half a ball \\
+\textbf{frustum} 平截头体 & a cone or pyramid with the top cut off \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+A flat side of a solid is a \textbf{face} 面, two faces meet at an \textbf{edge} 棱, and the whole outside is its \textbf{surface} 表面.
+
+
+\end{document}

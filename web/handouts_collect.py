@@ -313,6 +313,77 @@ def pdf_path(subject_key: str, topic_number: str) -> Path:
     return pdf_dir(subject_key) / f"{padded_topic(topic_number)}.pdf"
 
 
+def vocab_tex_path(subject_key: str, topic_number: str) -> Path:
+    return pdf_dir(subject_key) / f"{padded_topic(topic_number)}.vocab.tex"
+
+
+def vocab_pdf_path(subject_key: str, topic_number: str) -> Path:
+    return pdf_dir(subject_key) / f"{padded_topic(topic_number)}.vocab.pdf"
+
+
+def glossary_path(subject_key: str, topic_number: str) -> Path:
+    """The per-topic vocab TSV lives beside the ``.md`` (subject root), not in ``pdf/``."""
+    return handout_dir(subject_key) / f"{padded_topic(topic_number)}.glossary.tsv"
+
+
+# ── Subject discovery / display names ────────────────────────────────────
+
+
+def handout_subjects() -> list[str]:
+    """Subject keys with at least one authored handout markdown (``<NN>.md``)."""
+    if not HANDOUTS_ROOT.is_dir():
+        return []
+    return sorted(
+        d.name
+        for d in HANDOUTS_ROOT.iterdir()
+        if d.is_dir() and any(d.glob("[0-9][0-9].md"))
+    )
+
+
+def vocab_subjects() -> list[str]:
+    """Subject keys with at least one vocab glossary (``<NN>.glossary.tsv``)."""
+    if not HANDOUTS_ROOT.is_dir():
+        return []
+    return sorted(
+        d.name
+        for d in HANDOUTS_ROOT.iterdir()
+        if d.is_dir() and any(d.glob("[0-9][0-9].glossary.tsv"))
+    )
+
+
+def subject_display_name(subject_key: str) -> str:
+    """Human label for a subject key, e.g. ``a_level_physics`` → ``A-Level Physics``."""
+    from eXercise.config import PAGE_HEADER_BY_EXAM
+
+    return PAGE_HEADER_BY_EXAM.get(subject_key) or subject_key.replace("_", " ").title()
+
+
+_FILENAME_BAD_RE = re.compile(r"[\\/]+")
+
+
+def descriptive_pdf_name(
+    subject_key: str,
+    topic_number: str,
+    *,
+    kind: str = "handout",
+    title: str | None = None,
+) -> str:
+    """User-facing download filename ``<Subject> <NN> <Topic Title>[ Vocabulary].pdf``.
+
+    On-disk artifacts stay terse (``<NN>.pdf`` / ``<NN>.vocab.pdf``); this is only the
+    ``Content-Disposition`` / ``download=`` name. *title* is looked up when not supplied.
+    """
+    # Normalise a padded "01" (as it arrives from a filename stem) back to the
+    # unpadded "1" that topics.yaml keys on, so the title lookup hits.
+    n = str(int(topic_number)) if str(topic_number).strip().isdigit() else str(topic_number).strip()
+    if title is None:
+        topic = topic_for_number(subject_key, n)
+        title = (topic or {}).get("title") or f"Topic {n}"
+    clean = " ".join(_FILENAME_BAD_RE.sub(" ", str(title)).split())
+    suffix = " Vocabulary" if kind == "vocab" else ""
+    return f"{subject_display_name(subject_key)} {padded_topic(n)} {clean}{suffix}.pdf"
+
+
 # ── Meta sidecar I/O ─────────────────────────────────────────────────────
 
 
@@ -351,6 +422,34 @@ def load_handout_md(subject_key: str, topic_number: str) -> str | None:
         return path.read_text(encoding="utf-8")
     except OSError:
         return None
+
+
+def load_glossary(subject_key: str, topic_number: str) -> list[tuple[str, str, str]] | None:
+    """Read the per-topic vocab TSV → ``[(english, 中文, pinyin), …]`` (None when absent).
+
+    Skips the ``english⇥简体中文⇥pinyin`` header and any blank / short rows, mirroring
+    ``scripts/check_handout_glosses.py:_load_glossary`` (extended to keep the pinyin column).
+    """
+    path = glossary_path(subject_key, topic_number)
+    if not path.is_file():
+        return None
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    rows: list[tuple[str, str, str]] = []
+    for line in text.splitlines():
+        if not line.strip():
+            continue
+        parts = line.split("\t")
+        if len(parts) < 2:
+            continue
+        eng, zh = parts[0].strip(), parts[1].strip()
+        if eng.lower() == "english":  # header
+            continue
+        pinyin = parts[2].strip() if len(parts) > 2 else ""
+        rows.append((eng, zh, pinyin))
+    return rows
 
 
 def now_iso() -> str:

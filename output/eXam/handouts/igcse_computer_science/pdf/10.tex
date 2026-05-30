@@ -1,0 +1,225 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Boolean logic}\\[0.35em]
+  {\large Igcse Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{What is Boolean logic?}
+
+\textbf{Boolean logic} 布尔逻辑 works with values that are either \textbf{true} or \textbf{false}. In electronics these are shown as \textbf{1} (true) and \textbf{0} (false). A \textbf{logic gate} 逻辑门 takes one or more of these inputs and gives one output, following a fixed rule.
+
+A \textbf{truth table} 真值表 lists every possible set of inputs and the output for each. You build it by writing out all the input combinations.
+
+\section*{The six logic gates}
+
+You must know six gates. \texttt{NOT} has one input; all the others have two inputs (A and B).
+
+\subsection*{NOT gate}
+
+The \textbf{NOT gate} 非门 reverses the input. Output is 1 when the input is 0.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{A} & \textbf{Output} \\
+\midrule
+0 & 1 \\
+1 & 0 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{AND gate}
+
+The \textbf{AND gate} 与门 gives output 1 \textbf{only when both} inputs are 1.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{Output} \\
+\midrule
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 1 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{OR gate}
+
+The \textbf{OR gate} 或门 gives output 1 when \textbf{at least one} input is 1.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{Output} \\
+\midrule
+0 & 0 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 1 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{NAND gate}
+
+The \textbf{NAND gate} 与非门 is AND followed by NOT. The output is the \textbf{opposite} of AND.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{Output} \\
+\midrule
+0 & 0 & 1 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{NOR gate}
+
+The \textbf{NOR gate} 或非门 is OR followed by NOT. The output is the \textbf{opposite} of OR.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{Output} \\
+\midrule
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{XOR gate}
+
+The \textbf{XOR gate} 异或门 (exclusive OR) gives output 1 when the inputs are \textbf{different}.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{Output} \\
+\midrule
+0 & 0 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Logic expressions}
+
+A \textbf{logic expression} 逻辑表达式 writes a circuit using letters and gate words. The usual way to write the gates:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Gate} & \textbf{In words} \\
+\midrule
+NOT A & NOT A \\
+A AND B & A AND B \\
+A OR B & A OR B \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+For example, the expression \texttt{(A AND B) OR (NOT C)} means: do A AND B, do NOT C, then OR the two results together.
+
+\section*{Logic circuits}
+
+A \textbf{logic circuit} 逻辑电路 joins gates together to carry out a task. The output of one gate can become the input of another. At IGCSE a circuit has up to \textbf{three inputs} and \textbf{one output}.
+
+You must be able to move between three forms:
+
+\begin{itemize}
+\item a \textbf{problem statement} 问题陈述 (a description in words),
+
+\item a logic expression,
+
+\item a logic circuit,
+
+\item a truth table.
+
+\end{itemize}
+
+\subsection*{From a problem statement to a circuit}
+
+Read the statement and pick out the conditions and the logic words (and, or, not). For example:
+
+\begin{quote}
+An alarm (X) sounds when the door is open (A) AND the system is switched on (B).
+
+\end{quote}
+
+This is \texttt{X = A AND B}, so you draw one AND gate with inputs A and B.
+
+\subsection*{Completing a truth table from a circuit or expression}
+
+To fill in a truth table:
+
+\begin{enumerate}
+\item Write \textbf{all} the input combinations. For three inputs there are 8 rows (000 up to 111).
+
+\item Work out each gate's output in order, one column at a time.
+
+\item The last column is the final output.
+
+\end{enumerate}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lllll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{C} & \textbf{A AND B} & \textbf{(A AND B) OR C} \\
+\midrule
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 1 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 1 & 1 & 0 & 1 \\
+1 & 0 & 0 & 0 & 0 \\
+1 & 0 & 1 & 0 & 1 \\
+1 & 1 & 0 & 1 & 1 \\
+1 & 1 & 1 & 1 & 1 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Adding a middle "working" column for each gate makes the final output easy to fill in. Always draw the circuit exactly as the statement says, \textbf{without simplifying} it.
+
+
+\end{document}

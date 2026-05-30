@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Equilibria}\\[0.35em]
+  {\large A Level Chemistry}
+\end{center}
+\vspace{0.6em}
+
+\section*{Conjugate acids and bases}
+
+When a Brønsted acid loses an $\text{H}^+$, what is left is its \textbf{conjugate base} 共轭碱. When a base gains an $\text{H}^+$, it becomes its \textbf{conjugate acid} 共轭酸. The two species that differ by just one $\text{H}^+$ form a \textbf{conjugate acid–base pair} 共轭酸碱对.
+
+For example, in $\text{CH}_3\text{COOH} \rightleftharpoons \text{CH}_3\text{COO}^- + \text{H}^+$, the pair is $\text{CH}_3\text{COOH}$ (acid) and $\text{CH}_3\text{COO}^-$ (its conjugate base).
+
+\section*{pH and the equilibrium constants}
+
+\begin{itemize}
+\item \textbf{pH} measures acidity: $\text{pH} = -\log[\text{H}^+]$, so $[\text{H}^+] = 10^{-\text{pH}}$.
+
+\item the \textbf{acid dissociation constant} 酸解离常数 of a weak acid $\text{HA}$ is $K_a = \dfrac{[\text{H}^+][\text{A}^-]}{[\text{HA}]}$, and $\text{p}K_a = -\log K_a$. A larger $K_a$ (smaller $\text{p}K_a$) means a stronger acid.
+
+\item the \textbf{ionic product of water} 水的离子积 is $K_w = [\text{H}^+][\text{OH}^-] = 1.0 \times 10^{-14}$ at $298\ \text{K}$.
+
+\end{itemize}
+
+\subsection*{Calculating pH}
+
+\begin{itemize}
+\item \textbf{strong acid} 强酸: fully ionised, so $[\text{H}^+]$ equals the acid concentration; then take $-\log$.
+
+\item \textbf{strong alkali} 强碱: find $[\text{OH}^-]$ from the concentration, then use $[\text{H}^+] = K_w / [\text{OH}^-]$.
+
+\item \textbf{weak acid} 弱酸: only partly ionised, so use $[\text{H}^+] = \sqrt{K_a \times [\text{HA}]}$.
+
+\end{itemize}
+
+\section*{Buffer solutions}
+
+A \textbf{buffer solution} 缓冲溶液 resists a change in pH when a small amount of acid or alkali is added. You make one from a weak acid and its conjugate base (for example ethanoic acid and sodium ethanoate).
+
+It works because the mixture holds a store of both partners:
+
+\begin{itemize}
+\item added $\text{H}^+$ is removed by the conjugate base: $\text{CH}_3\text{COO}^- + \text{H}^+ \rightarrow \text{CH}_3\text{COOH}$.
+
+\item added $\text{OH}^-$ is removed by the weak acid: $\text{CH}_3\text{COOH} + \text{OH}^- \rightarrow \text{CH}_3\text{COO}^- + \text{H}_2\text{O}$.
+
+\end{itemize}
+
+To find the pH, put the concentrations of the acid and its salt into the $K_a$ expression. Buffers are important in living things — for example, $\text{HCO}_3^-$ keeps the pH of blood close to $7.4$.
+
+\section*{Solubility product}
+
+For a salt that barely dissolves, the \textbf{solubility product} 溶度积 ($K_{\text{sp}}$) is the product of the ion concentrations in a saturated solution, each raised to the power of its number in the formula:
+
+\[
+K_{\text{sp}} = [\text{Ag}^+][\text{Cl}^-] \qquad K_{\text{sp}} = [\text{Ca}^{2+}][\text{F}^-]^2
+\]
+
+You can find $K_{\text{sp}}$ from the solubility, or the solubility from $K_{\text{sp}}$.
+
+\subsection*{The common ion effect}
+
+The \textbf{common ion effect} 同离子效应 is the way a salt becomes \textbf{less} soluble in a solution that already contains one of its ions. The extra ion pushes the dissolving equilibrium back (Le Chatelier), so less salt dissolves. You can calculate the new solubility using $K_{\text{sp}}$ and the concentration of the common ion.
+
+\section*{Partition coefficients}
+
+When a solute is shaken with two solvents that do not mix, it spreads between them. The \textbf{partition coefficient} 分配系数 ($K_{\text{pc}}$) is the ratio of its concentrations in the two layers (at constant temperature):
+
+\[
+K_{\text{pc}} = \frac{[\text{solute in solvent 1}]}{[\text{solute in solvent 2}]}
+\]
+
+This works when the \textbf{solute} 溶质 is in the same physical state in both solvents. The value depends on the \textbf{polarity} 极性 of the solute and of each \textbf{solvent} 溶剂: a non-polar solute dissolves more in the non-polar solvent, while a polar solute prefers the polar solvent.
+
+
+\end{document}

@@ -1,0 +1,112 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Operations management (A Level)}\\[0.35em]
+  {\large A Level Business}
+\end{center}
+\vspace{0.6em}
+
+\section*{Location and relocation}
+
+Where a business sits affects its costs, its sales and its staff. Choosing a place is called \textbf{location} 选址; moving to a new place is \textbf{relocation} 迁址.
+
+Factors that influence the choice fall into two groups:
+
+\begin{itemize}
+\item \textbf{quantitative factors} 定量因素 — things you can measure in money, such as rent, wages, transport costs and government grants.
+
+\item \textbf{qualitative factors} 定性因素 — things that are harder to measure, such as the skills of local workers, nearness to customers or suppliers, and the owner's own wishes.
+
+\end{itemize}
+
+A firm picks the place where the benefits, money and non-money together, are greatest.
+
+\section*{International location}
+
+Many firms now locate abroad. Moving production to another country is \textbf{offshoring} 离岸外包. The reasons are often lower wages, nearness to new markets, fewer rules, or government help. The risks are longer supply lines, language and culture differences, and possible damage to the firm's image.
+
+\section*{The optimum scale of operation}
+
+As a firm grows, its average cost first falls (from economies of scale) and later rises (from diseconomies of scale). The \textbf{optimum scale} 最优规模 is the size at which the average cost per unit is at its lowest.
+
+\begin{itemize}
+\item \textbf{economies of scale} 规模经济 — cost savings from being larger (e.g. bulk buying).
+
+\item \textbf{diseconomies of scale} 规模不经济 — rising average cost when a firm grows too big (e.g. poor communication).
+
+\end{itemize}
+
+A firm should try to grow up to its optimum scale, but not beyond it.
+
+\section*{Why quality matters}
+
+\textbf{Quality} 质量 means how well a product meets the customer's needs. Good quality wins repeat custom, lets the firm charge more, protects its brand, and cuts the cost of waste and returns. Poor quality loses customers and damages the firm's name.
+
+\section*{Methods of managing quality}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Method} & \textbf{How it works} \\
+\midrule
+\textbf{quality control} 质量控制 & check finished products and remove the faulty ones at the end \\
+\textbf{quality assurance} 质量保证 & build quality into every stage, so faults are prevented, not just found \\
+\textbf{total quality management} 全面质量管理 (TQM) & every worker takes responsibility for quality, aiming for zero faults \\
+\textbf{benchmarking} 标杆管理 & compare the firm's methods with the best firms, and copy what they do well \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Quality control finds faults late, after money is already spent. Quality assurance and TQM try to stop faults happening, which is usually cheaper in the long run.
+
+\section*{Operations strategy: lean production}
+
+\textbf{Lean production} 精益生产 means making products with the least possible \textbf{waste} 浪费 — of time, materials, space and effort. Methods like just-in-time and continuous improvement cut waste, lower cost, and raise quality. Less money is tied up in stock, and problems are fixed quickly.
+
+\section*{Capacity management and technology}
+
+\textbf{Capacity management} 产能管理 means matching what the firm can produce to the demand it faces. If demand is higher than capacity, the firm may add shifts, hire staff or outsource; if demand is lower, it may cut output or find new orders. New \textbf{technology} 技术, such as automation and data systems, helps a firm produce more, to a higher standard, at a lower cost.
+
+\section*{Critical path analysis}
+
+\textbf{Critical path analysis} 关键路径分析 (CPA) is a tool for planning a project made of many tasks. It draws the tasks as a network of arrows and \textbf{nodes} 节点 (circles), in the order they must happen. For each task it works out timings:
+
+\begin{itemize}
+\item the \textbf{earliest start time} 最早开始时间 (EST) — the soonest a task can begin, once earlier tasks are done.
+
+\item the \textbf{latest finish time} 最晚完成时间 (LFT) — the latest a task can finish without delaying the whole project.
+
+\end{itemize}
+
+From these comes the \textbf{total float} 总浮动时间 — the spare time a task has before it delays the project:
+
+\[
+\text{total float} = \text{LFT} - \text{duration} - \text{EST}
+\]
+
+The \textbf{critical path} 关键路径 is the chain of tasks with zero float. These tasks cannot be late, or the whole project is late. Adding up the times along this path gives the \textbf{minimum project duration} 最短项目工期 — the shortest time the project can take.
+
+CPA helps managers find the tasks that matter most, order resources for the right time, and see where delays would hurt. But it is only as good as the time estimates it is built on.
+
+
+\end{document}

@@ -1,0 +1,232 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Hardware}\\[0.35em]
+  {\large Igcse Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{The central processing unit (CPU)}
+
+The \textbf{central processing unit} 中央处理器 (CPU) is the part of the computer that processes data and carries out \textbf{instructions} 指令. It runs programs by repeating a cycle, millions of times each second.
+
+\subsection*{Parts of the CPU}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Part} & \textbf{What it does} \\
+\midrule
+\textbf{arithmetic logic unit} 算术逻辑单元 (ALU) & does calculations (add, subtract) and logical operations (compare) \\
+\textbf{control unit} 控制单元 (CU) & sends control signals to manage all the parts and tell them what to do \\
+\textbf{registers} 寄存器 & very small, very fast stores that hold one piece of data at a time \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+The parts are joined by \textbf{buses} 总线 — sets of wires that carry information:
+
+\begin{itemize}
+\item the \textbf{address bus} 地址总线 carries memory addresses (one direction);
+
+\item the \textbf{data bus} 数据总线 carries data and instructions (both directions);
+
+\item the \textbf{control bus} 控制总线 carries control signals.
+
+\end{itemize}
+
+\subsection*{Special registers}
+
+These registers are used during the fetch–execute cycle.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Register} & \textbf{Purpose} \\
+\midrule
+\textbf{program counter} 程序计数器 (PC) & holds the address of the next instruction \\
+\textbf{memory address register} 内存地址寄存器 (MAR) & holds the address to read from or write to \\
+\textbf{memory data register} 内存数据寄存器 (MDR) & holds the data or instruction just fetched \\
+\textbf{current instruction register} 当前指令寄存器 (CIR) & holds the instruction now being carried out \\
+\textbf{accumulator} 累加器 (ACC) & holds the result of the ALU's calculations \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{The fetch–execute cycle}
+
+The \textbf{fetch–execute cycle} 取指执行周期 has three stages, repeated again and again:
+
+\begin{enumerate}
+\item \textbf{Fetch} — the instruction is copied from memory 内存 into the CPU (using the PC, MAR and MDR). The PC then increases by 1.
+
+\item \textbf{Decode} — the control unit works out what the instruction means.
+
+\item \textbf{Execute} — the instruction is carried out (the ALU may do a calculation, with the result going to the accumulator).
+
+\end{enumerate}
+
+\subsection*{Cache memory}
+
+\textbf{Cache} 高速缓存 is a small amount of very fast memory inside or close to the CPU. It stores data and instructions that the CPU uses often. The CPU can read from cache much faster than from main memory, so the computer runs faster.
+
+\subsection*{What affects CPU performance}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Feature} & \textbf{Effect} \\
+\midrule
+number of \textbf{cores} 核心 & each core can run instructions on its own, so more cores can do more work at the same time \\
+cache size & a larger cache holds more data ready for the CPU, so it waits less \\
+\textbf{clock speed} 时钟速度 & the number of cycles per second; a higher clock speed runs more instructions per second \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{Embedded systems}
+
+An \textbf{embedded system} 嵌入式系统 is a small computer built inside a larger device to do one fixed job. It is dedicated to that task, is usually small and low-cost, and has no general operating system. Examples: a washing machine, a microwave, a set-top box.
+
+\section*{Input devices}
+
+An input device sends data \emph{into} the computer.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Device} & \textbf{How it works} \\
+\midrule
+\textbf{barcode scanner} 条形码扫描器 & shines light at the bars and reads the pattern reflected back \\
+\textbf{QR code scanner} 二维码扫描器 & a camera reads a square pattern of black-and-white blocks \\
+keyboard & pressing a key sends a code for that character \\
+optical mouse 光电鼠标 & a light and a sensor track movement across a surface \\
+microphone & turns sound waves into an electrical signal \\
+digital camera & a lens focuses light onto a sensor that records pixels \\
+\textbf{sensors} 传感器 & measure a physical quantity (such as temperature or light) and send it as data \\
+\textbf{touch screen} 触摸屏 & detects where your finger touches the screen \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+A touch screen can work in three ways:
+
+\begin{itemize}
+\item \textbf{resistive} 电阻式 — two layers are pressed together where you touch;
+
+\item \textbf{capacitive} 电容式 — it senses the tiny electric charge of your finger;
+
+\item \textbf{infrared} 红外线 — your finger breaks a grid of light beams.
+
+\end{itemize}
+
+\section*{Output devices}
+
+An output device sends data \emph{out} of the computer to the user.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Device} & \textbf{How it works} \\
+\midrule
+\textbf{actuator} 执行器 & turns an electrical signal into movement (e.g. a motor or valve) \\
+LCD/LED screen & shows images using a grid of tiny coloured dots \\
+\textbf{projector} 投影仪 & shines an enlarged image onto a wall or screen \\
+\textbf{inkjet printer} 喷墨打印机 & sprays tiny drops of ink onto paper \\
+\textbf{laser printer} 激光打印机 & uses a laser and powder (toner) fixed onto paper by heat \\
+3D printer & builds a solid object layer by layer \\
+\textbf{speaker} 扬声器 & turns an electrical signal into sound \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Primary storage: RAM and ROM}
+
+\textbf{Primary storage} 主存储器 is memory the CPU can use directly. There are two kinds.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{} & \textbf{RAM} & \textbf{ROM} \\
+\midrule
+Full name & \textbf{random access memory} 随机存取存储器 & \textbf{read only memory} 只读存储器 \\
+Read/write & read and write & read only \\
+Keeps data without power? & no — it is \textbf{volatile} 易失性 & yes — it is \textbf{non-volatile} 非易失性 \\
+Holds & programs and data in use now & start-up instructions (how to boot the computer) \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Both are needed: ROM tells the computer how to start, then RAM holds the programs you run.
+
+\section*{Secondary storage}
+
+\textbf{Secondary storage} 辅助存储器 keeps data permanently, even when the power is off. It is non-volatile and is used for long-term storage. There are three types.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Type} & \textbf{How it stores data} & \textbf{Examples} \\
+\midrule
+\textbf{magnetic storage} 磁存储 & data is stored as magnetised spots on spinning disks & hard disk drive (HDD), magnetic tape \\
+\textbf{optical storage} 光存储 & data is stored as marks read by a laser & CD, DVD, Blu-ray \\
+\textbf{solid state storage} 固态存储 & data is stored in \textbf{flash memory} 闪存, with no moving parts & SSD, USB flash drive, memory card \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Virtual memory}
+
+When the RAM becomes full, the computer can use part of the secondary storage as extra, pretend RAM. This is called \textbf{virtual memory} 虚拟内存.
+
+Data that is not needed right now is moved out of RAM onto the disk, which frees space in RAM for other programs. This lets you run more programs than the RAM alone could hold. It is slower, because secondary storage is much slower than RAM.
+
+\section*{Network hardware}
+
+\subsection*{Network interface card (NIC)}
+
+A \textbf{network interface card} 网络接口卡 (NIC) is the hardware that lets a device join a network and send and receive data. Each NIC has a built-in MAC address.
+
+\subsection*{MAC address and IP address}
+
+\begin{itemize}
+\item A \textbf{MAC address} (media access control 介质访问控制 address) is a number that identifies one physical device. The maker sets it, and it does not normally change. It is written in hexadecimal.
+
+\item An \textbf{IP address} (internet protocol 网际协议 address) is a number that identifies a device on a network. It is given by the network and can change.
+
+\end{itemize}
+
+So a MAC address stays with the device, while an IP address depends on the network the device is using.
+
+\subsection*{Router}
+
+A \textbf{router} 路由器 connects different networks together — for example, your home network to the internet. It reads the IP address in each packet and forwards it towards the right network.
+
+
+\end{document}

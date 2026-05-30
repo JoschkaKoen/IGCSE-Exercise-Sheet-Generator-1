@@ -1,0 +1,147 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Nucleic acids and protein synthesis}\\[0.35em]
+  {\large A Level Biology}
+\end{center}
+\vspace{0.6em}
+
+\section*{Nucleotides — the building blocks}
+
+\textbf{Nucleic acids} 核酸 (DNA and RNA) are polymers of small units called \textbf{nucleotides} 核苷酸. Each nucleotide is made of three parts joined together:
+
+\begin{itemize}
+\item a \textbf{phosphate} 磷酸 group,
+
+\item a sugar (a 5-carbon sugar),
+
+\item a nitrogen-containing \textbf{base} 碱基.
+
+\end{itemize}
+
+\textbf{ATP} is a special nucleotide. It has the base \textbf{adenine} 腺嘌呤, the sugar \textbf{ribose} 核糖, and \textbf{three} phosphate groups. Breaking off the last phosphate releases \textbf{energy} 能量 for the cell.
+
+There are five bases, in two groups:
+
+\begin{itemize}
+\item \textbf{purines} 嘌呤 have a \textbf{double ring} (two rings): adenine and \textbf{guanine} 鸟嘌呤.
+
+\item \textbf{pyrimidines} 嘧啶 have a \textbf{single ring} (one ring): \textbf{cytosine} 胞嘧啶, \textbf{thymine} 胸腺嘧啶 and \textbf{uracil} 尿嘧啶.
+
+\end{itemize}
+
+\section*{The structure of DNA}
+
+A DNA molecule is two strands twisted together into a \textbf{double helix} 双螺旋.
+
+Each \textbf{strand} 链 has a backbone of alternating sugar (here the sugar is \textbf{deoxyribose} 脱氧核糖) and phosphate. The sugar of one nucleotide is joined to the phosphate of the next by a \textbf{phosphodiester bond} 磷酸二酯键.
+
+The two strands are held together by their bases, which meet in the middle. The pairing is exact — this is \textbf{complementary base pairing} 碱基互补配对:
+
+\begin{itemize}
+\item A always pairs with T, held by \textbf{two} \textbf{hydrogen bonds} 氢键.
+
+\item C always pairs with G, held by \textbf{three} hydrogen bonds (so a C–G \textbf{base pair} 碱基对 is harder to separate).
+
+\end{itemize}
+
+The two strands run in opposite directions: one goes 5′ to 3′ while the other goes 3′ to 5′. We say they are \textbf{antiparallel} 反平行.
+
+\section*{DNA replication}
+
+DNA \textbf{replication} 复制 (copying) happens during the S phase of the cell cycle. It is \textbf{semi-conservative} 半保留复制: each new molecule keeps one old strand and one new strand. The steps are:
+
+\begin{enumerate}
+\item the double helix unwinds and the hydrogen bonds break, so the two strands separate.
+
+\item each old strand acts as a template. Free nucleotides pair with the exposed bases by complementary base pairing.
+
+\item the \textbf{enzyme} 酶 \textbf{DNA polymerase} 聚合酶 joins the new nucleotides into a strand. It can only add nucleotides in the 5′ to 3′ direction.
+
+\end{enumerate}
+
+Because of that 5′ to 3′ rule, the two new strands are made differently:
+
+\begin{itemize}
+\item the \textbf{leading strand} 前导链 is built continuously, following the unwinding.
+
+\item the \textbf{lagging strand} 后随链 is built in short pieces, working away from the unwinding point. The enzyme \textbf{DNA ligase} 连接酶 then joins these pieces together.
+
+\end{itemize}
+
+\section*{RNA}
+
+RNA is also made of nucleotides, but it is a single strand, its sugar is ribose, and it uses uracil in place of thymine. The most important type here is \textbf{messenger RNA (mRNA)}, which carries a copy of a gene's instructions out of the nucleus to be used.
+
+\section*{The genetic code}
+
+A \textbf{gene} 基因 is a sequence of DNA nucleotides that codes for one \textbf{polypeptide} 多肽.
+
+The code is read in \textbf{triplets} 三联体 — groups of three bases. Each triplet either codes for one specific \textbf{amino acid} 氨基酸, or acts as a start or stop signal. The code is \textbf{universal}: nearly all living things use the same triplets for the same amino acids.
+
+There are 64 possible triplets but only 20 common amino acids, so most amino acids are coded by more than one triplet.
+
+\section*{Protein synthesis: transcription and translation}
+
+\subsection*{Transcription (in the nucleus)}
+
+The DNA gene is copied into mRNA. This is \textbf{transcription} 转录.
+
+\begin{itemize}
+\item the strand of DNA that is copied is the \textbf{template strand} 模板链; the partner strand is the \textbf{non-transcribed strand} 非转录链.
+
+\item the enzyme \textbf{RNA polymerase} joins RNA nucleotides that pair with the template bases (with uracil pairing to adenine).
+
+\item in eukaryotes the first RNA made (the \textbf{primary transcript} 初级转录本) contains coding parts called \textbf{exons} 外显子 and non-coding parts called \textbf{introns} 内含子. The introns are cut out and the exons joined together to form the finished mRNA.
+
+\end{itemize}
+
+\subsection*{Translation (at the ribosome)}
+
+The mRNA leaves the nucleus and attaches to a \textbf{ribosome} 核糖体. Building the polypeptide from the mRNA code is \textbf{translation} 翻译.
+
+\begin{itemize}
+\item the mRNA is read in \textbf{codons} 密码子 (each codon is one triplet of mRNA bases).
+
+\item molecules of \textbf{transfer RNA (tRNA)} bring amino acids to the ribosome. Each tRNA has an \textbf{anticodon} 反密码子 that pairs with a matching codon.
+
+\item as the codons are read in order, the ribosome joins the amino acids with \textbf{peptide bonds} 肽键, building the polypeptide.
+
+\end{itemize}
+
+\section*{Gene mutations}
+
+A gene \textbf{mutation} 突变 is a change in the base sequence of a DNA molecule. It may change the polypeptide made. There are three types:
+
+\begin{itemize}
+\item \textbf{substitution} 替换 — one base is swapped for a different base. This changes at most one amino acid, and sometimes none (because most amino acids have more than one triplet).
+
+\item \textbf{deletion} 缺失 — a base is removed.
+
+\item \textbf{insertion} 插入 — an extra base is added.
+
+\end{itemize}
+
+A deletion or insertion shifts how every later triplet is read, so it usually changes many amino acids after that point and has a large effect on the polypeptide.
+
+
+\end{document}
