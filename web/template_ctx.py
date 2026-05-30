@@ -10,6 +10,7 @@ need to be added here.
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from typing import Any
 
 from fastapi import Request
@@ -22,6 +23,12 @@ from .i18n import (
     translate,
 )
 from .user_auth import current_user_for_request
+
+
+@lru_cache(maxsize=8)
+def _i18n_json(lang: str) -> str:
+    """Per-language UI string table, dumped once (``STRINGS`` is static at import)."""
+    return json.dumps(STRINGS.get(lang, STRINGS["en"]), ensure_ascii=False)
 
 
 def template_ctx(request: Request, **extra: Any) -> dict[str, Any]:
@@ -40,7 +47,7 @@ def template_ctx(request: Request, **extra: Any) -> dict[str, Any]:
         # Full string table dumped once per request as JSON. base.html assigns
         # it to window.i18n so any inline / module JS can look strings up by
         # key. ensure_ascii=False keeps Chinese readable in view-source.
-        "i18n_json": json.dumps(STRINGS.get(lang, STRINGS["en"]), ensure_ascii=False),
+        "i18n_json": _i18n_json(lang),
         # Per-render lookup of the logged-in user (None if no cookie / expired
         # / row missing). Only runs on template-rendering routes — JSON /api/*
         # endpoints don't go through here.

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ t('dashboard.title') }}{% endblock %}
 {% block extra_head %}
-  <link rel="stylesheet" href="/static/css/14-dashboard.css" />
+  <link rel="stylesheet" href="{{ static_url('css/14-dashboard.css') }}" />
 {% endblock %}
 {% block content %}
 <header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
@@ -234,6 +234,6 @@
 </section>
 
 <script src="/static/vendor/chartjs/chart.umd.min.js" defer></script>
-<script src="/static/js/dashboard.js" defer></script>
+<script src="{{ static_url('js/dashboard.js') }}" defer></script>
 
 {% endblock %}

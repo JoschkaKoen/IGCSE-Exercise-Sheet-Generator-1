@@ -19,21 +19,17 @@ account-creation modal.
 from __future__ import annotations
 
 import json
-from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
 
 from eXam.db import connect
 from .. import jobs_db
 from ..template_ctx import template_ctx
+from ..templating import TEMPLATES
 from ..user_auth import current_user_id
 from .account import get_full_by_id
-
-PACKAGE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
 
 router = APIRouter()
 

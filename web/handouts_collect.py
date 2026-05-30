@@ -20,6 +20,7 @@ import yaml
 from xscore.shared.qnum_utils import norm_qnum
 
 from . import extracted_questions
+from .content_cache import mtime_cached
 from .subtopic_matcher import iter_leaves
 from .syllabus_content import load_content
 from .syllabus_topics import load_topics
@@ -340,6 +341,7 @@ def save_md(path: Path, content: str) -> None:
     os.replace(tmp, path)
 
 
+@mtime_cached(lambda subject_key, topic_number: [md_path(subject_key, topic_number)])
 def load_handout_md(subject_key: str, topic_number: str) -> str | None:
     """Read the topic handout markdown from disk, or None when the file is absent / unreadable."""
     path = md_path(subject_key, topic_number)

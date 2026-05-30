@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block extra_head %}
-  <link rel="stylesheet" href="/static/css/08-workspace-pdf-preview.css" />
-  <link rel="stylesheet" href="/static/css/09-overview.css" />
-  <link rel="stylesheet" href="/static/css/11-library-detail.css" />
+  <link rel="stylesheet" href="{{ static_url('css/08-workspace-pdf-preview.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/09-overview.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/11-library-detail.css') }}" />
 {% endblock %}
 {% block title %}{{ t('title.library') }}{% endblock %}
 

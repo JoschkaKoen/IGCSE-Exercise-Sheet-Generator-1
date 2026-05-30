@@ -12,19 +12,15 @@ detail that lives at /eXam/teacher/costs (linked at the top of the page).
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 from fastapi import APIRouter, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
 
 from ..analytics import store
 from ..analytics.cost_overview import ai_spend_breakdown, total_ai_cost_rmb
 from ..grade_auth import is_grade_unlocked
 from ..template_ctx import template_ctx
-
-PACKAGE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
+from ..templating import TEMPLATES
 
 router = APIRouter()
 

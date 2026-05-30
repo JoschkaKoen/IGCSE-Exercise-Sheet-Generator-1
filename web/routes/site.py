@@ -7,7 +7,6 @@ from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
-from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from eXercise.config import EXAM_ROOT_BY_KEY, SYLLABI_DIR
@@ -32,9 +31,7 @@ from ..grade_auth import (
 )
 from ..service import invalidate_library_cache, list_library_pdfs
 from ..template_ctx import template_ctx as _template_ctx
-
-PACKAGE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
+from ..templating import TEMPLATES
 
 ALLOWED_SUBJECTS = frozenset(EXAM_ROOT_BY_KEY.keys())
 

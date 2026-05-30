@@ -8,11 +8,9 @@ from __future__ import annotations
 
 import json
 from io import BytesIO
-from pathlib import Path
 
 from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
-from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from eXam.cost_tracker import cost_breakdown, cost_for_test, costs_by_test
@@ -22,9 +20,7 @@ from eXam.results_export import export_test_xlsx
 from eXam.test_builder import build_test
 from ..grade_auth import is_grade_unlocked
 from ..template_ctx import template_ctx
-
-PACKAGE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
+from ..templating import TEMPLATES
 
 router = APIRouter(prefix="/eXam/teacher", tags=["eXam-teacher"])
 

@@ -23,10 +23,10 @@ import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 
+import starlette.middleware.gzip as _gzip_mod
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .analytics import AnalyticsMiddleware, init_db as init_analytics_db
@@ -51,6 +51,7 @@ from .routes.nl_jobs import router as nl_jobs_router
 from .routes.site import router as site_router
 from .service import list_library_pdfs
 from .template_ctx import template_ctx
+from .templating import TEMPLATES
 
 PACKAGE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = PACKAGE_DIR / "static"
@@ -85,14 +86,26 @@ async def _lifespan(app: FastAPI):
         import logging
         logging.exception("analytics init_db() failed at startup")
     list_library_pdfs()  # pre-warm PDF index cache so the first page load is instant
+    # Warm the Learn content/render caches in the background (does not delay
+    # startup) so the first visitor to each subject doesn't pay the cold render
+    # on the single worker.
+    try:
+        import threading
+
+        from .routes.learn import warm_caches
+        threading.Thread(target=warm_caches, name="warm-learn-caches", daemon=True).start()
+    except Exception:
+        import logging
+        logging.exception("learn cache pre-warm failed to start")
     yield
 
 
 app = FastAPI(title="eXercise", lifespan=_lifespan)
 
 
-def _with_isolation_headers(headers: list, *, no_cache: bool) -> list:
-    """Add cross-origin isolation headers (and optionally disable caching).
+def _with_isolation_headers(headers: list, *, cache_control: str | None) -> list:
+    """Add cross-origin isolation headers (CORP + COEP) and, when given, an
+    explicit ``Cache-Control``.
 
     The /code playground is cross-origin isolated (COOP+COEP). Under
     ``COEP: require-corp`` every subresource it loads — and, critically, the
@@ -100,34 +113,43 @@ def _with_isolation_headers(headers: list, *, no_cache: bool) -> list:
     ``Cross-Origin-Embedder-Policy: require-corp`` and pass the CORP check, or
     the browser refuses to load it (the worker fails with an empty error). So we
     stamp these on the whole /static tree. They are inert on non-isolated pages.
+
+    ``cache_control`` (when not None) replaces any upstream ``Cache-Control``;
+    ETag/Last-Modified from StaticFiles are kept so short-max-age mounts can
+    still revalidate with a 304. ``None`` leaves StaticFiles' default (ETag only).
     """
     drop = {b"cross-origin-resource-policy", b"cross-origin-embedder-policy"}
-    if no_cache:
-        drop |= {b"cache-control", b"etag", b"last-modified"}
+    if cache_control is not None:
+        drop |= {b"cache-control"}
     out = [(k, v) for k, v in headers if k.lower() not in drop]
     out.append((b"cross-origin-resource-policy", b"same-origin"))
     out.append((b"cross-origin-embedder-policy", b"require-corp"))
-    if no_cache:
-        out.append((b"cache-control", b"no-store, no-cache, must-revalidate, max-age=0"))
+    if cache_control is not None:
+        out.append((b"cache-control", cache_control.encode("latin-1")))
     return out
 
 
 class IsolatedStaticFiles(StaticFiles):
     """StaticFiles that adds cross-origin isolation headers (CORP + COEP) so the
     cross-origin-isolated /code page can load these assets and spawn the Pyodide
-    module worker. ``no_cache=True`` also disables browser caching (used for the
-    frequently-edited /static tree; the pinned /static/vendor tree stays
-    cacheable so the ~12 MB Pyodide download is fetched once)."""
+    module worker.
 
-    def __init__(self, *args, no_cache: bool = False, **kwargs):
-        self._no_cache = no_cache
+    ``cache_control`` sets the per-mount caching policy: the pinned
+    ``/static/vendor`` tree is ``immutable`` (fetched once, never revalidated);
+    the app ``/static`` tree is a short ``max-age`` + ETag (revalidates, never
+    stale after a deploy — its JS uses relative imports / bare worker URLs that
+    can't carry a ``?v=`` cache-buster, so it must NOT be immutable). ``None``
+    keeps StaticFiles' ETag/Last-Modified default."""
+
+    def __init__(self, *args, cache_control: str | None = None, **kwargs):
+        self._cache_control = cache_control
         super().__init__(*args, **kwargs)
 
     async def __call__(self, scope, receive, send):
         async def send_wrapped(message):
             if message["type"] == "http.response.start":
                 message["headers"] = _with_isolation_headers(
-                    list(message.get("headers", [])), no_cache=self._no_cache
+                    list(message.get("headers", [])), cache_control=self._cache_control
                 )
             await send(message)
 
@@ -140,14 +162,30 @@ class IsolatedStaticFiles(StaticFiles):
 # inconsistent across OS/Python versions — register it explicitly before the mounts.
 mimetypes.add_type("application/wasm", ".wasm")
 
+# Immutable: pinned vendor assets (Pyodide/KaTeX/CodeMirror) never change in
+# place — cache them for a year with no revalidation. A vendor_fetch version
+# bump that overwrites a same-named file needs a manual cache-bust (rare).
+_VENDOR_CACHE = "public, max-age=31536000, immutable"
+# Short max-age + ETag: app CSS/JS reuse from cache within a session but
+# revalidate quickly. Deliberately NOT immutable — relative ES-module imports
+# and bare Worker() URLs can't carry the ?v= cache-buster (see static_url), so
+# immutable would serve stale modules after a deploy.
+_STATIC_CACHE = "public, max-age=60"
+
 VENDOR_DIR = STATIC_DIR / "vendor"
 if VENDOR_DIR.is_dir():
-    # Pinned external CDN assets — let the browser cache these (default
-    # StaticFiles emits ETag/Last-Modified). Mounted before /static so its
-    # prefix wins in Starlette's route-iteration order.
-    app.mount("/static/vendor", IsolatedStaticFiles(directory=str(VENDOR_DIR)), name="static-vendor")
+    # Mounted before /static so its prefix wins in Starlette's route-iteration order.
+    app.mount(
+        "/static/vendor",
+        IsolatedStaticFiles(directory=str(VENDOR_DIR), cache_control=_VENDOR_CACHE),
+        name="static-vendor",
+    )
 if STATIC_DIR.is_dir():
-    app.mount("/static", IsolatedStaticFiles(directory=str(STATIC_DIR), no_cache=True), name="static")
+    app.mount(
+        "/static",
+        IsolatedStaticFiles(directory=str(STATIC_DIR), cache_control=_STATIC_CACHE),
+        name="static",
+    )
 
 # Handout figures live beside the handout markdown under
 # ``output/eXam/handouts/<subject>/assets/`` (tracked in git like the ``.md``). Mount the handouts
@@ -194,7 +232,7 @@ async def apple_touch_icon() -> Response:
 #     ServerErrorMiddleware, AFTER AnalyticsMiddleware's ``except`` block has
 #     already recorded the error event and re-raised — so error tracking works.
 
-_ERROR_TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
+_ERROR_TEMPLATES = TEMPLATES  # shared env (filters/globals in web/templating.py)
 _ERROR_NO_CACHE = {
     "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
     "Pragma": "no-cache",
@@ -322,6 +360,28 @@ async def site_access_gate(request: Request, call_next):
 # LAST registered middleware wraps everything else. Outermost = sees every
 # request, including the 401/403 responses the gate above issues.
 app.add_middleware(AnalyticsMiddleware)
+
+# Scoped gzip. Starlette's GZipResponder reads DEFAULT_EXCLUDED_CONTENT_TYPES as
+# a module global per request, so broadening it here (before any request) takes
+# effect. Default is only ("text/event-stream",); we also exclude already-
+# compressed or Range-streamed binaries — notably application/pdf, so FileResponse
+# byte-range streaming keeps working (pdf.js reads library PDFs by range with no
+# disableRange). image/svg+xml is intentionally NOT excluded (SVG is text → the
+# 188 KB logo compresses well). Registered LAST → outermost → compresses the
+# final response body for every route, including /static.
+_gzip_mod.DEFAULT_EXCLUDED_CONTENT_TYPES = (
+    "text/event-stream",
+    "application/pdf",
+    "application/zip",
+    "application/wasm",
+    "font/",
+    "image/png",
+    "image/jpeg",
+    "image/gif",
+    "image/webp",
+    "image/x-icon",
+)
+app.add_middleware(_gzip_mod.GZipMiddleware, minimum_size=500)
 
 
 app.include_router(site_router)

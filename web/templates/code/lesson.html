@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ lesson.title }} · {{ t('title.code') }}{% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href="/static/css/16-code.css" />
+<link rel="stylesheet" href="{{ static_url('css/16-code.css') }}" />
 <link rel="stylesheet" href="/static/vendor/codemirror/lib/codemirror.css" />
 <script defer src="/static/vendor/codemirror/lib/codemirror.js"></script>
 {% if lesson.language == 'java' %}
@@ -14,7 +14,7 @@
 <script defer src="/static/vendor/codemirror/addon/comment/comment.js"></script>
 <script defer src="/static/vendor/codemirror/addon/selection/active-line.js"></script>
 <script defer src="/static/vendor/codemirror/addon/display/placeholder.js"></script>
-<script type="module" src="/static/js/code-playground.js"></script>
+<script type="module" src="{{ static_url('js/code-playground.js') }}"></script>
 {% endblock %}
 {% block content %}
 <div class="code-lesson" data-slug="{{ lesson.slug }}" data-nn="{{ lesson.nn }}" data-language="{{ lesson.language }}" data-pyodide-url="/static/vendor/pyodide/">

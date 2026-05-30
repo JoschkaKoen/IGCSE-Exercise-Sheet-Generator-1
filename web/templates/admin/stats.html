@@ -313,6 +313,6 @@
 </section>
 
 <script id="chart-payload" type="application/json">{{ chart_payload_json | safe }}</script>
-<script src="/static/js/admin-stats.js" defer></script>
+<script src="{{ static_url('js/admin-stats.js') }}" defer></script>
 
 {% endblock %}

@@ -37,6 +37,7 @@ from typing import Any, Literal
 
 from eXercise.config import EXAM_ROOT_BY_KEY, SYLLABI_DIR
 
+from web.content_cache import mtime_cached
 from web.syllabus_topics import (
     current_syllabus_pdf,
     load_topics,
@@ -53,7 +54,8 @@ _DEPTH2_OF = re.compile(r"^([A-Z]*\d+\.\d+)(?:\.\d+)?$")
 _DEPTH3_RE = re.compile(r"^[A-Z]*\d+\.\d+\.\d+$")
 
 
-# ── Loader (web route reads these — no in-process cache) ─────────────────
+# ── Loader (web route reads these — mtime-cached; edits show up live) ─────
+@mtime_cached(lambda subject_key, subtopic_number: [CONTENT_DIR / subject_key / f"{subtopic_number}.md"])
 def load_content(subject_key: str, subtopic_number: str) -> str | None:
     """Return the markdown content for one subtopic, or ``None`` if missing."""
     path = CONTENT_DIR / subject_key / f"{subtopic_number}.md"

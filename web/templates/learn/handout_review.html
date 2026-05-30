@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Review — {{ subject_display }} topic {{ topic }}{% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href="/static/css/06-landing.css" />
+<link rel="stylesheet" href="{{ static_url('css/06-landing.css') }}" />
 <link rel="stylesheet" href="/static/vendor/katex/katex.min.css">
 <script defer src="/static/vendor/katex/katex.min.js"></script>
 <script defer src="/static/vendor/katex/contrib/auto-render.min.js"

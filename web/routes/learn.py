@@ -19,14 +19,11 @@ reading ``syllabi/content/<subject>/<subtopic>.md`` (written by
 from __future__ import annotations
 
 import re
-from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
 
 from eXam import open_mode
-from eXam.render_helper import render_helper_markdown
 
 from .. import extracted_questions
 from ..handouts_collect import (
@@ -40,12 +37,7 @@ from ..handouts_collect import (
 from ..syllabus_content import load_content
 from ..syllabus_topics import load_topics
 from ..template_ctx import template_ctx
-
-PACKAGE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
-# Used by extracted_questions.html to render question/option text (LaTeX
-# math survives as $…$ for KaTeX auto-render to pick up client-side).
-TEMPLATES.env.filters["render_md"] = render_helper_markdown
+from ..templating import TEMPLATES, render_md
 
 # Browser may cache but must revalidate — lets the landing-page prefetch warm
 # the HTTP cache while keeping content fresh on the real click. Mirrors
@@ -82,7 +74,32 @@ def _strip_h1(md: str) -> str:
 
 def _render_subtopic(subject: str, number: str) -> str | None:
     md = load_content(subject, number)
-    return render_helper_markdown(_strip_h1(md)) if md else None
+    return render_md(_strip_h1(md)) if md else None
+
+
+def warm_caches() -> None:
+    """Best-effort: render every subtopic + handout once so the content/render
+    caches are warm before the first visitor (the single worker would otherwise
+    block on the cold render). Called in a background thread at startup."""
+    try:
+        subjects = [s["slug"] for s in open_mode.subject_grid()]
+    except Exception:
+        return
+    for subject in subjects:
+        try:
+            data = load_topics(subject)
+            for topic in (data or {}).get("topics") or []:
+                subs = topic.get("subtopics") or []
+                if subs:
+                    for sub in subs:
+                        _render_subtopic(subject, sub["number"])
+                else:
+                    _render_subtopic(subject, str(topic.get("number") or ""))
+                num = str(topic.get("number") or "")
+                if num and (md := load_handout_md(subject, num)):
+                    render_md(md)
+        except Exception:
+            continue
 
 
 @router.get("", response_class=HTMLResponse)
@@ -240,8 +257,8 @@ async def handout_review(
             right_key=right,
             left_label=_version_label(left),
             right_label=_version_label(right),
-            left_html=(render_helper_markdown(left_md) if left_md else None),
-            right_html=(render_helper_markdown(right_md) if right_md else None),
+            left_html=(render_md(left_md) if left_md else None),
+            right_html=(render_md(right_md) if right_md else None),
             versions=_available_versions(subject, topic),
         ),
     )
@@ -262,7 +279,7 @@ async def topics_page(request: Request, subject: str):
             topic["content_html"] = _render_subtopic(subject, str(topic.get("number") or ""))
         topic_num = str(topic.get("number") or "")
         md = load_handout_md(subject, topic_num) if topic_num else None
-        topic["handout_html"] = render_helper_markdown(md) if md else None
+        topic["handout_html"] = render_md(md) if md else None
         pf = pdf_path(subject, topic_num) if topic_num else None
         if pf is not None and pf.is_file():
             pt = padded_topic(topic_num)

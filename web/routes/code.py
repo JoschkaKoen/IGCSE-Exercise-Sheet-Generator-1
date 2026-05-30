@@ -15,25 +15,17 @@ site is unaffected.
 
 from __future__ import annotations
 
-from pathlib import Path
-
 from fastapi import APIRouter, HTTPException, Query, Request, Response
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from eXam import open_mode
-from eXam.render_helper import render_helper_markdown
 
 from .. import code_content, code_progress
 from ..i18n import detect_language
 from ..template_ctx import template_ctx
+from ..templating import TEMPLATES
 from ..user_auth import current_user_id
-
-PACKAGE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
-# Lesson prose and task prompts are markdown; LaTeX survives as $…$ for KaTeX.
-TEMPLATES.env.filters["render_md"] = render_helper_markdown
 
 # Cross-origin isolation unlocks SharedArrayBuffer (Pyodide worker: interrupt
 # buffer for Stop + Atomics-backed blocking input()). Scoped to /code responses

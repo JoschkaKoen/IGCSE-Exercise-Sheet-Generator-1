@@ -27,6 +27,8 @@ from typing import Any
 
 import yaml
 
+from .content_cache import mtime_cached
+
 # ``web/`` sits at the repo root, so parents[1] is the repo root.
 CODE_DIR = Path(__file__).resolve().parents[1] / "content" / "code"
 
@@ -63,6 +65,7 @@ def list_courses(lang: str) -> list[dict[str, Any]]:
     return courses
 
 
+@mtime_cached(lambda slug, lang: [course_dir(slug) / "course.yaml", *sorted(course_dir(slug).glob("*.meta.yaml"))])
 def load_course(slug: str, lang: str) -> dict[str, Any] | None:
     """Course manifest + each lesson's number/title, resolved to ``lang``."""
     cdir = course_dir(slug)
@@ -87,6 +90,12 @@ def load_course(slug: str, lang: str) -> dict[str, Any] | None:
     }
 
 
+@mtime_cached(lambda slug, nn, lang: [
+    course_dir(slug) / f"{nn}.meta.yaml",
+    course_dir(slug) / f"{nn}.{lang}.md",
+    course_dir(slug) / f"{nn}.en.md",
+    course_dir(slug) / "course.yaml",
+])
 def load_lesson(slug: str, nn: str, lang: str) -> dict[str, Any] | None:
     """One lesson resolved to ``lang`` (English fallback). ``None`` if missing.
 

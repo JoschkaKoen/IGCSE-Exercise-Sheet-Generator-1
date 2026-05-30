@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ subject_display }} — {{ t('learn.extracted.title') }}{% endblock %}
-{% block extra_head %}<link rel="stylesheet" href="/static/css/15-learn-extracted.css" />{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{{ static_url('css/15-learn-extracted.css') }}" />{% endblock %}
 {% block content %}
 <header class="mb-6 max-w-3xl">
   <p class="text-xs text-slate-500">

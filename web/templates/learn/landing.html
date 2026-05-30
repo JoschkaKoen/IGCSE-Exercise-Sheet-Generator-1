@@ -2,7 +2,7 @@
 {% block title %}{{ t('title.learn_landing') }}{% endblock %}
 {# 06-landing.css holds the per-subject colour palette (.practice-card[data-subject=…]
    and .subject-badge-*) — base.html doesn't load it, so pull it in here. #}
-{% block extra_head %}<link rel="stylesheet" href="/static/css/06-landing.css" />{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{{ static_url('css/06-landing.css') }}" />{% endblock %}
 {% block content %}
 <header class="mb-8 max-w-3xl">
   <h1 class="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">

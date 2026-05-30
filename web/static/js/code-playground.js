@@ -132,6 +132,18 @@ function init(root) {
     serverPost({ revealed: n });
   }
 
+  // Warm the Pyodide worker the moment the student focuses an editor (intent to
+  // run) so the first Run skips the ~12 MB download wait. Bandwidth-respectful:
+  // fires only on interaction, never for read-only visitors. Python only — Java
+  // either warms on load (client runtime, above) or runs server-side with no
+  // worker; non-isolated pages can't execute. ensureWorker() self-guards re-boot.
+  let warmedByFocus = false;
+  function warmOnFocus() {
+    if (warmedByFocus || !isolated || LANG === "java") return;
+    warmedByFocus = true;
+    ensureWorker().catch(() => { /* surfaced on first Run/Check */ });
+  }
+
   // ---- Editors -----------------------------------------------------------
   function initEditors() {
     // CodeMirror 5 loads as a classic deferred script; wait until the global exists.
@@ -148,6 +160,7 @@ function init(root) {
         viewportMargin: Infinity,
       });
       editors[ta.dataset.taskId] = cm;
+      cm.on("focus", warmOnFocus);
       const step = ta.closest(".code-step");
       if (step && !step.hidden) cm.refresh();   // a task step restored visible before CM loaded
     });

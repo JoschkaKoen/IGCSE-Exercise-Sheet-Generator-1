@@ -4,7 +4,7 @@
    per-status-code branching and missing-key fallbacks. #}
 {% block title %}{{ page_title }}{% endblock %}
 {% block extra_head %}
-  <link rel="stylesheet" href="/static/css/17-error.css" />
+  <link rel="stylesheet" href="{{ static_url('css/17-error.css') }}" />
 {% endblock %}
 {% block content %}
 <section class="error-page">

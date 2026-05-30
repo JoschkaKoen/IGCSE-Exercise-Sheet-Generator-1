@@ -8,11 +8,9 @@ from __future__ import annotations
 
 import datetime as _dt
 import hmac
-from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, Request, Response
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from eXam import auth as eXam_auth
@@ -29,9 +27,7 @@ from eXam.runtime import (
 from ..analytics import track_request_event
 from ..analytics.salt import hash_id
 from ..template_ctx import template_ctx
-
-PACKAGE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
+from ..templating import TEMPLATES
 
 router = APIRouter(prefix="/eXam", tags=["eXam-student"])
 

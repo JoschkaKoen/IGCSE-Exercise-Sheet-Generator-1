@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#01040e" />
-  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/static/favicon.svg" />
+  <link rel="icon" href="{{ static_url('favicon.svg') }}" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="{{ static_url('favicon.svg') }}" />
   <title>{% block title %}eXercise{% endblock %}</title>
   {# SEO + social-share preview. Used when a teacher shares a practice/library
      link — bare URLs otherwise preview with no title or description. Site-wide
@@ -62,13 +62,14 @@
       },
     };
   </script>
-  <link rel="stylesheet" href="/static/css/01-shell.css" />
-  <link rel="stylesheet" href="/static/css/02-auth-gate.css" />
-  <link rel="stylesheet" href="/static/css/03-core-ui.css" />
-  <link rel="stylesheet" href="/static/css/07-header-preview-chrome.css" />
-  <link rel="stylesheet" href="/static/css/10-accessibility-motion.css" />
-  <link rel="stylesheet" href="/static/css/12-mobile.css" />
-  <link rel="stylesheet" href="/static/css/13-account.css" />
+  <link rel="stylesheet" href="{{ static_url('css/01-shell.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/02-auth-gate.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/03-core-ui.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/07-header-preview-chrome.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/10-accessibility-motion.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/12-mobile.css') }}" />
+  {# Account modal is JS-opened on demand, so load its CSS async (non-render-blocking). #}
+  <link rel="stylesheet" href="{{ static_url('css/13-account.css') }}" media="print" onload="this.media='all'" />
   {% block extra_head %}{% endblock %}
 </head>
 <body class="min-h-full font-sans text-slate-200 antialiased space-bg{% if needs_site_login | default(false) %} site-auth-locked{% endif %}">
@@ -306,8 +307,9 @@
 
     <footer class="border-t border-white/[0.04] mx-auto w-full max-w-5xl px-4 py-6 flex items-center justify-center sm:px-6">
       <span class="inline-flex items-center rounded-md bg-white/95 px-3 py-1.5 shadow-sm shadow-black/30 opacity-60">
-        <img src="/static/cambridge-logo.svg"
+        <img src="{{ static_url('cambridge-logo.svg') }}"
              alt="{{ t('footer.tagline') if t else 'Exercise sheet generator' }}"
+             width="66" height="14" decoding="async"
              class="h-5 w-auto" />
       </span>
     </footer>
@@ -484,6 +486,6 @@
     </form>
   </dialog>
 
-  <script src="/static/js/account.js" defer></script>
+  <script src="{{ static_url('js/account.js') }}" defer></script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block extra_head %}
-  <link rel="stylesheet" href="/static/css/04-generation.css" />
-  <link rel="stylesheet" href="/static/css/05-downloads-result.css" />
-  <link rel="stylesheet" href="/static/css/06-landing.css" />
-  <link rel="stylesheet" href="/static/css/08-workspace-pdf-preview.css" />
-  <link rel="stylesheet" href="/static/css/09-overview.css" />
+  <link rel="stylesheet" href="{{ static_url('css/04-generation.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/05-downloads-result.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/06-landing.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/08-workspace-pdf-preview.css') }}" />
+  <link rel="stylesheet" href="{{ static_url('css/09-overview.css') }}" />
 
   {# Warm the other header destinations so clicking Library / Learn / Practice
      feels instant. The browser issues these at low priority, after the landing
@@ -34,5 +34,5 @@
   {% include "partials/workspace_left.html" %}
   {% include "partials/workspace_pdf_panels.html" %}
 </section>
-<script type="module" src="/static/js/workspace.js"></script>
+<script type="module" src="{{ static_url('js/workspace.js') }}"></script>
 {% endblock %}
