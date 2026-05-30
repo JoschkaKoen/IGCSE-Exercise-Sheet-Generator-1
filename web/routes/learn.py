@@ -19,11 +19,15 @@ reading ``syllabi/content/<subject>/<subtopic>.md`` (written by
 from __future__ import annotations
 
 import re
+import struct
+from functools import lru_cache
+from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse
 
 from eXam import open_mode
+from eXam.render_helper import render_helper_markdown
 
 from .. import extracted_questions
 from ..handouts_collect import (
@@ -80,10 +84,109 @@ def _render_subtopic(subject: str, number: str) -> str | None:
     return render_md(_strip_h1(md)) if md else None
 
 
+# ── Handout figure sizing ──────────────────────────────────────────────────────
+# Handout figures are textbook crops captured at 300-dpi intent (PNGs ~290–2160 px
+# wide) embedded as bare markdown images, so without a size they inflate to the full
+# column. Inject a faithful-ish display size (intrinsic_px × DISPLAY_DPI / 300) as the
+# <img width/height> attrs; CSS keeps max-width for responsiveness. See the plan file
+# for the measured rationale behind the constants.
+FIGURE_WEB_DPI = 300         # capture/print intent (NOT the PNG's tagged 96 dpi); a literal divisor
+FIGURE_DISPLAY_DPI = 115     # ×1.20 vs faithful-96 for ESL-label legibility; set 96 for strict print size
+FIGURE_MIN_WIDTH_PX = 180    # floor so tiny labeled diagrams stay readable (never upscales; set 0 to disable)
+
+
+@lru_cache(maxsize=1024)
+def _png_dims_px(path_str: str, _mtime_ns: int) -> tuple[int, int] | None:
+    """Intrinsic ``(width, height)`` of a PNG, read from its IHDR header.
+
+    The cache key includes the file's mtime so an edited asset refreshes. Returns
+    ``None`` on any read/parse failure (truncated, non-PNG, bad header).
+    """
+    try:
+        with open(path_str, "rb") as fh:
+            head = fh.read(24)
+    except OSError:
+        return None
+    if len(head) < 24 or head[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    try:
+        w, h = struct.unpack(">II", head[16:24])
+    except struct.error:
+        return None
+    return (w, h) if w and h else None
+
+
+def _handout_media_path(src: str | None) -> Path | None:
+    """Resolve a ``/handout-media/`` URL to its on-disk path (with the shared
+    path-traversal guard), or ``None`` for a non-handout / external / unsafe src."""
+    if not src or not src.startswith("/handout-media/"):
+        return None
+    rel = src[len("/handout-media/"):].split("?", 1)[0].split("#", 1)[0]
+    try:  # mirror resolve_print_image's path-traversal guard (web/handout_latex.py)
+        path = (HANDOUTS_ROOT / rel).resolve()
+        path.relative_to(HANDOUTS_ROOT.resolve())
+    except (ValueError, OSError):
+        return None
+    return path
+
+
+def _handout_fig_dims(src: str | None) -> tuple[int, int] | None:
+    """Display ``(width, height)`` in CSS px for a ``/handout-media/`` figure, else ``None``.
+
+    Returns ``None`` for any non-handout / external / unreadable image so the shared
+    renderer leaves it untouched, and never raises inside a request.
+    """
+    path = _handout_media_path(src)
+    if path is None:
+        return None
+    try:
+        mtime = path.stat().st_mtime_ns
+    except OSError:
+        return None
+    dims = _png_dims_px(str(path), mtime)
+    if not dims:
+        return None
+    iw, ih = dims
+    w = max(round(iw * FIGURE_DISPLAY_DPI / FIGURE_WEB_DPI), FIGURE_MIN_WIDTH_PX)
+    return (w, round(w * ih / iw))  # height from final width → aspect ratio exact even when floored
+
+
+# The topics page renders EVERY handout per request, so cache the rendered HTML.
+# Key = markdown + the mtimes of the figures it references (dims are injected from
+# disk via _handout_fig_dims), so editing the markdown OR a figure busts the entry.
+_HANDOUT_MEDIA_RE = re.compile(r"/handout-media/[^\s)\"'<>]+")
+
+
+def _handout_fig_stamp(md: str) -> tuple:
+    """``(src, mtime)`` for each ``/handout-media/`` figure referenced in ``md``."""
+    stamps = []
+    for src in dict.fromkeys(_HANDOUT_MEDIA_RE.findall(md)):  # de-dup, keep order
+        path = _handout_media_path(src)
+        try:
+            m = path.stat().st_mtime_ns if path is not None else None
+        except OSError:
+            m = None
+        stamps.append((src, m))
+    return tuple(stamps)
+
+
+@lru_cache(maxsize=512)
+def _render_handout_cached(md: str, _fig_stamp: tuple) -> str:
+    return render_helper_markdown(md, env={"img_dims": _handout_fig_dims})
+
+
+def _render_handout(md: str) -> str:
+    """Render handout markdown with figures sized to their true textbook dimensions.
+    Cached on the markdown + referenced figures' mtimes (the topics page renders
+    every handout)."""
+    return _render_handout_cached(md, _handout_fig_stamp(md))
+
+
 def warm_caches() -> None:
     """Best-effort: render every subtopic + handout once so the content/render
     caches are warm before the first visitor (the single worker would otherwise
-    block on the cold render). Called in a background thread at startup."""
+    block on the cold render). Called in a background thread at startup; mirrors
+    the work ``topics_page`` does, minus the template assignment."""
     try:
         subjects = [s["slug"] for s in open_mode.subject_grid()]
     except Exception:
@@ -100,7 +203,7 @@ def warm_caches() -> None:
                     _render_subtopic(subject, str(topic.get("number") or ""))
                 num = str(topic.get("number") or "")
                 if num and (md := load_handout_md(subject, num)):
-                    render_md(md)
+                    _render_handout(md)
         except Exception:
             continue
 
@@ -260,8 +363,8 @@ async def handout_review(
             right_key=right,
             left_label=_version_label(left),
             right_label=_version_label(right),
-            left_html=(render_md(left_md) if left_md else None),
-            right_html=(render_md(right_md) if right_md else None),
+            left_html=(_render_handout(left_md) if left_md else None),
+            right_html=(_render_handout(right_md) if right_md else None),
             versions=_available_versions(subject, topic),
         ),
     )
@@ -283,7 +386,7 @@ async def topics_page(request: Request, subject: str):
         topic_num = str(topic.get("number") or "")
         topic_title = str(topic.get("title") or "")
         md = load_handout_md(subject, topic_num) if topic_num else None
-        topic["handout_html"] = render_md(md) if md else None
+        topic["handout_html"] = _render_handout(md) if md else None
         # Vocab table renders wherever a glossary TSV exists (broader than the PDFs);
         # the download buttons below are gated separately on the compiled .pdf files.
         topic["vocab_rows"] = (load_glossary(subject, topic_num) or []) if topic_num else []
