@@ -1,0 +1,10 @@
+slug: c-basics
+language: c
+title:
+  en: C Programming
+  zh: C 语言编程
+subtitle:
+  en: Learn C from the ground up — compile and run in your browser.
+  zh: 从零开始学习 C 语言 —— 在浏览器中编译并运行。
+lessons:
+  - "01"

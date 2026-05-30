@@ -23,9 +23,11 @@ from typing import Any
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
+from .c_runner import run_c
 from .java_runner import run_java
 
-app = FastAPI(title="java-sandbox", docs_url=None, redoc_url=None, openapi_url=None)
+# Serves both Java (/run) and C (/run-c) — same locked-down container, same image.
+app = FastAPI(title="code-sandbox", docs_url=None, redoc_url=None, openapi_url=None)
 
 
 class RunBody(BaseModel):
@@ -43,3 +45,8 @@ async def healthz() -> dict[str, bool]:
 @app.post("/run")
 async def run(body: RunBody) -> dict[str, Any]:
     return await run_java(body.code, body.files, body.stdin, body.check)
+
+
+@app.post("/run-c")
+async def run_c_endpoint(body: RunBody) -> dict[str, Any]:
+    return await run_c(body.code, body.files, body.stdin, body.check)

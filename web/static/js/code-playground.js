@@ -30,10 +30,15 @@ function init(root) {
   // "python" (Pyodide worker) or "java" (CheerpJ worker). Drives the worker URL,
   // editor mode, the runnable-example selector, and how Stop interrupts.
   const LANG = root.dataset.language || "python";
-  // Java executes server-side by default (sandboxed POST /api/code/run-java). The
-  // legacy in-browser CheerpJ path is kept but dormant — opt in via ?runtime=cheerpj.
-  const RUNTIME = (LANG === "java" && new URLSearchParams(location.search).get("runtime") !== "cheerpj")
-    ? "server" : "cheerpj";
+  // C always runs server-side (no in-browser C runtime). Java executes server-side
+  // by default (sandboxed POST /api/code/run-java); the legacy in-browser CheerpJ
+  // path is kept but dormant — opt in via ?runtime=cheerpj.
+  const RUNTIME = LANG === "c" ? "server"
+    : (LANG === "java" && new URLSearchParams(location.search).get("runtime") !== "cheerpj") ? "server"
+    : "cheerpj";
+  // Server-run endpoint + auth header vary by language.
+  const ENDPOINT = LANG === "c" ? "/api/code/run-c" : "/api/code/run-java";
+  const RUNNER_TOKEN_HEADER = LANG === "c" ? "X-C-Runner-Token" : "X-Java-Runner-Token";
   const tasks = readTasks();
   const editors = {};
   const encoder = new TextEncoder();
@@ -140,7 +145,7 @@ function init(root) {
   // worker; non-isolated pages can't execute. ensureWorker() self-guards re-boot.
   let warmedByFocus = false;
   function warmOnFocus() {
-    if (warmedByFocus || !isolated || LANG === "java") return;
+    if (warmedByFocus || !isolated || LANG === "java" || LANG === "c") return;
     warmedByFocus = true;
     ensureWorker().catch(() => { /* surfaced on first Run/Check */ });
   }
@@ -151,7 +156,7 @@ function init(root) {
     if (!window.CodeMirror) { setTimeout(initEditors, 30); return; }
     root.querySelectorAll("textarea.code-editor").forEach((ta) => {
       const cm = window.CodeMirror.fromTextArea(ta, {
-        mode: LANG === "java" ? "text/x-java" : "python",
+        mode: LANG === "java" ? "text/x-java" : LANG === "c" ? "text/x-csrc" : "python",
         theme: "exercise",
         lineNumbers: false,
         indentUnit: 4,
@@ -183,7 +188,7 @@ function init(root) {
   // Make each ```python block runnable: wrap it, add a ▶ pinned bottom-right,
   // and an output box as a sibling AFTER the wrapper.
   function wireExamples() {
-    root.querySelectorAll(".code-prose pre > code.language-python, .code-prose pre > code.language-java").forEach((codeEl) => {
+    root.querySelectorAll(".code-prose pre > code.language-python, .code-prose pre > code.language-java, .code-prose pre > code.language-c").forEach((codeEl) => {
       const pre = codeEl.parentElement;
       if (!pre || pre.closest(".code-example")) return;
       const wrapEl = document.createElement("div");
@@ -221,10 +226,11 @@ function init(root) {
   function highlightExamples() {
     const CM = window.CodeMirror;
     if (!CM || !CM.runMode) { setTimeout(highlightExamples, 30); return; }   // CM is a deferred global
-    root.querySelectorAll(".code-prose pre > code.language-python, .code-prose pre > code.language-java").forEach((codeEl) => {
+    root.querySelectorAll(".code-prose pre > code.language-python, .code-prose pre > code.language-java, .code-prose pre > code.language-c").forEach((codeEl) => {
       const pre = codeEl.parentElement;
       if (!pre || pre.classList.contains("cm-s-exercise")) return;   // already highlighted
-      const mode = codeEl.classList.contains("language-java") ? "text/x-java" : "python";
+      const mode = codeEl.classList.contains("language-java") ? "text/x-java"
+        : codeEl.classList.contains("language-c") ? "text/x-csrc" : "python";
       const src = codeEl.textContent;
       codeEl.textContent = "";
       CM.runMode(src, mode, codeEl);
@@ -276,10 +282,10 @@ function init(root) {
     const body = { code, files: task.files || {}, stdin: isCheck ? (task.stdin || "") : "", check };
     let json;
     try {
-      const res = await fetch("/api/code/run-java", {
+      const res = await fetch(ENDPOINT, {
         method: "POST",
         credentials: "same-origin",
-        headers: { "Content-Type": "application/json", "X-Java-Runner-Token": runnerToken() },
+        headers: { "Content-Type": "application/json", [RUNNER_TOKEN_HEADER]: runnerToken() },
         body: JSON.stringify(body),
         signal: act.abort ? act.abort.signal : undefined,
       });
@@ -426,7 +432,7 @@ function init(root) {
   }
 
   function stopActive() {
-    if (LANG === "java") {
+    if (LANG === "java" || LANG === "c") {
       const a = active;
       if (a && a.abort) { try { a.abort.abort(); } catch (e) { /* ignore */ } }  // server mode: cancel the fetch
       killWorker();

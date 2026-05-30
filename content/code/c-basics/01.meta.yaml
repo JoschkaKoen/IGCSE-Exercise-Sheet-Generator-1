@@ -1,0 +1,81 @@
+title:
+  en: "C basics: main, printf, and functions"
+  zh: "C 基础:main、printf 与函数"
+order: 1
+tasks:
+  - id: hello
+    prompt:
+      en: "Inside `main`, use `printf(...)` to print exactly **Hello, C!** on its own line."
+      zh: "在 `main` 里面,用 `printf(...)` 精确地打印 **Hello, C!**,并单独占一行。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          /* Print exactly: Hello, C!  */
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          printf("Hello, C!\n");
+          return 0;
+      }
+    check:
+      kind: stdout
+      expected: "Hello, C!"
+      normalize: strip
+  - id: square
+    prompt:
+      en: "Complete the function `int square(int n)` so it returns `n * n`. The checker calls it with several values. Do **not** write a `main` — the checker provides one."
+      zh: "完成函数 `int square(int n)`,让它返回 `n * n`。检查器会用多个数值来调用它。**不要**写 `main`,检查器会提供。"
+    starter: |
+      /* Return n * n. Do not write main(); the checker provides it. */
+      int square(int n) {
+          return 0;   /* change this */
+      }
+    solution: |
+      int square(int n) {
+          return n * n;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(square(5) == 25);
+            assert(square(0) == 0);
+            assert(square(3) == 9);
+            return 0;
+        }
+  - id: hyp
+    prompt:
+      en: "Write `double hyp(double a, double b)` that returns the hypotenuse length: the square root of `a*a + b*b`. Use `sqrt` from `<math.h>`. Do **not** write a `main`."
+      zh: "编写 `double hyp(double a, double b)`,返回斜边的长度:即 `a*a + b*b` 的平方根。使用 `<math.h>` 中的 `sqrt`。**不要**写 `main`。"
+    starter: |
+      #include <math.h>
+
+      /* Return sqrt(a*a + b*b). Do not write main(). */
+      double hyp(double a, double b) {
+          return 0.0;   /* change this */
+      }
+    solution: |
+      #include <math.h>
+
+      double hyp(double a, double b) {
+          return sqrt(a * a + b * b);
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <math.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(fabs(hyp(3.0, 4.0) - 5.0) < 1e-9);
+            assert(fabs(hyp(5.0, 12.0) - 13.0) < 1e-9);
+            return 0;
+        }

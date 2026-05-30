@@ -13,8 +13,16 @@ services:
       - path: .env
         required: false
     environment:
-      # Delegate Java execution to the isolated sidecar below (server-side run path).
+      # Delegate Java + C execution to the isolated sidecar below (server-side run
+      # path) — same container, different paths.
       - JAVA_SANDBOX_URL=http://java-sandbox:8090/run
+      - C_SANDBOX_URL=http://java-sandbox:8090/run-c
+      # Open the C runner to any logged-in user. Safe HERE because execution is
+      # delegated to the isolated sidecar above (no internet / secrets / writable FS).
+      # Scoped to the compose deployment on purpose: a bare `uvicorn` run (no sidecar)
+      # stays fail-closed (404) unless C_RUNNER_OPEN is set explicitly. (Java is gated
+      # separately via JAVA_RUNNER_OPEN and is left unchanged.)
+      - C_RUNNER_OPEN=1
     networks:
       - default            # internet egress (AI APIs) + the host port mapping
       - sandbox_internal   # private link to java-sandbox
@@ -30,10 +38,11 @@ services:
       # Exam PDFs live on the host — bind-mount so they never enter the image.
       - ./exams:/app/exams:ro
 
-  # Isolated runner for untrusted student Java. No internet (internal network),
-  # no secrets (no env_file), no bind-mounts, read-only root FS (+ tmpfs workdir),
-  # all Linux caps dropped, no-new-privileges, pid/mem limits. Reachable ONLY from
-  # `web` over the private network — NEVER expose a host port for it.
+  # Isolated runner for untrusted student Java + C (serves /run and /run-c). No
+  # internet (internal network), no secrets (no env_file), no bind-mounts, read-only
+  # root FS (+ tmpfs workdir), all Linux caps dropped, no-new-privileges, pid/mem
+  # limits. Reachable ONLY from `web` over the private network — NEVER expose a host
+  # port for it.
   java-sandbox:
     # Image is built once by `web` above — a second `build: .` made Compose export
     # the same ~5 GB layer twice and lengthened deploys.

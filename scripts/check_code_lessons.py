@@ -5,11 +5,13 @@ For every course (a directory with ``course.yaml``) and every lesson it lists, c
 
   - **Schema** — ``meta.yaml`` has a bilingual ``title``; each task has a unique
     ``id`` (progress is keyed by it), a bilingual ``prompt``, and a valid ``check``
-    (``stdout`` needs ``expected``; ``asserts`` needs ``code``).
+    (``stdout`` needs ``expected``; ``asserts`` (Python) / ``harness`` (Java, C) need
+    ``code``).
   - **Parallel languages** — ``NN.en.md`` and ``NN.zh.md`` exist and split into the
     SAME number of ``---`` step chunks.
-  - **Python validity** — every ```` ```python ```` example block, every ``starter``,
-    every ``solution``, and every ``asserts`` ``code`` compiles.
+  - **Syntax validity** — example fences (```` ```python ````/```` ```java ````/```` ```c ````),
+    ``starter``s, ``solution``s, and ``asserts`` ``code`` compile (Python ``compile``;
+    Java ``javac --release 8``; C ``gcc -fsyntax-only``).
   - **Solvability (the key gate)** — each task's reference ``solution`` passes its own
     ``check``, run in a subprocess (clean temp cwd, short timeout) that mirrors the
     browser worker (``web/static/js/code-worker.js``): ``stdout`` compares stripped
@@ -47,15 +49,19 @@ from web.java_runner import (  # noqa: E402  — single source of truth, shared 
     compare_stdout,
     derive_class_name,
 )
+from web.c_runner import CC, CC_FLAGS, build_c_files  # noqa: E402  — shared with the C server runner
 
 PY = sys.executable
 SPLIT_RE = re.compile(r"(?m)^\s*-{3,}\s*$")
 PY_FENCE_RE = re.compile(r"```python\n(.*?)\n```", re.S)
 JAVA_FENCE_RE = re.compile(r"```java\n(.*?)\n```", re.S)
+C_FENCE_RE = re.compile(r"```c\n(.*?)\n```", re.S)
+C_MAIN_RE = re.compile(r"\bmain\s*\(")
 TIMEOUT = 10
 # JAVAC / JAVA / JAVA_RELEASE / TYPE_DECL_RE and the file-layout + stdout-compare
-# helpers are imported from web.java_runner above, so the validator and the server
-# runner can never drift. A missing JDK makes the Java checks a skipped warning.
+# helpers are imported from web.java_runner above; CC / CC_FLAGS / build_c_files from
+# web.c_runner. The validator and the server runners share these, so they can never
+# drift. A missing JDK / gcc makes the corresponding checks a skipped warning.
 
 # Subprocess harness — mirrors the browser worker's check logic. argv[1] is a JSON
 # task spec {solution, stdin, check}. Exits non-zero (with a message on stderr) if
@@ -87,6 +93,7 @@ if chk.get("kind") == "stdout":
 errors: list[str] = []
 warnings: list[str] = []
 _jdk_warned = False
+_gcc_warned = False
 
 
 def err(where: str, msg: str) -> None:
@@ -216,17 +223,105 @@ def run_solution_java(where: str, task: dict, *, source: str | None = None,
         return True
 
 
-def starter_must_fail(where: str, task: dict, is_java: bool) -> None:
+# ---- C path (compile/run helpers shared via web.c_runner) ---------------------
+
+def c_compile_ok(where: str, label: str, src: str, severity: str = "err") -> None:
+    """gcc -fsyntax-only a C snippet (CC_FLAGS, the server's exact flags). Skipped
+    when gcc is absent or the source is empty. No JDK-style type gate here — the
+    prose-fence caller skips fragments (only complete, main-bearing programs reach
+    this); task starters/solutions are passed as-is."""
+    if not CC or not (src or "").strip():
+        return
+    report = err if severity == "err" else warn
+    with tempfile.TemporaryDirectory() as tmp:
+        (Path(tmp) / "snippet.c").write_text(src, encoding="utf-8")
+        try:
+            r = subprocess.run([CC, *CC_FLAGS, "-fsyntax-only", "snippet.c"],
+                               cwd=tmp, capture_output=True, text=True, timeout=TIMEOUT)
+        except subprocess.TimeoutExpired:
+            report(where, f"{label}: gcc timed out")
+            return
+        if r.returncode != 0:
+            report(where, f"{label} does not compile:\n  " +
+                   (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+
+
+def run_solution_c(where: str, task: dict, *, source: str | None = None,
+                   report: bool = True) -> bool:
+    """Compile *source* (default ``task['solution']``) + files (+ harness) with the
+    SAME gcc invocation the server uses (``CC_FLAGS`` + ``-lm`` LAST) and run it,
+    applying the worker's check rules (stdout strip/normalize, harness = exit 0).
+    Shares ``build_c_files`` + ``CC_FLAGS`` + ``compare_stdout`` with ``web.c_runner``
+    so the validator and server can't drift. With ``report=False`` failures are not
+    recorded — used to probe that a *starter* does not already pass."""
+    if not CC:
+        return False
+    chk = task.get("check") or {}
+    kind = chk.get("kind")
+    code = task["solution"] if source is None else source
+    files, sources = build_c_files(code, task.get("files"), chk)
+    with tempfile.TemporaryDirectory() as tmp:
+        for name, s in files.items():
+            (Path(tmp) / name).write_text(s, encoding="utf-8")
+        try:
+            c = subprocess.run([CC, *CC_FLAGS, *sources, "-o", "main", "-lm"],
+                               cwd=tmp, capture_output=True, text=True, timeout=TIMEOUT)
+        except subprocess.TimeoutExpired:
+            if report:
+                err(where, "solution gcc timed out")
+            return False
+        if c.returncode != 0:
+            if report:
+                err(where, "reference solution does not compile:\n  " +
+                    (c.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+            return False
+        try:
+            r = subprocess.run(["./main"], cwd=tmp, capture_output=True, text=True,
+                               timeout=TIMEOUT, input=task.get("stdin") or "")
+        except subprocess.TimeoutExpired:
+            if report:
+                err(where, f"solution run timed out (>{TIMEOUT}s) — infinite loop?")
+            return False
+        if kind == "harness":
+            if r.returncode != 0:
+                if report:
+                    err(where, "reference solution fails its harness:\n  " +
+                        (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+                return False
+            return True
+        # stdout
+        if r.returncode != 0:
+            if report:
+                err(where, "reference solution threw at runtime:\n  " +
+                    (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+            return False
+        if not compare_stdout(r.stdout, chk):
+            if report:
+                norm = chk.get("normalize")
+                got = r.stdout.strip() if norm in (None, "strip") else r.stdout
+                exp = str(chk.get("expected") if chk.get("expected") is not None else "")
+                exp = exp.strip() if norm in (None, "strip") else exp
+                err(where, "reference solution does not pass its check:\n  got: %r\n  exp: %r" % (got, exp))
+            return False
+        return True
+
+
+def starter_must_fail(where: str, task: dict, language: str) -> None:
     """A task whose STARTER already passes its check is a no-op — the student
     would have nothing to do. Probe the starter against the check (report=False,
     so a normal "starter fails" outcome is silent) and flag it only if it passes.
-    A starter that doesn't compile or errors correctly counts as 'fails'. When no
-    JDK is present the Java probe can't run and simply skips (returns False)."""
+    A starter that doesn't compile or errors correctly counts as 'fails'. When the
+    toolchain (JDK / gcc) is absent the probe can't run and simply skips (False)."""
     starter = task.get("starter")
     chk = task.get("check") or {}
     if not starter or not chk.get("kind"):
         return
-    runner = run_solution_java if is_java else run_solution
+    if language == "java":
+        runner = run_solution_java
+    elif language == "c":
+        runner = run_solution_c
+    else:
+        runner = run_solution
     if runner(where, task, source=starter, report=False):
         err(where, f"task '{task.get('id')}' starter already passes its check — "
                    "the task is a no-op; the starter must leave something to complete")
@@ -241,19 +336,25 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
         return
 
     is_java = language == "java"
+    is_c = language == "c"
     if is_java and not (JAVAC and JAVA):
         global _jdk_warned
         if not _jdk_warned:
             warn(where, "no javac/java on PATH — Java compile + solvability checks skipped")
             _jdk_warned = True
+    if is_c and not CC:
+        global _gcc_warned
+        if not _gcc_warned:
+            warn(where, "no gcc on PATH — C compile + solvability checks skipped")
+            _gcc_warned = True
 
     title = meta.get("title")
     if not (isinstance(title, dict) and title.get("en") and title.get("zh")):
         err(where, "title must have both 'en' and 'zh'")
 
-    # Parallel step counts + compile example fences (python or java per course).
+    # Parallel step counts + compile example fences (python / java / c per course).
     counts: dict[str, int] = {}
-    fence_re = JAVA_FENCE_RE if is_java else PY_FENCE_RE
+    fence_re = C_FENCE_RE if is_c else JAVA_FENCE_RE if is_java else PY_FENCE_RE
     for lang in ("en", "zh"):
         p = cdir / f"{nn}.{lang}.md"
         if not p.is_file():
@@ -265,13 +366,19 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
             label = f"{lang}.md {language} block #{i + 1}"
             if is_java:
                 java_compile_ok(where, label, block)
+            elif is_c:
+                # Only syntax-check complete (runnable) programs; an illustrative
+                # fragment without main() isn't a translation unit, so skip it
+                # (mirrors the Java type-decl gate in java_compile_ok).
+                if C_MAIN_RE.search(block):
+                    c_compile_ok(where, label, block)
             else:
                 compile_ok(where, label, block)
     if "en" in counts and "zh" in counts and counts["en"] != counts["zh"]:
         err(where, f"en/zh step count differs: en={counts['en']} zh={counts['zh']}")
 
     # Tasks.
-    valid_kinds = ("stdout", "harness") if is_java else ("stdout", "asserts")
+    valid_kinds = ("stdout", "harness") if (is_java or is_c) else ("stdout", "asserts")
     seen_ids: set[str] = set()
     for task in meta.get("tasks") or []:
         tid = task.get("id")
@@ -309,6 +416,14 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
                 run_solution_java(tw, task)   # compiles the solution too
             else:
                 warn(tw, "no 'solution' — solvability gate skipped")
+        elif is_c:
+            if task.get("starter"):
+                # Starters may legitimately have a fill-in hole → warn, don't fail.
+                c_compile_ok(tw, "starter", task["starter"], severity="warn")
+            if task.get("solution"):
+                run_solution_c(tw, task)   # compiles the solution too
+            else:
+                warn(tw, "no 'solution' — solvability gate skipped")
         else:
             if task.get("starter"):
                 compile_ok(tw, "starter", task["starter"])
@@ -320,7 +435,7 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
 
         # A well-formed task's starter must NOT already pass — else it teaches
         # nothing. (Independent of whether a reference solution is present.)
-        starter_must_fail(tw, task, is_java)
+        starter_must_fail(tw, task, language)
 
     # The reference solution must never reach the browser.
     data = code_content.load_lesson(slug, nn, "en")

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ static_url('css/16-code.css') }}" />
 <link rel="stylesheet" href="/static/vendor/codemirror/lib/codemirror.css" />
 <script defer src="/static/vendor/codemirror/lib/codemirror.js"></script>
-{% if lesson.language == 'java' %}
+{% if lesson.language in ['java', 'c'] %}
 <script defer src="/static/vendor/codemirror/mode/clike/clike.js"></script>
 {% else %}
 <script defer src="/static/vendor/codemirror/mode/python/python.js"></script>
