@@ -9,7 +9,7 @@ Resources fetched:
   - Google Fonts: Outfit + Sora (CSS + woff2)
   - Twemoji country-flag polyfill (CSS + woff2)
   - KaTeX 0.16.11 (CSS + JS + auto-render + ~20 font files)
-  - pdfjs-dist 4.6.82 (pdf.mjs + pdf.worker.mjs)
+  - pdfjs-dist 4.6.82 (pdf.mjs + pdf.worker.mjs + cmaps/ + standard_fonts/)
   - Chart.js 4.4.6 (UMD min)
   - Pyodide 0.29.4 (pyodide.mjs + asm.js + asm.wasm + python_stdlib.zip + lock.json)
   - CodeMirror 5.65.18 (lib + python mode + edit/selection/display addons; theme is custom CSS)
@@ -61,6 +61,33 @@ def download(url: str, out_path: Path, *, ua: str | None = None) -> None:
     data = fetch_bytes(url, ua=ua)
     out_path.write_bytes(data)
     print(f"  → {out_path.relative_to(REPO_ROOT)}  ({len(data):,} bytes)")
+
+
+def extract_pdfjs_dirs(version: str, subdirs: tuple[str, ...]) -> None:
+    """Pull whole top-level dirs (e.g. ``cmaps``, ``standard_fonts``) out of the
+    pdfjs-dist npm tarball into ``VENDOR_DIR/pdfjs/<subdir>/``.
+
+    Done via the tarball (not per-file CDN URLs) because ``cmaps/`` is ~169 binary
+    ``.bcmap`` files. These let PDF.js decode the CID-keyed CJK fonts embedded in the
+    handout/vocab PDFs (without them PDF.js paints the Chinese blank)."""
+    import io
+    import tarfile
+
+    raw = fetch_bytes(f"https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-{version}.tgz")
+    count = 0
+    with tarfile.open(fileobj=io.BytesIO(raw), mode="r:gz") as tar:
+        for m in tar.getmembers():
+            parts = m.name.split("/")  # "package/cmaps/Adobe-GB1-0.bcmap"
+            if not m.isfile() or len(parts) < 3 or parts[0] != "package" or parts[1] not in subdirs:
+                continue
+            f = tar.extractfile(m)
+            if f is None:
+                continue
+            dest = VENDOR_DIR / "pdfjs" / parts[1] / "/".join(parts[2:])
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_bytes(f.read())
+            count += 1
+    print(f"  → web/static/vendor/pdfjs/{{{','.join(subdirs)}}}/  ({count} files)")
 
 
 def mirror_css(
@@ -171,6 +198,9 @@ def main() -> int:
         "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.mjs",
         VENDOR_DIR / "pdfjs" / "pdf.worker.mjs",
     )
+    # cmaps + standard fonts: PDF.js needs these to render the CID-keyed CJK fonts
+    # embedded in the handout/vocab PDFs (see web/static/js/pdf-render.js cMapUrl).
+    extract_pdfjs_dirs("4.6.82", ("cmaps", "standard_fonts"))
 
     # 6. Chart.js 4.4.6 (UMD min)
     download(

@@ -126,7 +126,18 @@ export async function loadPdf(id, url) {
   const pdfjs = await ensurePdfJs();
   const assetUrl = sameOriginAssetUrl(url);
   const fetchUrl = assetUrl + (assetUrl.indexOf('?') >= 0 ? '&' : '?') + 'inline=1';
-  const loadingTask = pdfjs.getDocument({ url: fetchUrl, withCredentials: true });
+  // PDF.js needs its CMap tables (+ the standard-14 font data) to decode the
+  // CID-keyed CJK fonts xelatex embeds in the handout/vocab PDFs. Without them it
+  // logs "Error during font loading: Ensure that the cMapUrl and cMapPacked API
+  // parameters are provided" and paints the Chinese glyphs blank. cmaps/ and
+  // standard_fonts/ are vendored beside pdf.mjs (see scripts/vendor_fetch.py).
+  const loadingTask = pdfjs.getDocument({
+    url: fetchUrl,
+    withCredentials: true,
+    cMapUrl: '/static/vendor/pdfjs/cmaps/',
+    cMapPacked: true,
+    standardFontDataUrl: '/static/vendor/pdfjs/standard_fonts/',
+  });
   s.loadingTask = loadingTask;
   const doc = await loadingTask.promise;
   s.loadingTask = null;
