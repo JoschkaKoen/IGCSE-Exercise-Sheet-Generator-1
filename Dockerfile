@@ -16,8 +16,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 #   openjdk-21-*   : javac/java for the server-side Java runner (web/java_runner.py).
 #                    Base image is Debian trixie (no openjdk-17); JDK 21 + `--release 8`
 #                    still emits Java-8 bytecode, so the runner is unchanged.
-#   gcc            : C compiler for the server-side C runner (web/c_runner.py).
-#                    Links against the glibc/libm already in the base image (-lm).
+#   gcc, libc6-dev : C compiler + C standard-library headers for the server-side C
+#                    runner (web/c_runner.py). libc6-dev is REQUIRED for <stdio.h>,
+#                    <math.h>, and the `-lm` link symlink — the slim base ships only
+#                    the libc runtime, not the dev headers, and --no-install-recommends
+#                    skips libc6-dev (a Recommends of gcc) unless it's listed here.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-extra-utils \
     texlive-latex-extra \
@@ -28,6 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tesseract-ocr \
     openjdk-21-jdk-headless \
     gcc \
+    libc6-dev \
  && rm -rf /var/lib/apt/lists/*
 
 # mhchem (chemistry notation) is not a standalone apt package in this Debian
