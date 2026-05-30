@@ -122,10 +122,15 @@ async def _feed_stdin(stdin: asyncio.StreamWriter | None, data: bytes | None) ->
     if stdin is None or data is None:
         return
     try:
-        stdin.write(data)
-        await stdin.drain()
-    except (BrokenPipeError, ConnectionResetError, OSError):
-        pass  # child closed stdin early / exited — fine
+        if data:  # nothing to send → don't poke a pipe the child may have already closed
+            stdin.write(data)
+            await stdin.drain()
+    except (BrokenPipeError, ConnectionResetError, OSError, RuntimeError):
+        # child exited / closed stdin before we wrote. uvloop raises RuntimeError
+        # ("transport closed") where the stdlib loop raises BrokenPipeError — catch
+        # both so a fast-exiting program (e.g. C that never reads stdin) can't turn a
+        # successful run into a 500.
+        pass
     finally:
         try:
             stdin.close()
