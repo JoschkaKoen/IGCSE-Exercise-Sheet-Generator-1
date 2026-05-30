@@ -41,35 +41,11 @@
       });
     };
   </script>
-  <script src="/static/vendor/tailwind/tailwind-play.js"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['Sora', 'system-ui', 'sans-serif'],
-            sans:    ['Outfit', 'system-ui', 'sans-serif'],
-          },
-          colors: {
-            space: {
-              void:  '#01040e',
-              deep:  '#080e1e',
-              lift:  '#112040',
-              mist:  '#334155',
-            },
-            /* Business/Economics preview accent — currently a muted steel blue-gray */
-            commerce: {
-              200: '#c2d0e8',
-              300: '#9fb4d6',
-              400: '#7d97c2',
-              500: '#5e7aa6',
-              600: '#485f83',
-            },
-          },
-        },
-      },
-    };
-  </script>
+  {# Pre-compiled Tailwind utilities (replaces the runtime Play CDN JIT). Theme
+     (fonts + custom space/commerce colors) + safelist live in web/tailwind.config.js.
+     Loaded before the custom numbered CSS so those still override. REBUILD after
+     changing utility classes:  python scripts/build_tailwind.py  (commit the CSS). #}
+  <link rel="stylesheet" href="{{ static_url('css/00-tailwind.css') }}" />
   <link rel="stylesheet" href="{{ static_url('css/01-shell.css') }}" />
   <link rel="stylesheet" href="{{ static_url('css/02-auth-gate.css') }}" />
   <link rel="stylesheet" href="{{ static_url('css/03-core-ui.css') }}" />

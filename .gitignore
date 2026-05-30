@@ -63,3 +63,6 @@ scripts/scheme_graphics_test/gemini-3.5-flash/
 
 # LaTeX dry-run artifacts from bug verification (.tex/.aux/.log/.pdf sidecars)
 bug_verification/*_marker_dryrun.*
+
+# Tailwind standalone CLI download cache (scripts/build_tailwind.py)
+/.cache/
