@@ -126,6 +126,7 @@ def _classify_multi_line(
         if id(free[i]) in has_sibling:
             continue
         stack = [free[i]]
+        stack_idx = [i]
         last = free[i]
         first_pitch: float | None = None
         for j in range(i + 1, len(free)):
@@ -154,6 +155,7 @@ def _classify_multi_line(
             if abs(pitch - first_pitch) / first_pitch > cfg.wa_lines_pitch_tol_frac:
                 break
             stack.append(r)
+            stack_idx.append(j)
             last = r
 
         if len(stack) < cfg.wa_lines_min_count:
@@ -196,7 +198,11 @@ def _classify_multi_line(
 
         for s in stack:
             s.consumed = True
-        used.update(range(i, i + len(stack)))
+        # The stack can be non-contiguous — the candidate loop skips indices on
+        # pitch/length mismatches — so mark the indices actually grouped, not the
+        # contiguous range [i, i+len(stack)) (which both freed a still-consumed
+        # rule for re-anchoring and spuriously consumed a skipped sibling).
+        used.update(stack_idx)
 
     return out
 

@@ -109,8 +109,13 @@ def infer_equation_blank_bboxes(
         if bracket_pos <= blank_start_char:
             continue
 
-        bx0 = _char_x_at_pos(spans, blank_start_char) or lx0
-        bx1 = _char_x_at_pos(spans, bracket_pos) or lx1
+        # `text` is stripped (see `_join_line_text`) but `_char_x_at_pos` walks
+        # the raw span text, so add back the leading-whitespace the strip removed
+        # — otherwise every char index is shifted left and the bbox lands wrong.
+        raw = "".join(s["text"] for s in spans)
+        lead = len(raw) - len(raw.lstrip())
+        bx0 = _char_x_at_pos(spans, blank_start_char + lead) or lx0
+        bx1 = _char_x_at_pos(spans, bracket_pos + lead) or lx1
         bx0 = max(bx0, h0)
         bx1 = min(bx1, h1)
         if bx1 <= bx0:

@@ -61,6 +61,14 @@ def parse_question_id(question_id: str) -> tuple[str, str, str]:
     parts = question_id.split("::")
     if len(parts) != 3:
         raise ValueError(f"bad question_id: {question_id!r}")
+    # ``subject`` and ``qnum`` are concatenated straight into a filesystem path
+    # (see ``pdf_path_for`` → ``bank_dir_for`` / qnum / "question.pdf"). The
+    # public ``/pdf/{question_id:path}`` and ``/regions/{...}`` routes use the
+    # ``:path`` converter, so reject path separators and parent refs here to
+    # stop a crafted id escaping the bank root.
+    for part in parts:
+        if not part or "/" in part or "\\" in part or ".." in part:
+            raise ValueError(f"unsafe question_id component: {part!r}")
     return parts[0], parts[1], parts[2]
 
 

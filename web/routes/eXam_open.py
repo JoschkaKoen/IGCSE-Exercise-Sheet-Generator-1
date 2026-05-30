@@ -268,7 +268,10 @@ async def review(
 
 @router.get("/pdf/{question_id:path}")
 async def serve_pdf(request: Request, question_id: str):
-    path = pdf_path_for(question_id)
+    try:
+        path = pdf_path_for(question_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Snippet not found")
     if not path.exists():
         raise HTTPException(status_code=404, detail="Snippet not found")
     return FileResponse(

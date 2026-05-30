@@ -31,12 +31,35 @@ _LATEX_MAP = {
     "<": r"\textless{}",
     ">": r"\textgreater{}",
 }
-_LATEX_RE = re.compile("|".join(re.escape(k) for k in _LATEX_MAP))
+# Multi-character escapes this function emits (``\textbackslash{}`` and
+# friends). When such a sequence is already present in the input — e.g. the AI
+# pre-escaped its own output — we match it whole and pass it through unchanged
+# rather than re-escaping the backslash and braces inside it, which used to
+# produce garbage like ``\textbackslash{}textbackslash\{\}`` (and could crash
+# xelatex). The single-character escapes (``\&``, ``\{``, …) are intentionally
+# NOT protected: a lone ``\{`` in raw text is ambiguous, so it keeps being
+# escaped exactly as before.
+_LATEX_PROTECT = tuple(v for v in _LATEX_MAP.values() if v.endswith("{}"))
+_LATEX_PROTECT_SET = frozenset(_LATEX_PROTECT)
+# Protected multi-char sequences are listed first so the alternation prefers
+# them over the single-character backslash escape at the same position.
+_LATEX_RE = re.compile(
+    "|".join(re.escape(s) for s in _LATEX_PROTECT)
+    + "|"
+    + "|".join(re.escape(k) for k in _LATEX_MAP)
+)
 
 
 def _latex_escape(text: str) -> str:
-    """Escape special LaTeX characters (single-pass to avoid double-escaping)."""
-    return _LATEX_RE.sub(lambda m: _LATEX_MAP[m.group()], text)
+    """Escape special LaTeX characters (single pass).
+
+    Idempotent on the multi-character escapes it emits, so pre-escaped text such
+    as ``\\textbackslash{}`` is preserved rather than corrupted.
+    """
+    return _LATEX_RE.sub(
+        lambda m: m.group() if m.group() in _LATEX_PROTECT_SET else _LATEX_MAP[m.group()],
+        text,
+    )
 
 
 _TABULAR_RE = re.compile(r"(\\begin\{tabular\*?\}.*?\\end\{tabular\*?\})", re.DOTALL)
