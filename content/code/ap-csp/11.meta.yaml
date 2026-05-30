@@ -2,4 +2,72 @@ title:
   en: Algorithmic efficiency
   zh: 算法效率
 order: 11
-tasks: []
+tasks:
+  - id: scan-compares
+    prompt:
+      en: "Write `scan_compares(data, target)` that returns how many comparisons a linear search makes. Compare each item to `target`, counting one each time, and **stop as soon as you find it**. If it is not in the list, you compared every item. Example: `scan_compares([5, 8, 2], 8)` → `2`."
+      zh: "编写 `scan_compares(data, target)`,返回一次线性搜索做了多少次比较。把每个元素与 `target` 比较,每次计数加一,**一找到就停止**。如果不在列表里,就比较了每个元素。例如:`scan_compares([5, 8, 2], 8)` → `2`。"
+    starter: |
+      def scan_compares(data, target):
+          # Count one comparison per item; stop when you find target
+          pass
+    solution: |
+      def scan_compares(data, target):
+          count = 0
+          for item in data:
+              count += 1
+              if item == target:
+                  return count
+          return count
+    check:
+      kind: asserts
+      code: |
+        assert scan_compares([5, 8, 2], 5) == 1, "found first -> 1 comparison"
+        assert scan_compares([5, 8, 2], 8) == 2, "found second -> 2 comparisons"
+        assert scan_compares([5, 8, 2], 2) == 3, "found last -> 3 comparisons"
+        assert scan_compares([5, 8, 2], 99) == 3, "not found -> scanned all 3"
+        assert scan_compares([], 1) == 0, "empty list -> 0 comparisons"
+  - id: pair-count
+    prompt:
+      en: "Write `pair_count(n)` that uses a loop **inside** a loop (both over `range(n)`) and returns how many times the inner step runs. This is `n × n`. Example: `pair_count(3)` → `9`. This grows much faster than a single loop."
+      zh: "编写 `pair_count(n)`,用一个循环**嵌套**在另一个循环里(两个都遍历 `range(n)`),返回内层一步执行了多少次。这等于 `n × n`。例如:`pair_count(3)` → `9`。它比单层循环增长快得多。"
+    starter: |
+      def pair_count(n):
+          # A loop inside a loop; count every inner step
+          pass
+    solution: |
+      def pair_count(n):
+          count = 0
+          for i in range(n):
+              for j in range(n):
+                  count += 1
+          return count
+    check:
+      kind: asserts
+      code: |
+        assert pair_count(0) == 0, "0 items -> 0 steps"
+        assert pair_count(1) == 1, "1 x 1 = 1"
+        assert pair_count(3) == 9, "3 x 3 = 9"
+        assert pair_count(10) == 100, "10 x 10 = 100 (a single loop would do only 10)"
+  - id: count-orderings
+    prompt:
+      en: "Write `count_orderings(n)` that returns how many different orders `n` items can be placed in — that is `1 × 2 × ... × n` (n factorial). `count_orderings(0)` is `1`. Example: `count_orderings(3)` → `6`. Notice how fast it explodes: `count_orderings(10)` is over 3 million."
+      zh: "编写 `count_orderings(n)`,返回 `n` 个元素能排成多少种不同的顺序 —— 也就是 `1 × 2 × ... × n`(n 的阶乘)。`count_orderings(0)` 为 `1`。例如:`count_orderings(3)` → `6`。注意它爆炸得多快:`count_orderings(10)` 超过三百万。"
+    starter: |
+      def count_orderings(n):
+          # Multiply the numbers 1, 2, ..., n together
+          pass
+    solution: |
+      def count_orderings(n):
+          total = 1
+          for i in range(1, n + 1):
+              total *= i
+          return total
+    check:
+      kind: asserts
+      code: |
+        assert count_orderings(0) == 1, "an empty set has 1 ordering"
+        assert count_orderings(1) == 1, "1! = 1"
+        assert count_orderings(3) == 6, "3! = 6"
+        assert count_orderings(5) == 120, "5! = 120"
+        assert count_orderings(10) == 3628800, "10! explodes to 3,628,800"

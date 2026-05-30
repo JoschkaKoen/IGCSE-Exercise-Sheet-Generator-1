@@ -19,6 +19,7 @@ tasks:
     check:
       kind: asserts
       code: |
+        assert "sum_to" in sum_to.__code__.co_names, "sum_to must be recursive — it should call itself"
         assert sum_to(0) == 0, "sum_to(0) is the base case, 0"
         assert sum_to(1) == 1, "sum_to(1) should be 1"
         assert sum_to(5) == 15, "1+2+3+4+5 should be 15"
@@ -38,6 +39,7 @@ tasks:
     check:
       kind: asserts
       code: |
+        assert "power" in power.__code__.co_names, "power must be recursive — it should call itself"
         assert power(2, 3) == 8, "2 ** 3 should be 8"
         assert power(5, 0) == 1, "anything to the power 0 is 1"
         assert power(3, 2) == 9, "3 ** 2 should be 9"
@@ -57,6 +59,7 @@ tasks:
     check:
       kind: asserts
       code: |
+        assert "count_up" in count_up.__code__.co_names, "count_up must be recursive — it should call itself"
         assert count_up(0) == [], "count_up(0) is the empty list"
         assert count_up(1) == [1], "count_up(1) should be [1]"
         assert count_up(3) == [1, 2, 3], "count_up(3) should be [1, 2, 3]"

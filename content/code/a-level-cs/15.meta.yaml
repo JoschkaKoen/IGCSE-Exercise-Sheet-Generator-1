@@ -1,0 +1,77 @@
+title:
+  en: Graphs
+  zh: 图
+order: 15
+tasks:
+  - id: add-edge
+    prompt:
+      en: "Write `add_edge(graph, a, b)` for an **undirected** graph stored as a dict of neighbour lists. Append `b` to `graph[a]` and `a` to `graph[b]`. If a node is not in the graph yet, give it an empty list `[]` first. Change the dict **in place**."
+      zh: "为一个用「邻居列表字典」表示的**无向**图编写 `add_edge(graph, a, b)`。把 `b` 追加到 `graph[a]`,把 `a` 追加到 `graph[b]`。如果某个节点还不在图里,先给它一个空列表 `[]`。**就地**修改这个字典。"
+    starter: |
+      def add_edge(graph, a, b):
+          # Make sure a and b each have a list, then link them both ways
+          pass
+    solution: |
+      def add_edge(graph, a, b):
+          if a not in graph:
+              graph[a] = []
+          if b not in graph:
+              graph[b] = []
+          graph[a].append(b)
+          graph[b].append(a)
+    check:
+      kind: asserts
+      code: |
+        g = {}
+        add_edge(g, "A", "B")
+        assert g == {"A": ["B"], "B": ["A"]}, "an undirected edge links both directions"
+        add_edge(g, "A", "C")
+        assert g["A"] == ["B", "C"], "A now connects to B and C"
+        assert g["C"] == ["A"], "the new node C connects back to A"
+        add_edge(g, "B", "C")
+        assert sorted(g["B"]) == ["A", "C"] and sorted(g["C"]) == ["A", "B"], "B and C are now linked too"
+  - id: neighbours
+    prompt:
+      en: "Write `neighbours(graph, node)` that returns the list of nodes directly connected to `node`. If `node` is not in the graph, return an empty list `[]` (do not raise an error)."
+      zh: "编写 `neighbours(graph, node)`,返回与 `node` 直接相连的节点列表。如果 `node` 不在图里,返回空列表 `[]`(不要报错)。"
+    starter: |
+      def neighbours(graph, node):
+          # Return graph[node] if it exists, otherwise an empty list
+          pass
+    solution: |
+      def neighbours(graph, node):
+          if node in graph:
+              return graph[node]
+          return []
+    check:
+      kind: asserts
+      code: |
+        g = {"A": ["B", "C"], "B": ["A"], "C": ["A"]}
+        assert neighbours(g, "A") == ["B", "C"], "A's neighbours"
+        assert neighbours(g, "B") == ["A"], "B's neighbours"
+        assert neighbours(g, "Z") == [], "a node not in the graph has no neighbours"
+        assert neighbours({}, "A") == [], "an empty graph has no neighbours"
+  - id: count-edges
+    prompt:
+      en: "Write `count_edges(graph)` for an undirected graph: count how many edges it has. Add up the lengths of every neighbour list, then divide by 2 (each edge is stored in both nodes' lists). Example: a triangle A–B–C has `3` edges."
+      zh: "为一个无向图编写 `count_edges(graph)`:数它有多少条边。把每个邻居列表的长度加起来,再除以 2(每条边在两个节点的列表里各存了一次)。例如:三角形 A–B–C 有 `3` 条边。"
+    starter: |
+      def count_edges(graph):
+          # Sum the lengths of all neighbour lists, then divide by 2
+          pass
+    solution: |
+      def count_edges(graph):
+          total = 0
+          for node in graph:
+              total += len(graph[node])
+          return total // 2
+    check:
+      kind: asserts
+      code: |
+        assert count_edges({}) == 0, "no nodes -> 0 edges"
+        g = {"A": ["B", "C"], "B": ["A"], "C": ["A"]}
+        assert count_edges(g) == 2, "edges A-B and A-C: degrees sum to 4, /2 = 2"
+        g2 = {"A": ["B"], "B": ["A", "C"], "C": ["B"]}
+        assert count_edges(g2) == 2, "a line A-B-C has 2 edges"
+        triangle = {"A": ["B", "C"], "B": ["A", "C"], "C": ["A", "B"]}
+        assert count_edges(triangle) == 3, "a triangle has 3 edges"

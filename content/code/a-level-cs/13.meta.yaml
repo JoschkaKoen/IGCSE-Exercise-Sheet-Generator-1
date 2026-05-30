@@ -1,0 +1,115 @@
+title:
+  en: Hash tables
+  zh: 哈希表
+order: 13
+tasks:
+  - id: hash-function
+    prompt:
+      en: "Write `hash_key(key, size)`. Add the character codes of `key` (use `ord(ch)`) and return the total `% size`, so the result is a slot from `0` to `size - 1`. Example: `hash_key(\"AB\", 10)` is `(65 + 66) % 10` = `1`. The empty string gives `0`."
+      zh: "编写 `hash_key(key, size)`。把 `key` 的各个字符编码相加(用 `ord(ch)`),返回总和 `% size`,这样结果就是一个从 `0` 到 `size - 1` 的槽位。例如:`hash_key(\"AB\", 10)` 是 `(65 + 66) % 10` = `1`。空字符串得到 `0`。"
+    starter: |
+      def hash_key(key, size):
+          # Sum the character codes, then take % size
+          pass
+    solution: |
+      def hash_key(key, size):
+          total = 0
+          for ch in key:
+              total += ord(ch)
+          return total % size
+    check:
+      kind: asserts
+      code: |
+        assert hash_key("", 10) == 0, "empty string -> 0"
+        assert hash_key("A", 10) == 5, "ord('A')=65, 65 % 10 = 5"
+        assert hash_key("AB", 10) == 1, "(65+66) % 10 = 1"
+        assert hash_key("AB", 7) == 5, "(65+66) % 7 = 5"
+        for k in ["cat", "dog", "hippopotamus", ""]:
+            assert 0 <= hash_key(k, 13) < 13, "result must be a valid slot 0..size-1"
+        assert hash_key("cat", 10) == hash_key("cat", 10), "same key -> same slot"
+  - id: insert-probe
+    prompt:
+      en: "`hash_key` is provided. Write `insert(table, key)` using **linear probing**: go to the key's hash slot; while that slot is full (not `None`), step to `(slot + 1) % len(table)`; put the key in the first free slot and **return its index**."
+      zh: "`hash_key` 已提供。用**线性探测**编写 `insert(table, key)`:先到这个键的哈希槽位;只要该槽位被占用(不是 `None`),就走到 `(slot + 1) % len(table)`;把键放进第一个空槽位,并**返回它的下标**。"
+    starter: |
+      # hash_key is provided for you.
+      def hash_key(key, size):
+          total = 0
+          for ch in key:
+              total += ord(ch)
+          return total % size
+
+      def insert(table, key):
+          # Find the hash slot; probe forward while it is taken; store and return the index
+          pass
+    solution: |
+      def hash_key(key, size):
+          total = 0
+          for ch in key:
+              total += ord(ch)
+          return total % size
+
+      def insert(table, key):
+          slot = hash_key(key, len(table))
+          while table[slot] is not None:
+              slot = (slot + 1) % len(table)
+          table[slot] = key
+          return slot
+    check:
+      kind: asserts
+      code: |
+        t = [None] * 5
+        assert insert(t, "A") == 0, "A hashes to 0"
+        assert insert(t, "F") == 1, "F also hashes to 0; slot 0 taken -> probe to 1"
+        assert insert(t, "B") == 2, "B hashes to 1; slot 1 taken -> probe to 2"
+        assert t == ["A", "F", "B", None, None], "the slots should hold A, F, B"
+        # wrap-around: a size-3 table where A, D, G all hash to slot 2
+        w = [None] * 3
+        assert insert(w, "A") == 2, "A hashes to 2"
+        assert insert(w, "D") == 0, "slot 2 taken -> (2+1) % 3 = 0"
+        assert insert(w, "G") == 1, "slots 2 and 0 taken -> wrap to 1"
+        assert w == ["D", "G", "A"], "probing wraps around the end"
+  - id: find-probe
+    prompt:
+      en: "`hash_key` is provided. Write `find(table, key)` that returns the index of `key`, or `-1` if it is missing. Start at the hash slot and probe forward, comparing each slot. Stop at an **empty** slot (key not there). Make sure it ends even if the table is **full** — never loop forever."
+      zh: "`hash_key` 已提供。编写 `find(table, key)`,返回 `key` 的下标,若不存在则返回 `-1`。从哈希槽位开始向前探测,逐个比较。遇到**空**槽位就停止(键不在表里)。要保证即使表是**满的**也能结束 —— 绝不能死循环。"
+    starter: |
+      # hash_key is provided for you.
+      def hash_key(key, size):
+          total = 0
+          for ch in key:
+              total += ord(ch)
+          return total % size
+
+      def find(table, key):
+          # Hash, then probe forward; stop at the key, an empty slot, or after size steps
+          pass
+    solution: |
+      def hash_key(key, size):
+          total = 0
+          for ch in key:
+              total += ord(ch)
+          return total % size
+
+      def find(table, key):
+          size = len(table)
+          slot = hash_key(key, size)
+          steps = 0
+          while table[slot] is not None and steps < size:
+              if table[slot] == key:
+                  return slot
+              slot = (slot + 1) % size
+              steps += 1
+          return -1
+    check:
+      kind: asserts
+      code: |
+        assert "hash_key" in find.__code__.co_names, "start at the hash slot: call hash_key, then probe — do not just scan the whole list"
+        table = ["A", "F", "B", None, None]   # as built by insert: A@0, F@1, B@2
+        assert find(table, "A") == 0, "A is in its home slot 0"
+        assert find(table, "F") == 1, "F hashes to 0 but was probed to 1"
+        assert find(table, "B") == 2, "B hashes to 1 but was probed to 2"
+        assert find(table, "Z") == -1, "Z hashes to 0; probe A,F,B then hit None -> -1"
+        full = ["A", "F", "B", "C", "D"]       # no empty slots
+        assert find(full, "X") == -1, "must terminate on a full table and return -1"
+        assert find(full, "C") == 3, "C is found at index 3"

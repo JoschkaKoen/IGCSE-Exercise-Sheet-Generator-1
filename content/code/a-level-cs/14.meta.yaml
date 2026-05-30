@@ -1,0 +1,168 @@
+title:
+  en: Binary search trees
+  zh: 二叉搜索树
+order: 14
+tasks:
+  - id: insert
+    prompt:
+      en: "The `Node` class is provided. Write `insert(root, value)` that adds `value` to the BST and **returns the root**. If `root` is `None`, return a new `Node(value)`. If `value < root.value` go left, otherwise go right — and reassign that child to the result of inserting into it."
+      zh: "`Node` 类已提供。编写 `insert(root, value)`,把 `value` 加入这棵 BST 并**返回根**。如果 `root` 是 `None`,返回一个新的 `Node(value)`。如果 `value < root.value` 就往左,否则往右 —— 并把那个子节点重新赋值为向它插入后的结果。"
+    starter: |
+      class Node:
+          def __init__(self, value):
+              self.value = value
+              self.left = None
+              self.right = None
+
+      def insert(root, value):
+          # Empty -> new Node. Else go left if smaller, right otherwise. Return root.
+          pass
+    solution: |
+      class Node:
+          def __init__(self, value):
+              self.value = value
+              self.left = None
+              self.right = None
+
+      def insert(root, value):
+          if root is None:
+              return Node(value)
+          if value < root.value:
+              root.left = insert(root.left, value)
+          else:
+              root.right = insert(root.right, value)
+          return root
+    check:
+      kind: asserts
+      code: |
+        root = None
+        for v in [5, 3, 8, 1, 4]:
+            root = insert(root, v)
+        assert root.value == 5, "the first value inserted becomes the root"
+        assert root.left.value == 3, "3 < 5 -> left of root"
+        assert root.right.value == 8, "8 > 5 -> right of root"
+        assert root.left.left.value == 1, "1 < 3 -> left of 3"
+        assert root.left.right.value == 4, "3 < 4 < 5 -> right of 3"
+        assert root.right.left is None and root.right.right is None, "8 has no children"
+        # equal values go right (because 'not <' goes right)
+        dup = None
+        for v in [2, 2]:
+            dup = insert(dup, v)
+        assert dup.value == 2 and dup.left is None and dup.right is not None and dup.right.value == 2, "an equal value goes right"
+  - id: in-order
+    prompt:
+      en: "`Node` and a working `insert` are provided. Write `in_order(root)` that returns a **list** of the values from an in-order traversal: left subtree, then this node's value, then right subtree. Thanks to the BST rule the list comes out **sorted**. An empty tree (`None`) gives `[]`."
+      zh: "`Node` 和一个能用的 `insert` 已提供。编写 `in_order(root)`,返回一次中序遍历得到的值**列表**:先左子树,再本节点的值,再右子树。多亏 BST 规则,这个列表会是**有序**的。空树(`None`)返回 `[]`。"
+    starter: |
+      class Node:
+          def __init__(self, value):
+              self.value = value
+              self.left = None
+              self.right = None
+
+      def insert(root, value):
+          if root is None:
+              return Node(value)
+          if value < root.value:
+              root.left = insert(root.left, value)
+          else:
+              root.right = insert(root.right, value)
+          return root
+
+      def in_order(root):
+          # Return left values + [this value] + right values; [] when root is None
+          pass
+    solution: |
+      class Node:
+          def __init__(self, value):
+              self.value = value
+              self.left = None
+              self.right = None
+
+      def insert(root, value):
+          if root is None:
+              return Node(value)
+          if value < root.value:
+              root.left = insert(root.left, value)
+          else:
+              root.right = insert(root.right, value)
+          return root
+
+      def in_order(root):
+          if root is None:
+              return []
+          return in_order(root.left) + [root.value] + in_order(root.right)
+    check:
+      kind: asserts
+      code: |
+        assert in_order(None) == [], "an empty tree gives an empty list"
+        assert in_order(insert(None, 42)) == [42], "a single node"
+        root = None
+        for v in [5, 3, 8, 1, 4, 7]:
+            root = insert(root, v)
+        assert in_order(root) == [1, 3, 4, 5, 7, 8], "in-order traversal returns the values sorted"
+        # a tree built in a different order still reads out sorted
+        r2 = None
+        for v in [1, 2, 3, 4]:
+            r2 = insert(r2, v)
+        assert in_order(r2) == [1, 2, 3, 4], "even a lopsided tree reads out sorted"
+  - id: contains
+    prompt:
+      en: "`Node` and a working `insert` are provided. Write `contains(root, value)` that returns `True` if `value` is in the tree, else `False`. Use the BST rule: if it equals this node return `True`; if it is smaller search **left**, otherwise search **right**; an empty branch (`None`) means it is not there."
+      zh: "`Node` 和一个能用的 `insert` 已提供。编写 `contains(root, value)`,如果 `value` 在树里返回 `True`,否则返回 `False`。利用 BST 规则:若等于本节点返回 `True`;若更小就到**左**边找,否则到**右**边找;空的分支(`None`)表示它不在。"
+    starter: |
+      class Node:
+          def __init__(self, value):
+              self.value = value
+              self.left = None
+              self.right = None
+
+      def insert(root, value):
+          if root is None:
+              return Node(value)
+          if value < root.value:
+              root.left = insert(root.left, value)
+          else:
+              root.right = insert(root.right, value)
+          return root
+
+      def contains(root, value):
+          # None -> False. Equal -> True. Smaller -> search left, else search right.
+          pass
+    solution: |
+      class Node:
+          def __init__(self, value):
+              self.value = value
+              self.left = None
+              self.right = None
+
+      def insert(root, value):
+          if root is None:
+              return Node(value)
+          if value < root.value:
+              root.left = insert(root.left, value)
+          else:
+              root.right = insert(root.right, value)
+          return root
+
+      def contains(root, value):
+          if root is None:
+              return False
+          if value == root.value:
+              return True
+          if value < root.value:
+              return contains(root.left, value)
+          return contains(root.right, value)
+    check:
+      kind: asserts
+      code: |
+        assert contains(None, 1) is False, "an empty tree contains nothing"
+        root = None
+        for v in [5, 3, 8, 1, 4, 7]:
+            root = insert(root, v)
+        assert contains(root, 5) is True, "the root value is present"
+        assert contains(root, 1) is True, "a leaf on the left"
+        assert contains(root, 7) is True, "a value reached by going right then left"
+        assert contains(root, 6) is False, "6 was never inserted"
+        assert contains(root, 9) is False, "9 is larger than everything present"
+        assert contains(root, 0) is False, "0 is smaller than everything present"

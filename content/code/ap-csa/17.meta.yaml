@@ -1,5 +1,152 @@
 title:
-  en: "FRQ workshop: the 4 question types"
-  zh: "自由作答攻略:四种题型"
+  en: "Inheritance: extends, super, and overriding"
+  zh: "继承:extends、super 与重写"
 order: 17
-tasks: []
+tasks:
+  - id: extends-super
+    prompt:
+      en: "Below the finished `Animal`, write a class `Cat` that **extends `Animal`**. Give it a constructor `Cat(String name)` that passes the name up with `super(name)`. Add nothing else — `Cat` should inherit `getName()` for free."
+      zh: "在写好的 `Animal` 下面,写一个 **继承自 `Animal`** 的类 `Cat`。给它一个构造方法 `Cat(String name)`,用 `super(name)` 把名字传上去。不要加别的 —— `Cat` 应该免费继承到 `getName()`。"
+    starter: |
+      // Animal is written for you. Do not change it.
+      class Animal {
+          private String name;
+          public Animal(String name) { this.name = name; }
+          public String getName() { return this.name; }
+          public String speak() { return "some sound"; }
+          public String describe() { return "I am an animal named " + this.name; }
+      }
+
+      // TODO: write a class Cat that extends Animal.
+      //   - constructor Cat(String name) that calls super(name)
+      //   - nothing else: Cat inherits getName() for free
+    solution: |
+      class Animal {
+          private String name;
+          public Animal(String name) { this.name = name; }
+          public String getName() { return this.name; }
+          public String speak() { return "some sound"; }
+          public String describe() { return "I am an animal named " + this.name; }
+      }
+
+      class Cat extends Animal {
+          public Cat(String name) {
+              super(name);
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Cat c = new Cat("Whiskers");
+                if (!c.getName().equals("Whiskers")) throw new AssertionError("Cat should inherit getName() from Animal; expected Whiskers, got " + c.getName());
+                Animal a = new Cat("Shadow");   // a Cat is-an Animal
+                if (!a.getName().equals("Shadow")) throw new AssertionError("a Cat must work where an Animal is expected; expected Shadow, got " + a.getName());
+            }
+        }
+  - id: override-speak
+    prompt:
+      en: "Complete the class `Cow` (it already extends `Animal`). **Override** `speak()` so a `Cow` returns `\"Moo\"` instead of the default. `getName()` must still work (inherited)."
+      zh: "完成类 `Cow`(它已经继承自 `Animal`)。**重写** `speak()`,让 `Cow` 返回 `\"Moo\"`,而不是默认值。`getName()` 仍然要能用(继承来的)。"
+    starter: |
+      // Animal is written for you. Do not change it.
+      class Animal {
+          private String name;
+          public Animal(String name) { this.name = name; }
+          public String getName() { return this.name; }
+          public String speak() { return "some sound"; }
+          public String describe() { return "I am an animal named " + this.name; }
+      }
+
+      class Cow extends Animal {
+          public Cow(String name) {
+              super(name);
+          }
+
+          // TODO: override speak() so a Cow returns "Moo"
+      }
+    solution: |
+      class Animal {
+          private String name;
+          public Animal(String name) { this.name = name; }
+          public String getName() { return this.name; }
+          public String speak() { return "some sound"; }
+          public String describe() { return "I am an animal named " + this.name; }
+      }
+
+      class Cow extends Animal {
+          public Cow(String name) {
+              super(name);
+          }
+
+          public String speak() {
+              return "Moo";
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Cow c = new Cow("Bessie");
+                if (!c.speak().equals("Moo")) throw new AssertionError("Cow.speak() should be overridden to Moo, got " + c.speak());
+                if (!c.getName().equals("Bessie")) throw new AssertionError("Cow should still inherit getName(); expected Bessie, got " + c.getName());
+                Animal a = new Cow("Daisy");   // dynamic dispatch: the Cow's speak() runs
+                if (!a.speak().equals("Moo")) throw new AssertionError("through an Animal reference, the overridden Cow.speak() should run; got " + a.speak());
+            }
+        }
+  - id: super-method
+    prompt:
+      en: "Complete the class `Fish` (it already extends `Animal`). **Override** `describe()` so it returns the `Animal` description **plus** `\", and I can swim\"`. Reuse the parent's work by calling `super.describe()` — do not rewrite the whole sentence."
+      zh: "完成类 `Fish`(它已经继承自 `Animal`)。**重写** `describe()`,让它返回 `Animal` 的描述**再加上** `\", and I can swim\"`。通过调用 `super.describe()` 复用父类的成果 —— 不要把整句重写一遍。"
+    starter: |
+      // Animal is written for you. Do not change it.
+      class Animal {
+          private String name;
+          public Animal(String name) { this.name = name; }
+          public String getName() { return this.name; }
+          public String speak() { return "some sound"; }
+          public String describe() { return "I am an animal named " + this.name; }
+      }
+
+      class Fish extends Animal {
+          public Fish(String name) {
+              super(name);
+          }
+
+          // TODO: override describe() to return super.describe() + ", and I can swim"
+      }
+    solution: |
+      class Animal {
+          private String name;
+          public Animal(String name) { this.name = name; }
+          public String getName() { return this.name; }
+          public String speak() { return "some sound"; }
+          public String describe() { return "I am an animal named " + this.name; }
+      }
+
+      class Fish extends Animal {
+          public Fish(String name) {
+              super(name);
+          }
+
+          public String describe() {
+              return super.describe() + ", and I can swim";
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Fish f = new Fish("Nemo");
+                String d = f.describe();
+                if (!d.equals("I am an animal named Nemo, and I can swim")) throw new AssertionError("Fish.describe() should call super.describe() then add the swim part; got: " + d);
+                Fish g = new Fish("Dory");
+                if (!g.describe().equals("I am an animal named Dory, and I can swim")) throw new AssertionError("describe() must use the object's real name; got: " + g.describe());
+            }
+        }
