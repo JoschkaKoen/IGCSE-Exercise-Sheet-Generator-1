@@ -1,0 +1,66 @@
+topic_number: '6'
+topic_title: Nucleic acids and protein synthesis
+subject_key: a_level_biology
+covered_question_ids:
+- paper: 9700 Biology November 2025 Question Paper  11
+  qnum: '22'
+- paper: 9700 Biology November 2025 Question Paper  11
+  qnum: '23'
+- paper: 9700 Biology November 2025 Question Paper  11
+  qnum: '24'
+- paper: 9700 Biology November 2025 Question Paper  11
+  qnum: '25'
+- paper: 9700 Biology November 2025 Question Paper  12
+  qnum: '24'
+- paper: 9700 Biology November 2025 Question Paper  12
+  qnum: '25'
+- paper: 9700 Biology November 2025 Question Paper  12
+  qnum: '26'
+- paper: 9700 Biology November 2025 Question Paper  12
+  qnum: '27'
+- paper: 9700 Biology November 2025 Question Paper  13
+  qnum: '25'
+- paper: 9700 Biology November 2025 Question Paper  13
+  qnum: '26'
+- paper: 9700 Biology November 2025 Question Paper  13
+  qnum: '27'
+- paper: 9700 Biology November 2025 Question Paper  14
+  qnum: '22'
+- paper: 9700 Biology November 2025 Question Paper  14
+  qnum: '23'
+- paper: 9700 Biology November 2025 Question Paper  14
+  qnum: '24'
+- paper: 9700 Biology November 2025 Question Paper  14
+  qnum: '25'
+- paper: 9700 Biology November 2025 Question Paper  21
+  qnum: 6ai
+- paper: 9700 Biology November 2025 Question Paper  21
+  qnum: 6aii
+- paper: 9700 Biology November 2025 Question Paper  21
+  qnum: 6aiii
+- paper: 9700 Biology November 2025 Question Paper  22
+  qnum: 3a
+- paper: 9700 Biology November 2025 Question Paper  22
+  qnum: 3b
+- paper: 9700 Biology November 2025 Question Paper  22
+  qnum: 3c
+- paper: 9700 Biology November 2025 Question Paper  22
+  qnum: 3d
+- paper: 9700 Biology November 2025 Question Paper  23
+  qnum: 2ciii
+- paper: 9700 Biology November 2025 Question Paper  23
+  qnum: 4ai
+- paper: 9700 Biology November 2025 Question Paper  23
+  qnum: 4aii
+- paper: 9700 Biology November 2025 Question Paper  23
+  qnum: 4bi
+- paper: 9700 Biology November 2025 Question Paper  23
+  qnum: 4bii
+- paper: 9700 Biology November 2025 Question Paper  24
+  qnum: 3ai
+generated_at: '2026-05-29T15:55:03Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:55:03Z'
+glossed_at: '2026-05-29T15:55:03Z'

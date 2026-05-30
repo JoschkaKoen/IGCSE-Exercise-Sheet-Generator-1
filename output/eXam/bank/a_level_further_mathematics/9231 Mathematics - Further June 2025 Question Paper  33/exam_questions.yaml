@@ -1,0 +1,215 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: A particle $P$ of mass $m$ is attached to one end of a light inextensible
+    string of length $a$. The other end of the string is attached to a fixed point
+    $O$. The particle moves in a horizontal circle with constant angular speed $\omega$
+    and with the string inclined at an angle of $\theta$ to the downward vertical.
+    Given that $\tan\theta = \tfrac43$, find $\omega$ in terms of $a$ and $g$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ of mass $m$ is attached to one end of a light elastic string
+    of natural length $a$ and modulus of elasticity $mg$. The other end of the string
+    is attached to a fixed point $O$ on a rough plane inclined at an angle of $30\degree$
+    to the horizontal. The particle $P$ is held at rest at point $O$ before being
+    released. The frictional force acting on $P$ as it slides down the plane is $\tfrac{11}{30}mg$.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find, in terms of $a$, the distance that $P$ moves down the plane before
+      coming to rest.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: It is given that $P$ remains at rest in this new position. Find, in terms
+      of $m$ and $g$, the magnitude of the frictional force in this position.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A ball of mass $m$ kg is projected vertically upwards with initial speed $U\text{
+    m s}^{-1}$ and moves under gravity. At time $t$ s after projection, the ball has
+    travelled a distance $x$ m and its speed is $v\text{ m s}^{-1}$. There is a resistive
+    force of magnitude $mkv^2$ N, where $k$ is a positive constant.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Show that the distance travelled by the ball when it is moving upwards is
+      $x = \dfrac{1}{2k}\ln\!\left(\dfrac{g + kU^2}{g + kv^2}\right)$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: It is given that $k = 0.025$ and that $U = 20$. Find the time taken for
+      the ball to reach its maximum height.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: An object consists of a uniform lamina with a particle attached. The uniform
+    lamina $ABCEFD$ of mass $m$ is formed from a rectangle $ABCD$ and an isosceles
+    triangle $CEF$, where $F$ is the midpoint of $CD$. The rectangle has sides $AB
+    = 2a$ and $AD = a$. The triangle $CEF$ has base $a$ and height $2a$. The particle
+    of mass $km$ is attached to the lamina at $E$. The object rests in a vertical
+    plane with its edge $AD$ on horizontal ground (see diagram). Given that the object
+    is on the point of toppling in its vertical plane about the vertex $D$, find the
+    value of $k$.
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A hollow cylinder of radius $r$ is fixed with its axis horizontal. Points
+    $A$, $B$ and $O$ are in the same vertical plane perpendicular to the axis of the
+    cylinder, with $A$ and $B$ on the smooth inner surface and $O$ on the axis. $OA$
+    and $OB$ make angles $90\degree$ and $\alpha$ respectively with the upward vertical
+    through $O$, with $A$ and $B$ on opposite sides of the vertical. A particle of
+    mass $m$ is projected vertically downwards from point $A$ with speed $\sqrt{\tfrac32
+    rg}$ and moves in a vertical circle inside the cylinder (see diagram). The particle
+    loses contact with the cylinder at point $B$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the value of $\alpha$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: In the subsequent motion find, in terms of $r$, the greatest height above
+      $O$ reached by the particle.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Two identical uniform smooth spheres $A$ and $B$, each with mass $m$, are
+    moving on a horizontal surface with speeds $2u$ and $u$ respectively when they
+    collide. Immediately before the collision, the spheres are moving parallel to
+    each other in opposite directions such that their directions of motion each make
+    an angle $\theta$ with the line of centres (see diagram). As a result of the collision,
+    $B$ moves in a direction which is perpendicular to its initial direction of motion.
+    The coefficient of restitution between the spheres is $e$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Find an expression for $\tan\theta$ in terms of $e$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: As a result of the collision, $A$ moves in a direction which is perpendicular
+      to the line of centres. Find the value of $\theta$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ is projected from a point $O$ with speed $U$ at an angle $45\degree$
+    above the horizontal and moves freely under gravity.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the vertical and horizontal components of velocity at time $t$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: At time $T$, particle $P$ is moving at an angle of $60\degree$ below the
+      horizontal. Show that $T = \dfrac{U}{2g}(\sqrt2 + \sqrt6)$.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'At time $T$, the particle strikes a smooth horizontal plane at a point
+      which is a horizontal distance $D$ from $O$ and a vertical distance $H$ below
+      $O$. Find the ratio $H : D$.'
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: After striking the horizontal plane, $P$ rebounds with speed $w$. The coefficient
+      of restitution between $P$ and the plane is $\tfrac23$. Find $w$ in terms of
+      $U$.
+    answer_options: []
+    subquestions: []

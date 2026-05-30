@@ -1,0 +1,150 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\sum x = 723$, $\sum x^2 = 42261$ (so $\bar x = 55.6$). Unbiased
+    estimate $s^2 = \tfrac{1}{12}\left(42261 - \tfrac{723^2}{13}\right) = \tfrac{2222}{13}
+    = 170.9231$ ($s = 13.07$). With the $t$-value $1.782$ (12 d.f., 90\%): $\tfrac{723}{13}
+    \pm 1.782\sqrt{\tfrac{170.9231}{13}}$, giving the 90\% CI $[49.2, 62.1]$.'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The population (of car speeds) is normally distributed.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{F}(x) = 0$ for $x < 0$; $\tfrac29 x^2 + \tfrac49 x$
+    for $0 \leqslant x < 1$; $\tfrac13(x-2)^3 + 1$ for $1 \leqslant x \leqslant 2$;
+    $1$ for $x > 2$.
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Since $\mathrm{F}(1) = \tfrac23 > \tfrac12$, the median lies
+    in $0 \leqslant x < 1$: solve $\tfrac29 m^2 + \tfrac49 m = \tfrac12$, giving $m
+    = \tfrac12\left(-2 + \sqrt{13}\right) \approx 0.803$.'
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: With $Y = \sqrt X$, $\mathrm{G}(y) = \mathrm{F}(y^2) = 0$ for
+    $y < 0$; $\tfrac29 y^4 + \tfrac49 y^2$ for $0 \leqslant y < 1$; $\tfrac13(y^2
+    - 2)^3 + 1$ for $1 \leqslant y \leqslant \sqrt2$; $1$ for $y > \sqrt2$.
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{G}\!\left(\tfrac12(-2+\sqrt{13})\right) = 0.379 < 0.5$,
+    so the median of $Y$ is greater than the median of $X$. (Equivalently $m_Y = \sqrt{m_X}$;
+    since $m_X < 1$, $\sqrt{m_X} > m_X$, i.e. $m_Y = 0.896 > 0.803 = m_X$.)
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: $\mu_Y = \mu_X$; $H_1$: $\mu_Y > \mu_X$ (population
+    means). Differences ($Y - X$): $3, -1, 6, 2, 3, 3, -1, -2, 3, 3$; $\sum d = 19$,
+    $s_d^2 = \tfrac19\left(91 - \tfrac{19^2}{10}\right) = 6.1$. $t = \dfrac{19/10}{\sqrt{6.1/10}}
+    = 2.43$. With 9 d.f., critical $t = 2.821$. Since $2.43 < 2.821$, do not reject
+    $H_0$: there is insufficient evidence to support the manufacturer''s claim (that
+    machine $Y$ extracts more juice on average).'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The population of differences is normally distributed.
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: For pair 4 the new difference is $62 - 60 = 2$, the same as
+    the original $63 - 61 = 2$, so the set of differences is unchanged. Hence the
+    test statistic and the conclusion remain the same.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{G}_X(t) = \tfrac25 t + \tfrac35 t^2$.
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{G}_Y(t) = [\mathrm{G}_X(t)]^4 = \left(\tfrac25 t +
+    \tfrac35 t^2\right)^4 = \tfrac{1}{625}t^4(2 + 3t)^4$.
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}(Y = 6)$ is the coefficient of $t^6$ in $\mathrm{G}_Y(t)$,
+    i.e. $\tfrac{1}{625}\times\binom{4}{2}2^2 3^2 = \tfrac{216}{625} \approx 0.346$.
+  mark_scheme: []
+  graphics: []
+- number: 4d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\mathrm{E}(X) = \tfrac85$, $\mathrm{E}(X^2) = \tfrac{14}5$,
+    so $\mathrm{Var}(X) = \tfrac{14}5 - \left(\tfrac85\right)^2 = \tfrac{6}{25}$.
+    Hence $\mathrm{Var}(Y) = 4\,\mathrm{Var}(X) = \tfrac{24}{25} = 0.96$. (Via the
+    PGF: $\mathrm{G}_Y''(1) = \tfrac{32}5 = 6.4$, $\mathrm{G}_Y''''(1) = \tfrac{888}{25}
+    = 35.52$, $\mathrm{Var}(Y) = \tfrac{888}{25} + \tfrac{32}5 - \left(\tfrac{32}5\right)^2
+    = \tfrac{24}{25}$.)'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: performance is independent of age; $H_1$: performance
+    is not independent of age. Expected frequencies: pass $27.93, 44.69, 8.38$; fail
+    $22.07, 35.31, 6.62$. $\chi^2 = \dfrac{(34-27.93)^2}{27.93} + \cdots + \dfrac{(9-6.62)^2}{6.62}
+    = 5.21$. With $(2-1)(3-1) = 2$ degrees of freedom, the critical value is $\chi^2_{0.90}(2)
+    = 4.605$. Since $5.21 > 4.605$, reject $H_0$: there is sufficient evidence that
+    performance and age are not independent (i.e. they are associated).'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: the population median mark for school $A$ equals that
+    for school $B$; $H_1$: they are not equal. Mean $= \tfrac12\cdot123\cdot(123+147+1)
+    = 16666.5$; variance $= \tfrac{1}{12}\cdot123\cdot147\cdot(123+147+1) = 408329.25$.
+    With continuity correction, $z = \dfrac{15355 + 0.5 - 16666.5}{\sqrt{408329.25}}
+    = -2.05$. Two-tailed 5\% test: since $-2.05 < -1.96$, reject $H_0$: there is sufficient
+    evidence of a difference in average marks between the students in school $A$ and
+    school $B$.'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The (underlying) distributions are symmetrical / of similar
+    shape (or there are no repeated marks).
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,78 @@
+topic_number: '7'
+topic_title: Equilibria
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry June 2025 Question Paper  34
+  qnum: 3ai
+- paper: 9701 Chemistry June 2025 Question Paper  34
+  qnum: 3aii
+- paper: 9701 Chemistry June 2025 Question Paper  34
+  qnum: 3biii
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '12'
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '13'
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '14'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '12'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '13'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '12'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '13'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '14'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '12'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '13'
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 1di
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 1dii
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 1diii
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2ei
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2eii
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2eiii
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 1di
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 1dii
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 1diii
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 2bi
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 2bii
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 2biii
+- paper: 9701 Chemistry November 2025 Question Paper  52
+  qnum: 1ci
+- paper: 9701 Chemistry November 2025 Question Paper  52
+  qnum: 1cii
+- paper: 9701 Chemistry November 2025 Question Paper  52
+  qnum: 1ciii
+- paper: 9701 Chemistry November 2025 Question Paper  52
+  qnum: 1ei
+- paper: 9701 Chemistry November 2025 Question Paper  52
+  qnum: 1eii
+- paper: 9701 Chemistry November 2025 Question Paper  52
+  qnum: 1eiii
+- paper: 9701 Chemistry November 2025 Question Paper  52
+  qnum: 1fi
+- paper: 9701 Chemistry November 2025 Question Paper  52
+  qnum: 1fii
+- paper: 9701 Chemistry November 2025 Question Paper  52
+  qnum: 1fiii
+generated_at: '2026-05-29T15:49:01Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:49:01Z'
+glossed_at: '2026-05-29T15:49:01Z'

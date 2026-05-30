@@ -1,0 +1,100 @@
+topic_number: '10'
+topic_title: Boolean logic
+subject_key: igcse_computer_science
+covered_question_ids:
+- paper: 0478 Computer Science March 2026 Question Paper  22
+  qnum: 7a
+- paper: 0478 Computer Science March 2026 Question Paper  22
+  qnum: 7b
+- paper: 0478 Computer Science November 2025 Question Paper  21
+  qnum: 4ci
+- paper: 0478 Computer Science November 2025 Question Paper  21
+  qnum: 4cii
+- paper: 0478 Computer Science November 2025 Question Paper  21
+  qnum: 4d
+- paper: 0478 Computer Science November 2025 Question Paper  22
+  qnum: 6a
+- paper: 0478 Computer Science November 2025 Question Paper  22
+  qnum: 6b
+- paper: 0478 Computer Science November 2025 Question Paper  23
+  qnum: 4ci
+- paper: 0478 Computer Science November 2025 Question Paper  23
+  qnum: 4cii
+- paper: 0478_m23_qp_22
+  qnum: '1'
+- paper: 0478_m23_qp_22
+  qnum: 7a
+- paper: 0478_m23_qp_22
+  qnum: 7b
+- paper: 0478_m24_qp_22
+  qnum: 7a
+- paper: 0478_m24_qp_22
+  qnum: 7b
+- paper: 0478_m25_qp_22
+  qnum: 9a
+- paper: 0478_m25_qp_22
+  qnum: 9b
+- paper: 0478_s23_qp_21
+  qnum: 9a
+- paper: 0478_s23_qp_21
+  qnum: 9b
+- paper: 0478_s23_qp_22
+  qnum: '8'
+- paper: 0478_s24_qp_21
+  qnum: 8a
+- paper: 0478_s24_qp_21
+  qnum: 8b
+- paper: 0478_s24_qp_22
+  qnum: '2'
+- paper: 0478_s24_qp_22
+  qnum: 8a
+- paper: 0478_s24_qp_22
+  qnum: 8b
+- paper: 0478_s24_qp_23
+  qnum: 2a
+- paper: 0478_s24_qp_23
+  qnum: 2b
+- paper: 0478_s25_qp_21
+  qnum: 7a
+- paper: 0478_s25_qp_21
+  qnum: 7b
+- paper: 0478_s25_qp_22
+  qnum: 8a
+- paper: 0478_s25_qp_22
+  qnum: 8bi
+- paper: 0478_s25_qp_22
+  qnum: 8bii
+- paper: 0478_s25_qp_23
+  qnum: 7a
+- paper: 0478_s25_qp_23
+  qnum: 7bi
+- paper: 0478_s25_qp_23
+  qnum: 7bii
+- paper: 0478_w23_qp_21
+  qnum: 7a
+- paper: 0478_w23_qp_21
+  qnum: 7b
+- paper: 0478_w23_qp_22
+  qnum: 9a
+- paper: 0478_w23_qp_22
+  qnum: 9b
+- paper: 0478_w24_qp_21
+  qnum: '2'
+- paper: 0478_w24_qp_21
+  qnum: 7a
+- paper: 0478_w24_qp_21
+  qnum: 7b
+- paper: 0478_w24_qp_22
+  qnum: 9a
+- paper: 0478_w24_qp_22
+  qnum: 9b
+- paper: 0478_w24_qp_23
+  qnum: '3'
+- paper: 0478_w24_qp_23
+  qnum: '8'
+generated_at: '2026-05-29T16:17:52Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T17:16:54Z'
+glossed_at: '2026-05-29T17:17:11Z'

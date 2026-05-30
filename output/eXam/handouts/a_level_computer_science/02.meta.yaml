@@ -52,3 +52,108 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:39:31Z'
 glossed_at: '2026-05-29T05:39:31Z'
+figures:
+  - file: assets/02-p48-wan-typical.png
+    caption: A wide-area network links many systems across a large area
+    figure_ref: '2.3'
+    source_page_pdf: 48
+    source_page_printed: 32
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 240.1, 482.7, 326.7]
+    placed_under: "## LAN vs WAN"
+  - file: assets/02-p48-client-server-model.png
+    caption: In a client-server network, clients request services from a central server
+    figure_ref: '2.4'
+    source_page_pdf: 48
+    source_page_printed: 32
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 521.0, 558.0, 721.4]
+    placed_under: "### Client-server"
+  - file: assets/02-p50-peer-to-peer-model.png
+    caption: In a peer-to-peer network, every node is both client and server
+    figure_ref: '2.5'
+    source_page_pdf: 50
+    source_page_printed: 34
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [178.0, 104.0, 567.0, 367.0]
+    placed_under: "### Peer-to-peer (P2P)"
+  - file: assets/02-p53-bus-topology.png
+    caption: "Bus topology: all devices share one cable with a terminator at each end"
+    figure_ref: '2.6'
+    source_page_pdf: 53
+    source_page_printed: 37
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 233.3, 551.0, 302.6]
+    placed_under: "## Network topologies"
+  - file: assets/02-p53-star-topology.png
+    caption: "Star topology: every device connects to a central hub or switch"
+    figure_ref: '2.7'
+    source_page_pdf: 53
+    source_page_printed: 37
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [37.0, 592.0, 156.0, 711.0]
+    placed_under: "## Network topologies"
+  - file: assets/02-p54-mesh-topology.png
+    caption: "Mesh topology: every device links directly to the others"
+    figure_ref: '2.8'
+    source_page_pdf: 54
+    source_page_printed: 38
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 320.0, 558.0, 483.1]
+    placed_under: "## Network topologies"
+  - file: assets/02-p55-hybrid-topology.png
+    caption: "Hybrid topology: star clusters joined by a central bus"
+    figure_ref: '2.9'
+    source_page_pdf: 55
+    source_page_printed: 39
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 273.6, 551.9, 462.2]
+    placed_under: "## Network topologies"
+  - file: assets/02-p62-switch-forwarding.png
+    caption: A switch sends each frame only to the port for its destination
+    figure_ref: '2.14'
+    source_page_pdf: 62
+    source_page_printed: 46
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 257.0, 558.0, 354.5]
+    placed_under: "## LAN hardware"
+  - file: assets/02-p64-router-lan-internet.png
+    caption: A router connects a LAN to the internet or another network
+    figure_ref: '2.16'
+    source_page_pdf: 64
+    source_page_printed: 48
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [176.0, 37.0, 567.0, 172.0]
+    placed_under: "## Routers"
+  - file: assets/02-p67-csma-cd-flowchart.png
+    caption: The CSMA/CD process for handling collisions on shared media
+    figure_ref: '2.20'
+    source_page_pdf: 67
+    source_page_printed: 51
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 204.0, 435.8, 716.7]
+    placed_under: "## Ethernet and CSMA/CD"
+  - file: assets/02-p68-bit-streaming-buffer.png
+    caption: Data streams from the server into a buffer before the media player reads it
+    figure_ref: '2.21'
+    source_page_pdf: 68
+    source_page_printed: 52
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [178.3, 383.1, 432.5, 463.2]
+    placed_under: "## Bit streaming"
+  - file: assets/02-p76-subnetting-netids.png
+    caption: Splitting a network into subnets, one netID per department
+    figure_ref: '2.24'
+    source_page_pdf: 76
+    source_page_printed: 60
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [184.0, 228.0, 483.0, 487.0]
+    placed_under: "### Subnetting"
+  - file: assets/02-p78-dns-process.png
+    caption: How DNS finds a website's IP address before the browser connects
+    figure_ref: '2.25'
+    source_page_pdf: 78
+    source_page_printed: 62
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [178.0, 55.0, 567.0, 304.0]
+    placed_under: "## URL and DNS"

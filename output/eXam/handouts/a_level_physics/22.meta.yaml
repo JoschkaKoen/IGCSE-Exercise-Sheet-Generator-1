@@ -48,3 +48,52 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:32:03Z'
 glossed_at: '2026-05-29T05:32:03Z'
+figures:
+  - file: assets/22-p367-photoelectric-demo.png
+    caption: A charged zinc plate loses its charge — the gold leaf falls — when ultraviolet light shines on it
+    figure_ref: '22.2'
+    source_page_pdf: 367
+    source_page_printed: 351
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [177.0, 567.0, 494.0, 724.0]
+    placed_under: "## Photoelectric effect"
+  - file: assets/22-p369-max-ke-vs-frequency.png
+    caption: The maximum kinetic energy of photoelectrons rises linearly with frequency, reaching zero at the threshold frequency f₀
+    figure_ref: '22.4'
+    source_page_pdf: 369
+    source_page_printed: 353
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.1, 226.6, 347.2, 350.3]
+    placed_under: "### Einstein's photoelectric equation"
+  - file: assets/22-p372-electron-diffraction.png
+    caption: Electrons fired at graphite form a ring diffraction pattern — only waves diffract, so electrons behave as waves
+    figure_ref: '22.6'
+    source_page_pdf: 372
+    source_page_printed: 356
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [174.8, 583.4, 346.0, 721.3]
+    placed_under: "### Electron diffraction"
+  - file: assets/22-p375-hydrogen-energy-levels.png
+    caption: The electron energy levels of hydrogen are discrete and negative, with the ground state at −13.6 eV
+    figure_ref: '22.10'
+    source_page_pdf: 375
+    source_page_printed: 359
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.6, 308.4, 431.6, 512.5]
+    placed_under: "## Energy levels in atoms"
+  - file: assets/22-p375-hydrogen-emission-spectrum.png
+    caption: The emission spectrum of hydrogen is a set of sharp bright lines on a dark background
+    figure_ref: '22.9'
+    source_page_pdf: 375
+    source_page_printed: 359
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.6, 36.9, 509.3, 137.5]
+    placed_under: "### Emission spectrum"
+  - file: assets/22-p377-sun-absorption-spectrum.png
+    caption: Dark absorption lines in the Sun's spectrum mark the wavelengths absorbed by cooler gas
+    figure_ref: '22.14'
+    source_page_pdf: 377
+    source_page_printed: 361
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.6, 507.7, 507.0, 593.8]
+    placed_under: "### Absorption spectrum"

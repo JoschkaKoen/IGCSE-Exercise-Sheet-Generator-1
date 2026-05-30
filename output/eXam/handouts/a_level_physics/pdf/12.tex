@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Motion in a circle}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Angles in radians}
+
+The \textbf{radian} 弧度 is the angle made at the centre of a circle by an \textbf{arc} 弧 whose length equals the radius. For an arc of length $s$ on a circle of radius $r$, the angle in radians is
+
+\[
+\theta = \frac{s}{r}.
+\]
+
+Radians have no unit (a ratio of lengths). A full circle has $s = 2\pi r$, so $\theta = 2\pi\ \text{rad}$. A half-circle is $\pi\ \text{rad}$; a quarter is $\pi/2\ \text{rad}$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/12-p239-radian-definition.pdf}}\\[0.3em]
+\emph{One radian is the angle whose arc length equals the radius}
+\end{minipage}\par\medskip
+
+To convert: $1\ \text{rad} = 180°/\pi \approx 57.3°$. Set your calculator to \textbf{radians} for this topic; "degree" mode will give wrong answers.
+
+\section*{Uniform circular motion: angular speed}
+
+An object moves in a circle of radius $r$ at constant speed $v$. Define:
+
+\begin{itemize}
+\item \textbf{angular displacement} 角位移 $\theta$ — the angle (in radians) turned through by the radius from a chosen start line.
+
+\item \textbf{angular speed} 角速度 $\omega$ — the rate of change of angular displacement.
+
+\end{itemize}
+
+For uniform motion $\omega$ is constant and
+
+\[
+\omega = \frac{\theta}{t}.
+\]
+
+Unit: $\text{rad s}^{-1}$.
+
+\subsection*{Period and frequency}
+
+If the object goes once round ($2\pi\ \text{rad}$, one \textbf{revolution} 圈) in time $T$ (the \textbf{period} 周期), then
+
+\[
+\omega = \frac{2\pi}{T} = 2\pi f,
+\]
+
+where $f = 1/T$ is the \textbf{frequency} 频率 of turning (Hz).
+
+\subsection*{Linear and angular speed}
+
+In one period $T$ the object travels a distance $2\pi r$ (the \textbf{circumference} 周长) at constant speed, so
+
+\[
+v = \frac{2\pi r}{T} = r \omega.
+\]
+
+This links the linear (\textbf{tangential} 切向) speed $v$ with the angular speed $\omega$. At a larger radius (for the same angular speed) the linear speed is larger — a child on the edge of a merry-go-round moves faster than one near the centre, even though both go round once in the same time.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/12-p240-angular-speed.pdf}}\\[0.3em]
+\emph{As the radius turns through Δθ the object moves an arc Δs at speed v}
+\end{minipage}\par\medskip
+
+\section*{Centripetal acceleration}
+
+An object moving in a circle at constant speed still has a \textbf{changing velocity} 速度 — its direction keeps changing, even though its size stays the same. A changing velocity needs an \textbf{acceleration} 加速度. This acceleration points \textbf{towards the centre} and is the \textbf{centripetal acceleration} 向心加速度.
+
+\subsection*{Size}
+
+\[
+a = \frac{v^{2}}{r} = r\omega^{2}.
+\]
+
+The two forms are equal because $v = r\omega$. Pick the one with the quantities you have.
+
+The centripetal acceleration is \textbf{perpendicular} 垂直 to the velocity at every instant — never along the direction of motion. (If part of it were along the motion, the speed would change.) Unit: $\text{m s}^{-2}$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/12-p241-centripetal-direction.pdf}}\\[0.3em]
+\emph{The velocity points along the tangent; the force and acceleration point to the centre}
+\end{minipage}\par\medskip
+
+\section*{Centripetal force}
+
+By Newton's second law, the resultant \textbf{force} 力 on a body in circular motion at constant speed is
+
+\[
+F = m a = \frac{m v^{2}}{r} = m r \omega^{2}.
+\]
+
+This is the \textbf{centripetal force} 向心力. It \textbf{always points towards the centre} — perpendicular to the velocity.
+
+The centripetal force is not a new kind of force — it is the \textbf{net result} of the real forces acting (tension, gravity, friction, electric attraction, normal contact force, …). In a problem, work out which real force(s) provide it.
+
+\subsection*{Where the centripetal force comes from}
+
+\begin{itemize}
+\item \textbf{Ball on a string} in a horizontal circle: the \textbf{tension} 张力 in the string.
+
+\item \textbf{Car turning a flat corner}: the \textbf{friction} 摩擦力 between tyres and road ($F = m v^{2}/r$). If the car goes too fast, friction is not enough and it skids outwards.
+
+\item \textbf{Banked corner} 倾斜 (no friction): the horizontal part of the \textbf{normal contact force} 支持力; $\tan\theta = v^{2}/(rg)$ for the angle that needs no friction.
+
+\item \textbf{Planet or satellite} 卫星 in \textbf{orbit} 轨道: the \textbf{gravitational attraction} 引力, $G M m / r^{2} = m v^{2}/r$.
+
+\item \textbf{Electron} 电子 in a circular orbit (Bohr-style model): the \textbf{electrostatic} 静电 attraction between the electron and the positive \textbf{nucleus} 原子核:
+
+\end{itemize}
+
+\[
+\frac{kZe^{2}}{r^{2}} = \frac{m_{e} v^{2}}{r},
+\]
+
+where $k = 1/(4\pi\varepsilon_{0})$ and $Z$ is the nuclear charge. Solve for $v$ to get the orbital speed; then $T = 2\pi r/v$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/12-p243-banked-corner.pdf}}\\[0.3em]
+\emph{On a banked track the horizontal part of the road's force provides the centripetal force}
+\end{minipage}\par\medskip
+
+\subsection*{Vertical circles}
+
+When the circle is upright, the speed is \textbf{not} constant (gravity does work) — but at each instant the \textbf{net force towards the centre} still equals $m v^{2}/r$:
+
+\begin{itemize}
+\item at the bottom of a loop: tension up, \textbf{weight} 重力 down, so $T - mg = m v^{2}/r$ — the tension is largest here.
+
+\item at the top of a loop: tension and weight both point down (towards the centre), so $T + mg = m v^{2}/r$ — the tension is smallest. For the slowest speed at the top with the string just tight, set $T = 0$: $mg = m v_{\text{min}}^{2}/r$, giving $v_{\text{min}} = \sqrt{gr}$.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/12-p244-vertical-circle-forces.pdf}}\\[0.3em]
+\emph{Forces on a person at the top and bottom of a vertical circle}
+\end{minipage}\par\medskip
+
+The constant-speed result ($v = r\omega$, $\omega$ constant) holds for horizontal circles, or where the force only bends the path (orbits in gravity, charges in a \textbf{magnetic field} 磁场).
+
+\section*{How to structure a circular-motion answer}
+
+\begin{enumerate}
+\item \textbf{Find the radius} $r$ and choose $v$ or $\omega$. Use $v = r\omega$ to switch between them.
+
+\item \textbf{Find the centripetal acceleration} with $a = v^{2}/r$ or $r\omega^{2}$.
+
+\item \textbf{List the real forces} and write Newton's second law in the \textbf{radial} 径向 direction (towards the centre is positive). Set the net inward force equal to $m v^{2}/r$.
+
+\item For \textbf{period or frequency}: use $\omega = 2\pi/T$, or $T = 2\pi r / v$.
+
+\item Check the \textbf{directions}: centripetal force and acceleration point to the centre; the velocity is along the tangent.
+
+\end{enumerate}
+
+
+\end{document}

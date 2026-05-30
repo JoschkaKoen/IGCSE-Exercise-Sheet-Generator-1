@@ -1,0 +1,142 @@
+topic_number: '6'
+topic_title: Automated and emerging technologies
+subject_key: igcse_computer_science
+covered_question_ids:
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 3a
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 3biii
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 5a
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 5b
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 5c
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 5e
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 7a
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 7c
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 1eii
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 6a
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 6b
+- paper: 0478_m23_qp_12
+  qnum: 6b
+- paper: 0478_m23_qp_12
+  qnum: 6c
+- paper: 0478_m23_qp_12
+  qnum: 6di
+- paper: 0478_m23_qp_12
+  qnum: 6dii
+- paper: 0478_m24_qp_12
+  qnum: 6a
+- paper: 0478_m24_qp_12
+  qnum: 6bi
+- paper: 0478_m24_qp_12
+  qnum: 6bii
+- paper: 0478_m24_qp_12
+  qnum: 6c
+- paper: 0478_m24_qp_12
+  qnum: 6d
+- paper: 0478_m25_qp_12
+  qnum: 4aii
+- paper: 0478_m25_qp_12
+  qnum: 6a
+- paper: 0478_m25_qp_12
+  qnum: 6b
+- paper: 0478_s23_qp_11
+  qnum: 5b
+- paper: 0478_s23_qp_11
+  qnum: 9a
+- paper: 0478_s23_qp_11
+  qnum: 9b
+- paper: 0478_s23_qp_11
+  qnum: 9c
+- paper: 0478_s23_qp_12
+  qnum: 9a
+- paper: 0478_s23_qp_12
+  qnum: 9b
+- paper: 0478_s24_qp_11
+  qnum: 8a
+- paper: 0478_s24_qp_11
+  qnum: 8b
+- paper: 0478_s24_qp_11
+  qnum: 8c
+- paper: 0478_s24_qp_11
+  qnum: 8d
+- paper: 0478_s24_qp_11
+  qnum: 8e
+- paper: 0478_s24_qp_11
+  qnum: 8f
+- paper: 0478_s24_qp_12
+  qnum: 10a
+- paper: 0478_s24_qp_12
+  qnum: 10b
+- paper: 0478_s24_qp_13
+  qnum: 6b
+- paper: 0478_s25_qp_11
+  qnum: 8a
+- paper: 0478_s25_qp_11
+  qnum: 8d
+- paper: 0478_s25_qp_11
+  qnum: 8e
+- paper: 0478_s25_qp_12
+  qnum: 5a
+- paper: 0478_s25_qp_12
+  qnum: 5bi
+- paper: 0478_s25_qp_12
+  qnum: 5bii
+- paper: 0478_s25_qp_12
+  qnum: 5biii
+- paper: 0478_s25_qp_13
+  qnum: 6a
+- paper: 0478_s25_qp_13
+  qnum: 6b
+- paper: 0478_s25_qp_13
+  qnum: 6ci
+- paper: 0478_s25_qp_13
+  qnum: 6d
+- paper: 0478_s25_qp_13
+  qnum: 6e
+- paper: 0478_s25_qp_13
+  qnum: 6fi
+- paper: 0478_s25_qp_13
+  qnum: 6fii
+- paper: 0478_w23_qp_11
+  qnum: 2e
+- paper: 0478_w23_qp_12
+  qnum: 7b
+- paper: 0478_w23_qp_12
+  qnum: 10a
+- paper: 0478_w23_qp_12
+  qnum: 10b
+- paper: 0478_w23_qp_12
+  qnum: 11b
+- paper: 0478_w23_qp_12
+  qnum: 11c
+- paper: 0478_w24_qp_11
+  qnum: 9a
+- paper: 0478_w24_qp_11
+  qnum: 9b
+- paper: 0478_w24_qp_12
+  qnum: 8b
+- paper: 0478_w24_qp_12
+  qnum: 8c
+- paper: 0478_w24_qp_13
+  qnum: 5a
+- paper: 0478_w24_qp_13
+  qnum: 5b
+- paper: 0478_w24_qp_13
+  qnum: 5c
+- paper: 0478_w24_qp_13
+  qnum: 5d
+generated_at: '2026-05-29T16:03:38Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:03:38Z'
+glossed_at: '2026-05-29T16:03:38Z'

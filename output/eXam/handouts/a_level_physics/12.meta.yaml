@@ -50,3 +50,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:20:55Z'
 glossed_at: '2026-05-29T05:20:55Z'
+figures:
+  - file: assets/12-p239-radian-definition.png
+    caption: One radian is the angle whose arc length equals the radius
+    figure_ref: '12.1'
+    source_page_pdf: 239
+    source_page_printed: 223
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [38.0, 503.0, 152.0, 608.0]
+    placed_under: "## Angles in radians"
+  - file: assets/12-p240-angular-speed.png
+    caption: As the radius turns through Δθ the object moves an arc Δs at speed v
+    figure_ref: '12.2'
+    source_page_pdf: 240
+    source_page_printed: 224
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [58.0, 203.0, 154.0, 314.0]
+    placed_under: "### Linear and angular speed"
+  - file: assets/12-p241-centripetal-direction.png
+    caption: The velocity points along the tangent; the force and acceleration point to the centre
+    figure_ref: '12.3'
+    source_page_pdf: 241
+    source_page_printed: 225
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [38.0, 294.0, 165.0, 375.0]
+    placed_under: "## Centripetal acceleration"
+  - file: assets/12-p243-banked-corner.png
+    caption: On a banked track the horizontal part of the road's force provides the centripetal force
+    figure_ref: '12.7'
+    source_page_pdf: 243
+    source_page_printed: 227
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [405.0, 40.0, 545.0, 196.0]
+    placed_under: "### Where the centripetal force comes from"
+  - file: assets/12-p244-vertical-circle-forces.png
+    caption: Forces on a person at the top and bottom of a vertical circle
+    figure_ref: '12.12'
+    source_page_pdf: 244
+    source_page_printed: 228
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [47.0, 540.0, 173.0, 679.0]
+    placed_under: "### Vertical circles"

@@ -1,0 +1,267 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Magnetic fields}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{The magnetic field}
+
+A \textbf{magnetic field} 磁场 is a region where a moving charge (or a \textbf{current} 电流) feels a \textbf{force} 力. It is made by:
+
+\begin{itemize}
+\item \textbf{moving charges} (usually a current in a wire), or
+
+\item \textbf{permanent magnets} 永磁体 (where it comes from tiny atomic currents).
+
+\end{itemize}
+
+\subsection*{Field lines}
+
+\begin{itemize}
+\item \textbf{field lines} 场线 point from \textbf{N} to \textbf{S} outside a magnet, and S to N inside (so they form closed loops).
+
+\item lines never cross; closer lines mean a stronger field.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/20-p331-iron-filings-bar-magnet.pdf}}\\[0.3em]
+\emph{Iron filings reveal the field of a bar magnet}
+\end{minipage}\par\medskip
+
+Patterns to know:
+
+\begin{itemize}
+\item \textbf{bar magnet} 条形磁铁 — curved lines from N to S outside, strongest near the poles.
+
+\item \textbf{long straight wire} — circles around the wire; the direction comes from the \textbf{right-hand grip rule} 右手定则 (thumb along the current, fingers curl the way the field points).
+
+\item \textbf{flat circular coil} — the field through the centre is at right angles to the coil; the coil acts like a small bar magnet.
+
+\item \textbf{long solenoid} 螺线管 — the field inside is nearly \textbf{uniform} along the axis, like a stretched bar magnet; outside it falls off fast.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/20-p343-field-around-straight-wire.pdf}}\\[0.3em]
+\emph{Field around a long straight wire}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/20-p343-solenoid-field.pdf}}\\[0.3em]
+\emph{Field of a solenoid}
+\end{minipage}\par\medskip
+
+An \textbf{iron core} 铁芯 inside a solenoid greatly \textbf{increases} the field, because the iron's atomic magnets line up and add to it. This is why \textbf{electromagnets} 电磁铁 and \textbf{transformers} 变压器 have iron cores.
+
+\section*{Force on a current-carrying conductor}
+
+A current $I$ in a wire of length $L$ in a magnetic field of flux density $B$ feels a force
+
+\[
+F = B I L \sin\theta,
+\]
+
+where $\theta$ is the angle between the wire and the field. The force is largest when the wire is at right angles to the field ($F = BIL$) and zero when the wire is along the field.
+
+\subsection*{Magnetic flux density}
+
+This equation also \textbf{defines} the \textbf{magnetic flux density} 磁通密度 $B$:
+
+\[
+B = \frac{F}{IL} \quad\text{(wire at right angles to the field).}
+\]
+
+So $B$ is the force per unit current per unit length on a wire at right angles to the field. Unit: \textbf{tesla} 特斯拉, $\text{T} = \text{N A}^{-1}\ \text{m}^{-1}$.
+
+\subsection*{Direction — Fleming's left-hand rule}
+
+Use the \textbf{left hand} (\textbf{Fleming's left-hand rule} 弗莱明左手定则): first finger = \textbf{F}ield, second finger = \textbf{C}urrent, thumb = force (thrust). Hold the three at right angles.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/20-p334-flemings-left-hand-rule.pdf}}\\[0.3em]
+\emph{Fleming's left-hand rule}
+\end{minipage}\par\medskip
+
+\section*{Force on a moving charge}
+
+A charge $Q$ moving at \textbf{velocity} 速度 $v$ through a field feels
+
+\[
+F = B Q v \sin\theta,
+\]
+
+with $\theta$ the angle between $v$ and $B$. Same left-hand rule (the second finger is the motion of a \textbf{positive} charge — reverse it for a negative charge). The force is largest when $v$ is at right angles to $B$, and zero when $v$ is along $B$.
+
+\subsection*{Circular motion in a uniform field}
+
+A charge moving at right angles to a \textbf{uniform field} 匀强场 feels a force at right angles to both $v$ and $B$. This force does \textbf{no work} (always at right angles to the motion), so the \textbf{kinetic energy} 动能 and speed stay constant — the particle moves in a \textbf{circle}. Set the magnetic force equal to the \textbf{centripetal force} 向心力:
+
+\[
+B Q v = \frac{m v^{2}}{r}, \qquad r = \frac{m v}{B Q}.
+\]
+
+So the radius depends on the \textbf{momentum} 动量 $mv$. The period is
+
+\[
+T = \frac{2\pi m}{B Q},
+\]
+
+which does \textbf{not} depend on the speed — a faster particle goes in a bigger circle but takes the same time per turn. If $v$ also has a part along $B$, that part is unchanged, and the path is a \textbf{helix} 螺旋.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/20-p337-charged-particle-circular-path.pdf}}\\[0.3em]
+\emph{Circular path of a charged particle in a magnetic field}
+\end{minipage}\par\medskip
+
+\subsection*{Hall effect}
+
+A slab of conductor carrying current $I$, in a field $B$ at right angles to the current, develops a voltage across its faces — the \textbf{Hall voltage} 霍尔电压 $V_{\text{H}}$ (the \textbf{Hall effect} 霍尔效应).
+
+The moving charges feel a magnetic force $BQv_{\text{d}}$ ($v_{\text{d}}$ is the \textbf{drift velocity} 漂移速度), so they build up on one face, making an \textbf{electric field} 电场 $E$ that opposes more build-up. At steady state $eE = Bev_{\text{d}}$, so $E = B v_{\text{d}}$. With $V_{\text{H}} = E w$ and $I = n e v_{\text{d}} w t$:
+
+\[
+V_{\text{H}} = \frac{B I}{n t q},
+\]
+
+where $q$ is the carrier charge. A \textbf{Hall probe} 霍尔探头 uses this to measure $B$: pass a known current through a thin \textbf{semiconductor} 半导体 slab and read $V_{\text{H}}$ (largest when the slab is at right angles to $B$).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/20-p341-hall-effect.pdf}}\\[0.3em]
+\emph{The Hall effect}
+\end{minipage}\par\medskip
+
+\subsection*{Velocity selector}
+
+A \textbf{velocity selector} 速度选择器 uses crossed electric and magnetic fields to let through only one speed. With the electric force $qE$ and magnetic force $qvB$ set to oppose each other, the net force is zero only when
+
+\[
+qE = qvB \quad\Rightarrow\quad v = \frac{E}{B}.
+\]
+
+Particles at speed $E/B$ go straight through; faster or slower ones are deflected.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/20-p340-velocity-selector.pdf}}\\[0.3em]
+\emph{Velocity selector}
+\end{minipage}\par\medskip
+
+\section*{Force between parallel currents}
+
+Two long parallel wires each sit in the other's magnetic field. Using Fleming's left-hand rule: \textbf{parallel currents (same direction) attract; antiparallel currents (opposite directions) repel}. This is the basis of the SI definition of the ampere.
+
+\section*{Electromagnetic induction}
+
+\subsection*{Magnetic flux}
+
+The \textbf{magnetic flux} 磁通量 $\Phi$ through a flat area $A$ at right angles to $B$ is
+
+\[
+\Phi = B A.
+\]
+
+If the area's normal is at angle $\theta$ to $B$, use $\Phi = B A \cos\theta$. Unit: \textbf{weber} 韦伯, $\text{Wb} = \text{T m}^{2}$. For a \textbf{coil} 线圈 of $N$ turns, the \textbf{flux linkage} 磁链 is $N\Phi = N B A$.
+
+\subsection*{Faraday's and Lenz's laws}
+
+When the flux linkage through a circuit \textbf{changes}, an \textbf{electromotive force} 电动势 (e.m.f.) is induced — this is \textbf{electromagnetic induction} 电磁感应.
+
+\textbf{Faraday's law} 法拉第定律: the induced e.m.f. equals the rate of change of flux linkage:
+
+\[
+|\varepsilon| = N\frac{d\Phi}{dt}.
+\]
+
+\textbf{Lenz's law} 楞次定律: the induced e.m.f. acts to \textbf{oppose the change} that makes it. This is \textbf{conservation of energy} 能量守恒 — if it reinforced the change, energy would come from nothing. Combined:
+
+\[
+\varepsilon = -\frac{d(N\Phi)}{dt}.
+\]
+
+\subsection*{What changes the flux?}
+
+\begin{itemize}
+\item \textbf{changing $B$} (moving a magnet near a coil),
+
+\item \textbf{changing area} $A$ (a rod sliding along rails),
+
+\item \textbf{changing orientation} (a coil turning in a field — the a.c. generator, next topic).
+
+\end{itemize}
+
+\subsection*{Demonstrations}
+
+\begin{itemize}
+\item moving a bar magnet into a coil deflects a \textbf{galvanometer} 检流计; the deflection reverses when the magnet is pulled out (Lenz's law), and is larger for faster motion (Faraday's law).
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/20-p347-electromagnetic-induction-apparatus.pdf}}\\[0.3em]
+\emph{Demonstrating electromagnetic induction}
+\end{minipage}\par\medskip
+
+\begin{itemize}
+\item a copper disc swinging into a field is quickly slowed — \textbf{eddy currents} 涡流 are induced that oppose the motion.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/20-p351-eddy-current-damping.pdf}}\\[0.3em]
+\emph{Eddy-current damping}
+\end{minipage}\par\medskip
+
+\subsection*{What makes the induced e.m.f. larger}
+
+From $\varepsilon = N\,d\Phi/dt$ with $\Phi = BA$: more turns $N$, a stronger $B$, a larger area $A$, or a faster change — each gives a larger induced e.m.f.
+
+
+\end{document}

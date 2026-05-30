@@ -1,0 +1,241 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 7
+  text: 'The manager of a hardware store is interested in whether there is a difference
+    in the amount spent per customer on weekdays ($\$x$) compared to weekends ($\$y$).
+    Random samples of 120 customers on weekdays and 80 customers on weekends are taken
+    and the amount spent by each customer is recorded. The results are summarised
+    as follows: $\sum x = 10470$, $\sum(x-\bar x)^2 = 12283$, $\sum y = 6560$, $\sum(y-\bar
+    y)^2 = 13520$. Test at the 1\% significance level whether there is a difference
+    in the mean amount spent per customer on weekdays compared to weekends. You should
+    not assume that the population variances of the amounts spent on weekdays and
+    weekends are equal.'
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: As shown in the diagram, the continuous random variable $X$ has probability
+    density function f given by $\mathrm{f}(x) = a$ for $0 \leqslant x \leqslant 5$,
+    $b - cx$ for $5 \leqslant x \leqslant 8$, and $0$ otherwise, where $a$, $b$ and
+    $c$ are constants.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $a = \tfrac{2}{13}$ and find the values of $b$ and $c$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the mean of $X$.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the median of $X$.
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The random variable $Y$ is defined by $Y = X^2$. Find the cumulative distribution
+      function for $Y$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Eggs in a supermarket are sold in boxes of six. A supermarket manager wishes
+    to model the number of broken eggs in the boxes sold in the store. A random sample
+    of 2000 boxes is taken and the number of broken eggs recorded. Observed frequencies
+    (0--6 broken eggs): 1844, 143, 11, 0, 1, 0, 1.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Use the data to estimate the probability that an egg is broken. Give your
+      answer correct to 4 significant figures.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: It is decided to carry out a goodness of fit test at the 0.5\% significance
+      level to determine whether a binomial distribution fits the data. The expected
+      frequency for 1 broken egg is $a$. Show that $a = 162.6$ correct to 1 decimal
+      place.
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Carry out a goodness of fit test at the 0.5\% level of significance to test
+      whether a binomial distribution is a satisfactory model for the data.
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give a reason why a binomial distribution may not be a suitable model in
+      this situation.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A researcher is interested in whether there is a difference between two schools
+    in students'' aptitude for English. She randomly chooses 10 students from school
+    $X$ and 8 students of a similar age from school $Y$ to take a written English
+    test. The scores for school $X$ ($x$) and school $Y$ ($y$) are summarised as follows:
+    $\sum x = 612$, $\sum x^2 = 40104$, $\sum y = 444$, $\sum y^2 = 27460$. You should
+    assume that the two distributions are normal and have the same population variance.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Find a 95\% confidence interval for the difference in the mean scores for
+      students from school $X$ and students from school $Y$ in the written English
+      test.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Use the confidence interval you found in part (a) to explain why there is
+      insufficient evidence at a 5\% significance level to suggest that the English
+      scores of students from school $X$ and students from school $Y$ are different.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Two jigsaw puzzles have the same number of pieces with identical shapes but
+    have different pictures printed on them (a seaside picture and a cartoon picture).
+    A researcher believes that children will complete the cartoon puzzle more quickly.
+    To test this belief, 10 children are randomly selected and the time taken in seconds
+    for each child to complete each puzzle is recorded. Children $A$--$J$: Seaside:
+    182, 130, 193, 181, 192, 204, 184, 192, 180, 189; Cartoon: 161, 111, 195, 159,
+    202, 200, 168, 165, 145, 160.'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Carry out a Wilcoxon matched-pairs signed-rank test at the 5\% significance
+      level to test the researcher's belief.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that using a paired-sample sign test at the 5\% significance level
+      would result in the opposite conclusion to that found in part (a).
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: It was later discovered that the experiment had been conducted such that
+      each child completed the seaside puzzle first followed by the cartoon puzzle.
+      Comment on the validity of using this experiment to test the researcher's belief.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: $Y$ is a discrete random variable which takes the values $0, 2, 4, \ldots$.
+    The probability generating function of $Y$ is given by $\mathrm{G}_Y(t) = \dfrac{k}{1
+    - at^2}$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Find $k$ in terms of $a$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $\mathrm{P}(Y > 2) = a^2$.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: It is now given that $a = 0.2$. Find the value of $\mathrm{E}(Y)$.
+    answer_options: []
+    subquestions: []

@@ -1,0 +1,22 @@
+subject_key: igcse_biology
+paper_stem: 0610 Biology June 2025 Question Paper  61
+model: claude
+matched_at: '2026-05-29T15:36:53Z'
+matches:
+  1ai: ['3.1']
+  1aii: ['3.1']
+  1aiii: ['3.1']
+  1aiv: ['3.1']
+  1av: ['3.1']
+  1b: ['3.2']
+  2ai: ['4.1']
+  2aii: ['4.1']
+  2bi: ['4.1']
+  2bii: ['4.1']
+  2ci: ['4.1']
+  2cii: ['4.1']
+  2ciii: ['4.1']
+  2civ: ['4.1']
+  2di: ['2.2']
+  2dii: ['2.2']
+  2e: ['4.1']

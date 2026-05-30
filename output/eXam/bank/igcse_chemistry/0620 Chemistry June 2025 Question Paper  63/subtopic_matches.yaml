@@ -1,0 +1,27 @@
+subject_key: igcse_chemistry
+paper_stem: 0620 Chemistry June 2025 Question Paper  63
+model: claude
+matched_at: '2026-05-29T12:58:25Z'
+matches:
+  1a: ['12.1']
+  1b: ['12.1']
+  1c: ['6.2']
+  1di: ['12.5']
+  1dii: ['12.5']
+  1e: ['12.4']
+  2a: ['6.2']
+  2b: ['6.2']
+  2ci: ['6.2']
+  2cii: ['6.2']
+  2di: ['6.2']
+  2dii: ['6.2']
+  2diii: ['6.2']
+  2ei: ['12.1']
+  2eii: ['12.1']
+  2f: ['6.2']
+  3a: ['12.5']
+  3b: ['12.5']
+  3c: ['12.5']
+  3d: ['12.5']
+  3e: ['12.5']
+  3f: ['12.5']

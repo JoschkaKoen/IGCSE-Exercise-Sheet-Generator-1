@@ -1,0 +1,218 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Ideal gases}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{The mole}
+
+\textbf{Amount of substance} 物质的量 is an SI base quantity. Its unit is the \textbf{mole} 摩尔 (mol) — one of the seven SI base units, with the kilogram, metre, second, ampere and \textbf{kelvin} 开尔文 from Topic 1.
+
+One mole of any substance has a number of particles equal to the \textbf{Avogadro constant} 阿伏伽德罗常量:
+
+\[
+N_{\text{A}} = 6.02 \times 10^{23}\ \text{mol}^{-1}.
+\]
+
+A "particle" means whatever you are counting — \textbf{atoms} 原子 for a \textbf{monatomic} 单原子 element like helium, \textbf{molecules} 分子 for $\text{O}_{2}$ or $\text{H}_{2}\text{O}$. Always say what you are counting.
+
+For $n$ moles, the number of particles is $N = n N_{\text{A}}$.
+
+The \textbf{molar mass} 摩尔质量 $M_{\text{m}}$ is the mass of one mole ($\text{kg mol}^{-1}$ or $\text{g mol}^{-1}$). Mass of $n$ moles is $M = n M_{\text{m}}$. Mass of one particle is $m_{0} = M_{\text{m}} / N_{\text{A}}$.
+
+\section*{Equation of state of an ideal gas}
+
+An \textbf{ideal gas} 理想气体 obeys $pV \propto T$ exactly, where $T$ is the \textbf{thermodynamic temperature} 热力学温度.
+
+The \textbf{equation of state} 状态方程 can be written two equal ways:
+
+\[
+p V = n R T \qquad\text{or}\qquad p V = N k T.
+\]
+
+Here:
+
+\begin{itemize}
+\item $p$ — \textbf{pressure} 压强 (Pa).
+
+\item $V$ — \textbf{volume} 体积 (m³).
+
+\item $T$ — thermodynamic temperature in kelvin (never °C).
+
+\item $n$ — number of moles; $N$ — number of molecules.
+
+\item $R$ — \textbf{molar gas constant} 摩尔气体常量, $R = 8.31\ \text{J mol}^{-1}\ \text{K}^{-1}$.
+
+\item $k$ — \textbf{Boltzmann constant} 玻尔兹曼常量, $k = 1.38 \times 10^{-23}\ \text{J K}^{-1}$.
+
+\end{itemize}
+
+Since $N = n N_{\text{A}}$, we get $k = R/N_{\text{A}}$: $k$ is the gas constant \textbf{per molecule}, as $R$ is per mole.
+
+\subsection*{Using the equation of state}
+
+List the variables you have, find the unknown, and choose the form that matches your "amount" (moles → $nRT$; molecules → $NkT$). Always use SI units: Pa, m³, K.
+
+If a fixed amount of gas changes from state 1 to state 2:
+
+\[
+\frac{p_{1} V_{1}}{T_{1}} = \frac{p_{2} V_{2}}{T_{2}}.
+\]
+
+Special cases:
+
+\begin{itemize}
+\item \textbf{constant temperature} (\textbf{Boyle's law} 玻意耳定律): $p_{1} V_{1} = p_{2} V_{2}$.
+
+\item \textbf{constant pressure} (\textbf{Charles's law} 查理定律): $V / T = \text{constant}$.
+
+\item \textbf{constant volume} (\textbf{pressure law} 气体压强定律): $p / T = \text{constant}$.
+
+\end{itemize}
+
+A common mistake is using °C instead of K — $pV \propto T$ only holds with $T$ in kelvin.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/15-p271-charles-law-graph.pdf}}\\[0.3em]
+\emph{At constant pressure the volume of a gas rises linearly with temperature, reaching zero at absolute zero (Charles's law)}
+\end{minipage}\par\medskip
+
+\section*{Kinetic theory of gases}
+
+The \textbf{kinetic theory} 分子动理论 explains a gas's large-scale behaviour from the \textbf{random motion} 无规则运动 of its molecules.
+
+\subsection*{Assumptions}
+
+For an ideal gas:
+
+\begin{enumerate}
+\item a \textbf{large number} of identical molecules in continuous random motion.
+
+\item the molecules' own volume is too small to matter compared with the container.
+
+\item the time of each collision is too short to matter compared with the time between collisions.
+
+\item \textbf{intermolecular} 分子间 forces are ignored except during collisions (molecules go in straight lines between them).
+
+\item collisions are \textbf{elastic} — this is an \textbf{elastic collision} 弹性碰撞 (no kinetic energy lost on average).
+
+\item Newton's laws apply.
+
+\end{enumerate}
+
+These assumptions become poor at very high pressure (molecular volume matters) or very low temperature (intermolecular forces matter).
+
+\subsection*{Pressure of a gas — outline of the derivation}
+
+Take a cubic box of side $L$ with $N$ molecules, each of mass $m$. Look at one molecule moving along the $x$-axis with velocity $u_{1}$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/15-p279-molecule-in-box.pdf}}\\[0.3em]
+\emph{The pressure derivation considers one molecule's velocity component c\_x normal to a face of a cube of gas}
+\end{minipage}\par\medskip
+
+\begin{itemize}
+\item \textbf{one collision with the right wall}: velocity reverses to $-u_{1}$, change in \textbf{momentum} 动量 $\Delta p_{x} = -2 m u_{1}$. By Newton's third law the wall gets an \textbf{impulse} 冲量 of $+2 m u_{1}$.
+
+\item \textbf{time between hits on that wall}: travel $2L$ there and back, so $\Delta t = 2L/u_{1}$.
+
+\item \textbf{average force from this molecule}: $F_{1} = \Delta p / \Delta t = m u_{1}^{2} / L$.
+
+\item \textbf{add over all molecules}: $F = (Nm/L)\langle u_{x}^{2} \rangle$, where $\langle u_{x}^{2} \rangle$ is the \textbf{mean square} 均方 of the $x$-velocity.
+
+\item \textbf{pressure}: $p = F/L^{2} = N m \langle u_{x}^{2} \rangle / V$.
+
+\end{itemize}
+
+In 3-D, by symmetry $\langle u_{x}^{2} \rangle = \tfrac{1}{3} \langle c^{2} \rangle$, where $\langle c^{2} \rangle$ is the \textbf{mean-square speed} 均方速率. So
+
+\[
+p V = \tfrac{1}{3} N m \langle c^{2} \rangle.
+\]
+
+\subsection*{Root-mean-square speed}
+
+The square root of $\langle c^{2} \rangle$ is the \textbf{root-mean-square} 均方根 (r.m.s.) speed:
+
+\[
+c_{\text{r.m.s.}} = \sqrt{\langle c^{2} \rangle}.
+\]
+
+It is a useful single measure of how fast the molecules move, slightly larger than the mean speed (squaring weights fast molecules more).
+
+\section*{Average translational kinetic energy}
+
+Compare the two expressions for $pV$:
+
+\[
+p V = N k T \quad\text{and}\quad p V = \tfrac{1}{3} N m \langle c^{2} \rangle.
+\]
+
+Set them equal, cancel $N$, and multiply by $\tfrac{3}{2}$:
+
+\[
+\tfrac{3}{2} k T = \tfrac{1}{2} m \langle c^{2} \rangle.
+\]
+
+The right side is the \textbf{average translational kinetic energy} 平动动能 $\langle E_{\text{k}} \rangle$ of one molecule. So
+
+\[
+\langle E_{\text{k}} \rangle = \tfrac{1}{2} m \langle c^{2} \rangle = \tfrac{3}{2} k T.
+\]
+
+This is a key result: \textbf{the average translational kinetic energy of an ideal-gas molecule depends only on the thermodynamic temperature}, not on the type of gas or its pressure.
+
+\subsection*{Consequences}
+
+\begin{itemize}
+\item \textbf{doubling the absolute temperature doubles the average KE} of each molecule, so $\langle c^{2} \rangle$ doubles and $c_{\text{r.m.s.}}$ grows by $\sqrt{2}$.
+
+\item for \textbf{two gases at the same temperature}, the lighter gas has a larger $\langle c^{2} \rangle$. Hydrogen molecules move faster on average than oxygen molecules in the same room.
+
+\item \textbf{total translational KE} of $N$ molecules: $\tfrac{3}{2} N k T = \tfrac{3}{2} n R T$.
+
+\end{itemize}
+
+\subsection*{Internal energy of an ideal gas}
+
+For an ideal gas the molecules are point particles with no intermolecular potential energy and (in this simple model) no rotation or vibration. So the \textbf{internal energy} 内能 is just the total \textbf{kinetic energy} 动能:
+
+\[
+U = \tfrac{3}{2} N k T = \tfrac{3}{2} n R T.
+\]
+
+So the internal energy of an ideal gas is proportional to the thermodynamic temperature — doubling $T$ doubles $U$.
+
+\subsection*{Changing pressure at fixed temperature}
+
+Doubling $p$ at fixed $T$ (by squeezing the gas to half its volume) does \textbf{not} change $\langle E_{\text{k}} \rangle$ — that depends only on $T$. There are more wall collisions per second, but each molecule has the same average kinetic energy.
+
+
+\end{document}

@@ -1,0 +1,317 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Hardware}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Computers and their components}
+
+A general-purpose computer has four building blocks:
+
+\begin{itemize}
+\item \textbf{input devices} 输入设备 — get data in (keyboard, mouse, microphone, scanner, sensors).
+
+\item \textbf{output devices} 输出设备 — give results out (monitor, speakers, printer, actuators).
+
+\item \textbf{primary memory} 主存储器 — fast memory the \textbf{processor} 处理器 (CPU) reaches directly (RAM and ROM). Holds the running program and its data.
+
+\item \textbf{secondary storage} 辅助存储器 — slower, larger, keeps programs and data when not in use (hard disk, SSD, optical disc, USB stick).
+
+\end{itemize}
+
+\section*{Embedded systems}
+
+An \textbf{embedded system} 嵌入式系统 is a computer built \textbf{into another device} to do one fixed job (washing machine, microwave, car engine unit, thermostat).
+
+\begin{itemize}
+\item \textbf{benefits}: optimised for one task (low power, small, cheap); reliable; fast to start; cheap in volume.
+
+\item \textbf{drawbacks}: limited to its one task; hard to update (its \textbf{firmware} 固件 may need special tools); often not repairable; sometimes weak security.
+
+\end{itemize}
+
+\section*{Principal hardware devices}
+
+\subsection*{Laser printer}
+
+A \textbf{laser printer} 激光打印机 scans the page image onto a charged photosensitive \textbf{drum} 感光鼓. \textbf{Toner} 墨粉 sticks to the charged areas, transfers to the paper, and is melted on by a fuser. Fast, sharp, high-volume.
+
+\subsection*{3D printer}
+
+A \textbf{3D printer} 3D打印机 builds an object \textbf{layer by layer}: FDM melts plastic filament through a nozzle; stereolithography cures liquid resin with a UV laser. Used for prototypes and custom medical parts.
+
+\subsection*{Microphone and speakers}
+
+A \textbf{microphone} 麦克风 turns \textbf{sound into an electrical signal} (a diaphragm vibrates, changing \textbf{capacitor} 电容器 charge or coil position); the signal is digitised by an \textbf{analogue-to-digital converter} 模数转换器 (ADC). A speaker does the reverse — a varying signal drives a coil in a magnetic field, moving a cone to make sound.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/03-p97-microphone.pdf}}\\[0.3em]
+\emph{Inside a microphone: sound vibrates the diaphragm and coil to produce a current}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/03-p96-loudspeaker.pdf}}\\[0.3em]
+\emph{Inside a loudspeaker: a varying current in the coil moves the cone to make sound}
+\end{minipage}\par\medskip
+
+\subsection*{Magnetic hard disk (HDD)}
+
+A \textbf{hard disk} 硬盘 stores data on spinning platters coated with magnetic material. Each platter has \textbf{tracks} 磁道 divided into \textbf{sectors} 扇区. A \textbf{read/write head} 读写头 floats just above and magnetises tiny regions (write) or senses them (read). Cheap per gigabyte, but slower than SSDs and has moving parts.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/03-p89-hdd-tracks-sectors.pdf}}\\[0.3em]
+\emph{Tracks and sectors on a hard disk platter}
+\end{minipage}\par\medskip
+
+\subsection*{Solid-state (flash) memory}
+
+A \textbf{solid-state drive} 固态硬盘 stores data as charge in \textbf{transistors} 晶体管, with no moving parts. Faster random access than HDDs, tougher, lower power, but dearer per gigabyte; each cell wears out after many writes.
+
+\subsection*{Optical disc}
+
+A laser detects reflections from tiny pits on an \textbf{optical disc} 光盘 (CD, DVD, Blu-ray). Writing uses a stronger laser to change the surface's reflectivity.
+
+\subsection*{Touchscreen}
+
+A \textbf{touchscreen} 触摸屏 senses contact. \textbf{Resistive} 电阻式: two conductive layers pressed together; works with anything but is less accurate. \textbf{Capacitive} 电容式: a finger disturbs a charge field; accurate, multi-touch, used in phones.
+
+\subsection*{Virtual reality headset}
+
+A \textbf{virtual reality} 虚拟现实 (VR) headset has two small displays (one per eye) and motion sensors (\textbf{accelerometer} 加速度计, \textbf{gyroscope} 陀螺仪) that track head movement so the scene shifts as you look around.
+
+\section*{Buffers}
+
+A \textbf{buffer} 缓冲 is memory that \textbf{holds data temporarily} while it moves between devices of different speeds. Example: the CPU writes a document to a printer buffer quickly, then is free to do other work while the printer prints from the buffer at its own pace. Buffers stop the fast device waiting for the slow one (also used in streaming, the keyboard, and disk access).
+
+\section*{RAM and ROM}
+
+\begin{itemize}
+\item \textbf{RAM} 随机存取存储器 (Random Access Memory) — \textbf{volatile} 易失性 (loses data without power). Holds the OS, running programs and their data; read and written constantly.
+
+\item \textbf{ROM} 只读存储器 (Read-Only Memory) — \textbf{non-volatile} 非易失性 (keeps data without power). Usually written once; holds firmware needed at start-up (the BIOS / boot loader).
+
+\end{itemize}
+
+ROM starts the system; RAM then holds the active work.
+
+\section*{SRAM vs DRAM}
+
+\begin{itemize}
+\item \textbf{SRAM} 静态RAM stores each bit in a \textbf{flip-flop} 触发器 of several transistors. Fast, but expensive and not dense. Used for CPU \textbf{cache} 高速缓存.
+
+\item \textbf{DRAM} 动态RAM stores each bit as charge on a tiny capacitor. Cheaper and denser but slower, and must be \textbf{refreshed} 刷新 (rewritten) thousands of times a second. Used for main memory.
+
+\end{itemize}
+
+Use SRAM for small fast memory (cache); DRAM for large main memory.
+
+\section*{PROM, EPROM and EEPROM}
+
+ROM variants you can program after manufacture:
+
+\begin{itemize}
+\item \textbf{PROM} — written \textbf{once} (fuses burned by a programmer); cannot be changed.
+
+\item \textbf{EPROM} — erased by \textbf{strong UV light} through a window, then rewritten (whole chip at once).
+
+\item \textbf{EEPROM} — erased and rewritten \textbf{electrically}, a byte at a time, in circuit. Flash memory is a derivative optimised for block erase.
+
+\end{itemize}
+
+\section*{Monitoring and control systems}
+
+Both read \textbf{sensors}; the difference is what they do next.
+
+\begin{itemize}
+\item \textbf{monitoring} 监控 — collects and reports data but \textbf{takes no action} (a weather station logging readings).
+
+\item \textbf{control system} 控制系统 — uses sensor data to \textbf{decide and act} through actuators, usually in a feedback loop (a thermostat turning a boiler on/off).
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/03-p102-monitoring-control-feedback.pdf}}\\[0.3em]
+\emph{Monitoring reports data; a control system acts through a feedback loop}
+\end{minipage}\par\medskip
+
+\subsection*{Sensors and actuators}
+
+A \textbf{sensor} 传感器 turns a physical quantity into a signal: temperature (a \textbf{thermistor} 热敏电阻 or thermocouple), pressure (strain gauge), infra-red, sound. Analogue signals need an ADC first. An \textbf{actuator} 执行器 does the reverse — turns a signal into an action (a motor, valve, heater, buzzer).
+
+\subsection*{Feedback}
+
+In a control system the actuator changes the environment, which the sensors then re-measure — a \textbf{feedback} 反馈 loop. Without feedback the system cannot correct itself or know when to stop (a thermostat with no temperature feedback would heat forever).
+
+\section*{Logic gates}
+
+A \textbf{logic gate} 逻辑门 is a small circuit that does one \textbf{Boolean} 布尔 operation. Inputs and outputs are 0 (false, low) or 1 (true, high). Know the symbol, function and \textbf{truth table} 真值表 for each gate.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/03-p105-six-logic-gates.pdf}}\\[0.3em]
+\emph{The symbols for the six logic gates}
+\end{minipage}\par\medskip
+
+\subsection*{NOT (inverter)}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{A} & \textbf{NOT A} \\
+\midrule
+0 & 1 \\
+1 & 0 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{AND — output 1 only if \textbf{all} inputs are 1}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{A AND B} \\
+\midrule
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 1 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{OR — output 1 if \textbf{at least one} input is 1}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{A OR B} \\
+\midrule
+0 & 0 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 1 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{NAND (NOT AND) — output 0 only when all inputs are 1}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{A NAND B} \\
+\midrule
+0 & 0 & 1 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{NOR (NOT OR) — output 1 only when all inputs are 0}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{A NOR B} \\
+\midrule
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{XOR (Exclusive OR) — output 1 if the inputs are \textbf{different}}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{A XOR B} \\
+\midrule
+0 & 0 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Logic circuits}
+
+A \textbf{logic circuit} 逻辑电路 is a network of gates that carries out a Boolean expression. You should be able to move between a problem statement, a logic expression, a truth table, and a circuit diagram.
+
+\subsection*{From expression to circuit}
+
+Draw one gate per operator and wire them up. For $X = (A \text{ AND } B) \text{ OR } (\text{NOT } C)$: a NOT gate on $C$, an AND gate on $A$ and $B$, then an OR gate on the two results.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/03-p111-logic-circuit-example.pdf}}\\[0.3em]
+\emph{Gates wired together to carry out a Boolean expression}
+\end{minipage}\par\medskip
+
+\subsection*{From circuit to expression}
+
+Work forwards from the inputs, labelling each gate's output, until you reach the final output.
+
+\subsection*{From circuit to truth table}
+
+For $n$ inputs there are $2^{n}$ rows. List every input combination; for each, work out the internal gates then the output.
+
+\subsection*{From truth table to expression (sum of products)}
+
+For each row that outputs 1, write an AND of the inputs (with NOT on any input that is 0 in that row); OR these together. Example: a table that is 1 only on $(A=0,B=1)$ and $(A=1,B=0)$ gives $\overline{A}B + A\overline{B}$, which is $A \text{ XOR } B$.
+
+\subsection*{From a problem statement}
+
+Turn the English into a Boolean expression first: "A and B" → A AND B; "A or B or both" → A OR B; "exactly one of A and B" → A XOR B; "neither A nor B" → A NOR B; "not both" → A NAND B.
+
+
+\end{document}

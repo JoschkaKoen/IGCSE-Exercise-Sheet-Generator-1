@@ -1,0 +1,115 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\ln\dfrac{3x+5}{x-2} = 4 \Rightarrow \dfrac{3x+5}{x-2} = e^4
+    \Rightarrow x = \dfrac{2e^4 + 5}{e^4 - 3}$.
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $2\sec^2\theta + 3\sec\theta - 20 = 0 \Rightarrow (2\sec\theta
+    - 5)(\sec\theta + 4) = 0 \Rightarrow \cos\theta = \tfrac25$ or $-\tfrac14$. So
+    $\theta = \pm 66.4\degree$ and $\theta = \pm 104.5\degree$.
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Squaring: $(3x-4)^2 \leqslant (2x+5)^2 \Rightarrow 5x^2 - 44x
+    - 9 \leqslant 0 \Rightarrow (5x+1)(x-9) \leqslant 0 \Rightarrow -\tfrac15 \leqslant
+    x \leqslant 9$.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Let $t = 7^{0.01N} > 0$; need $t \leqslant 9 \Rightarrow 0.01N
+    \leqslant \dfrac{\ln 9}{\ln 7} = 1.129 \Rightarrow N \leqslant 112.9$. Largest
+    integer $N = 112$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $p(x) = (x^2 + 3)(x^2 - 10x + 17) - 11$. Quotient $x^2 - 10x
+    + 17$, remainder $-11$.
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $p(x) + 11 = (x^2 + 3)(x^2 - 10x + 17) = 0$; $x^2 + 3 = 0$ has
+    no real root, so $x^2 - 10x + 17 = 0 \Rightarrow x = 5 \pm 2\sqrt2$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = -8\sin 2x + 8\cos x = 8\cos x(1 - 2\sin x)
+    = 0 \Rightarrow \sin x = \tfrac12$ at the maxima. $A = \left(\tfrac{\pi}{6}, 6\right)$,
+    $B = \left(\tfrac{5\pi}{6}, 6\right)$.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Area $= \displaystyle\int_{\pi/6}^{5\pi/6}\!\big(6 - 4\cos 2x
+    - 8\sin x\big)dx = \big[6x - 2\sin 2x + 8\cos x\big]_{\pi/6}^{5\pi/6} = 4\pi -
+    6\sqrt3$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\int\left(\tfrac12 e^{2x} + \tfrac14 e^{-x}\right)dx = \tfrac14
+    e^{2x} - \tfrac14 e^{-x}$. Evaluating $-2a$ to $a$ gives $\tfrac12 e^{2a} - \tfrac14
+    e^{-a} - \tfrac14 e^{-4a} = 5 \Rightarrow e^{2a} = 10 + \tfrac12 e^{-a} + \tfrac12
+    e^{-4a} \Rightarrow a = \tfrac12\ln(\cdots)$. AG.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$F(a) = \tfrac12\ln(10 + \tfrac12 e^{-a} + \tfrac12 e^{-4a})
+    - a$: $F(1.0) = +0.161 > 0$ and $F(1.2) = -0.041 < 0$; sign change $\Rightarrow$
+    root between 1.0 and 1.2.'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Iterating from $a_0 = 1.1$: $a_1 = 1.15986$, $a_2 = 1.15930$,
+    $a_3 = 1.15936, \ldots \Rightarrow a = 1.159$ (4 s.f.).'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $10xy + 5x^2\dfrac{dy}{dx} + 8e^{2y}\dfrac{dy}{dx} - 7 = 0 \Rightarrow
+    \dfrac{dy}{dx} = \dfrac{7 - 10xy}{5x^2 + 8e^{2y}}$. At $y = 0$ the curve gives
+    $x = 2$, so gradient $= \dfrac{7}{20 + 8} = \tfrac14$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: A vertical tangent needs $5x^2 + 8e^{2y} = 0$, but $5x^2 \geqslant
+    0$ and $8e^{2y} > 0$ for all real $x, y$, so the denominator is never zero — no
+    such point exists.
+  mark_scheme: []
+  graphics: []

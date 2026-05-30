@@ -1,0 +1,211 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Computational thinking and Problem-solving}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Searching algorithms}
+
+A \textbf{search} finds a \textbf{target value} in a collection (often an \textbf{array} 数组) and returns its position, or "not found".
+
+\subsection*{Linear search}
+
+A \textbf{linear search} 线性查找 walks from start to end, comparing each element with the target:
+
+\begin{Verbatim}
+FOR i ← 1 TO n
+    IF A[i] = target THEN RETURN i
+NEXT i
+RETURN -1   // not found
+\end{Verbatim}
+
+No preparation is needed, so it works on any list. Worst case O($n$) (target at the end or absent); best case 1 comparison. Use it on \textbf{unsorted} data or small lists.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/19-p470-linear-search.pdf}}\\[0.3em]
+\emph{Linear search checks every letter in turn — up to 23 comparisons to find W}
+\end{minipage}\par\medskip
+
+\subsection*{Binary search}
+
+A \textbf{binary search} 二分查找 needs the data \textbf{sorted}. Look at the middle element; if it is the target, done; if the target is smaller, search the left half, else the right half — halving the range each time:
+
+\begin{Verbatim}
+low ← 1
+high ← n
+WHILE low <= high DO
+    mid ← (low + high) DIV 2
+    IF A[mid] = target THEN RETURN mid
+    IF A[mid] < target THEN
+        low ← mid + 1
+    ELSE
+        high ← mid - 1
+    ENDIF
+ENDWHILE
+RETURN -1
+\end{Verbatim}
+
+Worst case O($\log_{2} n$) — for a million items, about 20 comparisons. Much faster than linear search on large sorted arrays, but you must sort first (a one-off O($n \log n$) cost), worth it if you search many times.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/19-p471-binary-search.pdf}}\\[0.3em]
+\emph{Binary search halves the list each time — just 3 comparisons to find W}
+\end{minipage}\par\medskip
+
+\section*{Sorting algorithms}
+
+\subsection*{Bubble sort}
+
+A \textbf{bubble sort} 冒泡排序 repeatedly walks the array, swapping adjacent pairs that are out of order, so the largest "bubbles" to the end each pass:
+
+\begin{Verbatim}
+FOR pass ← 1 TO n - 1
+    swapped ← FALSE
+    FOR i ← 1 TO n - pass
+        IF A[i] > A[i + 1] THEN
+            temp ← A[i]
+            A[i] ← A[i + 1]
+            A[i + 1] ← temp
+            swapped ← TRUE
+        ENDIF
+    NEXT i
+    IF swapped = FALSE THEN EXIT FOR   // already sorted
+NEXT pass
+\end{Verbatim}
+
+Best case O($n$) (already sorted, with the early exit); average/worst O($n^{2}$). Simple but slow for large $n$.
+
+\subsection*{Insertion sort}
+
+An \textbf{insertion sort} 插入排序 builds a sorted prefix from the left, inserting each new element into place by shifting larger ones right:
+
+\begin{Verbatim}
+FOR i ← 2 TO n
+    key ← A[i]
+    j ← i - 1
+    WHILE j >= 1 AND A[j] > key DO
+        A[j + 1] ← A[j]
+        j ← j - 1
+    ENDWHILE
+    A[j + 1] ← key
+NEXT i
+\end{Verbatim}
+
+Best case O($n$) (already sorted); worst O($n^{2}$). Good for \textbf{small} or \textbf{nearly-sorted} arrays. It sorts \textbf{in place} 原地 and is \textbf{stable} 稳定 (keeps the order of equal elements).
+
+\subsection*{Tracing a sort}
+
+A common task is to show the array after each outer pass. For \texttt{[D, T, H, R]} with insertion sort: pass 1 (key T) no change; pass 2 (key H) → \texttt{[D, H, T, R]}; pass 3 (key R) → \texttt{[D, H, R, T]}.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/19-p478-insertion-sort-trace.pdf}}\\[0.3em]
+\emph{An insertion sort shifting each element into its place, pass by pass}
+\end{minipage}\par\medskip
+
+\section*{ADTs in algorithms}
+
+The ADTs from Topic 10 appear inside many algorithms: a \textbf{stack} 栈 drives depth-first traversal and undo; a \textbf{queue} 队列 drives breadth-first traversal and print ordering; a \textbf{linked list} 链表 lets data grow and shrink.
+
+ADTs can be built from other ADTs, not just from arrays: a queue from \textbf{two stacks}; a stack from a linked list (push = prepend a head \textbf{node} 节点); a queue from a linked list with head and tail \textbf{pointers} 指针; a \textbf{binary tree} 二叉树 from nodes with two child pointers. Layering this way separates concerns — the algorithm using the ADT need not know how it is built.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/19-p497-binary-tree.pdf}}\\[0.3em]
+\emph{A binary tree: each node has up to two child nodes}
+\end{minipage}\par\medskip
+
+\section*{Comparing algorithms}
+
+\subsection*{Time complexity}
+
+\textbf{Time complexity} 时间复杂度 is how the running time grows with input size $n$, written in \textbf{Big-O notation} 大O表示法 (the dominant term): O(1) constant, O($\log n$) binary search, O($n$) linear search, O($n \log n$) good sorts, O($n^{2}$) bubble/insertion sort. A smaller order is better at scale, even if another algorithm is faster for small $n$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/19-p478-sort-performance.pdf}}\\[0.3em]
+\emph{How sorting time grows with the number of elements}
+\end{minipage}\par\medskip
+
+\subsection*{Space complexity}
+
+\textbf{Space complexity} 空间复杂度 is the extra memory needed. Bubble and insertion sort use O(1) extra (in place); merge sort uses O($n$); recursion uses stack memory proportional to its depth. There is often a time–memory trade-off.
+
+\subsection*{Other criteria}
+
+Simplicity (easier to code and maintain), stability, and adaptiveness (faster on nearly-sorted data). The right algorithm depends on the data and the constraints.
+
+\section*{Recursion}
+
+A \textbf{recursion} 递归 algorithm calls itself with a smaller version of the same problem, until a \textbf{base case} 基本情形 ends the chain. It has two parts: the base case (small enough to solve directly — without it the recursion never stops) and the \textbf{recursive case} 递归情形 (reduce the input and call itself).
+
+\textbf{Factorial} 阶乘:
+
+\begin{Verbatim}
+FUNCTION Factorial(n : INTEGER) RETURNS INTEGER
+    IF n = 0 OR n = 1 THEN
+        RETURN 1
+    ELSE
+        RETURN n * Factorial(n - 1)
+    ENDIF
+ENDFUNCTION
+\end{Verbatim}
+
+Recursion is natural for self-similar problems: trees, \textbf{divide-and-conquer} 分治 (binary search, merge sort), and nested data. When it is a poor fit, a loop is usually cleaner.
+
+\subsection*{Tracing a recursive call}
+
+For \texttt{Factorial(4)}: the calls go down to \texttt{Factorial(1)=1}, then unwind: \texttt{2*1=2}, \texttt{3*2=6}, \texttt{4*6=24}. Final result \texttt{24}. Track each pending call on a stack.
+
+\subsection*{Risks}
+
+\begin{itemize}
+\item \textbf{infinite recursion} if the base case is missed — crashes with a \textbf{stack overflow} 栈溢出.
+
+\item high memory use for deep recursion.
+
+\item slow if it repeats work (naive Fibonacci is exponential — use a loop or \textbf{memoisation} 记忆化).
+
+\end{itemize}
+
+\section*{What the compiler does for recursive code}
+
+Recursion needs \textbf{each call to have its own copy} of its \textbf{parameters} 参数 and \textbf{local variables} 局部变量. The compiler keeps these on the \textbf{call stack} 调用栈. For each call it pushes a \textbf{stack frame} 栈帧 holding the parameters, the local variables, and the \textbf{return address} 返回地址 (where to resume in the caller). When the function returns, the return value is handed back, the frame is popped, and control resumes at the return address.
+
+Because each call has its own frame, recursive calls don't trample each other's variables. The stack can grow large for deep recursion, which is why very deep recursion may overflow it. This is the same call-and-return mechanism used for ordinary (non-recursive) calls — there is no special "recursion mechanism".
+
+
+\end{document}

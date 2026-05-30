@@ -1,0 +1,147 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Conservation of momentum: $4mv_A + mv_B = 4mu$. NEL: $-v_A
+    + v_B = eu$. The condition (momentum of $A$ is three times that of $B$, i.e. $4v_A
+    = 3v_B$) gives $v_A = \tfrac34 u$, $v_B = u$. Then $eu = v_B - v_A = u - \tfrac34
+    u = \tfrac14 u$, so $e = \tfrac14$.'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'First case: $N_1\cos\theta_1 = mg$, $N_1\sin\theta_1 = m(r\sin\theta_1)\omega_1^2$,
+    giving $\tfrac54 g = r\omega_1^2$ (using $\cos\theta_1 = \tfrac45$). Second case
+    similarly gives $\tfrac53 g = r\omega_2^2$ (using $\cos\theta_2 = \tfrac35$).
+    Dividing: $\dfrac{\tfrac54 g}{\tfrac53 g} = \dfrac{\omega_1^2}{\omega_2^2} = \tfrac34$,
+    so $\dfrac{\omega_1}{\omega_2} = \tfrac12\sqrt3$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{dv}{dt} = -\tfrac12(v^2 + 4)$ (direction $PO$). Separating:
+    $\tfrac12\tan^{-1}\!\left(\tfrac12 v\right) = -\tfrac12 t + A$. At $t=0$, $v=2$:
+    $A = \tfrac12\tan^{-1}(1) = \tfrac18\pi$. So $v = \dfrac{dx}{dt} = 2\tan\!\left(\tfrac14\pi
+    - t\right)$, giving $x = 2\ln\!\left(\cos\!\left(t - \tfrac14\pi\right)\right)
+    + B$. At $t=0$, $x=0$: $B = \ln 2$. So $x = 2\ln\!\left(\cos\!\left(t - \tfrac14\pi\right)\right)
+    + \ln 2$ $\left[= \ln\!\left(2\cos^2\!\left(t - \tfrac14\pi\right)\right)\right]$.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $P$ next at $O$ when $2\ln\!\left(\cos\!\left(t - \tfrac14\pi\right)\right)
+    + \ln 2 = 0 \Rightarrow 2\cos^2\!\left(t - \tfrac14\pi\right) = 1 \Rightarrow
+    t = \tfrac12\pi$.
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'In equilibrium (mass $5m$): $\dfrac{5mge}{a} = 5mg$, so the
+    extension $e = a$. After $Q$ is detached, energy conservation for $P$ (let $x$
+    be the string length when its speed is $\sqrt{\tfrac75 ag}$): $\dfrac{5mga^2}{2a}
+    - \dfrac{5mg(x-a)^2}{2a} = mg(e + a - x) + \tfrac12 m\left(\tfrac75 ag\right)$.
+    This gives $25x^2 - 60ax + 27a^2 = 0$, so $x = \tfrac95 a$ (only valid root).'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $x$-coordinates of $A, B, C$ are $ka$, $ka+h$, $ka$, so $\bar
+    x = \tfrac13(ka + (ka+h) + ka) = \tfrac13(3ka + h)$ (AG). $y$-coordinates are
+    $0$, $h$, $2a$, so $\bar y = \tfrac13(0 + h + 2a) = \tfrac13(2a + h)$.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Taking moments about $O$ (the $y$-axis) for the whole lamina:
+    $\bar X(2ka^2 + ah) = 2ka^2\cdot\tfrac12 ka + ah\left(ka + \tfrac13 h\right)$.
+    For equilibrium the centre of mass must lie over the base $OA$, i.e. $\bar X \leqslant
+    ka$: $\dfrac{a^2k^2 + ahk + \tfrac13 h^2}{2ak + h} \leqslant ka$. Simplifying
+    gives $0 \leqslant h \leqslant \sqrt3\,ka$.'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'On the point of toppling, $h = \sqrt3\,ka$; with $k = \tfrac{\sqrt3}{3}$
+    this gives $h = a$. Then $\bar x = \tfrac13(3ka + h) = \tfrac13 a(\sqrt3 + 1)$
+    and (since $h = a$, the triangle is isosceles) $\bar y = a$. Centre of mass of
+    $ABC$: $\left(\tfrac13 a(\sqrt3 + 1),\ a\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Energy conservation from the start (height $a\cos 60\degree
+    = \tfrac12 a$ above $O$) to the lowest point ($a$ below $O$), a drop of $\tfrac32
+    a$: $\tfrac12 m(17ag) + \tfrac32 mag = \tfrac12 mv^2$, so $v^2 = 20ag$ and $v
+    = \sqrt{20ag}$.'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At the top the string is slack, so $T = 0$ and N2L gives $\dfrac{mV^2}{a}
+    = mg$, i.e. $V^2 = ag$. Energy from the lowest point (speed $w_P$) to the top
+    (rise $2a$): $\tfrac12 m w_P^2 = \tfrac12 mV^2 + mg(2a)$, so $w_P^2 = ag + 4ag
+    = 5ag$, giving $w_P = \sqrt{5ag}$.'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Momentum: $mv = km\,w_Q - m\,w_P$ ($P$ rebounds). Perfectly
+    elastic ($e = 1$): $w_P + w_Q = v$. With $v = \sqrt{20ag} = 2\sqrt{5ag}$ and $w_P
+    = \sqrt{5ag}$: $w_Q = v - w_P = \sqrt{5ag}$, then $2\sqrt{5ag} = k\sqrt{5ag} -
+    \sqrt{5ag}$, so $k = 3$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{dy}{dx} = \tan\theta - \dfrac{gx}{u^2\cos^2\theta}
+    = \tfrac43 - \dfrac{2x}{45}$ (with $u = 25$, $\tan\theta = \tfrac43$, $g = 10$).
+    At $A$ the direction is $45\degree$ to the downward vertical, so $\dfrac{dy}{dx}
+    = -1$: $-1 = \tfrac43 - \tfrac{2x}{45} \Rightarrow x_A = \tfrac{105}{2} = 52.5$.
+    Then $y_A = x_A\tan\theta - \dfrac{gx_A^2}{2u^2\cos^2\theta} = \tfrac{35}{4} =
+    8.75$. So $A = \left(\tfrac{105}{2}, \tfrac{35}{4}\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Horizontal velocity unchanged: $v_x = u\cos\theta = 15$. At
+    $A$ the direction is at $45\degree$ below the horizontal, so $v_y = -v_x = -15$.
+    Speed $= \sqrt{v_x^2 + v_y^2} = \sqrt{15^2 + 15^2} = 15\sqrt2\text{ m s}^{-1}$.'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The velocity $(15, -15)$ is perpendicular to the $45\degree$
+    barrier, so the rebound speed is $w = ev = \tfrac19(15\sqrt2) = \tfrac53\sqrt2$,
+    directed at $45\degree$. Projecting from $A = \left(\tfrac{105}{2}, \tfrac{35}{4}\right)$
+    until it lands ($y$ drops $\tfrac{35}{4}$): $\tfrac{35}{4} = \tfrac53\sqrt2\cdot\tfrac{1}{\sqrt2}t
+    + \tfrac12 g t^2 \Rightarrow t = \tfrac32$, so horizontal distance $x = (w\cos
+    45\degree)t = \tfrac53\cdot\tfrac32 = \tfrac52$ metres.'
+  mark_scheme: []
+  graphics: []

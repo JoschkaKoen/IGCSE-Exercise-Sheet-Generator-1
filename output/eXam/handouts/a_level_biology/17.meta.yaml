@@ -1,0 +1,60 @@
+topic_number: '17'
+topic_title: Selection and evolution
+subject_key: a_level_biology
+covered_question_ids:
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 3b
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 5ai
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 5aii
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 5b
+- paper: 9700 Biology November 2025 Question Paper  41
+  qnum: 2bi
+- paper: 9700 Biology November 2025 Question Paper  41
+  qnum: 2bii
+- paper: 9700 Biology November 2025 Question Paper  41
+  qnum: 2biii
+- paper: 9700 Biology November 2025 Question Paper  41
+  qnum: 4b
+- paper: 9700 Biology November 2025 Question Paper  41
+  qnum: 4c
+- paper: 9700 Biology November 2025 Question Paper  42
+  qnum: 3bi
+- paper: 9700 Biology November 2025 Question Paper  42
+  qnum: 3bii
+- paper: 9700 Biology November 2025 Question Paper  42
+  qnum: 4a
+- paper: 9700 Biology November 2025 Question Paper  42
+  qnum: 4b
+- paper: 9700 Biology November 2025 Question Paper  42
+  qnum: 4c
+- paper: 9700 Biology November 2025 Question Paper  43
+  qnum: 2bi
+- paper: 9700 Biology November 2025 Question Paper  43
+  qnum: 2bii
+- paper: 9700 Biology November 2025 Question Paper  43
+  qnum: 2biii
+- paper: 9700 Biology November 2025 Question Paper  43
+  qnum: 4b
+- paper: 9700 Biology November 2025 Question Paper  43
+  qnum: 4c
+- paper: 9700 Biology November 2025 Question Paper  44
+  qnum: 2b
+- paper: 9700 Biology November 2025 Question Paper  44
+  qnum: 2c
+- paper: 9700 Biology November 2025 Question Paper  44
+  qnum: 4ai
+- paper: 9700 Biology November 2025 Question Paper  44
+  qnum: 4aii
+- paper: 9700 Biology November 2025 Question Paper  44
+  qnum: 4b
+- paper: 9700 Biology November 2025 Question Paper  44
+  qnum: 4c
+generated_at: '2026-05-29T17:31:33Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T17:31:34Z'
+glossed_at: '2026-05-29T17:31:34Z'

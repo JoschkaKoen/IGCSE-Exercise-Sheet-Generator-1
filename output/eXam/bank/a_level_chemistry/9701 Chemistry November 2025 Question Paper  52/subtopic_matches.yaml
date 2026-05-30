@@ -1,0 +1,30 @@
+subject_key: a_level_chemistry
+paper_stem: 9701 Chemistry November 2025 Question Paper  52
+model: claude
+matched_at: '2026-05-29T13:13:12Z'
+matches:
+  1a: ['2.4']
+  1b: ['2.4']
+  1ci: ['7.1']
+  1cii: ['7.1']
+  1ciii: ['7.1']
+  1di: ['2.4']
+  1dii: ['2.4']
+  1diii: ['2.4']
+  1ei: ['7.1']
+  1eii: ['7.1']
+  1eiii: ['7.1']
+  1fi: ['7.1']
+  1fii: ['7.1']
+  1fiii: ['7.1']
+  2ai: ['2.4']
+  2aii: ['2.4']
+  2bi: ['2.4']
+  2bii: ['2.4']
+  2c: ['2.4']
+  2di: ['2.4']
+  2dii: ['2.4']
+  2ei: ['2.4']
+  2eii: ['2.4']
+  2eiii: ['2.4']
+  2eiv: ['2.4']

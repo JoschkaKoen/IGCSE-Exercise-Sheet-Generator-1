@@ -1,0 +1,26 @@
+topic_number: '20'
+topic_title: Polymerisation
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '32'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '39'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '32'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '39'
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 4bi
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 4biv
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 4bi
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 4biv
+generated_at: '2026-05-29T16:08:57Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:08:57Z'
+glossed_at: '2026-05-29T16:08:57Z'

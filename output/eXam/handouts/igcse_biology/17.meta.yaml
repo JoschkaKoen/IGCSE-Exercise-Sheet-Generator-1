@@ -1,0 +1,78 @@
+topic_number: '17'
+topic_title: Inheritance
+subject_key: igcse_biology
+covered_question_ids:
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '29'
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '30'
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '31'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '31'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '4'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '30'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '31'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '32'
+- paper: 0610 Biology June 2025 Question Paper  41
+  qnum: 3c
+- paper: 0610 Biology June 2025 Question Paper  41
+  qnum: 3d
+- paper: 0610 Biology June 2025 Question Paper  41
+  qnum: 3e
+- paper: 0610 Biology June 2025 Question Paper  41
+  qnum: 5b
+- paper: 0610 Biology June 2025 Question Paper  41
+  qnum: 5c
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 1c
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '29'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '30'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '31'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '32'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '27'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '28'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '29'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '29'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '30'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '31'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '32'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '33'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '30'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '31'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '32'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '33'
+- paper: 0610 Biology November 2025 Question Paper  41
+  qnum: 4eiii
+- paper: 0610 Biology November 2025 Question Paper  41
+  qnum: 6a
+- paper: 0610 Biology November 2025 Question Paper  41
+  qnum: 6b
+- paper: 0610 Biology November 2025 Question Paper  41
+  qnum: 6c
+generated_at: '2026-05-29T16:20:45Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:20:45Z'
+glossed_at: '2026-05-29T16:20:45Z'

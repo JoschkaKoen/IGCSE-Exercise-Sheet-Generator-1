@@ -110,3 +110,20 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:58:24Z'
 glossed_at: '2026-05-29T05:58:24Z'
+figures:
+  - file: assets/20-p517-class-diagram.png
+    caption: "A class diagram for a Shape: private attributes and public methods"
+    figure_ref: '20.1'
+    source_page_pdf: 517
+    source_page_printed: 501
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 546.6, 510.6, 659.6]
+    placed_under: "### Object-oriented programming (OOP)"
+  - file: assets/20-p525-inheritance.png
+    caption: "Inheritance: partTime and fullTime are subclasses of employee"
+    figure_ref: '20.4'
+    source_page_pdf: 525
+    source_page_printed: 509
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [33.1, 241.5, 548.8, 418.4]
+    placed_under: "### Object-oriented programming (OOP)"

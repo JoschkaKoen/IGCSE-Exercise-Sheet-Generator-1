@@ -1,0 +1,138 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $T\cos\theta = mg$ and $T\sin\theta = m\omega^2 r$, with $r
+    = a\sin\theta$. So $T = \tfrac53 mg$ ($\cos\theta = \tfrac35$), and $\tfrac53
+    mg\sin\theta = m\omega^2 a\sin\theta$, giving $\omega^2 = \dfrac{5g}{3a}$, i.e.
+    $\omega = \sqrt{\dfrac{5g}{3a}}$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Energy equation (down a distance $x$, at rest): $\dfrac{mg}{2a}(x-a)^2
+    = mgx\sin 30\degree - \tfrac{11}{30}mgx$. Simplifying: $15x^2 - 34ax + 15a^2 =
+    0$, i.e. $(3x - 5a)(5x - 3a) = 0$. So $x = \tfrac53 a$ (rejecting $x = \tfrac35
+    a$).'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At $x = \tfrac53 a$, tension $T = \dfrac{mg(x-a)}{a} = \dfrac{mg(\frac23
+    a)}{a} = \tfrac23 mg$. For equilibrium: $F = T - mg\sin 30\degree = \tfrac23 mg
+    - \tfrac12 mg = \tfrac16 mg$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Moving up: $-mg - mkv^2 = mv\dfrac{dv}{dx}$, so $\displaystyle\int
+    dx = -\int\dfrac{v}{g + kv^2}\,dv$, giving $x = -\dfrac{1}{2k}\ln(g + kv^2) +
+    c$. At $x = 0$, $v = U$: $c = \dfrac{1}{2k}\ln(g + kU^2)$. Hence $x = \dfrac{1}{2k}\ln\!\left(\dfrac{g
+    + kU^2}{g + kv^2}\right)$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Moving up: $10 + \tfrac{1}{40}v^2 = -\dfrac{dv}{dt}$, so $\displaystyle\int
+    dt = -\int\dfrac{40}{400 + v^2}\,dv$, giving $t = -2\tan^{-1}\!\left(\tfrac{1}{20}v\right)
+    + C$. At $t = 0$, $v = 20$: $C = \tfrac12\pi$. At maximum height $v = 0$: $t =
+    -2\tan^{-1}(0) + \tfrac12\pi = 1.57$ s.'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Lamina (mass $m$): rectangle area $2a^2$, distance $\tfrac12
+    a$ to the left of $D$; triangle area $a^2$, distance $\tfrac23 a$ to the right
+    of $D$. Moments give the lamina''s centre of mass $\tfrac19 a$ to the left of
+    $D$. On the point of toppling about $D$, the particle''s moment balances the lamina''s:
+    $m\left(\tfrac19 a\right) = km(2a)$, so $k = \tfrac{1}{18}$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Energy $A$ to $B$ (rise $r\cos\alpha$): $\tfrac12 mv^2 + mgr\cos\alpha
+    = \tfrac12 m\left(\tfrac32 gr\right)$, so $v^2 = \tfrac32 gr - 2gr\cos\alpha$.
+    Loses contact at $B$ ($R = 0$): $mg\cos\alpha = \dfrac{mv^2}{r}$. Combining: $g\cos\alpha
+    = \tfrac32 g - 2g\cos\alpha$, so $\cos\alpha = \tfrac12$, $\alpha = 60\degree$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: At $B$, $v^2 = \tfrac12 gr$ (with $\alpha = 60\degree$). As
+    a projectile, the rise above $B$ is $h$ where $0 = (v\sin 60\degree)^2 - 2gh$,
+    giving $h = \tfrac{3}{16}r$. Greatest height above $O$ $= \tfrac{3}{16}r + r\cos
+    60\degree = \tfrac{3}{16}r + \tfrac12 r = \tfrac{11}{16}r$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Let $v$, $w$ be the components of $A$, $B$ along the line of
+    centres after the collision. Momentum: $2mu\cos\theta - mu\cos\theta = mv + mw$.
+    Restitution: $w - v = e(3u\cos\theta)$. Solving: $w = \tfrac12(3e + 1)u\cos\theta$.
+    As $B$ moves perpendicular to its initial direction, $\dfrac{\frac12(3e+1)u\cos\theta}{u\sin\theta}
+    = \tan\theta$, giving $\tan^2\theta = \tfrac12(3e + 1)$, so $\tan\theta = \sqrt{\tfrac12(3e
+    + 1)}$.'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $A$ moves perpendicular to the line of centres, so $v = 0$.
+    With $v = \tfrac12(1 - 3e)u\cos\theta = 0$, $e = \tfrac13$. Then $\tan^2\theta
+    = \tfrac12(3\cdot\tfrac13 + 1) = 1$, so $\tan\theta = 1$ and $\theta = 45\degree$.
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $v_y = U\sin 45\degree - gt$ and $v_x = U\cos 45\degree$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At $T$: $\dfrac{v_y}{v_x} = -\tan 60\degree$, so $\dfrac{\frac{U}{\sqrt2}
+    - gT}{\frac{U}{\sqrt2}} = -\sqrt3$, giving $U - \sqrt2\,gT = -\sqrt3\,U$, i.e.
+    $T = \dfrac{U}{\sqrt2\,g}(1 + \sqrt3) = \dfrac{U}{2g}(\sqrt2 + \sqrt6)$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$D = \dfrac{U}{\sqrt2}T$ and $H = \left|\dfrac{U}{\sqrt2}T
+    - \tfrac12 gT^2\right|$. Forming the ratio (substituting $T$): $\dfrac{H}{D} =
+    \left|\dfrac{1 - \sqrt3}{2}\right|$, so $H : D = 1 : 1 + \sqrt3$ (equivalently
+    $\sqrt3 - 1 : 2$).'
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'On the bounce the horizontal component is unchanged ($\tfrac{U}{\sqrt2}$)
+    and the vertical component is reversed and scaled by $e = \tfrac23$: $w_y = \tfrac23\cdot\dfrac{\sqrt3}{\sqrt2}U
+    = \dfrac{\sqrt2}{\sqrt3}U$. So $w^2 = w_y^2 + \left(\dfrac{U}{\sqrt2}\right)^2
+    = \tfrac23 U^2 + \tfrac12 U^2 = \tfrac76 U^2$, giving $w = U\sqrt{\tfrac76}$.'
+  mark_scheme: []
+  graphics: []

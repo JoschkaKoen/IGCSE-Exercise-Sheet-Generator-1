@@ -1,0 +1,108 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$R = 12g\cos 20\degree$; N2L up the slope: $T - 0.4(12g\cos
+    20\degree) - 12g\sin 20\degree = 12(2)$, giving $T = 110$ N (110.1).'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Resolving along the line of $P$: $P + 5\sin 60\degree - 10\sin
+    30\degree = 0 \Rightarrow P = 5 - \tfrac{5\sqrt3}{2} = 0.670$. Resultant $Q =
+    10\cos 30\degree - 5\cos 60\degree = 5\sqrt3 - \tfrac52 = 6.16$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Velocity at $t=10$ is $3 + 0.5(10) = 8\text{ m s}^{-1}$. Deceleration
+    phase: $\tfrac12(8)(T-40) = 80 \Rightarrow T - 40 = 20$. Total time $= 60$ s.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Distance after 10 s $= \tfrac12(3+8)(10) = 55$ m; after 40
+    s $= 55 + 8(30) = 295$ m. Graph: quadratic with increasing gradient ($0$–$10$
+    s), straight line ($10$–$40$ s), then curve of decreasing gradient to rest.'
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{P}{30} - 1600 = 0 \Rightarrow P = 48000$ W.
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{40000}{16} - 1600 = 18000a \Rightarrow 900 = 18000a
+    \Rightarrow a = 0.05\text{ m s}^{-2}$.
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{120000}{20} - 1600 - 18000g\sin\alpha\degree = 0 \Rightarrow
+    \sin\alpha\degree = \dfrac{4400}{180000} \Rightarrow \alpha = 1.40$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $mu = 4$ and $\tfrac12 mu^2 = 16 \Rightarrow u = 8$, $m = 0.5$.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Momentum: $0.5v = 0.5w + 1.25(2w) \Rightarrow v = 6w$. KE loss:
+    $\tfrac12(0.5)v^2 - \big(\tfrac12(0.5)w^2 + \tfrac12(1.25)(2w)^2\big) = 25 \Rightarrow
+    6.25w^2 = 25 \Rightarrow w = 2$, $v = 12$.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $0.6g\sin 30\degree - T = 0.6a$ and $T - 0.3g(0.4) = 0.3a$;
+    adding gives $1.8 = 0.9a \Rightarrow a = 2\text{ m s}^{-2}$, and $T = 1.8$ N.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Energy: $\tfrac12(0.9)v^2 = 0.6g(2\sin 30\degree) - 0.3g(2)(0.4)
+    - 1.8 = 6 - 2.4 - 1.8 = 1.8 \Rightarrow v^2 = 4 \Rightarrow v = 2\text{ m s}^{-1}$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $v = \tfrac92 t^{1/2} - 6 = 0 \Rightarrow t = \tfrac{16}{9}$
+    s. $s\!\left(\tfrac{16}{9}\right) = -\tfrac{32}{9}$, $s(16) = 96$. Total distance
+    $= \tfrac{32}{9} + \tfrac{896}{9} = \tfrac{928}{9} \approx 103$ m.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $v_Y = 0.8t - 0.3t^2 + 7.5$; $v_Y = -9.6 \Rightarrow 0.3t^2
+    - 0.8t - 17.1 = 0 \Rightarrow t = 9$. Then $s_X(9) = 3(9^{3/2}) - 6(9) = 27$ m
+    and $s_Y(9) = 0.4(81) - 0.1(729) + 7.5(9) = 27$ m — equal.
+  mark_scheme: []
+  graphics: []

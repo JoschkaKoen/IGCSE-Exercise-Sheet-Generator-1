@@ -1,0 +1,60 @@
+topic_number: '3'
+topic_title: Coordinate geometry
+subject_key: igcse_mathematics
+covered_question_ids:
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: '21'
+- paper: 0580 Mathematics June 2025 Question Paper  13
+  qnum: 10a
+- paper: 0580 Mathematics June 2025 Question Paper  13
+  qnum: 10b
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 6a
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 6b
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: 12a
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: 12b
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 17a
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 17b
+- paper: 0580 Mathematics November 2024 Question Paper  11
+  qnum: 18a
+- paper: 0580 Mathematics November 2024 Question Paper  11
+  qnum: 18b
+- paper: 0580 Mathematics November 2024 Question Paper  11
+  qnum: 18c
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 5a
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 5c
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 5d
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 17a
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 17b
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 17c
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: '22'
+- paper: 0580 Mathematics November 2025 Question Paper  32
+  qnum: 4a
+- paper: 0580 Mathematics November 2025 Question Paper  32
+  qnum: 4b
+- paper: 0580 Mathematics November 2025 Question Paper  32
+  qnum: 4c
+- paper: 0580 Mathematics November 2025 Question Paper  32
+  qnum: 25a
+- paper: 0580 Mathematics November 2025 Question Paper  32
+  qnum: 25b
+- paper: 0580 Mathematics November 2025 Question Paper  33
+  qnum: '26'
+generated_at: '2026-05-29T15:46:20Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:46:20Z'
+glossed_at: '2026-05-29T15:46:20Z'

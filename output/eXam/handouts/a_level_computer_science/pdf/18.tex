@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Artificial Intelligence (AI)}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{What AI is}
+
+\textbf{Artificial intelligence} 人工智能 (AI) builds systems that do tasks normally needing human intelligence — recognising speech and images, translating, playing games, driving, generating text. Most modern AI uses \textbf{machine learning} 机器学习 — algorithms that learn patterns from data instead of being programmed step by step. Within it, \textbf{deep learning} 深度学习, using \textbf{neural networks} 神经网络 with many layers, has been dominant since the 2010s.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/18-p451-ai-ml-dl.pdf}}\\[0.3em]
+\emph{Deep learning is part of machine learning, which is part of AI}
+\end{minipage}\par\medskip
+
+\section*{Graphs in AI}
+
+Many AI problems sit on a \textbf{graph} 图 — \textbf{nodes} 节点 (states, places) joined by \textbf{edges} 边 (moves, relationships).
+
+\begin{itemize}
+\item \textbf{pathfinding}: roads form a graph; the shortest route is a graph search (Dijkstra, A*).
+
+\item \textbf{game playing}: each board position is a node, each move an edge; \textbf{minimax} 极小化极大 with alpha-beta pruning searches the game tree.
+
+\item \textbf{state-space search}: a planning problem is moving between states by applying operators to reach a goal.
+
+\item \textbf{knowledge representation}: a \textbf{semantic network} 语义网络 has concepts as nodes and relationships as edges ("dog IS-A animal"); a \textbf{knowledge graph} 知识图谱 stores facts about the world for search engines and assistants.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/18-p445-graph-shortest-path.pdf}}\\[0.3em]
+\emph{AI problems often sit on a graph; here the shortest path is highlighted}
+\end{minipage}\par\medskip
+
+Standard tools for navigating graphs include \textbf{breadth-first search} 广度优先搜索 and \textbf{depth-first search} 深度优先搜索.
+
+\section*{Artificial neural networks (ANNs)}
+
+An ANN is inspired by the brain's neurons. An \textbf{artificial neuron} 人工神经元:
+
+\begin{itemize}
+\item takes several \textbf{input values}, multiplies each by a \textbf{weight} 权重, and adds them up with a \textbf{bias term} 偏置项.
+
+\item applies an \textbf{activation function} 激活函数 (a non-linear function such as ReLU) to the sum.
+
+\item outputs the result, which feeds neurons further on.
+
+\end{itemize}
+
+Neurons sit in layers: an \textbf{input layer}, one or more \textbf{hidden layers} 隐藏层 (where useful internal patterns are learned), and an \textbf{output layer}. With many hidden layers it is a \textbf{deep neural network} 深度神经网络, and training it is deep learning.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/18-p456-neural-network.pdf}}\\[0.3em]
+\emph{A neural network with an input layer, two hidden layers and an output layer}
+\end{minipage}\par\medskip
+
+ANNs let models learn complex patterns straight from raw data (pixels, audio, text) without hand-designed features — driving breakthroughs in \textbf{image recognition} 图像识别, \textbf{speech recognition} 语音识别, \textbf{machine translation} 机器翻译, and game playing. They do well with large data, noisy/high-dimensional input, and patterns too complex for explicit rules.
+
+\section*{Machine learning, deep learning, reinforcement learning}
+
+\subsection*{Machine learning}
+
+The umbrella term — any algorithm that learns from data. Three paradigms:
+
+\begin{itemize}
+\item \textbf{supervised learning} 监督学习 — the data has \textbf{labels} 标签 (images tagged "cat"/"dog"); the algorithm learns input → label. Used for \textbf{classification} 分类 (a category) and regression.
+
+\item \textbf{unsupervised learning} 无监督学习 — no labels; the algorithm finds structure, e.g. a \textbf{cluster} 聚类 of similar customers.
+
+\item reinforcement learning (below).
+
+\end{itemize}
+
+Use ML when explicit rules would be impractical (spam filters, recommendations, fraud detection).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/18-p454-ml-training-pipeline.pdf}}\\[0.3em]
+\emph{Supervised learning: a model is trained on labelled data, then recognises new data}
+\end{minipage}\par\medskip
+
+\subsection*{Deep learning}
+
+A subset of ML using deep neural networks. Lower layers learn simple patterns (edges, phonemes), higher layers combine them into abstract concepts. It needs \textbf{lots of data} and \textbf{lots of compute} (GPUs); for small datasets, simpler ML methods often do better.
+
+\subsection*{Reinforcement learning}
+
+In \textbf{reinforcement learning} 强化学习, an \textbf{agent} 智能体 acts in an environment; each action changes the state and returns a \textbf{reward} 奖励. The agent learns a \textbf{policy} 策略 (a strategy) that maximises the total reward over time, by \textbf{trial and error} with no labels up front. Used for sequential-decision problems — games, robot control, autonomous driving.
+
+\section*{Training an ANN: backpropagation}
+
+Training adjusts the \textbf{weights} so outputs match the targets. The standard method is \textbf{backpropagation} 反向传播 with \textbf{gradient descent} 梯度下降. For each training example:
+
+\begin{enumerate}
+\item \textbf{forward pass} — feed the input through to the output.
+
+\item \textbf{compute the error} with a \textbf{loss function} 损失函数 (a single number for how wrong the output is).
+
+\item \textbf{backward pass} — propagate the error \textbf{backwards}, finding each weight's \textbf{gradient} (how much it contributed to the error) using the chain rule.
+
+\item \textbf{update the weights} by a small step (set by the \textbf{learning rate} 学习率) that reduces the error.
+
+\end{enumerate}
+
+Repeat over many examples and many passes (\textbf{epochs} 训练轮次) until the error stops shrinking. After training, a new input needs only one forward pass to get a prediction — which is why "back": the error flows from the output back to the input, so all gradients are found in one efficient backward sweep.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/18-p460-gradient-descent.pdf}}\\[0.3em]
+\emph{Training adjusts the weights to reach the minimum error}
+\end{minipage}\par\medskip
+
+\section*{Regression}
+
+Some tasks predict a \textbf{number} (a house price, tomorrow's temperature) — \textbf{regression} 回归, as opposed to classification (a category).
+
+\textbf{Linear regression} 线性回归 fits a straight line (or hyperplane):
+
+\[
+y = m_{1} x_{1} + m_{2} x_{2} + \ldots + m_{n} x_{n} + c.
+\]
+
+Choose the coefficients to \textbf{minimise the sum of squared errors} against the training data. Use it when the relationship looks roughly linear and you want an interpretable model. For curved data, use polynomial, decision-tree, or neural-network regression — same idea: define a model, define a loss, and adjust the parameters to minimise it. Regression and classification are both supervised; the choice depends on whether the answer is a number or a category.
+
+\section*{How AI is used in a real scenario}
+
+Many exam scenarios use the same pattern — a \textbf{deep-learning model trained on labelled data}, often several combined into a pipeline:
+
+\begin{itemize}
+\item \textbf{customer identification} at an automated shop: the system is trained on labelled face images; a camera captures a face; image recognition extracts a representation; it is matched against registered customers; the closest match identifies the person.
+
+\item \textbf{reading text from images}: image recognition finds text regions; \textbf{optical character recognition} 光学字符识别 extracts the characters; machine translation converts them; \textbf{text-to-speech} 文本转语音 reads them aloud.
+
+\item \textbf{checkout item-detection}: object-detection AI, trained on labelled product images, sees which items go into a basket and charges the account.
+
+\end{itemize}
+
+By the time a user interacts with the system, the model is fast — it only does forward-pass inference; the intelligence is in the patterns learned during training.
+
+
+\end{document}

@@ -42,3 +42,28 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:35:08Z'
 glossed_at: '2026-05-29T05:35:08Z'
+figures:
+  - file: assets/23-p384-binding-energy-per-nucleon.png
+    caption: Binding energy per nucleon peaks near iron (A ≈ 56); lighter and heavier nuclei are less tightly bound
+    figure_ref: '23.1'
+    source_page_pdf: 384
+    source_page_printed: 368
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [174.3, 560.0, 387.0, 724.1]
+    placed_under: "### Binding energy per nucleon vs nucleon number"
+  - file: assets/23-p388-chain-reaction.png
+    caption: In an uncontrolled chain reaction each fission of uranium-235 releases neutrons that cause more fissions
+    figure_ref: '23.4'
+    source_page_pdf: 388
+    source_page_printed: 372
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [186.0, 176.6, 352.4, 349.1]
+    placed_under: "### Nuclear fission"
+  - file: assets/23-p390-radioactive-decay-curve.png
+    caption: The number of undecayed nuclei falls by half in each half-life
+    figure_ref: '23.8'
+    source_page_pdf: 390
+    source_page_printed: 374
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [176.1, 200.9, 382.8, 360.8]
+    placed_under: "### Half-life"

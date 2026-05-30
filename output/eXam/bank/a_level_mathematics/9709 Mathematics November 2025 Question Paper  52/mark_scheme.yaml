@@ -1,0 +1,132 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Geometric: $P(X=5) = (0.6)^4(0.4) = 0.0518$.'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $P(X > 6) = (0.6)^6 = 0.0467$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $X = 1,2,3,4,5$ with $P = \tfrac13,\ \tfrac{4}{15},\ \tfrac15,\
+    \tfrac{2}{15},\ \tfrac{1}{15}$ (4 non-green, 2 green, no replacement).
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $E(X) = \tfrac73$ and $E(X^2) = 7$, so $\mathrm{Var}(X) = 7
+    - \left(\tfrac73\right)^2 = \tfrac{14}{9} \approx 1.56$.
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $P\!\left(|Z| < \tfrac{5}{6.4}\right) = 2\Phi(0.781) - 1 = 0.565$;
+    expected number $= 124 \times 0.565 \approx 70$.
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\Phi^{-1}(0.23) = -0.739$, so $\dfrac{170.3 - 172.7}{\sigma}
+    = -0.739 \Rightarrow \sigma = \dfrac{2.4}{0.739} = 3.25$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\tfrac{6}{18}\cdot\tfrac{x-12}{x} = 2\cdot\tfrac{10}{18}\cdot\tfrac{9}{x}
+    \Rightarrow 6(x-12) = 180 \Rightarrow x = 42$.
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $x = 42$: $P(\text{same}) = \tfrac{6}{18}\cdot\tfrac{30}{42}
+    + \tfrac{10}{18}\cdot\tfrac{9}{42} + \tfrac{2}{18}\cdot\tfrac{3}{42} = \tfrac{23}{63}
+    \approx 0.365$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Histogram with class boundaries 0.5–10.5, 10.5–20.5, 20.5–25.5,
+    25.5–30.5, 30.5–50.5 and frequency densities 1.2, 3.8, 13.6, 15.2, 2.3.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Midpoints 5.5, 15.5, 23, 28, 40.5: $\bar{x} = \dfrac{12(5.5)+38(15.5)+68(23)+76(28)+46(40.5)}{240}
+    = \dfrac{6210}{240} = 25.9$ minutes.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $P(\text{neither Sat nor Sun}) = \tfrac57$, so $\left(\tfrac57\right)^{10}
+    = 0.0346$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$X \sim B(10, \tfrac17)$: $P(X<3) = \left(\tfrac67\right)^{10}
+    + 10\cdot\tfrac17\left(\tfrac67\right)^9 + 45\left(\tfrac17\right)^2\left(\tfrac67\right)^8
+    = 0.838$.'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $X \sim B(392, \tfrac17)$, approximated by $N(56, 48)$. $P(X
+    > 65) \approx P\!\left(Z > \tfrac{65.5 - 56}{\sqrt{48}}\right) = P(Z > 1.371)
+    = 0.0852$.
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Treat OOO as one block (8 items including two Ls): $\tfrac{8!}{2!}
+    = 20160$; subtract those with the Ls together ($7! = 5040$): $20160 - 5040 = 15120$.'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The Ls fill positions $(i, i+6)$ for $i = 1,2,3,4$ (4 ways);
+    the remaining 8 letters (incl. 3 Os) arrange in $\tfrac{8!}{3!} = 6720$ ways:
+    $4 \times 6720 = 26880$.'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\binom{10}{2} = 45$ pairs; identical-letter pairs $= \binom{3}{2}
+    + \binom{2}{2} = 4$; $P(\text{different}) = \dfrac{45 - 4}{45} = \dfrac{41}{45}
+    \approx 0.911$.
+  mark_scheme: []
+  graphics: []

@@ -1,0 +1,203 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Hardware and Virtual Machines}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{RISC vs CISC processors}
+
+Two styles of CPU design.
+
+\subsection*{CISC}
+
+A \textbf{CISC} 复杂指令集 (Complex Instruction Set Computer) has \textbf{many, often complex} instructions (one may do several memory accesses and operations), of \textbf{variable length}, so decoding is intricate. It does more per instruction in hardware. Examples: Intel x86.
+
+\subsection*{RISC}
+
+A \textbf{RISC} 精简指令集 (Reduced Instruction Set Computer) has a \textbf{small set of simple} instructions, each doing one basic operation, all of \textbf{fixed length} (fast to decode). Only \textbf{load} and \textbf{store} touch memory; everything else is \textbf{register} 寄存器-to-register. Programs are longer but each instruction is quick and predictable, which suits pipelining. Examples: ARM, RISC-V.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{CISC} & \textbf{RISC} \\
+\midrule
+Instruction set & many & few \\
+Instruction length & variable & fixed \\
+Memory access & many instructions & only load/store \\
+Pipeline-friendly & harder & naturally \\
+Per-instruction cycles & varies & usually 1 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+The trade-off is doing \textbf{more per instruction} (CISC) vs doing each instruction \textbf{faster and more predictably} (RISC). Modern Intel chips translate CISC instructions into simpler RISC-like micro-ops internally.
+
+\section*{Pipelining}
+
+A \textbf{pipeline} 流水线 processes instructions in \textbf{overlapping stages}, like an assembly line: Fetch → Decode → Execute (in the \textbf{ALU} 算术逻辑单元) → Memory access → Write back. Each stage works on a different instruction at once, so once the pipeline is full, \textbf{one instruction completes per cycle}. RISC's fixed-length, simple instructions make every stage take the same time. A pipeline can stall on a \textbf{hazard} 冒险 — a data hazard (an instruction needs a result not ready yet) or a control hazard (a branch makes the next address unknown).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/15-p365-pipeline.pdf}}\\[0.3em]
+\emph{Pipelining overlaps the stages of six instructions, so one finishes each cycle}
+\end{minipage}\par\medskip
+
+RISC chips keep data in \textbf{many registers} because memory is slow and registers are fast; the compiler allocates values to registers wisely.
+
+\section*{Flynn's taxonomy}
+
+\textbf{Flynn's taxonomy} 弗林分类 sorts computers by the number of instruction and data streams:
+
+\begin{itemize}
+\item \textbf{SISD} — one instruction, one data stream (a traditional single core).
+
+\item \textbf{SIMD} 单指令多数据 — one instruction works on \textbf{many data items at once} (GPUs, CPU vector extensions). Great for images, video, scientific arrays.
+
+\item \textbf{MISD} — several operations on the same data; rare, mostly theoretical.
+
+\item \textbf{MIMD} 多指令多数据 — many processors run \textbf{different instructions on different data} (multi-core CPUs, clusters). The most general.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/15-p366-simd.pdf}}\\[0.3em]
+\emph{SIMD: many processors run the same instruction on different data}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/15-p367-mimd.pdf}}\\[0.3em]
+\emph{MIMD: each processor runs its own instructions on its own data}
+\end{minipage}\par\medskip
+
+\section*{Massively parallel computers}
+
+A \textbf{massively parallel} 大规模并行 system uses \textbf{thousands of processors} on a fast network, each with its own memory (\textbf{distributed memory} 分布式内存), exchanging data by messages. It is MIMD, needs specially-written software (MPI, CUDA), and suits climate simulation, large \textbf{machine learning} 机器学习 training, and astrophysics. The largest \textbf{supercomputers} 超级计算机 are massively parallel.
+
+\section*{Virtual machines}
+
+A \textbf{virtual machine} 虚拟机 (VM) is a \textbf{software emulation of a whole computer} — the software inside sees a CPU, memory and disks that look real but are managed by host software.
+
+\begin{itemize}
+\item a \textbf{system VM} runs a complete OS. A \textbf{hypervisor} 虚拟机监控器 creates and manages VMs, each booting its own guest OS. Uses: run different OSes on one machine; server consolidation; \textbf{sandboxing} 沙箱 (risky software runs isolated); snapshots.
+
+\item a \textbf{process (language) VM} runs one program in portable \textbf{bytecode} 字节码 — the JVM (Java), the CLR (.NET), CPython. Benefits: portability ("write once, run anywhere"), runtime safety checks, and \textbf{just-in-time compilation} 即时编译 for near-native speed. The cost is an extra layer and needing the VM installed.
+
+\end{itemize}
+
+\section*{Boolean algebra}
+
+\textbf{Boolean algebra} 布尔代数 simplifies \textbf{Boolean} 布尔 expressions. Symbols: \texttt{+} for OR, \texttt{·} for AND (often omitted), an overbar for NOT.
+
+Key laws include commutative, associative and distributive (as in ordinary algebra), plus:
+
+\begin{itemize}
+\item identity $A + 0 = A$, $A \cdot 1 = A$; null $A + 1 = 1$, $A \cdot 0 = 0$.
+
+\item idempotent $A + A = A$; inverse $A + \overline{A} = 1$, $A \cdot \overline{A} = 0$.
+
+\item \textbf{De Morgan's laws} 德摩根定律: $(A + B)' = A' \cdot B'$; $(A \cdot B)' = A' + B'$ — negate the whole, swap AND/OR, negate each operand.
+
+\item \textbf{absorption} 吸收律: $A + AB = A$.
+
+\end{itemize}
+
+Simplifying reduces the number of terms, so the resulting logic circuit has fewer gates. Example: $Z = AB + A\overline{B} = A(B + \overline{B}) = A$.
+
+\section*{Karnaugh maps}
+
+A \textbf{Karnaugh map} 卡诺图 (K-map) simplifies a Boolean expression by \textbf{grouping adjacent 1s} from a truth table. Columns and rows use \textbf{Gray code} 格雷码 order (\texttt{00}, \texttt{01}, \texttt{11}, \texttt{10}) so adjacent cells differ in one variable.
+
+Place a 1 in each cell where the output is 1. Find rectangular groups of 1s whose sides are powers of 2 (1, 2, 4, 8), wrapping around edges if it makes a bigger group. \textbf{The larger the group, the simpler the term}: a group of 2 drops one variable, a group of 4 drops two, and so on — variables that change within the group disappear. OR the group terms together for the simplified expression. Cover every 1 using as few, as large, groups as possible.
+
+\section*{Half adder and full adder}
+
+A \textbf{half adder} 半加器 adds two single bits $A$ and $B$, giving a sum $S$ and a \textbf{carry} 进位 $C$:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{S} & \textbf{C} \\
+\midrule
+0 & 0 & 0 & 0 \\
+0 & 1 & 1 & 0 \\
+1 & 0 & 1 & 0 \\
+1 & 1 & 0 & 1 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+So $S = A \text{ XOR } B$ and $C = A \text{ AND } B$. It ignores any carry-in — hence "half".
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/15-p372-half-adder.pdf}}\\[0.3em]
+\emph{A half adder, as a block and as a circuit of an XOR and an AND gate}
+\end{minipage}\par\medskip
+
+A \textbf{full adder} 全加器 adds three bits ($A$, $B$, carry-in), giving a sum and a carry-out: $S = A \text{ XOR } B \text{ XOR } C_{\text{in}}$. It can be built from two half adders plus an OR gate. Chaining full adders (each carry-out feeding the next carry-in) makes a multi-bit "ripple-carry" adder.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/15-p373-full-adder.pdf}}\\[0.3em]
+\emph{A full adder is built from two half adders and an OR gate}
+\end{minipage}\par\medskip
+
+\section*{Flip-flops}
+
+A \textbf{flip-flop} 触发器 is a \textbf{bistable} 双稳态 circuit — two stable states (0 and 1) — that \textbf{remembers} its state. It stores one bit and is the basic element of registers and SRAM.
+
+\subsection*{SR flip-flop}
+
+An \textbf{SR flip-flop} SR触发器 has inputs \textbf{S} (set) and \textbf{R} (reset) and outputs Q and $\overline{Q}$. \texttt{S=1,R=0} sets Q to 1; \texttt{S=0,R=1} resets it to 0; \texttt{S=0,R=0} holds; \texttt{S=1,R=1} is \textbf{invalid}. Built from two cross-coupled NAND gates.
+
+\subsection*{JK flip-flop}
+
+A \textbf{JK flip-flop} JK触发器 improves on it by using the previously-invalid \texttt{1,1} input as a \textbf{toggle} 翻转 (the output flips). This makes it ideal for building \textbf{counters} 计数器 (a chain of toggling flip-flops). It is usually \textbf{clocked} — inputs act only on a clock edge, keeping flip-flops synchronised.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/15-p376-jk-flip-flop.pdf}}\\[0.3em]
+\emph{A JK flip-flop: its symbol and a build from NAND gates}
+\end{minipage}\par\medskip
+
+Flip-flops are the building blocks of registers (n bits = n flip-flops), counters, and \textbf{SRAM} 静态RAM cells.
+
+
+\end{document}

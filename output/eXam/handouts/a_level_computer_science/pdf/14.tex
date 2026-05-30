@@ -1,0 +1,163 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Communication and internet technologies}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Why protocols are needed}
+
+A \textbf{protocol} 协议 is a \textbf{set of rules} for how devices \textbf{communicate}. Both ends must follow the same rules, or one side's signals are meaningless to the other. Protocols define the \textbf{format} of the data (where addresses and payload sit), the \textbf{order} of messages (who speaks first, when to acknowledge), the \textbf{meaning} of each message, the \textbf{timing} (timeouts, retransmits), and \textbf{what to do on error}. Without an agreed protocol, communication fails — like two people speaking different languages with no translator.
+
+\section*{Layered protocols}
+
+Networking is complex, so it is split into \textbf{layers} 层, each with one focused job, talking only to the layer above and below. Benefits: \textbf{modularity} 模块化 (replace one layer — say Ethernet with Wi-Fi — without touching the others), standardisation (vendors interoperate), and \textbf{abstraction} 抽象 (you ignore details handled elsewhere). The internet uses the \textbf{TCP/IP} \textbf{protocol suite} 协议栈 (4 layers).
+
+\section*{TCP/IP protocol suite}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Layer} & \textbf{Purpose} & \textbf{Examples} \\
+\midrule
+\textbf{Application} & what the user program does & HTTP, FTP, SMTP, IMAP \\
+\textbf{Transport} & end-to-end delivery between processes & TCP, UDP \\
+\textbf{Internet} & routing packets between networks & IP \\
+\textbf{Link} & sending bits over the physical medium & Ethernet, Wi-Fi \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/14-p345-tcp-ip-layers.pdf}}\\[0.3em]
+\emph{The four layers of the TCP/IP protocol suite}
+\end{minipage}\par\medskip
+
+\subsection*{Application layer}
+
+The \textbf{application layer} 应用层 gives services to user programs and defines the protocols they speak (HTTP for web, SMTP for email). This is where a programmer most often works.
+
+\subsection*{Transport layer}
+
+The \textbf{transport layer} 传输层 delivers data \textbf{end-to-end} between processes, identified by \textbf{port numbers} 端口号. Two protocols:
+
+\begin{itemize}
+\item \textbf{TCP} 传输控制协议 — \textbf{connection-oriented} 面向连接: sets up a connection, ensures \textbf{all data arrives in order}, retransmits lost \textbf{packets} 数据包, controls flow. Reliable but with overhead. Used by HTTP, HTTPS, SMTP, FTP.
+
+\item \textbf{UDP} 用户数据报协议 — \textbf{connectionless} 无连接: sends and forgets, with no acknowledgements or ordering. Low overhead, no guarantees. Used for streaming, DNS and gaming, where speed beats reliability.
+
+\end{itemize}
+
+\subsection*{Internet layer}
+
+The \textbf{internet layer} 网络层 carries packets between hosts using \textbf{IP}. Each packet has a source and destination \textbf{IP address} IP地址, and \textbf{routers} 路由器 forward it onward. It does not guarantee delivery — that is TCP's job.
+
+\subsection*{Link layer}
+
+The \textbf{link layer} 链路层 sends bits over one physical link (Ethernet, Wi-Fi). It adds a frame header with \textbf{MAC addresses} MAC地址 and handles medium access (e.g. \textbf{CSMA/CD} 载波侦听多路访问 on Ethernet).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/14-p350-ethernet-frame.pdf}}\\[0.3em]
+\emph{The parts of a typical Ethernet frame}
+\end{minipage}\par\medskip
+
+\section*{Common application-layer protocols}
+
+\begin{itemize}
+\item \textbf{HTTP} 超文本传输协议 — browsers fetch web pages from servers (over TCP, port 80). \textbf{HTTPS} is HTTP over TLS — encrypted, port 443.
+
+\item \textbf{FTP} 文件传输协议 — transfer files between client and server.
+
+\item \textbf{SMTP} 简单邮件传输协议 — \textbf{send} email between client and server, and between servers. Receiving uses POP3 or IMAP.
+
+\item \textbf{POP3} — downloads email and usually deletes it from the server. \textbf{IMAP} — leaves email on the server and syncs across devices, so the same inbox appears everywhere.
+
+\item \textbf{BitTorrent} — a \textbf{peer-to-peer} 对等网络 protocol; a file is split into pieces downloaded from many peers in parallel, so no single server carries all the load.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/14-p353-bittorrent-swarm.pdf}}\\[0.3em]
+\emph{BitTorrent: peers share file pieces through a tracker}
+\end{minipage}\par\medskip
+
+\section*{Circuit switching vs packet switching}
+
+\subsection*{Circuit switching}
+
+A \textbf{dedicated path} is set up between the two ends before any data is sent (\textbf{circuit switching} 电路交换), reserved for the whole conversation, then released. It gives \textbf{reserved bandwidth} 带宽 and in-order delivery, but is \textbf{inefficient} during silences and slow to set up. Classic example: the traditional telephone network.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/14-p354-circuit-switching.pdf}}\\[0.3em]
+\emph{Circuit switching: one dedicated path is reserved end to end}
+\end{minipage}\par\medskip
+
+\subsection*{Packet switching}
+
+The data is split into \textbf{packets}, each sent \textbf{independently} (\textbf{packet switching} 分组交换). Each packet carries the destination address; routers make per-packet decisions, so packets may take different routes and arrive out of order, and the destination reassembles them. It is \textbf{efficient} (one link is \textbf{multiplexed} 多路复用 across many conversations), \textbf{robust} (reroute around a failure), but has \textbf{variable latency} 延迟 and possible loss (TCP handles reliability). Used by the internet.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/14-p355-packet-switching.pdf}}\\[0.3em]
+\emph{Packet switching: packets travel independently and may take different routes}
+\end{minipage}\par\medskip
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Aspect} & \textbf{Circuit switching} & \textbf{Packet switching} \\
+\midrule
+Path & dedicated, reserved & shared, per-packet \\
+Setup time & slow & none \\
+Bandwidth use & inefficient & efficient \\
+Order & in order & may be out of order \\
+Robustness & one failure cuts the circuit & reroute around failures \\
+Suits & constant-rate flows (voice) & bursty flows (web, email) \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Modern networks use packet switching for its efficiency and resilience.
+
+\subsection*{Describing packet switching in a few sentences}
+
+A good exam answer: "The message is broken into small packets. Each packet carries the destination and source addresses and a sequence number. Each packet travels through the network independently, with routers choosing the next hop per packet. Packets may take different paths and arrive out of order. The destination uses the sequence numbers to reassemble the message, and missing packets can be requested again."
+
+
+\end{document}

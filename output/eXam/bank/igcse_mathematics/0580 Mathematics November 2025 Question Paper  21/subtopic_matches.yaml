@@ -1,0 +1,26 @@
+subject_key: igcse_mathematics
+paper_stem: 0580 Mathematics November 2025 Question Paper  21
+model: claude
+matched_at: '2026-05-29T13:53:32Z'
+matches:
+  10a: [E1.2]
+  10b: [E1.2]
+  14a: [E4.7]
+  14bi: [E4.4]
+  14bii: [E4.4]
+  15a: [E1.8]
+  15b: [E1.8]
+  17a: [E2.2]
+  17b: [E2.5]
+  20a: [E8.4]
+  20bi: [E8.4]
+  20bii: [E8.4]
+  20c: [E8.4]
+  21a: [E1.3]
+  21b: [E1.3]
+  5a: [E7.1]
+  5b: [E7.1]
+  6a: [E1.7]
+  6b: [E1.7]
+  7a: [E2.7]
+  7b: [E2.7]

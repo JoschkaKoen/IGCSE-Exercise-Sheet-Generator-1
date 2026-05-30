@@ -34,6 +34,15 @@ covered_question_ids:
   qnum: 7a
 - paper: 9618 Computer Science November 2025 Question Paper  13
   qnum: 8c
+figures:
+  - file: assets/07-p200-public-wellbeing-impact.png
+    caption: Software development affects the public's wellbeing in several ways
+    figure_ref: '7.1'
+    source_page_pdf: 200
+    source_page_printed: 184
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [180.0, 40.0, 350.0, 202.0]
+    placed_under: "### Why ethics matters"
 generated_at: '2026-05-28T10:25:52Z'
 author: claude
 prompt_version: v1

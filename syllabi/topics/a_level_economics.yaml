@@ -1,0 +1,143 @@
+subject_key: a_level_economics
+syllabus_pdf: 9708 Economics 2026-2028 Syllabus Document.pdf
+source: claude-authored
+topics:
+- number: '1'
+  title: Basic economic ideas and resource allocation
+  subtopics:
+  - number: '1.1'
+    title: Scarcity, choice and opportunity cost
+  - number: '1.2'
+    title: Economic methodology
+  - number: '1.3'
+    title: Factors of production
+  - number: '1.4'
+    title: Resource allocation in different economic systems
+  - number: '1.5'
+    title: Production possibility curves
+  - number: '1.6'
+    title: Classification of goods and services
+- number: '2'
+  title: The price system and the microeconomy
+  subtopics:
+  - number: '2.1'
+    title: Demand and supply curves
+  - number: '2.2'
+    title: Price elasticity, income elasticity and cross elasticity of demand
+  - number: '2.3'
+    title: Price elasticity of supply
+  - number: '2.4'
+    title: The interaction of demand and supply
+  - number: '2.5'
+    title: Consumer and producer surplus
+- number: '3'
+  title: Government microeconomic intervention
+  subtopics:
+  - number: '3.1'
+    title: Reasons for government intervention in markets
+  - number: '3.2'
+    title: Methods and effects of government intervention in markets
+  - number: '3.3'
+    title: Addressing income and wealth inequality
+- number: '4'
+  title: The macroeconomy
+  subtopics:
+  - number: '4.1'
+    title: National income statistics
+  - number: '4.2'
+    title: Introduction to the circular flow of income
+  - number: '4.3'
+    title: Aggregate Demand and Aggregate Supply analysis
+  - number: '4.4'
+    title: Economic growth
+  - number: '4.5'
+    title: Unemployment
+  - number: '4.6'
+    title: Price stability
+- number: '5'
+  title: Government macroeconomic intervention
+  subtopics:
+  - number: '5.1'
+    title: Government macroeconomic policy objectives
+  - number: '5.2'
+    title: Fiscal policy
+  - number: '5.3'
+    title: Monetary policy
+  - number: '5.4'
+    title: Supply-side policy
+- number: '6'
+  title: International economic issues
+  subtopics:
+  - number: '6.1'
+    title: The reasons for international trade
+  - number: '6.2'
+    title: Protectionism
+  - number: '6.3'
+    title: Current account of the balance of payments
+  - number: '6.4'
+    title: Exchange rates
+  - number: '6.5'
+    title: Policies to correct imbalances in the current account of the balance of payments
+- number: '7'
+  title: The price system and the microeconomy (A Level)
+  subtopics:
+  - number: '7.1'
+    title: Utility
+  - number: '7.2'
+    title: Indifference curves and budget lines
+  - number: '7.3'
+    title: Efficiency and market failure
+  - number: '7.4'
+    title: Private costs and benefits, externalities and social costs and benefits
+  - number: '7.5'
+    title: Types of cost, revenue and profit, short-run and long-run production
+  - number: '7.6'
+    title: Different market structures
+  - number: '7.7'
+    title: Growth and survival of firms
+  - number: '7.8'
+    title: Differing objectives and policies of firms
+- number: '8'
+  title: Government microeconomic intervention (A Level)
+  subtopics:
+  - number: '8.1'
+    title: Government policies to achieve efficient resource allocation and correct market failure
+  - number: '8.2'
+    title: Equity and redistribution of income and wealth
+  - number: '8.3'
+    title: Labour market forces and government intervention
+- number: '9'
+  title: The macroeconomy (A Level)
+  subtopics:
+  - number: '9.1'
+    title: The circular flow of income
+  - number: '9.2'
+    title: Economic growth and sustainability
+  - number: '9.3'
+    title: Employment/unemployment
+  - number: '9.4'
+    title: Money and banking
+- number: '10'
+  title: Government macroeconomic intervention (A Level)
+  subtopics:
+  - number: '10.1'
+    title: Government macroeconomic policy objectives
+  - number: '10.2'
+    title: Links between macroeconomic problems and their interrelatedness
+  - number: '10.3'
+    title: Effectiveness of policy options to meet all macroeconomic objectives
+- number: '11'
+  title: International economic issues (A Level)
+  subtopics:
+  - number: '11.1'
+    title: Policies to correct disequilibrium in the balance of payments
+  - number: '11.2'
+    title: Exchange rates
+  - number: '11.3'
+    title: Economic development
+  - number: '11.4'
+    title: Characteristics of countries at different levels of development
+  - number: '11.5'
+    title: Relationship between countries at different levels of development
+  - number: '11.6'
+    title: Globalisation

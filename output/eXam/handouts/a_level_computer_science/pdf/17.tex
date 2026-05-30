@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Security}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{How encryption works}
+
+\textbf{Encryption} 加密 turns readable \textbf{plaintext} 明文 into unreadable \textbf{ciphertext} 密文 using a maths operation that depends on a \textbf{key}. Only someone with the right key can reverse it — \textbf{decryption} 解密 — to get the plaintext back. An attacker who intercepts the ciphertext without the key sees only meaningless data, because trying every possible key would take far too long.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/17-p427-encryption-process.pdf}}\\[0.3em]
+\emph{Encryption scrambles plaintext with a key; decryption reverses it}
+\end{minipage}\par\medskip
+
+\subsection*{Symmetric encryption}
+
+\textbf{Symmetric encryption} 对称加密 uses the \textbf{same key} for both encryption and decryption, so sender and receiver must both hold the secret key. It is \textbf{fast} and good for \textbf{bulk data} (a whole disk, a video stream). Its problem is \textbf{key distribution} 密钥分发: how do you share the key safely in the first place? Asymmetric encryption solves this.
+
+\subsection*{Asymmetric encryption (public-key)}
+
+\textbf{Asymmetric encryption} 非对称加密 gives each user a \textbf{pair} of related keys: a \textbf{public key} 公钥 they publish, and a \textbf{private key} 私钥 they keep secret. Data encrypted with the public key can be decrypted \textbf{only} with the matching private key, and vice versa.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/17-p429-asymmetric-keys.pdf}}\\[0.3em]
+\emph{Each user has a public key to share and a private key to keep secret}
+\end{minipage}\par\medskip
+
+To send a secret message to Alice: get her published public key, encrypt with it, and send. Only Alice — holding the matching private key — can decrypt. No prior key exchange is needed. The trade-off is that it is \textbf{much slower} than symmetric, so it is not used for large data.
+
+\subsection*{Hybrid approach (used by almost every real system)}
+
+Use asymmetric encryption to exchange a fresh \textbf{session key} 会话密钥, then use that symmetric key for the data:
+
+\begin{enumerate}
+\item the client makes a random session key.
+
+\item it encrypts the session key with the server's public key.
+
+\item the server decrypts it with its private key.
+
+\item both ends now share the session key and use fast symmetric encryption for the rest.
+
+\end{enumerate}
+
+This is how HTTPS and SSH work.
+
+\subsection*{Hashing (related, not encryption)}
+
+A \textbf{cryptographic hash} 密码散列 function takes any input and gives a fixed-size \textbf{digest} 摘要 such that the same input always gives the same digest, it is infeasible to find two inputs with the same digest, and a tiny change in input changes the digest completely. Hashing is \textbf{one-way} — you cannot get the input back. It is used for storing password checks, \textbf{integrity} 完整性 checks, and digital signatures.
+
+\section*{SSL / TLS}
+
+\textbf{TLS} 传输层安全 (Transport Layer Security, the successor to SSL) is a \textbf{protocol} that gives encryption and authentication for data sent over a network. It \textbf{encrypts} the data in transit, \textbf{authenticates} the server with a certificate, and provides \textbf{integrity} (detecting tampering).
+
+Outline of a TLS handshake:
+
+\begin{enumerate}
+\item the client connects and proposes cipher options.
+
+\item the server picks one and sends its \textbf{digital certificate} (with its public key).
+
+\item the client checks the certificate.
+
+\item the two ends exchange a fresh \textbf{session key} using asymmetric crypto.
+
+\item all later traffic uses fast symmetric encryption with the session key.
+
+\end{enumerate}
+
+The result is an encrypted, authenticated, integrity-checked tunnel for higher-level protocols (HTTP, SMTP). It is appropriate wherever \textbf{sensitive information} is sent: HTTPS web browsing, online banking and payments, secure email, and VPNs.
+
+\section*{Digital certificates}
+
+A \textbf{digital certificate} 数字证书 binds an identity (a domain, an organisation) to a public key, and is signed by a trusted \textbf{Certificate Authority} 证书颁发机构 (CA). It contains the subject (who it identifies), the subject's public key, the issuer (the CA), a validity period, and the CA's signature over all of it.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/17-p437-digital-certificate.pdf}}\\[0.3em]
+\emph{A Certificate Authority issues a digital certificate binding an identity to a public key}
+\end{minipage}\par\medskip
+
+To verify one, the client (which holds a list of trusted root CAs):
+
+\begin{enumerate}
+\item checks the expiry dates.
+
+\item checks the subject name matches the URL.
+
+\item checks it is \textbf{signed by a trusted CA}, using the CA's public key to verify the signature.
+
+\item follows the certificate chain up to a trusted root.
+
+\end{enumerate}
+
+If anything fails, the browser shows the "Your connection is not private" warning. When it verifies cleanly, the client knows the identity was vetted by a trusted CA, the public key really belongs to that identity, and the certificate is current.
+
+\section*{Digital signatures}
+
+A \textbf{digital signature} 数字签名 proves who signed a message \textbf{and} that it was not changed. To sign:
+
+\begin{enumerate}
+\item compute a cryptographic hash of the message.
+
+\item \textbf{encrypt the hash with the sender's private key} — that is the signature.
+
+\item send the message and the signature.
+
+\end{enumerate}
+
+To verify: compute the hash of the received message; \textbf{decrypt the signature with the sender's public key} to get the sender's hash; compare. If they match, the message was signed by the holder of the private key (\textbf{authentication} 身份验证) and was not changed (integrity). A signature does \textbf{not} hide the message — for confidentiality as well, encrypt \textbf{and} sign.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/17-p436-digital-signature.pdf}}\\[0.3em]
+\emph{Signing hashes the message and encrypts the digest with the private key; the receiver checks it with the public key}
+\end{minipage}\par\medskip
+
+\subsection*{Putting it together}
+
+A secure request to \texttt{https://www.bank.com}: the server sends its certificate; the client verifies it against trusted CAs; the client uses the server's public key to exchange a session key; then data flows encrypted with that key. Encryption stops eavesdroppers, the certificate proves the server's identity, and integrity checks stop a \textbf{man-in-the-middle} 中间人攻击 altering the data.
+
+
+\end{document}

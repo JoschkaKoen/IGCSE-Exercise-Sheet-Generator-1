@@ -1,0 +1,226 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The random variables $X$ and $Y$ have independent distributions $X \sim \mathrm{Po}(3)$
+    and $Y \sim \mathrm{Po}(2)$ respectively.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find $P(2 < X < 5)$.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find $P(X + Y > 2)$.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The total of 100 random values of $X$ and 150 random values of $Y$ is denoted
+      by $T$. Use a suitable approximating distribution to find $P(T < 560)$.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 8
+  text: The mean mass of packets of Trueleaf tea is supposed to be 500 grams. An inspector
+    weighs 60 randomly chosen packets, giving $n = 60$, $\sum x = 29970$, $\sum x^2
+    = 14970300$. Test, at the 5% significance level, whether the population mean mass
+    is 500 grams.
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The data produced by a certain data entry firm include a small number of incorrect
+    characters that occur at random, with proportion $p$; experience shows $p = 0.0001$.
+    A particular data set contains 14500 characters, of which $X$ are incorrect.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Use a suitable approximating distribution to find $P(X < 4)$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: The management wishes to decrease $p$ by training so that, for a data set
+      of 14500 characters, $P(X = 0)$ for the new $p$ is double the value of $P(X
+      = 0)$ when $p = 0.0001$. Use a suitable approximating distribution to find the
+      new value of $p$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The masses of a certain species of animal are normally distributed with standard
+    deviation $\sigma$ kg. A researcher uses a random sample of $n$ animals to find
+    two confidence intervals ($\alpha\%$ and 90%) for the population mean. The width
+    of the $\alpha\%$ confidence interval is $1.414\times$ the width of the 90% confidence
+    interval.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find $\alpha$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Find the probability that the 90% confidence interval contains the population
+      mean given that the $\alpha\%$ confidence interval contains the population mean.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: It is known that 20% of households in a certain country contain more than
+    4 people. Laxmi believes that in her town the percentage is lower than 20%. She
+    takes a random sample of 40 households and notes the number containing more than
+    4 people, then carries out a test at the 2.5% significance level using a binomial
+    distribution.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the probability of a Type I error.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the rejection region for the test.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Laxmi finds that exactly 2 households in her sample contain more than 4
+      people. Explain why it is impossible for Laxmi to make a Type II error.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The masses, in kilograms, of large and small bags of potatoes have the independent
+    distributions $N(2.5, 0.05)$ and $N(0.8, 0.02)$ respectively.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the probability that the total mass of a randomly chosen large bag
+      and a randomly chosen small bag is more than 3.55 kg.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the probability that the mass of a randomly chosen large bag is less
+      than 3 times the mass of a randomly chosen small bag.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The time, in minutes, taken by students to complete a test is modelled by
+    the random variable $X$ with probability density function $f(x) = -\tfrac34(x-3)(x-5)$
+    for $3 \leqslant x \leqslant 5$, and $f(x) = 0$ otherwise.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the probability that a randomly chosen student takes longer than 4.5
+      minutes to complete the test.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Write down the median of $X$.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Without performing an integration, use your answer to part (a) to find $P(3.5
+      < X < 4.5)$.
+    answer_options: []
+    subquestions: []

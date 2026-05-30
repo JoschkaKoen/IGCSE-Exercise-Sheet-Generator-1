@@ -56,3 +56,36 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:27:31Z'
 glossed_at: '2026-05-29T05:27:31Z'
+figures:
+  - file: assets/18-p304-electric-field-patterns.png
+    caption: Field-line patterns for parallel plates, a dipole, a point charge, and a charged sphere above an earthed plate
+    figure_ref: '18.4'
+    source_page_pdf: 304
+    source_page_printed: 288
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [176.5, 427.0, 466.4, 678.7]
+    placed_under: "### Field lines"
+  - file: assets/18-p309-charged-particle-parabola.png
+    caption: A charge entering a uniform field at right angles follows a parabolic path, like a projectile
+    figure_ref: '18.10'
+    source_page_pdf: 309
+    source_page_printed: 293
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [166.3, 43.2, 527.6, 170.4]
+    placed_under: "### A charged particle in a uniform field"
+  - file: assets/18-p313-point-charge-potential.png
+    caption: The potential near a point charge varies as 1/r — positive for a positive charge, negative for a negative one
+    figure_ref: '18.13'
+    source_page_pdf: 313
+    source_page_printed: 297
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [163.5, 416.7, 408.6, 528.4]
+    placed_under: "### Potential due to a point charge"
+  - file: assets/18-p314-potential-field-link.png
+    caption: In a uniform field the potential falls steadily with distance, so the field strength V/d is constant
+    figure_ref: '18.14'
+    source_page_pdf: 314
+    source_page_printed: 298
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [180.1, 147.7, 526.7, 294.6]
+    placed_under: "### Link between field and potential"

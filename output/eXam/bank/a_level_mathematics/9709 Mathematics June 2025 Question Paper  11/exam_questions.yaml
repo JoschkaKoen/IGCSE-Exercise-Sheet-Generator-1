@@ -1,0 +1,298 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Solve the equation $6\sin\theta = 1 + \dfrac{2}{\sin\theta}$ for $-180\degree
+    < \theta < 180\degree$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The equation of a curve is such that $\dfrac{dy}{dx} = 4(2x-5)^3 - 9x^{\frac12}$.
+    The curve passes through the point $A\left(4, -\tfrac{11}{2}\right)$.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the gradient of the normal to the curve at the point $A$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the equation of the curve.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The third term of a geometric progression is 18 and the sum of the first three
+    terms is 26. It is given that the common ratio is negative.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the tenth term of the progression. Give your answer correct to 3 significant
+      figures.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the exact value of the sum to infinity of the progression.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: The diagram shows the curve with equation $y = 5x^{\frac32} - 20x$ and the
+    line with equation $y = x - 16$. The $x$-coordinates of the points of intersection
+    of the curve and line are 1 and 16. Find the area of the shaded region between
+    the curve and the line.
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Find the first three terms, in ascending powers of $x$, in the expansion
+      of each of the following expressions.
+    answer_options: []
+    subquestions:
+    - number: 5ai
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: $(2 - px)^5$
+      answer_options: []
+      subquestions: []
+    - number: 5aii
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: $\left(1 - \tfrac12 x\right)^4$
+      answer_options: []
+      subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Given that the coefficient of $x^2$ in the expansion of $(2 - px)^5\left(1
+      - \tfrac12 x\right)^4$ is 93, find the possible values of the constant $p$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The equation of a curve is $2x^2 - kxy + 2 = 0$ and the equation of a line
+    is $y = px + 3$, where $k$ and $p$ are constants.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Given that $k = 2$ and $p = 11$, find the coordinates of the points of intersection
+      of the curve and the line.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Given instead that $p = 4$, find the set of values of $k$ for which the
+      curve and the line do not intersect.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The equation of a curve is $y = 4x^2 + \dfrac{9}{x^2} - 8$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: A point $P$ is moving along the curve in such a way that its $y$-coordinate
+      is decreasing at 5 units per second. Find the rate at which the $x$-coordinate
+      of point $P$ is changing when $x = 2$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the coordinates of the stationary points of the curve and determine
+      their nature.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 8
+  text: The circle with equation $x^2 + y^2 - 6x + 10y - 27 = 0$ intersects the line
+    $x = -2$ at the points $P$ and $Q$. Find the area of the triangle formed by the
+    tangents to the circle at $P$ and $Q$, and the line $x = -2$.
+  answer_options: []
+  subquestions: []
+- number: '9'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The diagram shows a sector $ABC$ of a circle with centre $A$ and radius $r$
+    cm. The angle $BAC$ is $\alpha$ radians, where $0 < \alpha < \tfrac12\pi$.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: It is given that the area of the triangle $ABC$ is $4\text{ cm}^2$ and the
+      area of the sector $ABC$ is $8\alpha\text{ cm}^2$. Find the exact area of the
+      shaded segment.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: It is given instead that the length of the chord $BC$ is $\tfrac{1}{\sqrt2}r$
+      cm but the area of the triangle $ABC$ is still $4\text{ cm}^2$. Find the area
+      of the shaded segment. Give your answer correct to 3 significant figures.
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: calculation
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The functions f and g are defined by $f(x) = \sqrt{x}$ for $x \geqslant 0$,
+    and $g(x) = 3\sqrt{x+2} - 5$ for $x \geqslant -2$.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Describe fully a sequence of transformations which transforms the graph
+      of $y = f(x)$ to the graph of $y = g(x)$. You should make clear the order in
+      which the transformations are applied.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: The diagram shows the graph of $y = g(x)$. On the diagram sketch the graph
+      of $y = g^{-1}(x)$ together with any relevant mirror line.
+    answer_options: []
+    subquestions: []
+  - number: 10c
+    question_type: calculation
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find an expression for $g^{-1}(x)$.
+    answer_options: []
+    subquestions: []
+  - number: 10d
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State the range of $g^{-1}$.
+    answer_options: []
+    subquestions: []
+  - number: 10e
+    question_type: calculation
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: The function h is defined by $h(x) = x - 2$ for $x \geqslant 0$. Find the
+      value of $g^{-1}h(4)$.
+    answer_options: []
+    subquestions: []
+  - number: 10f
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Explain why the composite function $hg^{-1}$ cannot be formed.
+    answer_options: []
+    subquestions: []

@@ -1,0 +1,186 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $6\sin^2\theta - \sin\theta - 2 = 0 \Rightarrow (3\sin\theta
+    - 2)(2\sin\theta + 1) = 0 \Rightarrow \sin\theta = \tfrac23$ or $-\tfrac12$. So
+    $\theta = 41.8\degree,\ 138.2\degree,\ -30\degree,\ -150\degree$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At $A$ ($x=4$): $\dfrac{dy}{dx} = 4(3)^3 - 9(2) = 90$, so the
+    gradient of the normal is $-\tfrac{1}{90}$.'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = \tfrac12(2x-5)^4 - 6x^{\frac32} + C$; through $A(4,-\tfrac{11}{2})$
+    gives $C = 2$, so $y = \tfrac12(2x-5)^4 - 6x^{\frac32} + 2$.
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $ar^2 = 18$, $a(1+r+r^2) = 26 \Rightarrow 4r^2 - 9r - 9 = 0
+    \Rightarrow r = -\tfrac34$ (negative), $a = 32$. Tenth term $= 32\left(-\tfrac34\right)^9
+    = -2.40$.
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $S_\infty = \dfrac{a}{1-r} = \dfrac{32}{1+\tfrac34} = \dfrac{128}{7}$.
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Area $= \displaystyle\int_1^{16}\big[(x-16) - (5x^{\frac32}
+    - 20x)\big]\,dx = \int_1^{16}(21x - 16 - 5x^{\frac32})\,dx = \left[\tfrac{21}{2}x^2
+    - 16x - 2x^{\frac52}\right]_1^{16} = 384 - (-7.5) = 391.5$.
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $(2-px)^5 = 32 - 80px + 80p^2 x^2 + \cdots$
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\left(1 - \tfrac12 x\right)^4 = 1 - 2x + \tfrac32 x^2 + \cdots$
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Coefficient of $x^2$: $32\cdot\tfrac32 + (-80p)(-2) + 80p^2
+    = 80p^2 + 160p + 48 = 93 \Rightarrow 16p^2 + 32p - 9 = 0 \Rightarrow p = \tfrac14$
+    or $p = -\tfrac94$.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $k=2$, $p=11$: $x^2 - x(11x+3) + 1 = 0 \Rightarrow 10x^2
+    + 3x - 1 = 0 \Rightarrow x = \tfrac15$ or $-\tfrac12$. Points $\left(\tfrac15,
+    \tfrac{26}{5}\right)$ and $\left(-\tfrac12, -\tfrac52\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $p=4$: $(2-4k)x^2 - 3kx + 2 = 0$; no intersection $\Rightarrow$
+    discriminant $< 0$: $9k^2 + 32k - 16 < 0 \Rightarrow -4 < k < \tfrac49$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{dy}{dx} = 8x - \dfrac{18}{x^3}$; at $x=2$ this is $\tfrac{55}{4}$.
+    $\dfrac{dy}{dt} = \dfrac{dy}{dx}\cdot\dfrac{dx}{dt}$: $-5 = \tfrac{55}{4}\cdot\dfrac{dx}{dt}
+    \Rightarrow \dfrac{dx}{dt} = -\tfrac{4}{11}$ units/s.'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $8x - \dfrac{18}{x^3} = 0 \Rightarrow x^4 = \tfrac94 \Rightarrow
+    x = \pm\tfrac{\sqrt6}{2}$, $y = 4$. Since $\dfrac{d^2y}{dx^2} = 8 + \dfrac{54}{x^4}
+    = 32 > 0$, both $\left(\pm\tfrac{\sqrt6}{2}, 4\right)$ are minima.
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Centre $(3,-5)$, $r=\sqrt{61}$. Line $x=-2$ meets the circle
+    at $P(-2,1)$, $Q(-2,-11)$. The tangents meet at $T\left(-\tfrac{46}{5}, -5\right)$.
+    Triangle $TPQ$: base $PQ = 12$, height $= \tfrac{36}{5}$, area $= \tfrac12\cdot12\cdot\tfrac{36}{5}
+    = \tfrac{216}{5} = 43.2$.'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Sector $\tfrac12 r^2\alpha = 8\alpha \Rightarrow r^2 = 16$.
+    Triangle $\tfrac12 r^2\sin\alpha = 4 \Rightarrow \sin\alpha = \tfrac12 \Rightarrow
+    \alpha = \tfrac\pi6$. Segment $= 8\alpha - 4 = \tfrac{4\pi}{3} - 4$.
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $BC^2 = 2r^2(1-\cos\alpha) = \tfrac12 r^2 \Rightarrow \cos\alpha
+    = \tfrac34$, $\alpha = 0.7227$. $\tfrac12 r^2\sin\alpha = 4 \Rightarrow r^2 =
+    \tfrac{32}{\sqrt7}$. Segment $= \tfrac12 r^2\alpha - 4 = 0.371$.
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$g(x) = 3f(x+2) - 5$: translate by $\begin{pmatrix}-2\\0\end{pmatrix}$,
+    then stretch factor 3 parallel to the $y$-axis, then translate by $\begin{pmatrix}0\\-5\end{pmatrix}$.'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Reflect $y = g(x)$ in the line $y = x$ (the mirror line $y =
+    x$).
+  mark_scheme: []
+  graphics: []
+- number: 10c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = 3\sqrt{x+2} - 5 \Rightarrow g^{-1}(x) = \dfrac{(x+5)^2}{9}
+    - 2$ (for $x \geqslant -5$).
+  mark_scheme: []
+  graphics: []
+- number: 10d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Range of $g^{-1}$: $g^{-1}(x) \geqslant -2$ (the domain of
+    $g$).'
+  mark_scheme: []
+  graphics: []
+- number: 10e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $h(4) = 2$, so $g^{-1}h(4) = g^{-1}(2) = \dfrac{49}{9} - 2 =
+    \dfrac{31}{9}$.
+  mark_scheme: []
+  graphics: []
+- number: 10f
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $hg^{-1}$ needs range$(g^{-1}) \subseteq$ domain$(h)$. Range$(g^{-1})
+    = [-2, \infty)$ contains negative values, but domain$(h) = [0, \infty)$, so the
+    composition cannot be formed.
+  mark_scheme: []
+  graphics: []

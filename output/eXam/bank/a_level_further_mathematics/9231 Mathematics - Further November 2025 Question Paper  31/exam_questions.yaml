@@ -1,0 +1,213 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Two uniform smooth spheres $A$ and $B$ of equal radii have masses $4m$ and
+    $m$ respectively. Sphere $B$ is at rest on a smooth horizontal surface. Sphere
+    $A$ is moving on the surface with speed $u$ and collides directly with sphere
+    $B$. After the collision, the momentum of $A$ is three times the momentum of $B$.
+    Find the value of the coefficient of restitution $e$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: A particle $P$ of mass $m$ is moving in a horizontal circle with angular speed
+    $\omega_1$ on the smooth inner surface of a hemispherical shell of radius $r$.
+    The angle between the upward vertical and the normal reaction of the surface on
+    $P$ is $\theta_1$, where $\tan\theta_1 = \tfrac34$. When the angular speed is
+    increased to $\omega_2$, the angle between the upward vertical and the normal
+    reaction of the surface on $P$ becomes $\theta_2$, where $\tan\theta_2 = \tfrac43$.
+    Find the ratio $\dfrac{\omega_1}{\omega_2}$.
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ is moving in a straight horizontal line. At time $t$ s, the
+    displacement of $P$ from a fixed point $O$ on the line is $x$ m and the velocity
+    of $P$ is $v\text{ m s}^{-1}$. The acceleration of $P$ is $\tfrac12(v^2 + 4)\text{
+    m s}^{-2}$ in the direction $PO$. Initially $P$ is at $O$ and is moving with velocity
+    $2\text{ m s}^{-1}$.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find an expression for $x$ in terms of $t$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the time when $P$ next goes through $O$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: One end of a light elastic string of natural length $a$ and modulus of elasticity
+    $5mg$ is attached to a fixed point $O$. Two particles, $P$ and $Q$, of masses
+    $m$ and $4m$ respectively are attached to the other end of the string and they
+    hang vertically in equilibrium. Particle $Q$ is then detached from the string,
+    hence releasing particle $P$ from rest. Find, in terms of $a$, the length of the
+    string when the speed of particle $P$ is first equal to $\sqrt{\tfrac75 ag}$.
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A uniform lamina $OABCD$ consists of a rectangle $OACD$ and a triangle $ABC$.
+    The length of $OA$ is $ka$, the length of $OD$ is $2a$, the height of triangle
+    $ABC$ is $h$ and angle $CAB$ is $45\degree$ (see diagram). Relative to axes through
+    $O$, parallel and perpendicular to $OA$ as shown, the centre of mass of triangle
+    $ABC$ is $(\bar x, \bar y)$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $\bar x$ is $\tfrac13(3ka + h)$, and find an expression for $\bar
+      y$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The lamina $OABCD$ is placed vertically on its edge $OA$ on a horizontal
+      plane. Find, in terms of $a$ and $k$, the set of values of $h$ for which the
+      lamina is in equilibrium.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: It is now given that $k = \tfrac{\sqrt3}{3}$ and that the lamina is on the
+      point of toppling. Find, in terms of $a$, the coordinates of the centre of mass
+      of the triangle $ABC$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ of mass $m$ is attached to one end of a light inextensible
+    string of length $a$. The other end of the string is attached to a fixed point
+    $O$. Initially $P$ is held with the string taut and making an angle of $60\degree$
+    with the upward vertical through $O$. The particle $P$ is projected perpendicular
+    to the string in a downwards direction with speed $\sqrt{17ag}$. It then starts
+    to move along a circular path in a vertical plane with centre $O$ (see diagram).
+    At the lowest point of its path, vertically below $O$, the particle $P$ collides
+    with a stationary particle $Q$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find, in terms of $a$ and $g$, an expression for the speed of $P$ immediately
+      before the collision with $Q$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: As a result of the collision, $P$ rebounds and moves back along a circular
+      path with centre $O$. The string becomes slack when $P$ reaches the point on
+      the circle vertically above $O$. Find, in terms of $a$ and $g$, an expression
+      for the speed of $P$ immediately after the collision with $Q$.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: The mass of particle $Q$ is $km$ and the collision between $P$ and $Q$ is
+      perfectly elastic. Find the value of $k$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ is projected from a point $O$ on a horizontal plane and moves
+    freely under gravity. The initial velocity of $P$ is $25\text{ m s}^{-1}$ at an
+    angle $\theta$ above the horizontal, where $\tan\theta = \tfrac43$. At point $A$,
+    the direction of motion of $P$ makes an angle of $45\degree$ with the downward
+    vertical through $A$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: By differentiating the equation of the trajectory or otherwise, find the
+      coordinates of $A$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: At point $A$, the particle strikes a fixed smooth barrier, rebounds, and
+      lands on the horizontal plane. The barrier is inclined at an angle of $45\degree$
+      to the horizontal. Find the speed of $P$ immediately before it collides with
+      the barrier.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Given that the coefficient of restitution between the barrier and the particle
+      is $\tfrac19$, find the horizontal distance travelled by $P$ after it strikes
+      the barrier.
+    answer_options: []
+    subquestions: []

@@ -1,0 +1,16 @@
+topic_number: '31'
+topic_title: Halogen compounds
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 8c
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 8c
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 8a
+generated_at: '2026-05-29T17:23:23Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T17:23:24Z'
+glossed_at: '2026-05-29T17:23:24Z'

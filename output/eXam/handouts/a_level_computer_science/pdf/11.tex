@@ -1,0 +1,282 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Programming}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Programming basics}
+
+\subsection*{From design to code}
+
+You should be able to turn a design — a \textbf{flowchart} 流程图 or \textbf{structured English} 结构化英语 — into \textbf{pseudocode} 伪代码, and then into a real language:
+
+\begin{enumerate}
+\item find the \textbf{variables} 变量 and their \textbf{data types} 数据类型.
+
+\item turn input/output boxes into \texttt{INPUT} / \texttt{OUTPUT}.
+
+\item turn decision diamonds into \texttt{IF...ELSE...ENDIF} (or \texttt{CASE}).
+
+\item turn loop arrows into \texttt{WHILE}, \texttt{REPEAT...UNTIL}, or \texttt{FOR}.
+
+\item turn process boxes into assignments or calculations.
+
+\item check by tracing a small input.
+
+\end{enumerate}
+
+\subsection*{Constants and variables}
+
+A \textbf{constant} 常量 holds a value that \textbf{never changes}; a variable holds one that may change. Declare them with a type:
+
+\begin{Verbatim}
+CONSTANT Pi ← 3.14159
+DECLARE Radius : REAL
+DECLARE Area : REAL
+
+Radius ← 5
+Area ← Pi * Radius * Radius
+\end{Verbatim}
+
+Use constants for fixed values that recur (\texttt{Pi}, \texttt{MaxScore}); they make code clearer and easy to change in one place.
+
+\subsection*{Assignment and expressions}
+
+Use \texttt{←} for \textbf{assignment} 赋值:
+
+\begin{Verbatim}
+Total ← Total + 1
+Average ← Sum / Count
+\end{Verbatim}
+
+Expressions use \textbf{operators} 运算符:
+
+\begin{itemize}
+\item arithmetic \texttt{+ - * /}, plus \texttt{DIV} (integer division) and \texttt{MOD} (remainder): \texttt{7 DIV 2 = 3}; \texttt{7 MOD 2 = 1}.
+
+\item comparisons \texttt{=}, \texttt{\textless{}\textgreater{}}, \texttt{\textless{}}, \texttt{\textgreater{}}, \texttt{\textless{}=}, \texttt{\textgreater{}=}.
+
+\item logic \texttt{AND}, \texttt{OR}, \texttt{NOT}.
+
+\end{itemize}
+
+\textbf{Precedence} 优先级 (highest to lowest): \texttt{NOT} → \texttt{* / DIV MOD} → \texttt{+ -} → comparisons → \texttt{AND} → \texttt{OR}. Use brackets when unsure.
+
+\subsection*{Input and output}
+
+\begin{Verbatim}
+OUTPUT "Enter your name:"
+INPUT Name
+OUTPUT "Hello, ", Name
+\end{Verbatim}
+
+\subsection*{Built-in functions and library routines}
+
+Many tasks have ready-made \textbf{library routines} 库例程, so you need not write them:
+
+\begin{itemize}
+\item string: \texttt{LENGTH(s)}, \texttt{LEFT(s, n)}, \texttt{RIGHT(s, n)}, \texttt{MID(s, start, len)}, \texttt{UCASE(s)}, \texttt{LCASE(s)}.
+
+\item numeric: \texttt{INT(x)}, \texttt{ROUND(x)}, \texttt{ABS(x)}, \texttt{MOD(a, b)}, \texttt{RANDOM()}.
+
+\item conversion: \texttt{STR(x)} (number → string), \texttt{VAL(s)} (string → number).
+
+\end{itemize}
+
+Use the exact names from the question paper's reference list.
+
+\section*{Selection}
+
+\textbf{Selection} 选择 chooses which steps run.
+
+\begin{Verbatim}
+IF age >= 18 THEN
+    OUTPUT "Adult"
+ELSE
+    OUTPUT "Minor"
+ENDIF
+\end{Verbatim}
+
+For more than two cases you can use a \textbf{nested} 嵌套 IF, but deep nesting is hard to read — a \texttt{CASE} is cleaner when testing one value against several options:
+
+\begin{Verbatim}
+CASE OF Grade
+    "A": OUTPUT "Excellent"
+    "B": OUTPUT "Good"
+    OTHERWISE: OUTPUT "Try again"
+ENDCASE
+\end{Verbatim}
+
+Cambridge \texttt{CASE} allows single values, value lists (\texttt{1, 2, 3:}), and ranges (\texttt{1 TO 5:}).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/11-p288-case-flowchart.pdf}}\\[0.3em]
+\emph{A CASE statement runs the branch that matches the value}
+\end{minipage}\par\medskip
+
+\section*{Iteration}
+
+\textbf{Iteration} 迭代 repeats a block. Three loops differ in how many times the body runs.
+
+\subsection*{Count-controlled (FOR) loop}
+
+A \textbf{count-controlled loop} 计数循环 — use it when you know how many times to repeat:
+
+\begin{Verbatim}
+FOR i ← 1 TO 10
+    OUTPUT i
+NEXT i
+\end{Verbatim}
+
+A \texttt{STEP} can change the count (e.g. \texttt{FOR i ← 10 TO 1 STEP -1}). Best for a fixed number of repeats or processing each element of an \textbf{array} 数组.
+
+\subsection*{Pre-condition (WHILE) loop}
+
+A \textbf{pre-condition loop} 前测循环 tests the condition \textbf{before} each pass, so it may run \textbf{zero} times:
+
+\begin{Verbatim}
+WHILE total < 100 DO
+    INPUT n
+    total ← total + n
+ENDWHILE
+\end{Verbatim}
+
+\subsection*{Post-condition (REPEAT...UNTIL) loop}
+
+A \textbf{post-condition loop} 后测循环 tests the condition \textbf{after} each pass, so it always runs \textbf{at least once}:
+
+\begin{Verbatim}
+REPEAT
+    INPUT password
+UNTIL password = correctPassword
+\end{Verbatim}
+
+\subsection*{Choosing the right loop}
+
+\begin{itemize}
+\item count known up front → \textbf{FOR}.
+
+\item may need zero passes → \textbf{WHILE}.
+
+\item always at least one pass → \textbf{REPEAT...UNTIL}.
+
+\end{itemize}
+
+Justify your choice by whether the count is known and whether the body must run at least once. A typical question gives a scenario ("ask for a password until correct, but always ask at least once") and asks which loop fits.
+
+\section*{Procedures and functions}
+
+\textbf{Structured programming} 结构化编程 builds a program from small named \textbf{subroutines} 子程序, each with one job.
+
+\subsection*{Procedure}
+
+A \textbf{procedure} 过程 is a named block that \textbf{does an action}; it may take \textbf{parameters} 参数 but does \textbf{not return a value}.
+
+\begin{Verbatim}
+PROCEDURE Greet(name : STRING)
+    OUTPUT "Hello, ", name
+ENDPROCEDURE
+
+CALL Greet("Ada")
+\end{Verbatim}
+
+\subsection*{Function}
+
+A \textbf{function} 函数 is like a procedure but it \textbf{returns a value} that becomes part of an expression.
+
+\begin{Verbatim}
+FUNCTION Square(x : INTEGER) RETURNS INTEGER
+    RETURN x * x
+ENDFUNCTION
+
+result ← Square(5) + 1     // result = 26
+\end{Verbatim}
+
+Use a \textbf{procedure} when the subroutine performs an action; use a \textbf{function} when it computes a value for the caller.
+
+\subsection*{Parameters}
+
+A \textbf{parameter} is a variable a subroutine declares to receive input; the values the caller supplies are \textbf{arguments} 实参. Two ways to pass them:
+
+\begin{itemize}
+\item \textbf{pass by value} 传值 — the routine gets a \textbf{copy}; changes inside it do not affect the caller. Use for inputs it only reads.
+
+\item \textbf{pass by reference} 传引用 — the routine gets a \textbf{reference} to the caller's variable; changes \textbf{do} affect the caller. Use when it must update a parameter.
+
+\end{itemize}
+
+\begin{Verbatim}
+PROCEDURE Swap(BYREF a : INTEGER, BYREF b : INTEGER)
+    DECLARE temp : INTEGER
+    temp ← a
+    a ← b
+    b ← temp
+ENDPROCEDURE
+\end{Verbatim}
+
+\subsection*{Local vs global variables}
+
+A \textbf{local variable} 局部变量 is declared inside a subroutine and exists only while it runs. A \textbf{global variable} 全局变量 is declared outside and is visible everywhere. Prefer locals and parameters — heavy use of globals makes code hard to follow and test. (The region where a name is visible is its \textbf{scope} 作用域.)
+
+\subsection*{When to use a subroutine}
+
+Use one when the same logic appears in \textbf{more than one place}, when a block has a \textbf{clear named purpose}, when the program is \textbf{complex} (use \textbf{decomposition} 分解), or when you want to \textbf{test a piece in isolation}. Don't make them so tiny that the call costs more than the content.
+
+\subsection*{Terminology}
+
+\begin{itemize}
+\item \textbf{definition} — the \texttt{PROCEDURE ... ENDPROCEDURE} (or function) block.
+
+\item \textbf{call} — where it is invoked. \textbf{argument} — a value passed in. \textbf{parameter} — the variable that receives it.
+
+\item \textbf{return value} — what a function passes back.
+
+\item \textbf{signature} 签名 — name + parameters + return type.
+
+\end{itemize}
+
+\section*{Writing efficient pseudocode}
+
+\begin{itemize}
+\item \textbf{move invariants out of loops} — if a value (an \textbf{invariant} 不变量) does not change with the loop counter, compute it once before the loop.
+
+\item \textbf{exit a loop early} when the answer is found (stop a \textbf{linear search} 线性查找 as soon as the target appears).
+
+\item \textbf{avoid redundant work} — store a result and reuse it instead of recomputing.
+
+\item \textbf{choose the right data structure} — an array beats many separate variables when the items belong together.
+
+\item \textbf{replace deep nested IFs with CASE} when testing one value against many.
+
+\item \textbf{comment the intent}, not the mechanics (\texttt{// validate the postcode}, not \texttt{// loop 6 times}).
+
+\item \textbf{use meaningful names} (\texttt{numberOfPupils}, not \texttt{n}) and \textbf{initialise variables} before use.
+
+\end{itemize}
+
+
+\end{document}

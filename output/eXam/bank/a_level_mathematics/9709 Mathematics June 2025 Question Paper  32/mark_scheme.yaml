@@ -1,0 +1,161 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Let $u = e^x$: $3u^2 - 12u - 2 = 0 \Rightarrow u = \tfrac{12+\sqrt{168}}{6}
+    = 4.160$ (positive root). $x = \ln 4.160 = 1.426$ (3 d.p.).'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $(1-2x)^{-3/2} = 1 + 3x + \tfrac{15}{2}x^2 + \cdots$, so $(6-x)(1-2x)^{-3/2}
+    = 6 + 17x + 42x^2 + \cdots$
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Valid for $|x| < \tfrac{1}{2}$.
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Shade the intersection of the disc $|z - 3i| \leqslant 2$ (centre
+    $(0,3)$, radius 2) with the wedge from $(1,2)$ where $\arg(z-1-2i)$ lies between
+    $\tfrac14\pi$ and $\tfrac34\pi$ (region between the two half-lines of gradient
+    $\pm 1$ from $(1,2)$, opening upward).
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using $\cot 2x = \dfrac{\cot^2 x - 1}{2\cot x}$: $\cot^2 x
+    - 3\cot x + 2 = 0 \Rightarrow \cot x = 1$ or $2 \Rightarrow \tan x = 1$ or $\tfrac12$.
+    So $x = 45\degree$ and $x = 26.6\degree$.'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$(x+iy)^2 = -1 - 4\sqrt5\,i \Rightarrow x^2 - y^2 = -1$ and
+    $2xy = -4\sqrt5$. Eliminating $y$: $x^4 + x^2 - 20 = 0 \Rightarrow x^2 = 4$. The
+    square roots are $2 - \sqrt5\,i$ and $-2 + \sqrt5\,i$.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = |x-2|$ is a V with vertex $(2,0)$; $y = 2\sin\tfrac12 x$
+    rises from $O$ to $(\pi,2)$. The graphs meet exactly once in $0 < x < \pi$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Let $f(x) = (2-x) - 2\sin\tfrac12 x$. $f(1) = +0.041 > 0$ and
+    $f(1.5) = -0.863 < 0$; the sign change shows the root lies between 1 and 1.5.
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $x_1 = 1.0148$, $x_2 = 1.0282$, $x_3 = 1.0164$, $x_4 = 1.0268,
+    \ldots \Rightarrow$ root $= 1.02$ (2 d.p.).
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $R = \sqrt{7^2 + 24^2} = 25$; $\tan\alpha = \tfrac{7}{24} \Rightarrow
+    \alpha = 0.2838$. So $25\cos(\theta - 0.2838)$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $25\cos(\tfrac13 x - 0.2838) = 24.5 \Rightarrow \tfrac13 x -
+    0.2838 = \pm 0.1997$. So $x = 0.252$ and $x = 1.451$.
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Separating variables: $\tfrac14\ln(4x+3) = \tfrac12\ln(\sin
+    2\theta) + C$. Using $x = 0$ at $\theta = \tfrac{\pi}{12}$ gives $4x + 3 = 12\sin^2
+    2\theta$, i.e. $x = 3\sin^2 2\theta - \tfrac34 = \tfrac34 - \tfrac32\cos 4\theta$.'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\overrightarrow{AB} = \begin{pmatrix}-3\\5\\1\end{pmatrix}$,
+    so $\mathbf{r} = \begin{pmatrix}1\\-4\\2\end{pmatrix} + t\begin{pmatrix}-3\\5\\1\end{pmatrix}$.
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\overrightarrow{AB} = (-3,5,1)$, $\overrightarrow{AC} = (1,7,3)$;
+    $\overrightarrow{AB}\cdot\overrightarrow{AC} = 35$, $|\overrightarrow{AB}| = \sqrt{35}$,
+    $|\overrightarrow{AC}| = \sqrt{59}$. $\cos BAC = \dfrac{35}{\sqrt{35}\,\sqrt{59}}
+    = \dfrac{\sqrt{2065}}{59}$.
+  mark_scheme: []
+  graphics: []
+- number: 9c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\sin BAC = \sqrt{1 - \tfrac{35}{59}} = \sqrt{\tfrac{24}{59}}$.
+    Area $= \tfrac12\sqrt{35}\,\sqrt{59}\,\sqrt{\tfrac{24}{59}} = \tfrac12\sqrt{35\cdot
+    24} = \sqrt{210}$.
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Quotient $\tfrac14$, remainder $-\tfrac14$ (i.e. $x^2 = \tfrac14(1
+    + 4x^2) - \tfrac14$).
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Integrating by parts and using part (a): $\displaystyle\int_0^{0.5}
+    x\tan^{-1}(2x)\,dx = \tfrac{\pi}{16} - \tfrac18$.'
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = \tfrac52\sin 2x + \tfrac54\sin 4x \Rightarrow \tfrac{dy}{dx}
+    = 5\cos 2x + 5\cos 4x = 0 \Rightarrow 2\cos^2 2x + \cos 2x - 1 = 0 \Rightarrow
+    \cos 2x = \tfrac12$. So $x = \tfrac{\pi}{6}$.
+  mark_scheme: []
+  graphics: []
+- number: 11b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $u = \cos x$: area $= \displaystyle\int_0^{\pi/4} 10\sin
+    x\cos^3 x\,dx = \left[-\tfrac52\cos^4 x\right]_0^{\pi/4} = \tfrac{15}{8}$.'
+  mark_scheme: []
+  graphics: []

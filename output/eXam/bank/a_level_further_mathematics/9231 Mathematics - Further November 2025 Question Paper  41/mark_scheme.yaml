@@ -1,0 +1,154 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\bar x = 84.4$; $s^2 = \tfrac19\left(71314 - \tfrac{844^2}{10}\right)
+    = \tfrac{134}{15} = 8.933$. Using the $t$-value $2.262$ (9 d.f.): $84.4 \pm 2.262\sqrt{\tfrac{8.933}{10}}$,
+    giving the 95\% CI $[82.3, 86.5]$. Assumption: the distribution of estimates is
+    normal (and the estimates are a random, independent sample).'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The population is unlikely to be normal as $\theta$ is close
+    to a right angle / the data are skewed; or the estimates may not be independent
+    (e.g. due to collusion); or there is no indication the sample is random.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $p = \dfrac{\mathrm{e}^{-2.8}(2.8)^3}{3!}\times100 = 22.248$
+    (AWRT $22.25$). $q = \dfrac{(29 - 22.25)^2}{22.25} = 2.05$.
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: Po(2.8) fits the data; $H_1$: Po(2.8) does not fit the
+    data. $\chi^2 = 2.739 + 0.241 + 2.152 + 2.049 + 0.425 + 3.753 + 0.037 = 11.4$.
+    With 6 degrees of freedom, the critical value is $\chi^2_{0.95}(6) = 12.59$. Since
+    $11.4 < 12.59$, do not reject $H_0$: there is insufficient evidence to suggest
+    that Po(2.8) is not a good fit (i.e. that the manager''s claim is false).'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Boys: $\sum(x - \bar x)^2 = 9\times0.36 = 3.24$. Girls ($\sum
+    x = 16.6$, $\sum x^2 = 55.8$): $\sum(x-\bar x)^2 = 55.8 - \tfrac{16.6^2}{5} =
+    0.688$. Pooled variance $= \dfrac{3.24 + 0.688}{10 + 5 - 2} = 0.302$, so $s =
+    0.550$.'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Normal approximation: mean $= \tfrac14\cdot28\cdot29 = 203$,
+    variance $= \tfrac{1}{24}\cdot28\cdot29\cdot57 = 1928.5$. Two-tailed 1\% test,
+    critical $z = -2.576$. No rejection requires $\dfrac{T + 0.5 - 203}{\sqrt{1928.5}}
+    > -2.576$, so $T > 89.4$. The least possible value is $T = 90$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\displaystyle\int_0^4 \tfrac{1}{16}\sqrt x\,dx + \int_4^9
+    \tfrac{1}{k\sqrt x}\,dx = 1$: $\tfrac{1}{16}\left[\tfrac23 x^{3/2}\right]_0^4
+    + \tfrac1k\left[2\sqrt x\right]_4^9 = \tfrac13 + \tfrac2k = 1$, so $\tfrac2k =
+    \tfrac23$, giving $k = 3$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Since $\int_0^4 = \tfrac13 < \tfrac12$, the median $m$ satisfies
+    $4 < m < 9$: $\tfrac13 + \tfrac13\int_4^m x^{-1/2}\,dx = \tfrac12$, i.e. $\tfrac13
+    + \tfrac23(\sqrt m - 2) = \tfrac12$. So $\sqrt m = \tfrac94$, $m = \tfrac{81}{16}
+    = 5.0625$.'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CDF: $\mathrm{F}(x) = \tfrac{1}{24}x^{3/2}$ for $0\leqslant
+    x<4$, $\tfrac23\sqrt x - 1$ for $4\leqslant x\leqslant9$. With $Y = \sqrt X$,
+    $\mathrm{G}(y) = \mathrm{F}(y^2) = \tfrac{1}{24}y^3$ for $0\leqslant y<2$, $\tfrac23
+    y - 1$ for $2\leqslant y\leqslant3$. Differentiating: $\mathrm{g}(y) = \tfrac18
+    y^2$ for $0\leqslant y<2$, $\tfrac23$ for $2\leqslant y\leqslant3$, $0$ otherwise.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: $\mu_B = \mu_A$; $H_1$: $\mu_B > \mu_A$ (population
+    means, before vs after). Differences (before $-$ after): $5, 0, -1, 6, 1, -2,
+    8, 7, 15$; $\bar d = \tfrac{39}{9}$, $s_d^2 = \tfrac18\left(405 - \tfrac{39^2}{9}\right)
+    = 29.5$. $t = \dfrac{39/9}{\sqrt{29.5/9}} = 2.393$. With 8 d.f., critical $t =
+    1.860$. Since $2.393 > 1.860$, reject $H_0$: there is sufficient evidence that
+    the new training programme reduces times.'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The population of differences may not be normally distributed
+    / may not be symmetrical (since the reduction depends on the athlete's speed).
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: A Wilcoxon matched-pairs signed-rank test (or a paired-sample
+    sign test).
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{G}_X(t) = a + 2at + bt^2$. $\mathrm{G}_X'(t) = 2a +
+    2bt$, so $\mathrm{E}(X) = \mathrm{G}_X'(1) = 2a + 2b$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{G}_X''(t) = 2b$, so $\mathrm{G}_X''(1) = 2b$. $\mathrm{Var}(X)
+    = \mathrm{G}_X''(1) + \mathrm{G}_X'(1) - [\mathrm{G}_X'(1)]^2 = 2b + (2a+2b) -
+    (2a+2b)^2 = 2b + (2a+2b)(1 - (2a+2b)) = 2b + 2(a+b)(1 - 2a - 2b)$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{G}_Y(t) = [\mathrm{G}_X(t)]^{10} = (a + 2at + bt^2)^{10}$.
+    $\mathrm{G}_Y'(t) = 10(a + 2at + bt^2)^9(2a + 2bt)$, so $\mathrm{E}(Y) = \mathrm{G}_Y'(1)
+    = 10(3a+b)^9(2a+2b)$. Since the total probability is $3a + b = 1$, $\mathrm{E}(Y)
+    = 10(2a + 2b) = 10\mathrm{E}(X)$.
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'When $b = 0$, $3a = 1$ so $a = \tfrac13$: $X$ takes value 0
+    with probability $\tfrac13$ and value 1 with probability $\tfrac23$ (a Bernoulli
+    trial). Hence $Y$ is $\mathrm{B}\!\left(10, \tfrac23\right)$.'
+  mark_scheme: []
+  graphics: []

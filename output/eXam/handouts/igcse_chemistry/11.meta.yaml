@@ -1,0 +1,236 @@
+topic_number: '11'
+topic_title: Organic chemistry
+subject_key: igcse_chemistry
+covered_question_ids:
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '14'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '17'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '33'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '34'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '35'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '36'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '37'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '32'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '33'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '34'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '35'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '36'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '37'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '33'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '34'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '35'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '36'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '37'
+- paper: 0620 Chemistry June 2025 Question Paper  41
+  qnum: 1c
+- paper: 0620 Chemistry June 2025 Question Paper  41
+  qnum: 1d
+- paper: 0620 Chemistry June 2025 Question Paper  41
+  qnum: 1g
+- paper: 0620 Chemistry June 2025 Question Paper  41
+  qnum: 1j
+- paper: 0620 Chemistry June 2025 Question Paper  41
+  qnum: 5ci
+- paper: 0620 Chemistry June 2025 Question Paper  41
+  qnum: 5cii
+- paper: 0620 Chemistry June 2025 Question Paper  41
+  qnum: 5di
+- paper: 0620 Chemistry June 2025 Question Paper  41
+  qnum: 5dii
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 6a
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 6b
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 6c
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 6ei
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 6eii
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 6eiii
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 6eiv
+- paper: 0620 Chemistry June 2025 Question Paper  43
+  qnum: 1b
+- paper: 0620 Chemistry June 2025 Question Paper  43
+  qnum: 1e
+- paper: 0620 Chemistry June 2025 Question Paper  43
+  qnum: 1g
+- paper: 0620 Chemistry June 2025 Question Paper  43
+  qnum: 1h
+- paper: 0620 Chemistry June 2025 Question Paper  43
+  qnum: 5ci
+- paper: 0620 Chemistry June 2025 Question Paper  43
+  qnum: 5cii
+- paper: 0620 Chemistry June 2025 Question Paper  43
+  qnum: 5di
+- paper: 0620 Chemistry June 2025 Question Paper  43
+  qnum: 5dii
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '35'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '36'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '37'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '38'
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6a
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6b
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6c
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6d
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6e
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6f
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6gi
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6gii
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6giii
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6hi
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6hii
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 6hiii
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '32'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '33'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '34'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '35'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '36'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '37'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '38'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '32'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '34'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '35'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '36'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '37'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '38'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '17'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '31'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '35'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '36'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '37'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '38'
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5ai
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5aii
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5bi
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5bii
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5biii
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5ci
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5cii
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5di
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5dii
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5ei
+- paper: 0620 Chemistry November 2025 Question Paper  41
+  qnum: 5eii
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 5a
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 5bi
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 5bii
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 5c
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 5di
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 5dii
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 5diii
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 6a
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 6b
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 6c
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 6di
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 6dii
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 6e
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 6f
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6a
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6b
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6ci
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6cii
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6ciii
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6di
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6dii
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6diii
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6div
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6ei
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6eii
+- paper: 0620 Chemistry November 2025 Question Paper  43
+  qnum: 6eiii
+generated_at: '2026-05-29T17:30:34Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T17:30:34Z'
+glossed_at: '2026-05-29T17:41:35Z'

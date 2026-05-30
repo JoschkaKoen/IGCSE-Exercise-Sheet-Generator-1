@@ -1,0 +1,42 @@
+topic_number: '11'
+topic_title: Immunity
+subject_key: a_level_biology
+covered_question_ids:
+- paper: 9700 Biology November 2025 Question Paper  11
+  qnum: '39'
+- paper: 9700 Biology November 2025 Question Paper  11
+  qnum: '40'
+- paper: 9700 Biology November 2025 Question Paper  12
+  qnum: '39'
+- paper: 9700 Biology November 2025 Question Paper  12
+  qnum: '40'
+- paper: 9700 Biology November 2025 Question Paper  13
+  qnum: '39'
+- paper: 9700 Biology November 2025 Question Paper  13
+  qnum: '40'
+- paper: 9700 Biology November 2025 Question Paper  14
+  qnum: '38'
+- paper: 9700 Biology November 2025 Question Paper  14
+  qnum: '39'
+- paper: 9700 Biology November 2025 Question Paper  14
+  qnum: '40'
+- paper: 9700 Biology November 2025 Question Paper  21
+  qnum: 4ciii
+- paper: 9700 Biology November 2025 Question Paper  22
+  qnum: 2ci
+- paper: 9700 Biology November 2025 Question Paper  22
+  qnum: 2cii
+- paper: 9700 Biology November 2025 Question Paper  23
+  qnum: 6di
+- paper: 9700 Biology November 2025 Question Paper  23
+  qnum: 6dii
+- paper: 9700 Biology November 2025 Question Paper  24
+  qnum: 1bii
+- paper: 9700 Biology November 2025 Question Paper  24
+  qnum: 2di
+generated_at: '2026-05-29T16:11:49Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:11:49Z'
+glossed_at: '2026-05-29T16:11:49Z'

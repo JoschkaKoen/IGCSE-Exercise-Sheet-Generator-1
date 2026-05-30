@@ -1,0 +1,275 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The matrix $\mathbf{M}$ represents the sequence of two transformations in
+    the $x$-$y$ plane given by a stretch parallel to the $x$-axis, scale factor 14,
+    followed by a rotation anticlockwise about the origin through angle $\tfrac13\pi$.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Show that $2\mathbf{M} = \begin{pmatrix} 14 & -\sqrt3 \\ 14\sqrt3 & 1 \end{pmatrix}$.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the equations of the invariant lines, through the origin, of the transformation
+      in the $x$-$y$ plane represented by $\mathbf{M}$.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: The unit square $S$ in the $x$-$y$ plane is transformed by $\mathbf{M}$
+      onto the rectangle $P$. Find the matrix which transforms $P$ onto $S$.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: Prove by mathematical induction that $2025^n + 47^n - 2$ is divisible by 46
+    for all positive integers $n$.
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The quartic equation $x^4 + 7x^2 + 3x + 22 = 0$ has roots $\alpha$, $\beta$,
+    $\gamma$, $\delta$.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the value of $\alpha^2 + \beta^2 + \gamma^2 + \delta^2$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the value of $\alpha^4 + \beta^4 + \gamma^4 + \delta^4$.
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Use standard results from the list of formulae (MF19) to find the value
+      of $\displaystyle\sum_{r=1}^{10}\left((\alpha^2+r)^2 + (\beta^2+r)^2 + (\gamma^2+r)^2
+      + (\delta^2+r)^2\right)$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Let $w_r = r(r+1)(r+2)\ldots(r+9)$.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Show that $w_{r+1} - w_r = 10(r+1)(r+2)\ldots(r+9)$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Given that $u_r = (r+1)(r+2)\ldots(r+9)$, find $\displaystyle\sum_{r=1}^n
+      u_r$ in terms of $n$.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Given that $v_r = x^{w_{r+1}} - x^{w_r}$, find the set of values of $x$
+      for which the infinite series $v_1 + v_2 + v_3 + \ldots$ is convergent and give
+      the sum to infinity when this exists.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The plane $\Pi$ has equation $\mathbf{r} = 2\mathbf{i} + 3\mathbf{j} - 2\mathbf{k}
+    + \lambda(\mathbf{i} - 2\mathbf{j} - \mathbf{k}) + \mu(3\mathbf{i} + 2\mathbf{j}
+    - 2\mathbf{k})$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find a Cartesian equation of $\Pi$, giving your answer in the form $ax +
+      by + cz = d$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The point $P$ has position vector $4\mathbf{i} + 2\mathbf{j} + 9\mathbf{k}$.
+      Find the position vector of the foot of the perpendicular from $P$ to $\Pi$.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: The line $l$ is parallel to the vector $3\mathbf{i} + 5\mathbf{j} - \mathbf{k}$.
+      Find the acute angle between $l$ and $\Pi$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has equation $y = \dfrac{x^2 + a}{x + a}$, where $a$ is a positive
+    constant.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the equations of the asymptotes of $C$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find, in terms of $a$, the $x$-coordinates of the stationary points on $C$.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Sketch $C$, stating the coordinates of any intersections with the axes.
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Sketch the curve with equation $y = \left|\dfrac{x^2 + a}{x + a}\right|$.
+    answer_options: []
+    subquestions: []
+  - number: 6e
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the set of values of $a$ for which $\left|\dfrac{x^2 + a}{x + a}\right|
+      = a$ has two real solutions.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has polar equation $r^2 = \mathrm{e}^{\sin\theta}\cos\theta$,
+    for $-\tfrac12\pi \leqslant \theta \leqslant \tfrac12\pi$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the polar coordinates of the point on $C$ that is furthest from the
+      pole, giving your answers correct to 3 decimal places.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the polar coordinates of the point on $C$ that is furthest from the
+      half-line $\theta = \tfrac12\pi$, giving your answers correct to 3 decimal places.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Sketch $C$.
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: calculation
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the area of the region bounded by $C$, giving your answer in exact
+      form.
+    answer_options: []
+    subquestions: []

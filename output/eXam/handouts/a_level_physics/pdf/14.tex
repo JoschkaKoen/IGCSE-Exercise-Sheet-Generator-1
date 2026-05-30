@@ -1,0 +1,170 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Temperature}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Thermal equilibrium}
+
+\textbf{Heat} 热量 (thermal energy) flows from a \textbf{higher temperature} to a \textbf{lower temperature}. When two bodies touch, energy moves until their temperatures are equal — they reach \textbf{thermal equilibrium} 热平衡. At equilibrium there is no net flow of energy.
+
+Two regions at the \textbf{same temperature} 温度 are in thermal equilibrium with each other — no net energy flows, even though particles still exchange energy.
+
+Temperature decides the \textbf{direction} of heat flow. It is not a measure of how much \textbf{thermal energy} 热能 a body holds. A small cup of boiling water (100 °C) holds far less energy than a swimming pool at 25 °C, but a piece of metal put in the cup gains energy while one put in the pool loses it.
+
+\section*{Measuring temperature}
+
+Any physical property that \textbf{changes in a repeatable way with temperature} can make a \textbf{thermometer} 温度计. Examples:
+
+\begin{itemize}
+\item \textbf{density of a liquid} — a liquid-in-glass thermometer (mercury or alcohol). As the temperature rises, the liquid expands and rises up a narrow \textbf{capillary} 毛细管.
+
+\item \textbf{volume of a gas at constant pressure} — a gas thermometer. The gas volume rises in step with the absolute temperature.
+
+\item \textbf{resistance of a metal} — a resistance thermometer. A metal's \textbf{resistance} 电阻 rises nearly in step with temperature over a wide range.
+
+\item \textbf{e.m.f. of a thermocouple} — a \textbf{thermocouple} 热电偶 is two different metals joined at two points; the \textbf{electromotive force} 电动势 it makes depends on the temperature difference between the joins.
+
+\end{itemize}
+
+Different thermometers can read slightly differently if the property does not change in a straight line; they agree only at the \textbf{calibration} 校准 points.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/14-p261-gas-thermometer.pdf}}\\[0.3em]
+\emph{A constant-volume gas thermometer — the gas pressure is found from the height difference h}
+\end{minipage}\par\medskip
+
+\section*{Thermodynamic temperature scale}
+
+The \textbf{thermodynamic temperature} 热力学温度 (or \textbf{absolute temperature} 绝对温度) scale does not depend on any one substance — only on the laws of thermodynamics. Its unit is the \textbf{kelvin} 开尔文 (K).
+
+\subsection*{Absolute zero}
+
+The lowest possible temperature is \textbf{zero kelvin} ($0\ \text{K}$), called \textbf{absolute zero} 绝对零度. There a system has its least possible \textbf{internal energy} 内能 — particles have no random motion to speak of. Nothing can be cooled below this.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/14-p262-absolute-zero-extrapolation.pdf}}\\[0.3em]
+\emph{Extrapolating the pressure–temperature line back to zero pressure gives absolute zero, about −273 °C}
+\end{minipage}\par\medskip
+
+\subsection*{Celsius scale}
+
+The \textbf{Celsius} 摄氏度 scale $\theta$ is shifted from the thermodynamic scale by a fixed amount:
+
+\[
+T / \text{K} = \theta / {}^{\circ}\text{C} + 273.15.
+\]
+
+So $0\ ^{\circ}\text{C} = 273.15\ \text{K}$ and $100\ ^{\circ}\text{C} = 373.15\ \text{K}$. A kelvin and a degree Celsius are the \textbf{same size}, so a temperature \textbf{difference} of $1\ \text{K}$ equals $1\ ^{\circ}\text{C}$ — but the absolute values differ by $273.15$.
+
+In gas-law calculations you must always use \textbf{absolute} temperatures in kelvin. Using °C gives wrong answers.
+
+\section*{Specific heat capacity}
+
+The \textbf{specific heat capacity} 比热容 $c$ of a substance is the \textbf{energy} 能量 needed to raise the temperature of \textbf{unit mass} by \textbf{one kelvin}:
+
+\[
+c = \frac{Q}{m \Delta T} \qquad\Longleftrightarrow\qquad Q = m c \Delta T.
+\]
+
+Unit: $\text{J kg}^{-1}\ \text{K}^{-1}$.
+
+Examples:
+
+\begin{itemize}
+\item water: $c \approx 4200\ \text{J kg}^{-1}\ \text{K}^{-1}$ (high — why water is a good coolant and why oceans steady the climate).
+
+\item aluminium: $c \approx 900\ \text{J kg}^{-1}\ \text{K}^{-1}$.
+
+\item copper: $c \approx 385\ \text{J kg}^{-1}\ \text{K}^{-1}$.
+
+\end{itemize}
+
+To find an unknown $c$ by experiment: supply known energy $Q$ electrically ($Q = VIt$, from the \textbf{power} 功率), then measure the temperature rise $\Delta T$ of a known \textbf{mass} 质量 $m$. Then $c = Q/(m\Delta T)$. Reduce heat loss with \textbf{insulation} 隔热 and use a rise of about 10 K (big enough to measure well, small enough to limit losses).
+
+When two bodies reach thermal equilibrium with no heat lost to the surroundings, the energy gained by the colder one equals the energy lost by the hotter one:
+
+\[
+m_{1} c_{1} (T_{\text{eq}} - T_{1}) = m_{2} c_{2} (T_{2} - T_{\text{eq}}).
+\]
+
+\section*{Specific latent heat}
+
+When a substance changes state (solid ↔ liquid, or liquid ↔ gas) at constant temperature, energy must be supplied (or removed) with \textbf{no} temperature change. This energy is the \textbf{latent heat} 潜热.
+
+The \textbf{specific latent heat} 比潜热 $L$ is the energy to change the state of \textbf{unit mass} at constant temperature:
+
+\[
+L = \frac{Q}{m} \qquad\Longleftrightarrow\qquad Q = m L.
+\]
+
+Unit: $\text{J kg}^{-1}$.
+
+Two kinds:
+
+\begin{itemize}
+\item \textbf{specific latent heat of fusion} 熔化 $L_{\text{f}}$ — for melting or freezing (solid ↔ liquid).
+
+\item \textbf{specific latent heat of vaporisation} 汽化 $L_{\text{v}}$ — for boiling or condensing (liquid ↔ gas).
+
+\end{itemize}
+
+For water at atmospheric pressure: $L_{\text{f}} \approx 3.34 \times 10^{5}\ \text{J kg}^{-1}$ (at $0\ ^{\circ}\text{C}$); $L_{\text{v}} \approx 2.26 \times 10^{6}\ \text{J kg}^{-1}$ (at $100\ ^{\circ}\text{C}$). So $L_{\text{v}}$ is about 7 times $L_{\text{f}}$.
+
+\subsection*{Why $L_{\text{v}} > L_{\text{f}}$}
+
+Two reasons, both from the particle picture of matter:
+
+\begin{enumerate}
+\item \textbf{Bonds}: in melting, only some of the \textbf{intermolecular} 分子间 bonds break; the particles stay close as a liquid. In boiling, \textbf{all} the bonds must break so the particles can separate. Breaking all of them needs more energy.
+
+\item \textbf{Work against the atmosphere}: when a liquid turns to gas it expands hugely (vapour has about $10^{3}$ times the liquid's \textbf{volume} 体积), so it does work pushing back the surrounding \textbf{atmospheric pressure} 大气压强. That work comes from the energy supplied.
+
+\end{enumerate}
+
+\subsection*{Multi-step problems}
+
+If a problem mixes temperature change and a \textbf{phase change} 相变 (e.g. ice at $-5\ ^{\circ}\text{C}$ warming to water at $30\ ^{\circ}\text{C}$):
+
+\begin{enumerate}
+\item heat the solid from $-5\ ^{\circ}\text{C}$ to $0\ ^{\circ}\text{C}$: $Q_{1} = m c_{\text{ice}} \times 5$.
+
+\item melt at $0\ ^{\circ}\text{C}$: $Q_{2} = m L_{\text{f}}$.
+
+\item heat the water from $0\ ^{\circ}\text{C}$ to $30\ ^{\circ}\text{C}$: $Q_{3} = m c_{\text{water}} \times 30$.
+
+\end{enumerate}
+
+Total: $Q_{1} + Q_{2} + Q_{3}$. A phase change is at constant temperature, so use $mL$ there, not $mc\Delta T$.
+
+When a question gives heater power $P$ and asks for the time, use $Q = Pt$ (assuming no heat loss). Insulating (lagging) the container and using a small mass are common ways to improve the experiment.
+
+
+\end{document}

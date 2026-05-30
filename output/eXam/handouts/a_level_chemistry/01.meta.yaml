@@ -1,0 +1,62 @@
+topic_number: '1'
+topic_title: Atomic structure
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '1'
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '2'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '1'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '2'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '4'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '7'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '1'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '2'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '1'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '2'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '3'
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 1ai
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 1aii
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 1aiii
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 1bi
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 1bii
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 1ai
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 1aii
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 1aiii
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 1bi
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 1bii
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 1ai
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 1aii
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 1aiii
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 1bi
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 1bii
+generated_at: '2026-05-29T15:32:22Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:32:22Z'
+glossed_at: '2026-05-29T15:32:22Z'

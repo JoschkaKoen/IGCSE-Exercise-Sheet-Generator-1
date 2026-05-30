@@ -362,3 +362,60 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:46:49Z'
 glossed_at: '2026-05-29T05:46:49Z'
+figures:
+  - file: assets/10-p257-array-1d.png
+    caption: A 1-D array (a list) with indices and bounds
+    figure_ref: '10.1'
+    source_page_pdf: 257
+    source_page_printed: 241
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 560.0, 349.0, 729.0]
+    placed_under: "### 1-D arrays"
+  - file: assets/10-p258-array-2d.png
+    caption: A 2-D array (a table) with row and column indices
+    figure_ref: '10.2'
+    source_page_pdf: 258
+    source_page_printed: 242
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 381.0, 554.8, 640.6]
+    placed_under: "### 2-D arrays"
+  - file: assets/10-p267-stack-operations.png
+    caption: Push and pop change the top pointer; the base pointer stays put
+    figure_ref: '10.13'
+    source_page_pdf: 267
+    source_page_printed: 251
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [140.0, 540.9, 545.5, 686.4]
+    placed_under: "### Stack"
+  - file: assets/10-p269-queue-operations.png
+    caption: Enqueue adds at the rear; dequeue removes from the front
+    figure_ref: '10.14'
+    source_page_pdf: 269
+    source_page_printed: 253
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [95.7, 89.0, 533.1, 239.4]
+    placed_under: "### Queue"
+  - file: assets/10-p267-linked-list.png
+    caption: "A linked list: each node points to the next"
+    figure_ref: '10.12'
+    source_page_pdf: 267
+    source_page_printed: 251
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.9, 199.6, 547.6, 265.6]
+    placed_under: "### Linked list"
+  - file: assets/10-p269-circular-queue.png
+    caption: A circular queue wraps the pointers back to the start of the array
+    figure_ref: '10.15'
+    source_page_pdf: 269
+    source_page_printed: 253
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [95.6, 346.0, 533.8, 556.2]
+    placed_under: "### Queue using a circular array"
+  - file: assets/10-p272-linked-list-array.png
+    caption: "A linked list stored in an array: a data array and a pointer array"
+    figure_ref: '10.18'
+    source_page_pdf: 272
+    source_page_printed: 256
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [193.4, 427.9, 530.9, 659.0]
+    placed_under: "### Linked list using an array"

@@ -1,0 +1,34 @@
+topic_number: '33'
+topic_title: Carboxylic acids and derivatives
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 7a
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 7b
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 8di
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 8dii
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 8di
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 7a
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 7b
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 8di
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 8dii
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 6bii
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 7ci
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 7cii
+generated_at: '2026-05-29T17:26:19Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T17:26:20Z'
+glossed_at: '2026-05-29T17:26:20Z'

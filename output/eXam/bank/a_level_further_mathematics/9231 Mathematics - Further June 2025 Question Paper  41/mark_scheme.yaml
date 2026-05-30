@@ -1,0 +1,171 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: $\mu_x = \mu_y$; $H_1$: $\mu_x \neq \mu_y$ (population
+    means). Unbiased estimates $s_x^2 = \tfrac{12283}{119} = 103.218$, $s_y^2 = \tfrac{13520}{79}
+    = 171.139$, so $\tfrac{s_x^2}{120} + \tfrac{s_y^2}{80} = 2.999$. $z = \dfrac{\frac{10470}{120}
+    - \frac{6560}{80}}{\sqrt{2.999}} = \dfrac{87.25 - 82}{1.732} = 3.03$. Two-tailed
+    1\% test, critical $z = 2.576$. Since $3.03 > 2.576$, reject $H_0$: there is sufficient
+    evidence that the mean spend per customer is different on weekends compared to
+    weekdays.'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Total area $= 1$: rectangle $5a$ plus triangle $\tfrac12\cdot3\cdot
+    a$, so $5a + \tfrac32 a = \tfrac{13}{2}a = 1$, giving $a = \tfrac{2}{13}$ (AG).
+    The line $b - cx$ passes through $(5, a)$ and $(8, 0)$: $b = 8c$ and $a = 3c$,
+    so $c = \tfrac{a}{3} = \tfrac{2}{39}$ and $b = \tfrac{16}{39}$.'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{E}(X) = \displaystyle\int_0^5 x\cdot\tfrac{2}{13}\,dx
+    + \int_5^8 x\left(\tfrac{16}{39} - \tfrac{2}{39}x\right)dx = \left[\tfrac{1}{13}x^2\right]_0^5
+    + \left[\tfrac{8}{39}x^2 - \tfrac{2}{117}x^3\right]_5^8 = \tfrac{43}{13} = 3.31$.
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The median $m$ lies in $0 < m < 5$: $\tfrac{2}{13}m = 0.5$,
+    so $m = \tfrac{13}{4} = 3.25$.'
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CDF of $X$: $\mathrm{F}(x) = \tfrac{2}{13}x$ for $0\leqslant
+    x\leqslant5$; $\tfrac{16}{39}x - \tfrac{1}{39}x^2 - \tfrac{25}{39}$ for $5 < x\leqslant8$.
+    With $Y = X^2$, $\mathrm{G}(y) = \mathrm{F}(\sqrt y) = 0$ for $y<0$; $\tfrac{2}{13}\sqrt
+    y$ for $0\leqslant y\leqslant25$; $\tfrac{16}{39}\sqrt y - \tfrac{1}{39}y - \tfrac{25}{39}$
+    for $25 < y\leqslant64$; $1$ for $y > 64$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}(\text{egg broken}) = \dfrac{0\cdot1844 + 1\cdot143
+    + 2\cdot11 + 3\cdot0 + 4\cdot1 + 5\cdot0 + 6\cdot1}{2000\times6} = \dfrac{175}{12000}
+    = \tfrac{7}{480} \approx 0.01458$.
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: With $X \sim \mathrm{B}\!\left(6, \tfrac{7}{480}\right)$, the
+    expected frequency for 1 broken egg is $a = 2000 - (1831.3 + 6.016 + 0.119 + 0.001)
+    = 162.6$ (AG). Equivalently $a = \binom{6}{1}\cdot\tfrac{7}{480}\left(1 - \tfrac{7}{480}\right)^5\times2000
+    = 162.6$.
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: a binomial distribution is a satisfactory model; $H_1$:
+    it is not. Combining the tail cells ($\geqslant 2$ broken: observed 13, expected
+    6.136), $\chi^2 = \dfrac{(1844-1831.3)^2}{1831.3} + \dfrac{(143-162.6)^2}{162.6}
+    + \dfrac{(13-6.136)^2}{6.136} = 0.0881 + 2.363 + 7.678 = 10.1$. With 3 cells and
+    1 estimated parameter, $\nu = 3 - 1 - 1 = 1$, critical $\chi^2_{0.995}(1) = 7.879$.
+    Since $10.1 > 7.879$, reject $H_0$: there is sufficient evidence that the manager''s
+    (binomial) model is not satisfactory.'
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The trials may not be independent, or the probability of an
+    egg being broken may not be constant (e.g. boxes that are dropped have several
+    broken eggs).
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\sum(x-\bar x)^2 = 40104 - \tfrac{1}{10}\cdot612^2 = 2649.6$;
+    $\sum(y-\bar y)^2 = 27460 - \tfrac18\cdot444^2 = 2818$. Pooled $s_p^2 = \dfrac{2649.6
+    + 2818}{10 + 8 - 2} = 341.725$. With $\bar x = 61.2$, $\bar y = 55.5$ and $t =
+    2.120$ (16 d.f.): $(61.2 - 55.5) \pm 2.120\sqrt{s_p^2\left(\tfrac{1}{10} + \tfrac18\right)}
+    = 5.7 \pm 2.120\times8.7686$, giving the 95\% CI $[-12.9, 24.3]$.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Because zero lies inside the confidence interval, so there is
+    insufficient evidence of a difference at the 5\% level.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: $m_s = m_c$; $H_1$: $m_s > m_c$ (population medians,
+    seaside vs cartoon). Differences (seaside $-$ cartoon): $21, 19, -2, 22, -10,
+    4, 16, 27, 35, 29$. Signed ranks: $6, 5, -1, 7, -3, 2, 4, 8, 10, 9$, so $P = 51$,
+    $Q = 4$ and $T = 4$. For $n = 10$, one-tailed 5\%, critical value $= 10$. Since
+    $4 \leqslant 10$, reject $H_0$: there is sufficient evidence that children, on
+    average, complete the cartoon puzzle more quickly than the seaside puzzle (supporting
+    the researcher''s belief).'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Sign test: 8 differences are positive and 2 are negative. Under
+    $H_0$, $X \sim \mathrm{B}(10, 0.5)$, and $\mathrm{P}(X \leqslant 2) = 0.0547$.
+    Since $0.0547 > 0.05$, do not reject $H_0$ (not significant). In part (a) $H_0$
+    was rejected but here $H_0$ is accepted, so the opposite conclusion is reached.'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Because every child completes the seaside puzzle first, the
+    order is a confounding factor: children may complete the second (cartoon) puzzle
+    faster through practice (or slower through tiredness), so the experiment does
+    not fairly test the researcher''s belief.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{G}_Y(1) = 1$ gives $\dfrac{k}{1 - a} = 1$, so $k =
+    1 - a$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Expanding $(1 - at^2)^{-1} = 1 + at^2 + \cdots$, so $\mathrm{P}(Y=0)
+    = k$ and $\mathrm{P}(Y=2) = ka$. Hence $\mathrm{P}(Y > 2) = 1 - k(1 + a) = 1 -
+    (1 - a)(1 + a) = 1 - (1 - a^2) = a^2$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{G}_Y'(t) = \dfrac{2akt}{(1 - at^2)^2} = \dfrac{0.32t}{(1
+    - 0.2t^2)^2}$ (with $a = 0.2$, $k = 0.8$). So $\mathrm{E}(Y) = \mathrm{G}_Y'(1)
+    = \dfrac{0.32}{(1 - 0.2)^2} = \dfrac{0.32}{0.64} = 0.5$.
+  mark_scheme: []
+  graphics: []

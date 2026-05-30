@@ -152,3 +152,12 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:47:54Z'
 glossed_at: '2026-05-29T05:47:54Z'
+figures:
+  - file: assets/11-p288-case-flowchart.png
+    caption: A CASE statement runs the branch that matches the value
+    figure_ref: '11.1'
+    source_page_pdf: 288
+    source_page_printed: 272
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [176.8, 89.3, 513.2, 415.6]
+    placed_under: "## Selection"

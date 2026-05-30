@@ -1,0 +1,168 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $r = e^{\theta/4}$, $\dfrac{dr}{d\theta} = \tfrac14 e^{\theta/4}$,
+    so $r^2 + \left(\tfrac{dr}{d\theta}\right)^2 = \tfrac{17}{16}e^{\theta/2}$. $L
+    = \displaystyle\int_0^{\pi}\tfrac{\sqrt{17}}{4}e^{\theta/4}\,d\theta = \sqrt{17}\left(e^{\pi/4}
+    - 1\right)$.
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$8 - 8i\sqrt3 = 16\,e^{-i\pi/3}$. Fourth roots have $r = 2$
+    and $\theta = -\tfrac{\pi}{12}, \tfrac{5\pi}{12}, \tfrac{11\pi}{12}, -\tfrac{7\pi}{12}$:
+    $2e^{-i\pi/12}$, $2e^{i5\pi/12}$, $2e^{i11\pi/12}$, $2e^{-i7\pi/12}$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Differentiating: $2xy + x^2 y'' + 3(x+y)^2(1 + y'') = 0$. At
+    $(-1, 2)$ (so $x+y = 1$): $-4 + y'' + 3(1 + y'') = 0 \Rightarrow 4y'' = 1 \Rightarrow
+    y'' = \tfrac14$.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Differentiating again: $2y + 4xy'' + x^2 y'''' + 6(x+y)(1+y'')^2
+    + 3(x+y)^2 y'''' = 0$. At $(-1, 2)$, $y'' = \tfrac14$: $4 - 1 + y'''' + 6\left(\tfrac54\right)^2
+    + 3y'''' = 0 \Rightarrow \tfrac{99}{8} + 4y'''' = 0 \Rightarrow y'''' = -\tfrac{99}{32}$.'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $z + \tfrac1z = 2\cos\theta$ and $(z + \tfrac1z)^6 = (z^6+z^{-6})
+    + 6(z^4+z^{-4}) + 15(z^2+z^{-2}) + 20 = 2\cos6\theta + 12\cos4\theta + 30\cos2\theta
+    + 20$. So $64\cos^6\theta = 2\cos6\theta + 12\cos4\theta + 30\cos2\theta + 20$,
+    giving $a = \tfrac{1}{32}$, $b = \tfrac{3}{16}$, $c = \tfrac{15}{32}$, $d = \tfrac{5}{16}$.
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: With $\theta = 2x$, integrating over $[0, \tfrac\pi2]$ all the
+    cosine terms vanish, leaving $\displaystyle\int_0^{\pi/2}\cos^6 2x\,dx = \tfrac{5}{16}\cdot\tfrac\pi2
+    = \tfrac{5\pi}{32}$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Auxiliary equation $m^2 + 4m + 3 = 0 \Rightarrow m = -1, -3$;
+    CF $= Ae^{-x} + Be^{-3x}$. Particular integral $y = \tfrac12\cos x + \sin x$.
+    General solution $y = Ae^{-x} + Be^{-3x} + \tfrac12\cos x + \sin x$.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: As $x \to \infty$, $Ae^{-x}, Be^{-3x} \to 0$, so $y \approx
+    \tfrac12\cos x + \sin x = R\sin(x + \phi)$ with $R = \tfrac{\sqrt5}{2}$ and $\phi
+    = \tan^{-1}\tfrac12 = 0.4636$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $x = \tfrac{1}{\sqrt2}\sinh u \Rightarrow 2x^2 + 1 = \cosh^2
+    u$, $dx = \tfrac{1}{\sqrt2}\cosh u\,du$, so the integral $= \displaystyle\int
+    \tfrac{1}{\sqrt2}\,du = \tfrac{1}{\sqrt2}\sinh^{-1}(\sqrt2\,x) + C$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\sum_{r=1}^{n}\tfrac{1}{\sqrt{2r^2+n^2}} = \sum_{r=1}^{n}\tfrac1n\,y\!\left(\tfrac
+    rn\right)$ is the right-endpoint Riemann sum; since $y$ is decreasing it underestimates
+    $\int_0^1 y\,dx = \tfrac{1}{\sqrt2}\sinh^{-1}\sqrt2 = \tfrac{\sqrt2}{2}\ln(\sqrt2+\sqrt3)$.
+    Hence the sum $< \tfrac12\sqrt2\,\ln(\sqrt2+\sqrt3)$.
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Since $y$ decreases, $\tfrac1n y\!\left(\tfrac rn\right) \geqslant
+    \int_{r/n}^{(r+1)/n} y\,dx$; summing gives the lower bound $\displaystyle\int_{1/n}^{(n+1)/n}
+    y\,dx = \tfrac{\sqrt2}{2}\left[\sinh^{-1}\!\tfrac{\sqrt2(n+1)}{n} - \sinh^{-1}\!\tfrac{\sqrt2}{n}\right]$.
+  mark_scheme: []
+  graphics: []
+- number: 6d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Both bounds tend to $\int_0^1 y\,dx$, so $\displaystyle\lim_{n\to\infty}\sum_{r=1}^{n}\tfrac{1}{\sqrt{2r^2+n^2}}
+    = \tfrac{\sqrt2}{2}\ln(\sqrt2 + \sqrt3)$.
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Differentiating gives $\tfrac12\sqrt{4-x^2} - \tfrac{x^2}{2\sqrt{4-x^2}}
+    + \tfrac{2}{\sqrt{4-x^2}} = \tfrac{(4-x^2) - x^2 + 4}{2\sqrt{4-x^2}} = \tfrac{4-x^2}{\sqrt{4-x^2}}
+    = \sqrt{4-x^2}$. AG.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Integrating factor $\sqrt{2+x}$: $\tfrac{d}{dx}\!\left(y\sqrt{2+x}\right)
+    = \sqrt{(2+x)(2-x)} = \sqrt{4-x^2}$. So $y\sqrt{2+x} = \tfrac12 x\sqrt{4-x^2}
+    + 2\sin^{-1}\tfrac x2 + C$ (part (a)). At $x=1$, $y=\tfrac12$: $C = -\tfrac\pi3$.
+    Hence $y = \dfrac{\tfrac12 x\sqrt{4-x^2} + 2\sin^{-1}\tfrac x2 - \tfrac\pi3}{\sqrt{2+x}}$.'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\det\begin{pmatrix}1&-1&2k\\k&1&2\\2&-1&1\end{pmatrix} = -2k^2
+    - 3k - 1 = 0 \Rightarrow 2k^2 + 3k + 1 = 0 \Rightarrow k = -\tfrac12$ or $k =
+    -1$.
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: With $k = -\tfrac12$, eliminating variables leads to $0 = 2$,
+    a contradiction, so the system is inconsistent. Geometrically the three planes
+    have no common point — they form a triangular prism (their pairwise lines of intersection
+    are parallel).
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $k = -1$, equations 1 and 2 reduce to $x - y - 2z = 1$
+    and $x - y - 2z = -2$: these are parallel, distinct planes, so there is no common
+    point and the system is inconsistent.'
+  mark_scheme: []
+  graphics: []
+- number: 8d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The characteristic equation is $\lambda^3 - 3\lambda^2 + 8\lambda
+    = 0$, so by Cayley–Hamilton $\mathbf{A}^3 = 3\mathbf{A}^2 - 8\mathbf{A}$. Then
+    $\mathbf{A}^4 = 3\mathbf{A}^3 - 8\mathbf{A}^2 = 3(3\mathbf{A}^2 - 8\mathbf{A})
+    - 8\mathbf{A}^2 = \mathbf{A}^2 - 24\mathbf{A}$, so $p = 1$, $q = -24$.
+  mark_scheme: []
+  graphics: []

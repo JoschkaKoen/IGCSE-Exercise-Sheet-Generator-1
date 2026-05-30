@@ -1,0 +1,60 @@
+topic_number: '23'
+topic_title: Chemical energetics
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 1b
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 1ci
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 1cii
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 1d
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 1ci
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 1cii
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 4a
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 4b
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 4c
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 4d
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 1b
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 1ci
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 1cii
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 1d
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 2a
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 2di
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 2dii
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 2diii
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 2div
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 2e
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 3a
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 3bi
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 3bii
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 3ci
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 3cii
+generated_at: '2026-05-29T16:13:15Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:13:15Z'
+glossed_at: '2026-05-29T16:13:15Z'

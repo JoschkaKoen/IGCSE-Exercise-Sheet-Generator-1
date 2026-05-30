@@ -84,3 +84,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:54:36Z'
 glossed_at: '2026-05-29T05:54:36Z'
+figures:
+  - file: assets/16-p394-process-states.png
+    caption: A process moves between the new, ready, running, blocked and terminated states
+    figure_ref: '16.3'
+    source_page_pdf: 394
+    source_page_printed: 378
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [175.9, 54.0, 558.0, 247.9]
+    placed_under: "### Process states"
+  - file: assets/16-p395-scheduling-fcfs.png
+    caption: First-come-first-served scheduling of four processes
+    figure_ref: '16.5'
+    source_page_pdf: 395
+    source_page_printed: 379
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [165.6, 486.1, 548.2, 525.2]
+    placed_under: "### Scheduling"
+  - file: assets/16-p400-paging.png
+    caption: Paging maps each page of logical memory to a frame of physical memory
+    figure_ref: '16.10'
+    source_page_pdf: 400
+    source_page_printed: 384
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [149.2, 34.3, 558.0, 228.7]
+    placed_under: "## Virtual memory, paging, segmentation"
+  - file: assets/16-p400-segmentation.png
+    caption: Segmentation maps variable-sized segments using a segment map table
+    figure_ref: '16.11'
+    source_page_pdf: 400
+    source_page_printed: 384
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [177.4, 414.9, 518.0, 598.5]
+    placed_under: "## Virtual memory, paging, segmentation"
+  - file: assets/16-p415-syntax-diagram.png
+    caption: A syntax (railroad) diagram for an assignment statement
+    figure_ref: '16.24'
+    source_page_pdf: 415
+    source_page_printed: 399
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [148.3, 305.0, 549.6, 331.8]
+    placed_under: "## Grammar: BNF and syntax diagrams"

@@ -4,7 +4,7 @@
 
 ![Generate page — natural language prompt and example buttons](screenshots/web-ui.png)
 
-Three pipelines for Cambridge-style IGCSE exam workflows. **eXercise** assembles printable practice sheets from bundled question papers — you describe the run in plain English, an LLM resolves it to PDF paths and question numbers, and the app extracts question regions as vector graphics, optionally attaches mark-scheme answers, generates MCQ explanations, and ranks by difficulty. **xScore** marks scanned student exams: it cleans the scan, identifies students, parses the mark scheme, runs an AI vision model over each page, and emits per-student PDF reports plus a class summary. **eXam** serves Cambridge past papers on-screen with AI marking — students practise individual questions cropped from the source PDF, every submission is graded by AI against an auto-extracted mark scheme, and hints / solutions / examples / knowledge-base topics are lazily generated per question. All three pipelines share a FastAPI web UI (Generate / Grade / Library / Practice) and the same multi-provider AI client (Gemini, Qwen, Grok).
+Three pipelines for Cambridge-style IGCSE and A-Level exam workflows. **eXercise** assembles printable practice sheets from bundled question papers — you describe the run in plain English, an LLM resolves it to PDF paths and question numbers, and the app extracts question regions as vector graphics, optionally attaches mark-scheme answers, generates MCQ explanations, and ranks by difficulty. **xScore** marks scanned student exams: it cleans the scan, identifies students, parses the mark scheme, runs an AI vision model over each page, and emits per-student PDF reports plus a class summary. **eXam** serves Cambridge past papers on-screen with AI marking — students practise individual questions cropped from the source PDF, every submission is graded by AI against an auto-extracted mark scheme, and hints / solutions / examples / knowledge-base topics are lazily generated per question. All three pipelines share a FastAPI web UI (Generate / Grade / Library / Practice / Learn / Code) and the same multi-provider AI client (Gemini, Qwen, Grok, Kimi).
 
 ---
 
@@ -12,11 +12,13 @@ Three pipelines for Cambridge-style IGCSE exam workflows. **eXercise** assembles
 
 - **Natural language** — one sentence picks subject, session, paper, and question numbers; an LLM maps it to PDFs in your `exams/` folders.
 - **Legacy CLI** — point at any QP PDF, list question numbers, optional mark scheme path.
-- **Web UI** — three pages: **Generate** (exercise builder with PDF preview and zoom), **Grade** (scan cleaner), and **Library** (browse/download bundled papers).
+- **Web UI** — six pages: **Generate** (exercise builder with PDF preview and zoom), **Grade** (scan cleaner + AI marking), **Library** (browse/download bundled papers), **Practice** (on-screen eXam with AI marking), **Learn** (per-topic revision handouts + extracted questions), and **Code** (in-browser coding lessons).
 - **PDF preview** — continuous-scroll in-browser render with Ctrl-wheel zoom; tabs for exercise, answers, 2-up, 4-up, and ranking variants; jump-to-question overview panel.
 - **Outputs** — exercise PDF, optional answers PDF, optional 2-up/4-up print variants (`pdfjam`), and an LLM-generated difficulty ranking PDF.
 - **Grading** — upload student scan(s) + optional roster; the pipeline auto-rotates, deskews, and removes blank pages, returning a clean PDF.
-- **Library** — browse and download the bundled IGCSE papers by subject, year, and session directly from the web UI.
+- **Library** — browse and download the bundled IGCSE and A-Level papers by subject, year, and session directly from the web UI.
+- **Practice & Learn** — students practise individual past-paper questions on-screen with AI marking (eXam), optionally filtered to one syllabus topic, and read bilingual per-topic revision handouts on the Learn page.
+- **Code playground** — guided, bilingual Python and Java lessons that run entirely in the browser (Pyodide / CheerpJ): in-editor tasks with auto-checks, a Stop button, and server-backed progress that follows a learner across devices once they sign in.
 
 ---
 
@@ -843,7 +845,7 @@ Three pages are available:
 | Page | Path | Purpose |
 |------|------|---------|
 | **Generate** | `/` | Build exercise sheets (natural language or legacy); PDF preview with tabs (exercise, answers, 2-up, 4-up, ranking), Ctrl-wheel zoom, and jump-to-question overview. |
-| **Grade** | `/grade` | Upload student scan PDF, exam PDF, mark scheme, and optional roster. Runs the **web subset** of the xScore pipeline — a condensed sequence of the 36 terminal steps (skips terminal-only stages like fuzzy folder lookup and accuracy evaluation). Returns a cleaned PDF plus per-student and class mark reports. Requires `xscore` plus the API keys for whichever providers your `*_MODEL` env vars resolve to (typically `GEMINI_API_KEY` and `DASHSCOPE_API_KEY`). |
+| **Grade** | `/grade` | Upload student scan PDF, exam PDF, mark scheme, and optional roster. Runs the **web subset** of the xScore pipeline — a condensed sequence of the 34 terminal steps (skips terminal-only stages like fuzzy folder lookup and accuracy evaluation). Returns a cleaned PDF plus per-student and class mark reports. Requires `xscore` plus the API keys for whichever providers your `*_MODEL` env vars resolve to (typically `GEMINI_API_KEY` and `DASHSCOPE_API_KEY`). |
 | **Library** | `/library` | Browse and download the bundled Cambridge IGCSE papers by subject, year, and session. |
 
 ### Programmatic
@@ -878,6 +880,7 @@ The app uses the OpenAI Python client against each vendor's **OpenAI-compatible*
 | `gemini` | `GEMINI_API_KEY` | Google Gemini (`GOOGLE_API_KEY` accepted as fallback) |
 | `grok` | `XAI_API_KEY` | xAI Grok |
 | `qwen` | `DASHSCOPE_API_KEY` | Alibaba Qwen (DashScope) |
+| `kimi` / `moonshot` | `KIMI_API_KEY` | Moonshot Kimi — native server-side PDF text-extract for the scaffold steps. China endpoint by default; set `KIMI_BASE_URL=https://api.moonshot.ai/v1` for the international one (keys are region-specific). |
 
 Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 
@@ -889,7 +892,7 @@ Every model env var follows the same one-line format:
 <model>[, <thinking_tokens>][, <max_output_tokens>]
 ```
 
-Both budgets are integers; omit either to use the code fallback. The **provider is inferred from the model-name prefix** (`gemini-*`, `qwen*`, `grok-*`) — no separate provider switch.
+Both budgets are integers; omit either to use the code fallback. The **provider is inferred from the model-name prefix** (`gemini-*`, `qwen*`, `grok-*`, `kimi*`/`moonshot*`) — no separate provider switch.
 
 ```env
 MARKING_MODEL=qwen3.6-plus, 0, 64000          # Qwen, thinking off, 64k output
@@ -1023,10 +1026,10 @@ The three pipelines write to separate sub-folders under `output/`:
 |------|------|
 | `eXercise.py` | eXercise CLI entry |
 | `eXercise/` | Config, NL resolver, MCQ explanations, difficulty ranking, PDF layout. Also hosts shared infra (`ai_client`, `prompt_logger`, `env_load`, `config`, `fonts`) used by both pipelines. |
-| `XScore.py` | xScore pipeline entry (steps 1–36) |
+| `XScore.py` | xScore pipeline entry (steps 1–34) |
 | `xscore/pipeline/` | Orchestration (`runner.py`) — walks the `STEPS` registry, dispatches each step on its `phase` field, and owns the page-render background thread. |
-| `xscore/steps/` | Phase modules: `prelude.py` (1–2), `scan.py` (3–5), `geometry.py` (8–16), `scaffold.py` (6–7 + 17–23), `marking.py` (24–26), `reports.py` (27–31), `summary.py` (32–36). Function names match `step.name` exactly — renumbering a step only edits the `STEPS` registry. |
-| `xscore/shared/` | `pipeline_steps.py` (the canonical 36-step registry), exam path helpers (`step_folders.py`, `path_builders.py`), terminal UI, run log. |
+| `xscore/steps/` | Phase modules: `prelude.py` (1–2), `scan.py` (3–5), `geometry.py` (8–16), `scaffold.py` (6–7 + 17–24), `marking.py` (25–27), `reports.py` (28–32), `summary.py` (33–34). Function names match `step.name` exactly — renumbering a step only edits the `STEPS` registry. |
+| `xscore/shared/` | `pipeline_steps.py` (the canonical 34-step registry), exam path helpers (`step_folders.py`, `path_builders.py`), terminal UI, run log. |
 | `xscore/marking/` | Marking-side library code: blueprint generation, AI mark calls, answer extraction, report merging. |
 | `xscore/scaffold/` | Scaffold-side library code: layout detection, exam-PDF parsing, mark-scheme parsing (split across `ai_scaffold_exam.py` / `ai_scaffold_scheme.py` / `ai_scaffold.py`). |
 | `xscore/preprocessing/` | Scan-cleaning library code: orientation, blank detection, rotation, deskew, cover detection. |
@@ -1035,11 +1038,14 @@ The three pipelines write to separate sub-folders under `output/`:
 | `eXam/` | On-screen practice pipeline: paper indexing (`bank.py`), question-PDF snippet rendering, AI marking (`marker.py`), helper pregeneration (`pregenerate.py`), SQLite store (`db.py`), open-mode (`open_mode.py`), teacher test builder (`test_builder.py`). See [eXam pipeline](#exam-pipeline). |
 | `eXam/prompts/` | `.md` templates for marking + helper generation (hint, solution, example, KB topic). |
 | `web/app.py` | FastAPI routes and job store |
-| `web/grade_service.py` | Web-facing wrapper for the xScore pipeline (subset of the 36-step terminal pipeline) |
+| `web/grade_service.py` | Web-facing wrapper for the xScore pipeline (subset of the 34-step terminal pipeline) |
 | `web/routes/eXam_student.py`, `eXam_teacher.py`, `eXam_open.py` | FastAPI route modules for the three eXam audiences (enrolled students, teachers, public practice). |
-| `web/templates/` | Jinja2 HTML pages (Generate, Grade, Library, eXam practice) |
-| `web/static/` | CSS + JS (PDF preview, zoom, tabs, download-all) |
+| `web/routes/learn.py`, `code.py`, `code_run.py` | Learn page (handouts + extracted questions) and the `/code` coding playground (client-side Python via Pyodide, Java via CheerpJ; `POST /api/code/run-java` is a token-gated server-side Java runner used as a benchmark). |
+| `web/code_content.py`, `web/code_progress.py`, `web/java_runner.py` | Code-page lesson loader, server-backed lesson progress (`code_progress` table), and the stdlib-only server Java compile/run helper. |
+| `web/templates/` | Jinja2 HTML pages (Generate, Grade, Library, eXam practice, Learn, Code) |
+| `web/static/` | CSS + JS (PDF preview, zoom, tabs, download-all; Pyodide/CheerpJ code-playground workers) |
 | `exams/` | Bundled QP/MS PDFs for NL mode |
+| `content/code/` | Authored bilingual coding lessons (`<course>/course.yaml` + `NN.{en,zh}.md` + `NN.meta.yaml`) — committed source, not generated. Validate with `python -m scripts.check_code_lessons`. |
 | `fonts/` | Latin Modern for labels (see `fonts/README.md`) |
 | `default.env` | Committed defaults |
 | `.env.example` | Template for secrets |

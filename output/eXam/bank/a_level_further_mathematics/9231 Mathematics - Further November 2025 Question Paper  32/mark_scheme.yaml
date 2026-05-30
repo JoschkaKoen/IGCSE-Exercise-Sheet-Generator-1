@@ -1,0 +1,138 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Geometry gives each string at $45\degree$ to the vertical and
+    circle radius $\tfrac{l}{\sqrt2}$. Vertical: $\tfrac{1}{\sqrt2}(T_A - T_B) = mg$;
+    horizontal: $\tfrac{1}{\sqrt2}(T_A + T_B) = m\tfrac{l}{\sqrt2}\omega^2$, i.e.
+    $T_A + T_B = ml\omega^2$ and $T_A - T_B = \sqrt2\,mg$. Hence $T_A = \tfrac12 m\!\left(l\omega^2
+    + \sqrt2\,g\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Initial extension $\tfrac{a}{3}$. The string just reaches natural
+    length with zero speed when EPE $=$ friction work: $\tfrac12\cdot\tfrac{2mg}{a}\!\left(\tfrac
+    a3\right)^2 = \mu mg\cdot\tfrac a3 \Rightarrow \tfrac{mga}{9} = \tfrac{\mu mga}{3}
+    \Rightarrow \mu_{\min} = \tfrac13$.'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Let the particle move a distance $d$. Energy: $\tfrac{mg}{a}\!\left[\left(\tfrac
+    a3\right)^2 - \left(\tfrac a3 - d\right)^2\right] = \tfrac{mg}{2}d \Rightarrow
+    \tfrac23 d - \tfrac{d^2}{a} = \tfrac d2 \Rightarrow d = \tfrac a6$. Extension
+    at rest $= \tfrac a3 - \tfrac a6 = \tfrac{a}{6}$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Rectangle: area $ka^2$, height $\tfrac a2$. Quarter circle
+    (centre $O$, radius $a$): area $\tfrac{\pi a^2}{4}$, height $a - \tfrac{4a}{3\pi}$.
+    $\bar{y} = \dfrac{ka^2\cdot\tfrac a2 + \tfrac{\pi a^2}{4}\!\left(a - \tfrac{4a}{3\pi}\right)}{ka^2
+    + \tfrac{\pi a^2}{4}} = \dfrac{a(6k + 3\pi - 4)}{3(4k + \pi)}$.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Toppling about $B$ requires the centre of mass directly above
+    $B$, i.e. $\bar{x} = 0$: $-\tfrac{k^2 a^3}{2} + \tfrac{a^3}{3} = 0 \Rightarrow
+    k^2 = \tfrac23 \Rightarrow k = \sqrt{\tfrac23} = \tfrac{\sqrt6}{3}$.'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Matching horizontal displacements gives $Q$''s speed $\tfrac{U\cos\alpha}{\cos\beta}$.
+    Vertical: $U\sin\alpha\,T - \tfrac12 gT^2 = d - \tfrac{U\cos\alpha}{\cos\beta}\sin\beta\,T
+    - \tfrac12 gT^2$, so $d = UT\sin\alpha + UT\cos\alpha\tan\beta = UT(\sin\alpha
+    + \cos\alpha\tan\beta)$. AG.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: At maximum height $T = \dfrac{U\sin\alpha}{g} = \dfrac{U}{2g}$.
+    Then $d = U\cdot\tfrac{U}{2g}\!\left(\tfrac12 + \tfrac{\sqrt3}{2}\cdot\sqrt3\right)
+    = \tfrac{U^2}{2g}\cdot 2 = \dfrac{U^2}{g}$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Perpendicular (to line of centres) component of $A$ is unchanged:
+    $u\sin\alpha = v\sin 2\alpha = 2v\sin\alpha\cos\alpha \Rightarrow v = \dfrac{u}{2\cos\alpha}
+    = \dfrac{5u}{8}$ (since $\cos\alpha = \tfrac45$).'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Along the centres, momentum: $u\cos\alpha = v\cos 2\alpha +
+    kw$ gives $w = \tfrac{5u}{8k}$. With $\cos\alpha = \tfrac45$, $\cos 2\alpha =
+    \tfrac{7}{25}$, $v = \tfrac{5u}{8}$: $e = \dfrac{w - v\cos 2\alpha}{u\cos\alpha}
+    = \dfrac{25 - 7k}{32k}$.'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Require $0 \leqslant e \leqslant 1$ with $k > 0$: $e \geqslant
+    0 \Rightarrow k \leqslant \tfrac{25}{7}$; $e \leqslant 1 \Rightarrow 25 - 7k \leqslant
+    32k \Rightarrow k \geqslant \tfrac{25}{39}$. So $\tfrac{25}{39} \leqslant k \leqslant
+    \tfrac{25}{7}$.'
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'On the sphere: $w^2 = u^2 + 2ga(1-\cos\theta)$ and loss of
+    contact $w^2 = ga\cos\theta$, giving $\cos\theta = \tfrac{u^2 + 2ga}{3ga}$. Energy
+    from $B$ to the ground: $9u^2 = w^2 + 2ga(1+\cos\theta) = 3ga\cos\theta + 2ga$,
+    and with $3ga\cos\theta = u^2 + 2ga$ this gives $ga = 2u^2$, so $\cos\theta =
+    \tfrac56$. Conserving horizontal velocity, $3u\cos\beta = w\cos\theta = \tfrac{5}{6}u\sqrt{\tfrac53}$,
+    so $\cos\beta = \tfrac{5\sqrt{15}}{54}$ and $\beta = 69.0\degree$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $m\dfrac{dv}{dt} = -(mgkv + \mu mg) = -mg(kv + \mu)$, so $\displaystyle\int_U^v
+    \dfrac{dv}{kv+\mu} = -\int_0^t g\,dt \Rightarrow \tfrac1k\ln\dfrac{kv+\mu}{kU+\mu}
+    = -gt \Rightarrow t = \dfrac{1}{gk}\ln\!\left(\dfrac{kU+\mu}{kv+\mu}\right)$.
+    AG.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using $v\dfrac{dv}{dx} = -g(kv+\mu)$: $x = \dfrac1g\!\left[\dfrac
+    Uk - \dfrac{\mu}{k^2}\ln\dfrac{kU+\mu}{\mu}\right]$. With $U=10$, $k=0.04$, $\mu=0.2$,
+    $g=10$: $x = \tfrac1{10}\!\left[250 - 125\ln 3\right] \approx 11.3$ m.'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Time to stop $t = \dfrac{1}{gk}\ln\dfrac{kU+\mu}{\mu} = \tfrac{1}{0.4}\ln
+    3 = 2.747$ s. Average speed $= \dfrac{11.27}{2.747} \approx 4.10$ m s$^{-1}$.
+  mark_scheme: []
+  graphics: []

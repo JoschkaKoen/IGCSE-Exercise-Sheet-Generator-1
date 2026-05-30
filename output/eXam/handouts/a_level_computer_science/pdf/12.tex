@@ -1,0 +1,221 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Software Development}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Program development life cycle}
+
+A \textbf{development life cycle} 开发生命周期 is the set of stages from idea to finished, maintained software. It exists to \textbf{plan, manage and control} a project — to build the right product, on time, with good quality.
+
+\subsection*{Why a life cycle is needed}
+
+It manages complexity (break a big program into phases), coordinates teams, tracks progress with milestones, builds in testing, records design decisions for later, and manages risk.
+
+\subsection*{Why there are different ones}
+
+No single life cycle fits every project. The choice depends on the size and complexity, how clear the \textbf{requirements} 需求 are at the start, how much change is expected, the risk level, the team, and the deadline.
+
+\subsection*{Common models}
+
+\begin{itemize}
+\item \textbf{Waterfall} 瀑布模型 — a linear sequence (Analysis → Design → Coding → Testing → Maintenance), each stage finished before the next. Clear and well-documented; good for \textbf{stable requirements}, but poor at coping with mid-project change, and the customer sees nothing working until the end.
+
+\item \textbf{Iterative model} 迭代模型 — repeated passes, each producing a partial version that is reviewed and refined. Catches problems earlier; good when requirements are \textbf{discovered over time}, but harder to estimate.
+
+\item \textbf{Rapid Application Development} 快速应用开发 (RAD) — heavy use of a \textbf{prototype} 原型 and user feedback. Very fast first delivery; good for \textbf{changing requirements}, but depends on user availability and suits smaller systems.
+
+\item \textbf{Agile} 敏捷 — short iterations ("sprints"), constant collaboration and testing. Flexible and adaptive, but needs a committed customer and a skilled team.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/12-p301-waterfall-model.pdf}}\\[0.3em]
+\emph{The waterfall model: each stage is finished before the next begins}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/12-p302-iterative-model.pdf}}\\[0.3em]
+\emph{The iterative model: repeated passes refine the program}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/12-p302-rad-model.pdf}}\\[0.3em]
+\emph{Rapid application development: teams work on parts in parallel}
+\end{minipage}\par\medskip
+
+\subsection*{The standard stages}
+
+\begin{itemize}
+\item \textbf{analysis} — find \textbf{what} the program must do; gather and document requirements.
+
+\item \textbf{design} — decide \textbf{how}: data structures, algorithms, modules, interface, file layouts.
+
+\item \textbf{coding (implementation} 实现**)** — write the source code following the design.
+
+\item \textbf{testing} — run against test data and fix bugs.
+
+\item \textbf{maintenance} 维护 — after release, keep it working and useful.
+
+\end{itemize}
+
+\section*{Program design tools}
+
+\subsection*{Structure chart}
+
+A \textbf{structure chart} 结构图 shows the \textbf{hierarchical decomposition} 分解 of a program into modules (\textbf{subroutines} 子程序) and the \textbf{parameters} 参数 passed between them. Each module is a rectangle; lines link caller (above) to callee (below); small arrows show data going down and results coming back up.
+
+\begin{Verbatim}
+                CalculatePay
+            /        |         \
+       GetEmployee  CalculateBonus  CalculateTax
+       Returns:     Takes: sales    Takes: gross
+       employeeID   Returns: bonus  Returns: tax
+\end{Verbatim}
+
+It is a design-stage tool, and you can read the procedure signatures off it.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/12-p304-structure-chart.pdf}}\\[0.3em]
+\emph{A structure chart: modules with the parameters passed between them}
+\end{minipage}\par\medskip
+
+\subsection*{State-transition diagram}
+
+A \textbf{state-transition diagram} 状态转换图 shows the \textbf{states} 状态 a system can be in and the \textbf{events} that move it between them — good for vending machines, traffic lights, user interfaces. Each state is a circle; each transition is an arrow labelled with the event.
+
+\begin{Verbatim}
+   coin inserted               item selected
+[Idle] ──────────────→ [Awaiting selection] ──────────→ [Dispensing]
+\end{Verbatim}
+
+It makes missing transitions easy to spot ("what if a second coin is inserted while awaiting selection?").
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/12-p309-state-transition.pdf}}\\[0.3em]
+\emph{A state-transition diagram for a door lock with code 259}
+\end{minipage}\par\medskip
+
+\section*{Errors}
+
+\begin{itemize}
+\item \textbf{syntax error} 语法错误 — breaks the language's grammar (missing bracket, misspelled keyword). Caught at translation time; the program won't run until fixed.
+
+\item \textbf{run-time error} 运行时错误 — happens while running (divide by zero, file not found, array index out of range). The program crashes or raises an exception; fix by adding checks.
+
+\item \textbf{logic error} 逻辑错误 — the program runs but gives \textbf{wrong results} (using \texttt{+} for \texttt{-}, an off-by-one loop, conditions in the wrong order). The hardest to find; the only sign is wrong output, so use careful testing and tracing.
+
+\end{itemize}
+
+\section*{Testing methods}
+
+\begin{itemize}
+\item \textbf{dry run} 手工跟踪 — trace the code on paper, writing each variable's value in a table.
+
+\item \textbf{walkthrough} 走查 — a team review of the code.
+
+\item \textbf{white-box testing} 白盒测试 — designed from the code's internal structure, covering every statement, branch and loop.
+
+\item \textbf{black-box testing} 黑盒测试 — designed from the specification only: feed inputs, check outputs.
+
+\item \textbf{integration testing} 集成测试 — combine modules and test the interfaces between them.
+
+\item \textbf{alpha testing} α测试 — by the developers/in-house before release; \textbf{beta testing} β测试 — by a limited group of real users in their own environment.
+
+\item \textbf{acceptance testing} 验收测试 — by the customer, to decide if the product is fit for purpose.
+
+\item \textbf{stub} 桩 — a placeholder for a module that does not exist yet, so the structure can be tested top-down.
+
+\end{itemize}
+
+\section*{Test strategy and test plan}
+
+A \textbf{test strategy} 测试策略 is the \textbf{high-level approach} — which kinds of testing, who does them, when, and the criteria to move on. A \textbf{test plan} 测试计划 is the \textbf{detailed list of tests} — each with input data, expected output, and a column for the actual output.
+
+\subsection*{Choosing test data}
+
+For each field or condition, include three kinds:
+
+\begin{itemize}
+\item \textbf{normal data} 正常数据 — typical values inside the valid range (for marks 0–100: \texttt{50}, \texttt{75}).
+
+\item \textbf{abnormal data} 异常数据 — values that should be rejected (\texttt{-10}, \texttt{200}, \texttt{"abc"}).
+
+\item \textbf{boundary data} 边界数据 — values at the edges, where off-by-one errors hide (\texttt{0}, \texttt{100}, and just outside \texttt{-1}, \texttt{101}).
+
+\end{itemize}
+
+\section*{Maintenance}
+
+Most of a program's lifetime cost is in maintenance. Three kinds:
+
+\begin{itemize}
+\item \textbf{perfective maintenance} 完善性维护 — improving performance or features even though it works (a faster query, a new option).
+
+\item \textbf{adaptive maintenance} 适应性维护 — keeping it working in a changing environment (a new OS, a new API, a legal change).
+
+\item \textbf{corrective maintenance} 纠正性维护 — fixing bugs found in use.
+
+\end{itemize}
+
+A program may need all three throughout its life.
+
+\section*{Amending an existing program}
+
+When asked to add a feature or fix a bug:
+
+\begin{enumerate}
+\item \textbf{read the existing code} until you understand the algorithm and data flow.
+
+\item \textbf{find where the change goes} — which subroutine, which lines.
+
+\item \textbf{make the change as small as possible} — don't rewrite working code.
+
+\item \textbf{update related parts} — every caller of a changed parameter list, every routine using a changed data structure.
+
+\item \textbf{test} the new behaviour \textbf{and} the old (\textbf{regression testing} 回归测试 — check you broke nothing).
+
+\item \textbf{document} the change.
+
+\end{enumerate}
+
+Clear comments, meaningful names, decomposed subroutines and a structure chart make a program much easier to amend — which is why the design tools matter even after the first release.
+
+
+\end{document}

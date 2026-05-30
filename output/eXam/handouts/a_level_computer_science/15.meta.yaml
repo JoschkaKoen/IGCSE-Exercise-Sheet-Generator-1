@@ -50,3 +50,52 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:52:15Z'
 glossed_at: '2026-05-29T05:52:15Z'
+figures:
+  - file: assets/15-p365-pipeline.png
+    caption: Pipelining overlaps the stages of six instructions, so one finishes each cycle
+    figure_ref: '15.1'
+    source_page_pdf: 365
+    source_page_printed: 349
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 137.0, 541.8, 276.1]
+    placed_under: "## Pipelining"
+  - file: assets/15-p366-simd.png
+    caption: "SIMD: many processors run the same instruction on different data"
+    figure_ref: '15.3'
+    source_page_pdf: 366
+    source_page_printed: 350
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [177.1, 598.0, 558.0, 685.1]
+    placed_under: "## Flynn's taxonomy"
+  - file: assets/15-p367-mimd.png
+    caption: "MIMD: each processor runs its own instructions on its own data"
+    figure_ref: '15.5'
+    source_page_pdf: 367
+    source_page_printed: 351
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [201.9, 332.0, 508.3, 443.7]
+    placed_under: "## Flynn's taxonomy"
+  - file: assets/15-p372-half-adder.png
+    caption: A half adder, as a block and as a circuit of an XOR and an AND gate
+    figure_ref: '15.10'
+    source_page_pdf: 372
+    source_page_printed: 356
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 613.0, 558.0, 684.6]
+    placed_under: "## Half adder and full adder"
+  - file: assets/15-p373-full-adder.png
+    caption: A full adder is built from two half adders and an OR gate
+    figure_ref: '15.12'
+    source_page_pdf: 373
+    source_page_printed: 357
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [168.5, 325.5, 538.2, 437.9]
+    placed_under: "## Half adder and full adder"
+  - file: assets/15-p376-jk-flip-flop.png
+    caption: "A JK flip-flop: its symbol and a build from NAND gates"
+    figure_ref: '15.18'
+    source_page_pdf: 376
+    source_page_printed: 360
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [178.5, 573.8, 558.0, 706.8]
+    placed_under: "### JK flip-flop"

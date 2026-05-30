@@ -38,3 +38,20 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:23:26Z'
 glossed_at: '2026-05-29T05:23:26Z'
+figures:
+  - file: assets/14-p261-gas-thermometer.png
+    caption: A constant-volume gas thermometer — the gas pressure is found from the height difference h
+    figure_ref: '14.4'
+    source_page_pdf: 261
+    source_page_printed: 245
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [388.0, 508.0, 528.0, 675.0]
+    placed_under: "## Measuring temperature"
+  - file: assets/14-p262-absolute-zero-extrapolation.png
+    caption: Extrapolating the pressure–temperature line back to zero pressure gives absolute zero, about −273 °C
+    figure_ref: '14.5'
+    source_page_pdf: 262
+    source_page_printed: 246
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [188.0, 133.0, 501.0, 271.0]
+    placed_under: "### Absolute zero"

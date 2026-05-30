@@ -1,0 +1,50 @@
+topic_number: '21'
+topic_title: Biotechnology and genetic modification
+subject_key: igcse_biology
+covered_question_ids:
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '40'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '40'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '40'
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 3a
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 3bi
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 3bii
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 3biii
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 3ci
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 3cii
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 5ci
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 5cii
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 5ciii
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 5d
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '40'
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 3bvi
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '39'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '40'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '40'
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 2f
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 6d
+generated_at: '2026-05-29T17:37:28Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T17:37:28Z'
+glossed_at: '2026-05-29T17:37:28Z'

@@ -1,0 +1,110 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $F - 350 = 900(0.25) = 225 \Rightarrow F = 575$ N.
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Power $= Fv = 575 \times 15 = 8625$ W.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Momentum: $3(4) = 3v_P + 5v_Q$. With $v_P = +1$: $v_Q = 1.8\text{
+    m s}^{-1}$; with $v_P = -1$: $v_Q = 3\text{ m s}^{-1}$.'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Only $v_P = +1$, $v_Q = 1.8$ loses KE: $\lambda = \tfrac12(3)(4^2)
+    - \left[\tfrac12(3)(1^2) + \tfrac12(5)(1.8^2)\right] = 24 - 9.6 = 14.4$ J.'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Resolving (right/up positive): $\sum F_x \approx 57.3$ N, $\sum
+    F_y \approx -27.0$ N. Resultant $\approx 63.3$ N at $\approx 25.2\degree$ below
+    the horizontal.'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$A$ falls 0.75 m, $B$ rises $0.75\sin\theta = 0.45$ m. Energy:
+    $mg(0.75) = 3g(0.45) + \tfrac{10}{3}(0.75) + \tfrac12(m+3)(2^2) \Rightarrow 7.5m
+    = 22 + 2m \Rightarrow m = 4$.'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Perpendicular: $R = mg\cos\theta + 8mg\sin\theta$. On the point
+    of slipping down, $\mu R$ acts up: $0.5(\cos\theta + 8\sin\theta) = \sin\theta
+    + 8\cos\theta \Rightarrow \tan\theta = 2.5 \Rightarrow \theta = 68.2\degree$.'
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Down the smooth plane $a = g\sin\theta = 2$, so $A$ reaches
+    the collision at $4\text{ m s}^{-1}$. Momentum (down +): $2.5(4) + 3(-3.5) = 2.5v_A''
+    + 3(0.5) \Rightarrow v_A'' = -0.8$ (up). Then $0 = 0.8^2 - 2(2)s \Rightarrow s
+    = 0.16$ m.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $a = \dfrac{dv}{dt} = \tfrac13(4t - 11)$; at $t = 2$, $a = -1\text{
+    m s}^{-2}$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $v = 0$ at $t = 1.5$. $s(1.5) = 2.625$, $s(3) = 1.5$. Total
+    distance $= 2.625 + (2.625 - 1.5) = 3.75$ m.
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $s(t) = 0 \Rightarrow 4t^2 - 33t + 72 = 0$ (for $t \neq 0$);
+    discriminant $= 1089 - 1152 < 0$, so no $t > 0$ gives $s = 0$ — $P$ does not return
+    to $O$.
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'For $B$ (smooth surface): $T\cos 15\degree = 0.5(1.2) = 0.6
+    \Rightarrow T = 0.621$ N.'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'For $A$: $R = 2g + T\sin 15\degree - 6\sin 20\degree = 18.1$
+    N. Horizontally $6\cos 20\degree - T\cos 15\degree - \mu R = 2(1.2) \Rightarrow
+    \mu = \dfrac{5.638 - 0.6 - 2.4}{18.1} = 0.146$.'
+  mark_scheme: []
+  graphics: []

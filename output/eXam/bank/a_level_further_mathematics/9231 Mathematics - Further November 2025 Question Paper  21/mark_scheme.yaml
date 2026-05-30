@@ -1,0 +1,197 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\det\begin{pmatrix}1 & -1 & 1 \\ 1 & k & 3 \\ 1 & 2 & k\end{pmatrix}
+    = (k^2-6) + (k-3) + (2-k) = k^2 - 7$. For no unique solution the determinant is
+    0: $k^2 - 7 = 0 \Rightarrow k = \pm\sqrt7$.'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = \dfrac{dy/dt}{dx/dt} = \dfrac{1 + \sinh t}{\cosh
+    t}$.
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{d}{dt}\left(\dfrac{1+\sinh t}{\cosh t}\right) = \dfrac{\cosh
+    t(\cosh t) - (1+\sinh t)\sinh t}{\cosh^2 t} = \dfrac{1 - \sinh t}{\cosh^2 t}$.
+    Then $\dfrac{d^2y}{dx^2} = \dfrac{d}{dt}\!\left(\dfrac{dy}{dx}\right)\dfrac{dt}{dx}
+    = \dfrac{1 - \sinh t}{\cosh^2 t}\cdot\dfrac{1}{\cosh t} = \dfrac{1 - \sinh t}{\cosh^3
+    t}$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At $t = 0$: $x = \sinh 0 = 0$, $y = 0 + \cosh 0 = 1$, $y''(0)
+    = \dfrac{1+0}{1} = 1$, $y''''(0) = \dfrac{1-0}{1} = 1$. So $y = y(0) + xy''(0)
+    + \tfrac{x^2}{2!}y''''(0) = 1 + x + \tfrac12 x^2$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{d}{dx}\left(x(1+x^2)^n\right) = 2nx^2(1+x^2)^{n-1}
+    + (1+x^2)^n$. Using $x^2 = (1+x^2) - 1$: $= 2n(1+x^2)^n - 2n(1+x^2)^{n-1} + (1+x^2)^n$.
+    Integrating from 0 to 1: $\left[x(1+x^2)^n\right]_0^1 = 2nI_n - 2nI_{n-1} + I_n$,
+    i.e. $2^n = (2n+1)I_n - 2nI_{n-1}$, so $(2n+1)I_n = 2^n + 2nI_{n-1}$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$I_{-1} = \left[\tan^{-1}x\right]_0^1 = \tfrac14\pi$. Applying
+    the reduction formula with $n = -1$: $-I_{-1} = \tfrac12 - 2I_{-2}$, so $-\tfrac14\pi
+    = \tfrac12 - 2I_{-2}$, giving $I_{-2} = \tfrac14 + \tfrac18\pi$.'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Auxiliary equation $5m^2 + 2m + 1 = 0 \Rightarrow m = -\tfrac15
+    \pm \tfrac25\mathrm{i}$, so CF $= \mathrm{e}^{-\frac15 x}\left(A\cos\tfrac25 x
+    + B\sin\tfrac25 x\right)$. PI $y = px^2 + qx + r$ gives $p = 1$, $q = 1$, $r =
+    -9$. General solution $y = \mathrm{e}^{-\frac15 x}\left(A\cos\tfrac25 x + B\sin\tfrac25
+    x\right) + x^2 + x - 9$. Initial conditions: $A - 9 = 0$ and $\tfrac25 B - \tfrac15
+    A + 1 = 0 \Rightarrow A = 9$, $B = 2$. So $y = \mathrm{e}^{-\frac15 x}\left(9\cos\tfrac25
+    x + 2\sin\tfrac25 x\right) + x^2 + x - 9$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Right-endpoint rectangle sum $= \displaystyle\sum_{k=1}^n \tfrac1n\left(\tfrac13\left(\tfrac{k}{n}\right)^3
+    + \tfrac{k}{n}\right) = \tfrac{1}{3n^4}\cdot\tfrac{n^2(n+1)^2}{4} + \tfrac{1}{n^2}\cdot\tfrac{n(n+1)}{2}
+    = \tfrac{1}{12}\left(1+\tfrac1n\right)^2 + \tfrac12\left(1+\tfrac1n\right) = \tfrac{1}{12}\left(1+\tfrac1n\right)\left(7+\tfrac1n\right)$.
+    Since the curve is increasing, the integral $<$ this sum $= U_n$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Using left-endpoint rectangles, $L_n = \tfrac{1}{12}\left(1-\tfrac1n\right)^2
+    + \tfrac12\left(1-\tfrac1n\right) = \tfrac{1}{12}\left(1-\tfrac1n\right)\left(7-\tfrac1n\right)$
+    (equivalently $L_n = U_n - \tfrac{4}{3n}$).
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $U_n - L_n = \tfrac{1}{12}\left[\left(1+\tfrac1n\right)\left(7+\tfrac1n\right)
+    - \left(1-\tfrac1n\right)\left(7-\tfrac1n\right)\right] = \tfrac{1}{12}\cdot\tfrac{16}{n}
+    = \tfrac{4}{3n} \to 0$ as $n\to\infty$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The eigenvalues are the diagonal entries (upper triangular):
+    $a$, $2a$, $-3a$.'
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathbf{P}^2 = \begin{pmatrix} a^2 & 3a & -2a-1 \\ 0 & 4a^2
+    & a \\ 0 & 0 & 9a^2 \end{pmatrix}$.
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Characteristic equation: $\mathbf{P}^3 - 7a^2\mathbf{P} + 6a^3\mathbf{I}
+    = \mathbf{0}$. Multiplying by $\mathbf{P}^{-1}$: $6a^3\mathbf{P}^{-1} = 7a^2\mathbf{I}
+    - \mathbf{P}^2$, so $\mathbf{P}^{-1} = \dfrac{1}{6a^3}\begin{pmatrix} 6a^2 & -3a
+    & 2a+1 \\ 0 & 3a^2 & -a \\ 0 & 0 & -2a^2 \end{pmatrix}$.'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: With $\mathbf{D} = \mathrm{diag}(1,2,3)$ and $\mathbf{P}$ the
+    matrix of eigenvectors (the same $\mathbf{P}$), $\mathbf{A} = \mathbf{P}\mathbf{D}\mathbf{P}^{-1}
+    = \begin{pmatrix} 1 & \tfrac{1}{2a} & -\tfrac{4a+1}{6a^2} \\ 0 & 2 & \tfrac{1}{3a}
+    \\ 0 & 0 & 3 \end{pmatrix}$.
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using $\tanh^{-1}x = \tfrac12\ln\!\left(\dfrac{1+x}{1-x}\right)$:
+    $\dfrac{d}{dx}\left(\tanh^{-1}x\right) = \tfrac12\cdot\dfrac{1-x}{1+x}\cdot\dfrac{(1-x)(1)
+    - (1+x)(-1)}{(1-x)^2} = \tfrac12\cdot\dfrac{1-x}{1+x}\cdot\dfrac{2}{(1-x)^2} =
+    \dfrac{1}{1-x^2}$ (AG). (Alternatively $\tanh y = x \Rightarrow \mathrm{sech}^2
+    y\,\tfrac{dy}{dx} = 1 \Rightarrow \tfrac{dy}{dx} = \tfrac{1}{1-\tanh^2 y} = \tfrac{1}{1-x^2}$.)'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{dy}{dx} - \dfrac{y}{x} = x\tanh^{-1}x$; integrating
+    factor $\mathrm{e}^{-\int x^{-1}dx} = x^{-1}$, so $\dfrac{d}{dx}(x^{-1}y) = \tanh^{-1}x$.
+    Then $x^{-1}y = x\tanh^{-1}x - \displaystyle\int\dfrac{x}{1-x^2}\,dx = x\tanh^{-1}x
+    + \tfrac12\ln(1-x^2) + C$. Using $y=0$ at $x=\tfrac12$: $C = -\tfrac14\ln\tfrac{27}{16}$.
+    So $x^{-1}y = x\tanh^{-1}x + \tfrac12\ln(1-x^2) - \tfrac14\ln\tfrac{27}{16}$ (i.e.
+    $y = x\left(x\tanh^{-1}x + \tfrac12\ln(1-x^2) - \tfrac14\ln\tfrac{27}{16}\right)$).'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $z + z^2 + \ldots + z^n = \dfrac{z^{n+1} - z}{z - 1}$.
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: With $z = \tfrac12\mathrm{e}^{\mathrm{i}\theta}$, $\displaystyle\sum_{m=1}^n\left(\tfrac12\right)^m\mathrm{e}^{\mathrm{i}m\theta}
+    = \dfrac{z^{n+1}-z}{z-1}$. Multiplying numerator and denominator by the conjugate
+    of $z-1$ and taking the imaginary part (using $\sin(A-B)$) gives $\displaystyle\sum_{m=1}^n\left(\tfrac12\right)^m\sin
+    m\theta = \dfrac{\left(\tfrac12\right)^{n+2}\sin n\theta - \left(\tfrac12\right)^{n+1}\sin(n+1)\theta
+    + \tfrac12\sin\theta}{\tfrac54 - \cos\theta}$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\displaystyle\sum_{m=1}^n\left(\tfrac12\right)^m m\cos m\theta
+    = \dfrac{d}{d\theta}\left[\sum_{m=1}^n\left(\tfrac12\right)^m\sin m\theta\right]$.
+    Differentiating the result in (b) by the quotient rule: $= \dfrac{\left(\tfrac54-\cos\theta\right)\left(\left(\tfrac12\right)^{n+2}n\cos
+    n\theta - \left(\tfrac12\right)^{n+1}(n+1)\cos(n+1)\theta + \tfrac12\cos\theta\right)
+    - \left(\left(\tfrac12\right)^{n+2}\sin n\theta - \left(\tfrac12\right)^{n+1}\sin(n+1)\theta
+    + \tfrac12\sin\theta\right)\sin\theta}{\left(\tfrac54-\cos\theta\right)^2}$.'
+  mark_scheme: []
+  graphics: []
+- number: 8d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: As $n\to\infty$ the $\left(\tfrac12\right)^{n+\ldots}$ terms
+    vanish, so $\displaystyle\sum_{m=1}^\infty\left(\tfrac12\right)^m m\cos m\theta
+    = \dfrac{\left(\tfrac54-\cos\theta\right)\left(\tfrac12\cos\theta\right) - \left(\tfrac12\sin\theta\right)\sin\theta}{\left(\tfrac54-\cos\theta\right)^2}
+    = \dfrac{\tfrac58\cos\theta - \tfrac12}{\left(\tfrac54-\cos\theta\right)^2}$.
+  mark_scheme: []
+  graphics: []

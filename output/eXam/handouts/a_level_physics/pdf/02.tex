@@ -1,0 +1,287 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Kinematics}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Key definitions}
+
+These five quantities come up in almost every \textbf{kinematics} 运动学 question. Learn the exact words — the examiner gives marks for precise wording.
+
+\begin{itemize}
+\item \textbf{distance} 距离 — the total length of the path travelled. A \textbf{scalar} 标量.
+
+\item \textbf{displacement} 位移 — the straight-line distance from the start to the end, with a direction. A \textbf{vector} 矢量.
+
+\item \textbf{speed} 速率 — the rate of change of distance with time. A scalar.
+
+\item \textbf{velocity} 速度 — the rate of change of displacement with time. A vector.
+
+\item \textbf{acceleration} 加速度 — the rate of change of velocity with time. A vector.
+
+\end{itemize}
+
+The unit of speed and velocity is $\text{m s}^{-1}$; the unit of acceleration is $\text{m s}^{-2}$.
+
+A common mistake: \textbf{deceleration} 减速度 just means acceleration in the opposite direction to the velocity. It is not a separate quantity.
+
+\section*{Motion graphs}
+
+Many marks come from reading or drawing motion graphs. Two graphs matter.
+
+\subsection*{Displacement–time graph}
+
+The \textbf{gradient} 斜率 (steepness) of a displacement–time graph at a point gives the velocity at that moment.
+
+\begin{itemize}
+\item flat line → the object is at rest.
+
+\item straight sloping line → constant velocity (gradient = velocity).
+
+\item curved line → changing velocity. Draw a \textbf{tangent} 切线 at the point and find its gradient.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/02-p57-displacement-time-worked-example.pdf}}\\[0.3em]
+\emph{Displacement–time graph of a car on a test track}
+\end{minipage}\par\medskip
+
+\subsection*{Velocity–time graph}
+
+The gradient of a velocity–time graph gives the acceleration at that moment.
+
+The \textbf{area} between the line and the time axis gives the displacement in that time.
+
+\begin{itemize}
+\item flat line → constant velocity (zero acceleration).
+
+\item straight sloping line → \textbf{uniform acceleration} 匀加速 (constant acceleration).
+
+\item curved line → changing acceleration.
+
+\item area above the time axis is positive displacement; area below is negative (the object moved backwards).
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/02-p58-velocity-time-graph.pdf}}\\[0.3em]
+\emph{Velocity–time graph — gradient gives acceleration, area gives displacement}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/02-p58-acceleration-time-graph.pdf}}\\[0.3em]
+\emph{Acceleration–time graph derived from the same motion}
+\end{minipage}\par\medskip
+
+To find the displacement, split the area into triangles and rectangles, or count grid squares. Area of a triangle is $\tfrac{1}{2} \times \text{base} \times \text{height}$; area of a rectangle is $\text{base} \times \text{height}$.
+
+\section*{The four SUVAT equations}
+
+For motion in a straight line with uniform acceleration, we use five symbols: starting velocity $u$, final velocity $v$, acceleration $a$, displacement $s$, and time $t$. Four equations link them:
+
+\[
+v = u + at
+\]
+
+\[
+s = ut + \tfrac{1}{2} a t^{2}
+\]
+
+\[
+s = \tfrac{1}{2}(u + v)t
+\]
+
+\[
+v^{2} = u^{2} + 2as
+\]
+
+Each equation uses four of the five symbols. To pick the right one: write down what you know and what you want, then choose the equation with exactly those four.
+
+\subsection*{Where the SUVAT equations come from}
+
+You should be able to get these from the definitions of velocity and acceleration:
+
+\begin{itemize}
+\item $v = u + at$ comes from $a = (v - u)/t$, the gradient of the line.
+
+\item $s = \tfrac{1}{2}(u + v) t$ is the area under the line — a \textbf{trapezium} 梯形 with parallel sides $u$ and $v$ and width $t$.
+
+\item $s = ut + \tfrac{1}{2}at^{2}$ comes from putting $v = u + at$ into the area.
+
+\item $v^{2} = u^{2} + 2as$ comes from removing $t$ from the first two.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/02-p57-suvat-displacement-time-parabola.pdf}}\\[0.3em]
+\emph{Displacement–time graph for uniform acceleration — the slope at any point equals the instantaneous velocity}
+\end{minipage}\par\medskip
+
+If a question asks "which equation can be found using only the gradient of a velocity–time graph?", the answer is $v = u + at$ (the gradient is the acceleration).
+
+\subsection*{Choosing a positive direction}
+
+Pick a positive direction at the start and keep it. Anything pointing the other way gets a minus sign. For a ball thrown straight up, if "up" is positive: $u$ is positive, $a = -g$ (\textbf{gravity} 重力 pulls down), and at the highest point the displacement is positive but the velocity is zero.
+
+\section*{Free fall under gravity}
+
+When \textbf{air resistance} 空气阻力 can be ignored, an object in \textbf{free fall} 自由落体 has a constant acceleration $g \approx 9.81\ \text{m s}^{-2}$ downwards. This is the same for every mass.
+
+For a ball dropped from rest and falling a distance $h$:
+
+\[
+h = \tfrac{1}{2}gt^{2}, \qquad v = gt, \qquad v^{2} = 2gh.
+\]
+
+For a ball thrown straight up with speed $u$:
+
+\begin{itemize}
+\item greatest height: put $v = 0$ in $v^{2} = u^{2} - 2gh$, giving $h = u^{2}/(2g)$.
+
+\item time to reach the top: put $v = 0$ in $v = u - gt$, giving $t = u/g$.
+
+\item total time to fall back to the start height: $2u/g$ (the motion is \textbf{symmetric} 对称).
+
+\end{itemize}
+
+\subsection*{Experiment to find $g$}
+
+A common method: drop an object from rest, then measure the distance $h$ it falls and the time $t$ it takes. Then
+
+\[
+g = \frac{2h}{t^{2}}.
+\]
+
+Repeat for several heights and plot $h$ against $t^{2}$. The gradient of the best straight line is $g/2$, so $g$ is twice the gradient. Repeating reduces \textbf{random error} 随机误差. An electronic timer — using \textbf{light gates} 光电门, or a switch the ball hits — removes \textbf{reaction-time} 反应时间 error.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/02-p53-free-fall-g-experiment.pdf}}\\[0.3em]
+\emph{Experimental set-up for measuring the acceleration due to free fall}
+\end{minipage}\par\medskip
+
+\section*{Motion in two directions}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/02-p60-projectile-parabola-sprinkler.pdf}}\\[0.3em]
+\emph{Water jets from a garden sprinkler trace parabola paths — a real example of projectile motion}
+\end{minipage}\par\medskip
+
+When an object moves at constant velocity in one direction (say \textbf{horizontal} 水平) and speeds up in a direction at right angles to it (say \textbf{vertical} 竖直, under gravity), the two motions do not affect each other. Treat each direction on its own, with its own SUVAT equation.
+
+\subsection*{Horizontal throw}
+
+An object thrown horizontally with speed $u_{\text{H}}$ from height $h$, with air resistance ignored:
+
+\begin{itemize}
+\item \textbf{horizontal}: constant velocity $u_{\text{H}}$. After time $t$, the horizontal distance is $x = u_{\text{H}} t$.
+
+\item \textbf{vertical}: starts from rest and speeds up downwards at $g$. After time $t$, it has fallen $y = \tfrac{1}{2} g t^{2}$ and has vertical velocity $v_{\text{V}} = g t$.
+
+\end{itemize}
+
+The time to reach the ground depends \textbf{only} on the height $h$, not on $u_{\text{H}}$. Solve $h = \tfrac{1}{2} g t^{2}$ for $t$; then the horizontal \textbf{range} 射程 is $u_{\text{H}} t$.
+
+The horizontal-velocity graph is a flat line at $u_{\text{H}}$. The vertical-velocity graph is a straight line from the origin with gradient $g$.
+
+\subsection*{Projectile at an angle}
+
+A \textbf{projectile} 抛体 thrown at speed $u$ at angle $\theta$ above the horizontal:
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/02-p60-projectile-at-angle.pdf}}\\[0.3em]
+\emph{Projectile launched at angle θ — horizontal and vertical motions are independent}
+\end{minipage}\par\medskip
+
+\begin{itemize}
+\item horizontal \textbf{component} 分量 of the starting velocity: $u_{\text{H}} = u \cos\theta$ (stays constant during the flight).
+
+\item vertical component of the starting velocity: $u_{\text{V}} = u \sin\theta$ (gets smaller, becomes zero at the top, then grows downwards).
+
+\end{itemize}
+
+At the highest point, $v_{\text{V}} = 0$, but $v_{\text{H}}$ is still $u\cos\theta$. The time to the top is $t_{\text{up}} = u\sin\theta / g$; the total flight time (back to the start height) is $2t_{\text{up}}$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/02-p60-projectile-range-diagram.pdf}}\\[0.3em]
+\emph{Range R of a projectile launched from and landing on level ground}
+\end{minipage}\par\medskip
+
+\subsection*{Bouncing ball}
+
+When a ball bounces, its velocity–time graph is a set of straight sloping lines (constant $g$) with a sudden jump at each bounce (the velocity flips direction, and gets smaller if some \textbf{energy} 能量 is lost). Add up the times and the distances across the bounces.
+
+\section*{Two objects meeting}
+
+When two objects move along the same line in different ways, write a displacement equation for each. Use the same start time and the same positive direction. Then set the two displacements equal (or set their difference to a given gap).
+
+For a goods train at constant velocity $u_{\text{G}}$ and an express train starting from rest with acceleration $a$, both passing the same point at $t = 0$:
+
+\[
+s_{\text{G}} = u_{\text{G}} t, \qquad s_{\text{E}} = \tfrac{1}{2} a t^{2}.
+\]
+
+They are level again when $s_{\text{G}} = s_{\text{E}}$, giving $t = 2 u_{\text{G}} / a$.
+
+\section*{Tips for solving problems}
+
+\begin{enumerate}
+\item \textbf{Draw a diagram} and mark the positive direction.
+
+\item \textbf{List the SUVAT symbols} with their known and unknown values, including signs.
+
+\item \textbf{Choose the SUVAT equation} with exactly the four symbols you have, plus the one you want.
+
+\item For projectile motion, \textbf{split into horizontal and vertical} SUVAT problems, linked only by the time $t$.
+
+\item Always \textbf{check the units} of your answer, and that its size is sensible.
+
+\end{enumerate}
+
+
+\end{document}

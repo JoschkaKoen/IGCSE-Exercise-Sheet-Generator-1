@@ -237,6 +237,24 @@
                     Economics
                   </span>
                 </button>
+                <button type="button" id="tab-a-level-math"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="a_level_mathematics"
+                        role="tab" aria-selected="false" aria-controls="grid-a-level-math">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-blue-400"></span>
+                    Mathematics
+                  </span>
+                </button>
+                <button type="button" id="tab-a-level-further-math"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="a_level_further_mathematics"
+                        role="tab" aria-selected="false" aria-controls="grid-a-level-further-math">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-fuchsia-400"></span>
+                    Further Mathematics
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -272,6 +290,8 @@
     <div id="grid-economics"         class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
     <div id="grid-a-level-business"  class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
     <div id="grid-a-level-economics" class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-a-level-math"            class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-a-level-further-math"    class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
 
     <script type="application/json" id="lib-raw-data">{{ library_json | tojson }}</script>
 
@@ -330,6 +350,8 @@ var tabs = [
   { id: 'tab-economics',         subject: 'igcse_economics',          gridId: 'grid-economics',         activeClass: 'tab-active-rose',    theme: 'rose',    label: 'Economics'        },
   { id: 'tab-a-level-business',  subject: 'a_level_business',         gridId: 'grid-a-level-business',  activeClass: 'tab-active-amber',   theme: 'amber',   label: 'Business'         },
   { id: 'tab-a-level-economics', subject: 'a_level_economics',        gridId: 'grid-a-level-economics', activeClass: 'tab-active-rose',    theme: 'rose',    label: 'Economics'        },
+  { id: 'tab-a-level-math',         subject: 'a_level_mathematics',         gridId: 'grid-a-level-math',         activeClass: 'tab-active-blue',    theme: 'blue',    label: 'Mathematics'         },
+  { id: 'tab-a-level-further-math', subject: 'a_level_further_mathematics', gridId: 'grid-a-level-further-math', activeClass: 'tab-active-fuchsia', theme: 'fuchsia', label: 'Further Mathematics' },
 ];
 tabs.forEach(function (t) {
   t.el   = document.getElementById(t.id);

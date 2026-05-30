@@ -1,0 +1,136 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $P(2 < X < 5) = P(X=3) + P(X=4) = e^{-3}\!\left(\tfrac{27}{6}
+    + \tfrac{81}{24}\right) = 0.392$.
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$X + Y \sim \mathrm{Po}(5)$: $P(X+Y > 2) = 1 - e^{-5}(1 + 5
+    + 12.5) = 0.875$.'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $E(T) = 100(3) + 150(2) = 600$, $\mathrm{Var}(T) = 600$, so
+    $T \approx N(600, 600)$. $P(T < 560) \approx P\!\left(Z < \tfrac{559.5 - 600}{\sqrt{600}}\right)
+    = P(Z < -1.653) = 0.0492$.
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\bar{x} = 499.5$, $s^2 = \tfrac{1}{59}\!\left(14970300 - \tfrac{29970^2}{60}\right)
+    = 4.831$. $H_0\!: \mu = 500$, $H_1\!: \mu \neq 500$. $z = \tfrac{499.5 - 500}{\sqrt{4.831/60}}
+    = -1.76$; $|z| < 1.96$, so do not reject $H_0$ — no evidence the mean differs
+    from 500 g.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $X \approx \mathrm{Po}(14500 \times 0.0001) = \mathrm{Po}(1.45)$.
+    $P(X < 4) = e^{-1.45}\!\left(1 + 1.45 + \tfrac{1.45^2}{2} + \tfrac{1.45^3}{6}\right)
+    = 0.940$.
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $P(X=0) = e^{-14500p}$. Require $e^{-14500p} = 2e^{-1.45} \Rightarrow
+    14500p = 1.45 - \ln 2 = 0.757 \Rightarrow p = 5.22\times10^{-5}$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Width $\propto z$-value: $\tfrac{z_\alpha}{z_{90}} = 1.414
+    \Rightarrow z_\alpha = 1.414 \times 1.645 = 2.326$. $\Phi(2.326) = 0.99 \Rightarrow
+    \tfrac{1 + \alpha/100}{2} = 0.99 \Rightarrow \alpha = 98$.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The 90% interval lies inside the 98% interval (same centre),
+    so $\{90\% \text{ contains } \mu\} \subset \{98\% \text{ contains } \mu\}$. Hence
+    the probability $= \tfrac{0.90}{0.98} = 0.918$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $X \sim B(40, 0.2)$, lower-tail. $P(X \leqslant 2) = 0.00794
+    < 0.025$ but $P(X \leqslant 3) = 0.0285 > 0.025$, so the rejection region is $X
+    \leqslant 2$ and $P(\text{Type I error}) = P(X \leqslant 2) = 0.00794$.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Reject $H_0$ if $X \leqslant 2$.
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $X = 2$ lies in the rejection region, so $H_0$ is rejected.
+    A Type II error means failing to reject a false $H_0$; since $H_0$ is rejected,
+    a Type II error is impossible.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $L + S \sim N(3.3, 0.07)$. $P(L + S > 3.55) = P\!\left(Z > \tfrac{3.55
+    - 3.3}{\sqrt{0.07}}\right) = P(Z > 0.945) = 0.172$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $L - 3S \sim N(2.5 - 2.4,\ 0.05 + 9(0.02)) = N(0.1, 0.23)$.
+    $P(L < 3S) = P(L - 3S < 0) = P\!\left(Z < \tfrac{-0.1}{\sqrt{0.23}}\right) = P(Z
+    < -0.209) = 0.417$.
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $P(X > 4.5) = \int_{4.5}^{5} -\tfrac34(x-3)(x-5)\,dx = 0.15625
+    = \tfrac{5}{32}$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: By symmetry of $f$ about $x = 4$, the median is $4$.
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: By symmetry, $P(X < 3.5) = P(X > 4.5) = \tfrac{5}{32}$, so $P(3.5
+    < X < 4.5) = 1 - 2\times\tfrac{5}{32} = \tfrac{11}{16} = 0.6875$.
+  mark_scheme: []
+  graphics: []

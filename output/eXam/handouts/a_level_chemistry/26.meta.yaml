@@ -1,0 +1,78 @@
+topic_number: '26'
+topic_title: Reaction kinetics
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 3a
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 3bi
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 3bii
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 3ci
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 3cii
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 3d
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 2aii
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 2b
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 2c
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 2d
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 2e
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 3a
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 3bi
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 3bii
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 3ci
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 3cii
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 3d
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4ai
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4aii
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4aiii
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4aiv
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4av
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4avi
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4b
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4ci
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4cii
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 4ciii
+- paper: 9701 Chemistry November 2025 Question Paper  54
+  qnum: 2b
+- paper: 9701 Chemistry November 2025 Question Paper  54
+  qnum: 2ci
+- paper: 9701 Chemistry November 2025 Question Paper  54
+  qnum: 2cii
+- paper: 9701 Chemistry November 2025 Question Paper  54
+  qnum: 2d
+- paper: 9701 Chemistry November 2025 Question Paper  54
+  qnum: 2ei
+- paper: 9701 Chemistry November 2025 Question Paper  54
+  qnum: 2eii
+- paper: 9701 Chemistry November 2025 Question Paper  54
+  qnum: 2eiii
+generated_at: '2026-05-29T16:18:16Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:18:16Z'
+glossed_at: '2026-05-29T16:18:16Z'

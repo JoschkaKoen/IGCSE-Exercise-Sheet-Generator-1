@@ -1,0 +1,208 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Stretch $= \begin{pmatrix}14 & 0 \\ 0 & 1\end{pmatrix}$, rotation
+    $= \begin{pmatrix}\tfrac12 & -\tfrac{\sqrt3}{2} \\ \tfrac{\sqrt3}{2} & \tfrac12\end{pmatrix}$.
+    In the correct order, $\mathbf{M} = \begin{pmatrix}\tfrac12 & -\tfrac{\sqrt3}{2}
+    \\ \tfrac{\sqrt3}{2} & \tfrac12\end{pmatrix}\begin{pmatrix}14 & 0 \\ 0 & 1\end{pmatrix}
+    = \begin{pmatrix}7 & -\tfrac{\sqrt3}{2} \\ 7\sqrt3 & \tfrac12\end{pmatrix}$, so
+    $2\mathbf{M} = \begin{pmatrix}14 & -\sqrt3 \\ 14\sqrt3 & 1\end{pmatrix}$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'For $y = mx$: $7\sqrt3 x + \tfrac12 mx = m\left(7x - \tfrac{\sqrt3}{2}mx\right)$,
+    giving $\sqrt3 m^2 - 13m + 14\sqrt3 = 0$, so $m = 2\sqrt3$ or $m = \tfrac{7}{\sqrt3}$.
+    Invariant lines: $y = 2\sqrt3\,x$ and $y = \tfrac{7}{\sqrt3}x$.'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The required matrix is $\mathbf{M}^{-1} = \tfrac{1}{14}\begin{pmatrix}\tfrac12
+    & \tfrac{\sqrt3}{2} \\ -7\sqrt3 & 7\end{pmatrix} = \tfrac12\begin{pmatrix}\tfrac{1}{14}
+    & \tfrac{\sqrt3}{14} \\ -\sqrt3 & 1\end{pmatrix}$ (the inverse of $\mathbf{M}$).
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Base case $n=1$: $2025 + 47 - 2 = 2070 = 45\times46$, divisible
+    by 46 ✓. Assume $2025^k + 47^k - 2$ is divisible by 46. Then $2025^{k+1} + 47^{k+1}
+    - 2 = (2024+1)2025^k + (46+1)47^k - 2 = (2025^k + 47^k - 2) + 2024\times2025^k
+    + 46\times47^k$, where $2024\times2025^k + 46\times47^k = 46(44\times2025^k +
+    47^k)$ is divisible by 46. Hence by induction it is true for every positive integer
+    $n$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$(\alpha+\beta+\gamma+\delta)^2 = \sum\alpha^2 + 2\sum\alpha\beta$,
+    with $\sum\alpha = 0$ and $\sum\alpha\beta = 7$: $0 = \sum\alpha^2 + 2(7)$, so
+    $\alpha^2+\beta^2+\gamma^2+\delta^2 = -14$.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Newton''s identity for the quartic ($S_1 = 0$, $S_2 = -14$):
+    $S_4 + 7S_2 + 3S_1 + 88 = 0 \Rightarrow S_4 = -7(-14) - 88 = 10$. So $\alpha^4+\beta^4+\gamma^4+\delta^4
+    = 10$.'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $(r+\alpha^2)^2 = r^2 + 2\alpha^2 r + \alpha^4$, so the sum
+    $= \displaystyle\sum_{r=1}^{10}\left(4r^2 + 2(\textstyle\sum\alpha^2)r + \textstyle\sum\alpha^4\right)
+    = \sum_{r=1}^{10}(4r^2 - 28r + 10) = 4\cdot\tfrac{10}{6}(11)(21) - 28\cdot\tfrac{10\cdot11}{2}
+    + 10(10) = 1540 - 1540 + 100 = 100$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $w_{r+1} - w_r = (r+1)(r+2)\ldots(r+10) - r(r+1)\ldots(r+9)
+    = (r+1)(r+2)\ldots(r+9)\big[(r+10) - r\big] = 10(r+1)(r+2)\ldots(r+9)$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\displaystyle\sum_{r=1}^n u_r = \tfrac{1}{10}\sum_{r=1}^n (w_{r+1}
+    - w_r) = \tfrac{1}{10}(w_{n+1} - w_1) = \tfrac{1}{10}(n+1)(n+2)\ldots(n+10) -
+    9!$ (since $w_1 = 10!$ and $\tfrac{10!}{10} = 9!$).
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $v_1 + v_2 + \ldots + v_n = x^{w_{n+1}} - x^{w_1}$. For $-1
+    < x < 1$, $x^{w_{n+1}}\to0$, so the sum to infinity is $-x^{w_1} = -x^{10!}$.
+    For $x = \pm1$ every term is 0, so the sum to infinity is 0. Hence the series
+    converges for $-1 \leqslant x \leqslant 1$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Normal $= (1,-2,-1)\times(3,2,-2) = (6,-1,8)$. Through $(2,3,-2)$:
+    $6(2) - (3) + 8(-2) = -7$, so $6x - y + 8z = -7$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Foot $\overrightarrow{OF} = \overrightarrow{OP} + t\,\mathbf{n}
+    = (4+6t,\,2-t,\,9+8t)$. Substituting into $\Pi$: $6(4+6t) - (2-t) + 8(9+8t) =
+    -7 \Rightarrow 101t + 94 = -7 \Rightarrow t = -1$. So $\overrightarrow{OF} = -2\mathbf{i}
+    + 3\mathbf{j} + \mathbf{k}$.'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\cos\alpha = \dfrac{(3,5,-1)\cdot(6,-1,8)}{\sqrt{35}\sqrt{101}}
+    = \dfrac{5}{\sqrt{35}\sqrt{101}}$ (angle between $l$ and the normal). The acute
+    angle between $l$ and $\Pi$ is $90\degree - \alpha = 4.8\degree$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Vertical asymptote $x = -a$. Dividing, $y = \dfrac{(x+a)(x-a)
+    + a^2 + a}{x+a} = x - a + \dfrac{a^2 + a}{x+a}$, so the oblique asymptote is $y
+    = x - a$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = 1 - (a^2+a)(x+a)^{-2} = 0 \Rightarrow (x+a)^2
+    = a^2 + a \Rightarrow x = -a \pm \sqrt{a^2 + a}$.
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Asymptotes $x = -a$ and $y = x - a$; $y$-intercept at $(0, 1)$.
+    Two branches with a local maximum/minimum at $x = -a \pm \sqrt{a^2+a}$.
+  mark_scheme: []
+  graphics: []
+- number: 6d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Reflect in the $x$-axis the parts of $C$ lying below it (following
+    from the sketch in (c)), keeping the vertical asymptote $x = -a$.
+  mark_scheme: []
+  graphics: []
+- number: 6e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Critical points: $\dfrac{x^2+a}{x+a} = a \Rightarrow x^2 -
+    ax + a - a^2 = 0$; the case $= -a$ gives $x^2 + ax + a + a^2 = 0$ which has no
+    real roots ($a>0$). For two real solutions need the discriminant of $x^2 - ax
+    + a - a^2 = 0$ positive: $a^2 - 4(a - a^2) = 5a^2 - 4a > 0 \Rightarrow a > \tfrac45$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$r^2 = \mathrm{e}^{\sin\theta}\cos\theta$; $\dfrac{d(r^2)}{d\theta}
+    = \mathrm{e}^{\sin\theta}(\cos^2\theta - \sin\theta) = 0 \Rightarrow \cos^2\theta
+    - \sin\theta = 0 \Rightarrow \sin^2\theta + \sin\theta - 1 = 0 \Rightarrow \sin\theta
+    = \tfrac12(-1+\sqrt5)$. Furthest point from the pole: $(r, \theta) = (1.208,\
+    0.666)$.'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Distance from the half-line $\theta = \tfrac12\pi$ is $x =
+    r\cos\theta = \mathrm{e}^{\frac12\sin\theta}\cos^{3/2}\theta$. $\dfrac{dx}{d\theta}
+    = 0 \Rightarrow -3\sin\theta + \cos^2\theta = 0 \Rightarrow \sin^2\theta + 3\sin\theta
+    - 1 = 0 \Rightarrow \sin\theta = \tfrac12(-3+\sqrt{13})$. Point: $(r, \theta)
+    = (1.136,\ 0.308)$.'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: A closed loop passing through $O$ and the point $(1, 0)$, lying
+    in the first and fourth quadrants (more in the first), approaching the line $\theta
+    = \tfrac12\pi$.
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Area $= \tfrac12\displaystyle\int_{-\pi/2}^{\pi/2}\mathrm{e}^{\sin\theta}\cos\theta\,d\theta
+    = \tfrac12\left[\mathrm{e}^{\sin\theta}\right]_{-\pi/2}^{\pi/2} = \tfrac12\left(\mathrm{e}
+    - \mathrm{e}^{-1}\right)$.
+  mark_scheme: []
+  graphics: []

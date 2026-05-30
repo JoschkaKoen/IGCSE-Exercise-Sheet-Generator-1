@@ -1,0 +1,249 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The random variable $X$ takes the value $x$ with probability $kx^2$, where
+    $k$ is a constant and $x$ takes the values $-2$, 1, 2, 3 only.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Draw up the probability distribution table for $X$, giving the probabilities
+      as numerical fractions.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Find $\mathrm{E}(X)$.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find $\mathrm{P}(X \neq 2 \mid X > 0)$.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A fair six-sided dice with faces labelled 1, 2, 3, 4, 5, 6 is thrown repeatedly
+    until a 6 is obtained.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Find the probability that a 6 is obtained for the first time on the 8th
+      throw.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the probability that a 6 is obtained for the third time on the 7th
+      throw.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The back-to-back stem-and-leaf diagram shows the annual salaries, in dollars,
+    of 27 employees at each of two companies, Browns and Greens.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the median and interquartile range for the annual salaries of employees
+      at Browns.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: The annual salary of an employee at Browns is denoted by $x$ thousand dollars
+      and that of an employee at Greens by $y$ thousand dollars. For the 27 employees
+      at each company, $\sum x = 878.3$, $\sum x^2 = 28616.09$, $\sum y = 896.5$,
+      $\sum y^2 = 29815.63$. Find the mean and standard deviation of the annual salaries
+      of these 54 employees.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Bag $A$ contains 8 red marbles and 3 blue marbles. Bag $B$ contains 4 red
+    marbles and 1 blue marble. A marble is chosen at random from bag $A$; if red it
+    is discarded, if blue it is placed in bag $B$. A marble is then chosen at random
+    from bag $B$; if red it is discarded, if blue it is placed in bag $A$. A marble
+    is now chosen at random from bag $A$.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Complete the tree diagram by entering all the remaining outcomes and probabilities.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the probability that all three marbles chosen are the same colour.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: On any given day, Cooper either wears a blue jumper or a green jumper or does
+    not wear a jumper. The probability that he wears a blue jumper is 0.6 and the
+    probability that he wears a green jumper is 0.3. His choice on any day is independent
+    of his choice on any other day.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the probability that, in a week (7 days), Cooper wears a blue jumper
+      on at least 5 days.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Use a suitable approximation to find the probability that, in any 150-day
+      period, Cooper does not wear a jumper on fewer than 22 days.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A factory produces chocolate bars. The weights of the bars are normally distributed
+    with mean 155 g and standard deviation 6 g. A random sample of 350 of these bars
+    is chosen.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: How many of these 350 bars would you expect to weigh between 148 g and 160
+      g?
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: A second factory also produces chocolate bars whose weights are normally
+      distributed with mean $\mu$ g and standard deviation $\sigma$ g. Tests show
+      that 8% of the bars weigh more than 114.0 g and 20% weigh less than 99.5 g.
+      Find the value of $\mu$ and the value of $\sigma$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: How many different arrangements are there of the 10 letters in the word
+      SEYCHELLES?
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: How many different arrangements are there of the 10 letters in the word
+      SEYCHELLES in which there are exactly two letters between the Ss and one of
+      these two letters is C?
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: How many different arrangements are there of the 10 letters in the word
+      SEYCHELLES in which there is an S at the beginning, an S at the end and the
+      three Es are not all next to each other?
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 5 letters are selected at random from the 10 letters in the word SEYCHELLES.
+      Find the probability that these 5 letters include the three Es.
+    answer_options: []
+    subquestions: []

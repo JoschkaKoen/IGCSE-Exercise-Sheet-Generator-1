@@ -1,0 +1,37 @@
+subject_key: a_level_mathematics
+paper_stem: 9709 Mathematics November 2025 Question Paper  61
+model: claude
+matched_at: '2026-05-29T15:58:49Z'
+matches:
+  1a:
+  - '6.1'
+  1b:
+  - '6.2'
+  1c:
+  - '6.2'
+  '2':
+  - '6.5'
+  3a:
+  - '6.1'
+  3b:
+  - '6.1'
+  4a:
+  - '6.4'
+  4b:
+  - '6.4'
+  5a:
+  - '6.5'
+  5b:
+  - '6.5'
+  5c:
+  - '6.5'
+  6a:
+  - '6.2'
+  6b:
+  - '6.2'
+  7a:
+  - '6.3'
+  7b:
+  - '6.3'
+  7c:
+  - '6.3'

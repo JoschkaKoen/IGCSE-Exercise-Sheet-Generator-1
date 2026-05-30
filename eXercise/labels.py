@@ -357,6 +357,8 @@ _SUBJECT_PREFIXES: dict[str, str] = {
     "a_level_computer_science": "A-Level CS",
     "a_level_business": "A-Level Business",
     "a_level_economics": "A-Level Economics",
+    "a_level_mathematics": "A-Level Maths",
+    "a_level_further_mathematics": "A-Level Further Maths",
 }
 
 

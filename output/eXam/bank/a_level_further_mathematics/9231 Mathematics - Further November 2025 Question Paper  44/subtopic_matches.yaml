@@ -1,0 +1,37 @@
+subject_key: a_level_further_mathematics
+paper_stem: 9231 Mathematics - Further November 2025 Question Paper  44
+model: claude
+matched_at: '2026-05-29T21:03:38Z'
+matches:
+  1a:
+  - '4.2'
+  1b:
+  - '4.2'
+  2a:
+  - '4.1'
+  2b:
+  - '4.1'
+  2c:
+  - '4.1'
+  2d:
+  - '4.1'
+  3a:
+  - '4.2'
+  3b:
+  - '4.2'
+  3c:
+  - '4.2'
+  4a:
+  - '4.5'
+  4b:
+  - '4.5'
+  4c:
+  - '4.5'
+  4d:
+  - '4.5'
+  '5':
+  - '4.3'
+  6a:
+  - '4.4'
+  6b:
+  - '4.4'

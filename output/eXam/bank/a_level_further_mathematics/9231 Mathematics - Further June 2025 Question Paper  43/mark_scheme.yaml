@@ -1,0 +1,128 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: a uniform distribution fits the data; $H_1$: a uniform
+    distribution does not fit the data. Expected frequencies are $40, 40, 40$. $\chi^2
+    = \dfrac{(38-40)^2}{40} + \dfrac{(52-40)^2}{40} + \dfrac{(30-40)^2}{40} = 0.1
+    + 3.6 + 2.5 = 6.2$. With $3 - 1 = 2$ degrees of freedom, the critical value is
+    $\chi^2_{0.95}(2) = 5.991$. Since $6.2 > 5.991$, reject $H_0$: there is sufficient
+    evidence that the scientist''s claim is incorrect (i.e. eye colour is not uniformly
+    distributed).'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Unbiased estimates: $s_x^2 = \tfrac{1}{39}\left(720 - \tfrac{168^2}{40}\right)
+    = 0.36923$, $s_y^2 = \tfrac{1}{59}\left(900 - \tfrac{228^2}{60}\right) = 0.56949$.
+    For the difference of means, $s^2 = \tfrac{s_x^2}{40} + \tfrac{s_y^2}{60} = 0.0187$.
+    With $\bar x = 4.2$, $\bar y = 3.8$ and $z = 1.645$: $\left(\tfrac{168}{40} -
+    \tfrac{228}{60}\right) \pm 1.645\sqrt{0.0187} = 0.4 \pm 0.225$, giving the 90\%
+    CI $[0.175, 0.625]$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\displaystyle\int_0^1 kx\,dx + \int_1^8 k(8 - x)\,dx = 1$:
+    $\left[\tfrac12 kx^2\right]_0^1 + \left[8kx - \tfrac12 kx^2\right]_1^8 = \tfrac12
+    k + (64k - 32k) - \left(8k - \tfrac12 k\right) = 25k = 1$, so $k = \tfrac{1}{25}$
+    (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The median $m$ lies in $1 \leqslant m \leqslant 8$: $\displaystyle\int_0^1
+    kx\,dx + \int_1^m k(8 - x)\,dx = \tfrac12$ gives $m^2 - 16m + 39 = 0$, so $m =
+    3$ (rejecting $m = 13$).'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'CDF of $X$: $\mathrm{F}(x) = \tfrac{1}{50}x^2$ for $0\leqslant
+    x<1$; $\tfrac{8}{25}x - \tfrac{1}{50}x^2 - \tfrac{7}{25}$ for $1\leqslant x\leqslant8$.
+    With $Y = \sqrt[3]{X}$, $\mathrm{G}(y) = \mathrm{F}(y^3) = \tfrac{1}{50}y^6$ for
+    $0\leqslant y<1$; $\tfrac{8}{25}y^3 - \tfrac{1}{50}y^6 - \tfrac{7}{25}$ for $1\leqslant
+    y\leqslant2$. Differentiating, $\mathrm{g}(y) = \tfrac{3}{25}y^5$ for $0\leqslant
+    y<1$; $\tfrac{24}{25}y^2 - \tfrac{3}{25}y^5$ for $1\leqslant y\leqslant2$; $0$
+    otherwise.'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: the population medians for under-25s and over-50s are
+    equal; $H_1$: the population median time for under-25s is less than that for over-50s.
+    Ranking all 14 times $1$--$14$, the over-50 sample (size 6) has ranks $5, 8, 9,
+    11, 13, 14$, so $R_6 = 60$; the complementary sum is $6(6 + 8 + 1) - 60 = 30$,
+    giving $W = \min(60, 30) = 30$. Critical value for $n = 6$, $m = 8$ is $31$. Since
+    $30 \leqslant 31$, reject $H_0$: there is sufficient evidence that older people
+    take longer to react (supporting the researcher''s claim).'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: $\mu_B - \mu_A = k$; $H_1$: $\mu_B - \mu_A > k$ (before
+    $-$ after). Differences $d$: $19, 17, 8, 16, 9, 23, 6, 5$; $\sum d = 103$, $\sum
+    d^2 = 1641$, so $\bar d = 12.875$ and $s_d^2 = \tfrac17\left(1641 - \tfrac{103^2}{8}\right)
+    = 44.982$. The test statistic is $t = \dfrac{12.875 - k}{\sqrt{s_d^2/8}}$; with
+    7 d.f. the one-tailed 5\% critical value is $1.895$. Reject $H_0$ when $\dfrac{12.875
+    - k}{\sqrt{s_d^2/8}} \geqslant 1.895$, i.e. when $0 \leqslant k \leqslant 8.38$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The population of differences is normally distributed.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$X$ (number of red balls): $\mathrm{P}(X=0) = \tfrac{1}{15}$,
+    $\mathrm{P}(X=1) = \tfrac{7}{15}$, $\mathrm{P}(X=2) = \tfrac{7}{15}$, so $\mathrm{G}_X(t)
+    = \tfrac{1}{15} + \tfrac{7}{15}t + \tfrac{7}{15}t^2$. $Y$ (number of different
+    colours): $\mathrm{P}(Y=1) = \tfrac{8}{15}$, $\mathrm{P}(Y=2) = \tfrac{7}{15}$,
+    so $\mathrm{G}_Y(t) = \tfrac{8}{15}t + \tfrac{7}{15}t^2$.'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $X$ and $Y$ are not independent, so the PGF of $Z = X + Y$ is
+    not the product $\mathrm{G}_X(t)\,\mathrm{G}_Y(t)$.
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The non-zero cases are $(X,Y) = (0,1)$ giving $Z = 1$ with $\mathrm{P}
+    = \tfrac{1}{15}$; $(1,2)$ giving $Z = 3$ with $\mathrm{P} = \tfrac{7}{15}$; and
+    $(2,1)$ giving $Z = 3$ with $\mathrm{P} = \tfrac{7}{15}$. So $\mathrm{P}(Z=1)
+    = \tfrac{1}{15}$, $\mathrm{P}(Z=3) = \tfrac{14}{15}$, and $\mathrm{G}_Z(t) = \tfrac{1}{15}t
+    + \tfrac{14}{15}t^3$.
+  mark_scheme: []
+  graphics: []
+- number: 6d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{G}_Z'(t) = \tfrac{1}{15} + \tfrac{42}{15}t^2$, so $\mathrm{E}(Z)
+    = \mathrm{G}_Z'(1) = \tfrac{1}{15} + \tfrac{42}{15} = \tfrac{43}{15} \approx 2.87$.
+  mark_scheme: []
+  graphics: []

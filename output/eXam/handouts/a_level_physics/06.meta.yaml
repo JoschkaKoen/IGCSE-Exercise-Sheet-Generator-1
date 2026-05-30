@@ -100,3 +100,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:05:20Z'
 glossed_at: '2026-05-29T05:05:20Z'
+figures:
+  - file: assets/06-p116-load-extension-graph.png
+    caption: "A load–extension graph: straight up to the limit of proportionality P, then it curves"
+    figure_ref: '6.2'
+    source_page_pdf: 116
+    source_page_printed: 100
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [52.0, 613.0, 167.0, 713.8]
+    placed_under: "## Hooke's law and the spring constant"
+  - file: assets/06-p118-stress-strain-graph.png
+    caption: A stress–strain graph, straight up to the limit of proportionality P
+    figure_ref: '6.3'
+    source_page_pdf: 118
+    source_page_printed: 102
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [166.0, 351.0, 346.0, 476.0]
+    placed_under: "## Stress, strain and the Young modulus"
+  - file: assets/06-p119-young-modulus-experiment.png
+    caption: Apparatus for measuring the Young modulus of a wire
+    figure_ref: '6.4'
+    source_page_pdf: 119
+    source_page_printed: 103
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [150.0, 230.0, 472.0, 367.0]
+    placed_under: "### Experiment to find the Young modulus of a metal wire"
+  - file: assets/06-p120-force-extension-elastic-plastic.png
+    caption: "Force–extension past the elastic limit: P and E marked, with a permanent extension B left after unloading"
+    figure_ref: '6.5'
+    source_page_pdf: 120
+    source_page_printed: 104
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [51.0, 209.0, 174.0, 302.0]
+    placed_under: "## Elastic and plastic behaviour"
+  - file: assets/06-p121-energy-area-under-graph.png
+    caption: The work done stretching a material is the area under the force–extension graph
+    figure_ref: '6.6'
+    source_page_pdf: 121
+    source_page_printed: 105
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [164.0, 310.0, 328.0, 422.8]
+    placed_under: "## Energy stored in a stretched material"

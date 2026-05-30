@@ -1,0 +1,201 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: Find the Maclaurin's series for $\mathrm{e}^{\left(\frac{1}{x+2}\right)}$
+    up to and including the term in $x^2$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Starting from the definitions of $\tanh$ and $\mathrm{sech}$ in terms of
+      exponentials, prove that $\tanh^2 t + \mathrm{sech}^2 t = 1$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: The curve $C$ has parametric equations $x = \ln(\cosh t)$, $y = \tan^{-1}(\sinh
+      t)$, for $0 \leqslant t \leqslant 1$. Find the length of $C$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has equation $9y^2 - 3\sinh^{-1}(xy) = 1 - 3\ln 3$.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Show that, at the point $\left(4, \tfrac13\right)$ on $C$, $\dfrac{dy}{dx}
+      = -\tfrac12$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the value of $\dfrac{d^2y}{dx^2}$ at the point $\left(4, \tfrac13\right)$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 10
+  text: Find the particular solution of the differential equation $\dfrac{d^2x}{dt^2}
+    + \dfrac{dx}{dt} - 2x = 2t^2 + t - 1$, given that, when $t = 0$, $x = \dfrac{dx}{dt}
+    = 0$.
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Use de Moivre's theorem to show that $\sec 5\theta = \dfrac{\sec^5\theta}{5\sec^4\theta
+      - 20\sec^2\theta + 16}$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Hence, obtain the roots of the equation $\sqrt3\,x^5 - 10x^4 + 40x^2 - 32
+      = 0$ in the form $\sec(q\pi)$, where $q$ is rational.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The diagram shows the curve with equation $y = \dfrac{1}{x^2 + 1}$ for $0
+    \leqslant x \leqslant 1$, together with a set of $n$ rectangles of width $\tfrac1n$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: By considering the sum of the areas of these rectangles, show that $\displaystyle\sum_{r=1}^n
+      \dfrac{n}{n^2 + r^2} < \tfrac14\pi$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Use a similar method to find a lower bound for $\displaystyle\sum_{r=1}^n
+      \dfrac{n}{n^2 + r^2}$. Give your answer in terms of $n$ and $\pi$.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Deduce the exact value of $\displaystyle\lim_{n\to\infty}\sum_{r=1}^n \dfrac{n}{n^2
+      + r^2}$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 9
+  text: Find the solution of the differential equation $\dfrac{dy}{dx} - \dfrac{2x+6}{x^2
+    + 6x + 5}y = 4$, given that $y = 0$ when $x = 0$. Give your answer in an exact
+    form.
+  answer_options: []
+  subquestions: []
+- number: '8'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the values of $a$ for which the system of equations $\tfrac32 x + 3y
+      + 8z = 1$, $ax + 3y + 4z = 2$, $ay - z = 3$ does not have a unique solution.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The matrix $\mathbf{A}$ is given by $\mathbf{A} = \begin{pmatrix} \tfrac32
+      & 3 & 8 \\ 0 & 3 & 4 \\ 0 & 0 & -1 \end{pmatrix}$. Given that $\mathbf{B} =
+      \mathbf{A}^{-1}$, use the characteristic equation of $\mathbf{A}$ to show that
+      $\mathbf{B}^2 = p\mathbf{I} + q\mathbf{A}$, where $p$ and $q$ are constants
+      to be determined.
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Find a matrix $\mathbf{P}$ and a diagonal matrix $\mathbf{D}$ such that
+      $\mathbf{A}^{-1} = \mathbf{P}\mathbf{D}\mathbf{P}^{-1}$.
+    answer_options: []
+    subquestions: []

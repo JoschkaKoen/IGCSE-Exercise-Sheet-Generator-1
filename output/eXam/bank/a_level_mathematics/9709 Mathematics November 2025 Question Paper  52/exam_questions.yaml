@@ -1,0 +1,231 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A coin is biased so that the probability of obtaining a head when it is thrown
+    is 0.4. The coin is thrown repeatedly until the first head is obtained.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Find the probability that the first head is obtained on the 5th throw.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the probability that the first head is obtained after the 6th throw.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Kayla has a bag containing 3 red marbles, 1 blue marble and 2 green marbles.
+    She selects one marble from the bag at random and does not replace it. She repeats
+    this process until she obtains a green marble. The random variable $X$ is the
+    number of marbles she needs to select until she obtains a green marble.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Draw up the probability distribution table for $X$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find $\mathrm{Var}(X)$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The heights of the 124 Senior members of the Giraffes basketball club are
+      normally distributed with mean 187.4 cm and standard deviation 6.4 cm. How many
+      members of the club would you expect to have heights within 5 cm of the mean?
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: The heights of the Junior members of the Giraffes club are normally distributed
+      with mean 172.7 cm and standard deviation $\sigma$ cm. 23% of these members
+      have height less than 170.3 cm. Find the value of $\sigma$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Gio has a pack of 18 cards and Ivy has a pack of $x$ cards. Each card shows
+    a bus, a car or a train. Gio''s pack: bus 6, car 10, train 2. Ivy''s pack: bus
+    $x-12$, car 9, train 3. One card is chosen at random from each pack. The probability
+    that the two cards both show buses is equal to twice the probability that they
+    both show cars.'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Write down an equation in terms of $x$ and hence find the value of $x$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the probability that the two cards have pictures of the same type of
+      vehicle on them.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The times of 240 competitors taking part in an event are recorded correct
+    to the nearest minute. Time (minutes) / Frequency: 1–10 / 12, 11–20 / 38, 21–25
+    / 68, 26–30 / 76, 31–50 / 46.'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Draw a histogram to represent this information.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Calculate an estimate of the mean time taken by the 240 competitors.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: For a randomly chosen person, their next birthday is equally likely to occur
+    on any day of the week, independently of any other person's birthday.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Find the probability that, out of 10 randomly chosen people, none of them
+      will have their next birthday on a Saturday or Sunday.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the probability that, out of 10 randomly chosen people, fewer than
+      3 will have their next birthday on a Wednesday.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Use a suitable approximation to find the probability that, out of 392 randomly
+      chosen people, more than 65 will have their next birthday on a Friday.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the number of different arrangements of the 10 letters in the word
+      ZOOLOGICAL in which the three Os are together and the two Ls are **not** next
+      to each other.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the number of different arrangements of the 10 letters in the word
+      ZOOLOGICAL in which there are exactly 5 letters between the two Ls.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Two letters are chosen at random from the 10 letters in the word ZOOLOGICAL.
+      Find the probability that these two letters are different.
+    answer_options: []
+    subquestions: []

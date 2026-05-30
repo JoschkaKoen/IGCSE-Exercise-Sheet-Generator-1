@@ -1,0 +1,134 @@
+topic_number: '5'
+topic_title: Nuclear physics
+subject_key: igcse_physics
+covered_question_ids:
+- paper: 0625 Physics November 2025 Question Paper  21
+  qnum: '33'
+- paper: 0625 Physics November 2025 Question Paper  21
+  qnum: '34'
+- paper: 0625 Physics November 2025 Question Paper  21
+  qnum: '35'
+- paper: 0625 Physics November 2025 Question Paper  21
+  qnum: '36'
+- paper: 0625 Physics November 2025 Question Paper  21
+  qnum: '37'
+- paper: 0625 Physics November 2025 Question Paper  22
+  qnum: '33'
+- paper: 0625 Physics November 2025 Question Paper  22
+  qnum: '34'
+- paper: 0625 Physics November 2025 Question Paper  22
+  qnum: '35'
+- paper: 0625 Physics November 2025 Question Paper  22
+  qnum: '36'
+- paper: 0625 Physics November 2025 Question Paper  22
+  qnum: '37'
+- paper: 0625 Physics November 2025 Question Paper  23
+  qnum: '33'
+- paper: 0625 Physics November 2025 Question Paper  23
+  qnum: '34'
+- paper: 0625 Physics November 2025 Question Paper  23
+  qnum: '35'
+- paper: 0625 Physics November 2025 Question Paper  23
+  qnum: '36'
+- paper: 0625 Physics November 2025 Question Paper  23
+  qnum: '37'
+- paper: 0625 Physics November 2025 Question Paper  41
+  qnum: 9a
+- paper: 0625 Physics November 2025 Question Paper  42
+  qnum: 9ai
+- paper: 0625 Physics November 2025 Question Paper  42
+  qnum: 9aii
+- paper: 0625 Physics November 2025 Question Paper  42
+  qnum: 9aiii
+- paper: 0625 Physics November 2025 Question Paper  42
+  qnum: 9bi
+- paper: 0625 Physics November 2025 Question Paper  42
+  qnum: 9bii
+- paper: 0625 Physics November 2025 Question Paper  43
+  qnum: 8ai
+- paper: 0625 Physics November 2025 Question Paper  43
+  qnum: 8aii
+- paper: 0625 Physics November 2025 Question Paper  43
+  qnum: 8bi
+- paper: 0625 Physics November 2025 Question Paper  43
+  qnum: 8bii
+- paper: 0625 Physics November 2025 Question Paper  43
+  qnum: 8c
+- paper: 0625_s23_qp_21
+  qnum: '34'
+- paper: 0625_s23_qp_21
+  qnum: '35'
+- paper: 0625_s23_qp_21
+  qnum: '36'
+- paper: 0625_s23_qp_41
+  qnum: 9a
+- paper: 0625_s23_qp_41
+  qnum: 9bi
+- paper: 0625_s23_qp_41
+  qnum: 9bii
+- paper: 0625_s23_qp_41
+  qnum: 9ci
+- paper: 0625_s23_qp_41
+  qnum: 9cii
+- paper: 0625_s24_qp_21
+  qnum: '32'
+- paper: 0625_s24_qp_21
+  qnum: '33'
+- paper: 0625_s24_qp_21
+  qnum: '34'
+- paper: 0625_s24_qp_21
+  qnum: '35'
+- paper: 0625_s24_qp_21
+  qnum: '36'
+- paper: 0625_s24_qp_41
+  qnum: 8ai
+- paper: 0625_s24_qp_41
+  qnum: 8aii
+- paper: 0625_s24_qp_41
+  qnum: 8aiii
+- paper: 0625_s24_qp_41
+  qnum: 8b
+- paper: 0625_s25_qp_21
+  qnum: '33'
+- paper: 0625_s25_qp_21
+  qnum: '34'
+- paper: 0625_s25_qp_21
+  qnum: '35'
+- paper: 0625_s25_qp_21
+  qnum: '36'
+- paper: 0625_s25_qp_21
+  qnum: '37'
+- paper: 0625_s25_qp_41
+  qnum: 9ai
+- paper: 0625_s25_qp_41
+  qnum: 9aii
+- paper: 0625_s25_qp_41
+  qnum: 9aiii
+- paper: 0625_s25_qp_41
+  qnum: 9bi
+- paper: 0625_s25_qp_41
+  qnum: 9bii
+- paper: 0625_w23_qp_21
+  qnum: '34'
+- paper: 0625_w23_qp_21
+  qnum: '35'
+- paper: 0625_w23_qp_21
+  qnum: '36'
+- paper: 0625_w23_qp_21
+  qnum: '37'
+- paper: 0625_w23_qp_41
+  qnum: 9ai
+- paper: 0625_w23_qp_41
+  qnum: 9aii
+- paper: 0625_w23_qp_41
+  qnum: 9bi
+- paper: 0625_w23_qp_41
+  qnum: 9bii
+- paper: 0625_w23_qp_41
+  qnum: 9biii
+generated_at: '2026-05-29T15:49:48Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:49:48Z'
+glossed_at: '2026-05-29T15:49:48Z'

@@ -1,0 +1,192 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Capacitance}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Capacitance}
+
+A \textbf{capacitor} 电容器 stores charge. The simplest one is two parallel \textbf{conductor} 导体 plates with an \textbf{insulator} 绝缘体 (a \textbf{dielectric} 电介质, or just \textbf{vacuum} 真空 / air) between them. Connected to a battery, charge $+Q$ builds up on one plate and $-Q$ on the other, with a \textbf{potential difference} 电势差 $V$ across the gap.
+
+The \textbf{capacitance} 电容 $C$ of any capacitor (or any isolated conductor) is
+
+\[
+C = \frac{Q}{V}.
+\]
+
+This applies to:
+
+\begin{itemize}
+\item an \textbf{isolated sphere} holding charge $Q$ at potential $V$ (zero at infinity). For radius $r$, $V = Q/(4\pi\varepsilon_{0}r)$, so $C = 4\pi\varepsilon_{0} r$.
+
+\item a \textbf{parallel-plate capacitor}: charges $\pm Q$ on the plates, p.d. $V$ between them.
+
+\end{itemize}
+
+Unit: \textbf{farad} 法拉 (F) $= \text{C V}^{-1}$. A farad is huge, so real capacitors run from $\text{pF}$ to $\text{mF}$.
+
+Capacitance is \textbf{constant} for a given capacitor (set by its size and dielectric). Doubling the charge doubles the voltage, so $C = Q/V$ stays the same.
+
+\subsection*{Combining capacitors}
+
+\textbf{Capacitors in parallel} share the same p.d. $V$. The total charge is the sum:
+
+\[
+Q_{\text{total}} = C_{1} V + C_{2} V + \ldots, \qquad\text{so}\qquad C_{\text{parallel}} = C_{1} + C_{2} + \ldots
+\]
+
+A parallel combination has \textbf{larger} capacitance than any one capacitor.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/19-p322-capacitors-in-parallel.pdf}}\\[0.3em]
+\emph{Capacitors in parallel share the same p.d.; the charges add}
+\end{minipage}\par\medskip
+
+\textbf{Capacitors in series} carry the \textbf{same charge} $Q$. The total p.d. is the sum:
+
+\[
+V_{\text{total}} = \frac{Q}{C_{1}} + \frac{Q}{C_{2}} + \ldots, \qquad\text{so}\qquad \frac{1}{C_{\text{series}}} = \frac{1}{C_{1}} + \frac{1}{C_{2}} + \ldots
+\]
+
+A series combination has \textbf{smaller} capacitance than any one capacitor.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/19-p321-capacitors-in-series.pdf}}\\[0.3em]
+\emph{Capacitors in series carry the same charge; the p.d.s add}
+\end{minipage}\par\medskip
+
+Note: these rules are the \textbf{opposite} of those for resistors (resistors sum in series; capacitors sum in parallel), because $C = Q/V$ has $V$ on the bottom while $R = V/I$ has $I$ on the bottom.
+
+\section*{Energy stored in a capacitor}
+
+Charging a capacitor from $0$ to $Q$ needs work, because each extra bit of charge is pushed against the p.d. already there. When the charge is $q$, the p.d. is $V(q) = q/C$, so adding a small charge $dq$ needs work $V\,dq$. The total work is
+
+\[
+W = \int_{0}^{Q} \frac{q}{C}\, dq = \frac{Q^{2}}{2 C}.
+\]
+
+Using $V = Q/C$, this is the \textbf{energy} 能量 stored:
+
+\[
+W = \tfrac{1}{2} Q V = \tfrac{1}{2} C V^{2} = \frac{Q^{2}}{2C}.
+\]
+
+\subsection*{Reading the $Q$–$V$ graph}
+
+A plot of $Q$ against $V$ is a straight line through the origin with gradient $C$. The energy stored is the \textbf{area} under the line up to a given $V$, which is the triangle $\tfrac{1}{2} Q V$. The factor $\tfrac{1}{2}$ is there because the average p.d. during charging is $V/2$ (it grows from zero to $V$), not $V$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/19-p324-energy-qv-graph.pdf}}\\[0.3em]
+\emph{The energy stored is the area under the potential–charge line (the triangle ½QV)}
+\end{minipage}\par\medskip
+
+\subsection*{Why charging is "half efficient"}
+
+Connect a capacitor $C$ to an ideal battery of e.m.f. $V$ through a wire. The capacitor stores $\tfrac{1}{2} C V^{2}$, but the battery supplies charge $Q = CV$ at e.m.f. $V$, giving out $QV = CV^{2}$. The other half is lost as heat in the wire — whatever the wire's resistance.
+
+\section*{Capacitor discharging through a resistor}
+
+A capacitor $C$ charged to $V_{0}$ is connected through a switch to a \textbf{resistor} 电阻器 of \textbf{resistance} 电阻 $R$. When the switch closes at $t = 0$, the capacitor discharges.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/19-p325-discharge-circuit.pdf}}\\[0.3em]
+\emph{A capacitor charges through switch A, then discharges through the resistor via switch B}
+\end{minipage}\par\medskip
+
+\subsection*{Setting up the equation}
+
+By \textbf{Kirchhoff's second law} 基尔霍夫第二定律 around the loop, $V_{C} = V_{R}$. Using $V_{C} = Q/C$, $V_{R} = IR$ and $I = -dQ/dt$:
+
+\[
+\frac{Q}{C} = -R \frac{dQ}{dt}.
+\]
+
+This is solved by an \textbf{exponential decay} 指数衰减 with time constant $RC$.
+
+\subsection*{Discharge equations}
+
+Charge $Q$, p.d. $V$ and current $I$ all decay exponentially with the same time constant:
+
+\[
+Q = Q_{0} e^{-t / (RC)}, \qquad V = V_{0} e^{-t / (RC)}, \qquad I = I_{0} e^{-t / (RC)},
+\]
+
+with $I_{0} = V_{0}/R$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/19-p326-discharge-decay-curve.pdf}}\\[0.3em]
+\emph{Charge decays exponentially during discharge, falling to Q₀/e after one time constant RC}
+\end{minipage}\par\medskip
+
+\subsection*{Time constant}
+
+\[
+\tau = RC
+\]
+
+is the \textbf{time constant} 时间常数 (in seconds: $\Omega \cdot \text{F} = \text{s}$). It is the time for a decaying quantity to fall to $1/e \approx 0.37$ (about 37\%) of its starting value. After $2\tau$ it is at about 13.5\%; after $5\tau$, below 1\%.
+
+To find $\tau$ from a curve: read the time to fall to $1/e$ of the start. Or take logs: $\ln(V/V_{0}) = -t/(RC)$, so a plot of $\ln V$ against $t$ is a straight line with gradient $-1/(RC)$.
+
+\subsection*{Reading graphs during discharge}
+
+\begin{itemize}
+\item $Q$ against $V_{C}$: since $Q = C V$ always, this is a straight line through the origin with gradient $C$. Discharge moves the point from $(V_{0}, Q_{0})$ down to $(0,0)$.
+
+\item $I$ against $V_{C}$: since $I = V_{C}/R$, this is a straight line through the origin with gradient $1/R$, so you can find $R$.
+
+\end{itemize}
+
+\subsection*{Common exam questions}
+
+Given a discharge curve $V(t)$ or $Q(t)$:
+
+\begin{itemize}
+\item read the start value $V_{0}$ or $Q_{0}$ at $t = 0$.
+
+\item read the time to fall to $V_{0}/e$ → time constant $\tau = RC$.
+
+\item given $R$, find $C = \tau / R$ (or the other way round).
+
+\item predict a later value with the exponential formula.
+
+\end{itemize}
+
+
+\end{document}

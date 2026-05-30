@@ -1,0 +1,190 @@
+topic_number: '2'
+topic_title: Data transmission
+subject_key: igcse_computer_science
+covered_question_ids:
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 3ci
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 3cii
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: '4'
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 7a
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 7b
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 7ci
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 7cii
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 9a
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 2bii
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 2d
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 2ei
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 2eii
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: '7'
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 5ci
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 5cii
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 5ciii
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 7fi
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 7fii
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 3a
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 3bi
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 3bii
+- paper: 0478_m23_qp_12
+  qnum: 5ai
+- paper: 0478_m23_qp_12
+  qnum: 5aii
+- paper: 0478_m23_qp_12
+  qnum: 5bi
+- paper: 0478_m23_qp_12
+  qnum: 5bii
+- paper: 0478_m23_qp_12
+  qnum: 5ci
+- paper: 0478_m23_qp_12
+  qnum: 5cii
+- paper: 0478_m23_qp_12
+  qnum: 5ciii
+- paper: 0478_m24_qp_12
+  qnum: 6ei
+- paper: 0478_m24_qp_12
+  qnum: 6eii
+- paper: 0478_m24_qp_12
+  qnum: 7ai
+- paper: 0478_m24_qp_12
+  qnum: 7aii
+- paper: 0478_m24_qp_12
+  qnum: 7bi
+- paper: 0478_m25_qp_12
+  qnum: 2di
+- paper: 0478_m25_qp_12
+  qnum: 2dii
+- paper: 0478_s23_qp_11
+  qnum: 2ci
+- paper: 0478_s23_qp_11
+  qnum: 2cii
+- paper: 0478_s23_qp_12
+  qnum: 4ai
+- paper: 0478_s23_qp_12
+  qnum: 4aii
+- paper: 0478_s23_qp_12
+  qnum: 4aiii
+- paper: 0478_s24_qp_11
+  qnum: 4a
+- paper: 0478_s24_qp_11
+  qnum: 4b
+- paper: 0478_s24_qp_11
+  qnum: 4c
+- paper: 0478_s24_qp_11
+  qnum: '7'
+- paper: 0478_s24_qp_11
+  qnum: 9a
+- paper: 0478_s24_qp_11
+  qnum: 9bi
+- paper: 0478_s24_qp_11
+  qnum: 9bii
+- paper: 0478_s24_qp_12
+  qnum: 2a
+- paper: 0478_s24_qp_12
+  qnum: 2b
+- paper: 0478_s24_qp_12
+  qnum: 2ci
+- paper: 0478_s24_qp_12
+  qnum: 2cii
+- paper: 0478_s24_qp_12
+  qnum: '6'
+- paper: 0478_s24_qp_13
+  qnum: 7a
+- paper: 0478_s24_qp_13
+  qnum: 7b
+- paper: 0478_s24_qp_13
+  qnum: 7c
+- paper: 0478_s25_qp_11
+  qnum: 4ai
+- paper: 0478_s25_qp_11
+  qnum: 4aii
+- paper: 0478_s25_qp_11
+  qnum: 4bi
+- paper: 0478_s25_qp_11
+  qnum: 4bii
+- paper: 0478_s25_qp_11
+  qnum: 4ci
+- paper: 0478_s25_qp_11
+  qnum: 4cii
+- paper: 0478_s25_qp_11
+  qnum: 6a
+- paper: 0478_s25_qp_11
+  qnum: 6b
+- paper: 0478_s25_qp_12
+  qnum: 3cii
+- paper: 0478_s25_qp_12
+  qnum: 3ciii
+- paper: 0478_s25_qp_13
+  qnum: 6cii
+- paper: 0478_s25_qp_13
+  qnum: 7a
+- paper: 0478_s25_qp_13
+  qnum: 7b
+- paper: 0478_w23_qp_11
+  qnum: 4a
+- paper: 0478_w23_qp_11
+  qnum: 4b
+- paper: 0478_w23_qp_11
+  qnum: 4c
+- paper: 0478_w23_qp_11
+  qnum: '7'
+- paper: 0478_w23_qp_12
+  qnum: '6'
+- paper: 0478_w23_qp_12
+  qnum: 8b
+- paper: 0478_w24_qp_11
+  qnum: 4a
+- paper: 0478_w24_qp_11
+  qnum: 4bi
+- paper: 0478_w24_qp_11
+  qnum: 4bii
+- paper: 0478_w24_qp_11
+  qnum: 4biii
+- paper: 0478_w24_qp_12
+  qnum: 5a
+- paper: 0478_w24_qp_12
+  qnum: 5bi
+- paper: 0478_w24_qp_12
+  qnum: 5bii
+- paper: 0478_w24_qp_12
+  qnum: 5biii
+- paper: 0478_w24_qp_13
+  qnum: 2ei
+- paper: 0478_w24_qp_13
+  qnum: 2eii
+- paper: 0478_w24_qp_13
+  qnum: 2eiii
+- paper: 0478_w24_qp_13
+  qnum: 2fi
+- paper: 0478_w24_qp_13
+  qnum: 2fii
+- paper: 0478_w24_qp_13
+  qnum: 2gi
+- paper: 0478_w24_qp_13
+  qnum: 2gii
+- paper: 0478_w24_qp_13
+  qnum: 2giii
+generated_at: '2026-05-29T15:53:56Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:53:56Z'
+glossed_at: '2026-05-29T15:53:56Z'

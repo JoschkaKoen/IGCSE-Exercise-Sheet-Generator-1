@@ -1,0 +1,286 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Processor Fundamentals}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Von Neumann architecture}
+
+The \textbf{Von Neumann architecture} 冯·诺依曼体系结构 underlies almost every general-purpose computer:
+
+\begin{itemize}
+\item a \textbf{single memory} holds both \textbf{program instructions} and \textbf{data} (the \textbf{stored program} 存储程序 idea).
+
+\item a \textbf{processor} 处理器 (CPU) fetches instructions from memory and runs them one at a time.
+
+\item instructions run \textbf{in order} unless a branch changes the flow.
+
+\end{itemize}
+
+The stored-program idea is what makes a computer flexible: change the program and you change what it does, with no rewiring.
+
+\section*{The CPU's main parts}
+
+\subsection*{Arithmetic and Logic Unit (ALU)}
+
+The \textbf{ALU} 算术逻辑单元 does the arithmetic (add, subtract, …) and logic (AND, OR, comparisons). It takes operands from \textbf{registers} 寄存器 and puts results back in a register.
+
+\subsection*{Control Unit (CU)}
+
+The \textbf{control unit} 控制单元 \textbf{decodes} each instruction and sends the \textbf{control signals} to carry it out — opening data paths, telling the ALU what to do, and controlling memory reads and writes.
+
+\subsection*{System clock}
+
+The clock sends a steady stream of pulses that keep the CPU in step. Each instruction takes a fixed number of cycles, and the \textbf{clock speed} 时钟频率 (e.g. 3.8 GHz) is one factor in performance.
+
+\subsection*{Registers}
+
+Registers are tiny, very fast stores inside the CPU. \textbf{Special-purpose} ones each have a fixed job in the cycle:
+
+\begin{itemize}
+\item \textbf{Program Counter} 程序计数器 (PC) — the address of the \textbf{next} instruction.
+
+\item \textbf{Memory Address Register} 内存地址寄存器 (MAR) — the address being read or written.
+
+\item \textbf{Memory Data Register} 内存数据寄存器 (MDR) — the data going to or from memory.
+
+\item \textbf{Current Instruction Register} 当前指令寄存器 (CIR) — the instruction being decoded.
+
+\item \textbf{Accumulator} 累加器 (ACC) — the value the ALU is working on.
+
+\item \textbf{Status Register} 状态寄存器 — holds \textbf{flags} 标志 (carry, zero, negative, overflow) used by branches.
+
+\item \textbf{Index Register} 变址寄存器 — an offset used in indexed addressing.
+
+\end{itemize}
+
+\textbf{General-purpose registers} 通用寄存器 are used by the programmer for temporary values during a calculation.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/04-p125-von-neumann-architecture.pdf}}\\[0.3em]
+\emph{The Von Neumann CPU: registers, control unit and ALU linked by buses}
+\end{minipage}\par\medskip
+
+\section*{Buses}
+
+Three internal \textbf{buses} 总线 (sets of parallel wires) connect the parts:
+
+\begin{itemize}
+\item \textbf{address bus} 地址总线 — carries the memory address. \textbf{One-way} (CPU → memory).
+
+\item \textbf{data bus} 数据总线 — carries the data. \textbf{Two-way}.
+
+\item \textbf{control bus} 控制总线 — carries control signals (read, write, interrupt). \textbf{Two-way}.
+
+\end{itemize}
+
+An $n$-bit address bus can reach $2^{n}$ memory locations. The data-bus width sets how many bits move per access (often the word size).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/04-p128-system-buses.pdf}}\\[0.3em]
+\emph{The three system buses connecting the CPU, memory and input/output}
+\end{minipage}\par\medskip
+
+\section*{What affects performance}
+
+\begin{itemize}
+\item \textbf{clock speed} — more cycles per second.
+
+\item \textbf{number of cores} 核心 — a multi-core CPU runs several threads at once.
+
+\item \textbf{word size} 字长 — a 64-bit CPU handles 64-bit chunks per cycle and can address far more memory than a 32-bit one.
+
+\item \textbf{amount of RAM} 随机存取存储器 — more RAM holds more of the working set; too little forces the OS to \textbf{page} 分页 to disk.
+
+\item \textbf{cache} 高速缓存 size — more cache cuts average memory access time.
+
+\item \textbf{secondary storage} 辅助存储器 type — an SSD loads programs far faster than an HDD.
+
+\item \textbf{bus width and speed} — wider/faster buses move data more quickly.
+
+\end{itemize}
+
+Match the specs to the workload: a quad-core beats a dual-core on parallel work, but higher per-core speed wins on single-threaded work.
+
+\section*{Ports}
+
+A \textbf{port} 端口 is a physical socket for connecting a \textbf{peripheral} 外围设备:
+
+\begin{itemize}
+\item \textbf{USB} — general-purpose (keyboards, drives, phones).
+
+\item \textbf{HDMI} — digital video and audio to a screen.
+
+\item \textbf{Ethernet (RJ-45)} — wired LAN. Audio jacks — headphones/microphone.
+
+\end{itemize}
+
+Different ports use different signals, so an HDMI cable will not fit a USB socket. USB-C is unusual in carrying video, data and power.
+
+\section*{Fetch-Execute cycle}
+
+The CPU repeats the \textbf{fetch-execute cycle} 取指-执行周期, one run per machine instruction.
+
+\subsection*{Fetch}
+
+\begin{enumerate}
+\item the PC's address is copied to the MAR.
+
+\item the PC is \textbf{incremented} to point to the next instruction.
+
+\item a \textbf{read} signal goes over the control bus.
+
+\item memory puts the instruction on the data bus.
+
+\item it is copied into the MDR, then into the CIR.
+
+\end{enumerate}
+
+\subsection*{Decode}
+
+The CU decodes the instruction in the CIR — what operation, and which operands or addresses.
+
+\subsection*{Execute}
+
+The CU carries it out: arithmetic/logic goes to the ALU (result to the ACC); a load/store moves data between memory and a register; a branch changes the PC. Then the cycle repeats.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/04-p133-fetch-execute-cycle.pdf}}\\[0.3em]
+\emph{The fetch-execute cycle, with a check for interrupts each time}
+\end{minipage}\par\medskip
+
+\section*{Interrupts}
+
+An \textbf{interrupt} 中断 is a signal that \textbf{pauses} the normal cycle so the CPU can handle an urgent event (a key press, a packet arriving, a hardware fault, division by zero, the OS timer).
+
+Handling one:
+
+\begin{enumerate}
+\item finish the current instruction.
+
+\item \textbf{save the state} (PC and registers).
+
+\item load the address of the \textbf{interrupt service routine} 中断服务程序 (ISR) into the PC and run it.
+
+\item the ISR handles the event.
+
+\item \textbf{restore} the saved state and carry on.
+
+\end{enumerate}
+
+Interrupts let the system respond promptly without the CPU constantly checking devices, and are how the OS multitasks.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/04-p134-interrupt-process.pdf}}\\[0.3em]
+\emph{How an interrupt fits into the fetch-execute cycle}
+\end{minipage}\par\medskip
+
+\section*{Assembly language and machine code}
+
+The CPU actually runs \textbf{machine code} 机器码 — bit patterns, specific to one architecture. \textbf{Assembly language} 汇编语言 is a readable form, with one instruction per machine instruction, written using \textbf{mnemonics} 助记符 like \texttt{LDD}, \texttt{ADD}, \texttt{JMP}. An \textbf{assembler} 汇编器 translates it to machine code.
+
+\subsection*{Two-pass assembler}
+
+A two-pass assembler reads the source twice:
+
+\begin{itemize}
+\item \textbf{pass 1} builds a \textbf{symbol table} 符号表: each time a \textbf{label} 标签 (like \texttt{LOOP:}) appears, record its address; no code yet.
+
+\item \textbf{pass 2} generates code: translate each instruction, and when one refers to a label (like \texttt{JMP LOOP}), look up its address in the symbol table.
+
+\end{itemize}
+
+Two passes handle \textbf{forward references} 前向引用 (a jump to a label defined later).
+
+\subsection*{Example instruction set}
+
+Cambridge uses a small generic set: data movement (\texttt{LDD}, \texttt{LDM}, \texttt{LDI}, \texttt{LDX}, \texttt{STO}, \texttt{MOV}), arithmetic (\texttt{ADD}, \texttt{SUB}, \texttt{INC}, \texttt{DEC}), logic/bit (\texttt{AND}, \texttt{OR}, \texttt{XOR}, \texttt{LSL}, \texttt{LSR}), compare and branch (\texttt{CMP}, \texttt{JMP}, \texttt{JPE}, \texttt{JPN}), I/O (\texttt{IN}, \texttt{OUT}), and \texttt{END}. The exact mnemonics are given in the paper's reference table.
+
+\section*{Addressing modes}
+
+The \textbf{addressing mode} 寻址方式 says how the CPU finds the operand:
+
+\begin{itemize}
+\item \textbf{immediate addressing} 立即寻址 — the operand is the value in the instruction. \texttt{LDM \#10} loads 10.
+
+\item \textbf{direct addressing} 直接寻址 — the instruction holds an address; the operand is the value there. \texttt{LDD 200}.
+
+\item \textbf{indirect addressing} 间接寻址 — the instruction holds an address that holds \textbf{another} address, which is the data. \texttt{LDI 200}.
+
+\item \textbf{indexed addressing} 变址寻址 — effective address is \texttt{address + index register}; used for arrays. \texttt{LDX 100} with IR = 5 reads address 105.
+
+\item \textbf{relative addressing} 相对寻址 — the address is relative to the PC.
+
+\end{itemize}
+
+\section*{Tracing an assembly program}
+
+To \textbf{trace} it: make a table with columns for the PC, ACC, index register, each variable and any flags. Step through the instructions, updating the table after each; follow branches when they change the PC; stop at \texttt{END}. A common pattern is a loop over an array using indexed addressing.
+
+\section*{Binary shifts}
+
+A \textbf{logical shift} 逻辑移位 moves all the bits left or right by some places, filling new positions with 0.
+
+\begin{itemize}
+\item \textbf{left shift by 1} (\texttt{LSL \#1}) — bits move left, a 0 enters on the right; for an unsigned number this is \textbf{× 2}.
+
+\item \textbf{right shift by 1} (\texttt{LSR \#1}) — bits move right, a 0 enters on the left; for an unsigned number this is \textbf{integer ÷ 2}.
+
+\end{itemize}
+
+Shifting by $n$ places multiplies or divides by $2^{n}$. Example: \texttt{00001011} (11) \texttt{LSL \#1} → \texttt{00010110} (22).
+
+An \textbf{arithmetic right shift} keeps the sign bit so a negative signed number stays negative.
+
+\subsection*{Bit manipulation for monitoring/control}
+
+Embedded devices often use one \textbf{bit} 位 of a register per signal (e.g. bit $n$ = LED $n$). Using a \textbf{mask} 掩码:
+
+\begin{itemize}
+\item \textbf{set} bit $n$: \texttt{R = R OR} a mask with bit $n$ set.
+
+\item \textbf{clear} bit $n$: \texttt{R = R AND} a mask with bit $n$ clear and the rest set.
+
+\item \textbf{toggle} bit $n$: \texttt{R = R XOR} a mask with bit $n$ set.
+
+\item \textbf{test} bit $n$: \texttt{R AND} the mask, then check if the result is non-zero.
+
+\end{itemize}
+
+Bit manipulation is fast, uses little memory, and lets one byte hold up to 8 on/off states.
+
+
+\end{document}

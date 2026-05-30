@@ -1,0 +1,212 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Data Representation}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{User-defined data types}
+
+The built-in types (\texttt{INTEGER}, \texttt{REAL}, \texttt{STRING}, \texttt{CHAR}, \texttt{BOOLEAN}) cover the simplest cases. For richer problems you can define a \textbf{user-defined type} 用户定义类型, making the code clearer and the compiler stricter.
+
+\subsection*{Why they are needed}
+
+A built-in \texttt{STRING} lets you store nonsense in a field that should hold one of a few legal values; a user-defined type can restrict it. Real entities are usually a \textbf{collection} of values of different types. And \texttt{DECLARE Taxi : Vehicle} is clearer (self-documenting) than \texttt{DECLARE Taxi : STRING}.
+
+\subsection*{Non-composite types}
+
+\subsubsection*{Enumerated type}
+
+An \textbf{enumerated type} 枚举类型 has values that are a \textbf{fixed list of named constants}:
+
+\begin{Verbatim}
+TYPE Vehicle = (M100, M230, T101, T102, T120, T150)
+DECLARE MyTaxi : Vehicle
+MyTaxi ← T102
+\end{Verbatim}
+
+The names are values of the new type (stored internally as small integers); you cannot assign anything outside the list. Uses: days of the week, colours, status codes.
+
+\subsubsection*{Pointer type}
+
+A \textbf{pointer} 指针 holds the \textbf{memory address of another variable} (or \texttt{NULL} for "no target"). Pointers build dynamic structures (linked lists, trees) and pass references without copying.
+
+\begin{Verbatim}
+TYPE PNode = ^TNode    // pointer to a TNode
+DECLARE p : PNode
+p ← NEW TNode
+p^.Value ← 42          // dereference to reach the fields
+\end{Verbatim}
+
+To \textbf{dereference} 解引用 (\texttt{p\textasciicircum{}}) means to reach the variable it points to.
+
+\subsection*{Composite types}
+
+A \textbf{composite type} 复合类型 groups several values under one name.
+
+\begin{itemize}
+\item \textbf{record} 记录 (Topic 10) — fields of different types in a \texttt{TYPE ... ENDTYPE} block.
+
+\item \textbf{set} 集合 — an unordered collection of unique values, with operations add, remove, membership test, union, intersection:
+
+\end{itemize}
+
+\begin{Verbatim}
+DECLARE Available : SET OF Colour
+Available ← {Red, Blue}
+IF Green IN Available THEN ...
+\end{Verbatim}
+
+\begin{itemize}
+\item \textbf{class} 类 / \textbf{object} 对象 — the OOP composite type, combining data fields (\textbf{attributes} 属性) with operations on them (\textbf{methods} 方法). An object is an instance of a class:
+
+\end{itemize}
+
+\begin{Verbatim}
+CLASS Taxi
+    PRIVATE Capacity : INTEGER
+    PUBLIC FUNCTION GetCapacity() RETURNS INTEGER
+        RETURN Capacity
+    ENDFUNCTION
+ENDCLASS
+\end{Verbatim}
+
+\subsection*{Choosing a type}
+
+Use \textbf{enumerated} for a value from a fixed list, \textbf{pointer} for indirection, \textbf{record} for a group of fields, \textbf{set} for an unordered unique collection, and \textbf{class} when you need state \textbf{and} behaviour together.
+
+\section*{File organisation and access}
+
+\textbf{File organisation} 文件组织 is how the data is laid out; the access method is how the program reaches a record.
+
+\begin{itemize}
+\item \textbf{serial file} 串行文件 — records in the \textbf{order added}, no sorting. Access is sequential only; appending is fast; searching is slow. Used for logs and audit trails.
+
+\item \textbf{sequential file} 顺序文件 — records \textbf{sorted by a key}. Searching is faster (you can stop early or binary-search); inserting is slow (records must shift). Used for master files updated in batch.
+
+\item \textbf{random (direct-access) file} 随机文件 — records at positions computed from the key (often by a hash). Direct access by key is very fast; reading in key order is harder. Used for large lookup tables and customer accounts.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/13-p324-serial-file.pdf}}\\[0.3em]
+\emph{Serial file: records are kept in the order they were added}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/13-p325-sequential-file.pdf}}\\[0.3em]
+\emph{Sequential file: records are sorted by a key field}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/13-p325-random-file.pdf}}\\[0.3em]
+\emph{Random file: records sit at positions computed from the key}
+\end{minipage}\par\medskip
+
+The two access methods are \textbf{sequential access} 顺序存取 (read from start to end) and \textbf{direct access} 直接存取 (jump straight to a known position). Match the structure to the dominant operation: single-key lookups favour random; in-order reports favour sequential.
+
+\section*{Hashing}
+
+A \textbf{hash function} 散列函数 takes a record key and produces an \textbf{address} where the record is stored. A good one is fast, \textbf{deterministic} 确定性, and spreads keys evenly.
+
+Examples for $N$ slots: modulo hash \texttt{address ← key MOD N}; folding (split the key, add the pieces, MOD N); a string hash (sum the character codes, MOD N).
+
+A \textbf{collision} 冲突 is when two keys hash to the same address. Resolutions:
+
+\begin{itemize}
+\item \textbf{linear probing} 线性探测 — try the next slot, wrapping around. Simple but clusters.
+
+\item \textbf{chaining} 链接法 — each slot points to a \textbf{linked list} 链表 of records that hashed there.
+
+\item rehashing — use a second hash function.
+
+\end{itemize}
+
+To search: hash the key, read that slot; if the keys match you are done, else follow the resolution strategy until a match or an empty slot. To insert: hash the key, write to that slot or the next free one. Keep the \textbf{load factor} 装填因子 (records ÷ slots) below about 70\% for near-O(1) lookups.
+
+\section*{Floating-point numbers}
+
+To store \textbf{real numbers} of very different sizes, computers use a \textbf{floating-point} 浮点 format — a binary form of scientific notation, with two fields:
+
+\begin{itemize}
+\item a \textbf{mantissa} 尾数 — the significant digits.
+
+\item an \textbf{exponent} 指数 — the power of 2 to multiply by.
+
+\end{itemize}
+
+Both are stored as \textbf{two's complement} 补码 integers. The value is
+
+\[
+\text{number} = \text{mantissa} \times 2^{\text{exponent}}.
+\]
+
+The mantissa is a fixed-point fraction, with an implied binary point after the sign bit. So \texttt{0.1010000} means $1/2 + 1/8 = 0.625$, and with exponent \texttt{00000010} (= 2) the value is $0.625 \times 2^{2} = 2.5$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/13-p329-floating-point-format.pdf}}\\[0.3em]
+\emph{The place values of an 8-bit mantissa and an 8-bit exponent}
+\end{minipage}\par\medskip
+
+\subsection*{Converting}
+
+\begin{itemize}
+\item \textbf{binary → denary}: read the mantissa (use two's-complement rules if negative) as a fraction, read the exponent as a signed integer, then multiply mantissa by $2^{\text{exponent}}$.
+
+\item \textbf{denary → binary}: write the number as a binary fraction × a power of 2, then store the mantissa and exponent in the agreed formats.
+
+\end{itemize}
+
+\subsection*{Normalisation}
+
+A number is \textbf{normalised} 规格化 when the first significant bit is \textbf{immediately after the binary point} (no wasted leading zeros). This \textbf{maximises precision}, because every mantissa bit carries information. To normalise, shift the mantissa left and decrease the exponent (or shift right and increase it) until the first significant bit is in place; the value is unchanged. For negative (two's-complement) mantissas, the sign bit (1) is followed immediately by a 0.
+
+\subsection*{Approximation and rounding errors}
+
+Many denary reals \textbf{cannot be stored exactly} in binary — e.g. $0.1_{10}$ is the repeating binary fraction $0.000110011\ldots_{2}$, which must be truncated. Consequences:
+
+\begin{itemize}
+\item \textbf{rounding errors} 舍入误差 build up over many operations (\texttt{0.1 + 0.2} is not exactly \texttt{0.3}).
+
+\item \textbf{comparisons fail} — test \texttt{ABS(x - 0.3) \textless{} 1e-9} instead of \texttt{x = 0.3}.
+
+\item subtracting two nearly-equal values loses precision.
+
+\end{itemize}
+
+For exact needs (currency), use \textbf{fixed-point} 定点 or \textbf{BCD} 二进码十进数 instead of floating-point.
+
+
+\end{document}

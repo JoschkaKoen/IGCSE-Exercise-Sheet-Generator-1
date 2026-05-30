@@ -1,0 +1,18 @@
+subject_key: a_level_economics
+paper_stem: 9708 Economics November 2025 Question Paper  21
+model: claude
+matched_at: '2026-05-29T14:33:15Z'
+matches:
+  1a: ['1.4']
+  1b: ['1.1']
+  1c: ['3.2']
+  1d: ['3.2']
+  1e: ['1.4']
+  2a: ['2.2']
+  2b: ['2.2']
+  3a: ['1.6']
+  3b: ['1.6']
+  4a: ['4.5']
+  4b: ['4.5']
+  5a: ['6.2']
+  5b: ['6.2']

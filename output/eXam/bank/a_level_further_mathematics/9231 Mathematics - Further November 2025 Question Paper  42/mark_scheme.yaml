@@ -1,0 +1,120 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The Wilcoxon signed-rank test assumes a symmetric distribution;
+    the salaries are strongly skewed (e.g. \$125000 is a large outlier), so the symmetry
+    assumption is not reasonable.
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$H_0$: median $= 32500$, $H_1$: median $\neq 32500$. Signs
+    of (salary $-32500$): 4 positive, 11 negative. Under $H_0$ the number of $+$ signs
+    $\sim B(15, 0.5)$; $P(X \leqslant 4) = 0.0592 > 0.05$ (two-tailed at 10%), so
+    do not reject $H_0$ — insufficient evidence against the claim.'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\bar{x} = 199.17$; $s^2 = \tfrac{1}{11}\!\left(476117 - \tfrac{2390^2}{12}\right)
+    = 9.879$. With $t_{0.005,\,11} = 3.106$: CI $= 199.17 \pm 3.106\cdot\tfrac{3.143}{\sqrt{12}}
+    = (196.3,\ 202.0)$.'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Not supporting $\mu < k$ requires $\dfrac{\bar{x} - k}{s/\sqrt{12}}
+    \geqslant -t_{0.05,\,11} = -1.796$, so $k \leqslant \bar{x} + 1.796\cdot\tfrac{s}{\sqrt{12}}
+    = 200.8$. Greatest $k = 200.8$.
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $m = 200\,e^{-0.7}(0.7) = 69.522$; $n = 200 - (99.317 + 69.522
+    + 24.333 + 5.678 + 0.994) = 0.156$.
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Combine cells so each expected $\geqslant 5$: classes 0, 1,
+    2, $\geqslant 3$ with observed 88, 73, 26, 13 and expected 99.317, 69.522, 24.333,
+    6.828. $\chi^2 = 1.290 + 0.174 + 0.114 + 5.579 = 7.16$. With $\nu = 3$, $\chi^2_{0.05}
+    = 7.815$; since $7.16 < 7.815$, do not reject $H_0$ — the Poisson(0.7) model fits.'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Continuity at $x = 1$: $\tfrac15 + a = 0 \Rightarrow a = -\tfrac15$.
+    At $x = 4$: $\tfrac45 - \tfrac15 = \tfrac{16}{50} + b \Rightarrow b = \tfrac{7}{25}$.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $f(x) = \tfrac15$ for $1 \leqslant x < 4$; $f(x) = \tfrac{x}{25}$
+    for $4 \leqslant x \leqslant 6$; $f(x) = 0$ otherwise.
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $E(X^2) = \int_1^4 \tfrac15 x^2\,dx + \int_4^6 \tfrac{1}{25}x^3\,dx
+    = \tfrac{21}{5} + \tfrac{52}{5} = \tfrac{73}{5}$. $\mathrm{Var}(X) = \tfrac{73}{5}
+    - \left(\tfrac{529}{150}\right)^2 = \tfrac{48659}{22500} \approx 2.16$.
+  mark_scheme: []
+  graphics: []
+- number: 4d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$F(x) = 0.1$ on $[1,4)$: $\tfrac15 x - \tfrac15 = 0.1 \Rightarrow
+    x = 1.5$. $F(x) = 0.9$ on $[4,6]$: $\tfrac{1}{50}x^2 + \tfrac{7}{25} = 0.9 \Rightarrow
+    x^2 = 31 \Rightarrow x = \sqrt{31}$. So $P_{10} = 1.5$, $P_{90} = \sqrt{31} \approx
+    5.57$.'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\bar{x}_A = 408$, $\bar{x}_B = 401$; $\sum(x-\bar{x})^2 = 136$
+    (A) and $158$ (B). Pooled $s_p^2 = \tfrac{136 + 158}{12} = 24.5$. $t = \dfrac{408
+    - 401}{\sqrt{24.5}\sqrt{\tfrac18 + \tfrac16}} = 2.62$. With $\nu = 12$, $t_{0.025}
+    = 2.179$; since $2.62 > 2.179$, reject $H_0$ — there is evidence of a difference
+    in mean tensile strengths.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $G_X'(t) = (3-2t)^{-2} + 4t(3-2t)^{-3} \Rightarrow E(X) = G_X'(1)
+    = 5$. $G_X''(1) = 32$, so $\mathrm{Var}(X) = G_X''(1) + G_X'(1) - [G_X'(1)]^2
+    = 32 + 5 - 25 = 12$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $G_Z(t) = G_X(t)G_Y(t) = \dfrac{t^3}{(3-2t)^4}$. Then $P(Z=3)
+    = \tfrac{1}{81}$ and $P(Z=4) = \tfrac{8}{243}$, so $P(Z>4) = 1 - \tfrac{11}{243}
+    = \tfrac{232}{243} \approx 0.955$.
+  mark_scheme: []
+  graphics: []

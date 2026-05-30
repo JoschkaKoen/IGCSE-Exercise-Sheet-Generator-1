@@ -1,0 +1,185 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A car of mass 900 kg is moving along a straight horizontal road against a
+    constant resistance to motion of 350 N. At an instant when the car is moving at
+    $15\text{ m s}^{-1}$ its acceleration is $0.25\text{ m s}^{-2}$.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the driving force of the car's engine at this instant.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the power of the car's engine at this instant.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Two particles, $P$ and $Q$, of masses 3 kg and 5 kg respectively, are at rest
+    on a smooth horizontal plane. $P$ is projected at a speed of $4\text{ m s}^{-1}$
+    directly towards $Q$. After $P$ and $Q$ collide, $P$ has speed $1\text{ m s}^{-1}$.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the two possible speeds of $Q$ after the collision.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: It is given that $\lambda$ J of kinetic energy, where $\lambda > 0$, is
+      lost during the collision. Find the value of $\lambda$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: Coplanar forces of magnitudes 45 N, 28 N, 72 N and 35 N act at a point in
+    the directions shown in the diagram. Find, in either order, the magnitude and
+    direction of the resultant force.
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: Two particles, $A$ and $B$, of masses $m$ kg and 3 kg respectively, are connected
+    by a light inextensible string. Particle $B$ is on a fixed plane at an angle of
+    $\sin^{-1} 0.6$ to the horizontal ground; the string passes over a smooth pulley
+    at the top of the plane and $A$ hangs vertically, 0.75 m above the ground. The
+    system is released from rest; $B$ moves up the plane (not reaching the pulley)
+    against a constant resistance of $\tfrac{10}{3}$ N, and the speed of $A$ immediately
+    before it hits the ground is $2\text{ m s}^{-1}$. Use an energy method to find
+    the value of $m$.
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: A particle $P$ of mass $m$ kg is in equilibrium on a rough plane inclined
+    at an angle $\theta\degree$ to the horizontal. The equilibrium of $P$ is maintained
+    by a force of magnitude $8mg$ N making an angle $\theta\degree$ with a line of
+    greatest slope (see diagram). The coefficient of friction between $P$ and the
+    plane is 0.5 and $P$ is on the point of slipping down the plane. Find the value
+    of $\theta$.
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: A particle $A$ of mass 2.5 kg is released from rest from the top of a smooth
+    plane inclined at $\sin^{-1} 0.2$ to the horizontal. $A$ collides 2 seconds later
+    with a particle $B$, of mass 3 kg, moving up a line of greatest slope of the plane.
+    The speed of $B$ immediately before the collision is $3.5\text{ m s}^{-1}$. Immediately
+    after the collision, $B$ has a velocity of $0.5\text{ m s}^{-1}$ down the plane.
+    Find the distance $A$ moves up the plane after the collision.
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ starts from a point $O$ and moves in a straight line. The velocity
+    $v\text{ m s}^{-1}$ of $P$, at time $t$ s after leaving $O$, is given by $v =
+    \tfrac13(2t-3)(t-4)$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the acceleration of $P$ when $t = 2$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the total distance travelled by $P$ in the first 3 seconds of its motion.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Determine whether $P$ returns to $O$.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A block $A$ of mass 2 kg and a particle $B$ of mass 0.5 kg are connected by
+    a light inextensible string inclined at $15\degree$ to the horizontal. They are
+    pulled across a horizontal surface with acceleration $1.2\text{ m s}^{-2}$ by
+    a force of magnitude 6 N, applied to $A$, acting at $20\degree$ above the horizontal.
+    The contact between $B$ and the surface is smooth and the contact between $A$
+    and the surface is rough.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the tension in the string.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Find the coefficient of friction between $A$ and the surface.
+    answer_options: []
+    subquestions: []

@@ -1,0 +1,97 @@
+subject_key: a_level_mathematics
+syllabus_pdf: 9709 Mathematics 2026-2027 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Pure Mathematics 1
+  subtopics:
+  - number: '1.1'
+    title: Quadratics
+  - number: '1.2'
+    title: Functions
+  - number: '1.3'
+    title: Coordinate geometry
+  - number: '1.4'
+    title: Circular measure
+  - number: '1.5'
+    title: Trigonometry
+  - number: '1.6'
+    title: Series
+  - number: '1.7'
+    title: Differentiation
+  - number: '1.8'
+    title: Integration
+- number: '2'
+  title: Pure Mathematics 2
+  subtopics:
+  - number: '2.1'
+    title: Algebra
+  - number: '2.2'
+    title: Logarithmic and exponential functions
+  - number: '2.3'
+    title: Trigonometry
+  - number: '2.4'
+    title: Differentiation
+  - number: '2.5'
+    title: Integration
+  - number: '2.6'
+    title: Numerical solution of equations
+- number: '3'
+  title: Pure Mathematics 3
+  subtopics:
+  - number: '3.1'
+    title: Algebra
+  - number: '3.2'
+    title: Logarithmic and exponential functions
+  - number: '3.3'
+    title: Trigonometry
+  - number: '3.4'
+    title: Differentiation
+  - number: '3.5'
+    title: Integration
+  - number: '3.6'
+    title: Numerical solution of equations
+  - number: '3.7'
+    title: Vectors
+  - number: '3.8'
+    title: Differential equations
+  - number: '3.9'
+    title: Complex numbers
+- number: '4'
+  title: Mechanics
+  subtopics:
+  - number: '4.1'
+    title: Forces and equilibrium
+  - number: '4.2'
+    title: Kinematics of motion in a straight line
+  - number: '4.3'
+    title: Momentum
+  - number: '4.4'
+    title: Newton's laws of motion
+  - number: '4.5'
+    title: Energy, work and power
+- number: '5'
+  title: Probability & Statistics 1
+  subtopics:
+  - number: '5.1'
+    title: Representation of data
+  - number: '5.2'
+    title: Permutations and combinations
+  - number: '5.3'
+    title: Probability
+  - number: '5.4'
+    title: Discrete random variables
+  - number: '5.5'
+    title: The normal distribution
+- number: '6'
+  title: Probability & Statistics 2
+  subtopics:
+  - number: '6.1'
+    title: The Poisson distribution
+  - number: '6.2'
+    title: Linear combinations of random variables
+  - number: '6.3'
+    title: Continuous random variables
+  - number: '6.4'
+    title: Sampling and estimation
+  - number: '6.5'
+    title: Hypothesis tests

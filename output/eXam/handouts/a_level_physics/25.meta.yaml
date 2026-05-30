@@ -66,3 +66,36 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:35:08Z'
 glossed_at: '2026-05-29T05:35:08Z'
+figures:
+  - file: assets/25-p419-inverse-square-law.png
+    caption: The same power spreads over a larger area as distance grows, so flux falls as 1/d²
+    figure_ref: '25.2'
+    source_page_pdf: 419
+    source_page_printed: 403
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [163.7, 214.0, 341.2, 355.8]
+    placed_under: "## Luminosity and radiant flux intensity"
+  - file: assets/25-p420-cepheid-period-luminosity.png
+    caption: For Cepheid variables the pulsation period sets the luminosity, making them standard candles
+    figure_ref: '25.3'
+    source_page_pdf: 420
+    source_page_printed: 404
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [177.2, 396.4, 418.3, 561.6]
+    placed_under: "## Standard candles"
+  - file: assets/25-p422-blackbody-wien.png
+    caption: A hotter black body radiates more, and its peak wavelength shifts towards the blue (Wien's law)
+    figure_ref: '25.4'
+    source_page_pdf: 422
+    source_page_printed: 406
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [177.2, 39.5, 393.2, 203.2]
+    placed_under: "### Wien's displacement law"
+  - file: assets/25-p424-redshift-spectrum.png
+    caption: The hydrogen absorption lines of a distant star are shifted to longer wavelengths — a redshift
+    figure_ref: '25.6'
+    source_page_pdf: 424
+    source_page_printed: 408
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [178.9, 548.0, 462.0, 633.5]
+    placed_under: "### Cosmological redshift"

@@ -1,0 +1,242 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Medical physics}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Ultrasound}
+
+\subsection*{Piezo-electric effect}
+
+A \textbf{piezo-electric} 压电 crystal changes shape a little when a p.d. is put across it, and the reverse: it makes an \textbf{electromotive force} 电动势 (e.m.f.) across itself when its shape is changed. Quartz and PZT are common examples. Two linked effects:
+
+\begin{itemize}
+\item \textbf{apply a p.d.} → the crystal changes shape (used to make vibrations).
+
+\item \textbf{change the shape} (a wave squeezes it) → an e.m.f. appears (used to detect vibrations).
+
+\end{itemize}
+
+\subsection*{Piezo-electric transducer}
+
+A \textbf{transducer} 换能器 uses this effect to both \textbf{make} and \textbf{detect} \textbf{ultrasound} 超声波.
+
+\begin{itemize}
+\item an alternating p.d. (a few MHz) makes the crystal vibrate at the same frequency, sending out \textbf{longitudinal} 纵波 waves above $20\ \text{kHz}$ ($1$–$10\ \text{MHz}$ for medical imaging).
+
+\item the same crystal then detects: returning ultrasound makes it vibrate and produce an e.m.f.
+
+\end{itemize}
+
+So one transducer is both emitter and detector, switching between sending and listening.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/24-p399-ultrasound-transducer.pdf}}\\[0.3em]
+\emph{A piezo-electric transducer both sends and detects ultrasound using a vibrating crystal}
+\end{minipage}\par\medskip
+
+\subsection*{Pulse-echo imaging}
+
+To see inside the body (\textbf{pulse-echo} 脉冲回波 imaging):
+
+\begin{enumerate}
+\item the transducer sends a \textbf{short pulse} into the body.
+
+\item at each tissue boundary, part of the pulse is \textbf{reflected} and part goes on.
+
+\item the transducer detects each reflected pulse.
+
+\item the \textbf{time delay} gives the depth: $d = c t / 2$ (there and back). The echo's amplitude gives the strength of the reflection.
+
+\item sweeping across the body builds a 2-D image.
+
+\end{enumerate}
+
+A \textbf{coupling gel} 耦合剂 is put between the transducer and the skin to push out the air; without it almost all the ultrasound would reflect at the skin–air boundary and never enter the body.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/24-p403-ultrasound-a-scan.pdf}}\\[0.3em]
+\emph{An A-scan shows the transmitted pulse and the echoes from each tissue boundary}
+\end{minipage}\par\medskip
+
+\subsection*{Specific acoustic impedance}
+
+The \textbf{specific acoustic impedance} 声阻抗 of a medium is
+
+\[
+Z = \rho c,
+\]
+
+where $\rho$ is the \textbf{density} 密度 and $c$ the speed of sound. Unit: $\text{kg m}^{-2}\ \text{s}^{-1}$. Bone has large $Z$; air has small $Z$; soft tissue is in between.
+
+\subsection*{Reflection at a boundary}
+
+At a boundary between media of impedance $Z_{1}$ and $Z_{2}$, the \textbf{intensity reflection coefficient} 强度反射系数 (fraction reflected) is
+
+\[
+\frac{I_{\text{R}}}{I_{0}} = \left(\frac{Z_{1} - Z_{2}}{Z_{1} + Z_{2}}\right)^{2}.
+\]
+
+\begin{itemize}
+\item very different impedances: almost all is reflected (skin/air — hence the gel).
+
+\item very similar impedances: almost nothing is reflected, so the boundary cannot be seen.
+
+\item best for imaging: different enough to give an echo, but not so different that nothing passes on.
+
+\end{itemize}
+
+\subsection*{Attenuation}
+
+As ultrasound goes through tissue, its intensity falls with distance:
+
+\[
+I = I_{0} e^{-\mu x},
+\]
+
+where $\mu$ is the \textbf{attenuation coefficient} 衰减系数 (unit $\text{m}^{-1}$). The same form applies to X-rays.
+
+\section*{X-rays}
+
+\subsection*{Production}
+
+X-rays come from an \textbf{X-ray tube} X射线管:
+
+\begin{enumerate}
+\item a heated \textbf{cathode} 阴极 emits electrons by \textbf{thermionic emission} 热电子发射.
+
+\item a high p.d. (tens to hundreds of kV) accelerates the electrons across a \textbf{vacuum} 真空 to a metal \textbf{target} 靶 (the \textbf{anode} 阳极, often \textbf{tungsten} 钨).
+
+\item the electrons hit the target and slow sharply. Most of their \textbf{kinetic energy} 动能 becomes heat; a small part is emitted as X-ray \textbf{photons} 光子 (\textbf{Bremsstrahlung} 轫致辐射, "braking radiation"). Some electrons knock out inner electrons of the metal atoms, and the refilling emits \textbf{characteristic} 特征 X-ray lines.
+
+\end{enumerate}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/24-p405-xray-tube.pdf}}\\[0.3em]
+\emph{In an X-ray tube electrons from the heated cathode are accelerated onto a metal target anode}
+\end{minipage}\par\medskip
+
+\subsection*{Minimum wavelength}
+
+The most energy one X-ray photon can have is the full kinetic energy of one accelerated electron, lost in a single event. For accelerating p.d. $V$, the KE is $eV$, so
+
+\[
+h f_{\text{max}} = e V, \qquad \lambda_{\text{min}} = \frac{h c}{e V}.
+\]
+
+This is the short-wavelength cut-off. The continuous Bremsstrahlung spectrum tails off above $\lambda_{\text{min}}$, with sharp characteristic peaks set by the target metal.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/24-p405-xray-spectrum.pdf}}\\[0.3em]
+\emph{A typical X-ray spectrum — a continuous Bremsstrahlung curve cut off at λ₀, with sharp characteristic peaks}
+\end{minipage}\par\medskip
+
+\subsection*{Imaging with X-rays}
+
+X-rays pass through the patient onto a detector. Tissues that \textbf{attenuate} 衰减 more (bone, high $Z$) cast a stronger shadow and look lighter; tissues that attenuate less (soft tissue, lung) look darker.
+
+The \textbf{contrast} 对比度 is the difference in attenuation between tissues. A \textbf{contrast medium} 造影剂 (e.g. a barium meal) can be given to make soft tissues stand out.
+
+\subsection*{Attenuation law}
+
+\[
+I = I_{0} e^{-\mu x}.
+\]
+
+Higher-energy X-rays penetrate further (smaller $\mu$); bone has a much larger $\mu$ than soft tissue. To find the thickness for a given fraction, take logs: $x = \dfrac{1}{\mu} \ln\dfrac{I_{0}}{I}$. The \textbf{half-value thickness} 半值厚度 $x_{1/2} = \ln 2 / \mu$ halves the intensity (like half-life in decay).
+
+\subsection*{Computed tomography (CT)}
+
+A \textbf{computed tomography} 计算机断层扫描 (CT) scan builds a 3-D image:
+
+\begin{enumerate}
+\item the tube and detectors rotate around the patient, taking many images of one thin slice from \textbf{different angles}.
+
+\item a computer combines these into a 2-D cross-section of the slice.
+
+\item the patient is moved along, and the next slice is imaged.
+
+\item the slices are stacked into a 3-D image.
+
+\end{enumerate}
+
+CT shows far more than a single X-ray, because overlapping soft tissues are separated by the many-angle reconstruction.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/24-p410-ct-scan-arrangement.pdf}}\\[0.3em]
+\emph{In a CT scan the X-ray tube and detectors rotate around the patient to image a slice from many angles}
+\end{minipage}\par\medskip
+
+\section*{PET scanning}
+
+\subsection*{Tracer}
+
+A \textbf{tracer} 示踪剂 is a substance with radioactive nuclei put into the body. It is taken up more by the tissue being studied (e.g. a tumour takes up more glucose-tagged tracer due to its high \textbf{metabolism} 代谢). Its decay is detected from outside.
+
+In \textbf{positron emission tomography} 正电子发射断层扫描 (PET), the tracer is a $\beta^{+}$ emitter — it gives out a \textbf{positron} 正电子. A common one is fluorine-18 on a glucose analogue (FDG).
+
+\subsection*{Annihilation}
+
+When a particle meets its \textbf{antiparticle} 反粒子 they \textbf{annihilate} 湮灭: their mass turns into electromagnetic energy. In PET:
+
+\begin{itemize}
+\item a positron travels a few mm before meeting an \textbf{electron} 电子.
+
+\item they annihilate. Energy and \textbf{momentum} 动量 are conserved.
+
+\item since the total momentum is about zero, two photons are produced going in \textbf{opposite directions}, each $511\ \text{keV}$ ($= m_{e} c^{2}$).
+
+\end{itemize}
+
+\subsection*{Energy of the annihilation photons}
+
+By energy conservation, the total photon energy equals the pair's rest \textbf{energy} 能量:
+
+\[
+2 h f = 2 m_{e} c^{2}, \qquad h f = m_{e} c^{2}.
+\]
+
+Each photon has $h f = m_{e} c^{2} \approx 8.2 \times 10^{-14}\ \text{J} \approx 0.51\ \text{MeV}$, with $\lambda \approx 2.4 \times 10^{-12}\ \text{m}$.
+
+\subsection*{Reconstructing the image}
+
+The two photons leave the body in opposite directions and hit \textbf{detector rings} around the patient. Recording the \textbf{two simultaneous arrivals} (a "coincidence") fixes the line the annihilation happened on. Many coincidences from many angles let the computer build a 3-D map of the tracer — showing tissues with high metabolic activity. Comparing the two \textbf{arrival times} can refine the position along that line (time-of-flight PET).
+
+
+\end{document}

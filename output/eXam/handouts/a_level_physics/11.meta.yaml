@@ -122,3 +122,28 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:20:54Z'
 glossed_at: '2026-05-29T05:20:54Z'
+figures:
+  - file: assets/11-p213-atom-structures.png
+    caption: Simple models of a helium atom and a lithium atom (not to scale)
+    figure_ref: '11.1'
+    source_page_pdf: 213
+    source_page_printed: 197
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [166.3, 204.4, 504.3, 326.2]
+    placed_under: "### Simple nuclear model"
+  - file: assets/11-p222-alpha-scattering-experiment.png
+    caption: The α-scattering experiment — α-particles strike a thin gold foil in a vacuum
+    figure_ref: '11.8'
+    source_page_pdf: 222
+    source_page_printed: 206
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [172.2, 604.0, 357.3, 721.8]
+    placed_under: "### Geiger–Marsden α-particle scattering"
+  - file: assets/11-p223-alpha-particle-trajectories.png
+    caption: Most α-particles pass nearly straight through; a few are deflected sharply by the tiny nucleus
+    figure_ref: '11.9'
+    source_page_pdf: 223
+    source_page_printed: 207
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [173.5, 373.2, 502.7, 490.4]
+    placed_under: "### Geiger–Marsden α-particle scattering"

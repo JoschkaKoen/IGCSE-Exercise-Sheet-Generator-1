@@ -30,11 +30,24 @@
 {{ coming_soon() }}
 {% endif %}
 {% endmacro %}
-{% macro handout_block(html) %}
+{% macro handout_block(html, pdf_url=None, pdf_name=None) %}
 {% if html %}
 <div class="border-t border-white/[0.06] px-4 py-3">
-  <div class="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-cyan-300/80">
-    {{ t('learn.handout.title') }}
+  <div class="mb-2 flex items-center justify-between gap-2 px-1">
+    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-300/80">
+      {{ t('learn.handout.title') }}
+    </span>
+    {% if pdf_url %}
+    <a href="{{ pdf_url }}" download="{{ pdf_name }}"
+       class="inline-flex items-center gap-1 rounded-md border border-cyan-400/30 bg-cyan-400/10
+              px-2 py-1 text-xs font-medium text-cyan-200 hover:bg-cyan-400/20 transition">
+      <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
+      </svg>
+      {{ t('learn.handout.download') }}
+    </a>
+    {% endif %}
   </div>
   <div class="learn-content-body rounded-xl border border-white/[0.06] p-4 sm:p-5">
     {{ html | safe }}
@@ -95,7 +108,7 @@
           </li>
           {% endfor %}
         </ul>
-        {{ handout_block(topic.handout_html) }}
+        {{ handout_block(topic.handout_html, topic.handout_pdf_url, topic.handout_pdf_name) }}
       </details>
       {% else %}
       {# Topic without subtopics (IGCSE CS topics 7-10) — single inline-expandable card. #}
@@ -117,7 +130,7 @@
         <div class="border-t border-white/[0.06] px-4 py-3">
           {{ content_body(topic.content_html) }}
         </div>
-        {{ handout_block(topic.handout_html) }}
+        {{ handout_block(topic.handout_html, topic.handout_pdf_url, topic.handout_pdf_name) }}
       </details>
       {% endif %}
     </li>

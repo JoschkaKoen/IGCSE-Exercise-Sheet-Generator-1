@@ -1,0 +1,270 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Oscillations}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Simple harmonic motion: definition}
+
+A particle moves with \textbf{simple harmonic motion} 简谐运动 (SHM) when its \textbf{acceleration} 加速度 is:
+
+\begin{itemize}
+\item \textbf{proportional to its displacement} from a fixed \textbf{equilibrium} 平衡 point, and
+
+\item \textbf{directed back towards that point} — opposite in sign to the displacement.
+
+\end{itemize}
+
+The defining equation is
+
+\[
+a = -\omega^{2} x,
+\]
+
+where $x$ is the \textbf{displacement} 位移 from equilibrium and $\omega$ is a positive constant, the \textbf{angular frequency} 角频率. The minus sign means "directed back towards equilibrium".
+
+Many systems do this near a stable equilibrium: a mass on a \textbf{spring} 弹簧, a \textbf{pendulum} 单摆 (small swing), a floating block pushed down, the charge on a \textbf{capacitor} 电容器 in an LC circuit, atoms in a solid.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/17-p290-shm-directions.pdf}}\\[0.3em]
+\emph{Acceleration always points back towards equilibrium, opposite to the displacement}
+\end{minipage}\par\medskip
+
+\subsection*{Key terms}
+
+\begin{itemize}
+\item \textbf{displacement} $x$ — distance from equilibrium at a moment (a vector along the line of motion).
+
+\item \textbf{amplitude} 振幅 $x_{0}$ — the largest displacement from equilibrium. Always positive.
+
+\item \textbf{period} 周期 $T$ — the time for one full oscillation.
+
+\item \textbf{frequency} 频率 $f$ — the number of oscillations per second; $f = 1/T$. Unit: Hz.
+
+\item \textbf{angular frequency} $\omega$ — $\omega = 2\pi/T = 2\pi f$. Unit: $\text{rad s}^{-1}$.
+
+\item \textbf{phase difference} 相位差 — the fraction of a cycle (in radians) by which one oscillation leads or lags another. A quarter-cycle apart is a phase difference of $\pi/2$.
+
+\end{itemize}
+
+So $T = 2\pi/\omega$ and $f = \omega/(2\pi)$ — given any one of $\omega$, $f$, $T$ you can find the others.
+
+\section*{Displacement, velocity, acceleration in SHM}
+
+If the particle starts at $x = 0$ moving in the positive direction at $t = 0$, then
+
+\[
+x = x_{0} \sin (\omega t).
+\]
+
+Differentiating once gives the \textbf{velocity} 速度:
+
+\[
+v = x_{0} \omega \cos(\omega t) = v_{0} \cos(\omega t),
+\]
+
+where $v_{0} = x_{0} \omega$ is the \textbf{maximum speed} (as the particle passes through equilibrium).
+
+Differentiating again gives the acceleration:
+
+\[
+a = -x_{0} \omega^{2} \sin(\omega t) = -\omega^{2} x,
+\]
+
+which is the SHM defining equation again. (If the particle instead starts at the extreme position $x = x_{0}$ at $t = 0$, use $x = x_{0} \cos(\omega t)$. Choose the one that fits the start conditions.)
+
+\subsection*{Velocity in terms of displacement}
+
+A useful relation that does not use time:
+
+\[
+v = \pm \omega \sqrt{x_{0}^{2} - x^{2}}.
+\]
+
+\begin{itemize}
+\item at equilibrium ($x = 0$): $v = \pm \omega x_{0}$ (maximum speed). Both signs, because the particle passes through equilibrium twice each cycle.
+
+\item at the extremes ($x = \pm x_{0}$): $v = 0$ (at rest for an instant).
+
+\end{itemize}
+
+\subsection*{Graphs against time}
+
+For $x = x_{0}\sin\omega t$:
+
+\begin{itemize}
+\item $x$ vs $t$ — a sine curve, amplitude $x_{0}$, period $T = 2\pi/\omega$.
+
+\item $v$ vs $t$ — a cosine curve, \textbf{leading $x$ by $\pi/2$}, amplitude $\omega x_{0}$.
+
+\item $a$ vs $t$ — a negative sine curve, \textbf{out of phase with $x$ by $\pi$} (180°), amplitude $\omega^{2} x_{0}$.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/17-p291-displacement-time.pdf}}\\[0.3em]
+\emph{Displacement varies sinusoidally with time in simple harmonic motion}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/17-p292-velocity-acceleration-time.pdf}}\\[0.3em]
+\emph{Velocity leads displacement by a quarter cycle; acceleration is exactly out of phase with displacement}
+\end{minipage}\par\medskip
+
+\subsection*{Graph of $a$ against $x$}
+
+A straight line through the origin with \textbf{negative gradient} $-\omega^{2}$. So you can read $\omega$ from the graph: gradient $= -\omega^{2}$, so $\omega = \sqrt{|\text{gradient}|}$, then $T = 2\pi / \omega$. This is a common exam pattern.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/17-p290-acceleration-displacement-graph.pdf}}\\[0.3em]
+\emph{The acceleration–displacement graph is a straight line through the origin with gradient −ω²}
+\end{minipage}\par\medskip
+
+\section*{Energy in simple harmonic motion}
+
+A simple harmonic oscillator keeps swapping energy between two forms:
+
+\begin{itemize}
+\item \textbf{kinetic energy} 动能 $E_{\text{K}} = \tfrac{1}{2} m v^{2}$.
+
+\item \textbf{potential energy} $E_{\text{P}}$ (elastic for a spring, gravitational for a pendulum).
+
+\end{itemize}
+
+With no \textbf{damping} 阻尼, the \textbf{total energy} is constant (this is \textbf{conservation of energy} 能量守恒).
+
+\subsection*{Maximum and minimum}
+
+\begin{itemize}
+\item at \textbf{equilibrium} ($x = 0$): $v$ is largest, so $E_{\text{K}}$ is largest and $E_{\text{P}}$ is smallest (zero, by choice).
+
+\item at the \textbf{extremes} ($x = \pm x_{0}$): $v = 0$, so $E_{\text{K}} = 0$ and $E_{\text{P}}$ is largest.
+
+\end{itemize}
+
+\subsection*{Total energy}
+
+Using $v_{\text{max}} = \omega x_{0}$:
+
+\[
+E_{\text{total}} = \tfrac{1}{2} m v_{\text{max}}^{2} = \tfrac{1}{2} m \omega^{2} x_{0}^{2}.
+\]
+
+Two key facts: the total energy is proportional to the \textbf{square of the amplitude} (doubling $x_{0}$ gives four times the energy), and to $\omega^{2}$.
+
+\subsection*{Energy against displacement}
+
+Using $v^{2} = \omega^{2}(x_{0}^{2} - x^{2})$:
+
+\[
+E_{\text{K}} = \tfrac{1}{2} m \omega^{2} (x_{0}^{2} - x^{2}), \qquad E_{\text{P}} = \tfrac{1}{2} m \omega^{2} x^{2}.
+\]
+
+So $E_{\text{K}}$ is a downward parabola (peak at $x = 0$, zero at $x = \pm x_{0}$) and $E_{\text{P}}$ is an upward parabola (zero at $x = 0$, largest at $x = \pm x_{0}$). Their sum is constant.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/17-p294-energy-variations.pdf}}\\[0.3em]
+\emph{Kinetic and potential energy swap over a cycle while the total energy stays constant}
+\end{minipage}\par\medskip
+
+\section*{Damped oscillations}
+
+A resistive force (\textbf{friction} 摩擦力, \textbf{drag} 阻力, \textbf{air resistance} 空气阻力) causes \textbf{damping} — the amplitude shrinks over time as energy is lost as heat. Three named cases:
+
+\subsection*{Light damping}
+
+The amplitude \textbf{shrinks slowly} over many cycles (a \textbf{light damping} 轻阻尼 case). The system still oscillates near its natural frequency, but each cycle is smaller than the last. A car's suspension is light-to-medium damped, so bumps die away but the ride stays smooth.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/17-p295-light-damping.pdf}}\\[0.3em]
+\emph{In light damping the amplitude dies away slowly over many cycles}
+\end{minipage}\par\medskip
+
+\subsection*{Critical damping}
+
+The least damping that brings the system back to equilibrium \textbf{without overshooting and without oscillating} — a \textbf{critical damping} 临界阻尼 case. It returns in the shortest time. A \textbf{galvanometer} 检流计 or analogue \textbf{voltmeter} 电压表 is critically damped so the needle settles quickly.
+
+\subsection*{Heavy damping}
+
+So much resistance that the system returns slowly, with no oscillation, but more slowly than the critical case — a \textbf{heavy damping} 过阻尼 case. A door with a strong closer is heavily damped.
+
+On a displacement–time graph: light damping is a wave whose size dies away smoothly; critical damping returns quickly with no overshoot; heavy damping returns slowly.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/17-p296-critical-heavy-damping.pdf}}\\[0.3em]
+\emph{Critical damping returns to equilibrium fastest without overshoot; overdamping returns more slowly}
+\end{minipage}\par\medskip
+
+\section*{Forced oscillations and resonance}
+
+A \textbf{forced oscillation} 受迫振动 is driven by an outside periodic force at a frequency $f_{\text{d}}$ chosen by the experimenter. The system then oscillates at this \textbf{driving frequency} 驱动频率 $f_{\text{d}}$, not at its own natural frequency. A plot of amplitude against $f_{\text{d}}$ is a \textbf{resonance curve} 共振曲线 with a peak.
+
+\subsection*{Resonance}
+
+\textbf{Resonance} 共振 happens when the driving frequency equals the system's \textbf{natural frequency} 固有频率 $f_{0}$. At resonance the amplitude is \textbf{largest} and the energy transfer from the driver is most efficient.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/17-p297-resonance-curve.pdf}}\\[0.3em]
+\emph{The amplitude of a forced oscillation peaks at resonance, when the driving frequency equals the natural frequency}
+\end{minipage}\par\medskip
+
+Examples:
+
+\begin{itemize}
+\item a swing pushed at the right rate builds up a large amplitude.
+
+\item a wine glass broken by a sound at its natural ringing frequency.
+
+\item a building shaken by an earthquake whose frequency matches a natural frequency — engineers design buildings so their natural frequencies avoid the main earthquake range.
+
+\end{itemize}
+
+The peak's shape depends on damping: \textbf{lighter damping → a sharper, higher peak}; \textbf{heavier damping → a broader, lower peak}, shifted slightly to lower frequency.
+
+
+\end{document}

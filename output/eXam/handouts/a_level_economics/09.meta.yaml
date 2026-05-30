@@ -1,0 +1,52 @@
+topic_number: '9'
+topic_title: The macroeconomy (A Level)
+subject_key: a_level_economics
+covered_question_ids:
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '22'
+- paper: 9708 Economics November 2025 Question Paper  31
+  qnum: '14'
+- paper: 9708 Economics November 2025 Question Paper  31
+  qnum: '15'
+- paper: 9708 Economics November 2025 Question Paper  31
+  qnum: '20'
+- paper: 9708 Economics November 2025 Question Paper  31
+  qnum: '21'
+- paper: 9708 Economics November 2025 Question Paper  31
+  qnum: '22'
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '13'
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '17'
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '19'
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '23'
+- paper: 9708 Economics November 2025 Question Paper  33
+  qnum: '13'
+- paper: 9708 Economics November 2025 Question Paper  33
+  qnum: '14'
+- paper: 9708 Economics November 2025 Question Paper  33
+  qnum: '15'
+- paper: 9708 Economics November 2025 Question Paper  33
+  qnum: '26'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '15'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '16'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '17'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '19'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '20'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '28'
+- paper: 9708 Economics November 2025 Question Paper  42
+  qnum: 1a
+generated_at: '2026-05-29T16:02:26Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:02:26Z'
+glossed_at: '2026-05-29T16:08:35Z'

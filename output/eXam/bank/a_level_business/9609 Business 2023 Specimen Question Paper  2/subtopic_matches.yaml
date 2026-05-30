@@ -1,0 +1,17 @@
+subject_key: a_level_business
+paper_stem: 9609 Business 2023 Specimen Question Paper  2
+model: claude
+matched_at: '2026-05-29T14:23:23Z'
+matches:
+  1ai: ['3.1']
+  1aii: ['1.2']
+  1bi: ['3.1']
+  1bii: ['3.2']
+  1c: ['1.2']
+  1d: ['3.3']
+  2ai: ['5.4']
+  2aii: ['1.1']
+  2bi: ['3.3']
+  2bii: ['2.2']
+  2c: ['2.1']
+  2d: ['3.3']

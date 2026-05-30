@@ -49,41 +49,56 @@ def _is_prefetch(request: Request) -> bool:
 @router.get("", response_class=HTMLResponse)
 @router.get("/", response_class=HTMLResponse)
 async def landing(request: Request, response: Response):
-    subjects = open_mode.subject_grid()
-    if _is_prefetch(request):
-        # Warm the cache without minting a session or setting a cookie.
+    grid = open_mode.subject_grid()
+    prefetch = _is_prefetch(request)
+    if prefetch:
+        # Warm the cache without minting a session or setting a cookie. Still
+        # emit the topic structure (counts 0) so the cached HTML matches the
+        # real render — only the session-dependent counts are skipped.
         stats = {"viewed": 0, "attempted": 0, "correct": 0}
-        return TEMPLATES.TemplateResponse(
-            request,
-            "eXam/practice_landing.html",
-            template_ctx(request, subjects=subjects, stats=stats),
-            headers=_HTML_NO_CACHE,
+        correct: set[str] = set()
+        attempted: set[str] = set()
+    else:
+        sid = open_mode.ensure_session(request, response)
+        stats = open_mode.session_stats(sid)
+        # Fetch the session's correct/attempted qids ONCE across all subjects
+        # (subject=None); each subject's per-topic counts are local intersections.
+        correct = {q for q, _ in open_mode.session_filtered_qids(sid, "correct")}
+        attempted = {q for q, _ in open_mode.session_filtered_qids(sid, "attempted")}
+    subjects = []
+    for s in grid:
+        entry = dict(s)
+        entry["topics"] = (
+            _subject_topic_list(s["slug"], correct=correct, attempted=attempted)
+            if s["available"] else []
         )
-    sid = open_mode.ensure_session(request, response)
-    stats = open_mode.session_stats(sid)
+        subjects.append(entry)
+    headers = _HTML_NO_CACHE if prefetch else {**dict(response.headers), **_HTML_NO_CACHE}
     return TEMPLATES.TemplateResponse(
         request,
         "eXam/practice_landing.html",
         template_ctx(request, subjects=subjects, stats=stats),
-        headers={**dict(response.headers), **_HTML_NO_CACHE},
+        headers=headers,
     )
 
 
-def _build_topic_picker(subject: str, sid: str) -> list[dict]:
-    """Topic chips for *subject*: ``{number, title, available, attempted, correct}``.
+def _subject_topic_list(
+    subject: str, *, correct: set[str], attempted: set[str]
+) -> list[dict]:
+    """Topics for *subject* with per-topic counts, for the landing accordion:
+    ``{number, title, available, attempted, correct}``.
 
     Drops topics with no servable question (so an empty topic never shows / is
-    never linkable). ``available`` = matched ∩ rendered-snippet; the activity
-    counts intersect the topic's qids with the session's attempted/correct sets
-    (fetched once each — not per topic). Empty when the subject has no topic YAML.
+    never linkable). ``available`` = matched ∩ rendered-snippet. The *correct* /
+    *attempted* qid-sets are passed in (fetched once across all subjects), so this
+    does no DB query — just cached lookups + set intersections. Empty list when the
+    subject has no topic YAML or no matches yet.
     """
     topics = (load_topics(subject) or {}).get("topics") or []
     if not topics:
         return []
     qids_by_topic = topic_qids(subject)
     servable = open_mode.subject_candidate_qids(subject)
-    correct = {q for q, _ in open_mode.session_filtered_qids(sid, "correct", subject=subject)}
-    attempted = {q for q, _ in open_mode.session_filtered_qids(sid, "attempted", subject=subject)}
     out: list[dict] = []
     for t in topics:
         num = str(t.get("number") or "").strip()
@@ -102,6 +117,13 @@ def _build_topic_picker(subject: str, sid: str) -> list[dict]:
     return out
 
 
+def _topic_title(subject: str, number: str) -> str | None:
+    for t in (load_topics(subject) or {}).get("topics") or []:
+        if str(t.get("number")) == str(number):
+            return t.get("title") or None
+    return None
+
+
 @router.get("/{subject}", response_class=HTMLResponse)
 async def take(request: Request, response: Response, subject: str, topic: str | None = None):
     grid = open_mode.subject_grid()
@@ -109,14 +131,24 @@ async def take(request: Request, response: Response, subject: str, topic: str | 
         raise HTTPException(status_code=404, detail="Unknown subject")
     sid = open_mode.ensure_session(request, response)
 
-    topics = _build_topic_picker(subject, sid)
+    # Branch order matters: the None / "all" cases must precede the topic-membership
+    # 404, or "?topic=all" would 404. None → random; "all" → random across all;
+    # specific → restrict (404 if the topic has no servable question).
     allow = None
     active_topic = None
-    if topic is not None:
-        if topic not in {t["number"] for t in topics}:
+    active_topic_title = None
+    if topic == "all":
+        active_topic = "all"
+    elif topic is not None:
+        qids = topic_qids(subject).get(topic)
+        if not qids or not (qids & open_mode.subject_candidate_qids(subject)):
             raise HTTPException(status_code=404, detail="Unknown topic")
-        allow = topic_qids(subject).get(topic) or set()
+        allow = qids
         active_topic = topic
+        active_topic_title = _topic_title(subject, topic)
+    # Same availability test the landing uses — only offer "choose a topic" when
+    # the subject actually has an accordion to open.
+    has_topics = bool(_subject_topic_list(subject, correct=set(), attempted=set()))
 
     seen = open_mode.session_seen_qids(sid, subject)
     try:
@@ -138,8 +170,9 @@ async def take(request: Request, response: Response, subject: str, topic: str | 
             ),
             meta=meta,
             stats=stats,
-            topics=topics,
             active_topic=active_topic,
+            active_topic_title=active_topic_title,
+            has_topics=has_topics,
         ),
         headers=dict(response.headers),
     )

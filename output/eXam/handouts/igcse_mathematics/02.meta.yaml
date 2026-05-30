@@ -1,0 +1,388 @@
+topic_number: '2'
+topic_title: Algebra and graphs
+subject_key: igcse_mathematics
+covered_question_ids:
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: '3'
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 7a
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 7b
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 9ai
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 9aii
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 9b
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 10a
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 10b
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 10c
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 10d
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: '12'
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 13a
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 13b
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 16a
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 16bi
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 16bii
+- paper: 0580 Mathematics June 2025 Question Paper  12
+  qnum: 14a
+- paper: 0580 Mathematics June 2025 Question Paper  12
+  qnum: 14b
+- paper: 0580 Mathematics June 2025 Question Paper  12
+  qnum: 14c
+- paper: 0580 Mathematics June 2025 Question Paper  12
+  qnum: 14d
+- paper: 0580 Mathematics June 2025 Question Paper  12
+  qnum: 14e
+- paper: 0580 Mathematics June 2025 Question Paper  12
+  qnum: 19a
+- paper: 0580 Mathematics June 2025 Question Paper  12
+  qnum: 19b
+- paper: 0580 Mathematics June 2025 Question Paper  12
+  qnum: 23a
+- paper: 0580 Mathematics June 2025 Question Paper  12
+  qnum: 23b
+- paper: 0580 Mathematics June 2025 Question Paper  13
+  qnum: 5a
+- paper: 0580 Mathematics June 2025 Question Paper  13
+  qnum: 5b
+- paper: 0580 Mathematics June 2025 Question Paper  13
+  qnum: 15a
+- paper: 0580 Mathematics June 2025 Question Paper  13
+  qnum: 15b
+- paper: 0580 Mathematics June 2025 Question Paper  13
+  qnum: 17a
+- paper: 0580 Mathematics June 2025 Question Paper  13
+  qnum: 17b
+- paper: 0580 Mathematics June 2025 Question Paper  13
+  qnum: 17c
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: '3'
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 11a
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 11b
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 14a
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 14b
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 14c
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 14d
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: '16'
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 18a
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 18b
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 18c
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 18d
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 18e
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 22a
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 22b
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 6a
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 6b
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 7a
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 7b
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 15a
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 15b
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 15c
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 19a
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 19b
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 19c
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 21a
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 21bi
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 21bii
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: 8a
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: 8b
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: '9'
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: 28ai
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: 28aii
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: 28b
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: 28c
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: '2'
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 5a
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 5b
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 5ci
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 5cii
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: '6'
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: '7'
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 10b
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 10c
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 14a
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 14b
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 14c
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 18a
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 18b
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 18c
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 18d
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 19a
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 19b
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 21a
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 21b
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: '26'
+- paper: 0580 Mathematics November 2024 Question Paper  11
+  qnum: '2'
+- paper: 0580 Mathematics November 2024 Question Paper  11
+  qnum: 10a
+- paper: 0580 Mathematics November 2024 Question Paper  11
+  qnum: 10b
+- paper: 0580 Mathematics November 2024 Question Paper  11
+  qnum: 13b
+- paper: 0580 Mathematics November 2024 Question Paper  11
+  qnum: 21a
+- paper: 0580 Mathematics November 2024 Question Paper  11
+  qnum: 21b
+- paper: 0580 Mathematics November 2025 Question Paper  11
+  qnum: 7a
+- paper: 0580 Mathematics November 2025 Question Paper  11
+  qnum: 7b
+- paper: 0580 Mathematics November 2025 Question Paper  11
+  qnum: 16a
+- paper: 0580 Mathematics November 2025 Question Paper  11
+  qnum: 16b
+- paper: 0580 Mathematics November 2025 Question Paper  12
+  qnum: 12a
+- paper: 0580 Mathematics November 2025 Question Paper  12
+  qnum: 12b
+- paper: 0580 Mathematics November 2025 Question Paper  12
+  qnum: 25a
+- paper: 0580 Mathematics November 2025 Question Paper  12
+  qnum: 25b
+- paper: 0580 Mathematics November 2025 Question Paper  12
+  qnum: 27a
+- paper: 0580 Mathematics November 2025 Question Paper  12
+  qnum: 27b
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 11b
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 12a
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 12bi
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 12bii
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: '13'
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 17a
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 17b
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 17c
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 21a
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 21b
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 21ci
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 21cii
+- paper: 0580 Mathematics November 2025 Question Paper  21
+  qnum: 7a
+- paper: 0580 Mathematics November 2025 Question Paper  21
+  qnum: 7b
+- paper: 0580 Mathematics November 2025 Question Paper  21
+  qnum: 17a
+- paper: 0580 Mathematics November 2025 Question Paper  21
+  qnum: 17b
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: '3'
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: '7'
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: '8'
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 10a
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 10b
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 15a
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 15b
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 20ai
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 20aii
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 20aiii
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 20b
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: '22'
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: 14a
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: 14b
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: 15a
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: 15b
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: '16'
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: 25a
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: 26a
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: 26b
+- paper: 0580 Mathematics November 2025 Question Paper  31
+  qnum: 8a
+- paper: 0580 Mathematics November 2025 Question Paper  31
+  qnum: 8b
+- paper: 0580 Mathematics November 2025 Question Paper  31
+  qnum: 8c
+- paper: 0580 Mathematics November 2025 Question Paper  31
+  qnum: 16a
+- paper: 0580 Mathematics November 2025 Question Paper  31
+  qnum: 16b
+- paper: 0580 Mathematics November 2025 Question Paper  31
+  qnum: 18a
+- paper: 0580 Mathematics November 2025 Question Paper  31
+  qnum: 18b
+- paper: 0580 Mathematics November 2025 Question Paper  32
+  qnum: '11'
+- paper: 0580 Mathematics November 2025 Question Paper  32
+  qnum: 27a
+- paper: 0580 Mathematics November 2025 Question Paper  32
+  qnum: 27b
+- paper: 0580 Mathematics November 2025 Question Paper  32
+  qnum: 27c
+- paper: 0580 Mathematics November 2025 Question Paper  33
+  qnum: 12a
+- paper: 0580 Mathematics November 2025 Question Paper  33
+  qnum: '19'
+- paper: 0580 Mathematics November 2025 Question Paper  33
+  qnum: 22a
+- paper: 0580 Mathematics November 2025 Question Paper  33
+  qnum: 22b
+- paper: 0580 Mathematics November 2025 Question Paper  33
+  qnum: '24'
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 7a
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 7b
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 20a
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 20b
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 24a
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 24b
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 24c
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 24d
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 28a
+- paper: 0580 Mathematics November 2025 Question Paper  41
+  qnum: 28b
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: '2'
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: '3'
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: '9'
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: 10a
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: 10b
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: 11a
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: 11b
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: 11c
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: '13'
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: '17'
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 6a
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 6b
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: '14'
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 16a
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 16b
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: '17'
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 19a
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 19b
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 19c
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 19d
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 19e
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 20a
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: 20b
+generated_at: '2026-05-29T15:44:16Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:44:16Z'
+glossed_at: '2026-05-29T15:44:16Z'

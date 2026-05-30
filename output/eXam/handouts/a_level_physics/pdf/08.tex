@@ -1,0 +1,244 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Superposition}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Principle of superposition}
+
+When two or more \textbf{waves} 波 overlap at a point, the \textbf{displacement} 位移 there is the \textbf{vector sum} 矢量和 of the displacements each wave would make on its own. This is the \textbf{principle of superposition} 叠加.
+
+The waves pass through each other and come out unchanged. Superposition is the base of everything in this topic.
+
+If two waves of \textbf{amplitude} 振幅 $A_{1}$ and $A_{2}$ meet:
+
+\begin{itemize}
+\item \textbf{in phase} 同相 (\textbf{crest} 波峰 meets crest): the amplitude is $A_{1} + A_{2}$ (\textbf{constructive interference} 相长干涉).
+
+\item exactly out of phase (crest meets \textbf{trough} 波谷, \textbf{phase difference} 相位差 $\pi$): the amplitude is $|A_{1} - A_{2}|$ (\textbf{destructive interference} 相消干涉).
+
+\item any other phase difference $\phi$: the amplitude is somewhere between these two.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/08-p150-constructive-interference.pdf}}\\[0.3em]
+\emph{Two waves arriving in phase add to give double the amplitude (constructive)}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/08-p151-destructive-interference.pdf}}\\[0.3em]
+\emph{Two waves arriving exactly out of phase cancel to zero (destructive)}
+\end{minipage}\par\medskip
+
+For \textbf{intensity} 强度, $I \propto A^{2}$. Two equal waves meeting in phase give intensity $(2A)^{2} = 4A^{2}$ — \textbf{four times} the intensity of one wave alone.
+
+\section*{Stationary (standing) waves}
+
+When two identical \textbf{progressive waves} 行波 travel in \textbf{opposite directions} and overlap, they make a \textbf{stationary wave} 驻波. Examples: a wave on a string \textbf{reflected} 反射 from a fixed end overlapping the incoming wave; sound in an air column reflected from a closed end; microwaves between an emitter and a metal sheet.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/08-p160-stationary-wave-formation.pdf}}\\[0.3em]
+\emph{A stationary wave forms where two opposite waves overlap (N marks a node, A an antinode)}
+\end{minipage}\par\medskip
+
+\subsection*{Nodes and antinodes}
+
+In a stationary wave:
+
+\begin{itemize}
+\item \textbf{node} 波节 — a point that is always at zero displacement (the two waves always cancel). The distance between next-door nodes is $\lambda/2$.
+
+\item \textbf{antinode} 波腹 — a point of largest amplitude (the two waves always add). The distance between next-door antinodes is $\lambda/2$.
+
+\item a node and the next antinode are $\lambda/4$ apart.
+
+\end{itemize}
+
+Particles between two nodes oscillate \textbf{in phase} with each other, but with different amplitudes (largest at the antinode, zero at the nodes). Particles on opposite sides of a node oscillate in \textbf{antiphase} 反相 (phase difference $\pi$).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/08-p158-string-fundamental-mode.pdf}}\\[0.3em]
+\emph{Fundamental mode on a stretched string — one loop, with L equal to half a wavelength}
+\end{minipage}\par\medskip
+
+How a stationary wave differs from a progressive wave: it does not carry \textbf{energy} 能量 along its length, the pattern does not move along, and the nodes stay fixed; a progressive wave has the same amplitude everywhere and carries energy.
+
+\subsection*{Measuring wavelength from node spacing}
+
+Drive a string with a vibrator at frequency $f$ until a stationary pattern appears. Measure the distance between two well-separated nodes and divide by the number of half-\textbf{wavelengths} 波长 between them. Then $\lambda$ is known, and $v = f\lambda$ gives the wave speed.
+
+For a tube closed at one end and open at the other (a \textbf{resonance tube} 共鸣管), the closed end is a displacement node and the open end is a displacement antinode. The \textbf{fundamental} 基频 has $L = \lambda/4$; the next resonance is at $L = 3\lambda/4$; and so on. For a tube open at both ends, both ends are antinodes; the fundamental is at $L = \lambda/2$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/08-p161-closed-pipe-fundamental.pdf}}\\[0.3em]
+\emph{Fundamental mode in a closed pipe — a node at the closed end, an antinode at the open end}
+\end{minipage}\par\medskip
+
+\section*{Diffraction}
+
+\textbf{Diffraction} 衍射 is the spreading of a wave after it passes through a gap or around an \textbf{obstacle} 障碍物. All waves diffract — water, sound, light, microwaves.
+
+The amount of spreading depends on the ratio of \textbf{wavelength to gap width}:
+
+\begin{itemize}
+\item gap \textbf{much wider} than $\lambda$: very little spreading; the wave goes nearly straight through.
+
+\item gap \textbf{about the size of} $\lambda$: a lot of spreading; the wave fans out.
+
+\item gap \textbf{smaller than} $\lambda$: very strong spreading; the gap acts almost like a point source.
+
+\end{itemize}
+
+Show this with water waves in a \textbf{ripple tank} 水波槽: straight waves meet a barrier with a gap, and the waves curve more as the gap is made narrower. The same idea is why you can hear someone around a corner (speech has $\lambda$ near 1 m, close to the gap size) but cannot see them (visible light has $\lambda \sim 500\ \text{nm}$, far smaller than the gap).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/08-p165-ripple-tank-diffraction.pdf}}\\[0.3em]
+\emph{Diffraction in a ripple tank — a wide gap (a) spreads the waves little, a narrow gap (b) much more}
+\end{minipage}\par\medskip
+
+\section*{Interference}
+
+\textbf{Interference} 干涉 is the superposition of two \textbf{coherent} 相干 waves to give a steady pattern of high-amplitude regions (constructive) and low-amplitude regions (destructive).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/08-p150-two-source-interference.pdf}}\\[0.3em]
+\emph{Two coherent sources give lines of maximum displacement where crests meet crests}
+\end{minipage}\par\medskip
+
+\subsection*{Coherence}
+
+Two sources are \textbf{coherent} when they emit waves with a \textbf{constant phase difference} (which also needs the same frequency). Two separate lamps are not coherent — their phase changes randomly, so any pattern flickers too fast to see and you get only an average.
+
+To make coherent light from one source, pass it through two \textbf{slits} 狭缝 in a \textbf{double-slit} 双缝 setup. Both slits are lit by the same wavefront, so the two beams keep a fixed phase relationship.
+
+\subsection*{Conditions for a clear pattern}
+
+To see two-source fringes you need:
+
+\begin{enumerate}
+\item two \textbf{coherent} sources (constant phase difference).
+
+\item roughly equal amplitudes (or the dark regions are not very dark).
+
+\item the waves overlap where you look.
+
+\item for light (a transverse wave), the same plane of \textbf{polarisation} 偏振.
+
+\end{enumerate}
+
+\subsection*{Path difference}
+
+For two coherent sources, what happens at a point depends on the \textbf{path difference} 路程差 $\Delta x$ between the two waves arriving there:
+
+\begin{itemize}
+\item constructive: $\Delta x = n\lambda$ (for whole numbers $n = 0, 1, 2, \ldots$).
+
+\item destructive: $\Delta x = (n + \tfrac{1}{2})\lambda$.
+
+\end{itemize}
+
+\subsection*{Double-slit (Young's) experiment}
+
+For two slits a distance $a$ apart, with a screen a distance $D$ away (assume $D \gg a$), light of wavelength $\lambda$ makes fringes on the screen.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/08-p154-youngs-double-slit.pdf}}\\[0.3em]
+\emph{Young's double-slit experiment — the single slit makes the two slits coherent sources}
+\end{minipage}\par\medskip
+
+The \textbf{fringe spacing} 条纹间距 $x$ (one \textbf{fringe} 条纹 to the next) is
+
+\[
+\lambda = \frac{a x}{D}, \qquad x = \frac{\lambda D}{a}.
+\]
+
+Bright fringes (\textbf{maximum} 极大) are where the path difference is a whole number of $\lambda$; dark fringes (\textbf{minimum} 极小) where it is $(n + \tfrac{1}{2})\lambda$. The fringes are equally spaced.
+
+To make the fringe spacing smaller: increase $a$ (slits further apart), reduce $D$ (screen closer), or use a shorter $\lambda$ (bluer light).
+
+\section*{Diffraction grating}
+
+A \textbf{diffraction grating} 衍射光栅 has many equally spaced slits — often hundreds or thousands per millimetre. Each slit is a coherent source. A maximum is seen at angle $\theta$ from the \textbf{normal} 法线 to the grating when
+
+\[
+d \sin\theta = n \lambda,
+\]
+
+where $d$ is the \textbf{slit spacing} 缝间距 (centre to centre), $n = 0, \pm 1, \pm 2, \ldots$ is the \textbf{order} 级次, and $\lambda$ is the wavelength.
+
+Compared with the double slit, a grating gives much \textbf{sharper} maxima, because more slits add together — every other direction is cancelled by many slits.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/08-p168-diffraction-grating.pdf}}\\[0.3em]
+\emph{A diffraction grating splits monochromatic light into sharp maxima on a screen}
+\end{minipage}\par\medskip
+
+\subsection*{Slit spacing from "lines per mm"}
+
+If a grating has $N$ lines per millimetre, then $d = 1/N$ millimetres $= 10^{-3}/N$ metres. For $450$ lines per mm, $d = 1/450\ \text{mm} \approx 2.22\ \text{µm}$.
+
+\subsection*{Highest order}
+
+For a given grating and wavelength, $\sin\theta = n\lambda/d$ cannot be more than $1$, so the highest order seen is
+
+\[
+n_{\text{max}} = \left\lfloor \frac{d}{\lambda} \right\rfloor.
+\]
+
+If $d/\lambda = 3.27$, orders up to $n = 3$ exist; $n = 4$ would need $\sin\theta > 1$ and is not seen.
+
+\subsection*{Finding $\lambda$ with a grating}
+
+Shine parallel light of unknown wavelength straight at the grating. Measure the angle $\theta_{1}$ of the first-order maximum from the centre. Then $\lambda = d \sin\theta_{1}$. Repeating for higher orders and averaging reduces error.
+
+
+\end{document}

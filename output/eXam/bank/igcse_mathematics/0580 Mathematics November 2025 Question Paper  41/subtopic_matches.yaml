@@ -1,0 +1,33 @@
+subject_key: igcse_mathematics
+paper_stem: 0580 Mathematics November 2025 Question Paper  41
+model: claude
+matched_at: '2026-05-29T13:57:41Z'
+matches:
+  11a: [E1.12]
+  11b: [E1.12]
+  12a: [E6.1]
+  12b: [E6.1]
+  14a: [E5.4]
+  14b: [E5.4]
+  14c: [E5.4]
+  14d: [E5.4]
+  18a: [E5.2]
+  18b: [E5.2]
+  20a: [E2.9]
+  20b: [E2.9]
+  24a: [E2.7]
+  24b: [E2.7]
+  24c: [E2.6]
+  24d: [E2.6]
+  25a: [E9.6]
+  25b: [E9.6]
+  28a: [E2.12]
+  28b: [E2.12]
+  29a: [E6.4]
+  29b: [E6.4]
+  5a: [E4.2]
+  5b: [E4.6]
+  5ci: [E4.2]
+  5cii: [E4.6]
+  7a: [E2.6]
+  7b: [E2.6]

@@ -1,0 +1,198 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $(2-3r)(5-3r) = 9r^2 - 21r + 10$. So $\sum = 9\cdot\tfrac16
+    n(n+1)(2n+1) - 21\cdot\tfrac12 n(n+1) + 10n = 3n^3 - 6n^2 + n$. Hence $a=3$, $b=-6$,
+    $c=1$.
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Partial fractions: $\dfrac{1}{(2-3r)(5-3r)} = \tfrac13\left(\dfrac{1}{2-3r}
+    - \dfrac{1}{5-3r}\right)$. The sum telescopes to $\displaystyle\sum_{r=1}^n =
+    -\tfrac16 + \dfrac{1}{3(2-3n)}$.'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: As $n\to\infty$, $\dfrac{1}{3(2-3n)}\to 0$, so the sum $\to
+    -\tfrac16$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Let $y = x^3 - 1$, so $x = (y+1)^{1/3}$. From $x^3 + 2x + 1
+    = 0$: $2(y+1)^{1/3} = -y - 2 \Rightarrow 8(y+1) = -(y+2)^3$, giving $y^3 + 6y^2
+    + 20y + 16 = 0$.'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: For the new cubic, $\sum(\alpha^3-1) = -6$ and $\sum(\alpha^3-1)(\beta^3-1)
+    = 20$. So $\sum(\alpha^3-1)^2 = (-6)^2 - 2(20) = -4$.
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using the new cubic ($y^3 + 6y^2 + 20y + 16 = 0$) and Newton''s
+    identities: $\sum(\alpha^3-1)^3 = -6(-4) - 20(-6) - 16(3) = 96$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Base case: $u_1 = 5 = 6^1 - 1$ ✓. Assume $u_k = 6^k - 1$. Then
+    $u_{k+1} = 6(6^k - 1) + 5 = 6^{k+1} - 6 + 5 = 6^{k+1} - 1$, the $n=k+1$ case.
+    Hence by induction $u_n = 6^n - 1$ for all positive integers $n$.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{u_{2n}}{u_n} = \dfrac{6^{2n} - 1}{6^n - 1} = \dfrac{(6^n
+    - 1)(6^n + 1)}{6^n - 1} = 6^n + 1$, an integer. Hence $u_{2n}$ is divisible by
+    $u_n$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A rotation followed by a shear: an (anticlockwise) rotation
+    through $\theta$ about the origin, then a shear with the $x$-axis fixed (with
+    $(0,1)\mapsto(2,1)$).'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathbf{M} = \begin{pmatrix}\cos\theta + 2\sin\theta & 2\cos\theta
+    - \sin\theta \\ \sin\theta & \cos\theta\end{pmatrix}$. Invariant points satisfy
+    $x\sin\theta + y\cos\theta = y$ and $x\cos\theta + 2x\sin\theta - y\sin\theta
+    + 2y\cos\theta = x$. Eliminating leads to $\sin\theta + \cos\theta = 1$, so $\theta
+    = \tfrac12\pi$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: A spiral on $[0, 2\pi]$ starting at the pole, $r$ strictly increasing,
+    with the correct orientation and one further intersection with the initial line.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Area $= \tfrac12\displaystyle\int_0^{2\pi}\theta^2\mathrm{e}^{\frac14\theta}\,d\theta$.
+    Integrating by parts twice: $= \left[2\theta^2\mathrm{e}^{\frac14\theta} - 16\theta\mathrm{e}^{\frac14\theta}
+    + 64\mathrm{e}^{\frac14\theta}\right]_0^{2\pi} = (8\pi^2 - 32\pi + 64)\mathrm{e}^{\frac12\pi}
+    - 64$.'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$y = \theta\mathrm{e}^{\frac18\theta}\sin\theta$. $\dfrac{dy}{d\theta}
+    = \theta\mathrm{e}^{\frac18\theta}\cos\theta + \sin\theta\left(\tfrac18\theta\mathrm{e}^{\frac18\theta}
+    + \mathrm{e}^{\frac18\theta}\right)$; since $\mathrm{e}^{\frac18\theta}\neq0$,
+    setting $\tfrac{dy}{d\theta}=0$ gives $\theta\cos\theta + \left(\tfrac18\theta
+    + 1\right)\sin\theta = 0$ (AG). At $\theta = 5$: $5\cos5 + \left(\tfrac58 + 1\right)\sin5
+    = -0.1399$; at $\theta = 5.05$: $+0.1336$. The sign change confirms a root between
+    5 and 5.05.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\overrightarrow{AB} = 2\mathbf{j} + 4\mathbf{k}$, $\overrightarrow{AC}
+    = \mathbf{i} - \mathbf{j} + \mathbf{k}$. Normal $= \overrightarrow{AB}\times\overrightarrow{AC}
+    = (6, 4, -2) \parallel (3, 2, -1)$. Through $A(1,0,-2)$: $3(1) + 2(0) - (-2) =
+    5$, so $3x + 2y - z = 5$.'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\overrightarrow{AD} = (0, 0, t+2)$, so normal to $ABD = \overrightarrow{AB}\times\overrightarrow{AD}
+    = (2t+4, 0, 0) \parallel (1, 0, 0)$. Then $\cos\theta = \dfrac{(3,2,-1)\cdot(1,0,0)}{\sqrt{14}\cdot1}
+    = \dfrac{3}{\sqrt{14}}$, giving $\theta = 36.7\degree$ ($0.641$ rad).
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\overrightarrow{CD} = (-1, 1, t+1)$. Common perpendicular
+    $\overrightarrow{AB}\times\overrightarrow{CD} = (2t-2, -4, 2) \parallel (t-1,
+    -2, 1)$. Shortest distance $= \dfrac{|\overrightarrow{AC}\cdot(t-1,-2,1)|}{\sqrt{(t-1)^2
+    + 4 + 1}} = \dfrac{|t+2|}{\sqrt{t^2 - 2t + 6}}$. Setting $=\sqrt2$: $(t+2)^2 =
+    2(t^2 - 2t + 6) \Rightarrow t^2 - 8t + 8 = 0 \Rightarrow t = 2(2 + \sqrt2) \approx
+    6.83$ or $t = 2(2 - \sqrt2) \approx 1.17$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Vertical asymptotes $x = -\tfrac12$ and $x = 4$ (roots of $2x^2
+    - 7x - 4 = 0$); horizontal asymptote $y = 1$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{dy}{dx} = \dfrac{(2x^2-7x-4)(4x-5) - (2x^2-5x)(4x-7)}{(2x^2-7x-4)^2}$.
+    Numerator $=0$: $4x^2 + 16x - 20 = 0 \Rightarrow x = 1$ or $x = -5$. Stationary
+    points $\left(-5, \tfrac{25}{27}\right)$ and $\left(1, \tfrac13\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Intersections with the axes: $(0, 0)$ and $\left(\tfrac52,
+    0\right)$. Curve has vertical asymptotes $x=-\tfrac12$, $x=4$ and horizontal asymptote
+    $y=1$.'
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Reflect in the $x$-axis the parts of $C$ lying below it; the
+    curve touches the $x$-axis at $(0,0)$ and $\left(\tfrac52, 0\right)$, with the
+    same asymptotes (now $|y|$).
+  mark_scheme: []
+  graphics: []
+- number: 7e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Critical values from $\dfrac{2x^2-5x}{2x^2-7x-4} = \tfrac19$
+    ($16x^2 - 38x + 4 = 0 \Rightarrow x = \tfrac{19}{16} \pm \tfrac{3}{16}\sqrt{33}$)
+    and $= -\tfrac19$ ($20x^2 - 52x - 4 = 0 \Rightarrow x = \tfrac{13}{10} \pm \tfrac{3}{10}\sqrt{21}$).
+    Solution: $\tfrac{13}{10} - \tfrac{3}{10}\sqrt{21} < x < \tfrac{19}{16} - \tfrac{3}{16}\sqrt{33}$
+    and $\tfrac{19}{16} + \tfrac{3}{16}\sqrt{33} < x < \tfrac{13}{10} + \tfrac{3}{10}\sqrt{21}$.'
+  mark_scheme: []
+  graphics: []

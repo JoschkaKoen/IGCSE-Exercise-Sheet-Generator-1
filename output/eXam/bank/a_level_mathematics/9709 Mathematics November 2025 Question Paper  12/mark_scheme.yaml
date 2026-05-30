@@ -1,0 +1,210 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $9x^2 - 36x + 8 = 9(x-2)^2 - 28$ (so $p = 9$, $q = -2$, $r =
+    -28$).
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'No real roots when $k$ is below the minimum value: $k < -28$.'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $9(x-2)^2 - 28 = -15 \Rightarrow (x-2)^2 = \tfrac{13}{9} \Rightarrow
+    x = 2 \pm \dfrac{\sqrt{13}}{3} = \dfrac{6 \pm \sqrt{13}}{3}$.
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'General term gives power $x^{12-3k}$; independent when $k =
+    4$: $\binom{6}{2}(2x^2)^2\left(-\tfrac{3}{x}\right)^4 = 15 \times 4 \times 81
+    = 4860$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: A stretch with scale factor $\tfrac13$ parallel to the $x$-axis,
+    and a translation $\begin{pmatrix} 0 \\ 2 \end{pmatrix}$ (i.e. 2 units in the
+    $y$-direction).
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = 3g(-x)$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At $S$ ($x=2$): $8k + \tfrac12 = \tfrac{65}{2} \Rightarrow
+    8k = 32 \Rightarrow k = 4$.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$y = x^4 - \dfrac{2}{x} + c$; through $S(2,20)$: $16 - 1 +
+    c = 20 \Rightarrow c = 5$. At $T(1,t)$: $t = 1 - 2 + 5 = 4$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = 2x^{-1/2} - 1 = 0 \Rightarrow x^{1/2} = 2
+    \Rightarrow a = 4$.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Curve meets $x$-axis at $b = 16$. Area $= \int_4^{16}\!\big(4x^{1/2}
+    - x\big)\,dx = \Big[\tfrac83 x^{3/2} - \tfrac12 x^2\Big]_4^{16} = \dfrac{128}{3}
+    - \dfrac{40}{3} = \dfrac{88}{3}$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Curve starts at $(0,2)$, rises to a maximum $\left(\tfrac12\pi,
+    5\right)$, falls to a minimum $\left(\tfrac32\pi, -1\right)$, then returns to
+    $(2\pi, 2)$.
+  mark_scheme: []
+  graphics: []
+- number: 6bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 1 solution.
+  mark_scheme: []
+  graphics: []
+- number: 6bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 3 solutions.
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $3\sin x + 2 = 5(1 - \sin^2 x) - 1 \Rightarrow 5\sin^2 x + 3\sin
+    x - 2 = 0 \Rightarrow \sin x = 0.4$ or $-1$. So $x = 0.41,\ 2.73,\ \tfrac32\pi$.
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Centre $(4, 6)$; radius$^2 = 3^2 + 5^2 = 34$. Circle: $(x-4)^2
+    + (y-6)^2 = 34$.'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Gradient $PQ = \tfrac53$, so tangent gradient $= -\tfrac35$;
+    tangent at $Q$: $y = -\tfrac35 x + \tfrac{76}{5}$.'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$R = (7, 1)$; tangent at $R$: $y = \tfrac35 x - \tfrac{16}{5}$.
+    Intersection of the two tangents: $\left(\tfrac{46}{3},\ 6\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'GP: $b^2 = ac$. AP: $2b = a + (-3c) = a - 3c$, so $4ac = (a-3c)^2
+    \Rightarrow a^2 - 10ac + 9c^2 = 0$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 8bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$a = 9$: $81 - 90c + 9c^2 = 0 \Rightarrow (c-9)(c-1) = 0$,
+    smaller $c = 1$. Then $b = 3$, $r = \tfrac13$; $S_\infty = \dfrac{9}{1 - \tfrac13}
+    = \dfrac{27}{2}$.'
+  mark_scheme: []
+  graphics: []
+- number: 8bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $d = b - a = 3 - 9 = -6$; $S_{20} = \tfrac{20}{2}\big(2(9) +
+    19(-6)\big) = 10(-96) = -960$.
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $f'(x) = -24(3x-6)^{-3} - 9(3x-6)^{-4}$; for $x > 2$, $(3x-6)
+    > 0$ so both terms are negative — f is a decreasing function.
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $f^{-1}$ exists because f is a one-to-one (decreasing) function.
+  mark_scheme: []
+  graphics: []
+- number: 9c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $g(x) > 4a - 3$.
+  mark_scheme: []
+  graphics: []
+- number: 9d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{fg}$ requires range$(g) \subseteq$ domain$(f) = (2,
+    \infty)$, so $4a - 3 \geqslant 2 \Rightarrow a \geqslant \tfrac54$.
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $s^2 = r^2 + r^2 - 2r^2\cos\tfrac{2\pi}{3} = 2r^2 + r^2 = 3r^2
+    \Rightarrow s = \sqrt3\, r$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Sector $BAD = \tfrac{\pi}{3}r^2$, sector $BCD = \tfrac12 s^2\!\left(\tfrac{\pi}{3}\right)
+    = \tfrac{\pi}{2}r^2$; triangle terms $\tfrac{\sqrt3}{4}r^2$ and $\tfrac{3\sqrt3}{4}r^2$.
+    Shaded area $= \left(\tfrac{\sqrt3}{2} - \tfrac{\pi}{6}\right)r^2$ (so $a = \tfrac{\sqrt3}{2}$,
+    $b = -\tfrac16$).
+  mark_scheme: []
+  graphics: []

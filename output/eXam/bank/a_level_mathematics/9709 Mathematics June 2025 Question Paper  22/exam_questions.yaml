@@ -1,0 +1,187 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: Show that $\displaystyle\int_2^{11} \dfrac{8}{4x+1}\,dx = \ln a$, where $a$
+    is an integer to be found.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Sketch on the same diagram the graphs of $y = |2x-9|$ and $y = 4x-5$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Solve the inequality $|2x-9| < 4x-5$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: Find the coordinates of the stationary points of the curve with equation $y
+    = \dfrac{8x}{2x+3} - 6x + 5$.
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The diagram shows parts of the curves with equations $y = 4e^{-2x}$ and $y
+    = 1 + 0.5\sin 3x$. Point $P$ is a point of intersection of the curves, and the
+    shaded region is bounded by the two curves and the $y$-axis.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Show that the $x$-coordinate of $P$ satisfies the equation $x = -0.5\ln(0.25
+      + 0.125\sin 3x)$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Use an iterative formula, based on the equation in part (a), to find the
+      $x$-coordinate of $P$ correct to 4 significant figures. Use an initial value
+      of 0.5 and give the result of each iteration to 6 significant figures.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Hence find the area of the shaded region. Give your answer correct to 2
+      significant figures.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The polynomial $p(x)$ is defined by $p(x) = ax^4 + bx^3 + 13x^2 - 35x + 15$,
+    where $a$ and $b$ are constants. It is given that $(2x-1)$ and $(x-3)$ are factors
+    of $p(x)$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the values of $a$ and $b$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Hence factorise $p(x)$.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the least positive value of $\theta$ in radians such that $p(\cot 2\theta)
+      = 0$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A curve has equation $(x^2-3)\ln y + 6x = 14$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that there is no point on the curve at which the $y$-coordinate is
+      $e^{-1}$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Find the equation of the tangent to the curve at the point $(2, e^2)$. Give
+      your answer in the form $y = mx + c$, where $m$ and $c$ are exact constants.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Express $4\cos\theta\sin(\theta+30\degree)$ in the form $R\cos(2\theta-\alpha)
+      + k$, where $R > 0$, $0\degree < \alpha < 90\degree$ and $k$ is a constant.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Hence solve the equation $12\cos 2\phi\sin(2\phi+30\degree) = 5$ for $0\degree
+      < \phi < 90\degree$.
+    answer_options: []
+    subquestions: []

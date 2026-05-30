@@ -1,0 +1,43 @@
+subject_key: a_level_further_mathematics
+paper_stem: 9231 Mathematics - Further November 2025 Question Paper  24
+model: claude
+matched_at: '2026-05-29T19:42:04Z'
+matches:
+  1a:
+  - '2.4'
+  1b:
+  - '2.4'
+  2a:
+  - '2.1'
+  2b:
+  - '2.1'
+  3a:
+  - '2.5'
+  3b:
+  - '2.5'
+  4a:
+  - '2.4'
+  4b:
+  - '2.4'
+  4c:
+  - '2.4'
+  5a:
+  - '2.6'
+  5b:
+  - '2.6'
+  '6':
+  - '2.6'
+  7ai:
+  - '2.3'
+  7aii:
+  - '2.3'
+  7aiii:
+  - '2.3'
+  7b:
+  - '2.3'
+  8a:
+  - '2.2'
+  8b:
+  - '2.2'
+  8c:
+  - '2.2'

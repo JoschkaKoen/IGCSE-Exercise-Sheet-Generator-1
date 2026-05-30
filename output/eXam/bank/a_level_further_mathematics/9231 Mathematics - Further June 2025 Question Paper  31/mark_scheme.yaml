@@ -1,0 +1,148 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'N2L: $x^3 + 4x = 8v\dfrac{dv}{dx}$. Separating: $\displaystyle\int(x^3
+    + 4x)\,dx = \int 8v\,dv$, so $\tfrac14 x^4 + 2x^2 + c = 4v^2$. At $x=0$, $v=1$:
+    $c = -4$. Hence $v^2 = \tfrac{1}{16}x^4 + \tfrac12 x^2 + 1 = \left(\tfrac14 x^2
+    + 1\right)^2$, so $v = \tfrac14 x^2 + 1$ ($a = \tfrac14$, $b = 1$).'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{dx}{dt} = \tfrac14 x^2 + 1$, so $\displaystyle\int\dfrac{1}{\tfrac14
+    x^2 + 1}\,dx = \int dt$, giving $t = 4\int\dfrac{1}{x^2 + 4}\,dx = 2\tan^{-1}\!\left(\tfrac12
+    x\right) + C$. At $t=0$, $x=0$: $C=0$. So $x = 2\tan\!\left(\tfrac12 t\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using the trajectory equation with $(35, 10)$, $u = 24$, $g
+    = 10$: $10 = 35t - \dfrac{g}{2\cdot24^2}\cdot35^2(1 + t^2)$ where $t = \tan\theta$,
+    giving $6125t^2 - 20160t + 11885 = 0$ (OE $1225t^2 - 4032t + 2377 = 0$). So $\tan\theta
+    = 0.769$ ($\theta = 37.6\degree$) or $\tan\theta = 2.52$ ($\theta = 68.4\degree$).'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using the trajectory with $y = 0$ and the larger value of $\theta$
+    ($68.4\degree$): $0 = x\tan\theta - \dfrac{g}{2\cdot24^2}x^2(1 + \tan^2\theta)$,
+    giving range $x = 39.5$ m (accept $39.4 \leqslant x \leqslant 39.5$). This is
+    the minimum landing distance.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$T = \dfrac{\lambda x}{l}$: $8 = \dfrac{32x}{2}$, so the extension
+    $x = 0.5$ and $AP = 2.5$. Then $\sin\alpha = \dfrac{1.5}{2.5} = 0.6$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Vertically ($\uparrow$): $R = 1.6g - 8\cos\alpha$ ($\cos\alpha
+    = 0.8$). Horizontally (centripetal, friction inward as $P$ is on the point of
+    slipping outward): $1.6\cdot1.5\,\omega^2 = 8\sin\alpha + \mu R$. Substituting:
+    $2.4\omega^2 = 8(0.6) + 0.5(1.6g - 8(0.8)) = 9.6$, so $\omega^2 = 4$, $\omega
+    = 2$. Revolutions per minute $= \dfrac{\omega}{2\pi}\times60 = \dfrac{60}{\pi}
+    = 19.1$.'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Cone: height $= 6r$ (since $\tan\theta = \tfrac{3r}{H} = \tfrac12$),
+    volume $18\pi r^3$, CoM $\tfrac32 r$ above base. Hemisphere: volume $\tfrac{16}{3}\pi
+    r^3$, CoM $\tfrac34 r$ above base. Object: volume $18\pi r^3 - \tfrac{16}{3}\pi
+    r^3 = \tfrac{38}{3}\pi r^3$. Moments: $\left(\tfrac{38}{3}\pi r^3\right)\bar y
+    = 18\pi r^3\left(\tfrac32 r\right) - \tfrac{16}{3}\pi r^3\left(\tfrac34 r\right)$,
+    giving $\bar y = \dfrac{69}{38}r$.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: On the point of toppling, $\tan\alpha = \dfrac{3r}{\bar y} =
+    \dfrac{3r}{\frac{69}{38}r} = \dfrac{38}{23}$, so $\alpha = 58.8\degree$.
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At $v_{\max}$ (zero acceleration): $T = 2g\sin\alpha = \tfrac{14}{25}g$
+    ($\sin\alpha = \tfrac{7}{25}$). $\dfrac{14x}{0.5} = \tfrac{14}{25}g$ gives extension
+    $x = \tfrac15$. Energy from start ($AP = 0.8$, at rest, extension $0.3$) to max-velocity
+    point ($AP = 0.7$ below $A$, extension $0.2$), a slope distance of $1.5$ m: $2g\sin\alpha(0.8
+    + 0.5 + 0.2) + \dfrac{14(0.3)^2}{2(0.5)} = \dfrac{14(0.2)^2}{2(0.5)} + \tfrac12(2)v^2$.
+    So $v^2 = 0.91g = 9.1$, giving $v = 3.02\text{ m s}^{-1}$.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'KE condition: $\tfrac92\cdot\tfrac12(2m)v_A^2 = \tfrac12 m
+    v_B^2$, so $v_B = 3v_A$. Conservation of momentum: $2mu = 2m v_A + m v_B$, i.e.
+    $2u = 2v_A + v_B$. With $v_B = 3v_A$: $v_A = \tfrac25 u$, $v_B = \tfrac65 u$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Let $w = \tfrac{12}{25}\sqrt5\,u$ be the speed after the collision.
+    Parallel to wall (unchanged): $v_B\cos\alpha = w\cos\beta$, i.e. $\sqrt5\cos\alpha
+    = 2\cos\beta$. Perpendicular to wall (restitution): $e\,v_B\sin\alpha = w\sin\beta$,
+    i.e. $2\sin\alpha = \sqrt5\sin\beta$. Squaring and using $\sin^2 + \cos^2 = 1$:
+    $\tfrac{576}{625}\sin^2\alpha + \tfrac{36}{25}(1 - \sin^2\alpha) = \tfrac{144}{125}$,
+    giving $\sin^2\alpha = \tfrac59$, so $\sin\alpha = \tfrac13\sqrt5$, $\cos\alpha
+    = \tfrac23$, $\sin\beta = \tfrac23$, $\cos\beta = \tfrac13\sqrt5$. Hence $\sin(\alpha
+    + \beta) = \sin\alpha\cos\beta + \cos\alpha\sin\beta = \tfrac59 + \tfrac49 = 1$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At $A$ (centripetal horizontal): $R_A = \dfrac{mu^2}{a}$. At
+    $B$: $R_B = \dfrac{mv^2}{a} - mg\cos\theta$, with $\cos\theta = k$. Energy $A$
+    to $B$ (rise $ka$): $v^2 = u^2 - 2agk$. Using $R_B = \tfrac12 R_A$: $\dfrac{mv^2}{a}
+    - mgk = \tfrac12\dfrac{mu^2}{a}$, so $v^2 = \tfrac12 u^2 + agk$. Equating: $\tfrac12
+    u^2 + agk = u^2 - 2agk \Rightarrow u^2 = 6agk$. With $u^2 = \tfrac65 ga$: $k =
+    \tfrac15$.'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Just reaches $B$ means $R_B = 0$: $\dfrac{mv^2}{a} = mgk \Rightarrow
+    v^2 = agk$, and $u^2 = v^2 + 2agk = 3agk = \tfrac35 ag$ (with $k = \tfrac15$).
+    So $u = \sqrt{\tfrac35 ag}$.'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: At $B$ the particle leaves the surface and travels as a projectile
+    to $C$ (same height, horizontal separation $2a\sin\theta$). Time of flight $t
+    = \dfrac{2v\sin\theta}{g}$; horizontally $2a\sin\theta = v\cos\theta\cdot t =
+    \dfrac{2v^2\sin\theta\cos\theta}{g}$, so $v^2 = \dfrac{ag}{\cos\theta} = 5ag$
+    (with $\cos\theta = k = \tfrac15$). Then $u^2 = v^2 + 2agk = 5ag + \tfrac25 ag
+    = \tfrac{27}{5}ag$, so $u = \sqrt{\tfrac{27}{5}ag}$.
+  mark_scheme: []
+  graphics: []

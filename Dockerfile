@@ -8,6 +8,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # System tools:
 #   texlive-*      : pdflatex / xelatex (MCQ explanations, step-13 PDF reports)
+#   texlive-lang-cjk : xeCJK + Fandol fonts for the printable handout PDFs
+#                    (web/handout_latex.py; FandolSong is bundled here, no system font)
 #   pdfjam / pdftk : 2-up / 4-up variants (via pdftk-java in texlive-extra-utils)
 #   poppler-utils  : pdfinfo / pdfimages / pdftotext used by scan pipeline
 #   tesseract-ocr  : OCR fallback used by some preprocessing steps
@@ -19,6 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-latex-extra \
     texlive-fonts-extra \
     texlive-xetex \
+    texlive-lang-cjk \
     poppler-utils \
     tesseract-ocr \
     openjdk-21-jdk-headless \

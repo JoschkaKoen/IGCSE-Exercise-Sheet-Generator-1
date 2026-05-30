@@ -1,0 +1,174 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$z^3 = 27 - 27\mathrm{i} = 27\sqrt2\,\mathrm{e}^{-\frac14\pi\mathrm{i}}$.
+    Cube roots have modulus $(27\sqrt2)^{1/3} = 3\cdot2^{1/6}$ and arguments $-\tfrac{1}{12}\pi
+    + \tfrac23 k\pi$: $z_1 = 3\cdot2^{1/6}\mathrm{e}^{-\frac{1}{12}\pi\mathrm{i}}$,
+    $z_2 = 3\cdot2^{1/6}\mathrm{e}^{\frac{7}{12}\pi\mathrm{i}}$, $z_3 = 3\cdot2^{1/6}\mathrm{e}^{-\frac{9}{12}\pi\mathrm{i}}$.'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $I_n = \left[(1-x)^n\cosh x\right]_0^1 + n\displaystyle\int_0^1
+    (1-x)^{n-1}\cosh x\,dx = -1 + n\left(\left[(1-x)^{n-1}\sinh x\right]_0^1 + (n-1)\int_0^1
+    (1-x)^{n-2}\sinh x\,dx\right)$. The bracket term is 0, so $I_n = -1 + n(n-1)I_{n-2}$
+    (AG).
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $I_0 = \displaystyle\int_0^1\sinh x\,dx = [\cosh x]_0^1 = \cosh
+    1 - 1$. So $I_2 = -1 + 2(1)I_0 = -1 + 2(\cosh 1 - 1) = 2\cosh 1 - 3$ $\left(=
+    \mathrm{e} + \mathrm{e}^{-1} - 3\right)$.
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $z - z^{-1} = 2\mathrm{i}\sin\theta$: $(z - z^{-1})^5
+    = (z^5 - z^{-5}) - 5(z^3 - z^{-3}) + 10(z - z^{-1})$. Using $z^n - z^{-n} = 2\mathrm{i}\sin
+    n\theta$: $2^5\mathrm{i}\sin^5\theta = 2\mathrm{i}\sin 5\theta - 5(2\mathrm{i}\sin
+    3\theta) + 10(2\mathrm{i}\sin\theta)$, so $16\sin^5\theta = \sin 5\theta - 5\sin
+    3\theta + 10\sin\theta$, giving $\mathrm{cosec}^5\theta = \dfrac{16}{\sin 5\theta
+    - 5\sin 3\theta + 10\sin\theta}$ ($a = 16$, $b = -5$, $c = 10$).'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Left-endpoint rectangle sum (increasing curve): $\displaystyle\sum_{r=1}^{n-1}\dfrac{1}{\sqrt
+    r}\mathrm{e}^{\sqrt r} < \int_1^n \dfrac{1}{\sqrt x}\mathrm{e}^{\sqrt x}\,dx =
+    \left[2\mathrm{e}^{\sqrt x}\right]_1^n = 2\mathrm{e}^{\sqrt n} - 2\mathrm{e}$.
+    Adding the $r = n$ term: $\sum_{r=1}^n\dfrac{1}{\sqrt r}\mathrm{e}^{\sqrt r} <
+    2\mathrm{e}^{\sqrt n} - 2\mathrm{e} + \dfrac{1}{\sqrt n}\mathrm{e}^{\sqrt n} =
+    \left(2 + \dfrac{1}{\sqrt n}\right)\mathrm{e}^{\sqrt n} - 2\mathrm{e}$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Right-endpoint rectangles give $\displaystyle\sum_{r=2}^n\dfrac{1}{\sqrt
+    r}\mathrm{e}^{\sqrt r} > \int_1^n \dfrac{1}{\sqrt x}\mathrm{e}^{\sqrt x}\,dx =
+    2\mathrm{e}^{\sqrt n} - 2\mathrm{e}$. Adding the $r = 1$ term: $\sum_{r=1}^n\dfrac{1}{\sqrt
+    r}\mathrm{e}^{\sqrt r} > 2\mathrm{e}^{\sqrt n} - 2\mathrm{e} + \mathrm{e} = 2\mathrm{e}^{\sqrt
+    n} - \mathrm{e}$.'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Auxiliary equation $6m^2 + 3m + 6 = 0 \Rightarrow m = -\tfrac14
+    \pm \tfrac14\mathrm{i}\sqrt{15}$, so CF $= \mathrm{e}^{-\frac14 t}\left(A\cos\tfrac{\sqrt{15}}{4}t
+    + B\sin\tfrac{\sqrt{15}}{4}t\right)$. PI $x = k\mathrm{e}^{-t}$: $6k - 3k + 6k
+    = 1 \Rightarrow k = \tfrac19$. General solution $x = \mathrm{e}^{-\frac14 t}\left(A\cos\tfrac{\sqrt{15}}{4}t
+    + B\sin\tfrac{\sqrt{15}}{4}t\right) + \tfrac19\mathrm{e}^{-t}$. Initial conditions:
+    $A = -\tfrac19$, $B = \tfrac{1}{3\sqrt{15}}$. So $x = \tfrac13\mathrm{e}^{-\frac14
+    t}\left(-\tfrac13\cos\tfrac{\sqrt{15}}{4}t + \tfrac{1}{\sqrt{15}}\sin\tfrac{\sqrt{15}}{4}t\right)
+    + \tfrac19\mathrm{e}^{-t}$.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\tanh u = \dfrac{\mathrm{e}^u - \mathrm{e}^{-u}}{\mathrm{e}^u
+    + \mathrm{e}^{-u}}$ and $\mathrm{sech}\,u = \dfrac{2}{\mathrm{e}^u + \mathrm{e}^{-u}}$.
+    Then $1 - \tanh^2 u = \dfrac{(\mathrm{e}^u + \mathrm{e}^{-u})^2 - (\mathrm{e}^u
+    - \mathrm{e}^{-u})^2}{(\mathrm{e}^u + \mathrm{e}^{-u})^2} = \dfrac{4}{(\mathrm{e}^u
+    + \mathrm{e}^{-u})^2} = \mathrm{sech}^2 u$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$u = \mathrm{sech}^{-1}t \Rightarrow \mathrm{sech}\,u = t$.
+    Differentiating implicitly: $-\tanh u\,\mathrm{sech}\,u\,\dfrac{du}{dt} = 1$,
+    so $\dfrac{du}{dt} = -\dfrac{1}{\tanh u\,\mathrm{sech}\,u} = -\dfrac{1}{t\sqrt{1-t^2}}$
+    (using part (a), $\tanh u = \sqrt{1-t^2}$) (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dt} = \mathrm{sech}^{-1}t + t\left(-\dfrac{1}{t\sqrt{1-t^2}}\right)
+    = \mathrm{sech}^{-1}t - \dfrac{1}{\sqrt{1-t^2}}$ and $\dfrac{dx}{dt} = \dfrac{1}{1-t^2}$.
+    So $\dfrac{dy}{dx} = \dfrac{dy}{dt}\cdot\dfrac{dt}{dx} = \left(\mathrm{sech}^{-1}t
+    - \dfrac{1}{\sqrt{1-t^2}}\right)(1-t^2) = -\sqrt{1-t^2} + (1-t^2)\mathrm{sech}^{-1}t$
+    (AG).
+  mark_scheme: []
+  graphics: []
+- number: 6d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{d}{dt}\!\left(\dfrac{dy}{dx}\right) = \dfrac{t}{\sqrt{1-t^2}}
+    - \dfrac{1-t^2}{t\sqrt{1-t^2}} - 2t\,\mathrm{sech}^{-1}t$. Multiplying by $\dfrac{dt}{dx}
+    = 1-t^2$: $\dfrac{d^2y}{dx^2} = t\sqrt{1-t^2} - \dfrac{(1-t^2)^{3/2}}{t} - 2t(1-t^2)\mathrm{sech}^{-1}t$.'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\displaystyle\int\dfrac{x+5}{x^2+10x+61}\,dx = \tfrac12\ln(x^2+10x+61)$,
+    so the integrating factor is $\mathrm{e}^{-\frac12\ln(x^2+10x+61)} = \dfrac{1}{\sqrt{x^2+10x+61}}$.
+    Then $\dfrac{d}{dx}\!\left(\dfrac{y}{\sqrt{x^2+10x+61}}\right) = \dfrac{1}{\sqrt{x^2+10x+61}}$.
+    Completing the square $x^2+10x+61 = (x+5)^2+36$: $\dfrac{y}{\sqrt{x^2+10x+61}}
+    = \sinh^{-1}\!\left(\dfrac{x+5}{6}\right) + C$. Using $y=0$ at $x=3$: $C = -\sinh^{-1}\tfrac43
+    = -\ln 3$. So $\dfrac{y}{\sqrt{x^2+10x+61}} = \sinh^{-1}\!\left(\dfrac{x+5}{6}\right)
+    - \sinh^{-1}\tfrac43$.'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathbf{A}\mathbf{e} = \lambda\mathbf{e}$. Then $\mathbf{A}^3\mathbf{e}
+    = \mathbf{A}^2(\mathbf{A}\mathbf{e}) = \mathbf{A}^2(\lambda\mathbf{e}) = \lambda\mathbf{A}(\mathbf{A}\mathbf{e})
+    = \lambda\mathbf{A}(\lambda\mathbf{e}) = \lambda^2(\mathbf{A}\mathbf{e}) = \lambda^3\mathbf{e}$.
+    So $\mathbf{e}$ is an eigenvector of $\mathbf{A}^3$ with eigenvalue $\lambda^3$.
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\det(\mathbf{A} - \lambda\mathbf{I}) = (-1-\lambda)\big((1-\lambda)(5-\lambda)
+    - 0\big) - 3(0) + 4(0) = (-1-\lambda)(1-\lambda)(5-\lambda) = 0$, so $\lambda
+    = -1, 1, 5$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Eigenvectors of $\mathbf{A}$: $\lambda = -1 \to (1,0,0)$; $\lambda
+    = 1 \to (5,2,1)$; $\lambda = 5 \to (2,0,3)$. $\mathbf{A} - 2\mathbf{I}$ has the
+    same eigenvectors with eigenvalues $-3, -1, 3$. So $\mathbf{P} = \begin{pmatrix}
+    1 & 5 & 2 \\ 0 & 2 & 0 \\ 0 & 1 & 3 \end{pmatrix}$ and $\mathbf{D} = \begin{pmatrix}
+    -3 & 0 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & 3 \end{pmatrix}$.'
+  mark_scheme: []
+  graphics: []
+- number: 8d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $(\mathbf{A} - 2\mathbf{I})^3 = \mathbf{A}^3 - 6\mathbf{A}^2
+    + 12\mathbf{A} - 8\mathbf{I}$. The characteristic equation gives $\mathbf{A}^3
+    = 5\mathbf{A}^2 + \mathbf{A} - 5\mathbf{I}$, so $(\mathbf{A} - 2\mathbf{I})^3
+    = 5\mathbf{A}^2 + \mathbf{A} - 5\mathbf{I} - 6\mathbf{A}^2 + 12\mathbf{A} - 8\mathbf{I}
+    = -\mathbf{A}^2 + 13\mathbf{A} - 13\mathbf{I}$ ($a = -1$, $b = 13$, $c = -13$).
+  mark_scheme: []
+  graphics: []

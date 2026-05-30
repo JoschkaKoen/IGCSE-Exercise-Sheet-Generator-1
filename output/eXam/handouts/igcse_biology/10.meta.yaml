@@ -1,0 +1,48 @@
+topic_number: '10'
+topic_title: Diseases and immunity
+subject_key: igcse_biology
+covered_question_ids:
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '16'
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '17'
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '26'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '19'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '17'
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 2bi
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 2bii
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 2c
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 2d
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 5aii
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '17'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '24'
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 3bv
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '14'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '16'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '15'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '22'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '17'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '26'
+generated_at: '2026-05-29T16:03:26Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:03:27Z'
+glossed_at: '2026-05-29T16:03:27Z'

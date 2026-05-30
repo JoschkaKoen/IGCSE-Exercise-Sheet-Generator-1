@@ -44,3 +44,12 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:25:25Z'
 glossed_at: '2026-05-29T05:25:25Z'
+figures:
+  - file: assets/16-p282-work-done-by-gas.png
+    caption: A gas pushing a piston of area A out against the pressure does work W = pΔV
+    figure_ref: '16.3'
+    source_page_pdf: 282
+    source_page_printed: 266
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [185.0, 409.0, 490.0, 538.0]
+    placed_under: "## Work done on or by a gas"

@@ -1,0 +1,328 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: The diagram shows the graphs with equations $y = f(x)$ and $y = g(x)$. Describe
+    fully a sequence of two transformations which transforms the graph of $y = f(x)$
+    to the graph of $y = g(x)$. Make clear the order in which the transformations
+    should be applied.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Find the coordinates of the points of intersection of the curve and the line
+    with equations $2xy + 5y^2 = 24$ and $2x + y + 4 = 0$.
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: The coefficient of $x^7$ in the expansion of $\left(px^2 + \dfrac{4}{p}x\right)^5$
+    is 1280. Find the value of the constant $p$.
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A point $P$ is moving along the curve with equation $y = ax^{\frac{3}{2}}
+    - 12x$ in such a way that the $x$-coordinate of $P$ is increasing at a constant
+    rate of 5 units per second.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the rate at which the $y$-coordinate of $P$ is changing when $x = 9$.
+      Give your answer in terms of the constant $a$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Given that the curve has a minimum point when $x = \dfrac{1}{4}$, find the
+      value of $a$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The equation of a curve is $y = 4\cos 2x + 3$ for $0 \leqslant x \leqslant
+    2\pi$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: State the greatest and least possible values of $y$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Sketch the curve.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Hence determine the number of solutions of the equation $4\cos 2x + 3 =
+      2x - 1$ for $0 \leqslant x \leqslant 2\pi$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: The diagram shows the curve with equation $y = \dfrac{9}{(5x+4)^{\frac{1}{2}}}$
+    and the line $y = 6 - 3x$. The line and the curve intersect at the point $P$ which
+    has $y$-coordinate 3. Find the area of the shaded region.
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Prove the identity $\dfrac{\tan\theta + 7}{\tan^2\theta - 3} \equiv \dfrac{\sin\theta\cos\theta
+      + 7\cos^2\theta}{1 - 4\cos^2\theta}$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Hence solve the equation $\dfrac{\sin\theta\cos\theta + 7\cos^2\theta}{1
+      - 4\cos^2\theta} = \dfrac{5}{\tan\theta}$ for $0\degree \leqslant \theta \leqslant
+      180\degree$.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The diagram shows the circle with equation $x^2 + y^2 - 14x + 8y + 36 = 0$
+    and the line $y = -2$. The line intersects the circle at the points $A$ and $B$.
+    The centre of the circle is $C$.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the coordinates of $A$, $B$ and $C$.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the angle $ACB$ in radians. Give your answer correct to 3 significant
+      figures.
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The chord $AB$ divides the circle into two segments. Find the area of the
+      larger segment.
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The equation of a curve is such that $\dfrac{d^2y}{dx^2} = -\dfrac{24}{x^3}$.
+    It is given that the curve has a stationary point at $(-2, 19)$.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find an expression for $\dfrac{dy}{dx}$.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the $x$-coordinate of the other stationary point of the curve, and
+      determine the nature of this stationary point.
+    answer_options: []
+    subquestions: []
+  - number: 9c
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the equation of the curve.
+    answer_options: []
+    subquestions: []
+  - number: 9d
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the equation of the normal to the curve at the point where $\dfrac{dy}{dx}
+      = -\dfrac{9}{4}$ and $x$ is positive. Express your answer in the form $px +
+      qy + r = 0$, where $p$, $q$ and $r$ are integers.
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The first, second and third terms of an arithmetic progression are $4k$,
+      $k^2$ and $8k$ respectively, where $k$ is a non-zero constant.
+    answer_options: []
+    subquestions:
+    - number: 10ai
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Find the value of $k$.
+      answer_options: []
+      subquestions: []
+    - number: 10aii
+      question_type: calculation
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Find the sum of the first 20 terms of the progression.
+      answer_options: []
+      subquestions: []
+  - number: 10b
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: The fourth and sixth terms of a geometric progression are 36 and 6 respectively.
+      The common ratio of the progression is positive. Find the sum to infinity of
+      the progression. Give your answer in the form $\dfrac{a}{\sqrt{b} - c}$, where
+      $a$, $b$ and $c$ are integers.
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: calculation
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 11a
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Express $x^2 + 4x + 2$ in the form $(x + a)^2 + b$, where $a$ and $b$ are
+      integers.
+    answer_options: []
+    subquestions: []
+  - number: 11b
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The functions f and g are defined as follows: $f(x) = x^2 + 4x + 2$ for
+      $x \leqslant -2$; $g(x) = -x - 4$ for $x \geqslant -2$.'
+    answer_options: []
+    subquestions:
+    - number: 11bi
+      question_type: calculation
+      page: 16
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Find an expression for $f^{-1}(x)$.
+      answer_options: []
+      subquestions: []
+    - number: 11bii
+      question_type: calculation
+      page: 17
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Find an expression for $(gf)^{-1}(x)$.
+      answer_options: []
+      subquestions: []

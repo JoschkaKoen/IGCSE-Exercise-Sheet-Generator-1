@@ -1,0 +1,60 @@
+topic_number: '6'
+topic_title: Plant nutrition
+subject_key: igcse_biology
+covered_question_ids:
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '8'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '9'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '10'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '6'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '9'
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 4ai
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 4aii
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 4aiii
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 4aiv
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 4bi
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 4bii
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1ci
+- paper: 0610 Biology June 2025 Question Paper  63
+  qnum: 1d
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '10'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '11'
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 5aii
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 5aiii
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '8'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '9'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '8'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '10'
+- paper: 0610 Biology November 2025 Question Paper  43
+  qnum: 5ai
+- paper: 0610 Biology November 2025 Question Paper  43
+  qnum: 5aii
+- paper: 0610 Biology November 2025 Question Paper  43
+  qnum: 5aiii
+- paper: 0610 Biology November 2025 Question Paper  61
+  qnum: 1f
+generated_at: '2026-05-29T15:48:09Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:48:09Z'
+glossed_at: '2026-05-29T15:48:09Z'

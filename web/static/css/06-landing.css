@@ -287,10 +287,17 @@
   color: rgb(221 214 254);
 }
 
-.subject-badge-igcse-mathematics {
+.subject-badge-igcse-mathematics,
+.subject-badge-a-level-mathematics {
   background: rgba(96, 165, 250, 0.12);
   border: 1px solid rgba(96, 165, 250, 0.25);
   color: rgb(191 219 254);
+}
+
+.subject-badge-a-level-further-mathematics {
+  background: rgba(232, 121, 249, 0.12);
+  border: 1px solid rgba(232, 121, 249, 0.25);
+  color: rgb(245 208 254);
 }
 
 .subject-badge-igcse-biology,
@@ -426,7 +433,9 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .subject-badge-a-level-physics:hover          { filter: brightness(1.18) drop-shadow(0 0 6px rgba(34, 211, 238, 0.45)); }
 .subject-badge-igcse-chemistry:hover,
 .subject-badge-a-level-chemistry:hover        { filter: brightness(1.15) drop-shadow(0 0 5px rgba(203, 213, 225, 0.35)); }
-.subject-badge-igcse-mathematics:hover        { filter: brightness(1.18) drop-shadow(0 0 6px rgba(96, 165, 250, 0.45)); }
+.subject-badge-igcse-mathematics:hover,
+.subject-badge-a-level-mathematics:hover      { filter: brightness(1.18) drop-shadow(0 0 6px rgba(96, 165, 250, 0.45)); }
+.subject-badge-a-level-further-mathematics:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(232, 121, 249, 0.45)); }
 .subject-badge-igcse-biology:hover,
 .subject-badge-a-level-biology:hover          { filter: brightness(1.18) drop-shadow(0 0 6px rgba(16, 185, 129, 0.45)); }
 .subject-badge-igcse-business-studies:hover,
@@ -446,7 +455,9 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .practice-card[data-subject="a_level_physics"]          { --accent-rgb:  34, 211, 238; }
 .practice-card[data-subject="igcse_computer_science"],
 .practice-card[data-subject="a_level_computer_science"] { --accent-rgb: 167, 139, 250; }
-.practice-card[data-subject="igcse_mathematics"]        { --accent-rgb:  96, 165, 250; }
+.practice-card[data-subject="igcse_mathematics"],
+.practice-card[data-subject="a_level_mathematics"]      { --accent-rgb:  96, 165, 250; }
+.practice-card[data-subject="a_level_further_mathematics"] { --accent-rgb: 232, 121, 249; }
 .practice-card[data-subject="igcse_biology"],
 .practice-card[data-subject="a_level_biology"]          { --accent-rgb:  16, 185, 129; }
 .practice-card[data-subject="igcse_chemistry"],

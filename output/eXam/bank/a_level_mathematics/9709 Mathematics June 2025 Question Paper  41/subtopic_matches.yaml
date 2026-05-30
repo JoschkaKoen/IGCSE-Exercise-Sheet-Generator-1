@@ -1,0 +1,31 @@
+subject_key: a_level_mathematics
+paper_stem: 9709 Mathematics June 2025 Question Paper  41
+model: claude
+matched_at: '2026-05-29T17:59:52Z'
+matches:
+  '1':
+  - '4.4'
+  '2':
+  - '4.1'
+  3a:
+  - '4.2'
+  3b:
+  - '4.2'
+  4ai:
+  - '4.5'
+  4aii:
+  - '4.5'
+  4b:
+  - '4.5'
+  5a:
+  - '4.3'
+  5b:
+  - '4.3'
+  6a:
+  - '4.4'
+  6b:
+  - '4.5'
+  7a:
+  - '4.2'
+  7b:
+  - '4.2'

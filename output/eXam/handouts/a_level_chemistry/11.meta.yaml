@@ -1,0 +1,64 @@
+topic_number: '11'
+topic_title: Group 17
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry June 2025 Question Paper  34
+  qnum: 3bi
+- paper: 9701 Chemistry June 2025 Question Paper  34
+  qnum: 3bii
+- paper: 9701 Chemistry June 2025 Question Paper  34
+  qnum: 3biv
+- paper: 9701 Chemistry June 2025 Question Paper  34
+  qnum: 3bv
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '21'
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '22'
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '23'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '21'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '22'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '21'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '22'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '23'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '21'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '22'
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 1ai
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 1aii
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 1aiii
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 1bi
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 1bii
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 1ci
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 1cii
+- paper: 9701 Chemistry November 2025 Question Paper  31
+  qnum: 3ai
+- paper: 9701 Chemistry November 2025 Question Paper  31
+  qnum: 3aii
+- paper: 9701 Chemistry November 2025 Question Paper  34
+  qnum: 3ai
+- paper: 9701 Chemistry November 2025 Question Paper  34
+  qnum: 3aii
+- paper: 9701 Chemistry November 2025 Question Paper  35
+  qnum: 3ai
+- paper: 9701 Chemistry November 2025 Question Paper  35
+  qnum: 3aii
+generated_at: '2026-05-29T15:55:05Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:55:05Z'
+glossed_at: '2026-05-29T15:55:05Z'

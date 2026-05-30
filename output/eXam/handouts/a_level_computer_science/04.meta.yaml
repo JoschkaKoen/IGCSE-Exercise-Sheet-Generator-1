@@ -110,3 +110,36 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:41:47Z'
 glossed_at: '2026-05-29T05:41:47Z'
+figures:
+  - file: assets/04-p125-von-neumann-architecture.png
+    caption: "The Von Neumann CPU: registers, control unit and ALU linked by buses"
+    figure_ref: '4.1'
+    source_page_pdf: 125
+    source_page_printed: 109
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [162.7, 255.5, 526.2, 491.7]
+    placed_under: "## The CPU's main parts"
+  - file: assets/04-p128-system-buses.png
+    caption: The three system buses connecting the CPU, memory and input/output
+    figure_ref: '4.2'
+    source_page_pdf: 128
+    source_page_printed: 112
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [178.0, 62.0, 471.0, 254.0]
+    placed_under: "## Buses"
+  - file: assets/04-p133-fetch-execute-cycle.png
+    caption: The fetch-execute cycle, with a check for interrupts each time
+    figure_ref: '4.5'
+    source_page_pdf: 133
+    source_page_printed: 117
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [163.0, 38.0, 508.0, 472.0]
+    placed_under: "## Fetch-Execute cycle"
+  - file: assets/04-p134-interrupt-process.png
+    caption: How an interrupt fits into the fetch-execute cycle
+    figure_ref: '4.6'
+    source_page_pdf: 134
+    source_page_printed: 118
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [180.8, 492.4, 558.0, 718.6]
+    placed_under: "## Interrupts"

@@ -1,0 +1,191 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Astronomy and cosmology}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Luminosity and radiant flux intensity}
+
+The \textbf{luminosity} 光度 $L$ of a star is the \textbf{total power} 功率 of radiation it gives out — the \textbf{energy} 能量 radiated per second in all directions. Unit: watt (W).
+
+At distance $d$, this power has spread over a sphere of area $4\pi d^{2}$. The \textbf{radiant flux intensity} 辐射通量密度 $F$ (power per unit area) at distance $d$ is
+
+\[
+F = \frac{L}{4\pi d^{2}}.
+\]
+
+Unit: $\text{W m}^{-2}$. This is the \textbf{inverse-square law} 平方反比定律 for flux: doubling the distance cuts the flux to a quarter. A telescope measures $F$; if $L$ is known, the distance follows:
+
+\[
+d = \sqrt{\frac{L}{4\pi F}}.
+\]
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/25-p419-inverse-square-law.pdf}}\\[0.3em]
+\emph{The same power spreads over a larger area as distance grows, so flux falls as 1/d²}
+\end{minipage}\par\medskip
+
+\section*{Standard candles}
+
+A \textbf{standard candle} 标准烛光 is an object whose \textbf{luminosity is known} from its type. Once you find one in a distant galaxy and measure the flux $F$ from it, you get its distance from $d = \sqrt{L/(4\pi F)}$.
+
+Examples:
+
+\begin{itemize}
+\item \textbf{Cepheid variables} 造父变星 (pulsating stars) — the pulsation period is tightly linked to the luminosity, so the period gives $L$.
+
+\item \textbf{Type Ia supernovae} 超新星 — a white dwarf reaching a critical mass and exploding always has about the same peak luminosity.
+
+\end{itemize}
+
+A standard candle gives $L$ without first knowing the distance, so it reaches galaxies far beyond \textbf{parallax} 视差.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/25-p420-cepheid-period-luminosity.pdf}}\\[0.3em]
+\emph{For Cepheid variables the pulsation period sets the luminosity, making them standard candles}
+\end{minipage}\par\medskip
+
+\section*{Stellar surface temperature}
+
+\subsection*{Wien's displacement law}
+
+A hot body gives out a continuous (\textbf{blackbody} 黑体) spectrum with a peak at a \textbf{wavelength} 波长 $\lambda_{\text{max}}$ set by its \textbf{temperature} 温度. \textbf{Wien's displacement law} 维恩位移定律:
+
+\[
+\lambda_{\text{max}} T = \text{constant}, \qquad b \approx 2.90 \times 10^{-3}\ \text{m K}.
+\]
+
+Hotter stars peak at \textbf{shorter} wavelengths: a cool red star ($\sim 3000\ \text{K}$) peaks in the infrared; the Sun ($\sim 5800\ \text{K}$) peaks near $500\ \text{nm}$; a hot blue-white star ($\sim 20{,}000\ \text{K}$) peaks in the ultraviolet. Measuring $\lambda_{\text{max}}$ gives the surface temperature.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/25-p422-blackbody-wien.pdf}}\\[0.3em]
+\emph{A hotter black body radiates more, and its peak wavelength shifts towards the blue (Wien's law)}
+\end{minipage}\par\medskip
+
+\subsection*{Stefan–Boltzmann law}
+
+A star, treated as a blackbody sphere of radius $r$ and surface temperature $T$, has luminosity
+
+\[
+L = 4\pi \sigma r^{2} T^{4},
+\]
+
+where $\sigma = 5.67 \times 10^{-8}\ \text{W m}^{-2}\ \text{K}^{-4}$ is the \textbf{Stefan–Boltzmann constant} 斯特藩-玻尔兹曼常量 (the \textbf{Stefan–Boltzmann law} 斯特藩-玻尔兹曼定律). Two strong dependences:
+
+\begin{itemize}
+\item $L \propto r^{2}$ — twice the radius, four times the luminosity (same $T$).
+
+\item $L \propto T^{4}$ — twice the temperature, sixteen times the luminosity (same $r$).
+
+\end{itemize}
+
+\subsection*{Estimating a star's radius}
+
+Combine the two laws:
+
+\begin{enumerate}
+\item measure $\lambda_{\text{max}}$ → get $T$ from Wien's law.
+
+\item find $L$ (e.g. from flux $F$ and distance $d$: $L = 4\pi d^{2} F$).
+
+\item solve the Stefan–Boltzmann law for $r$: $r = \sqrt{L/(4\pi \sigma T^{4})}$.
+
+\end{enumerate}
+
+This is how astronomers estimate radii of stars they cannot see as a disc.
+
+\section*{Redshift, Hubble's law and the Big Bang}
+
+\subsection*{Cosmological redshift}
+
+The \textbf{spectral lines} 谱线 of light from distant galaxies are seen at \textbf{longer wavelengths} than their known laboratory values — the whole spectrum is stretched towards the red. This is \textbf{redshift} 红移.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/25-p424-redshift-spectrum.pdf}}\\[0.3em]
+\emph{The hydrogen absorption lines of a distant star are shifted to longer wavelengths — a redshift}
+\end{minipage}\par\medskip
+
+Reading it as a Doppler shift, the galaxy is moving \textbf{away}. For $v \ll c$:
+
+\[
+\frac{\Delta \lambda}{\lambda} \approx \frac{v}{c},
+\]
+
+where $\Delta\lambda = \lambda_{\text{observed}} - \lambda_{\text{emitted}}$ and $v$ is the speed of \textbf{recession} 退行. Example: light emitted at $4.62 \times 10^{-7}\ \text{m}$ but seen at $4.91 \times 10^{-7}\ \text{m}$ gives $\Delta\lambda = 0.29 \times 10^{-7}\ \text{m}$ and
+
+\[
+v \approx \frac{\Delta\lambda}{\lambda_{\text{em}}} c \approx 1.9 \times 10^{7}\ \text{m s}^{-1}.
+\]
+
+\subsection*{Why redshift means an expanding Universe}
+
+Almost every distant galaxy is redshifted (a few near ones are \textbf{blueshifted} 蓝移 by local motion). So galaxies are, on average, moving apart — not just from us but from each other. The Universe is \textbf{expanding}, with the space between galaxies stretching. More distant galaxies are redshifted more.
+
+\subsection*{Hubble's law}
+
+The link between recession speed $v$ and distance $d$ is \textbf{Hubble's law} 哈勃定律:
+
+\[
+v \approx H_{0} \cdot d,
+\]
+
+where $H_{0}$ is the \textbf{Hubble constant} 哈勃常数 ($\approx 2.3 \times 10^{-18}\ \text{s}^{-1}$). Always use SI units. Example: a galaxy receding at $1.9 \times 10^{7}\ \text{m s}^{-1}$ is at $d = v/H_{0} \approx 8.3 \times 10^{24}\ \text{m}$.
+
+\subsection*{From Hubble's law to the Big Bang}
+
+Hubble's law means the galaxies were once together. Running the expansion backwards, all distances shrink to zero at $t = -1/H_{0}$ — the Universe was once a tiny, hugely dense, hot point. This is the \textbf{Big Bang} 大爆炸. The age of the Universe (for steady expansion) is about
+
+\[
+T_{\text{age}} \approx \frac{1}{H_{0}} \approx 4.3 \times 10^{17}\ \text{s} \approx 14 \text{ billion years}.
+\]
+
+The expansion, the redshift of galaxies, the \textbf{cosmic microwave background} 宇宙微波背景, and the hydrogen/helium abundances are the main evidence for the Big Bang.
+
+\subsection*{Distance ladder}
+
+Astronomers combine methods, each calibrated by the one below:
+
+\begin{enumerate}
+\item \textbf{parallax} — for nearby stars.
+
+\item \textbf{standard candles} (Cepheids, Type Ia supernovae) — for galaxies.
+
+\item \textbf{Hubble's law} ($d = v/H_{0}$, with $v$ from redshift) — for very distant galaxies.
+
+\end{enumerate}
+
+
+\end{document}

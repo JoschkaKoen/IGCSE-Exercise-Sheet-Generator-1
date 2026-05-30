@@ -1,0 +1,188 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A large company claims that the median salary of its employees is \$32500.
+    The salaries (\$) of 15 randomly selected employees are: 18750, 30500, 125000,
+    42500, 25000, 26000, 52500, 23000, 27500, 19500, 25500, 33000, 30000, 21500, 29000.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Explain why a Wilcoxon signed-rank test may not be appropriate to test the
+      company's claim in this case.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Carry out a sign test at the 10% significance level to investigate the company's
+      claim.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A factory produces packets of biscuits. The total mass of biscuits in a packet
+    has a normal distribution with mean $\mu$. A random sample of 12 packets is taken
+    and the mass of the contents of each packet, $x$ g, is recorded, giving $\sum
+    x = 2390$ and $\sum x^2 = 476117$.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find a 99% confidence interval for $\mu$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: A test of the null hypothesis $\mu = k$ is carried out on this sample using
+      a 5% significance level. The test does not support the alternative hypothesis
+      $\mu < k$. Find the greatest possible value of $k$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A traffic expert claims that the number of breakdowns occurring each day on
+    a busy section of motorway follows a Poisson distribution with mean 0.7. Over
+    a 200-day period the observed frequencies for 0, 1, 2, 3, 4, $\geqslant 5$ breakdowns
+    were 88, 73, 26, 7, 3, 3, with expected frequencies 99.317, $m$, 24.333, 5.678,
+    0.994, $n$.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the value of $m$ and the value of $n$, correct to 3 decimal places.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Carry out a goodness of fit test at the 5% significance level to investigate
+      the expert's claim.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A continuous random variable $X$ has cumulative distribution function $F$
+    given by $F(x) = 0$ for $x < 1$, $F(x) = \tfrac15 x + a$ for $1 \leqslant x <
+    4$, $F(x) = \tfrac{1}{50}x^2 + b$ for $4 \leqslant x \leqslant 6$, and $F(x) =
+    1$ for $x > 6$, where $a$ and $b$ are constants.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the value of $a$ and the value of $b$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the probability density function of $X$.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Given that $E(X) = \tfrac{529}{150}$, find $\mathrm{Var}(X)$.
+    answer_options: []
+    subquestions: []
+  - number: 4d
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the 10th and 90th percentiles of $X$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 9
+  text: 'An engineer is comparing the tensile strengths of steel rods made from two
+    machines, $A$ and $B$, randomly selecting 8 rods from $A$ and 6 from $B$. Machine
+    $A$: 402, 403, 415, 412, 409, 407, 406, 410. Machine $B$: 401, 398, 395, 397,
+    410, 405. Assuming the two distributions are normal with the same population variance,
+    use a $t$-test at the 5% significance level to test whether there is any difference
+    in the mean tensile strengths of steel rods from the two machines.'
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The discrete random variable $X$ has probability generating function $G_X(t)
+    = \dfrac{t}{(3 - 2t)^2}$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find $E(X)$ and $\mathrm{Var}(X)$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: The discrete random variable $Y$ has probability generating function $G_Y(t)
+      = \dfrac{t^2}{(3 - 2t)^2}$. The random variable $Z$ is the sum of $X$ and $Y$.
+      Assuming $X$ and $Y$ are independent, find $P(Z > 4)$.
+    answer_options: []
+    subquestions: []

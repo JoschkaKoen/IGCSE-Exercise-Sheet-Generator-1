@@ -1,0 +1,242 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: The curve $C$ has polar equation $r = e^{\frac{1}{4}\theta}$ for $0 \leqslant
+    \theta \leqslant \pi$. Find the length of $C$. Give your answer in an exact form.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: Find the roots of the equation $z^4 = 8 - 8i\sqrt{3}$, giving your answers
+    in the form $re^{i\theta}$, where $r > 0$ and $-\pi \leqslant \theta < \pi$.
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The variables $x$ and $y$ are such that $y = 2$ when $x = -1$ and $x^2 y +
+    (x + y)^3 = 3$.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $\dfrac{dy}{dx} = \dfrac{1}{4}$ when $x = -1$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Find the value of $\dfrac{d^2y}{dx^2}$ when $x = -1$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: By considering the binomial expansion of $\left(z + \dfrac{1}{z}\right)^6$,
+      where $z = \cos\theta + i\sin\theta$, use de Moivre's theorem to show that $\cos^6\theta
+      = a\cos 6\theta + b\cos 4\theta + c\cos 2\theta + d$, where $a$, $b$, $c$ and
+      $d$ are constants to be determined.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the exact value of $\displaystyle\int_0^{\frac{1}{2}\pi}\cos^6 2x\,dx$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Find the general solution of the differential equation $\dfrac{d^2y}{dx^2}
+      + 4\dfrac{dy}{dx} + 3y = 5\cos x$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: For large positive values of $x$ and for any initial conditions, show that
+      the solution to part (a) can be approximated by $y \approx R\sin(x + \phi)$,
+      where the constants $R$ and $\phi$ are to be determined.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Use the substitution $x = \tfrac{1}{2}\sqrt{2}\sinh u$ to find $\displaystyle\int\dfrac{1}{\sqrt{2x^2
+      + 1}}\,dx$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: The diagram shows the curve with equation $y = \dfrac{1}{\sqrt{2x^2 + 1}}$
+      for $0 \leqslant x \leqslant 1$, together with a set of $n$ rectangles of width
+      $\dfrac{1}{n}$. By considering the sum of the areas of these rectangles, show
+      that $\displaystyle\sum_{r=1}^{n}\dfrac{1}{\sqrt{2r^2 + n^2}} < \tfrac{1}{2}\sqrt{2}\,\ln\!\left(\sqrt{2}
+      + \sqrt{3}\right)$.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Use a similar method to find, in terms of $n$, a lower bound for $\displaystyle\sum_{r=1}^{n}\dfrac{1}{\sqrt{2r^2
+      + n^2}}$.
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Deduce the exact value of $\displaystyle\lim_{n\to\infty}\sum_{r=1}^{n}\dfrac{1}{\sqrt{2r^2
+      + n^2}}$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $\dfrac{d}{dx}\!\left(\tfrac{1}{2}x\sqrt{4 - x^2} + 2\sin^{-1}\!\left(\tfrac{1}{2}x\right)\right)
+      = \sqrt{4 - x^2}$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: Find the solution of the differential equation $2\dfrac{dy}{dx} + \dfrac{y}{2
+      + x} = 2\sqrt{2 - x}$ for which $y = \tfrac{1}{2}$ when $x = 1$. Give your answer
+      in an exact form.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the values of $k$ for which the system of equations $x - y + 2kz =
+      1$, $kx + y + 2z = 2$, $2x - y + z = 3$ does not have a unique solution.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Given that $k = -\tfrac{1}{2}$, show that the system of equations in part
+      (a) is inconsistent. Interpret this situation geometrically.
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Given instead that $k = -1$, show that the system of equations in part (a)
+      is also inconsistent. Interpret this situation geometrically.
+    answer_options: []
+    subquestions: []
+  - number: 8d
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: The matrix $\mathbf{A}$ is given by $\mathbf{A} = \begin{pmatrix} 1 & -1
+      & -2 \\ -1 & 1 & 2 \\ 2 & -1 & 1 \end{pmatrix}$. Use the characteristic equation
+      of $\mathbf{A}$ to show that $\mathbf{A}^4 = p\mathbf{A}^2 + q\mathbf{A}$, where
+      $p$ and $q$ are integers to be determined.
+    answer_options: []
+    subquestions: []

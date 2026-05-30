@@ -1,0 +1,218 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Electric fields}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Electric fields}
+
+An \textbf{electric field} 电场 is a region where a charge feels a \textbf{force} 力 from other charges. The \textbf{electric field strength} 电场强度 $E$ at a point is the \textbf{force per unit positive charge} on a small positive \textbf{test charge} 检验电荷 placed there:
+
+\[
+E = \frac{F}{q}.
+\]
+
+Unit: $\text{N C}^{-1}$ (the same as $\text{V m}^{-1}$, as we will see). $E$ is a \textbf{vector} 矢量, pointing the way the force acts on a \textbf{positive} charge. The force on a charge $q$ is
+
+\[
+F = qE,
+\]
+
+opposite to the field if $q$ is negative.
+
+\subsection*{Field lines}
+
+\begin{itemize}
+\item \textbf{field lines} 场线 point the way the force acts on a positive test charge.
+
+\item lines start on \textbf{positive} charges and end on \textbf{negative} charges (or go to infinity).
+
+\item lines never cross; closer lines mean a stronger field.
+
+\end{itemize}
+
+Examples: a positive \textbf{point charge} 点电荷 has radial lines pointing out; a negative one has lines pointing in; two opposite charges (a \textbf{dipole} 偶极子) have lines curving from + to −; two parallel charged plates give a \textbf{uniform field} 匀强场 of equally spaced parallel lines.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/18-p304-electric-field-patterns.pdf}}\\[0.3em]
+\emph{Field-line patterns for parallel plates, a dipole, a point charge, and a charged sphere above an earthed plate}
+\end{minipage}\par\medskip
+
+\section*{Uniform electric fields}
+
+Between two parallel plates a distance $d$ apart with \textbf{potential difference} 电势差 $V$ between them, the field is uniform (apart from edge effects) with size
+
+\[
+E = \frac{V}{d}.
+\]
+
+It points from the higher-potential plate to the lower one. The unit $\text{V m}^{-1}$ comes straight from this and equals $\text{N C}^{-1}$.
+
+\subsection*{A charged particle in a uniform field}
+
+A charge $q$ in a uniform field feels a \textbf{constant force} $F = qE$, so a \textbf{constant acceleration} $a = qE/m$ — just like a mass in a uniform gravitational field.
+
+\begin{itemize}
+\item released \textbf{at rest}, it speeds up along the field (positive charge) or against it (negative charge), gaining \textbf{kinetic energy} 动能.
+
+\item entering \textbf{at right angles} to the field, it follows a \textbf{parabolic} 抛物线 path — like a \textbf{projectile} 抛体 in gravity. This is how a \textbf{cathode-ray tube} 阴极射线管 used to steer its beam.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/18-p309-charged-particle-parabola.pdf}}\\[0.3em]
+\emph{A charge entering a uniform field at right angles follows a parabolic path, like a projectile}
+\end{minipage}\par\medskip
+
+\section*{Coulomb's law}
+
+For two point charges $Q_{1}$ and $Q_{2}$ a distance $r$ apart in free space, each feels a force of size
+
+\[
+F = \frac{Q_{1} Q_{2}}{4\pi\varepsilon_{0} r^{2}}.
+\]
+
+This is \textbf{Coulomb's law} 库仑定律. Here $\varepsilon_{0} = 8.85 \times 10^{-12}\ \text{F m}^{-1}$ is the \textbf{permittivity of free space} 真空电容率, and $1/(4\pi\varepsilon_{0}) \approx 9.0 \times 10^{9}\ \text{N m}^{2}\ \text{C}^{-2}$. The force is along the line joining the charges: \textbf{repulsive} for like charges, \textbf{attractive} for opposite charges.
+
+\subsection*{Spheres treated as point charges}
+
+A spherical \textbf{conductor} 导体 with total charge $Q$ gives, at any point \textbf{outside}, the same field as a point charge $Q$ at its centre (measure $r$ from the centre). \textbf{Inside} a hollow charged conductor the field is zero, so the conductor is an \textbf{equipotential} 等势面.
+
+\section*{Electric field due to a point charge}
+
+The field at distance $r$ from a point charge $Q$ is
+
+\[
+E = \frac{Q}{4\pi\varepsilon_{0} r^{2}}.
+\]
+
+It points out from a positive $Q$, in towards a negative $Q$, and falls as $1/r^{2}$ — just like \textbf{gravitational field} 重力场 strength, except gravity is always attractive. For several charges, add the fields as a \textbf{vector sum} 矢量和.
+
+\section*{Electric potential}
+
+\textbf{Electric potential} 电势 $V$ at a point is the \textbf{work done per unit positive charge} in bringing a small positive test charge from \textbf{infinity} 无穷远 to that point:
+
+\[
+V = \frac{W}{q}.
+\]
+
+Unit: $\text{V}$. The potential is \textbf{zero at infinity}. For a positive source charge $V > 0$ everywhere outside; for a negative source charge $V < 0$.
+
+\subsection*{Potential due to a point charge}
+
+\[
+V = \frac{Q}{4\pi\varepsilon_{0} r}.
+\]
+
+Note the $1/r$ here (compared with $1/r^{2}$ for the field). $V$ is a \textbf{scalar} 标量; for several charges, add the potentials (with sign).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/18-p313-point-charge-potential.pdf}}\\[0.3em]
+\emph{The potential near a point charge varies as 1/r — positive for a positive charge, negative for a negative one}
+\end{minipage}\par\medskip
+
+\subsection*{Link between field and potential}
+
+The field equals the \textbf{negative potential gradient} 电势梯度:
+
+\[
+E = -\frac{dV}{dx}.
+\]
+
+Between parallel plates $V$ changes evenly with position, giving $E = V/d$ as before. The minus sign means the field points towards \textbf{lower} potential. For a point charge, $-\dfrac{dV}{dr} = \dfrac{Q}{4\pi\varepsilon_{0} r^{2}} = E$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/18-p314-potential-field-link.pdf}}\\[0.3em]
+\emph{In a uniform field the potential falls steadily with distance, so the field strength V/d is constant}
+\end{minipage}\par\medskip
+
+\subsection*{Electric potential energy}
+
+A charge $q$ at a point of potential $V$ has \textbf{electric potential energy} 电势能 $E_{\text{P}} = qV$. For two point charges $Q$ and $q$ a distance $r$ apart:
+
+\[
+E_{\text{P}} = \frac{Qq}{4\pi\varepsilon_{0} r}.
+\]
+
+\begin{itemize}
+\item \textbf{like} charges: $E_{\text{P}} > 0$ — stored energy that would be released if they flew apart.
+
+\item \textbf{opposite} charges: $E_{\text{P}} < 0$ — a \textbf{bound} 束缚 system; energy must be supplied to separate them.
+
+\end{itemize}
+
+In both cases $E_{\text{P}} \to 0$ as $r \to \infty$.
+
+\subsection*{Worked-example pattern}
+
+An \textbf{electron} 电子 orbits a \textbf{nucleus} 原子核 of charge $+Ze$ at distance $r$. The Coulomb attraction provides the \textbf{centripetal force} 向心力:
+
+\[
+\frac{Z e^{2}}{4\pi\varepsilon_{0} r^{2}} = \frac{m_{e} v^{2}}{r}, \qquad v = \sqrt{\frac{Z e^{2}}{4\pi\varepsilon_{0} m_{e} r}}.
+\]
+
+The total energy is kinetic plus potential:
+
+\[
+E_{\text{total}} = \tfrac{1}{2} m_{e} v^{2} - \frac{Z e^{2}}{4\pi\varepsilon_{0} r} = -\frac{Z e^{2}}{8\pi\varepsilon_{0} r},
+\]
+
+which is negative (a bound state).
+
+\subsection*{Gravitational versus electric}
+
+The two field theories look alike:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Quantity} & \textbf{Gravitational} & \textbf{Electric} \\
+\midrule
+Source & mass $M$ (always positive) & charge $Q$ (can be ±) \\
+Field strength & $g = GM/r^{2}$ & $E = Q/(4\pi\varepsilon_{0} r^{2})$ \\
+Force on test object & $F = mg$ & $F = qE$ \\
+Potential & $\phi = -GM/r$ & $V = Q/(4\pi\varepsilon_{0} r)$ \\
+PE of two & $-GMm/r$ & $Qq/(4\pi\varepsilon_{0} r)$ \\
+Nature & always attractive & attractive or repulsive \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+The minus sign in the \textbf{gravitational potential} 引力势 reflects that gravity is always attractive; the electric potential takes the sign of the source charge.
+
+
+\end{document}

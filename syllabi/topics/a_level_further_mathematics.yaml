@@ -1,0 +1,63 @@
+subject_key: a_level_further_mathematics
+syllabus_pdf: 9231 Mathematics - Further 2026-2027 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Further Pure Mathematics 1
+  subtopics:
+  - number: '1.1'
+    title: Roots of polynomial equations
+  - number: '1.2'
+    title: Rational functions and graphs
+  - number: '1.3'
+    title: Summation of series
+  - number: '1.4'
+    title: Matrices
+  - number: '1.5'
+    title: Polar coordinates
+  - number: '1.6'
+    title: Vectors
+  - number: '1.7'
+    title: Proof by induction
+- number: '2'
+  title: Further Pure Mathematics 2
+  subtopics:
+  - number: '2.1'
+    title: Hyperbolic functions
+  - number: '2.2'
+    title: Matrices
+  - number: '2.3'
+    title: Differentiation
+  - number: '2.4'
+    title: Integration
+  - number: '2.5'
+    title: Complex numbers
+  - number: '2.6'
+    title: Differential equations
+- number: '3'
+  title: Further Mechanics
+  subtopics:
+  - number: '3.1'
+    title: Motion of a projectile
+  - number: '3.2'
+    title: Equilibrium of a rigid body
+  - number: '3.3'
+    title: Circular motion
+  - number: '3.4'
+    title: Hooke's law
+  - number: '3.5'
+    title: Linear motion under a variable force
+  - number: '3.6'
+    title: Momentum
+- number: '4'
+  title: Further Probability & Statistics
+  subtopics:
+  - number: '4.1'
+    title: Continuous random variables
+  - number: '4.2'
+    title: Inference using normal and t-distributions
+  - number: '4.3'
+    title: Chi-squared tests
+  - number: '4.4'
+    title: Non-parametric tests
+  - number: '4.5'
+    title: Probability generating functions

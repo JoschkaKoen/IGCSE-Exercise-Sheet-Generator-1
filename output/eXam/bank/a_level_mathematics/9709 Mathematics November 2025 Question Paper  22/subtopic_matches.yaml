@@ -1,0 +1,31 @@
+subject_key: a_level_mathematics
+paper_stem: 9709 Mathematics November 2025 Question Paper  22
+model: claude
+matched_at: '2026-05-29T14:34:44Z'
+matches:
+  '1':
+  - '2.2'
+  '2':
+  - '2.3'
+  3a:
+  - '2.1'
+  3b:
+  - '2.1'
+  4a:
+  - '2.1'
+  4b:
+  - '2.1'
+  5a:
+  - '2.4'
+  5b:
+  - '2.5'
+  6a:
+  - '2.5'
+  6b:
+  - '2.6'
+  6c:
+  - '2.6'
+  7a:
+  - '2.4'
+  7b:
+  - '2.4'

@@ -1,0 +1,205 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A stretch with factor 2 parallel to the $y$-axis, together
+    with a translation of $\begin{pmatrix}0\\-14\end{pmatrix}$. (Alternative order:
+    translation $\begin{pmatrix}0\\-7\end{pmatrix}$ followed by a stretch factor 2
+    parallel to the $y$-axis.) B2 for 3 correct components, B1 for 2.'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Eliminate a variable to get $4y^2 - 4y = 24$ (or $16x^2 + 72x
+    + 56 = 0$). Points of intersection: $(-1,\,-2)$ and $\left(-\tfrac{7}{2},\,3\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The $x^7$ term ($r=3$) is $\binom{5}{3}(px^2)^2\left(\tfrac{4}{p}x\right)^3
+    = \dfrac{640x^7}{p}$. So $\dfrac{640}{p} = 1280 \Rightarrow p = \tfrac{1}{2}$.
+    (SC B1: $p=4$.)'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = \tfrac{3}{2}ax^{1/2} - 12$. Then $\dfrac{dy}{dt}
+    = \dfrac{dy}{dx}\cdot\dfrac{dx}{dt} = \left(\tfrac{3}{2}a\cdot 3 - 12\right)\times
+    5 = \dfrac{45a}{2} - 60 = \tfrac{15}{2}(3a-8)$.
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At the minimum $\dfrac{dy}{dx}=0$ at $x=\tfrac14$: $\tfrac{3}{2}a\left(\tfrac14\right)^{1/2}
+    - 12 = 0 \Rightarrow a = 16$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Greatest value $7$; least value $-1$.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Curve $y = 4\cos 2x + 3$: two complete cycles over $0 \leqslant
+    x \leqslant 2\pi$, starting at the greatest value $7$ and initially decreasing,
+    oscillating between $y=-1$ and $y=7$ (more above the $x$-axis than below).'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $3$ solutions.
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $6-3x=3 \Rightarrow$ $P$ has $x$-coordinate $1$. Area under
+    curve $= \int_0^1 9(5x+4)^{-1/2}\,dx = \left[\tfrac{18}{5}(5x+4)^{1/2}\right]_0^1
+    = \tfrac{18}{5}$. The line meets the $x$-axis at $x=2$, giving a triangle of area
+    $\tfrac12\times1\times3 = \tfrac32$. Total shaded area $= \tfrac{18}{5} + \tfrac32
+    = \tfrac{51}{10}$.
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Multiply numerator and denominator of $\dfrac{\tan\theta+7}{\tan^2\theta-3}$
+    by $\cos^2\theta$ (using $\tan\theta=\tfrac{\sin\theta}{\cos\theta}$): numerator
+    $\to \sin\theta\cos\theta + 7\cos^2\theta$; denominator $\to \sin^2\theta - 3\cos^2\theta
+    = (1-\cos^2\theta) - 3\cos^2\theta = 1 - 4\cos^2\theta$. AG.'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using part (a): $\tan\theta(\tan\theta+7) = 5(\tan^2\theta-3)
+    \Rightarrow 4\tan^2\theta - 7\tan\theta - 15 = 0 \Rightarrow (4\tan\theta+5)(\tan\theta-3)=0$,
+    so $\tan\theta = -1.25$ or $3$. Hence $\theta = 71.6\degree$ and $\theta = 128.7\degree$.'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Centre $C(7,-4)$. Putting $y=-2$ into $x^2+y^2-14x+8y+36=0$
+    gives $A(2,-2)$ and $B(12,-2)$.
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Radius $=\sqrt{29}$. With $\tan\left(\tfrac{\theta}{2}\right)=\tfrac{5}{2}$
+    (or the cosine rule), angle $ACB = 2.38$ rad (AWRT).
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Larger sector $= \tfrac12\cdot 29\cdot(2\pi-\theta) \approx
+    56.59$; triangle $= \tfrac12\cdot 29\cdot\sin\theta = 10$. Larger segment area
+    $= 66.6$ (AWRT).
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{dy}{dx} = \int -24x^{-3}\,dx = 12x^{-2} + c$. Stationary
+    at $x=-2$: $\tfrac{12}{4}+c=0 \Rightarrow c=-3$. So $\dfrac{dy}{dx} = \dfrac{12}{x^2}
+    - 3$.'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{12}{x^2}-3=0 \Rightarrow x^2=4 \Rightarrow x=2$. Since
+    $\dfrac{d^2y}{dx^2} = -\dfrac{24}{2^3} = -3 < 0$, it is a maximum.
+  mark_scheme: []
+  graphics: []
+- number: 9c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$y = \int\left(12x^{-2}-3\right)dx = -12x^{-1} - 3x + d$. Through
+    $(-2,19)$: $19 = 6 + 6 + d \Rightarrow d = 7$. So $y = -\dfrac{12}{x} - 3x + 7$.'
+  mark_scheme: []
+  graphics: []
+- number: 9d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{12}{x^2}-3 = -\dfrac94 \Rightarrow x^2 = 16 \Rightarrow
+    x = 4$ (positive), $y=-8$. Gradient of normal $=\tfrac49$. $\dfrac{y+8}{x-4}=\tfrac49
+    \Rightarrow 4x - 9y - 88 = 0$.
+  mark_scheme: []
+  graphics: []
+- number: 10ai
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: AP condition $k^2 - 4k = 8k - k^2 \Rightarrow 2k^2 = 12k \Rightarrow
+    k = 6$ (since $k \ne 0$).
+  mark_scheme: []
+  graphics: []
+- number: 10aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $k=6$: $a = 24$, terms $24, 36, 48$ so $d = 12$. $S_{20}
+    = \tfrac{20}{2}(2\cdot24 + 19\cdot12) = 2760$.'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $ar^3 = 36$, $ar^5 = 6 \Rightarrow r^2 = \tfrac16 \Rightarrow
+    r = \tfrac{1}{\sqrt6}$ (positive). $a = \dfrac{36}{(1/\sqrt6)^3} = 216\sqrt6$.
+    $S_\infty = \dfrac{216\sqrt6}{1 - 1/\sqrt6} = \dfrac{1296}{\sqrt6 - 1}$.
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $(x+2)^2 - 2$ (i.e. $a=2$, $b=-2$).
+  mark_scheme: []
+  graphics: []
+- number: 11bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$y = (x+2)^2 - 2 \Rightarrow x = \pm\sqrt{y+2} - 2$; for the
+    domain $x \leqslant -2$ take the negative root: $f^{-1}(x) = -\sqrt{x+2} - 2$.'
+  mark_scheme: []
+  graphics: []
+- number: 11bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $gf(x) = -(x+2)^2 - 2$, so $(gf)^{-1}(x) = -\sqrt{-x-2} - 2$.
+    (Equivalently $(gf)^{-1} = f^{-1}g^{-1}$ with $g^{-1}(x) = -x-4$.)
+  mark_scheme: []
+  graphics: []

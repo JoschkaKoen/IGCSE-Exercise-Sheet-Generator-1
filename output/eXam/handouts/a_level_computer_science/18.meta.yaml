@@ -34,3 +34,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:56:50Z'
 glossed_at: '2026-05-29T05:57:13Z'
+figures:
+  - file: assets/18-p445-graph-shortest-path.png
+    caption: AI problems often sit on a graph; here the shortest path is highlighted
+    figure_ref: '18.8'
+    source_page_pdf: 445
+    source_page_printed: 429
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.8, 55.0, 523.5, 220.3]
+    placed_under: "## Graphs in AI"
+  - file: assets/18-p451-ai-ml-dl.png
+    caption: Deep learning is part of machine learning, which is part of AI
+    figure_ref: '18.18'
+    source_page_pdf: 451
+    source_page_printed: 435
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [161.3, 250.0, 550.0, 379.3]
+    placed_under: "## What AI is"
+  - file: assets/18-p456-neural-network.png
+    caption: A neural network with an input layer, two hidden layers and an output layer
+    figure_ref: '18.23'
+    source_page_pdf: 456
+    source_page_printed: 440
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [177.0, 160.0, 453.0, 320.0]
+    placed_under: "## Artificial neural networks (ANNs)"
+  - file: assets/18-p454-ml-training-pipeline.png
+    caption: "Supervised learning: a model is trained on labelled data, then recognises new data"
+    figure_ref: '18.21'
+    source_page_pdf: 454
+    source_page_printed: 438
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [120.3, 37.0, 558.0, 193.4]
+    placed_under: "### Machine learning"
+  - file: assets/18-p460-gradient-descent.png
+    caption: Training adjusts the weights to reach the minimum error
+    figure_ref: '18.31'
+    source_page_pdf: 460
+    source_page_printed: 444
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 587.0, 444.3, 729.5]
+    placed_under: "## Training an ANN: backpropagation"

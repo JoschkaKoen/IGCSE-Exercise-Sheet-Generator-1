@@ -1,0 +1,118 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\int_2^{11}\dfrac{8}{4x+1}\,dx = \big[2\ln(4x+1)\big]_2^{11}
+    = 2\ln 45 - 2\ln 9 = 2\ln 5 = \ln 25$, so $a = 25$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = |2x-9|$ is a V-shape with vertex $(4.5, 0)$ on the positive
+    $x$-axis; $y = 4x-5$ is a steeper straight line crossing it.
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Relevant branch: $-(2x-9) = 4x-5 \Rightarrow x = \tfrac73$;
+    solution $x > \tfrac73$.'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = \dfrac{24}{(2x+3)^2} - 6 = 0 \Rightarrow (2x+3)^2
+    = 4 \Rightarrow x = -\tfrac12$ or $-\tfrac52$. Stationary points $\left(-\tfrac12,
+    6\right)$ and $\left(-\tfrac52, 30\right)$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At $P$: $4e^{-2x} = 1 + 0.5\sin 3x \Rightarrow e^{-2x} = 0.25
+    + 0.125\sin 3x \Rightarrow x = -0.5\ln(0.25 + 0.125\sin 3x)$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Iterating $x_{n+1} = -0.5\ln(0.25 + 0.125\sin 3x_n)$ from $x_0
+    = 0.5$ converges to $x = 0.4912$ (4 s.f.).
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Area $= \int_0^{0.4912}\!\big[4e^{-2x} - (1+0.5\sin 3x)\big]\,dx
+    = \big[-2e^{-2x} - x + \tfrac16\cos 3x\big]_0^{0.4912} = 0.61$ (2 s.f.).
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$p(\tfrac12)=0$ and $p(3)=0$ give $\tfrac{1}{16}a + \tfrac18
+    b = -\tfrac34$ and $81a + 27b = -27$; solving: $a = 2$, $b = -7$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $p(x) = 2x^4 - 7x^3 + 13x^2 - 35x + 15 = (2x-1)(x-3)(x^2+5)$.
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$p(\cot 2\theta)=0 \Rightarrow \cot 2\theta = \tfrac12$ or
+    $3$ (since $x^2+5=0$ has no real root). Least positive $\theta$: $\cot 2\theta
+    = 3 \Rightarrow \tan 2\theta = \tfrac13 \Rightarrow \theta = 0.161$ rad.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Put $y = e^{-1}$ ($\ln y = -1$): $-(x^2-3) + 6x = 14 \Rightarrow
+    x^2 - 6x + 11 = 0$; discriminant $36 - 44 = -8 < 0$, so there is no real $x$ —
+    no such point (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Implicit differentiation: $2x\ln y + \dfrac{x^2-3}{y}\dfrac{dy}{dx}
+    + 6 = 0$. At $(2, e^2)$: $8 + \dfrac{1}{e^2}\dfrac{dy}{dx} + 6 = 0 \Rightarrow
+    \dfrac{dy}{dx} = -14e^2$. Tangent: $y = -14e^2 x + 29e^2$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $4\cos\theta\sin(\theta+30\degree) = 2\sqrt3\cos\theta\sin\theta
+    + 2\cos^2\theta = \sqrt3\sin 2\theta + \cos 2\theta + 1 = 2\cos(2\theta - 60\degree)
+    + 1$ (so $R=2$, $\alpha=60\degree$, $k=1$).
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $12\cos 2\phi\sin(2\phi+30\degree) = 6\cos(4\phi-60\degree)
+    + 3 = 5 \Rightarrow \cos(4\phi-60\degree) = \tfrac13$, giving $\phi = 32.6\degree$
+    and $87.4\degree$.
+  mark_scheme: []
+  graphics: []

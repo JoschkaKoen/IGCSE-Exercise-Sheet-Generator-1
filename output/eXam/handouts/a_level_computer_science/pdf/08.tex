@@ -1,0 +1,266 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Databases}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{File-based storage and its limits}
+
+Before databases, programs stored data in \textbf{flat files} 平面文件 — usually one file per program. This is fine for small data but breaks down at scale.
+
+\subsection*{Limitations}
+
+\begin{itemize}
+\item \textbf{data redundancy} 数据冗余 — the same data (a customer's address) is held in several files.
+
+\item \textbf{data inconsistency} 数据不一致 — redundant copies updated separately get out of sync.
+
+\item \textbf{data dependence} — programs are tied to the file format; change the format and every program must be rewritten.
+
+\item hard to enforce \textbf{integrity} 完整性, hard to share safely, weak querying, and weak per-field security.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/08-p214-file-based-approach.pdf}}\\[0.3em]
+\emph{The file-based approach: each program keeps its own files}
+\end{minipage}\par\medskip
+
+A \textbf{relational database} 关系数据库 fixes these by storing data in \textbf{tables} managed by one piece of software (the DBMS) that all programs use.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/08-p215-database-approach.pdf}}\\[0.3em]
+\emph{The database approach: one DBMS serves all the programs}
+\end{minipage}\par\medskip
+
+\section*{Relational model — terms}
+
+\begin{itemize}
+\item \textbf{table} 表 (relation) — a grid of rows and columns; one table per type of \textbf{entity} 实体 (e.g. \texttt{CUSTOMER}).
+
+\item \textbf{record} 记录 (row) — one row; one instance of the entity.
+
+\item \textbf{field} 字段 (column) — one column; one piece of information about each record.
+
+\item \textbf{primary key} 主键 — a field (or fields) that \textbf{uniquely identifies} each record; never null or duplicated.
+
+\item \textbf{foreign key} 外键 — a field whose value matches the primary key of another table, linking the two.
+
+\item \textbf{composite key} 复合键 — a primary key made of two or more fields together.
+
+\item \textbf{candidate key} 候选键 — any field(s) that could be the primary key.
+
+\item \textbf{referential integrity} 参照完整性 — every foreign-key value must match an existing primary key (no orphan records).
+
+\end{itemize}
+
+A table is written in shorthand with the primary key underlined and foreign keys noted:
+
+\begin{Verbatim}
+CUSTOMER(CustomerID, Name, Phone)
+ORDER(OrderID, CustomerID, OrderDate)   -- CustomerID is FK → CUSTOMER
+\end{Verbatim}
+
+\section*{Entity-relationship (E-R) diagrams}
+
+An \textbf{entity-relationship diagram} 实体关系图 shows the structure: each entity is a rectangle, each relationship a line, with the \textbf{cardinality} 基数 marked at each end:
+
+\begin{itemize}
+\item \textbf{one-to-one} (1:1).
+
+\item \textbf{one-to-many} 一对多 (1:M) — each Customer has many Orders; each Order has one Customer.
+
+\item \textbf{many-to-many} (M:N) — Students take many Courses, and Courses have many Students.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/08-p218-er-diagram.pdf}}\\[0.3em]
+\emph{An E-R diagram: one class has many students}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/08-p218-cardinality-notation.pdf}}\\[0.3em]
+\emph{Crow's-foot symbols for the cardinality of a relationship}
+\end{minipage}\par\medskip
+
+A many-to-many relationship cannot be stored directly. Break it into two one-to-many relationships through a \textbf{link table} 连接表 holding the two foreign keys:
+
+\begin{Verbatim}
+ENROLMENT(StudentID, CourseID, EnrolmentDate)
+\end{Verbatim}
+
+\section*{Normalisation}
+
+\textbf{Normalisation} 规范化 organises tables to \textbf{cut redundancy and inconsistency}, going through \textbf{normal forms} 范式 in order.
+
+\begin{itemize}
+\item \textbf{First normal form (1NF)} — every field holds a single (\textbf{atomic} 原子) value, with no repeating groups, and a primary key.
+
+\item \textbf{Second normal form (2NF)} — in 1NF, and every non-key field depends on the \textbf{whole} primary key (only matters for a composite key).
+
+\item \textbf{Third normal form (3NF)} — in 2NF, and every non-key field depends \textbf{only} on the primary key, not on another non-key field (no \textbf{transitive dependency} 传递依赖).
+
+\end{itemize}
+
+A 3NF design stores each fact once, so insert/update/delete anomalies disappear. The trade-off is more tables and more joins. Aim for 3NF.
+
+To produce a 3NF design: find the entities and their attributes; choose a primary key for each; split repeating/non-atomic fields (1NF); split fields depending on part of a composite key (2NF); split fields depending transitively on the key (3NF); add foreign keys for the relationships.
+
+\section*{Database Management System (DBMS)}
+
+A \textbf{DBMS} 数据库管理系统 manages the database centrally. Features that fix the file-based limits:
+
+\begin{itemize}
+\item \textbf{data dictionary} 数据字典 — a description of every table, field, type and key; programs query it instead of hard-coding the structure.
+
+\item redundancy/consistency control — each fact stored once.
+
+\item \textbf{concurrent access} 并发访问 control — locks and transactions let many users work at once.
+
+\item \textbf{backup} 备份 and recovery; security and per-user permissions.
+
+\item \textbf{integrity rules} — keys, unique and range constraints, enforced centrally.
+
+\item \textbf{transactions} 事务 — a group of operations that all succeed or all fail.
+
+\item \textbf{views} 视图 — virtual tables that show each user "their" slice of the data.
+
+\end{itemize}
+
+Its tools include a data-dictionary editor, a query builder, a forms builder, a report generator, user management, and an SQL editor.
+
+\section*{DDL and DML}
+
+\textbf{SQL} 结构化查询语言 (Structured Query Language) has two halves:
+
+\begin{itemize}
+\item \textbf{Data Definition Language} 数据定义语言 (DDL) — creates or changes the \textbf{structure} (tables, keys, constraints).
+
+\item \textbf{Data Manipulation Language} 数据操纵语言 (DML) — works with the \textbf{data} (insert, update, delete, \textbf{query} 查询).
+
+\end{itemize}
+
+\subsection*{DDL basics}
+
+\begin{Verbatim}
+CREATE TABLE CUSTOMER (
+  CustomerID INTEGER PRIMARY KEY,
+  Name VARCHAR(50) NOT NULL,
+  Phone VARCHAR(20)
+);
+\end{Verbatim}
+
+Add a foreign key:
+
+\begin{Verbatim}
+CREATE TABLE ORDER (
+  OrderID INTEGER PRIMARY KEY,
+  CustomerID INTEGER,
+  OrderDate DATE,
+  FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID)
+);
+\end{Verbatim}
+
+Modify and drop:
+
+\begin{Verbatim}
+ALTER TABLE CUSTOMER ADD Email VARCHAR(100);
+DROP TABLE CUSTOMER;
+\end{Verbatim}
+
+Common types: \texttt{INTEGER}, \texttt{VARCHAR(n)}, \texttt{CHAR(n)}, \texttt{DATE}, \texttt{BOOLEAN}, \texttt{DECIMAL(p, s)}.
+
+\subsection*{DML basics}
+
+Query with \texttt{SELECT}:
+
+\begin{Verbatim}
+SELECT Name, Phone
+FROM CUSTOMER
+WHERE City = 'London'
+ORDER BY Name ASC;
+\end{Verbatim}
+
+\texttt{SELECT} lists fields, \texttt{FROM} names the table, \texttt{WHERE} filters rows, \texttt{ORDER BY} sorts.
+
+A \textbf{join} 连接 combines two tables using a foreign-key relationship:
+
+\begin{Verbatim}
+SELECT C.Name, O.OrderDate
+FROM CUSTOMER C INNER JOIN ORDER O
+  ON C.CustomerID = O.CustomerID
+WHERE O.OrderDate >= '2024-01-01';
+\end{Verbatim}
+
+\textbf{Aggregate functions} 聚合函数 (\texttt{COUNT}, \texttt{SUM}, \texttt{AVG}, \texttt{MIN}, \texttt{MAX}) are often used with \texttt{GROUP BY}:
+
+\begin{Verbatim}
+SELECT CustomerID, COUNT(*) AS NumOrders
+FROM ORDER
+GROUP BY CustomerID;
+\end{Verbatim}
+
+Insert, update, delete:
+
+\begin{Verbatim}
+INSERT INTO CUSTOMER (CustomerID, Name, Phone)
+VALUES (101, 'Ada Lovelace', '020-1234-5678');
+
+UPDATE CUSTOMER SET Phone = '020-9999-0000' WHERE CustomerID = 101;
+
+DELETE FROM CUSTOMER WHERE CustomerID = 101;
+\end{Verbatim}
+
+Always put a \texttt{WHERE} clause on \texttt{UPDATE} and \texttt{DELETE}, or the change hits \textbf{every} row.
+
+\subsection*{Tips for exam SQL}
+
+\begin{itemize}
+\item use the exact table and field names from the question.
+
+\item quote strings with single quotes (\texttt{'Smith'}); don't quote numbers.
+
+\item comparisons: \texttt{=}, \texttt{\textless{}}, \texttt{\textgreater{}}, \texttt{\textless{}=}, \texttt{\textgreater{}=}, \texttt{\textless{}\textgreater{}}.
+
+\item \texttt{LIKE 'A\%'} matches anything starting with A (\texttt{\%} = any string, \texttt{\_} = one character); \texttt{IN (1,2,3)}; \texttt{BETWEEN 10 AND 20}.
+
+\item combine conditions with \texttt{AND} / \texttt{OR} / \texttt{NOT}, and end each statement with a semicolon.
+
+\end{itemize}
+
+
+\end{document}

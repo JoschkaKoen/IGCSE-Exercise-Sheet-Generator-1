@@ -1,0 +1,203 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries System Software}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{How an OS maximises use of resources}
+
+A computer has many resources (CPU time, memory, disk, I/O) and many programs competing for them. The OS \textbf{shares them fairly and efficiently} so each is well used and the system stays responsive:
+
+\begin{itemize}
+\item \textbf{multi-tasking} 多任务 — switch the CPU quickly between processes so several seem to run at once.
+
+\item \textbf{memory management} — give each process the memory it needs; use disk \textbf{paging} 分页 when \textbf{RAM} runs out.
+
+\item \textbf{spooling} 假脱机 and buffering — print jobs queue on disk so the CPU never waits for the printer.
+
+\item \textbf{caching} — keep recently-used disk data in \textbf{cache} 高速缓存 / RAM.
+
+\end{itemize}
+
+\section*{The user interface}
+
+The user interface hides the hardware behind friendly abstractions: the user sees windows, menus and folders, not addresses or sectors. One click on an icon makes the OS find the program on disk, allocate memory, load it and start it. A \textbf{CLI} (command line) is powerful and scriptable for experts; a \textbf{GUI} (graphical) is easier to learn. Most systems offer both.
+
+\section*{Process management}
+
+A \textbf{process} 进程 is a program in execution — its code, current state, memory and open files.
+
+\subsection*{Scheduling}
+
+The \textbf{scheduler} 调度器 chooses which \textbf{ready} process runs next, and for how long:
+
+\begin{itemize}
+\item \textbf{round robin} 轮转 — each process gets a fixed \textbf{time slice} 时间片, then goes to the back of the queue.
+
+\item first-come-first-served; shortest job first; priority; multilevel feedback queues.
+
+\end{itemize}
+
+The trade-off is responsiveness vs throughput vs fairness.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/16-p395-scheduling-fcfs.pdf}}\\[0.3em]
+\emph{First-come-first-served scheduling of four processes}
+\end{minipage}\par\medskip
+
+\subsection*{Process states}
+
+A process is \textbf{new}, \textbf{ready} (waiting for the CPU), \textbf{running}, \textbf{blocked} 阻塞 (waiting for I/O or a lock), or \textbf{terminated}. When its time slice ends it goes running → ready; when it requests I/O it goes running → blocked; when the I/O finishes it goes blocked → ready.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/16-p394-process-states.pdf}}\\[0.3em]
+\emph{A process moves between the new, ready, running, blocked and terminated states}
+\end{minipage}\par\medskip
+
+\subsection*{Process control block and context switch}
+
+For each process the OS keeps a \textbf{process control block} 进程控制块 (PCB) holding the saved program counter, registers, state and memory info. Suspending one process and running another means saving state to one PCB and restoring from another — a \textbf{context switch} 上下文切换, the small cost paid on every switch.
+
+\subsection*{Inter-process communication}
+
+Processes are isolated, so the OS provides \textbf{inter-process communication} 进程间通信: \textbf{pipes} 管道 (one program's output feeds another's input), \textbf{shared memory} 共享内存 (a region several processes can use), and message passing.
+
+\section*{Virtual memory, paging, segmentation}
+
+Each process gets its own \textbf{virtual address space} 虚拟地址空间 — a clean, contiguous range of addresses the OS maps to physical memory. This gives each process a simple space, \textbf{protects processes from each other}, and lets the total memory \textbf{exceed physical RAM}.
+
+In \textbf{paging}, the virtual space is split into fixed-size \textbf{pages} 页 and physical memory into same-sized \textbf{frames} 页框. A page table maps each page to a frame. If an accessed page is not in RAM — a \textbf{page fault} 缺页 — the OS reads it from the \textbf{swap file} 交换文件 into a frame, evicting another page if RAM is full. Frequent faults cause \textbf{thrashing} 抖动.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/16-p400-paging.pdf}}\\[0.3em]
+\emph{Paging maps each page of logical memory to a frame of physical memory}
+\end{minipage}\par\medskip
+
+In \textbf{segmentation} 分段, memory is split into variable-sized logical segments (code, stack, heap), each with its own permissions. Many systems use paging within segments.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/16-p400-segmentation.pdf}}\\[0.3em]
+\emph{Segmentation maps variable-sized segments using a segment map table}
+\end{minipage}\par\medskip
+
+\section*{How an interpreter runs a program}
+
+An \textbf{interpreter} 解释器 translates and runs the source \textbf{at the same time}. For each statement it reads the line, does lexical and syntax analysis, checks types, then \textbf{executes} the action, and moves on. Errors are reported immediately and it usually stops; no executable is produced. The translation is redone every run (slower), but it gives fast development feedback and is portable.
+
+\section*{Stages of compilation}
+
+A \textbf{compiler} 编译器 turns source into \textbf{machine code} 机器码 in phases:
+
+\begin{enumerate}
+\item \textbf{lexical analysis} 词法分析 — the lexer groups characters into \textbf{tokens} 词法单元 (keywords, identifiers, operators, literals), discarding whitespace and comments.
+
+\item \textbf{syntax analysis (parsing)} 语法分析 — check the tokens fit the grammar and build an \textbf{abstract syntax tree} 抽象语法树. A missing bracket gives a \textbf{syntax error} 语法错误.
+
+\item \textbf{semantic analysis} 语义分析 — check the program makes sense (variables declared, types match).
+
+\item \textbf{code generation} 代码生成 — walk the tree and emit target code, choosing registers and layouts.
+
+\item \textbf{code optimisation} 代码优化 — remove redundant work, fold constants, reorder for the pipeline.
+
+\end{enumerate}
+
+The output is an executable.
+
+\section*{Grammar: BNF and syntax diagrams}
+
+A \textbf{grammar} 文法 says which token sequences are valid programs.
+
+\textbf{Backus-Naur Form} 巴科斯-诺尔范式 (BNF) is textual. A \textbf{production rule} 产生式 has the form:
+
+\begin{Verbatim}
+<symbol> ::= alternative1 | alternative2 | ...
+\end{Verbatim}
+
+Each alternative is a sequence of \textbf{terminal} 终结符 symbols (literal text) and \textbf{non-terminal} 非终结符 symbols (other rule names):
+
+\begin{Verbatim}
+<digit>      ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+<identifier> ::= <letter> | <identifier> <letter> | <identifier> <digit>
+\end{Verbatim}
+
+The recursive third rule expresses "a letter followed by any number of letters or digits". An \texttt{IF} statement:
+
+\begin{Verbatim}
+<if-statement> ::= IF <condition> THEN <statement> ENDIF
+                 | IF <condition> THEN <statement> ELSE <statement> ENDIF
+\end{Verbatim}
+
+A \textbf{syntax diagram} 语法图 (railroad diagram) shows the same thing graphically: boxes for non-terminals, rounded boxes for terminals, arrows for valid paths, loops for repetition. The two notations are equivalent. The parser uses the grammar to decide whether a program is valid.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/16-p415-syntax-diagram.pdf}}\\[0.3em]
+\emph{A syntax (railroad) diagram for an assignment statement}
+\end{minipage}\par\medskip
+
+\section*{Reverse Polish Notation (RPN)}
+
+In \textbf{infix} 中缀 notation the operator sits between its operands (\texttt{3 + 4 * 2}), needing brackets and precedence rules. In \textbf{Reverse Polish Notation} 逆波兰表示法 (RPN, \textbf{postfix} 后缀) the operator follows its operands (\texttt{3 4 2 * +}), needing no brackets.
+
+\subsection*{Converting infix to RPN}
+
+Use an operator \textbf{stack} 栈. Scan left to right: output an operand; for an operator, first pop any stacked operators of \textbf{higher or equal} \textbf{precedence} 优先级 to the output, then push it; push \texttt{(}; on \texttt{)} pop to output until the matching \texttt{(}. At the end, pop all operators. Example: \texttt{(3 + 4) * 2} → \texttt{3 4 + 2 *}.
+
+\subsection*{Evaluating RPN}
+
+Use a stack of operands. Scan left to right: push each operand; on an operator, pop the top two, apply it, and push the result. Evaluating \texttt{3 4 2 * +}:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Token} & \textbf{Stack} \\
+\midrule
+\texttt{3} & 3 \\
+\texttt{4} & 3, 4 \\
+\texttt{2} & 3, 4, 2 \\
+\texttt{*} & 3, 8 \\
+\texttt{+} & 11 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Result: 11. RPN needs no brackets at evaluation time and suits a stack machine — which is how the JVM and many \textbf{bytecode} 字节码 interpreters work.
+
+
+\end{document}

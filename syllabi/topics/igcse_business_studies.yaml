@@ -1,0 +1,72 @@
+subject_key: igcse_business_studies
+syllabus_pdf: 0450 Business Studies 2026 Syllabus Document.pdf
+source: claude-authored
+topics:
+- number: '1'
+  title: Understanding business activity
+  subtopics:
+  - number: '1.1'
+    title: Business activity
+  - number: '1.2'
+    title: Classification of businesses
+  - number: '1.3'
+    title: Enterprise, business growth and size
+  - number: '1.4'
+    title: Types of business organisation
+  - number: '1.5'
+    title: Business objectives and stakeholder objectives
+- number: '2'
+  title: People in business
+  subtopics:
+  - number: '2.1'
+    title: Motivating employees
+  - number: '2.2'
+    title: Organisation and management
+  - number: '2.3'
+    title: Recruitment, selection and training of employees
+  - number: '2.4'
+    title: Internal and external communication
+- number: '3'
+  title: Marketing
+  subtopics:
+  - number: '3.1'
+    title: Marketing, competition and the customer
+  - number: '3.2'
+    title: Market research
+  - number: '3.3'
+    title: Marketing mix
+  - number: '3.4'
+    title: Marketing strategy
+- number: '4'
+  title: Operations management
+  subtopics:
+  - number: '4.1'
+    title: Production of goods and services
+  - number: '4.2'
+    title: Costs, scale of production and break-even analysis
+  - number: '4.3'
+    title: Achieving quality production
+  - number: '4.4'
+    title: Location decisions
+- number: '5'
+  title: Financial information and decisions
+  subtopics:
+  - number: '5.1'
+    title: 'Business finance: needs and sources'
+  - number: '5.2'
+    title: Cash-flow forecasting and working capital
+  - number: '5.3'
+    title: Income statements
+  - number: '5.4'
+    title: Statement of financial position
+  - number: '5.5'
+    title: Analysis of accounts
+- number: '6'
+  title: External influences on business activity
+  subtopics:
+  - number: '6.1'
+    title: Economic issues
+  - number: '6.2'
+    title: Environmental and ethical issues
+  - number: '6.3'
+    title: Business and the international economy

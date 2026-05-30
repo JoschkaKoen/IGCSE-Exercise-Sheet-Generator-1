@@ -1,0 +1,74 @@
+topic_number: '7'
+topic_title: Human nutrition
+subject_key: igcse_biology
+covered_question_ids:
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '9'
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '10'
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '11'
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '12'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '11'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '12'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '13'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '10'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '11'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '12'
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 6c
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 1a
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 1bi
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 1bii
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 1biii
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 1biv
+- paper: 0610 Biology June 2025 Question Paper  63
+  qnum: 1cii
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '12'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '13'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '14'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '10'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '11'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '7'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '8'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '9'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '11'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '12'
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 1a
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 1b
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 1c
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 1d
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 1e
+generated_at: '2026-05-29T15:51:51Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:51:51Z'
+glossed_at: '2026-05-29T15:51:51Z'

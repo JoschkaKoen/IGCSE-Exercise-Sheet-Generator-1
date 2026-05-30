@@ -95,21 +95,75 @@ language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:07:39Z'
 glossed_at: '2026-05-29T05:07:39Z'
 figures:
-  - file: assets/07-fig-1-transverse-wave.png
+  - file: assets/07-p127-transverse-wave-rope.png
+    caption: Transverse wave on a rope
     figure_ref: '7.1'
     source_page_pdf: 127
     source_page_printed: 111
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    caption: "Transverse wave on a rope"
-  - file: assets/07-fig-2-longitudinal-wave.png
+    crop_rect_pts: [158.3, 311.0, 489.6, 394.6]
+    placed_under: "### Transverse waves"
+  - file: assets/07-p127-longitudinal-wave-slinky.png
+    caption: Longitudinal wave on a slinky spring
     figure_ref: '7.2'
     source_page_pdf: 127
     source_page_printed: 111
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    caption: "Longitudinal wave on a slinky spring"
-  - file: assets/07-fig-3-em-spectrum.png
+    crop_rect_pts: [166.3, 528.0, 483.3, 602.5]
+    placed_under: "### Longitudinal waves"
+  - file: assets/07-p128-displacement-distance-graph.png
+    caption: A displacement–distance graph shows the wave's amplitude and wavelength
+    figure_ref: '7.3'
+    source_page_pdf: 128
+    source_page_printed: 112
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [176.3, 91.5, 542.3, 232.8]
+    placed_under: "### Graphs of waves"
+  - file: assets/07-p128-displacement-time-graph.png
+    caption: A displacement–time graph shows the wave's amplitude and period
+    figure_ref: '7.4'
+    source_page_pdf: 128
+    source_page_printed: 112
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [177.3, 578.9, 522.2, 715.3]
+    placed_under: "### Graphs of waves"
+  - file: assets/07-p134-cro-trace.png
+    caption: Reading the period T from a CRO trace using the grid and time-base
+    figure_ref: '7.12'
+    source_page_pdf: 134
+    source_page_printed: 118
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [180.5, 77.1, 419.4, 208.7]
+    placed_under: "### Reading a CRO trace"
+  - file: assets/07-p135-doppler-effect.png
+    caption: A moving source squashes the wavefronts ahead of it, raising the observed frequency
+    figure_ref: '7.14'
+    source_page_pdf: 135
+    source_page_printed: 119
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [166.3, 486.8, 431.5, 693.8]
+    placed_under: "## Doppler effect (moving source, stationary observer)"
+  - file: assets/07-p137-em-spectrum.png
+    caption: The electromagnetic spectrum
     figure_ref: '7.16'
     source_page_pdf: 137
     source_page_printed: 121
     source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
-    caption: "The electromagnetic spectrum"
+    crop_rect_pts: [69.9, 508.9, 543.9, 635.5]
+    placed_under: "## Electromagnetic spectrum"
+  - file: assets/07-p139-unpolarised-polarised.png
+    caption: Unpolarised waves vibrate in many planes; a polarised wave vibrates in one plane
+    figure_ref: '7.18'
+    source_page_pdf: 139
+    source_page_printed: 123
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [166.5, 458.8, 524.9, 691.7]
+    placed_under: "## Polarisation"
+  - file: assets/07-p141-polariser-analyser.png
+    caption: Crossed filters (a) block the light; parallel filters (b) let it pass
+    figure_ref: '7.20'
+    source_page_pdf: 141
+    source_page_printed: 125
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [166.3, 38.2, 523.5, 298.7]
+    placed_under: "### Malus's law"

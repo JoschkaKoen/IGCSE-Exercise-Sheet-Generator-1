@@ -1,0 +1,22 @@
+subject_key: igcse_biology
+paper_stem: 0610 Biology November 2025 Question Paper  62
+model: claude
+matched_at: '2026-05-29T13:23:23Z'
+matches:
+  1ai: ['12.1']
+  1aii: ['12.1']
+  1aiii: ['12.1']
+  1aiv: ['12.1']
+  1av: ['12.1']
+  1b: ['12.1']
+  1c: ['4.1']
+  1di: ['12.1']
+  1dii: ['12.1']
+  '2': ['12.1']
+  3ai: ['1.3']
+  3aii: ['2.2']
+  3aiii: ['1.3']
+  3bi: ['19.4']
+  3bii: ['19.4']
+  3biii: ['19.4']
+  3biv: ['19.4']

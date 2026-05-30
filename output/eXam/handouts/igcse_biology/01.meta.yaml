@@ -1,0 +1,94 @@
+topic_number: '1'
+topic_title: Characteristics and classification of living organisms
+subject_key: igcse_biology
+covered_question_ids:
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '1'
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '2'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '1'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '2'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '3'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '4'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '1'
+- paper: 0610 Biology June 2025 Question Paper  41
+  qnum: 5ai
+- paper: 0610 Biology June 2025 Question Paper  41
+  qnum: 5aii
+- paper: 0610 Biology June 2025 Question Paper  41
+  qnum: 5aiii
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 4ci
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 5ai
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 5bi
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 5bii
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1ciii
+- paper: 0610 Biology June 2025 Question Paper  63
+  qnum: 2ai
+- paper: 0610 Biology June 2025 Question Paper  63
+  qnum: 2aiii
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '1'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '2'
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 3biv
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '1'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '2'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '1'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '2'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '3'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '1'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '2'
+- paper: 0610 Biology November 2025 Question Paper  41
+  qnum: 1a
+- paper: 0610 Biology November 2025 Question Paper  41
+  qnum: 1bii
+- paper: 0610 Biology November 2025 Question Paper  41
+  qnum: 1ci
+- paper: 0610 Biology November 2025 Question Paper  41
+  qnum: 4b
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 2ai
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 2aii
+- paper: 0610 Biology November 2025 Question Paper  43
+  qnum: 1a
+- paper: 0610 Biology November 2025 Question Paper  43
+  qnum: 1b
+- paper: 0610 Biology November 2025 Question Paper  43
+  qnum: 1cii
+- paper: 0610 Biology November 2025 Question Paper  43
+  qnum: 1ciii
+- paper: 0610 Biology November 2025 Question Paper  61
+  qnum: 1eii
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 3ai
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 3aiii
+- paper: 0610 Biology November 2025 Question Paper  63
+  qnum: 3ai
+- paper: 0610 Biology November 2025 Question Paper  63
+  qnum: 3b
+generated_at: '2026-05-29T15:34:30Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:34:30Z'
+glossed_at: '2026-05-29T15:59:40Z'

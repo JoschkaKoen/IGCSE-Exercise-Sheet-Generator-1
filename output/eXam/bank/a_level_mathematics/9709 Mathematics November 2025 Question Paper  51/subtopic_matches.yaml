@@ -1,0 +1,39 @@
+subject_key: a_level_mathematics
+paper_stem: 9709 Mathematics November 2025 Question Paper  51
+model: claude
+matched_at: '2026-05-29T17:29:59Z'
+matches:
+  1a:
+  - '5.4'
+  1b:
+  - '5.4'
+  1c:
+  - '5.4'
+  2a:
+  - '5.3'
+  2b:
+  - '5.3'
+  3a:
+  - '5.1'
+  3b:
+  - '5.1'
+  4a:
+  - '5.3'
+  4b:
+  - '5.3'
+  5a:
+  - '5.4'
+  5b:
+  - '5.5'
+  6a:
+  - '5.5'
+  6b:
+  - '5.5'
+  7a:
+  - '5.2'
+  7b:
+  - '5.2'
+  7c:
+  - '5.2'
+  7d:
+  - '5.2'

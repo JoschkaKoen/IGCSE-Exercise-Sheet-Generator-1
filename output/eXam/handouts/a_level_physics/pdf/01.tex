@@ -1,0 +1,355 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Physical quantities and units}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Physical quantities}
+
+A \textbf{physical quantity} 物理量 has two parts: a number (its \textbf{magnitude} 大小) and a \textbf{unit} 单位. The number on its own tells you nothing. You must also say what is measured and in which unit.
+
+Example: "the length is 1.5" is not complete. "The length is 1.5 m" is a physical quantity.
+
+\subsection*{Making estimates}
+
+You should be able to \textbf{estimate} 估算 the size of the physical quantities in this syllabus. Learn these rough values:
+
+\begin{itemize}
+\item \textbf{mass} 质量 of an adult human: $\sim 70\ \text{kg}$
+
+\item \textbf{weight} 重力 of an adult human: $\sim 700\ \text{N}$
+
+\item height of an adult human: $\sim 1.7\ \text{m}$
+
+\item mass of an apple: $\sim 0.1\ \text{kg}$ (so its weight is about $1\ \text{N}$)
+
+\item speed of sound in air: $\sim 340\ \text{m s}^{-1}$
+
+\item speed of light in a \textbf{vacuum} 真空: $3.0 \times 10^{8}\ \text{m s}^{-1}$
+
+\item \textbf{acceleration} 加速度 of \textbf{free fall} 自由落体: $g \approx 9.81\ \text{m s}^{-2}$
+
+\end{itemize}
+
+A good estimate has the right \textbf{order of magnitude} 数量级 (the right power of ten). For a human, 70 kg is a good guess; 7 kg is not.
+
+\section*{SI units 国际单位制}
+
+\subsection*{Base units}
+
+There are five \textbf{base quantities} 基本量 in the SI system. You must know them and their units:
+
+\begin{itemize}
+\item \textbf{mass} — kilogram, $\text{kg}$
+
+\item \textbf{length} 长度 — metre, $\text{m}$
+
+\item time — second, $\text{s}$
+
+\item \textbf{current} 电流 — ampere 安培, $\text{A}$
+
+\item \textbf{temperature} 温度 — kelvin 开尔文, $\text{K}$
+
+\end{itemize}
+
+Every other unit in this syllabus is built from these five.
+
+\subsection*{Derived units}
+
+A \textbf{derived unit} 导出单位 is made by multiplying or dividing base units. You should be able to write any quantity in this syllabus in base units.
+
+Build a derived unit from the equation that defines it:
+
+\begin{itemize}
+\item \textbf{speed} 速率 = distance / time, so its unit is $\text{m s}^{-1}$
+
+\item \textbf{acceleration} = change in \textbf{velocity} 速度 / time, so its unit is $\text{m s}^{-2}$
+
+\item \textbf{force} 力 = mass × acceleration, so its unit is $\text{kg m s}^{-2}$. The \textbf{newton} 牛顿 is $1\ \text{N} = 1\ \text{kg m s}^{-2}$.
+
+\item \textbf{work} 功 and \textbf{energy} 能量 = force × distance, so the unit is $\text{kg m}^{2}\ \text{s}^{-2}$. The \textbf{joule} 焦耳 is $1\ \text{J} = 1\ \text{kg m}^{2}\ \text{s}^{-2}$.
+
+\item \textbf{power} 功率 = energy / time, so the unit is $\text{kg m}^{2}\ \text{s}^{-3}$. The \textbf{watt} 瓦特 is $1\ \text{W} = 1\ \text{kg m}^{2}\ \text{s}^{-3}$.
+
+\item \textbf{pressure} 压强 and \textbf{stress} 应力 = force / area, so the unit is $\text{kg m}^{-1}\ \text{s}^{-2}$. The \textbf{pascal} 帕斯卡 is $1\ \text{Pa} = 1\ \text{kg m}^{-1}\ \text{s}^{-2}$.
+
+\end{itemize}
+
+When a question asks for the SI base units of a quantity, replace each named unit with its base units, then simplify. Example: the SI base units of the watt are $\text{kg m}^{2}\ \text{s}^{-3}$.
+
+\subsection*{Checking that the units match}
+
+An equation is \textbf{homogeneous} 量纲一致 when both sides have the same base units. In plain words: the units on both sides match.
+
+Write each side in base units and compare. Take the equation $v^{2} = u^{2} + 2as$:
+
+\begin{itemize}
+\item left side: $(\text{m s}^{-1})^{2} = \text{m}^{2}\ \text{s}^{-2}$
+
+\item right side, first term: $(\text{m s}^{-1})^{2} = \text{m}^{2}\ \text{s}^{-2}$
+
+\item right side, second term: $\text{m s}^{-2} \cdot \text{m} = \text{m}^{2}\ \text{s}^{-2}$
+
+\end{itemize}
+
+Both sides give $\text{m}^{2}\ \text{s}^{-2}$, so the units match.
+
+Be careful: matching units do \textbf{not} prove the whole equation is correct. It could still have a wrong number, or a missing factor of 2. But if the units do \textbf{not} match, the equation is wrong for sure.
+
+\subsection*{Prefixes}
+
+A \textbf{prefix} 词头 is a letter put in front of a unit to make it bigger or smaller by powers of ten. You must know these:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Prefix} & \textbf{Symbol} & \textbf{Factor} \\
+\midrule
+tera & T & $10^{12}$ \\
+giga & G & $10^{9}$ \\
+mega & M & $10^{6}$ \\
+kilo & k & $10^{3}$ \\
+deci & d & $10^{-1}$ \\
+centi & c & $10^{-2}$ \\
+milli & m & $10^{-3}$ \\
+micro & $\mu$ & $10^{-6}$ \\
+nano & n & $10^{-9}$ \\
+pico & p & $10^{-12}$ \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+To change a prefixed unit into base units, replace the prefix with its factor, then simplify. Example: change $0.25\ \text{kN mm}^{-2}$ into $\text{N m}^{-2}$:
+
+\[
+0.25\ \text{kN mm}^{-2} = 0.25 \times \frac{10^{3}\ \text{N}}{(10^{-3}\ \text{m})^{2}} = 0.25 \times \frac{10^{3}}{10^{-6}}\ \text{N m}^{-2} = 2.5 \times 10^{8}\ \text{N m}^{-2}.
+\]
+
+Take special care with squared units like $\text{mm}^{2}$: you must square the factor too.
+
+\section*{Errors and uncertainties}
+
+Every \textbf{measurement} 测量 has some \textbf{uncertainty} 不确定度 — we are never fully sure of the value. A good experimenter knows where the uncertainty comes from, makes a fair estimate of it, and carries it through to the final answer.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/01-p25-micrometer-screw-gauge.pdf}}\\[0.3em]
+\emph{A micrometer screw gauge measures to the nearest 0.01 mm}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/01-p26-micrometer-scale-reading.pdf}}\\[0.3em]
+\emph{Reading a micrometer: add the main scale reading to the thimble reading}
+\end{minipage}\par\medskip
+
+\subsection*{Systematic and random errors}
+
+A \textbf{systematic error} 系统误差 changes every reading by the same amount, in the same direction. You cannot find it by repeating the measurement. Common causes:
+
+\begin{itemize}
+\item a \textbf{zero error} 零点误差 (the scale does not read zero when the true value is zero)
+
+\item a \textbf{calibration} 校准 error (the scale itself is wrong)
+
+\item \textbf{parallax} 视差 (your eye is always to one side of the scale)
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/01-p30-zero-error-ammeter.pdf}}\\[0.3em]
+\emph{An ammeter with a zero error: the needle reads below zero before any current flows}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/01-p30-parallax-error.pdf}}\\[0.3em]
+\emph{Parallax error: different viewing angles give different scale readings}
+\end{minipage}\par\medskip
+
+A systematic error makes the \textbf{accuracy} 准确度 worse, but it does not change the \textbf{precision} 精密度.
+
+A \textbf{random error} 随机误差 makes readings jump above and below the true value, with no pattern. Causes include how carefully you read the scale, changing conditions, and the smallest step the \textbf{instrument} 仪器 can show. If you repeat the measurement many times and take the \textbf{mean} 平均值 (the average), random errors partly cancel out.
+
+A random error makes the precision worse. But with enough repeats, the mean can still be accurate.
+
+\subsection*{Precision and accuracy}
+
+\textbf{Precision} is how close repeated readings are to each other. Precise readings are grouped very close together.
+
+\textbf{Accuracy} is how close a reading (or the mean of several readings) is to the true value.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/01-p27-precision-distribution.pdf}}\\[0.3em]
+\emph{Precision: how narrow the distribution is around the true value T}
+\end{minipage}\par\medskip
+
+A set of readings can be:
+
+\begin{itemize}
+\item precise and accurate — close together and near the true value
+
+\item precise but not accurate — close together, but away from the true value (a systematic error)
+
+\item accurate but not precise — spread out, but the mean is near the true value
+
+\item neither — spread out and away from the true value
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/01-p27-accuracy-distribution.pdf}}\\[0.3em]
+\emph{Accuracy: whether the peak of the distribution is centred on the true value T}
+\end{minipage}\par\medskip
+
+When a question gives a table of repeated readings, look at the \textbf{spread} (precision) and the \textbf{mean} (accuracy) separately.
+
+\subsection*{Uncertainty in a derived quantity}
+
+A measurement is often written as $x \pm \Delta x$. Here $\Delta x$ is the \textbf{absolute uncertainty} 绝对不确定度. The \textbf{percentage uncertainty} 百分比不确定度 is
+
+\[
+\text{percentage uncertainty in } x = \frac{\Delta x}{|x|} \times 100\%.
+\]
+
+A \textbf{derived quantity} 导出量 is one you calculate from measured values. Its uncertainty is found by simple rules:
+
+\begin{itemize}
+\item \textbf{Adding or subtracting} — add the absolute uncertainties. If $y = a + b$ or $y = a - b$, then $\Delta y = \Delta a + \Delta b$.
+
+\item \textbf{Multiplying or dividing} — add the percentage uncertainties. If $y = \dfrac{a \cdot b}{c}$, then \[
+\frac{\Delta y}{|y|} = \frac{\Delta a}{|a|} + \frac{\Delta b}{|b|} + \frac{\Delta c}{|c|}.
+\]
+
+\item \textbf{Powers} — multiply the percentage uncertainty by the power. If $y = a^{n}$, then $\dfrac{\Delta y}{|y|} = |n| \cdot \dfrac{\Delta a}{|a|}$.
+
+\end{itemize}
+
+Worked example. A ball's \textbf{diameter} 直径 is measured as $d = (5.26 \pm 0.02)\ \text{cm}$. The \textbf{volume} 体积 of a sphere is $V = \tfrac{4}{3}\pi r^{3} = \tfrac{4}{3}\pi (d/2)^{3}$, so $V \propto d^{3}$ ($V$ depends on $d$ cubed).
+
+The percentage uncertainty in $d$ is
+
+\[
+\frac{0.02}{5.26} \times 100\% \approx 0.38\%.
+\]
+
+Because $V \propto d^{3}$, the percentage uncertainty in $V$ is three times this, about $1.14\%$. The volume is $\tfrac{4}{3}\pi(2.63)^{3} \approx 76.2\ \text{cm}^{3}$. So the absolute uncertainty is $0.0114 \times 76.2 \approx 0.87\ \text{cm}^{3}$. The final answer is $V = (76.2 \pm 0.9)\ \text{cm}^{3}$.
+
+\subsection*{Significant figures}
+
+When you write a calculated quantity, give it the \textbf{same number of significant figures} 有效数字 as the least precise measurement you used — usually two or three in this syllabus. Too many significant figures makes the answer look more exact than it really is. Too few loses useful information.
+
+\section*{Scalars and vectors}
+
+A \textbf{scalar} 标量 has size only. A \textbf{vector} 矢量 has both size and direction.
+
+Examples from the syllabus:
+
+\begin{itemize}
+\item scalars: mass, time, temperature, energy, work, power, distance, speed, pressure, \textbf{density} 密度, \textbf{electric charge} 电荷
+
+\item vectors: \textbf{displacement} 位移, velocity, acceleration, force (including weight), \textbf{momentum} 动量
+
+\end{itemize}
+
+Quick test: if it makes sense to ask "in which direction?", the quantity is a vector. You cannot ask "in which direction is the temperature?", so temperature is a scalar. You can ask "in which direction is the velocity?", so velocity is a vector.
+
+\subsection*{Adding and subtracting vectors}
+
+A vector is drawn as an arrow: the \textbf{direction} of the arrow gives the direction of the quantity, and the \textbf{length} of the arrow (drawn to scale) gives the magnitude.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/01-p36-vector-representation.pdf}}\\[0.3em]
+\emph{Vectors represented as arrows drawn to scale}
+\end{minipage}\par\medskip
+
+To add two \textbf{coplanar} 共面 vectors (vectors in the same flat plane), draw them \textbf{tip to tail}. The \textbf{resultant} 合矢量 goes from the tail of the first arrow to the tip of the second.
+
+To find $\vec{X} - \vec{Y}$, add the reverse of $\vec{Y}$: $\vec{X} + (-\vec{Y})$. The reverse of $\vec{Y}$ has the same size as $\vec{Y}$ but points the opposite way.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/01-p36-vector-addition-subtraction.pdf}}\\[0.3em]
+\emph{Adding and subtracting parallel vectors}
+\end{minipage}\par\medskip
+
+If the two vectors are at right angles (90°), the size of the resultant is
+
+\[
+|\vec{R}| = \sqrt{X^{2} + Y^{2}},
+\]
+
+and its direction comes from $\tan\theta = Y / X$.
+
+If two vectors have the same size $F$ with an angle $2\alpha$ between them, the resultant has size $2F\cos\alpha$ and lies along the line that cuts the angle in half.
+
+\subsection*{Splitting a vector into perpendicular parts}
+
+Any vector can be split into two \textbf{perpendicular} 垂直 (at right angles) \textbf{components} 分量. Usually these are \textbf{horizontal} 水平 and \textbf{vertical} 竖直, or along and across a surface. For a vector $\vec{v}$ at angle $\theta$ to the horizontal:
+
+\[
+v_{\text{H}} = v\cos\theta, \qquad v_{\text{V}} = v\sin\theta.
+\]
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/01-p39-vector-resolution-components.pdf}}\\[0.3em]
+\emph{Resolving a vector into horizontal and vertical components}
+\end{minipage}\par\medskip
+
+Choose the directions that make the problem easiest. On a slope (an \textbf{inclined plane} 斜面), split the weight into one part along the slope and one part at right angles to it:
+
+\[
+W_{\parallel} = W\sin\theta, \qquad W_{\perp} = W\cos\theta,
+\]
+
+where $\theta$ is the angle of the slope to the horizontal.
+
+You split a vector into components whenever you need to know how much of it acts in one direction. For example: the part of a force that acts along a slope, or the horizontal and vertical parts of a ball's velocity after it is thrown.
+
+
+\end{document}

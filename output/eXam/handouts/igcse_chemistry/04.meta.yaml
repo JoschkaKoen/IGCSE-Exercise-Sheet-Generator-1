@@ -1,0 +1,64 @@
+topic_number: '4'
+topic_title: Electrochemistry
+subject_key: igcse_chemistry
+covered_question_ids:
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '10'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '11'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '12'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '11'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '12'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '10'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '12'
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 3a
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 3bi
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 3bii
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 3biii
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 3biv
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 3ci
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 3cii
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '13'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '14'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '15'
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 2di
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 2dii
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 2diii
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '12'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '13'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '12'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '13'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '13'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '14'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '15'
+generated_at: '2026-05-29T15:45:23Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:45:23Z'
+glossed_at: '2026-05-29T15:45:23Z'

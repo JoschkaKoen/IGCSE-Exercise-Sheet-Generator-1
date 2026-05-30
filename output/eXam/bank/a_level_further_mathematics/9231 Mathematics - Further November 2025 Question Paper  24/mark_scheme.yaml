@@ -1,0 +1,192 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Integrating by parts: $I_n = \left[x^n\cosh x\right]_0^1 -
+    n\displaystyle\int_0^1 x^{n-1}\cosh x\,dx$. Again: $= \left[x^n\cosh x\right]_0^1
+    - n\left(\left[x^{n-1}\sinh x\right]_0^1 - (n-1)\int_0^1 x^{n-2}\sinh x\,dx\right)
+    = \cosh 1 - n(\sinh 1 - (n-1)I_{n-2}) = \cosh 1 - n\sinh 1 + n(n-1)I_{n-2}$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $I_2 = \cosh 1 - 2\sinh 1 + 2I_0$, where $I_0 = \int_0^1\sinh
+    x\,dx = \cosh 1 - 1$. So $I_2 = 3\cosh 1 - 2\sinh 1 - 2$ $\left(= \tfrac12(\mathrm{e}
+    + 5\mathrm{e}^{-1}) - 2\right)$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\cosh 2x = 1 + 2\sinh^2 x = 6\sinh^2 x \Rightarrow 4\sinh^2
+    x = 1 \Rightarrow \sinh x = \pm\tfrac12$. So $x = \sinh^{-1}\!\left(\pm\tfrac12\right)
+    = \ln\!\left(\pm\tfrac12 + \sqrt{\tfrac14 + 1}\right) = \ln\!\left(\pm\tfrac12
+    + \tfrac12\sqrt5\right)$.
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$C_1: y = \cosh 2x$ is a $\cosh$ curve with minimum $(0,1)$;
+    $C_2: y = 6\sinh^2 x$ has minimum $(0,0)$ and is steeper. They intersect where
+    $\sinh x = \pm\tfrac12$ (at $y = \tfrac32$).'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\sin 5\theta = \mathrm{Im}\left((\cos\theta + \mathrm{i}\sin\theta)^5\right)
+    = \sin^5\theta - 10\sin^3\theta\cos^2\theta + 5\sin\theta\cos^4\theta$. Using
+    $\cos^2\theta = 1 - \sin^2\theta$: $= \sin^5\theta - 10\sin^3\theta(1-\sin^2\theta)
+    + 5\sin\theta(1-\sin^2\theta)^2 = 16\sin^5\theta - 20\sin^3\theta + 5\sin\theta$
+    (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Let $x = \sin\theta$; then $32x^5 - 40x^3 + 10x = 2\sin 5\theta
+    = \sqrt3$, so $\sin 5\theta = \tfrac12\sqrt3$. Thus $5\theta = \tfrac13\pi + 2k\pi$
+    or $\tfrac23\pi + 2k\pi$, giving roots $\sin\tfrac{1}{15}\pi$, $\sin\tfrac{2}{15}\pi$,
+    $\sin\!\left(-\tfrac{5}{15}\pi\right)$, $\sin\!\left(-\tfrac{4}{15}\pi\right)$,
+    $\sin\tfrac{7}{15}\pi$ (i.e. $q = \tfrac{1}{15}, \tfrac{2}{15}, -\tfrac13, -\tfrac{4}{15},
+    \tfrac{7}{15}$).
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Right-endpoint sum: $\displaystyle\int_0^1\tfrac12(3^x)\,dx
+    < \tfrac12\sum_{n=1}^N\tfrac1N\left(3^{1/N}\right)^n = \tfrac{1}{2N}\cdot\dfrac{3^{1/N}\left(3
+    - 1\right)}{3^{1/N} - 1} = \dfrac{3^{1/N}}{N(3^{1/N} - 1)} = U_N$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Left-endpoint sum: $L_N = \tfrac{1}{2N}\displaystyle\sum_{n=0}^{N-1}\left(3^{1/N}\right)^n
+    = \tfrac{1}{2N}\cdot\dfrac{3 - 1}{3^{1/N} - 1} = \dfrac{1}{N(3^{1/N} - 1)}$.'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $U_N - L_N = \dfrac{3^{1/N}}{N(3^{1/N} - 1)} - \dfrac{1}{N(3^{1/N}
+    - 1)} = \dfrac{3^{1/N} - 1}{N(3^{1/N} - 1)} = \dfrac1N \to 0$ as $N\to\infty$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Auxiliary equation $m^2 + m + 1 = 0 \Rightarrow m = -\tfrac12
+    \pm \tfrac12\sqrt3\,\mathrm{i}$, so CF $= \mathrm{e}^{-\frac12 x}\left(A\cos\tfrac{\sqrt3}{2}x
+    + B\sin\tfrac{\sqrt3}{2}x\right)$. PI $y = p\sin 2x + q\cos 2x$: substituting
+    gives $-3p - 2q = 1$ and $2p - 3q = 1$, so $p = -\tfrac{1}{13}$, $q = -\tfrac{5}{13}$.
+    General solution $y = \mathrm{e}^{-\frac12 x}\left(A\cos\tfrac{\sqrt3}{2}x + B\sin\tfrac{\sqrt3}{2}x\right)
+    - \tfrac{1}{13}\sin 2x - \tfrac{5}{13}\cos 2x$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: For large $x$, $\mathrm{e}^{-\frac12 x}\to0$, so $y \approx
+    -\tfrac{1}{13}\sin 2x - \tfrac{5}{13}\cos 2x = \sqrt{\tfrac{2}{13}}\sin(2x - 1.77)$
+    (i.e. $R = \sqrt{\tfrac{2}{13}} \approx 0.392$, $\phi = 1.77$ rad $\approx 101.3\degree$).
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\displaystyle\int\dfrac{1+x}{1-2x-x^2}\,dx = -\tfrac12\ln(1-2x-x^2)$,
+    so the integrating factor is $\mathrm{e}^{-\frac12\ln(1-2x-x^2)} = \dfrac{1}{\sqrt{1-2x-x^2}}$.
+    Then $\dfrac{d}{dx}\!\left(\dfrac{y}{\sqrt{1-2x-x^2}}\right) = \dfrac{1}{\sqrt{1-2x-x^2}}$.
+    Completing the square $1-2x-x^2 = 2-(x+1)^2$: $\dfrac{y}{\sqrt{1-2x-x^2}} = \sin^{-1}\!\left(\dfrac{x+1}{\sqrt2}\right)
+    + C$. Using $y = \pi$ at $x = 0$: $\pi = \tfrac14\pi + C \Rightarrow C = \tfrac34\pi$.
+    So $\dfrac{y}{\sqrt{1-2x-x^2}} = \sin^{-1}\!\left(\dfrac{x+1}{\sqrt2}\right) +
+    \tfrac34\pi$.'
+  mark_scheme: []
+  graphics: []
+- number: 7ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dx}{dt} = 8\cdot\dfrac{\tfrac12\sec^2\frac12 t}{\tan\frac12
+    t} + 3\,\mathrm{cosec}^2 t - 3 = \dfrac{8}{\sin t} + 3\,\mathrm{cosec}^2 t - 3
+    = 8\,\mathrm{cosec}\,t + 3(\mathrm{cosec}^2 t - 1) = 8\,\mathrm{cosec}\,t + 3\cot^2
+    t$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 7aii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dt} = 6\,\mathrm{cosec}\,t - 4\,\mathrm{cosec}^2
+    t + 4 = 6\,\mathrm{cosec}\,t - 4(\mathrm{cosec}^2 t - 1) = 6\,\mathrm{cosec}\,t
+    - 4\cot^2 t$.
+  mark_scheme: []
+  graphics: []
+- number: 7aiii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dot x^2 + \dot y^2 = (8\,\mathrm{cosec}\,t + 3\cot^2 t)^2
+    + (6\,\mathrm{cosec}\,t - 4\cot^2 t)^2 = 100\,\mathrm{cosec}^2 t + 25\cot^4 t
+    = 25(\mathrm{cosec}^2 t + 1)^2$. Length $= \displaystyle\int_{\pi/6}^{\pi/3} 5(\mathrm{cosec}^2
+    t + 1)\,dt = 5\left[-\cot t + t\right]_{\pi/6}^{\pi/3} = 5\left(-\tfrac{1}{\sqrt3}
+    + \tfrac13\pi + \sqrt3 - \tfrac16\pi\right) = \tfrac56\pi + \tfrac{10}{3}\sqrt3$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{dy}{dx} = \dfrac{6\,\mathrm{cosec}\,t - 4\cot^2 t}{8\,\mathrm{cosec}\,t
+    + 3\cot^2 t}$. Differentiating with respect to $t$ and multiplying by $\dfrac{dt}{dx}$:
+    $\dfrac{d^2y}{dx^2} = \dfrac{50\cot t\,\mathrm{cosec}\,t(\mathrm{cosec}^2 t +
+    1)}{(8\,\mathrm{cosec}\,t + 3\cot^2 t)^3}$, so $a = 50$, $b = 8$, $c = 3$, $n
+    = 3$.'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\det\begin{pmatrix} 5 & a & 0 \\ 20 & -5 & 0 \\ 2 & -3 & 1
+    \end{pmatrix} = -25 - 20a$. For a unique solution this is non-zero: $a \neq -\tfrac54$.
+    Geometrically, the three planes intersect at a single point.'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $a = -\tfrac54$: $5x - \tfrac54 y = 3$ gives $20x - 5y
+    = 12$, contradicting $20x - 5y = 2$ ($2 = 12$). So the system is inconsistent:
+    the first two planes are distinct parallel planes, and the third is not parallel
+    to them (no common point).'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Eigenvalues of $\mathbf{A}$ are $5, -5, 1$ with eigenvectors
+    $(1,2,-1)$, $(0,2,1)$, $(0,0,1)$. $(\mathbf{A}+3\mathbf{I})^2$ has the same eigenvectors
+    with eigenvalues $8^2, (-2)^2, 4^2 = 64, 4, 16$. So $\mathbf{P} = \begin{pmatrix}
+    1 & 0 & 0 \\ 2 & 2 & 0 \\ -1 & 1 & 1 \end{pmatrix}$ and $\mathbf{D} = \begin{pmatrix}
+    64 & 0 & 0 \\ 0 & 4 & 0 \\ 0 & 0 & 16 \end{pmatrix}$.
+  mark_scheme: []
+  graphics: []

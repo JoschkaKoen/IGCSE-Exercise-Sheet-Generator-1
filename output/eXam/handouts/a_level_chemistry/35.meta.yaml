@@ -1,0 +1,14 @@
+topic_number: '35'
+topic_title: Polymerisation
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 8f
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 7ciii
+generated_at: '2026-05-29T17:29:24Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T17:29:24Z'
+glossed_at: '2026-05-29T17:29:24Z'

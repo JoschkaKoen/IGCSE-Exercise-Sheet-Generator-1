@@ -151,25 +151,20 @@
   </div>
 </header>
 
-{% if topics and not review_mode %}
-<nav class="mb-5 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1" aria-label="{{ t('practice.topic.heading') }}">
-  <a href="/eXam/practice/{{ subject }}"
-     class="shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium transition focus:outline-none focus:ring-2 focus:ring-cyan-400/40 {% if not active_topic %}border-cyan-400/40 bg-cyan-400/10 text-white{% else %}border-white/[0.08] bg-white/[0.04] text-slate-300 hover:bg-white/[0.08]{% endif %}">
-    {{ t('practice.topic.all') }}
-  </a>
-  {% for topic in topics %}
-  <a href="/eXam/practice/{{ subject }}?topic={{ topic.number }}"
-     class="shrink-0 inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition focus:outline-none focus:ring-2 focus:ring-cyan-400/40 {% if active_topic == topic.number %}border-cyan-400/40 bg-cyan-400/10 text-white{% else %}border-white/[0.08] bg-white/[0.04] text-slate-300 hover:bg-white/[0.08]{% endif %}">
-    <span class="font-medium">{{ topic.number }}. {{ topic.title }}</span>
-    <span class="tabular-nums text-slate-500">{{ topic.available }}</span>
-    {% if topic.correct > 0 %}
-    <span class="inline-flex items-center gap-0.5 text-emerald-300">
-      <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
-      <span class="tabular-nums">{{ topic.correct }}</span>
-    </span>
-    {% endif %}
-  </a>
-  {% endfor %}
+{# Topic selection lives on the landing accordion now; here we only show which
+   topic is active + a way back to re-choose. #}
+{% if active_topic and not review_mode %}
+<nav class="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm" aria-label="{{ t('practice.topic.heading') }}">
+  <span class="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/[0.08] px-3 py-1 text-cyan-200">
+    <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h12"/></svg>
+    <span class="text-cyan-300/70">{{ t('practice.topic.practising') }}:</span>
+    <span class="font-semibold text-white">{{ active_topic_title or t('practice.topic.all') }}</span>
+  </span>
+  <a href="/eXam/practice#{{ subject }}" class="rounded text-slate-400 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40">← {{ t('practice.topic.change') }}</a>
+</nav>
+{% elif has_topics and not review_mode %}
+<nav class="mb-5 text-sm">
+  <a href="/eXam/practice#{{ subject }}" class="inline-flex items-center gap-1.5 rounded text-slate-400 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40">← {{ t('practice.topic.choose') }}</a>
 </nav>
 {% endif %}
 
@@ -275,7 +270,7 @@
           {{ t('take.submit') }}
         </button>
         {% if not review_mode %}
-        <a href="/eXam/practice/{{ subject }}"
+        <a href="/eXam/practice/{{ subject }}{% if active_topic %}?topic={{ active_topic }}{% endif %}"
            class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-center text-sm text-slate-300 hover:bg-white/[0.08]">
           {{ t('take.skip') }}
         </a>
@@ -307,7 +302,7 @@
           {{ t('take.submit') }}
         </button>
         {% if not review_mode %}
-        <a href="/eXam/practice/{{ subject }}"
+        <a href="/eXam/practice/{{ subject }}{% if active_topic %}?topic={{ active_topic }}{% endif %}"
            class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-center text-sm text-slate-300 hover:bg-white/[0.08]">
           {{ t('take.skip') }}
         </a>
@@ -384,7 +379,7 @@ const REVIEW_FILTER = {{ (review_filter or '')|tojson }};
 const REVIEW_INDEX = {{ (review_index or 0)|tojson }};
 const REVIEW_TOTAL = {{ (review_total or 0)|tojson }};
 const REVIEW_SUBJECT = {{ (review_subject or '')|tojson }};
-const TOPIC = {{ (active_topic or '')|tojson }};   // active topic filter (practice mode); "" = all
+const TOPIC = {{ (active_topic or '')|tojson }};   // active topic: "<n>" / "all" / "" = no filter (random)
 
 // Set by renderSnippet once the PDF loads. Used by positionOverlays to map
 // PDF-point bboxes from regions.json to canvas-relative CSS pixels.

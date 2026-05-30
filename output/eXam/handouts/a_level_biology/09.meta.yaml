@@ -1,0 +1,40 @@
+topic_number: '9'
+topic_title: Gas exchange
+subject_key: a_level_biology
+covered_question_ids:
+- paper: 9700 Biology November 2025 Question Paper  11
+  qnum: '34'
+- paper: 9700 Biology November 2025 Question Paper  11
+  qnum: '35'
+- paper: 9700 Biology November 2025 Question Paper  12
+  qnum: '36'
+- paper: 9700 Biology November 2025 Question Paper  12
+  qnum: '37'
+- paper: 9700 Biology November 2025 Question Paper  13
+  qnum: '34'
+- paper: 9700 Biology November 2025 Question Paper  13
+  qnum: '35'
+- paper: 9700 Biology November 2025 Question Paper  14
+  qnum: '35'
+- paper: 9700 Biology November 2025 Question Paper  21
+  qnum: 6bi
+- paper: 9700 Biology November 2025 Question Paper  21
+  qnum: 6bii
+- paper: 9700 Biology November 2025 Question Paper  23
+  qnum: 2bi
+- paper: 9700 Biology November 2025 Question Paper  23
+  qnum: 2bii
+- paper: 9700 Biology November 2025 Question Paper  24
+  qnum: 4a
+- paper: 9700 Biology November 2025 Question Paper  24
+  qnum: 4bi
+- paper: 9700 Biology November 2025 Question Paper  24
+  qnum: 4bii
+- paper: 9700 Biology November 2025 Question Paper  24
+  qnum: 4biii
+generated_at: '2026-05-29T16:06:01Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:06:01Z'
+glossed_at: '2026-05-29T16:06:01Z'

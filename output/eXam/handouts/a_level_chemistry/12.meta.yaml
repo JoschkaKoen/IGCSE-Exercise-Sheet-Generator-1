@@ -1,0 +1,18 @@
+topic_number: '12'
+topic_title: Nitrogen and sulfur
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '16'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '24'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '23'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '24'
+generated_at: '2026-05-29T15:56:23Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:56:23Z'
+glossed_at: '2026-05-29T15:56:23Z'

@@ -1,0 +1,171 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Thermodynamics}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Internal energy}
+
+The \textbf{internal energy} 内能 $U$ of a system is the sum of:
+
+\begin{itemize}
+\item the \textbf{random kinetic energies} 动能 of its \textbf{molecules} 分子 (\textbf{translational} 平动, and for non-monatomic molecules also \textbf{rotational} 转动 and \textbf{vibrational} 振动), and
+
+\item the \textbf{potential energies} from the forces between the molecules.
+
+\end{itemize}
+
+For a real solid, liquid or gas, both parts matter. In the \textbf{ideal-gas} 理想气体 model the \textbf{intermolecular} 分子间 forces are ignored, so the molecular potential energy is zero and the internal energy is purely kinetic.
+
+Two key points:
+
+\begin{enumerate}
+\item \textbf{$U$ depends only on the state} of the system (its \textbf{temperature} 温度, \textbf{pressure} 压强, \textbf{volume} 体积, \textbf{amount of substance} 物质的量) — not on the path taken to get there.
+
+\item \textbf{$U$ is a sum over the molecules}, not the kinetic energy of the whole object moving. A moving train of gas has bulk kinetic energy, but that is separate from $U$ — $U$ is the energy of the \emph{random} molecular motion.
+
+\end{enumerate}
+
+\subsection*{Temperature and internal energy}
+
+Raising an object's temperature raises the random kinetic energy of its molecules, and so raises its internal energy.
+
+For an ideal gas every molecule has average translational kinetic energy $\tfrac{3}{2} k T$ (Topic 15). With zero intermolecular potential energy, the total internal energy is
+
+\[
+U = \tfrac{3}{2} N k T = \tfrac{3}{2} n R T.
+\]
+
+So the internal energy of an ideal gas is directly proportional to the \textbf{thermodynamic temperature} 热力学温度. Doubling $T$ doubles $U$. This is \textbf{only} exact for an ideal gas.
+
+During a \textbf{phase change} 相变 (melting or boiling) of a real substance, $U$ rises because the molecular potential energy rises (bonds breaking), even though the temperature stays constant.
+
+\section*{Work done on or by a gas}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/16-p282-work-done-by-gas.pdf}}\\[0.3em]
+\emph{A gas pushing a piston of area A out against the pressure does work W = pΔV}
+\end{minipage}\par\medskip
+
+When a gas changes volume against an outside pressure, mechanical work is done. At constant pressure $p$ with a small volume change $\Delta V$, the size of the work is
+
+\[
+W = p \Delta V.
+\]
+
+\subsection*{Sign convention in this syllabus}
+
+This syllabus writes the first law as $\Delta U = q + W$, where $W$ is the work done \textbf{on} the gas and $q$ is the energy put in \textbf{by heating}.
+
+\begin{itemize}
+\item when the gas is \textbf{compressed}, $\Delta V$ is negative and the work done \textbf{on} the gas is positive — the gas gains energy.
+
+\item when the gas \textbf{expands}, $\Delta V$ is positive and the work done \textbf{on} the gas is negative — the gas loses energy (it does work on the surroundings).
+
+\end{itemize}
+
+Watch which form a question wants:
+
+\begin{itemize}
+\item "work done \textbf{on} the gas" — positive when compressing.
+
+\item "work done \textbf{by} the gas" — the opposite sign, positive when expanding.
+
+\end{itemize}
+
+At constant volume ($\Delta V = 0$), no work is done.
+
+\section*{First law of thermodynamics}
+
+The \textbf{first law of thermodynamics} 热力学第一定律 says that \textbf{energy is conserved when heat and work pass between a system and its surroundings}:
+
+\[
+\Delta U = q + W,
+\]
+
+where $\Delta U$ is the rise in internal energy, $q$ is the energy added \textbf{by heating} (positive in, negative out), and $W$ is the work done \textbf{on} the gas (positive when compressed). This is \textbf{conservation of energy} 能量守恒 for a gas.
+
+\subsection*{Reading the equation}
+
+$\Delta U$ is fixed by the change of state (for an ideal gas, by the change in temperature). The same $\Delta U$ can come from different mixes of $q$ and $W$:
+
+\begin{itemize}
+\item all heat, no work: $\Delta U = q$ (constant-volume heating).
+
+\item all work, no heat: $\Delta U = W$ (insulated compression or expansion).
+
+\end{itemize}
+
+\subsection*{Standard processes}
+
+For an ideal gas, $\Delta U = \tfrac{3}{2} n R \Delta T$ — it depends only on $\Delta T$.
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lllll}
+\toprule
+\textbf{Process} & \textbf{What stays constant} & \textbf{$\Delta U$} & \textbf{$W$ (on gas)} & \textbf{$q$} \\
+\midrule
+Isothermal & $T$ & $0$ & $W$ & $-W$ \\
+Constant volume & $V$ & $\tfrac{3}{2}n R \Delta T$ & $0$ & $\Delta U$ \\
+Constant pressure & $p$ & $\tfrac{3}{2}n R \Delta T$ & $-p \Delta V$ & $\Delta U - W$ \\
+Adiabatic & (no heat) & varies & $W$ & $0$ \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+In an \textbf{isothermal} 等温 process of an ideal gas, $\Delta T = 0$ so $\Delta U = 0$; then $q = -W$ (any heat in comes out as work). In an \textbf{adiabatic} 绝热 process no heat flows, so $\Delta U = W$.
+
+For constant-volume heating (gas in a sealed rigid container), all the heat goes into internal energy: $q = \Delta U$. For a constant-pressure expansion (gas pushing a \textbf{piston} 活塞), the gas does work on the surroundings, so the heat supplied must both raise the internal energy and supply the expansion work.
+
+\subsection*{Worked example: two-step process}
+
+A sample of ideal gas at temperature $T$ with internal energy $U$ goes through:
+
+\begin{enumerate}
+\item \textbf{compression} to temperature $3T$; work $W$ is done on the gas.
+
+\item \textbf{cooling at constant volume} to temperature $2T$.
+
+\end{enumerate}
+
+\textbf{Step 1} ($T \to 3T$): $U = \tfrac{3}{2}nRT$, so $U \to 3U$, giving $\Delta U_{1} = 2U$. $W_{1} = +W$. So $q_{1} = \Delta U_{1} - W_{1} = 2U - W$.
+
+\textbf{Step 2} ($3T \to 2T$, constant volume): $\Delta U_{2} = -U$. $W_{2} = 0$. So $q_{2} = -U$ (heat flows out).
+
+Check: total $\Delta U = 2U - U = U$, taking the gas from $T$ to $2T$ ($U \to 2U$) — consistent.
+
+\subsection*{Heat capacity at constant volume}
+
+For constant-volume heating of an ideal gas, $q = \Delta U = \tfrac{3}{2} n R \Delta T$. So the molar \textbf{heat capacity} 热容 at constant volume is $\tfrac{3}{2} R$ for a \textbf{monatomic} 单原子 ideal gas. (You are not required to use the symbol $C_V$, but the result $q = \tfrac{3}{2} n R \Delta T$ for constant-volume heating is.)
+
+\subsection*{Heating without a temperature change}
+
+If heat is supplied during a phase change at constant pressure (e.g. boiling water), the temperature stays constant but the internal energy still rises (the \textbf{latent heat} 潜热 separates the molecules), and the gas does expansion work. The first law still holds: $\Delta U = q + W$.
+
+
+\end{document}

@@ -1,0 +1,292 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Use standard results from the list of formulae (MF19) to find $\displaystyle\sum_{r=1}^{n}(r^3
+      - r)$ in terms of $n$, fully factorising your answer.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Express $\dfrac{r+3}{r^3 - r}$ in the form $\dfrac{A}{r-1} + \dfrac{B}{r}
+      + \dfrac{C}{r+1}$, where $A$, $B$ and $C$ are constants to be determined, and
+      hence use the method of differences to find $\displaystyle\sum_{r=2}^{n}\dfrac{r+3}{r^3
+      - r}$.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Deduce the value of $\displaystyle\sum_{r=2}^{\infty}\dfrac{r+3}{r^3 - r}$.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The cubic equation $x^3 + bx^2 + cx + d = 0$, where $b$, $c$ and $d$ are constants,
+    has roots $\alpha$, $\beta$ and $\gamma$. It is given that $\alpha + \beta + \gamma
+    = 2$, $\alpha^2 + \beta^2 + \gamma^2 = 3$ and $\alpha^4 + \beta^4 + \gamma^4 =
+    5$.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the values of $b$ and $c$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the value of $d$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The sequence of positive numbers $u_1, u_2, u_3, \ldots$ is such that $u_1
+    < 5$ and, for $n \geqslant 1$, $u_{n+1} = \dfrac{6u_n + 5}{u_n + 2}$.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: By considering $5 - u_{n+1}$, prove by mathematical induction that $u_n
+      < 5$ for all positive integers $n$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $u_{n+1} > u_n$ for $n \geqslant 1$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Let $k$ and $m$ be non-zero constants. The matrices are $\mathbf{A} = \begin{pmatrix}
+    0 & 1 \\ -1 & 1 \\ 1 & 1 \end{pmatrix}$, $\mathbf{B} = \begin{pmatrix} k & 0 \\
+    0 & m \end{pmatrix}$ and $\mathbf{C} = \begin{pmatrix} 2 & -1 & 1 \\ 1 & 1 & 2
+    \end{pmatrix}$.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Give full details of the geometrical transformation in the $x$-$y$ plane
+      represented by the matrix $\mathbf{B}$ in each of the following cases.
+    answer_options: []
+    subquestions:
+    - number: 4ai
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: $m = 1$
+      answer_options: []
+      subquestions: []
+    - number: 4aii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: $m = k$
+      answer_options: []
+      subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Show that the matrix $\mathbf{ABC}$ is singular.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has polar equation $r^2 = \tan 2\theta$, where $0 \leqslant
+    \theta \leqslant \tfrac{1}{8}\pi$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Sketch $C$ and state the greatest distance of a point on $C$ from the pole.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the exact value of the area of the region bounded by $C$ and the half-line
+      $\theta = \tfrac{1}{8}\pi$.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Show that $C$ has Cartesian equation $x^4 - 2xy - y^4 = 0$, given that $0
+      \leqslant x \leqslant \cos\!\left(\tfrac{1}{8}\pi\right)$ and $0 \leqslant y
+      \leqslant \sin\!\left(\tfrac{1}{8}\pi\right)$.
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Using your answer to (b), deduce the exact value of the area bounded by
+      $C$, the $x$-axis and the line $x = \cos\!\left(\tfrac{1}{8}\pi\right)$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The plane $\Pi$ has equation $x + 3y + 2z = 1$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the perpendicular distance from the origin $O$ to the plane $\Pi$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Relative to $O$, the points $A$, $B$, $C$ have position vectors $-\mathbf{j}
+      + 2\mathbf{k}$, $2\mathbf{i} - \mathbf{k}$ and $2\mathbf{i} - \mathbf{j} - \mathbf{k}$
+      respectively. Find the acute angle between the planes $OAB$ and $\Pi$.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 8
+    text: Find an equation for the common perpendicular to the lines $OC$ and $AB$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has equation $y = \dfrac{x^2 + x + 1}{x + 1}$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the equations of the asymptotes of $C$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the coordinates of any stationary points on $C$.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Sketch $C$.
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Sketch the curve with equation $y = \dfrac{|x|^2 + |x| + 1}{|x| + 1}$.
+    answer_options: []
+    subquestions: []
+  - number: 7e
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find, in exact form, the set of values of $x$ for which $\dfrac{|x|^2 +
+      |x| + 1}{|x| + 1} < 3$.
+    answer_options: []
+    subquestions: []

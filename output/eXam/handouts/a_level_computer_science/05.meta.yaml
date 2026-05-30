@@ -52,3 +52,28 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:41:48Z'
 glossed_at: '2026-05-29T05:41:48Z'
+figures:
+  - file: assets/05-p156-os-tasks.png
+    caption: The main jobs the operating system manages
+    figure_ref: '5.3'
+    source_page_pdf: 156
+    source_page_printed: 140
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [183.0, 64.0, 434.0, 183.0]
+    placed_under: "### Key management tasks"
+  - file: assets/05-p157-memory-protection.png
+    caption: Memory protection keeps each application in its own block of memory
+    figure_ref: '5.4'
+    source_page_pdf: 157
+    source_page_printed: 141
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [166.6, 88.5, 533.5, 299.1]
+    placed_under: "### Key management tasks"
+  - file: assets/05-p163-program-libraries.png
+    caption: A new program reusing ready-made routines from libraries
+    figure_ref: '5.11'
+    source_page_pdf: 163
+    source_page_printed: 147
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.9, 551.1, 533.2, 650.6]
+    placed_under: "## Program libraries"

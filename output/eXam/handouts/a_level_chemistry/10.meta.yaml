@@ -1,0 +1,54 @@
+topic_number: '10'
+topic_title: Group 2
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '19'
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '20'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '19'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '20'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '19'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '20'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '18'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '19'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '20'
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 2di
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 2dii
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2fi
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2fii
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2fiii
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 2di
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 2dii
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 1ai
+- paper: 9701 Chemistry November 2025 Question Paper  41
+  qnum: 1aii
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 1a
+- paper: 9701 Chemistry November 2025 Question Paper  42
+  qnum: 1b
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 1ai
+- paper: 9701 Chemistry November 2025 Question Paper  43
+  qnum: 1aii
+generated_at: '2026-05-29T15:53:36Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:53:36Z'
+glossed_at: '2026-05-29T15:53:36Z'

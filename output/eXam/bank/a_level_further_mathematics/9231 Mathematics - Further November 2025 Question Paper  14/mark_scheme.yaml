@@ -1,0 +1,218 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Base case $n=1$: LHS $=\left(\tfrac65\right)^1=\tfrac65$, RHS
+    $=1+\tfrac15=\tfrac65$ ✓. Assume $\left(\tfrac65\right)^k \geqslant 1+\tfrac15
+    k$ for some positive integer $k$. Then $\left(\tfrac65\right)^{k+1} \geqslant
+    \tfrac65\left(1+\tfrac15 k\right) = \tfrac65 + \tfrac{6}{25}k \geqslant \tfrac65
+    + \tfrac15 k = 1 + \tfrac15(k+1)$. Hence by induction $\left(\tfrac65\right)^n
+    \geqslant 1+\tfrac15 n$ for every positive integer $n$.'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Since $\beta\gamma = \beta\cdot\tfrac1\beta = 1$ and $\alpha\beta\gamma
+    = -d$, we have $\alpha = -d$. Using $\alpha+\beta+\gamma = -b$ with $\gamma =
+    \tfrac1\beta$: $-d + \beta + \tfrac1\beta = -b$, so $\beta + \tfrac1\beta = d
+    - b$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using $\alpha\beta + \beta\gamma + \gamma\alpha = c$ with $\gamma
+    = \tfrac1\beta$ and $\alpha = -d$: $-d\beta + 1 - \tfrac{d}{\beta} = c$, so $-d\left(\beta+\tfrac1\beta\right)
+    = c - 1$, giving $\beta + \tfrac1\beta = \dfrac{1-c}{d}$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 2ci
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $b=3$, $c=-3$, equating the results of (a) and (b): $d
+    - 3 = \dfrac{1-(-3)}{d} = \dfrac4d \Rightarrow d^2 - 3d - 4 = 0 \Rightarrow (d-4)(d+1)=0$.
+    Since $d>0$, $d = 4$.'
+  mark_scheme: []
+  graphics: []
+- number: 2cii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\alpha^2+\beta^2+\gamma^2 = (\alpha+\beta+\gamma)^2 - 2(\alpha\beta+\beta\gamma+\gamma\alpha)
+    = b^2 - 2c = 3^2 - 2(-3) = 15$.
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\displaystyle\sum_{r=1}^n (r^3+6r^2+11r+6) = \tfrac14 n^2(n+1)^2
+    + n(n+1)(2n+1) + \tfrac{11}{2}n(n+1) + 6n = \tfrac14 n(n^3 + 10n^2 + 35n + 50)$.
+    So $b=10$, $c=35$, $d=50$.
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Partial fractions: $\dfrac{2}{(r+1)(r+2)(r+3)} = \dfrac{1}{r+1}
+    - \dfrac{2}{r+2} + \dfrac{1}{r+3}$. With $f(r) = \tfrac{1}{r+1}$ the sum telescopes
+    to $\displaystyle\sum_{r=1}^n = \tfrac16 - \dfrac{1}{n+2} + \dfrac{1}{n+3}$ $\left(=
+    \tfrac16 - \dfrac{1}{(n+2)(n+3)}\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: As $n\to\infty$, the sum $\to \tfrac16$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\overrightarrow{AB} = -\mathbf{i}-3\mathbf{j}-3\mathbf{k}$,
+    $\overrightarrow{AC} = -\mathbf{i}-4\mathbf{j}-6\mathbf{k}$. Normal $= \overrightarrow{AB}\times\overrightarrow{AC}
+    = (6,-3,1)$. Through $A(3,5,5)$: $6(3)-3(5)+5 = 8$, so $6x - 3y + z = 8$.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\overrightarrow{CD} = (1,-1,3)-(2,1,-1) = (-1,-2,4)$. Common
+    perpendicular $\overrightarrow{AB}\times\overrightarrow{CD} = (-18, 7, -1)$. Shortest
+    distance $= \dfrac{\left|\overrightarrow{AC}\cdot(-18,7,-1)\right|}{\sqrt{18^2+7^2+1^2}}
+    = \dfrac{4}{\sqrt{374}} = 0.207$.
+  mark_scheme: []
+  graphics: []
+- number: 5ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\cos\tfrac{1}{12}\pi = \cos\left(\tfrac14\pi - \tfrac16\pi\right)
+    = \cos\tfrac14\pi\cos\tfrac16\pi + \sin\tfrac14\pi\sin\tfrac16\pi = \tfrac14\sqrt2\sqrt3
+    + \tfrac14\sqrt2 = \tfrac14(\sqrt6 + \sqrt2)$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 5aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\sin\tfrac{1}{12}\pi = \sin\left(\tfrac14\pi - \tfrac16\pi\right)
+    = \sin\tfrac14\pi\cos\tfrac16\pi - \cos\tfrac14\pi\sin\tfrac16\pi = \tfrac14\sqrt2\sqrt3
+    - \tfrac14\sqrt2 = \tfrac14(\sqrt6 - \sqrt2)$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'A reflection followed by a rotation (in that order): a reflection
+    in the $x$-axis, then a rotation through $\tfrac{1}{12}\pi$ ($15\degree$) anticlockwise
+    about the origin.'
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathbf{M}^{-1} = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\begin{pmatrix}
+    \cos\tfrac{\pi}{12} & \sin\tfrac{\pi}{12} \\ -\sin\tfrac{\pi}{12} & \cos\tfrac{\pi}{12}
+    \end{pmatrix}$ — the inverse of the rotation times the inverse of the reflection,
+    in the correct order. (Both inverses required.)
+  mark_scheme: []
+  graphics: []
+- number: 5d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\mathbf{M} = \begin{pmatrix}\cos\tfrac{\pi}{12} & \sin\tfrac{\pi}{12}
+    \\ \sin\tfrac{\pi}{12} & -\cos\tfrac{\pi}{12}\end{pmatrix}$ transforms $(x, mx)$;
+    using $Y = mX$: $\sin\tfrac{\pi}{12}\,x - m\cos\tfrac{\pi}{12}\,x = m\left(\cos\tfrac{\pi}{12}\,x
+    + m\sin\tfrac{\pi}{12}\,x\right)$, giving $\sin\tfrac{\pi}{12}\,m^2 + 2m\cos\tfrac{\pi}{12}
+    - \sin\tfrac{\pi}{12} = 0$ (AG). By the quadratic formula with $\cos^2\tfrac{\pi}{12}+\sin^2\tfrac{\pi}{12}=1$:
+    $m = \dfrac{-2\cos\tfrac{\pi}{12} \pm \sqrt{4\cos^2\tfrac{\pi}{12} + 4\sin^2\tfrac{\pi}{12}}}{2\sin\tfrac{\pi}{12}}
+    = -\cot\tfrac{\pi}{12} \pm \mathrm{cosec}\,\tfrac{\pi}{12}$ (i.e. $a=-1$, $b=\pm1$).'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: A single arc joining the pole $O$ to the point $(1,0)$, lying
+    in the first two quadrants (above the initial line), with correct shape at the
+    extremities and $r$ decreasing from 1 to 0 as $\theta$ increases from 0 to $\pi$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Area $= \tfrac12\displaystyle\int_0^\pi \cos^2\tfrac12\theta\,d\theta
+    = \tfrac14\int_0^\pi(\cos\theta + 1)\,d\theta = \tfrac14[\sin\theta + \theta]_0^\pi
+    = \tfrac14\pi$.
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Distance from initial line $y = r\sin\theta = \cos\tfrac12\theta\sin\theta$.
+    $\dfrac{dy}{d\theta} = 0$: $\cos\tfrac12\theta\cos\theta - \tfrac12\sin\theta\sin\tfrac12\theta
+    = 0 \Rightarrow 3\cos^2\tfrac12\theta - 2 = 0 \Rightarrow \cos^2\tfrac12\theta
+    = \tfrac23$. Then $y = 2\cos^2\tfrac12\theta\sin\tfrac12\theta = 2\left(\tfrac23\right)\sqrt{1-\tfrac23}
+    = \tfrac43\sqrt{\tfrac13} = \tfrac49\sqrt3$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$x = 1.8$ (where $10x-18=0$). Dividing: $y = \dfrac{(10x-18)\left(x+\tfrac{7}{10}\right)
+    - \tfrac{27}{5}}{10x-18} = x + \tfrac{7}{10} - \dfrac{27/5}{10x-18}$, so the oblique
+    asymptote is $y = x + 0.7$.'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{dy}{dx} = \dfrac{100x^2 - 360x + 378}{(10x-18)^2}$.
+    Setting the numerator $=0$: $50x^2 - 180x + 189 = 0$, discriminant $180^2 - 4(50)(189)
+    = -5400 < 0$, so there are no real roots and hence no stationary points.'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Intersections with the axes: $(0, 1)$, $(-0.9, 0)$ and $(2,
+    0)$. Two branches with vertical asymptote $x = 1.8$ and oblique asymptote $y =
+    x + 0.7$.'
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Reflect in the $x$-axis the parts of $C$ lying below it (between
+    the $x$-intercepts), giving sharp changes of direction at the $x$-axis intersections
+    $(-0.9, 0)$ and $(2, 0)$.
+  mark_scheme: []
+  graphics: []
+- number: 7e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Solving $\dfrac{10x^2-11x-18}{10x-18} = 4$: $10x^2 - 51x +
+    54 = 0 \Rightarrow x = \tfrac32$ or $x = \tfrac{18}{5}$. Hence $p = \tfrac32$
+    and $q = \tfrac{18}{5}$.'
+  mark_scheme: []
+  graphics: []

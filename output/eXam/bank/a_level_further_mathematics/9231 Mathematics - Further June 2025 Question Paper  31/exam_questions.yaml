@@ -1,0 +1,233 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ of mass 8 kg is moving in a straight horizontal line. At time
+    $t$ s, $P$ has displacement $x$ m from a fixed point $O$ on the line and velocity
+    $v\text{ m s}^{-1}$. The only horizontal force acting on $P$ has magnitude $(x^3
+    + 4x)$ N and acts in the direction $OP$. When $t = 0$, $x = 0$ and $v = 1$.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find an expression for $v$ in terms of $x$, giving your answer in the form
+      $v = ax^2 + b$, where $a$ and $b$ are constants to be determined.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find an expression for $x$ in terms of $t$.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ is projected with speed $24\text{ m s}^{-1}$ at an angle $\theta\degree$
+    above the horizontal from a point $O$ on a horizontal plane, and moves freely
+    under gravity. At a horizontal distance 35 m from $O$, there is a vertical wall
+    of height 10 m which is perpendicular to the vertical plane of motion of $P$.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Determine the two values of $\theta$ for which $P$ just clears the wall.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Given that $P$ clears the wall, find the minimum distance from point $O$
+      where $P$ can land.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A rough horizontal disc, centre $O$, rotates with constant angular speed $\omega\text{
+    rad s}^{-1}$. A particle $P$ of mass 1.6 kg lies on the disc at a distance 1.5
+    m from $O$, and is attached to a point $A$ vertically above $O$ by a light elastic
+    string. The string has natural length 2 m, modulus of elasticity 32 N and makes
+    an angle $\alpha$ with the vertical $OA$ (see diagram). Particle $P$ moves in
+    a horizontal circle also at a constant angular speed $\omega\text{ rad s}^{-1}$.
+    Particle $P$ is on the point of slipping in the direction $OP$. The coefficient
+    of friction between the particle and the disc is 0.5.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Given that the tension in the string is 8 N, show that $\sin\alpha = 0.6$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the number of revolutions per minute made by the disc and the particle
+      $P$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An object is formed by removing a solid hemisphere, radius $2r$, from a uniform
+    solid cone, radius $3r$ and semi-vertical angle $\theta$, where $\tan\theta =
+    \tfrac12$. The axes of symmetry of the cone and the hemisphere coincide. The base
+    of the cone and the base of the hemisphere are in the same plane as each other
+    (see diagram).
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find, in terms of $r$, the distance of the centre of mass of the object
+      from its base.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: The object is placed such that its circular base makes contact with a rough
+      plane which is inclined to the horizontal at an angle $\alpha$. The object is
+      on the point of toppling. The plane is sufficiently rough to prevent sliding.
+      Find the value of $\alpha$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: One end of a light elastic string of natural length 0.5 m and modulus of elasticity
+    14 N is attached to a fixed point $A$ on a smooth plane. The plane makes an angle
+    $\alpha$ to the horizontal, where $\tan\alpha = \tfrac{7}{24}$. A particle $P$
+    of mass 2 kg is attached to the other end of the string. The string lies along
+    a line of greatest slope of the plane. The particle $P$ is initially held on the
+    plane above the level of $A$, where $AP = 0.8$ m. The particle $P$ is then released
+    from rest. Find the maximum velocity of $P$ during the subsequent motion.
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Two uniform smooth spheres $A$ and $B$ of equal radii have masses $2m$ and
+    $m$ respectively. Sphere $A$ is moving in a straight horizontal line with speed
+    $u$, and sphere $B$ is stationary. Sphere $A$ collides directly with $B$, and
+    they both then move in the same direction with speeds $v_A$ and $v_B$ respectively.
+    After the collision, the kinetic energy of $B$ is $\tfrac92$ times the kinetic
+    energy of $A$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $v_B = \tfrac65 u$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Sphere $B$ then collides with a fixed vertical barrier. Immediately before
+      the collision, the direction of motion of $B$ makes an angle $\alpha$ with the
+      barrier. Immediately after the collision, the direction of motion of $B$ makes
+      an angle $\beta$ with the barrier. The coefficient of restitution between $B$
+      and the barrier is $\tfrac45$. As a result of the collision, the velocity of
+      $B$ is reduced to $\tfrac{12}{25}\sqrt5\,u$. Find the value of $\sin(\alpha
+      + \beta)$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A fixed hollow sphere has radius $a$ and centre $O$. The points $A$, $B$ and
+    $C$ lie on the inner surface of the sphere with $OA$ and $BC$ horizontal. A portion
+    of the sphere has been removed by a horizontal cut through points $B$ and $C$
+    at a vertical distance $ka$ above the centre of the sphere, where $k$ is a positive
+    constant and $k < 1$. The points $O$, $A$, $B$ and $C$ all lie in the same vertical
+    plane. $OB$ makes an angle $\theta$ with the upward vertical through $O$ (see
+    diagram). A particle $P$ of mass $m$ is free to move on the smooth inner surface
+    of the sphere. The particle $P$ is projected vertically downwards from $A$ with
+    speed $u$ and begins to move in a vertical circle.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: In the case where $u = \sqrt{\tfrac65 ga}$, the reaction on $P$ at $B$ is
+      half the reaction on $P$ at $A$. Find the value of $k$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Find an expression for $u$, in terms of $a$ and $g$, in the case that the
+      particle just reaches $B$.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find an expression for $u$, in terms of $a$ and $g$, in the case that the
+      particle passes through $B$ and in its subsequent motion reaches $C$.
+    answer_options: []
+    subquestions: []

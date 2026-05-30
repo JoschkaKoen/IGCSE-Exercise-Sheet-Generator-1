@@ -36,3 +36,28 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:43:50Z'
 glossed_at: '2026-05-29T05:43:50Z'
+figures:
+  - file: assets/06-p178-firewall.png
+    caption: A firewall sits between the user's computer and the internet
+    figure_ref: '6.2'
+    source_page_pdf: 178
+    source_page_printed: 162
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [184.7, 407.8, 536.3, 438.3]
+    placed_under: "### A networked PC"
+  - file: assets/06-p189-parity-check.png
+    caption: The parity bit is set to make the number of 1s even or odd
+    figure_ref: '6.9'
+    source_page_pdf: 189
+    source_page_printed: 173
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 280.4, 520.2, 355.4]
+    placed_under: "### Verification — was the data entered or transferred correctly?"
+  - file: assets/06-p188-checksum.png
+    caption: Working out a checksum for a block of data
+    figure_ref: '6.7'
+    source_page_pdf: 188
+    source_page_printed: 172
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [178.7, 429.2, 553.8, 636.1]
+    placed_under: "### Verification — was the data entered or transferred correctly?"

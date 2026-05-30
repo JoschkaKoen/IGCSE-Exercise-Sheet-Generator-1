@@ -1,0 +1,16 @@
+subject_key: a_level_business
+paper_stem: 9609 Business June 2025 Question Paper  13
+model: claude
+matched_at: '2026-05-29T14:24:03Z'
+matches:
+  1a: ['2.2']
+  1b: ['2.2']
+  2a: ['5.5']
+  2b: ['5.5']
+  3a: ['4.2']
+  3b: ['4.2']
+  '4': ['3.1']
+  5a: ['5.4']
+  5b: ['5.3']
+  6a: ['6.1']
+  6b: ['1.5']

@@ -1,0 +1,74 @@
+topic_number: '8'
+topic_title: Probability
+subject_key: igcse_mathematics
+covered_question_ids:
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 19a
+- paper: 0580 Mathematics June 2025 Question Paper  11
+  qnum: 19b
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 17a
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 17bi
+- paper: 0580 Mathematics June 2025 Question Paper  21
+  qnum: 17bii
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 4a
+- paper: 0580 Mathematics June 2025 Question Paper  22
+  qnum: 4b
+- paper: 0580 Mathematics June 2025 Question Paper  31
+  qnum: '20'
+- paper: 0580 Mathematics June 2025 Question Paper  41
+  qnum: 15b
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 23a
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 23b
+- paper: 0580 Mathematics March 2025 Question Paper  12
+  qnum: 23c
+- paper: 0580 Mathematics November 2025 Question Paper  11
+  qnum: 24c
+- paper: 0580 Mathematics November 2025 Question Paper  12
+  qnum: 7a
+- paper: 0580 Mathematics November 2025 Question Paper  12
+  qnum: 7b
+- paper: 0580 Mathematics November 2025 Question Paper  12
+  qnum: 7c
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 26a
+- paper: 0580 Mathematics November 2025 Question Paper  13
+  qnum: 26b
+- paper: 0580 Mathematics November 2025 Question Paper  21
+  qnum: 20a
+- paper: 0580 Mathematics November 2025 Question Paper  21
+  qnum: 20bi
+- paper: 0580 Mathematics November 2025 Question Paper  21
+  qnum: 20bii
+- paper: 0580 Mathematics November 2025 Question Paper  21
+  qnum: 20c
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 12bi
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 12bii
+- paper: 0580 Mathematics November 2025 Question Paper  22
+  qnum: 12biii
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: '11'
+- paper: 0580 Mathematics November 2025 Question Paper  23
+  qnum: 25b
+- paper: 0580 Mathematics November 2025 Question Paper  33
+  qnum: 5a
+- paper: 0580 Mathematics November 2025 Question Paper  33
+  qnum: 5b
+- paper: 0580 Mathematics November 2025 Question Paper  33
+  qnum: 5c
+- paper: 0580 Mathematics November 2025 Question Paper  42
+  qnum: 16b
+- paper: 0580 Mathematics November 2025 Question Paper  43
+  qnum: '12'
+generated_at: '2026-05-29T16:00:39Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:00:39Z'
+glossed_at: '2026-05-29T16:00:39Z'

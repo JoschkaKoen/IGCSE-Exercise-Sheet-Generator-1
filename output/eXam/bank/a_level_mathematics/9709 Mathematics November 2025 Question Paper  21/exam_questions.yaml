@@ -1,0 +1,178 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: Find $\displaystyle\int 6\sin^2 x\,dx$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: Solve the equation $e^{2x}(e^{2x} - 8) = 48$.
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Solve the equation $|2x - 3| = |5x + 2|$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Hence solve the equation $|2\sec\theta - 3| = |5\sec\theta + 2|$ for $\pi
+      < \theta < 2\pi$. Give your answer correct to 3 significant figures.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: Solve the equation $\cot\theta\tan(\theta + 45\degree) = 7$ for $0\degree
+    < \theta < 90\degree$.
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The diagram shows the curve with equation $y = 8e^{-\frac{1}{2}x} - 1$. The
+    curve meets the axes at the points $A$ and $B$. The shaded region is bounded by
+    the curve and the line segment $AB$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Show that the $x$-coordinate of $B$ is $6\ln 2$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the area of the shaded region. Give your answer in the form $p\ln 2
+      - q$, where $p$ and $q$ are positive integers.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A curve has parametric equations $x = \tan\theta$, $y = \sin\theta - 2\sin^3\theta$,
+    for $0 < \theta < \tfrac{1}{2}\pi$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Show that $\dfrac{dy}{dx} = 6\cos^5\theta - 5\cos^3\theta$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the equation of the normal to the curve at the point where it crosses
+      the $x$-axis. Give your answer in the form $y = mx + c$, where $m$ and $c$ are
+      exact constants.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The polynomial $p(x)$ is defined by $p(x) = 2x^4 + kx^3 + kx^2 + 17x + 18$,
+    where $k$ is a constant. It is given that $(x + 2)$ is a factor of $p(x)$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the value of $k$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: It is given that the equation $p(x) = 0$ has exactly two real roots, denoted
+      by $\alpha$ and $\beta$, where $\alpha$ is an integer and $\beta$ is not an
+      integer. State the value of $\alpha$ and show that $\beta$ satisfies the equation
+      $x = \sqrt[3]{-2x - 4.5}$.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Show by calculation that $-1.4 < \beta < -1.0$.
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Use an iterative formula, based on the equation in part (b), to find the
+      value of $\beta$ correct to 3 significant figures. Give the result of each iteration
+      to 5 significant figures.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: The equation of a curve is $y = 4e^{1-2x}\sqrt{3x - 1}$. Find the exact coordinates
+    of the stationary point of the curve.
+  answer_options: []
+  subquestions: []

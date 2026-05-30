@@ -46,3 +46,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:52:37Z'
 glossed_at: '2026-05-29T05:52:37Z'
+figures:
+  - file: assets/14-p345-tcp-ip-layers.png
+    caption: The four layers of the TCP/IP protocol suite
+    figure_ref: '14.1'
+    source_page_pdf: 345
+    source_page_printed: 329
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [204.3, 620.4, 511.1, 727.3]
+    placed_under: "## TCP/IP protocol suite"
+  - file: assets/14-p350-ethernet-frame.png
+    caption: The parts of a typical Ethernet frame
+    figure_ref: '14.5'
+    source_page_pdf: 350
+    source_page_printed: 334
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [176.4, 539.0, 553.0, 625.7]
+    placed_under: "### Link layer"
+  - file: assets/14-p353-bittorrent-swarm.png
+    caption: "BitTorrent: peers share file pieces through a tracker"
+    figure_ref: '14.6'
+    source_page_pdf: 353
+    source_page_printed: 337
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [158.8, 42.0, 543.9, 261.2]
+    placed_under: "## Common application-layer protocols"
+  - file: assets/14-p354-circuit-switching.png
+    caption: "Circuit switching: one dedicated path is reserved end to end"
+    figure_ref: '14.7'
+    source_page_pdf: 354
+    source_page_printed: 338
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [177.0, 472.0, 560.0, 592.0]
+    placed_under: "### Circuit switching"
+  - file: assets/14-p355-packet-switching.png
+    caption: "Packet switching: packets travel independently and may take different routes"
+    figure_ref: '14.8'
+    source_page_pdf: 355
+    source_page_printed: 339
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [159.3, 275.0, 548.1, 426.7]
+    placed_under: "### Packet switching"

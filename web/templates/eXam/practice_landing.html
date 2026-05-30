@@ -65,9 +65,77 @@
         <span class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">{{ t(label_key) }}</span>
         <span class="h-px flex-1 bg-gradient-to-r from-white/18 to-transparent" aria-hidden="true"></span>
       </div>
-      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {# Single-column list per level so a subject's topic accordion can unfold inline. #}
+      <div class="flex flex-col gap-3">
         {% for s in group %}
-          {% if s.available %}
+          {% if not s.available %}
+          {# No warmed papers yet — disabled. #}
+          <div class="flex items-center gap-3 rounded-2xl border border-white/[0.05]
+                      bg-white/[0.015] p-4 opacity-60 cursor-not-allowed">
+            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.04]">
+              <svg class="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="truncate text-sm font-semibold text-slate-300">{{ s.display }}</div>
+              <div class="text-xs text-slate-500">{{ t('practice.card.no_papers') }}</div>
+            </div>
+          </div>
+          {% elif s.topics %}
+          {# Has a topic map — unfold to choose a topic, or pick "All topics". #}
+          <details id="{{ s.slug }}" class="group/subj practice-acc overflow-hidden rounded-2xl border border-white/[0.08]
+                       bg-gradient-to-b from-white/[0.06] to-white/[0.02] shadow-black/20 backdrop-blur-sm">
+            <summary data-subject="{{ s.slug }}"
+                     class="practice-card flex cursor-pointer list-none items-center gap-3 p-4
+                            focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40
+                            [&::-webkit-details-marker]:hidden">
+              <div class="practice-card-icon-bg flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
+                <svg class="practice-card-icon h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="truncate text-sm font-semibold text-white">{{ s.display }}</div>
+                <div class="text-xs text-slate-500">{{ t('practice.card.by_topic') }}</div>
+              </div>
+              <svg class="h-4 w-4 shrink-0 text-slate-500 transition-transform duration-200 group-open/subj:rotate-90"
+                   fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </summary>
+            <div class="border-t border-white/[0.06] p-2">
+              <a href="/eXam/practice/{{ s.slug }}?topic=all"
+                 class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-slate-300 transition
+                        hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40">
+                <svg class="h-4 w-4 shrink-0 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                </svg>
+                <span class="flex-1 font-medium">{{ t('practice.topic.random') }}</span>
+              </a>
+              {% for tp in s.topics %}
+              <a href="/eXam/practice/{{ s.slug }}?topic={{ tp.number }}"
+                 class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-slate-300 transition
+                        hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40">
+                <span class="inline-flex h-6 min-w-[1.75rem] shrink-0 items-center justify-center rounded-md
+                             bg-white/[0.06] px-1 text-xs font-semibold text-cyan-200">{{ tp.number }}</span>
+                <span class="min-w-0 flex-1 truncate">{{ tp.title }}</span>
+                {% if tp.correct > 0 %}
+                <span class="inline-flex items-center gap-0.5 text-xs text-emerald-300" title="{{ t('practice.stat.correct') }}">
+                  <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/>
+                  </svg>{{ tp.correct }}
+                </span>
+                {% endif %}
+                <span class="shrink-0 tabular-nums text-xs text-slate-500">{{ tp.available }}</span>
+              </a>
+              {% endfor %}
+            </div>
+          </details>
+          {% else %}
+          {# Available but no topic map yet — straight to a random question. #}
           <a href="/eXam/practice/{{ s.slug }}"
              data-subject="{{ s.slug }}"
              class="practice-card lib-card flex items-center gap-3 rounded-2xl border border-white/[0.08]
@@ -88,24 +156,20 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </a>
-          {% else %}
-          <div class="flex items-center gap-3 rounded-2xl border border-white/[0.05]
-                      bg-white/[0.015] p-4 opacity-60 cursor-not-allowed">
-            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.04]">
-              <svg class="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-              </svg>
-            </div>
-            <div class="min-w-0 flex-1">
-              <div class="truncate text-sm font-semibold text-slate-300">{{ s.display }}</div>
-              <div class="text-xs text-slate-500">{{ t('practice.card.no_papers') }}</div>
-            </div>
-          </div>
           {% endif %}
         {% endfor %}
       </div>
     {% endif %}
   {% endfor %}
 </section>
+<script>
+  // Re-open + scroll to the subject accordion named by the URL hash — used by the
+  // question page's "Choose another topic" back-link (/eXam/practice#<slug>).
+  (function () {
+    var id = (location.hash || "").slice(1);
+    if (!id) return;
+    var el = document.getElementById(decodeURIComponent(id));
+    if (el && el.tagName === "DETAILS") { el.open = true; el.scrollIntoView({ block: "start" }); }
+  })();
+</script>
 {% endblock %}

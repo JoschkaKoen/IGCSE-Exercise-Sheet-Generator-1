@@ -1,0 +1,212 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Quantum physics}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Photons: the particle nature of light}
+
+Electromagnetic radiation behaves like \textbf{particles} as well as like a wave. The particles of EM radiation are \textbf{photons} 光子 — small packets ("\textbf{quanta}" 量子) of EM energy that travel at the speed of light.
+
+\subsection*{Energy of a photon}
+
+A photon of \textbf{frequency} 频率 $f$ has energy
+
+\[
+E = h f,
+\]
+
+where $h = 6.63 \times 10^{-34}\ \text{J s}$ is the \textbf{Planck constant} 普朗克常量. Using $c = f\lambda$:
+
+\[
+E = \frac{h c}{\lambda}.
+\]
+
+Higher-frequency (shorter-\textbf{wavelength} 波长) photons carry more energy: one γ-ray photon carries far more than one radio photon.
+
+\subsection*{The electronvolt}
+
+The \textbf{electronvolt} 电子伏特 (eV) is a handy energy unit on the atomic scale:
+
+\[
+1\ \text{eV} = 1.60 \times 10^{-19}\ \text{J}.
+\]
+
+It is the \textbf{kinetic energy} 动能 an \textbf{electron} 电子 gains moving through a \textbf{potential difference} 电势差 of 1 V. For example, a visible photon ($\lambda \approx 500\ \text{nm}$) has energy $\approx 2.5\ \text{eV}$. To go eV → J multiply by $1.60 \times 10^{-19}$; J → eV divide.
+
+\subsection*{Momentum of a photon}
+
+A photon also carries \textbf{momentum} 动量:
+
+\[
+p = \frac{E}{c} = \frac{h}{\lambda}.
+\]
+
+It has zero rest mass but a non-zero momentum $E/c$. Radiation pressure (photons pushing on a surface) follows from this.
+
+\section*{Photoelectric effect}
+
+When EM radiation of high enough frequency hits a metal, \textbf{electrons are emitted}. These are \textbf{photoelectrons} 光电子, and the effect is the \textbf{photoelectric effect} 光电效应.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/22-p367-photoelectric-demo.pdf}}\\[0.3em]
+\emph{A charged zinc plate loses its charge — the gold leaf falls — when ultraviolet light shines on it}
+\end{minipage}\par\medskip
+
+\subsection*{Threshold frequency and work function}
+
+Each metal has a lowest photon frequency, the \textbf{threshold frequency} 极限频率 $f_{0}$, below which \textbf{no} electrons come out, however bright the light. The \textbf{work function} 逸出功 $\Phi$ is the \textbf{least energy} needed to free an electron from the surface:
+
+\[
+\Phi = h f_{0}.
+\]
+
+Different metals have different work functions (about $2$–$5\ \text{eV}$).
+
+\subsection*{Einstein's photoelectric equation}
+
+One photon gives all its energy to one electron. If the photon energy $hf$ is more than the work function, the electron escapes with kinetic energy up to a maximum:
+
+\[
+h f = \Phi + \tfrac{1}{2} m v_{\text{max}}^{2}, \qquad\text{so}\qquad \tfrac{1}{2} m v_{\text{max}}^{2} = h(f - f_{0}).
+\]
+
+So the maximum KE of photoelectrons depends \textbf{linearly on frequency}, not on brightness.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/22-p369-max-ke-vs-frequency.pdf}}\\[0.3em]
+\emph{The maximum kinetic energy of photoelectrons rises linearly with frequency, reaching zero at the threshold frequency f₀}
+\end{minipage}\par\medskip
+
+\subsection*{Why the wave model fails}
+
+A wave model predicts that brightness should set the electrons' kinetic energy, and that emission should happen at any frequency given enough time. But experiments show:
+
+\begin{itemize}
+\item \textbf{no emission below the threshold frequency}, however bright.
+
+\item \textbf{immediate emission} at or above the threshold, even when dim.
+
+\item \textbf{maximum KE depends on frequency}, not brightness.
+
+\item the \textbf{number of photoelectrons} (the current) depends on brightness.
+
+\end{itemize}
+
+The photon model explains this: light arrives as photons each of energy $hf$. One photon–electron interaction either has enough energy to free the electron ($hf \geq \Phi$) or it does not.
+
+\subsection*{Why max KE is fixed but current grows with brightness}
+
+A brighter beam of the \textbf{same frequency} has \textbf{more photons per second}, but each still carries $hf$. So the maximum KE of any electron is $hf - \Phi$ (set by $f$ only), while the rate of emission (the current) grows with the number of photons, i.e. with brightness. Doubling the brightness doubles the current but does not change the maximum KE.
+
+\section*{Wave–particle duality}
+
+The photoelectric effect is strong evidence for the \textbf{particle} nature of light. But \textbf{interference} 干涉 (Young's double slit, the \textbf{diffraction grating} 衍射光栅) and \textbf{diffraction} 衍射 show its \textbf{wave} nature. So light has \textbf{both} wave and particle sides — this is \textbf{wave–particle duality} 波粒二象性.
+
+\subsection*{De Broglie hypothesis}
+
+If a wave can act like particles, perhaps particles can act like waves. De Broglie proposed that any moving particle has a \textbf{de Broglie wavelength} 德布罗意波长:
+
+\[
+\lambda = \frac{h}{p},
+\]
+
+where $p = mv$. Example: an electron at $v = 4.9 \times 10^{7}\ \text{m s}^{-1}$ has $p = 4.46 \times 10^{-23}\ \text{kg m s}^{-1}$, so $\lambda = 1.49 \times 10^{-11}\ \text{m} \approx 0.015\ \text{nm}$ — close to atomic spacings.
+
+\subsection*{Electron diffraction}
+
+When electrons are fired at a \textbf{crystal lattice} 晶格 (e.g. thin graphite), they make a \textbf{diffraction pattern} of bright rings on a screen — exactly what waves of wavelength $\lambda = h/p$ would do. This is direct evidence for the \textbf{wave nature of particles} (\textbf{electron diffraction} 电子衍射): only waves diffract, yet electrons do.
+
+A faster electron has more momentum, so a \textbf{shorter} de Broglie wavelength, which diffracts less — the rings move \textbf{closer together}. Slowing the electrons spreads the rings apart. To calculate: $p = \sqrt{2 m E_{\text{K}}}$, and for an electron accelerated through p.d. $V$, $E_{\text{K}} = eV$, so $\lambda = h/\sqrt{2m_{e} e V}$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/22-p372-electron-diffraction.pdf}}\\[0.3em]
+\emph{Electrons fired at graphite form a ring diffraction pattern — only waves diffract, so electrons behave as waves}
+\end{minipage}\par\medskip
+
+\section*{Energy levels in atoms}
+
+In an isolated atom, electrons can only sit at certain \textbf{discrete} 分立 \textbf{energy levels} 能级 — never in between. The lowest is the \textbf{ground state} 基态; the others are \textbf{excited states} 激发态.
+
+By convention, energies are written \textbf{negative}, with $E = 0$ for an electron just free of the atom. For hydrogen the ground state is $E_{1} = -13.6\ \text{eV}$; higher states approach zero.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/22-p375-hydrogen-energy-levels.pdf}}\\[0.3em]
+\emph{The electron energy levels of hydrogen are discrete and negative, with the ground state at −13.6 eV}
+\end{minipage}\par\medskip
+
+\subsection*{Emission spectrum}
+
+When an electron drops from a higher level $E_{2}$ to a lower level $E_{1}$, it emits one photon of energy
+
+\[
+h f = E_{2} - E_{1}.
+\]
+
+(Both energies are negative; their difference is positive.) Because the levels are discrete, only certain photon energies — and so certain wavelengths — come out. The \textbf{emission spectrum} 发射光谱 is a set of \textbf{sharp bright lines} on a dark background, one line per \textbf{transition} 跃迁. The pattern is a "fingerprint" of the element.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/22-p375-hydrogen-emission-spectrum.pdf}}\\[0.3em]
+\emph{The emission spectrum of hydrogen is a set of sharp bright lines on a dark background}
+\end{minipage}\par\medskip
+
+\subsection*{Absorption spectrum}
+
+When white light passes through a cool gas, photons whose energy exactly matches an upward transition are absorbed. The light then shows \textbf{dark lines on a bright background} — the \textbf{absorption spectrum} 吸收光谱. The dark lines sit at the \textbf{same wavelengths} as the emission lines of the same gas.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/22-p377-sun-absorption-spectrum.pdf}}\\[0.3em]
+\emph{Dark absorption lines in the Sun's spectrum mark the wavelengths absorbed by cooler gas}
+\end{minipage}\par\medskip
+
+\subsection*{Calculations}
+
+For a transition between two known levels:
+
+\[
+hf = E_{2} - E_{1}, \qquad \lambda = \frac{hc}{E_{2} - E_{1}}.
+\]
+
+Work in consistent units — convert eV to joules (× $1.60 \times 10^{-19}$) before finding $\lambda$ in metres, or use $hc \approx 1240\ \text{eV nm}$ for a quick estimate.
+
+
+\end{document}

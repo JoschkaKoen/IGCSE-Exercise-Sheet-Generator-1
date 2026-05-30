@@ -34,6 +34,18 @@ CONTENT_ROOT = REPO_ROOT / "syllabi" / "content"
 TARGET_SUBJECTS = ("a_level_physics", "a_level_computer_science")
 
 _NUM_CHUNK_RE = re.compile(r"(\d+)")
+_CE_PREFIX_RE = re.compile(r"^[CE](?=\d)")
+
+
+def _topic_code(code: str) -> str:
+    """Normalise a subtopic code for topic-membership tests.
+
+    IGCSE Mathematics prefixes its subtopic codes with ``C``/``E`` (Core /
+    Extended) — e.g. ``C1.5``, ``E1.5`` — but both belong to top-level topic
+    ``1``. Every other subject uses bare numeric codes (``1.5``, ``1.5.1``,
+    or a bare ``7``), which pass through unchanged.
+    """
+    return _CE_PREFIX_RE.sub("", str(code).strip())
 
 
 # ── QuestionEntry ────────────────────────────────────────────────────────
@@ -184,7 +196,10 @@ def collect_questions_for_topic(
         # Keys: norm_qnum'd; values: list of codes.
         keys_in_topic = {
             k for k, codes in matches.items()
-            if any(c == target or c.startswith(prefix) for c in codes)
+            if any(
+                (tc := _topic_code(c)) == target or tc.startswith(prefix)
+                for c in codes
+            )
         }
         if not keys_in_topic:
             continue
@@ -251,7 +266,7 @@ def topic_qids(subject_key: str) -> dict[str, frozenset[str]]:
         for n, codes in toplevel_codes.items():
             qid = f"{subject_key}::{paper_stem}::{n}"
             for code in codes:
-                topic_num = str(code).split(".")[0].strip()
+                topic_num = _topic_code(code).split(".")[0].strip()
                 if topic_num.isdigit():
                     by_topic.setdefault(topic_num, set()).add(qid)
     return {k: frozenset(v) for k, v in by_topic.items()}
@@ -282,6 +297,19 @@ def meta_path(subject_key: str, topic_number: str) -> Path:
 
 def logs_dir(subject_key: str, topic_number: str) -> Path:
     return handout_dir(subject_key) / f"{padded_topic(topic_number)}_logs"
+
+
+def pdf_dir(subject_key: str) -> Path:
+    """Per-subject dir holding generated print artifacts (``<NN>.tex`` + ``<NN>.pdf``)."""
+    return handout_dir(subject_key) / "pdf"
+
+
+def tex_path(subject_key: str, topic_number: str) -> Path:
+    return pdf_dir(subject_key) / f"{padded_topic(topic_number)}.tex"
+
+
+def pdf_path(subject_key: str, topic_number: str) -> Path:
+    return pdf_dir(subject_key) / f"{padded_topic(topic_number)}.pdf"
 
 
 # ── Meta sidecar I/O ─────────────────────────────────────────────────────

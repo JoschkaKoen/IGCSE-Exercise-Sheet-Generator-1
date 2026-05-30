@@ -1,0 +1,198 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Alternating currents}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Alternating current basics}
+
+An \textbf{alternating current} 交流电 (a.c.) keeps reversing direction. Mains supply is sinusoidal a.c.: $I$ or $V$ follows a sine wave in time:
+
+\[
+I = I_{0} \sin (\omega t), \qquad V = V_{0} \sin (\omega t).
+\]
+
+(For a purely resistive load the \textbf{voltage} 电压 and \textbf{current} 电流 are in phase, which is the case in this syllabus.)
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/21-p356-dc-vs-ac.pdf}}\\[0.3em]
+\emph{A steady direct current compared with a sinusoidal alternating current of peak I₀ and period T}
+\end{minipage}\par\medskip
+
+\subsection*{Key terms}
+
+\begin{itemize}
+\item \textbf{period} 周期 $T$ — the time for one full cycle. Unit: s.
+
+\item \textbf{frequency} 频率 $f$ — cycles per second; $f = 1/T$. Mains is often $50\ \text{Hz}$ or $60\ \text{Hz}$.
+
+\item \textbf{angular frequency} 角频率 $\omega = 2\pi f = 2\pi/T$.
+
+\item \textbf{peak value} 峰值 $I_{0}$ or $V_{0}$ — the largest value in a cycle (also called the amplitude).
+
+\item \textbf{peak-to-peak value} 峰峰值 $2 I_{0}$ — from $+I_{0}$ to $-I_{0}$. Useful when reading an oscilloscope.
+
+\end{itemize}
+
+\subsection*{Reading a CRO trace}
+
+Same as for any wave (Topic 7), using a \textbf{cathode-ray oscilloscope} 示波器:
+
+\begin{itemize}
+\item horizontal divisions × \textbf{time-base} 时基 → period $T$, so $f = 1/T$.
+
+\item vertical divisions × $y$-gain → peak voltage $V_{0}$ (measure centre to peak, or peak-to-peak then halve).
+
+\end{itemize}
+
+\section*{Power delivered to a resistor}
+
+For a resistive load $R$, the instant \textbf{power} 功率 is $P(t) = I(t)^{2} R$. With $I = I_{0}\sin(\omega t)$:
+
+\[
+P(t) = I_{0}^{2} R \sin^{2}(\omega t).
+\]
+
+This is always positive, with peak $I_{0}^{2} R$ and minimum zero, oscillating at twice the frequency of $I$. The mean of $\sin^{2}(\omega t)$ over a cycle is $\tfrac{1}{2}$, so the \textbf{average power} is
+
+\[
+\langle P \rangle = \tfrac{1}{2} I_{0}^{2} R = \tfrac{1}{2} P_{\text{peak}}.
+\]
+
+Average a.c. power in a resistor is \textbf{half the peak power}.
+
+\section*{Root-mean-square (r.m.s.) values}
+
+The r.m.s. current $I_{\text{r.m.s.}}$ is the \textbf{steady direct current} that would give the same average power in the same \textbf{resistance} 电阻 $R$. From $\langle P \rangle = I_{\text{r.m.s.}}^{2} R = \tfrac{1}{2} I_{0}^{2} R$:
+
+\[
+I_{\text{r.m.s.}} = \frac{I_{0}}{\sqrt{2}}, \qquad V_{\text{r.m.s.}} = \frac{V_{0}}{\sqrt{2}}.
+\]
+
+The $\sqrt{2}$ comes from the name \textbf{root-mean-square} 均方根: $I_{\text{r.m.s.}} = \sqrt{\langle I^{2} \rangle}$ and $\langle \sin^{2}\rangle = \tfrac{1}{2}$. (Only the sinusoidal case is needed.)
+
+\subsection*{Why r.m.s. matters}
+
+Quoted a.c. values are r.m.s. values. "$230\ \text{V}$ mains" means $V_{\text{r.m.s.}} = 230\ \text{V}$, with peak $V_{0} = 230\sqrt{2} \approx 325\ \text{V}$. Components must be rated for the peak, not the r.m.s. Average power then takes the d.c. form:
+
+\[
+\langle P \rangle = I_{\text{r.m.s.}}^{2} R = V_{\text{r.m.s.}}^{2} / R = V_{\text{r.m.s.}} I_{\text{r.m.s.}}.
+\]
+
+\section*{Rectification}
+
+\textbf{Rectification} 整流 turns an alternating voltage into a one-direction (d.c.-like) voltage, using \textbf{diodes} 二极管 (which conduct in only one direction).
+
+\subsection*{Half-wave rectification}
+
+A \textbf{single diode} in series with the load passes only the positive half of each cycle; in the negative half the diode is \textbf{reverse-biased} 反向偏置 and no current flows. This is \textbf{half-wave rectification} 半波整流.
+
+Output: positive half-waves with flat zero gaps. The mean output is $V_{0}/\pi \approx 0.32 V_{0}$. Drawback: half the input is wasted and the output is very uneven.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/21-p361-half-wave-rectification.pdf}}\\[0.3em]
+\emph{In half-wave rectification a single diode passes only the positive half-cycles}
+\end{minipage}\par\medskip
+
+\subsection*{Full-wave rectification (bridge rectifier)}
+
+A \textbf{bridge rectifier} 桥式整流器 uses \textbf{four diodes} arranged so the current through the load always flows the same way, whichever a.c. terminal is positive — \textbf{full-wave rectification} 全波整流. On each half-cycle a different pair of diodes conducts, but the load always sees the same direction.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/21-p362-bridge-rectifier.pdf}}\\[0.3em]
+\emph{A four-diode bridge sends the load current the same way whichever a.c. terminal is positive}
+\end{minipage}\par\medskip
+
+Output: a continuous run of positive half-waves (no gaps), at \textbf{twice} the input frequency. The mean output is $2V_{0}/\pi \approx 0.64 V_{0}$ — double the half-wave value. It uses all the input and is smoother and easier to filter.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/21-p361-full-wave-rectification.pdf}}\\[0.3em]
+\emph{In full-wave rectification every half-cycle is used, giving a continuous run of positive humps}
+\end{minipage}\par\medskip
+
+\subsection*{Drawing the diagrams}
+
+\begin{itemize}
+\item half-wave: a.c. source — single diode — load $R$, in series.
+
+\item full-wave bridge: four diodes as the arms of a "diamond"; the a.c. input goes to one pair of opposite corners, the load $R$ across the other pair. The diode directions make the load terminals keep the same polarity for either input polarity.
+
+\end{itemize}
+
+\section*{Smoothing with a capacitor}
+
+A rectifier's output is still bumpy. To smooth it, put a \textbf{capacitor} 电容器 $C$ \textbf{in parallel with the load} $R$.
+
+\subsection*{How it works}
+
+\begin{itemize}
+\item on the \textbf{rising part} of each pulse, the capacitor charges up to near the peak.
+
+\item on the \textbf{falling part} (and any gap), the diodes are reverse-biased, so the capacitor \textbf{discharges through the load}, keeping current flowing. The voltage falls with \textbf{time constant} 时间常数 $RC$ (Topic 19).
+
+\item at the next peak, the capacitor charges again, and the cycle repeats.
+
+\end{itemize}
+
+The output now sits near the peak with small dips. The size of the dips is the \textbf{ripple} 纹波 (this whole step is called \textbf{smoothing} 平滑).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/21-p362-smoothing-capacitor.pdf}}\\[0.3em]
+\emph{A capacitor across the load smooths the rectified output, leaving only a small ripple}
+\end{minipage}\par\medskip
+
+\subsection*{What reduces the ripple}
+
+\begin{itemize}
+\item \textbf{larger $C$} → more stored charge → smaller dip between peaks → smaller ripple.
+
+\item \textbf{larger $R$} → smaller load current → slower discharge → smaller ripple.
+
+\item \textbf{higher rectified frequency} (full-wave is twice the input) → less time to discharge between peaks → smaller ripple.
+
+\end{itemize}
+
+In short, a large $RC$ compared with the time between peaks gives a smoother output.
+
+\subsection*{Purpose in summary}
+
+The smoothing capacitor reduces the ripple, giving a steadier d.c. voltage suitable for sensitive electronics.
+
+
+\end{document}

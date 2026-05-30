@@ -1,0 +1,38 @@
+topic_number: '10'
+topic_title: Government macroeconomic intervention (A Level)
+subject_key: a_level_economics
+covered_question_ids:
+- paper: 9708 Economics November 2025 Question Paper  31
+  qnum: '16'
+- paper: 9708 Economics November 2025 Question Paper  31
+  qnum: '19'
+- paper: 9708 Economics November 2025 Question Paper  31
+  qnum: '23'
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '15'
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '16'
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '20'
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '21'
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '22'
+- paper: 9708 Economics November 2025 Question Paper  33
+  qnum: '18'
+- paper: 9708 Economics November 2025 Question Paper  33
+  qnum: '22'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '21'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '22'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '24'
+- paper: 9708 Economics November 2025 Question Paper  34
+  qnum: '25'
+generated_at: '2026-05-29T16:03:37Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:03:37Z'
+glossed_at: '2026-05-29T16:08:36Z'

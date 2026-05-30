@@ -1,0 +1,13 @@
+subject_key: igcse_business_studies
+paper_stem: 0450 Business Studies November 2025 Question Paper  23
+model: claude
+matched_at: '2026-05-29T14:08:22Z'
+matches:
+  1a: ['3.1']
+  1b: ['1.4']
+  2a: ['2.2']
+  2b: ['4.2']
+  3a: ['3.3']
+  3b: ['2.3']
+  4a: ['5.5']
+  4b: ['6.3']

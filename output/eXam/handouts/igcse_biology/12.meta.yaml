@@ -1,0 +1,62 @@
+topic_number: '12'
+topic_title: Respiration
+subject_key: igcse_biology
+covered_question_ids:
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '19'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '22'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '20'
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 2ci
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '19'
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 1bi
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '19'
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '17'
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 6a
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 6bi
+- paper: 0610 Biology November 2025 Question Paper  42
+  qnum: 6c
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 1ai
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 1aii
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 1aiii
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 1aiv
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 1av
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 1b
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 1di
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 1dii
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: '2'
+- paper: 0610 Biology November 2025 Question Paper  63
+  qnum: 2ai
+- paper: 0610 Biology November 2025 Question Paper  63
+  qnum: 2aii
+- paper: 0610 Biology November 2025 Question Paper  63
+  qnum: 2bi
+- paper: 0610 Biology November 2025 Question Paper  63
+  qnum: 2bii
+- paper: 0610 Biology November 2025 Question Paper  63
+  qnum: 2biii
+- paper: 0610 Biology November 2025 Question Paper  63
+  qnum: 2c
+generated_at: '2026-05-29T16:07:06Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:07:06Z'
+glossed_at: '2026-05-29T16:07:06Z'

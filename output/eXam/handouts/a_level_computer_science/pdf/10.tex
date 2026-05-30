@@ -1,0 +1,280 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Data Types and Structures}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Choosing data types}
+
+Every variable needs a \textbf{data type} 数据类型 — the kind of value it holds and the operations allowed:
+
+\begin{itemize}
+\item \texttt{INTEGER} — a whole number (\texttt{42}, \texttt{-7}). For counts, indexes, IDs.
+
+\item \texttt{REAL} — a number with a fractional part (\texttt{3.14}). For money, measurements.
+
+\item \texttt{STRING} — characters in quotes (\texttt{"Hello"}). For text.
+
+\item \texttt{CHAR} — a single character (\texttt{'A'}).
+
+\item \texttt{BOOLEAN} — \texttt{TRUE} or \texttt{FALSE}. For flags.
+
+\item \texttt{DATE} — a calendar date.
+
+\end{itemize}
+
+Pick the smallest precise type that fits: \texttt{INTEGER} for whole counts, \texttt{BOOLEAN} for flags (not the strings \texttt{"yes"}/\texttt{"no"}).
+
+\section*{Records}
+
+A \textbf{record} 记录 holds \textbf{several fields of different types} under one name — useful when several values describe one thing.
+
+\begin{Verbatim}
+TYPE TStockItem
+    DECLARE ItemID : INTEGER
+    DECLARE Category : STRING
+    DECLARE ItemCost : REAL
+    DECLARE InStock : BOOLEAN
+ENDTYPE
+\end{Verbatim}
+
+This defines the \textbf{type} \texttt{TStockItem}; declare variables of it:
+
+\begin{Verbatim}
+DECLARE Item1 : TStockItem
+DECLARE Items : ARRAY[1:100] OF TStockItem
+\end{Verbatim}
+
+Use dot notation to reach each \textbf{field} 字段:
+
+\begin{Verbatim}
+Item1.Category ← "Fruit"
+OUTPUT Item1.Category, " costs ", Item1.ItemCost
+\end{Verbatim}
+
+Use a record when values \textbf{always belong together} (a customer, a stock item); use separate variables for unrelated values.
+
+\section*{Arrays}
+
+An \textbf{array} 数组 is an ordered collection of items of the \textbf{same type}, under one name, reached by an \textbf{index} 索引.
+
+\begin{itemize}
+\item \textbf{element} 元素 — one item in the array.
+
+\item \textbf{bounds} 边界 — the lowest and highest valid indices.
+
+\item \textbf{dimension} 维度 — 1-D (a list), 2-D (a table), etc.
+
+\end{itemize}
+
+\subsection*{1-D arrays}
+
+\begin{Verbatim}
+DECLARE Names : ARRAY[1:5] OF STRING
+Names[3] ← "Cara"
+OUTPUT Names[3]
+\end{Verbatim}
+
+Process every element with a \texttt{FOR} loop:
+
+\begin{Verbatim}
+FOR i ← 1 TO 5
+    OUTPUT Names[i]
+NEXT i
+\end{Verbatim}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/10-p257-array-1d.pdf}}\\[0.3em]
+\emph{A 1-D array (a list) with indices and bounds}
+\end{minipage}\par\medskip
+
+\subsection*{2-D arrays}
+
+\begin{Verbatim}
+DECLARE Grid : ARRAY[1:3, 1:4] OF INTEGER
+Grid[2, 3] ← 99
+\end{Verbatim}
+
+The first index is the row, the second the column. Use nested loops to visit every cell. Use \textbf{1-D} for a single sequence, \textbf{2-D} for two natural dimensions (a grid, rows × columns).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/10-p258-array-2d.pdf}}\\[0.3em]
+\emph{A 2-D array (a table) with row and column indices}
+\end{minipage}\par\medskip
+
+\subsection*{Common operations}
+
+A \textbf{linear search} 线性查找 checks each element until found:
+
+\begin{Verbatim}
+FOR i ← 1 TO n
+    IF A[i] = Target THEN
+        OUTPUT "Found at ", i
+    ENDIF
+NEXT i
+\end{Verbatim}
+
+To find a sum, count, maximum or minimum, set a running variable then sweep through:
+
+\begin{Verbatim}
+Max ← A[1]
+FOR i ← 2 TO n
+    IF A[i] > Max THEN Max ← A[i]
+NEXT i
+\end{Verbatim}
+
+\section*{Files}
+
+A \textbf{file} 文件 is data stored on \textbf{secondary storage} 辅助存储器, kept between program runs. Variables in RAM disappear when the program ends, so to save data permanently (high scores, records, settings) the program writes to a file. Files also let programs share data and restart from a saved state.
+
+A \textbf{text file} 文本文件 is lines of readable characters. Open a file before use and \textbf{close} it after:
+
+\begin{Verbatim}
+OPENFILE "data.txt" FOR READ      // or FOR WRITE, FOR APPEND
+WHILE NOT EOF("data.txt") DO
+    READFILE "data.txt", LineString
+    OUTPUT LineString
+ENDWHILE
+CLOSEFILE "data.txt"
+\end{Verbatim}
+
+\texttt{EOF} tests the \textbf{end of file} 文件结束 before reading. To write:
+
+\begin{Verbatim}
+OPENFILE "log.txt" FOR WRITE
+FOR i ← 1 TO 100
+    WRITEFILE "log.txt", "Event " & i
+NEXT i
+CLOSEFILE "log.txt"
+\end{Verbatim}
+
+Always \textbf{close} every file — otherwise buffered writes may be lost and other programs may be locked out.
+
+\section*{Abstract Data Types (ADTs)}
+
+An \textbf{Abstract Data Type} 抽象数据类型 (ADT) is a \textbf{collection of data plus operations on it}, defined by \textbf{what} it does, not how it is stored. The user works only through the operations; the implementation is hidden, so it can change without affecting code that uses the ADT. Know three: stack, queue, linked list.
+
+\subsection*{Stack}
+
+A \textbf{stack} 栈 works in \textbf{LIFO} 后进先出 order (Last In, First Out). Operations: \textbf{push} 入栈 (add to the top), \textbf{pop} 出栈 (remove from the top), peek (look at the top), and tests for empty/full. Uses: undo history, function-call return addresses, expression parsing, backtracking.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/10-p267-stack-operations.pdf}}\\[0.3em]
+\emph{Push and pop change the top pointer; the base pointer stays put}
+\end{minipage}\par\medskip
+
+\subsection*{Queue}
+
+A \textbf{queue} 队列 works in \textbf{FIFO} 先进先出 order (First In, First Out). Operations: \textbf{enqueue} 入队 (add to the rear), \textbf{dequeue} 出队 (remove from the front), and tests for empty/full. Uses: print spooling, scheduling, breadth-first search, buffering.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/10-p269-queue-operations.pdf}}\\[0.3em]
+\emph{Enqueue adds at the rear; dequeue removes from the front}
+\end{minipage}\par\medskip
+
+\subsection*{Linked list}
+
+A \textbf{linked list} 链表 stores data as a sequence of \textbf{nodes} 节点. Each node holds a value and a \textbf{pointer} 指针 to the next node; a head pointer marks the start, and the last node's pointer is a sentinel (e.g. \texttt{NULL}). Operations: insert, delete, search, and \textbf{traverse} 遍历 (visit each node in order). Its advantage over an array is cheap insertion/deletion (just adjust pointers); its disadvantage is slow random access (you must follow pointers from the head).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/10-p267-linked-list.pdf}}\\[0.3em]
+\emph{A linked list: each node points to the next}
+\end{minipage}\par\medskip
+
+\section*{Implementing ADTs using arrays}
+
+\subsection*{Stack using an array}
+
+Hold items in \texttt{Stack[1:MaxSize]} with an integer \texttt{Top} (0 when empty).
+
+\begin{itemize}
+\item \texttt{Push(x)}: if \texttt{Top = MaxSize} the stack is full (\textbf{overflow} 溢出); else \texttt{Top ← Top + 1}; \texttt{Stack[Top] ← x}.
+
+\item \texttt{Pop()}: if \texttt{Top = 0} the stack is empty (\textbf{underflow} 下溢); else return \texttt{Stack[Top]} and \texttt{Top ← Top - 1}.
+
+\end{itemize}
+
+\subsection*{Queue using a circular array}
+
+A simple queue lets \texttt{Front} and \texttt{Rear} march off the end, wasting the start. The fix is a \textbf{circular array} 循环数组 — when a pointer reaches \texttt{MaxSize} it wraps back to 1:
+
+\begin{itemize}
+\item \texttt{Enqueue(x)}: check full; else \texttt{Rear ← (Rear MOD MaxSize) + 1}; \texttt{Queue[Rear] ← x}.
+
+\item \texttt{Dequeue()}: check empty; else return \texttt{Queue[Front]} and \texttt{Front ← (Front MOD MaxSize) + 1}.
+
+\end{itemize}
+
+Track a separate count to tell empty from full.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/10-p269-circular-queue.pdf}}\\[0.3em]
+\emph{A circular queue wraps the pointers back to the start of the array}
+\end{minipage}\par\medskip
+
+\subsection*{Linked list using an array}
+
+Use an array of records, each with a \texttt{Next} index:
+
+\begin{Verbatim}
+TYPE TNode
+    DECLARE Value : INTEGER
+    DECLARE Next : INTEGER     // index of the next node, or -1 for end
+ENDTYPE
+
+DECLARE Nodes : ARRAY[1:MaxSize] OF TNode
+DECLARE Head : INTEGER         // index of first node, -1 if empty
+DECLARE FreeListHead : INTEGER // first available free node
+\end{Verbatim}
+
+A \textbf{free list} 空闲列表 chains the unused slots, just as the data list chains its used ones. To insert: take a slot from \texttt{FreeListHead}, set the new node's value and \texttt{Next}, and update the previous node's \texttt{Next} (or \texttt{Head}). To delete: unlink the node and return its slot to the free list. This gives the flexibility of a linked structure with the static allocation of an array.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/10-p272-linked-list-array.pdf}}\\[0.3em]
+\emph{A linked list stored in an array: a data array and a pointer array}
+\end{minipage}\par\medskip
+
+
+\end{document}

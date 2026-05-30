@@ -112,3 +112,76 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:18:07Z'
 glossed_at: '2026-05-29T05:18:07Z'
+figures:
+  - file: assets/10-p194-circuit-symbols.png
+    caption: The standard circuit symbols you need to recognise and draw
+    figure_ref: '10.1'
+    source_page_pdf: 194
+    source_page_printed: 178
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [50.0, 171.6, 556.4, 415.0]
+    placed_under: "### Circuit symbols"
+  - file: assets/10-p196-internal-resistance-circuit.png
+    caption: Circuit for measuring the e.m.f. and internal resistance of a cell
+    figure_ref: '10.4'
+    source_page_pdf: 196
+    source_page_printed: 180
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [54.0, 339.0, 165.0, 453.0]
+    placed_under: "### Internal resistance"
+  - file: assets/10-p196-terminal-pd-vs-current.png
+    caption: Terminal p.d. against current — the intercept is the e.m.f. and the gradient is minus the internal resistance
+    figure_ref: '10.5'
+    source_page_pdf: 196
+    source_page_printed: 180
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [54.0, 517.0, 167.0, 600.0]
+    placed_under: "### Internal resistance"
+  - file: assets/10-p198-current-divides-parallel.png
+    caption: Current divides at a junction in a parallel circuit (3 A in equals 2 A plus 1 A)
+    figure_ref: '10.9'
+    source_page_pdf: 198
+    source_page_printed: 182
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [50.0, 205.0, 178.0, 311.0]
+    placed_under: "### First law (junction rule)"
+  - file: assets/10-p199-resistors-in-series.png
+    caption: Two resistors in series and their single equivalent resistor
+    figure_ref: '10.16'
+    source_page_pdf: 199
+    source_page_printed: 183
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [183.0, 627.0, 431.0, 694.0]
+    placed_under: "### Combining resistors"
+  - file: assets/10-p200-resistors-in-parallel.png
+    caption: Two resistors in parallel and their single equivalent resistor
+    figure_ref: '10.17'
+    source_page_pdf: 200
+    source_page_printed: 184
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [198.0, 398.0, 445.0, 505.0]
+    placed_under: "### Combining resistors"
+  - file: assets/10-p202-potential-divider.png
+    caption: A potential divider — the p.d. splits between R1 and R2 in proportion to their resistances
+    figure_ref: '10.21'
+    source_page_pdf: 202
+    source_page_printed: 186
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [185.0, 40.0, 340.0, 192.0]
+    placed_under: "## Potential dividers"
+  - file: assets/10-p202-thermistor-divider.png
+    caption: A thermistor in a potential divider gives an output voltage that changes with temperature
+    figure_ref: '10.22'
+    source_page_pdf: 202
+    source_page_printed: 186
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [194.0, 405.0, 387.0, 596.0]
+    placed_under: "### Sensor circuits"
+  - file: assets/10-p204-potentiometer-null.png
+    caption: A potentiometer comparing two cell e.m.f.s by the null method
+    figure_ref: '10.26'
+    source_page_pdf: 204
+    source_page_printed: 188
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [184.0, 554.0, 372.0, 683.0]
+    placed_under: "### Potentiometer and the null method"

@@ -1,0 +1,38 @@
+english	简体中文	pinyin
+digit	数字	shù zì
+binary	二进制	èr jìn zhì
+data	数据	shù jù
+logic gate	逻辑门	luó jí mén
+processor	处理器	chǔ lǐ qì
+register	寄存器	jì cún qì
+number system	数制	shù zhì
+denary	十进制	shí jìn zhì
+hexadecimal	十六进制	shí liù jìn zhì
+base	基数	jī shù
+place value	位值	wèi zhí
+bit	位	wèi
+byte	字节	zì jié
+nibble	半字节	bàn zì jié
+memory address	内存地址	nèi cún dì zhǐ
+overflow	溢出	yì chū
+logical binary shift	逻辑二进制移位	luó jí èr jìn zhì yí wèi
+least significant bit	最低有效位	zuì dī yǒu xiào wèi
+two's complement	补码	bǔ mǎ
+most significant bit	最高有效位	zuì gāo yǒu xiào wèi
+character set	字符集	zì fú jí
+emoji	表情符号	biǎo qíng fú hào
+storage	存储	cún chǔ
+sound wave	声波	shēng bō
+sampling	采样	cǎi yàng
+sample rate	采样率	cǎi yàng lǜ
+sample resolution	采样分辨率	cǎi yàng fēn biàn lǜ
+amplitude	振幅	zhèn fú
+pixel	像素	xiàng sù
+resolution	分辨率	fēn biàn lǜ
+colour depth	颜色深度	yán sè shēn dù
+compression	压缩	yā suō
+bandwidth	带宽	dài kuān
+transmission	传输	chuán shū
+lossless	无损	wú sǔn
+run-length encoding	行程编码	xíng chéng biān mǎ
+lossy	有损	yǒu sǔn

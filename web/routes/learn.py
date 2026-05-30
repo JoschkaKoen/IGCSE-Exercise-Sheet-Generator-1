@@ -35,6 +35,7 @@ from ..handouts_collect import (
     load_meta,
     meta_path,
     padded_topic,
+    pdf_path,
 )
 from ..syllabus_content import load_content
 from ..syllabus_topics import load_topics
@@ -262,6 +263,13 @@ async def topics_page(request: Request, subject: str):
         topic_num = str(topic.get("number") or "")
         md = load_handout_md(subject, topic_num) if topic_num else None
         topic["handout_html"] = render_helper_markdown(md) if md else None
+        pf = pdf_path(subject, topic_num) if topic_num else None
+        if pf is not None and pf.is_file():
+            pt = padded_topic(topic_num)
+            # Served by the existing /handout-media static mount; ?v=<mtime> busts
+            # the browser cache when a regenerated PDF is re-committed.
+            topic["handout_pdf_url"] = f"/handout-media/{subject}/pdf/{pt}.pdf?v={int(pf.stat().st_mtime)}"
+            topic["handout_pdf_name"] = f"{_display_name(subject).replace(' ', '-')}-{pt}.pdf"
     return TEMPLATES.TemplateResponse(
         request,
         "learn/topics.html",

@@ -1,0 +1,127 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'For $A$: $T = mg$. For $B$ vertically: $T\cos\theta = 0.5mg$,
+    so $\cos\theta = \tfrac12$, $\theta = 60\degree$. For $B$ horizontally: $T\sin\theta
+    = 0.5m(BR\sin\theta)\omega^2$. Geometry: $BR\cos\theta = AR$ with $AR + BR = 12a$
+    gives $BR = 8a$. Then $mg = 0.5m(8a)\omega^2 = 4ma\omega^2$, so $\omega = \tfrac12\sqrt{\dfrac{g}{a}}$.'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Trajectory $y = x\tan\theta - \dfrac{gx^2}{2u^2\cos^2\theta}$.
+    With $\tan\theta = 2$, $\cos^2\theta = \tfrac15$, $g = 10$: $y = 2x - \dfrac{10x^2}{2u^2\cdot\tfrac15}
+    = 2x - \dfrac{25x^2}{u^2}$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Through $(8, 12)$: $12 = 16 - \dfrac{25\cdot64}{u^2} \Rightarrow
+    u^2 = 400$ ($u = 20$). So $y = 2x - \dfrac{25x^2}{400}$. Range ($y=0$): $D = 0$
+    or $32$. Height 7 ($y=7$): $D = 4$ or $28$. Since the barrier is struck after
+    $P$ passes $(8,12)$ (on the descending part with $y \leqslant 7$), $28 \leqslant
+    D \leqslant 32$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using areas and distances ($ABCD$: $4a^2$, $a$, $a$; $AED$:
+    $a^2$, $\tfrac13 a$, $\tfrac23 a$; $BCF$: $ah$, $2a - \tfrac13 h$, $\tfrac43 a$;
+    shape $BFDE$: $3a^2 - ah$). Moments about $AD$: $(3a^2 - ah)\bar x = 4a^2\cdot
+    a - a^2\cdot\tfrac13 a - ah\left(2a - \tfrac13 h\right)$, giving $\bar x = \dfrac{h^2
+    - 6ah + 11a^2}{3(3a - h)}$ (AG). Moments about $AB$: $(3a^2 - ah)\bar y = 4a^2\cdot
+    a - a^2\cdot\tfrac23 a - ah\cdot\tfrac43 a$, giving $\bar y = \dfrac{2a(5a - 2h)}{3(3a
+    - h)}$.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'For equilibrium on edge $EB$, the centre of mass must lie over
+    the base, i.e. $\bar x \geqslant a$: $h^2 - 3ah + 2a^2 \geqslant 0$, i.e. $(h-a)(h-2a)
+    \geqslant 0$. So $0 \leqslant h \leqslant a$ (or $h = 2a$).'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At the top, $R \geqslant 0$ gives $\dfrac{mw^2}{a} \geqslant
+    mg$, i.e. $w^2 \geqslant ag$. Energy ($A$ to top, rise $a(1 - \cos\theta)$): $\tfrac12
+    mv^2 - \tfrac12 mw^2 \geqslant mga(1 - \cos\theta)$. Substituting $w^2 = ag$ and
+    $\cos\theta = \tfrac{1}{18}$: $\tfrac12 mv^2 \geqslant \tfrac{13}{9}mga$, so $v
+    \geqslant \tfrac13\sqrt{26ag}$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Greatest reaction is at the bottom. Energy ($A$ to bottom,
+    drop $a(1 + \cos\theta)$): $\tfrac12 mv^2 + mga(1 + \cos\theta) = \tfrac12 mV^2$,
+    giving $V^2 = 5ag$. At the bottom, $R_{\max} - mg = \dfrac{mV^2}{a} = 5mg$, so
+    $R_{\max} = 6mg$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Moving up: $mv\dfrac{dv}{dx} = -0.025v^2 m - 10m$, so $\displaystyle\int\dfrac{v}{10
+    + 0.025v^2}\,dv = -\int dx$, giving $\tfrac12\ln(v^2 + 400) = -0.025x + c$. At
+    $x = 0$, $v = 20$: $c = \tfrac12\ln 800$. So $v^2 + 400 = 800\mathrm{e}^{-0.05x}$,
+    i.e. $v = 20\sqrt{2\mathrm{e}^{-\frac{1}{20}x} - 1}$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Moving up: $m\dfrac{dv}{dt} = -0.025v^2 m - 10m$, so $-\displaystyle\int
+    dt = \int\dfrac{1}{10 + 0.025v^2}\,dv$, giving $-t + k = 2\tan^{-1}\!\left(\dfrac{v}{20}\right)$.
+    At $t = 0$, $v = 20$: $k = 2\tan^{-1}(1) = \tfrac12\pi$. So $v = 20\tan\!\left(\tfrac14\pi
+    - \tfrac12 t\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'N2L for $P$: $T_1 = T_2 + kmg$. Hooke''s law: $T_1 = \dfrac{5mg(22a
+    - BP - 4a)}{4a}$ (string $AP$, length $22a - BP$) and $T_2 = \dfrac{6mg(BP - 8a)}{8a}$
+    (string $BP$). Substituting: $\dfrac{5mg(18a - BP)}{4a} = \dfrac{6mg(BP - 8a)}{8a}
+    + kmg$, giving $8BP = 114a - 4ak$, so $BP = \dfrac{57a - 2ak}{4}$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Energy conservation (instantaneous rest at both ends, so no
+    KE). At $BP = 18a$: $AP = 4a$ (natural length, $0$ EPE), $BP$ extension $10a$.
+    At $BP = 8a$: $AP = 14a$ (extension $10a$), $BP$ natural ($0$ EPE). $P$ descends
+    $10a$: $\dfrac{6mg(10a)^2}{2\cdot8a} + 18kmga = \dfrac{5mg(10a)^2}{2\cdot4a} +
+    8kmga$. Solving: $37.5mga + 18kmga = 62.5mga + 8kmga \Rightarrow 10kmga = 25mga$,
+    so $k = \tfrac52$.'
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Perpendicular to Wall $Y$ (restitution): $eu\sin\alpha = v\sin\theta$,
+    where $v$ is the speed after the collision. Distances: $P_1P_2 = uT$, $P_2P_3
+    = vkT$; and $\sin\alpha = \dfrac{d}{P_1P_2} = \dfrac{d}{uT}$, $\sin\theta = \dfrac{d}{P_2P_3}
+    = \dfrac{d}{vkT}$. Substituting: $eu\cdot\dfrac{d}{uT} = v\cdot\dfrac{d}{vkT}$,
+    i.e. $\dfrac{ed}{T} = \dfrac{d}{kT}$, so $e = \dfrac{1}{k}$.'
+  mark_scheme: []
+  graphics: []

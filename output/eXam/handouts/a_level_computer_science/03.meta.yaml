@@ -94,3 +94,52 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:39:31Z'
 glossed_at: '2026-05-29T05:39:31Z'
+figures:
+  - file: assets/03-p89-hdd-tracks-sectors.png
+    caption: Tracks and sectors on a hard disk platter
+    figure_ref: '3.6'
+    source_page_pdf: 89
+    source_page_printed: 73
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [37.0, 499.0, 158.0, 609.0]
+    placed_under: "### Magnetic hard disk (HDD)"
+  - file: assets/03-p97-microphone.png
+    caption: "Inside a microphone: sound vibrates the diaphragm and coil to produce a current"
+    figure_ref: '3.15'
+    source_page_pdf: 97
+    source_page_printed: 81
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [161.3, 169.5, 503.4, 290.9]
+    placed_under: "### Microphone and speakers"
+  - file: assets/03-p96-loudspeaker.png
+    caption: "Inside a loudspeaker: a varying current in the coil moves the cone to make sound"
+    figure_ref: '3.14'
+    source_page_pdf: 96
+    source_page_printed: 80
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 386.0, 419.2, 546.2]
+    placed_under: "### Microphone and speakers"
+  - file: assets/03-p102-monitoring-control-feedback.png
+    caption: Monitoring reports data; a control system acts through a feedback loop
+    figure_ref: '3.20'
+    source_page_pdf: 102
+    source_page_printed: 86
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [178.0, 38.2, 520.8, 389.2]
+    placed_under: "## Monitoring and control systems"
+  - file: assets/03-p105-six-logic-gates.png
+    caption: The symbols for the six logic gates
+    figure_ref: '3.22'
+    source_page_pdf: 105
+    source_page_printed: 89
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [161.1, 564.5, 433.5, 694.5]
+    placed_under: "## Logic gates"
+  - file: assets/03-p111-logic-circuit-example.png
+    caption: Gates wired together to carry out a Boolean expression
+    figure_ref: 'Example 3.2'
+    source_page_pdf: 111
+    source_page_printed: 95
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [172.0, 526.0, 354.0, 662.0]
+    placed_under: "### From expression to circuit"

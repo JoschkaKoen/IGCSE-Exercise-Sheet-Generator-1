@@ -50,3 +50,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:35:08Z'
 glossed_at: '2026-05-29T05:35:08Z'
+figures:
+  - file: assets/24-p399-ultrasound-transducer.png
+    caption: A piezo-electric transducer both sends and detects ultrasound using a vibrating crystal
+    figure_ref: '24.4'
+    source_page_pdf: 399
+    source_page_printed: 383
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.6, 530.8, 454.3, 686.7]
+    placed_under: "### Piezo-electric transducer"
+  - file: assets/24-p403-ultrasound-a-scan.png
+    caption: An A-scan shows the transmitted pulse and the echoes from each tissue boundary
+    figure_ref: '24.8'
+    source_page_pdf: 403
+    source_page_printed: 387
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [163.4, 517.3, 509.3, 706.5]
+    placed_under: "### Pulse-echo imaging"
+  - file: assets/24-p405-xray-tube.png
+    caption: In an X-ray tube electrons from the heated cathode are accelerated onto a metal target anode
+    figure_ref: '24.11'
+    source_page_pdf: 405
+    source_page_printed: 389
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.6, 215.0, 512.6, 403.3]
+    placed_under: "### Production"
+  - file: assets/24-p405-xray-spectrum.png
+    caption: A typical X-ray spectrum — a continuous Bremsstrahlung curve cut off at λ₀, with sharp characteristic peaks
+    figure_ref: '24.12'
+    source_page_pdf: 405
+    source_page_printed: 389
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.1, 477.8, 423.3, 653.2]
+    placed_under: "### Minimum wavelength"
+  - file: assets/24-p410-ct-scan-arrangement.png
+    caption: In a CT scan the X-ray tube and detectors rotate around the patient to image a slice from many angles
+    figure_ref: '24.20'
+    source_page_pdf: 410
+    source_page_printed: 394
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [175.0, 66.4, 503.3, 276.1]
+    placed_under: "### Computed tomography (CT)"

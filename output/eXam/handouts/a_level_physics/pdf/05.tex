@@ -1,0 +1,212 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Work, energy and power}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Work, energy and power}
+
+\subsection*{Work done by a force}
+
+\textbf{Work} 功 is done when a force moves its point of contact along the line of the force. The work done by a constant force $F$ that causes a \textbf{displacement} 位移 $s$ is
+
+\[
+W = F \cdot s \cdot \cos\theta,
+\]
+
+where $\theta$ is the angle between the force and the displacement. Only the \textbf{component} 分量 of the force along the displacement does work.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/05-p104-work-force-at-angle.pdf}}\\[0.3em]
+\emph{Only the component of the force along the displacement (F cos θ) does work}
+\end{minipage}\par\medskip
+
+Unit: $\text{J} = \text{N m}$. Work is a \textbf{scalar} 标量.
+
+Special cases:
+
+\begin{itemize}
+\item force in the same direction as the motion ($\theta = 0$): $W = Fs$, positive work, \textbf{energy} 能量 given \textbf{to} the object.
+
+\item force at right angles to the motion ($\theta = 90°$): $W = 0$. The \textbf{normal contact force} 支持力 on a car on a flat road does no work.
+
+\item force opposite to the motion ($\theta = 180°$): $W = -Fs$, negative work, energy taken \textbf{from} the object (for example \textbf{friction} 摩擦力).
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/05-p104-positive-negative-work.pdf}}\\[0.3em]
+\emph{Work done by the force (top) and work done on the force (bottom)}
+\end{minipage}\par\medskip
+
+For an object moving up a slope at angle $\alpha$ to the \textbf{horizontal} 水平, the work done against gravity in rising a height $h$ is $mgh$, while the work done by a horizontal push over the slope length $L$ uses $\cos\alpha$.
+
+\subsection*{Conservation of energy}
+
+Energy is \textbf{never made or destroyed} — it only changes from one form to another, or moves from one object to another. In a \textbf{closed system} 封闭系统, the total energy stays constant. This is \textbf{conservation of energy} 能量守恒.
+
+When you write an energy equation, list every form the energy starts as and ends as. Common forms in this syllabus: kinetic, gravitational potential, \textbf{elastic potential energy} 弹性势能, \textbf{electrical} 电能, thermal, sound, \textbf{chemical energy} 化学能.
+
+A ball rolling down a \textbf{frictionless} 无摩擦 \textbf{ramp} 斜坡 turns \textbf{gravitational potential energy} 重力势能 into \textbf{kinetic energy} 动能: $mgh = \tfrac{1}{2} m v^{2}$, so $v = \sqrt{2gh}$. With friction, some of this energy becomes \textbf{thermal energy} 热能 of the ramp and the air.
+
+\subsection*{Efficiency}
+
+The \textbf{efficiency} 效率 of a system is
+
+\[
+\text{efficiency} = \frac{\text{useful energy output}}{\text{total energy input}} \times 100\%.
+\]
+
+The same idea with power:
+
+\[
+\text{efficiency} = \frac{\text{useful power output}}{\text{total power input}} \times 100\%.
+\]
+
+Efficiency is always less than 100\% in a real system, because some input energy becomes "useless" forms — usually thermal energy.
+
+For an electric motor lifting a load with efficiency $\eta$ at \textbf{voltage} 电压 $V$ and \textbf{current} 电流 $I$, the useful output power is $\eta V I$. From this you can find a force, a lifting speed, or a \textbf{tension} 张力.
+
+\section*{Power}
+
+\textbf{Power} 功率 is the rate of doing work, or the rate of transferring energy:
+
+\[
+P = \frac{W}{t} = \frac{\Delta E}{\Delta t}.
+\]
+
+Unit: $\text{W} = \text{J s}^{-1}$. Power is a scalar.
+
+\subsection*{Power, force and velocity}
+
+For an object moving at \textbf{velocity} 速度 $v$ with a force $F$ along the direction of motion, in a short time $\Delta t$ the displacement is $v\,\Delta t$ and the work done is $F v\,\Delta t$. Dividing by $\Delta t$:
+
+\[
+P = F v.
+\]
+
+This is one of the most useful results in mechanics.
+
+\begin{itemize}
+\item For a car at constant velocity $v$ on a flat road, the engine power must balance the total resistive force: $P = F_{\text{resist}} \cdot v$. If the \textbf{drag} 阻力 grows with $v^{2}$, doubling the speed roughly \textbf{quadruples} the power needed.
+
+\item For lifting a \textbf{weight} 重力 $mg$ straight up at constant speed $v$, the useful output power is $P = mg \cdot v$.
+
+\item For an aircraft hovering at a fixed height, the lift force equals the weight, and a large power is needed because air must be pushed downwards all the time.
+
+\end{itemize}
+
+\section*{Gravitational potential energy}
+
+In a \textbf{uniform} gravitational field (close to a planet's surface), the change in gravitational potential energy of \textbf{mass} 质量 $m$ rising or falling through a height $\Delta h$ is
+
+\[
+\Delta E_{\text{P}} = m g \Delta h.
+\]
+
+\subsection*{Where it comes from}
+
+The work done \textbf{against} gravity to raise a mass $m$ slowly (no change in kinetic energy) through height $\Delta h$ equals the gravitational potential energy gained:
+
+\begin{itemize}
+\item the gravitational force on the mass is $mg$ downwards,
+
+\item the force needed to lift it slowly is $mg$ upwards,
+
+\item the work done by this force is $W = F \cdot s = mg \cdot \Delta h$,
+
+\item this work becomes $\Delta E_{\text{P}}$.
+
+\end{itemize}
+
+So $\Delta E_{\text{P}} = mg \Delta h$. To use it you need $m$ and $\Delta h$ (and $g$). You do not need speed or time.
+
+\section*{Kinetic energy}
+
+The kinetic energy of an object of mass $m$ moving at speed $v$ is
+
+\[
+E_{\text{K}} = \tfrac{1}{2} m v^{2}.
+\]
+
+\subsection*{Where it comes from}
+
+Apply a resultant force $F$ to a mass $m$ that starts at rest. It speeds up evenly from $0$ to $v$ over a displacement $s$. From $v^{2} = u^{2} + 2as$ with $u = 0$,
+
+\[
+s = \frac{v^{2}}{2a}.
+\]
+
+The work done on the mass is
+
+\[
+W = F \cdot s = m a \cdot \frac{v^{2}}{2a} = \tfrac{1}{2} m v^{2}.
+\]
+
+All this work becomes kinetic energy, so $E_{\text{K}} = \tfrac{1}{2} m v^{2}$.
+
+\subsection*{Kinetic energy and momentum}
+
+Combining $p = mv$ and $E_{\text{K}} = \tfrac{1}{2} m v^{2}$:
+
+\[
+E_{\text{K}} = \frac{p^{2}}{2m}.
+\]
+
+This is handy when the \textbf{momentum} 动量 is given but not the velocity. For a momentum change from $p_{1}$ to $p_{2}$ at constant mass, the change in kinetic energy is $(p_{2}^{2} - p_{1}^{2}) / (2m)$.
+
+\section*{Using energy methods}
+
+A useful plan for problems that mix forces and energy:
+
+\begin{enumerate}
+\item \textbf{Find the start and end states.} Write the kinetic and potential energies in each.
+
+\item \textbf{List any work done by outside forces} (friction, a push). Friction usually takes energy out; a push can add it.
+
+\item \textbf{Conservation of energy}: $E_{\text{start}} + W_{\text{in}} = E_{\text{end}} + W_{\text{lost as heat etc.}}$.
+
+\end{enumerate}
+
+Examples:
+
+\begin{itemize}
+\item A box pushed at \textbf{constant velocity} up a ramp of length $L$ rising by $h$: $E_{\text{K}}$ does not change, so the work done by the push goes into $\Delta E_{\text{P}}$ plus the work done against friction.
+
+\item A block sliding into a \textbf{spring} 弹簧 with kinetic energy $E_{\text{K}}$ on a frictionless surface: at greatest \textbf{compression} 压缩 $x$, all the kinetic energy has become elastic potential energy $\tfrac{1}{2} k x^{2}$ (where $k$ is the \textbf{spring constant} 劲度系数).
+
+\item A ball dropped from height $h_{1}$ that bounces to height $h_{2}$: the ratio $h_{2}/h_{1}$ is the fraction of mechanical energy kept, $h_{2}/h_{1} = (v_{\text{up}}/v_{\text{down}})^{2}$.
+
+\item A \textbf{projectile} 抛体 thrown to the same height at different angles: the final speed is the same (only the height matters); use components to get its direction.
+
+\end{itemize}
+
+
+\end{document}

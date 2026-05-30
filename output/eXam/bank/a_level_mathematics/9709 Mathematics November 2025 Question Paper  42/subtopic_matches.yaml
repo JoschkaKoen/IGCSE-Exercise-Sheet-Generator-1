@@ -1,0 +1,27 @@
+subject_key: a_level_mathematics
+paper_stem: 9709 Mathematics November 2025 Question Paper  42
+model: claude
+matched_at: '2026-05-29T14:38:17Z'
+matches:
+  '1':
+  - '4.2'
+  '2':
+  - '4.4'
+  3a:
+  - '4.2'
+  3bi:
+  - '4.5'
+  3bii:
+  - '4.5'
+  4a:
+  - '4.2'
+  4b:
+  - '4.3'
+  '5':
+  - '4.4'
+  '6':
+  - '4.2'
+  7a:
+  - '4.1'
+  7b:
+  - '4.1'

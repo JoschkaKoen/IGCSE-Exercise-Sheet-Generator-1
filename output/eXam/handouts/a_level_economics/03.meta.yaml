@@ -1,0 +1,70 @@
+topic_number: '3'
+topic_title: Government microeconomic intervention
+subject_key: a_level_economics
+covered_question_ids:
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '13'
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '14'
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '15'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '12'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '13'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '14'
+- paper: 9708 Economics June 2025 Question Paper  12
+  qnum: '14'
+- paper: 9708 Economics November 2025 Question Paper  11
+  qnum: '2'
+- paper: 9708 Economics November 2025 Question Paper  11
+  qnum: '5'
+- paper: 9708 Economics November 2025 Question Paper  11
+  qnum: '14'
+- paper: 9708 Economics November 2025 Question Paper  11
+  qnum: '15'
+- paper: 9708 Economics November 2025 Question Paper  12
+  qnum: '14'
+- paper: 9708 Economics November 2025 Question Paper  12
+  qnum: '24'
+- paper: 9708 Economics November 2025 Question Paper  13
+  qnum: '4'
+- paper: 9708 Economics November 2025 Question Paper  13
+  qnum: '12'
+- paper: 9708 Economics November 2025 Question Paper  13
+  qnum: '16'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '9'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '12'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '15'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '29'
+- paper: 9708 Economics November 2025 Question Paper  21
+  qnum: 1c
+- paper: 9708 Economics November 2025 Question Paper  21
+  qnum: 1d
+- paper: 9708 Economics November 2025 Question Paper  22
+  qnum: 1c
+- paper: 9708 Economics November 2025 Question Paper  22
+  qnum: 1d
+- paper: 9708 Economics November 2025 Question Paper  23
+  qnum: 1d
+- paper: 9708 Economics November 2025 Question Paper  23
+  qnum: 2b
+- paper: 9708 Economics November 2025 Question Paper  23
+  qnum: 3a
+- paper: 9708 Economics November 2025 Question Paper  23
+  qnum: 3b
+- paper: 9708 Economics November 2025 Question Paper  24
+  qnum: 2a
+- paper: 9708 Economics November 2025 Question Paper  24
+  qnum: 2b
+generated_at: '2026-05-29T15:44:55Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:44:55Z'
+glossed_at: '2026-05-29T16:08:34Z'

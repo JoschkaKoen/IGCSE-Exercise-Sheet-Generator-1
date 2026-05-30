@@ -86,3 +86,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:50:14Z'
 glossed_at: '2026-05-29T05:50:14Z'
+figures:
+  - file: assets/12-p301-waterfall-model.png
+    caption: "The waterfall model: each stage is finished before the next begins"
+    figure_ref: '12.2'
+    source_page_pdf: 301
+    source_page_printed: 285
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [38.0, 371.0, 150.0, 492.0]
+    placed_under: "### Common models"
+  - file: assets/12-p302-iterative-model.png
+    caption: "The iterative model: repeated passes refine the program"
+    figure_ref: '12.3'
+    source_page_pdf: 302
+    source_page_printed: 286
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 56.0, 483.4, 180.1]
+    placed_under: "### Common models"
+  - file: assets/12-p302-rad-model.png
+    caption: "Rapid application development: teams work on parts in parallel"
+    figure_ref: '12.4'
+    source_page_pdf: 302
+    source_page_printed: 286
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [42.0, 560.0, 551.4, 697.7]
+    placed_under: "### Common models"
+  - file: assets/12-p304-structure-chart.png
+    caption: "A structure chart: modules with the parameters passed between them"
+    figure_ref: '12.5'
+    source_page_pdf: 304
+    source_page_printed: 288
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [183.0, 194.4, 544.8, 347.5]
+    placed_under: "### Structure chart"
+  - file: assets/12-p309-state-transition.png
+    caption: A state-transition diagram for a door lock with code 259
+    figure_ref: '12.9'
+    source_page_pdf: 309
+    source_page_printed: 293
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [166.3, 65.0, 517.7, 190.7]
+    placed_under: "### State-transition diagram"

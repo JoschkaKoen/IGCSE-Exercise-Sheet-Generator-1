@@ -1,0 +1,103 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Return leg: $x = 40 \times 2 = 80$ m. Acceleration leg from
+    rest: $80 = \tfrac12 a(4^2) \Rightarrow a = 10$. So $x = 80$, $a = 10\text{ m
+    s}^{-2}$.'
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Whole system (276000 kg): $450000 + 276000(10)(0.04) - 135000
+    = 276000a \Rightarrow a = 1.54\text{ m s}^{-2}$. Coach: $T + 36000(10)(0.04) -
+    15000 = 36000a \Rightarrow T \approx 56100$ N.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Average speed $= \tfrac{15+20}{2} = 17.5$, so time $= 175/17.5
+    = 10$ s.
+  mark_scheme: []
+  graphics: []
+- number: 3bi
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Work-energy: engine work $= \Delta KE + $ work against resistance
+    $= \tfrac12(1400)(20^2-15^2) + 800(175) = 122500 + 140000 = 262500$ J. Average
+    power $= 262500/10 = 26250$ W.'
+  mark_scheme: []
+  graphics: []
+- number: 3bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: At a steady speed, driving force $=$ resistance $= 800$ N, so
+    $26250 = 800v \Rightarrow v = 32.8\text{ m s}^{-1}$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $30t - 5t^2 = 15 + 10t - 5t^2 \Rightarrow t = 0.75$ s. Height
+    $= 30(0.75) - 5(0.75)^2 = 19.7$ m.
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'At collision $v_P = 22.5$, $v_Q = 2.5$ (both upward). Momentum:
+    $0.1(22.5) + 0.4(2.5) = 0.5v \Rightarrow v = 6.5\text{ m s}^{-1}$ up. Falling
+    from 19.6875 m: $v^2 = 6.5^2 + 2(10)(19.6875) = 436 \Rightarrow v = 20.9\text{
+    m s}^{-1}$.'
+  mark_scheme: []
+  graphics: []
+- number: '5'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $N = 5g\cos10\degree - 20\sin35\degree = 37.8$ N. Net force
+    down the plane $= 20\cos35\degree + 5g\sin10\degree - 0.4N = 16.38 + 8.68 - 15.11
+    = 9.96$ N, so $a = 1.99\text{ m s}^{-2}$. $v^2 = 2^2 + 2(1.99)(3) \Rightarrow
+    v = 3.99\text{ m s}^{-1}$.
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$a = 0$ when $2(t+1)^{-1/2} = 1 \Rightarrow t = 3$. $v = \int
+    a\,dt = 4(t+1)^{1/2} - t - 4$ (with $v(0)=0$); $s = \int v\,dt = \tfrac83(t+1)^{3/2}
+    - \tfrac12 t^2 - 4t - \tfrac83$ (with $s(0)=0$). At $t=3$: $s = \tfrac{13}{6}
+    \approx 2.17$ m.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Resolving (right/up positive): $\sum F_x = -20\cos20\degree
+    + 30\cos30\degree + 15\cos45\degree \approx 17.8$ N; $\sum F_y = 20\sin20\degree
+    + 30\sin30\degree - 15\sin45\degree - 25 \approx -13.8$ N. $S = \sqrt{17.8^2 +
+    13.8^2} \approx 22.5$ N; $\alpha = \tan^{-1}\!\frac{13.8}{17.8} \approx 37.7\degree$
+    below the horizontal.'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Along the wire the driving component is $\sum F_x \approx 17.8$
+    N; the wire's vertical reaction is $|\sum F_y| + 0.6g \approx 13.8 + 6 = 19.8$
+    N. $s = \tfrac12 at^2 \Rightarrow 2 = \tfrac12 a(9) \Rightarrow a = \tfrac49$.
+    Then $17.8 - \mu(19.8) = 0.6\cdot\tfrac49 \Rightarrow \mu \approx 0.887$.
+  mark_scheme: []
+  graphics: []

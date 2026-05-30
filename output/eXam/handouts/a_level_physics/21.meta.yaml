@@ -58,3 +58,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:32:03Z'
 glossed_at: '2026-05-29T05:32:03Z'
+figures:
+  - file: assets/21-p356-dc-vs-ac.png
+    caption: A steady direct current compared with a sinusoidal alternating current of peak I₀ and period T
+    figure_ref: '21.1'
+    source_page_pdf: 356
+    source_page_printed: 340
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [174.8, 587.1, 519.5, 688.8]
+    placed_under: "## Alternating current basics"
+  - file: assets/21-p361-half-wave-rectification.png
+    caption: In half-wave rectification a single diode passes only the positive half-cycles
+    figure_ref: '21.8'
+    source_page_pdf: 361
+    source_page_printed: 345
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.4, 370.7, 505.0, 461.2]
+    placed_under: "### Half-wave rectification"
+  - file: assets/21-p361-full-wave-rectification.png
+    caption: In full-wave rectification every half-cycle is used, giving a continuous run of positive humps
+    figure_ref: '21.9'
+    source_page_pdf: 361
+    source_page_printed: 345
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [160.4, 539.0, 504.9, 635.5]
+    placed_under: "### Full-wave rectification (bridge rectifier)"
+  - file: assets/21-p362-bridge-rectifier.png
+    caption: A four-diode bridge sends the load current the same way whichever a.c. terminal is positive
+    figure_ref: '21.10'
+    source_page_pdf: 362
+    source_page_printed: 346
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [174.8, 53.0, 465.0, 208.0]
+    placed_under: "### Full-wave rectification (bridge rectifier)"
+  - file: assets/21-p362-smoothing-capacitor.png
+    caption: A capacitor across the load smooths the rectified output, leaving only a small ripple
+    figure_ref: '21.11'
+    source_page_pdf: 362
+    source_page_printed: 346
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [174.8, 354.7, 474.6, 594.9]
+    placed_under: "## Smoothing with a capacitor"

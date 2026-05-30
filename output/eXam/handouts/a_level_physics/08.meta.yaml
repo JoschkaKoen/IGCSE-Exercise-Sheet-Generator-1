@@ -108,3 +108,76 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:09:03Z'
 glossed_at: '2026-05-29T05:09:03Z'
+figures:
+  - file: assets/08-p150-constructive-interference.png
+    caption: Two waves arriving in phase add to give double the amplitude (constructive)
+    figure_ref: '8.4'
+    source_page_pdf: 150
+    source_page_printed: 134
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [176.7, 528.0, 494.4, 640.7]
+    placed_under: "## Principle of superposition"
+  - file: assets/08-p151-destructive-interference.png
+    caption: Two waves arriving exactly out of phase cancel to zero (destructive)
+    figure_ref: '8.5'
+    source_page_pdf: 151
+    source_page_printed: 135
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [170.0, 40.0, 505.0, 162.0]
+    placed_under: "## Principle of superposition"
+  - file: assets/08-p150-two-source-interference.png
+    caption: Two coherent sources give lines of maximum displacement where crests meet crests
+    figure_ref: '8.3'
+    source_page_pdf: 150
+    source_page_printed: 134
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [196.0, 229.0, 502.0, 366.0]
+    placed_under: "## Interference"
+  - file: assets/08-p154-youngs-double-slit.png
+    caption: Young's double-slit experiment — the single slit makes the two slits coherent sources
+    figure_ref: '8.11'
+    source_page_pdf: 154
+    source_page_printed: 138
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [176.5, 85.2, 525.3, 385.3]
+    placed_under: "### Double-slit (Young's) experiment"
+  - file: assets/08-p160-stationary-wave-formation.png
+    caption: A stationary wave forms where two opposite waves overlap (N marks a node, A an antinode)
+    figure_ref: '8.22'
+    source_page_pdf: 160
+    source_page_printed: 144
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [180.0, 40.0, 506.0, 470.0]
+    placed_under: "## Stationary (standing) waves"
+  - file: assets/08-p158-string-fundamental-mode.png
+    caption: Fundamental mode on a stretched string — one loop, with L equal to half a wavelength
+    figure_ref: '8.19'
+    source_page_pdf: 158
+    source_page_printed: 142
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [198.0, 37.0, 375.0, 167.0]
+    placed_under: "### Nodes and antinodes"
+  - file: assets/08-p161-closed-pipe-fundamental.png
+    caption: Fundamental mode in a closed pipe — a node at the closed end, an antinode at the open end
+    figure_ref: '8.24'
+    source_page_pdf: 161
+    source_page_printed: 145
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [235.0, 505.0, 318.0, 645.0]
+    placed_under: "### Measuring wavelength from node spacing"
+  - file: assets/08-p165-ripple-tank-diffraction.png
+    caption: Diffraction in a ripple tank — a wide gap (a) spreads the waves little, a narrow gap (b) much more
+    figure_ref: '8.30'
+    source_page_pdf: 165
+    source_page_printed: 149
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [163.4, 149.2, 513.2, 245.4]
+    placed_under: "## Diffraction"
+  - file: assets/08-p168-diffraction-grating.png
+    caption: A diffraction grating splits monochromatic light into sharp maxima on a screen
+    figure_ref: '8.35'
+    source_page_pdf: 168
+    source_page_printed: 152
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [177.8, 186.5, 511.3, 356.8]
+    placed_under: "## Diffraction grating"

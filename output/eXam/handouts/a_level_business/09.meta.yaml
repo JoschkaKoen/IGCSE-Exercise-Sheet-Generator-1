@@ -1,0 +1,24 @@
+topic_number: '9'
+topic_title: Operations management (A Level)
+subject_key: a_level_business
+covered_question_ids:
+- paper: 9609 Business June 2025 Question Paper  31
+  qnum: 3a
+- paper: 9609 Business June 2025 Question Paper  31
+  qnum: 3b
+- paper: 9609 Business June 2025 Question Paper  31
+  qnum: 3c
+- paper: 9609 Business November 2025 Question Paper  32
+  qnum: 3c
+- paper: 9609 Business November 2025 Question Paper  33
+  qnum: 4ai
+- paper: 9609 Business November 2025 Question Paper  33
+  qnum: 4aii
+- paper: 9609 Business November 2025 Question Paper  33
+  qnum: 4b
+generated_at: '2026-05-29T15:51:27Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:51:27Z'
+glossed_at: '2026-05-29T15:51:27Z'

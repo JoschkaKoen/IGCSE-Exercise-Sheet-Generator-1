@@ -1,0 +1,180 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries System Software}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Operating systems}
+
+\subsection*{Why a computer needs an OS}
+
+Hardware on its own can only fetch and run instructions — it knows nothing about files, programs, networks or users. The \textbf{operating system} 操作系统 (OS) is the \textbf{software layer} that:
+
+\begin{itemize}
+\item \textbf{manages the hardware} (\textbf{processor} 处理器, memory, I/O, storage) for the running programs.
+
+\item \textbf{provides services} (file system, network, user accounts) through a clear interface, so programs need not talk to the hardware directly.
+
+\item \textbf{provides a user interface} (command line, GUI, touch).
+
+\item \textbf{lets several programs share the hardware safely} — each gets fair CPU time and is kept out of the others' memory.
+
+\end{itemize}
+
+Without an OS, every program would need its own drivers, and only one program could safely run at a time.
+
+\subsection*{Key management tasks}
+
+\begin{itemize}
+\item \textbf{process management} 进程管理 — load programs, schedule them on the CPU, switch between them, and kill misbehaving ones. (A running program is a \textbf{process} 进程.)
+
+\item \textbf{memory management} 内存管理 — give memory to processes, keep them apart, and use \textbf{virtual memory} 虚拟内存 / \textbf{paging} 分页 so the working set can exceed physical \textbf{RAM} 随机存取存储器.
+
+\item \textbf{file management} — organise files and folders on \textbf{secondary storage} 辅助存储器, control permissions, prevent write corruption.
+
+\item \textbf{device management} — handle I/O through \textbf{device drivers} 设备驱动, buffer data, manage interrupts, and give a uniform interface.
+
+\item \textbf{security management} — accounts, permissions, firewall, encryption.
+
+\item \textbf{user interface} and \textbf{networking}.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/05-p156-os-tasks.pdf}}\\[0.3em]
+\emph{The main jobs the operating system manages}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/05-p157-memory-protection.pdf}}\\[0.3em]
+\emph{Memory protection keeps each application in its own block of memory}
+\end{minipage}\par\medskip
+
+\subsection*{Utility software}
+
+Most OSes include \textbf{utility programs} 实用程序 to maintain the system:
+
+\begin{itemize}
+\item \textbf{file / disk management} — copy, move, delete; format; check disk integrity.
+
+\item \textbf{disk defragmenter} 碎片整理 — moves the pieces of fragmented files together on a hard disk to cut seek time (not useful on SSDs).
+
+\item \textbf{backup} 备份 — copies user data elsewhere so it can be recovered.
+
+\item \textbf{antivirus} 杀毒软件 — scans for malware and quarantines threats.
+
+\item \textbf{firewall} 防火墙 — filters network traffic by rules.
+
+\item \textbf{compression} 压缩 / archiving; \textbf{system monitor}; \textbf{updates}.
+
+\end{itemize}
+
+Bundling these with the OS saves the user installing each one.
+
+\section*{Program libraries}
+
+A \textbf{program library} 程序库 is pre-written code (\textbf{subroutines} 子程序, classes, modules) that programs reuse instead of writing it themselves — e.g. a maths library, a network library, a graphics library.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/05-p163-program-libraries.pdf}}\\[0.3em]
+\emph{A new program reusing ready-made routines from libraries}
+\end{minipage}\par\medskip
+
+Benefits: \textbf{saves time} (off-the-shelf code), \textbf{reliable} (well-tested, widely used), and \textbf{standardised} (consistent behaviour).
+
+\begin{itemize}
+\item a \textbf{static library} 静态库 is copied into the executable at compile time (stands alone, but larger and needs rebuilding to update).
+
+\item a \textbf{dynamic library} 动态库 (DLL, \texttt{.so}) is loaded at run time (smaller executables, shared by many programs, updated once for all).
+
+\end{itemize}
+
+\section*{Language translators}
+
+You write source code; the computer runs \textbf{machine code} 机器码. A \textbf{translator} 翻译器 converts between them.
+
+\subsection*{Assembler}
+
+An \textbf{assembler} 汇编器 translates \textbf{assembly language} 汇编语言 into machine code, one instruction per instruction. Used for low-level code (embedded systems, drivers).
+
+\subsection*{Compiler}
+
+A \textbf{compiler} 编译器 translates a high-level program into machine code \textbf{once, before it runs}.
+
+\begin{itemize}
+\item it reports \textbf{all} errors at compile time; once clean, it produces a stand-alone \textbf{executable} 可执行文件 that runs \textbf{without the compiler installed} and can be run many times.
+
+\item generally \textbf{faster at run time} (no translation while running), but tied to one CPU/OS — recompile for each platform.
+
+\end{itemize}
+
+\subsection*{Interpreter}
+
+An \textbf{interpreter} 解释器 translates and runs a high-level program \textbf{one line at a time}, producing no executable.
+
+\begin{itemize}
+\item it reports an error \textbf{when it reaches that line}, then stops; you can fix it and continue — good for development.
+
+\item the \textbf{interpreter must be installed} to run the program; generally \textbf{slower} (each run re-translates), but easy to \textbf{port} across platforms.
+
+\end{itemize}
+
+\subsection*{Choosing between them}
+
+Use a \textbf{compiler} for maximum run-time speed, to distribute to users without dev tools, or when the program runs many times. Use an \textbf{interpreter} for fast development cycles, cross-platform scripts, small or run-once programs, and teaching beginners.
+
+\subsection*{Hybrid: Java}
+
+Java is compiled into \textbf{bytecode} 字节码 (a platform-independent intermediate form), which a \textbf{virtual machine} 虚拟机 (the JVM) then interprets — or uses \textbf{just-in-time compilation} 即时编译 to turn hot parts into native code. So errors are caught early, the bytecode runs anywhere with a JVM ("write once, run anywhere"), and long-running programs reach near-native speed. C\# and Python use similar designs.
+
+\section*{Integrated Development Environment (IDE)}
+
+An \textbf{integrated development environment} 集成开发环境 (IDE) brings the tools to write, test and debug code into one application:
+
+\begin{itemize}
+\item \textbf{source code editor} with \textbf{syntax highlighting} 语法高亮 (keywords, strings, comments in different colours), auto-indent and bracket matching.
+
+\item \textbf{auto-complete} 自动补全 — suggests names and shows function parameters as you type.
+
+\item \textbf{translator integration} — compile/run with one keystroke; errors shown inline.
+
+\item \textbf{debugger} 调试器 — set \textbf{breakpoints} 断点 to pause, \textbf{step through} line by line, and \textbf{inspect variables}.
+
+\item \textbf{version control} 版本控制 integration (git), \textbf{project management}, a help system, \textbf{refactoring} 重构 tools (safe renaming), and \textbf{unit test} 单元测试 integration.
+
+\end{itemize}
+
+An IDE speeds development by putting writing → running → debugging → fixing behind one interface. Common IDEs: Visual Studio, PyCharm, Eclipse, VS Code.
+
+
+\end{document}

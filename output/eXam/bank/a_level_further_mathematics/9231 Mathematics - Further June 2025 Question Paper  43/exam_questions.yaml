@@ -1,0 +1,170 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: A person's eye colour may be categorised as ``brown'', ``blue'' or ``other''.
+    A scientist claims that these eye colours are uniformly distributed and hence
+    are equally likely to occur in the population. A survey of 120 people from this
+    population found that 38 people had brown eyes, 52 people had blue eyes and 30
+    people had eyes which were neither brown nor blue. Use the data to carry out a
+    goodness of fit test at the 5\% significance level to test the scientist's claim.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 7
+  text: 'A farmer is investigating whether using a new fertiliser will increase the
+    yield of tomato plants. The farmer selects 40 tomato plants at random and gives
+    them the new fertiliser; the crop mass, $x$ kg, of each is recorded. A further
+    60 tomato plants are given a standard fertiliser; the crop mass, $y$ kg, of each
+    is recorded. The results are summarised as follows: $\sum x = 168$, $\sum x^2
+    = 720$, $\sum y = 228$, $\sum y^2 = 900$. Find a 90\% confidence interval for
+    the difference in mean crop mass associated with each type of fertiliser.'
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A continuous random variable $X$ has probability density function f given
+    by $\mathrm{f}(x) = kx$ for $0 \leqslant x < 1$, $k(8 - x)$ for $1 \leqslant x
+    \leqslant 8$, and $0$ otherwise, where $k$ is a constant.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Show that $k = \tfrac{1}{25}$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the median value of $X$.
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: The random variable $Y$ is defined by $Y = \sqrt[3]{X}$. Find the probability
+      density function of $Y$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 8
+  text: 'A researcher claims that older people take longer to react to a sudden loud
+    noise than younger people. To investigate this, the researcher randomly selects
+    6 people over 50 years old and 8 people under 25 years old and records their reaction
+    times, in milliseconds, to a sudden loud noise. Over 50: 198, 212, 217, 229, 235,
+    242. Under 25: 178, 181, 183, 192, 203, 209, 223, 231. Carry out a Wilcoxon rank-sum
+    test at the 5\% significance level to test the researcher''s claim.'
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A doctor is investigating the concentration of blood glucose in patients
+    at risk of developing type 2 diabetes. The doctor claims that a particular intervention
+    reduces the concentration by more than $k$ units on average. A group of 8 at-risk
+    patients is selected at random and each follows the intervention for six months.
+    The blood glucose concentrations before and after the intervention (patients $A$--$H$):
+    Before: 183, 165, 172, 165, 143, 176, 161, 153; After: 164, 148, 164, 149, 134,
+    153, 155, 148.'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Use a $t$-test at the 5\% significance level to find the range of values
+      of $k$ for which the result of the test is to reject the null hypothesis.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State an assumption necessary for the test in part (a) to be valid.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A bag contains 7 red balls and 3 blue balls. Kieran selects 2 balls at random,
+    without replacement. The number of red balls selected by Kieran is denoted by
+    $X$, and the number of different colours present in Kieran's selection is denoted
+    by $Y$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the probability generating functions $\mathrm{G}_X(t)$ of $X$ and $\mathrm{G}_Y(t)$
+      of $Y$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: The random variable $Z$ is the sum of the number of red balls and the number
+      of different colours present in Kieran's selection. Kieran claims that the probability
+      generating function of $Z$ is equal to $\mathrm{G}_X(t)\times\mathrm{G}_Y(t)$.
+      Explain why Kieran is incorrect.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the probability generating function of $Z$, expressing your answer
+      as a polynomial in $t$.
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Use the probability generating function of $Z$ to find $\mathrm{E}(Z)$.
+    answer_options: []
+    subquestions: []

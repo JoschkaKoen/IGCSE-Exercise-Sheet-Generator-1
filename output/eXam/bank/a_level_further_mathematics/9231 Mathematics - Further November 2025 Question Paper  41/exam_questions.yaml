@@ -1,0 +1,230 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A group of 10 school children are asked to estimate the size of an angle
+    $\theta\degree$ in a given acute angled triangle. These estimates, in degrees,
+    are as follows: 84, 85, 77, 85, 84, 87, 86, 88, 83, 85.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Stating any assumptions you make, calculate a 95\% confidence interval for
+      $\theta$.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give a reason why the assumptions made in part (a) may not be appropriate
+      in this case.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The manager of a car park claims that the number of cars entering the car
+    park follows a Poisson distribution with mean 2.8. The numbers of cars entering
+    the car park are recorded on a working day during successive 5-minute periods.
+    The table contains the observed frequencies, together with most of the expected
+    frequencies and their contributions to the $\chi^2$-test statistic (with $p$,
+    $q$ the missing expected frequency and contribution for 3 cars).
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the value of $p$ and the value of $q$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Carry out a goodness of fit test at the 5\% significance level to investigate
+      the manager's claim.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'A random sample of 10 newborn baby boys is taken and their masses in kg are
+    recorded. From this sample, the population standard deviation of all newborn baby
+    boys is estimated as 0.6 kg. A random sample of 5 newborn baby girls is taken
+    and their masses in kg are recorded as follows: 3.9, 3.1, 2.9, 3.1, 3.6. It is
+    assumed that the masses of newborn baby boys and girls have the same population
+    standard deviation, $\sigma$ kg. By pooling the two samples, calculate an estimate
+    of $\sigma$.'
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: A researcher believes that the median $m$ of a population has changed from
+    its known previous value $m_0$. The researcher collects a random sample of size
+    28. She ranks the data and calculates a test statistic $T$ using the Wilcoxon
+    signed-rank test. The conclusion of the test carried out at a 1\% significance
+    level is that there is not sufficient evidence to support her belief. Using a
+    normal approximation, find the least possible value of $T$.
+  answer_options: []
+  subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A continuous random variable $X$ has probability density function f given
+    by $\mathrm{f}(x) = \tfrac{1}{16}\sqrt x$ for $0 \leqslant x < 4$, $\dfrac{1}{k\sqrt
+    x}$ for $4 \leqslant x \leqslant 9$, and $0$ otherwise, where $k$ is a constant.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Show that $k = 3$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the median value of $X$.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: The random variable $Y$ is defined by $Y = \sqrt X$. Find the probability
+      density function of $Y$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Nine athletes in a club have a new coach. The coach adopts a new training
+    programme which he believes will reduce the race times of these athletes. Each
+    athlete completes a 1500 m time trial before and after completing the new training
+    programme. Their times, in seconds (s), are recorded (athletes $A$–$I$: before
+    250, 251, 252, 267, 276, 291, 310, 320, 335; after 245, 251, 253, 261, 275, 293,
+    302, 313, 320).'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Carry out a paired $t$-test at the 5\% significance level to test the coach's
+      belief.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Further research suggests that the effects of the training programme tend
+      to reduce the times of the slower athletes by more than those of the faster
+      athletes. Suggest a reason why the paired $t$-test used in part (a) may not
+      have been an appropriate test in this case.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Suggest a suitable alternative test that could have been used instead of
+      a paired $t$-test.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A discrete random variable $X$ takes values $r = 0, 1, 2$ with probabilities
+    $\mathrm{P}(X=r)$ given by $\mathrm{P}(X=0) = a$, $\mathrm{P}(X=1) = 2a$, $\mathrm{P}(X=2)
+    = b$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Write down the probability generating function of $X$, and use it to find
+      an expression for $\mathrm{E}(X)$ in terms of $a$ and $b$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $\mathrm{Var}(X) = 2b + 2(a+b)(1 - 2a - 2b)$.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: The random variable $Y$ is defined by $Y = X_1 + X_2 + X_3 + \cdots + X_{10}$
+      where $X_1, X_2, X_3, \ldots, X_{10}$ are ten independent observations of $X$.
+      Using the probability generating function of $Y$, and your answer to part (a),
+      show that $\mathrm{E}(Y) = 10\mathrm{E}(X)$.
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: For the case $b = 0$, define fully the distribution of $Y$.
+    answer_options: []
+    subquestions: []

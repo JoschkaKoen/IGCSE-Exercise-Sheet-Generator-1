@@ -1,0 +1,235 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries D.C. circuits}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Practical circuits}
+
+\subsection*{e.m.f. and p.d.}
+
+The \textbf{electromotive force} 电动势 (e.m.f.) $\varepsilon$ of a source is the \textbf{energy} 能量 given to each unit of charge by the source as it drives the charge around a full circuit. Unit: volt.
+
+The \textbf{potential difference} 电势差 (p.d.) across a component is the energy changed from electrical to other forms by each unit of charge as it passes through that component.
+
+Both are in volts; they differ in energy direction:
+
+\begin{itemize}
+\item e.m.f. — energy put \textbf{into} the circuit by the source (chemical → electrical in a battery, mechanical → electrical in a generator).
+
+\item p.d. — energy taken \textbf{out} of the electrical form (electrical → thermal in a resistor, → light in a lamp, → kinetic in a motor).
+
+\end{itemize}
+
+\subsection*{Internal resistance}
+
+A real source has some \textbf{internal resistance} 内阻 $r$ — usually the resistance of the \textbf{electrolyte} 电解质 in a \textbf{cell} 电池, or the wire windings in a generator. When current $I$ flows, an internal p.d. of $Ir$ is "lost" inside the source, so the \textbf{terminal p.d.} 端电压 across the outside circuit is
+
+\[
+V_{\text{terminal}} = \varepsilon - I r.
+\]
+
+So:
+
+\begin{itemize}
+\item \textbf{no current} (\textbf{open circuit} 开路, $I = 0$): the terminal p.d. equals the e.m.f.
+
+\item \textbf{larger current}: the terminal p.d. falls.
+
+\item \textbf{short circuit} 短路 ($R_{\text{external}} \to 0$): $I = \varepsilon / r$, a large current, with all the energy turned to heat inside the source.
+
+\end{itemize}
+
+To measure $r$, change the outside resistance and plot $V_{\text{terminal}}$ against $I$: the line has $y$-intercept $\varepsilon$ and gradient $-r$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/10-p196-internal-resistance-circuit.pdf}}\\[0.3em]
+\emph{Circuit for measuring the e.m.f. and internal resistance of a cell}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/10-p196-terminal-pd-vs-current.pdf}}\\[0.3em]
+\emph{Terminal p.d. against current — the intercept is the e.m.f. and the gradient is minus the internal resistance}
+\end{minipage}\par\medskip
+
+The \textbf{power} 功率 given to the outside load is $P_{\text{ext}} = (\varepsilon - Ir) I$; the power lost inside is $P_{\text{int}} = I^{2} r$; the total power from the source is $\varepsilon I$.
+
+\subsection*{Circuit symbols}
+
+You must recognise and draw the standard symbols in the syllabus: cell, battery, switch, resistor, variable resistor, \textbf{ammeter} 电流表, \textbf{voltmeter} 电压表, lamp, \textbf{diode} (and \textbf{LED} 发光二极管), \textbf{capacitor} 电容器, inductor, thermistor, light-dependent resistor, \textbf{fuse} 保险丝, earth, junction. An ideal ammeter has zero \textbf{resistance} 电阻 and goes in \textbf{series} 串联. An ideal voltmeter has infinite resistance and goes in \textbf{parallel} 并联.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/10-p194-circuit-symbols.pdf}}\\[0.3em]
+\emph{The standard circuit symbols you need to recognise and draw}
+\end{minipage}\par\medskip
+
+\section*{Kirchhoff's laws}
+
+\subsection*{First law (junction rule)}
+
+At any \textbf{junction} 节点, \textbf{the total current flowing in equals the total current flowing out}. This follows from \textbf{conservation of charge} 电荷守恒 — charge cannot build up at a point in a steady circuit, so charge in per second equals charge out per second.
+
+For a junction with three wires: $I_{1} = I_{2} + I_{3}$ if currents 2 and 3 flow out and current 1 flows in.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/10-p198-current-divides-parallel.pdf}}\\[0.3em]
+\emph{Current divides at a junction in a parallel circuit (3 A in equals 2 A plus 1 A)}
+\end{minipage}\par\medskip
+
+\subsection*{Second law (loop rule)}
+
+Around \textbf{any closed loop} 回路, \textbf{the total e.m.f. equals the total p.d. across the components in that loop}. This follows from \textbf{conservation of energy} 能量守恒: as a unit of charge goes once round a loop, the energy it gains from sources equals the energy it gives up to components.
+
+Pick a direction round the loop. Take an e.m.f. as positive when the loop direction goes from − to + of the source, and a p.d. as positive when the loop direction is the conventional current direction through the resistor.
+
+\subsection*{Combining resistors}
+
+\textbf{Resistors in series} carry the same current; the total p.d. is the sum:
+
+\[
+\varepsilon = I R_{1} + I R_{2} + \ldots = I (R_{1} + R_{2} + \ldots),
+\]
+
+so $R_{\text{series}} = R_{1} + R_{2} + \ldots$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/10-p199-resistors-in-series.pdf}}\\[0.3em]
+\emph{Two resistors in series and their single equivalent resistor}
+\end{minipage}\par\medskip
+
+\textbf{Resistors in parallel} have the same p.d.; the total current is the sum:
+
+\[
+I = \frac{V}{R_{1}} + \frac{V}{R_{2}} + \ldots = V \left(\frac{1}{R_{1}} + \frac{1}{R_{2}} + \ldots\right),
+\]
+
+so $\dfrac{1}{R_{\text{parallel}}} = \dfrac{1}{R_{1}} + \dfrac{1}{R_{2}} + \ldots$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/10-p200-resistors-in-parallel.pdf}}\\[0.3em]
+\emph{Two resistors in parallel and their single equivalent resistor}
+\end{minipage}\par\medskip
+
+Two equal resistors $R$ in parallel give $R/2$; $N$ equal ones give $R/N$. A parallel combination is \textbf{always smaller} than any of its resistors; a series combination is always larger.
+
+\subsection*{Solving a circuit}
+
+\begin{enumerate}
+\item \textbf{Label} every current with a symbol and a chosen direction.
+
+\item \textbf{Use Kirchhoff's first law} 基尔霍夫第一定律 at each junction to link the currents.
+
+\item \textbf{Use Kirchhoff's second law} 基尔霍夫第二定律 around each loop to get equations in the p.d.s.
+
+\item \textbf{Use $V = IR$} for each resistor.
+
+\item Solve the equations together.
+
+\end{enumerate}
+
+For symmetric resistor networks, use the symmetry to spot branches with equal currents — the branch with the most current gives the most power ($P = I^{2}R$).
+
+\section*{Potential dividers}
+
+A \textbf{potential divider} 分压器 is two (or more) resistors in series across a source. The p.d. across each resistor is in \textbf{direct proportion} to its resistance:
+
+\[
+V_{1} = V_{\text{in}} \cdot \frac{R_{1}}{R_{1} + R_{2}}, \qquad V_{2} = V_{\text{in}} \cdot \frac{R_{2}}{R_{1} + R_{2}}.
+\]
+
+The output (tapped between $R_{1}$ and $R_{2}$) can be set to any \textbf{voltage} 电压 between $0$ and $V_{\text{in}}$ by choosing the resistances. A \textbf{rheostat} 变阻器 (a slider on a uniform-resistance wire) gives a smoothly variable divider.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/10-p202-potential-divider.pdf}}\\[0.3em]
+\emph{A potential divider — the p.d. splits between R1 and R2 in proportion to their resistances}
+\end{minipage}\par\medskip
+
+\subsection*{Sensor circuits}
+
+Replace one fixed resistor with a \textbf{sensor} 传感器 whose resistance changes with a physical quantity:
+
+\begin{itemize}
+\item \textbf{thermistor} 热敏电阻 (NTC): $R$ falls as temperature rises. In a divider, the output voltage changes with temperature in a fixed direction.
+
+\item \textbf{light-dependent resistor} 光敏电阻 (LDR): $R$ falls as \textbf{light intensity} 光强 rises, giving a brightness-dependent output.
+
+\end{itemize}
+
+Connect the output to a \textbf{transistor} 晶体管 base or a \textbf{comparator} 比较器 to switch a load on or off when the temperature or light passes a \textbf{threshold} 阈值.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/10-p202-thermistor-divider.pdf}}\\[0.3em]
+\emph{A thermistor in a potential divider gives an output voltage that changes with temperature}
+\end{minipage}\par\medskip
+
+\subsection*{Potentiometer and the null method}
+
+A \textbf{potentiometer} 电位差计 is a uniform resistance wire of length $L_{0}$ with a sliding contact (\textbf{jockey} 滑动触头). The resistance per unit length is uniform, so the p.d. from one end to the jockey is proportional to the length:
+
+\[
+V_{x} = V_{\text{full}} \cdot \frac{x}{L_{0}}.
+\]
+
+To \textbf{compare two e.m.f.s} (an unknown cell against a standard cell), connect each in turn with the jockey through a \textbf{galvanometer} 检流计. Slide the jockey until the galvanometer reads zero (a \textbf{null} — no current flows through the cell being measured, because the potentiometer's voltage there exactly opposes the cell's e.m.f.). The two balance lengths are in the ratio of the e.m.f.s:
+
+\[
+\frac{\varepsilon_{1}}{\varepsilon_{2}} = \frac{l_{1}}{l_{2}}.
+\]
+
+This is a \textbf{null method} 零点法: you find the balance (zero current) instead of measuring a current's value. Its advantage is that at balance the unknown cell gives no current, so its internal resistance does not affect the result.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/10-p204-potentiometer-null.pdf}}\\[0.3em]
+\emph{A potentiometer comparing two cell e.m.f.s by the null method}
+\end{minipage}\par\medskip
+
+
+\end{document}

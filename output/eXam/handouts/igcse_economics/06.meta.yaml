@@ -1,0 +1,146 @@
+topic_number: '6'
+topic_title: International trade and globalisation
+subject_key: igcse_economics
+covered_question_ids:
+- paper: 0455 Economics June 2024 Question paper  11
+  qnum: '27'
+- paper: 0455 Economics June 2024 Question paper  11
+  qnum: '28'
+- paper: 0455 Economics June 2024 Question paper  11
+  qnum: '29'
+- paper: 0455 Economics June 2024 Question paper  11
+  qnum: '30'
+- paper: 0455 Economics June 2025 Question Paper  11
+  qnum: '28'
+- paper: 0455 Economics June 2025 Question Paper  11
+  qnum: '29'
+- paper: 0455 Economics June 2025 Question Paper  11
+  qnum: '30'
+- paper: 0455 Economics June 2025 Question Paper  12
+  qnum: '29'
+- paper: 0455 Economics June 2025 Question Paper  13
+  qnum: '21'
+- paper: 0455 Economics June 2025 Question Paper  13
+  qnum: '28'
+- paper: 0455 Economics June 2025 Question Paper  13
+  qnum: '29'
+- paper: 0455 Economics June 2025 Question Paper  13
+  qnum: '30'
+- paper: 0455 Economics June 2025 Question Paper  21
+  qnum: 1c
+- paper: 0455 Economics June 2025 Question Paper  21
+  qnum: 5a
+- paper: 0455 Economics June 2025 Question Paper  21
+  qnum: 5b
+- paper: 0455 Economics June 2025 Question Paper  21
+  qnum: 5d
+- paper: 0455 Economics June 2025 Question Paper  22
+  qnum: 5d
+- paper: 0455 Economics June 2025 Question Paper  23
+  qnum: 1b
+- paper: 0455 Economics June 2025 Question Paper  23
+  qnum: 1h
+- paper: 0455 Economics June 2025 Question Paper  23
+  qnum: 2a
+- paper: 0455 Economics June 2025 Question Paper  23
+  qnum: 2d
+- paper: 0455 Economics June 2025 Question Paper  23
+  qnum: 5c
+- paper: 0455 Economics March 2025 Question paper  12
+  qnum: '18'
+- paper: 0455 Economics March 2025 Question paper  22
+  qnum: 1a
+- paper: 0455 Economics March 2025 Question paper  22
+  qnum: 1g
+- paper: 0455 Economics March 2025 Question paper  22
+  qnum: 4c
+- paper: 0455 Economics March 2025 Question paper  22
+  qnum: 5a
+- paper: 0455 Economics November 2024 Question Paper  12
+  qnum: '18'
+- paper: 0455 Economics November 2024 Question Paper  12
+  qnum: '27'
+- paper: 0455 Economics November 2024 Question Paper  12
+  qnum: '28'
+- paper: 0455 Economics November 2024 Question Paper  12
+  qnum: '29'
+- paper: 0455 Economics November 2024 Question Paper  12
+  qnum: '30'
+- paper: 0455 Economics November 2024 Question Paper  21
+  qnum: 1b
+- paper: 0455 Economics November 2024 Question Paper  21
+  qnum: 1e
+- paper: 0455 Economics November 2024 Question Paper  21
+  qnum: 1h
+- paper: 0455 Economics November 2024 Question Paper  21
+  qnum: 2d
+- paper: 0455 Economics November 2024 Question Paper  21
+  qnum: 4a
+- paper: 0455 Economics November 2024 Question Paper  21
+  qnum: 4d
+- paper: 0455 Economics November 2024 Question paper  11
+  qnum: '28'
+- paper: 0455 Economics November 2024 Question paper  11
+  qnum: '29'
+- paper: 0455 Economics November 2024 Question paper  11
+  qnum: '30'
+- paper: 0455 Economics November 2024 Question paper  13
+  qnum: '27'
+- paper: 0455 Economics November 2024 Question paper  13
+  qnum: '28'
+- paper: 0455 Economics November 2024 Question paper  13
+  qnum: '29'
+- paper: 0455 Economics November 2024 Question paper  13
+  qnum: '30'
+- paper: 0455 Economics November 2024 Question paper  22
+  qnum: 1b
+- paper: 0455 Economics November 2024 Question paper  22
+  qnum: 2d
+- paper: 0455 Economics November 2024 Question paper  22
+  qnum: 3a
+- paper: 0455 Economics November 2025 Question Paper  11
+  qnum: '29'
+- paper: 0455 Economics November 2025 Question Paper  11
+  qnum: '30'
+- paper: 0455 Economics November 2025 Question Paper  12
+  qnum: '17'
+- paper: 0455 Economics November 2025 Question Paper  12
+  qnum: '29'
+- paper: 0455 Economics November 2025 Question Paper  12
+  qnum: '30'
+- paper: 0455 Economics November 2025 Question Paper  13
+  qnum: '20'
+- paper: 0455 Economics November 2025 Question Paper  13
+  qnum: '27'
+- paper: 0455 Economics November 2025 Question Paper  13
+  qnum: '28'
+- paper: 0455 Economics November 2025 Question Paper  13
+  qnum: '29'
+- paper: 0455 Economics November 2025 Question Paper  13
+  qnum: '30'
+- paper: 0455 Economics November 2025 Question Paper  21
+  qnum: 1c
+- paper: 0455 Economics November 2025 Question Paper  21
+  qnum: 1e
+- paper: 0455 Economics November 2025 Question Paper  21
+  qnum: 1f
+- paper: 0455 Economics November 2025 Question Paper  22
+  qnum: 5a
+- paper: 0455 Economics November 2025 Question Paper  22
+  qnum: 5c
+- paper: 0455 Economics November 2025 Question Paper  22
+  qnum: 5d
+- paper: 0455 Economics November 2025 Question Paper  23
+  qnum: 1h
+- paper: 0455 Economics November 2025 Question Paper  23
+  qnum: 2a
+- paper: 0455 Economics November 2025 Question Paper  23
+  qnum: 4a
+- paper: 0455 Economics November 2025 Question Paper  23
+  qnum: 4d
+generated_at: '2026-05-29T15:54:18Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:54:18Z'
+glossed_at: '2026-05-29T15:57:52Z'

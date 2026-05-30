@@ -1,0 +1,189 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Ethics and Ownership}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Ethics for computing professionals}
+
+A \textbf{computing professional} is someone whose work — software, systems, networks, data — affects other people. Because the work is technical, others often cannot judge whether it was done well or honestly. So the profession follows shared \textbf{ethics} 伦理 (principles for good behaviour).
+
+\subsection*{Why ethics matters}
+
+\begin{itemize}
+\item \textbf{trust} — users and employers trust professionals to act in their interest. Without that trust, software loses credibility.
+
+\item \textbf{impact} — software runs medical devices, banking, vehicles. Careless or dishonest work can hurt people.
+
+\end{itemize}
+
+Professional bodies (BCS, ACM, IEEE) publish codes of ethics for members.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/07-p200-public-wellbeing-impact.pdf}}\\[0.3em]
+\emph{Software development affects the public's wellbeing in several ways}
+\end{minipage}\par\medskip
+
+\subsection*{Typical principles}
+
+\begin{itemize}
+\item \textbf{public interest first} — protect the safety and welfare of those affected.
+
+\item \textbf{honesty and competence} — be honest about your skills; don't claim expertise you lack.
+
+\item \textbf{confidentiality} 保密性 — protect clients' and employers' private information.
+
+\item \textbf{avoid conflicts of interest} 利益冲突 — don't take work where your interest clashes with the client's.
+
+\item keep your skills current; respect \textbf{intellectual property} 知识产权 and \textbf{privacy} 隐私; treat colleagues fairly.
+
+\end{itemize}
+
+\subsection*{Acting ethically vs unethically}
+
+Acting \textbf{ethically} protects users, strengthens reputation, reduces legal risk, and builds trust. Acting \textbf{unethically} (skipping testing, hiding bugs, misusing data) can harm real users, lead to dismissal or legal action, damage reputation, and erode trust in technology generally.
+
+When you face a borderline decision: identify whose interests are affected, check the code of ethics and the law, weigh the consequences, ask a trusted senior, and choose the option that protects users above short-term convenience.
+
+\section*{Copyright}
+
+\textbf{Copyright} 版权 is the legal right of the creator of an original work to control how it is \textbf{copied, distributed, modified and performed}. It applies automatically (no registration) to source code, software, documents, images, audio and video.
+
+Without copyright, anyone could copy software freely, the developer would not be paid, and plagiarism would be legal. With copyright, developers can earn from their work (encouraging more software), users know who made it, and re-use happens on the developer's terms through licensing. Copyright lasts a long time (often 70 years after the creator's death). General ideas and algorithms are not covered by copyright but may be covered by a \textbf{patent} 专利.
+
+\section*{Software licences}
+
+A \textbf{software licence} 软件许可证 is a contract granting permission to use software on the owner's terms.
+
+\subsection*{Commercial (proprietary)}
+
+\begin{itemize}
+\item you \textbf{buy a licence}; the software is used only within its terms.
+
+\item the source code is not given (a \textbf{proprietary} 专有 product); you cannot modify or redistribute it.
+
+\item examples: Microsoft Office, Adobe Photoshop, most games.
+
+\end{itemize}
+
+Used when the developer wants \textbf{revenue} per user and to \textbf{keep control} of the code.
+
+\subsection*{Open-source}
+
+\begin{itemize}
+\item the source code is \textbf{public}; users can read, modify and redistribute it (\textbf{open-source} 开源).
+
+\item \textbf{permissive} licences (MIT, BSD) allow almost any use; \textbf{copyleft} 著佐权 licences (GPL) require that modified versions are released under the same licence ("share-alike").
+
+\item examples: Linux, Python, Apache.
+
+\end{itemize}
+
+Used when the developer wants the software \textbf{widely used and improved by the community}.
+
+\subsection*{Freeware and shareware}
+
+\begin{itemize}
+\item \textbf{freeware} 免费软件 — free of charge, no source code, may be redistributed but not modified (Acrobat Reader, WhatsApp).
+
+\item \textbf{shareware} 共享软件 — free for a trial period, then you pay to keep using it; no source code.
+
+\end{itemize}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lllll}
+\toprule
+\textbf{Type} & \textbf{Cost} & \textbf{Source} & \textbf{Redistribute} & \textbf{Modify} \\
+\midrule
+Commercial & Paid & No & No & No \\
+Open-source & Free & Yes & Yes & Often, with conditions \\
+Freeware & Free & No & Yes & No \\
+Shareware & Free trial, then paid & No & Sometimes & No \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+To justify a licence choice, link it to the developer's goal (revenue, reach, community), the user's needs (cost, customising), and the use case.
+
+\section*{Artificial Intelligence (AI)}
+
+\textbf{Artificial intelligence} 人工智能 builds systems that do tasks once thought to need \textbf{human intelligence} — recognising speech and images, translating, playing games, driving.
+
+Most modern AI uses \textbf{machine learning} 机器学习 — algorithms that improve at a task by learning patterns from large amounts of data, instead of being programmed step by step. \textbf{Deep learning} 深度学习, using \textbf{neural networks} 神经网络 with many layers, is the leading approach today.
+
+\subsection*{Everyday examples}
+
+\begin{itemize}
+\item \textbf{speech recognition} 语音识别 — spoken words to text (voice assistants).
+
+\item \textbf{image recognition} 图像识别 — finding objects, faces or text in images.
+
+\item \textbf{machine translation} 机器翻译 — automatic translation between languages.
+
+\item \textbf{recommendation systems} 推荐系统 — suggesting products, videos or music.
+
+\item \textbf{autonomous vehicles} 自动驾驶汽车 and robots.
+
+\end{itemize}
+
+A common exam scenario: a program reads a label with a camera, translates it, and reads it aloud — using \textbf{optical character recognition} 光学字符识别 to find the words, machine translation to convert them, and \textbf{text-to-speech} 文本转语音 for the audio.
+
+\subsection*{Benefits}
+
+\begin{itemize}
+\item \textbf{accessibility} — speech/image AI helps users with impairments; translation helps non-native speakers.
+
+\item \textbf{productivity} — automating repetitive tasks frees people for creative work.
+
+\item \textbf{decision support} — AI spots patterns in huge datasets (medical diagnosis, fraud detection).
+
+\item \textbf{always available}, and \textbf{personalised} to each user.
+
+\end{itemize}
+
+\subsection*{Concerns}
+
+\begin{itemize}
+\item \textbf{bias} 偏见 — unfair patterns in the training data become unfair AI decisions (hiring, lending).
+
+\item \textbf{job displacement} — AI may replace some roles.
+
+\item \textbf{privacy} — training often uses large amounts of personal data.
+
+\item \textbf{transparency} — large models are "black boxes", hard to explain.
+
+\item \textbf{accountability} — when AI is wrong, who is responsible: developer, user, or operator?
+
+\item \textbf{misuse} — deepfakes, misinformation, surveillance.
+
+\end{itemize}
+
+Professionals must \textbf{understand the limits} of the AI they build, \textbf{inform users}, and \textbf{reduce harm}.
+
+
+\end{document}

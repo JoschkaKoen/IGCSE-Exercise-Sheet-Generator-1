@@ -82,3 +82,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:56:50Z'
 glossed_at: '2026-05-29T05:56:50Z'
+figures:
+  - file: assets/19-p470-linear-search.png
+    caption: Linear search checks every letter in turn — up to 23 comparisons to find W
+    figure_ref: '19.1'
+    source_page_pdf: 470
+    source_page_printed: 454
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [52.9, 586.0, 556.3, 653.2]
+    placed_under: "### Linear search"
+  - file: assets/19-p471-binary-search.png
+    caption: Binary search halves the list each time — just 3 comparisons to find W
+    figure_ref: '19.2'
+    source_page_pdf: 471
+    source_page_printed: 455
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [41.6, 68.0, 542.5, 140.1]
+    placed_under: "### Binary search"
+  - file: assets/19-p478-insertion-sort-trace.png
+    caption: An insertion sort shifting each element into its place, pass by pass
+    figure_ref: '19.3'
+    source_page_pdf: 478
+    source_page_printed: 462
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 66.0, 558.0, 254.8]
+    placed_under: "### Tracing a sort"
+  - file: assets/19-p478-sort-performance.png
+    caption: How sorting time grows with the number of elements
+    figure_ref: '19.4'
+    source_page_pdf: 478
+    source_page_printed: 462
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [176.0, 432.1, 487.0, 619.6]
+    placed_under: "### Time complexity"
+  - file: assets/19-p497-binary-tree.png
+    caption: "A binary tree: each node has up to two child nodes"
+    figure_ref: '19.10'
+    source_page_pdf: 497
+    source_page_printed: 481
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.2, 300.0, 547.8, 447.9]
+    placed_under: "## ADTs in algorithms"

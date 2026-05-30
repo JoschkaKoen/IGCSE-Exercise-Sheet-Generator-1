@@ -1,0 +1,217 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Nuclear physics}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Mass-energy equivalence}
+
+Einstein's special relativity gives the famous link (\textbf{mass-energy equivalence} 质能等价):
+
+\[
+E = m c^{2},
+\]
+
+where $c = 3.00 \times 10^{8}\ \text{m s}^{-1}$. A mass $m$ matches an \textbf{energy} 能量 $E$ — the two can change into each other. For a mass change $\Delta m$:
+
+\[
+\Delta E = c^{2} \Delta m.
+\]
+
+In nuclear physics the masses are tiny but $c^{2}$ is huge, so a small mass change means a large energy. A mass change of $1\ \text{u}$ ($1.661 \times 10^{-27}\ \text{kg}$) matches $\Delta E \approx 1.49 \times 10^{-10}\ \text{J} \approx 931\ \text{MeV}$. So $1\ \text{u} \approx 931\ \text{MeV}/c^{2}$ — a handy conversion.
+
+\section*{Nuclear reactions}
+
+A \textbf{nuclear reaction} 核反应 is written like
+
+\[
+^{14}_{7}\text{N} + {}^{4}_{2}\text{He} \to {}^{17}_{8}\text{O} + {}^{1}_{1}\text{H},
+\]
+
+with \textbf{nucleon number} 核子数 conserved (top numbers: $14 + 4 = 17 + 1$) and charge conserved (bottom numbers: $7 + 2 = 8 + 1$) — this is \textbf{conservation of charge} 电荷守恒. Use these to fill in an unknown: identify the species, then balance the top and bottom numbers.
+
+\section*{Mass defect and binding energy}
+
+The mass of a \textbf{nucleus} 原子核 is \textbf{less than} the total mass of its separate \textbf{protons} 质子 and \textbf{neutrons} 中子. The difference is the \textbf{mass defect} 质量亏损 $\Delta m$:
+
+\[
+\Delta m = (Z m_{\text{p}} + N m_{\text{n}}) - m_{\text{nucleus}}.
+\]
+
+By $E = mc^{2}$, this "missing" mass was released as energy when the nucleus formed. To pull the nucleus fully apart you must put that energy back — the \textbf{binding energy} 结合能 $B$:
+
+\[
+B = \Delta m \cdot c^{2}.
+\]
+
+A more tightly bound nucleus has a larger mass defect and larger binding energy. The \textbf{binding energy per nucleon} 比结合能 is $B/A$ (usually in MeV per nucleon) — a measure of how tightly each nucleon is held, useful for comparing nuclides.
+
+\subsection*{Binding energy per nucleon vs nucleon number}
+
+A graph of $B/A$ against $A$ has a typical shape:
+
+\begin{itemize}
+\item for light nuclei ($A < 20$), $B/A$ rises quickly (with a spike at the very stable $^{4}_{2}\text{He}$).
+
+\item around $A \sim 56$ (iron), $B/A$ reaches its \textbf{maximum} of about $8.8\ \text{MeV}$. \textbf{Iron-56 is the most stable nucleus.}
+
+\item for heavy nuclei ($A > 100$), $B/A$ falls slowly, to about $7.5\ \text{MeV}$ for uranium.
+
+\end{itemize}
+
+So the curve is dome-shaped, rising to iron then falling.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/23-p384-binding-energy-per-nucleon.pdf}}\\[0.3em]
+\emph{Binding energy per nucleon peaks near iron (A ≈ 56); lighter and heavier nuclei are less tightly bound}
+\end{minipage}\par\medskip
+
+\section*{Nuclear fusion and fission}
+
+Energy is \textbf{released} when nuclei move \textbf{towards} the iron peak — by joining light nuclei or splitting heavy ones.
+
+\subsection*{Nuclear fusion}
+
+\textbf{Nuclear fusion} 核聚变 joins two light nuclei into one heavier nucleus:
+
+\[
+^{2}_{1}\text{H} + {}^{3}_{1}\text{H} \to {}^{4}_{2}\text{He} + {}^{1}_{0}\text{n} + \text{energy}.
+\]
+
+The product has greater binding energy per nucleon than the reactants, so energy is released. Fusion powers stars. It needs very high temperatures (millions of kelvin) so the nuclei have enough \textbf{kinetic energy} 动能 to beat their \textbf{electrostatic} 静电 repulsion and get close enough for the \textbf{strong nuclear force} 强核力 to take over.
+
+\subsection*{Nuclear fission}
+
+\textbf{Nuclear fission} 核裂变 splits a heavy nucleus into two lighter ones:
+
+\[
+^{235}_{92}\text{U} + {}^{1}_{0}\text{n} \to {}^{141}_{56}\text{Ba} + {}^{92}_{36}\text{Kr} + 3\, {}^{1}_{0}\text{n} + \text{energy}.
+\]
+
+The products have higher binding energy per nucleon than $^{235}$U, so energy is released. The extra neutrons can cause more fissions — a \textbf{chain reaction} 链式反应 in a large enough mass of fuel (the \textbf{critical mass} 临界质量). This is the basis of nuclear power and weapons.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/23-p388-chain-reaction.pdf}}\\[0.3em]
+\emph{In an uncontrolled chain reaction each fission of uranium-235 releases neutrons that cause more fissions}
+\end{minipage}\par\medskip
+
+\subsection*{Calculating the energy released}
+
+\begin{enumerate}
+\item find the total mass of the reactants.
+
+\item find the total mass of the products.
+
+\item mass change $\Delta m = m_{\text{reactants}} - m_{\text{products}}$ (positive when energy is released).
+
+\item energy released $\Delta E = c^{2} \Delta m$.
+
+\end{enumerate}
+
+In kg this gives joules; in atomic mass units use $\Delta E\ (\text{MeV}) = \Delta m\ (\text{u}) \times 931$.
+
+\section*{Radioactive decay}
+
+\subsection*{Random and spontaneous}
+
+Radioactive decay is:
+
+\begin{itemize}
+\item \textbf{spontaneous} 自发 — it happens with no outside trigger, and the rate is not changed by temperature, pressure or chemical state; and
+
+\item \textbf{random} 随机 — you cannot predict when a given nucleus will decay, only the probability that it decays in a time.
+
+\end{itemize}
+
+Evidence for randomness: the count rate \textbf{fluctuates}. A \textbf{Geiger counter} 盖革计数器 next to a source clicks at uneven intervals — never a steady stream — although the long-run mean rate is well-defined.
+
+\subsection*{Activity and decay constant}
+
+For $N$ undecayed nuclei of a \textbf{radionuclide} 放射性核素, the rate of decay is
+
+\[
+A = \lambda N.
+\]
+
+\begin{itemize}
+\item $A$ is the \textbf{activity} 活度 — decays per unit time. Unit: \textbf{becquerel} 贝克勒尔 (Bq) $= \text{s}^{-1}$.
+
+\item $\lambda$ is the \textbf{decay constant} 衰变常数 — the probability per unit time that a nucleus decays. Unit: $\text{s}^{-1}$.
+
+\end{itemize}
+
+$\lambda$ is fixed for a nuclide; a larger sample (larger $N$) has proportionally larger activity.
+
+\subsection*{Exponential decay}
+
+Since $\lambda$ is the fractional decay rate, $\dfrac{dN}{dt} = -\lambda N$, whose solution is an \textbf{exponential decay} 指数衰减:
+
+\[
+N = N_{0} e^{-\lambda t}.
+\]
+
+Because $A = \lambda N$, the activity (and any \textbf{count rate} 计数率 proportional to it) decays the same way:
+
+\[
+A = A_{0} e^{-\lambda t}.
+\]
+
+Why exponential? For each nucleus, $\lambda$ is a fixed probability per unit time, independent of the others and of the nucleus's age. So the same \textbf{fraction} decays in each time interval, which gives exponential decay.
+
+\subsection*{Half-life}
+
+The \textbf{half-life} 半衰期 $t_{1/2}$ is the time for the number of undecayed nuclei (or the activity, or the count rate) to fall to \textbf{half}. From $N = N_{0} e^{-\lambda t}$ with $N = N_{0}/2$:
+
+\[
+\ln 2 = \lambda t_{1/2}, \qquad \lambda = \frac{\ln 2}{t_{1/2}} \approx \frac{0.693}{t_{1/2}}.
+\]
+
+A larger decay constant means a shorter half-life. After $n$ half-lives the surviving fraction is $(1/2)^{n}$; after 5 half-lives only about 3\% remains.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/23-p390-radioactive-decay-curve.pdf}}\\[0.3em]
+\emph{The number of undecayed nuclei falls by half in each half-life}
+\end{minipage}\par\medskip
+
+\subsection*{Finding $\lambda$ from data}
+
+Given $A_{0}$ and $A$ at time $t$:
+
+\[
+\lambda = \frac{1}{t} \ln\frac{A_{0}}{A}, \qquad t_{1/2} = \frac{\ln 2}{\lambda}.
+\]
+
+Taking logs of $A = A_{0} e^{-\lambda t}$ gives $\ln A = \ln A_{0} - \lambda t$, so a plot of $\ln A$ against $t$ is a straight line with gradient $-\lambda$. Use this with several data points.
+
+
+\end{document}

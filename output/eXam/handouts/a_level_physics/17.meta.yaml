@@ -106,3 +106,68 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:27:31Z'
 glossed_at: '2026-05-29T05:27:31Z'
+figures:
+  - file: assets/17-p290-shm-directions.png
+    caption: Acceleration always points back towards equilibrium, opposite to the displacement
+    figure_ref: '17.3'
+    source_page_pdf: 290
+    source_page_printed: 274
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [198.0, 300.0, 490.0, 422.0]
+    placed_under: "## Simple harmonic motion: definition"
+  - file: assets/17-p290-acceleration-displacement-graph.png
+    caption: The acceleration–displacement graph is a straight line through the origin with gradient −ω²
+    figure_ref: '17.4'
+    source_page_pdf: 290
+    source_page_printed: 274
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [52.0, 462.0, 172.0, 582.0]
+    placed_under: "### Graph of $a$ against $x$"
+  - file: assets/17-p291-displacement-time.png
+    caption: Displacement varies sinusoidally with time in simple harmonic motion
+    figure_ref: '17.5'
+    source_page_pdf: 291
+    source_page_printed: 275
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [165.2, 438.1, 414.3, 560.7]
+    placed_under: "### Graphs against time"
+  - file: assets/17-p292-velocity-acceleration-time.png
+    caption: Velocity leads displacement by a quarter cycle; acceleration is exactly out of phase with displacement
+    figure_ref: '17.6'
+    source_page_pdf: 292
+    source_page_printed: 276
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [193.8, 64.6, 421.1, 280.3]
+    placed_under: "### Graphs against time"
+  - file: assets/17-p294-energy-variations.png
+    caption: Kinetic and potential energy swap over a cycle while the total energy stays constant
+    figure_ref: '17.9'
+    source_page_pdf: 294
+    source_page_printed: 278
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [174.8, 495.0, 377.6, 589.4]
+    placed_under: "### Energy against displacement"
+  - file: assets/17-p295-light-damping.png
+    caption: In light damping the amplitude dies away slowly over many cycles
+    figure_ref: '17.10'
+    source_page_pdf: 295
+    source_page_printed: 279
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [165.7, 544.9, 505.4, 643.3]
+    placed_under: "### Light damping"
+  - file: assets/17-p296-critical-heavy-damping.png
+    caption: Critical damping returns to equilibrium fastest without overshoot; overdamping returns more slowly
+    figure_ref: '17.11'
+    source_page_pdf: 296
+    source_page_printed: 280
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [192.0, 39.0, 338.0, 164.0]
+    placed_under: "### Heavy damping"
+  - file: assets/17-p297-resonance-curve.png
+    caption: The amplitude of a forced oscillation peaks at resonance, when the driving frequency equals the natural frequency
+    figure_ref: '17.14'
+    source_page_pdf: 297
+    source_page_printed: 281
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [168.0, 207.0, 322.0, 325.0]
+    placed_under: "### Resonance"

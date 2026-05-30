@@ -1,0 +1,360 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Express $9x^2 - 36x + 8$ in the form $p(x+q)^2 + r$, where $p$, $q$ and
+      $r$ are constants.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Hence find the set of values of the constant $k$ for which the equation
+      $9x^2 - 36x + 8 = k$ has no real roots.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the exact roots of the equation $9x^2 - 36x + 8 = -15$.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: Find the term independent of $x$ in the expansion of $\left(2x^2 - \dfrac{3}{x}\right)^6$.
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: The graph of $y = f(x)$ is transformed to the graph of $y = f(3x) + 2$.
+      Describe fully the two transformations which have been combined to give the
+      resulting graph.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: A different graph has equation $y = g(x)$. This graph is stretched by scale
+      factor 3 in the $y$-direction and then reflected in the $y$-axis. Write down
+      the equation of the transformed graph in terms of the function g.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The equation of a curve is such that $\dfrac{dy}{dx} = kx^3 + \dfrac{2}{x^2}$,
+    where $k$ is a constant. The curve passes through the point $S(2, 20)$ and the
+    gradient of the curve at $S$ is $\dfrac{65}{2}$.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Find the value of $k$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: The coordinates of a point $T$ on the curve are $(1, t)$. Find the value
+      of $t$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The equation of a curve is $y = 4x^{\frac12} - x$. The curve has a maximum
+    point when $x = a$ and crosses the $x$-axis at the point with coordinates $(b,
+    0)$, where $b > 0$. The shaded region is bounded by the curve, the line $x = a$
+    and the $x$-axis (see diagram).
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the value of $a$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the exact area of the shaded region.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Sketch the graph of $y = 3\sin x + 2$ for $0 \leqslant x \leqslant 2\pi$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Determine the number of solutions in the interval $0 \leqslant x \leqslant
+      2\pi$ of each of the following equations.
+    answer_options: []
+    subquestions:
+    - number: 6bi
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: $3\sin x + 2 = x$
+      answer_options: []
+      subquestions: []
+    - number: 6bii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: $3\sin x + 2 = 5 - x$
+      answer_options: []
+      subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Solve the equation $3\sin x + 2 = 5\cos^2 x - 1$ for $0 \leqslant x \leqslant
+      2\pi$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The coordinates of the points $P$ and $Q$ are $(1, 1)$ and $(7, 11)$ respectively.
+    The line segment $PQ$ forms a diameter of a circle.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the equation of the circle.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the equation of the tangent to the circle at the point $Q$.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The other point on the circle with $x$-coordinate 7 is $R$. Find the coordinates
+      of the point of intersection of the tangent at $Q$ with the tangent at $R$.
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The first three terms of a geometric progression are $a$, $b$ and $c$ respectively,
+    where $a$, $b$ and $c$ are positive constants. The first three terms of an arithmetic
+    progression are $a$, $b$ and $-3c$ respectively.
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $a^2 - 10ac + 9c^2 = 0$.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: It is now given that $a = 9$ and $c$ takes the smaller of its two possible
+      values.
+    answer_options: []
+    subquestions:
+    - number: 8bi
+      question_type: calculation
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: Find the sum to infinity of the geometric progression.
+      answer_options: []
+      subquestions: []
+    - number: 8bii
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Find the sum of the first 20 terms of the arithmetic progression.
+      answer_options: []
+      subquestions: []
+- number: '9'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The function f is defined by $f(x) = \dfrac{4}{(3x-6)^2} + \dfrac{1}{(3x-6)^3}$
+    for $x > 2$.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find an expression for $f'(x)$ and hence determine whether f is an increasing
+      function, a decreasing function or neither.
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: State whether $f^{-1}$ exists. Give a reason for your answer.
+    answer_options: []
+    subquestions: []
+  - number: 9c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: The function g is defined by $g(x) = 4x - 3$ for $x > a$. Find the range
+      of g in terms of the constant $a$.
+    answer_options: []
+    subquestions: []
+  - number: 9d
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the set of values of $a$ for which the composite function $\mathrm{fg}$
+      exists.
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: calculation
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The diagram shows a circle with centre $A$ and radius $r$ passing through
+    points $B$, $C$ and $D$. A larger circle of radius $s$ has centre $C$ and passes
+    through $B$ and $D$. The length $BD$ is also $s$.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Show that $s = \sqrt3\, r$.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: calculation
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Find an expression for the area of the shaded region. Give your answer in
+      the form $(a + b\pi)r^2$, where $a$ and $b$ are constants to be found.
+    answer_options: []
+    subquestions: []

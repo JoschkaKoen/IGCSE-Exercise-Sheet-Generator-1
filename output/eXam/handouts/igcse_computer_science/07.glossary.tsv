@@ -1,0 +1,40 @@
+english	简体中文	pinyin
+program development life cycle	程序开发生命周期	chéng xù kāi fā shēng mìng zhōu qī
+analysis	分析	fēn xī
+design	设计	shè jì
+coding	编码	biān mǎ
+testing	测试	cè shì
+abstraction	抽象	chōu xiàng
+decomposition	分解	fēn jiě
+sub-systems	子系统	zi xì tǒng
+structure diagram	结构图	jié gòu tú
+iterative testing	迭代测试	dié dài cè shì
+test data	测试数据	cè shì shù jù
+flowchart	流程图	liú chéng tú
+pseudocode	伪代码	wěi dài mǎ
+algorithm	算法	suàn fǎ
+input	输入	shū rù
+processing	处理	chǔ lǐ
+output	输出	shū chū
+validation	验证	yàn zhèng
+range check	范围检查	fàn wéi jiǎn chá
+length check	长度检查	cháng dù jiǎn chá
+type check	类型检查	lèi xíng jiǎn chá
+presence check	存在性检查	cún zài xìng jiǎn chá
+format check	格式检查	gé shì jiǎn chá
+check digit	校验码	jiào yàn mǎ
+verification	核实	hé shí
+visual check	目视检查	mù shì jiǎn chá
+double entry	双重输入	shuāng chóng shū rù
+trace table	追踪表	zhuī zōng biǎo
+normal	正常数据	zhèng cháng shù jù
+abnormal	异常数据	yì cháng shù jù
+extreme	极端数据	jí duān shù jù
+boundary	边界数据	biān jiè shù jù
+linear search	线性查找	xiàn xìng chá zhǎo
+bubble sort	冒泡排序	mào pào pái xù
+totalling	求和	qiú hé
+counting	计数	jì shù
+maximum	最大值	zuì dà zhí
+minimum	最小值	zuì xiǎo zhí
+average	平均值	píng jūn zhí

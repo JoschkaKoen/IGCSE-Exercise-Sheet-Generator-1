@@ -30,3 +30,36 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:54:36Z'
 glossed_at: '2026-05-29T05:54:36Z'
+figures:
+  - file: assets/17-p427-encryption-process.png
+    caption: Encryption scrambles plaintext with a key; decryption reverses it
+    figure_ref: '17.1'
+    source_page_pdf: 427
+    source_page_printed: 411
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 385.0, 550.5, 453.4]
+    placed_under: "## How encryption works"
+  - file: assets/17-p429-asymmetric-keys.png
+    caption: Each user has a public key to share and a private key to keep secret
+    figure_ref: '17.3'
+    source_page_pdf: 429
+    source_page_printed: 413
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 306.0, 535.8, 362.2]
+    placed_under: "### Asymmetric encryption (public-key)"
+  - file: assets/17-p436-digital-signature.png
+    caption: Signing hashes the message and encrypts the digest with the private key; the receiver checks it with the public key
+    figure_ref: '17.7'
+    source_page_pdf: 436
+    source_page_printed: 420
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [156.1, 52.8, 558.0, 312.2]
+    placed_under: "## Digital signatures"
+  - file: assets/17-p437-digital-certificate.png
+    caption: A Certificate Authority issues a digital certificate binding an identity to a public key
+    figure_ref: '17.8'
+    source_page_pdf: 437
+    source_page_printed: 421
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [31.9, 74.3, 549.6, 353.7]
+    placed_under: "## Digital certificates"

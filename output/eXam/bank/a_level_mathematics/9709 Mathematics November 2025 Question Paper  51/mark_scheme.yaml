@@ -1,0 +1,143 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$4k + k + 4k + 9k = 1 \Rightarrow k = \tfrac{1}{18}$. Table:
+    $\mathrm{P}(X=-2)=\tfrac{4}{18}$, $\mathrm{P}(X=1)=\tfrac{1}{18}$, $\mathrm{P}(X=2)=\tfrac{4}{18}$,
+    $\mathrm{P}(X=3)=\tfrac{9}{18}$.'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{E}(X) = 28k = \tfrac{28}{18} = \tfrac{14}{9} \approx
+    1.56$.
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}(X\neq2\mid X>0) = \dfrac{\tfrac{1}{18}+\tfrac{9}{18}}{\tfrac{1}{18}+\tfrac{4}{18}+\tfrac{9}{18}}
+    = \dfrac{10}{14} = \tfrac57 \approx 0.714$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\left(\tfrac56\right)^7\left(\tfrac16\right) = 0.0465$.
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\binom{6}{2}\left(\tfrac16\right)^2\left(\tfrac56\right)^4
+    \times \tfrac16 = \binom{6}{2}\left(\tfrac56\right)^4\left(\tfrac16\right)^3 =
+    0.0335$.
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Median $= \$32\,400$; $\mathrm{IQR} = \$33\,500 - \$31\,300
+    = \$2\,200$.
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Mean $= \dfrac{878.3+896.5}{54} = 32.867$ thousand $= \$32\,900$.
+    Variance $= \dfrac{28616.09+29815.63}{54} - \left(\dfrac{1774.8}{54}\right)^2
+    = 1.8511$, so sd $= 1.36$, i.e. $\$1\,360$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Bag $B$ after a red: R $\tfrac45$, B $\tfrac15$. Final bag
+    $A$ draws — R,R: $\tfrac{7}{10}/\tfrac{3}{10}$; R,B: $\tfrac{7}{11}/\tfrac{4}{11}$;
+    B,R: $\tfrac{8}{10}/\tfrac{2}{10}$; B,B: $\tfrac{8}{11}/\tfrac{3}{11}$.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}(RRR)+\mathrm{P}(BBB) = \tfrac{8}{11}\cdot\tfrac45\cdot\tfrac{7}{10}
+    + \tfrac{3}{11}\cdot\tfrac26\cdot\tfrac{3}{11} = \tfrac{224}{550}+\tfrac{18}{726}
+    = \tfrac{1307}{3025} = 0.432$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$X \sim B(7, 0.6)$: $\binom75(0.6)^5(0.4)^2 + \binom76(0.6)^6(0.4)
+    + (0.6)^7 = 0.420$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\mathrm{P}(\text{no jumper}) = 0.1$; $n=150$ gives mean $15$,
+    variance $13.5$. Normal approx with continuity correction: $\mathrm{P}(X<22) =
+    \mathrm{P}\!\left(Z < \tfrac{21.5-15}{\sqrt{13.5}}\right) = \mathrm{P}(Z<1.769)
+    = 0.962$.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}(148<X<160) = \Phi(0.8333) + \Phi(1.1667) - 1 = 0.6759$;
+    expected number $= 0.6759 \times 350 \approx 237$ (accept 236).
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{114-\mu}{\sigma} = 1.405$ and $\dfrac{99.5-\mu}{\sigma}
+    = -0.842$; solving simultaneously gives $\mu = 105$, $\sigma = 6.45$.
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{10!}{2!\,3!\,2!} = 151\,200$ (S$\times2$, E$\times3$,
+    L$\times2$).
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With S, (one letter), C as the gap pattern: $\dfrac{7!}{2!\,3!}\times
+    2 \times 7 = 5\,880$.'
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Ss fixed at the two ends: $\dfrac{8!}{2!\,3!} - \dfrac{6!}{2!}
+    = 3360 - 360 = 3\,000$ (total minus those with the three Es together).'
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{\binom72}{\binom{10}{5}} = \dfrac{21}{252} = \tfrac{1}{12}
+    \approx 0.0833$.
+  mark_scheme: []
+  graphics: []

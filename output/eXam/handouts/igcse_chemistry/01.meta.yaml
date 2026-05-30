@@ -1,0 +1,62 @@
+topic_number: '1'
+topic_title: States of matter
+subject_key: igcse_chemistry
+covered_question_ids:
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '1'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '2'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '3'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '4'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '5'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '6'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '1'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '2'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '1'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '2'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '3'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '4'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '1'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '2'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '3'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '1'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '2'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '1'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '2'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '3'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '1'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '2'
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 1a
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 1b
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 1ci
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 1cii
+generated_at: '2026-05-29T15:32:38Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:32:39Z'
+glossed_at: '2026-05-29T15:32:39Z'

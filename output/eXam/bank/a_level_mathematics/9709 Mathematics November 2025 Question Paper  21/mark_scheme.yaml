@@ -1,0 +1,122 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $6\sin^2 x = 3 - 3\cos 2x$, so $\displaystyle\int 6\sin^2 x\,dx
+    = 3x - \tfrac32\sin 2x + C$.
+  mark_scheme: []
+  graphics: []
+- number: '2'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Let $y = e^{2x}$: $y^2 - 8y - 48 = 0 \Rightarrow (y-12)(y+4)
+    = 0 \Rightarrow y = 12$ (reject $-4$). $e^{2x} = 12 \Rightarrow x = \tfrac12\ln
+    12$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Squaring: $(2x-3)^2 = (5x+2)^2 \Rightarrow 21x^2 + 32x - 5
+    = 0 \Rightarrow x = \tfrac17$ or $x = -\tfrac53$.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\sec\theta = \tfrac17$ is impossible ($|\cos\theta| \leqslant
+    1$); $\sec\theta = -\tfrac53 \Rightarrow \cos\theta = -\tfrac35$. For $\pi < \theta
+    < 2\pi$, $\theta = 4.07$ rad.
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $t = \tan\theta$ and $\tan(\theta+45\degree) = \tfrac{t+1}{1-t}$:
+    $\tfrac1t\cdot\tfrac{t+1}{1-t} = 7 \Rightarrow 7t^2 - 6t + 1 = 0 \Rightarrow t
+    = \tfrac{3\pm\sqrt2}{7}$. So $\theta = 12.8\degree$ or $32.2\degree$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = 0 \Rightarrow 8e^{-x/2} = 1 \Rightarrow e^{-x/2} = \tfrac18
+    \Rightarrow -\tfrac x2 = -3\ln 2 \Rightarrow x = 6\ln 2$.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $A = (0, 7)$, $B = (6\ln 2, 0)$. Triangle area $= \tfrac12(6\ln
+    2)(7) = 21\ln 2$; $\int_0^{6\ln 2}(8e^{-x/2} - 1)\,dx = 14 - 6\ln 2$. Shaded area
+    $= 21\ln 2 - (14 - 6\ln 2) = 27\ln 2 - 14$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dx}{d\theta} = \sec^2\theta$, $\dfrac{dy}{d\theta} =
+    \cos\theta(1 - 6\sin^2\theta)$, so $\dfrac{dy}{dx} = \cos^3\theta(1 - 6\sin^2\theta)
+    = \cos^3\theta(6\cos^2\theta - 5) = 6\cos^5\theta - 5\cos^3\theta$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$y = 0 \Rightarrow \sin^2\theta = \tfrac12 \Rightarrow \theta
+    = \tfrac\pi4$, point $(1, 0)$. There $\dfrac{dy}{dx} = -\tfrac{1}{\sqrt2}$, so
+    the normal gradient is $\sqrt2$: $y = \sqrt2\,x - \sqrt2$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $p(-2) = 32 - 8k + 4k - 34 + 18 = 16 - 4k = 0 \Rightarrow k
+    = 4$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\alpha = -2$. Dividing $p(x)$ by $(x+2)$ leaves $2x^3 + 4x
+    + 9 = 0 \Rightarrow x^3 = -2x - 4.5 \Rightarrow x = \sqrt[3]{-2x - 4.5}$, which
+    $\beta$ satisfies.
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$f(x) = 2x^3 + 4x + 9$: $f(-1.4) = -2.09 < 0$ and $f(-1.0)
+    = 3 > 0$, so $-1.4 < \beta < -1.0$.'
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Iterating $x_{n+1} = \sqrt[3]{-2x_n - 4.5}$ from $x_0 = -1.2$:
+    $-1.2806$, $-1.2475$, $-1.2610$, $-1.2553, \ldots \Rightarrow \beta = -1.26$ (3
+    s.f.).'
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = 4e^{1-2x}\!\left[-2\sqrt{3x-1} + \dfrac{3}{2\sqrt{3x-1}}\right]
+    = 0 \Rightarrow 3x - 1 = \tfrac34 \Rightarrow x = \tfrac{7}{12}$, $y = 2\sqrt3\,e^{-1/6}$.
+    Stationary point $\left(\tfrac{7}{12},\ 2\sqrt3\,e^{-\frac16}\right)$.
+  mark_scheme: []
+  graphics: []

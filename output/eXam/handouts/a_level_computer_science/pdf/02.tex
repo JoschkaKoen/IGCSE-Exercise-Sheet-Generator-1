@@ -1,0 +1,345 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Communication}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Networks: purpose and benefits}
+
+A \textbf{network} 网络 is a set of computing devices connected so they can communicate and share resources. Benefits:
+
+\begin{itemize}
+\item \textbf{sharing resources} (printers, file servers, internet) — cheaper than equipping each computer.
+
+\item \textbf{sharing data} — many users access the same files.
+
+\item \textbf{central management} — install software, manage users and back up once on a server.
+
+\item \textbf{communication} — email, video calls, messaging.
+
+\item \textbf{remote access} — work from anywhere.
+
+\end{itemize}
+
+\section*{LAN vs WAN}
+
+A \textbf{local area network} 局域网 (LAN) covers a \textbf{small area} — a home, office or school, usually owned by the organisation, with high data rates and low \textbf{latency} 延迟.
+
+A \textbf{wide area network} 广域网 (WAN) covers a \textbf{large area} — a city, country, or the world (the internet is the largest WAN). It uses telecom-company infrastructure, with lower data rates and higher latency. A WAN connects LANs together.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p48-wan-typical.pdf}}\\[0.3em]
+\emph{A wide-area network links many systems across a large area}
+\end{minipage}\par\medskip
+
+\section*{Client-server and peer-to-peer}
+
+\subsection*{Client-server}
+
+\begin{itemize}
+\item powerful machines act as \textbf{servers} 服务器, providing services (files, web pages, email).
+
+\item other machines are \textbf{clients} 客户端 that request services.
+
+\item central and easy to manage, but the server is a single point of failure unless backed up.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p48-client-server-model.pdf}}\\[0.3em]
+\emph{In a client-server network, clients request services from a central server}
+\end{minipage}\par\medskip
+
+\subsection*{Peer-to-peer (P2P)}
+
+\begin{itemize}
+\item all machines are equal \textbf{peers}; each can be both client and server (\textbf{peer-to-peer} 对等网络).
+
+\item resources are spread across the peers — no central server. Robust to one failure, but harder to keep secure and consistent.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p50-peer-to-peer-model.pdf}}\\[0.3em]
+\emph{In a peer-to-peer network, every node is both client and server}
+\end{minipage}\par\medskip
+
+\section*{Thin and thick clients}
+
+A \textbf{thin client} 瘦客户端 does \textbf{little processing locally} and relies on a powerful server (web terminals, remote desktops). A \textbf{thick client} 胖客户端 has \textbf{strong local processing and storage} and runs full applications itself (a normal desktop PC).
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{Thin client} & \textbf{Thick client} \\
+\midrule
+Local processing & minimal & substantial \\
+Local storage & minimal & substantial \\
+Reliance on network & high & lower \\
+Server load & high & lower \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section*{Network topologies}
+
+The \textbf{topology} 拓扑 is how the nodes and links are arranged.
+
+\begin{itemize}
+\item \textbf{bus} 总线 — all devices on one shared cable. Cheap; the whole LAN fails if the bus fails; performance drops as more devices share the \textbf{bandwidth} 带宽.
+
+\item \textbf{star} 星形 — every device connects to a central switch. One device failing does not affect others; the switch failing brings all down. Most common today.
+
+\item \textbf{mesh} 网状 — every device links directly to others, with many paths. Very \textbf{fault-tolerant} 容错 (traffic reroutes) but needs lots of cabling.
+
+\item \textbf{hybrid} — a mix (a star in each office, mesh links between offices).
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p53-bus-topology.pdf}}\\[0.3em]
+\emph{Bus topology: all devices share one cable with a terminator at each end}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p53-star-topology.pdf}}\\[0.3em]
+\emph{Star topology: every device connects to a central hub or switch}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p54-mesh-topology.pdf}}\\[0.3em]
+\emph{Mesh topology: every device links directly to the others}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p55-hybrid-topology.pdf}}\\[0.3em]
+\emph{Hybrid topology: star clusters joined by a central bus}
+\end{minipage}\par\medskip
+
+\section*{Cloud computing}
+
+\textbf{Cloud computing} 云计算 delivers computing services (servers, storage, software) \textbf{over the internet}, hosted by a third party. Benefits: \textbf{scalability} 可扩展性 (pay for what you need), lower cost, access from anywhere, and reliable redundant data centres. Drawbacks: needs internet, your data is held by a third party, and possible vendor lock-in.
+
+\section*{Wired vs wireless}
+
+\begin{itemize}
+\item \textbf{wired} (\textbf{Ethernet} 以太网 over \textbf{twisted-pair} 双绞线 or \textbf{fibre-optic} 光纤): higher speed, lower latency, fewer errors, more secure.
+
+\item \textbf{wireless} (Wi-Fi, Bluetooth, cellular): no cables, devices can move, but slower, prone to interference and eavesdropping.
+
+\end{itemize}
+
+For the same generation, wired wins on speed and reliability; wireless wins on convenience.
+
+\section*{LAN hardware}
+
+\begin{itemize}
+\item \textbf{network interface card} 网络接口卡 (NIC) — lets a device send and receive on the network; has a unique \textbf{MAC address} MAC地址 (a 48-bit hardware address).
+
+\item \textbf{switch} 交换机 — forwards Ethernet frames only to the port for the destination MAC address.
+
+\item \textbf{hub} 集线器 — a simpler device that copies traffic to all ports (now obsolete).
+
+\item \textbf{wireless access point} 无线接入点 (WAP) — lets wireless clients join a wired LAN.
+
+\item cabling — twisted-pair for short runs; fibre-optic for longer, faster runs.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p62-switch-forwarding.pdf}}\\[0.3em]
+\emph{A switch sends each frame only to the port for its destination}
+\end{minipage}\par\medskip
+
+\section*{Routers}
+
+A \textbf{router} 路由器 connects \textbf{different networks} and forwards data between them — usually at the boundary of a LAN and the internet. It does:
+
+\begin{itemize}
+\item \textbf{forwarding} — reads each \textbf{packet} 数据包's destination \textbf{IP address} IP地址 and sends it out the right port, using a \textbf{routing table} 路由表.
+
+\item \textbf{network address translation} 网络地址转换 (NAT) — lets many private LAN addresses share one public IP.
+
+\item \textbf{DHCP} 动态主机配置协议 — hands out private IP addresses to LAN devices.
+
+\item \textbf{firewall} 防火墙 — blocks unwanted incoming traffic.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p64-router-lan-internet.pdf}}\\[0.3em]
+\emph{A router connects a LAN to the internet or another network}
+\end{minipage}\par\medskip
+
+\section*{Ethernet and CSMA/CD}
+
+Ethernet is the main wired LAN technology. On shared media a \textbf{collision} 冲突 can happen when two devices send at once. The protocol is \textbf{CSMA/CD} 载波侦听多路访问 (Carrier Sense Multiple Access with Collision Detection):
+
+\begin{enumerate}
+\item \textbf{carrier sense} — listen before sending; wait if the cable is busy.
+
+\item \textbf{multiple access} — many devices share the medium.
+
+\item \textbf{collision detection} — keep listening while sending; a clash is a collision.
+
+\item on a collision, both stop, send a brief "jam" signal, then wait a \textbf{random backoff} time before retrying.
+
+\end{enumerate}
+
+Modern switched Ethernet uses \textbf{full-duplex} 全双工 point-to-point links, so collisions no longer happen.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p67-csma-cd-flowchart.pdf}}\\[0.3em]
+\emph{The CSMA/CD process for handling collisions on shared media}
+\end{minipage}\par\medskip
+
+\section*{Bit streaming}
+
+\textbf{Bit streaming} 流式传输 sends multimedia as a continuous stream that the receiver plays as it arrives, instead of downloading the whole file first.
+
+\begin{itemize}
+\item \textbf{real-time} (live): captured and streamed as it happens (live sport, video calls). You cannot rewind; low latency is vital.
+
+\item \textbf{on-demand}: pre-recorded on a server (YouTube, Netflix). You can pause and rewind; the server can \textbf{buffer} 缓冲 ahead.
+
+\end{itemize}
+
+Real-time streaming samples/captures the source, encodes it into a \textbf{compression} 压缩-reduced stream, sends it in packets, and the receiver buffers a little then plays in real time, dropping late packets. \textbf{Lossy} 有损 compression is used because moving pictures hide small losses and the data must fit the bandwidth.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p68-bit-streaming-buffer.pdf}}\\[0.3em]
+\emph{Data streams from the server into a buffer before the media player reads it}
+\end{minipage}\par\medskip
+
+\section*{The internet and the World Wide Web}
+
+The \textbf{internet} 互联网 is a global \textbf{network of networks} using a common \textbf{protocol} 协议 suite (TCP/IP). The \textbf{World Wide Web} 万维网 (WWW) is a \textbf{service} that runs over it: hyperlinked documents identified by URLs, viewed in browsers via HTTP/HTTPS. Email and file transfer are other internet services that are not part of the WWW.
+
+\section*{IP addresses}
+
+An IP address uniquely identifies a device.
+
+\begin{itemize}
+\item \textbf{IPv4} — 32-bit, four denary numbers 0–255 (\texttt{192.168.1.10}); about $4.3 \times 10^{9}$ addresses (now exhausted).
+
+\item \textbf{IPv6} — 128-bit, eight groups of four hex digits; about $3.4 \times 10^{38}$ addresses.
+
+\end{itemize}
+
+\subsection*{Subnetting}
+
+A network can be split into \textbf{subnets} 子网. The IP address splits into a network part and a host part, given by a \textbf{subnet mask} 子网掩码 (e.g. \texttt{255.255.255.0} = first 24 bits are network). Subnetting improves management, cuts broadcast traffic, and improves security.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p76-subnetting-netids.pdf}}\\[0.3em]
+\emph{Splitting a network into subnets, one netID per department}
+\end{minipage}\par\medskip
+
+\subsection*{Public vs private addresses}
+
+\begin{itemize}
+\item \textbf{private} addresses are used within a LAN and are not routable on the internet (e.g. \texttt{192.168.0.0/16}).
+
+\item \textbf{public} addresses are globally unique and routable, assigned by an \textbf{ISP} 互联网服务提供商.
+
+\end{itemize}
+
+Devices behind NAT with private addresses are not directly reachable from the internet, giving some protection.
+
+\subsection*{Static vs dynamic}
+
+\begin{itemize}
+\item \textbf{static} — fixed; used for servers that must be found at a known address.
+
+\item \textbf{dynamic} — assigned by DHCP and may change; easier for client devices and uses a limited address pool efficiently.
+
+\end{itemize}
+
+\section*{URL and DNS}
+
+A \textbf{URL} 统一资源定位符 locates a resource on the WWW:
+
+\begin{Verbatim}
+https://www.example.com/about/contact.html
+protocol     domain name        path
+\end{Verbatim}
+
+\begin{itemize}
+\item \textbf{protocol}: \texttt{http}, \texttt{https}, etc.
+
+\item \textbf{domain name} 域名: a readable server address.
+
+\item \textbf{path}: the resource on that server.
+
+\end{itemize}
+
+The \textbf{Domain Name System} 域名系统 (DNS) is a distributed set of servers that turns \textbf{domain names into IP addresses}. When you type a URL, the browser asks a DNS resolver for the IP, which queries DNS servers (root → top-level → authoritative) until it finds it; the browser then connects to that IP and requests the path. DNS saves humans from memorising IP addresses and lets a site change server without changing its name.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/02-p78-dns-process.pdf}}\\[0.3em]
+\emph{How DNS finds a website's IP address before the browser connects}
+\end{minipage}\par\medskip
+
+
+\end{document}

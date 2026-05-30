@@ -1,0 +1,250 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Algorithm Design and Problem-solving}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Computational thinking}
+
+\textbf{Computational thinking} 计算思维 is the set of mental tools for \textbf{analysing a problem and designing a solution a computer can run}. Two key ones are abstraction and decomposition.
+
+\subsection*{Abstraction}
+
+\textbf{Abstraction} 抽象 means \textbf{keeping the essential features} of a problem and \textbf{ignoring the irrelevant detail}, giving a simpler model.
+
+Examples: a train-network map keeps the stations and lines but drops geography; a class in object-oriented programming keeps the few attributes and methods the system needs; a function hides a piece of work behind a name. Abstraction is essential because a full model of any real problem would be too big to reason about.
+
+\subsection*{Decomposition}
+
+\textbf{Decomposition} 分解 means \textbf{breaking a large problem into smaller sub-problems}, each easier to solve and tackled one at a time.
+
+\begin{enumerate}
+\item find the main parts of the task.
+
+\item break each into smaller sub-tasks.
+
+\item continue until each is small enough to design directly.
+
+\item solve the small tasks and combine them.
+
+\end{enumerate}
+
+For stock control: "manage stock" → "record sales", "record deliveries", "produce reports" → ("record sales") "look up product", "decrease stock count", "save the transaction". Decomposition makes big problems manageable, lets a team divide the work, and gives modular code.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/09-p235-decomposition-modules.pdf}}\\[0.3em]
+\emph{Decomposing a program into modules and sub-modules}
+\end{minipage}\par\medskip
+
+\section*{Algorithms}
+
+An \textbf{algorithm} 算法 is a \textbf{solution expressed as a sequence of defined steps}. Each step is \textbf{unambiguous} 无歧义 (one meaning), \textbf{deterministic} 确定性 (same input → same output), \textbf{finite} (the steps end), and \textbf{effective} (each can be done). An algorithm says \emph{what to do}, independent of the programming language used to implement it.
+
+\section*{Identifier table}
+
+When you start an algorithm, list every piece of data in an \textbf{identifier table} 标识符表 — its \textbf{variable} 变量 name, \textbf{data type} 数据类型, and description:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Variable name} & \textbf{Data type} & \textbf{Description} \\
+\midrule
+\texttt{Category} & \texttt{STRING} & the product category \\
+\texttt{SaleDate} & \texttt{DATE} & when the item was sold \\
+\texttt{ItemCost} & \texttt{REAL} & cost of the item \\
+\texttt{InStock} & \texttt{BOOLEAN} & \texttt{TRUE} if in stock \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Use \textbf{descriptive} names (\texttt{ItemCost}, not \texttt{x}); common types are \texttt{INTEGER}, \texttt{REAL}, \texttt{STRING}, \texttt{CHAR}, \texttt{BOOLEAN}, \texttt{DATE}, plus arrays. The table forces you to name every piece of data before writing code.
+
+\section*{Pseudocode — the three basic constructs}
+
+\textbf{Pseudocode} 伪代码 is a structured, language-neutral way to describe algorithms.
+
+\subsection*{1. Sequence}
+
+Steps run one after another (\textbf{sequence} 顺序):
+
+\begin{Verbatim}
+INPUT Name
+INPUT Age
+OUTPUT "Hello", Name
+\end{Verbatim}
+
+\subsection*{2. Selection}
+
+A choice of which steps run, based on a condition (\textbf{selection} 选择):
+
+\begin{Verbatim}
+IF Age >= 18 THEN
+    OUTPUT "Adult"
+ELSE
+    OUTPUT "Minor"
+ENDIF
+\end{Verbatim}
+
+For more options, use \texttt{CASE OF ... ENDCASE}.
+
+\subsection*{3. Iteration}
+
+Repeating a block (\textbf{iteration} 迭代, a \textbf{loop} 循环):
+
+\begin{Verbatim}
+FOR i ← 1 TO 10
+    OUTPUT i
+NEXT i
+\end{Verbatim}
+
+A \textbf{WHILE} loop tests the condition \textbf{before} each pass (may run zero times); a \textbf{REPEAT...UNTIL} loop tests \textbf{after} each pass (always runs at least once).
+
+\subsection*{Common operations}
+
+\begin{itemize}
+\item \textbf{assignment} 赋值: \texttt{x ← 5} (an arrow; \texttt{=} is for comparison).
+
+\item input/output: \texttt{INPUT variable}, \texttt{OUTPUT expression}.
+
+\item comparisons \texttt{=}, \texttt{\textless{}\textgreater{}}, \texttt{\textless{}}, \texttt{\textgreater{}}, \texttt{\textless{}=}, \texttt{\textgreater{}=}; logic \texttt{AND}, \texttt{OR}, \texttt{NOT}.
+
+\item arithmetic \texttt{+ - * /}, plus \texttt{DIV} (integer division) and \texttt{MOD} (remainder).
+
+\item strings: \texttt{LENGTH}, \texttt{LEFT}, \texttt{RIGHT}, \texttt{MID}, and \texttt{\&} for \textbf{concatenation} 拼接 (joining).
+
+\end{itemize}
+
+\subsection*{Input → Process → Output}
+
+Every program follows this shape:
+
+\begin{Verbatim}
+INPUT Length
+INPUT Width
+Area ← Length * Width
+OUTPUT "Area = ", Area
+\end{Verbatim}
+
+Listing the inputs and outputs first makes the algorithm cleaner.
+
+\section*{Three notations}
+
+The same algorithm can be written three ways.
+
+\begin{itemize}
+\item \textbf{structured English} 结构化英语 — natural language with indentation and fixed keywords; good for a high-level description.
+
+\item \textbf{flowchart} 流程图 — a diagram with standard shapes:
+
+\end{itemize}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Shape} & \textbf{Meaning} \\
+\midrule
+Rounded rectangle & Start / Stop \\
+Parallelogram & Input / Output \\
+Rectangle & Process \\
+Diamond & Decision \\
+Arrow & Flow of control \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\begin{itemize}
+\item \textbf{pseudocode} — the keyword notation above; closest to code.
+
+\end{itemize}
+
+You should be able to convert between any pair: each \texttt{IF} is a decision diamond, each loop is a back-arrow, and a sequence is stacked rectangles.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/09-p237-flowchart-example.pdf}}\\[0.3em]
+\emph{A flowchart for averaging a list of numbers, using the standard shapes}
+\end{minipage}\par\medskip
+
+\section*{Stepwise refinement}
+
+\textbf{Stepwise refinement} 逐步求精 starts with a high-level outline and \textbf{expands each step} until it is small enough to code. For an average of $n$ numbers:
+
+\textbf{Level 1}:
+
+\begin{Verbatim}
+Read in the numbers
+Compute the average
+Output the average
+\end{Verbatim}
+
+\textbf{Level 2}:
+
+\begin{Verbatim}
+INPUT n
+total ← 0
+FOR i ← 1 TO n
+    INPUT value
+    total ← total + value
+NEXT i
+average ← total / n
+OUTPUT average
+\end{Verbatim}
+
+Each refinement keeps the previous structure and adds detail.
+
+\section*{Logic statements}
+
+A \textbf{logic statement} 逻辑语句 is a \textbf{Boolean} 布尔 condition that controls branching, built from comparisons (\texttt{x \textgreater{} 10}), connectives (\texttt{AND}, \texttt{OR}, \texttt{NOT}) and brackets. Use it as the condition of \texttt{IF}, \texttt{WHILE} or \texttt{REPEAT...UNTIL}:
+
+\begin{Verbatim}
+WHILE attempts < 3 AND NOT loggedIn DO
+    INPUT password
+    IF password = correctPassword THEN
+        loggedIn ← TRUE
+    ELSE
+        attempts ← attempts + 1
+    ENDIF
+ENDWHILE
+\end{Verbatim}
+
+\textbf{Precedence} 优先级 (highest to lowest): \texttt{NOT}, then \texttt{AND}, then \texttt{OR}. Use brackets when unsure. Common mistakes:
+
+\begin{itemize}
+\item \texttt{a = 1 OR 2} is wrong — write \texttt{a = 1 OR a = 2}.
+
+\item \texttt{NOT a \textgreater{} 5} means \texttt{NOT (a \textgreater{} 5)}, i.e. \texttt{a \textless{}= 5}.
+
+\item \texttt{NOT (A AND B)} is the same as \texttt{(NOT A) OR (NOT B)} (\textbf{De Morgan's law} 德摩根定律) — handy for simplifying conditions.
+
+\end{itemize}
+
+
+\end{document}

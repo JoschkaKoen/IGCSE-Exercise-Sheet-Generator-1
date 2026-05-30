@@ -1,0 +1,160 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $f(x) = \mathrm{e}^{(x+2)^{-1}}$: $f''(x) = -(x+2)^{-2}\mathrm{e}^{(x+2)^{-1}}$
+    and $f''''(x) = (x+2)^{-4}\mathrm{e}^{(x+2)^{-1}} + 2(x+2)^{-3}\mathrm{e}^{(x+2)^{-1}}
+    = \dfrac{2x+5}{(x+2)^4}\mathrm{e}^{(x+2)^{-1}}$. At $x=0$: $f(0) = \mathrm{e}^{1/2}$,
+    $f''(0) = -\tfrac14\mathrm{e}^{1/2}$, $f''''(0) = \tfrac{5}{16}\mathrm{e}^{1/2}$.
+    So $\mathrm{e}^{(x+2)^{-1}} = \mathrm{e}^{1/2} - \tfrac14\mathrm{e}^{1/2}x + \tfrac{5}{32}\mathrm{e}^{1/2}x^2$.'
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\tanh t = \dfrac{\mathrm{e}^t - \mathrm{e}^{-t}}{\mathrm{e}^t
+    + \mathrm{e}^{-t}}$, $\mathrm{sech}\,t = \dfrac{2}{\mathrm{e}^t + \mathrm{e}^{-t}}$.
+    Then $\tanh^2 t + \mathrm{sech}^2 t = \dfrac{(\mathrm{e}^t - \mathrm{e}^{-t})^2
+    + 4}{(\mathrm{e}^t + \mathrm{e}^{-t})^2} = \dfrac{\mathrm{e}^{2t} + \mathrm{e}^{-2t}
+    + 2}{(\mathrm{e}^t + \mathrm{e}^{-t})^2} = \dfrac{(\mathrm{e}^t + \mathrm{e}^{-t})^2}{(\mathrm{e}^t
+    + \mathrm{e}^{-t})^2} = 1$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dx}{dt} = \tanh t$ and $\dfrac{dy}{dt} = \dfrac{\cosh
+    t}{1 + \sinh^2 t} = \mathrm{sech}\,t$ (using $1 + \sinh^2 t = \cosh^2 t$). Length
+    $= \displaystyle\int_0^1\sqrt{\tanh^2 t + \mathrm{sech}^2 t}\,dt = \int_0^1 1\,dt
+    = 1$.
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{d}{dx}(9y^2) = 18yy'$ and $\dfrac{d}{dx}\!\left(-3\sinh^{-1}(xy)\right)
+    = -3\cdot\dfrac{xy' + y}{\sqrt{1 + x^2y^2}}$. So $18yy' - \dfrac{3(xy' + y)}{\sqrt{1
+    + x^2y^2}} = 0$. At $\left(4, \tfrac13\right)$, $\sqrt{1 + x^2y^2} = \tfrac53$,
+    giving $\tfrac{18}{3}y' - 3\cdot\dfrac{4y' + \tfrac13}{\tfrac53} = 0 \Rightarrow
+    y' = -\tfrac12$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Differentiating again: $18yy'''' + 18(y'')^2 - 3\,\dfrac{d}{dx}\!\left(\dfrac{xy''
+    + y}{\sqrt{1 + x^2y^2}}\right) = 0$. Substituting $\left(4, \tfrac13\right)$ and
+    $y'' = -\tfrac12$ gives $-\tfrac65 y'''' + \tfrac{87}{10} = 0 \Rightarrow y''''
+    = \tfrac{29}{4}$.'
+  mark_scheme: []
+  graphics: []
+- number: '4'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Auxiliary equation $m^2 + m - 2 = 0 \Rightarrow m = 1, -2$,
+    so CF $= A\mathrm{e}^t + B\mathrm{e}^{-2t}$. PI $x = pt^2 + qt + r$ gives $p =
+    -1$, $q = -\tfrac32$, $r = -\tfrac54$. General solution $x = A\mathrm{e}^t + B\mathrm{e}^{-2t}
+    - t^2 - \tfrac32 t - \tfrac54$. Initial conditions: $A + B - \tfrac54 = 0$ and
+    $A - 2B - \tfrac32 = 0 \Rightarrow A = \tfrac43$, $B = -\tfrac{1}{12}$. So $x
+    = \tfrac43\mathrm{e}^t - \tfrac{1}{12}\mathrm{e}^{-2t} - t^2 - \tfrac32 t - \tfrac54$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$(\cos 5\theta + \mathrm{i}\sin 5\theta) = (c + \mathrm{i}s)^5$
+    ($c=\cos\theta$, $s=\sin\theta$). Real part: $\cos 5\theta = c^5 - 10s^2c^3 +
+    5s^4c$. Using $s^2 = 1 - c^2$: $= 16c^5 - 20c^3 + 5c$. Dividing numerator and
+    denominator of $\sec 5\theta = \dfrac{1}{16c^5 - 20c^3 + 5c}$ by $c^5$: $\sec
+    5\theta = \dfrac{\sec^5\theta}{5\sec^4\theta - 20\sec^2\theta + 16}$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\sqrt3\,x^5 - 10x^4 + 40x^2 - 32 = 0 \Rightarrow x^5 = \tfrac{2}{\sqrt3}(5x^4
+    - 20x^2 + 16)$, so $\dfrac{x^5}{5x^4 - 20x^2 + 16} = \tfrac{2}{\sqrt3}$. With
+    $x = \sec\theta$, $\sec 5\theta = \tfrac{2}{\sqrt3}$, i.e. $\cos 5\theta = \tfrac{\sqrt3}{2}$.
+    Roots: $\sec\tfrac{1}{30}\pi$, $\sec\tfrac{11}{30}\pi$, $\sec\tfrac{13}{30}\pi$,
+    $\sec\tfrac{23}{30}\pi$, $\sec\tfrac{25}{30}\pi$ ($\approx -1.35, -1.15, 1.01,
+    2.46, 4.81$).'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Right-endpoint rectangle sum (decreasing curve): $\tfrac1n\displaystyle\sum_{r=1}^n\dfrac{1}{(r/n)^2
+    + 1} = \sum_{r=1}^n\dfrac{n}{n^2 + r^2} < \int_0^1\dfrac{1}{x^2 + 1}\,dx = \left[\tan^{-1}x\right]_0^1
+    = \tfrac14\pi$ (AG).'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Left-endpoint rectangles (including $r=0$, excluding $r=n$)
+    overestimate: $\tfrac1n + \displaystyle\sum_{r=1}^n\dfrac{n}{n^2+r^2} - \tfrac{1}{2n}
+    \geqslant \tfrac14\pi$, so $\sum_{r=1}^n\dfrac{n}{n^2+r^2} \geqslant \tfrac14\pi
+    - \tfrac{1}{2n}$.'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Both bounds $\to \tfrac14\pi$ as $n\to\infty$, so $\displaystyle\lim_{n\to\infty}\sum_{r=1}^n\dfrac{n}{n^2+r^2}
+    = \tfrac14\pi$.
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\displaystyle\int\dfrac{2x+6}{x^2+6x+5}\,dx = \ln(x^2+6x+5)$,
+    so the integrating factor is $\dfrac{1}{x^2+6x+5}$. Then $\dfrac{d}{dx}\!\left(\dfrac{y}{x^2+6x+5}\right)
+    = \dfrac{4}{x^2+6x+5}$. Partial fractions: $\dfrac{4}{x^2+6x+5} = \dfrac{1}{x+1}
+    - \dfrac{1}{x+5}$, so $\dfrac{y}{x^2+6x+5} = \ln\!\left(\dfrac{x+1}{x+5}\right)
+    + C$. Using $y=0$ at $x=0$: $C = -\ln\tfrac15$. So $\dfrac{y}{x^2+6x+5} = \ln\!\left(\dfrac{x+1}{x+5}\right)
+    - \ln\tfrac15 = \ln\!\left(\dfrac{5x+5}{x+5}\right)$.'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\det\begin{pmatrix} \tfrac32 & 3 & 8 \\ a & 3 & 4 \\ 0 & a
+    & -1 \end{pmatrix} = 0 \Rightarrow 8a^2 - 3a - \tfrac92 = 0$, so $a = \tfrac{3}{16}\left(1
+    \pm \sqrt{17}\right)$.
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Characteristic equation $\left(\lambda - \tfrac32\right)(\lambda
+    - 3)(\lambda + 1) = \lambda^3 - \tfrac72\lambda^2 + \tfrac92 = 0$, so $\tfrac92\mathbf{I}
+    = \tfrac72\mathbf{A}^2 - \mathbf{A}^3$. Multiplying by $\mathbf{B}^2 = \mathbf{A}^{-2}$:
+    $\tfrac92\mathbf{B}^2 = \tfrac72\mathbf{I} - \mathbf{A}$, so $\mathbf{B}^2 = \tfrac79\mathbf{I}
+    - \tfrac29\mathbf{A}$ ($p = \tfrac79$, $q = -\tfrac29$).'
+  mark_scheme: []
+  graphics: []
+- number: 8c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Eigenvalues of $\mathbf{A}$ are $\tfrac32, 3, -1$ with eigenvectors
+    $(1,0,0)$, $(2,1,0)$, $(2,1,-1)$. $\mathbf{A}^{-1}$ has the same eigenvectors
+    with reciprocal eigenvalues $\tfrac23, \tfrac13, -1$. So $\mathbf{P} = \begin{pmatrix}
+    1 & 2 & 2 \\ 0 & 1 & 1 \\ 0 & 0 & -1 \end{pmatrix}$ and $\mathbf{D} = \begin{pmatrix}
+    \tfrac23 & 0 & 0 \\ 0 & \tfrac13 & 0 \\ 0 & 0 & -1 \end{pmatrix}$.
+  mark_scheme: []
+  graphics: []

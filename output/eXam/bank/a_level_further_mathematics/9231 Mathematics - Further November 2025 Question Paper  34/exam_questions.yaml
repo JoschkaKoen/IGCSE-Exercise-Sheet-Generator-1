@@ -1,0 +1,201 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: A light inextensible string of length $12a$ is threaded through a fixed smooth
+    ring $R$. One end of the string is attached to a particle $A$ of mass $m$. The
+    other end of the string is attached to a particle $B$ of mass $0.5m$. Particle
+    $A$ hangs in equilibrium vertically below the ring. Particle $B$ moves with constant
+    angular speed $\omega$ in a horizontal circle with particle $A$ at its centre.
+    The angle between $AR$ and $BR$ is $\theta$ (see diagram). Express $\omega$ in
+    terms of $g$ and $a$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ is projected with speed $u\text{ m s}^{-1}$ at an angle $\theta$,
+    where $\tan\theta = 2$, above the horizontal from a point $O$ on a horizontal
+    plane and moves freely under gravity. The horizontal and vertical displacements
+    of $P$ from $O$ at a time $t$ s are denoted by $x$ m and $y$ m respectively.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Use the equation of the trajectory given in the list of formulae (MF19)
+      to show that $y = 2x - \dfrac{25x^2}{u^2}$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: In the subsequent motion, $P$ passes through the point with coordinates
+      $(8, 12)$. The particle then hits a fixed vertical barrier 7 m high that is
+      at a horizontal distance of $D$ m from the point of projection. Find the set
+      of possible values of $D$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The lamina $BFDE$ is obtained by removing triangles $AED$ and $BCF$ from a
+    uniform square lamina $ABCD$ of side $2a$. The length of side $AE$ is $a$ and
+    the length of side $FC$ is $h$ (see diagram). The centre of mass of $BFDE$ is
+    at a distance $\bar x$ from $AD$, and at a distance $\bar y$ from $AB$.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Show that $\bar x = \dfrac{h^2 - 6ah + 11a^2}{3(3a - h)}$ and find a corresponding
+      expression for $\bar y$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: The lamina $BFDE$ is placed vertically on its edge $EB$ on a smooth horizontal
+      surface. Find, in terms of $a$, the set of possible values of $h$ for which
+      the lamina remains in equilibrium.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A fixed smooth spherical shell has centre $O$ and radius $a$. A particle of
+    mass $m$ moves in complete vertical circles on the smooth inner surface of the
+    shell, where the plane of the circular motion is vertical and passes through $O$.
+    The particle has speed $v$ when it is at point $A$, where $OA$ makes an angle
+    $\theta$ with the upward vertical through $O$, and $\cos\theta = \tfrac{1}{18}$
+    (see diagram).
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Show that $v \geqslant \tfrac13\sqrt{26ag}$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: It is given that $v = \tfrac13\sqrt{26ag}$. Find, in terms of $m$ and $g$,
+      an expression for the greatest possible value of the normal reaction between
+      the shell and the particle.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ of mass $m$ kg is projected vertically upwards from a point
+    $O$ with an initial speed of $20\text{ m s}^{-1}$ and moves under gravity. There
+    is a resistive force of magnitude $0.025mv^2$ N, where $v\text{ m s}^{-1}$ is
+    the speed of $P$ at time $t$ s after projection. The displacement of $P$ from
+    $O$ is $x$ m at time $t$ s after projection.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find an expression for $v$ in terms of $x$, while $P$ is moving upwards.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find an expression for $v$ in terms of $t$, while $P$ is moving upwards.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: $A$ and $B$ are two fixed points at a distance $22a$ apart, with $B$ vertically
+    below $A$. A light elastic string of natural length $4a$ and modulus of elasticity
+    $5mg$ has one end attached to $A$ and the other end attached to a particle $P$
+    of mass $km$. Another light elastic string of natural length $8a$ and modulus
+    of elasticity $6mg$ has one end attached to $B$ and the other end attached to
+    $P$. Particle $P$ is vertically above $B$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Show that, when the system is in equilibrium, $BP = \dfrac{57a - 2ak}{4}$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The particle $P$ is pulled vertically upwards so that $BP = 18a$, and is
+      then released from rest. In its subsequent motion, $P$ first comes to instantaneous
+      rest at the point where $BP = 8a$. Find the value of $k$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: $X$ and $Y$ are two fixed smooth vertical walls on a smooth horizontal surface.
+    The walls are parallel and at a distance $d$ apart. The points $P_1$, $P_2$ and
+    $P_3$ all lie on the surface. A particle $Q$ is projected horizontally from the
+    point $P_1$ on Wall $X$ with speed $u$, and moves along the surface. The particle
+    $Q$ strikes Wall $Y$ at the point $P_2$. Immediately before the collision, the
+    direction of motion of $Q$ makes an angle $\alpha$ with Wall $Y$, where $\sin\alpha
+    = \tfrac45$. Immediately after the collision, the direction of motion of $Q$ makes
+    an angle $\theta$ with Wall $Y$. The particle $Q$ then strikes Wall $X$ at the
+    point $P_3$ (see diagram). The time that it takes $Q$ to travel the distance $P_1P_2$
+    is $T$. The time that it takes $Q$ to travel the distance $P_2P_3$ is $kT$. Find,
+    in terms of $k$, the coefficient of restitution between $Q$ and Wall $Y$.
+  answer_options: []
+  subquestions: []

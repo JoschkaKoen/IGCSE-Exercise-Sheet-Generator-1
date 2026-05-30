@@ -1,0 +1,169 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: The diagram shows the displacement-time graph for the motion of a particle.
+    The particle starts from rest at a point $O$ and travels with constant acceleration
+    $a\text{ m s}^{-2}$, taking 4 s to move a distance of $x$ m. The particle then
+    returns to $O$ with constant speed of $40\text{ m s}^{-1}$, over a period of 2
+    s. Find the value of $x$ and the value of $a$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: A railway locomotive of mass 240000 kg is towing a coach of mass 36000 kg
+    down a hill inclined at an angle of $\sin^{-1} 0.04$ to the horizontal. The driving
+    force produced by the locomotive is 450000 N and there are resistances to motion
+    of 120000 N on the locomotive and 15000 N on the coach. The coupling between the
+    locomotive and the coach is light, rigid and parallel to the hill. Find the acceleration
+    of the locomotive and the tension in the coupling.
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A car of mass 1400 kg travelling on a straight horizontal road accelerates
+    uniformly from a speed of $15\text{ m s}^{-1}$ to $20\text{ m s}^{-1}$ over a
+    distance of 175 m.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the time taken to travel the 175 m.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: There is a constant resistance force of 800 N to the motion of the car.
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Use an energy method throughout to find the average power of the car's
+        engine as the speed increases from $15\text{ m s}^{-1}$ to $20\text{ m s}^{-1}$.
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Find the steady speed that the car could maintain on the horizontal road
+        if the engine is working at the power found in (b)(i).
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ of mass 0.1 kg is projected vertically upwards with speed $30\text{
+    m s}^{-1}$ from horizontal ground. At the same instant a particle $Q$ of mass
+    0.4 kg is projected vertically upwards with speed $10\text{ m s}^{-1}$ from a
+    height of 15 m above the ground. $P$ and $Q$ move in the same vertical line.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the height above the ground at which $P$ and $Q$ collide.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: When $P$ and $Q$ collide, they coalesce. Find the speed of the combined
+      particle at the instant that it reaches the ground.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 6
+  text: A block of mass 5 kg is being pulled straight down a line of greatest slope
+    of a rough plane by a force of magnitude 20 N. The plane is inclined at an angle
+    of $10\degree$ to the horizontal and the 20 N force acts at an angle of $35\degree$
+    above the line of greatest slope of the plane (see diagram). The coefficient of
+    friction between the block and the plane is 0.4. The speed of the block when it
+    passes a point $O$ is $2\text{ m s}^{-1}$. Find the speed of the block when it
+    has moved 3 m down the plane from $O$.
+  answer_options: []
+  subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 8
+  text: A particle starts from rest at a point $O$. The acceleration of the particle
+    at time $t$ s after leaving $O$ is $a\text{ m s}^{-2}$, where $a = 2(t+1)^{-\frac{1}{2}}
+    - 1$ for $t \geqslant 0$. Find the distance that the particle travels from $O$
+    until the time at which its acceleration is zero.
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Four coplanar forces of magnitudes 20 N, 30 N, 15 N and 25 N act at a point
+    $P$ in the directions shown in Fig. 7.1. The forces act in a vertical plane. The
+    resultant of these forces has magnitude $S$ N and acts at an angle $\alpha\degree$
+    below the horizontal as shown in Fig. 7.2.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Find the value of $S$ and the value of $\alpha$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: A small ring of mass 0.6 kg is threaded on a rough straight horizontal wire.
+      The four forces shown in Fig. 7.1 act on the ring and are in the same vertical
+      plane as the wire. The ring starts from rest and takes 3 s to travel a distance
+      of 2 m along the wire. Find the coefficient of friction between the ring and
+      the wire.
+    answer_options: []
+    subquestions: []

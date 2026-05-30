@@ -1,0 +1,22 @@
+subject_key: a_level_physics
+paper_stem: 9702 Physics November 2025 Question Paper  38
+model: claude
+matched_at: '2026-05-29T15:40:33Z'
+matches:
+  1a: ['17.1', '1.3']
+  1b: ['17.1']
+  1ci: ['17.1']
+  1cii: ['17.1']
+  1ciii: ['17.1']
+  1d: ['17.1']
+  2a: ['1.3']
+  2b: ['4.2']
+  2ci: ['1.3']
+  2cii: ['1.3']
+  2ciii: ['4.2']
+  2d: ['4.2', '1.3']
+  2ei: ['4.2']
+  2eii: ['1.3']
+  2f: ['1.3']
+  2gi: ['1.3']
+  2gii: ['1.3']

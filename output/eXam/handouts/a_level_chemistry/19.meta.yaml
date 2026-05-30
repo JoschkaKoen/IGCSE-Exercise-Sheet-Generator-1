@@ -1,0 +1,14 @@
+topic_number: '19'
+topic_title: Nitrogen compounds
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '38'
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 4bii
+generated_at: '2026-05-29T16:07:58Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:07:58Z'
+glossed_at: '2026-05-29T16:07:58Z'

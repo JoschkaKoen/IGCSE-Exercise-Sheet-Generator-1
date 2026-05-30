@@ -1,0 +1,190 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\sum r^3 = \left[\tfrac{n(n+1)}{2}\right]^2$ and $\sum r =
+    \tfrac{n(n+1)}{2}$, so $\sum_{r=1}^{n}(r^3 - r) = \tfrac14(n-1)n(n+1)(n+2)$.
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\dfrac{r+3}{r(r-1)(r+1)}$: $A = 2$, $B = -3$, $C = 1$. By
+    differences, $\sum_{r=2}^{n}\dfrac{r+3}{r^3-r} = \tfrac32 - \tfrac2n + \tfrac{1}{n+1}$.'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: As $n \to \infty$, the sum $\to \tfrac32$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\alpha+\beta+\gamma = -b = 2 \Rightarrow b = -2$. $\sum\alpha\beta
+    = \tfrac12\!\left[(\sum\alpha)^2 - \sum\alpha^2\right] = \tfrac12(4-3) = \tfrac12
+    = c$.
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using Newton''s identities with $e_1 = 2$, $e_2 = \tfrac12$:
+    solving via $p_3$ and $p_4 = 5$ gives $e_3 = \alpha\beta\gamma = -\tfrac{7}{16}$.
+    Since $\alpha\beta\gamma = -d$, $d = \tfrac{7}{16}$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Base: $u_1 < 5$. Step: $5 - u_{k+1} = 5 - \dfrac{6u_k+5}{u_k+2}
+    = \dfrac{5 - u_k}{u_k + 2} > 0$ when $u_k < 5$ (and $u_k > 0$), so $u_{k+1} <
+    5$. By induction $u_n < 5$ for all $n$.'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $u_{n+1} - u_n = \dfrac{6u_n+5}{u_n+2} - u_n = \dfrac{-(u_n-5)(u_n+1)}{u_n+2}$,
+    which is $> 0$ since $0 < u_n < 5$. Hence $u_{n+1} > u_n$.
+  mark_scheme: []
+  graphics: []
+- number: 4ai
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\mathbf{B} = \begin{pmatrix} k & 0 \\ 0 & 1 \end{pmatrix}$:
+    a stretch parallel to the $x$-axis with scale factor $k$ (the $y$-coordinate is
+    unchanged).'
+  mark_scheme: []
+  graphics: []
+- number: 4aii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\mathbf{B} = \begin{pmatrix} k & 0 \\ 0 & k \end{pmatrix}
+    = k\mathbf{I}$: an enlargement centred on the origin with scale factor $k$.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathbf{AB} = \begin{pmatrix} 0 & m \\ -k & m \\ k & m \end{pmatrix}$;
+    the $3\times3$ product $\mathbf{ABC}$ passes through the $2\times2$ matrix $\mathbf{B}$,
+    so $\operatorname{rank}(\mathbf{ABC}) \leqslant 2 < 3$, giving $\det(\mathbf{ABC})
+    = 0$ — i.e. $\mathbf{ABC}$ is singular.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: At $\theta = \tfrac18\pi$, $r^2 = \tan\tfrac14\pi = 1$, so the
+    greatest distance from the pole is $1$. The curve runs from the pole at $\theta
+    = 0$ out to $r = 1$ at $\theta = \tfrac18\pi$.
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Area $= \tfrac12\displaystyle\int_0^{\pi/8}\tan 2\theta\,d\theta
+    = \tfrac12\!\left[-\tfrac12\ln\cos 2\theta\right]_0^{\pi/8} = \tfrac18\ln 2$.
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'With $x = r\cos\theta$, $y = r\sin\theta$: $r^2\cos 2\theta
+    = \sin 2\theta \Rightarrow r^2(x^2 - y^2) = 2xy \Rightarrow (x^2+y^2)(x^2-y^2)
+    = 2xy \Rightarrow x^4 - 2xy - y^4 = 0$. AG.'
+  mark_scheme: []
+  graphics: []
+- number: 5d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The curve and the half-line bound a region inside triangle $OPQ$
+    where $P = (\cos\tfrac18\pi, \sin\tfrac18\pi)$, $Q = (\cos\tfrac18\pi, 0)$. Required
+    area $= \tfrac12\cos\tfrac18\pi\sin\tfrac18\pi - \tfrac18\ln 2 = \tfrac{\sqrt2}{8}
+    - \tfrac18\ln 2 = \tfrac18(\sqrt2 - \ln 2)$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Distance $= \dfrac{|{-1}|}{\sqrt{1^2 + 3^2 + 2^2}} = \dfrac{1}{\sqrt{14}}$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Normal to $OAB$: $\overrightarrow{OA}\times\overrightarrow{OB}
+    = (1,4,2)$; normal to $\Pi$: $(1,3,2)$. $\cos\theta = \dfrac{1+12+4}{\sqrt{21}\,\sqrt{14}}
+    = \dfrac{17}{\sqrt{294}}$, so the acute angle is $7.5\degree$.'
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\overrightarrow{OC} = (2,-1,-1)$, $\overrightarrow{AB} = (2,1,-3)$;
+    $\overrightarrow{OC}\times\overrightarrow{AB} = (4,4,4) \parallel (1,1,1)$. Requiring
+    it to meet both lines gives $\mathbf{r} = \left(\tfrac32, -\tfrac14, -\tfrac14\right)
+    + \lambda(1,1,1)$.
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = x + \dfrac{1}{x+1}$, so the asymptotes are $x = -1$ and
+    $y = x$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = 1 - \dfrac{1}{(x+1)^2} = 0 \Rightarrow x =
+    0$ or $x = -2$. Stationary points $(0, 1)$ and $(-2, -3)$.
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Two branches with asymptotes $x = -1$ and $y = x$, a minimum
+    at $(0, 1)$ and a maximum at $(-2, -3)$.
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'An even curve (symmetric about the $y$-axis): the $x \geqslant
+    0$ branch of $C$ reflected in the $y$-axis, with minimum $(0, 1)$ and approaching
+    $y = |x|$ for large $|x|$.'
+  mark_scheme: []
+  graphics: []
+- number: 7e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Let $u = |x|$: $\dfrac{u^2+u+1}{u+1} < 3 \Rightarrow u^2 -
+    2u - 2 < 0 \Rightarrow 0 \leqslant u < 1 + \sqrt3$. Hence $-(1+\sqrt3) < x < 1
+    + \sqrt3$.'
+  mark_scheme: []
+  graphics: []

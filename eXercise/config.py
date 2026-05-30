@@ -38,6 +38,8 @@ A_LEVEL_BIOLOGY_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "biology_9700"
 A_LEVEL_CHEMISTRY_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "chemistry_9701"
 A_LEVEL_BUSINESS_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "business_9609"
 A_LEVEL_ECONOMICS_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "economics_9708"
+A_LEVEL_MATHEMATICS_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "mathematics_9709"
+A_LEVEL_FURTHER_MATHEMATICS_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "further_mathematics_9231"
 
 # Maps NL/JSON subject keys to the folders above.
 EXAM_ROOT_BY_KEY = {
@@ -54,6 +56,8 @@ EXAM_ROOT_BY_KEY = {
     "a_level_chemistry": A_LEVEL_CHEMISTRY_EXAM_DIR,
     "a_level_business": A_LEVEL_BUSINESS_EXAM_DIR,
     "a_level_economics": A_LEVEL_ECONOMICS_EXAM_DIR,
+    "a_level_mathematics": A_LEVEL_MATHEMATICS_EXAM_DIR,
+    "a_level_further_mathematics": A_LEVEL_FURTHER_MATHEMATICS_EXAM_DIR,
 }
 
 # Cambridge syllabus PDFs shipped under ``syllabi/``. Files are named
@@ -73,6 +77,8 @@ SYLLABUS_CODE_BY_KEY = {
     "a_level_chemistry": "9701",
     "a_level_business": "9609",
     "a_level_economics": "9708",
+    "a_level_mathematics": "9709",
+    "a_level_further_mathematics": "9231",
 }
 
 # ---------------------------------------------------------------------------
@@ -128,6 +134,8 @@ PAGE_HEADER_BY_EXAM = {
     "a_level_chemistry": "A-Level Chemistry",
     "a_level_business": "A-Level Business",
     "a_level_economics": "A-Level Economics",
+    "a_level_mathematics": "A-Level Mathematics",
+    "a_level_further_mathematics": "A-Level Further Mathematics",
 }
 
 # ---------------------------------------------------------------------------

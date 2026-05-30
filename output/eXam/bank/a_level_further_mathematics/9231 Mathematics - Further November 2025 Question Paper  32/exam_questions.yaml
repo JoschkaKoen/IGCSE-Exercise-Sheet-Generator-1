@@ -1,0 +1,210 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: A particle $P$ of mass $m$ is attached to two light inextensible strings each
+    of length $l$. The end of one string is attached to a fixed point $A$ and the
+    end of the other to a fixed point $B$, with $A$ vertically above $B$. Angle $APB$
+    is a right angle. The particle $P$ rotates in a horizontal circle at constant
+    angular speed $\omega$ with both strings taut (see diagram). Find the tension
+    in string $AP$ in terms of $m$, $g$, $l$ and $\omega$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: One end of a light elastic string of natural length $a$ and modulus of elasticity
+    $2mg$ is attached to a fixed point $A$ on a rough horizontal surface. The other
+    end is attached to a particle $P$ of mass $m$. The particle and string rest on
+    the surface. The coefficient of friction between $P$ and the surface is $\mu$.
+    The particle $P$ is initially held in equilibrium at a distance $\tfrac{4}{3}a$
+    from $A$, then released from rest.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Given that the string never becomes slack, find the minimum value of $\mu$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: It is now given that $\mu = \tfrac{1}{2}$. Find the extension of the string
+      when the particle comes to rest.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A uniform lamina $OABCD$ is in the form of a rectangle $OBCD$ joined along
+    the edge $OB$ to a quarter circle $OAB$. The length of $DO$ is $ka$ and the length
+    of $OB$ is $a$. The lamina rests in a vertical plane with its edge $CB$ on a horizontal
+    surface (see diagram).
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find, in terms of $k$, $a$ and $\pi$, an expression for the distance of
+      the centre of mass above the horizontal surface. [You may use without proof
+      the result for the centre of mass of a circular sector in the list of formulae
+      (MF19).]
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: The lamina is on the point of toppling about $B$. Find the value of $k$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $Q$ is initially positioned at a distance $d$ vertically above
+    a particle $P$. Particle $P$ is projected with speed $U$ at an angle $\alpha$
+    above the horizontal. At the same time, $Q$ is projected at an angle $\beta$ below
+    the horizontal. Both particles move freely under gravity. The particles collide
+    at time $T$ after the projections.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Show that $d = UT(\sin\alpha + \cos\alpha\tan\beta)$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: The particles collide when $P$ is at its maximum height. Given that $\alpha
+      = 30\degree$ and $\beta = 60\degree$, find $d$ in terms of $U$ and $g$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Two uniform smooth spheres, $A$ and $B$, of equal radii are on a horizontal
+    surface. They have masses $m$ and $km$ respectively. Sphere $A$ is moving with
+    speed $u$ at an angle $\alpha$ with the line of centres when it collides with
+    sphere $B$, which is stationary. Immediately after the collision, sphere $A$ moves
+    with speed $v$ at an angle $2\alpha$ with the line of centres (see diagram). It
+    is given that $\tan\alpha = \tfrac{3}{4}$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find $v$ in terms of $u$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the coefficient of restitution between the spheres in terms of $k$.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the range of possible values of $k$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 8
+  text: A fixed smooth sphere with radius $a$ and centre $O$ rests on horizontal ground.
+    A particle is projected horizontally from the highest point, $A$, of the sphere
+    with speed $u$. The particle begins to move in a vertical circle along the surface
+    of the sphere. The particle loses contact with the sphere at the point $B$, where
+    the angle $AOB$ is $\theta$. After leaving the surface, the particle moves freely
+    under gravity before striking the horizontal ground with speed $3u$ at an angle
+    $\beta$ to the horizontal (see diagram). Find the value of $\beta$.
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $P$ of mass $m$ kg moving along a rough horizontal table has displacement
+    $x$ m from a fixed point $O$ on the table and velocity $v$ m s$^{-1}$ at time
+    $t$ s. The particle $P$ is subject to a resistive force of magnitude $mgkv$ N,
+    where $k$ is a positive constant, and a frictional force of magnitude $\mu mg$.
+    The particle $P$ is initially at $O$ with speed $U$ m s$^{-1}$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Show that $t = \dfrac{1}{gk}\ln\!\left(\dfrac{kU + \mu}{kv + \mu}\right)$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: It is given that $U = 10$, $k = 0.04$ and $\mu = 0.2$. Find the distance
+      $P$ moves before coming to rest.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the average speed of $P$ over the period it is moving.
+    answer_options: []
+    subquestions: []

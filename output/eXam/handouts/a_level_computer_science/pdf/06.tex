@@ -1,0 +1,208 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Security, privacy and data integrity}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Security, privacy and integrity — three different ideas}
+
+These sound alike but mean different things:
+
+\begin{itemize}
+\item \textbf{security} 安全 — protecting data from \textbf{unauthorised} 未授权 access, change or destruction.
+
+\item \textbf{privacy} 隐私 — an individual's right to \textbf{control who sees their personal data}, with consent and a clear purpose.
+
+\item \textbf{integrity} 完整性 — the data being \textbf{accurate and complete} — not corrupted or accidentally changed.
+
+\end{itemize}
+
+A file can be secure (only the right people can open it) but lack integrity (a typo corrupted it); or accurate but not private (anyone can read it). All three are needed.
+
+\section*{Why security matters}
+
+Two things to protect: the \textbf{data} itself (keep it confidential, intact and available) and the \textbf{computer system} (a compromised system can attack others, steal credentials, or be held to ransom).
+
+\section*{Threats from networks and the internet}
+
+\begin{itemize}
+\item \textbf{malware} 恶意软件 (malicious software):
+
+\begin{itemize}
+\item \textbf{virus} 病毒 — self-copying code that attaches to other programs and spreads when they run.
+
+\item \textbf{worm} 蠕虫 — self-copying code that spreads over \textbf{networks} 网络 with no user action.
+
+\item \textbf{Trojan horse} 木马 — looks useful but hides malicious code.
+
+\item \textbf{spyware} 间谍软件 — secretly collects information (keystrokes, passwords).
+
+\item \textbf{ransomware} 勒索软件 — encrypts your files and demands payment.
+
+\item \textbf{adware} 广告软件 — pushes unwanted adverts.
+
+\end{itemize}
+
+\item \textbf{phishing} 网络钓鱼 — fake emails/sites that trick users into giving credentials.
+
+\item \textbf{hacking} 黑客入侵 — unauthorised access, often via weak passwords or software flaws.
+
+\item \textbf{denial of service} 拒绝服务 (DoS/DDoS) — floods a server so real users cannot reach it.
+
+\item \textbf{eavesdropping} 窃听 — capturing data in transit (a risk on open Wi-Fi).
+
+\item \textbf{man-in-the-middle} 中间人攻击 — an attacker secretly relays or alters messages between two parties.
+
+\item \textbf{social engineering} 社会工程 — tricking people into giving up information.
+
+\end{itemize}
+
+\section*{Security measures}
+
+\subsection*{A standalone PC}
+
+\begin{itemize}
+\item a strong password; \textbf{antivirus} kept up to date; prompt \textbf{software updates}; \textbf{backup} 备份 to separate media; full-disk \textbf{encryption} 加密; a locked screen.
+
+\end{itemize}
+
+\subsection*{A networked PC}
+
+All the above, plus a \textbf{firewall} 防火墙, per-user \textbf{permissions} (admin rights only for admins), central account management, and \textbf{audit logs} 审计日志 (who logged in, what they touched).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/06-p178-firewall.pdf}}\\[0.3em]
+\emph{A firewall sits between the user's computer and the internet}
+\end{minipage}\par\medskip
+
+\subsection*{Across the internet}
+
+\begin{itemize}
+\item \textbf{VPN} 虚拟专用网 — encrypts traffic between the user and the corporate gateway.
+
+\item \textbf{HTTPS / TLS} — encrypt web traffic.
+
+\item intrusion detection — watches traffic for known attack patterns.
+
+\end{itemize}
+
+\section*{Matching measures to threats}
+
+\begin{itemize}
+\item \textbf{interception in transit} → \textbf{encrypt} the data (HTTPS, VPN). Intercepted ciphertext is useless without the key.
+
+\item \textbf{unauthorised access} → strong \textbf{authentication} 身份验证 (long passwords; \textbf{two-factor authentication} 双因素认证 with a phone code or key); user \textbf{authorisation} 授权; lock-out after failed logins.
+
+\item \textbf{malware} → antivirus and real-time scanning; patching; avoid untrusted downloads.
+
+\item \textbf{phishing} → user training; email filtering; check the URL before entering credentials.
+
+\item \textbf{internal threats} → the \textbf{least-privilege} 最小权限 principle (give each user only what they need); auditing.
+
+\item \textbf{DDoS} → rate limiting and traffic filtering.
+
+\end{itemize}
+
+\section*{Protecting the data itself}
+
+\begin{itemize}
+\item \textbf{encryption} — turn \textbf{plaintext} 明文 into \textbf{ciphertext} 密文 with a key. \textbf{Symmetric encryption} 对称加密 (AES) uses one shared key; \textbf{asymmetric encryption} 非对称加密 (RSA) uses a \textbf{public key} 公钥 and a \textbf{private key} 私钥. Protects data at rest and in transit.
+
+\item \textbf{access control} 访问控制 — file permissions (read/write/execute), enforced by the OS.
+
+\item \textbf{authentication} — verify the user: something you know (password), have (token, phone), or are (fingerprint); strongest combined.
+
+\item \textbf{backups} — keep copies (some \textbf{off-site}) so loss or corruption is recoverable.
+
+\item \textbf{physical security} — locked server rooms, cable locks.
+
+\end{itemize}
+
+\section*{Data integrity}
+
+Data has integrity when it is accurate and complete. Two techniques: \textbf{validation} (catch bad data before storing) and \textbf{verification} (confirm data was entered or transferred correctly).
+
+\subsection*{Validation — does the data make sense?}
+
+\textbf{Validation} 验证 checks data against sensible rules, automatically:
+
+\begin{itemize}
+\item \textbf{range check} — within limits (a month is 1–12).
+
+\item \textbf{length check} — the right number of characters.
+
+\item \textbf{type / character check} — the right kind of data (a phone field allows only digits).
+
+\item \textbf{format check} — matches a pattern (an email must contain \texttt{@}).
+
+\item \textbf{presence check} — required fields are not empty.
+
+\item \textbf{check digit} 校验位 — an extra digit computed from the others (ISBN, card numbers) that spots transcription errors.
+
+\item \textbf{lookup check} and \textbf{consistency check} (e.g. delivery date ≥ order date).
+
+\end{itemize}
+
+Validation catches data that is wrongly \textbf{formatted}, but not data that is the right format yet factually wrong ("Bob" for "Bib").
+
+\subsection*{Verification — was the data entered or transferred correctly?}
+
+\textbf{Verification} 核对 checks the data was not changed in moving from one place to another.
+
+During entry: \textbf{double entry} (type it twice and compare, as for a new password) or \textbf{visual} check.
+
+During transfer (bits can flip):
+
+\begin{itemize}
+\item \textbf{parity check} 奇偶校验 — an extra bit makes the number of 1s even (even parity) or odd. The receiver re-counts. Catches single-bit errors.
+
+\item \textbf{checksum} 校验和 — the sender sends a summary value of the data; the receiver recomputes it and compares.
+
+\item \textbf{cyclic redundancy check} 循环冗余校验 (CRC) — a stronger checksum using polynomial division, catching many more error types.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/06-p189-parity-check.pdf}}\\[0.3em]
+\emph{The parity bit is set to make the number of 1s even or odd}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/06-p188-checksum.pdf}}\\[0.3em]
+\emph{Working out a checksum for a block of data}
+\end{minipage}\par\medskip
+
+Verification only proves what arrived matches what was sent — not that the data is correct, and not against deliberate tampering. \textbf{Validation} asks "is this sensible?"; \textbf{verification} asks "was this copied correctly?" — use both.
+
+
+\end{document}

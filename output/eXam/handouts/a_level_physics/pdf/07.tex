@@ -1,0 +1,288 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Waves}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Progressive waves}
+
+A \textbf{wave} 波 carries \textbf{energy} 能量 from one place to another without moving matter overall. The particles of the \textbf{medium} 介质 \textbf{oscillate} 振动 about fixed rest positions; only the disturbance (and its energy) \textbf{propagates} 传播. Examples: a \textbf{transverse wave} 横波 on a rope, a \textbf{longitudinal wave} 纵波 on a slinky spring, ripples on water, and sound in air. A wave that travels and carries energy is a \textbf{progressive wave} 行波.
+
+\subsection*{Key terms}
+
+\begin{itemize}
+\item \textbf{displacement} 位移 $y$ — how far a particle has moved from its rest position at a moment. A \textbf{vector} 矢量.
+
+\item \textbf{amplitude} 振幅 $A$ — the largest displacement from the rest position.
+
+\item \textbf{wavelength} 波长 $\lambda$ — the shortest distance along the wave between two points that move \textbf{in phase} 同相 (for example, two next-door \textbf{crests} 波峰).
+
+\item \textbf{period} 周期 $T$ — the time for one full oscillation of a particle.
+
+\item \textbf{frequency} 频率 $f$ — the number of full oscillations per second; $f = 1/T$. Unit: \textbf{hertz} 赫兹, $\text{Hz}$.
+
+\item \textbf{speed} 速率 $v$ — how fast a crest travels along the medium.
+
+\item \textbf{phase difference} 相位差 — the fraction of a cycle by which one oscillation leads or lags another. Given in \textbf{radians} 弧度 (a full cycle is $2\pi$) or degrees (a full cycle is $360°$).
+
+\end{itemize}
+
+Two points one wavelength apart are in phase (phase difference 0 or $2\pi$). Two points half a wavelength apart are exactly out of phase (phase difference $\pi$).
+
+\subsection*{The wave equation}
+
+In one period $T$, the wave moves forward by one wavelength $\lambda$. So speed $= \text{distance} / \text{time} = \lambda / T = \lambda f$:
+
+\[
+v = f \lambda.
+\]
+
+This comes straight from the definitions of speed, frequency and wavelength, and works for every progressive wave.
+
+\subsection*{Reading a CRO trace}
+
+A \textbf{cathode-ray oscilloscope} 示波器 (CRO) draws a voltage signal — for sound, the output of a microphone — against time. Two controls matter:
+
+\begin{itemize}
+\item \textbf{time-base} 时基 (seconds per division across): turns horizontal distance on the screen into time. Read the period $T$ as the distance between two next-door peaks, then $f = 1/T$.
+
+\item \textbf{y-gain} 垂直增益 (volts per division up): turns vertical distance into voltage. The amplitude in volts is the peak height from the centre line.
+
+\end{itemize}
+
+If the time-base is $5\ \text{ms}/\text{div}$ and one full cycle takes $4$ divisions, then $T = 4 \times 5\ \text{ms} = 20\ \text{ms}$ and $f = 50\ \text{Hz}$.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/07-p134-cro-trace.pdf}}\\[0.3em]
+\emph{Reading the period T from a CRO trace using the grid and time-base}
+\end{minipage}\par\medskip
+
+\subsection*{Intensity of a wave}
+
+A wave carries energy. The \textbf{intensity} 强度 at a point is the \textbf{power} 功率 passing through unit area at right angles to the direction of travel:
+
+\[
+I = \frac{P}{A}.
+\]
+
+Unit: $\text{W m}^{-2}$.
+
+Intensity is proportional to the square of the amplitude:
+
+\[
+I \propto A^{2}.
+\]
+
+For a \textbf{point source} 点源 sending out energy equally in all directions, the \textbf{wavefronts} 波前 are spheres; the surface area at distance $r$ is $4\pi r^{2}$, so
+
+\[
+I = \frac{P}{4\pi r^{2}}, \qquad I \propto \frac{1}{r^{2}}.
+\]
+
+Doubling the distance cuts the intensity to a quarter, which means the amplitude is halved (since $I \propto A^{2}$).
+
+\section*{Transverse and longitudinal waves}
+
+\subsection*{Transverse waves}
+
+The particles oscillate \textbf{perpendicular} 垂直 to the direction the energy travels. A wave on a rope, all electromagnetic waves, and S-waves in the Earth are transverse.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/07-p127-transverse-wave-rope.pdf}}\\[0.3em]
+\emph{Transverse wave on a rope}
+\end{minipage}\par\medskip
+
+\subsection*{Longitudinal waves}
+
+The particles oscillate \textbf{parallel} to the direction the energy travels. Sound in any medium, P-waves in the Earth, and the squashes on a slinky are longitudinal. The wave is made of \textbf{compressions} 压缩 (higher pressure, particles close together) and \textbf{rarefactions} 稀疏 (lower pressure, particles spread out).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/07-p127-longitudinal-wave-slinky.pdf}}\\[0.3em]
+\emph{Longitudinal wave on a slinky spring}
+\end{minipage}\par\medskip
+
+\subsection*{Graphs of waves}
+
+A graph of \textbf{particle displacement against position} at one moment looks like a \textbf{sine curve} 正弦曲线 for both kinds of wave. The difference: for a transverse wave the displacement axis is the real sideways displacement; for a longitudinal wave it is the small back-and-forth displacement along the direction of travel (positive one way, negative the other).
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/07-p128-displacement-distance-graph.pdf}}\\[0.3em]
+\emph{A displacement–distance graph shows the wave's amplitude and wavelength}
+\end{minipage}\par\medskip
+
+A graph of \textbf{particle displacement against time} at one point in space is also a sine curve for both kinds. Read the period $T$ from this graph.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/07-p128-displacement-time-graph.pdf}}\\[0.3em]
+\emph{A displacement–time graph shows the wave's amplitude and period}
+\end{minipage}\par\medskip
+
+\section*{Doppler effect (moving source, stationary observer)}
+
+When the \textbf{source} 波源 of a sound moves relative to a \textbf{stationary} 静止 \textbf{observer} 观察者, the heard frequency is different from the source frequency. This is the \textbf{Doppler effect} 多普勒效应.
+
+\begin{itemize}
+\item source moving towards the observer: the wavefronts in front are squashed, so the wavelength is shorter and the heard frequency is \textbf{higher}.
+
+\item source moving away from the observer: the wavefronts behind are spread out, so the wavelength is longer and the heard frequency is \textbf{lower}.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/07-p135-doppler-effect.pdf}}\\[0.3em]
+\emph{A moving source squashes the wavefronts ahead of it, raising the observed frequency}
+\end{minipage}\par\medskip
+
+The formula (source moving at speed $v_{\text{s}}$ along the line to the observer; wave speed $v$, source frequency $f_{\text{s}}$, heard frequency $f_{\text{o}}$):
+
+\[
+f_{\text{o}} = \frac{v \cdot f_{\text{s}}}{v \pm v_{\text{s}}}.
+\]
+
+Choose the sign to match the physics:
+
+\begin{itemize}
+\item minus sign on the bottom when the source moves \textbf{towards} the observer ($f_{\text{o}} > f_{\text{s}}$),
+
+\item plus sign when the source moves \textbf{away} ($f_{\text{o}} < f_{\text{s}}$).
+
+\end{itemize}
+
+You only need the case of a stationary observer.
+
+Worked example. A car horn at $f_{\text{s}} = 800\ \text{Hz}$ moves at $30\ \text{m s}^{-1}$ towards a still listener. Speed of sound $v = 340\ \text{m s}^{-1}$:
+
+\[
+f_{\text{o}} = \frac{340 \times 800}{340 - 30} = \frac{272\,000}{310} \approx 877\ \text{Hz}.
+\]
+
+\section*{Electromagnetic spectrum}
+
+All \textbf{electromagnetic waves} 电磁波 (EM waves) are \textbf{transverse} and travel in a \textbf{vacuum} 真空 at the same speed:
+
+\[
+c = 3.00 \times 10^{8}\ \text{m s}^{-1}.
+\]
+
+The \textbf{electromagnetic spectrum} 电磁波谱 includes radio waves, \textbf{microwaves} 微波, \textbf{infrared} 红外线, visible light, \textbf{ultraviolet} 紫外线, \textbf{X-rays} X射线 and \textbf{$\gamma$-rays} γ射线.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/07-p137-em-spectrum.pdf}}\\[0.3em]
+\emph{The electromagnetic spectrum}
+\end{minipage}\par\medskip
+
+Approximate wavelength ranges in free space (learn the orders of magnitude):
+
+\begin{itemize}
+\item radio waves: $> 10^{-1}\ \text{m}$ (up to many km).
+
+\item microwaves: $10^{-3}\ \text{m}$ to $10^{-1}\ \text{m}$.
+
+\item infrared: $\sim 7 \times 10^{-7}\ \text{m}$ to $10^{-3}\ \text{m}$.
+
+\item visible light: $400\ \text{nm}$ (violet) to $700\ \text{nm}$ (red), i.e. $4 \times 10^{-7}\ \text{m}$ to $7 \times 10^{-7}\ \text{m}$.
+
+\item ultraviolet: $\sim 10^{-8}\ \text{m}$ to $4 \times 10^{-7}\ \text{m}$.
+
+\item X-rays: $\sim 10^{-11}\ \text{m}$ to $10^{-8}\ \text{m}$.
+
+\item $\gamma$-rays: $< 10^{-11}\ \text{m}$.
+
+\end{itemize}
+
+The boundaries between regions are not sharp. Use $c = f\lambda$ to change between wavelength and frequency. Only light with wavelengths $400$–$700\ \text{nm}$ can be seen.
+
+\section*{Polarisation}
+
+\textbf{Polarisation} 偏振 means making a transverse wave oscillate in one plane only.
+
+\begin{itemize}
+\item Only \textbf{transverse} waves can be polarised — the oscillation is perpendicular to the direction of travel, so different perpendicular planes are real choices.
+
+\item \textbf{Longitudinal} waves (sound) cannot be polarised — the oscillation is along the direction of travel, so there is no other plane.
+
+\end{itemize}
+
+So polarisation is a test: if a wave can be polarised, it must be transverse.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/07-p139-unpolarised-polarised.pdf}}\\[0.3em]
+\emph{Unpolarised waves vibrate in many planes; a polarised wave vibrates in one plane}
+\end{minipage}\par\medskip
+
+\subsection*{Malus's law}
+
+\textbf{Plane-polarised} 平面偏振 light of intensity $I_{0}$ passes through a \textbf{polarising filter} 偏振片 whose \textbf{transmission axis} 透光轴 is at angle $\theta$ to the plane of polarisation. The transmitted intensity is given by \textbf{Malus's law} 马吕斯定律:
+
+\[
+I = I_{0} \cos^{2}\theta.
+\]
+
+\begin{itemize}
+\item $\theta = 0°$: filter lined up with the polarisation, $I = I_{0}$, all passes through.
+
+\item $\theta = 90°$: filter at right angles, $I = 0$, all blocked.
+
+\item $\theta = 60°$: $I = I_{0} \cos^{2} 60° = I_{0} \cdot 0.25 = I_{0}/4$.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/07-p141-polariser-analyser.pdf}}\\[0.3em]
+\emph{Crossed filters (a) block the light; parallel filters (b) let it pass}
+\end{minipage}\par\medskip
+
+For two filters in a row, use Malus's law twice with the angle between each pair. Be careful with the angle each time — after the first filter the polarisation is along that filter's axis, and the second filter's angle is measured from there.
+
+(You do not need to work out the effect of a polarising filter on an unpolarised wave.)
+
+
+\end{document}

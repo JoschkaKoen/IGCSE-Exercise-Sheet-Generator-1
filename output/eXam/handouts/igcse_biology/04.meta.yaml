@@ -1,0 +1,58 @@
+topic_number: '4'
+topic_title: Biological molecules
+subject_key: igcse_biology
+covered_question_ids:
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '5'
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '6'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '21'
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 2ai
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 2aii
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 2bi
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 2bii
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 2ci
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 2cii
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 2ciii
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 2civ
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 2e
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1b
+- paper: 0610 Biology June 2025 Question Paper  63
+  qnum: 1ci
+- paper: 0610 Biology June 2025 Question Paper  63
+  qnum: 2c
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '7'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '8'
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 1d
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 3ai
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 3aii
+- paper: 0610 Biology November 2025 Question Paper  22
+  qnum: '5'
+- paper: 0610 Biology November 2025 Question Paper  61
+  qnum: 3b
+- paper: 0610 Biology November 2025 Question Paper  62
+  qnum: 1c
+- paper: 0610 Biology November 2025 Question Paper  63
+  qnum: 1h
+generated_at: '2026-05-29T15:44:18Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:44:19Z'
+glossed_at: '2026-05-29T15:44:19Z'

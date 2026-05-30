@@ -1,0 +1,263 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Dynamics}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Mass, momentum and force}
+
+\subsection*{Mass}
+
+\textbf{Mass} 质量 tells you how hard it is to change an object's motion. The larger the mass, the larger the \textbf{force} 力 needed to give it a certain \textbf{acceleration} 加速度. Mass is measured in kilograms ($\text{kg}$) and is a \textbf{scalar} 标量.
+
+\subsection*{Momentum}
+
+\textbf{Linear momentum} 动量 is the product of mass and velocity:
+
+\[
+p = mv.
+\]
+
+Momentum is a \textbf{vector} 矢量 — it points the same way as the \textbf{velocity} 速度. Its unit is $\text{kg m s}^{-1}$, which is the same as $\text{N s}$.
+
+\subsection*{Force as the rate of change of momentum}
+
+Newton's second law, in its general form: the \textbf{resultant force} 合力 on an object equals the rate of change of its momentum.
+
+\[
+F = \frac{\Delta p}{\Delta t}.
+\]
+
+When the mass is constant this becomes $F = ma$, because $\Delta p = m\,\Delta v$ and $\Delta v / \Delta t = a$. Cambridge questions often want you to use $F = \Delta p / \Delta t$ directly for a \textbf{collision} 碰撞 or an \textbf{impulse} 冲量: the average force equals the change in momentum divided by the contact time.
+
+A ball hits a wall with momentum $p_{1}$ and bounces back with momentum $p_{2}$ in the opposite direction. The change in momentum is $\Delta p = p_{2} - p_{1}$ (give each direction the correct sign). The average force is $\Delta p / \Delta t$, where $\Delta t$ is the contact time.
+
+When you know the momentum but not the speed, the change in \textbf{kinetic energy} 动能 is
+
+\[
+\Delta E_{\text{k}} = \frac{p_{2}^{2} - p_{1}^{2}}{2m}.
+\]
+
+This comes from $E_{\text{k}} = \tfrac{1}{2} m v^{2} = p^{2} / (2m)$.
+
+\section*{Newton's three laws of motion}
+
+\subsection*{First law}
+
+An object stays at rest, or keeps moving at constant velocity in a straight line, unless a resultant \textbf{external force} 外力 acts on it. In short: zero resultant force means zero acceleration.
+
+\subsection*{Second law}
+
+The resultant force on an object equals its rate of change of momentum, and acts in the same direction as that change. In SI units,
+
+\[
+F = \frac{\Delta p}{\Delta t} = ma \quad\text{(for constant mass)}.
+\]
+
+Acceleration and resultant force always point the \textbf{same way}.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/03-p76-free-body-diagram.pdf}}\\[0.3em]
+\emph{Free-body diagram showing all forces on a block being pulled at an angle}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/03-p74-book-on-table-forces.pdf}}\\[0.3em]
+\emph{Weight and normal contact force on a book resting on a table}
+\end{minipage}\par\medskip
+
+\subsection*{Third law}
+
+When body A pushes on body B, body B pushes back on body A with an \textbf{equal and opposite} force. The two forces:
+
+\begin{itemize}
+\item act on \textbf{different objects},
+
+\item are of the \textbf{same type} (both gravitational, both contact, both \textbf{electrostatic} 静电, and so on),
+
+\item have the same size and opposite direction.
+
+\end{itemize}
+
+A common trap: the \textbf{weight} 重力 of a block on a table and the \textbf{normal contact force} 支持力 from the table are \textbf{not} a third-law pair (they act on the same object and are different types). The third-law partner of the block's weight is the pull the block makes on the Earth. The third-law partner of the table's contact force is the push the block makes on the table.
+
+For a rocket: the \textbf{thrust} 推力 on the rocket and the force on the gases are a third-law pair (the engine pushes the gas down, the gas pushes the engine up). Weight and air resistance are not part of this pair.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/03-p74-newton-third-law-pair.pdf}}\\[0.3em]
+\emph{Newton's third-law pair: R on the book (up) and R′ on the table (down)}
+\end{minipage}\par\medskip
+
+\section*{Weight}
+
+\textbf{Weight} is the force on an object from a \textbf{gravitational field} 重力场. Near the Earth's surface,
+
+\[
+W = mg,
+\]
+
+where $g \approx 9.81\ \text{m s}^{-2}$ is the acceleration of free fall. Weight is a vector that points towards the centre of the Earth. Do not mix it up with mass: mass is the same everywhere, but weight changes with place.
+
+\section*{Non-uniform motion: friction, drag and terminal velocity}
+
+\subsection*{Friction and drag forces}
+
+A \textbf{friction} 摩擦力 force between two solid surfaces acts along the surface and opposes the sliding. A \textbf{viscous} 黏性 or \textbf{drag} 阻力 force is the resistive force from a \textbf{fluid} 流体 (a liquid or gas) on an object moving through it; air resistance is the case for air. You do not need to use any \textbf{coefficient} 系数 of friction or viscosity.
+
+A simple model: the drag gets bigger as the speed gets bigger. At zero speed, the drag is zero.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/03-p75-book-pulled-on-table.pdf}}\\[0.3em]
+\emph{Free-body diagram of a book being pulled on a table}
+\end{minipage}\par\medskip
+
+\subsection*{An object falling through air}
+
+For an object dropped from rest and falling through air:
+
+\begin{enumerate}
+\item At first, only weight acts, so the object speeds up downwards at $g$.
+
+\item As the speed grows, the upward drag grows. The resultant force gets smaller, so the acceleration gets smaller.
+
+\item In the end, the drag equals the weight. The resultant force is zero, the acceleration is zero, and the speed stays constant — the \textbf{terminal velocity} 收尾速度.
+
+\end{enumerate}
+
+On a velocity–time graph, the line starts straight with gradient $g$, then bends and flattens at the terminal velocity. This shape (fast start, then slowing acceleration, then constant speed) is how "falling with air resistance" differs from "free fall in a vacuum".
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/03-p75-terminal-velocity-vt-graph.pdf}}\\[0.3em]
+\emph{Velocity–time graph for an object falling through air}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/03-p75-forces-on-falling-object.pdf}}\\[0.3em]
+\emph{Forces on a falling object in a fluid}
+\end{minipage}\par\medskip
+
+\subsection*{Energy during a terminal-velocity fall}
+
+At terminal velocity, a \textbf{parachutist} 跳伞者 has constant kinetic energy. But the \textbf{gravitational potential energy} 重力势能 keeps falling as they go down. Where does it go? Almost all of it turns into \textbf{thermal energy} 热能 of the air around them. It does \textbf{not} become kinetic energy of the parachutist — that stays constant.
+
+\subsection*{Cyclist or car at constant speed}
+
+A vehicle at constant speed on a flat road has zero resultant force. The forward driving force is equal and opposite to the total resistive force (friction, air resistance, and rolling resistance). At higher speed the drag is larger, so the driving force must be larger too — and so the \textbf{power} 功率 must be larger.
+
+\section*{Conservation of linear momentum}
+
+\subsection*{The principle}
+
+For a system with no resultant external force, the total momentum stays constant. This is \textbf{conservation of momentum} 动量守恒.
+
+It always holds when there is no outside resultant force — in collisions, \textbf{explosions} 爆炸, and \textbf{recoil} 反冲. In two dimensions, momentum is conserved along each direction on its own.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/03-p77-two-particles-system.pdf}}\\[0.3em]
+\emph{Newton's third law in an isolated two-particle system: equal and opposite forces}
+\end{minipage}\par\medskip
+
+\subsection*{Elastic and inelastic collisions}
+
+In \textbf{every} collision, momentum is conserved (if there is no outside resultant force).
+
+An \textbf{elastic collision} 弹性碰撞 is one where the total kinetic energy is \textbf{also} conserved. A quick test: in an elastic collision, the \textbf{relative speed} 相对速率 of approach equals the relative speed of separation.
+
+In an \textbf{inelastic collision} 非弹性碰撞, momentum is conserved but kinetic energy goes down — some becomes thermal, sound, or \textbf{deformation} 形变 energy. If the two objects stick together, the collision is perfectly inelastic.
+
+\subsection*{Solving collision problems (one dimension)}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/03-p78-head-on-collision.pdf}}\\[0.3em]
+\emph{Head-on collision: velocities before and after}
+\end{minipage}\par\medskip
+
+For two objects with masses $m_{1}, m_{2}$ and starting velocities $u_{1}, u_{2}$ that hit \textbf{head-on} 正面, write
+
+\[
+m_{1} u_{1} + m_{2} u_{2} = m_{1} v_{1} + m_{2} v_{2}.
+\]
+
+Use \textbf{signed} velocities (positive in one chosen direction). If the collision is elastic, add the relative-speed equation
+
+\[
+u_{1} - u_{2} = -(v_{1} - v_{2}),
+\]
+
+or, the same thing, $\tfrac{1}{2} m_{1} u_{1}^{2} + \tfrac{1}{2} m_{2} u_{2}^{2} = \tfrac{1}{2} m_{1} v_{1}^{2} + \tfrac{1}{2} m_{2} v_{2}^{2}$. That gives two equations for two unknowns.
+
+A useful result for a head-on elastic collision of mass $m$ with a \textbf{stationary} 静止 mass $M$:
+
+\[
+v_{m} = \frac{m - M}{m + M} u, \qquad v_{M} = \frac{2m}{m + M} u.
+\]
+
+\subsection*{Collisions in two dimensions}
+
+If the objects move in two dimensions, split the velocities into \textbf{perpendicular} 垂直 \textbf{components} 分量 and apply conservation of momentum along each direction on its own. For a collision where the objects hit at an angle, choose one axis along the first object's motion and one across it. The total momentum is conserved along each axis.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/03-p82-glancing-collision.pdf}}\\[0.3em]
+\emph{A glancing collision resolved along two perpendicular axes}
+\end{minipage}\par\medskip
+
+\subsection*{Rocket / pushing out mass}
+
+A rocket pushes out gas at velocity $u$ (relative to itself) at a \textbf{mass-flow rate} 质量流率 $\dot m$ (kg per second). It feels a thrust
+
+\[
+F = \dot m \cdot u,
+\]
+
+which comes from $F = \Delta p / \Delta t$. The momentum given to the gas each second equals the thrust on the rocket (Newton's third law: the rocket pushes the gas one way, the gas pushes the rocket the other way).
+
+
+\end{document}

@@ -1,0 +1,135 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}\!\left(Z < \dfrac{1.48-\mu}{0.14}\right) = 0.22
+    \Rightarrow \dfrac{1.48-\mu}{0.14} = -0.772 \Rightarrow \mu = 1.59$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'As together: $\dfrac{7!}{2!} = 2520$ (the two Os among the
+    7 items); As together and Os together: $6! = 720$. So $2520 - 720 = 1800$.'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}(A) = \tfrac14$; $\mathrm{P}(\text{fewer than 6 rolls})
+    = 1 - \left(\tfrac34\right)^5 = \dfrac{781}{1024} = 0.763$.
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\binom51\left(\tfrac14\right)\left(\tfrac34\right)^4 \times
+    \tfrac14 = \left(\tfrac14\right)^2\left(\tfrac34\right)^4 \times 5 = \dfrac{405}{4096}
+    = 0.0989$.
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Back-to-back stem-and-leaf (stems 7, 8, 9, 10), Gulls leaves
+    on the left ordered from the stem, Herons on the right, with key e.g. $7\,|\,9\,|\,5$
+    means 9.7 s (Gulls) and 9.5 s (Herons).
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Median (6th value) $= 8.8$ s; $\mathrm{IQR} = \text{UQ} - \text{LQ}
+    = 9.8 - 8.3 = 1.5$ s.
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Mean $= \dfrac{175.0 + 30(8.4)}{50} = \dfrac{427.0}{50} = 8.54$
+    s.
+  mark_scheme: []
+  graphics: []
+- number: 3d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $1.38^2 = \dfrac{1823.0 + \sum y^2}{50} - \left(\dfrac{427.0}{50}\right)^2
+    \Rightarrow \sum y^2 = 1918.8$.
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}\!\left(-\tfrac{1.2}{2.5} < Z < \tfrac{1.2}{2.5}\right)
+    = 2\Phi(0.48) - 1 = 0.3688$; expected number $= 0.3688 \times 600 \approx 221$.
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$X \sim B(9, 0.6)$: $\mathrm{P}(2 \leqslant X < 8) = 1 - \mathrm{P}(X=0,1,8,9)
+    = 0.926$.'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$X \sim B(80, 0.6)$, mean $48$, variance $19.2$. Normal approximation
+    with continuity correction: $\mathrm{P}(X > 50) = \mathrm{P}\!\left(Z > \tfrac{50.5-48}{\sqrt{19.2}}\right)
+    = \mathrm{P}(Z > 0.571) = 0.284$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$3G\,2P\,1D: \binom93\binom62\binom51 = 6300$; $4G\,1P\,1D:
+    \binom94\binom61\binom51 = 3780$; $5G\,0P\,1D: \binom95\binom51 = 630$. Total
+    $= 10\,710$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Band 1: $\binom93\binom61\binom51 = 2520$; band 2: $\binom63\binom51\binom41
+    = 400$; band 3: $\binom33\binom41\binom31 = 12$. Total $= 2520 \times 400 \times
+    12 = 12\,096\,000$.'
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}(X=2) = \dfrac{\binom62\binom42}{\binom{10}{4}} =
+    \dfrac{15 \times 6}{210} = \dfrac37$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{P}(X=0)=\tfrac{1}{210}$, $\mathrm{P}(X=1)=\tfrac{4}{35}$,
+    $\mathrm{P}(X=2)=\tfrac37$, $\mathrm{P}(X=3)=\tfrac{8}{21}$, $\mathrm{P}(X=4)=\tfrac{1}{14}$.
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{\mathrm{P}(X=2)+\mathrm{P}(X=3)}{\mathrm{P}(X=1)+\mathrm{P}(X=2)+\mathrm{P}(X=3)}
+    = \dfrac{\tfrac37 + \tfrac{8}{21}}{\tfrac{4}{35} + \tfrac37 + \tfrac{8}{21}} =
+    \dfrac{17/21}{97/105} = \dfrac{85}{97} = 0.876$.
+  mark_scheme: []
+  graphics: []

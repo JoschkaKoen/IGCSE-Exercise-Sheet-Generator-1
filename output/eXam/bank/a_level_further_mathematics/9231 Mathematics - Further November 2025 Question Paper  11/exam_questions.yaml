@@ -1,0 +1,282 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Use standard results from the list of formulae (MF19) to find $\displaystyle\sum_{r=1}^n
+      (8r^3 + 12r^2 + 4r + 3)$ in terms of $n$, simplifying your answer.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Show that $\dfrac{1}{r^4} - \dfrac{1}{(r+1)^4} = \dfrac{4r^3 + 6r^2 + 4r
+      + 1}{r^4(r+1)^4}$ and hence use the method of differences to find $\displaystyle\sum_{r=1}^n
+      \dfrac{4r^3 + 6r^2 + 4r + 1}{r^4(r+1)^4}$.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Deduce the value of $\displaystyle\sum_{r=1}^\infty \dfrac{4r^3 + 6r^2 +
+      4r + 1}{r^4(r+1)^4}$.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The matrices $\mathbf{A}$ and $\mathbf{B}$ are given by $\mathbf{A} = \begin{pmatrix}
+    1 & \frac32 \\ 0 & 1 \end{pmatrix}$ and $\mathbf{B} = \begin{pmatrix} 1 & 0 \\
+    \frac32 & 1 \end{pmatrix}$.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Give full details of the geometrical transformation in the $x$-$y$ plane
+      represented by $\mathbf{A}$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Give full details of the geometrical transformation in the $x$-$y$ plane
+      represented by $\mathbf{B}$.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: The triangle $DEF$ in the $x$-$y$ plane is transformed by $\mathbf{AB}$
+      onto triangle $PQR$. Show that the triangles $DEF$ and $PQR$ have the same area.
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the equations of the invariant lines, through the origin, of the transformation
+      in the $x$-$y$ plane represented by $\mathbf{AB}$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 7
+  text: Prove by mathematical induction that, for every positive integer $n$, $\dfrac{d^{2n-1}}{dx^{2n-1}}(x\cos
+    x) = (-1)^n(x\sin x - (2n-1)\cos x)$.
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The quartic equation $x^4 + x^3 + x^2 + x + 1 = 0$ has roots $\alpha$, $\beta$,
+    $\gamma$, $\delta$.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Show that a quartic equation with roots $2\alpha+1$, $2\beta+1$, $2\gamma+1$,
+      $2\delta+1$ is $y^4 - 2y^3 + 4y^2 + 2y + 11 = 0$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: The sum $(2\alpha+1)^n + (2\beta+1)^n + (2\gamma+1)^n + (2\delta+1)^n$ is
+      denoted by $S_n$. Find the value of $S_2$.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Given that $S_3 = -22$, find the value of $S_4$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The plane $\Pi_1$ has equation $\mathbf{r} = -3\mathbf{i} - \mathbf{j} - \mathbf{k}
+    + \lambda(\mathbf{j} + 2\mathbf{k}) + \mu(\mathbf{i} + 3\mathbf{j} + \mathbf{k})$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find an equation for $\Pi_1$ in the form $ax + by + cz = d$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the perpendicular distance from the point with position vector $-\mathbf{i}
+      - 2\mathbf{k}$ to $\Pi_1$.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The plane $\Pi_2$ has equation $3x + 2y - z = 14$. Find a vector equation
+      of the line of intersection of $\Pi_1$ and $\Pi_2$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has polar equation $r = \sin 3\theta$, for $0 \leqslant \theta
+    \leqslant \tfrac13\pi$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Sketch $C$ and state the equation of the line of symmetry.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the exact value of the area of the region enclosed by $C$.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: (You may use the identity $\sin 3\theta \equiv 3\sin\theta - 4\sin^3\theta$.)
+      Find the maximum distance of a point on $C$ from the initial line.
+    answer_options: []
+    subquestions: []
+  - number: 6d
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find a Cartesian equation for $C$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has equation $y = \dfrac{x+2}{x^2 + 3x + 1}$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the equations of the asymptotes of $C$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $C$ has no stationary points.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Sketch $C$, stating the coordinates of the intersections with the axes.
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Sketch the curve with equation $y = \left|\dfrac{x+2}{x^2+3x+1}\right|$.
+    answer_options: []
+    subquestions: []
+  - number: 7e
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find in exact form the set of values of $x$ for which $\left|\dfrac{x+2}{x^2+3x+1}\right|
+      > 2$.
+    answer_options: []
+    subquestions: []

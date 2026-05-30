@@ -64,3 +64,20 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:25:25Z'
 glossed_at: '2026-05-29T05:25:25Z'
+figures:
+  - file: assets/15-p271-charles-law-graph.png
+    caption: At constant pressure the volume of a gas rises linearly with temperature, reaching zero at absolute zero (Charles's law)
+    figure_ref: '15.1'
+    source_page_pdf: 271
+    source_page_printed: 255
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [168.0, 37.0, 504.0, 159.4]
+    placed_under: "### Using the equation of state"
+  - file: assets/15-p279-molecule-in-box.png
+    caption: The pressure derivation considers one molecule's velocity component c_x normal to a face of a cube of gas
+    figure_ref: '15.5'
+    source_page_pdf: 279
+    source_page_printed: 263
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [199.0, 248.0, 385.0, 369.0]
+    placed_under: "### Pressure of a gas — outline of the derivation"

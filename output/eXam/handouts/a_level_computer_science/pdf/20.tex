@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Further Programming}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Programming paradigms}
+
+A \textbf{programming paradigm} 编程范式 is a style of programming — a way of structuring programs, with its own ideas and language features. Four are in this syllabus.
+
+\subsection*{Low-level programming}
+
+Programming \textbf{close to the hardware} in \textbf{machine code} 机器码 or \textbf{assembly language} 汇编语言, where each instruction maps to what the CPU runs. It gives direct access to \textbf{registers} 寄存器 and \textbf{memory addresses} 内存地址, and is very fast and compact, but is architecture-specific, tedious, and hard to maintain. This is \textbf{low-level} 低级 programming. Used for device drivers, firmware and bootloaders.
+
+\subsection*{Imperative (procedural) programming}
+
+In \textbf{imperative programming} 命令式编程 the programmer writes a \textbf{sequence of commands} that change the program's state — assignments, conditionals, loops, function calls. \textbf{Variables} 变量 hold state; statements change it; code is organised into procedures and functions. This is the style of Topics 9 and 11 (Python, C). Strong when the algorithm has clear sequential steps.
+
+\subsection*{Object-oriented programming (OOP)}
+
+In \textbf{object-oriented programming} 面向对象编程 programs are built from \textbf{objects} 对象 — units combining \textbf{data} (\textbf{attributes} 属性) and \textbf{operations} (\textbf{methods} 方法). Objects are \textbf{instances} 实例 of \textbf{classes} 类. The four pillars:
+
+\begin{itemize}
+\item \textbf{encapsulation} 封装 — an object's data is hidden behind its methods; outside code uses the public methods only, not the data directly. This protects the object and lets its internals change without breaking callers.
+
+\item \textbf{inheritance} 继承 — a \textbf{subclass} 子类 specialises a \textbf{superclass} 父类, inheriting its attributes and methods and adding or \textbf{overriding} 重写 them. Models "is-a" ("a Manager is an Employee").
+
+\item \textbf{polymorphism} 多态 — different objects respond to the \textbf{same method call} differently; the caller need not know the exact type. Every \texttt{Shape} has \texttt{Area()}, and a \texttt{Circle} and a \texttt{Rectangle} each implement it their own way.
+
+\item \textbf{abstraction} 抽象 — show a simple interface and hide the implementation.
+
+\end{itemize}
+
+Other terms: a \textbf{constructor} 构造函数 is a special method run when an object is created, to set up its attributes. Used for large systems, GUIs, simulations and games.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/20-p517-class-diagram.pdf}}\\[0.3em]
+\emph{A class diagram for a Shape: private attributes and public methods}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/20-p525-inheritance.pdf}}\\[0.3em]
+\emph{Inheritance: partTime and fullTime are subclasses of employee}
+\end{minipage}\par\medskip
+
+\subsection*{Declarative programming}
+
+In \textbf{declarative programming} 声明式编程 you say \textbf{what} to compute, not \textbf{how} — the runtime works out the steps. Two kinds:
+
+\begin{itemize}
+\item \textbf{functional programming} 函数式编程 — built from \textbf{pure functions} 纯函数 (no \textbf{side effects} 副作用; same input always gives the same output) composed together. Examples: Haskell, Lisp.
+
+\item \textbf{logic programming} 逻辑编程 — state facts and rules; the engine answers queries by inference. Example: Prolog.
+
+\end{itemize}
+
+A familiar declarative example is \textbf{SQL} 结构化查询语言: \texttt{SELECT * FROM Customer WHERE Country = 'UK'} says what you want, not how to walk the records.
+
+\subsection*{Comparing paradigms}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Paradigm} & \textbf{Strength} & \textbf{Typical languages} \\
+\midrule
+Low-level & maximum control, speed & assembly \\
+Imperative & direct, intuitive & C, Python \\
+Object-oriented & modular, models entities & Java, C\#, Python \\
+Functional & clear, no side effects & Haskell, F\# \\
+Logic & inference, rules & Prolog \\
+Database & data queries & SQL \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Modern languages often \textbf{mix paradigms} — Python supports all of procedural, OOP and functional. The right one depends on the problem.
+
+\section*{File processing}
+
+This extends the \textbf{file} 文件 handling from Topic 10. Pseudocode operations: \texttt{OPENFILE name FOR READ | WRITE | APPEND} (READ opens an existing file, WRITE creates/overwrites, APPEND adds to the end); \texttt{READFILE name, line}; \texttt{WRITEFILE name, value}; \texttt{CLOSEFILE name}; and \texttt{EOF(name)} which is TRUE at the end.
+
+Read a whole file:
+
+\begin{Verbatim}
+OPENFILE "names.txt" FOR READ
+WHILE NOT EOF("names.txt") DO
+    READFILE "names.txt", thisName
+    OUTPUT thisName
+ENDWHILE
+CLOSEFILE "names.txt"
+\end{Verbatim}
+
+Search a file (stop when found):
+
+\begin{Verbatim}
+found ← FALSE
+OPENFILE "people.txt" FOR READ
+WHILE NOT EOF("people.txt") AND NOT found DO
+    READFILE "people.txt", line
+    IF line = target THEN found ← TRUE
+ENDWHILE
+CLOSEFILE "people.txt"
+\end{Verbatim}
+
+\subsection*{Updating a file in place}
+
+Most languages can't edit a text file in place. Instead: open the original for READ and a temporary file for WRITE; for each line, write the new version if it should change, else the original; close both; then replace the original with the temp file. The same pattern handles deleting lines (skip them) and inserting lines.
+
+\subsection*{Pitfalls}
+
+Forgetting to close a file (data may be lost); opening for WRITE when you meant APPEND (overwrites everything); reading past \texttt{EOF}; hard-coded paths (make them constants for portability).
+
+\section*{Exception handling}
+
+An \textbf{exception} 异常 is an error or unexpected condition during execution — divide by zero, file not found, network failure, an \textbf{array} 数组 index out of range. \textbf{Exception handling} 异常处理 lets a program \textbf{detect} it and respond gracefully instead of crashing.
+
+It matters because real programs face errors that \textbf{cannot be prevented up front} (files moved, networks down, bad input); without it, every operation needs its own \texttt{IF} check; and it \textbf{separates} the normal flow from the error handling, so the main path reads cleanly.
+
+\subsection*{Pattern}
+
+\begin{Verbatim}
+TRY
+    OPENFILE "data.txt" FOR READ
+    READFILE "data.txt", line
+    OUTPUT line
+    CLOSEFILE "data.txt"
+EXCEPT FileNotFound
+    OUTPUT "Sorry, the file does not exist."
+EXCEPT ReadError
+    OUTPUT "Sorry, error reading the file."
+ENDTRY
+\end{Verbatim}
+
+The \texttt{TRY} block holds the code that might fail; the first matching \texttt{EXCEPT} block runs. Real languages also have a catch-all \texttt{EXCEPT} and a \texttt{FINALLY} block that runs whether or not an exception happened — useful for cleanup (closing files).
+
+\subsection*{Raising an exception}
+
+A subroutine that detects an error can \textbf{raise} 抛出 an exception so the caller handles it:
+
+\begin{Verbatim}
+PROCEDURE Divide(a : INTEGER, b : INTEGER) RETURNS INTEGER
+    IF b = 0 THEN
+        RAISE DivideByZero
+    ENDIF
+    RETURN a DIV b
+ENDPROCEDURE
+\end{Verbatim}
+
+\subsection*{Where to handle exceptions}
+
+Handle them \textbf{close to the error} if the response is simple (a message, a retry), or \textbf{higher up the call stack} 调用栈 if only the outer code knows what to do (a top-level GUI loop logs the error and shows a friendly dialog). \textbf{Don't swallow exceptions silently} — at least log them, or debugging becomes impossible.
+
+Common exceptions: \texttt{FileNotFound}, \texttt{IOError}, \texttt{DivisionByZero}, \texttt{IndexOutOfRange}, \texttt{InvalidArgument}, \texttt{NullReference}, \texttt{OutOfMemory}. Wrapping each failing operation in a \texttt{TRY} with the right \texttt{EXCEPT} handlers gives a program that \textbf{degrades gracefully} instead of crashing.
+
+
+\end{document}

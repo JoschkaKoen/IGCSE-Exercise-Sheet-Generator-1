@@ -1,0 +1,116 @@
+topic_number: '6'
+topic_title: International economic issues
+subject_key: a_level_economics
+covered_question_ids:
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '21'
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '24'
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '25'
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '26'
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '27'
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '29'
+- paper: 9708 Economics 2023 Specimen Question Paper  1
+  qnum: '30'
+- paper: 9708 Economics 2023 Specimen Question Paper  2
+  qnum: 1a
+- paper: 9708 Economics 2023 Specimen Question Paper  2
+  qnum: 1bi
+- paper: 9708 Economics 2023 Specimen Question Paper  2
+  qnum: 1bii
+- paper: 9708 Economics 2023 Specimen Question Paper  2
+  qnum: 1d
+- paper: 9708 Economics 2023 Specimen Question Paper  2
+  qnum: 5a
+- paper: 9708 Economics 2023 Specimen Question Paper  2
+  qnum: 5b
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '4'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '11'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '17'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '20'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '21'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '27'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '28'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '29'
+- paper: 9708 Economics June 2025 Question Paper  11
+  qnum: '30'
+- paper: 9708 Economics June 2025 Question Paper  12
+  qnum: '26'
+- paper: 9708 Economics June 2025 Question Paper  12
+  qnum: '28'
+- paper: 9708 Economics November 2025 Question Paper  11
+  qnum: '20'
+- paper: 9708 Economics November 2025 Question Paper  11
+  qnum: '28'
+- paper: 9708 Economics November 2025 Question Paper  11
+  qnum: '29'
+- paper: 9708 Economics November 2025 Question Paper  11
+  qnum: '30'
+- paper: 9708 Economics November 2025 Question Paper  12
+  qnum: '26'
+- paper: 9708 Economics November 2025 Question Paper  12
+  qnum: '27'
+- paper: 9708 Economics November 2025 Question Paper  12
+  qnum: '29'
+- paper: 9708 Economics November 2025 Question Paper  12
+  qnum: '30'
+- paper: 9708 Economics November 2025 Question Paper  13
+  qnum: '20'
+- paper: 9708 Economics November 2025 Question Paper  13
+  qnum: '28'
+- paper: 9708 Economics November 2025 Question Paper  13
+  qnum: '30'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '3'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '18'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '20'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '23'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '26'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '27'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '28'
+- paper: 9708 Economics November 2025 Question Paper  14
+  qnum: '30'
+- paper: 9708 Economics November 2025 Question Paper  21
+  qnum: 5a
+- paper: 9708 Economics November 2025 Question Paper  21
+  qnum: 5b
+- paper: 9708 Economics November 2025 Question Paper  22
+  qnum: 1e
+- paper: 9708 Economics November 2025 Question Paper  22
+  qnum: 4a
+- paper: 9708 Economics November 2025 Question Paper  22
+  qnum: 4b
+- paper: 9708 Economics November 2025 Question Paper  23
+  qnum: 5a
+- paper: 9708 Economics November 2025 Question Paper  23
+  qnum: 5b
+- paper: 9708 Economics November 2025 Question Paper  24
+  qnum: 4a
+- paper: 9708 Economics November 2025 Question Paper  24
+  qnum: 4b
+- paper: 9708 Economics November 2025 Question Paper  32
+  qnum: '12'
+generated_at: '2026-05-29T15:52:31Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:52:31Z'
+glossed_at: '2026-05-29T16:08:35Z'

@@ -1,0 +1,154 @@
+topic_number: '4'
+topic_title: Software
+subject_key: igcse_computer_science
+covered_question_ids:
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 8a
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 8b
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 8d
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 9bi
+- paper: 0478 Computer Science March 2026 Question Paper  12
+  qnum: 9bii
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 4di
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 4dii
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 4diii
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 4div
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 6bi
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 6bii
+- paper: 0478 Computer Science November 2025 Question Paper  11
+  qnum: 6biii
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 3a
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 3b
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 3c
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 5a
+- paper: 0478 Computer Science November 2025 Question Paper  12
+  qnum: 5b
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 6c
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 6di
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 6dii
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 6diii
+- paper: 0478 Computer Science November 2025 Question Paper  13
+  qnum: 6div
+- paper: 0478_m23_qp_12
+  qnum: 2a
+- paper: 0478_m23_qp_12
+  qnum: 2b
+- paper: 0478_m24_qp_12
+  qnum: 3a
+- paper: 0478_m24_qp_12
+  qnum: 3bi
+- paper: 0478_m24_qp_12
+  qnum: 3bii
+- paper: 0478_m24_qp_12
+  qnum: 3biii
+- paper: 0478_m25_qp_12
+  qnum: 7a
+- paper: 0478_m25_qp_12
+  qnum: 7b
+- paper: 0478_m25_qp_12
+  qnum: 7c
+- paper: 0478_s23_qp_11
+  qnum: '4'
+- paper: 0478_s23_qp_11
+  qnum: 7a
+- paper: 0478_s23_qp_11
+  qnum: 7b
+- paper: 0478_s23_qp_12
+  qnum: 5a
+- paper: 0478_s23_qp_12
+  qnum: 5bi
+- paper: 0478_s23_qp_12
+  qnum: 5bii
+- paper: 0478_s23_qp_12
+  qnum: 5c
+- paper: 0478_s23_qp_12
+  qnum: 10a
+- paper: 0478_s24_qp_11
+  qnum: 6a
+- paper: 0478_s24_qp_11
+  qnum: 6b
+- paper: 0478_s24_qp_11
+  qnum: 6c
+- paper: 0478_s24_qp_12
+  qnum: 4a
+- paper: 0478_s24_qp_12
+  qnum: 4b
+- paper: 0478_s24_qp_12
+  qnum: 4c
+- paper: 0478_s24_qp_13
+  qnum: 9a
+- paper: 0478_s24_qp_13
+  qnum: 9b
+- paper: 0478_s25_qp_11
+  qnum: 8b
+- paper: 0478_s25_qp_11
+  qnum: 8c
+- paper: 0478_s25_qp_11
+  qnum: 9a
+- paper: 0478_s25_qp_12
+  qnum: 3a
+- paper: 0478_s25_qp_12
+  qnum: 3bi
+- paper: 0478_s25_qp_12
+  qnum: 3bii
+- paper: 0478_s25_qp_13
+  qnum: 1b
+- paper: 0478_s25_qp_13
+  qnum: 4a
+- paper: 0478_s25_qp_13
+  qnum: 4b
+- paper: 0478_s25_qp_13
+  qnum: 4ci
+- paper: 0478_s25_qp_13
+  qnum: 4cii
+- paper: 0478_w23_qp_11
+  qnum: 9a
+- paper: 0478_w23_qp_11
+  qnum: 9b
+- paper: 0478_w23_qp_11
+  qnum: 9ci
+- paper: 0478_w23_qp_11
+  qnum: 9cii
+- paper: 0478_w24_qp_11
+  qnum: 6b
+- paper: 0478_w24_qp_11
+  qnum: 6d
+- paper: 0478_w24_qp_11
+  qnum: 6e
+- paper: 0478_w24_qp_11
+  qnum: 7ai
+- paper: 0478_w24_qp_11
+  qnum: 7aii
+- paper: 0478_w24_qp_11
+  qnum: 7b
+- paper: 0478_w24_qp_12
+  qnum: 1a
+- paper: 0478_w24_qp_12
+  qnum: 1b
+- paper: 0478_w24_qp_12
+  qnum: 1c
+- paper: 0478_w24_qp_13
+  qnum: '7'
+generated_at: '2026-05-29T15:58:39Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:58:39Z'
+glossed_at: '2026-05-29T15:58:39Z'

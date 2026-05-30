@@ -1,7 +1,7 @@
 subject_key: igcse_computer_science
 paper_stem: 0478 Computer Science November 2025 Question Paper  13
-model: qwen3.6-plus
-matched_at: '2026-05-28T05:11:52Z'
+model: claude
+matched_at: '2026-05-29T12:37:54Z'
 matches:
   1a: ['3.2']
   1bi: ['1.1']

@@ -172,6 +172,13 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   transition: all 0.2s ease;
 }
 
+.tab-active-fuchsia {
+  background: linear-gradient(135deg, rgba(232,121,249,0.22), rgba(217,70,239,0.28));
+  color: rgb(245 208 254);
+  box-shadow: 0 0 0 1px rgba(232,121,249,0.28) inset;
+  transition: all 0.2s ease;
+}
+
 
 .tab-btn {
   touch-action: manipulation;

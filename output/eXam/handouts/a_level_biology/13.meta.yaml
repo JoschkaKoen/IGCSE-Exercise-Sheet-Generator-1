@@ -1,0 +1,52 @@
+topic_number: '13'
+topic_title: Photosynthesis
+subject_key: a_level_biology
+covered_question_ids:
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 4a
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 4b
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 4ci
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 4cii
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 4d
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: 4e
+- paper: 9700 Biology June 2025 Question Paper  41
+  qnum: '8'
+- paper: 9700 Biology November 2025 Question Paper  41
+  qnum: 3ai
+- paper: 9700 Biology November 2025 Question Paper  41
+  qnum: 3aii
+- paper: 9700 Biology November 2025 Question Paper  41
+  qnum: 3aiii
+- paper: 9700 Biology November 2025 Question Paper  41
+  qnum: 3b
+- paper: 9700 Biology November 2025 Question Paper  42
+  qnum: 9ai
+- paper: 9700 Biology November 2025 Question Paper  42
+  qnum: 9aii
+- paper: 9700 Biology November 2025 Question Paper  42
+  qnum: 9bi
+- paper: 9700 Biology November 2025 Question Paper  42
+  qnum: 9bii
+- paper: 9700 Biology November 2025 Question Paper  43
+  qnum: 3ai
+- paper: 9700 Biology November 2025 Question Paper  43
+  qnum: 3aii
+- paper: 9700 Biology November 2025 Question Paper  43
+  qnum: 3aiii
+- paper: 9700 Biology November 2025 Question Paper  43
+  qnum: 3b
+- paper: 9700 Biology November 2025 Question Paper  44
+  qnum: 10a
+- paper: 9700 Biology November 2025 Question Paper  44
+  qnum: 10b
+generated_at: '2026-05-29T16:21:28Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:21:28Z'
+glossed_at: '2026-05-29T16:21:28Z'

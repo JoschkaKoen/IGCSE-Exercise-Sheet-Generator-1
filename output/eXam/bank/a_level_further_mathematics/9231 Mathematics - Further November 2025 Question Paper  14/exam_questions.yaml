@@ -1,0 +1,304 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: Prove by mathematical induction that $\left(\tfrac65\right)^n \geqslant 1
+    + \tfrac15 n$ for every positive integer $n$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The cubic equation $x^3 + bx^2 + cx + d = 0$, where $b$, $c$ and $d$ are constants,
+    has roots $\alpha$, $\beta$ and $\gamma$. It is given that $\gamma = \dfrac1\beta$.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $\beta + \dfrac1\beta = d - b$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Show that $\beta + \dfrac1\beta = \dfrac{1-c}{d}$.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: It is now given that $b = 3$ and $c = -3$, and that $d > 0$.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Find the value of $d$.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Find the value of $\alpha^2 + \beta^2 + \gamma^2$.
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Show that $\displaystyle\sum_{r=1}^n (r+1)(r+2)(r+3) = \tfrac14 n(n^3 +
+      bn^2 + cn + d)$, where the constants $b$, $c$ and $d$ are to be found.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Use the method of differences to find $\displaystyle\sum_{r=1}^n \dfrac{2}{(r+1)(r+2)(r+3)}$,
+      expressing your answer in terms of $n$.
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Deduce the value of $\displaystyle\sum_{r=1}^\infty \dfrac{2}{(r+1)(r+2)(r+3)}$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Relative to the origin $O$, the points $A$, $B$, $C$ and $D$ have position
+    vectors $\overrightarrow{OA} = 3\mathbf{i} + 5\mathbf{j} + 5\mathbf{k}$, $\overrightarrow{OB}
+    = 2\mathbf{i} + 2\mathbf{j} + 2\mathbf{k}$, $\overrightarrow{OC} = 2\mathbf{i}
+    + \mathbf{j} - \mathbf{k}$ and $\overrightarrow{OD} = \mathbf{i} - \mathbf{j}
+    + 3\mathbf{k}$.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find an equation of the plane through $A$, $B$ and $C$, giving your answer
+      in the form $ax + by + cz = e$.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the shortest distance between the lines $AB$ and $CD$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: ''
+    answer_options: []
+    subquestions:
+    - number: 5ai
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that $\cos\tfrac{1}{12}\pi = \tfrac14(\sqrt6 + \sqrt2)$.
+      answer_options: []
+      subquestions: []
+    - number: 5aii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that $\sin\tfrac{1}{12}\pi = \tfrac14(\sqrt6 - \sqrt2)$.
+      answer_options: []
+      subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: The matrix $\mathbf{M} = \begin{pmatrix} \tfrac14(\sqrt6+\sqrt2) & \tfrac14(\sqrt6-\sqrt2)
+      \\ \tfrac14(\sqrt6-\sqrt2) & -\tfrac14(\sqrt6+\sqrt2) \end{pmatrix}$ represents
+      a single transformation that is equivalent to the combination of two transformations.
+      Give full details of these two transformations and state the order in which
+      they are applied.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Express $\mathbf{M}^{-1}$ as the product of two matrices, neither of which
+      is the identity matrix.
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: The line $y = mx$ is invariant under the transformation represented by $\mathbf{M}$.
+      Show that $\sin\tfrac{1}{12}\pi\, m^2 + 2m\cos\tfrac{1}{12}\pi - \sin\tfrac{1}{12}\pi
+      = 0$, and hence find the possible values of $m$ in the form $a\cot\tfrac{1}{12}\pi
+      + b\,\mathrm{cosec}\,\tfrac{1}{12}\pi$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has polar equation $r = \cos\tfrac12\theta$, for $0 \leqslant
+    \theta \leqslant \pi$.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Sketch $C$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the exact value of the area of the region enclosed by $C$ and the initial
+      line.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Find the maximum distance of a point on $C$ from the initial line, giving
+      your answer in exact form.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has equation $y = \dfrac{10x^2 - 11x - 18}{10x - 18}$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Write down the equations of the asymptotes of $C$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Show that $C$ has no stationary points.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Sketch $C$, stating the coordinates of any points of intersection with the
+      axes.
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: On a separate diagram, sketch the curve with equation $y = \left|\dfrac{10x^2
+      - 11x - 18}{10x - 18}\right|$.
+    answer_options: []
+    subquestions: []
+  - number: 7e
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: It is given that $\left|\dfrac{10x^2-11x-18}{10x-18}\right| < 4$ for $\dfrac{-29-\sqrt{4441}}{20}
+      < x < p$ and $\dfrac{-29+\sqrt{4441}}{20} < x < q$. Find the exact values of
+      $p$ and $q$.
+    answer_options: []
+    subquestions: []

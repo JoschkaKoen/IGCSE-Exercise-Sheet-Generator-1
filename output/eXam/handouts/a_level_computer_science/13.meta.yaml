@@ -194,3 +194,36 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:50:14Z'
 glossed_at: '2026-05-29T05:50:14Z'
+figures:
+  - file: assets/13-p324-serial-file.png
+    caption: "Serial file: records are kept in the order they were added"
+    figure_ref: '13.1'
+    source_page_pdf: 324
+    source_page_printed: 308
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [179.1, 598.4, 558.0, 645.2]
+    placed_under: "## File organisation and access"
+  - file: assets/13-p325-sequential-file.png
+    caption: "Sequential file: records are sorted by a key field"
+    figure_ref: '13.2'
+    source_page_pdf: 325
+    source_page_printed: 309
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [104.5, 150.0, 540.7, 204.3]
+    placed_under: "## File organisation and access"
+  - file: assets/13-p325-random-file.png
+    caption: "Random file: records sit at positions computed from the key"
+    figure_ref: '13.4'
+    source_page_pdf: 325
+    source_page_printed: 309
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [104.7, 407.6, 540.8, 454.0]
+    placed_under: "## File organisation and access"
+  - file: assets/13-p329-floating-point-format.png
+    caption: The place values of an 8-bit mantissa and an 8-bit exponent
+    figure_ref: '13.7'
+    source_page_pdf: 329
+    source_page_printed: 313
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [167.1, 676.2, 542.8, 703.5]
+    placed_under: "## Floating-point numbers"

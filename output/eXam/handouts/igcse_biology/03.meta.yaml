@@ -1,0 +1,80 @@
+topic_number: '3'
+topic_title: Movement into and out of cells
+subject_key: igcse_biology
+covered_question_ids:
+- paper: 0610 Biology June 2025 Question Paper  21
+  qnum: '4'
+- paper: 0610 Biology June 2025 Question Paper  22
+  qnum: '7'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '3'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '7'
+- paper: 0610 Biology June 2025 Question Paper  23
+  qnum: '19'
+- paper: 0610 Biology June 2025 Question Paper  41
+  qnum: 6b
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 5ai
+- paper: 0610 Biology June 2025 Question Paper  42
+  qnum: 5b
+- paper: 0610 Biology June 2025 Question Paper  43
+  qnum: 4cii
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 1ai
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 1aii
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 1aiii
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 1aiv
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 1av
+- paper: 0610 Biology June 2025 Question Paper  61
+  qnum: 1b
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1ai
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1aii
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1aiii
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1aiv
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1av
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1avi
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1avii
+- paper: 0610 Biology June 2025 Question Paper  62
+  qnum: 1aviii
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '5'
+- paper: 0610 Biology March 2025 Question Paper  22
+  qnum: '6'
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 1ai
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 1aii
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 1bii
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 1c
+- paper: 0610 Biology March 2025 Question Paper  42
+  qnum: 1e
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '5'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '6'
+- paper: 0610 Biology November 2025 Question Paper  21
+  qnum: '18'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '5'
+- paper: 0610 Biology November 2025 Question Paper  23
+  qnum: '6'
+generated_at: '2026-05-29T15:41:59Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:41:59Z'
+glossed_at: '2026-05-29T15:41:59Z'

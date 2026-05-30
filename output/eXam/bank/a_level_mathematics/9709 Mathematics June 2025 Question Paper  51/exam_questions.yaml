@@ -1,0 +1,227 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: The masses of the bags of rice made by a company are normally distributed
+    with mean $\mu$ kg and standard deviation 0.14 kg. The probability that the mass
+    of a randomly chosen bag of this rice is less than 1.48 kg is 0.22. Find the value
+    of $\mu$.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the number of different arrangements of the 8 letters in the word KANGAROO
+      in which the two As are together and the two Os are not together.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: A fair 8-sided dice has faces labelled K, A, N, G, A, R, O, O. The dice
+      is rolled repeatedly. Find the probability that fewer than 6 rolls of this dice
+      are required to obtain an A.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the probability that the second A is obtained on the 6th roll of the
+      dice.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Last Sunday, teams of runners took part in a charity event. The time taken,
+    in seconds, to run 50 m was recorded, correct to 1 decimal place, for each runner.
+    The times recorded for 11 runners from each of the Gulls and the Herons are shown
+    in the table. Gulls: 7.9, 8.2, 8.3, 8.6, 8.6, 8.8, 9.2, 9.7, 9.8, 10.0, 10.4.
+    Herons: 9.5, 9.9, 8.5, 8.1, 9.2, 10.8, 8.3, 9.7, 9.3, 9.9, 8.7.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Draw a back-to-back stem-and-leaf diagram to represent this information,
+      with Gulls on the left-hand side.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the median and the interquartile range of the times of the runners
+      from the Gulls.
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Two other teams, the Eagles and the Swifts, also took part. The recorded
+      times in seconds for 20 runners from the Eagles and 30 runners from the Swifts
+      are denoted by $x$ and $y$ respectively. It is given that $\sum x = 175.0$ and
+      that the mean of $y$ is 8.4. Find the mean of the times taken by all 50 runners.
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: It is given that $\sum x^2 = 1823.0$. It is also known that the standard
+      deviation of the times taken by all 50 runners is 1.38 seconds. Find the value
+      of $\sum y^2$, correct to 1 decimal place.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Every Saturday, a particular community holds a 'Puzzle' event to raise money
+    for a new Leisure Centre. Competitors attempt to solve a puzzle as quickly as
+    possible. Last Saturday, 600 competitors took part. The times taken to complete
+    the puzzle were normally distributed with mean 32.4 minutes and standard deviation
+    2.5 minutes.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: How many competitors would you expect to have times within 1.2 minutes of
+      the mean time?
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: In this Saturday's event, 60% of the competitors had times less than 36.0
+      minutes. 9 competitors who took part are selected at random. Find the probability
+      that at least 2 and fewer than 8 of these competitors had times less than 36.0
+      minutes.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 80 competitors who took part in this Saturday's event are selected at random.
+      Use a suitable approximation to find the probability that more than 50 of these
+      competitors had times less than 36.0 minutes.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: In a group of 20 musicians, there are 9 guitarists, 6 pianists and 5 drummers.
+    6 musicians are selected from these 20 to perform at a concert.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the number of different ways in which the 6 musicians can be selected
+      if there must be at least 3 guitarists, at most 2 pianists and exactly 1 drummer.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Three bands will be selected from the original group of 20 musicians. Each
+      band will consist of 3 guitarists, 1 pianist and 1 drummer. No musician can
+      be in more than one band. The first band selected will play in France, the second
+      in Italy and the third in Spain. Find the number of different ways in which
+      these three bands can be selected.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A bag contains 10 marbles, of which 4 are red and 6 are blue. Four marbles
+    are selected from the bag at random, without replacement. The random variable
+    $X$ denotes the number of blue marbles selected.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Show that $\mathrm{P}(X = 2) = \tfrac37$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Draw up the probability distribution table for $X$.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the probability that at least 2 of the marbles chosen are blue, given
+      that at least 1 red marble and at least 1 blue marble are chosen.
+    answer_options: []
+    subquestions: []

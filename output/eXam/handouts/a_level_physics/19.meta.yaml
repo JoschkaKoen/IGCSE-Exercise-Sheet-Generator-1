@@ -54,3 +54,44 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:29:20Z'
 glossed_at: '2026-05-29T05:29:20Z'
+figures:
+  - file: assets/19-p322-capacitors-in-parallel.png
+    caption: Capacitors in parallel share the same p.d.; the charges add
+    figure_ref: '19.6'
+    source_page_pdf: 322
+    source_page_printed: 306
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [196.0, 433.0, 404.0, 624.0]
+    placed_under: "### Combining capacitors"
+  - file: assets/19-p321-capacitors-in-series.png
+    caption: Capacitors in series carry the same charge; the p.d.s add
+    figure_ref: '19.5'
+    source_page_pdf: 321
+    source_page_printed: 305
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [130.0, 582.0, 418.0, 666.0]
+    placed_under: "### Combining capacitors"
+  - file: assets/19-p324-energy-qv-graph.png
+    caption: The energy stored is the area under the potential–charge line (the triangle ½QV)
+    figure_ref: '19.7'
+    source_page_pdf: 324
+    source_page_printed: 308
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [53.0, 38.0, 174.0, 134.0]
+    placed_under: "### Reading the Q-V graph"
+  - file: assets/19-p325-discharge-circuit.png
+    caption: A capacitor charges through switch A, then discharges through the resistor via switch B
+    figure_ref: '19.10'
+    source_page_pdf: 325
+    source_page_printed: 309
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [162.0, 500.0, 358.0, 614.0]
+    placed_under: "## Capacitor discharging through a resistor"
+  - file: assets/19-p326-discharge-decay-curve.png
+    caption: Charge decays exponentially during discharge, falling to Q₀/e after one time constant RC
+    figure_ref: '19.12'
+    source_page_pdf: 326
+    source_page_printed: 310
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [61.0, 240.0, 165.0, 327.0]
+    placed_under: "### Discharge equations"

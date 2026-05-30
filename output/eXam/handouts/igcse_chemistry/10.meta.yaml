@@ -1,0 +1,70 @@
+topic_number: '10'
+topic_title: Chemistry of the environment
+subject_key: igcse_chemistry
+covered_question_ids:
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '30'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '31'
+- paper: 0620 Chemistry June 2025 Question Paper  21
+  qnum: '32'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '18'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '29'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '30'
+- paper: 0620 Chemistry June 2025 Question Paper  22
+  qnum: '31'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '28'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '29'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '30'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '31'
+- paper: 0620 Chemistry June 2025 Question Paper  23
+  qnum: '32'
+- paper: 0620 Chemistry June 2025 Question Paper  41
+  qnum: 1f
+- paper: 0620 Chemistry June 2025 Question Paper  42
+  qnum: 1a
+- paper: 0620 Chemistry June 2025 Question Paper  43
+  qnum: 1i
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '31'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '32'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '33'
+- paper: 0620 Chemistry March 2025 Question paper  22
+  qnum: '34'
+- paper: 0620 Chemistry March 2025 Question paper  42
+  qnum: 1a
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '30'
+- paper: 0620 Chemistry November 2025 Question Paper  21
+  qnum: '31'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '30'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '31'
+- paper: 0620 Chemistry November 2025 Question Paper  22
+  qnum: '33'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '29'
+- paper: 0620 Chemistry November 2025 Question Paper  23
+  qnum: '30'
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 1d
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 1ei
+- paper: 0620 Chemistry November 2025 Question Paper  42
+  qnum: 1eii
+generated_at: '2026-05-29T16:21:33Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T16:21:34Z'
+glossed_at: '2026-05-29T16:21:34Z'

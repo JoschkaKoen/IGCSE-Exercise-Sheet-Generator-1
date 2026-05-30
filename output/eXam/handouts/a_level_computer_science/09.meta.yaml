@@ -38,3 +38,20 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:45:41Z'
 glossed_at: '2026-05-29T05:45:41Z'
+figures:
+  - file: assets/09-p235-decomposition-modules.png
+    caption: Decomposing a program into modules and sub-modules
+    figure_ref: '9.2'
+    source_page_pdf: 235
+    source_page_printed: 219
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [166.8, 328.6, 517.8, 519.3]
+    placed_under: "### Decomposition"
+  - file: assets/09-p237-flowchart-example.png
+    caption: A flowchart for averaging a list of numbers, using the standard shapes
+    figure_ref: '9.3'
+    source_page_pdf: 237
+    source_page_printed: 221
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [249.0, 57.0, 464.0, 543.0]
+    placed_under: "## Three notations"

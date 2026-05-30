@@ -80,3 +80,36 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:45:40Z'
 glossed_at: '2026-05-29T05:45:40Z'
+figures:
+  - file: assets/08-p214-file-based-approach.png
+    caption: "The file-based approach: each program keeps its own files"
+    figure_ref: '8.1'
+    source_page_pdf: 214
+    source_page_printed: 198
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [183.0, 39.0, 432.0, 171.0]
+    placed_under: "## File-based storage and its limits"
+  - file: assets/08-p215-database-approach.png
+    caption: "The database approach: one DBMS serves all the programs"
+    figure_ref: '8.2'
+    source_page_pdf: 215
+    source_page_printed: 199
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [160.6, 80.0, 429.0, 231.6]
+    placed_under: "## File-based storage and its limits"
+  - file: assets/08-p218-er-diagram.png
+    caption: "An E-R diagram: one class has many students"
+    figure_ref: '8.3'
+    source_page_pdf: 218
+    source_page_printed: 202
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [174.8, 209.0, 444.5, 351.6]
+    placed_under: "## Entity-relationship (E-R) diagrams"
+  - file: assets/08-p218-cardinality-notation.png
+    caption: Crow's-foot symbols for the cardinality of a relationship
+    figure_ref: '8.4'
+    source_page_pdf: 218
+    source_page_printed: 202
+    source: "Cambridge International AS & A Level Computer Science (Hodder)"
+    crop_rect_pts: [177.0, 496.0, 370.0, 660.0]
+    placed_under: "## Entity-relationship (E-R) diagrams"

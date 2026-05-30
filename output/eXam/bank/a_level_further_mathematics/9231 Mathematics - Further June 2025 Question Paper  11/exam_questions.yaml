@@ -1,0 +1,275 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: ''
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Use standard results from the list of formulae (MF19) to show that $\displaystyle\sum_{r=1}^n
+      (2-3r)(5-3r) = an^3 + bn^2 + cn$, where $a$, $b$ and $c$ are integers to be
+      determined.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Use the method of differences to find $\displaystyle\sum_{r=1}^n \dfrac{1}{(2-3r)(5-3r)}$
+      in terms of $n$.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Deduce the value of $\displaystyle\sum_{r=1}^\infty \dfrac{1}{(2-3r)(5-3r)}$.
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The cubic equation $x^3 + 2x + 1 = 0$ has roots $\alpha$, $\beta$, $\gamma$.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find a cubic equation whose roots are $\alpha^3 - 1$, $\beta^3 - 1$, $\gamma^3
+      - 1$.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the value of $(\alpha^3-1)^2 + (\beta^3-1)^2 + (\gamma^3-1)^2$.
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: calculation
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the value of $(\alpha^3-1)^3 + (\beta^3-1)^3 + (\gamma^3-1)^3$.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The sequence $u_1, u_2, u_3, \ldots$ is such that $u_1 = 5$ and $u_{n+1} =
+    6u_n + 5$ for $n \geqslant 1$.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Prove by induction that $u_n = 6^n - 1$ for all positive integers $n$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Deduce that $u_{2n}$ is divisible by $u_n$ for $n \geqslant 1$.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The matrix $\mathbf{M}$ is given by $\mathbf{M} = \begin{pmatrix} 1 & 2 \\
+    0 & 1 \end{pmatrix}\begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta
+    \end{pmatrix}$, where $0 < \theta < 2\pi$.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: The matrix $\mathbf{M}$ represents a sequence of two geometrical transformations
+      in the $x$-$y$ plane. State the type of each transformation, and make clear
+      the order in which they are applied.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Find the value of $\theta$ for which the transformation represented by $\mathbf{M}$
+      has a line of invariant points.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has polar equation $r = \theta\,\mathrm{e}^{\frac18\theta}$,
+    for $0 \leqslant \theta \leqslant 2\pi$.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Sketch $C$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Find the area of the region bounded by $C$ and the initial line, giving
+      your answer in the form $(p\pi^2 + q\pi + r)\mathrm{e}^{\frac12\pi} + s$, where
+      $p$, $q$, $r$ and $s$ are integers to be determined.
+    answer_options: []
+    subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Show that, at the point of $C$ furthest from the initial line, $\theta\cos\theta
+      + \left(\tfrac18\theta + 1\right)\sin\theta = 0$, and verify that this equation
+      has a root between 5 and 5.05.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The points $A$, $B$, $C$ have position vectors $\mathbf{i} - 2\mathbf{k}$,
+    $\mathbf{i} + 2\mathbf{j} + 2\mathbf{k}$, $2\mathbf{i} - \mathbf{j} - \mathbf{k}$
+    respectively.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find the equation of the plane $ABC$, giving your answer in the form $ax
+      + by + cz = d$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: A point $D$ has position vector $\mathbf{i} + t\mathbf{k}$, where $t \neq
+      -2$. Find the acute angle between the planes $ABC$ and $ABD$.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Find the values of $t$ such that the shortest distance between the lines
+      $AB$ and $CD$ is $\sqrt2$.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The curve $C$ has equation $y = \dfrac{2x^2 - 5x}{2x^2 - 7x - 4}$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the equations of the asymptotes of $C$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: calculation
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Find the coordinates of any stationary points on $C$.
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Sketch $C$, stating the coordinates of the intersections with the axes.
+    answer_options: []
+    subquestions: []
+  - number: 7d
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Sketch the curve with equation $y = \left|\dfrac{2x^2 - 5x}{2x^2 - 7x -
+      4}\right|$.
+    answer_options: []
+    subquestions: []
+  - number: 7e
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: Find in exact form the set of values of $x$ for which $\left|\dfrac{2x^2
+      - 5x}{2x^2 - 7x - 4}\right| < \dfrac19$.
+    answer_options: []
+    subquestions: []

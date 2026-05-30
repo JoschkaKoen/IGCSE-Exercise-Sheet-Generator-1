@@ -60,3 +60,28 @@ prompt_version: v1
 language: en-simplified+zh-gloss
 simplified_at: '2026-05-29T05:23:26Z'
 glossed_at: '2026-05-29T05:23:26Z'
+figures:
+  - file: assets/13-p248-field-lines-strength.png
+    caption: Field-line spacing shows the field strength — closer lines mean a stronger field
+    figure_ref: '13.1'
+    source_page_pdf: 248
+    source_page_printed: 232
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [184.9, 503.7, 547.7, 609.2]
+    placed_under: "### Field lines"
+  - file: assets/13-p249-radial-field-sphere.png
+    caption: Outside a uniform sphere the field is radial, exactly like a point mass at the centre
+    figure_ref: '13.2'
+    source_page_pdf: 249
+    source_page_printed: 233
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [178.0, 92.0, 512.0, 273.0]
+    placed_under: "### Spheres treated as point masses"
+  - file: assets/13-p250-planet-orbit.png
+    caption: Gravity provides the centripetal force that keeps a planet in a circular orbit
+    figure_ref: '13.3'
+    source_page_pdf: 250
+    source_page_printed: 234
+    source: "Cambridge International AS & A Level Physics, 3rd ed. (Crundell, Goodwin)"
+    crop_rect_pts: [180.3, 549.9, 438.4, 722.3]
+    placed_under: "## Orbital motion in a gravitational field"

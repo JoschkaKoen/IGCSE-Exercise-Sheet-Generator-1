@@ -1,0 +1,194 @@
+questions:
+- number: 1a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $2n^2(n+1)^2 + 2n(n+1)(2n+1) + 2n(n+1) + 3n = 2n^4 + 8n^3 +
+    10n^2 + 7n$.
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Common denominator: $\dfrac{(r+1)^4 - r^4}{r^4(r+1)^4} = \dfrac{4r^3+6r^2+4r+1}{r^4(r+1)^4}$
+    (AG). Telescoping: $\sum_{r=1}^n = 1 - \dfrac{1}{(n+1)^4}$.'
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: As $n \to \infty$, the sum $\to 1$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Shear with the $x$-axis invariant (fixed), e.g. $(0,1) \mapsto
+    \left(\tfrac32, 1\right)$.
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Shear with the $y$-axis invariant (fixed), e.g. $(1,0) \mapsto
+    \left(1, \tfrac32\right)$.
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathbf{AB} = \begin{pmatrix} \frac{13}{4} & \frac32 \\ \frac32
+    & 1 \end{pmatrix}$ and $\det\mathbf{AB} = \det\mathbf{A}\,\det\mathbf{B} = 1\times1
+    = 1$, so the area is unchanged.
+  mark_scheme: []
+  graphics: []
+- number: 2d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$\tfrac32 x + my = m\!\left(\tfrac{13}{4}x + \tfrac32 my\right)
+    \Rightarrow m^2 + \tfrac32 m - 1 = 0 \Rightarrow m = \tfrac12$ or $-2$. Invariant
+    lines: $y = -2x$ and $y = \tfrac12 x$.'
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Base $n=1$: $\tfrac{d}{dx}(x\cos x) = \cos x - x\sin x = (-1)^1(x\sin
+    x - \cos x)$ ✓. Assume true for $n=k$; differentiating the hypothesis twice gives
+    $\tfrac{d^{2k+1}}{dx^{2k+1}}(x\cos x) = (-1)^{k+1}(x\sin x - (2k+1)\cos x)$ —
+    the $n=k+1$ case. Hence true for all positive integers $n$ by induction.'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = 2x+1 \Rightarrow x = \tfrac12(y-1)$; substituting into
+    $x^4+x^3+x^2+x+1=0$ and simplifying gives $y^4 - 2y^3 + 4y^2 + 2y + 11 = 0$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: For the new quartic $S_1 = 2$ and $\sum$ pairs $= 4$, so $S_2
+    = S_1^2 - 2\sum\text{pairs} = 2^2 - 2(4) = -4$.
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Newton''s identity: $S_4 - 2S_3 + 4S_2 + 2S_1 + 44 = 0 \Rightarrow
+    S_4 = 2(-22) - 4(-4) - 2(2) - 44 = -76$.'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Normal $= (\mathbf{j}+2\mathbf{k})\times(\mathbf{i}+3\mathbf{j}+\mathbf{k})
+    = (-5, 2, -1)$ (or $(5,-2,1)$). Through $(-3,-1,-1)$: $5x - 2y + z = -14$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{|(-2,-1,1)\cdot(-5,2,-1)|}{\sqrt{5^2+2^2+1^2}} = \dfrac{7}{\sqrt{30}}
+    \approx 1.28$.
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Common point e.g. $(0,7,0)$; direction $= (5,-2,1)\times(3,2,-1)
+    = (0,8,16) \parallel (0,1,2)$. So $\mathbf{r} = \begin{pmatrix}0\\7\\0\end{pmatrix}
+    + \lambda\begin{pmatrix}0\\1\\2\end{pmatrix}$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: A single loop from the pole in the first quadrant; line of symmetry
+    $\theta = \tfrac16\pi$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Area $= \tfrac12\int_0^{\pi/3}\sin^2 3\theta\,d\theta = \tfrac14\int_0^{\pi/3}(1-\cos
+    6\theta)\,d\theta = \tfrac14\big[\theta - \tfrac16\sin 6\theta\big]_0^{\pi/3}
+    = \tfrac{1}{12}\pi$.
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = r\sin\theta = (3\sin\theta - 4\sin^3\theta)\sin\theta =
+    3\sin^2\theta - 4\sin^4\theta$; $\tfrac{dy}{d\theta} = 0 \Rightarrow \sin^2\theta
+    = \tfrac38$, giving maximum distance $y = \tfrac{9}{16}$.
+  mark_scheme: []
+  graphics: []
+- number: 6d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Using $y = r\sin\theta$ and $r^2 = x^2+y^2$: $(x^2+y^2)^2 =
+    y(3x^2 - y^2)$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Vertical asymptotes $x = -\tfrac32 \pm \tfrac12\sqrt5$ (roots
+    of $x^2+3x+1=0$); horizontal asymptote $y = 0$.
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\tfrac{dy}{dx} = \dfrac{(x^2+3x+1) - (x+2)(2x+3)}{(x^2+3x+1)^2}$;
+    setting the numerator to 0 gives $x^2 + 4x + 5 = 0$, discriminant $16-20 = -4
+    < 0$, no real roots — so no stationary points (AG).
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Axis intersections $(0, 2)$ and $(-2, 0)$; vertical asymptotes
+    at $x = -\tfrac32\pm\tfrac12\sqrt5$, curve $\to 0$ as $x\to\pm\infty$.
+  mark_scheme: []
+  graphics: []
+- number: 7d
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Reflect the parts of $y = \tfrac{x+2}{x^2+3x+1}$ that lie below
+    the $x$-axis in the $x$-axis; the curve touches 0 at $(-2,0)$.
+  mark_scheme: []
+  graphics: []
+- number: 7e
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Critical points: $\dfrac{x+2}{x^2+3x+1}=2 \Rightarrow x=-\tfrac52,
+    0$; $=-2 \Rightarrow x=-\tfrac74\pm\tfrac14\sqrt{17}$. Solution: $-\tfrac74-\tfrac14\sqrt{17}
+    < x < -\tfrac52$ and $-\tfrac74+\tfrac14\sqrt{17} < x < 0$, excluding the asymptotes
+    $x = -\tfrac32\pm\tfrac12\sqrt5$.'
+  mark_scheme: []
+  graphics: []

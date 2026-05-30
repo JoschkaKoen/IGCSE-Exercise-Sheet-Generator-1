@@ -1,0 +1,14 @@
+topic_number: '32'
+topic_title: Hydroxy compounds
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 7a
+- paper: 9701 Chemistry November 2025 Question Paper  44
+  qnum: 7b
+generated_at: '2026-05-29T17:25:00Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T17:25:00Z'
+glossed_at: '2026-05-29T17:25:00Z'

@@ -1,0 +1,147 @@
+questions:
+- number: '1'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = 6\cos(x^2+1) - 12x^2\sin(x^2+1)$ (product
+    rule with chain rule).
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $x\ln 4 < \ln 0.05 \Rightarrow x < \dfrac{\ln 0.05}{\ln 4} =
+    -2.16$ (3 s.f.).
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $3x+8 = \pm 9 \Rightarrow x = -\tfrac{17}{3}$ or $\tfrac13$;
+    so $-\tfrac{17}{3} < x < \tfrac13$.
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Integers satisfying both inequalities: $-5,\ -4,\ -3$.'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = 3e^{-2x}$ is a decreasing positive curve through $(0,3)$;
+    $y = \sec x$ rises from $(0,1)$ to $+\infty$ as $x \to \tfrac12\pi$. They meet
+    once.
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: At intersection $3e^{-2x} = \sec x \Rightarrow e^{2x} = 3\cos
+    x \Rightarrow 2x = \ln(3\cos x) \Rightarrow x = \tfrac12\ln(3\cos x)$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Iterating $x_{n+1} = \tfrac12\ln(3\cos x_n)$ (radian mode) converges
+    to $x = 0.487$ (3 d.p.).
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dy}{dx} = 12e^{2x} - 3e^{3x} = 0 \Rightarrow e^x = 4
+    \Rightarrow x = \ln 4$ (i.e. $2\ln 2$).
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Curve meets $x$-axis at $x = \ln 6$. Area $= \int_0^{\ln 6}\!\big(6e^{2x}-e^{3x}\big)\,dx
+    = \big[3e^{2x} - \tfrac13 e^{3x}\big]_0^{\ln 6} = \dfrac{100}{3}$.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '$p(\tfrac32)=0$ and $p(-1)=-15$ give $\tfrac{27}{8}a + \tfrac94
+    b - \tfrac32 a - 24 = 0$ and $-a + b + a - 24 = -15$; solving: $a = 2$, $b = 9$.'
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $p(x) = 2x^3 + 9x^2 - 2x - 24 = (2x-3)(x^2+6x+8) = (2x-3)(x+2)(x+4)$.
+  mark_scheme: []
+  graphics: []
+- number: 5c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $p(3\operatorname{cosec}\theta)=0 \Rightarrow 3\operatorname{cosec}\theta
+    = \tfrac32,\,-2,\,-4$. Only $3\operatorname{cosec}\theta = -4 \Rightarrow \sin\theta
+    = -\tfrac34$ is possible, giving $\theta = 228.6\degree$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\dfrac{dx}{dt} = \dfrac{5}{(3t+4)^2}$, $\dfrac{dy}{dt} = \dfrac{6}{3t+4}$,
+    so $\dfrac{dy}{dx} = \dfrac{6}{3t+4}\cdot\dfrac{(3t+4)^2}{5} = \tfrac65(3t+4)$;
+    $c = \tfrac65$.
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $2\ln(3t+4) = \ln 100 \Rightarrow 3t+4 = 10 \Rightarrow t =
+    2$; then $a = \dfrac{2(2)+1}{3(2)+4} = \tfrac12$ and $m = \tfrac65(10) = 12$.
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Increasing function: the gradient $\tfrac65(3t+4) > 0$ for
+    all $t > -\tfrac43$.'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\sin^2 2x + 4\cos^2 x\cos 2x = 4\sin^2 x\cos^2 x + 4\cos^2
+    x(\cos^2 x - \sin^2 x) = 4\cos^4 x$ (AG).
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $4\cos^4 x \in [0,4]$, so LHS $+ 5 \in [5, 9]$; no real solutions
+    when $k < 5$ or $k > 9$.
+  mark_scheme: []
+  graphics: []
+- number: 7c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: By part (a) (with $x = \tfrac{t}{2}$) the integrand $= 2\cos^2\tfrac{t}{2}
+    = 1 + \cos t$; $\int_{-\pi/3}^{\pi/3}(1+\cos t)\,dt = \big[t + \sin t\big]_{-\pi/3}^{\pi/3}
+    = \tfrac23\pi + \sqrt3$.
+  mark_scheme: []
+  graphics: []

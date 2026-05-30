@@ -1,0 +1,230 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Electricity}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Electric current}
+
+An \textbf{electric current} 电流 is a flow of \textbf{charge carriers} 载流子. In a metal the carriers are negative conduction \textbf{electrons} 电子; in an \textbf{electrolyte} 电解质 they are positive and negative \textbf{ions} 离子; in a \textbf{semiconductor} 半导体 they may be electrons or "\textbf{holes}" 空穴. The \textbf{conventional current} 常规电流 direction is the way \textbf{positive} charge would flow — opposite to the real flow of electrons in a wire.
+
+\subsection*{Charge}
+
+Charge is \textbf{quantised} 量子化: the smallest free unit of charge is the \textbf{elementary charge} 基本电荷
+
+\[
+e = 1.60 \times 10^{-19}\ \text{C}.
+\]
+
+Every free charge in this syllabus is a whole-number multiple of $e$. The unit of charge is the \textbf{coulomb} 库仑, $\text{C}$.
+
+\subsection*{Current as the rate of flow of charge}
+
+If charge $Q$ passes a point in time $t$, the current is
+
+\[
+I = \frac{Q}{t}, \qquad Q = It.
+\]
+
+Unit of current: ampere, $\text{A}$ ($= \text{C s}^{-1}$). For a changing current, the charge that has flowed in a time is the \textbf{area under} an $I$–$t$ graph.
+
+\subsection*{Drift velocity equation}
+
+For a uniform conductor of cross-section area $A$, with $n$ charge carriers per unit volume (the \textbf{number density} 数密度), each carrying charge $q$, moving with average \textbf{drift velocity} 漂移速度 $v$:
+
+\[
+I = A n v q.
+\]
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/09-p179-drift-velocity-conductor.pdf}}\\[0.3em]
+\emph{Charge carriers drifting inside a conductor}
+\end{minipage}\par\medskip
+
+Use this to compare currents:
+
+\begin{itemize}
+\item a thinner wire (smaller $A$) at the same $I$ needs a faster drift $v$.
+
+\item a semiconductor has far fewer free carriers than a metal (smaller $n$), so for the same $I$ the drift velocity is much larger.
+
+\item in \textbf{series} 串联 components, $I$ is the same everywhere, so if $A$ stays the same but the material changes, $nv$ changes the other way.
+
+\end{itemize}
+
+\section*{Potential difference}
+
+The \textbf{potential difference} 电势差 (p.d.) across a component is the \textbf{energy} 能量 transferred per unit charge as that charge passes through it:
+
+\[
+V = \frac{W}{Q}.
+\]
+
+Unit: \textbf{volt} 伏特, $\text{V}$ ($= \text{J C}^{-1}$).
+
+If $1\ \text{J}$ of electrical energy changes into other forms (thermal, light, kinetic, …) when $1\ \text{C}$ of charge passes through a component, the p.d. across it is $1\ \text{V}$.
+
+The \textbf{electromotive force} 电动势 (e.m.f.) of a source is the energy given \textbf{per unit charge by the source}. The formula is the same as for p.d.; the difference is direction: e.m.f. is energy given \textbf{to} the charge by the source; p.d. is energy given \textbf{up} by the charge to the component.
+
+\section*{Electrical power}
+
+Combining $V = W/Q$ and $I = Q/t$:
+
+\[
+P = \frac{W}{t} = V I.
+\]
+
+Using Ohm's law $V = IR$:
+
+\[
+P = V I = I^{2} R = \frac{V^{2}}{R}.
+\]
+
+Pick the form with the quantities you know. Examples:
+
+\begin{itemize}
+\item two heaters of equal resistance — the one with the larger current gives more \textbf{power} 功率 ($P = I^{2}R$).
+
+\item two resistors in \textbf{parallel} 并联 across the same \textbf{voltage} 电压 — the one with smaller $R$ gives more power ($P = V^{2}/R$).
+
+\item a kettle marked "$2.4\ \text{kW}, 240\ \text{V}$" draws $I = P/V = 10\ \text{A}$ and has resistance $R = V^{2}/P = 24\ \Omega$.
+
+\end{itemize}
+
+Energy transferred in time $t$ is $E = P t$.
+
+\section*{Resistance and Ohm's law}
+
+The \textbf{resistance} 电阻 $R$ of a component is
+
+\[
+R = \frac{V}{I}.
+\]
+
+Unit: \textbf{ohm} 欧姆, $\Omega$ ($= \text{V A}^{-1}$). Resistance depends on the conditions (such as temperature) when it is measured.
+
+\subsection*{Ohm's law}
+
+A conductor obeys \textbf{Ohm's law} 欧姆定律 when the current through it is \textbf{proportional to the p.d.} across it, as long as the conditions (especially temperature) stay constant. For such a conductor $R$ is constant and the $I$–$V$ graph is a straight line through the origin.
+
+Ohm's law is an experimental result, not a definition. The definition $R = V/I$ works for \textbf{any} component; only ohmic ones have constant $R$.
+
+\subsection*{$I$–$V$ characteristics}
+
+You should be able to sketch these:
+
+\begin{itemize}
+\item \textbf{metal wire at constant temperature} — a straight line through the origin (constant $R$). Reversing the p.d. drives the current the other way, giving a straight line in both directions.
+
+\item \textbf{filament lamp} 灯丝灯泡 — through the origin, steep at first, then flatter as $V$ (and $I$) grow. Reason: more current heats the filament, so its resistance rises and the gradient $1/R$ falls.
+
+\item \textbf{semiconductor diode} 二极管 — almost no current for negative $V$ or small positive $V$. Above a "switch-on" voltage (about $0.7\ \text{V}$ for silicon), the current rises sharply.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/09-p184-iv-constantan-wire.pdf}}\\[0.3em]
+\emph{I–V characteristic of an ohmic conductor (metal wire at constant temperature)}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/09-p184-iv-filament-lamp.pdf}}\\[0.3em]
+\emph{I–V characteristic of a filament lamp}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/09-p184-iv-diode.pdf}}\\[0.3em]
+\emph{I–V characteristic of a semiconductor diode}
+\end{minipage}\par\medskip
+
+\subsection*{Resistivity}
+
+For a uniform conductor of length $L$ and cross-section area $A$,
+
+\[
+R = \frac{\rho L}{A}.
+\]
+
+$\rho$ is the \textbf{resistivity} 电阻率, a property of the material, with unit $\Omega\ \text{m}$. Doubling the length doubles $R$; doubling the area halves it; halving the diameter quarters the area and so makes $R$ four times bigger.
+
+Typical values: copper at room temperature $\rho \sim 1.7 \times 10^{-8}\ \Omega\ \text{m}$; an \textbf{insulator} 绝缘体 $\rho \sim 10^{15}\ \Omega\ \text{m}$ or more.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/09-p186-resistivity-length.pdf}}\\[0.3em]
+\emph{A longer conductor has more resistance — more collisions along the way}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/09-p186-resistivity-area.pdf}}\\[0.3em]
+\emph{A wider conductor has less resistance — more parallel paths available}
+\end{minipage}\par\medskip
+
+The resistivity of a metal \textbf{rises with temperature} (more \textbf{lattice vibration} 晶格振动 \textbf{scatters} 散射 the electrons), which is why the filament lamp's $I$–$V$ line curves.
+
+\section*{Light-dependent resistor (LDR)}
+
+A \textbf{light-dependent resistor} 光敏电阻 (LDR) is a semiconductor whose \textbf{resistance falls as the light intensity rises}. In bright light $R$ may be a few hundred $\Omega$; in the dark it can be in the megaohms. LDRs are used in light-sensing circuits (street lamps, camera light meters). Here the \textbf{light intensity} 光强 controls the resistance.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/09-p187-ldr-resistance-vs-light.pdf}}\\[0.3em]
+\emph{Resistance of an LDR decreases as light intensity increases}
+\end{minipage}\par\medskip
+
+\section*{Thermistor}
+
+In this syllabus a \textbf{thermistor} 热敏电阻 has a \textbf{negative temperature coefficient} 负温度系数: its \textbf{resistance falls as its temperature rises}. This is useful for sensing temperature — put it in a \textbf{potential divider} 分压器 and the output voltage changes with temperature.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/09-p188-thermistor-resistance-vs-temp.pdf}}\\[0.3em]
+\emph{Resistance of a thermistor falls as temperature rises}
+\end{minipage}\par\medskip
+
+This is the opposite of a metal: in a semiconductor, more thermal energy frees more charge carriers, and this matters more than the extra scattering.
+
+
+\end{document}

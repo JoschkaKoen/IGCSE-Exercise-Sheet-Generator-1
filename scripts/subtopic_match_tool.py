@@ -45,6 +45,7 @@ ALL_SUBJECTS = [
     "igcse_physics", "igcse_computer_science", "igcse_chemistry", "a_level_chemistry",
     "igcse_biology", "a_level_biology", "igcse_mathematics",
     "igcse_business_studies", "igcse_economics", "a_level_business", "a_level_economics",
+    "a_level_mathematics", "a_level_further_mathematics",
 ]
 
 
@@ -171,17 +172,19 @@ def cmd_dump(args) -> int:
     print("# (MS = mark-scheme answer, used when question text wasn't extracted)")
     ms = mark_scheme(subject, p)
     if args.brief:
+        prev_par = None
         for key, q, par in lv:
             t = " ".join((q.get("text") or "").split())
             pp = " ".join(par.split())
             a = " ".join(ms.get(key, "").split())
+            if pp and pp != prev_par:  # print a shared scenario stem only when it changes
+                print(f"# SCENARIO: {pp[:220]}")
+            prev_par = pp
             line = f"{key}\t{q.get('question_type') or '?'}"
-            if pp:
-                line += f"\tPARENT: {pp[:140]}"
             if t:
-                line += f"\tQ: {t[:240]}"
+                line += f"\tQ: {t[:220]}"
             if a:
-                line += f"\tMS: {a[:300 if not t else 110]}"
+                line += f"\tMS: {a[:300 if not t else 100]}"
             print(line)
     else:
         for key, q, par in lv:

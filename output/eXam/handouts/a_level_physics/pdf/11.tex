@@ -1,0 +1,303 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Particle physics}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{The nuclear atom}
+
+\subsection*{Geiger–Marsden α-particle scattering}
+
+\textbf{Alpha particles} α粒子 fired at a thin gold foil were seen to:
+
+\begin{itemize}
+\item mostly pass straight through, with very little \textbf{deflection} 偏转,
+
+\item sometimes deflect through small angles,
+
+\item rarely (about $1$ in $8000$) deflect through angles greater than $90°$.
+
+\end{itemize}
+
+From this Rutherford worked out:
+
+\begin{itemize}
+\item the atom is \textbf{mostly empty space} (most α-particles pass straight through),
+
+\item there is a \textbf{tiny, dense, positively charged nucleus} 原子核 at the centre (the rare large deflections need a concentrated charge to push the α away),
+
+\item almost all of the atom's mass is in this nucleus.
+
+\end{itemize}
+
+Order of magnitude: atom diameter $\sim 10^{-10}\ \text{m}$, nucleus diameter $\sim 10^{-15}\ \text{m}$ — the nucleus is about $10^{5}$ times smaller than the atom.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/11-p222-alpha-scattering-experiment.pdf}}\\[0.3em]
+\emph{The α-scattering experiment — α-particles strike a thin gold foil in a vacuum}
+\end{minipage}\par\medskip
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/11-p223-alpha-particle-trajectories.pdf}}\\[0.3em]
+\emph{Most α-particles pass nearly straight through; a few are deflected sharply by the tiny nucleus}
+\end{minipage}\par\medskip
+
+\subsection*{Simple nuclear model}
+
+An atom has:
+
+\begin{itemize}
+\item a central nucleus of \textbf{protons} 质子 (positive, charge $+e$) and \textbf{neutrons} 中子 (no charge),
+
+\item \textbf{electrons} 电子 (charge $-e$) around the nucleus.
+
+\end{itemize}
+
+The proton and neutron have almost the same mass ($\approx 1\ \text{u}$); the electron is about $\tfrac{1}{1836}$ of the proton's mass.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/11-p213-atom-structures.pdf}}\\[0.3em]
+\emph{Simple models of a helium atom and a lithium atom (not to scale)}
+\end{minipage}\par\medskip
+
+\subsection*{Notation and key numbers}
+
+For a \textbf{nuclide} 核素 written $^{A}_{Z}\text{X}$:
+
+\begin{itemize}
+\item \textbf{proton number} 质子数 $Z$ (also the atomic number): the number of protons. It fixes the element.
+
+\item \textbf{nucleon number} 核子数 $A$ (also the mass number): the total number of \textbf{nucleons} 核子 (protons + neutrons).
+
+\item number of neutrons $N = A - Z$.
+
+\end{itemize}
+
+A neutral atom has the same number of electrons as protons.
+
+\subsection*{Isotopes}
+
+\textbf{Isotopes} 同位素 are atoms of the same element (same $Z$) with different numbers of neutrons (different $A$). They behave the same chemically but differently in the nucleus. Example: $^{12}_{6}\text{C}$ and $^{14}_{6}\text{C}$ are isotopes of carbon.
+
+\subsection*{Conservation laws in nuclear processes}
+
+In any nuclear process:
+
+\begin{itemize}
+\item nucleon number $A$ is conserved (total $A$ before $=$ total $A$ after),
+
+\item \textbf{charge} is conserved (this is \textbf{conservation of charge} 电荷守恒).
+
+\end{itemize}
+
+These two rules let you balance decay and reaction equations.
+
+\subsection*{Unified atomic mass unit}
+
+The \textbf{unified atomic mass unit} 统一原子质量单位, symbol $\text{u}$, is set so that an atom of $^{12}_{6}\text{C}$ has mass exactly $12\ \text{u}$. Numerically,
+
+\[
+1\ \text{u} = 1.661 \times 10^{-27}\ \text{kg}.
+\]
+
+A proton has mass $\approx 1.007\ \text{u}$; a neutron $\approx 1.009\ \text{u}$; an electron $\approx 5.5 \times 10^{-4}\ \text{u}$.
+
+\section*{Radioactive emissions}
+
+An unstable nucleus rearranges itself and gives out one of three kinds of \textbf{radiation} 辐射. This is \textbf{radioactive} 放射性 decay. Each kind has its own properties.
+
+\subsection*{α-radiation}
+
+\begin{itemize}
+\item \textbf{Made of}: a helium-4 nucleus, $^{4}_{2}\alpha$ (two protons + two neutrons).
+
+\item \textbf{Mass}: $\approx 4\ \text{u}$.
+
+\item \textbf{Charge}: $+2e$.
+
+\item \textbf{Range in air}: a few cm. Stopped by a sheet of paper.
+
+\item \textbf{Ionising power}: strong — it is good at \textbf{ionising} 电离.
+
+\item \textbf{Energy spectrum}: \textbf{discrete} 分立 (one decay gives α-particles at one or a few sharp energies).
+
+\end{itemize}
+
+\subsection*{β-radiation}
+
+Two types of \textbf{beta particle} β粒子:
+
+\begin{itemize}
+\item $\beta^{-}$: a fast electron, given out when a neutron turns into a proton.
+
+\item $\beta^{+}$: a \textbf{positron} 正电子 (the electron's antiparticle), given out when a proton in a proton-rich nucleus turns into a neutron.
+
+\end{itemize}
+
+Properties (both types):
+
+\begin{itemize}
+\item \textbf{Mass}: $\approx 1/1836\ \text{u}$ (much less than α).
+
+\item \textbf{Charge}: $-e$ for $\beta^{-}$, $+e$ for $\beta^{+}$.
+
+\item \textbf{Range in air}: about $1\ \text{m}$. Stopped by a few mm of aluminium.
+
+\item \textbf{Energy spectrum}: \textbf{continuous} 连续 up to a maximum (see below).
+
+\end{itemize}
+
+\subsection*{γ-radiation}
+
+\begin{itemize}
+\item \textbf{Made of}: a high-energy \textbf{photon} 光子 — part of the \textbf{electromagnetic spectrum} 电磁波谱.
+
+\item \textbf{Mass}: zero (rest mass).
+
+\item \textbf{Charge}: zero.
+
+\item \textbf{Range in air}: large (follows the inverse-square law). Strongly \textbf{attenuated} 衰减 by several cm of lead or about a metre of concrete.
+
+\item \textbf{Ionising power}: weakest.
+
+\item \textbf{Energy spectrum}: discrete (a \textbf{gamma ray} γ射线 is given out as the nucleus drops between two nuclear energy levels).
+
+\end{itemize}
+
+A nucleus often gives out a γ-photon as a "tidy-up" step after an α or β decay leaves the \textbf{daughter nucleus} 子核 in an \textbf{excited state} 激发态.
+
+\subsection*{Antiparticles, neutrinos and antineutrinos}
+
+Every particle has an \textbf{antiparticle} 反粒子 with the \textbf{same mass} but \textbf{opposite charge}. The positron is the antiparticle of the electron.
+
+In β-decay, a third particle is always given out as well:
+
+\begin{itemize}
+\item $\beta^{-}$ decay: an \textbf{antineutrino} 反中微子 $\bar{\nu}_{\text{e}}$.
+
+\item $\beta^{+}$ decay: a \textbf{neutrino} 中微子 $\nu_{\text{e}}$.
+
+\end{itemize}
+
+Neutrinos and antineutrinos have zero charge, very small mass, and barely interact — they are very hard to detect, but they must be there to balance energy, \textbf{momentum} 动量 and other conserved quantities in β-decay.
+
+\subsection*{Why β has a continuous spectrum (and α does not)}
+
+In α-decay the \textbf{energy} 能量 released is shared between just two particles (the daughter nucleus and the α). Conservation of momentum and energy then fixes the α's energy to one value (discrete).
+
+In β-decay the energy is shared between \textbf{three} particles (the daughter nucleus, the β, and the (anti)neutrino). The β can take any share from zero up to a maximum, so its energy spectrum is continuous.
+
+\subsection*{Writing decay equations}
+
+A general α-decay:
+
+\[
+^{A}_{Z}\text{X} \to {}^{A-4}_{Z-2}\text{Y} + {}^{4}_{2}\alpha
+\]
+
+(check: $A = (A-4) + 4$, $Z = (Z-2) + 2$.)
+
+A general $\beta^{-}$ decay:
+
+\[
+^{A}_{Z}\text{X} \to {}^{A}_{Z+1}\text{Y} + {}^{0}_{-1}\beta + \bar{\nu}_{\text{e}}.
+\]
+
+A general $\beta^{+}$ decay:
+
+\[
+^{A}_{Z}\text{X} \to {}^{A}_{Z-1}\text{Y} + {}^{0}_{+1}\beta + \nu_{\text{e}}.
+\]
+
+\section*{Fundamental particles}
+
+Some particles are \textbf{fundamental} 基本粒子 (point-like, with no smaller parts as far as we know); others are built from fundamental ones.
+
+\subsection*{Quarks}
+
+A \textbf{quark} 夸克 is a fundamental particle. There are six \textbf{flavours} 味:
+
+\begin{itemize}
+\item \textbf{up} (u), charge $+\tfrac{2}{3}e$,
+
+\item \textbf{down} (d), charge $-\tfrac{1}{3}e$,
+
+\item \textbf{charm} (c), charge $+\tfrac{2}{3}e$,
+
+\item \textbf{strange} (s), charge $-\tfrac{1}{3}e$,
+
+\item \textbf{top} (t), charge $+\tfrac{2}{3}e$,
+
+\item \textbf{bottom} (b), charge $-\tfrac{1}{3}e$.
+
+\end{itemize}
+
+Each quark has an \textbf{antiquark} 反夸克 with the same size of charge but the opposite sign: $\bar{u}$ (charge $-\tfrac{2}{3}e$), $\bar{d}$ (charge $+\tfrac{1}{3}e$). No other quark property is tested.
+
+\subsection*{Hadrons: baryons and mesons}
+
+Particles built from quarks are \textbf{hadrons} 强子. Two types:
+
+\begin{itemize}
+\item \textbf{baryons} 重子 — three quarks. Examples: proton (u u d), neutron (u d d). Charge check: $\tfrac{2}{3} + \tfrac{2}{3} - \tfrac{1}{3} = +1$ for the proton; $\tfrac{2}{3} - \tfrac{1}{3} - \tfrac{1}{3} = 0$ for the neutron.
+
+\item \textbf{mesons} 介子 — one quark and one antiquark (for example $\pi^{+}$ is u$\bar{\text{d}}$).
+
+\end{itemize}
+
+Protons and neutrons are \textbf{not} fundamental — they are baryons made of quarks.
+
+\subsection*{Quark changes in β-decay}
+
+In $\beta^{-}$ decay a neutron turns into a proton; in quark terms, \textbf{one down quark turns into an up quark}:
+
+\[
+\text{d} \to \text{u} + \beta^{-} + \bar{\nu}_{\text{e}}.
+\]
+
+In $\beta^{+}$ decay a proton turns into a neutron; \textbf{one up quark turns into a down quark}:
+
+\[
+\text{u} \to \text{d} + \beta^{+} + \nu_{\text{e}}.
+\]
+
+\subsection*{Leptons}
+
+\textbf{Leptons} 轻子 are fundamental particles that are not made of quarks. Electrons and neutrinos are leptons. (Heavier leptons — the muon and tau — are not needed for this syllabus.)
+
+\subsection*{Quick particle sorter}
+
+When asked "which list has only fundamental particles?": \textbf{quarks, electrons, positrons, neutrinos, antineutrinos} are fundamental; protons, neutrons, baryons, mesons and hadrons are not.
+
+
+\end{document}

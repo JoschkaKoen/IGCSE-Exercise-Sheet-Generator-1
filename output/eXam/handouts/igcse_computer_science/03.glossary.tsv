@@ -1,0 +1,49 @@
+english	简体中文	pinyin
+central processing unit	中央处理器	zhōng yāng chǔ lǐ qì
+instructions	指令	zhǐ lìng
+arithmetic logic unit	算术逻辑单元	suàn shù luó jí dān yuán
+control unit	控制单元	kòng zhì dān yuán
+registers	寄存器	jì cún qì
+buses	总线	zǒng xiàn
+address bus	地址总线	dì zhǐ zǒng xiàn
+data bus	数据总线	shù jù zǒng xiàn
+control bus	控制总线	kòng zhì zǒng xiàn
+program counter	程序计数器	chéng xù jì shù qì
+memory address register	内存地址寄存器	nèi cún dì zhǐ jì cún qì
+memory data register	内存数据寄存器	nèi cún shù jù jì cún qì
+current instruction register	当前指令寄存器	dāng qián zhǐ lìng jì cún qì
+accumulator	累加器	lěi jiā qì
+fetch-execute cycle	取指执行周期	qǔ zhǐ zhí xíng zhōu qī
+memory	内存	nèi cún
+cache	高速缓存	gāo sù huǎn cún
+cores	核心	hé xīn
+clock speed	时钟速度	shí zhōng sù dù
+embedded system	嵌入式系统	qiàn rù shì xì tǒng
+barcode scanner	条形码扫描器	tiáo xíng mǎ sǎo miáo qì
+QR code scanner	二维码扫描器	èr wéi mǎ sǎo miáo qì
+optical mouse	光电鼠标	guāng diàn shǔ biāo
+sensors	传感器	chuán gǎn qì
+touch screen	触摸屏	chù mō píng
+resistive	电阻式	diàn zǔ shì
+capacitive	电容式	diàn róng shì
+infrared	红外线	hóng wài xiàn
+actuator	执行器	zhí xíng qì
+projector	投影仪	tóu yǐng yí
+inkjet printer	喷墨打印机	pēn mò dǎ yìn jī
+laser printer	激光打印机	jī guāng dǎ yìn jī
+speaker	扬声器	yáng shēng qì
+primary storage	主存储器	zhǔ cún chǔ qì
+random access memory	随机存取存储器	suí jī cún qǔ cún chǔ qì
+read only memory	只读存储器	zhī dú cún chǔ qì
+volatile	易失性	yì shī xìng
+non-volatile	非易失性	fēi yì shī xìng
+secondary storage	辅助存储器	fǔ zhù cún chǔ qì
+magnetic storage	磁存储	cí cún chǔ
+optical storage	光存储	guāng cún chǔ
+solid state storage	固态存储	gù tài cún chǔ
+flash memory	闪存	shǎn cún
+virtual memory	虚拟内存	xū nǐ nèi cún
+network interface card	网络接口卡	wǎng luò jiē kǒu kǎ
+media access control	介质访问控制	jiè zhì fǎng wèn kòng zhì
+internet protocol	网际协议	wǎng jì xié yì
+router	路由器	lù yóu qì

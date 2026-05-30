@@ -1,0 +1,76 @@
+topic_number: '9'
+topic_title: 'The Periodic Table: chemical periodicity'
+subject_key: a_level_chemistry
+covered_question_ids:
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '16'
+- paper: 9701 Chemistry November 2025 Question Paper  11
+  qnum: '18'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '17'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '18'
+- paper: 9701 Chemistry November 2025 Question Paper  12
+  qnum: '23'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '16'
+- paper: 9701 Chemistry November 2025 Question Paper  13
+  qnum: '18'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '16'
+- paper: 9701 Chemistry November 2025 Question Paper  14
+  qnum: '17'
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 1e
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 2ai
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 2aii
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 2bi
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 2bii
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 2ci
+- paper: 9701 Chemistry November 2025 Question Paper  21
+  qnum: 2cii
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2ai
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2aii
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2b
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2c
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2di
+- paper: 9701 Chemistry November 2025 Question Paper  22
+  qnum: 2dii
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 1e
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 2ai
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 2aii
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 2bi
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 2bii
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 2ci
+- paper: 9701 Chemistry November 2025 Question Paper  23
+  qnum: 2cii
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 1di
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 1dii
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 2a
+- paper: 9701 Chemistry November 2025 Question Paper  24
+  qnum: 2ciii
+generated_at: '2026-05-29T15:52:03Z'
+author: claude
+prompt_version: v1
+language: en-simplified+zh-gloss
+simplified_at: '2026-05-29T15:52:03Z'
+glossed_at: '2026-05-29T15:52:03Z'

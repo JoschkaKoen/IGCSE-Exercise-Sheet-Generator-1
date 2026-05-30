@@ -1,0 +1,217 @@
+questions:
+- number: '1'
+  question_type: calculation
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: A block of mass 12 kg is being pulled by a rope up a rough plane. The plane
+    is inclined at an angle of $20\degree$ above the horizontal. The rope pulling
+    the block is parallel to a line of greatest slope of the plane. The coefficient
+    of friction between the block and the plane is 0.4. The acceleration of the block
+    is $2\text{ m s}^{-2}$. Find the tension in the rope.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: calculation
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Three coplanar forces of magnitudes $P$ N, 5 N and 10 N act at a point $O$,
+    as shown in the diagram. The resultant of the three forces has magnitude $Q$ N
+    and acts in a direction perpendicular to the force of magnitude $P$ N. Find the
+    value of $P$ and the value of $Q$.
+  answer_options: []
+  subquestions: []
+- number: '3'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The diagram shows the velocity-time graph of the motion of a cyclist. The
+    graph consists of three straight line segments. The cyclist passes a point $O$
+    with speed $3\text{ m s}^{-1}$ and then accelerates for 10 s with constant acceleration
+    $0.5\text{ m s}^{-2}$. He then travels at constant speed for 30 s before decelerating,
+    coming to rest at point $P$, covering a distance of 80 m whilst decelerating.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the total time taken for the journey from $O$ to $P$.
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: On the given axes, sketch a displacement-time graph for the cyclist's journey
+      from $O$ to $P$, showing on your graph the distances travelled after 10 s and
+      40 s.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: calculation
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A lorry of mass 18 000 kg is travelling along a straight road.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: On a horizontal section of the road, the power of the lorry's engine is
+      constant. There is a constant resistance to motion of 1600 N.
+    answer_options: []
+    subquestions:
+    - number: 4ai
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: The steady speed which the lorry can maintain with the engine working
+        at power $P$ W is $30\text{ m s}^{-1}$. Find the value of $P$.
+      answer_options: []
+      subquestions: []
+    - number: 4aii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: At an instant when the speed of the lorry is $16\text{ m s}^{-1}$, its
+        engine is working at a power of 40 kW. Find the acceleration of the lorry
+        at this instant.
+      answer_options: []
+      subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: When the lorry has reached a speed of $20\text{ m s}^{-1}$, it begins to
+      ascend a section of road inclined at an angle $\alpha\degree$ to the horizontal.
+      The engine now works at a power of 120 kW. There is no change in the lorry's
+      speed as it ascends the hill. The constant resistance to motion remains 1600
+      N. Find the value of $\alpha$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: calculation
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: When a particle $P$ of mass $m$ kg has speed $u\text{ m s}^{-1}$, its momentum
+    is $4\text{ N s}$ and its kinetic energy is 16 J.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Find the value of $m$ and the value of $u$.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: $P$ is now projected on a smooth horizontal surface with speed $v\text{
+      m s}^{-1}$ directly towards a particle $Q$ of mass 1.25 kg which is stationary.
+      After $P$ and $Q$ collide, the velocity of $P$ is $w\text{ m s}^{-1}$ and the
+      velocity of $Q$ is $2w\text{ m s}^{-1}$. The loss of kinetic energy in the collision
+      is 25 J. Find the value of $v$ and the value of $w$.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Two particles, $P$ and $Q$, of masses 0.3 kg and 0.6 kg respectively, are
+    attached to the ends of a light inextensible string. The string passes over a
+    smooth pulley fixed at a point $B$ where the inclined planes $AB$ and $BC$ meet.
+    $P$ lies on the smooth plane $AB$ which is inclined at an angle $\theta\degree$
+    to the horizontal where $\sin\theta\degree = 0.4$. $Q$ lies on the plane $BC$
+    which is inclined at $30\degree$ to the horizontal. The string is taut and the
+    particles can move on lines of greatest slope of the two planes (see diagram).
+    The particles are released from rest.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: It is given that the plane $BC$ is smooth. Find the tension in the string
+      and the acceleration of $Q$.
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: calculation
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: It is given instead that the plane $BC$ is rough. The work done against
+      the frictional force when $Q$ moves 2 m down the plane is 1.8 J. You should
+      assume that $P$ does not reach the pulley and that $Q$ does not reach $C$. Use
+      an energy method to find the speed of $Q$ when it has moved 2 m down the plane.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A particle $X$ moves along a straight track, starting from a point $O$ at
+    time $t = 0$. The displacement of $X$ from $O$ at time $t$ s is $s$ m, where $s
+    = 3t^{\frac32} - 6t$.
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: Find the time at which $X$ is instantaneously at rest, and hence find the
+      total distance travelled by $X$ between $t = 0$ and $t = 16$.
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: A second particle $Y$ moves along another straight track, starting from
+      a point $P$ at time $t = 0$. The acceleration of $Y$ at time $t$ s is $a\text{
+      m s}^{-2}$, where $a = 0.8 - 0.6t$. The velocity of $Y$ when it leaves $P$ is
+      $7.5\text{ m s}^{-1}$. When the velocity of $Y$ is $-9.6\text{ m s}^{-1}$, show
+      that the displacement of $X$ from $O$ is equal to the displacement of $Y$ from
+      $P$.
+    answer_options: []
+    subquestions: []

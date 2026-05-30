@@ -1,0 +1,135 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The computers are donated independently of one another (singly
+    and at random).
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 4-week mean $\lambda = 9.6$. $P(6 < X < 9) = P(X=7) + P(X=8)
+    = e^{-9.6}\!\left(\tfrac{9.6^7}{7!} + \tfrac{9.6^8}{8!}\right) = 0.222$.
+  mark_scheme: []
+  graphics: []
+- number: 1c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 20-week mean $\lambda = 48$, approximated by $N(48, 48)$. $P(X
+    > 50) \approx P\!\left(Z > \tfrac{50.5 - 48}{\sqrt{48}}\right) = P(Z > 0.361)
+    = 0.359$.
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{Var}(X+Y) = 3^2 + 4 = 13$, so standard deviation $=
+    \sqrt{13} = 3.61$.
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\mathrm{Var}(5X - Y) = 5^2(3^2) + 4 = 229$, so standard deviation
+    $= \sqrt{229} = 15.1$.
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Half-width $= 1.96\,\dfrac{\sigma}{\sqrt{100}} = \dfrac{33.98
+    - 31.02}{2} = 1.48 \Rightarrow \sigma = \dfrac{1.48 \times 10}{1.96} = 7.55$.
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Because the sample is large ($n = 100$), the distribution of
+    the sample mean is approximately normal whatever the underlying distribution of
+    the times.
+  mark_scheme: []
+  graphics: []
+- number: 3c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'The intervals are independent, each with probability 0.95 of
+    containing $\mu$: $0.95^r > 0.5 \Rightarrow r < \dfrac{\ln 0.5}{\ln 0.95} = 13.5$.
+    Largest $r = 13$.'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Assume cups are flawed independently. $H_0\!: p = 0.18$, $H_1\!:
+    p < 0.18$, $X \sim B(40, 0.18)$. $P(X \leqslant 3) = 0.0542 > 0.05$, so do not
+    reject $H_0$ — insufficient evidence that the percentage is less than 18%.'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: The Poisson approximation requires $p$ to be small (with $n$
+    large); here $p = 0.18$ is not small, so it is not appropriate.
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $\int_0^2 k(2x^2 - x^3)\,dx = k\left[\tfrac{2x^3}{3} - \tfrac{x^4}{4}\right]_0^2
+    = k\cdot\tfrac43 = 1 \Rightarrow k = \tfrac34$. AG.
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $P(X \leqslant m) = 0.5$.
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $E(X) = \int_0^2 x\cdot\tfrac34(2x^2 - x^3)\,dx = 1.2$; $P(X
+    \leqslant 1.2) = \tfrac34\!\left[\tfrac{2x^3}{3} - \tfrac{x^4}{4}\right]_0^{1.2}
+    = 0.4752$. So $P(1.2 \leqslant X \leqslant m) = 0.5 - 0.4752 = 0.0248$.
+  mark_scheme: []
+  graphics: []
+- number: 6a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Assume the standard deviation is unchanged (26) and the distribution
+    still normal. $H_0\!: \mu = 736$, $H_1\!: \mu < 736$. $z = \dfrac{725 - 736}{26/\sqrt{35}}
+    = -2.50 < -2.054$, so reject $H_0$: there is evidence the mean weekly profit has
+    decreased.'
+  mark_scheme: []
+  graphics: []
+- number: 6b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Probability of a Type I error $= 0.02$ (the significance level).
+  mark_scheme: []
+  graphics: []
+- number: 6c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'Critical mean $\bar{x} = 736 - 2.054\cdot\dfrac{26}{\sqrt{35}}
+    = 726.97$. With true mean 718: $P(\text{Type II}) = P(\bar{X} > 726.97) = P\!\left(Z
+    > \dfrac{726.97 - 718}{26/\sqrt{35}}\right) = P(Z > 2.04) = 0.0206$.'
+  mark_scheme: []
+  graphics: []

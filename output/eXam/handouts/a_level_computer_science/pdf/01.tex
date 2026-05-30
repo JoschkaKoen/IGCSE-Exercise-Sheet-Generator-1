@@ -1,0 +1,334 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Information representation}\\[0.35em]
+  {\large A Level Computer Science}
+\end{center}
+\vspace{0.6em}
+
+\section*{Number systems}
+
+The three \textbf{number systems} 数制 you must use:
+
+\begin{itemize}
+\item \textbf{denary} 十进制 (decimal, base 10) — uses digits 0–9. Place values are powers of ten.
+
+\item \textbf{binary} 二进制 (base 2) — uses 0 and 1. Place values are powers of two. Every \textbf{byte} 字节 is 8 \textbf{bits} 位.
+
+\item \textbf{hexadecimal} 十六进制 (base 16) — uses 0–9 then A–F for 10–15. Each hex \textbf{digit} 数位 stands for exactly 4 bits.
+
+\end{itemize}
+
+\subsection*{Conversions}
+
+\textbf{Denary → binary}: keep dividing by 2 and record the remainders, read bottom-up. Or subtract the largest \textbf{place value} 位值 (power of 2) that fits.
+
+Example: $558_{10}$: $558 = 512 + 32 + 8 + 4 + 2 = 2^{9} + 2^{5} + 2^{3} + 2^{2} + 2^{1}$. In 12 bits: \texttt{0010 0010 1110}.
+
+\textbf{Binary → hex}: group the bits into \textbf{nibbles} 半字节 (4 bits) from the right and convert each. \texttt{0010 0010 1110} → \texttt{2 2 E} → \texttt{22E}.
+
+\textbf{Hex → binary}: replace each hex digit with its 4-bit pattern. \textbf{Hex → denary}: multiply each digit by its place value. \texttt{22E} $= 2 \times 256 + 2 \times 16 + 14 = 558$.
+
+\subsection*{Binary vs decimal prefixes}
+
+Decimal prefixes (SI, hard-drive sizes, network speeds): kilo $= 10^{3}$, mega $= 10^{6}$, giga $= 10^{9}$, tera $= 10^{12}$.
+
+Binary prefixes (for \textbf{memory} sizes, where powers of 2 are natural): kibi (Ki) $= 2^{10} = 1024$, mebi (Mi) $= 2^{20}$, gibi (Gi) $= 2^{30}$, tebi (Ti) $= 2^{40}$.
+
+So a tebibyte (TiB) $= 2^{40}$ bytes is slightly more than a terabyte (TB) $= 10^{12}$ bytes. A "1 TB" drive holds $10^{12}$ bytes, but an operating system that reports in TiB shows a smaller number.
+
+\section*{Binary arithmetic}
+
+\subsection*{Binary addition}
+
+Add column by column from the right, carrying as in denary:
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lllll}
+\toprule
+\textbf{Bit A} & \textbf{Bit B} & \textbf{Carry in} & \textbf{Sum bit} & \textbf{Carry out} \\
+\midrule
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 1 & 0 \\
+0 & 1 & 0 & 1 & 0 \\
+0 & 1 & 1 & 0 & 1 \\
+1 & 1 & 0 & 0 & 1 \\
+1 & 1 & 1 & 1 & 1 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\textbf{Overflow} 溢出 happens when the result needs more bits than the \textbf{register} 寄存器 can hold — the carry-out of the leftmost column is the overflow bit.
+
+\subsection*{Binary subtraction}
+
+The usual way is \textbf{two's complement} 补码 addition: to do $A - B$, form the two's complement of $B$ (invert every bit and add 1), then add, and discard any final carry-out.
+
+To subtract $00011110$ from $01100100$ (unsigned 8-bit):
+
+\begin{itemize}
+\item two's complement of $00011110$: invert → $11100001$, add 1 → $11100010$.
+
+\item add to $01100100$: result $1\,01000110$ (9 bits) — discard the leading 1 → $01000110 = 70_{10}$. Check: $100 - 30 = 70$. ✓
+
+\end{itemize}
+
+\subsection*{Two's complement signed integers}
+
+In an $n$-bit two's-complement number:
+
+\begin{itemize}
+\item the \textbf{most significant bit} 最高有效位 (MSB) is the \textbf{sign bit} 符号位: 0 = positive, 1 = negative.
+
+\item to read a negative number: invert every bit, add 1, then negate.
+
+\end{itemize}
+
+So $11100010$ is negative; invert → $00011101$, add 1 → $00011110 = 30$, so it is $-30$. This is a \textbf{signed integer} 有符号整数 (unlike an \textbf{unsigned} 无符号 one). The range for $n$ bits is $-2^{n-1}$ to $+2^{n-1} - 1$; for 8 bits, $-128$ ($10000000$) to $+127$ ($01111111$).
+
+Overflow in signed arithmetic happens when the true result falls outside this range — spotted when the sign bit flips wrongly (two positives giving a negative, or two negatives giving a positive).
+
+\section*{Binary Coded Decimal (BCD)}
+
+In \textbf{BCD} 二进码十进数, each denary digit is written as its own 4-bit pattern. The number $93$ is \texttt{1001 0011} in BCD — not binary 93 ($01011101$). Each nibble uses only 0–9; patterns $1010$–$1111$ are invalid.
+
+BCD reading: \texttt{0010 0111 0101} → 2, 7, 5 → 275.
+
+\textbf{Use}: calculators, digital clocks, and devices that show denary digits — each digit drives a \textbf{7-segment display} 七段显示器. Currency code often uses BCD to avoid the rounding errors of converting fractions like 0.1 to binary.
+
+\section*{Hexadecimal — practical uses}
+
+Hex is a compact way to write binary (1 hex digit = 4 bits):
+
+\begin{itemize}
+\item \textbf{memory addresses} 内存地址 in low-level programming — \texttt{0x7FFE}.
+
+\item \textbf{colour values} in HTML/CSS — \texttt{\#FF8800}.
+
+\item \textbf{MAC addresses} — \texttt{AC:DE:48:00:11:22}.
+
+\end{itemize}
+
+Hex does not change the stored data — it just makes binary easier for humans.
+
+\section*{Character codes}
+
+Computers store text as numbers; each character has a numeric \textbf{code point} 码点 set by a \textbf{character set} 字符集.
+
+\subsection*{ASCII}
+
+\begin{itemize}
+\item \textbf{ASCII} uses 7 bits — 128 code points. Basic Latin letters, digits, punctuation, and control codes.
+
+\item \textbf{Extended ASCII} uses 8 bits — 256 code points; the lower 128 match ASCII, the upper 128 vary by region.
+
+\end{itemize}
+
+\subsection*{Unicode}
+
+\begin{itemize}
+\item \textbf{Unicode} is a universal character set covering almost every script, plus symbols and emoji.
+
+\item common \textbf{encodings} 编码: \textbf{UTF-8} (1–4 bytes, ASCII-compatible), \textbf{UTF-16} (2 or 4 bytes), \textbf{UTF-32} (fixed 4 bytes).
+
+\end{itemize}
+
+\subsection*{Why Unicode beats ASCII}
+
+\begin{itemize}
+\item it represents \textbf{far more characters} (every script, emoji); ASCII covers only basic English.
+
+\item files are \textbf{portable} with no code-page confusion, and allow \textbf{multilingual} text in one document.
+
+\item trade-off: Unicode files are usually \textbf{larger} for English-only text.
+
+\end{itemize}
+
+\section*{Bitmap images}
+
+A \textbf{bitmap} 位图 image stores the colour of every \textbf{pixel} 像素 in a grid.
+
+\begin{itemize}
+\item \textbf{resolution} 分辨率: width × height in pixels (e.g. 1920 × 1080).
+
+\item \textbf{colour depth} 颜色深度 (\textbf{bit depth} 位深度): bits per pixel. 1 bit → black/white; 8 bits → 256 colours; 24 bits → 16.7 million ("true colour").
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/01-p33-bitmap-resolution-car-wheel.pdf}}\\[0.3em]
+\emph{The same image stored at five resolutions, from high (A) to low (E)}
+\end{minipage}\par\medskip
+
+\subsection*{File size}
+
+\[
+\text{size in bits} = \text{width} \times \text{height} \times \text{bit depth}.
+\]
+
+Divide by 8 for bytes, by 1024 for KiB, etc. Example: a $3000 \times 2000$ image at 24 bpp is $3000 \times 2000 \times 24 = 1.44 \times 10^{8}$ bits $\approx 17.2\ \text{MiB}$.
+
+\subsection*{Changing settings}
+
+\begin{itemize}
+\item \textbf{lower resolution} → smaller file, less detail (looks blocky when enlarged).
+
+\item \textbf{lower colour depth} → smaller file, but smooth shades show banding.
+
+\item \textbf{higher} of either → larger file, better quality.
+
+\end{itemize}
+
+\section*{Vector graphics}
+
+A \textbf{vector graphic} 矢量图形 stores the \textbf{instructions} to draw the image — geometric \textbf{primitives} 图元 (lines, curves, polygons, circles) with attributes like colour, fill, width and position. To show it, the program \textbf{renders} 渲染 the instructions at any resolution needed.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/01-p34-vector-graphic-robot.pdf}}\\[0.3em]
+\emph{A vector image is built from geometric shapes}
+\end{minipage}\par\medskip
+
+\subsection*{Bitmap vs vector}
+
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Task} & \textbf{Better choice} & \textbf{Why} \\
+\midrule
+Photograph & Bitmap & Complex pixel-level detail can't be described as shapes. \\
+Logo, icon, sign & Vector & Sharp edges; scales to any size without blur. \\
+Engineering drawing & Vector & Precise geometry and scaling. \\
+Painting, texture & Bitmap & Smooth tonal detail per area. \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\textbf{Vector advantage}: it \textbf{scales without losing quality} — a vector logo stays sharp at any size, while a bitmap blurs when enlarged. \textbf{Vector disadvantage}: it cannot describe arbitrary pixel detail (photographs).
+
+\section*{Sound}
+
+A continuous analogue sound wave is turned into digital form by \textbf{sampling} 采样:
+
+\begin{itemize}
+\item \textbf{sampling rate} 采样率 — samples per second (Hz). CD quality is $44.1\ \text{kHz}$.
+
+\item \textbf{sample resolution} 采样分辨率 (bit depth) — bits per sample's \textbf{amplitude} 振幅. CD quality is 16 bits.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/01-p35-sound-wave-sampling.pdf}}\\[0.3em]
+\emph{Sampling a sound wave: its amplitude is read at each time interval}
+\end{minipage}\par\medskip
+
+\subsection*{File size}
+
+\[
+\text{size in bits} = \text{sampling rate} \times \text{resolution} \times \text{duration} \times \text{channels}.
+\]
+
+A 10-second stereo CD clip: $44100 \times 16 \times 10 \times 2 \approx 1.8\ \text{MiB}$.
+
+\subsection*{Changing settings}
+
+\begin{itemize}
+\item \textbf{higher sampling rate} → captures higher pitches, larger file.
+
+\item \textbf{higher sample resolution} → finer amplitude steps, less \textbf{quantisation} 量化 noise, larger file.
+
+\item \textbf{lower} of either → smaller file, clear quality loss.
+
+\end{itemize}
+
+(The sampling rate must be at least twice the highest frequency you want to keep.)
+
+\section*{Compression}
+
+\textbf{Compression} 压缩 reduces file size, saving storage and transmission \textbf{bandwidth} 带宽. Two kinds:
+
+\begin{itemize}
+\item \textbf{lossless} 无损 — the original data is recovered exactly (text, programs, ZIP/PNG).
+
+\item \textbf{lossy} 有损 — some detail is dropped for much smaller files (JPEG, MP3, video).
+
+\end{itemize}
+
+\subsection*{When to use which}
+
+\begin{itemize}
+\item \textbf{lossless} for documents, source code, medical images — anything needing exact data.
+
+\item \textbf{lossy} for streaming media. \textbf{Real-time video streaming} uses lossy compression because it must send huge amounts of data in real time over limited bandwidth; lossless would not shrink it enough. Raw HD video is gigabytes per minute, so without compression the picture would keep freezing.
+
+\end{itemize}
+
+\subsection*{Lossless methods}
+
+\begin{itemize}
+\item \textbf{run-length encoding} 行程编码 (RLE): store "the next $n$ values are $x$" instead of repeating $x$. Great for flat areas; useless for noisy data.
+
+\item \textbf{dictionary methods} 字典编码 (ZIP, PNG): replace repeated byte sequences with a short reference. Good for text and code.
+
+\item \textbf{Huffman coding} 霍夫曼编码: give short codes to common symbols and long codes to rare ones, bringing the average code length near the data's \textbf{entropy} 熵.
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/01-p39-rle-black-white.pdf}}\\[0.3em]
+\emph{Run-length encoding of the letter F in an 8×8 black-and-white grid}
+\end{minipage}\par\medskip
+
+\subsection*{Lossy methods}
+
+\begin{itemize}
+\item \textbf{images} (JPEG): drop fine detail and colour differences the eye barely sees.
+
+\item \textbf{sound} (MP3, AAC): drop pitches we hear less well, and quiet sounds hidden by louder ones.
+
+\item \textbf{video} combines \textbf{spatial} 空间 compression (within each frame, like JPEG) with \textbf{temporal} 时间 compression (most frames store only the differences from the previous frame).
+
+\end{itemize}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_computer_science/assets/01-p40-compression-methods.pdf}}\\[0.3em]
+\emph{Common ways to reduce the size of media files}
+\end{minipage}\par\medskip
+
+
+\end{document}

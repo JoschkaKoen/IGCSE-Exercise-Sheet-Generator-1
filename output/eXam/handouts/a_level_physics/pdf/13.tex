@@ -1,0 +1,193 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[boldfont=false]{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.6em}
+\usepackage{parskip}
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\small}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Gravitational fields}\\[0.35em]
+  {\large A Level Physics}
+\end{center}
+\vspace{0.6em}
+
+\section*{Gravitational fields}
+
+\subsection*{Definition}
+
+A \textbf{gravitational field} 重力场 is a region where a \textbf{mass} 质量 feels a \textbf{force} 力 from other masses. The \textbf{gravitational field strength} 重力场强度 $g$ at a point is the \textbf{gravitational force per unit mass} on a small \textbf{test mass} 检验质量 placed there:
+
+\[
+g = \frac{F}{m}.
+\]
+
+Unit: $\text{N kg}^{-1}$ (the same as $\text{m s}^{-2}$ — the acceleration of free fall in the field). $g$ is a \textbf{vector} 矢量, pointing the way the force acts — towards the source mass.
+
+\subsection*{Field lines}
+
+A gravitational field is drawn with \textbf{field lines} 场线 that point the way the force acts on a test mass:
+
+\begin{itemize}
+\item around a \textbf{point mass} 质点 or a uniform sphere (treated as a point mass from outside), the field lines are \textbf{radial} 径向, pointing \textbf{inwards}.
+
+\item near the Earth's surface over a small area, the field lines are nearly \textbf{parallel and equally spaced}, pointing straight down — a \textbf{uniform field} 匀强场.
+
+\end{itemize}
+
+Closer lines mean a stronger field.
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/13-p248-field-lines-strength.pdf}}\\[0.3em]
+\emph{Field-line spacing shows the field strength — closer lines mean a stronger field}
+\end{minipage}\par\medskip
+
+\section*{Newton's law of gravitation}
+
+For two point masses $m_{1}, m_{2}$ a distance $r$ apart, the force on each is
+
+\[
+F = \frac{G m_{1} m_{2}}{r^{2}},
+\]
+
+pulling them together along the line joining them. This is \textbf{Newton's law of gravitation} 万有引力定律. The constant $G = 6.67 \times 10^{-11}\ \text{N m}^{2}\ \text{kg}^{-2}$ is the \textbf{universal gravitational constant} 万有引力常量.
+
+\subsection*{Spheres treated as point masses}
+
+For a uniform sphere (such as a planet or star), the field at any point \textbf{outside} is the same as that of a point mass equal to the total mass at the centre. So from above the surface, you can treat the Earth as a point mass at its centre. (Points inside a sphere are different, and are not in the syllabus.)
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/13-p249-radial-field-sphere.pdf}}\\[0.3em]
+\emph{Outside a uniform sphere the field is radial, exactly like a point mass at the centre}
+\end{minipage}\par\medskip
+
+\subsection*{Field strength from a point mass}
+
+Put the gravitational force on a test mass $m$ at distance $r$ from a point mass $M$ into $g = F/m$:
+
+\[
+F = \frac{G M m}{r^{2}}, \qquad g = \frac{G M}{r^{2}}.
+\]
+
+So $g$ falls off as $1/r^{2}$ as you move away from the source.
+
+\subsection*{Why $g$ is nearly constant near the Earth's surface}
+
+The Earth's radius is $R \approx 6.4 \times 10^{6}\ \text{m}$. Rising to height $h$ changes the distance from the centre from $R$ to $R + h$. For $h \ll R$ (any building or mountain), $(R + h)/R \approx 1$, so $g$ barely changes — going from $5\ \text{m}$ to $10\ \text{m}$ high changes $r$ by about one part in a million. In the laboratory, $g$ is effectively constant.
+
+\section*{Orbital motion in a gravitational field}
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\centering
+\adjustbox{max width=\linewidth, max totalheight=0.42\textheight}{%
+  \includegraphics{/Users/joschka/Desktop/Programming/eXercise/output/eXam/handouts/a_level_physics/assets/13-p250-planet-orbit.pdf}}\\[0.3em]
+\emph{Gravity provides the centripetal force that keeps a planet in a circular orbit}
+\end{minipage}\par\medskip
+
+For a \textbf{satellite} 卫星 of mass $m$ in a circular \textbf{orbit} 轨道 of radius $r$ around a body of mass $M$, gravity provides the \textbf{centripetal force} 向心力:
+
+\[
+\frac{G M m}{r^{2}} = \frac{m v^{2}}{r}.
+\]
+
+Cancel $m$ (the orbital speed does not depend on the satellite's mass):
+
+\[
+v = \sqrt{\frac{G M}{r}}.
+\]
+
+The \textbf{period} 周期 follows from $T = 2\pi r / v$:
+
+\[
+T = 2\pi \sqrt{\frac{r^{3}}{G M}}, \quad\text{so}\quad T^{2} = \frac{4\pi^{2}}{G M} \cdot r^{3}.
+\]
+
+This is \textbf{Kepler's third law} 开普勒第三定律 for circular orbits: $T^{2} \propto r^{3}$. A plot of $T^{2}$ against $r^{3}$ is a straight line through the origin with gradient $4\pi^{2}/(GM)$, so orbital data gives the central mass.
+
+\subsection*{Geostationary orbit}
+
+A \textbf{geostationary} 地球同步 satellite:
+
+\begin{itemize}
+\item stays directly above the same point on the Earth (so a fixed dish always points at it),
+
+\item has a period of \textbf{24 hours} (the same as the Earth's rotation),
+
+\item orbits \textbf{west to east} (the same way the Earth turns),
+
+\item must be directly above the \textbf{equator} 赤道.
+
+\end{itemize}
+
+It must have the same \textbf{angular speed} 角速度 as the Earth, in the same direction, in the equatorial plane (or it would drift north–south during the day). From $T = 24\ \text{h}$ and $T^{2} = 4\pi^{2} r^{3}/(GM)$, the radius is $r \approx 4.2 \times 10^{7}\ \text{m}$ (about $3.6 \times 10^{7}\ \text{m}$ above the surface).
+
+\section*{Gravitational potential}
+
+\textbf{Gravitational potential} 引力势 $\phi$ at a point is the \textbf{work done per unit mass} in bringing a small test mass from \textbf{infinity} 无穷远 to that point:
+
+\[
+\phi = \frac{W}{m}.
+\]
+
+Unit: $\text{J kg}^{-1}$.
+
+The potential is taken as \textbf{zero at infinity}. As the test mass falls in towards the source, gravity does the work for you, so $\phi$ is \textbf{negative} everywhere except at infinity. For a point mass $M$ at distance $r$:
+
+\[
+\phi = -\frac{G M}{r}.
+\]
+
+$\phi$ is a \textbf{scalar} 标量. For several masses, add the potentials.
+
+\subsection*{Gravitational potential energy of two point masses}
+
+If a test mass $m$ sits where the potential is $\phi$, the \textbf{gravitational potential energy} 重力势能 of the pair is
+
+\[
+E_{\text{P}} = m \phi = -\frac{G M m}{r}.
+\]
+
+Like the potential, $E_{\text{P}}$ is \textbf{negative} and reaches zero only at infinite separation. Closer masses have more negative potential energy (more tightly bound).
+
+\subsection*{Link with $\Delta E_{\text{P}} = mg\Delta h$}
+
+For small height changes near the surface, $r$ barely changes, so $\Delta E_{\text{P}} \approx mg\Delta h$. For large changes (a satellite moving to a higher orbit) use $-GMm/r$ at each radius and take the difference:
+
+\[
+\Delta E_{\text{P}} = GMm\left(\frac{1}{r_{1}} - \frac{1}{r_{2}}\right) \quad (r_{2} > r_{1}),
+\]
+
+which is positive (energy must be supplied to raise the satellite).
+
+\subsection*{Escape velocity (from conservation of energy)}
+
+To escape from radius $r$ to infinity, an object's \textbf{kinetic energy} 动能 must equal the size of its gravitational potential energy:
+
+\[
+\tfrac{1}{2} m v_{\text{esc}}^{2} = \frac{G M m}{r}, \qquad v_{\text{esc}} = \sqrt{\frac{2 G M}{r}}.
+\]
+
+At the Earth's surface, the \textbf{escape velocity} 逃逸速度 is $\approx 11\ \text{km s}^{-1}$. It does not depend on the object's mass.
+
+
+\end{document}
