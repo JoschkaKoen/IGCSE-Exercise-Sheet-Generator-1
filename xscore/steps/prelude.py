@@ -38,7 +38,8 @@ def parse_grading_instructions(ctx: _Ctx) -> None:
         out=ctx.parse_prompt_debug,
     )
     ctx.parse_elapsed = time.perf_counter() - t0
-    assert ctx.instruction is not None
+    if ctx.instruction is None:
+        raise RuntimeError('invariant failed: ctx.instruction is not None')
     inst = ctx.instruction
 
     ctx.force_clean_scan = ctx.args.force_clean_scan or inst.force_clean_scan
@@ -71,13 +72,15 @@ def parse_grading_instructions(ctx: _Ctx) -> None:
 
 
 def locate_exam_folder(ctx: _Ctx) -> None:
-    assert ctx.instruction is not None
+    if ctx.instruction is None:
+        raise RuntimeError('invariant failed: ctx.instruction is not None')
     ctx.folder = find_folder(
         instruction_hint=ctx.instruction.folder_hint,
         cli_override=ctx.args.folder,
         ai_folder_path=None if ctx.args.folder else ctx.instruction.folder_path,
     )
-    assert ctx.folder is not None
+    if ctx.folder is None:
+        raise RuntimeError('invariant failed: ctx.folder is not None')
     stem = ctx.folder.name.replace(" ", "_")
     exam_output_root = Path("output") / "xscore" / stem
     exam_output_root.mkdir(parents=True, exist_ok=True)

@@ -24,7 +24,8 @@ from xscore.shared.terminal_ui import (
 
 
 def ai_marking_blueprints(ctx: _Ctx) -> None:
-    assert ctx.scaffold is not None and ctx.artifact_dir is not None
+    if ctx.scaffold is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.scaffold is not None and ctx.artifact_dir is not None')
     blueprints = build_blueprints(ctx.scaffold, ctx.artifact_dir)
     # build_blueprints returns one entry per page in the exam (1..page_count);
     # only entries with questions get a file written to disk (cover/blank/
@@ -35,7 +36,8 @@ def ai_marking_blueprints(ctx: _Ctx) -> None:
 
 
 def extract_student_answers(ctx: _Ctx) -> None:
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    if ctx.cleaned_pdf is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.cleaned_pdf is not None and ctx.artifact_dir is not None')
     announce_step_model(
         model_env="EXTRACT_ANSWERS_MODEL",
         default_model="qwen3.6-plus, off",
@@ -59,7 +61,8 @@ def extract_student_answers(ctx: _Ctx) -> None:
 
 
 def ai_marking(ctx: _Ctx) -> None:
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    if ctx.cleaned_pdf is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.cleaned_pdf is not None and ctx.artifact_dir is not None')
     announce_step_model(
         model_env="MARKING_MODEL",
         default_model=MARKING_MODEL_DEFAULT,

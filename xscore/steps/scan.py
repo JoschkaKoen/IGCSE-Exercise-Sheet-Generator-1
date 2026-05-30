@@ -36,7 +36,8 @@ from xscore.shared.terminal_ui import (
 
 
 def read_student_list(ctx: _Ctx) -> None:
-    assert ctx.folder is not None and ctx.artifact_dir is not None
+    if ctx.folder is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.folder is not None and ctx.artifact_dir is not None')
     announce_step_model(
         model_env="READ_STUDENT_LIST_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
@@ -54,7 +55,8 @@ def prepare_scans(ctx: _Ctx) -> None:
     either interleaves duplex pairs or writes a rotated single-PDF copy.
     See ``xscore.preprocessing.coordinator.prepare_scans_phase``.
     """
-    assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
+    if ctx.folder is None or ctx.artifact_dir is None or ctx.instruction is None:
+        raise RuntimeError('invariant failed: ctx.folder is not None and ctx.artifact_dir is not None and (ctx.instruction is not None)')
     t0 = time.perf_counter()
     ctx.scan_match = prepare_scans_phase(
         ctx.folder,
@@ -66,7 +68,8 @@ def prepare_scans(ctx: _Ctx) -> None:
 
 
 def deskew(ctx: _Ctx) -> None:
-    assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
+    if ctx.folder is None or ctx.artifact_dir is None or ctx.instruction is None:
+        raise RuntimeError('invariant failed: ctx.folder is not None and ctx.artifact_dir is not None and (ctx.instruction is not None)')
     t0 = time.perf_counter()
     ctx.cleaned_pdf = deskew_phase(
         ctx.artifact_dir, PIPELINE_DEFAULT_DPI, input_pdf=ctx.scan_match,
@@ -93,7 +96,8 @@ def scan_phases(ctx: _Ctx) -> None:
 
     Skipped entirely when resuming (``ctx.from_step`` set).
     """
-    assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
+    if ctx.folder is None or ctx.artifact_dir is None or ctx.instruction is None:
+        raise RuntimeError('invariant failed: ctx.folder is not None and ctx.artifact_dir is not None and (ctx.instruction is not None)')
     if ctx.from_step:
         return
 

@@ -127,7 +127,8 @@ def _call_empty_exam_class(
         from google.genai import types as gai_types
         from eXercise.ai_client import build_gemini_thinking_config, split_gemini_response
 
-        assert pdf_bytes is not None
+        if pdf_bytes is None:
+            raise RuntimeError('invariant failed: pdf_bytes is not None')
         resp = state.gai.models.generate_content(
             model=model_id,
             contents=[
@@ -148,7 +149,8 @@ def _call_empty_exam_class(
 
     from eXercise.ai_client import build_completion_kwargs
 
-    assert jpeg_bytes is not None
+    if jpeg_bytes is None:
+        raise RuntimeError('invariant failed: jpeg_bytes is not None')
     _use_stream, kw = build_completion_kwargs(state.provider, 0, max_tokens)
     _timeout_kw: dict = {"timeout": request_timeout} if request_timeout is not None else {}
     b64 = _base64.b64encode(jpeg_bytes).decode()
@@ -193,7 +195,8 @@ def _classify_empty_page(
     if pdf_bytes is not None:
         attachment = attachment_part(pdf_bytes, "application/pdf")
     else:
-        assert jpeg_bytes is not None
+        if jpeg_bytes is None:
+            raise RuntimeError('invariant failed: jpeg_bytes is not None')
         attachment = attachment_part(jpeg_bytes, "image/jpeg")
     save_prompt(
         save_path, model=model_id,

@@ -276,7 +276,8 @@ def iter_region_segments(
         n_g = len(g)
 
         for pos_idx, (qid, q_page, q_y, q_cell, printed_raw, num_x1) in enumerate(g):
-            assert q_cell == cell
+            if not (q_cell == cell):
+                raise RuntimeError('invariant failed: q_cell == cell')
             # Top of this exercise = top of its first printed line (margin number anchor).
             start_y = max(q_y, margin_top)
             if pos_idx + 1 < n_g:

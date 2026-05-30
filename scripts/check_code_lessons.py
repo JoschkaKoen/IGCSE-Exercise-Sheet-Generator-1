@@ -3,9 +3,9 @@
 
 For every course (a directory with ``course.yaml``) and every lesson it lists, check:
 
-  - **Schema** — ``meta.yaml`` has a bilingual ``title``; each task has ``id``, a
-    bilingual ``prompt``, and a valid ``check`` (``stdout`` needs ``expected``;
-    ``asserts`` needs ``code``).
+  - **Schema** — ``meta.yaml`` has a bilingual ``title``; each task has a unique
+    ``id`` (progress is keyed by it), a bilingual ``prompt``, and a valid ``check``
+    (``stdout`` needs ``expected``; ``asserts`` needs ``code``).
   - **Parallel languages** — ``NN.en.md`` and ``NN.zh.md`` exist and split into the
     SAME number of ``---`` step chunks.
   - **Python validity** — every ```` ```python ```` example block, every ``starter``,
@@ -15,6 +15,9 @@ For every course (a directory with ``course.yaml``) and every lesson it lists, c
     browser worker (``web/static/js/code-worker.js``): ``stdout`` compares stripped
     (when ``normalize`` is ``strip``/unset); ``asserts`` execs the solution then the
     check code in one namespace; ``stdin`` is fed then EOF.
+  - **Starter is incomplete** — each task's ``starter`` must NOT already pass its
+    ``check`` (else the task is a no-op with nothing for the student to do). The
+    same runner is reused with the starter as the source.
   - **No leakage** — ``solution`` never appears in ``load_lesson(...)['tasks_client_json']``.
 
 A missing ``solution`` is a warning (the solvability gate can't run for that task).
@@ -101,9 +104,14 @@ def compile_ok(where: str, label: str, src: str) -> None:
         err(where, f"{label} does not compile: {e}")
 
 
-def run_solution(where: str, task: dict) -> None:
+def run_solution(where: str, task: dict, *, source: str | None = None,
+                 report: bool = True) -> bool:
+    """Run *source* (default ``task['solution']``) through the task's check in a
+    subprocess. Returns True iff it passes. With ``report=False`` a failure is
+    NOT recorded as an error — used to probe that a *starter* does not already
+    pass (see ``starter_must_fail``)."""
     spec = {
-        "solution": task["solution"],
+        "solution": task["solution"] if source is None else source,
         "stdin": task.get("stdin") or "",
         "check": task.get("check") or {},
     }
@@ -116,11 +124,15 @@ def run_solution(where: str, task: dict) -> None:
                 cwd=tmp, capture_output=True, text=True, timeout=TIMEOUT,
             )
         except subprocess.TimeoutExpired:
-            err(where, f"solution timed out (>{TIMEOUT}s) — infinite loop?")
-            return
+            if report:
+                err(where, f"solution timed out (>{TIMEOUT}s) — infinite loop?")
+            return False
     if r.returncode != 0:
-        err(where, "reference solution does not pass its check:\n  " +
-            (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+        if report:
+            err(where, "reference solution does not pass its check:\n  " +
+                (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+        return False
+    return True
 
 
 # ---- Java path (compile/run helpers shared via web.java_runner) ---------------
@@ -145,14 +157,18 @@ def java_compile_ok(where: str, label: str, src: str, severity: str = "err") -> 
                    (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
 
 
-def run_solution_java(where: str, task: dict) -> None:
-    """Compile the reference solution (+ files + harness) and run it, applying the
-    same check rules as the worker: stdout strip/normalize, harness = exit 0."""
+def run_solution_java(where: str, task: dict, *, source: str | None = None,
+                      report: bool = True) -> bool:
+    """Compile *source* (default ``task['solution']``) + files (+ harness) and run
+    it, applying the worker's check rules (stdout strip/normalize, harness = exit
+    0). Returns True iff it passes. With ``report=False`` failures are not recorded
+    — used to probe that a *starter* does not already pass (see ``starter_must_fail``)."""
     if not (JAVAC and JAVA):
-        return
+        return False
     chk = task.get("check") or {}
     kind = chk.get("kind")
-    files, main_class = build_files(task["solution"], task.get("files"), chk)
+    code = task["solution"] if source is None else source
+    files, main_class = build_files(code, task.get("files"), chk)
     with tempfile.TemporaryDirectory() as tmp:
         for name, s in files.items():
             (Path(tmp) / name).write_text(s, encoding="utf-8")
@@ -160,35 +176,60 @@ def run_solution_java(where: str, task: dict) -> None:
             c = subprocess.run([JAVAC, "--release", JAVA_RELEASE, *files.keys()],
                                cwd=tmp, capture_output=True, text=True, timeout=TIMEOUT)
         except subprocess.TimeoutExpired:
-            err(where, "solution javac timed out")
-            return
+            if report:
+                err(where, "solution javac timed out")
+            return False
         if c.returncode != 0:
-            err(where, "reference solution does not compile:\n  " +
-                (c.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
-            return
+            if report:
+                err(where, "reference solution does not compile:\n  " +
+                    (c.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+            return False
         try:
             r = subprocess.run([JAVA, "-cp", ".", main_class],
                                cwd=tmp, capture_output=True, text=True, timeout=TIMEOUT,
                                input=task.get("stdin") or "")
         except subprocess.TimeoutExpired:
-            err(where, f"solution run timed out (>{TIMEOUT}s) — infinite loop?")
-            return
+            if report:
+                err(where, f"solution run timed out (>{TIMEOUT}s) — infinite loop?")
+            return False
         if kind == "harness":
             if r.returncode != 0:
-                err(where, "reference solution fails its harness:\n  " +
-                    (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
-            return
+                if report:
+                    err(where, "reference solution fails its harness:\n  " +
+                        (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+                return False
+            return True
         # stdout
         if r.returncode != 0:
-            err(where, "reference solution threw at runtime:\n  " +
-                (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
-            return
+            if report:
+                err(where, "reference solution threw at runtime:\n  " +
+                    (r.stderr.strip().replace("\n", "\n  ") or "(no stderr)"))
+            return False
         if not compare_stdout(r.stdout, chk):
-            norm = chk.get("normalize")
-            got = r.stdout.strip() if norm in (None, "strip") else r.stdout
-            exp = str(chk.get("expected") if chk.get("expected") is not None else "")
-            exp = exp.strip() if norm in (None, "strip") else exp
-            err(where, "reference solution does not pass its check:\n  got: %r\n  exp: %r" % (got, exp))
+            if report:
+                norm = chk.get("normalize")
+                got = r.stdout.strip() if norm in (None, "strip") else r.stdout
+                exp = str(chk.get("expected") if chk.get("expected") is not None else "")
+                exp = exp.strip() if norm in (None, "strip") else exp
+                err(where, "reference solution does not pass its check:\n  got: %r\n  exp: %r" % (got, exp))
+            return False
+        return True
+
+
+def starter_must_fail(where: str, task: dict, is_java: bool) -> None:
+    """A task whose STARTER already passes its check is a no-op — the student
+    would have nothing to do. Probe the starter against the check (report=False,
+    so a normal "starter fails" outcome is silent) and flag it only if it passes.
+    A starter that doesn't compile or errors correctly counts as 'fails'. When no
+    JDK is present the Java probe can't run and simply skips (returns False)."""
+    starter = task.get("starter")
+    chk = task.get("check") or {}
+    if not starter or not chk.get("kind"):
+        return
+    runner = run_solution_java if is_java else run_solution
+    if runner(where, task, source=starter, report=False):
+        err(where, f"task '{task.get('id')}' starter already passes its check — "
+                   "the task is a no-op; the starter must leave something to complete")
 
 
 def check_lesson(slug: str, nn: str, language: str = "python") -> None:
@@ -231,12 +272,18 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
 
     # Tasks.
     valid_kinds = ("stdout", "harness") if is_java else ("stdout", "asserts")
+    seen_ids: set[str] = set()
     for task in meta.get("tasks") or []:
         tid = task.get("id")
         tw = f"{where} task '{tid}'"
         if not tid:
             err(where, "a task is missing 'id'")
             continue
+        # Progress (code_progress table) is keyed by task id, so duplicates would
+        # silently conflate two tasks' done/revealed state.
+        if tid in seen_ids:
+            err(where, f"duplicate task id '{tid}' in this lesson")
+        seen_ids.add(tid)
         prompt = task.get("prompt")
         if not (isinstance(prompt, dict) and prompt.get("en") and prompt.get("zh")):
             err(tw, "prompt must have both 'en' and 'zh'")
@@ -270,6 +317,10 @@ def check_lesson(slug: str, nn: str, language: str = "python") -> None:
                 run_solution(tw, task)
             else:
                 warn(tw, "no 'solution' — solvability gate skipped")
+
+        # A well-formed task's starter must NOT already pass — else it teaches
+        # nothing. (Independent of whether a reference solution is present.)
+        starter_must_fail(tw, task, is_java)
 
     # The reference solution must never reach the browser.
     data = code_content.load_lesson(slug, nn, "en")

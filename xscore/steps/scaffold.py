@@ -235,15 +235,19 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
         artifact_parent_refs_json_path,
     )
 
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
 
     register = load_register(ctx.artifact_dir)
     if register is None:
         # build_marking_register_v1's writer was newly added — older runs may lack v1.
         register = build_initial_register(ctx)
 
+    # Match the extension the writer (extract_exam_questions) used —
+    # fmt.artifact_ext(), not a hardcoded "yaml" — so cross-page detection
+    # isn't silently skipped if the scaffold format ever changes.
     questions_path = artifact_exam_questions_path(
-        ctx.artifact_dir, fmt="yaml",
+        ctx.artifact_dir, fmt=get_scaffold_format().artifact_ext(),
     )
     if not questions_path.exists():
         warn_line(
@@ -592,7 +596,8 @@ def scaffold_setup(ctx: _Ctx) -> bool:
     from xscore.scaffold.scaffold_phase_state import ScaffoldPhaseState
     from xscore.shared.pipeline_steps import STEPS
 
-    assert ctx.folder is not None and ctx.artifact_dir is not None
+    if ctx.folder is None or ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.folder is not None and ctx.artifact_dir is not None')
     if ctx.from_step is not None:
         first_marking = next(
             (s.number for s in STEPS if s.phase == "marking_reports_summary"),

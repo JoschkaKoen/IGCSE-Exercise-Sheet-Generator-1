@@ -98,7 +98,8 @@ def build_initial_register(ctx: "_Ctx") -> dict:
         artifact_handwriting_json_path,
     )
 
-    assert ctx.artifact_dir is not None
+    if ctx.artifact_dir is None:
+        raise RuntimeError('invariant failed: ctx.artifact_dir is not None')
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
 

@@ -6,6 +6,33 @@ This document lists bugs verified through reproduction scripts, unit tests, or c
 
 ---
 
+## Re-verification pass — 2026-05-30
+
+All 17 entries were re-checked against the current `xscore/` tree by re-running
+the `bug_verification/` reproduction scripts and reading the live source. Outcome:
+
+- **Fixed this pass (6):** #7 (asserts → `if/raise`, 42 sites), #8 (`q.number or ""`),
+  #9 (lazy `_system_prompt()`), #11 (`fmt.artifact_ext()` instead of hardcoded
+  `"yaml"`), #12 (`bbox is not None` guard), #16 (`_safe_mtime` race guard).
+- **Already fixed before this pass (7):** #2, #4, #5, #6, #10, #13, #14 — the
+  reproduction scripts now print `FIX VERIFIED` / `BUG NOT REPRODUCED`.
+- **Obsolete (1):** #1 — `xscore/shared/load_ground_truth.py` and its
+  `_is_data_row`/`_HEADER_TOKENS` logic were removed; `xscore/extraction/ground_truth.py`
+  now contains only `fuzzy_match_name`. The header-detection bug no longer exists.
+- **Not a bug in context (1):** #3 — `_latex_escape` is only ever called on **raw**
+  strings (student names, question numbers, MCQ letters, exam titles, AI graphic
+  transcriptions), never on pre-escaped LaTeX. Its single-pass regex correctly
+  escapes raw text; the double-escape only occurs if you feed it its own output,
+  which no caller does. "Fixing" it would corrupt legitimate raw backslashes.
+- **Left as-is by design (2):** #15 and #17. See those entries for rationale —
+  the suggested fixes would trade a safe behaviour for a correctness risk.
+
+Reproduction scripts in `bug_verification/` hardcode the **main** repo path, so
+they reflect `main`; fixes above were verified directly against this branch's
+worktree (import + `-O` byte-compile + targeted edge-case checks).
+
+---
+
 ## 1. Ground Truth Header Mis-Detection
 
 - **File:** `xscore/shared/load_ground_truth.py`
@@ -257,22 +284,22 @@ This document lists bugs verified through reproduction scripts, unit tests, or c
 
 ## Summary Table
 
-| # | File | Line | Severity | Status |
-|---|------|------|----------|--------|
-| 1 | `xscore/shared/load_ground_truth.py` | ~119 | High | Confirmed by test |
-| 2 | `xscore/marking/class_charts.py` | 55 | Medium | Confirmed by test |
-| 3 | `xscore/marking/report_latex_text.py` | 37 | Medium | Confirmed by test |
-| 4 | `xscore/shared/cost_report.py` | 61 | Medium | Confirmed by test |
-| 5 | `xscore/preprocessing/assign_pages_to_students.py` | 212 | Medium | Confirmed by test |
-| 6 | `xscore/shared/prompt_logger.py` | 129 | Medium | Confirmed by test |
-| 7 | Multiple files | — | Medium | Confirmed by test |
-| 8 | `xscore/marking/blueprints.py` | ~101 | Medium | Confirmed by test |
-| 9 | `xscore/marking/parse_instruction.py` | 154 | Medium | Confirmed by test |
-| 10 | `xscore/steps/geometry.py` | 467 | Medium | Confirmed by test |
-| 11 | `xscore/steps/scaffold.py` | 209 | Medium | Confirmed by test |
-| 12 | `xscore/shared/models.py` | 117 | Low | Confirmed by test |
-| 13 | `xscore/steps/scaffold.py` | 313+ | High | Static analysis |
-| 14 | `xscore/marking/report_latex.py` | 162 | Low | Static analysis |
-| 15 | `xscore/pipeline/resume.py` | 251 | Low | Static analysis |
-| 16 | `xscore/shared/find_exam_folder.py` | 74 | Low | Static analysis |
-| 17 | `xscore/pipeline/resume.py` | 77 | Low | Static analysis |
+| # | File | Severity | Disposition (2026-05-30) |
+|---|------|----------|--------------------------|
+| 1 | `xscore/shared/load_ground_truth.py` | High | ⚪ Obsolete — module + buggy logic removed |
+| 2 | `xscore/marking/class_charts.py` | Medium | ✅ Fixed (clamp present) |
+| 3 | `xscore/marking/report_latex_text.py` | Medium | ⚪ Not a bug — raw-text-only caller; single-pass is correct |
+| 4 | `xscore/shared/cost_report.py` | Medium | ✅ Fixed (`.get()`) |
+| 5 | `xscore/preprocessing/assign_pages_to_students.py` | Medium | ✅ Fixed (clamps last block) |
+| 6 | `xscore/shared/prompt_logger.py` | Medium | ✅ Fixed (`isinstance` guard) |
+| 7 | Multiple files | Medium | ✅ Fixed 2026-05-30 (42 asserts → `if/raise`) |
+| 8 | `xscore/marking/blueprints.py` | Medium | ✅ Fixed 2026-05-30 (`q.number or ""`) |
+| 9 | `xscore/marking/parse_instruction.py` | Medium | ✅ Fixed 2026-05-30 (lazy `_system_prompt()`) |
+| 10 | `xscore/steps/geometry.py` | Medium | ✅ Fixed (no broad `except`) |
+| 11 | `xscore/steps/scaffold.py` | Medium | ✅ Fixed 2026-05-30 (`fmt.artifact_ext()`) |
+| 12 | `xscore/shared/models.py` | Low | ✅ Fixed 2026-05-30 (`bbox is not None`) |
+| 13 | `xscore/steps/scaffold.py` | High | ✅ Fixed (resume rehydration) |
+| 14 | `xscore/marking/report_latex.py` | Low | ✅ Fixed (`str(... or "")`, 7 sites) |
+| 15 | `xscore/pipeline/resume.py` | Low | 🟡 By design — always build-from-cache is the safe choice |
+| 16 | `xscore/shared/find_exam_folder.py` | Low | ✅ Fixed 2026-05-30 (`_safe_mtime`) |
+| 17 | `xscore/pipeline/resume.py` | Low | 🟡 By design — resumed source IS the wanted input |
