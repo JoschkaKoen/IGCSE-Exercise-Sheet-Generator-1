@@ -109,3 +109,45 @@ tasks:
                 check(new int[]{-2, 5, 0, -9, 4}, new int[]{-9, -2, 0, 4, 5});
             }
         }
+  - id: is-sorted
+    prompt:
+      en: "Complete `isSorted(int[] a)` returning `true` if the array is in order from small to large (each item is `<=` the next), else `false`. An empty or one-item array counts as sorted."
+      zh: "完成 `isSorted(int[] a)`,如果数组从小到大有序(每个元素都 `<=` 后一个)就返回 `true`,否则返回 `false`。空数组或只有一个元素的数组算作有序。"
+    starter: |
+      public class Sorter {
+          // Return true if a is sorted small to large.
+          public static boolean isSorted(int[] a) {
+              return false;   // change this
+          }
+      }
+    solution: |
+      public class Sorter {
+          public static boolean isSorted(int[] a) {
+              for (int i = 0; i < a.length - 1; i++) {
+                  if (a[i] > a[i + 1]) {
+                      return false;
+                  }
+              }
+              return true;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                if (!Sorter.isSorted(new int[]{1, 2, 3, 4, 5}))
+                    throw new AssertionError("a sorted array should be true");
+                if (Sorter.isSorted(new int[]{1, 3, 2}))
+                    throw new AssertionError("1,3,2 is not sorted");
+                if (!Sorter.isSorted(new int[]{}))
+                    throw new AssertionError("empty array counts as sorted");
+                if (!Sorter.isSorted(new int[]{7}))
+                    throw new AssertionError("one item counts as sorted");
+                if (!Sorter.isSorted(new int[]{2, 2, 3}))
+                    throw new AssertionError("equal neighbors are still sorted");
+                if (Sorter.isSorted(new int[]{5, 4, 3}))
+                    throw new AssertionError("descending is not sorted");
+            }
+        }

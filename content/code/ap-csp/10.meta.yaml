@@ -77,5 +77,7 @@ tasks:
       print(heads)
     check:
       kind: stdout
+      # CPython's Mersenne Twister (MT19937): seed(7) + 20x randint(0, 1) gives 6 heads.
+      # Pyodide ships CPython, so this is stable; revisit the expected value if the runtime changes.
       expected: "6"
       normalize: strip

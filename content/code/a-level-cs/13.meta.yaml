@@ -112,4 +112,4 @@ tasks:
         assert find(table, "Z") == -1, "Z hashes to 0; probe A,F,B then hit None -> -1"
         full = ["A", "F", "B", "C", "D"]       # no empty slots
         assert find(full, "X") == -1, "must terminate on a full table and return -1"
-        assert find(full, "C") == 3, "C is found at index 3"
+        assert find(full, "C") == 3, "C hashes to slot 2; slot 2 holds B, so it is probed to 3"

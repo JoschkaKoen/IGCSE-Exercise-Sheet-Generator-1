@@ -2,4 +2,63 @@ title:
   en: Impact of computing
   zh: 计算的影响
 order: 14
-tasks: []
+tasks:
+  - id: count-pii
+    prompt:
+      en: "**PII** is data that points to a real person. You are given a record `fields` (a dict like `{\"name\": ..., \"color\": ..., \"phone\": ...}`) and a set `pii_names` of PII field names. Write `count_pii(fields, pii_names)` that returns how many of the record's keys are PII."
+      zh: "**PII** 是指向某个真实的人的数据。给定一条记录 `fields`(字典,如 `{\"name\": ..., \"color\": ..., \"phone\": ...}`)和一组 PII 字段名 `pii_names`。编写 `count_pii(fields, pii_names)`,返回这条记录里有多少个键属于 PII。"
+    starter: |
+      def count_pii(fields, pii_names):
+          # Count how many keys of fields are in pii_names
+          pass
+    solution: |
+      def count_pii(fields, pii_names):
+          count = 0
+          for key in fields:
+              if key in pii_names:
+                  count += 1
+          return count
+    check:
+      kind: asserts
+      code: |
+        pii = {"name", "phone", "address"}
+        assert count_pii({"name": "Mia", "color": "red", "phone": "123"}, pii) == 2, "name and phone are PII"
+        assert count_pii({"color": "red", "size": "M"}, pii) == 0, "no PII fields"
+        assert count_pii({"name": "Sam", "address": "X", "phone": "9"}, pii) == 3, "all three are PII"
+        assert count_pii({}, pii) == 0, "empty record has no PII"
+  - id: accuracy-gap
+    prompt:
+      en: "Software can be **biased** if it works better for one group than another. Write `accuracy_gap(correct_a, total_a, correct_b, total_b)` that returns group A's accuracy **minus** group B's accuracy, as a decimal. Example: `accuracy_gap(90, 100, 60, 100)` is `0.3`."
+      zh: "如果软件对某个群体比对另一个群体更好用,它就可能带有**偏见**。编写 `accuracy_gap(correct_a, total_a, correct_b, total_b)`,返回 A 群体的准确率**减去** B 群体的准确率,用小数表示。例如:`accuracy_gap(90, 100, 60, 100)` 是 `0.3`。"
+    starter: |
+      def accuracy_gap(correct_a, total_a, correct_b, total_b):
+          # Accuracy of A minus accuracy of B
+          pass
+    solution: |
+      def accuracy_gap(correct_a, total_a, correct_b, total_b):
+          return correct_a / total_a - correct_b / total_b
+    check:
+      kind: asserts
+      code: |
+        assert abs(accuracy_gap(90, 100, 60, 100) - 0.3) < 1e-9, "0.9 - 0.6 = 0.3"
+        assert accuracy_gap(80, 100, 80, 100) == 0.0, "equal accuracy -> no gap"
+        assert abs(accuracy_gap(50, 50, 30, 60) - 0.5) < 1e-9, "1.0 - 0.5 = 0.5"
+  - id: strong-password
+    prompt:
+      en: "A password is **strong** when it is at least `12` characters **and** is not in the list of common passwords. Write `is_strong(password, common)` returning `True` or `False`. Example: with `common = [\"password\", \"123456\"]`, `is_strong(\"correcthorsebattery\", common)` is `True`."
+      zh: "当密码**至少有 12 个字符****而且**不在常见密码列表里时,它才算**强**。编写 `is_strong(password, common)`,返回 `True` 或 `False`。例如:当 `common = [\"password\", \"123456\"]` 时,`is_strong(\"correcthorsebattery\", common)` 是 `True`。"
+    starter: |
+      def is_strong(password, common):
+          # At least 12 characters AND not a common password
+          pass
+    solution: |
+      def is_strong(password, common):
+          return len(password) >= 12 and password not in common
+    check:
+      kind: asserts
+      code: |
+        common = ["password", "123456"]
+        assert is_strong("correcthorsebattery", common) is True, "long and uncommon"
+        assert is_strong("short", common) is False, "too short"
+        assert is_strong("password", common) is False, "common (and too short)"
+        assert is_strong("aaaaaaaaaaaa", common) is True, "exactly 12 and uncommon"

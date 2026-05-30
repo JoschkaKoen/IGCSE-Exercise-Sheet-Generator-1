@@ -32,6 +32,13 @@ from .content_cache import mtime_cached
 # ``web/`` sits at the repo root, so parents[1] is the repo root.
 CODE_DIR = Path(__file__).resolve().parents[1] / "content" / "code"
 
+# Curriculum order for the landing page: the A-Level / foundation track first,
+# easiest → hardest (Python Basics, then A-Level CS), then the AP track,
+# easiest → hardest (CS Principles, then CS A / Java). Any course not listed here
+# sorts after the curated ones (by slug), so a newly-added course is always shown
+# — just uncurated — rather than dropped.
+COURSE_ORDER = ("python-basics", "a-level-cs", "ap-csp", "ap-csa")
+
 
 def _pick(value: Any, lang: str) -> str:
     """Resolve a possibly-bilingual value to ``lang`` with an English fallback."""
@@ -52,16 +59,26 @@ def course_dir(slug: str) -> Path:
     return CODE_DIR / slug
 
 
+def _course_sort_key(path: Path) -> tuple[int, str]:
+    """Curriculum rank for a course dir: its index in :data:`COURSE_ORDER`,
+    else after all curated courses, tie-broken alphabetically by slug."""
+    try:
+        return (COURSE_ORDER.index(path.name), "")
+    except ValueError:
+        return (len(COURSE_ORDER), path.name)
+
+
 def list_courses(lang: str) -> list[dict[str, Any]]:
-    """Every course (each as returned by :func:`load_course`), sorted by slug."""
+    """Every course (each as returned by :func:`load_course`), in curriculum
+    order (see :data:`COURSE_ORDER`)."""
     if not CODE_DIR.is_dir():
         return []
+    children = [c for c in CODE_DIR.iterdir() if (c / "course.yaml").is_file()]
     courses: list[dict[str, Any]] = []
-    for child in sorted(CODE_DIR.iterdir()):
-        if (child / "course.yaml").is_file():
-            course = load_course(child.name, lang)
-            if course:
-                courses.append(course)
+    for child in sorted(children, key=_course_sort_key):
+        course = load_course(child.name, lang)
+        if course:
+            courses.append(course)
     return courses
 
 

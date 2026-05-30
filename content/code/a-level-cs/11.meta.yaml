@@ -103,3 +103,29 @@ tasks:
       code: |
         assert speak_all([Dog(), Cat(), Dog()]) == ["Woof", "Meow", "Woof"], "each object speaks in its own way"
         assert speak_all([]) == [], "no animals gives an empty list"
+  - id: encapsulation
+    prompt:
+      en: "Write a class `Account` whose `__init__(self)` sets a **private** balance `self._balance` to `0`. Add `deposit(self, amount)` to add to it, and `balance(self)` to **return** it. Other code should use these methods, not touch `_balance` directly."
+      zh: "编写一个类 `Account`,它的 `__init__(self)` 把一个**私有**余额 `self._balance` 设为 `0`。再添加 `deposit(self, amount)` 往里存钱,以及 `balance(self)` **返回**余额。其他代码应当使用这些方法,而不是直接去碰 `_balance`。"
+    starter: |
+      class Account:
+          def __init__(self):
+              # Set a private balance self._balance to 0
+              pass
+          # Add deposit(self, amount) and balance(self) below
+    solution: |
+      class Account:
+          def __init__(self):
+              self._balance = 0
+          def deposit(self, amount):
+              self._balance = self._balance + amount
+          def balance(self):
+              return self._balance
+    check:
+      kind: asserts
+      code: |
+        a = Account()
+        assert a.balance() == 0, "a new account starts at 0"
+        a.deposit(50)
+        a.deposit(30)
+        assert a.balance() == 80, "deposits add to the private balance"

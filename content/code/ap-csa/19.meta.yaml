@@ -2,4 +2,45 @@ title:
   en: "FRQ workshop: the 4 question types"
   zh: "自由作答攻略:四种题型"
 order: 19
-tasks: []
+tasks:
+  - id: frq-methods
+    prompt:
+      en: "FRQ practice — **Type 1 (Methods)**. Complete `countAtLeast(int[] scores, int limit)` so it returns how many values in `scores` are **at least** `limit` (greater than or equal). Use a loop and an `if`, like the worked example above."
+      zh: "FRQ 练习 —— **第一类(方法)**。完成 `countAtLeast(int[] scores, int limit)`,返回 `scores` 中有多少个值**至少**为 `limit`(大于或等于)。像上面的范例那样,用一个循环和一个 `if`。"
+    starter: |
+      public class Grades {
+          // Return how many values in scores are >= limit.
+          public static int countAtLeast(int[] scores, int limit) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      public class Grades {
+          public static int countAtLeast(int[] scores, int limit) {
+              int count = 0;
+              for (int s : scores) {
+                  if (s >= limit) {
+                      count = count + 1;
+                  }
+              }
+              return count;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                int[] a = {72, 40, 95, 60, 33};
+                if (Grades.countAtLeast(a, 60) != 3)
+                    throw new AssertionError("60+: expected 3, got " + Grades.countAtLeast(a, 60));
+                if (Grades.countAtLeast(a, 100) != 0)
+                    throw new AssertionError("100+: expected 0, got " + Grades.countAtLeast(a, 100));
+                if (Grades.countAtLeast(a, 0) != 5)
+                    throw new AssertionError("0+: expected 5, got " + Grades.countAtLeast(a, 0));
+                int[] empty = {};
+                if (Grades.countAtLeast(empty, 5) != 0)
+                    throw new AssertionError("empty: expected 0, got " + Grades.countAtLeast(empty, 5));
+            }
+        }

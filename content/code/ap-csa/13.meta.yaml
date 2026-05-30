@@ -103,3 +103,44 @@ tasks:
                     throw new AssertionError("empty array should give -1, got " + SearchUtil.binarySearch(empty, 5));
             }
         }
+  - id: count-occurrences
+    prompt:
+      en: "Complete `countOccurrences(int[] a, int target)` that returns how many times `target` appears in `a` (a linear scan). Return `0` if it never appears."
+      zh: "完成 `countOccurrences(int[] a, int target)`,返回 `target` 在 `a` 中出现的次数(线性扫描)。如果从不出现就返回 `0`。"
+    starter: |
+      public class SearchUtil {
+          // Count how many times target appears in a.
+          public static int countOccurrences(int[] a, int target) {
+              return 0;   // change this
+          }
+      }
+    solution: |
+      public class SearchUtil {
+          public static int countOccurrences(int[] a, int target) {
+              int count = 0;
+              for (int i = 0; i < a.length; i++) {
+                  if (a[i] == target) {
+                      count = count + 1;
+                  }
+              }
+              return count;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                int[] a = {4, 8, 4, 16, 4, 8};
+                if (SearchUtil.countOccurrences(a, 4) != 3)
+                    throw new AssertionError("4 appears 3 times, got " + SearchUtil.countOccurrences(a, 4));
+                if (SearchUtil.countOccurrences(a, 8) != 2)
+                    throw new AssertionError("8 appears 2 times, got " + SearchUtil.countOccurrences(a, 8));
+                if (SearchUtil.countOccurrences(a, 99) != 0)
+                    throw new AssertionError("99 never appears, got " + SearchUtil.countOccurrences(a, 99));
+                int[] empty = {};
+                if (SearchUtil.countOccurrences(empty, 5) != 0)
+                    throw new AssertionError("empty array should give 0, got " + SearchUtil.countOccurrences(empty, 5));
+            }
+        }

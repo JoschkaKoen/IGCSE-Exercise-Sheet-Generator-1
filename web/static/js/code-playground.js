@@ -59,6 +59,7 @@ function init(root) {
 
   initEditors();    // CodeMirror — regardless of isolation (typing needs no worker)
   wireExamples();   // ▶ on prose code blocks
+  highlightExamples();   // syntax-color the read-only example blocks (reuses the editor theme)
   setupSteps();     // progressive-disclosure reveal engine
   reconcileFromServer();   // hydrate revealed-count + completed tasks from the server (cross-device)
 
@@ -207,6 +208,27 @@ function init(root) {
         if (active && active.runBtn === btn) { stopActive(); return; }  // ■ pressed
         runExample(codeEl.textContent, out, btn);
       });
+    });
+  }
+
+  // Syntax-color the read-only ```python / ```java example blocks by reusing the
+  // editor's own tokenizer (CodeMirror.runMode) + theme: replace the <code>'s text
+  // with cm-* token spans and tag the <pre> with the theme class, so the same
+  // .cm-s-exercise palette the editor uses (16-code.css) colors them. Idempotent.
+  // codeEl.textContent still returns the original source after this, so the ▶ run
+  // button (which reads it at click time) is unaffected. No-ops to plain text if the
+  // runMode addon or the requested mode isn't loaded.
+  function highlightExamples() {
+    const CM = window.CodeMirror;
+    if (!CM || !CM.runMode) { setTimeout(highlightExamples, 30); return; }   // CM is a deferred global
+    root.querySelectorAll(".code-prose pre > code.language-python, .code-prose pre > code.language-java").forEach((codeEl) => {
+      const pre = codeEl.parentElement;
+      if (!pre || pre.classList.contains("cm-s-exercise")) return;   // already highlighted
+      const mode = codeEl.classList.contains("language-java") ? "text/x-java" : "python";
+      const src = codeEl.textContent;
+      codeEl.textContent = "";
+      CM.runMode(src, mode, codeEl);
+      pre.classList.add("cm-s-exercise");
     });
   }
 

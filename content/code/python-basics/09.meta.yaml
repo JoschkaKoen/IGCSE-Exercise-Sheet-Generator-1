@@ -35,12 +35,12 @@ tasks:
         assert total == 66, "4 + 8 + 15 + 16 + 23 should be 66"
   - id: find-largest
     prompt:
-      en: "Find the **largest** value in `nums` with a loop. Start `largest` at the first item, then check the rest. Store the answer in `largest` (it is 23)."
-      zh: "用循环找出 `nums` 中**最大**的值。把 `largest` 设为第一个元素,再检查其余元素。把答案存进 `largest`(它是 23)。"
+      en: "Find the **largest** value in `nums` with a loop. Start `largest` at the first item, then loop through `nums` and keep the bigger value. Store the answer in `largest` (it is 23)."
+      zh: "用循环找出 `nums` 中**最大**的值。把 `largest` 设为第一个元素,然后遍历 `nums`,保留更大的值。把答案存进 `largest`(它是 23)。"
     starter: |
       nums = [4, 8, 15, 16, 23]
       largest = nums[0]
-      # Check the other items and keep the biggest
+      # Loop through nums and keep the bigger value
     solution: |
       nums = [4, 8, 15, 16, 23]
       largest = nums[0]

@@ -2,4 +2,41 @@ title:
   en: The Create Performance Task (guided)
   zh: 创作型表现任务(引导)
 order: 15
-tasks: []
+tasks:
+  - id: assemble-create-parts
+    prompt:
+      en: "A warm-up that uses the scaffold's example data. (1) Keep the list `scores`. (2) Define `grade_for(score)` (one parameter) returning `\"A\"`/`\"B\"`/`\"C\"`/`\"F\"` by the rules above (>= 90, >= 70, >= 50, else `\"F\"`). (3) With selection (`if`) inside a loop over `scores`, count how many **pass** (grade is not `\"F\"`) into `pass_count`. (4) `print` a summary line."
+      zh: "用脚手架里的示例数据做一个热身。(1)保留列表 `scores`。(2)定义 `grade_for(score)`(一个参数),按上面的规则(>= 90、>= 70、>= 50,否则 `\"F\"`)返回 `\"A\"`/`\"B\"`/`\"C\"`/`\"F\"`。(3)在遍历 `scores` 的循环里用选择(`if`),把**通过**(等级不是 `\"F\"`)的数量数进 `pass_count`。(4)`print` 一行总结。"
+    starter: |
+      scores = [72, 95, 58, 88, 40, 67]
+
+      # 1) Define grade_for(score): return "A"/"B"/"C"/"F" by the rules (>= 90, >= 70, >= 50, else "F")
+
+      pass_count = 0
+      # 2) Loop over scores; when the grade is not "F", add 1 to pass_count
+      # 3) print a summary line
+    solution: |
+      scores = [72, 95, 58, 88, 40, 67]
+
+      def grade_for(score):
+          if score >= 90:
+              return "A"
+          elif score >= 70:
+              return "B"
+          elif score >= 50:
+              return "C"
+          else:
+              return "F"
+
+      pass_count = 0
+      for s in scores:
+          if grade_for(s) != "F":
+              pass_count = pass_count + 1
+      print(f"{pass_count} out of {len(scores)} passed")
+    check:
+      kind: asserts
+      code: |
+        assert isinstance(scores, list) and len(scores) >= 1, "keep a list of values"
+        assert callable(grade_for), "define a procedure grade_for(score)"
+        assert grade_for(95) == "A" and grade_for(72) == "B" and grade_for(58) == "C" and grade_for(40) == "F", "grade_for should follow the rules"
+        assert pass_count == 5, f"5 of the 6 scores pass; pass_count was {pass_count}"

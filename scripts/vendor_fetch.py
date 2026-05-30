@@ -12,7 +12,7 @@ Resources fetched:
   - pdfjs-dist 4.6.82 (pdf.mjs + pdf.worker.mjs + cmaps/ + standard_fonts/)
   - Chart.js 4.4.6 (UMD min)
   - Pyodide 0.29.4 (pyodide.mjs + asm.js + asm.wasm + python_stdlib.zip + lock.json)
-  - CodeMirror 5.65.18 (lib + python mode + edit/selection/display addons; theme is custom CSS)
+  - CodeMirror 5.65.18 (lib + python/clike modes + edit/selection/display/runmode addons; theme is custom CSS)
 """
 from __future__ import annotations
 
@@ -232,11 +232,13 @@ def main() -> int:
         "lib/codemirror.js",
         "lib/codemirror.css",
         "mode/python/python.js",
+        "mode/clike/clike.js",
         "addon/edit/closebrackets.js",
         "addon/edit/matchbrackets.js",
         "addon/comment/comment.js",
         "addon/selection/active-line.js",
         "addon/display/placeholder.js",
+        "addon/runmode/runmode.js",
     ):
         download(
             f"https://cdn.jsdelivr.net/npm/codemirror@{CM_VER}/{p}",

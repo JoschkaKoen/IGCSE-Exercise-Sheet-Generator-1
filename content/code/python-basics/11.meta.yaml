@@ -46,7 +46,7 @@ tasks:
           pass
     solution: |
       def between(low, high, x):
-          return low <= x <= high
+          return low <= x and x <= high
     check:
       kind: asserts
       code: |

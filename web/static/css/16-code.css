@@ -25,6 +25,10 @@
   line-height: 1.5;    /* and not the airy prose line-height */
 }
 .code-prose pre code { background: none; padding: 0; }
+/* Highlighted example blocks: code-playground.js tags the <pre> with cm-s-exercise
+   and fills the <code> with cm-* token spans via CodeMirror.runMode, reusing the
+   editor palette below. This sets the base (untokenized) text to the editor's. */
+.code-prose pre.cm-s-exercise code { color: #e2e8f0; }
 
 .code-task-prompt code {
   background: rgba(148, 163, 184, .16);
@@ -241,3 +245,56 @@
 .code-continue:hover { background: rgba(34, 211, 238, .26); color: #a5f3fc; border-color: rgba(34, 211, 238, .5); }
 .code-continue:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(34, 211, 238, .6); }
 .code-continue svg { width: 15px; height: 15px; }
+
+/* ---- Landing index: per-course accent lesson cards ----
+   Mirrors the .practice-card system in 06-landing.css: one --accent-rgb var per
+   course (set on the [data-course] wrapper so the section label inherits it too)
+   drives the badge, label, hover border/gradient, chevron, and focus ring. The
+   neutral glass base stays on the card via Tailwind utilities; only accent-driven
+   bits live here, plus a polish layer (hover lift + glow, badge ring). */
+/* Cool palette (cyan→blue→indigo→violet, matching the hero gradient and the
+   site's space theme) — warm/green accents clashed with the dark-blue background. */
+[data-course]                 { --accent-rgb: 34, 211, 238; }   /* default cyan */
+[data-course="python-basics"] { --accent-rgb: 34, 211, 238; }   /* cyan */
+[data-course="a-level-cs"]    { --accent-rgb: 96, 165, 250; }   /* blue */
+[data-course="ap-csp"]        { --accent-rgb: 129, 140, 248; }  /* indigo */
+[data-course="ap-csa"]        { --accent-rgb: 167, 139, 250; }  /* violet */
+
+/* Transparency glass: a translucent fill plus a backdrop blur so the page (starfield
+   + gradient) shows through, frosted. Not glossy — see-through frosted glass. The
+   `background` shorthand intentionally clears Tailwind's gradient; `backdrop-filter`
+   overrides Tailwind's backdrop-blur-sm (this stylesheet loads after the bundle). */
+.code-card {
+  background: rgba(255, 255, 255, .05);
+  backdrop-filter: blur(16px) saturate(135%);
+  -webkit-backdrop-filter: blur(16px) saturate(135%);
+  border-color: rgba(255, 255, 255, .12);
+  transition: border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.code-card:hover {
+  border-color: rgba(var(--accent-rgb), .45);
+  background: rgba(var(--accent-rgb), .08);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -12px rgba(var(--accent-rgb), .45);
+}
+.code-card:focus-visible { outline: 2px solid rgba(var(--accent-rgb), .6); outline-offset: 1px; }
+
+/* Number square — translucent glass tile: see-through accent fill + its own frost,
+   ringed by a faint accent edge. Brightens with the card on hover. */
+.code-card-badge {
+  background: rgba(var(--accent-rgb), .12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgb(var(--accent-rgb));
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .28);
+  transition: background .18s ease, box-shadow .18s ease;
+}
+.code-card:hover .code-card-badge {
+  background: rgba(var(--accent-rgb), .2);
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .45);
+}
+.code-card-sub { color: #94a3b8; }   /* slate-400 — lifted from slate-500 for readability */
+.code-card-chevron { color: rgba(var(--accent-rgb), .5); transition: color .18s ease, transform .18s ease; }
+.code-card:hover .code-card-chevron { color: rgb(var(--accent-rgb)); transform: translateX(2px); }
+
+.code-course-label { color: rgb(var(--accent-rgb)); }   /* section label, colored to its block */

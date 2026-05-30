@@ -2,4 +2,61 @@ title:
   en: The Internet and how data travels
   zh: 互联网与数据如何传输
 order: 12
-tasks: []
+tasks:
+  - id: reassemble
+    prompt:
+      en: "**TCP** puts packets back in order by their **number**. `packets` is a list of `[order, text]` pairs that arrived shuffled. Write `reassemble(packets)` that sorts them by `order` and returns the joined text. Example: `reassemble([[2, \"O FR\"], [1, \"HELL\"], [3, \"IEND\"]])` is `\"HELLO FRIEND\"`."
+      zh: "**TCP** 会按数据包的**编号**把它们重新排好。`packets` 是乱序到达的 `[编号, 文本]` 对的列表。编写 `reassemble(packets)`,按 `order` 排序并返回拼接后的文本。例如:`reassemble([[2, \"O FR\"], [1, \"HELL\"], [3, \"IEND\"]])` 是 `\"HELLO FRIEND\"`。"
+    starter: |
+      def reassemble(packets):
+          # Sort the packets by their order number, then join the text pieces
+          pass
+    solution: |
+      def reassemble(packets):
+          ordered = sorted(packets)
+          return "".join(text for order, text in ordered)
+    check:
+      kind: asserts
+      code: |
+        assert reassemble([[2, "O FR"], [1, "HELL"], [3, "IEND"]]) == "HELLO FRIEND", "reorder by number"
+        assert reassemble([[1, "A"], [2, "B"], [3, "C"]]) == "ABC", "already in order"
+        assert reassemble([]) == "", "no packets -> empty string"
+        assert reassemble([[1, "only"]]) == "only", "a single packet"
+  - id: split-into-packets
+    prompt:
+      en: "Big data is cut into fixed-size **packets**. Write `split(text, size)` that returns a list of `[order, chunk]` pairs (order starts at `1`), each chunk at most `size` characters. Example: `split(\"HELLO FRIEND\", 4)` is `[[1, \"HELL\"], [2, \"O FR\"], [3, \"IEND\"]]`."
+      zh: "大的数据会被切成固定大小的**数据包**。编写 `split(text, size)`,返回 `[编号, 片段]` 对的列表(编号从 `1` 开始),每个片段最多 `size` 个字符。例如:`split(\"HELLO FRIEND\", 4)` 是 `[[1, \"HELL\"], [2, \"O FR\"], [3, \"IEND\"]]`。"
+    starter: |
+      def split(text, size):
+          # Walk the text in steps of size; number each chunk from 1
+          pass
+    solution: |
+      def split(text, size):
+          packets = []
+          for i in range(0, len(text), size):
+              packets.append([len(packets) + 1, text[i:i + size]])
+          return packets
+    check:
+      kind: asserts
+      code: |
+        assert split("HELLO FRIEND", 4) == [[1, "HELL"], [2, "O FR"], [3, "IEND"]], "chunk and number"
+        assert split("", 4) == [], "empty text -> no packets"
+        assert split("HI", 4) == [[1, "HI"]], "shorter than one packet"
+        assert split("ABCD", 2) == [[1, "AB"], [2, "CD"]], "even split"
+  - id: route-around-failure
+    prompt:
+      en: "**Redundancy** gives more than one path, so the network can route around a failure. `paths` is a list of routes (each a list of router names). A route works only if it avoids the `broken` router. Write `working_routes(paths, broken)` returning the routes that do **not** contain `broken`."
+      zh: "**冗余**提供了不止一条路径,所以网络可以绕过故障。`paths` 是若干路线的列表(每条路线是路由器名字的列表)。只有避开了 `broken` 路由器的路线才可用。编写 `working_routes(paths, broken)`,返回**不**包含 `broken` 的那些路线。"
+    starter: |
+      def working_routes(paths, broken):
+          # Keep only the routes that do not include the broken router
+          pass
+    solution: |
+      def working_routes(paths, broken):
+          return [p for p in paths if broken not in p]
+    check:
+      kind: asserts
+      code: |
+        assert working_routes([["A", "B"], ["C", "D"]], "B") == [["C", "D"]], "drop the route through B"
+        assert working_routes([["A", "B"], ["C", "D"]], "Z") == [["A", "B"], ["C", "D"]], "nothing broken -> all routes work"
+        assert working_routes([["A", "B"]], "A") == [], "the only path is broken -> none"

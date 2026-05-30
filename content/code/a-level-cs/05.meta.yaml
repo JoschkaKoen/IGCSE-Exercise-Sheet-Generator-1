@@ -58,3 +58,23 @@ tasks:
         served = serve(line)
         assert served == "Sam", "the front of the line is served first"
         assert line == ["Mia", "Leo"], "the served person leaves the line"
+  - id: peek-front
+    prompt:
+      en: "Write `front(queue)` that **returns** the front item **without** removing it, so the queue is unchanged. If the queue is empty, return `None`."
+      zh: "编写 `front(queue)`,**返回**队首元素但**不**移除它,因此队列保持不变。如果队列为空,返回 `None`。"
+    starter: |
+      def front(queue):
+          # Return the front item without removing it (None if empty)
+          pass
+    solution: |
+      def front(queue):
+          if len(queue) == 0:
+              return None
+          return queue[0]
+    check:
+      kind: asserts
+      code: |
+        q = ["a", "b", "c"]
+        assert front(q) == "a", "front returns the first item"
+        assert q == ["a", "b", "c"], "front does not remove anything"
+        assert front([]) is None, "an empty queue has no front"

@@ -5,11 +5,10 @@ order: 4
 tasks:
   - id: greet
     prompt:
-      en: "The first line reads a name with `input()`. Print `Hi, ` then the name then `!`. For the input `Sam`, the output should be `Hi, Sam!`."
-      zh: "第一行用 `input()` 读取一个名字。请输出 `Hi, `、名字,再加 `!`。当输入为 `Sam` 时,应输出 `Hi, Sam!`。"
+      en: "Read a name with `input()`, then print `Hi, ` then the name then `!`. For the input `Sam`, the output should be `Hi, Sam!`."
+      zh: "用 `input()` 读取一个名字,然后输出 `Hi, `、名字,再加 `!`。当输入为 `Sam` 时,应输出 `Hi, Sam!`。"
     starter: |
-      name = input()
-      # Print the greeting below
+      # Read a name with input(), then print the greeting
     stdin: "Sam\n"
     solution: |
       name = input()
@@ -23,7 +22,7 @@ tasks:
       en: "Read a whole number with `input()`, convert it with `int(...)`, then print the number **plus 100**. For input `7`, the output should be `107`."
       zh: "用 `input()` 读取一个整数,用 `int(...)` 转换,然后打印这个数**加 100** 的结果。当输入为 `7` 时,应输出 `107`。"
     starter: |
-      # Read a number, add 100, and print it
+      # Read a number with int(input()), add 100, then print it
     stdin: "7\n"
     solution: |
       n = int(input())
@@ -37,7 +36,7 @@ tasks:
       en: "Read a whole number, convert it with `int(...)`, then print its **square** (the number times itself). For input `5`, the output should be `25`."
       zh: "读取一个整数,用 `int(...)` 转换,然后打印它的**平方**(自己乘自己)。当输入为 `5` 时,应输出 `25`。"
     starter: |
-      # Read a number and print its square
+      # Read a number with int(input()), then print its square
     stdin: "5\n"
     solution: |
       n = int(input())
