@@ -35,7 +35,8 @@ services:
   # all Linux caps dropped, no-new-privileges, pid/mem limits. Reachable ONLY from
   # `web` over the private network — NEVER expose a host port for it.
   java-sandbox:
-    build: .
+    # Image is built once by `web` above — a second `build: .` made Compose export
+    # the same ~5 GB layer twice and lengthened deploys.
     image: exercise-app
     restart: unless-stopped
     command: ["uvicorn", "web.java_sandbox_server:app", "--host", "0.0.0.0", "--port", "8090"]
