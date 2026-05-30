@@ -22,6 +22,19 @@ uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
 
 Then open [http://127.0.0.1:8001](http://127.0.0.1:8001) (port 8000 often clashes with Docker on macOS).
 
+### Tailwind CSS is pre-compiled — recompile after changing classes
+
+The UI's Tailwind utilities are **pre-built into `web/static/css/00-tailwind.css`** (committed). The Tailwind Play CDN (which compiled in-browser on every page load — slow on large DOMs like the practice landing, ~400 KB render-blocking) has been **removed**. Theme (Sora/Outfit fonts + custom `space`/`commerce` colors) plus a safelist for interpolated subject-card colors live in `web/tailwind.config.js`.
+
+**If you add or remove a Tailwind utility class in any template or JS file, you MUST rebuild and commit the CSS** — unlike the old browser JIT, a class absent at build time simply has no styles:
+
+```
+python scripts/build_tailwind.py         # downloads the pinned standalone CLI into a gitignored .cache/, rebuilds 00-tailwind.css
+git add web/static/css/00-tailwind.css   # commit it — the committed file is what ships (the Docker image does NOT rebuild it)
+```
+
+Dynamically-interpolated classes (e.g. `text-{{ theme }}-400` built in Jinja) can't be seen by the scanner — add their shape to the `safelist` in `web/tailwind.config.js`. The Tailwind version is pinned in `scripts/build_tailwind.py`; bump it deliberately and re-verify rendering.
+
 Web grade jobs upload to `output/xscore/grade_uploads/<job_id>/` (segregated from CLI runs, which use `output/xscore/<exam>/<timestamp>/`). See `web/routes/grade_jobs.py` and `web/grade_service.py`.
 
 The **Learn page** (`web/routes/learn.py`) surfaces syllabus-content lookups powered by `web/syllabus_content.py`, `web/syllabus_topics.py`, and `web/exam_questions.py`. The last reuses the scaffold chain through `eXam.xscore_adapter.load_scaffold_api()` to extract structured question YAML from empty exam papers (same flow as `eXam/bank.py`, minus the mark-scheme branch and the per-question snippet renderer).
