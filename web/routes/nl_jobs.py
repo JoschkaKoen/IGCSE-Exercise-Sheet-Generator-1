@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import asyncio
 import io
+import json
 import logging
 import threading
 import zipfile
@@ -24,6 +25,7 @@ from eXercise.natural_language import MAX_NATURAL_LANGUAGE_INSTRUCTION_CHARS
 
 from .._state import create_background_task, store
 from .. import jobs_db
+from ..job_rehydrate import rehydrate_done_job
 from ..analytics import track_event, track_request_event
 from ..analytics.cost_overview import rollup_from_cost_json
 from ..jobs import JobRecord, JobStatus
@@ -116,6 +118,15 @@ async def _run_job(job_id: str, prompt: str, session_id: str | None = None) -> N
                 artifact_dir=main_pdf.parent,
                 total_cost_rmb=float(rollup.get("ai_cost_rmb") or 0.0),
             )
+            # Persist the nav overview so a rehydrated preview (after the live
+            # record is evicted) can still build the per-exercise jump panel.
+            # Best-effort: a write/serialize fault must never fail the run.
+            try:
+                (main_pdf.parent / "overview.json").write_text(
+                    json.dumps(overview), encoding="utf-8"
+                )
+            except Exception:  # noqa: BLE001 — best-effort persistence
+                logging.debug("overview.json write failed for %s", job_id, exc_info=True)
         _finish("ok", main_pdf)
         # Ranking is now on-demand: started only when the user clicks the ranking button.
 
@@ -130,6 +141,24 @@ async def _run_job(job_id: str, prompt: str, session_id: str | None = None) -> N
         if persist:
             jobs_db.mark_failed(job_id, error=f"Unexpected error: {e}")
         _finish("error", None)
+
+
+def resolve_job(job_id: str) -> JobRecord | None:
+    """In-memory job, or one rehydrated from disk + adopted back into the store.
+
+    Live jobs hit the store directly. For a job evicted by the 24 h TTL or lost
+    on restart, rebuild it from its on-disk artifacts (web/job_rehydrate.py) and
+    adopt it so downloads, preview, and on-demand ranking all work again. Returns
+    None only when neither the store nor disk can produce the job.
+    """
+    rec = store.get(job_id)
+    if rec is not None:
+        return rec
+    reh = rehydrate_done_job(job_id)
+    if reh is None:
+        return None
+    store.put_if_absent(reh)      # adopt → subsequent calls hit the store
+    return store.get(job_id)      # return a consistent snapshot
 
 
 def _pdf_file_response(rec: JobRecord | None, field: str, inline: bool) -> FileResponse:
@@ -184,7 +213,7 @@ async def job_status(
     ``_LOG_LINES_PER_RESPONSE_CAP`` per response). ``log_offset`` is the index
     the client should send back as ``?since=`` on its next poll.
     """
-    rec = store.get(job_id)
+    rec = resolve_job(job_id)
     if rec is None:
         raise HTTPException(status_code=404, detail="Job not found")
     total_lines = len(rec.log_lines)
@@ -238,38 +267,38 @@ async def job_status(
 
 @router.get("/api/jobs/{job_id}/file")
 async def download_job_file(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    return _pdf_file_response(store.get(job_id), "output_pdf", inline)
+    return _pdf_file_response(resolve_job(job_id), "output_pdf", inline)
 
 
 @router.get("/api/jobs/{job_id}/answers")
 async def download_job_answers(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    return _pdf_file_response(store.get(job_id), "answers_pdf", inline)
+    return _pdf_file_response(resolve_job(job_id), "answers_pdf", inline)
 
 
 @router.get("/api/jobs/{job_id}/four-up")
 async def download_job_four_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    return _pdf_file_response(store.get(job_id), "exercise_4up_pdf", inline)
+    return _pdf_file_response(resolve_job(job_id), "exercise_4up_pdf", inline)
 
 
 @router.get("/api/jobs/{job_id}/two-up")
 async def download_job_two_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    return _pdf_file_response(store.get(job_id), "exercise_2up_pdf", inline)
+    return _pdf_file_response(resolve_job(job_id), "exercise_2up_pdf", inline)
 
 
 @router.get("/api/jobs/{job_id}/answers-four-up")
 async def download_job_answers_four_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    return _pdf_file_response(store.get(job_id), "answers_4up_pdf", inline)
+    return _pdf_file_response(resolve_job(job_id), "answers_4up_pdf", inline)
 
 
 @router.get("/api/jobs/{job_id}/answers-two-up")
 async def download_job_answers_two_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    return _pdf_file_response(store.get(job_id), "answers_2up_pdf", inline)
+    return _pdf_file_response(resolve_job(job_id), "answers_2up_pdf", inline)
 
 
 @router.post("/api/jobs/{job_id}/ranking/start")
 async def start_job_ranking(job_id: str) -> JSONResponse:
     """Start the ranking background thread on demand (idempotent if already started)."""
-    job = store.get(job_id)
+    job = resolve_job(job_id)
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
     if job.status != JobStatus.DONE:
@@ -287,12 +316,12 @@ async def start_job_ranking(job_id: str) -> JSONResponse:
 
 @router.get("/api/jobs/{job_id}/ranking")
 async def download_job_ranking(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    return _pdf_file_response(store.get(job_id), "ranking_pdf", inline)
+    return _pdf_file_response(resolve_job(job_id), "ranking_pdf", inline)
 
 
 def _cost_file_response(job_id: str, name: str, media_type: str, inline: bool) -> FileResponse:
     """Serve ``output/<stem>/ai_costs/<name>`` for a completed NL job, or 404."""
-    rec = store.get(job_id)
+    rec = resolve_job(job_id)
     if rec is None or rec.status != JobStatus.DONE or rec.output_pdf is None:
         raise HTTPException(status_code=404, detail="Not available")
     p = rec.output_pdf.parent / "ai_costs" / name
@@ -319,7 +348,7 @@ async def download_job_cost_md(job_id: str, inline: bool = Query(False)) -> File
 @router.get("/api/jobs/{job_id}/download-all")
 async def download_job_all_zip(job_id: str) -> Response:
     """ZIP of exercise sheet plus mark scheme, n-up PDFs, and AI cost summary when present."""
-    rec = store.get(job_id)
+    rec = resolve_job(job_id)
     if rec is None or rec.status != JobStatus.DONE or rec.output_pdf is None:
         raise HTTPException(status_code=404, detail="Not available")
     buf = io.BytesIO()

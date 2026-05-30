@@ -104,6 +104,26 @@ def mark_failed(job_id: str, *, error: str) -> None:
         _log.debug("jobs_db.mark_failed failed for %s", job_id, exc_info=True)
 
 
+def get(job_id: str) -> dict | None:
+    """Fetch a single job row by id (any user), or None on miss / DB error.
+
+    Returns the same columns as ``list_for_user`` (minus the computed
+    ``artifact_exists``) so the rehydration path can reconstruct a record's
+    artifacts from ``artifact_dir`` on disk.
+    """
+    try:
+        with connect() as conn:
+            row = conn.execute(
+                "SELECT id, user_id, kind, title, status, error, created_at, "
+                "       completed_at, artifact_dir, total_cost_rmb "
+                "FROM jobs WHERE id = ?",
+                (job_id,),
+            ).fetchone()
+    except sqlite3.Error:
+        return None
+    return dict(row) if row else None
+
+
 def list_for_user(user_id: int, *, kind: str, limit: int = 50) -> list[dict]:
     """Return recent jobs for the dashboard tables.
 

@@ -602,9 +602,41 @@ document.querySelectorAll('.quick-fill').forEach(function (btn) {
   });
 });
 
+// ─── Preview entry (shared) ───────────────────────────────────────────────────
+
+// Apply a /api/jobs/<id> "done" payload and enter the tabbed PDF preview.
+// Shared by the form-submit success path, the ?job=<id> deep link, and session restore.
+function applyAndEnterPreview(data) {
+  applyDoneData(data);
+  showResultPanel();
+  return enterPreviewMode(data, true)
+    .then(function () { if (!data.ranking_url) setRankingIdle(); });
+}
+
+// ─── Deep link: /?job=<id> opens that run's preview (e.g. from the dashboard) ──
+
+(function () {
+  const jobId = new URLSearchParams(window.location.search).get('job');
+  if (!jobId) return;
+  state.currentJobId = jobId;
+  fetchJobStatus(jobId)
+    .then(function (data) {
+      if (data && data.status === 'done' && data.download_url) return applyAndEnterPreview(data);
+      throw new Error(window.i18n['workspace.err.preview_unavailable']);
+    })
+    .catch(function (err) {
+      if (errorPanel) {
+        errorPanel.textContent = (err && err.message) ? err.message : String(err);
+        errorPanel.classList.remove('hidden');
+      }
+    });
+})();
+
 // ─── Session restore ──────────────────────────────────────────────────────────
 
 (function () {
+  // A ?job=<id> deep link takes precedence over a stored preview.
+  if (new URLSearchParams(window.location.search).get('job')) return;
   const savedStr = sessionStorage.getItem('previewState');
   if (!savedStr) return;
   let saved;
@@ -612,17 +644,15 @@ document.querySelectorAll('.quick-fill').forEach(function (btn) {
   if (!saved || !saved.doneData || !saved.prompt) { sessionStorage.removeItem('previewState'); return; }
   promptEl.value = saved.prompt;
   if (saved.jobId) state.currentJobId = saved.jobId;
-  applyDoneData(saved.doneData);
-  showResultPanel();
-  enterPreviewMode(saved.doneData, true)
-    .then(function () { if (!saved.doneData.ranking_url) setRankingIdle(); })
-    .catch(function () {});
+  applyAndEnterPreview(saved.doneData).catch(function () {});
 })();
 
 // ─── Form submit ──────────────────────────────────────────────────────────────
 
 form.addEventListener('submit', async function (e) {
   e.preventDefault();
+  // A fresh run supersedes any ?job=<id> deep link still in the URL.
+  if (window.location.search) { try { history.replaceState({}, '', window.location.pathname); } catch (_) {} }
   const prompt = promptEl.value.trim();
   if (!prompt) return;
 
@@ -659,13 +689,10 @@ form.addEventListener('submit', async function (e) {
     applyLogLine(await fetchJobStatus(id));
     const done = await pollJob(id, applyLogLine);
 
-    applyDoneData(done);
     try {
       sessionStorage.setItem('previewState', JSON.stringify({ doneData: done, prompt: prompt, jobId: id }));
     } catch (e) {}
-    showResultPanel();
-    await enterPreviewMode(done);
-    if (!done.ranking_url) setRankingIdle();
+    await applyAndEnterPreview(done);
   } catch (err) {
     errorPanel.textContent = err.message || String(err);
     errorPanel.classList.remove('hidden');

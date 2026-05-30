@@ -178,7 +178,7 @@
                         data-subject="igcse_business_studies"
                         role="tab" aria-selected="false" aria-controls="grid-business">
                   <span class="flex items-center gap-2 whitespace-nowrap">
-                    <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-teal-400"></span>
                     Business Studies
                   </span>
                 </button>
@@ -187,7 +187,7 @@
                         data-subject="igcse_economics"
                         role="tab" aria-selected="false" aria-controls="grid-economics">
                   <span class="flex items-center gap-2 whitespace-nowrap">
-                    <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-teal-300"></span>
                     Economics
                   </span>
                 </button>
@@ -240,7 +240,7 @@
                         data-subject="a_level_business"
                         role="tab" aria-selected="false" aria-controls="grid-a-level-business">
                   <span class="flex items-center gap-2 whitespace-nowrap">
-                    <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-teal-400"></span>
                     Business
                   </span>
                 </button>
@@ -249,7 +249,7 @@
                         data-subject="a_level_economics"
                         role="tab" aria-selected="false" aria-controls="grid-a-level-economics">
                   <span class="flex items-center gap-2 whitespace-nowrap">
-                    <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-teal-300"></span>
                     Economics
                   </span>
                 </button>
@@ -267,7 +267,7 @@
                         data-subject="a_level_further_mathematics"
                         role="tab" aria-selected="false" aria-controls="grid-a-level-further-math">
                   <span class="flex items-center gap-2 whitespace-nowrap">
-                    <span class="h-2 w-2 shrink-0 rounded-full bg-fuchsia-400"></span>
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-indigo-400"></span>
                     Further Mathematics
                   </span>
                 </button>
@@ -362,12 +362,12 @@ var tabs = [
   { id: 'tab-a-level-biology',   subject: 'a_level_biology',          gridId: 'grid-a-level-biology',   activeClass: 'tab-active-emerald', theme: 'emerald', label: 'Biology'          },
   { id: 'tab-a-level-chemistry', subject: 'a_level_chemistry',        gridId: 'grid-a-level-chemistry', activeClass: 'tab-active-slate',   theme: 'slate',   label: 'Chemistry'        },
   { id: 'tab-a-level-cs',        subject: 'a_level_computer_science', gridId: 'grid-a-level-cs',        activeClass: 'tab-active-violet',  theme: 'violet',  label: 'Computer Science' },
-  { id: 'tab-business',          subject: 'igcse_business_studies',   gridId: 'grid-business',          activeClass: 'tab-active-amber',   theme: 'amber',   label: 'Business Studies' },
-  { id: 'tab-economics',         subject: 'igcse_economics',          gridId: 'grid-economics',         activeClass: 'tab-active-rose',    theme: 'rose',    label: 'Economics'        },
-  { id: 'tab-a-level-business',  subject: 'a_level_business',         gridId: 'grid-a-level-business',  activeClass: 'tab-active-amber',   theme: 'amber',   label: 'Business'         },
-  { id: 'tab-a-level-economics', subject: 'a_level_economics',        gridId: 'grid-a-level-economics', activeClass: 'tab-active-rose',    theme: 'rose',    label: 'Economics'        },
+  { id: 'tab-business',          subject: 'igcse_business_studies',   gridId: 'grid-business',          activeClass: 'tab-active-teal',   theme: 'teal',   label: 'Business Studies' },
+  { id: 'tab-economics',         subject: 'igcse_economics',          gridId: 'grid-economics',         activeClass: 'tab-active-teal',     theme: 'teal',    label: 'Economics'        },
+  { id: 'tab-a-level-business',  subject: 'a_level_business',         gridId: 'grid-a-level-business',  activeClass: 'tab-active-teal',   theme: 'teal',   label: 'Business'         },
+  { id: 'tab-a-level-economics', subject: 'a_level_economics',        gridId: 'grid-a-level-economics', activeClass: 'tab-active-teal',     theme: 'teal',    label: 'Economics'        },
   { id: 'tab-a-level-math',         subject: 'a_level_mathematics',         gridId: 'grid-a-level-math',         activeClass: 'tab-active-blue',    theme: 'blue',    label: 'Mathematics'         },
-  { id: 'tab-a-level-further-math', subject: 'a_level_further_mathematics', gridId: 'grid-a-level-further-math', activeClass: 'tab-active-fuchsia', theme: 'fuchsia', label: 'Further Mathematics' },
+  { id: 'tab-a-level-further-math', subject: 'a_level_further_mathematics', gridId: 'grid-a-level-further-math', activeClass: 'tab-active-indigo',  theme: 'indigo',  label: 'Further Mathematics' },
 ];
 tabs.forEach(function (t) {
   t.el   = document.getElementById(t.id);

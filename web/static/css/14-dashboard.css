@@ -46,18 +46,65 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------- Download links inside job tables ---------- */
-.dashboard-dl-link {
-  color: rgb(103, 232, 249);
-  text-decoration: underline;
-  margin-right: 0.75rem;
+/* ---------- Action buttons inside job tables ---------- */
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+.dashboard-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgb(203, 213, 225);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1;
   white-space: nowrap;
+  text-decoration: none;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.15s ease;
 }
-.dashboard-dl-link:hover {
-  color: rgb(165, 243, 252);
+.dashboard-action-btn svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
 }
-.dashboard-dl-link:last-child {
-  margin-right: 0;
+.dashboard-action-btn:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgb(241, 245, 249);
+  transform: translateY(-1px);
+}
+.dashboard-action-btn:active {
+  transform: translateY(0);
+}
+.dashboard-action-btn:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.45);
+  outline-offset: 2px;
+}
+/* Preview = primary (sky-tinted), echoes .dl-icon-btn--sky. Defined after the
+   base rule so its border/bg/color win when both classes are applied. */
+.dashboard-action-btn--primary {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.2) 0%, rgba(56, 189, 248, 0.08) 100%);
+  color: rgb(125, 211, 252);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 12px -4px rgba(56, 189, 248, 0.25);
+}
+.dashboard-action-btn--primary:hover {
+  border-color: rgba(125, 211, 252, 0.55);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0.16) 100%);
+  color: rgb(224, 242, 254);
 }
 
 /* ---------- eXam activity sub-blocks ---------- */

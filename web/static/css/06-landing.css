@@ -108,82 +108,84 @@
   animation: quick-fill-rebound 0.40s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Quick-fill button color palette — positional :nth-child mapping must stay in
-   lockstep with the button order in workspace_left.html. Current order:
-     1  Computer Science       8  A-Level Physics
-     2  Physics                9  A-Level Biology
-     3  Chemistry             10  A-Level Chemistry
-     4  Mathematics           11  A-Level CS
-     5  Biology               12  A-Level Business
-     6  Business Studies      13  A-Level Economics
-     7  Economics                                                              */
+/* Quick-fill button glow palette. The buttons live in TWO grids (IGCSE, then
+   A-Level), so :nth-child restarts at 1 in each grid, and the grids order their
+   subjects differently from position 4 on. Positions 1-3 (CS, Physics,
+   Chemistry) line up in both grids and stay unscoped; positions 4+ are scoped
+   per grid via [data-level]. Keep in lockstep with workspace_left.html.
+     IGCSE   1 CS  2 Physics  3 Chemistry  4 Maths    5 Biology   6 Business   7 Economics
+     A-Level 1 CS  2 Physics  3 Chemistry  4 Biology  5 Business  6 Economics  7 Maths  8 Further */
 
-/* violet — Computer Science + A-Level Computer Science */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1),
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(11) {
+/* violet - Computer Science (position 1 in both grids) */
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1) {
   box-shadow: 0 0 0 0.5px rgba(167, 139, 250, 0.12), 0 4px 18px -6px rgba(139, 92, 246, 0.28);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1):hover,
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(11):hover {
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1):hover {
   box-shadow: 0 0 0 0.5px rgba(167, 139, 250, 0.22), 0 12px 36px -6px rgba(139, 92, 246, 0.45);
 }
 
-/* cyan — Physics + A-Level Physics */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2),
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(8) {
+/* cyan - Physics (position 2 in both grids) */
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2) {
   box-shadow: 0 0 0 0.5px rgba(6, 182, 212, 0.12), 0 4px 18px -6px rgba(6, 182, 212, 0.25);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2):hover,
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(8):hover {
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2):hover {
   box-shadow: 0 0 0 0.5px rgba(6, 182, 212, 0.22), 0 12px 36px -6px rgba(34, 211, 238, 0.42);
 }
 
-/* slate — Chemistry + A-Level Chemistry */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3),
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(10) {
+/* slate - Chemistry (position 3 in both grids) */
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3) {
   box-shadow: 0 0 0 0.5px rgba(148, 163, 184, 0.10), 0 4px 18px -6px rgba(148, 163, 184, 0.18);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3):hover,
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(10):hover {
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3):hover {
   box-shadow: 0 0 0 0.5px rgba(203, 213, 225, 0.20), 0 12px 36px -6px rgba(203, 213, 225, 0.32);
 }
 
-/* blue — Mathematics */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(4) {
+/* blue - Mathematics (IGCSE 4, A-Level 7) */
+#generate-workspace:not(.preview-mode) #gen-form [data-level="igcse"] .quick-fill:nth-child(4),
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(7) {
   box-shadow: 0 0 0 0.5px rgba(59, 130, 246, 0.12), 0 4px 18px -6px rgba(59, 130, 246, 0.25);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(4):hover {
+#generate-workspace:not(.preview-mode) #gen-form [data-level="igcse"] .quick-fill:nth-child(4):hover,
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(7):hover {
   box-shadow: 0 0 0 0.5px rgba(59, 130, 246, 0.22), 0 12px 36px -6px rgba(96, 165, 250, 0.42);
 }
 
-/* emerald — Biology + A-Level Biology */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(5),
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(9) {
+/* emerald - Biology (IGCSE 5, A-Level 4) */
+#generate-workspace:not(.preview-mode) #gen-form [data-level="igcse"] .quick-fill:nth-child(5),
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(4) {
   box-shadow: 0 0 0 0.5px rgba(16, 185, 129, 0.12), 0 4px 18px -6px rgba(16, 185, 129, 0.25);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(5):hover,
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(9):hover {
+#generate-workspace:not(.preview-mode) #gen-form [data-level="igcse"] .quick-fill:nth-child(5):hover,
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(4):hover {
   box-shadow: 0 0 0 0.5px rgba(16, 185, 129, 0.22), 0 12px 36px -6px rgba(16, 185, 129, 0.42);
 }
 
-/* amber — Business Studies + A-Level Business */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(6),
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(12) {
-  box-shadow: 0 0 0 0.5px rgba(251, 146, 60, 0.12), 0 4px 18px -6px rgba(245, 158, 11, 0.28);
+/* commerce (steel blue-gray) - Business (IGCSE 6, A-Level 5) — PREVIEW pending approval */
+#generate-workspace:not(.preview-mode) #gen-form [data-level="igcse"] .quick-fill:nth-child(6),
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(5) {
+  box-shadow: 0 0 0 0.5px rgba(94, 122, 166, 0.12), 0 4px 18px -6px rgba(72, 95, 131, 0.28);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(6):hover,
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(12):hover {
-  box-shadow: 0 0 0 0.5px rgba(251, 146, 60, 0.22), 0 12px 36px -6px rgba(245, 158, 11, 0.45);
+#generate-workspace:not(.preview-mode) #gen-form [data-level="igcse"] .quick-fill:nth-child(6):hover,
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(5):hover {
+  box-shadow: 0 0 0 0.5px rgba(94, 122, 166, 0.22), 0 12px 36px -6px rgba(72, 95, 131, 0.45);
 }
 
-/* rose — Economics + A-Level Economics */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(7),
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(13) {
-  box-shadow: 0 0 0 0.5px rgba(244, 63, 94, 0.12), 0 4px 18px -6px rgba(225, 29, 72, 0.28);
+/* commerce (lighter) - Economics (IGCSE 7, A-Level 6) — PREVIEW pending approval */
+#generate-workspace:not(.preview-mode) #gen-form [data-level="igcse"] .quick-fill:nth-child(7),
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(6) {
+  box-shadow: 0 0 0 0.5px rgba(125, 151, 194, 0.12), 0 4px 18px -6px rgba(94, 122, 166, 0.28);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(7):hover,
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(13):hover {
-  box-shadow: 0 0 0 0.5px rgba(244, 63, 94, 0.22), 0 12px 36px -6px rgba(225, 29, 72, 0.45);
+#generate-workspace:not(.preview-mode) #gen-form [data-level="igcse"] .quick-fill:nth-child(7):hover,
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(6):hover {
+  box-shadow: 0 0 0 0.5px rgba(125, 151, 194, 0.22), 0 12px 36px -6px rgba(94, 122, 166, 0.45);
+}
+
+/* indigo - A-Level Further Mathematics (A-Level 8), sibling of Maths blue */
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(8) {
+  box-shadow: 0 0 0 0.5px rgba(99, 102, 241, 0.12), 0 4px 18px -6px rgba(99, 102, 241, 0.25);
+}
+#generate-workspace:not(.preview-mode) #gen-form [data-level="a-level"] .quick-fill:nth-child(8):hover {
+  box-shadow: 0 0 0 0.5px rgba(99, 102, 241, 0.22), 0 12px 36px -6px rgba(129, 140, 248, 0.42);
 }
 
 #generate-workspace:not(.preview-mode) #submit-btn.btn-space-primary {
@@ -294,10 +296,12 @@
   color: rgb(191 219 254);
 }
 
+/* Further Mathematics — same blue family as Mathematics, a deeper indigo tone
+   so the two A-Level maths stay distinguishable. */
 .subject-badge-a-level-further-mathematics {
-  background: rgba(232, 121, 249, 0.12);
-  border: 1px solid rgba(232, 121, 249, 0.25);
-  color: rgb(245 208 254);
+  background: rgba(129, 140, 248, 0.12);
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  color: rgb(199 210 254);
 }
 
 .subject-badge-igcse-biology,
@@ -314,18 +318,21 @@
   color: rgb(226 232 240);
 }
 
+/* Business & Economics — a cool teal pair, kept very similar so the two commerce
+   subjects blend with the cool palette. Business teal-400; Economics a lighter
+   teal-300 (distinct from Physics's cyan). */
 .subject-badge-igcse-business-studies,
 .subject-badge-a-level-business {
-  background: rgba(251, 146, 60, 0.12);
-  border: 1px solid rgba(251, 146, 60, 0.25);
-  color: rgb(254 215 170);
+  background: rgba(45, 212, 191, 0.12);
+  border: 1px solid rgba(45, 212, 191, 0.25);
+  color: rgb(153 246 228);
 }
 
 .subject-badge-igcse-economics,
 .subject-badge-a-level-economics {
-  background: rgba(244, 63, 94, 0.12);
-  border: 1px solid rgba(244, 63, 94, 0.25);
-  color: rgb(254 205 211);
+  background: rgba(94, 234, 212, 0.12);
+  border: 1px solid rgba(94, 234, 212, 0.25);
+  color: rgb(153 246 228);
 }
 
 /* ─── Hero icon float ────────────────────────────────────────────────────── */
@@ -435,13 +442,13 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .subject-badge-a-level-chemistry:hover        { filter: brightness(1.15) drop-shadow(0 0 5px rgba(203, 213, 225, 0.35)); }
 .subject-badge-igcse-mathematics:hover,
 .subject-badge-a-level-mathematics:hover      { filter: brightness(1.18) drop-shadow(0 0 6px rgba(96, 165, 250, 0.45)); }
-.subject-badge-a-level-further-mathematics:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(232, 121, 249, 0.45)); }
+.subject-badge-a-level-further-mathematics:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(129, 140, 248, 0.45)); }
 .subject-badge-igcse-biology:hover,
 .subject-badge-a-level-biology:hover          { filter: brightness(1.18) drop-shadow(0 0 6px rgba(16, 185, 129, 0.45)); }
 .subject-badge-igcse-business-studies:hover,
-.subject-badge-a-level-business:hover         { filter: brightness(1.18) drop-shadow(0 0 6px rgba(251, 146,  60, 0.45)); }
+.subject-badge-a-level-business:hover         { filter: brightness(1.18) drop-shadow(0 0 6px rgba(45, 212, 191, 0.45)); }
 .subject-badge-igcse-economics:hover,
-.subject-badge-a-level-economics:hover        { filter: brightness(1.18) drop-shadow(0 0 6px rgba(244,  63,  94, 0.45)); }
+.subject-badge-a-level-economics:hover        { filter: brightness(1.18) drop-shadow(0 0 6px rgba(94, 234, 212, 0.45)); }
 
 /* ─── Practice subject card ─────────────────────────────────────────────────
    Per-subject accent driven by a CSS variable so one rule set covers all cards.
@@ -457,15 +464,15 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .practice-card[data-subject="a_level_computer_science"] { --accent-rgb: 167, 139, 250; }
 .practice-card[data-subject="igcse_mathematics"],
 .practice-card[data-subject="a_level_mathematics"]      { --accent-rgb:  96, 165, 250; }
-.practice-card[data-subject="a_level_further_mathematics"] { --accent-rgb: 232, 121, 249; }
+.practice-card[data-subject="a_level_further_mathematics"] { --accent-rgb: 129, 140, 248; }
 .practice-card[data-subject="igcse_biology"],
 .practice-card[data-subject="a_level_biology"]          { --accent-rgb:  16, 185, 129; }
 .practice-card[data-subject="igcse_chemistry"],
 .practice-card[data-subject="a_level_chemistry"]        { --accent-rgb: 203, 213, 225; }
 .practice-card[data-subject="igcse_business_studies"],
-.practice-card[data-subject="a_level_business"]         { --accent-rgb: 251, 146,  60; }
+.practice-card[data-subject="a_level_business"]         { --accent-rgb: 45, 212, 191; }
 .practice-card[data-subject="igcse_economics"],
-.practice-card[data-subject="a_level_economics"]        { --accent-rgb: 244,  63,  94; }
+.practice-card[data-subject="a_level_economics"]        { --accent-rgb: 94, 234, 212; }
 
 .practice-card-icon-bg { background-color: rgba(var(--accent-rgb), 0.12); }
 .practice-card-icon    { color: rgb(var(--accent-rgb)); }
@@ -528,6 +535,13 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .learn-content-body tbody td:first-child {
   border-right: 1px solid rgba(255, 255, 255, 0.06);
 }
+/* Syllabus learning-objectives (the content_body macro — NOT handouts) render in
+   near-white slate-100 to match the A-Level numbered-list benchmark. IGCSE
+   subjects whose objectives are tables would otherwise inherit the yellow body. */
+.learn-content-body--syllabus,
+.learn-content-body--syllabus tbody td {
+  color: rgb(241, 245, 249);                       /* slate-100 — matches .learn-content-body ol */
+}
 .learn-content-body .math.inline,
 .learn-content-body .math.block {
   color: rgb(255, 255, 255);                       /* white — formulas and numbers */
@@ -535,8 +549,9 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 /* Textbook figures: white padded card so dark/transparent line art stays legible on navy. */
 .learn-content-body img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  max-width: min(100%, 44rem);   /* responsive shrink + ceiling for the widest figures */
+  height: auto;                  /* wins over the inline height attr → aspect ratio preserved under clamp */
+  box-sizing: border-box;        /* white-card padding counts within the injected width */
   margin: 1.25rem auto 0;
   border-radius: 0.5rem;
   background: #fff;

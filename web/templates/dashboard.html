@@ -4,6 +4,8 @@
   <link rel="stylesheet" href="{{ static_url('css/14-dashboard.css') }}" />
 {% endblock %}
 {% block content %}
+{% macro ic_preview() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>{% endmacro %}
+{% macro ic_download() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>{% endmacro %}
 <header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
   <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ t('dashboard.title') }}</h1>
   <div class="text-sm text-slate-400">
@@ -67,9 +69,12 @@
         </td>
         <td class="px-4 py-3 text-sm">
           {% if j.status == 'done' and j.artifact_exists %}
-            <a class="dashboard-dl-link" href="/api/jobs/{{ j.id }}/file">{{ t('dashboard.dl.exercise') }}</a>
-            <a class="dashboard-dl-link" href="/api/jobs/{{ j.id }}/answers">{{ t('dashboard.dl.answers') }}</a>
-            <a class="dashboard-dl-link" href="/api/jobs/{{ j.id }}/download-all">{{ t('dashboard.dl.all') }}</a>
+            <div class="dashboard-actions">
+              <a class="dashboard-action-btn dashboard-action-btn--primary" href="/?job={{ j.id }}" target="_blank" rel="noopener">{{ ic_preview() }}{{ t('dashboard.dl.preview') }}</a>
+              <a class="dashboard-action-btn" href="/api/jobs/{{ j.id }}/file">{{ ic_download() }}{{ t('dashboard.dl.exercise') }}</a>
+              <a class="dashboard-action-btn" href="/api/jobs/{{ j.id }}/answers">{{ ic_download() }}{{ t('dashboard.dl.answers') }}</a>
+              <a class="dashboard-action-btn" href="/api/jobs/{{ j.id }}/download-all">{{ ic_download() }}{{ t('dashboard.dl.all') }}</a>
+            </div>
           {% elif j.status == 'done' and not j.artifact_exists %}
             <span class="text-slate-500">{{ t('dashboard.expired') }}</span>
           {% else %}
@@ -117,9 +122,11 @@
         </td>
         <td class="px-4 py-3 text-sm">
           {% if j.status == 'done' and j.artifact_exists %}
-            <a class="dashboard-dl-link" href="/api/grade/jobs/{{ j.id }}/student-pdfs.zip">{{ t('dashboard.dl.student_pdfs') }}</a>
-            <a class="dashboard-dl-link" href="/api/grade/jobs/{{ j.id }}/class-report.pdf">{{ t('dashboard.dl.class_report') }}</a>
-            <a class="dashboard-dl-link" href="/api/grade/jobs/{{ j.id }}/review-queue">{{ t('dashboard.dl.review_queue') }}</a>
+            <div class="dashboard-actions">
+              <a class="dashboard-action-btn" href="/api/grade/jobs/{{ j.id }}/student-pdfs.zip">{{ ic_download() }}{{ t('dashboard.dl.student_pdfs') }}</a>
+              <a class="dashboard-action-btn" href="/api/grade/jobs/{{ j.id }}/class-report.pdf">{{ ic_download() }}{{ t('dashboard.dl.class_report') }}</a>
+              <a class="dashboard-action-btn" href="/api/grade/jobs/{{ j.id }}/review-queue">{{ ic_download() }}{{ t('dashboard.dl.review_queue') }}</a>
+            </div>
           {% elif j.status == 'done' and not j.artifact_exists %}
             <span class="text-slate-500">{{ t('dashboard.expired') }}</span>
           {% else %}

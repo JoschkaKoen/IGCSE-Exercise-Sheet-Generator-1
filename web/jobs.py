@@ -111,6 +111,18 @@ class JobStore:
             # walk a list being appended to from the worker thread.
             return dataclasses.replace(j, log_lines=list(j.log_lines), process=None)
 
+    def put_if_absent(self, rec: JobRecord) -> None:
+        """Adopt an externally-reconstructed record iff its id isn't already live.
+
+        Used by the rehydration path (web/job_rehydrate.py) to resurrect a job
+        whose live entry was evicted (24 h TTL) or lost on restart, so the
+        download/preview/ranking routes can operate on it again. Deliberately
+        does *not* run the TTL eviction sweep — that stays in create(); adopted
+        records are bounded by usage and cleared on the next job creation.
+        """
+        with self._lock:
+            self._jobs.setdefault(rec.id, rec)
+
     def set_status(self, job_id: str, status: JobStatus) -> None:
         with self._lock:
             j = self._jobs.get(job_id)
