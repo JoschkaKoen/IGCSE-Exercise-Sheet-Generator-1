@@ -1,0 +1,183 @@
+title:
+  en: "Polymorphism: dynamic dispatch and toString()"
+  zh: "多态:动态分派与 toString()"
+order: 18
+tasks:
+  - id: chorus
+    prompt:
+      en: "`Animal`, `Dog`, and `Cat` are written for you. Complete the static method `Zoo.chorus(Animal[] animals)` so it returns every animal's sound joined by single spaces. Example: a `Dog`, `Cat`, `Dog` array gives `\"Woof Meow Woof\"`. An empty array gives `\"\"`. Loop and call `speak()` — let polymorphism pick the right sound."
+      zh: "`Animal`、`Dog`、`Cat` 已经为你写好。完成静态方法 `Zoo.chorus(Animal[] animals)`,让它返回每个动物的叫声、用单个空格连接起来。例如:由 `Dog`、`Cat`、`Dog` 组成的数组得到 `\"Woof Meow Woof\"`。空数组得到 `\"\"`。循环并调用 `speak()` —— 让多态去挑选正确的叫声。"
+    starter: |
+      // Animal, Dog, Cat are written for you. Do not change them.
+      class Animal {
+          public String speak() { return "some sound"; }
+      }
+      class Dog extends Animal {
+          public String speak() { return "Woof"; }
+      }
+      class Cat extends Animal {
+          public String speak() { return "Meow"; }
+      }
+
+      class Zoo {
+          // TODO: join each animal's speak() with single spaces
+          public static String chorus(Animal[] animals) {
+              return "";   // change this
+          }
+      }
+    solution: |
+      class Animal {
+          public String speak() { return "some sound"; }
+      }
+      class Dog extends Animal {
+          public String speak() { return "Woof"; }
+      }
+      class Cat extends Animal {
+          public String speak() { return "Meow"; }
+      }
+
+      class Zoo {
+          public static String chorus(Animal[] animals) {
+              String result = "";
+              for (Animal a : animals) {
+                  if (result.length() > 0) {
+                      result += " ";
+                  }
+                  result += a.speak();
+              }
+              return result;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Animal[] zoo = { new Dog(), new Cat(), new Dog() };
+                String s = Zoo.chorus(zoo);
+                if (!s.equals("Woof Meow Woof")) throw new AssertionError("chorus should join each animal's own sound with single spaces; expected \"Woof Meow Woof\", got \"" + s + "\"");
+                Animal[] one = { new Cat() };
+                if (!Zoo.chorus(one).equals("Meow")) throw new AssertionError("one Cat -> \"Meow\", got \"" + Zoo.chorus(one) + "\"");
+                Animal[] none = {};
+                if (!Zoo.chorus(none).equals("")) throw new AssertionError("empty array -> empty string, got \"" + Zoo.chorus(none) + "\"");
+            }
+        }
+  - id: add-cow
+    prompt:
+      en: "`Animal`, `Dog`, `Cat`, and a working `Zoo.chorus` are written for you. Add a class `Cow` that extends `Animal` and overrides `speak()` to return `\"Moo\"`. Notice the existing `chorus` loop handles your new Cow with **no changes**."
+      zh: "`Animal`、`Dog`、`Cat` 以及一个能用的 `Zoo.chorus` 已经为你写好。添加一个继承自 `Animal` 的类 `Cow`,重写 `speak()` 返回 `\"Moo\"`。注意:现有的 `chorus` 循环**无需任何改动**就能处理你新加的 Cow。"
+    starter: |
+      // All of these are written for you. Do not change them.
+      class Animal {
+          public String speak() { return "some sound"; }
+      }
+      class Dog extends Animal {
+          public String speak() { return "Woof"; }
+      }
+      class Cat extends Animal {
+          public String speak() { return "Meow"; }
+      }
+      class Zoo {
+          public static String chorus(Animal[] animals) {
+              String result = "";
+              for (Animal a : animals) {
+                  if (result.length() > 0) {
+                      result += " ";
+                  }
+                  result += a.speak();
+              }
+              return result;
+          }
+      }
+
+      // TODO: add a class Cow that extends Animal and overrides speak() to return "Moo"
+    solution: |
+      class Animal {
+          public String speak() { return "some sound"; }
+      }
+      class Dog extends Animal {
+          public String speak() { return "Woof"; }
+      }
+      class Cat extends Animal {
+          public String speak() { return "Meow"; }
+      }
+      class Zoo {
+          public static String chorus(Animal[] animals) {
+              String result = "";
+              for (Animal a : animals) {
+                  if (result.length() > 0) {
+                      result += " ";
+                  }
+                  result += a.speak();
+              }
+              return result;
+          }
+      }
+
+      class Cow extends Animal {
+          public String speak() {
+              return "Moo";
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Cow c = new Cow();
+                if (!c.speak().equals("Moo")) throw new AssertionError("Cow.speak() should return \"Moo\", got \"" + c.speak() + "\"");
+                // The existing chorus loop must handle the new Cow with no changes:
+                Animal[] farm = { new Dog(), new Cow(), new Cat() };
+                String s = Zoo.chorus(farm);
+                if (!s.equals("Woof Moo Meow")) throw new AssertionError("the chorus loop should handle the new Cow polymorphically; expected \"Woof Moo Meow\", got \"" + s + "\"");
+            }
+        }
+  - id: fraction-tostring
+    prompt:
+      en: "Complete `Fraction` by overriding `toString()` so it returns the fraction as `\"numerator/denominator\"` — for `3` and `4` it returns `\"3/4\"`. Java calls `toString()` automatically when you print a `Fraction` or join it with `+`."
+      zh: "完成 `Fraction`,重写 `toString()`,让它把分数返回成 `\"分子/分母\"` 的形式 —— 当分子是 `3`、分母是 `4` 时返回 `\"3/4\"`。当你打印一个 `Fraction` 或用 `+` 拼接它时,Java 会自动调用 `toString()`。"
+    starter: |
+      class Fraction {
+          private int numerator;
+          private int denominator;
+          public Fraction(int numerator, int denominator) {
+              this.numerator = numerator;
+              this.denominator = denominator;
+          }
+
+          // TODO: return "numerator/denominator", e.g. "3/4"
+          public String toString() {
+              return "";   // change this
+          }
+      }
+    solution: |
+      class Fraction {
+          private int numerator;
+          private int denominator;
+          public Fraction(int numerator, int denominator) {
+              this.numerator = numerator;
+              this.denominator = denominator;
+          }
+
+          public String toString() {
+              return numerator + "/" + denominator;
+          }
+      }
+    check:
+      kind: harness
+      main_class: Harness
+      code: |
+        public class Harness {
+            public static void main(String[] args) {
+                Fraction f = new Fraction(3, 4);
+                if (!f.toString().equals("3/4")) throw new AssertionError("expected \"3/4\", got \"" + f.toString() + "\"");
+                // toString() works through an Object (supertype) reference, called explicitly
+                Object o = new Fraction(1, 2);
+                if (!o.toString().equals("1/2")) throw new AssertionError("through an Object reference, expected \"1/2\", got \"" + o.toString() + "\"");
+                // with + Java calls toString() implicitly
+                String joined = "ratio = " + new Fraction(5, 8);
+                if (!joined.equals("ratio = 5/8")) throw new AssertionError("with + Java should call toString(); expected \"ratio = 5/8\", got \"" + joined + "\"");
+            }
+        }

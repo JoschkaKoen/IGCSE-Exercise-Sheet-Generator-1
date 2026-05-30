@@ -2,4 +2,59 @@ title:
   en: Parallel and distributed computing
   zh: 并行与分布式计算
 order: 13
-tasks: []
+tasks:
+  - id: parallel-time
+    prompt:
+      en: "A job has a `setup` part that must run in order, and a `splittable` part that `workers` can share at the same time. Write `parallel_time(setup, splittable, workers)` that returns the total time: the setup, **plus** the splittable part divided among the workers. Example: `parallel_time(2, 8, 4)` → `4.0` (2 + 8/4)."
+      zh: "一个任务有一个必须按顺序运行的 `setup`(准备)部分,和一个可以由 `workers` 个工人同时分担的 `splittable`(可拆分)部分。编写 `parallel_time(setup, splittable, workers)`,返回总时间:准备时间,**加上**可拆分部分除以工人数。例如:`parallel_time(2, 8, 4)` → `4.0`(2 + 8/4)。"
+    starter: |
+      def parallel_time(setup, splittable, workers):
+          # setup stays; the splittable part is shared by the workers
+          pass
+    solution: |
+      def parallel_time(setup, splittable, workers):
+          return setup + splittable / workers
+    check:
+      kind: asserts
+      code: |
+        assert parallel_time(2, 8, 4) == 4.0, "2 + 8/4 = 4"
+        assert parallel_time(0, 10, 1) == 10.0, "one worker -> no speedup on the splittable part"
+        assert parallel_time(3, 12, 4) == 6.0, "3 + 12/4 = 6"
+        assert parallel_time(5, 0, 8) == 5.0, "nothing to split -> just the setup"
+        assert parallel_time(2, 9, 4) == 4.25, "the split part can be a decimal"
+  - id: speedup
+    prompt:
+      en: "Write `speedup(sequential, parallel)` that returns how many times faster the parallel version is: the sequential time divided by the parallel time. Example: `speedup(8, 2)` → `4.0`."
+      zh: "编写 `speedup(sequential, parallel)`,返回并行版本快了多少倍:顺序时间除以并行时间。例如:`speedup(8, 2)` → `4.0`。"
+    starter: |
+      def speedup(sequential, parallel):
+          # how many times faster: sequential / parallel
+          pass
+    solution: |
+      def speedup(sequential, parallel):
+          return sequential / parallel
+    check:
+      kind: asserts
+      code: |
+        assert speedup(8, 2) == 4.0, "8 / 2 = 4"
+        assert speedup(10, 5) == 2.0, "10 / 5 = 2"
+        assert speedup(9, 9) == 1.0, "same time -> no speedup"
+        assert speedup(12, 8) == 1.5, "speedup can be a decimal"
+  - id: max-speedup
+    prompt:
+      en: "Even with unlimited workers, the `setup` part still cannot be split. Write `max_speedup(setup, splittable)` for the **best possible** speedup: the whole job time divided by the setup time (endless workers shrink the splittable part to almost nothing, leaving only the setup). Example: `max_speedup(2, 6)` → `4.0` ((2+6)/2)."
+      zh: "即使有无限多的工人,`setup`(准备)部分仍然无法拆分。编写 `max_speedup(setup, splittable)`,返回**最大可能**的加速比:整个任务的时间除以准备时间(无限多的工人把可拆分部分缩到几乎为零,只剩下准备部分)。例如:`max_speedup(2, 6)` → `4.0`((2+6)/2)。"
+    starter: |
+      def max_speedup(setup, splittable):
+          # whole job / setup  (the setup can never be split away)
+          pass
+    solution: |
+      def max_speedup(setup, splittable):
+          return (setup + splittable) / setup
+    check:
+      kind: asserts
+      code: |
+        assert max_speedup(2, 6) == 4.0, "(2+6)/2 = 4"
+        assert max_speedup(1, 9) == 10.0, "(1+9)/1 = 10"
+        assert max_speedup(5, 0) == 1.0, "nothing to split -> no speedup possible"
+        assert max_speedup(4, 4) == 2.0, "(4+4)/4 = 2"

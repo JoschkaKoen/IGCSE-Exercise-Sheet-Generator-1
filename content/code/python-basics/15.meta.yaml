@@ -1,0 +1,75 @@
+title:
+  en: "Putting it all together"
+  zh: "把所有内容综合起来"
+order: 15
+tasks:
+  - id: average
+    prompt:
+      en: "Write `average(scores)` that returns the average (mean) of a list of numbers: the total divided by how many. If the list is **empty**, return `0` (so it does not crash). Example: `average([2, 4])` is `3.0`."
+      zh: "编写 `average(scores)`,返回一个数字列表的平均值(均值):总和除以个数。如果列表是**空的**,返回 `0`(这样就不会崩溃)。例如:`average([2, 4])` 是 `3.0`。"
+    starter: |
+      def average(scores):
+          # If empty, return 0. Otherwise add them up and divide by how many.
+          pass
+    solution: |
+      def average(scores):
+          if len(scores) == 0:
+              return 0
+          return sum(scores) / len(scores)
+    check:
+      kind: asserts
+      code: |
+        assert average([]) == 0, "an empty list returns 0"
+        assert average([10]) == 10, "one score is its own average"
+        assert average([2, 4]) == 3.0, "(2 + 4) / 2 = 3.0"
+        assert average([1, 2, 3, 4]) == 2.5, "10 / 4 = 2.5 (use /, not //)"
+        assert average([90, 80, 100]) == 90.0, "(90+80+100)/3 = 90.0"
+  - id: count-passing
+    prompt:
+      en: "Write `count_passing(scores, pass_mark)` that returns how many scores are **greater than or equal to** `pass_mark`. Loop the list and count. Example: `count_passing([40, 50, 60], 50)` is `2`."
+      zh: "编写 `count_passing(scores, pass_mark)`,返回有多少个成绩**大于或等于** `pass_mark`。遍历列表并计数。例如:`count_passing([40, 50, 60], 50)` 是 `2`。"
+    starter: |
+      def count_passing(scores, pass_mark):
+          # Count the scores that are >= pass_mark
+          pass
+    solution: |
+      def count_passing(scores, pass_mark):
+          count = 0
+          for s in scores:
+              if s >= pass_mark:
+                  count = count + 1
+          return count
+    check:
+      kind: asserts
+      code: |
+        assert count_passing([], 50) == 0, "no scores -> 0 passing"
+        assert count_passing([40, 50, 60], 50) == 2, "50 and 60 pass; the mark is inclusive"
+        assert count_passing([50], 50) == 1, "exactly the pass mark counts as passing"
+        assert count_passing([10, 20, 30], 50) == 0, "none reach 50"
+        assert count_passing([100, 99, 60], 60) == 3, "all three pass"
+  - id: stats
+    prompt:
+      en: "Write `stats(scores)` (assume at least one score) that returns a **dictionary** with three keys: `\"highest\"`, `\"lowest\"`, and `\"average\"`. Example: `stats([70, 90, 50, 80])` returns `{\"highest\": 90, \"lowest\": 50, \"average\": 72.5}`."
+      zh: "编写 `stats(scores)`(假设至少有一个成绩),返回一个带三个键的**字典**:`\"highest\"`、`\"lowest\"` 和 `\"average\"`。例如:`stats([70, 90, 50, 80])` 返回 `{\"highest\": 90, \"lowest\": 50, \"average\": 72.5}`。"
+    starter: |
+      def stats(scores):
+          # Build a dict with the highest, lowest, and average score
+          pass
+    solution: |
+      def stats(scores):
+          return {
+              "highest": max(scores),
+              "lowest": min(scores),
+              "average": sum(scores) / len(scores),
+          }
+    check:
+      kind: asserts
+      code: |
+        r = stats([70, 90, 50, 80])
+        assert r["highest"] == 90, "the highest score is 90"
+        assert r["lowest"] == 50, "the lowest score is 50"
+        assert r["average"] == 72.5, "(70+90+50+80)/4 = 72.5"
+        one = stats([42])
+        assert one["highest"] == 42 and one["lowest"] == 42 and one["average"] == 42.0, "a single score is highest, lowest, and average"
+        r2 = stats([5, 3, 9, 3])
+        assert r2["highest"] == 9 and r2["lowest"] == 3 and r2["average"] == 5.0, "(5+3+9+3)/4 = 5.0"

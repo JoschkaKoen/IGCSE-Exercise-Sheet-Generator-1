@@ -2,4 +2,72 @@ title:
   en: Data compression
   zh: 数据压缩
 order: 3
-tasks: []
+tasks:
+  - id: rle-encode
+    prompt:
+      en: "Write `encode(text)` for run-length encoding. Return a **list of `[character, count]` pairs**, one per run of repeats. Example: `encode(\"AAAB\")` → `[['A', 3], ['B', 1]]`. For the empty string return `[]`."
+      zh: "编写游程编码函数 `encode(text)`。返回一个 **`[字符, 计数]` 对的列表**,每段重复对应一个对。例如:`encode(\"AAAB\")` → `[['A', 3], ['B', 1]]`。空字符串返回 `[]`。"
+    starter: |
+      def encode(text):
+          # Walk through text; extend the last run or start a new one
+          pass
+    solution: |
+      def encode(text):
+          runs = []
+          for ch in text:
+              if runs and runs[-1][0] == ch:
+                  runs[-1][1] += 1
+              else:
+                  runs.append([ch, 1])
+          return runs
+    check:
+      kind: asserts
+      code: |
+        assert encode("AAAB") == [["A", 3], ["B", 1]], "AAAB -> [[A,3],[B,1]]"
+        assert encode("XYZ") == [["X", 1], ["Y", 1], ["Z", 1]], "no repeats -> count 1 each"
+        assert encode("") == [], "empty string -> empty list"
+        assert encode("W" * 12) == [["W", 12]], "a run can be longer than 9"
+        assert encode("aabbaa") == [["a", 2], ["b", 2], ["a", 2]], "the same letter can start a new run later"
+  - id: rle-decode
+    prompt:
+      en: "Write `decode(pairs)` that reverses the encoder: given a list of `[character, count]` pairs, rebuild the original string. Example: `decode([['A', 3], ['B', 1]])` → `'AAAB'`. For `[]` return `''`."
+      zh: "编写 `decode(pairs)`,它是编码器的逆运算:给定一个 `[字符, 计数]` 对的列表,重建原始字符串。例如:`decode([['A', 3], ['B', 1]])` → `'AAAB'`。`[]` 返回 `''`。"
+    starter: |
+      def decode(pairs):
+          # Repeat each character 'count' times and join them
+          pass
+    solution: |
+      def decode(pairs):
+          text = ""
+          for ch, count in pairs:
+              text += ch * count
+          return text
+    check:
+      kind: asserts
+      code: |
+        assert decode([["A", 3], ["B", 1]]) == "AAAB", "[[A,3],[B,1]] -> AAAB"
+        assert decode([]) == "", "empty list -> empty string"
+        assert decode([["W", 12]]) == "W" * 12, "counts over 9 must work"
+        assert decode([["a", 2], ["b", 2], ["a", 2]]) == "aabbaa", "rebuild runs in order"
+        assert decode([["h", 1], ["e", 1], ["l", 2], ["o", 1]]) == "hello", "rebuild a word"
+  - id: rle-length
+    prompt:
+      en: "Without decoding, write `original_length(pairs)` that returns how many characters the original text had — just add up the counts. Example: `original_length([['A', 3], ['B', 1]])` → `4`."
+      zh: "不用解码,编写 `original_length(pairs)`,返回原始文本有多少个字符 —— 把所有计数加起来即可。例如:`original_length([['A', 3], ['B', 1]])` → `4`。"
+    starter: |
+      def original_length(pairs):
+          # Add up the count in every [character, count] pair
+          pass
+    solution: |
+      def original_length(pairs):
+          total = 0
+          for ch, count in pairs:
+              total += count
+          return total
+    check:
+      kind: asserts
+      code: |
+        assert original_length([["A", 3], ["B", 1]]) == 4, "3 + 1 = 4"
+        assert original_length([]) == 0, "no runs -> length 0"
+        assert original_length([["W", 12]]) == 12, "one long run"
+        assert original_length([["x", 5], ["y", 1]]) == 6, "5 + 1 = 6"
