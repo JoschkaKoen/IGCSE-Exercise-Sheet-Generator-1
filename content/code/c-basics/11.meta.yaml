@@ -1,0 +1,98 @@
+title:
+  en: "2-D arrays: working with a grid"
+  zh: "二维数组:处理网格"
+order: 11
+tasks:
+  - id: sum-grid
+    prompt:
+      en: "Complete `int sum_grid(int g[][3], int rows)` so it returns the total of every cell in a grid with `rows` rows and 3 columns. Do **not** write a `main`."
+      zh: "完成 `int sum_grid(int g[][3], int rows)`,让它返回一个 `rows` 行、3 列网格里所有格子的总和。**不要**写 `main`。"
+    starter: |
+      /* Total every cell of the rows x 3 grid. Do not write main(). */
+      int sum_grid(int g[][3], int rows) {
+          return 0;   /* loop rows, then columns */
+      }
+    solution: |
+      int sum_grid(int g[][3], int rows) {
+          int total = 0;
+          for (int r = 0; r < rows; r++) {
+              for (int c = 0; c < 3; c++) {
+                  total += g[r][c];
+              }
+          }
+          return total;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int g[2][3] = {{1, 2, 3}, {4, 5, 6}};
+            assert(sum_grid(g, 2) == 21);
+            int h[1][3] = {{0, 0, 0}};
+            assert(sum_grid(h, 1) == 0);
+            int k[2][3] = {{-1, -2, -3}, {1, 2, 3}};
+            assert(sum_grid(k, 2) == 0);
+            return 0;
+        }
+  - id: row-sum
+    prompt:
+      en: "Complete `int row_sum(int g[][3], int r)` so it returns the total of the three cells in row `r`. Do **not** write a `main`."
+      zh: "完成 `int row_sum(int g[][3], int r)`,让它返回第 `r` 行三个格子的总和。**不要**写 `main`。"
+    starter: |
+      /* Total the 3 cells in row r. Do not write main(). */
+      int row_sum(int g[][3], int r) {
+          return 0;   /* loop the columns of row r */
+      }
+    solution: |
+      int row_sum(int g[][3], int r) {
+          int total = 0;
+          for (int c = 0; c < 3; c++) {
+              total += g[r][c];
+          }
+          return total;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int g[2][3] = {{1, 2, 3}, {4, 5, 6}};
+            assert(row_sum(g, 0) == 6);
+            assert(row_sum(g, 1) == 15);
+            return 0;
+        }
+  - id: print-grid
+    prompt:
+      en: "The 2×3 grid `g` is given. In `main`, print each row with the three numbers separated by single spaces, one row per line."
+      zh: "2×3 的网格 `g` 已经给出。在 `main` 里面,把每一行的三个数字用单个空格隔开打印,每行一行。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          int g[2][3] = {{1, 2, 3}, {4, 5, 6}};
+          /* print each row: numbers separated by spaces, one row per line */
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          int g[2][3] = {{1, 2, 3}, {4, 5, 6}};
+          for (int r = 0; r < 2; r++) {
+              for (int c = 0; c < 3; c++) {
+                  if (c > 0) printf(" ");
+                  printf("%d", g[r][c]);
+              }
+              printf("\n");
+          }
+          return 0;
+      }
+    check:
+      kind: stdout
+      expected: "1 2 3\n4 5 6"
+      normalize: strip

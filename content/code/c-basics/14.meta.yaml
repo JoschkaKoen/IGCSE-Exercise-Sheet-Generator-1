@@ -1,0 +1,86 @@
+title:
+  en: "Recursion: base case and recursive case"
+  zh: "递归:终止条件与递归情形"
+order: 14
+tasks:
+  - id: factorial
+    prompt:
+      en: "Complete `int factorial(int n)` using recursion: return `1` for `n <= 1` (the base case), otherwise `n * factorial(n - 1)`. Do **not** write a `main`."
+      zh: "用递归完成 `int factorial(int n)`:当 `n <= 1` 时返回 `1`(终止条件),否则返回 `n * factorial(n - 1)`。**不要**写 `main`。"
+    starter: |
+      /* Recursive factorial. Do not write main(). */
+      int factorial(int n) {
+          return 1;   /* add the base case and the recursive case */
+      }
+    solution: |
+      int factorial(int n) {
+          if (n <= 1) return 1;
+          return n * factorial(n - 1);
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(factorial(0) == 1);
+            assert(factorial(1) == 1);
+            assert(factorial(5) == 120);
+            assert(factorial(10) == 3628800);
+            return 0;
+        }
+  - id: power
+    prompt:
+      en: "Complete `int power(int base, int exp)` using **recursion** (assume `exp >= 0`): `base` to the power `0` is `1`, otherwise `base * power(base, exp - 1)`. Do **not** write a `main`."
+      zh: "用**递归**完成 `int power(int base, int exp)`(假设 `exp >= 0`):`base` 的 `0` 次方是 `1`,否则是 `base * power(base, exp - 1)`。**不要**写 `main`。"
+    starter: |
+      /* Recursive power (exp >= 0). Do not write main(). */
+      int power(int base, int exp) {
+          return 1;   /* base case: exp == 0; then the recursive case */
+      }
+    solution: |
+      int power(int base, int exp) {
+          if (exp == 0) return 1;
+          return base * power(base, exp - 1);
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(power(2, 10) == 1024);
+            assert(power(5, 0) == 1);
+            assert(power(3, 3) == 27);
+            assert(power(7, 1) == 7);
+            return 0;
+        }
+  - id: array-sum
+    prompt:
+      en: "Complete `int array_sum(const int a[], int i, int n)` using recursion: it returns the sum of `a[i]` up to `a[n-1]`. Base case: `i >= n` returns `0`. Do **not** write a `main`."
+      zh: "用递归完成 `int array_sum(const int a[], int i, int n)`:返回从 `a[i]` 到 `a[n-1]` 的和。终止条件:`i >= n` 时返回 `0`。**不要**写 `main`。"
+    starter: |
+      /* Recursive sum of a[i..n-1]. Do not write main(). */
+      int array_sum(const int a[], int i, int n) {
+          return 0;   /* base case i >= n, else a[i] + array_sum(a, i+1, n) */
+      }
+    solution: |
+      int array_sum(const int a[], int i, int n) {
+          if (i >= n) return 0;
+          return a[i] + array_sum(a, i + 1, n);
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int a[] = {1, 2, 3, 4};
+            assert(array_sum(a, 0, 4) == 10);
+            assert(array_sum(a, 0, 0) == 0);
+            assert(array_sum(a, 2, 4) == 7);
+            return 0;
+        }

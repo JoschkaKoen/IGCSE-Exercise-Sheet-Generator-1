@@ -1,0 +1,104 @@
+title:
+  en: "Searching: linear and binary"
+  zh: "查找:线性与二分"
+order: 12
+tasks:
+  - id: linear-search
+    prompt:
+      en: "Complete `int linear_search(const int a[], int n, int target)` so it returns the index of the first `target`, or `-1` if it is not in the array. Do **not** write a `main`."
+      zh: "完成 `int linear_search(const int a[], int n, int target)`,让它返回第一个 `target` 的下标;如果不在数组里则返回 `-1`。**不要**写 `main`。"
+    starter: |
+      /* Return the index of target, or -1. Do not write main(). */
+      int linear_search(const int a[], int n, int target) {
+          return -1;   /* check each item */
+      }
+    solution: |
+      int linear_search(const int a[], int n, int target) {
+          for (int i = 0; i < n; i++) {
+              if (a[i] == target) {
+                  return i;
+              }
+          }
+          return -1;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int a[] = {4, 8, 15, 16, 23};
+            assert(linear_search(a, 5, 15) == 2);
+            assert(linear_search(a, 5, 4) == 0);
+            assert(linear_search(a, 5, 99) == -1);
+            return 0;
+        }
+  - id: binary-search
+    prompt:
+      en: "Complete `int binary_search(const int a[], int n, int target)` for a **sorted** array. Return the index of `target`, or `-1`. Use `low`, `high`, and `mid`. Do **not** write a `main`."
+      zh: "为一个**已排序**的数组完成 `int binary_search(const int a[], int n, int target)`。返回 `target` 的下标,或 `-1`。使用 `low`、`high` 和 `mid`。**不要**写 `main`。"
+    starter: |
+      /* Binary search a sorted array. Return the index or -1. Do not write main(). */
+      int binary_search(const int a[], int n, int target) {
+          return -1;   /* use low, high, mid */
+      }
+    solution: |
+      int binary_search(const int a[], int n, int target) {
+          int low = 0, high = n - 1;
+          while (low <= high) {
+              int mid = low + (high - low) / 2;
+              if (a[mid] == target) return mid;
+              if (a[mid] < target) low = mid + 1;
+              else high = mid - 1;
+          }
+          return -1;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int a[] = {1, 3, 5, 7, 9};
+            assert(binary_search(a, 5, 7) == 3);
+            assert(binary_search(a, 5, 1) == 0);
+            assert(binary_search(a, 5, 9) == 4);
+            assert(binary_search(a, 5, 4) == -1);
+            assert(binary_search(a, 5, 100) == -1);
+            return 0;
+        }
+  - id: first-negative
+    prompt:
+      en: "Complete `int first_negative(const int a[], int n)` so it returns the index of the first item less than `0`, or `-1` if there is none. Do **not** write a `main`."
+      zh: "完成 `int first_negative(const int a[], int n)`,让它返回第一个小于 `0` 的元素的下标;如果没有则返回 `-1`。**不要**写 `main`。"
+    starter: |
+      /* Return the index of the first item < 0, or -1. Do not write main(). */
+      int first_negative(const int a[], int n) {
+          return -1;   /* check each item */
+      }
+    solution: |
+      int first_negative(const int a[], int n) {
+          for (int i = 0; i < n; i++) {
+              if (a[i] < 0) {
+                  return i;
+              }
+          }
+          return -1;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int a[] = {3, 5, -2, 8};
+            assert(first_negative(a, 4) == 2);
+            int b[] = {1, 2, 3};
+            assert(first_negative(b, 3) == -1);
+            int c[] = {-1};
+            assert(first_negative(c, 1) == 0);
+            return 0;
+        }

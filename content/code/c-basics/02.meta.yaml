@@ -1,0 +1,88 @@
+title:
+  en: "Variables, types, and arithmetic"
+  zh: "变量、类型与算术"
+order: 2
+tasks:
+  - id: box-packing
+    prompt:
+      en: "Read one integer `n` with `scanf`. A box holds **6** items. Print two lines exactly: `Full boxes: ` then the value of `n / 6`, and `Left over: ` then the value of `n % 6`."
+      zh: "用 `scanf` 读入一个整数 `n`。一个盒子装 **6** 件物品。精确打印两行:`Full boxes: ` 加上 `n / 6` 的值,以及 `Left over: ` 加上 `n % 6` 的值。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          int n = 0;
+          scanf("%d", &n);
+          /* Print "Full boxes: " then n / 6, and "Left over: " then n % 6 */
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          int n = 0;
+          scanf("%d", &n);
+          printf("Full boxes: %d\n", n / 6);
+          printf("Left over: %d\n", n % 6);
+          return 0;
+      }
+    stdin: "50\n"
+    check:
+      kind: stdout
+      expected: "Full boxes: 8\nLeft over: 2"
+      normalize: strip
+  - id: average3
+    prompt:
+      en: "Complete `double average3(int a, int b, int c)` so it returns the average of the three as a `double`. Watch out for integer division — divide by `3.0`, not `3`. Do **not** write a `main`."
+      zh: "完成 `double average3(int a, int b, int c)`,让它以 `double` 返回三个数的平均值。小心整数除法 —— 要除以 `3.0`,而不是 `3`。**不要**写 `main`。"
+    starter: |
+      /* Return the average of a, b, c as a double. Do not write main(). */
+      double average3(int a, int b, int c) {
+          return 0.0;   /* change this */
+      }
+    solution: |
+      double average3(int a, int b, int c) {
+          return (a + b + c) / 3.0;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <math.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(fabs(average3(1, 2, 3) - 2.0) < 1e-9);
+            assert(fabs(average3(2, 2, 3) - 7.0 / 3.0) < 1e-9);
+            assert(fabs(average3(0, 0, 0) - 0.0) < 1e-9);
+            return 0;
+        }
+  - id: hyp
+    prompt:
+      en: "Write `double hyp(double a, double b)` that returns the hypotenuse length: the square root of `a*a + b*b`. Use `sqrt` from `<math.h>`. Do **not** write a `main`."
+      zh: "编写 `double hyp(double a, double b)`,返回斜边的长度:即 `a*a + b*b` 的平方根。使用 `<math.h>` 中的 `sqrt`。**不要**写 `main`。"
+    starter: |
+      #include <math.h>
+
+      /* Return sqrt(a*a + b*b). Do not write main(). */
+      double hyp(double a, double b) {
+          return 0.0;   /* change this */
+      }
+    solution: |
+      #include <math.h>
+
+      double hyp(double a, double b) {
+          return sqrt(a * a + b * b);
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <math.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(fabs(hyp(3.0, 4.0) - 5.0) < 1e-9);
+            assert(fabs(hyp(5.0, 12.0) - 13.0) < 1e-9);
+            return 0;
+        }

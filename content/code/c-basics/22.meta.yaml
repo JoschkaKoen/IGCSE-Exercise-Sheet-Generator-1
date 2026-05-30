@@ -1,0 +1,83 @@
+title:
+  en: "Run-length encoding (compression)"
+  zh: "行程长度编码(压缩)"
+order: 22
+tasks:
+  - id: run-length-at
+    prompt:
+      en: "Complete `int run_length_at(const char *s, int i)` so it returns how many times the character `s[i]` repeats starting at index `i`. Do **not** write a `main`."
+      zh: "完成 `int run_length_at(const char *s, int i)`,让它返回字符 `s[i]` 从下标 `i` 开始连续重复了多少次。**不要**写 `main`。"
+    starter: |
+      /* How many times s[i] repeats starting at i. Do not write main(). */
+      int run_length_at(const char *s, int i) {
+          return 1;   /* count equal characters from index i */
+      }
+    solution: |
+      int run_length_at(const char *s, int i) {
+          char c = s[i];
+          int n = 0;
+          while (s[i + n] != '\0' && s[i + n] == c) {
+              n++;
+          }
+          return n;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(run_length_at("aaab", 0) == 3);
+            assert(run_length_at("aaab", 3) == 1);
+            assert(run_length_at("abc", 0) == 1);
+            assert(run_length_at("xxxx", 0) == 4);
+            return 0;
+        }
+  - id: rle-encode
+    prompt:
+      en: "Complete `void rle_encode(const char *in, char *out)` so it writes the run-length encoding of `in` into `out`: each run becomes the character then its count. `\"aaabbc\"` becomes `\"a3b2c1\"`. End `out` with `'\\0'`. Do **not** write a `main`."
+      zh: "完成 `void rle_encode(const char *in, char *out)`,把 `in` 的行程长度编码写进 `out`:每个行程变成“字符 + 次数”。`\"aaabbc\"` 变成 `\"a3b2c1\"`。用 `'\\0'` 结束 `out`。**不要**写 `main`。"
+    starter: |
+      #include <stdio.h>
+
+      /* Write the RLE of in into out (e.g. "aaabbc" -> "a3b2c1"). Do not write main(). */
+      void rle_encode(const char *in, char *out) {
+          out[0] = '\0';   /* for each run: write the char, then its count */
+      }
+    solution: |
+      #include <stdio.h>
+
+      void rle_encode(const char *in, char *out) {
+          int i = 0, o = 0;
+          while (in[i] != '\0') {
+              char c = in[i];
+              int count = 0;
+              while (in[i] == c) {
+                  count++;
+                  i++;
+              }
+              out[o++] = c;
+              o += sprintf(out + o, "%d", count);
+          }
+          out[o] = '\0';
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <string.h>
+        #include "student.c"
+
+        int main(void) {
+            char out[100];
+            rle_encode("aaabbc", out);
+            assert(strcmp(out, "a3b2c1") == 0);
+            rle_encode("x", out);
+            assert(strcmp(out, "x1") == 0);
+            rle_encode("wwwwww", out);
+            assert(strcmp(out, "w6") == 0);
+            rle_encode("aabbaa", out);
+            assert(strcmp(out, "a2b2a2") == 0);
+            return 0;
+        }

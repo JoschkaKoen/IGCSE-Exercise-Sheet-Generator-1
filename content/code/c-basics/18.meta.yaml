@@ -1,0 +1,151 @@
+title:
+  en: "Stacks and queues (array-backed)"
+  zh: "栈与队列(用数组实现)"
+order: 18
+tasks:
+  - id: stack-ops
+    prompt:
+      en: "The `Stack` struct (with `data` and a count `top`) is given. Complete `void push(Stack *s, int v)` and `int pop(Stack *s)` so the stack is LIFO. Do **not** write a `main`."
+      zh: "`Stack` 结构体(含 `data` 和计数 `top`)已给出。完成 `void push(Stack *s, int v)` 和 `int pop(Stack *s)`,让这个栈是后进先出(LIFO)。**不要**写 `main`。"
+    starter: |
+      typedef struct {
+          int data[64];
+          int top;
+      } Stack;
+
+      /* push and pop so the stack is LIFO. Do not write main(). */
+      void push(Stack *s, int v) {
+          /* store v at data[top], then top++ */
+      }
+
+      int pop(Stack *s) {
+          return 0;   /* top--, then return data[top] */
+      }
+    solution: |
+      typedef struct {
+          int data[64];
+          int top;
+      } Stack;
+
+      void push(Stack *s, int v) {
+          s->data[s->top] = v;
+          s->top++;
+      }
+
+      int pop(Stack *s) {
+          s->top--;
+          return s->data[s->top];
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            Stack s;
+            s.top = 0;
+            push(&s, 10);
+            push(&s, 20);
+            push(&s, 30);
+            assert(pop(&s) == 30);
+            assert(pop(&s) == 20);
+            push(&s, 40);
+            assert(pop(&s) == 40);
+            assert(pop(&s) == 10);
+            return 0;
+        }
+  - id: peek
+    prompt:
+      en: "The `Stack` struct is given. Complete `int peek(const Stack *s)` so it returns the top item **without** removing it. Assume the stack is not empty. Do **not** write a `main`."
+      zh: "`Stack` 结构体已给出。完成 `int peek(const Stack *s)`,让它返回顶部元素但**不**移除它。假设栈非空。**不要**写 `main`。"
+    starter: |
+      typedef struct {
+          int data[64];
+          int top;
+      } Stack;
+
+      /* Return the top item without removing it. Do not write main(). */
+      int peek(const Stack *s) {
+          return 0;   /* the top item is at data[top - 1] */
+      }
+    solution: |
+      typedef struct {
+          int data[64];
+          int top;
+      } Stack;
+
+      int peek(const Stack *s) {
+          return s->data[s->top - 1];
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            Stack s;
+            s.data[0] = 5;
+            s.data[1] = 9;
+            s.top = 2;
+            assert(peek(&s) == 9);
+            assert(s.top == 2);
+            return 0;
+        }
+  - id: queue-ops
+    prompt:
+      en: "The `Queue` struct (with `data`, `front`, and `back`) is given. Complete `void enqueue(Queue *q, int v)` and `int dequeue(Queue *q)` so the queue is FIFO. Do **not** write a `main`."
+      zh: "`Queue` 结构体(含 `data`、`front`、`back`)已给出。完成 `void enqueue(Queue *q, int v)` 和 `int dequeue(Queue *q)`,让这个队列是先进先出(FIFO)。**不要**写 `main`。"
+    starter: |
+      typedef struct {
+          int data[64];
+          int front;
+          int back;
+      } Queue;
+
+      /* enqueue and dequeue so the queue is FIFO. Do not write main(). */
+      void enqueue(Queue *q, int v) {
+          /* store v at data[back], then back++ */
+      }
+
+      int dequeue(Queue *q) {
+          return 0;   /* read data[front], then front++ */
+      }
+    solution: |
+      typedef struct {
+          int data[64];
+          int front;
+          int back;
+      } Queue;
+
+      void enqueue(Queue *q, int v) {
+          q->data[q->back] = v;
+          q->back++;
+      }
+
+      int dequeue(Queue *q) {
+          int v = q->data[q->front];
+          q->front++;
+          return v;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            Queue q;
+            q.front = 0;
+            q.back = 0;
+            enqueue(&q, 10);
+            enqueue(&q, 20);
+            enqueue(&q, 30);
+            assert(dequeue(&q) == 10);
+            assert(dequeue(&q) == 20);
+            enqueue(&q, 40);
+            assert(dequeue(&q) == 30);
+            assert(dequeue(&q) == 40);
+            return 0;
+        }

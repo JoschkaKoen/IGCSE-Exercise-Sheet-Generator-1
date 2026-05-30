@@ -1,0 +1,104 @@
+title:
+  en: "Pointers: &, *, and pass-by-pointer"
+  zh: "指针:&、* 与按指针传参"
+order: 8
+tasks:
+  - id: add-one
+    prompt:
+      en: "Complete `void add_one(int *p)` so it adds `1` to the int that `p` points at. Use `*p`. Do **not** write a `main` — the checker provides one."
+      zh: "完成 `void add_one(int *p)`,让它把 `p` 所指向的整数加 `1`。使用 `*p`。**不要**写 `main` —— 检查器会提供。"
+    starter: |
+      /* Add 1 to the value that p points at. Use *p. Do not write main(). */
+      void add_one(int *p) {
+          /* change *p here */
+      }
+    solution: |
+      void add_one(int *p) {
+          *p = *p + 1;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int x = 5;
+            add_one(&x);
+            assert(x == 6);
+            int y = -1;
+            add_one(&y);
+            assert(y == 0);
+            return 0;
+        }
+  - id: swap
+    prompt:
+      en: "Complete `void swap(int *a, int *b)` so it exchanges the two ints. Use a temporary variable. Do **not** write a `main`."
+      zh: "完成 `void swap(int *a, int *b)`,让它交换这两个整数。用一个临时变量。**不要**写 `main`。"
+    starter: |
+      /* Exchange the values that a and b point at. Do not write main(). */
+      void swap(int *a, int *b) {
+          /* use a temporary variable */
+      }
+    solution: |
+      void swap(int *a, int *b) {
+          int t = *a;
+          *a = *b;
+          *b = t;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int a = 1, b = 2;
+            swap(&a, &b);
+            assert(a == 2 && b == 1);
+            swap(&a, &b);
+            assert(a == 1 && b == 2);
+            int x = 7, y = 7;
+            swap(&x, &y);
+            assert(x == 7 && y == 7);
+            return 0;
+        }
+  - id: min-max
+    prompt:
+      en: "Complete `void min_max(const int a[], int n, int *min_out, int *max_out)`. Scan the array, then write the smallest value through `min_out` and the largest through `max_out`. Assume `n >= 1`. Do **not** write a `main`."
+      zh: "完成 `void min_max(const int a[], int n, int *min_out, int *max_out)`。遍历数组,然后把最小值通过 `min_out` 写回,把最大值通过 `max_out` 写回。假设 `n >= 1`。**不要**写 `main`。"
+    starter: |
+      /* Write the smallest value to *min_out and the largest to *max_out.
+         Assume n >= 1. Do not write main(). */
+      void min_max(const int a[], int n, int *min_out, int *max_out) {
+          /* scan a[0..n-1] and write results through the pointers */
+      }
+    solution: |
+      void min_max(const int a[], int n, int *min_out, int *max_out) {
+          int lo = a[0], hi = a[0];
+          for (int i = 1; i < n; i++) {
+              if (a[i] < lo) lo = a[i];
+              if (a[i] > hi) hi = a[i];
+          }
+          *min_out = lo;
+          *max_out = hi;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int lo = 0, hi = 0;
+            int v[] = {3, 9, 2, 7};
+            min_max(v, 4, &lo, &hi);
+            assert(lo == 2 && hi == 9);
+            int neg[] = {-5, -1, -9, -3};
+            min_max(neg, 4, &lo, &hi);
+            assert(lo == -9 && hi == -1);
+            int one[] = {42};
+            min_max(one, 1, &lo, &hi);
+            assert(lo == 42 && hi == 42);
+            return 0;
+        }

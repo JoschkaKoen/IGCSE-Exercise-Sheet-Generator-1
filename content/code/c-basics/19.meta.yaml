@@ -1,0 +1,84 @@
+title:
+  en: "Text files: write then read"
+  zh: "文本文件:先写后读"
+order: 19
+tasks:
+  - id: write-then-sum
+    prompt:
+      en: "In `main`: write the numbers `10`, `20`, `5`, `7` (one per line) to a file, close it, then open it again and add them up with `fscanf`. Print the total (`42`)."
+      zh: "在 `main` 里面:把数字 `10`、`20`、`5`、`7`(每个一行)写到一个文件里,关闭它,然后再打开,用 `fscanf` 把它们加起来。打印总和(`42`)。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          FILE *f = fopen("data.txt", "w");
+          fprintf(f, "10\n20\n5\n7\n");
+          fclose(f);
+
+          int total = 0;
+          /* reopen data.txt for reading and sum the numbers with fscanf */
+          printf("%d\n", total);
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          FILE *f = fopen("data.txt", "w");
+          fprintf(f, "10\n20\n5\n7\n");
+          fclose(f);
+
+          f = fopen("data.txt", "r");
+          int x, total = 0;
+          while (fscanf(f, "%d", &x) == 1) {
+              total += x;
+          }
+          fclose(f);
+
+          printf("%d\n", total);
+          return 0;
+      }
+    check:
+      kind: stdout
+      expected: "42"
+      normalize: strip
+  - id: write-then-count
+    prompt:
+      en: "In `main`: write three lines of text to a file, close it, then open it again and count the lines with `fgets`. Print the count (`3`)."
+      zh: "在 `main` 里面:把三行文本写到一个文件里,关闭它,然后再打开,用 `fgets` 数行数。打印行数(`3`)。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          FILE *f = fopen("lines.txt", "w");
+          fprintf(f, "apple\nbanana\ncherry\n");
+          fclose(f);
+
+          int count = 0;
+          /* reopen lines.txt and count the lines with fgets */
+          printf("%d\n", count);
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          FILE *f = fopen("lines.txt", "w");
+          fprintf(f, "apple\nbanana\ncherry\n");
+          fclose(f);
+
+          f = fopen("lines.txt", "r");
+          char buf[100];
+          int count = 0;
+          while (fgets(buf, sizeof(buf), f) != NULL) {
+              count++;
+          }
+          fclose(f);
+
+          printf("%d\n", count);
+          return 0;
+      }
+    check:
+      kind: stdout
+      expected: "3"
+      normalize: strip

@@ -1,0 +1,154 @@
+title:
+  en: "Linked lists"
+  zh: "链表"
+order: 17
+tasks:
+  - id: length
+    prompt:
+      en: "Complete `int length(const Node *head)` so it counts the nodes in the list (`0` for an empty list). Walk with `->next` until `NULL`. The `Node` type is given. Do **not** write a `main`."
+      zh: "完成 `int length(const Node *head)`,让它数出链表里有多少个节点(空链表为 `0`)。用 `->next` 遍历直到 `NULL`。`Node` 类型已给出。**不要**写 `main`。"
+    starter: |
+      typedef struct Node {
+          int data;
+          struct Node *next;
+      } Node;
+
+      /* Count the nodes from head (0 for NULL). Do not write main(). */
+      int length(const Node *head) {
+          return 0;   /* walk with ->next until NULL */
+      }
+    solution: |
+      typedef struct Node {
+          int data;
+          struct Node *next;
+      } Node;
+
+      int length(const Node *head) {
+          int n = 0;
+          const Node *cur = head;
+          while (cur != NULL) {
+              n++;
+              cur = cur->next;
+          }
+          return n;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <stdlib.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(length(NULL) == 0);
+            Node *a = malloc(sizeof(Node));
+            Node *b = malloc(sizeof(Node));
+            Node *c = malloc(sizeof(Node));
+            a->data = 1; a->next = b;
+            b->data = 2; b->next = c;
+            c->data = 3; c->next = NULL;
+            assert(length(a) == 3);
+            free(a); free(b); free(c);
+            return 0;
+        }
+  - id: sum-list
+    prompt:
+      en: "Complete `int sum_list(const Node *head)` so it returns the total of every node's `data` (`0` for an empty list). The `Node` type is given. Do **not** write a `main`."
+      zh: "完成 `int sum_list(const Node *head)`,让它返回每个节点 `data` 的总和(空链表为 `0`)。`Node` 类型已给出。**不要**写 `main`。"
+    starter: |
+      typedef struct Node {
+          int data;
+          struct Node *next;
+      } Node;
+
+      /* Total every node's data (0 for NULL). Do not write main(). */
+      int sum_list(const Node *head) {
+          return 0;   /* walk and add cur->data */
+      }
+    solution: |
+      typedef struct Node {
+          int data;
+          struct Node *next;
+      } Node;
+
+      int sum_list(const Node *head) {
+          int total = 0;
+          const Node *cur = head;
+          while (cur != NULL) {
+              total += cur->data;
+              cur = cur->next;
+          }
+          return total;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <stdlib.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(sum_list(NULL) == 0);
+            Node *a = malloc(sizeof(Node));
+            Node *b = malloc(sizeof(Node));
+            a->data = 10; a->next = b;
+            b->data = 32; b->next = NULL;
+            assert(sum_list(a) == 42);
+            free(a); free(b);
+            return 0;
+        }
+  - id: push-front
+    prompt:
+      en: "Complete `Node *push_front(Node *head, int value)` so it makes a new node (with `malloc`), points its `next` at the old `head`, and returns it as the new head. The checker frees the list. Do **not** write a `main`."
+      zh: "完成 `Node *push_front(Node *head, int value)`,让它用 `malloc` 新建一个节点,把它的 `next` 指向旧的 `head`,并把它作为新的 head 返回。检查器会释放链表。**不要**写 `main`。"
+    starter: |
+      #include <stdlib.h>
+
+      typedef struct Node {
+          int data;
+          struct Node *next;
+      } Node;
+
+      /* Make a new node holding value, link it before head, return it. Do not write main(). */
+      Node *push_front(Node *head, int value) {
+          /* malloc a Node, set its data and next, return it */
+          return head;
+      }
+    solution: |
+      #include <stdlib.h>
+
+      typedef struct Node {
+          int data;
+          struct Node *next;
+      } Node;
+
+      Node *push_front(Node *head, int value) {
+          Node *n = malloc(sizeof(Node));
+          n->data = value;
+          n->next = head;
+          return n;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <stdlib.h>
+        #include "student.c"
+
+        int main(void) {
+            Node *head = NULL;
+            head = push_front(head, 3);
+            head = push_front(head, 2);
+            head = push_front(head, 1);   // list: 1 -> 2 -> 3
+            assert(head->data == 1);
+            assert(head->next->data == 2);
+            assert(head->next->next->data == 3);
+            assert(head->next->next->next == NULL);
+            Node *cur = head;
+            while (cur != NULL) {
+                Node *nx = cur->next;
+                free(cur);
+                cur = nx;
+            }
+            return 0;
+        }

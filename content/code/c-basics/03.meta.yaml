@@ -1,0 +1,95 @@
+title:
+  en: "Booleans and selection: if, else, switch"
+  zh: "布尔与选择:if、else、switch"
+order: 3
+tasks:
+  - id: sign
+    prompt:
+      en: "Complete `int sign(int n)` so it returns `-1` when `n` is negative, `0` when `n` is zero, and `1` when `n` is positive. Do **not** write a `main`."
+      zh: "完成 `int sign(int n)`:当 `n` 为负数时返回 `-1`,为零时返回 `0`,为正数时返回 `1`。**不要**写 `main`。"
+    starter: |
+      /* Return -1, 0, or 1 depending on the sign of n. Do not write main(). */
+      int sign(int n) {
+          return 0;   /* handle negative, zero, and positive */
+      }
+    solution: |
+      int sign(int n) {
+          if (n < 0) return -1;
+          if (n > 0) return 1;
+          return 0;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(sign(-7) == -1);
+            assert(sign(0) == 0);
+            assert(sign(42) == 1);
+            return 0;
+        }
+  - id: in-range
+    prompt:
+      en: "Complete `int in_range(int n, int lo, int hi)` so it returns `1` when `n` is between `lo` and `hi` (inclusive), and `0` otherwise. Use `&&`. Do **not** write a `main`."
+      zh: "完成 `int in_range(int n, int lo, int hi)`:当 `n` 在 `lo` 和 `hi` 之间(含端点)时返回 `1`,否则返回 `0`。使用 `&&`。**不要**写 `main`。"
+    starter: |
+      /* Return 1 if lo <= n <= hi, else 0. Use &&. Do not write main(). */
+      int in_range(int n, int lo, int hi) {
+          return 0;   /* change this */
+      }
+    solution: |
+      int in_range(int n, int lo, int hi) {
+          return n >= lo && n <= hi;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(in_range(5, 1, 10) == 1);
+            assert(in_range(1, 1, 10) == 1);
+            assert(in_range(10, 1, 10) == 1);
+            assert(in_range(0, 1, 10) == 0);
+            assert(in_range(11, 1, 10) == 0);
+            return 0;
+        }
+  - id: grade-letter
+    prompt:
+      en: "Complete `char grade_letter(int score)` using a `switch` on `score / 10`. Return `'A'` for 90–100, `'B'` for the 80s, `'C'` for the 70s, `'D'` for the 60s, and `'F'` below 60. Do **not** write a `main`."
+      zh: "用对 `score / 10` 的 `switch` 完成 `char grade_letter(int score)`。90–100 返回 `'A'`,80 多返回 `'B'`,70 多返回 `'C'`,60 多返回 `'D'`,低于 60 返回 `'F'`。**不要**写 `main`。"
+    starter: |
+      /* Use switch (score / 10). Do not write main(). */
+      char grade_letter(int score) {
+          return 'F';   /* change this */
+      }
+    solution: |
+      char grade_letter(int score) {
+          switch (score / 10) {
+              case 10:
+              case 9:  return 'A';
+              case 8:  return 'B';
+              case 7:  return 'C';
+              case 6:  return 'D';
+              default: return 'F';
+          }
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(grade_letter(100) == 'A');
+            assert(grade_letter(95) == 'A');
+            assert(grade_letter(83) == 'B');
+            assert(grade_letter(70) == 'C');
+            assert(grade_letter(66) == 'D');
+            assert(grade_letter(59) == 'F');
+            assert(grade_letter(0) == 'F');
+            return 0;
+        }

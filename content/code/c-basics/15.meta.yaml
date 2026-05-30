@@ -1,0 +1,123 @@
+title:
+  en: "Structs and typedef: . vs ->"
+  zh: "结构体与 typedef:. 与 ->"
+order: 15
+tasks:
+  - id: make-point
+    prompt:
+      en: "Complete `Point make_point(int x, int y)` so it builds a `Point` with those values and returns it (use `.` on the members). The `typedef` is given. Do **not** write a `main`."
+      zh: "完成 `Point make_point(int x, int y)`,让它用这两个值构造一个 `Point` 并返回(用 `.` 访问成员)。`typedef` 已给出。**不要**写 `main`。"
+    starter: |
+      typedef struct {
+          int x;
+          int y;
+      } Point;
+
+      /* Build a Point with the given x and y, then return it. Do not write main(). */
+      Point make_point(int x, int y) {
+          Point p;
+          p.x = 0;   /* change this */
+          p.y = 0;   /* change this */
+          return p;
+      }
+    solution: |
+      typedef struct {
+          int x;
+          int y;
+      } Point;
+
+      Point make_point(int x, int y) {
+          Point p;
+          p.x = x;
+          p.y = y;
+          return p;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            Point p = make_point(3, 4);
+            assert(p.x == 3 && p.y == 4);
+            Point q = make_point(-1, 0);
+            assert(q.x == -1 && q.y == 0);
+            return 0;
+        }
+  - id: move-point
+    prompt:
+      en: "Complete `void move_point(Point *p, int dx, int dy)` so it adds `dx` to the point's `x` and `dy` to its `y`, using `->`. The `typedef` is given. Do **not** write a `main`."
+      zh: "完成 `void move_point(Point *p, int dx, int dy)`,用 `->` 把 `dx` 加到点的 `x` 上、`dy` 加到 `y` 上。`typedef` 已给出。**不要**写 `main`。"
+    starter: |
+      typedef struct {
+          int x;
+          int y;
+      } Point;
+
+      /* Move the point by (dx, dy) using ->. Do not write main(). */
+      void move_point(Point *p, int dx, int dy) {
+          /* change p->x and p->y */
+      }
+    solution: |
+      typedef struct {
+          int x;
+          int y;
+      } Point;
+
+      void move_point(Point *p, int dx, int dy) {
+          p->x += dx;
+          p->y += dy;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            Point p = {1, 2};
+            move_point(&p, 3, -1);
+            assert(p.x == 4 && p.y == 1);
+            move_point(&p, 0, 0);
+            assert(p.x == 4 && p.y == 1);
+            return 0;
+        }
+  - id: rect-area
+    prompt:
+      en: "Complete `int rect_area(const Rect *r)` so it returns `width * height`, reading the members with `->`. The `typedef` is given. Do **not** write a `main`."
+      zh: "完成 `int rect_area(const Rect *r)`,让它返回 `width * height`,用 `->` 读取成员。`typedef` 已给出。**不要**写 `main`。"
+    starter: |
+      typedef struct {
+          int width;
+          int height;
+      } Rect;
+
+      /* Return width * height using r->. Do not write main(). */
+      int rect_area(const Rect *r) {
+          return 0;   /* use r->width and r->height */
+      }
+    solution: |
+      typedef struct {
+          int width;
+          int height;
+      } Rect;
+
+      int rect_area(const Rect *r) {
+          return r->width * r->height;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            Rect a = {3, 4};
+            assert(rect_area(&a) == 12);
+            Rect b = {5, 5};
+            assert(rect_area(&b) == 25);
+            Rect c = {0, 10};
+            assert(rect_area(&c) == 0);
+            return 0;
+        }

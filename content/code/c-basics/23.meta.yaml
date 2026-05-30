@@ -1,0 +1,99 @@
+title:
+  en: "Preprocessor, const, static, and enum"
+  zh: "预处理器、const、static 与 enum"
+order: 23
+tasks:
+  - id: suit-name
+    prompt:
+      en: "The `enum Suit { HEARTS, DIAMONDS, CLUBS, SPADES }` is given. Complete `const char *suit_name(enum Suit s)` so it returns the name (`\"Hearts\"`, `\"Diamonds\"`, `\"Clubs\"`, `\"Spades\"`) using a `switch`. Do **not** write a `main`."
+      zh: "`enum Suit { HEARTS, DIAMONDS, CLUBS, SPADES }` 已给出。用 `switch` 完成 `const char *suit_name(enum Suit s)`,让它返回名字(`\"Hearts\"`、`\"Diamonds\"`、`\"Clubs\"`、`\"Spades\"`)。**不要**写 `main`。"
+    starter: |
+      enum Suit { HEARTS, DIAMONDS, CLUBS, SPADES };
+
+      /* Return the suit's name with a switch. Do not write main(). */
+      const char *suit_name(enum Suit s) {
+          return "Unknown";   /* one case per suit */
+      }
+    solution: |
+      enum Suit { HEARTS, DIAMONDS, CLUBS, SPADES };
+
+      const char *suit_name(enum Suit s) {
+          switch (s) {
+              case HEARTS:   return "Hearts";
+              case DIAMONDS: return "Diamonds";
+              case CLUBS:    return "Clubs";
+              case SPADES:   return "Spades";
+              default:       return "Unknown";
+          }
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <string.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(strcmp(suit_name(HEARTS), "Hearts") == 0);
+            assert(strcmp(suit_name(DIAMONDS), "Diamonds") == 0);
+            assert(strcmp(suit_name(CLUBS), "Clubs") == 0);
+            assert(strcmp(suit_name(SPADES), "Spades") == 0);
+            return 0;
+        }
+  - id: circle-area
+    prompt:
+      en: "A macro `#define PI 3.14159265358979` is given. Complete `double circle_area(double r)` so it returns the area of a circle, `PI * r * r`, using the macro. Do **not** write a `main`."
+      zh: "已给出宏 `#define PI 3.14159265358979`。完成 `double circle_area(double r)`,用这个宏返回圆的面积 `PI * r * r`。**不要**写 `main`。"
+    starter: |
+      #define PI 3.14159265358979
+
+      /* Return the area of a circle: PI * r * r. Do not write main(). */
+      double circle_area(double r) {
+          return 0.0;   /* use the PI macro */
+      }
+    solution: |
+      #define PI 3.14159265358979
+
+      double circle_area(double r) {
+          return PI * r * r;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <math.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(fabs(circle_area(1.0) - PI) < 1e-9);
+            assert(fabs(circle_area(2.0) - PI * 4.0) < 1e-9);
+            assert(fabs(circle_area(0.0) - 0.0) < 1e-9);
+            return 0;
+        }
+  - id: next-id
+    prompt:
+      en: "Complete `int next_id(void)` using a `static` local counter, so the first call returns `1`, the next `2`, then `3`, and so on. Do **not** write a `main`."
+      zh: "用一个 `static` 局部计数器完成 `int next_id(void)`,让第一次调用返回 `1`,下一次 `2`,再下一次 `3`,以此类推。**不要**写 `main`。"
+    starter: |
+      /* Use a static counter that survives between calls. Do not write main(). */
+      int next_id(void) {
+          return 0;   /* static int counter = 0; counter++; return counter; */
+      }
+    solution: |
+      int next_id(void) {
+          static int counter = 0;
+          counter++;
+          return counter;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(next_id() == 1);
+            assert(next_id() == 2);
+            assert(next_id() == 3);
+            return 0;
+        }

@@ -1,0 +1,99 @@
+title:
+  en: "Functions, parameters, and return values"
+  zh: "函数、参数与返回值"
+order: 5
+tasks:
+  - id: maxes
+    prompt:
+      en: "Write `int max2(int a, int b)` returning the larger of two numbers, and `int max3(int a, int b, int c)` returning the largest of three. Make `max3` call `max2`. Do **not** write a `main`."
+      zh: "编写 `int max2(int a, int b)` 返回两个数中较大的,以及 `int max3(int a, int b, int c)` 返回三个数中最大的。让 `max3` 调用 `max2`。**不要**写 `main`。"
+    starter: |
+      /* Write max2 and max3 (max3 can call max2). Do not write main(). */
+      int max2(int a, int b) {
+          return a;   /* change this */
+      }
+
+      int max3(int a, int b, int c) {
+          return a;   /* change this */
+      }
+    solution: |
+      int max2(int a, int b) {
+          return a > b ? a : b;
+      }
+
+      int max3(int a, int b, int c) {
+          return max2(max2(a, b), c);
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(max2(3, 5) == 5);
+            assert(max2(-1, -9) == -1);
+            assert(max3(3, 9, 5) == 9);
+            assert(max3(7, 2, 7) == 7);
+            assert(max3(-5, -2, -8) == -2);
+            return 0;
+        }
+  - id: power
+    prompt:
+      en: "Complete `int power(int base, int exp)` so it returns `base` raised to `exp` (assume `exp >= 0`). Use a loop. `power(2, 10)` is `1024`. Do **not** write a `main`."
+      zh: "完成 `int power(int base, int exp)`,让它返回 `base` 的 `exp` 次方(假设 `exp >= 0`)。用一个循环。`power(2, 10)` 是 `1024`。**不要**写 `main`。"
+    starter: |
+      /* Return base raised to exp (exp >= 0). Do not write main(). */
+      int power(int base, int exp) {
+          return base;   /* change this */
+      }
+    solution: |
+      int power(int base, int exp) {
+          int result = 1;
+          for (int i = 0; i < exp; i++) {
+              result *= base;
+          }
+          return result;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(power(2, 10) == 1024);
+            assert(power(5, 0) == 1);
+            assert(power(3, 3) == 27);
+            assert(power(7, 1) == 7);
+            return 0;
+        }
+  - id: clamp
+    prompt:
+      en: "Complete `int clamp(int x, int lo, int hi)` so it keeps `x` within `[lo, hi]`: return `lo` if `x` is below `lo`, `hi` if `x` is above `hi`, otherwise `x`. Do **not** write a `main`."
+      zh: "完成 `int clamp(int x, int lo, int hi)`,把 `x` 限制在 `[lo, hi]` 之内:如果 `x` 低于 `lo` 返回 `lo`,高于 `hi` 返回 `hi`,否则返回 `x`。**不要**写 `main`。"
+    starter: |
+      /* Keep x within [lo, hi]. Do not write main(). */
+      int clamp(int x, int lo, int hi) {
+          return x;   /* change this */
+      }
+    solution: |
+      int clamp(int x, int lo, int hi) {
+          if (x < lo) return lo;
+          if (x > hi) return hi;
+          return x;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(clamp(5, 1, 10) == 5);
+            assert(clamp(-3, 1, 10) == 1);
+            assert(clamp(99, 1, 10) == 10);
+            assert(clamp(1, 1, 10) == 1);
+            assert(clamp(10, 1, 10) == 10);
+            return 0;
+        }

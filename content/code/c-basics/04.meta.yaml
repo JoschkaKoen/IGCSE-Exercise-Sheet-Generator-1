@@ -1,0 +1,92 @@
+title:
+  en: "Loops: while, for, and accumulation"
+  zh: "循环:while、for 与累加"
+order: 4
+tasks:
+  - id: count-up
+    prompt:
+      en: "In `main`, use a `for` loop to print the numbers `1` to `5`, each on its own line."
+      zh: "在 `main` 里面,用一个 `for` 循环打印数字 `1` 到 `5`,每个数字单独占一行。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          /* print 1 to 5, one per line, with a for loop */
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          for (int i = 1; i <= 5; i++) {
+              printf("%d\n", i);
+          }
+          return 0;
+      }
+    check:
+      kind: stdout
+      expected: "1\n2\n3\n4\n5"
+      normalize: strip
+  - id: sum-to
+    prompt:
+      en: "Complete `int sum_to(int n)` so it returns `1 + 2 + ... + n`. Return `0` when `n` is `0` or negative. Do **not** write a `main`."
+      zh: "完成 `int sum_to(int n)`,让它返回 `1 + 2 + ... + n`。当 `n` 为 `0` 或负数时返回 `0`。**不要**写 `main`。"
+    starter: |
+      /* Return 1 + 2 + ... + n (0 if n <= 0). Do not write main(). */
+      int sum_to(int n) {
+          return 0;   /* use a loop and an accumulator */
+      }
+    solution: |
+      int sum_to(int n) {
+          int total = 0;
+          for (int i = 1; i <= n; i++) {
+              total += i;
+          }
+          return total;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(sum_to(5) == 15);
+            assert(sum_to(1) == 1);
+            assert(sum_to(0) == 0);
+            assert(sum_to(-3) == 0);
+            assert(sum_to(100) == 5050);
+            return 0;
+        }
+  - id: count-multiples
+    prompt:
+      en: "Complete `int count_multiples(int n, int k)` so it returns how many numbers from `1` to `n` are divisible by `k`. Use `%` inside a loop. Do **not** write a `main`."
+      zh: "完成 `int count_multiples(int n, int k)`,让它返回从 `1` 到 `n` 里能被 `k` 整除的数有多少个。在循环里用 `%`。**不要**写 `main`。"
+    starter: |
+      /* Count 1..n divisible by k. Do not write main(). */
+      int count_multiples(int n, int k) {
+          return 0;   /* use a loop and a counter */
+      }
+    solution: |
+      int count_multiples(int n, int k) {
+          int count = 0;
+          for (int i = 1; i <= n; i++) {
+              if (i % k == 0) {
+                  count++;
+              }
+          }
+          return count;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(count_multiples(10, 2) == 5);
+            assert(count_multiples(10, 3) == 3);
+            assert(count_multiples(5, 1) == 5);
+            assert(count_multiples(7, 10) == 0);
+            return 0;
+        }

@@ -1,0 +1,131 @@
+title:
+  en: "Dynamic memory: malloc, free, and realloc"
+  zh: "动态内存:malloc、free 与 realloc"
+order: 16
+tasks:
+  - id: make-array
+    prompt:
+      en: "Complete `int *make_array(int n, int value)` so it allocates `n` ints (with `malloc`), sets every one to `value`, and returns the pointer. The checker frees it. Do **not** write a `main`."
+      zh: "完成 `int *make_array(int n, int value)`,让它用 `malloc` 分配 `n` 个 int,把每一个都设为 `value`,并返回指针。检查器会负责 free。**不要**写 `main`。"
+    starter: |
+      #include <stdlib.h>
+
+      /* Allocate n ints, set them all to value, return the pointer. Do not write main(). */
+      int *make_array(int n, int value) {
+          int *a = malloc(n * sizeof(int));
+          for (int i = 0; i < n; i++) {
+              a[i] = 0;   /* change 0 to value */
+          }
+          return a;
+      }
+    solution: |
+      #include <stdlib.h>
+
+      int *make_array(int n, int value) {
+          int *a = malloc(n * sizeof(int));
+          for (int i = 0; i < n; i++) {
+              a[i] = value;
+          }
+          return a;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <stdlib.h>
+        #include "student.c"
+
+        int main(void) {
+            int *a = make_array(4, 7);
+            for (int i = 0; i < 4; i++) assert(a[i] == 7);
+            free(a);
+            int *b = make_array(1, -3);
+            assert(b[0] == -3);
+            free(b);
+            return 0;
+        }
+  - id: concat
+    prompt:
+      en: "Complete `int *concat(const int a[], int na, const int b[], int nb)` so it allocates `na + nb` ints, copies all of `a` then all of `b`, and returns the pointer. The checker frees it. Do **not** write a `main`."
+      zh: "完成 `int *concat(const int a[], int na, const int b[], int nb)`,让它分配 `na + nb` 个 int,先复制 `a` 的全部、再复制 `b` 的全部,然后返回指针。检查器会负责 free。**不要**写 `main`。"
+    starter: |
+      #include <stdlib.h>
+
+      /* Allocate na + nb ints, copy a then b, return the pointer. Do not write main(). */
+      int *concat(const int a[], int na, const int b[], int nb) {
+          int *r = malloc((na + nb) * sizeof(int));
+          for (int i = 0; i < na + nb; i++) {
+              r[i] = 0;   /* TODO: copy a[0..na-1], then b[0..nb-1] */
+          }
+          return r;
+      }
+    solution: |
+      #include <stdlib.h>
+
+      int *concat(const int a[], int na, const int b[], int nb) {
+          int *r = malloc((na + nb) * sizeof(int));
+          for (int i = 0; i < na; i++) {
+              r[i] = a[i];
+          }
+          for (int i = 0; i < nb; i++) {
+              r[na + i] = b[i];
+          }
+          return r;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <stdlib.h>
+        #include "student.c"
+
+        int main(void) {
+            int a[] = {1, 2, 3};
+            int b[] = {4, 5};
+            int *r = concat(a, 3, b, 2);
+            int expected[] = {1, 2, 3, 4, 5};
+            for (int i = 0; i < 5; i++) assert(r[i] == expected[i]);
+            free(r);
+            return 0;
+        }
+  - id: push
+    prompt:
+      en: "Complete `int *push(int *a, int *len, int value)` so it grows the heap array `a` to hold one more int with `realloc`, stores `value` at the end, increases `*len` by 1, and returns the new pointer. The checker frees it. Do **not** write a `main`."
+      zh: "完成 `int *push(int *a, int *len, int value)`,让它用 `realloc` 把堆数组 `a` 扩大一个 int,把 `value` 存到末尾,把 `*len` 加 1,并返回新指针。检查器会负责 free。**不要**写 `main`。"
+    starter: |
+      #include <stdlib.h>
+
+      /* Grow a by one, store value at the end, update *len, return the new pointer.
+         Do not write main(). */
+      int *push(int *a, int *len, int value) {
+          /* realloc to (*len + 1) ints, store value, update *len */
+          return a;
+      }
+    solution: |
+      #include <stdlib.h>
+
+      int *push(int *a, int *len, int value) {
+          int n = *len;
+          int *r = realloc(a, (n + 1) * sizeof(int));
+          r[n] = value;
+          *len = n + 1;
+          return r;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include <stdlib.h>
+        #include "student.c"
+
+        int main(void) {
+            int *a = NULL;
+            int len = 0;
+            a = push(a, &len, 10);
+            a = push(a, &len, 20);
+            a = push(a, &len, 30);
+            assert(len == 3);
+            assert(a[0] == 10 && a[1] == 20 && a[2] == 30);
+            free(a);
+            return 0;
+        }

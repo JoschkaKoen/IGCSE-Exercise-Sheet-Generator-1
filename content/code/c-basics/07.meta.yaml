@@ -1,0 +1,96 @@
+title:
+  en: "1-D arrays: store, index, and traverse"
+  zh: "一维数组:存储、索引与遍历"
+order: 7
+tasks:
+  - id: print-sum
+    prompt:
+      en: "The array `a` and its length `n` are given. In `main`, add up all `n` items and print the total on its own line."
+      zh: "数组 `a` 和它的长度 `n` 已经给出。在 `main` 里面,把所有 `n` 个元素加起来,把总和单独打印一行。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          int a[] = {10, 20, 30, 40, 8};
+          int n = 5, total = 0;
+          /* add up a[0..n-1] into total */
+          printf("%d\n", total);
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          int a[] = {10, 20, 30, 40, 8};
+          int n = 5, total = 0;
+          for (int i = 0; i < n; i++) {
+              total += a[i];
+          }
+          printf("%d\n", total);
+          return 0;
+      }
+    check:
+      kind: stdout
+      expected: "108"
+      normalize: strip
+  - id: sum
+    prompt:
+      en: "Complete `int sum(const int a[], int n)` so it returns the total of the array's `n` items (`0` when `n` is `0`). Do **not** write a `main`."
+      zh: "完成 `int sum(const int a[], int n)`,让它返回数组中 `n` 个元素的总和(当 `n` 为 `0` 时返回 `0`)。**不要**写 `main`。"
+    starter: |
+      /* Return the total of a[0..n-1]. Do not write main(). */
+      int sum(const int a[], int n) {
+          return 0;   /* loop and accumulate */
+      }
+    solution: |
+      int sum(const int a[], int n) {
+          int total = 0;
+          for (int i = 0; i < n; i++) {
+              total += a[i];
+          }
+          return total;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int a[] = {10, 20, 30, 40, 8};
+            assert(sum(a, 5) == 108);
+            assert(sum(a, 0) == 0);
+            int b[] = {-3, 3};
+            assert(sum(b, 2) == 0);
+            return 0;
+        }
+  - id: double-all
+    prompt:
+      en: "Complete `void double_all(int a[], int n)` so it doubles every item of the array, in place (no return value). Do **not** write a `main`."
+      zh: "完成 `void double_all(int a[], int n)`,让它把数组里每个元素就地翻倍(没有返回值)。**不要**写 `main`。"
+    starter: |
+      /* Double every item of a in place. Do not write main(). */
+      void double_all(int a[], int n) {
+          /* change each a[i] */
+      }
+    solution: |
+      void double_all(int a[], int n) {
+          for (int i = 0; i < n; i++) {
+              a[i] *= 2;
+          }
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            int a[] = {1, 2, 3};
+            double_all(a, 3);
+            assert(a[0] == 2 && a[1] == 4 && a[2] == 6);
+            int b[] = {-5, 10};
+            double_all(b, 2);
+            assert(b[0] == -10 && b[1] == 20);
+            return 0;
+        }

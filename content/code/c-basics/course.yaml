@@ -4,7 +4,29 @@ title:
   en: C Programming
   zh: C 语言编程
 subtitle:
-  en: Learn C from the ground up — compile and run in your browser.
-  zh: 从零开始学习 C 语言 —— 在浏览器中编译并运行。
+  en: From printf to pointers, memory, and data structures — compile and run in your browser.
+  zh: 从 printf 到指针、内存与数据结构 —— 在浏览器中编译并运行。
 lessons:
   - "01"
+  - "02"
+  - "03"
+  - "04"
+  - "05"
+  - "06"
+  - "07"
+  - "08"
+  - "09"
+  - "10"
+  - "11"
+  - "12"
+  - "13"
+  - "14"
+  - "15"
+  - "16"
+  - "17"
+  - "18"
+  - "19"
+  - "20"
+  - "21"
+  - "22"
+  - "23"

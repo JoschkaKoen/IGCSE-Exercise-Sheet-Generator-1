@@ -50,32 +50,28 @@ tasks:
             assert(square(3) == 9);
             return 0;
         }
-  - id: hyp
+  - id: greet
     prompt:
-      en: "Write `double hyp(double a, double b)` that returns the hypotenuse length: the square root of `a*a + b*b`. Use `sqrt` from `<math.h>`. Do **not** write a `main`."
-      zh: "编写 `double hyp(double a, double b)`,返回斜边的长度:即 `a*a + b*b` 的平方根。使用 `<math.h>` 中的 `sqrt`。**不要**写 `main`。"
+      en: "Inside `main`, declare `int grade = 11;`. Then use `printf` to print two lines: first `Hello!`, then `Grade 11` — print the number with a `%d` placeholder, not by typing `11`."
+      zh: "在 `main` 里面,声明 `int grade = 11;`。然后用 `printf` 打印两行:第一行 `Hello!`,第二行 `Grade 11` —— 用 `%d` 占位符打印这个数字,而不是直接打 `11`。"
     starter: |
-      #include <math.h>
+      #include <stdio.h>
 
-      /* Return sqrt(a*a + b*b). Do not write main(). */
-      double hyp(double a, double b) {
-          return 0.0;   /* change this */
+      int main(void) {
+          int grade = 11;
+          /* Print two lines: Hello!  then  Grade 11  (use %d for grade) */
+          return 0;
       }
     solution: |
-      #include <math.h>
+      #include <stdio.h>
 
-      double hyp(double a, double b) {
-          return sqrt(a * a + b * b);
+      int main(void) {
+          int grade = 11;
+          printf("Hello!\n");
+          printf("Grade %d\n", grade);
+          return 0;
       }
     check:
-      kind: harness
-      code: |
-        #include <assert.h>
-        #include <math.h>
-        #include "student.c"
-
-        int main(void) {
-            assert(fabs(hyp(3.0, 4.0) - 5.0) < 1e-9);
-            assert(fabs(hyp(5.0, 12.0) - 13.0) < 1e-9);
-            return 0;
-        }
+      kind: stdout
+      expected: "Hello!\nGrade 11"
+      normalize: strip

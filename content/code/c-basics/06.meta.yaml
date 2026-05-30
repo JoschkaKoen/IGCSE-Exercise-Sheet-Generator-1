@@ -1,0 +1,91 @@
+title:
+  en: "Nested loops and patterns"
+  zh: "嵌套循环与图案"
+order: 6
+tasks:
+  - id: square-stars
+    prompt:
+      en: "In `main`, use nested loops to print a 3×3 block of `*` — three stars on each of three lines."
+      zh: "在 `main` 里面,用嵌套循环打印一个 3×3 的 `*` 方块 —— 三行,每行三个星号。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          /* print a 3x3 block of * using nested loops */
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          for (int row = 0; row < 3; row++) {
+              for (int col = 0; col < 3; col++) {
+                  printf("*");
+              }
+              printf("\n");
+          }
+          return 0;
+      }
+    check:
+      kind: stdout
+      expected: "***\n***\n***"
+      normalize: strip
+  - id: triangle
+    prompt:
+      en: "In `main`, print a left-aligned triangle of `*` that is 4 rows tall: row 1 has one `*`, row 2 has two, up to row 4 with four."
+      zh: "在 `main` 里面,打印一个靠左对齐、共 4 行高的 `*` 三角形:第 1 行一个 `*`,第 2 行两个,一直到第 4 行四个。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          /* print rows of *: 1 star, then 2, then 3, then 4 */
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          for (int row = 1; row <= 4; row++) {
+              for (int col = 0; col < row; col++) {
+                  printf("*");
+              }
+              printf("\n");
+          }
+          return 0;
+      }
+    check:
+      kind: stdout
+      expected: "*\n**\n***\n****"
+      normalize: strip
+  - id: count-pairs
+    prompt:
+      en: "Complete `int count_pairs(int n)` so it returns how many pairs `(i, j)` satisfy `1 <= i < j <= n`. Use nested loops (start the inner loop at `i + 1`). Do **not** write a `main`."
+      zh: "完成 `int count_pairs(int n)`,让它返回满足 `1 <= i < j <= n` 的对 `(i, j)` 有多少个。用嵌套循环(内层循环从 `i + 1` 开始)。**不要**写 `main`。"
+    starter: |
+      /* Count pairs (i, j) with 1 <= i < j <= n. Do not write main(). */
+      int count_pairs(int n) {
+          return 0;   /* use nested loops and a counter */
+      }
+    solution: |
+      int count_pairs(int n) {
+          int count = 0;
+          for (int i = 1; i <= n; i++) {
+              for (int j = i + 1; j <= n; j++) {
+                  count++;
+              }
+          }
+          return count;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(count_pairs(4) == 6);
+            assert(count_pairs(1) == 0);
+            assert(count_pairs(2) == 1);
+            assert(count_pairs(5) == 10);
+            return 0;
+        }

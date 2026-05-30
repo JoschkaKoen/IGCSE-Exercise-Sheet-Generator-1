@@ -1,0 +1,90 @@
+title:
+  en: "Bits, binary, and bitwise operators"
+  zh: "位、二进制与按位运算"
+order: 21
+tasks:
+  - id: count-bits
+    prompt:
+      en: "Complete `int count_bits(unsigned int n)` so it returns how many bits of `n` are `1`. Use `& 1` and `>>` in a loop. Do **not** write a `main`."
+      zh: "完成 `int count_bits(unsigned int n)`,让它返回 `n` 里有多少个位是 `1`。在循环里用 `& 1` 和 `>>`。**不要**写 `main`。"
+    starter: |
+      /* Count the 1 bits of n. Do not write main(). */
+      int count_bits(unsigned int n) {
+          return 0;   /* add (n & 1) each step, then n >>= 1 */
+      }
+    solution: |
+      int count_bits(unsigned int n) {
+          int count = 0;
+          while (n != 0) {
+              count += n & 1;
+              n >>= 1;
+          }
+          return count;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(count_bits(0) == 0);
+            assert(count_bits(7) == 3);
+            assert(count_bits(8) == 1);
+            assert(count_bits(255) == 8);
+            return 0;
+        }
+  - id: get-bit
+    prompt:
+      en: "Complete `int get_bit(unsigned int n, int i)` so it returns bit number `i` of `n` (`0` or `1`). Use `(n >> i) & 1`. Do **not** write a `main`."
+      zh: "完成 `int get_bit(unsigned int n, int i)`,让它返回 `n` 的第 `i` 位(`0` 或 `1`)。用 `(n >> i) & 1`。**不要**写 `main`。"
+    starter: |
+      /* Return bit i of n (0 or 1). Do not write main(). */
+      int get_bit(unsigned int n, int i) {
+          return 0;   /* shift right by i, then mask with & 1 */
+      }
+    solution: |
+      int get_bit(unsigned int n, int i) {
+          return (n >> i) & 1;
+      }
+    check:
+      kind: harness
+      code: |
+        #include <assert.h>
+        #include "student.c"
+
+        int main(void) {
+            assert(get_bit(5, 0) == 1);
+            assert(get_bit(5, 1) == 0);
+            assert(get_bit(5, 2) == 1);
+            assert(get_bit(8, 3) == 1);
+            assert(get_bit(8, 0) == 0);
+            return 0;
+        }
+  - id: to-binary
+    prompt:
+      en: "The byte `n` is given. In `main`, print its 8-bit binary form (most significant bit first), then a newline. For `20` that is `00010100`."
+      zh: "字节 `n` 已给出。在 `main` 里面,打印它的 8 位二进制形式(从最高位开始),然后换行。对于 `20`,结果是 `00010100`。"
+    starter: |
+      #include <stdio.h>
+
+      int main(void) {
+          int n = 20;
+          /* print bits 7 down to 0 of n, then a newline */
+          return 0;
+      }
+    solution: |
+      #include <stdio.h>
+
+      int main(void) {
+          int n = 20;
+          for (int i = 7; i >= 0; i--) {
+              printf("%d", (n >> i) & 1);
+          }
+          printf("\n");
+          return 0;
+      }
+    check:
+      kind: stdout
+      expected: "00010100"
+      normalize: strip
