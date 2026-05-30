@@ -2,7 +2,12 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "Explain two advantages and two disadvantages of BB being a public limited\
+    \ company.\n(a)\n1\nAdvantage 1:  Advantage 2:  Disadvantage 1:  Disadvantage\
+    \ 2:  [8]\n,\t,\nConsider the advantages and disadvantages of the following three\
+    \ methods BB could use to\nmotivate its production workers. Which method should\
+    \ BB use? Justify your answer.\n(b)\n•\nPiece rate\n•\nTeamworking\n•\nJob rotation\n\
+    Piece rate:  Teamworking:  Job rotation:  Recommendation:  [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +25,13 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "Explain two effects of BB having a short chain of command.\n(a)\n2\nEffect\
+    \ 1:  Explanation:  Effect 2:  Explanation:  [8]\n,\t,\nConsider the following\
+    \ three extension strategies BB could use for its best-selling product.\nWhich\
+    \ strategy should BB use? Justify your answer.\n(b)\n•\nAdding new features\n\
+    •\nStart selling in toy shops\n•\nTelevision advertising campaign\nAdding new\
+    \ features:  Start selling in toy shops:  Television advertising campaign:  Recommendation:\
+    \  [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -38,7 +49,12 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "Explain one way each of the following stakeholder groups might be affected\
+    \ by a business\nbecoming a multinational company.\n(a)\n3\nEffect on shareholders:\
+    \  Effect on employees:  Effect on suppliers:  Effect on the government:  [8]\n\
+    ,\t,\nUsing Appendix 2 and other information, consider the two countries BB could\
+    \ choose to locate\nits first new factory. Which country should BB choose? Justify\
+    \ your answer.\n(b)\nCountry A:  Country B:  Recommendation:  [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -56,7 +72,12 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "Explain two reasons why BB might want to sell its products in new markets\
+    \ in other countries.\n(a)\n4\nReason 1:  Explanation:  Reason 2:  Explanation:\
+    \  [8]\n,\t\t,\nUsing Appendix 3 and other information, consider BB’s financial\
+    \ performance compared to its\nmain competitor. Do you think BB’s financial performance\
+    \ is better than its competitor? Justify\nyour answer using appropriate calculations.\n\
+    (b)\n Conclusion:  [12]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a

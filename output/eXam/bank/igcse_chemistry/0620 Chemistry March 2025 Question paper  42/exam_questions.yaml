@@ -2,7 +2,12 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nUsing numbers only, state the:\n\n(a) percentage of oxygen in clean, dry\
+    \ air\n [1]\n\n(b) typical operating temperature, in °C, used in the Haber process\n\
+    \ [1]\n\n(c) number of atoms in a diatomic molecule\n [1]\n\n(d) maximum number\
+    \ of electrons in the second electron shell of an atom  [1]\n\n(e) number of hydrogen\
+    \ atoms in an alkane with 7 carbon atoms\n [1]\n\n(f) number of particles in one\
+    \ mole, in standard form [1]\n\n[Total: 6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +49,24 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nThis question is about ionic compounds.\n\n(a) State what is meant by\
+    \ the term ionic bond [2]\n\n(b) Potassium sulfide, K2S, is an ionic compound.\n\
+    \nComplete the dot-and-cross diagram in Fig. 2.1 of the ions in potassium sulfide.\n\
+    \nShow the charges on the ions K\n K\n S\nFig. 2.1\n\n[3]\n\n(c) Ionic compounds\
+    \ form giant ionic lattices.\n\n(i) Fig. 2.2 shows part of the giant ionic lattice\
+    \ structure of sodium chloride.\n\n Complete the diagram in Fig. 2.2 to show the\
+    \ ions present. Use ‘+’ for sodium ions\nand ‘–’ for chloride ions. One chloride\
+    \ ion has been completed for you.\n–\nFig. 2.2\n\n[2]\n\n(ii) State the name given\
+    \ to any positive ion [1]\n\n(d) Ionic compounds can be decomposed by the passage\
+    \ of an electric current using inert\nelectrodes.\n\n(i) State the name of this\
+    \ process [1]\n\n(ii) Write the ionic half-equation for the reaction which takes\
+    \ place at the anode when\nmolten potassium bromide, KBr, is decomposed by the\
+    \ passage of an electric current [2]\n\n(iii) Name the products and state the\
+    \ observations at the negative and positive electrodes\nwhen dilute aqueous potassium\
+    \ bromide, KBr, is decomposed by the passage of an\nelectric current.\nproduct\
+    \ at the negative electrode\n  observations at the negative electrode\n  products\
+    \ at the positive electrode\n  and   observations at the positive electrode\n\
+    \  [5]\n[Total: 16]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -104,7 +126,20 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nThe halogens are a group of elements in the Periodic Table.\n\nChlorine\
+    \ is a member of this group.\n\n(a) State the group number of the halogens [1]\n\
+    \n(b) State how many halogens there are in this group [1]\n\n(c) Suggest the identity\
+    \ of the halogen which:\n\n(i) has the highest density\n  [1]\n\n(ii) is the most\
+    \ reactive [1]\n\n(d) State the name of the negative ions (anions) formed by halogens\
+    \ [1]\n\n(e) State how many occupied electron shells there are in a bromine atom\
+    \ [1]\n\n(f) Name the noble gas which has the same electronic configuration as\
+    \ a Br – ion [1]\n\n(g) Aqueous chlorine, Cl 2, reacts with aqueous potassium\
+    \ iodide, KI.\n\nOne of the products formed is iodine, I2.\n\n(i) Complete and\
+    \ balance the ionic equation for the reaction between Cl 2 and I – ions.\n\n State\
+    \ symbols are not required.\nCl 2  +   I –\n   +  I2\n\n[2]\n\n(ii) Explain why\
+    \ this reaction is defined as a redox reaction.\n\n Give your answer in terms\
+    \ of electron transfer [2]\n\n(h) Give the colour and state of iodine at room\
+    \ temperature and pressure.\ncolour   state   [2]\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -182,7 +217,29 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nCarbonyl chloride, COCl 2, is manufactured by reacting carbon monoxide\
+    \ with chlorine.\n\nCO(g)  +  Cl 2(g)\n  COCl 2(g)\nΔH = –105 kJ / mol\n\nThe\
+    \ process takes place in a closed system, and an equilibrium is reached.\n\nThe\
+    \ conditions for this process are 200 °C and 200 kPa.\n\n(a) Explain what is meant\
+    \ by the term closed system [1]\n\n(b) State what the symbol ΔH represents [1]\n\
+    \n(c) State how the value of ΔH shows that the forward reaction is exothermic\
+    \ [1]\n\n(d) Deduce the value of ΔH for the reverse reaction. Include a sign in\
+    \ your answer [1]\n\n(e) Complete Table 4.1 to show the effect, if any, on the\
+    \ concentration of COCl 2(g) at equilibrium\nwhen the following changes to the\
+    \ conditions are applied.\n\nUse only the words increases, decreases or no change.\n\
+    Table 4.1\nchange to conditions\neffect on the concentration of\nCOCl 2(g) at\
+    \ equilibrium\nthe temperature is increased\nsome CO is added\nthe pressure is\
+    \ increased\na catalyst is added\n\n[4]\n,\t,\n\n(f) The equation for the reaction\
+    \ can be represented as shown in Fig. 4.1.\n\nC\n O  +  Cl\n Cl\n\nC\n O\nCl\n\
+    Cl\n\nΔH = –105 kJ / mol\nFig. 4.1\n\nTable 4.2 shows some bond energies.\nTable\
+    \ 4.2\nbond\nC≡O\nCl –Cl\nC–Cl\nbond energy in kJ / mol\n1075\n240\n340\n\nUse\
+    \ the bond energies in Table 4.2 and the value of ΔH for the reaction to calculate\
+    \ the\nbond energy, in kJ / mol, of the C=O bond.\n\nUse the following steps.\n\
+    •\nCalculate the energy needed to break the bonds in the reactants kJ\n•\nCalculate\
+    \ the energy released when the bonds in carbonyl chloride form kJ\n•\nCalculate\
+    \ the bond energy of the C=O bond kJ / mol\n\n[3]\n,\t,\n\n(g) Complete the dot-and-cross\
+    \ diagram in Fig. 4.2 of a molecule of carbonyl chloride.\n\nShow outer shell\
+    \ electrons only.\nCl\nCl\nC\nO\nFig. 4.2\n\n[3]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -230,7 +287,27 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nManganese is the element with atomic number 25 in the Periodic Table.\n\
+    \nCalcium is the element with atomic number 20 in the Periodic Table.\n\n(a) Complete\
+    \ Table 5.1 to show the number of protons, neutrons and electrons in the 55Mn\
+    \ atom\nand the 42Ca2+ ion.\nTable 5.1\n55Mn\n42Ca2+\nprotons\nneutrons\nelectrons\n\
+    \n[3]\n\n(b) Manganese forms several oxides. The formulae of some of these oxides\
+    \ are shown.\nMnO\nMn2O3\nMn3O4\nMnO2\nMn2O7\n\n(i) Suggest why manganese is expected\
+    \ to form coloured oxides [1]\n\n(ii) State which other property of manganese\
+    \ is shown by the formation of several oxides [1]\n\n(iii) State the formula of\
+    \ manganese(II) oxide [1]\n\n(c) Mn3O4 is found in an ore of manganese. Manganese\
+    \ metal can be extracted from Mn3O4\nusing aluminium as the reducing agent.\n\n\
+    (i) Define the term reducing agent [2]\n\n(ii) Complete the symbol equation by\
+    \ inserting the formula of the missing product and\nbalancing the equation Mn3O4\
+    \  +   Al\n   +   Mn\n\n[2]\n,\t\t,\n\n(d) MnO2 reacts with dilute hydrochloric\
+    \ acid as shown in the equation.\nMnO2  +  4HCl\n  MnCl 2  +  2H2O  +  Cl 2\n\n\
+    (i) Calculate the volume of chlorine gas formed, in cm3, at r.t.p. when excess\
+    \ MnO2 reacts\nwith 50.0 cm3 of 0.200 mol / dm3 HCl .\n\n Use the following steps.\n\
+    •\nCalculate the number of moles of HCl used mol\n•\nDetermine the number of moles\
+    \ of Cl 2 formed mol\n•\nCalculate the volume of Cl 2 formed cm3\n\n[3]\n\n(ii)\
+    \ Describe a test for chlorine gas.\ntest   observations   [1]\n\n(iii) Explain,\
+    \ in terms of collision theory, why decreasing the temperature decreases the rate\n\
+    of this reaction [3]\n\n[Total: 17]\n,\n,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -308,7 +385,59 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nThe structural formulae of two compounds, A and B, are shown.\nA\nB\n\
+    CH2=CHCH3\nCH3CH=CHCH3\n\nA and B are members of the same homologous series.\n\
+    \n(a) Give two reasons why the structural formulae of A and B show they are members\
+    \ of the\nsame homologous series.\n1   2   [2]\n\n(b) Explain why A and B are\
+    \ both hydrocarbons [1]\n\n(c) Write the symbol equation for the complete combustion\
+    \ of A [2]\n\n(d) Deduce the empirical formula of A [1]\n\n(e) Name compound B\
+    \ [1]\n\n(f) A structural isomer of B is a member of the same homologous series.\n\
+    \nDraw the displayed formula of this structural isomer of B.\n\n[1]\n,\t,\n\n\
+    (g) Compound B reacts with aqueous bromine at room temperature to form product\
+    \ C.\n\nThe equation is shown.\n\nB\nC\nCH3CH=CHCH3  +  Br2\n  CH3CHBrCHBrCH3\n\
+    \n(i) State why this is an addition reaction [1]\n\n(ii) Describe the colour change\
+    \ in aqueous bromine during this reaction.\nfrom   to   [1]\n\n(iii) Name product\
+    \ C [1]\n\n(h) Under certain conditions, one mole of B reacts with oxygen to form\
+    \ two moles of\ncarboxylic acid D.\n\nCarboxylic acid D has two carbon atoms.\n\
+    \n(i) Draw the displayed formula of carboxylic acid D.\n\n[1]\n\n(ii) Name carboxylic\
+    \ acid D [1]\n\n(iii) Complete the symbol equation for this reaction.\nCH3CH=CHCH3\
+    \  +   [1]\n\n[Total: 14]\n,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\n\
+    hydrogen\n1\n2\nHe\nhelium\n4\nI\nII\nIII\nIV\nV\nVI\nVII\nVIII\n3\nLi\nlithium\n\
+    7\n4\nBe\nberyllium\n9\natomic number\natomic symbol\nKey\nname\nrelative atomic\
+    \ mass\n11\nNa\nsodium\n23\n12\nMg\nmagnesium\n24\n19\nK\npotassium\n39\n20\n\
+    Ca\ncalcium\n40\n37\nRb\nrubidium\n85\n38\nSr\nstrontium\n88\n55\nCs\ncaesium\n\
+    133\n56\nBa\nbarium\n137\n87\nFr\nfrancium\n–\n88\nRa\nradium\n–\n5\nB\nboron\n\
+    11\n13\nAl\naluminium\n27\n31\nGa\ngallium\n70\n49\nIn\nindium\n115\n81\nTl\n\
+    thallium\n204\n113\nNh\nnihonium\n–\n6\nC\ncarbon\n12\n14\nSi\nsilicon\n28\n32\n\
+    Ge\ngermanium\n73\n50\nSn\ntin\n119\n82\nPb\nlead\n207\n22\nTi\ntitanium\n48\n\
+    40\nZr\nzirconium\n91\n72\nHf\nhafnium\n178\n104\nRf\nrutherfordium\n–\n23\nV\n\
+    vanadium\n51\n41\nNb\nniobium\n93\n73\nTa\ntantalum\n181\n105\nDb\ndubnium\n–\n\
+    24\nCr\nchromium\n52\n42\nMo\nmolybdenum\n96\n74\nW\ntungsten\n184\n106\nSg\n\
+    seaborgium\n–\n25\nMn\nmanganese\n55\n43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n\
+    186\n107\nBh\nbohrium\n–\n26\nFe\niron\n56\n44\nRu\nruthenium\n101\n76\nOs\nosmium\n\
+    190\n108\nHs\nhassium\n–\n27\nCo\ncobalt\n59\n45\nRh\nrhodium\n103\n77\nIr\niridium\n\
+    192\n109\nMt\nmeitnerium\n–\n28\nNi\nnickel\n59\n46\nPd\npalladium\n106\n78\n\
+    Pt\nplatinum\n195\n110\nDs\ndarmstadtium\n–\n29\nCu\ncopper\n64\n47\nAg\nsilver\n\
+    108\n79\nAu\ngold\n197\n111\nRg\nroentgenium\n–\n30\nZn\nzinc\n65\n48\nCd\ncadmium\n\
+    112\n80\nHg\nmercury\n201\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\n\
+    Lv\nlivermorium\n–\n7\nN\nnitrogen\n14\n15\nP\nphosphorus\n31\n33\nAs\narsenic\n\
+    75\n51\nSb\nantimony\n122\n83\nBi\nbismuth\n209\n115\nMc\nmoscovium\n–\n8\nO\n\
+    oxygen\n16\n16\nS\nsulfur\n32\n34\nSe\nselenium\n79\n52\nTe\ntellurium\n128\n\
+    84\nPo\npolonium\n–\n9\nF\nfluorine\n19\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n\
+    80\n53\nI\niodine\n127\n85\nAt\nastatine\n–\n117\nTs\ntennessine\n–\n10\nNe\n\
+    neon\n20\n18\nAr\nargon\n40\n36\nKr\nkrypton\n84\n54\nXe\nxenon\n131\n86\nRn\n\
+    radon\n–\n118\nOg\noganesson\n–\n21\nSc\nscandium\n45\n39\nY\nyttrium\n89\n57–71\n\
+    lanthanoids\n89–103\nactinoids\n57\nLa\nlanthanum\n139\n89\nAc\nlanthanoids\n\
+    actinoids\nThe volume of one mole of any gas is 24 dm3 at room temperature and\
+    \ pressure (r.t.p.).\nactinium\n–\n58\nCe\ncerium\n140\n90\nTh\nthorium\n232\n\
+    59\nPr\npraseodymium\n141\n91\nPa\nprotactinium\n231\n60\nNd\nneodymium\n144\n\
+    92\nU\nuranium\n238\n61\nPm\npromethium\n–\n93\nNp\nneptunium\n–\n62\nSm\nsamarium\n\
+    150\n94\nPu\nplutonium\n–\n63\nEu\neuropium\n152\n95\nAm\namericium\n–\n64\nGd\n\
+    gadolinium\n157\n96\nCm\ncurium\n–\n65\nTb\nterbium\n159\n97\nBk\nberkelium\n\
+    –\n66\nDy\ndysprosium\n163\n98\nCf\ncalifornium\n–\n67\nHo\nholmium\n165\n99\n\
+    Es\neinsteinium\n–\n68\nEr\nerbium\n167\n100\nFm\nfermium\n–\n69\nTm\nthulium\n\
+    169\n101\nMd\nmendelevium\n–\n70\nYb\nytterbium\n173\n102\nNo\nnobelium\n–\n71\n\
+    Lu\nlutetium\n175\n103\nLr\nlawrencium\n–\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

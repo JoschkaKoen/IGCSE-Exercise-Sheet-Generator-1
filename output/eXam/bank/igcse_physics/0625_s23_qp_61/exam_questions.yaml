@@ -2,7 +2,126 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    A student investigates the balancing of a metre ruler.
+
+
+    Fig. 1.1 shows the set-up.
+
+    P
+
+    x
+
+    Q
+
+    90.0 cm
+
+    50.0 cm
+
+    pivot
+
+    bench
+
+    metre ruler
+
+    y
+
+    0
+
+    100
+
+    Fig. 1.1
+
+
+    (a) The student places the metre ruler on the pivot at the 50.0 cm mark with the
+    scale of the ruler
+
+    facing upwards.
+
+
+    He places an object Q with its centre on the metre ruler at the 90.0 cm mark.
+
+
+    Calculate the distance y from the centre of Q to the 100.0 cm end of the ruler.
+
+
+    y =   cm [1]
+
+
+    (b) The student places a load P of weight P = 2.0 N on the metre ruler.
+
+
+    He adjusts the position of the load so that the metre ruler is as near as possible
+    to being
+
+    balanced. He measures the distance x from the centre of P to the zero end of the
+    ruler.
+
+
+    He repeats the procedure using loads of weight P = 3.0 N, 4.0 N, 5.0 N and 6.0
+    N. The values
+
+    of P and x are shown in Table 1.1.
+
+    Table 1.1
+
+    P / N
+
+    x / cm
+
+    2.0
+
+    10.2
+
+    3.0
+
+    23.1
+
+    4.0
+
+    30.0
+
+    5.0
+
+    33.8
+
+    6.0
+
+    36.8
+
+
+    Describe the main difficulty that a student has when doing this experiment as
+    accurately as
+
+    possible [1]
+
+
+    (c) Plot a graph of P / N (y-axis) against x / cm (x-axis).
+
+
+    Draw the best-fit line.
+
+
+    [4]
+
+
+    (d) Use the graph to find the value of x required to balance the ruler when P
+    = 3.5 N. Show clearly
+
+    on the graph how you determined the value of x.
+
+
+    x =   [3]
+
+
+    (e) Using apparatus from Fig. 1.1, explain briefly how you would determine the
+    position of the
+
+    centre of mass of the ruler [2]
+
+
+    [Total: 11]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +163,151 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    A student investigates the cooling of water under different conditions.
+
+
+    Fig. 2.1 shows the set-up.
+
+    bench
+
+    thermometer
+
+    beaker
+
+    Fig. 2.1
+
+
+    (a) The thermometer in Fig. 2.2 shows the room temperature θR at the beginning
+    of the
+
+    experiment. Record θR.
+
+    –10
+
+    0
+
+    10
+
+    20
+
+    30
+
+    40
+
+    50
+
+    60
+
+    70
+
+    80
+
+    90
+
+    100
+
+    110 °C
+
+    Fig. 2.2
+
+
+    θR =   [1]
+
+
+    (b) The student pours 200 cm3 of hot water into the beaker.
+
+
+    She records the temperature θ of the hot water at time t = 0. She immediately
+    starts a
+
+    stop-watch.
+
+
+    She continues recording the temperature at 30 s intervals. The temperature readings
+    are
+
+    shown in Table 2.1.
+
+
+    (i) Complete the column headings in Table 2.1.
+
+    [1]
+
+
+    (ii) Complete the first column of Table 2.1.
+
+    Table 2.1
+
+    t /
+
+    θ /
+
+    92
+
+    84
+
+    78
+
+    74
+
+    71
+
+    69
+
+    67
+
+
+    [1]
+
+
+    (c) (i) Calculate the decrease in temperature Δθ between t = 0 and t = 180 s.
+
+
+    Δθ =   [1]
+
+
+    (ii) Calculate the average rate of cooling R of the water using the equation R
+    = Δθ
+
+    Δt ,
+
+    where Δt = 180 s. Include the unit.
+
+
+    R =   [2]
+
+
+    (d) A student states that the average rate of cooling of the water decreases as
+    the temperature
+
+    comes nearer to room temperature.
+
+
+    (i) Suggest one change to the experiment that you could make to test the statement
+    [1]
+
+
+    (ii) Suggest how to display the results to make it easier to see the trend in
+    the rate of cooling [2]
+
+
+    (e) Explain briefly why it is good practice to read the thermometer scale at right
+    angles [1]
+
+
+    (f) The student uses a measuring cylinder to measure 200 cm3 of hot water. She
+    reads the scale
+
+    at right angles.
+
+
+    Suggest another precaution to obtain an accurate reading of the volume of the
+    water [1]
+
+
+    [Total: 11]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -122,7 +385,38 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student investigates the refraction of light using a semicircular transparent\
+    \ block.\n\nFig. 3.1 and Fig. 3.2 show his ray-trace sheet.\neye\nP\nQ\nB\nA\n\
+    P4\nP3\nFig. 3.1\n\n(a) •\nOn Fig. 3.1, draw the normal NL through the centre\
+    \ of AB.\n\n•\nContinue the normal so that it passes through the curved side of\
+    \ the block.\n\n•\nLabel the normal NL.\n\n•\nLabel the point C where the normal\
+    \ NL crosses AB.\n\n[1]\n\n(b) (i) Draw a line DC, below line PC, at an angle\
+    \ i = 30° to the normal and to the left of the\nnormal.\n[1]\n\n(ii) •\n Mark\
+    \ with neat crosses (X) the positions for two pins on line DC at a suitable\n\
+    distance apart for this type of ray-trace experiment.\n\n •\nLabel the positions\
+    \ P1 and P2.\n\n[1]\n\n(c) The student looks from the position of the eye shown\
+    \ in Fig. 3.1, to observe the images of P1\nand P2 through side AB of the block.\n\
+    \nHe adjusts his line of sight until the images of P1 and P2 appear one behind\
+    \ the other.\n\nHe places two pins, P3 and P4, between his eye and the block so\
+    \ that P3, P4, and the images\nof P1 and P2 seen through the block, appear one\
+    \ behind the other.\n\nThe positions of P3 and P4 are shown on Fig. 3.1.\n\n(i)\
+    \ •\nDraw a line joining the positions of P3 and P4. Continue the line to AB.\n\
+    \n •\nLabel E, the end of the line furthest from AB.\n\n[1]\n\n(ii) Measure the\
+    \ acute angle α between the line NL and the line CE. (An acute angle is less\n\
+    than 90°.)\n\nα =   ° [2]\n\n(d) State one precaution that you would take in order\
+    \ to produce an accurate ray trace [1]\n\n(e) The student moves the transparent\
+    \ block to a new position on the ray-trace sheet, as shown\nin Fig. 3.2.\nP\n\
+    Q\nB\nF\nC\nA\nFig. 3.2\n\nHe places pins P1 and P2 on line DC in the same positions\
+    \ used in (b)(ii).\n\nHe observes the images of P1 and P2 through the curved side\
+    \ of the block.\n\nHe places pins P5 and P6 between his eye and the block so that\
+    \ P5, P6, and the images of P1\nand P2 seen through the block, appear one behind\
+    \ the other.\n\nHe draws a line CF through the positions of P5 and P6.\n\n(i)\
+    \ Measure the acute angle β between the line AB and the line CF. (An acute angle\
+    \ is less\nthan 90°.)\n\nβ =   ° [1]\n\n(ii) Calculate the angle θ  between line\
+    \ CF and the normal to line AB. Show your working.\n\nθ =   ° [2]\n\n(f) A student\
+    \ suggests that angle α should be equal to angle θ. State whether your results\n\
+    support the suggestion and justify your answer with reference to the results.\n\
+    statement   justification   [1]\n\n[Total: 11]"
   answer_options: []
   subquestions:
   - number: 3a

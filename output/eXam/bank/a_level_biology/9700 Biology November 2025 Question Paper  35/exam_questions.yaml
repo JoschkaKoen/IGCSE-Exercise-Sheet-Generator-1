@@ -2,7 +2,49 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nDialysis tubing is a partially permeable membrane. Some molecules such\
+    \ as glucose molecules\ncan diffuse through pores in the membrane.\n\nYou are\
+    \ required to investigate the diffusion of glucose through the pores in dialysis\
+    \ tubing using\ntwo different concentrations of glucose.\n\nYou are provided with\
+    \ the materials shown in Table 1.1.\nTable 1.1\nlabelled\ncontents\nhazard\nvolume\
+    \ / cm3\nR\n20.0% glucose solution\nlow\n20\nS\n10.0% glucose solution\nlow\n\
+    20\nG\n1.0% glucose solution\nlow\n30\nW\ndistilled water\nlow\n100\nBenedict’s\n\
+    Benedict’s solution\nharmful irritant\n20\nD1\nlength of dialysis tubing\nin distilled\
+    \ water\nlow\n–\nD2\nlength of dialysis tubing\nin distilled water\nlow\n–\n\n\
+    If any solution comes into contact with your skin, wash off immediately with cold\
+    \ water. It is\nrecommended that you wear suitable eye protection.\n\nYou will\
+    \ need to:\n•\nput two different concentrations of glucose solution into dialysis\
+    \ tubing surrounded by water\n•\ntake a sample of the water surrounding the dialysis\
+    \ tubing\n•\ntest the sample for the presence of glucose.\n,\t,\n\nCarry out step\
+    \ 1 to step 10.\n\nstep 1\nDraw a mark 8 cm from the top of a large test‑tube,\
+    \ as shown in Fig. 1.1.\n8 cm\nmark 8 cm from the top\nFig. 1.1\n\nstep 2\n Remove\
+    \ the dialysis tubing from beaker D1. Tie a knot in the dialysis tubing as close\
+    \ as\npossible to one end, so that the end is sealed.\n\nstep 3\n The whole length\
+    \ of the dialysis tubing needs to be separated to allow the tubing to be\nfilled\
+    \ with solution. To do this, rub the whole length of the dialysis tubing gently\
+    \ between\nyour finger and thumb.\n\nstep 4\n Put 10 cm3 of 20.0% glucose solution,\
+    \ R, into the open end of the dialysis tubing.\n\nstep 5\n Rinse the outside of\
+    \ the dialysis tubing by dipping it in the water in beaker D1.\n\nstep 6\n Put\
+    \ the dialysis tubing containing R into the large test‑tube and keep it in position\
+    \ using\nan elastic band as shown in Fig. 1.2.\nmark on test-tube\n10 cm3 of glucose\
+    \ solution\nknot\nelastic band\nlarge test-tube\ndialysis tubing\nFig. 1.2\n,\t\
+    ,\n\nstep 7\n Put distilled water into the large test‑tube so that the top of\
+    \ the water is above the level of\nthe glucose solution in the dialysis tubing.\n\
+    \nstep 8\n Start timing and leave the dialysis tubing in the distilled water for\
+    \ 15 minutes.\n\nstep 9\n Repeat step 1 to step 7 using the dialysis tubing in\
+    \ the container labelled D2 and the\n10.0% glucose solution, S, instead of R.\n\
+    \nstep 10  Start timing and leave the dialysis tubing in the distilled water for\
+    \ 15 minutes.\n\nWhile you are waiting, continue with preparing the glucose standards.\n\
+    \nPreparing glucose standards\n\nYou will need to carry out a serial dilution\
+    \ of the 1.0% glucose solution, G, to reduce the\nconcentration by half between\
+    \ each successive dilution.\n\nYou will need to prepare four concentrations of\
+    \ glucose solution in addition to the 1.0% glucose\nsolution, G.\n\nAfter the\
+    \ serial dilution is completed, you will need to have 10 cm3 of each concentration\
+    \ available\nto use.\n\n(a) (i) Complete Fig. 1.3 to show how you will prepare\
+    \ your serial dilution.\n\n Each beaker should have:\n•\na labelled arrow to show\
+    \ the volume of glucose solution transferred\n•\na labelled arrow to show the\
+    \ volume of distilled water, W, added\n•\na label under the beaker to show the\
+    \ concentration of glucose solution.\n,\t,\n0 cm3 of W\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -80,7 +122,35 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nM1 is a slide of a stained transverse section through a plant stem.\n\n\
+    (a) (i) Draw a large plan diagram of the region on M1 indicated by the shaded\
+    \ area in Fig. 2.1.\nUse a sharp pencil.\n\n Use one ruled label line and label\
+    \ to identify the xylem.\ndraw this region\nFig. 2.1\n[5]\n,\t,\n\n(ii) Observe\
+    \ the xylem vessel elements in the stem on M1.\n\n Select a group of four adjacent\
+    \ xylem vessel elements.\n\n Each xylem vessel element must touch at least one\
+    \ other xylem vessel element.\n•\nMake a large drawing of this group of four xylem\
+    \ vessel elements.\n•\nUse one ruled label line and label to identify the wall\
+    \ of one xylem vessel element.\n[5]\n,\t,\n\n(b) Fig. 2.2 is a photomicrograph\
+    \ of a stained transverse section of a stem from a different plant\nto M1.\nFig.\
+    \ 2.2\n\nIdentify three observable differences, other than colour, between the\
+    \ stem section on M1 and\nthe stem section in Fig. 2.2.\n\nRecord these three\
+    \ observable differences in an appropriate table.\n[4]\n,\t,\n\n(c) Fig. 2.3 shows\
+    \ a photomicrograph of a stage micrometer scale that is being used to calibrate\n\
+    an eyepiece graticule.\n\nOne division, on either the stage micrometer scale or\
+    \ the eyepiece graticule, is the distance\nbetween two adjacent lines.\n\nThe\
+    \ length of one division on the stage micrometer in Fig. 2.3 is 1.0 mm.\nstage\
+    \ micrometer\neyepiece graticule\n50 60 70 80 90\n0 10 20 30 40\n100\nFig. 2.3\n\
+    \n(i) Calculate the actual length of one eyepiece graticule unit shown in Fig.\
+    \ 2.3.\n\n Give your answer in micrometres (μm).\n\n Show your working and give\
+    \ your answer to three significant figures.\n\nactual length of one eyepiece graticule\
+    \ unit =   μm\n [3]\n,\t,\n\n(ii) Fig. 2.4 is the same photomicrograph as that\
+    \ shown in Fig. 2.2. This was taken with the\nsame microscope and the same lenses\
+    \ used to take the photomicrograph in Fig. 2.3.\n\n The eyepiece graticule has\
+    \ been placed across the length of a vascular bundle.\n50\n60\n70\n80\n90\n0\n\
+    10\n20\n30\n40\n100\nFig. 2.4\n\n Use the calibration of the eyepiece graticule\
+    \ unit from (c)(i) to calculate the actual length\nof the vascular bundle in Fig.\
+    \ 2.4.\n\n Show your working and use appropriate units.\n\nactual length of the\
+    \ vascular bundle =   [2]\n[Total: 19]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a

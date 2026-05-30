@@ -2,7 +2,34 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nThe bacterium Streptococcus pneumoniae is commonly found in the throat.\
+    \ S. pneumoniae\nproduces hydrogen peroxide as it grows. A sample can be taken\
+    \ from a patient’s throat and tested\nto measure the concentration of hydrogen\
+    \ peroxide. This can be used as a measure of the growth\nof the bacteria.\n\n\
+    You will determine the growth of bacteria by measuring the concentration of hydrogen\
+    \ peroxide in\na solution that represents a sample taken from a patient. You will\
+    \ do this by measuring how long it\ntakes for a sample of hydrogen peroxide to\
+    \ cause a colour change in a reaction mixture. The faster\nthe mixture changes\
+    \ to a blue‑black colour, the higher the concentration of hydrogen peroxide,\n\
+    and the greater the growth of bacteria.\n\nYou will use a range of known concentrations\
+    \ of hydrogen peroxide to estimate the concentration\nof hydrogen peroxide in\
+    \ a sample.\n\nYou are provided with the materials shown in Table 1.1.\nTable\
+    \ 1.1\nlabelled\ncontents\nhazard\nvolume / cm3\nR1\ndilute sulfuric acid\nirritant\n\
+    100\nR2\nstarch solution\nlow\n10\nR3\npotassium iodide solution\nlow\n10\nR4\n\
+    sodium thiosulfate solution\nlow\n10\nH\n2.0% hydrogen peroxide solution\nirritant\n\
+    25\nU\nsolution representing patient sample\nirritant\n10\nW\ndistilled water\n\
+    low\n100\n\nIf any solution comes into contact with your skin, wash off immediately\
+    \ with cold water.\n\nIt is recommended that you wear suitable eye protection.\n\
+    \nYou will need to carry out a serial dilution of the 2.0% hydrogen peroxide solution,\
+    \ H, to reduce\nthe concentration by half between each successive dilution.\n\n\
+    You will need to prepare four concentrations of hydrogen peroxide solution in\
+    \ addition to the 2.0%\nhydrogen peroxide solution, H.\n\nAfter the serial dilution\
+    \ is completed, you will need to have 10 cm3 of each concentration available\n\
+    to use.\n\n(a) (i) Complete Fig. 1.1 to show how you will prepare your serial\
+    \ dilution.\n\n Each beaker should have:\n•\na labelled arrow to show the volume\
+    \ of hydrogen peroxide solution transferred\n•\na labelled arrow to show the volume\
+    \ of distilled water, W, added\n•\na label under the beaker to show the concentration\
+    \ of the hydrogen peroxide solution.\n,\t,\n0 cm3 of W\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -86,7 +113,31 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nJ1 is a slide of a stained transverse section through a plant stem.\n\n\
+    (a) (i) Draw a large plan diagram of the whole section on J1. Use a sharp pencil.\n\
+    \n Use one ruled label line and label to identify the xylem.\n\n[5]\n,\t,\n\n\
+    (ii) Observe the epidermis of the stem on J1.\n\n Select a group of four adjacent\
+    \ epidermal cells.\n\n Each cell must touch at least one other cell.\n•\nMake\
+    \ a large drawing of this group of four epidermal cells and waxy cuticle.\n•\n\
+    Use one ruled label line and label to identify the waxy cuticle.\n\n[5]\n,\t,\n\
+    \n(iii) Fig. 2.1 is a photomicrograph of a stained transverse section of a stem\
+    \ from a different\ntype of plant from J1.\nFig. 2.1\n\n Identify three observable\
+    \ differences, other than colour, between the stem section on J1\nand the stem\
+    \ section in Fig. 2.1.\n\n Record these three observable differences in Table\
+    \ 2.1.\nTable 2.1\nfeature\nJ1\nFig. 2.1\n1\n2\n3\n\n[3]\n,\t,\n\n(b) Fig. 2.2\
+    \ is a photomicrograph of a stained transverse section of a stem from a different\
+    \ type\nof plant.\n\nYou will calculate the density of vascular bundles in the\
+    \ stem section. The circle represents\nthe area of the stem.\nsector P\nθ\nFig.\
+    \ 2.2\n\n(i) To calculate the density of vascular bundles you will first need\
+    \ to count the number of\nwhole vascular bundles in sector P.\n\nnumber of whole\
+    \ vascular bundles in sector P =   [1]\n\n(ii) Use your answer to (b)(i) to estimate\
+    \ the total number of vascular bundles in the stem\nsection shown in Fig. 2.2.\n\
+    \n angle θ = 15°\n\n Show your working.\n\ntotal number of vascular bundles =\
+    \   [2]\n,\t,\n\n(iii) The stem section shown in Fig. 2.2 has an actual area of\
+    \ 44 mm2.\n\n Use your answer in (b)(ii) to calculate the density of vascular\
+    \ bundles in the stem section.\n\n Give your answer to two significant figures.\n\
+    \n Show your working.\n\nvascular bundle density =   mm–2\n\n[2]\n\n[Total: 18]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 2a

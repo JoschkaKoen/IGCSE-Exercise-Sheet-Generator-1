@@ -2,7 +2,178 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+
+    Will stronger economic growth in the United States (US) lead to high inflation?
+
+
+    The US has experienced stronger economic growth than countries in Europe and elsewhere
+    since
+
+    the COVID-19 pandemic. In terms of Gross Domestic Product (GDP), it had particularly
+    strong
+
+    growth over the fourth quarter of 2023 of 3.3%. This far exceeded economists’
+    expectations of
+
+    2%. This means that annual growth for 2023 was 2.5% which was better than other
+    high-income
+
+    economies. It is on target to do the same in 2024 as shown in Fig 1.1.
+
+    2.5%
+
+    2.0%
+
+    1.5%
+
+    1.0%
+
+    0.5%
+
+    0.0%
+
+    % change
+
+    in real GDP
+
+    per year
+
+    US
+
+    Eurozone
+
+    Japan
+
+    UK
+
+    Canada
+
+    key
+
+    2023
+
+    2024
+
+
+    Fig. 1 International Monetary Fund (IMF) economic growth forecasts for 2023 and
+    2024
+
+
+    Economists have suggested that the strong economic growth in the US was caused
+    by both
+
+    demand and supply factors. In 2020, the US government responded to the COVID-19
+    pandemic
+
+    by injecting US$5 trillion into the economy. Spending in many areas included more
+    generous
+
+    unemployment benefits and grants to small firms. This huge financial stimulus,
+    much bigger than
+
+    other countries, has been credited with maintaining consumer spending which represents
+    70% of
+
+    aggregate demand.
+
+
+    On the supply side of the economy, existing flexible labour markets enabled firms
+    to make workers
+
+    redundant. This encouraged firms to invest in new technologies, leading to increased
+    productivity
+
+    and continued expansion in the long run. As firms expanded, they employed more
+    workers
+
+    causing disposable incomes to rise. Finally, the US is a net exporter of energy
+    and therefore firms
+
+    did not suffer the huge increase in energy costs faced by firms in Europe caused
+    by the conflict in
+
+    Ukraine. This has allowed the US to keep inflationary pressure under control.
+
+
+    In March 2024, however, the rate of inflation in the US rose much faster than
+    expected as its
+
+    level of unemployment fell, leading to an increase in consumer spending. Although
+    this may lead
+
+    to further economic growth and the benefits this brings, there are costs associated
+    with inflation
+
+    that may need to be dealt with. One policy that could be used is to increase interest
+    rates, but US
+
+    interest rates were already at their highest level for more than two decades because
+    of earlier
+
+    inflationary pressures. The hope had been that interest rates might start to fall,
+    but now there are
+
+
+    fears that any cuts in interest rates will be delayed or even worse, it might
+    even be necessary to
+
+    increase them further.
+
+
+    Sources: Adapted from BBC News articles: US economy sees surprisingly strong growth,
+
+    13 February 2024, US inflation jumps, 11 April 2024 and US jobs boom raises doubts
+    about
+
+    rate cuts, 5 April 2024
+
+
+    (a) Compare the forecast rates of economic growth for the US and Eurozone between
+    2023
+
+    and 2024.
+
+    [2]
+
+
+    (b) Explain one reason why the IMF uses percentage change in real GDP and not
+    percentage
+
+    change in nominal GDP when measuring economic growth.
+
+    [2]
+
+
+    (c) Explain, with the help of a diagram, why an increase in productivity in US
+    firms may reduce
+
+    the price of their products and consider whether this will always be the outcome.
+
+    [4]
+
+
+    (d) Assess whether the costs of inflation are always likely to be greater than
+    the benefits of
+
+    inflation for the US.
+
+    [6]
+
+
+    (e) Assess the extent to which maintaining interest rates at a high level will
+    be the best policy for
+
+    the US to control inflation.
+
+    [6]
+
+    Section B
+
+    Answer one question.
+
+    EITHER'
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +209,23 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    (a) Explain what is meant by the incidence of an indirect tax and consider the
+    extent to which it is
+
+    possible for the incidence to pass from a producer of a good to a consumer of
+    that good. [8]
+
+
+    (b) Assess the extent to which a government should subsidise the production of
+    merit goods to
+
+    increase the consumption of these goods.
+
+    [12]
+
+    OR'
   answer_options: []
   subquestions:
   - number: 2a
@@ -56,7 +243,40 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    (a) Explain what determines elastic and inelastic price elasticity of supply (PES)
+    and consider
+
+    the extent to which the value of PES may differ between an agricultural good and
+    a
+
+    manufactured good.
+
+    [8]
+
+
+    (b) Firms will often try to estimate elasticity values to judge the possible success
+    of decisions to
+
+    change prices or to introduce new products.
+
+
+    Assess the extent to which an understanding of income elasticity of demand (YED)
+    may be
+
+    more useful than cross elasticity of demand (XED) in increasing the income from
+    sales for
+
+    a firm.
+
+    [12]
+
+    Section C
+
+    Answer one question.
+
+    EITHER'
   answer_options: []
   subquestions:
   - number: 3a
@@ -74,7 +294,24 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    (a) Using two tools of protection, explain what is meant by protectionism and
+    consider the extent
+
+    to which these two tools may benefit an economy.
+
+    [8]
+
+
+    (b) Assess the extent to which the principle of comparative advantage should be
+    the main factor
+
+    to consider when countries decide whether to trade with each other.
+
+    [12]
+
+    OR'
   answer_options: []
   subquestions:
   - number: 4a
@@ -92,7 +329,25 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    (a) Explain the difference between structural unemployment and cyclical unemployment
+    and
+
+    consider the extent to which structural unemployment is likely to be more damaging
+    to an
+
+    economy than cyclical unemployment.
+
+    [8]
+
+
+    (b) Low unemployment is a macroeconomic policy objective for a government.
+
+
+    Assess the extent to which this is most likely to be achieved by supply-side policy.
+
+    [12]'
   answer_options: []
   subquestions:
   - number: 5a

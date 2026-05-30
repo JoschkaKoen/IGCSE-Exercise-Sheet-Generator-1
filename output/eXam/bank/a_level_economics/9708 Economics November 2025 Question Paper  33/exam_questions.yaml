@@ -259,7 +259,33 @@ questions:
 - number: '19'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: 'What would cause the short-run Phillips curve to shift to the right?
+
+    19
+
+    A
+
+    B
+
+    C
+
+    the unemployment rate is above the natural rate of unemployment, decreasing inflationary
+
+    expectations
+
+    the unemployment rate is above the natural rate of unemployment, increasing inflationary
+
+    expectations
+
+    the unemployment rate is below the natural rate of unemployment, decreasing inflationary
+
+    expectations
+
+    the unemployment rate is below the natural rate of unemployment, increasing inflationary
+
+    expectations
+
+    D'
   answer_options:
   - letter: A
     text: A

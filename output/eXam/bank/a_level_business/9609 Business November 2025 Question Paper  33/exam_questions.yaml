@@ -2,7 +2,10 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Using the data in Table 1.1, calculate the payback period [2]\n\n\
+    (b) Using the data in Table 1.1, calculate the net present value (NPV) over six\
+    \ years discounted\nat 8% [2]\n\n(c) Evaluate LBM’s decision to go ahead with\
+    \ the hot water mine ,\t,\n  [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -26,19 +29,24 @@ questions:
 - number: '2'
   question_type: long_answer
   marks: 8
-  text: ''
+  text: "2\nAnalyse one benefit and one limitation of sales forecasting to LBM as\
+    \ it begins its mining\noperations [8]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '1'
   question_type: calculation
   marks: 12
-  text: ''
+  text: "1\nAnalyse two advantages to the government of country G that could result\
+    \ from the nationalisation\nof LBM [8]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Using Figure 1.1:\n\n(i) calculate the total float for activity C\n\
+    \  [3]\n\n(ii) identify the minimum project duration [1]\n\n(b) Evaluate the importance\
+    \ of Critical Path Analysis (CPA) to the success of the hard rock mine ,\t,\n\
+    \  [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a

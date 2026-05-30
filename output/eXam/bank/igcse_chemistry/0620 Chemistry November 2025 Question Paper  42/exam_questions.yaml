@@ -2,7 +2,23 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nThe three states of matter are solid, liquid and gas.\n\n(a) Complete\
+    \ Table 1.1 to describe the structures of solids, liquids and gases in terms of\n\
+    particle separation, particle arrangement and particle motion.\nTable 1.1\nstate\
+    \ of matter\nparticle separation\nparticle arrangement\nparticle motion\nsolid\n\
+    touching\nliquid\ngas\nrandom\nrandom\n\n[3]\n\n(b) Substances can physically\
+    \ change.\n\nName each physical change:\n•\nsolid to liquid  •\ngas to liquid\
+    \  •\nsolid to aqueous [3]\n\n(c) Gases diffuse.\n\n(i) Describe, in terms of\
+    \ particles, why gases diffuse [1]\n\n(ii) State what determines the relative\
+    \ rate of diffusion of gases at constant temperature [1]\n\n(d) Gaseous oxides\
+    \ of nitrogen are atmospheric pollutants. One adverse effect of oxides of\nnitrogen\
+    \ is the formation of acid rain.\n\nState two other adverse effects of oxides\
+    \ of nitrogen.\n1  2  [2]\n,\t,\n\n(e) In a catalytic converter, oxides of nitrogen\
+    \ are removed by reaction with the toxic gaseous\nproduct of the incomplete combustion\
+    \ of hydrocarbon fuels. Two non-toxic gases are formed\nin this reaction.\n\n\
+    (i) Name the toxic gaseous product of the incomplete combustion of hydrocarbon\
+    \ fuels [1]\n\n(ii) Name the two non-toxic gases formed in the catalytic converter.\n\
+    1  2  [2]\n\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -62,7 +78,28 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nIron is extracted from iron ore in a blast furnace.\n\n(a) The iron compound\
+    \ in the main iron ore used in the blast furnace is iron(III) oxide.\n\n(i) State\
+    \ the name of the main iron ore used in the blast furnace [1]\n\n(ii) State how\
+    \ the main source of heat is provided in the blast furnace [1]\n\n(iii) Name the\
+    \ gaseous reducing agent in the blast furnace [1]\n\n(iv) Write a symbol equation\
+    \ for the reduction of iron(III) oxide by the gaseous reducing\nagent in (a)(iii)\
+    \ [2]\n\n(v) The main impurity in iron ore is silicon(IV) oxide.\n\n Write two\
+    \ symbol equations to show the role of limestone in removing silicon(IV) oxide\n\
+    from iron ore.\n1  2  [2]\n\n(b) Table 2.1 shows four different isotopes of iron,\
+    \ A, B, C and D.\nTable 2.1\nA\nB\nC\nD\n54Fe\n56Fe\n57Fe\n58Fe\n\nExplain why\
+    \ A, B, C and D are isotopes of iron [2]\n,\t,\n\n(c) Iron can form two different\
+    \ ions, Fe2+ and Fe3+.\n\n(i) Complete Table 2.2 to show the number of protons,\
+    \ neutrons and electrons in the two\niron ions shown.\nTable 2.2\n54Fe2+\n58Fe3+\n\
+    protons\nneutrons\nelectrons\n\n[3]\n\n(ii) Describe a test for aqueous Fe2+ ions.\n\
+    test  observations  [2]\n\n(d) An oxidising agent converts Fe2+ ions to Fe3+ ions.\n\
+    \n(i) Define the term oxidising agent [2]\n\n(ii) Explain why the conversion of\
+    \ Fe2+ ions to Fe3+ ions is described as oxidation [1]\n\n(iii) The oxidising\
+    \ agent for the conversion of Fe2+ ions to Fe3+ ions is aqueous potassium\nmanganate(VII).\n\
+    \n State one condition needed for the oxidation to take place [1]\n\n(e) Iodide\
+    \ ions, I– , reduce Fe3+ ions to Fe2+ ions in aqueous solution.\n\nSuggest the\
+    \ identity of the other product formed in this reaction [1]\n\n[Total: 19]\n,\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -158,7 +195,29 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student prepares a sample of the insoluble salt barium sulfate, BaSO4.\n\
+    \nThe student adds aqueous sodium sulfate, Na2SO4(aq), to aqueous barium chloride,\
+    \ BaCl 2(aq).\n\nThe student carries out the following steps.\n\nstep 1\n Dissolve\
+    \ 0.100 moles of solid BaCl 2 in 100 cm3 of distilled water in a beaker to\nform\
+    \ BaCl 2(aq).\n\nstep 2\n Add an aqueous solution which contains 0.100 moles of\
+    \ Na2SO4(aq) to the beaker\ncontaining the BaCl 2(aq) from step 1.\n\nstep 3\n\
+    Stir the mixture and then filter it.\n\nstep 4\nDry the solid left in the filter\
+    \ paper.\n\n(a) Complete the symbol equation for the reaction. Include state symbols.\n\
+    BaCl 2(aq)   +   Na2SO4(aq)\n   BaSO4( )   +    ( )\n\n[2]\n\n(b) Calculate the\
+    \ mass of solid BaCl 2 dissolved in step 1.\n\nmass =  g [2]\n\n(c) The concentration\
+    \ of Na2SO4(aq) in step 2 is 1.25 mol / dm3.\n\nCalculate the volume, in cm3,\
+    \ of 1.25 mol / dm3 Na2SO4(aq) added in step 2 which contains\n0.100 moles of\
+    \ Na2SO4 .\n\nvolume =  cm3 [1]\n\n(d) State the colour of the solid formed in\
+    \ step 2 [1]\n\n(e) The mixture is filtered in step 3.\n\nState the general term\
+    \ given to a solid left in the filter paper after filtration [1]\n,\t,\n\n(f)\
+    \ The actual mass of dry BaSO4 collected in step 4 is greater than the expected\
+    \ mass. This is\nbecause the student should do an additional step between step\
+    \ 3 and step 4.\n\nSuggest what the student should do in this additional step,\
+    \ and explain why the actual mass\ncollected is greater than the expected mass\
+    \ [2]\n\n(g) State the name of this method of salt preparation [1]\n\n(h) State\
+    \ the name of a different:\n•\nbarium salt that can be used in place of BaCl 2\
+    \  •\nsulfate salt that can be used in place of Na2SO4  •\nbarium salt that can\
+    \ be made by this method [3]\n\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -212,7 +271,28 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nNitric acid, HNO3 , and sulfuric acid, H2SO4 , are strong acids. Ethanoic\
+    \ acid, CH3COOH, is a\nweak acid.\n\n(a) One mole of each acid is added separately\
+    \ to 1000 cm3 of distilled water to form a dilute\nsolution. All three acids dissociate\
+    \ in distilled water.\n\n(i) State the formula of the common cation produced when\
+    \ each of the three acids\ndissociates in water [1]\n\n(ii) Explain, in terms\
+    \ of dissociation, why:\n•\nnitric acid is described as a strong acid\n  •\nethanoic\
+    \ acid is described as a weak acid [2]\n\n(iii) State which of the three dilute\
+    \ acids will have the highest pH value [1]\n\n(iv) State the colour of thymolphthalein\
+    \ in all three dilute acids [1]\n\n(v) Give the formula of the anion formed when:\n\
+    •\nsulfuric acid dissociates in water\n  •\nethanoic acid dissociates in water\
+    \ [2]\n\n(vi) Name the two gaseous products formed during the electrolysis of\
+    \ dilute sulfuric acid\nusing inert electrodes and  [2]\n\n(vii) Name the salt\
+    \ formed when calcium reacts with ethanoic acid [1]\n,\t\t,\n\n(b) Aluminium nitrate,\
+    \ Al (NO3)3 , is made when dilute nitric acid reacts with aluminium hydroxide,\n\
+    Al (OH)3 .\n\n(i) Al (OH)3 acts as a base in this reaction.\n\n Define the term\
+    \ base [1]\n\n(ii) Al (OH)3 is not an alkali.\n\n State what this tells you about\
+    \ the solubility of Al (OH)3  [1]\n\n(iii) Name one other compound which forms\
+    \ aluminium nitrate when added to\ndilute nitric acid [1]\n\n(iv) The oxidation\
+    \ number of the O atoms in Al (NO3)3 is –2.\n\n The formula of the aluminium ion\
+    \ in Al (NO3)3 is Al 3+.\n\n Determine the oxidation number of the N atoms in\
+    \ Al (NO3)3.\n\n Show your working.\n\noxidation number of N =  [2]\n\n[Total:\
+    \ 15]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -296,7 +376,24 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nThis question is about the homologous series of alkanes.\n\nThree general\
+    \ characteristics of alkanes are:\n•\nthey are generally unreactive because they\
+    \ do not have a functional group\n•\nthey show trends in their physical properties,\
+    \ such as melting points and boiling points\n•\nthey have similar chemical properties.\n\
+    \n(a) Describe two other general characteristics of the homologous series of alkanes.\n\
+    1  2  [2]\n\n(b) (i) State the trend in the boiling points of the alkanes as the\
+    \ carbon chain length increases [1]\n\n(ii) Name one other physical property of\
+    \ alkanes that shows a trend, other than melting\npoints and boiling points.\n\
+    \n Describe this trend as the carbon chain length of alkanes increases.\nname\
+    \  description  [2]\n\n(c) State why alkanes are described as saturated [1]\n\
+    ,\t,\n\n(d) Propane has the structural formula CH3CH2CH3 .\n\nWhen propane undergoes\
+    \ a monosubstitution reaction with chlorine at room temperature,\ntwo organic\
+    \ products can be formed.\n\n(i) State one condition needed for this substitution\
+    \ reaction to take place [1]\n\n(ii) Give the structural formula and state the\
+    \ name of each organic product formed.\n•\nstructural formula of product 1\nname\
+    \ of product 1  •\nstructural formula of product 2\nname of product 2  [4]\n\n\
+    (iii) The two products formed are structural isomers of each other.\n\n Define\
+    \ the term structural isomers [1]\n\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -356,7 +453,53 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nCompound E shown in Fig. 6.1 is an ester.\nCH3\nCH2\nCH2\nCH2\nCH3\nO\n\
+    O\nC\nFig. 6.1\n\n(a) On Fig. 6.1, draw a circle around all the atoms which make\
+    \ up the ester linkage.\n[1]\n\n(b) Name compound E [1]\n\n(c) Deduce the empirical\
+    \ formula of compound E [1]\n\n(d) Compound E is produced when two different compounds\
+    \ react together in the presence of a\ncatalyst.\n\n(i) Name the two compounds\
+    \ that react together to produce compound E.\n1  2  [2]\n\n(ii) Suggest a suitable\
+    \ catalyst for this reaction [1]\n\n(e) Determine the number of unbranched esters\
+    \ which have the molecular formula C5H10O2  [1]\n\n(f) All unbranched esters with\
+    \ the molecular formula C5H10O2 combust completely to form\ncarbon dioxide and\
+    \ water only.\n\nWrite the symbol equation for the complete combustion of C5H10O2\
+    \  [1]\n\n[Total: 8]\n,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n\
+    1\n2\nHe\nhelium\n4\nI\nII\nIII\nIV\nV\nVI\nVII\nVIII\n3\nLi\nlithium\n7\n4\n\
+    Be\nberyllium\n9\natomic number\natomic symbol\nKey\nname\nrelative atomic mass\n\
+    11\nNa\nsodium\n23\n12\nMg\nmagnesium\n24\n19\nK\npotassium\n39\n20\nCa\ncalcium\n\
+    40\n37\nRb\nrubidium\n85\n38\nSr\nstrontium\n88\n55\nCs\ncaesium\n133\n56\nBa\n\
+    barium\n137\n87\nFr\nfrancium\n–\n88\nRa\nradium\n–\n5\nB\nboron\n11\n13\nAl\n\
+    aluminium\n27\n31\nGa\ngallium\n70\n49\nIn\nindium\n115\n81\nTl\nthallium\n204\n\
+    113\nNh\nnihonium\n–\n6\nC\ncarbon\n12\n14\nSi\nsilicon\n28\n32\nGe\ngermanium\n\
+    73\n50\nSn\ntin\n119\n82\nPb\nlead\n207\n22\nTi\ntitanium\n48\n40\nZr\nzirconium\n\
+    91\n72\nHf\nhafnium\n178\n104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n51\n41\n\
+    Nb\nniobium\n93\n73\nTa\ntantalum\n181\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n\
+    52\n42\nMo\nmolybdenum\n96\n74\nW\ntungsten\n184\n106\nSg\nseaborgium\n–\n25\n\
+    Mn\nmanganese\n55\n43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186\n107\nBh\nbohrium\n\
+    –\n26\nFe\niron\n56\n44\nRu\nruthenium\n101\n76\nOs\nosmium\n190\n108\nHs\nhassium\n\
+    –\n27\nCo\ncobalt\n59\n45\nRh\nrhodium\n103\n77\nIr\niridium\n192\n109\nMt\nmeitnerium\n\
+    –\n28\nNi\nnickel\n59\n46\nPd\npalladium\n106\n78\nPt\nplatinum\n195\n110\nDs\n\
+    darmstadtium\n–\n29\nCu\ncopper\n64\n47\nAg\nsilver\n108\n79\nAu\ngold\n197\n\
+    111\nRg\nroentgenium\n–\n30\nZn\nzinc\n65\n48\nCd\ncadmium\n112\n80\nHg\nmercury\n\
+    201\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n–\n\
+    7\nN\nnitrogen\n14\n15\nP\nphosphorus\n31\n33\nAs\narsenic\n75\n51\nSb\nantimony\n\
+    122\n83\nBi\nbismuth\n209\n115\nMc\nmoscovium\n–\n8\nO\noxygen\n16\n16\nS\nsulfur\n\
+    32\n34\nSe\nselenium\n79\n52\nTe\ntellurium\n128\n84\nPo\npolonium\n–\n9\nF\n\
+    fluorine\n19\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n80\n53\nI\niodine\n127\n\
+    85\nAt\nastatine\n–\n117\nTs\ntennessine\n–\n10\nNe\nneon\n20\n18\nAr\nargon\n\
+    40\n36\nKr\nkrypton\n84\n54\nXe\nxenon\n131\n86\nRn\nradon\n–\n118\nOg\noganesson\n\
+    –\n21\nSc\nscandium\n45\n39\nY\nyttrium\n89\n57–71\nlanthanoids\n89–103\nactinoids\n\
+    57\nLa\nlanthanum\n139\n89\nAc\nlanthanoids\nactinoids\nThe volume of one mole\
+    \ of any gas is 24 dm3 at room temperature and pressure (r.t.p.).\nactinium\n\
+    –\n58\nCe\ncerium\n140\n90\nTh\nthorium\n232\n59\nPr\npraseodymium\n141\n91\n\
+    Pa\nprotactinium\n231\n60\nNd\nneodymium\n144\n92\nU\nuranium\n238\n61\nPm\npromethium\n\
+    –\n93\nNp\nneptunium\n–\n62\nSm\nsamarium\n150\n94\nPu\nplutonium\n–\n63\nEu\n\
+    europium\n152\n95\nAm\namericium\n–\n64\nGd\ngadolinium\n157\n96\nCm\ncurium\n\
+    –\n65\nTb\nterbium\n159\n97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n163\n98\nCf\n\
+    californium\n–\n67\nHo\nholmium\n165\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n\
+    167\n100\nFm\nfermium\n–\n69\nTm\nthulium\n169\n101\nMd\nmendelevium\n–\n70\n\
+    Yb\nytterbium\n173\n102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175\n103\nLr\nlawrencium\n\
+    –\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

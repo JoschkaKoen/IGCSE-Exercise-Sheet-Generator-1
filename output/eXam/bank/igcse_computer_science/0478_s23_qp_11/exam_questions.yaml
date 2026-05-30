@@ -2,7 +2,20 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nBinary is a number system used by computers.\n\n(a) Tick (3) one box to\
+    \ show which statement about the binary number system is correct.\n\nA\nIt is\
+    \ a base 1 system\n\nB\nIt is a base 2 system\n\nC\nIt is a base 10 system\n\n\
+    D\nIt is a base 16 system\n\n[1]\n\n(b) Denary numbers are converted to binary\
+    \ numbers to be processed by a computer.\n\nConvert these three denary numbers\
+    \ to 8‑bit binary numbers.\n50   102   221   [3]\n\nWorking space\n  (c) Binary\
+    \ numbers are stored in registers.\n\nNegative denary numbers can be represented\
+    \ as binary using two’s complement.\n\nComplete the binary register for the denary\
+    \ number –78\n\nYou must show all your working.\nWorking space   Register:\n\n\
+    [2]\n\n(d) Two 8‑bit binary numbers are given.\n\nAdd the two 8‑bit binary numbers\
+    \ using binary addition.\n\nGive your answer in binary. Show all your working.\n\
+    \n+\n0 0 1 1 0 0 1 1\n0 1 1 0 0 0 0 1\n\n[3]\n\n(e) Two binary numbers are added\
+    \ by a computer and an overflow error occurs.\n\nExplain why the overflow error\
+    \ occurred [2]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +51,41 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    A student has a sound file that is too large to be stored on their external secondary
+    storage device.
+
+    The student compresses the sound file to make the file size smaller.
+
+
+    The compression method used reduces the sample rate and the sample resolution
+    of the sound
+
+    file.
+
+
+    (a) State what is meant by the sample rate and sample resolution.
+
+    Sample rate   Sample resolution   [2]
+
+
+    (b) Identify which type of compression has been used to compress the sound file
+    [1]
+
+
+    (c) The student sends the sound file to a friend. The file is transmitted across
+    a network that uses
+
+    packet switching.
+
+
+    (i) Identify two pieces of data that would be included in the header of each packet.
+
+    1   2   [2]
+
+
+    (ii) Explain how the file is transmitted using packet switching [5]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -74,7 +121,54 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    Secondary storage devices are used to store data in a computer.
+
+
+    (a) Circle three components that are secondary storage devices.
+
+
+    central processing unit (CPU)
+
+    compact disk (CD)
+
+
+    hard disk drive (HDD)    random access memory (RAM)    read only memory (ROM)
+
+
+    register
+
+    sensor
+
+    solid‑state drive (SSD)
+
+
+    [3]
+
+
+    (b) Tick (3) one box to show which statement about secondary storage is correct.
+
+
+    A
+
+    It is directly accessed by the CPU.
+
+
+    B
+
+    It is magnetic storage only.
+
+
+    C
+
+    It is used to permanently store software and data files.
+
+
+    D  It is volatile.
+
+
+    [1]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -92,13 +186,36 @@ questions:
 - number: '4'
   question_type: long_answer
   marks: 4
-  text: ''
+  text: "4\nComplete the statements about different types of software.\n\nUse the\
+    \ terms from the list.\n\nSome of the terms in the list will not be used. You\
+    \ should only use a term once.\napplication   assembly language   bootloader \
+    \  central processing unit (CPU)\nfirmware   hardware   operating   output   system\
+    \   user\n\n software provides the services that the computer\nrequires; an example\
+    \ is utility software software is run on the operating system.\n\nThe  system\
+    \ is run on the firmware, which is run on\nthe  [4]"
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    A farm has an automated drinking system for its animals. The drinking system has
+    a water bowl
+
+    that contains the water. When the water bowl is empty, it is automatically refilled.
+
+
+    The system uses a sensor and a microprocessor.
+
+
+    (a) Identify the most appropriate sensor for this system [1]
+
+
+    (b) Describe how the sensor and the microprocessor are used to automatically refill
+    the water
+
+    bowl [6]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -116,7 +233,32 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    A user wants to connect their computer to a network.
+
+
+    (a) (i) Identify the component in the computer that is needed to access a network
+    [1]
+
+
+    (ii) Identify the type of address that is allocated to the component by the manufacturer,
+
+    which is used to uniquely identify the device [1]
+
+
+    (b) A dynamic internet protocol (IP) address is allocated to the computer when
+    it is connected to
+
+    the network.
+
+
+    (i) Identify the device on the network that can connect multiple devices and automatically
+
+    assign them an IP address [1]
+
+
+    (ii) Describe what is meant by a dynamic IP address [3]'
   answer_options: []
   subquestions:
   - number: 6a
@@ -158,7 +300,21 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '7
+
+    A programmer uses a low‑level language to write a computer program for a vending
+    machine.
+
+
+    (a) Describe what is meant by a low‑level language [2]
+
+
+    (b) Give two reasons why the programmer would choose to write the computer program
+    in a
+
+    low‑level language instead of a high‑level language.
+
+    1   2   [2]'
   answer_options: []
   subquestions:
   - number: 7a
@@ -176,7 +332,41 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    A manager at a company is concerned about a brute‑force attack on its employee
+    user accounts.
+
+
+    (a) Describe how a brute‑force attack can be used to gain access to the employee
+    user accounts [3]
+
+
+    (b) One possible aim for carrying out a brute‑force attack is to install malware
+    onto the company
+
+    network.
+
+
+    (i) State two other aims for carrying out a brute‑force attack to gain access
+    to the employee
+
+    user accounts.
+
+    1   2   [2]
+
+
+    (ii) Identify three types of malware that could be installed.
+
+    1   2   3   [3]
+
+
+    (c) Give two security solutions that could be used to help prevent a brute‑force
+    attack being
+
+    successful.
+
+    1   2   [2]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -212,7 +402,31 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    A company uses robots in its factory to manufacture large pieces of furniture.
+
+
+    (a) One characteristic of a robot is that it is programmable.
+
+
+    State two other characteristics of a robot.
+
+    1   2   [2]
+
+
+    (b) Give two advantages to company employees of using robots to manufacture large
+    pieces of
+
+    furniture.
+
+    1   2   [2]
+
+
+    (c) Give one disadvantage to the company’s owners of using robots to manufacture
+    large pieces
+
+    of furniture [1]'
   answer_options: []
   subquestions:
   - number: 9a
@@ -236,7 +450,38 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '10 A student uses the internet for their schoolwork to research what is meant
+    by pharming.
+
+
+    (a) State the aim of pharming [1]
+
+
+    (b) Draw and annotate a diagram to represent the process of pharming.
+
+
+    [4]
+
+
+    (c) The student uses a web browser to access data on the internet.
+
+
+    Explain the purpose of the web browser [2]
+
+
+    (d) Storing cookies is one function of the web browser.
+
+
+    Give three other functions of the web browser.
+
+    1   2   3   [3]
+
+
+    (e) A student visits a website that uses session cookies, instead of persistent
+    cookies.
+
+
+    Explain the difference between session cookies and persistent cookies [4]'
   answer_options: []
   subquestions:
   - number: 10a

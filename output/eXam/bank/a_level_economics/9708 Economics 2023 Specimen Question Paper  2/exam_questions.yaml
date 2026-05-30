@@ -2,7 +2,46 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n\nVietnam’s ‘Economic Miracle’\n\nThirty years ago, Vietnam was one of\
+    \ the poorest countries in Southeast Asia. Since then, its real\nGDP has increased\
+    \ rapidly. A series of economic and political reforms has been responsible for\
+    \ its\nso-called ‘economic miracle’.\n\nVietnam has benefitted from the increased\
+    \ protectionism in trade between China and the United\nStates (US). For example,\
+    \ Vietnam has increased production of goods that are substitutes to\nthose made\
+    \ in China to such an extent that Vietnam is popularly referred to as ‘China plus\
+    \ one’, in\nrecognition of its similar comparative advantage to China.\n\nRising\
+    \ export revenue is only one reason for Vietnam’s spectacular economic growth.\
+    \ With a\nrapidly growing population, Vietnam has invested heavily in its human\
+    \ capital and physical capital\nin the form of infrastructure, including cheap\
+    \ access to the internet.\n\nA third reason for this success is how Vietnam has\
+    \ moved towards trade liberalisation. This is\nshown through its free trade agreement\
+    \ with the US and its membership of organisations of\ncountries that have agreed\
+    \ to trade freely with each other, such as ASEAN and the TPP. These\ninitiatives\
+    \ involve the removal of tariffs and other tools of protection, increasing the\
+    \ potential for\nVietnam to trade with other countries.\n\nNevertheless, there\
+    \ are possible dangers in this strategy. Vietnam’s economy is heavily dependent\n\
+    on its exports which in 2017 were over 90% of GDP. This reliance puts Vietnam\
+    \ at risk from\ndownturns in the global economy and in the economies of its main\
+    \ trading partners. Even more\nworrying is the repeated threat from the US that\
+    \ it may put import tariffs on manufactured goods\nfrom Vietnam.\n\nSource: World\
+    \ Economic Forum, 2018\nTable 1.1 Vietnam’s balance of trade in goods and services\
+    \ and real GDP growth,\n2009 to 2018\nBalance of trade in goods\nand services\
+    \ (‘000 billion\ndong)1\nReal GDP growth\n(% change from previous\nyear)\n2009\n\
+    –188 557\n5.4\n2010\n–177 215\n6.4\n2011\n–114 887\n6.2\n2012\n+113 697\n5.3\n\
+    2013\n +77 350\n5.4\n2014\n+128 965\n6.0\n2015\n +33 169\n6.7\n2016\n+115 342\n\
+    6.2\n2017\n+140 282\n6.8\n2018\nna\n7.1\n\n1 The dong is Vietnam’s currency.\n\
+    Source: Trading Economics August 2019\n\n(a) \t Using the data in Table 1.1, compare\
+    \ Vietnam’s balance of trade in goods and services\nbetween 2009 and 2011 with\
+    \ that from 2015 to 2017.\n[2]\n\n(b)\t (i)\t Explain the relationship you would\
+    \ expect between the annual change in the balance of\ntrade in goods and services\
+    \ and the annual change in real GDP growth.\n[2]\n\n(ii)\t Consider the extent\
+    \ to which this relationship is evident in the data in Table 1.1.\n[2]\n\n(c)\t\
+    \ Using the information provided, explain one supply-side reason why Vietnam has\
+    \ experienced\n‘spectacular economic growth’.\n[2]\n\n(d)\t Assess the likely\
+    \ macroeconomic effects of pressure on the exchange rate of the Vietnamese\ndong\
+    \ arising from Vietnam’s increased exports.\n[6]\n\n(e)\t Assess whether Vietnam’s\
+    \ ‘economic miracle’ is likely to persist over the next few years. [6]\nSection\
+    \ B\nAnswer one question.\nEITHER"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +89,13 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a)\t An economy contains just two sectors, an agricultural sector and\
+    \ an industrial sector.\n\nWith the help of a diagram, explain how a production\
+    \ possibility curve (PPC) can be used to\nshow the concept of opportunity cost\
+    \ and consider whether opportunity cost is likely to remain\nconstant if resources\
+    \ are reallocated from the agricultural sector to the \t industrial sector. [8]\n\
+    \n(b) \t Assess whether the free market should be used to provide all types of\
+    \ goods in an economy.\n\n[12]\nOR"
   answer_options: []
   subquestions:
   - number: 2a
@@ -68,7 +113,12 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) \t With the help of a formula, explain the meaning of price elasticity\
+    \ of supply and consider\nwhich factors are most important in determining whether\
+    \ the price elasticity of supply for a\ngood is likely to be relatively elastic\
+    \ or relatively inelastic.\n[8]\n\n(b) \t Assess the likely success of any two\
+    \ government policies to make the price elasticity of\nsupply of all agricultural\
+    \ products more elastic.\n[12]\nSection C\nAnswer one question.\nEITHER"
   answer_options: []
   subquestions:
   - number: 3a
@@ -86,7 +136,10 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) \t Compare the causes of structural unemployment and cyclical unemployment\
+    \ and consider\nwhich of these types of unemployment is likely to be more harmful\
+    \ to an economy.\n[8]\n\n(b) \t Assess whether expansionary monetary policy is\
+    \ likely to be successful in reducing all types\nof unemployment.\n[12]\nOR"
   answer_options: []
   subquestions:
   - number: 4a
@@ -104,7 +157,15 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "Copyright Acknowledgements:\nQuestion 1\n© Peter Vanham; The story of Viet\
+    \ Nam’s economic miracle; World Economic Forum; 11 September 2018\nQuestion 1\n\
+    © Adapted; Statistics for Table 1 taken from www.trading economics.com\n5\n(a)\
+    \ \t Explain what is meant by a deficit on the current account of an economy’s\
+    \ balance of\npayments and consider whether a high rate of inflation will always\
+    \ lead to a deficit on the\ncurrent account of an economy’s balance of payments.\n\
+    [8]\n\n(b) \t Assess whether a high rate of inflation or a deficit on the current\
+    \ account of the balance of\npayments is the more serious problem for an economy.\n\
+    [12]"
   answer_options: []
   subquestions:
   - number: 5a

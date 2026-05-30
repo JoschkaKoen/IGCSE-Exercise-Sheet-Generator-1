@@ -2,7 +2,55 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    P
+
+    T
+
+    y
+
+    x
+
+    4
+
+    2
+
+    3
+
+    1
+
+    0
+
+    – 2
+
+    – 1
+
+    – 2
+
+    – 3
+
+    – 1
+
+    2
+
+    1
+
+    3
+
+    4
+
+    – 4
+
+
+    (a) Describe fully the single transformation that maps triangle T onto triangle
+    P [2]
+
+
+    (b) Draw the image of triangle T after an enlargement of scale factor 2, centre
+    (3, 3).
+
+    [2]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -20,7 +68,8 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nFind the value of\n\n(a) 5\n5\n5\n5\n#\n-\n\n  [1]\n\n(b) 125 3\n2.\n\
+    [2]"
   answer_options: []
   subquestions:
   - number: 6a
@@ -38,7 +87,8 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nSimplify.\n\n(a)\nt\np\nt\n2\n'\n\n  [2]\n\n(b)\nx\nx\n4\n3\n2\n1\n-\n\
+    -\n\n  [2]"
   answer_options: []
   subquestions:
   - number: 7a
@@ -56,7 +106,9 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 ℰ = {n: n is an integer and\nn\n1\n8\nG\nG\n}\n\nA = {factors of 12}\n\
+    \nB = {odd numbers}\n\nFind\n\n(a) A\nB\n+\n\nA\nB\n+\n = { } [1]\n\n(b)\n(\n\
+    )\nA\nB\nn\n,\nl\n [1]"
   answer_options: []
   subquestions:
   - number: 10a
@@ -74,7 +126,97 @@ questions:
 - number: '14'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '14
+
+    D
+
+    E
+
+    NOT TO
+
+    SCALE
+
+    88°
+
+    55°
+
+    X
+
+    B
+
+    A
+
+    C
+
+
+    A, B, C, D and E lie on the circle.
+
+
+    AC and BD intersect at X.
+
+
+    Angle ACD = 55° and angle CXD = 88°.
+
+
+    (a) Complete the statements, giving a geometrical reason in each part.
+
+    Angle CDB =  because   Angle ABD =  because   Angle AED =  because   [6]
+
+
+    (b) Triangle CXD is mathematically similar to triangle BXA.
+
+
+    DX = 8.0 cm, BX = 2.7 cm and AX = 4.0 cm.
+
+
+    (i) Work out the length of CX.
+
+
+    CX =   cm [2]
+
+
+    (ii) Complete the statement.
+
+
+    Area of triangle CXD : area of triangle BXA =  :  [1]
+
+    15 (a) Write 66 000 in standard form [1]
+
+
+    (b) Work out
+
+    .
+
+    .
+
+    3 7
+
+    10
+
+    3 7
+
+    10
+
+    8
+
+    7
+
+    #
+
+    #
+
+    +
+
+    `
+
+    `
+
+    j
+
+    j.
+
+
+    Give your answer in standard form [2]'
   answer_options: []
   subquestions:
   - number: 14a
@@ -122,7 +264,34 @@ questions:
 - number: '17'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '17
+
+    (
+
+    I
+
+    M k2
+
+    2
+
+    =
+
+    )
+
+    c
+
+    +
+
+
+    (a) Find the value of I when M = 7, k = 3 and c = 2.
+
+
+    I =   [2]
+
+
+    (b) Rearrange the formula to write k in terms of I, M and c.
+
+    k =  [3]'
   answer_options: []
   subquestions:
   - number: 17a
@@ -140,7 +309,16 @@ questions:
 - number: '20'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "20\nBag A\nBag B\n\nBag A contains 5 white balls and 3 black balls.\n\nBag\
+    \ B contains 3 white balls and 1 black ball.\n\n(a) Two balls are picked at random\
+    \ from bag B without replacement.\n\nFind the probability that both balls are\
+    \ black [1]\n\n(b) The balls are replaced into bag B.\n\nKyle picks a ball at\
+    \ random from each bag.\n\n(i) Complete the tree diagram.\nBag A\nBag B\n8\n5\n\
+    \ white\nblack\n white\nblack\n white\nblack\n\n[2]\n\n(ii) Find the probability\
+    \ that the two balls are the same colour [3]\n\n(c) The balls are replaced into\
+    \ their bags.\n\nJo picks a ball at random from bag A and places it into bag B.\n\
+    \nShe then picks a ball at random from bag B.\n\nFind the probability that she\
+    \ picks a black ball from bag B [3]"
   answer_options: []
   subquestions:
   - number: 20a
@@ -176,7 +354,9 @@ questions:
 - number: '21'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "21 (a)\na\nb\n3\n5\n3 5\n2\n5\n-\n+\n=\n+\n`\n`j\nj\n\nFind the value of\
+    \ a and the value of b.\n\na =   b =   [2]\n\n(b) Rationalise the denominator.\n\
+    \nWrite your answer in its simplest form.\n\n2\n6\n\n  [2]"
   answer_options: []
   subquestions:
   - number: 21a

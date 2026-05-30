@@ -2,7 +2,11 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\ny\nx\n– 1\n1\n0\n2\n3\n4\n5\n6\n7\n8\n– 2\n– 3\n– 4\n– 5\n– 6\n– 7\n–\
+    \ 8\n– 9\n– 10\n– 1\n1\n2\n3\n4\n5\n6\n– 2\n– 3\n– 4\n– 5\n– 6\n– 7\n– 8\nA\n\
+    B\nC\n\n(a) Describe fully the single transformation that maps\n\n(i) shape A\
+    \ onto shape B\n  [2]\n\n(ii) shape A onto shape C [3]\n\n(b) On the grid, draw\
+    \ the image of shape A after a reflection in the line x\n2\n= - .\n[2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -32,13 +36,35 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '3
+
+    In the USA, one gallon of fuel costs $4.83 .
+
+
+    In the UK, one litre of fuel costs £1.62 .
+
+
+    The exchange rate is £1 = $1.215 .
+
+
+    1 gallon = 3.785 litres
+
+
+    In which country does 1 litre of fuel cost more and by how much?
+
+
+    Give your answer in dollars by $  [3]'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) These are the first 5 terms of a sequence.\n\n1  8  27  64  125\n\n\
+    Find the 10th term of this sequence [1]\n\n(b) These are the first 5 terms of\
+    \ a different sequence.\n\n5  8  13  20  29\n\nFind the nth term of this sequence\
+    \ [2]\n\n(c) The sum of the first n terms of another sequence is  (\n)\nn\nn\n\
+    2 5\n1\n-\n .\n\n(i) Use n\n2\n=\n to find the sum of the first two terms in this\
+    \ sequence [1]\n\n(ii) Find the 3rd term of this sequence [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -74,37 +100,72 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "1\nSolve.\n\nc\n4\n9\n13\n-\n=\n\nc =   [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '9
+
+    In a sale, the original price of a sewing machine is reduced by $38.
+
+
+    This is an 8% reduction in the original price.
+
+
+    Work out the original price of the sewing machine.
+
+
+    $  [2]'
   answer_options: []
   subquestions: []
 - number: '12'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "12\n42°\n115°\n12.5 cm\nQ\nR\nP\nNOT TO\nSCALE\n\nThe diagram shows triangle\
+    \ PQR.\n\nCalculate the shortest distance from Q to PR cm [3]\n13 Make x the subject\
+    \ of this formula.\n\nA\nw\nx\n5\n2\n2\n=\n+\n\nx =   [3]\n,\t\t,"
   answer_options: []
   subquestions: []
 - number: '6'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "6\nExpand.\n\n(\n)\nx\nx\n5\n3\n2\n2\n-\n\n  [2]"
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "7\ny\n– 2\n– 1\n0\n1\n2\n3\n4\n5\n\nWrite down the inequality in y shown\
+    \ by the number line [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    Hadi buys a dishwasher.
+
+
+    He can either pay a single payment of $980 or he can pay using a monthly plan.
+
+
+    The monthly plan is 20% of $980 plus 12 payments of $75.25 .
+
+
+    (a) Hadi uses the monthly plan.
+
+
+    Calculate the total amount Hadi pays.
+
+
+    $  [2]
+
+
+    (b) Find the percentage increase in the cost using the monthly plan compared to
+    a single payment % [2]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -122,7 +183,13 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 (a) Write down all the factors of 18 [2]\n\n(b) Factorise.\ny\nxy\nx\n\
+    3\n15\n5\n-\n+\n-\n\n  [2]\n\n(c)\n\ny\nxy\nx\n3\n15\n5\n18\n-\n+\n-\n=\n\nwhere\
+    \ x and y are positive integers.\n\nUsing your answers to part (a) and part (b),\
+    \ find one possible value of x and the corresponding\nvalue of y.\n\nx =  , y\
+    \ =  [2]\n11 A warehouse has a floor area of 800 m2.\n\nThe plan of the warehouse\
+    \ is drawn to a scale of 1 : 50.\n\nCalculate the floor area on the plan.\n\n\
+    Give your answer in square centimetres cm2 [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -146,7 +213,41 @@ questions:
 - number: '18'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: '18
+
+    x
+
+    x
+
+    2
+
+    12
+
+    2
+
+    2 +
+
+    -   can be written in the form  (
+
+    )
+
+    a x
+
+    b
+
+    c
+
+    2
+
+    +
+
+    - .
+
+
+    Find the values of a, b and c.
+
+
+    a =  , b =  , c =  [3]'
   answer_options: []
   subquestions: []
 - number: '11'
@@ -164,13 +265,179 @@ questions:
 - number: '2'
   question_type: calculation
   marks: 3
-  text: ''
+  text: '2
+
+    Work out 8 6
+
+    3 5
+
+    16 71
+
+    46 13
+
+    2
+
+    2
+
+    -
+
+    +
+
+
+    Give your answer correct to 2 significant figures [2]'
   answer_options: []
   subquestions: []
 - number: '14'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '14 The table shows some values for   y
+
+    x
+
+    x
+
+    5
+
+    4
+
+    2
+
+    3
+
+    =
+
+    -
+
+    -  .
+
+    x
+
+    -2
+
+    -1
+
+    0
+
+    1
+
+    2
+
+    3
+
+    4
+
+    5
+
+    y
+
+    24
+
+    -4
+
+    8
+
+    14
+
+    -4
+
+
+    (a) Complete the table.
+
+    [3]
+
+
+    (b) On the grid, draw the graph of   y
+
+    x
+
+    x
+
+    5
+
+    4
+
+    2
+
+    3
+
+    =
+
+    -
+
+    -    for
+
+    x
+
+    2
+
+    5
+
+    G
+
+    G
+
+    -
+
+    .
+
+    y
+
+    x
+
+    30
+
+    20
+
+    10
+
+    0
+
+    – 10
+
+    – 1
+
+    1
+
+    2
+
+    3
+
+    4
+
+    5
+
+    – 2
+
+
+    [4]
+
+
+    (c) By drawing a suitable straight line on the grid, solve the equation   x
+
+    x
+
+    x
+
+    5
+
+    14
+
+    0
+
+    3
+
+    2
+
+    -
+
+    - +
+
+    =
+
+    .
+
+
+    x =  or x =  or x =  [4]'
   answer_options: []
   subquestions:
   - number: 14a
@@ -194,7 +461,17 @@ questions:
 - number: '15'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "15 The height of each of 140 basketball players is recorded.\n\nThe table\
+    \ shows the results.\nHeight (h cm)\nh\n0\n0\n16\n18\n1\nG\nh\n0\n18\n185\n1\n\
+    G\nh\n0\n185\n19\n1\nG\nh\n0\n2 0\n19\n0\n1\nG\nh\n200\n210\n1\nG\nFrequency\n\
+    7\n12\n31\n70\n20\n\n(a) Calculate an estimate of the mean height cm [4]\n\n(b)\
+    \ Two of the players are chosen at random.\n\nFind the probability that both players\
+    \ have a height greater than 190 cm and no more than 200 cm [2]\n,\t,\n\n(c) Complete\
+    \ the histogram to show the information in the frequency table.\ny\nh\n6\n7\n\
+    8\n5\n4\n3\n2\n1\n0\n170\n160\n180\n190\nHeight (cm)\nFrequency\ndensity\n200\n\
+    210\n\n[3]\n16 Mateo invests $1250 at a rate of r % per year compound interest.\n\
+    \nAt the end of 6 years the total value of his investment is $1484.\n\nCalculate\
+    \ the value of r.\n\nr =   [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 15a
@@ -224,7 +501,10 @@ questions:
 - number: '17'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "17\n56°\n47°\n12.1 cm\n15.8 cm\n9.6 cm\nB\nA\nD\nC\nNOT TO\nSCALE\n\nThe\
+    \ diagram shows a quadrilateral ABCD.\n\n(a) Calculate AD.\n\nAD =   cm [3]\n\n\
+    (b) Calculate the obtuse angle BDC.\n\nAngle BDC =   [4]\n\n(c) Calculate the\
+    \ area of the quadrilateral cm2 [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 17a
@@ -248,13 +528,34 @@ questions:
 - number: '19'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '19
+
+    NOT TO
+
+    SCALE
+
+    126°
+
+    7.5 cm
+
+
+    The diagram shows a major sector of a circle with radius 7.5 cm.
+
+
+    Calculate the perimeter of the major sector cm [4]'
   answer_options: []
   subquestions: []
 - number: '20'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "20\nNOT TO\nSCALE\nA\nD\nO\nM\nB\nC\n24 cm\n10.5 cm\n10.5 cm\n\nThe diagram\
+    \ shows a pyramid OABCD.\n\nThe pyramid has a square base, ABCD, with sides 10.5\
+    \ cm.\n\nThe vertex O is vertically above the centre of the base, M.\n\nThe height\
+    \ of the pyramid is 24 cm.\n\n(a) Calculate the angle that OA makes with the base\
+    \ [4]\n,\t,\n\n(b)\nNOT TO\nSCALE\nA\nD\nM\nB\nC\n16 cm\n10.5 cm\n10.5 cm\n\n\
+    The diagram shows a frustum of the pyramid OABCD.\n\nThe height of the frustum\
+    \ is 16 cm.\n\nCalculate the volume of the frustum cm3 [5]\nQuestion 21 is on\
+    \ page 16.\n,\t,"
   answer_options: []
   subquestions:
   - number: 20a

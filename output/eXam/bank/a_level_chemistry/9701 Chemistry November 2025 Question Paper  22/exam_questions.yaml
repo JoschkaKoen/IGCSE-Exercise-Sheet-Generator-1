@@ -2,7 +2,25 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nManganese, Mn, and its compounds are widely used in many chemical reactions.\n\
+    \n(a) Mn is usually found as a single isotope, manganese-55.\n\n(i) Determine\
+    \ the number of protons, neutrons and electrons in an atom of manganese-55.\n\n\
+    \ number of protons  neutrons  electrons  [1]\n\n(ii) Define isotopes [1]\n\n\
+    (iii) A sample of manganese from the Moon is found to contain manganese-53 in\
+    \ addition to\nmanganese-55.\n\n State the two pieces of information needed to\
+    \ determine the relative atomic mass, Ar , of\nmanganese in this sample.\n1  \
+    \ 2   [2]\n\n(b) The shorthand electronic configuration of manganese is [Ar] 3d5\
+    \ 4s2.\n\n(i) Complete the full electronic configuration of manganese 3d5 4s2\n\
+    [1]\n\n(ii) Deduce the total number of unpaired electrons in an atom of manganese\
+    \ [1]\n,\t,\n\n(c) Manganese(IV) oxide reacts with methanal, CH2O, in acidic conditions\
+    \ to produce carbon\ndioxide. The movement of electrons to or from relevant species\
+    \ is shown in the following\nhalf-equations.\n\nhalf-equation 1\n\nCH2O + H2O\n\
+    \ CO2 + 4H+ + 4e–\n\nhalf-equation 2\n\nMnO2 + 4H+ + 2e–\n Mn2+ + 2H2O\n\n(i)\
+    \ Identify the species that is reduced in half-equation 2. Explain your answer\
+    \ [1]\n\n(ii) The oxidation state of carbon in methanal is 0.\n\n Calculate the\
+    \ oxidation state of carbon in carbon dioxide [1]\n\n(iii) Construct the ionic\
+    \ equation for the reaction of manganese(IV) oxide with methanal in\nacidic conditions\
+    \ [2]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -74,7 +92,38 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nThe Period 3 elements show trends in physical and chemical properties\
+    \ across the period.\n\n(a) (i) Explain why the elements Na to Al are good electrical\
+    \ conductors [1]\n\n(ii) Explain why the elements P, S and Cl do not conduct electricity\
+    \ [1]\n\n(b) Fig. 2.1 shows the variation in melting point of the Period 3 elements\
+    \ Si to Cl.\n1800\n1600\n1400\n1200\n1000\nmelting\npoint / K\n800\n600\n400\n\
+    Si\nP\nS\nCl\n200\n0\nFig. 2.1\n\nThe Period 3 elements Si to Cl are all non-metals.\n\
+    \nExplain why there is a large difference between the melting point of Si and\
+    \ the melting points\nof P, S and Cl [2]\n,\t,\n\n(c) Table 2.1 gives some information\
+    \ about some Period 3 chlorides.\n\nRow B refers to the pH of the solution that\
+    \ forms when the Period 3 chloride is added to\nwater.\nTable 2.1\nformula of\
+    \ Period 3 chloride\nNaCl\nMgCl 2\nAl Cl 3\nSiCl4\nPCl 5\nA\noxidation number\
+    \ of\nelement bonded to Cl\nB\npH of solution\n6.5\nC\nbonding\nionic\nD\nstructure\n\
+    giant\n\nComplete Table 2.1.\n\nYou may use the following abbreviations.\nI =\
+    \ ionic, C = covalent, M = metallic\nG = giant, S = simple\n\n[4]\n\n(d) (i) Write\
+    \ an equation for the formation of Al Cl 3 from its elements [1]\n\n(ii) Write\
+    \ an equation for the formation of H3PO4 from PCl 5 [1]\n\n(e) S2Cl2(l) reacts\
+    \ with Cl2(g) in a reversible reaction to form SCl2(l). Under certain conditions,\
+    \ a\ndynamic equilibrium is established.\nS2Cl2(l) + Cl2(g)\n 2SCl2(l)     ΔH\
+    \ = – 41 kJ mol–1\n\n(i) State what is meant by dynamic equilibrium [1]\n\n(ii)\
+    \ Identify the condition necessary to establish dynamic equilibrium [1]\n,\t,\n\
+    \n(iii) S2Cl2(l) is yellow and SCl2(l) is red.\n\nS2Cl2(l) + Cl2(g)\n 2SCl2(l)\
+    \     ΔH = – 41 kJ mol–1\n\n State what is observed when the following changes\
+    \ are made to an equilibrium mixture\nof S2Cl2(l) and SCl2(l).\n\n Explain your\
+    \ answers.\n•\nThe equilibrium mixture is warmed gently.\nobservation   explanation\
+    \   •\nThe overall pressure of the equilibrium mixture is increased.\nobservation\
+    \   explanation   [4]\n\n(f) Aqueous MgCl 2 reacts with aqueous Na2CO3 to form\
+    \ a white precipitate. Upon heating, the\nwhite precipitate undergoes thermal\
+    \ decomposition.\n\n(i) Construct an equation to show the reaction of aqueous\
+    \ MgCl 2 with aqueous Na2CO3.\nUse state symbols in your equation [2]\n\n(ii)\
+    \ Identify the products of the thermal decomposition of the white precipitate\
+    \ [1]\n\n(iii) State the trend in thermal stability of the Group 2 carbonates\
+    \ down the group [1]\n\n[Total: 20]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -176,7 +225,25 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nThe alkanes are a homologous series of organic molecules. Alkanes are\
+    \ generally unreactive and\nare commonly used as fuels.\n\n(a) Define homologous\
+    \ series [2]\n\n(b) Give two reasons to explain the general unreactivity of alkanes.\n\
+    1   2   [2]\n\n(c) Alkanes with low relative molecular mass, Mr , are more useful\
+    \ than those found in heavier\ncrude oil fractions.\n\nName the process that is\
+    \ used to obtain alkanes with low Mr from heavier crude oil fractions [1]\n\n\
+    (d) Hexane, C6H14, has four structural isomers.\n\nFig. 3.1 shows hexane and two\
+    \ of its structural isomers.\nD\nC\nB\nA\nhexane\nFig. 3.1\n\n(i) Complete Fig.\
+    \ 3.1 by drawing structures for C and D, the other two structural isomers of\n\
+    hexane.\n[2]\n\n(ii) A, B and hexane have different boiling points.\n\n Arrange\
+    \ A, B and hexane in order of increasing boiling point.\n\n Explain your answer.\n\
+    \n lowest  <  <  highest\n  [3]\n,\t\t,\n\n(e) Hexane can be converted into compounds\
+    \ E and F at high temperature and pressure. Fig. 3.2\nshows the reaction scheme\
+    \ involving hexane, E and F.\nreaction 3\n∆H2\nreaction 2\n∆H1 = +215 kJ mol−1\n\
+    \            reaction 1\nE\nF\nFig. 3.2\n\n(i) Identify a suitable reagent for\
+    \ reaction 3 [1]\n\n(ii) Use the data in Fig. 3.2 and in Table 3.1 to calculate\
+    \ the enthalpy change of reaction 2,\nΔH2.\nTable 3.1\ncompound\nenthalpy change\
+    \ of\nformation, ∆Hf / kJ mol−1\n−156\n+48\n\nΔH2 =   kJ mol–1 [2]\n\n(iii) Write\
+    \ an equation for the complete combustion of hexane [1]\n[Total: 14]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -242,7 +309,85 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nFig. 4.1 shows how propane, C3H8, can be converted to propanoic acid,\
+    \ CH3CH2COOH.\nC3H8\nCH3CH2CH2Cl\nCH3CH2CH2OH\nCH3CH2COOH\nreaction 1\nreaction\
+    \ 2\nreaction 3\nFig. 4.1\n\n(a) Reaction 1 in Fig. 4.1 takes place in the presence\
+    \ of sunlight.\nC3H8 + Cl 2\n CH3CH2CH2Cl + HCl\n\nThe reaction takes place via\
+    \ initiation, propagation and termination steps.\n\n(i) Name the mechanism shown\
+    \ by reaction 1 [1]\n\n(ii) Complete the mechanism for reaction 1.\n\n Construct\
+    \ equations to describe the steps of the mechanism.\n\ninitiation\nCl 2 → 2Cl•\n\
+    propagation 1   propagation 2   termination  CH3CH2CH2Cl\n\n[3]\n\n(iii) Reaction\
+    \ 1 is initiated by the bond fission of Cl 2.\n\n State the type of bond fission\
+    \ shown in the initiation step [1]\n\n(iv) Compound Q is a by-product of reaction\
+    \ 1.\nH\nC\nC\nC\nH\nH\nH\nH\nCl\nQ\nH\nCl\n\n Name Q [1]\n,\t,\n\n(v) The molecular\
+    \ formula of Q is C3H6Cl 2.\n\n Identify the types of structural isomerism and\
+    \ stereoisomerism that a molecule with\nmolecular formula C3H6Cl 2 can show.\n\
+    type of structural isomerism   type of stereoisomerism   [2]\n\n(b) State the\
+    \ reagent and solvent required for reaction 2 [1]\n\n(c) Reaction 3 takes place\
+    \ when CH3CH2CH2OH is heated under reflux with acidified potassium\ndichromate(VI)\
+    \ solution.\n\n(i) State the colour change that takes place in the reaction mixture\
+    \ [1]\n\n(ii) Construct an equation to represent reaction 3. Use [O] to represent\
+    \ an atom of oxygen\nfrom the oxidising agent [1]\n,\t,\n\n(d) CH3CH2COOH reacts\
+    \ with an unsaturated alcohol R to form unsaturated ester S.\n\n(i) State the\
+    \ type of reaction that forms S [1]\n\n(ii) The infrared spectrum of S is shown\
+    \ in Fig. 4.2.\n100\n50\n4000\n3000\n2000\n1500\nwavenumber / cm−1\n1000\n500\n\
+    transmittance / %\n0\nFig. 4.2\n\n Three absorptions in the infrared spectrum\
+    \ in Fig. 4.2 confirm that S is an ester and is\nunsaturated.\n•\nWrite 1, 2 or\
+    \ 3 on Fig. 4.2 against each of these three absorptions.\n•\nComplete Table 4.1\
+    \ to show which bond is responsible for each absorption that you\nhave identified\
+    \ in Fig. 4.2.\nTable 4.1\nabsorption\n1\n2\n3\nbond responsible\n\n[3]\n,\t,\n\
+    Table 4.2\nbond\nfunctional groups containing the bond\ncharacteristic infrared\
+    \ absorption range\n(in wavenumbers) / cm–1\nC–O\nhydroxy, ester\n1040–1300\n\
+    C=C\naromatic compound, alkene\n1500–1680\nC=O\namide\ncarbonyl, carboxyl\nester\n\
+    1640–1690\n1670–1740\n1710–1750\nC N\nnitrile\n2200–2250\nC–H\nalkane\n2850–2950\n\
+    N–H\namine, amide\n3300–3500\nO–H\ncarboxyl\nhydroxy\n2500–3000\n3200–3650\n\n\
+    (iii) The mass spectrum of S shows the following peaks.\nTable 4.3\npeak\nrelative\
+    \ abundance\nM+\n4.7\n[M+1]+\n0.31\n\n Use Table 4.3 to calculate the number of\
+    \ carbon atoms in S.\nnumber of carbon atoms in S =   [1]\n\n[Total: 16]\n,\t\
+    ,\nImportant values, constants and standards\nmolar gas constant\nR = 8.31 J K–1\
+    \ mol–1\nFaraday constant\nF = 9.65 × 104 C mol–1\nAvogadro constant\nL = 6.02\
+    \ × 1023 mol–1\nelectronic charge\ne = –1.60 × 10–19 C\nmolar volume of gas\n\
+    Vm = 22.4 dm3 mol–1 at s.t.p. (101 kPa and 273 K)\nVm = 24.0 dm3 mol–1 at room\
+    \ conditions\nionic product of water\nKw = 1.00 × 10–14 mol2 dm–6 (at 298 K (25\
+    \ °C))\nspeciﬁc heat capacity of water\nc = 4.18 kJ kg–1 K–1 (4.18 J g–1 K–1)\n\
+    ,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n1.0\n2\nHe\nhelium\n\
+    4.0\n1\n2\n13\n14\n15\n16\n17\n18\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n3\nLi\nlithium\n\
+    6.9\n4\nBe\nberyllium\n9.0\natomic number\natomic symbol\nKey\nname\nrelative\
+    \ atomic mass\n11\nNa\nsodium\n23.0\n12\nMg\nmagnesium\n24.3\n19\nK\npotassium\n\
+    39.1\n20\nCa\ncalcium\n40.1\n37\nRb\nrubidium\n85.5\n38\nSr\nstrontium\n87.6\n\
+    55\nCs\ncaesium\n132.9\n56\nBa\nbarium\n137.3\n87\nFr\nfrancium\n–\n88\nRa\nradium\n\
+    –\n5\nB\nboron\n10.8\n13\nAl\naluminium\n27.0\n31\nGa\ngallium\n69.7\n49\nIn\n\
+    indium\n114.8\n81\nTl\nthallium\n204.4\n6\nC\ncarbon\n12.0\n14\nSi\nsilicon\n\
+    28.1\n32\nGe\ngermanium\n72.6\n50\nSn\ntin\n118.7\n82\nPb\nlead\n207.2\n22\nTi\n\
+    titanium\n47.9\n40\nZr\nzirconium\n91.2\n72\nHf\nhafnium\n178.5\n104\nRf\nrutherfordium\n\
+    –\n23\nV\nvanadium\n50.9\n41\nNb\nniobium\n92.9\n73\nTa\ntantalum\n180.9\n105\n\
+    Db\ndubnium\n–\n24\nCr\nchromium\n52.0\n42\nMo\nmolybdenum\n95.9\n74\nW\ntungsten\n\
+    183.8\n106\nSg\nseaborgium\n–\n25\nMn\nmanganese\n54.9\n43\nTc\ntechnetium\n–\n\
+    75\nRe\nrhenium\n186.2\n107\nBh\nbohrium\n–\n26\nFe\niron\n55.8\n44\nRu\nruthenium\n\
+    101.1\n76\nOs\nosmium\n190.2\n108\nHs\nhassium\n–\n27\nCo\ncobalt\n58.9\n45\n\
+    Rh\nrhodium\n102.9\n77\nIr\niridium\n192.2\n109\nMt\nmeitnerium\n–\n28\nNi\nnickel\n\
+    58.7\n46\nPd\npalladium\n106.4\n78\nPt\nplatinum\n195.1\n110\nDs\ndarmstadtium\n\
+    –\n29\nCu\ncopper\n63.5\n47\nAg\nsilver\n107.9\n79\nAu\ngold\n197.0\n111\nRg\n\
+    roentgenium\n–\n30\nZn\nzinc\n65.4\n48\nCd\ncadmium\n112.4\n80\nHg\nmercury\n\
+    200.6\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n\
+    –\n7\nN\nnitrogen\n14.0\n15\nP\nphosphorus\n31.0\n33\nAs\narsenic\n74.9\n51\n\
+    Sb\nantimony\n121.8\n83\nBi\nbismuth\n209.0\n8\nO\noxygen\n16.0\n16\nS\nsulfur\n\
+    32.1\n34\nSe\nselenium\n79.0\n52\nTe\ntellurium\n127.6\n84\nPo\npolonium\n–\n\
+    9\nF\nfluorine\n19.0\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n79.9\n53\nI\niodine\n\
+    126.9\n85\nAt\nastatine\n–\n10\nNe\nneon\n20.2\n18\nAr\nargon\n39.9\n36\nKr\n\
+    krypton\n83.8\n54\nXe\nxenon\n131.3\n86\nRn\nradon\n–\n113\nNh\nnihonium\n–\n\
+    115\nMc\nmoscovium\n–\n117\nTs\ntennessine\n–\n118\nOg\noganesson\n–\n21\nSc\n\
+    scandium\n45.0\n39\nY\nyttrium\n88.9\n57–71\nlanthanoids\n89–103\nactinoids\n\
+    57\nLa\nlanthanum\n138.9\n89\nAc\nlanthanoids\nactinoids\nactinium\n–\n58\nCe\n\
+    cerium\n140.1\n90\nTh\nthorium\n232.0\n59\nPr\npraseodymium\n140.9\n91\nPa\nprotactinium\n\
+    231.0\n60\nNd\nneodymium\n144.2\n92\nU\nuranium\n238.0\n61\nPm\npromethium\n–\n\
+    93\nNp\nneptunium\n–\n62\nSm\nsamarium\n150.4\n94\nPu\nplutonium\n–\n63\nEu\n\
+    europium\n152.0\n95\nAm\namericium\n–\n64\nGd\ngadolinium\n157.3\n96\nCm\ncurium\n\
+    –\n65\nTb\nterbium\n158.9\n97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n162.5\n98\n\
+    Cf\ncalifornium\n–\n67\nHo\nholmium\n164.9\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n\
+    167.3\n100\nFm\nfermium\n–\n69\nTm\nthulium\n168.9\n101\nMd\nmendelevium\n–\n\
+    70\nYb\nytterbium\n173.1\n102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175.0\n103\n\
+    Lr\nlawrencium\n–\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a

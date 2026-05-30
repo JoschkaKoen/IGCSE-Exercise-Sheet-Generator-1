@@ -45,7 +45,31 @@ questions:
 - number: '4'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: '4
+
+    The only naturally occurring isotopes in a sample of europium are 151Eu and 153Eu.
+    This sample of
+
+    europium has a relative atomic mass, Ar, of 152.
+
+
+    What is the percentage of 151Eu present in this sample to three significant figures?
+
+    A
+
+    0.987%
+
+    B
+
+    50.0%
+
+    C
+
+    76.0%
+
+    D
+
+    98.7%'
   answer_options:
   - letter: A
     text: A
@@ -59,7 +83,26 @@ questions:
 - number: '5'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: '5
+
+    Which statement about potassium chloride is correct?
+
+    A
+
+    It has a high melting point because it is a giant structure with strong covalent
+    bonds.
+
+    B
+
+    It conducts electricity when solid because of its oppositely charged ions.
+
+    C
+
+    It conducts electricity when molten because its ions can move.
+
+    D
+
+    It is insoluble in water because of its strong bonding.'
   answer_options:
   - letter: A
     text: A

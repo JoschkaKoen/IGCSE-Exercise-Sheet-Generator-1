@@ -2,7 +2,9 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA, B and C are points on a circle, centre O.\nA\nB\nO\nC\n\n(a) Write\
+    \ down the mathematical name for line OC [1]\n\n(b) Write down the mathematical\
+    \ name for line AB [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,19 +22,46 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '2
+
+    Write down all the factors of 32 [2]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '3
+
+    Write one of the symbols 1, 2 or = in each statement to make it correct.
+
+
+    3
+
+    2  0.667
+
+
+    8
+
+    1  12.5%
+
+
+    8
+
+    7  80
+
+    71
+
+
+    [2]'
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\ny\nx\n4\n2\n3\n1\n0\n– 2\n– 3\n– 1\n– 4\n– 2\n– 3\n– 1\n2\n1\n3\n4\n–\
+    \ 4\nP\n\n(a) Write down the coordinates of point P.\n\n(  ,  ) [1]\n\n(b) On\
+    \ the grid, draw the line y\nx\n=\n.\n[1]\n\n(c) On the grid, draw the line that\
+    \ goes through point P and is perpendicular to the line y\nx\n=\n.\n[1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -56,7 +85,37 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    Solve.
+
+
+    (a)
+
+    x
+
+    8
+
+    5
+
+    =
+
+
+    x =   [1]
+
+
+    (b) x
+
+    8
+
+    5
+
+    +
+
+    =
+
+
+    x =   [1]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -74,7 +133,9 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n0  1  8  27  39  51  59  81\n\nFrom the list of numbers, write down\n\n\
+    (a) a square number\n\n  [1]\n\n(b) the value of 390\n\n  [1]\n\n(c) a prime number\
+    \ [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -98,19 +159,58 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '7
+
+    Calculate 361
+
+    1
+
+    +  [1]'
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '8
+
+    Complete these statements.
+
+
+    65 000 centimetres =  metres
+
+
+    3.25 litres =  millilitres
+
+    [2]'
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    (a) Shape A is a quadrilateral with only one pair of parallel lines.
+
+
+    Write down the mathematical name of shape A [1]
+
+
+    (b) Shape B is a quadrilateral with
+
+    •
+
+    two pairs of parallel lines
+
+    •
+
+    all four sides equal
+
+    •
+
+    no right angles.
+
+
+    Write down the mathematical name of shape B [1]'
   answer_options: []
   subquestions:
   - number: 9a
@@ -128,19 +228,46 @@ questions:
 - number: '10'
   question_type: calculation
   marks: 3
-  text: ''
+  text: "10 The bar chart shows the frequency of each score on a spinner.\n1\n0\n\
+    1\n2\n3\nScore on spinner\n4\n5\n2\n3\n4\n5\n6\n7\n8\n9\n10\nFrequency\n\nCalculate\
+    \ the mean score [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '11'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '11
+
+    Y
+
+    t
+
+    m
+
+    3
+
+    2
+
+    2
+
+    =
+
+    +
+
+
+    Find the value of Y when t = 6 and m = -3.
+
+
+    Y =   [2]'
   answer_options: []
   subquestions: []
 - number: '12'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "12 The table shows the results of a survey about the colour of 90 cars in\
+    \ a car park.\nColour of car\nFrequency\nPie chart sector angle\nBlack\n16\nWhite\n\
+    34\nOther\n40\n\n(a) Complete the table.\n[2]\n\n(b) Complete the pie chart.\n\
+    \n[2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 12a
@@ -158,7 +285,50 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '13 Find the value of 85.
+
+
+    Give your answer correct to 3 significant figures [2]
+
+    14 (a) Ada works from Monday to Friday.
+
+
+    Her working hours each day are 08 00 to 12 30 and 13 30 to 17 00.
+
+
+    Find the number of hours she works in 5 days hours [2]
+
+
+    (b) Ada is paid $15.20 per hour.
+
+
+    Work out her pay for these 5 days.
+
+
+    $  [1]
+
+
+    (c) On Saturday she is paid 1 2
+
+    1 times her normal hourly rate.
+
+
+    Work out her hourly rate of pay for Saturday.
+
+
+    $  [1]
+
+
+    (d) Ada changes 370 euros into dollars.
+
+
+    The exchange rate is $1 = 0.925 euros.
+
+
+    Work out the amount she receives.
+
+
+    $  [1]'
   answer_options: []
   subquestions: []
 - number: '14'
@@ -194,7 +364,12 @@ questions:
 - number: '15'
   question_type: calculation
   marks: 2
-  text: ''
+  text: "15 The scale drawing shows the position of ship A.\n\nThe scale is 1 centimetre\
+    \ represents 40 kilometres.\nNorth\nA\nScale : 1 cm to 40 km\n\nShip B is 220\
+    \ km from ship A on a bearing of 140°.\n\nOn the scale drawing, mark the position\
+    \ of ship B.\n[2]\n16 Find 57% of $128.\n\n$  [1]\n17 Represent the inequality\
+    \   x\n3\nH    on the number line.\n−5\n−4\n−3\n−2\n−1\n0\n1\n2\n3\n4\n5\nx\n\n\
+    \ [1]\n,\n,"
   answer_options: []
   subquestions: []
 - number: '16'
@@ -212,7 +387,13 @@ questions:
 - number: '18'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "18 A school records the marks students score in Paper 1 and Paper 2 of a\
+    \ subject.\n\nThe scatter diagram shows the scores for twelve students.\n30\n\
+    40\n50\n60\n20\n10\n00\n10\n20\n30\n40\n50\nPaper 2\nPaper 1\n\n(a) What type\
+    \ of correlation is shown in the scatter diagram?\n\n  [1]\n\n(b) On the scatter\
+    \ diagram, draw a line of best fit.\n[1]\n\n(c) Another student scores 35 on Paper\
+    \ 1.\n\nUse your line of best fit to find an estimate for their score on Paper\
+    \ 2 [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 18a
@@ -236,7 +417,14 @@ questions:
 - number: '19'
   question_type: calculation
   marks: 3
-  text: ''
+  text: "19 The diagram shows a cylinder and a cube.\n5 cm\n12 cm\nx cm\nx cm\nx cm\n\
+    NOT TO\nSCALE\n\nThe cylinder has the same volume as the cube.\n\nFind the value\
+    \ of x.\n\nx =   [3]\n20 A town has two cinemas, Movie Scene and Flix.\n\nThe\
+    \ table shows the mean and range of the audience numbers.\nMean\nRange\nMovie\
+    \ Scene\n83\n52\nFlix\n105\n25\n\n(a) Which cinema has higher audience numbers\
+    \ on average?\n\nGive a reason for your choice.\nCinema  because   [1]\n\n(b)\
+    \ Which cinema has greater variation in its audience numbers?\n\nGive a reason\
+    \ for your choice.\nCinema  because   [1]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '20'
@@ -260,13 +448,71 @@ questions:
 - number: '21'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '21 Calculate ( .
+
+    )
+
+    ( .
+
+    )
+
+    5 6
+
+    10
+
+    10
+
+    2 4
+
+    3
+
+    5
+
+    ''
+
+    #
+
+    #
+
+    -
+
+    - .
+
+
+    Write your answer in standard form [2]'
   answer_options: []
   subquestions: []
 - number: '22'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '22
+
+
+    NOT TO
+
+    SCALE
+
+    16 m
+
+    10 m
+
+
+    The diagram shows a garden.
+
+
+    The garden has a circular pond and the shaded area is grass.
+
+
+    The width of the grass area is equal to the diameter of the pond.
+
+
+    (a) Find the area of the pond m2 [2]
+
+
+    (b) Find the area of the grass m2 [2]
+
+
+    (c) Find the percentage of the garden that is grass % [2]'
   answer_options: []
   subquestions:
   - number: 22a
@@ -290,7 +536,10 @@ questions:
 - number: '23'
   question_type: long_answer
   marks: 4
-  text: ''
+  text: "23\n\nNOT TO\nSCALE\n14 cm\n15 cm\n6 cm\n\nCalculate the perimeter of this\
+    \ trapezium cm [4]\n24 Triangles ABC and PQR are mathematically similar.\nNOT\
+    \ TO\nSCALE\n12 cm\nA\nC\nB\n28 cm\n42 cm\nP\nR\nQ\n\nCalculate AB.\n\nAB =  \
+    \ cm [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '24'
@@ -302,7 +551,13 @@ questions:
 - number: '25'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "25 (a) The grid shows line L.\ny\nx\n5\n3\n1\n4\n2\n0\n3\n1\n5\n9\n7\n2\n\
+    0\n4\n8\n6\n10\nL\n\nFind the equation of line L in the form y\nmx\nc\n=\n+ .\n\
+    \ny =   [3]\n\n(b) Another line, R, has equation y\nx\n3\n5\n=-\n+ .\n\nFind the\
+    \ equation of the line which is parallel to R and goes through the point (1, 5).\n\
+    \nGive your answer in the form y\nmx\nc\n=\n+ .\n\ny =   [2]\n26 The diagram shows\
+    \ a right-angled triangle.\n\nNOT TO\nSCALE\n37°\n12 cm\nx cm\n\nCalculate the\
+    \ value of x.\n\nx =   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 25a
@@ -326,7 +581,12 @@ questions:
 - number: '27'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "27 (a) Complete the table of values for   y\nx\n12\n=\n.\nx\n-4\n-3\n-2\n\
+    -1\n1\n2\n3\n4\ny\n-4\n-6\n6\n4\n\n[2]\n\n(b) On the grid, draw the graph of \
+    \  y\nx\n12\n=\n   for\nx\n4\n1\nG\nG\n-\n-  and\nx\n1\n4\nG\nG\n.\ny\nx\n12\n\
+    10\n8\n6\n4\n2\n0\n– 4\n– 2\n– 8\n– 10\n– 6\n– 12\n– 2\n– 1\n2\n1\n4\n3\n– 4\n\
+    – 3\n\n[4]\n\n(c) Use your graph to write down the solution of the equation  \
+    \ x\n12\n10\n=\n.\n\nx =   [1]\nQuestion 28 is printed on the next page."
   answer_options: []
   subquestions:
   - number: 27a

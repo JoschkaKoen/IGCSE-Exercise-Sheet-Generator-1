@@ -2,7 +2,11 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Explain four ways a business plan could help Kathryn.\nWay 1:   Way\
+    \ 2:   Way 3:   Way 4:   [8]\n,\t,\n\n(b) Consider the following two methods Kathryn\
+    \ could use to communicate with her suppliers.\nWhich method should Kathryn use\
+    \ if an order is needed quickly? Justify your answer.\n•\nTelephone calls\n•\n\
+    Emails\nTelephone calls:   Emails:   Recommendation:   [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +24,15 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Explain two benefits and two limitations of a business operating in\
+    \ a niche market.\nBenefit 1:   Benefit 2:   Limitation 1:   Limitation 2:   [8]\n\
+    ,\t,\n\n(b) Using Appendix 2 and other information, consider the following three\
+    \ elements of the possible\nmarketing mix for FF’s new shop. Which element is\
+    \ likely to be the most important? Justify\nyour answer.\n•\nPrice – cost-plus\
+    \ pricing\n•\nPlace – selling some flowers through wedding planners\n•\nPromotion\
+    \ – television advertising\nPrice – cost-plus pricing:   Place – selling some\
+    \ flowers through wedding planners:   Promotion – television advertising:   Conclusion:\
+    \   [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -38,7 +50,12 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Explain two reasons why FF uses job production.\nReason 1:   Explanation:\
+    \   Reason 2:   Explanation:   [8]\n,\t,\n\n(b) Consider the following two sources\
+    \ of finance which could be used for working capital when\nFF’s new shop opens.\
+    \ Which would be the best source for Kathryn to use? Justify your\nanswer.\n•\n\
+    Bank overdraft\n•\nTrade credit\nBank overdraft:   Trade credit:   Recommendation:\
+    \   [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -56,7 +73,13 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Explain two reasons why high quality is important for FF.\nReason\
+    \ 1:   Explanation:   Reason 2:   Explanation:   [8]\n,\t\t,\n\n(b) Using Appendix\
+    \ 3 and other information, consider the following two ways FF could contribute\n\
+    to sustainable development. Which way should Kathryn choose? Justify your answer.\n\
+    •\nBuying all flowers from sustainable sources\n•\nUsing electricity from renewable\
+    \ sources\nBuying all flowers from sustainable sources:   Using electricity from\
+    \ renewable sources:   Recommendation:   [12]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a

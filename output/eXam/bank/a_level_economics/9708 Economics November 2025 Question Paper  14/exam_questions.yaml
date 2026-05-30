@@ -130,7 +130,73 @@ questions:
 - number: '10'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: 'In the diagram, D and S represent the initial demand and supply conditions
+    for a good.
+
+    10
+
+    D
+
+    S
+
+    S1
+
+    R
+
+    S
+
+    T
+
+    U
+
+    V
+
+    W
+
+    X
+
+    Y
+
+    Z
+
+    price
+
+    O
+
+    quantity
+
+    Which row correctly represents the change in consumer surplus and producer surplus
+    if supply
+
+    shifts to S1?
+
+    producer surplus
+
+    consumer surplus
+
+    increases by S + T + U
+
+    increases by U
+
+    A
+
+    falls by W + X
+
+    falls by S + T
+
+    B
+
+    falls by Y + Z
+
+    falls from S + T + U
+
+    C
+
+    falls to S + V
+
+    falls to R
+
+    D'
   answer_options:
   - letter: A
     text: A

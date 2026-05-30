@@ -2,7 +2,18 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA steel ball is placed on the inside surface of a hollow circular cone.\
+    \ The ball moves in a horizontal\ncircle at constant speed, as shown in Fig. 1.1.\n\
+    52°\n52°\npath of\nsteel ball\nsteel ball\ncone\nFig. 1.1\n\nThe angle of the\
+    \ side of the cone to the horizontal is 52°. There is no friction between the\
+    \ ball and\nthe cone.\n\n(a) Fig. 1.2 shows a cross‑section through the cone and\
+    \ the steel ball.\nFig. 1.2\n\nOn Fig. 1.2, draw labelled arrows to show the two\
+    \ forces acting on the ball.\n[1]\n\n(b) Describe how the forces acting on the\
+    \ ball cause its acceleration to be centripetal [2]\n,\t,\n\n(c) The ball moves\
+    \ in a circle of radius 0.15 m.\n\nShow that the speed of the ball is 1.4 m s–1.\n\
+    \n[3]\n\n(d) Calculate the angular speed ω of the ball.\n\nω =   rad s–1 [2]\n\
+    \n(e) The speed of the ball is increased.\n\nExplain why the radius of the circular\
+    \ path of the ball increases [1]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +49,22 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) The magnitude of the gravitational potential on the surface of a planet\
+    \ of radius R is φ.\nThe planet can be considered to be an isolated sphere.\n\n\
+    On Fig. 2.1, sketch the variation of the gravitational potential with distance\
+    \ x from the centre\nof the planet for values of x between R and 4R.\ngravitational\n\
+    potential\n4R\n3R\n2R\nR\n0\n0\nφ\nφ\n–\nφ\n– 2\n1\nφ\nx\n2\n1\nFig. 2.1\n\n[3]\n\
+    \n(b) A satellite is in a geostationary orbit above the Earth. At time t = 0,\
+    \ the magnitude of the\ngravitational potential due to the Earth at the location\
+    \ of the satellite is φ.\n\nOn Fig. 2.2, sketch the variation of the gravitational\
+    \ potential due to the Earth at the location\nof the satellite for values of t\
+    \ between t = 0 and t = 24 hours.\nt / hours\ngravitational\npotential\n16\n20\n\
+    24\n12\n8\n4\n0\n0\nφ\nφ\n–2\nφ\n–\nφ\n2\nFig. 2.2\n[2]\n,\t,\n\n(c) The electric\
+    \ potential difference (p.d.) between two parallel plates is V, as shown in Fig.\
+    \ 2.3.\nd\n+V\nFig. 2.3\n\nThe distance between the plates is d. The region between\
+    \ the plates is a vacuum.\n\nOn Fig. 2.4, sketch the variation of the electric\
+    \ potential with distance from the positive plate.\ndistance from\npositive plate\n\
+    electric\npotential\nd\n0\n0\nV\nFig. 2.4\n\n[2]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -62,7 +88,24 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Two metal cuboids P and Q are in thermal contact with each other.\n\
+    \n(i) P and Q are in thermal equilibrium.\n\n State what is meant by the term\
+    \ thermal equilibrium [2]\n\n(ii) Data for P and Q are given in Table 3.1.\nTable\
+    \ 3.1\nP\nQ\nspecific heat capacity / J kg–1 K–1\n390\n910\nmass / kg\n0.54\n\
+    0.37\n\n P and Q are initially both at the same temperature.\n\n P is supplied\
+    \ with 24 kJ of thermal energy. After some time, P and Q are once again both\n\
+    at the same temperature as each other.\n\n P and Q are perfectly insulated from\
+    \ the surroundings.\n\n Determine the change in temperature ΔT of Q.\n\nΔT = \
+    \  K [3]\n,\n,\n\n(b) Nitrogen may be assumed to be an ideal gas. A fixed amount\
+    \ of nitrogen gas is contained at\na constant pressure of 1.6 × 105 Pa.\n\nThe\
+    \ variation of the volume V of the gas with the temperature θ of the gas is shown\
+    \ in Fig. 3.1.\nV / m3\n0\n100\n200\n300\n0\n0.1\n0.2\n0.3\n0.4\n/ °C\nθ\nFig.\
+    \ 3.1\n\n(i) The temperature of the nitrogen gas is increased from 0 °C to 210\
+    \ °C.\n\n Determine the work done on the gas.\n\nwork done =   J [3]\n\n(ii) Determine\
+    \ the number N of molecules of nitrogen gas.\n\nN =   [2]\n,\t,\n\n(iii) The mass\
+    \ of a nitrogen molecule is 4.7 × 10–26 kg.\n\n Calculate the root‑mean‑square\
+    \ (r.m.s.) speed of a nitrogen molecule at 210 °C.\n\nr.m.s. speed =   m s–1 [2]\n\
+    \n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -110,7 +153,22 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nA small crystal is made to vibrate with simple harmonic motion. The variation\
+    \ with time t of the\ndisplacement x of one surface of the crystal from its equilibrium\
+    \ position is shown in Fig. 4.1.\nx / 10−6 m\nt / 10−6 s\n0\n0.1\n0.2\n0.3\n0.4\n\
+    0.5\n0.6\n–50\n0\n50\nFig. 4.1\n\n(a) Show that the angular frequency of the vibration\
+    \ of the surface is 4.2 × 107 rad s–1.\n\n[2]\n\n(b) Determine the maximum acceleration\
+    \ a0 of the vibration of the surface.\n\na0 =   m s–2 [2]\n\n(c) The crystal may\
+    \ be modelled as a single mass of 2.4 × 10– 4 kg that vibrates as shown\nin Fig.\
+    \ 4.1.\n\nCalculate the total energy E of the vibrations.\n\nE =   J [3]\n,\t\
+    ,\n\n(d) The crystal generates ultrasound waves that are used to obtain diagnostic\
+    \ information about\ninternal structures.\n\n(i) The crystal is made from piezoelectric\
+    \ material.\n\n Explain how the crystal is made to vibrate [2]\n\n(ii) A parallel\
+    \ beam of ultrasound waves is incident on a muscle‑bone boundary. Data for\nmuscle\
+    \ and bone are given in Table 4.1.\nTable 4.1\nmaterial\ndensity / kg m–3\nspeed\
+    \ of sound / m s–1\nmuscle\n1100\n1600\nbone\n1900\n4100\n\n Calculate the percentage\
+    \ of the intensity of the ultrasound beam that is transmitted at\nthis boundary.\n\
+    \npercentage transmitted =   % [3]\n\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -152,7 +210,19 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) A capacitor of capacitance C1 is connected in series with a second\
+    \ capacitor of capacitance C2.\n\nShow that the combined capacitance C of the\
+    \ two capacitors is given by\n1\nC = 1\nC1\n + 1\nC2\n.\n\n[2]\n\n(b) Three identical\
+    \ capacitors, each of capacitance C, are connected in a network as shown\nin Fig.\
+    \ 5.1.\nX\nC\nC\nC\nY\nFig. 5.1\n\nThe variation of the charge Q with the potential\
+    \ difference (p.d.) V between the terminals\nX and Y is shown in Fig. 5.2.\n0\n\
+    2\n4\n6\n0\n200\n400\nV / V\nQ / μC\nFig. 5.2\n,\t,\n\nShow that C is equal to\
+    \ 44 µF.\n\n[3]\n\n(c) The capacitor network in Fig. 5.1 is charged and then connected\
+    \ to a resistor of resistance\n54 kΩ. The capacitor network discharges through\
+    \ the resistor.\n\n(i) Determine the time constant τ of the circuit. Give a unit\
+    \ with your answer.\n\nτ =   unit  [2]\n\n(ii) Determine the time taken for the\
+    \ discharge current to reduce to 15% of the initial\ndischarge current.\n\ntime\
+    \ =   s [2]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -188,7 +258,25 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nAn electric field and a magnetic field are used to form a velocity selector.\
+    \ Charged particles, called\nions, pass into a region of uniform electric and\
+    \ magnetic fields that is between parallel plates, as\nshown in Fig. 6.1.\n+\n\
+    +\n+\n+\n+\n+\n–\n–\n–\n–\n–\n–\npath of ions\nregion of electric\nand magnetic\
+    \ fields\nplate\nplate\nFig. 6.1\n\n(a) The potential difference (p.d.) between\
+    \ the plates of the velocity selector is V. The separation\nof the plates is d\
+    \ and the magnetic flux density is B.\n\nShow that the speed u of ions that pass\
+    \ undeviated through the velocity selector is given by\nu = V\nBd .\n\n[2]\n\n\
+    (b) Positive ions with kinetic energy 4.1 × 10–17 J and mass 3.2 × 10–27 kg pass\
+    \ undeviated\nthrough the velocity selector when V is equal to 980 V and d is\
+    \ equal to 3.6 × 10–2 m.\n\nDetermine B.\n\nB =   T [3]\n,\t,\n\n(c) A proton\
+    \ passes undeviated through the velocity selector.\n\nAn alpha particle enters\
+    \ the velocity selector at the same speed as the proton.\n\nState how the expression\
+    \ in (a) predicts that the alpha particle also passes undeviated\nthrough the\
+    \ velocity selector [1]\n\n(d) By reference to Fig. 6.1 and to the forces acting\
+    \ on a positive ion, determine the direction of\nthe magnetic field. Explain your\
+    \ reasoning [3]\n\n(e) The positive ions in (b) enter the velocity selector with\
+    \ greater kinetic energy.\n\nOn Fig. 6.1, sketch the path of these ions.\n[2]\n\
+    \n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -224,7 +312,18 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\n(a) State Faraday’s law of electromagnetic induction [2]\n\n(b) A metal\
+    \ rod is accelerated uniformly from rest in a uniform magnetic field as shown\
+    \ in Fig. 7.1.\ndirection of acceleration\nmagnetic field\ninto page\nrod\nFig.\
+    \ 7.1\n\nThe rod has length l and the flux density of the magnetic field is B.\n\
+    \nAn electromotive force (e.m.f.) is induced in the rod. The variation with time\
+    \ t of the induced\ne.m.f. E is shown in Fig. 7.2.\n0\n1\n2\n0\n0.1\n0.2\n0.3\n\
+    t / s\nE / mV\nFig. 7.2\n\n(i) Explain how Fig. 7.2 shows that E is proportional\
+    \ to the velocity v of the rod [2]\n,\t\t,\n\n(ii) Use Faraday’s law to show that\
+    \ the variation of E with time t is given by\nE = Blat\n\n where a is the acceleration\
+    \ of the rod.\n\n[3]\n\n(iii) The length of the rod is 0.45 m. The acceleration\
+    \ a of the rod is 7.8 m s–2.\n\n Determine the value of B.\n\nB =   T [2]\n\n\
+    [Total: 9]\n,\n,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -260,7 +359,16 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a) State what is meant by a photon [2]\n\n(b) A laser emits red light\
+    \ of a single wavelength. The light is produced when electrons move\nfrom a higher\
+    \ energy level to a lower energy level. The difference in energy between the\n\
+    two levels is 1.96 eV.\n\n(i) Calculate the wavelength of the light.\n\nwavelength\
+    \ =   m [3]\n\n(ii) The power of the beam emitted by the laser is 1.0 × 10–2 W.\n\
+    \n Calculate the number of photons emitted per unit time by the laser.\n\nnumber\
+    \ per unit time =   s–1 [1]\n\n(iii) The photons are incident normally on a surface.\
+    \ Half of the number of photons are\nabsorbed by the surface, and half are reflected.\n\
+    \n Determine the average force exerted by the beam of photons on the surface.\n\
+    \naverage force =   N [4]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -296,7 +404,25 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nPolonium‑193 (193\n84Po) is an unstable nuclide. A nucleus of polonium‑193\
+    \ decays to a nucleus of\nlead‑189 (189\n82Pb) by emitting an alpha‑particle.\n\
+    \n(a) Radioactive decay is both random and spontaneous.\n\nState what is meant\
+    \ by:\n\n(i) random\n  [1]\n\n(ii) spontaneous [1]\n\n(b) Define half‑life [1]\n\
+    \n(c) Data for the binding energy per nucleon of the particles involved in the\
+    \ decay of a nucleus of\npolonium‑193 are given in Table 9.1.\nTable 9.1\nparticle\n\
+    binding energy per nucleon / eV\n193\n84Po\n7.774\n189\n82Pb\n7.826\n2\n4α\n7.074\n\
+    \nDetermine the energy, in eV, released when a nucleus of polonium‑193 decays\
+    \ into a nucleus\nof lead‑189.\n\nenergy =   eV [2]\n,\t,\n\n(d) A pure sample\
+    \ of polonium‑193 contains N0 nuclei. After a time t the sample contains N nuclei\n\
+    of polonium‑193. The variation of ln (N / N0) with t is shown in Fig. 9.1.\nIn\
+    \ (N / N0)\n0\n0.2\n0.4\n0.6\n0.8\n1.0\n–0.2\n–0.4\n–0.6\n–0.8\n–1.0\n–1.2\n–1.4\n\
+    0\nt / ms\nFig. 9.1\n\n(i) State the name of the quantity that is represented\
+    \ by the magnitude of the gradient of the\nline in Fig. 9.1 [1]\n\n(ii) Use Fig.\
+    \ 9.1 to determine the half‑life, in ms, of polonium‑193.\n\nhalf‑life =   ms\
+    \ [2]\n,\t,\n\n(e) Positron emission tomography (PET scanning) uses a radioactive\
+    \ tracer.\n\n(i) State what happens to the positrons emitted by the tracer [1]\n\
+    \n(ii) Explain why a tracer with a half‑life of approximately 2 hours is a suitable\
+    \ tracer to use [1]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -368,7 +494,19 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 (a) (i) State what is meant by the luminosity of a star [1]\n\n(ii) Explain\
+    \ how standard candles are used to determine the distance to a galaxy [3]\n\n\
+    (b) The Sun rotates on its axis. Points X, Y and Z are on the equator of the Sun\
+    \ as shown\nin  Fig. 10.1.\nX\nZ\nY\nSun\nequator\ndirection of rotation\naxis\
+    \ of rotation\nFig. 10.1\n\nThe wavelengths of light from points X and Y are observed\
+    \ and recorded in Table 10.1.\nTable 10.1\nobserved wavelength\nfrom X / nm\n\
+    observed wavelength\nfrom Y / nm\n656.2877\n656.2831\n,\t,\n\n(i) The Sun rotates\
+    \ with a period of 2.07 × 106 s.\n\n Show that the radius of the Sun is 6.93 ×\
+    \ 108 m.\n\n[3]\n\n(ii) State and explain how the expected wavelength of the light\
+    \ observed from Z compares\nwith the emitted wavelength [2]\n\n(iii) The luminosity\
+    \ of the Sun is 3.8 × 1026 W.\n\n Use the information in (b)(i) to calculate the\
+    \ surface temperature of the Sun.\n\ntemperature =   K [2]\n\n[Total: 11]\n,\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 10a

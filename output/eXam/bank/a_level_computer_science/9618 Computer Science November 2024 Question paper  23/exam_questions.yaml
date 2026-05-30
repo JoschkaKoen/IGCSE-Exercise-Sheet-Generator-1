@@ -2,7 +2,19 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) The following table contains pseudocode examples.\n\nEach example\
+    \ may contain statements that relate to one or more of the following:\n•\nselection\n\
+    •\niteration (repetition)\n•\nsubroutine (procedure or function).\n\nComplete\
+    \ the table by placing one or more ticks ('✓') in each row.\nPseudocode example\n\
+    Selection\nIteration\nSubroutine\nFOR Index ← 1 TO 3\n   IF Safe[Index] = TRUE\
+    \ THEN\n      Flap[Index] ← 0\n   ENDIF\nNEXT Index\nCASE OF Compound(3)\nREPEAT\
+    \ UNTIL AllDone() = TRUE\nWHILE Result[3] <> FALSE\n\n[4]\n\n(b) Complete the\
+    \ table by giving the appropriate data type in each case.\nVariable\nExample data\
+    \ value\nData type\nAvailable\nTRUE\nReceived\n\"18/04/2021\"\nIndex\n100\n\n\
+    [3]\n\n(c) Evaluate each expression in the table by using the data values shown\
+    \ in part (b).\n\nWrite ‘ERROR’ if the expression contains an error.\nExpression\n\
+    Evaluates to\nAvailable AND NOT(Index > 100)\nIndex MOD 30\nNUM_TO_STR(Index +\
+    \ \"33\")\n\n[3]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -26,7 +38,13 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nAn algorithm will:\n\n1.\nprompt and input a sequence of 100 integer values,\
+    \ one at a time\n\n2.\nsum the positive integers\n\n3.\noutput the result of the\
+    \ sum.\n\n(a) Write pseudocode for the algorithm.\n\nAssume the value zero is\
+    \ neither positive nor negative.\n\nYou must declare all variables used in the\
+    \ algorithm [5]\n\n(b) The algorithm requires the use of basic constructs. One\
+    \ of these is sequence.\n\nIdentify one other basic construct required by the\
+    \ algorithm and describe how it is used.\nConstruct   Use   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -44,7 +62,23 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nThe implementation of a linked list uses an integer variable and a 1D\
+    \ array List of type Node.\n\nRecord type Node is declared in pseudocode as follows:\n\
+    \nTYPE Node\n\n   DECLARE Data : STRING\n\n   DECLARE Pointer : INTEGER\n\nENDTYPE\n\
+    \nThe array List is declared in pseudocode as follows:\n\nDECLARE List : ARRAY[1:200]\
+    \ OF Node\n\nThe linked list will operate as follows:\n•\nInteger variable HeadPointer\
+    \ will store the array index for the first node in the linked list.\n•\nThe Pointer\
+    \ field of a node contains the index value of the next array element (the next\n\
+    node) in the linked list.\n•\nThe value 0 is used as a null pointer.\n\n(a) (i)\
+    \ State why the value 0 has been selected as the null pointer [1]\n\n(ii) Give\
+    \ the range of valid values that could be assigned to variable HeadPointer [1]\n\
+    ,\t,\n\n(b) The array List will be initialised so that each node points to the\
+    \ following node.\n\nThe last node will contain a null pointer.\n\nComplete the\
+    \ program flowchart to represent the algorithm for this operation.\nSTART\nEND\n\
+    \n[4]\n,\t,\n\n(c) An algorithm outputs the Data field from all nodes in the array\
+    \ List. The order the Data is\noutput should be the same order it is stored in\
+    \ the linked list.\n\nDescribe the algorithm in four steps.\n\nDo not use pseudocode\
+    \ statements in your answer.\nStep 1   Step 2   Step 3   Step 4   [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -80,7 +114,34 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nAn examination paper has a maximum of 75 marks. One of five pass grades\
+    \ (A to E) is assigned,\ndepending on the mark obtained. The lowest mark for a\
+    \ given grade is known as the grade boundary.\n\nA program is being written to\
+    \ process examination marks.\n\nThe five grade boundaries are stored in a global\
+    \ 1D array GB of type INTEGER, for example:\nIndex\nValue\nComment\n1\n65\nThe\
+    \ minimum mark for an A grade.\n2\n57\nThe minimum mark for a B grade.\n3\n43\n\
+    The minimum mark for a C grade.\n4\n35\nThe minimum mark for a D grade.\n5\n27\n\
+    The minimum mark for an E grade.\n\nAny paper that achieves a mark within 2 marks\
+    \ of a grade boundary must be checked. Using the\ngiven table, a paper with 45\
+    \ marks would need to be checked.\n\n(a) The pseudocode algorithm to determine\
+    \ whether a paper should be checked is as shown.\nThe mark for the paper is stored\
+    \ in variable Mark. Global variables Mark, Index, Upper and\nLower are declared\
+    \ as integers.\n\nComplete the pseudocode.\n\nFOR Index ← 1 TO  Lower ← GB[Index]\
+    \ - 2\n\n   Upper ←  IF Mark  AND Mark  THEN\n\n      OUTPUT \"Check this paper\"\
+    \n\n   ENDIF\n\nNEXT Index\n\n[4]\n\n(b) An alternative algorithm to determine\
+    \ if a paper needs to be checked uses a global 1D array\nCheck, containing 76\
+    \ elements of type BOOLEAN. The indices of the array are from 0 to 75\n(inclusive),\
+    \ corresponding to the range of possible marks.\n\nAn element value in Check is\
+    \ TRUE if the index is within 2 marks of a grade boundary. For\nexample, in the\
+    \ case where the C grade boundary is 43 the corresponding part of the Check\n\
+    array would be as follows:\nIndex\nValue\n40\nFALSE\n41\nTRUE\n42\nTRUE\n43\n\
+    TRUE\n44\nTRUE\n45\nTRUE\n46\nFALSE\n← The grade boundary for a C grade\n,\t\t\
+    ,\n\n(i) The mark for a given paper is stored in variable Mark.\n\n Describe how\
+    \ an algorithm would use the Check array to determine whether this paper\nshould\
+    \ be checked [2]\n\n(ii) A procedure GBInitialise() will initialise the Check\
+    \ array using values from the GB\narray.\n\n Note it can be assumed that the maximum\
+    \ grade boundary value for A is 70 and the\nminimum value for E is 15.\n\n Write\
+    \ pseudocode for the procedure [6]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -110,13 +171,31 @@ questions:
 - number: '6'
   question_type: calculation
   marks: 6
-  text: ''
+  text: "6\nIn some countries, on the third Sunday in March, daylight saving time\
+    \ begins when clocks move\nforward by one hour.\n\nA module AdjustClock() will\
+    \ take an integer parameter representing a year. The module will\nreturn an integer\
+    \ value representing the number of the day in March on which the clocks move\n\
+    forward.\n\nFor example, the following line of pseudocode would assign DayNumber\
+    \ the value 20:\n\nDayNumber ← AdjustClock(2022)\n\nWrite pseudocode for the function\
+    \ AdjustClock().\n\nDate functions from the insert should be used in your solution\
+    \ [7]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA software developer follows a program development life cycle. The life\
+    \ cycle divides the\ndevelopment process into various stages.\n\n(a) The following\
+    \ table lists some development activities.\n\nComplete the table by writing the\
+    \ name of the life cycle stage for each activity.\nActivity\nName of life cycle\
+    \ stage\nA compiler is used.\nA program that has been released for general use\
+    \ is modified.\nThe dry run method is used.\nThe program structure is specified.\n\
+    \n[4]\n\n(b) A software developer has written modules Test_A() and Test_B(). These\
+    \ have been\nwritten but contain errors. These modules are called from several\
+    \ places in the main program\nand testing of the main program (integration testing)\
+    \ has to stop.\n\nIdentify a method that can be used to continue testing the main\
+    \ program before the errors in\nthese modules have been corrected and describe\
+    \ how this would work.\nMethod   Description   [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -134,7 +213,21 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nA coffee shop owner wants to introduce a computerised loyalty card system.\n\
+    \nA programmer discusses the details of the system with the shop owner.\n\n(a)\
+    \ Identify the stage of the program development life cycle that this discussion\
+    \ is part of and\ngive a document that will be produced during this stage.\nStage\
+    \   Document   [2]\n\n(b) The shop will give each customer a loyalty card that\
+    \ displays a unique customer ID as a\nbar code. A customer will be able to present\
+    \ their card each time they make a purchase. The\nsystem will scan the bar code,\
+    \ calculate points, and add them to the customer’s total. When\nthe customer next\
+    \ makes a purchase and presents their card, they will have the option to\nexchange\
+    \ points for a discount.\n\nThe designer decides that this activity will be handled\
+    \ by a new module. Decomposition\nwill be used to break the problem of designing\
+    \ the new module down into sub-problems\n(sub-modules).\n\nIdentify four sub-modules\
+    \ that could be used in the design of the new module and describe\ntheir use.\n\
+    Sub-module 1   Use   Sub-module 2   Use   Sub-module 3   Use   Sub-module 4  \
+    \ Use   [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -152,7 +245,50 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nA program is being developed to implement a game for up to six players.\n\
+    \nDuring the game, each player assembles a team of characters. At the start of\
+    \ the game there are\n45 characters available.\n\nEach character has four attributes,\
+    \ as follows:\nAttribute\nExamples\nComment\nPlayer\n0, 1, 3\nThe player the character\
+    \ is assigned to.\nRole\nBuilder, Teacher, Doctor\nThe job that the character\
+    \ will perform in the\ngame.\nName\nBill, Lee, Farah, Mo\nThe name of the character.\
+    \ Several characters\nmay perform the same role, but they will each\nhave a unique\
+    \ name.\nSkill level\n14, 23, 76\nAn integer in the range 0 to 100, inclusive.\n\
+    \nThe programmer has defined a record type to define each character. The record\
+    \ type definition is\nshown in pseudocode as follows:\n\nTYPE CharacterType\n\n\
+    \   DECLARE Player : INTEGER\n\n   DECLARE Role : STRING\n\n   DECLARE Name :\
+    \ STRING\n\n   DECLARE SkillLevel : INTEGER\n\nENDTYPE\n\nThe Player field indicates\
+    \ the player to which the character is assigned (1 to 6). This field value\nis\
+    \ 0 if the character is not assigned to any player.\n\nThe programmer has defined\
+    \ a global array to store the character data, as follows:\n\nDECLARE Character\
+    \ : ARRAY[1:45] OF CharacterType\n\nAt the start of the game all record fields\
+    \ are initialised, and all Player fields are set to 0\n\nThe programmer has defined\
+    \ a program module as follows:\nModule\nDescription\nCount()\n•\ncalled with two\
+    \ parameters:\n\n○\nan integer representing a player\n\n○\na string representing\
+    \ a character role\n•\nsearches the Character array for characters with the given\
+    \ role that are\nassigned to the given player\n•\ncounts the number of assigned\
+    \ characters and sums their total skill level\n•\noutputs the result of the search\
+    \ if characters with the given role are found,\nfor example:\n\n \"Player 3 has\
+    \ 4 characters with the role of Teacher\nand the total skill level is 65\"\n•\n\
+    if no characters with the given role are found, outputs:\n\n \"No characters with\
+    \ that role are assigned to this\nplayer\"\n,\t,\n\n(a) Complete the pseudocode\
+    \ for module Count().\n\nPROCEDURE Count(ThisPlayer : INTEGER, ThisRole : STRING)\n\
+    \  ENDPROCEDURE\n\n[7]\n,\t,\n\n(b) The Character array data has been saved in\
+    \ the text file SaveFile.txt\n\nEach line of the file contains one element of\
+    \ the array (one record).\n\nNew modules are defined:\nModule\nDescription\nExtract()\n\
+    (already written)\n•\ncalled with two parameters:\n\n○\na string representing\
+    \ a complete line from the text file\n\n○\nan integer representing a field number\
+    \ (see structure below)\n•\nreturns a string representing the required field\n\
+    Restore()\n•\nopens the text file SaveFile.txt\n•\nreads lines from the file and\
+    \ assigns values to each record in the\nCharacter array using data from each line\
+    \ of the file\n\nAs a reminder, the record structure is repeated here:\n\nTYPE\
+    \ CharacterType\n\n   DECLARE Player : INTEGER       //Field number 1\n\n   DECLARE\
+    \ Role : STRING          //Field number 2\n\n   DECLARE Name : STRING        \
+    \  //Field number 3\n\n   DECLARE SkillLevel : INTEGER   //Field number 4\n\n\
+    ENDTYPE\n\nWrite pseudocode for module Restore().\n\nYou must use the module Extract()\
+    \ ,\t,\n  [7]\n\n(c) The game can last for several days and users often find that\
+    \ they have to close and rerun the\ngame program many times in order to complete\
+    \ it.\n\nDescribe the benefit of using the file SaveFile.txt as described in part\
+    \ (b) [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a

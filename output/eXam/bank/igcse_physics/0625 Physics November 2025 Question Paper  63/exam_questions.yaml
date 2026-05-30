@@ -2,7 +2,30 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student determines the volume of a block of modelling clay by two methods.\n\
+    \nMethod 1\n\nHe measures the block of modelling clay shown full size in Fig.\
+    \ 1.1.\nw\nh\nl\nFig. 1.1\n\n(a) (i) Measure the length l, width w and height\
+    \ h of the block of modelling clay on Fig. 1.1.\nRecord your values in centimetres\
+    \ to the nearest millimetre.\n\nlength l =   cm\n\nwidth w =   cm\n\nheight h\
+    \ =   cm\n[2]\n\n(ii) Calculate a value VA for the volume of the block. Use your\
+    \ measurements from (a)(i) and\nthe equation:\nVA = l × w × h.\n\nVA =   cm3 [1]\n\
+    ,\t,\n\n(b) Suggest why VA is only an approximate value for the volume of the\
+    \ block.\n\nDescribe how the accuracy of VA can be improved.\nsuggestion   improvement\
+    \   [2]\n\n(c) Another student measures the dimensions of a block of clay which\
+    \ is much smaller than the\nblock in (a). Suggest why these measurements may not\
+    \ be as accurate as yours, even if they\nare done carefully [1]\n\nMethod 2\n\n\
+    (d) (i) The student pours water into a measuring cylinder.\n\n Record the volume\
+    \ V1 of the water in the measuring cylinder shown in Fig. 1.2.\n\nV1 =   cm3 [1]\n\
+    160\n150\nmeasuring cylinder\nwater\nFig. 1.2\n,\t,\n\n(ii) Describe briefly how\
+    \ a measuring cylinder is read to obtain an accurate value for the\nvolume of\
+    \ water [1]\n\n(e) The student lowers the modelling clay into the water using\
+    \ a loop of thread, as shown\nin Fig. 1.3.\nthread\n210\n200\nblock of clay\n\
+    Fig. 1.3\n\nRecord the new reading V2 shown on the measuring cylinder scale in\
+    \ Fig.1.3.\n\nV2 =   cm3\n\nCalculate another value VB for the volume of the block.\n\
+    \nUse your measurements from (d)(i) and (e) and the equation:   VB = (V2 – V1).\n\
+    \nVB =   cm3\n[1]\n\n(f) Suggest one possible source of inaccuracy in Method 2\
+    \ and suggest one improvement to\nreduce its effect.\nsource of inaccuracy   improvement\
+    \   [2]\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -68,7 +91,37 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates the resistances of identical wires connected in\
+    \ parallel.\n\nShe uses the circuit shown in Fig. 2.1.\nA\nA\ncrocodile clips\n\
+    Y\nX\nwire A\nB\nC\nwire B\nwire C\nRP\nFig. 2.1\n\n(a) On Fig. 2.1, draw a voltmeter\
+    \ connected so that it will measure the potential difference (p.d.)\nacross terminals\
+    \ X and Y.\n[1]\n\nCircuit A\n\n(b) The student connects crocodile clip A to a\
+    \ length l = 80.0 cm of resistance wire A.\n\n(i) On Fig. 2.2, draw an arrow (\n\
+    ) to indicate precisely between which two points she\nshould measure l = 80.0\
+    \ cm for wire A.\n[1]\nA\nwire A\nFig. 2.2\n,\t,\n\n(ii) The student measures\
+    \ the potential difference V across terminals X and Y and measures\nthe current\
+    \ I in the circuit.\n\n The readings on the meters are shown in Fig. 2.3 and Fig.\
+    \ 2.4.\nV\n3\n4\n5\n2\n1\n0\nA\n0.6\n0.8\n1.0\n0.4\n0.2\n0\n\nFig. 2.3\nFig. 2.4\n\
+    \n Read, and record in the first line of Table 2.1, the values of V and I shown\
+    \ on the meters\nin Fig. 2.3 and Fig. 2.4.\nTable 2.1\ncircuit\nV / V\nI / A\n\
+    R / Ω\nA\nB\n2.2\n0.59\nC\n1.8\n0.72\n[2]\n\n(c)\n\nCircuit B\n\nThe student connects\
+    \ crocodile clip B to a length l = 80.0 cm of resistance wire B so that\nwires\
+    \ A and B are connected in parallel.\n\nCircuit C\n\nThe student connects crocodile\
+    \ clip C to a length l = 80.0 cm of resistance wire C so that\nwires A, B and\
+    \ C are connected in parallel.\n\nIn each circuit, she measures the potential\
+    \ difference V across terminals X and Y and\nmeasures the current I in the circuit.\n\
+    \nHer readings are shown in Table 2.1.\n\nCalculate, and record in Table 2.1,\
+    \ the resistance R of each wire combination.\n\nUse the equation:\nR = V\nI  .\n\
+    [2]\n,\t,\n\n(d) (i) Record a resistance RA. RA is the value of R from Circuit\
+    \ A.\n\nRA =   Ω\n\n Calculate a resistance RB. Use the value of R from Circuit\
+    \ B and the equation:\nRB = R × 2\n\nRB =   Ω\n\n Calculate a resistance RC. Use\
+    \ the value of R from Circuit C and the equation:\nRC = R × 3\n\nRC =   Ω\n[1]\n\
+    \n(ii) A student suggests that the values of RA, RB and RC should be equal.\n\n\
+    \ State whether your results support this suggestion. Use values from your results\
+    \ to justify\nyour answer.\nstatement   justification   [2]\n\n(e) Briefly explain\
+    \ why resistor RP , shown in Fig. 2.1, must remain in place throughout\nthe experiment\
+    \ [1]\n\n(f) One possible problem with this type of experiment is heating of the\
+    \ resistance wires. Suggest\nwhat to do to reduce this [1]\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -134,7 +187,33 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student investigates the image produced by a converging lens.\n\nHe\
+    \ uses the equipment shown in Fig. 3.1.\nilluminated\ntriangular\nobject\nhO\n\
+    u\nlens\nscreen\nbench\nFig. 3.1 (not to scale)\n\n(a) The student sets the distance\
+    \ u between the illuminated triangular object and the lens to\n20.0 cm. He moves\
+    \ the screen until a sharp image of the illuminated triangular object is seen\n\
+    on the screen.\n\nBriefly describe one technique to obtain an image on the screen\
+    \ which is as sharp as possible\nin this experiment [1]\n\n(b) (i) The screen\
+    \ is shown full size in Fig. 3.2.\n\n Measure, and record in the first line of\
+    \ Table 3.1, the height hI of the image on the screen,\nas shown in Fig. 3.2.\n\
+    hI\nFig. 3.2\n,\n,\nTable 3.1\nu / cm\nhI / cm\nD / 1\ncm\n20.0\n25.0\n2.8\n0.36\n\
+    30.0\n2.0\n0.50\n35.0\n1.6\n0.63\n40.0\n1.2\n0.83\n[1]\n\n(ii) For distance u\
+    \ = 20.0 cm, calculate, and record in Table 3.1, a value D.\n\n Use your value\
+    \ of hI from Table 3.1 and the equation:\nD = 1\nhI\n .\n[1]\n\n(c) The student\
+    \ repeats the procedure for u = 25.0 cm, u = 30.0 cm, u = 35.0 cm and u = 40.0\
+    \ cm.\nHis results are shown in Table 3.1.\n\nPlot a graph of u / cm (y‑axis)\
+    \ against D / 1\ncm (x‑axis). Start the axes at the origin (0,0).\n\nDraw a best‑fit\
+    \ straight line.\n[4]\n,\t,\n\n(d) (i) From your graph, determine u0, the value\
+    \ of u when D is zero.\n\nu0 =   cm [1]\n\n(ii) Determine the gradient G of the\
+    \ graph.\n\n Show clearly on the graph how you obtained the necessary information.\n\
+    \nG =   [1]\n\n(e) The illuminated object is shown full size in Fig. 3.3.\n\n\
+    Measure and record the height hO of the illuminated triangular object shown in\
+    \ Fig. 3.3.\n\nhO =   cm\nhO\nFig. 3.3\n\nCalculate the focal length f of the\
+    \ lens. Use your value of hO, your value of G from (d)(ii) and\nthe equation:\n\
+    f = G\nhO\n × k,   where k = 1.0 cm2.\n\nf =   cm\n[1]\n,\t,\n\n(f) Describe one\
+    \ difficulty that can be experienced when measuring the height of the image in\n\
+    this experiment.\n\nSuggest an improvement to overcome this difficulty.\ndifficulty\
+    \   improvement   [1]\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a

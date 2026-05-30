@@ -2,7 +2,18 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nComputers can be infected with malware. Spyware is one example of malware.\n\
+    \n(a) Tick (✓) one box to show a correct definition of spyware.\n\nA\nSoftware\
+    \ that activates a webcam and transmits the video to a third party\nthat outputs\
+    \ it live on a website.\n\nB\nSoftware that detects when a password is being entered\
+    \ and then emails\nthe password to a third party.\n\nC\nSoftware that records\
+    \ all data entered into a computer, analyses this data\nto find email addresses\
+    \ and passwords, then posts these to a website.\n\nD\nSoftware that records all\
+    \ key presses and transmits these to a third party.\n\n[1]\n\n(b) Complete the\
+    \ table by identifying and describing two other examples of malware.\nMalware\n\
+    Description\n1\n 2\n [6]\n\n(c) Proxy‑servers and firewalls have some similar\
+    \ functions.\n\nIdentify two similarities and one difference between proxy‑servers\
+    \ and firewalls.\nSimilarity 1   Similarity 2   Difference   [3]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -26,7 +37,43 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    A programmer has designed a three‑dimensional (3D) interactive computer game.
+    They are going
+
+    to develop a program for the game. The program needs to run efficiently, but it
+    must also be
+
+    developed as soon as possible.
+
+
+    (a) Tick (✓) one box to identify whether the programmer should use a high‑level
+    language or a
+
+    low‑level language to develop the program.
+
+
+    Explain the reasons for your choice.
+
+
+    High‑level language
+
+
+    Low‑level language
+
+    Reasons for your choice   [4]
+
+
+    (b) If the programmer chooses a high‑level language, they can use a compiler or
+    an interpreter to
+
+    translate the high‑level language into a low‑level language.
+
+
+    Describe the operation of a compiler and of an interpreter.
+
+    Compiler   Interpreter   [4]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -44,7 +91,13 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA new computer comes with primary and secondary storage.\n\n(a) Data storage\
+    \ is measured using binary denominations.\n\nComplete each conversion.\n\n8 bytes\
+    \ =  nibbles\n\n512 kibibytes (KiB) =  mebibytes (MiB)\n\n4 gibibytes (GiB) =\
+    \  mebibytes (MiB)\n\n1 exbibyte (EiB) =  pebibytes (PiB)\n\n[4]\n\nWorking space\n\
+    \  (b) Random access memory (RAM) is an example of primary storage.\n\nGive three\
+    \ examples of data that is commonly stored in RAM.\n1   2   3   [3]\n\n(c) Describe\
+    \ the purpose of secondary storage [2]"
   answer_options: []
   subquestions:
   - number: 3a
@@ -68,7 +121,21 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nA wildlife photographer stores their digital images on a computer.\n\n\
+    (a) Complete the table by defining each term about images.\nImage term\nDefinition\n\
+    pixel\n resolution\n [2]\n\n(b) One of the images has a resolution of 1000 × 1000\
+    \ and a colour depth of 2 bytes.\n\nCalculate the file size of the image. Give\
+    \ your answer in bytes.\n\nShow your working.\nWorking space   File size  bytes\n\
+    \n[2]\n\n(c) The photographer decides to purchase a solid‑state storage device\
+    \ to back up their images.\n\nComplete the description of solid‑state storage.\n\
+    \nUse the terms from the list.\n\nSome of the terms in the list will not be used.\
+    \ You should only use a term once.\nbinary  denary  electrons  grid  neutrons\n\
+    non‑volatile  RAM  star  transistors  virtual  volatile\n\nSolid‑state storage\
+    \ is  This means that the data is not\n\nlost when the power is turned off.\n\n\
+    Solid‑state storage is made of  that are laid out in a\n\n Gates are used to control\
+    \ the flow of the  through the\n\ntransistors. This changes the data in the transistors\
+    \ from 1 to 0, or from 0 to 1.\n\n[4]\n\n(d) The photographer compresses an image\
+    \ file before it is emailed.\n\nGive one reason why a file is compressed [1]"
   answer_options: []
   subquestions:
   - number: 4a
@@ -98,7 +165,36 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA website allows users to purchase items.\n\nComputer A sends a request\
+    \ for the homepage to the website’s server.\n\n(a) The request is sent using packet\
+    \ switching.\n\nThe structure of a packet of data has three elements. One element\
+    \ is the packet header.\n\n(i) Identify two items of data contained in a packet\
+    \ header.\n1   2   [2]\n\n(ii) Identify the two other elements of a packet.\n\
+    1   2   [2]\n\n(b) Computer A needs to be directly connected to a router that\
+    \ is located in a different room.\n\n(i) Tick (✓) one box to identify whether\
+    \ serial data transmission or parallel data transmission\nis more suitable for\
+    \ this connection.\n\n Explain the reasons for your choice.\n\nSerial data transmission\n\
+    \nParallel data transmission\nReasons for your choice   [3]\n\n(ii) The connection\
+    \ will also use full‑duplex data transmission.\n\n Define full‑duplex data transmission\
+    \ [2]\n\n(c) The data transmission will use parity checks.\n\n(i) The bytes need\
+    \ to be sent using an even parity byte check.\n\n Complete the parity bit for\
+    \ each byte.\nParity\nbit\nByte A\n1\n1\n0\n0\n0\n1\n1\nByte B\n0\n0\n0\n0\n0\n\
+    0\n0\n\n[2]\n\n(ii) A parity block check can be used instead of a parity byte\
+    \ check.\n\n Explain how a parity block check might detect an error in transmission\
+    \ that would not be\ndetected by a parity byte check [2]\n\n(iii) The data was\
+    \ sent using an even parity block check. One of the bits has been transmitted\n\
+    incorrectly.\nParity\nbit\nBit 1\nBit 2\nBit 3\nBit 4\nBit 5\nBit 6\nBit 7\nByte\
+    \ 0\n1\n1\n1\n0\n1\n0\n0\n0\nByte 1\n0\n0\n1\n0\n0\n1\n0\n0\nByte 2\n1\n0\n1\n\
+    1\n0\n0\n0\n1\nByte 3\n1\n1\n0\n0\n1\n1\n1\n1\nByte 4\n1\n0\n1\n0\n0\n0\n1\n0\n\
+    Byte 5\n0\n0\n0\n0\n0\n0\n0\n0\nByte 6\n0\n1\n1\n1\n1\n0\n0\n0\nParity\nbyte\n\
+    0\n1\n1\n0\n1\n0\n1\n0\n\n Identify the bit number and the byte number of the\
+    \ incorrect bit.\n\n Bit number  Byte number  [2]\n\n(d) The website allows the\
+    \ user to set up an account to log on and purchase items. The website\nis accessed\
+    \ and displayed using a web browser.\n\n(i) Two functions of the web browser are\
+    \ to render hypertext markup language (HTML) to\ndisplay web pages and to store\
+    \ cookies.\n\n Identify two other functions of a web browser.\n1   2   [2]\n\n\
+    (ii) Identify two ways that cookies can be used to enhance the user’s experience\
+    \ of this\nwebsite.\n1   2   [2]"
   answer_options: []
   subquestions:
   - number: 5a
@@ -182,7 +278,23 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nA company is involved in robotics.\n\nOne of its robots is designed to\
+    \ make a specific movement depending on a binary value.\n\n(a) The table gives\
+    \ some of the movements for the robot.\n\nComplete the table by writing the missing\
+    \ binary, denary or hexadecimal value for each\nmovement.\nMovement\nBinary\n\
+    Denary\nHexadecimal\nforward 1 step\n00011111\n31\nback 1 step\n140\n8C\nturn\
+    \ right\n01011010\n5A\nturn left\n120\n78\n\n[4]\n\nWorking space\n  (b) Describe\
+    \ what is meant by robotics [2]\n\n(c) The robot has a sensor and a microprocessor.\n\
+    \nThe robot will move forward continuously until it detects an object that is\
+    \ less than or equal to\n10 cm in front of it.\n\nIf an object is less than or\
+    \ equal to 10 cm in front of it, the robot turns 90 degrees right. It then\ntries\
+    \ to move forward again.\n\nExplain how the sensor and the microprocessor are\
+    \ used to automate this robot [7]\n\n(d) The robot needs to find its way through\
+    \ different puzzles. Each puzzle has a series of paths\nthat the robot needs to\
+    \ follow to find its way to the end of the puzzle. The puzzle contains\ndead ends\
+    \ and obstacles, so the robot needs to decide which way to go.\n\nThe robot’s\
+    \ program will use artificial intelligence (AI).\n\n(i) Describe the characteristics\
+    \ of AI [3]\n\n(ii) Explain how the program will use AI [4]"
   answer_options: []
   subquestions:
   - number: 6a

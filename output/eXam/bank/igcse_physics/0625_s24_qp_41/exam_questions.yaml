@@ -2,7 +2,19 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA long tube contains oil. A small ball is held at rest at the surface\
+    \ of the oil. At time t = 0, the ball is\nreleased and begins to fall vertically\
+    \ through the oil.\n\nFig. 1.1 shows the ball falling through the oil.\nball\n\
+    oil\nFig. 1.1\n\nAs the ball begins to fall through the oil, it accelerates.\n\
+    \n(a) Define acceleration [1]\n\n(b) The mass of the ball is 0.0075 kg.\n\nCalculate\
+    \ the resultant force acting on the ball when it is accelerating downwards at\
+    \ 2.8 m / s2 .\n\nresultant force =   [2]\n\n(c) As the ball falls, its speed\
+    \ v is recorded. Fig. 1.2 is the speed–time graph for the falling ball.\n0\n0\n\
+    0.01\n0.02\n0.03\n0.04\nt / s\n0.02\n0.04\nv\nm / s\n0.06\nFig. 1.2\n\n(i) Describe\
+    \ what happens to the acceleration between t = 0 and t = 0.040 s.\n\n Explain\
+    \ why this happens [4]\n\n(ii) By drawing a tangent on Fig. 1.2, determine a value\
+    \ for the acceleration of the ball\nat t = 0.010 s.\n\nacceleration =   [3]\n\n\
+    [Total: 10]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +50,58 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    Fig. 2.1 shows two identical trolleys, P and Q, held at rest on a frictionless
+    horizontal surface.
+
+    A load is fixed to trolley P.
+
+    1.5 kg load
+
+    trolley P
+
+    trolley Q
+
+    compressed spring
+
+    Fig. 2.1
+
+
+    There is a compressed spring between trolley P and trolley Q.
+
+
+    The trolleys are released. As the spring expands, it pushes the trolleys apart.
+
+
+    Trolley Q moves to the right at a constant speed of 0.36 m / s.
+
+
+    The mass of each trolley is 1.2 kg. The mass of the load on trolley P is 1.5 kg.
+
+
+    The spring has negligible mass.
+
+
+    (a) Calculate:
+
+
+    (i) the speed at which trolley P moves to the left
+
+
+    speed of P =   [3]
+
+
+    (ii) the kinetic energy of trolley Q when it moves at 0.36 m / s.
+
+
+    kinetic energy of Q =   [3]
+
+
+    (b) State the energy transfer that takes place as the spring expands [2]
+
+
+    [Total: 8]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -68,7 +131,19 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nFig. 3.1 shows a small block of ice floating in a beaker of warm water.\n\
+    block of ice\nwarm water\nFig. 3.1\n\n(a) State one way in which the motion of\
+    \ the particles in ice differs from the motion of the particles\nin water [1]\n\
+    \n(b) Energy is transferred from the water to the block of ice.\n\n(i) State the\
+    \ name of the thermal process that transfers energy from the water to the ice\
+    \ [1]\n\n(ii) Initially, there is 0.34 kg of water in the beaker. The specific\
+    \ heat capacity of water\nis 4200 J / (kg °C).\n\n Calculate the energy transferred\
+    \ from this water as its temperature decreases from\n28 °C to 10 °C.\n\nenergy\
+    \ transferred =   [2]\n\n(iii) The temperature of the water near the ice decreases\
+    \ first.\n\n Explain how convection causes the temperature of all the water in\
+    \ the beaker to decrease [3]\n\n(iv) State what happens to the internal energy\
+    \ of the water as the temperature of the\nwater decreases.\n\n Describe the change\
+    \ in terms of the energy of the particles [2]\n\n[Total: 9]"
   answer_options: []
   subquestions:
   - number: 3a
@@ -110,7 +185,21 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nThe lens in a magnifying glass is a converging lens.\n\n(a) Fig. 4.1 shows\
+    \ the lens of the magnifying glass, its two focal points, F1 and F2 , and its\n\
+    principal axis.\nprincipal axis\nF1\nF2\nlens\nFig. 4.1\n\n(i) State what is meant\
+    \ by ‘focal point’ [2]\n\n(ii) A student using the magnifying glass sees a magnified\
+    \ image of an object.\n\n On Fig. 4.1, mark:\n•\na point X on the principal axis\
+    \ for a possible position of the object\n•\na point E for a possible position\
+    \ of the student’s eye.\n\n[1]\n\n(iii) Underline two words in the list that describe\
+    \ the image produced in (a)(ii).\ninverted     real     upright     virtual\n\n\
+    [1]\n\n(b) The refractive index of the glass used to make the lens is 1.5.\n\n\
+    (i) The speed of light in air is 3.0 × 108 m / s.\n\n Calculate the speed of light\
+    \ in the glass.\n\nspeed in glass =   [2]\n\n(ii) State what happens to the wavelength\
+    \ of light as it passes into the lens [1]\n\n(c) Converging lenses are used in\
+    \ spectacles (glasses) to correct one problem with vision.\n\nState the name of\
+    \ the problem and explain how a converging lens is used to correct it.\nYou may\
+    \ draw a diagram.\nname of problem:   [3]\n\n[Total: 10]"
   answer_options: []
   subquestions:
   - number: 4a
@@ -164,7 +253,15 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) Describe how a longitudinal wave differs from a transverse wave [2]\n\
+    \n(b) Fig. 5.1 represents a seismic wave produced by an earthquake.\nJ\nK\nFig.\
+    \ 5.1\n\n(i) State whether this seismic wave is a P-wave (primary) or an S-wave\
+    \ (secondary).\nJustify your choice [1]\n\n(ii) The wave represented in Fig. 5.1\
+    \ has a wavelength of 1.2 × 104 m.\n\n Calculate the actual distance between point\
+    \ J and point K.\n\ndistance =   [2]\n\n(iii) The wave in (ii) travels through\
+    \ the ground at a speed of 4600 m / s.\n\n As the wave passes a certain point,\
+    \ the ground completes 5 oscillations.\n\n Calculate the time that it takes for\
+    \ the wave to pass. Show your working.\n\ntime =   [3]\n\n[Total: 8]"
   answer_options: []
   subquestions:
   - number: 5a
@@ -200,7 +297,18 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nFig. 6.1 shows an isolated metal sphere suspended by an insulating thread\
+    \ from the ceiling.\nmetal sphere\ninsulating thread\nFig. 6.1\n\nThe sphere is\
+    \ negatively charged.\n\n(a) The charge on the sphere produces an electric field\
+    \ in the surroundings.\n\n(i) State what is meant by ‘electric field’ [1]\n\n\
+    (ii) Draw on Fig. 6.1 to show the pattern and direction of the electric field\
+    \ produced by the\ncharge on the sphere. Draw at least four lines.\n[3]\n\n(b)\
+    \ The magnitude of the charge on the sphere is 3.5 × 10–10 C.\n\nAn earthed metal\
+    \ wire is touched against the surface of the sphere and the sphere\nis discharged.\n\
+    \n(i) State what happens in the wire as the sphere is discharged [2]\n\n(ii) It\
+    \ takes a time of 0.14 ns for the sphere to discharge completely.\n\n Calculate\
+    \ the average current in the earthed wire as the sphere discharges.\n\naverage\
+    \ current =   [3]\n[Total: 9]"
   answer_options: []
   subquestions:
   - number: 6a
@@ -242,7 +350,17 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nThe electromotive force (e.m.f.) of a battery is 7.5 V.\n\n(a) Define\
+    \ the term electromotive force [2]\n\n(b) The battery is connected in series with\
+    \ a variable resistor and a 30 Ω resistor. The battery is\nmade using 1.5 V cells.\n\
+    \n(i) Draw a circuit diagram that shows all the 1.5 V cells connected to produce\
+    \ an e.m.f.\nof 7.5 V, the variable resistor and the 30 Ω resistor.\n\n[3]\n\n\
+    (ii) The resistance of the variable resistor can be varied from 0 Ω to a maximum\
+    \ resistance\nof 150 Ω.\n\n Using the axes in Fig. 7.1, draw a graph to show how\
+    \ the current in the circuit varies with\nthe resistance of the variable resistor\
+    \ as it increases from 0 Ω to 150 Ω.\n\n Determine and label the value of the\
+    \ maximum current on the y-axis.\nresistance of variable resistor / Ω\ncurrent\
+    \ / A\n0\n0\n75\n150\nFig. 7.1\n\n[4]\n[Total: 9]"
   answer_options: []
   subquestions:
   - number: 7a
@@ -272,7 +390,20 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nThe isotope thallium-208 (208\n81Tl ) is radioactive. It decays by β-decay.\n\
+    \n(a) Thallium-208 decays to an isotope of lead (Pb).\n\n(i) Complete the equation\
+    \ for this decay.\n208\n81Tl\n\n Pb +\n β\n\n[3]\n\n(ii) The β-emission of thallium-208\
+    \ is accompanied by γ-emission from the nucleus.\n\n Explain why this γ-emission\
+    \ does not affect the numbers in the equation in (a)(i) [1]\n\n(iii) Suggest one\
+    \ reason why a nucleus of thallium-208 is unstable [1]\n\n(b) A sample of thallium-208\
+    \ is placed in a thick lead container. Fig. 8.1 shows a narrow beam of\nβ-particles\
+    \ and γ-radiation emerging from a small hole in one side of the container.\nmagnetic\
+    \ field\ninto page\nbeam of\nβ-particles and\nγ-radiation\nsample of\nthallium-208\n\
+    Fig. 8.1\n\nThe narrow beam enters a region where there is a magnetic field that\
+    \ is directed into the page.\n\nOn Fig. 8.1:\n•\ndraw a line labelled β to indicate\
+    \ the path of the β-particles in the magnetic field\n•\ndraw a line labelled γ\
+    \ to indicate the path of the γ-radiation in the magnetic field.\n\n[3]\n\n[Total:\
+    \ 8]"
   answer_options: []
   subquestions:
   - number: 8a
@@ -308,7 +439,48 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    The Sun is one of many billions of stars in the Milky Way. The Sun emits a very
+    large quantity of
+
+    energy as electromagnetic radiation.
+
+
+    (a) State the three regions of the electromagnetic spectrum in which the Sun emits
+    the
+
+    most energy.
+
+    1   2   3   [2]
+
+
+    (b) Electromagnetic radiation from the Sun travels at a speed of 3.0 × 108 m /
+    s. The radiation
+
+    takes 500 s to reach the Earth.
+
+
+    Calculate the distance from the Sun to the Earth.
+
+
+    distance =   [2]
+
+
+    (c) Approximately 4.6 billion years ago, the Sun formed from an interstellar cloud
+    of gas and
+
+    became a stable star.
+
+
+    (i) Describe and explain what happens as an interstellar cloud of gas forms a
+    protostar [2]
+
+
+    (ii) Describe and explain what happens as a protostar becomes a stable star [3]
+
+
+    [Total: 9]'
   answer_options: []
   subquestions:
   - number: 9a

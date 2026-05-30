@@ -2,7 +2,21 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student determines the density of a ball.\n\n(a) He places the ball\
+    \ between two wooden blocks, as seen from above in Fig. 1.1.\n\nHe takes two measurements,\
+    \ d1 and d2.\nd1\nd2\nFig. 1.1\n\n(i) On Fig. 1.1, measure the lengths d1 and\
+    \ d2.\n\nd1 =   cm\n\nd2 =   cm\n\n[1]\n\n(ii) Using your measurements, calculate\
+    \ the diameter d of the ball. Show your working.\n\nd =   cm [1]\n\n(iii) Explain\
+    \ why this method is used to measure the diameter of the ball [2]\n\n(b) Calculate\
+    \ the volume V of the ball using the equation V = 0.52d 3.\n\nInclude the unit.\n\
+    \nV =   [2]\n,\t,\n\n(c) The student measures the mass mD of a dish.\n\n102.5\n\
+    \nmD =   g\n\nHe places the ball in the dish and measures the combined mass mC\
+    \ of the dish and the ball.\n\nFig. 1.2 shows the dish and the ball on a balance.\n\
+    \nRecord the reading shown on the balance.\n114.1 g\nFig. 1.2\n\nmC =   g\n\n\
+    Calculate the mass mB of the ball. Show your working.\n\nmB =   g\n\n[2]\n\n(d)\
+    \ Calculate the density ρ of the ball using the equation:\nρ =\nmB\nV .\n\nGive\
+    \ your answer to a suitable number of significant figures for this experiment.\
+    \ Include the\nunit.\n\nρ =   [3]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +64,30 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates the cooling of hot water in a beaker.\n\nThe apparatus\
+    \ is shown in Fig. 2.1.\nthermometer\nbeaker\nbench\nFig. 2.1\n\n(a) The student\
+    \ uses a thermometer to measure room temperature θ R. Room temperature is\n22\
+    \ °C.\n\nOn Fig. 2.2, show clearly the reading θ R.\n–10\n0\n10\n20\n30\n100\n\
+    110 °C\nFig. 2.2\n\n[1]\n\n(b) The student pours 100 cm3 of hot water into an\
+    \ empty beaker. She records the temperature θ\nof the hot water in the V = 100\
+    \ cm3 row of Table 2.1, as shown.\n\nWithout delay, she pours 20 cm3 of cold water\
+    \ into the beaker. She stirs the water and\nmeasures the temperature of the mixture\
+    \ of hot and cold water. She repeats the procedure\nuntil she has added a total\
+    \ of 100 cm3 of cold water to the beaker.\n\nAll the readings are shown in Table\
+    \ 2.1. V is the total volume of water in the beaker.\n\nComplete the column headings\
+    \ in Table 2.1.\n[1]\nTable 2.1\nV /\nθ /\n100\n87\n120\n73\n140\n65\n160\n59\n\
+    180\n54\n200\n49\n,\t,\n\n(c) Plot a graph of temperature θ (y-axis) against total\
+    \ volume of water V (x-axis). You do not\nneed to start the axes at the origin\
+    \ (0, 0).\n\nDraw the best-fit curve.\n\n[4]\n\n(d) In the experiment, the student\
+    \ aims to investigate the effect on the temperature of the hot\nwater as cold\
+    \ water is added.\n\n(i) Complete the sentence to explain why it is important\
+    \ to add the cold water without delay\nat each stage.\nThe cold water is added\
+    \ without delay   [1]\n\n(ii) Complete the sentence to explain the reason for\
+    \ stirring the water at each stage.\nThe student stirs the water before recording\
+    \ the temperature   [1]\n,\t,\n\n(e) Suggest two ways to minimise the loss of\
+    \ thermal energy from the beaker during the\nexperiment.\n1   2   [2]\n\n(f) Name\
+    \ the apparatus that the student uses to measure the volume of water [1]\n\n[Total:\
+    \ 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -104,7 +141,34 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student investigates reflections in a plane mirror.\n\nA ray-trace sheet\
+    \ is shown in Fig. 3.1.\nP3\nM\nR\nP4\neye\nFig. 3.1\n\n(a) •\n Draw a normal\
+    \ to the line MR that passes through the centre of MR. Label the normal NL.\n\
+    •\nLabel the point at which NL crosses MR with the letter B.\n•\nDraw a line 10.0\
+    \ cm long from B at an angle of incidence i = 40° to the normal below MR\nand\
+    \ to the left of the normal. Label the end of this line A.\n[2]\n,\t\t,\n\n(b)\
+    \ The student places the reflecting face of the mirror vertically on the line\
+    \ MR.\n\nHe places two pins, P1 and P2, on line AB.\n\nMark the positions of P1\
+    \ and P2 with crosses (X) on line AB at a suitable distance apart for\nthis type\
+    \ of ray-trace experiment. Label the positions of P1 and P2.\n[1]\n\n(c) The student\
+    \ views the images of pins P1 and P2 from the direction indicated by the eye in\n\
+    Fig. 3.1. He places two pins, P3 and P4, so that pins P3 and P4 and the images\
+    \ of P2 and P1\nall appear exactly one behind the other. The positions of P3 and\
+    \ P4 are shown on Fig. 3.1.\n\n(i) Draw a line through the positions of P3 and\
+    \ P4. Continue the line until it meets MR.\n[1]\n\n(ii) Measure the acute angle\
+    \ α between this line and the horizontal line MR. An acute angle\nis an angle\
+    \ less than 90°.\n\nα =   ° [1]\n\n(d) The student turns the mirror through 180°.\
+    \ He draws a new incident ray at an angle of\nincidence i = 50° to the normal\
+    \ above MR and to the left of the normal.\n\nHe labels the end of this line C.\
+    \ This line is not shown on Fig. 3.1. You may draw the line on\nFig. 3.1.\n\n\
+    He places two pins on the line CB and views the images of the two pins from near\
+    \ the top\nright-hand corner of the ray-trace sheet.\n\nOn Fig. 3.1, draw a reflected\
+    \ ray 10.0 cm long from B with an angle of reflection β equal to the\nangle of\
+    \ incidence. Label the end of the line D.\n\n[2]\n\n(e) Suggest a relationship\
+    \ between α and β. Justify your answer by reference to the results.\nrelationship\
+    \   justification   [2]\n\n(f) State two techniques that you use in this type\
+    \ of experiment to obtain an accurate ray trace.\n1   2   [2]\n\n[Total: 11]\n\
+    ,\n,"
   answer_options: []
   subquestions:
   - number: 3a

@@ -2,7 +2,32 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    A type of validation check is a length check. Another type of validation check
+    is used to make sure
+
+    that any date entered is in the dd/mm/yyyy style:
+
+
+    dd means day, mm means month and yyyy means year.
+
+
+    (a) State the type of validation check used [1]
+
+
+    (b) Give one example of normal test data and one example of abnormal test data
+    you should
+
+    use to make sure the check in part (a) is working properly.
+
+
+    State a reason for each of your choices of test data.
+
+    Normal   Reason   Abnormal   Reason   [4]
+
+
+    (c) Describe how a length check could be used with the date entered [2]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -26,13 +51,50 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '1
+
+    Tick (✓) one box to complete the sentence.
+
+
+    Verification is used to make sure that a value entered
+
+
+    A
+
+    has not changed during input.
+
+
+    B
+
+    is an integer.
+
+
+    C
+
+    is correct.
+
+
+    D
+
+    is not a string.
+
+
+    [1]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nFour pseudocode statements and five pseudocode uses are shown.\n\n(a)\
+    \ Draw one line to link each pseudocode statement to the most appropriate pseudocode\
+    \ use.\n\nNot all pseudocode uses will be required.\nPseudocode statement\nCALL\
+    \ Colour(NewColour)\nValue\n (A1 + A2 + A3) / 3\nLoop1\n Loop1 + 1\nIF Count >\
+    \ 7 THEN X1\n 0\nPseudocode use\ncounting\nfinding an average\ntotalling\nusing\
+    \ a conditional statement\nusing a procedure\n\n[4]\n\n(b) A one‑dimensional (1D)\
+    \ array called Temperatures[] has 25 elements beginning at\nindex 1. It holds\
+    \ values that range between –20 and 100 inclusive.\n\nWrite a pseudocode algorithm\
+    \ using a single loop to find the lowest value in this array and\noutput the result\
+    \ only once.\n\nYou do not need to declare or populate this array [4]"
   answer_options: []
   subquestions:
   - number: 3a
@@ -50,7 +112,20 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nAn algorithm has been written in pseudocode to allow the names of 50 cities\
+    \ and their countries to\nbe entered and stored in a two‑dimensional (2D) array.\
+    \ The contents of the array are then output.\n\n01 DECLARE City ARRAY[1:50, 1:2]\
+    \ OF BOOLEAN\n\n02 DECLARE Count : INTEGER\n\n03 DECLARE Out : INTEGER\n\n04 Count\n\
+    \ 1\n\n05 IF\n\n06     OUTPUT \"Enter the name of the city\"\n\n07     INPUT City[Count,\
+    \ 2]\n\n08     OUTPUT \"Enter the name of the country\"\n\n09     INPUT City[Count,\
+    \ 2]\n\n10     Count\n Count + 1\n\n11 UNTIL Count = 50\n\n12 FOR Out\n 1 TO 1\n\
+    \n13     OUTPUT \"The city \", City[Out, 1], \" is in \", City[Out, 2]\n\n14 NEXT\
+    \ Out\n\n(a) Identify the four errors in the pseudocode and suggest corrections.\n\
+    Error 1   Correction   Error 2   Correction   Error 3   Correction   Error 4 \
+    \  Correction   [4]\n\n(b) Describe the changes you should make to the corrected\
+    \ algorithm to allow the name of a\ncountry to be input and to display only the\
+    \ stored cities from that country.\n\nYou do not need to rewrite the algorithm\
+    \ [5]"
   answer_options: []
   subquestions:
   - number: 4a
@@ -68,13 +143,96 @@ questions:
 - number: '5'
   question_type: calculation
   marks: 3
-  text: ''
+  text: '5
+
+    Explain how variables and constants should be used when creating and running a
+    program [3]'
   answer_options: []
   subquestions: []
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    The flowchart represents an algorithm that performs a process on groups of values
+    that are input.
+
+    The algorithm will fail if the first value of any group is 0.
+
+
+    An input of –1 will terminate the algorithm.
+
+    START
+
+    STOP
+
+    Total   0
+
+    Count   0
+
+    INPUT
+
+    Value
+
+    IS
+
+    Value =
+
+    0 ?
+
+    IS
+
+    Value =
+
+    –1 ?
+
+    No
+
+    No
+
+    Yes
+
+    Yes
+
+    Total   Total + Value
+
+    Count   Count + 1
+
+    Average   Total / Count
+
+    OUTPUT
+
+    "Total is ",
+
+    Total
+
+    OUTPUT
+
+    "Average is ",
+
+    Average
+
+
+    (a) Complete the trace table for the input data:
+
+
+    25, 35, 3, 0, 57, 20, 25, 18, 0, –1, 307, 40, 0
+
+    Value
+
+    Average
+
+    Total
+
+    Count
+
+    OUTPUT
+
+
+    [5]
+
+
+    (b) Describe the purpose of the algorithm [2]'
   answer_options: []
   subquestions:
   - number: 6a
@@ -92,19 +250,133 @@ questions:
 - number: '7'
   question_type: calculation
   marks: 5
-  text: ''
+  text: '7
+
+    The string operation SUBSTRING(Quote, Start, Number) returns a string from Quote
+
+    beginning at position Start that is Number characters long. The first character
+    in Quote is in
+
+    position 1.
+
+
+    Write pseudocode statements to:
+
+    •
+
+    store the string "Learning Never Exhausts The Mind" in Quote
+
+    •
+
+    extract and display the words "The Mind" from the string
+
+    •
+
+    output the original string in lower case [5]'
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '8
+
+    Explain why a programmer would use procedures and parameters when writing a program
+    [4]'
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    Consider the logic expression:
+
+    Z = (A NAND B) OR NOT (B XOR C)
+
+
+    (a) Draw a logic circuit for this logic expression.
+
+
+    Each logic gate must have a maximum of two inputs.
+
+
+    Do not simplify this logic expression.
+
+
+    A
+
+    B
+
+    Z
+
+    C
+
+
+    [4]
+
+
+    (b) Complete the truth table from the given logic expression.
+
+    A
+
+    B
+
+    C
+
+    Working space
+
+    Z
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    0
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+
+    [4]'
   answer_options: []
   subquestions:
   - number: 9a
@@ -122,7 +394,307 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '10 A database table called Horses stores details about the horses kept at
+    a horse sanctuary.
+
+    Code
+
+    Breed
+
+    BreedOrigin
+
+    Gender
+
+    Age
+
+    Arrived
+
+    H002
+
+    Arabian
+
+    Saudi Arabia
+
+    M
+
+    5
+
+    28/09/2022
+
+    H004
+
+    Percheron
+
+    France
+
+    M
+
+    5
+
+    30/10/2022
+
+    H010
+
+    Friesian
+
+    Netherlands
+
+    M
+
+    6
+
+    15/11/2022
+
+    H011
+
+    Fjord
+
+    Norway
+
+    F
+
+    4
+
+    17/11/2022
+
+    H012
+
+    Clydesdale
+
+    Scotland
+
+    M
+
+    10
+
+    18/11/2022
+
+    H015
+
+    Arabian
+
+    Saudi Arabia
+
+    F
+
+    5
+
+    15/12/2022
+
+    H016
+
+    Arabian
+
+    Saudi Arabia
+
+    F
+
+    5
+
+    15/12/2022
+
+    H017
+
+    Clydesdale
+
+    Scotland
+
+    F
+
+    4
+
+    16/01/2023
+
+    H019
+
+    Percheron
+
+    France
+
+    M
+
+    3
+
+    16/01/2023
+
+    H025
+
+    Percheron
+
+    France
+
+    M
+
+    7
+
+    16/01/2023
+
+    H026
+
+    Clydesdale
+
+    Scotland
+
+    F
+
+    9
+
+    20/01/2023
+
+    H030
+
+    Clydesdale
+
+    Scotland
+
+    M
+
+    12
+
+    20/01/2023
+
+    H032
+
+    Fjord
+
+    Norway
+
+    M
+
+    3
+
+    24/03/2023
+
+    H033
+
+    Arabian
+
+    Saudi Arabia
+
+    F
+
+    15
+
+    27/04/2023
+
+    H034
+
+    Clydesdale
+
+    Scotland
+
+    F
+
+    4
+
+    14/06/2023
+
+    H035
+
+    Fjord
+
+    Norway
+
+    M
+
+    7
+
+    15/06/2023
+
+    H036
+
+    Friesian
+
+    Netherlands
+
+    F
+
+    15
+
+    20/07/2023
+
+    H037
+
+    Friesian
+
+    Netherlands
+
+    M
+
+    12
+
+    20/07/2023
+
+
+    (a) State the number of records in this database table [1]
+
+
+    (b) Give the name of the field that is most suitable to be the primary key.
+
+
+    State the reason for this choice.
+
+    Field   Reason   [2]
+
+
+    (c) The database only allows the data types:
+
+    •
+
+    Boolean
+
+    •
+
+    character
+
+    •
+
+    date/time
+
+    •
+
+    integer
+
+    •
+
+    real
+
+    •
+
+    text.
+
+
+    Complete the table to show the most appropriate data type for each field.
+
+
+    Each data type must be different.
+
+    Field
+
+    Data type
+
+    Breed
+
+    Gender
+
+    Age
+
+    Arrived
+
+
+    [2]
+
+
+    (d) Complete the structured query language (SQL) to return the code and breed
+    of all the horses
+
+    whose breed originated in Scotland Code, Breed,
+
+
+    FROM  WHERE  = "Scotland";
+
+
+    [3]'
   answer_options: []
   subquestions:
   - number: 10a

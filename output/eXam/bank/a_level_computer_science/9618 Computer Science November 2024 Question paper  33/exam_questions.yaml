@@ -2,7 +2,14 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nNumbers are stored in a computer using binary floating-point representation\
+    \ with:\n•\n10 bits for the mantissa\n•\n6 bits for the exponent\n•\ntwo’s complement\
+    \ form for both the mantissa and the exponent.\n\n(a) Calculate the normalised\
+    \ binary floating-point representation of +201.125 in this system.\n\nShow your\
+    \ working.\n\nMantissa\nExponent\nWorking   [3]\n\n(b) Calculate the denary value\
+    \ of the given normalised binary floating-point number.\n\nShow your working.\n\
+    \nMantissa\nExponent\n1\n0\n1\n0\n1\n1\n0\n0\n1\n1\n0\n0\n0\n1\n0\n1\nWorking\
+    \   Answer   [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,19 +27,30 @@ questions:
 - number: '2'
   question_type: calculation
   marks: 4
-  text: ''
+  text: "2\nReduced Instruction Set Computers (RISC) is a type of processor.\n\nIdentify\
+    \ four features of a RISC processor.\n1   2   3   4   [4]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: "4\nThe TCP/IP protocol may be viewed as a stack that contains four layers:\
+    \ Application, Transport,\nInternet, Link.\n\nDescribe how the layers of the TCP/IP\
+    \ protocol stack interact with each other [4]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    (a) Describe circuit switching as a method of data transmission [3]
+
+
+    (b) State one benefit and one drawback of circuit switching as a method of data
+    transmission.
+
+    Benefit   Drawback   [2]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -50,7 +68,21 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    (a) Explain what is meant by a hashing algorithm in the context of file access
+    [3]
+
+
+    (b) The use of a hashing algorithm can result in the same storage location being
+    identified for
+
+    more than one record.
+
+
+    Outline two methods of overcoming this issue.
+
+    1   2   [2]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -68,7 +100,10 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Describe the user-defined data type set [3]\n\n(b) Write pseudocode\
+    \ statements to declare the set data type, SymbolSet, to hold the following\n\
+    set of mathematical operators, using the variable Operators.\n\n+  –  *  /  ^\n\
+    \  [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -86,7 +121,18 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nThe truth table for a logic circuit is shown.\nINPUT\nOUTPUT\nA\nB\nC\n\
+    D\nT\n0\n0\n0\n0\n0\n0\n0\n0\n1\n1\n0\n0\n1\n0\n0\n0\n0\n1\n1\n1\n0\n1\n0\n0\n\
+    0\n0\n1\n0\n1\n0\n0\n1\n1\n0\n0\n0\n1\n1\n1\n0\n1\n0\n0\n0\n0\n1\n0\n0\n1\n1\n\
+    1\n0\n1\n0\n0\n1\n0\n1\n1\n1\n1\n1\n0\n0\n0\n1\n1\n0\n1\n1\n1\n1\n1\n0\n0\n1\n\
+    1\n1\n1\n1\n\n(a) Write the Boolean logic expression that corresponds to the given\
+    \ truth table as the\nsum-of-products.\nT =   [3]\n,\t,\n\n(b) Complete the Karnaugh\
+    \ map (K-map) for the given truth table.\n00\n00\nCD\nAB\n01\n01\n11\n11\n10\n\
+    10\n[2]\n\n(c) Draw loop(s) around appropriate group(s) in the K-map to produce\
+    \ an optimal sum-of-products.\n\n[2]\n\n(d) (i) Write the Boolean logic expression\
+    \ from your answer to part (c) as the simplified\nsum-of-products.\nT =  [2]\n\
+    \n(ii) Use Boolean algebra to write your answer to part (d)(i) in its simplest\
+    \ form.\nT =   [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -128,7 +174,8 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a) Describe the process of segmentation for memory management [4]\n\n\
+    (b) Explain what is meant by disk thrashing [3]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -146,7 +193,19 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nA veterinary surgery wants to create a class for individual pets.\n\n\
+    Some of the attributes required in the class are listed in the table.\nAttribute\n\
+    Data type\nDescription\nPetID\nSTRING\nunique ID assigned at registration\nPetType\n\
+    STRING\ntype of pet assigned at registration\nOwnerTelephone\nSTRING\ntelephone\
+    \ number of owner assigned at\nregistration\nDateRegistered\nDATE\ndate of registration\n\
+    \n(a) State one reason why the attributes would be declared as PRIVATE [1]\n\n\
+    (b) Complete the class diagram for Pet, to include:\n•\nan attribute and data\
+    \ type for the name of the pet\n•\nan attribute and data type for the name of\
+    \ the owner\n•\na method to create a Pet object and set attributes at the time\
+    \ of registration\n•\na method to assign a pet ID\n•\na method to assign the date\
+    \ of registration\n•\na method to return the pet name\n•\na method to return the\
+    \ owner’s telephone number.\nPet\nPetID\n: STRING\nPetType\n: STRING\nOwnerTelephone\n\
+    : STRING\nDateRegistered\n: DATE\n :  :  [5]\n,\n,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -164,7 +223,14 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 Several syntax diagrams are shown.\nA\nE\nI\nO\nU\nY\nletter\n+\n–\n*\n\
+    /\noperator\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\ndigit\n#\n$\n?\n&\n@\nsymbol\nlabel\n\
+    letter\ndigit\nequation\nlabel\nlabel\noperator\nlabel\ndigit\n=\n,\t,\n\n(a)\
+    \ Complete the Backus-Naur Form (BNF) for the given syntax diagrams.\n<operator>\
+    \ ::=   <label> ::=   <equation> ::=   [4]\n\n(b) A new syntax rule, password,\
+    \ is required. It must begin with a letter or a symbol, followed by\na digit and\
+    \ end with one or two symbols.\n\n(i) Draw a syntax diagram for password.\n[3]\n\
+    \n(ii) Write the BNF for password [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -194,7 +260,25 @@ questions:
 - number: '11'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "11 The following diagram shows an ordered binary tree.\nRed\nGreen\nYellow\n\
+    Blue\nOrange\nIndigo\nViolet\n\n(a) A linked list of nodes is used to store the\
+    \ data. Each node consists of a left pointer, the data\nand a right pointer.\n\
+    \n–1 is used to represent a null pointer.\n\nComplete this linked list to represent\
+    \ the given binary tree.\n\nRootPtr\nLeftPtr\nRightPtr\nData\nRed\nGreen\nBlue\n\
+    –1\n–1\n[4]\n,\t,\n\n(b) A user-defined record structure is used to store the\
+    \ nodes of the linked list in part (a).\n\nComplete the diagram, using your answer\
+    \ for part (a).\nRootPtr\nIndex\nLeftPtr\nData\nRightPtr\n0\n0\nRed\n1\nGreen\n\
+    2\nYellow\n3\nBlue\n4\nOrange\n5\nIndigo\nFreePtr\n6\nViolet\n7\n\n[4]\n\n(c)\
+    \ The linked list in part (a) is implemented using a 1D array of records. Each\
+    \ record contains a\nleft pointer, data and a right pointer.\n\nThe following\
+    \ pseudocode represents a function that searches for an element in the array of\n\
+    records BinTree. It returns the index of the record if the element is found, or\
+    \ it returns a null\npointer if the element is not found.\n\nComplete the pseudocode\
+    \ for the function.\n\nFUNCTION SearchTree(Item : STRING)  NowPtr\n  WHILE NowPtr\
+    \ <> -1\n\n      IF  THEN\n\n         NowPtr\n BinTree[NowPtr].LeftPtr\n\n   \
+    \   ELSE\n\n         IF BinTree[NowPtr].Data < Item THEN\n\n             ELSE\n\
+    \n            RETURN NowPtr\n\n         ENDIF\n\n      ENDIF\n\n   ENDWHILE\n\n\
+    \   RETURN NowPtr\n\nENDFUNCTION\n\n[4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 11a

@@ -2,7 +2,59 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student investigated the effect of the concentration of salt solutions\
+    \ on osmosis in potato tissue.\n\nThe student used three different concentrations\
+    \ of salt solution and potato tissue that had been\ncut into cylinders.\n\n(a)\
+    \ (i) Using the information in Table 1.1, decide the volumes of S and W needed\
+    \ to make\n50 cm3 of a 0.5 mol per dm3 salt solution.\n\n Complete Table 1.1 by\
+    \ writing in the volumes of S and W needed to make the\n0.5 mol per dm3 salt solution.\n\
+    Table 1.1\nbeaker\nvolume of 1.0 mol per dm3\nsalt solution S\n/ cm3\nvolume of\n\
+    distilled water W\n/ cm3\nfinal concentration of\nsalt solution\n/ mol per dm3\n\
+    S1\n50\n0\n1.0\nS2\n 0.5\nS3\n0\n50\n0.0\n\n[1]\n\nThe student used this method:\n\
+    \nStep 1\nLabel three beakers S1, S2 and S3.\n\nStep 2\n Use the volumes of 1.0\
+    \ mol per dm3 salt solution S and distilled water W shown in\nTable 1.1 to make\
+    \ the salt solutions in beakers S1, S2 and S3.\n\nStep 3\n Put the potato cylinders\
+    \ onto a white tile and cut each potato cylinder into 3 mm discs, as\nshown in\
+    \ Fig. 1.1. You will need 30 potato discs.\n3 mm\nFig. 1.1\n\nStep 4\nPlace 10\
+    \ potato discs in a line next to a ruler, as shown in Fig. 1.2.\n1\n2\n3\n4\n\
+    5\n6\n7\n8\n9\nnot to scale\npotato discs\ntotal length\nFig. 1.2\n\nStep 5\n\
+    Measure the total length of the 10 potato discs.\n\nStep 6\nPut the 10 potato\
+    \ discs into beaker S1.\n\nStep 7   Repeat step 4 to step 6 with the other potato\
+    \ discs and the salt solutions in beakers S2\nand S3.\n\nStep 8\n Start the stop‑clock\
+    \ and leave the potato discs in the beakers of salt solution for\n20 minutes.\n\
+    \nStep 9\n Remove the 10 potato discs from beaker S1 and put them onto the white\
+    \ tile, line them\nup along the ruler, as shown in Fig. 1.2.\n\nStep 10 Measure\
+    \ the final total length of the 10 potato discs.\n\nStep 11 Repeat step 9 and\
+    \ step 10 with the potato discs in beaker S2 and beaker S3.\n\nFig. 1.3 shows\
+    \ the notes the student recorded about the results.\nbeaker S1 started with a\
+    \ total length of 102 mm\ntotal length of S1 discs after 20 minutes was 94 mm\n\
+    \ S2 discs changed from 103 mm to 98 mm after 20 minutes\n S3 discs started with\
+    \ a total length of 100 mm\nFig. 1.3\n\nFig. 1.4 is a diagram showing the actual\
+    \ size of the 10 potato discs from beaker S3 after\n20 minutes.\nFig. 1.4\n\n\
+    (ii) Measure the total length of the 10 potato discs in Fig. 1.4.\n\nS3 total\
+    \ length   mm [1]\n\n(iii) Prepare a table and record the results shown in Fig.\
+    \ 1.3 and your measurement in\n1(a)(ii).\n\n Include the final concentrations\
+    \ of the salt solutions in your table.\n\n[3]\n\n(iv) Calculate the change in\
+    \ total length of the 10 potato discs in each beaker.\n\n beaker S1  mm\n\n beaker\
+    \ S2  mm\n\n beaker S3  mm\n\n[1]\n\n(v) State a conclusion for the results of\
+    \ this investigation [1]\n\n(vi) State the dependent variable in this investigation\
+    \ [1]\n\n(vii) Suggest why the student used 10 potato discs instead of 1 potato\
+    \ disc in each salt\nsolution [1]\n\n (viii) Describe one safety precaution the\
+    \ student should take when preparing the potato discs [1]\n\n(b) The student added\
+    \ a few drops of a yellow‑brown solution to test one of the potato discs.\n\n\
+    The solution changed to a blue‑black colour.\n\nIdentify the solution added and\
+    \ state a conclusion for this test.\nsolution   conclusion   [1]\n\n(c) Fig. 1.5\
+    \ shows a leaf from a potato plant.\nQ\nP\nFig. 1.5\n\n(i) Draw a large diagram\
+    \ of the leaf shown in Fig. 1.5.\n\n[4]\n\n(ii) Line PQ represents the length\
+    \ of the leaf in Fig. 1.5.\n\n Measure the length of line PQ in Fig. 1.5.\n\n\
+    \ length of line PQ  mm\n\n The actual length of the leaf is 39 mm.\n\n Using\
+    \ your measurement and the formula, calculate the magnification of the leaf in\n\
+    Fig. 1.5.\nmagnification = length of line PQ in Fig. 1.5\nactual length of the\
+    \ leaf\n\n Give your answer to two significant figures.\n\n Space for working\
+    \ [3]\n\n(iii) Fig. 1.6 shows a leaf from a tomato plant. The tomato leaf is narrower\
+    \ than the potato\nleaf shown in Fig. 1.5.\nFig. 1.6\n\nCompare the leaves shown\
+    \ in Fig. 1.5 and in Fig. 1.6.\n\nDescribe one visible difference, other than\
+    \ size, and one visible similarity.\ndifference  similarity   [2]\n\n[Total: 20]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -92,7 +144,28 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) The enzyme pectinase is used in the production of apple juice.\n\n\
+    In an experiment, a student investigated the production of apple juice using five\
+    \ different\nconcentrations of pectinase solution.\n\nFor each concentration,\
+    \ the student:\n•\nput 100 g of crushed apple into a beaker\n•\nadded 10 cm3 of\
+    \ the pectinase solution to the crushed apple\n•\nleft the crushed apple and enzyme\
+    \ mixture for 30 minutes at 40 °C\n•\nfiltered the apple juice from the mixture\n\
+    •\nmeasured the volume of apple juice produced.\n\n(i) The temperature was maintained\
+    \ at 40 °C.\n\n Describe how the student could maintain the crushed apple and\
+    \ enzyme mixture at a\nconstant temperature [1]\n\n(ii) State two other variables\
+    \ that were kept constant in this investigation.\n1   2   [2]\n\n(b) The results\
+    \ of this investigation are shown in Table 2.1.\nTable 2.1\npercentage concentration\n\
+    of the pectinase solution\nvolume of apple juice\nproduced / cm3\n0.1\n4\n0.2\n\
+    6\n0.4\n12\n0.8\n22\n1.6\n22\n\n(i) Plot a line graph on the grid of the data\
+    \ in Table 2.1.\n\n[4]\n\n(ii) Use your graph to estimate the volume of apple\
+    \ juice produced with a 0.5% pectinase\nsolution.\n\n Show on your graph how you\
+    \ obtained your answer cm3\n\n[2]\n\n(iii) Describe the effect of pectinase solution\
+    \ concentration on apple juice production [1]\n\n(iv) Pectinase is used to produce\
+    \ apple juice commercially.\n\n Suggest what extra data would be required to determine\
+    \ if a 0.8% pectinase solution is\nthe optimum concentration for the production\
+    \ of apple juice [1]\n\n(v) Draw and label the apparatus the student could use\
+    \ to filter and measure the volume of\napple juice produced.\n\n[3]\n\n[Total:\
+    \ 14]"
   answer_options: []
   subquestions:
   - number: 2a

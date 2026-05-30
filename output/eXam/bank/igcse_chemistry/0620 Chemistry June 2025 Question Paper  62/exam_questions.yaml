@@ -2,7 +2,17 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nWhen heated, magnesium reacts with steam to make magnesium oxide and hydrogen\
+    \ gas.\n\nFig. 1.1 shows the apparatus a teacher uses to react clean magnesium\
+    \ ribbon with steam and\ncollect the hydrogen gas produced.\nA\nX\nclean\nmagnesium\
+    \ ribbon\nwater and\nmineral wool\nFig. 1.1\n\n(a) Name the item of apparatus\
+    \ labelled A in Fig. 1.1 [1]\n\n(b) Suggest how the magnesium ribbon should be\
+    \ cleaned before use [1]\n\n(c) State the purpose of the mineral wool [1]\n\n\
+    (d) Draw two arrows on Fig. 1.1 to show the two places where the apparatus should\
+    \ be heated.\n\n[2]\n\n(e) During the reaction a colourless liquid collects at\
+    \ the point marked X on Fig. 1.1.\n\nSuggest the identity of liquid X [1]\n\n\
+    (f) The gas collected in A is not pure hydrogen.\n\nSuggest why the gas collected\
+    \ is not pure [1]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +54,43 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates the temperature change when anhydrous lithium chloride\
+    \ dissolves in\nwater.\n\nThe student does five experiments.\n\nExperiment 1\n\
+    •\nUse a 50 cm3 measuring cylinder to pour 40 cm3 of distilled water into a 100\
+    \ cm3 beaker.\n•\nUse a thermometer to measure the initial temperature of the\
+    \ water.\n•\nAdd a 2.0 g sample of anhydrous lithium chloride to the water in\
+    \ the beaker.\n•\nContinually stir the mixture in the beaker using the thermometer.\n\
+    •\nMeasure the highest temperature reached by the mixture in the beaker.\n•\n\
+    Empty the beaker and rinse the beaker with distilled water.\n\nExperiment 2\n\
+    •\nRepeat Experiment 1 using 30 cm3 of distilled water instead of 40 cm3.\n\n\
+    Experiment 3\n•\nRepeat Experiment 1 using 25 cm3 of distilled water instead of\
+    \ 40 cm3.\n\nExperiment 4\n•\nRepeat Experiment 1 using 20 cm3 of distilled water\
+    \ instead of 40 cm3.\n\nExperiment 5\n•\nRepeat Experiment 1 using 15 cm3 of distilled\
+    \ water instead of 40 cm3.\n\n(a) Use the information in the description of the\
+    \ experiments and the thermometer diagrams to\ncomplete Table 2.1.\n,\t,\nTable\
+    \ 2.1\nexperiment\nmass of\nanhydrous\nlithium\nchloride\n/ g\nvolume of\ndistilled\n\
+    water\n/ cm3\ninitial\ntemperature\n/ °C\nthermometer\ndiagram\nfor highest\n\
+    temperature\nreached\n/ °C\nhighest\ntemperature\nreached\n/ °C\ntemperature\n\
+    change\n/ °C\n1\n2.0\n40\n22.5\n30\n25\n20\n2\n30\n22.5\n30\n25\n20\n3\n25\n22.5\n\
+    30\n35\n25\n4\n20\n22.0\n30\n35\n25\n5\n15\n22.0\n35\n40\n30\n\n[4]\n,\t,\n\n\
+    (b) Complete a suitable scale on the y-axis and plot your results from Experiments\
+    \ 1 to 5 on\nFig. 2.1.\n\nDraw a line of best fit.\n0\n10\n15\n20\n25\n30\nvolume\
+    \ of water / cm3\n35\n40\n45\ntemperature\nchange / °C\nFig. 2.1\n\n[4]\n\n(c)\
+    \ Extrapolate the line on your graph in Fig. 2.1 to deduce the temperature change\
+    \ when\nExperiment 1 is repeated with 45 cm3 of water instead of 40 cm3 of water.\n\
+    \nShow clearly on Fig. 2.1 how you worked out your answer.\n\ntemperature change\
+    \ =  [3]\n,\t,\n\n(d) The energy, in J, given out when 2.0 g of anhydrous lithium\
+    \ chloride dissolves is calculated\nusing the equation shown.\nenergy given out\
+    \ = temperature change × 4.2 × volume of water\n\nCalculate the energy given out\
+    \ when 2.0 g of anhydrous lithium chloride dissolves in\nExperiment 5.\n\nenergy\
+    \ given out =  J [1]\n\n(e) Estimate the temperature change when Experiment 1\
+    \ is repeated using 4.0 g of anhydrous\nlithium chloride instead of 2.0 g.\n\n\
+    Give a reason for your answer.\ntemperature change   reason   [2]\n\n(f) Explain\
+    \ why the results obtained would be more accurate if the beaker used in each\n\
+    experiment was replaced by a polystyrene cup [2]\n\n(g) (i) Explain why using\
+    \ a burette instead of a measuring cylinder is an improvement [1]\n\n(ii) Explain\
+    \ why standing the beaker in a water-bath is not an improvement [1]\n\n[Total:\
+    \ 18]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -104,7 +150,29 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student tests two solids: solid J and solid K.\n\nTests on solid J\n\
+    \nSolid J is iron(II) iodide.\n\nThe student dissolves solid J in water to form\
+    \ solution J. Solution J is divided into four portions.\n\n(a) To the first portion\
+    \ of solution J, the student adds aqueous sodium hydroxide dropwise and\nthen\
+    \ in excess.\nobservations when added dropwise   observations when added in excess\
+    \   [2]\n\n(b) To the second portion of solution J, the student adds 1 cm3 of\
+    \ dilute nitric acid followed by a\nfew drops of aqueous barium nitrate.\nobservations\
+    \   [1]\n\n(c) To the third portion of solution J, the student adds 1 cm3 of dilute\
+    \ nitric acid followed by a few\ndrops of aqueous silver nitrate.\nobservations\
+    \   [1]\n\n(d) To the fourth portion of solution J, the student adds 1 cm3 of\
+    \ aqueous chlorine.\nobservations   [1]\n,\t,\n\nTests on solid K\n\nTable 3.1\
+    \ shows the tests and the student’s observations for solid K.\nTable 3.1\ntests\n\
+    observations\ntest 1\nCarry out a flame test on solid K.\nlilac coloured flame\n\
+    test 2\nThe remaining solid K is dissolved in water to\nform solution K. Solution\
+    \ K is divided into two\nportions.\nTo the first portion of solution K in a boiling\
+    \ tube,\nadd 1 cm3 aqueous sodium hydroxide. Warm the\nproduct and hold damp red\
+    \ litmus paper at the\nmouth of the boiling tube.\nthe damp red litmus paper remains\
+    \ red\ntest 3\nTo the second portion of solution K in a boiling\ntube, add about\
+    \ 1 cm3 of aqueous sodium\nhydroxide and a piece of aluminium foil. Warm\nthe\
+    \ mixture and test any gas given off.\neffervescence is seen\ndamp red litmus\
+    \ paper turns blue\n\n(e) State the conclusion about solid K that can be made\
+    \ from the observations in test 2 [1]\n\n(f) Identify the gas given off in test\
+    \ 3 [1]\n\n(g) Identify solid K [2]\n\n[Total: 9]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 3a

@@ -2,7 +2,8 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nB\nA\n\n(a) Measure the length of line AB in centimetres cm [1]\n\n(b)\
+    \ Draw a line that is perpendicular to the line AB.\n[1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +21,9 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nFind the value of\n\n(a) (i)\n.1 96\n\n  [1]\n\n(ii) 173\n\n  [1]\n\n\
+    (iii)\n.\n.\n0 8\n1 2\n#\n-\n-\n  [1]\n\n(b) Write these numbers in order, starting\
+    \ with the smallest.\n19\n11   58%\n47\n27   0.574\n\n 1  1  1  [2]\n\nsmallest"
   answer_options: []
   subquestions:
   - number: 5a
@@ -56,7 +59,8 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n17  4  25  18  14  6  3  18  12\n\nFind\n\n(a) the mode\n\n  [1]\n\n(b)\
+    \ the range [1]"
   answer_options: []
   subquestions:
   - number: 6a
@@ -74,7 +78,11 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nA bag contains 6 red balls, 4 green balls and 2 blue balls.\n\nZia takes\
+    \ a ball from the bag at random.\n\nThe diagram shows a probability scale.\nA\n\
+    B\nC\nD\nE\nF\nG\n0\n1\n\nWhich arrow shows the probability that,\n\n(a) Zia takes\
+    \ a green ball\n\n  [1]\n\n(b) Zia takes a yellow ball\n\n  [1]\n\n(c) Zia does\
+    \ not take a blue ball [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -98,7 +106,9 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nSolve.\n\n(a)\nx\n8\n32\n=\n\nx =   [1]\n\n(b)\nx\n6\n3\n12\n-\n=\n\n\
+    x =   [2]\n\n(c) Represent the inequality\nx\n4\n2\n1\nG\n-\n   on the number\
+    \ line.\n– 5\n– 4\n– 3\n– 2\n– 1\n0\n1\n2\n3\n4\nx\n\n[2]"
   answer_options: []
   subquestions:
   - number: 8a
@@ -122,7 +132,11 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\n(a)\n\nWrite down the mathematical name for this type of angle [1]\n\n\
+    (b) ABC is a triangle.\n102°\n54°\nx°\nNOT TO\nSCALE\nB\nA\nC\n\nLily says x is\
+    \ 34.\n\nGive a geometrical reason why Lily is not correct [1]\n\n(c)\n126°\n\
+    48°\n75°\nx°\nNOT TO\nSCALE\nB\nA\nC\nE\nD\n\nABCD is a quadrilateral.\n\nDCE\
+    \ is a straight line.\n\nCalculate the value of x.\n\nx =   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -164,7 +178,11 @@ questions:
 - number: '12'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "12 300 students choose where to go on a trip.\n\nThe students choose either\
+    \ a zoo, a museum, an art gallery or a sports stadium.\nMuseum\nZoo\n\n(a) Show\
+    \ that 75 students choose the museum.\n\n[1]\n\n(b) 45 students choose the art\
+    \ gallery and 120 students choose the sports stadium.\n\nComplete the pie chart\
+    \ to show this information.\n[2]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 12a
@@ -182,7 +200,89 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '13 (a) The surface area of a solid cube is
+
+    .
+
+    .
+
+    cm
+
+    121 5
+
+    2
+
+
+    Calculate the length of the side of the cube cm [3]
+
+
+    (b)
+
+    10 cm
+
+    15 cm
+
+    NOT TO
+
+    SCALE
+
+    h
+
+
+    The area of the trapezium is
+
+    .
+
+    cm
+
+    106 25
+
+    2.
+
+
+    (i) Calculate the height of the trapezium cm [2]
+
+
+    (ii) Convert
+
+    .
+
+    cm
+
+    106 25
+
+    2 into m2 m2 [1]
+
+    14 A bag contains red, yellow, blue and green cards.
+
+
+    The table shows the probability of taking a red card and a yellow card.
+
+
+    The probability of taking a blue card or a green card is in the ratio    blue
+    : green = 5 : 2 .
+
+
+    Complete the table.
+
+    Colour
+
+    red
+
+    yellow
+
+    blue
+
+    green
+
+    Probability
+
+    0.53
+
+    0.19
+
+
+    [3]'
   answer_options: []
   subquestions:
   - number: 13a
@@ -212,7 +312,11 @@ questions:
 - number: '15'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "15 Shapes A and B are shown on the grid.\n– 5\n– 4\n– 3\n– 2\n– 1\n1\n0\n\
+    2\n3\n4\n5\ny\nx\nA\nB\n5\n4\n3\n2\n1\n– 1\n– 2\n– 3\n– 4\n– 5\n– 6\n\n(a) Describe\
+    \ fully the single transformation that maps shape A onto shape B [3]\n\n(b) On\
+    \ the grid, draw the image of shape A after a translation by the vector  6\n7\n\
+    e o.\n[2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 15a
@@ -230,7 +334,11 @@ questions:
 - number: '16'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "16 Bob travels from town A to town B.\n\nThe travel graph shows his journey.\n\
+    0\n08 00\n09 00\n10 00\n11 00\n12 00\nTime\n13 00\n14 00\n15 00\n100\n200\n300\n\
+    400\nDistance\nfrom\ntown A\n(km)\n500\n600\n\n(a) Between which two times did\
+    \ Bob stop for a rest?\n\nExplain how you know and  because   [2]\n\n(b) Calculate\
+    \ Bob’s average speed, in km/h, for the whole journey km/h [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 16a
@@ -266,7 +374,11 @@ questions:
 - number: '20'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "20 (a) Work out the size of one interior angle of a regular 8-sided polygon\
+    \ [2]\n\n(b)\nA\nC\nB\nD\nE\nO\nx°\n71°\nNOT TO\nSCALE\n\nA, B and C lie on the\
+    \ circumference of the circle, centre O.\n\nAB is a diameter.\n\nDBE is a tangent\
+    \ to the circle at B.\n\nFind the value of x.\n\nGive a geometrical reason for\
+    \ your answer because   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 20a
@@ -284,7 +396,13 @@ questions:
 - number: '22'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "22 (a) A train to town P leaves a station every 20 minutes.\n\nA train to\
+    \ town Q leaves the same station every 35 minutes.\n\nBoth trains leave at 09\
+    \ 30.\n\nFind the next time both trains leave together [3]\n\n(b) The distance,\
+    \ d  km, between town P and town Q is 97 km, correct to the nearest kilometre.\n\
+    \nComplete the statement about the value of d d 1\nG\n  [2]\n23 Calculate  .\n\
+    .\n1 84\n10\n4 6\n10\n5\n3\n#\n#\n .\n\nGive your answer in standard form [2]\n\
+    Question 24 is printed on the next page\n,\t,"
   answer_options: []
   subquestions:
   - number: 22a

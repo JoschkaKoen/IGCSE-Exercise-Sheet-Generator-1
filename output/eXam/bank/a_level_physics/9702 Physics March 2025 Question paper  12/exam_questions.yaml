@@ -48,7 +48,31 @@ questions:
 - number: '4'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: '4
+
+    An aircraft, initially stationary on a runway, takes off with a speed of 85 km
+    h–1 in a distance of no
+
+    more than 1.20 km.
+
+
+    What is the minimum constant acceleration necessary for the aircraft?
+
+    A
+
+    0.23 m s–2
+
+    B
+
+    0.46 m s–2
+
+    C
+
+    3.0 m s–2
+
+    D
+
+    6.0 m s–2'
   answer_options:
   - letter: A
     text: A

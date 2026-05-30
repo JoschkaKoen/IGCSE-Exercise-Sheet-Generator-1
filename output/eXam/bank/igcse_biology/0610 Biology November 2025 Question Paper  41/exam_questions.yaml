@@ -2,7 +2,27 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Fig. 1.1 shows drawings of seven species of bacteria.\nA\nB\nC\nD\n\
+    E\nF\nG\n\nnot to scale\nFig. 1.1\n,\t,\n\nUse the key to identify each species\
+    \ of bacteria in Fig. 1.1.\n\nWrite the letter of each species (A to G) in the\
+    \ correct box beside the key.\n\nOne has been done for you.\nkey\n1\n(a)\nhair‑like\
+    \ structure or structures visible\ngo to 2\n(b)\nno hair‑like structures visible\n\
+    go to 4\n2\n(a)\nmore than one hair‑like structure\ngo to 3\n(b)\none hair‑like\
+    \ structure only\nVibrio cholerae\n3\n(a)\nhair‑like structures attached at one\
+    \ end only\nHelicobacter pylori\n(b)\nhair‑like structures attached all over\n\
+    Salmonella typhi\n4\n(a)\nbacteria have a spiral shape\nTreponema pallidum\n(b)\n\
+    bacteria do not have a spiral shape\ngo to 5\n5\n(a)\nbacteria are grouped to\
+    \ form a chain\ngo to 6\n(b)\nbacteria do not form a chain\nStaphylococcus aureus\n\
+    6\n(a)\nbacteria in the chain are cylindrical in shape\nStreptobacillus moniliformis\n\
+    (b)\nbacteria in the chain are circular in shape\nStreptococcus pyogenes\nF\n\n\
+    [3]\n\n(b) (i) A cylinder‑shaped bacterium has a length of 2 μm and a diameter\
+    \ of 0.5 μm.\n\n Calculate:\n•\nthe radius of this bacterium\n•\nthe volume of\
+    \ this bacterium.\n\n Include the units in your answers.\n\n Space for working.\n\
+    \n radius  volume  [4]\n\n(ii) State the name of the kingdom that bacteria belong\
+    \ to [1]\n,\t,\n\n(c) Fig. 1.2 is a diagram of a virus.\nJ\nK\nFig. 1.2\n\n(i)\
+    \ State the name of the parts labelled J and K in Fig. 1.2.\nJ   K   [2]\n\n(ii)\
+    \ State two structures present in bacteria that are absent in viruses.\n1   2\
+    \   [2]\n\n[Total:12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +70,24 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Fig. 2.1 is a diagram of part of the human circulatory system.\n\n\
+    The arrows show the direction of blood flow.\nheart\nlungs\nliver\nintestines\n\
+    kidneys\nB\nA\nX\nD\nC\nFig. 2.1\n\n(i) Complete Table 2.1 by naming the blood\
+    \ vessels in Fig. 2.1 and stating whether the\nblood in each vessel is oxygenated.\n\
+    \nTable 2.1\nletter in Fig. 2.1\nname of the blood vessel\ncarries oxygenated\
+    \ blood\n(yes / no)\nA\nB\nC\nD\n\n[4]\n\n(ii) State the name of structure X in\
+    \ Fig. 2.1 and outline its function.\nname   function   [2]\n,\t,\n\n(b) Fig.\
+    \ 2.2 is a diagram of part of a fish circulatory system.\n\nThe arrows show the\
+    \ direction of blood flow.\ngills\nbody\nheart\nFig. 2.2\n\n(i) Describe how the\
+    \ structure of the fish heart in Fig. 2.2 differs from a human heart [2]\n\n(ii)\
+    \ Explain the advantages of the type of circulatory system found in humans, compared\n\
+    with the circulatory system shown in Fig. 2.2 [4]\n,\t,\n\n(c) Fig. 2.3 is a photomicrograph\
+    \ of an arteriole.\nP\nmagnification ×1430\nFig. 2.3\n\n(i) Identify the structure\
+    \ labelled P in Fig. 2.3 [1]\n\n(ii) The magnification of the image is provided.\
+    \ Write the formula that would be used to\ncalculate the actual diameter of the\
+    \ lumen of the arteriole in Fig. 2.3 [1]\n\n(iii) The actual diameter of the lumen\
+    \ of the arteriole shown in Fig. 2.3 is 0.0315 mm.\n\n Convert 0.0315 mm to micrometres\
+    \ (μm) μm [1]\n\n[Total:15]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -116,7 +153,22 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nFig. 3.1 is a diagram of the nitrogen cycle.\nproteins in plants and animals\n\
+    nitrogen in the atmosphere\nplant and animal waste\namino acids\nin plants\nand\
+    \ animals\ncompound Y\ndecomposition\nnitrogen\nfixation\nA\nassimilation\nB\n\
+    nitrate ions in soil\nFig. 3.1\n\n(a) (i) State the names of processes A and B\
+    \ in Fig. 3.1.\nA   B   [2]\n\n(ii) State two ways that nitrogen fixation can\
+    \ occur.\n1   2   [2]\n\n(iii) State the name of compound Y in Fig. 3.1 [1]\n\n\
+    (iv) State the name of an organ in animals, where assimilation and deamination\
+    \ of amino\nacids occurs [1]\n,\t,\n\n(v) Describe the process of deamination\
+    \ [2]\n\n(b) Complete the sentences about pollution of the air by writing the\
+    \ appropriate words or phrases\nin the spaces provided.\n\nMethane is a pollutant\
+    \ gas that contributes to the enhanced  and climate change. Methane is released\
+    \ into the atmosphere from cattle and from the\n\nfarming of  crops is a gas that\
+    \ is absorbed by trees in the process\n\nof  This gas is released into the atmosphere\
+    \ by the\n\n of fossil fuels, where it also contributes to climate change.\n\n\
+    [5]\n,\t,\n\n(c) Explain the process of eutrophication in aquatic ecosystems [6]\n\
+    \n[Total:19]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -170,7 +222,22 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nFig. 4.1 is a photograph of a bee on a flower. One of the bee’s legs is\
+    \ covered with pollen.\npollen\nFig. 4.1\n\n(a) (i) State three features of flowers\
+    \ that attract pollinating insects such as bees.\n1   2   3   [3]\n\n(ii) State\
+    \ one way that pollen grains are adapted for pollination by bees [1]\n\n(b) Describe\
+    \ two ways the structure of a monocotyledonous plant differs from the structure\
+    \ of a\ndicotyledonous plant.\n1   2   [2]\n,\t,\n\n(c) Fig. 4.2 is a diagram\
+    \ of a cross‑section of an insect‑pollinated flower.\nFig. 4.2\n\nOn Fig. 4.2,\
+    \ name and draw label lines to:\n•\nthe structure that supports an anther\n•\n\
+    a structure that protects the flower bud\n•\nan ovule.\n\n[3]\n\n(d) Describe\
+    \ sexual reproduction in a flower, from the release of pollen to the formation\
+    \ of\na zygote [5]\n,\t,\n\n(e) Sexual reproduction also occurs in humans.\n\n\
+    (i) State the name of the male gamete in a human [1]\n\n(ii) State where gametes\
+    \ are formed in the human male reproductive system [1]\n\n(iii) Human male gametes\
+    \ are haploid.\n\n State the name of the process that produces haploid male gametes\
+    \ [1]\n\n(iv) Describe the function of the prostate gland in the male reproductive\
+    \ system [1]\n\n[Total: 18]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -242,7 +309,29 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA student investigated the effect of humidity on water vapour loss in\
+    \ plant leaves. As water vapour\nwas lost, the mass of the leaves decreased.\n\
+    \nSimilar‑sized leaves were collected from one species of plant.\n\nThe leaves\
+    \ were divided into two groups, A and B. The leaves in group A were placed in\
+    \ a low\nhumidity environment and the leaves in group B were placed in a high\
+    \ humidity environment. The\nleaves in each group were kept in their environment\
+    \ for 12 hours.\n\nThe temperature in each environment was maintained at 20 °C.\n\
+    \nThe mass of the leaves in each group was measured at the start of the investigation\
+    \ and then\nevery hour throughout the 12‑hour period.\n\nThe student calculated\
+    \ the mass of water vapour lost as a percentage of the starting mass of the\n\
+    leaves for each group.\n\nFig. 5.1 shows the student’s results.\n0\n0\n5\n10\n\
+    15\n20\n25\n30\n35\n1\n2\n3\n4\n5\n6\ntime / hours\nmass of water\nvapour lost\
+    \ from\nthe leaves as a\npercentage of\nthe starting\nmass\n7\n8\n9\n10\n11\n\
+    12\nA\nkey\nB\nlow humidity environment\nhigh humidity environment\nFig. 5.1\n\
+    \n(a) (i) State the name of the process by which water vapour is lost from plant\
+    \ leaves [1]\n,\t,\n\n(ii) Compare and explain the effects of high and low humidity\
+    \ shown in Fig. 5.1 [5]\n\n(iii) The students repeated the investigation at a\
+    \ temperature of 35 °C.\n\n The leaves were kept in a low humidity environment.\n\
+    \n Draw a line on the graph in Fig. 5.1 to predict the results of this investigation.\n\
+    [1]\n,\t,\n\n(b) Humans also lose water vapour from their bodies by sweating.\n\
+    \n(i) Explain how sweating helps a person to maintain a constant internal body\
+    \ temperature [3]\n\n(ii) State one other way that humans lose water vapour from\
+    \ their bodies [1]\n\n[Total:11]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -290,7 +379,42 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    Fig. 6.1 is a diagram of a cell that shows how DNA is involved in protein synthesis.
+
+    DNA
+
+    mRNA
+
+    mRNA
+
+    ribosome
+
+    growing protein chain
+
+    free amino acids
+
+    Fig. 6.1
+
+
+    (a) State the name of the part of the cell that contains DNA [1]
+
+
+    (b) DNA controls cell function by controlling the production of proteins.
+
+
+    State the name of one type of protein [1]
+
+
+    (c) Using Fig. 6.1, explain how mRNA is involved in protein synthesis [3]
+
+
+    [Total: 5]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions:
   - number: 6a

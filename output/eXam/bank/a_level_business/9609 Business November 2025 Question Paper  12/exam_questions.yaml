@@ -2,7 +2,16 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    (a) Define the term triple bottom line.
+
+    [2]
+
+
+    (b) Explain one advantage to a business of being a social enterprise.
+
+    [3]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +29,16 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    (a) Define the term on-the-job training.
+
+    [2]
+
+
+    (b) Explain one advantage to a business of induction training.
+
+    [3]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -38,7 +56,16 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    (a) Define the term break-even analysis.
+
+    [2]
+
+
+    (b) Explain one limitation for a business of break-even analysis.
+
+    [3]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -56,13 +83,42 @@ questions:
 - number: '4'
   question_type: calculation
   marks: 5
-  text: ''
+  text: '4
+
+    Analyse one reason why a business might hold low levels of inventory.
+
+    [5]
+
+    Section B
+
+    Answer one question only.
+
+    EITHER'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    (a) Analyse two benefits to a business of using an internal source of finance
+    for business growth.
+
+
+    [8]
+
+
+    (b) ‘The main reason why many small businesses fail is that they do not understand
+    the difference
+
+    between cash and profit.’
+
+
+    Evaluate this view.
+
+    [12]
+
+    OR'
   answer_options: []
   subquestions:
   - number: 5a
@@ -80,7 +136,19 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    (a) Analyse two benefits to a business of product portfolio analysis.
+
+    [8]
+
+
+    (b) Evaluate whether branding is the most important factor in the successful promotion
+    of a new
+
+    health drink.
+
+    [12]'
   answer_options: []
   subquestions:
   - number: 6a

@@ -2,7 +2,27 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nIn this experiment, you will investigate a light-dependent resistor (LDR).\n\
+    \n(a) •\nConnect the circuit shown in Fig. 1.1.\nS\ntape\nLDR leads\nLDR (inside\
+    \ tube)\ncardboard\ntube\n1.5 V\nA\nFig. 1.1\n•\nEnsure that the switch S is open.\n\
+    •\nSlide the LDR leads into the tube until the front of the LDR is just level\
+    \ with the open end\nof the tube, as shown in Fig. 1.1.\n•\nWith the LDR in this\
+    \ position, attach a piece of adhesive tape to the leads as a marker at\nthe other\
+    \ end of the tube, as shown in Fig. 1.1.\n•\nSlide the tube until the LDR is approximately\
+    \ half-way along it, as shown in Fig. 1.2.\nx\ntape\nFig. 1.2\n•\nThe distance\
+    \ between the tape and the tube is x.\n\n Measure and record x.\n\nx =   •\nClose\
+    \ S and record the ammeter reading I.\n\nI =   •\nOpen S.\n\n[2]\n,\t,\n\n(b)\
+    \ Change x by moving the LDR to a new position inside the tube, with x in the\
+    \ range 4 cm to\n18 cm. Record x and I.\n\nRepeat until you have six sets of values\
+    \ of x and I.\n\nRecord your results in a table. Include values of I   in your\
+    \ table.\n\n[10]\n\n(c) (i) Plot a graph of I   on the y-axis against x on the\
+    \ x-axis.\n[3]\n\n(ii) Draw the straight line of best fit.\n[1]\n\n(iii) Determine\
+    \ the gradient and y-intercept of this line.\n\ngradient =   y-intercept =   [2]\n\
+    ,\t,\n,\t,\n\n(d) It is suggested that the quantities I and x are related by the\
+    \ equation\nI   = ax + b\n\nwhere a and b are constants.\n\nUsing your answers\
+    \ in (c)(iii), determine the values of a and b.\n\nGive appropriate units.\n\n\
+    a =   b =   [2]\n\n[Total: 20]\n,\t,\nYou may not need to use all of the materials\
+    \ provided.\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +70,36 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nIn this experiment, you will investigate the elastic properties of rubber\
+    \ cord.\n\n(a) (i) You are provided with a wire with a clip and two slotted masses\
+    \ attached, as shown in\nFig. 2.1.\nB\nmass\nmass\nwire\nclip\nFig. 2.1\n\n The\
+    \ distance between the centres of the two slotted masses is B, as shown in Fig.\
+    \ 2.1.\n\n Measure and record B.\n\nB =   [1]\n\n(ii) Estimate the percentage\
+    \ uncertainty in your value of B. Show your working.\n\npercentage uncertainty\
+    \ =   % [1]\n\n(b) (i) •\nYou are provided with two lengths of rubber cord. Select\
+    \ the longer cord.\n•\nThe diameter of the cord is d.\n\nMeasure and record d.\n\
+    \nd =   [1]\n\n(ii) •\n Suspend the clip, wire and masses using the longer cord\
+    \ secured in the two clips,\nas shown in Fig. 2.2.\nwire with masses\nattached\n\
+    lower clip\nrubber cord\nupper clip\nstand\nboss\nL\njaws of clamp\nbench\nFig.\
+    \ 2.2 (not to scale)\n•\nThe length of cord between the two clips is L, as shown\
+    \ in Fig. 2.2.\n\nMeasure and record L.\n\nL =   [1]\n,\t\t,\n\n(iii) •\n Keeping\
+    \ the cord vertical, rotate the lower clip through approximately 180° and\nrelease\
+    \ the clip. The clip will rotate with a small number of oscillations.\n•\nTake\
+    \ measurements to determine the period T of these oscillations.\n\nT =   s [2]\n\
+    \n(c) Using the shorter length of rubber cord, repeat (b).\n\nd =   L =   T =\
+    \   s\n\n[3]\n,\n,\n\n(d) It is suggested that the relationship between T, B,\
+    \ L and d is\nT 2 = B2L\nkd 4\n\nwhere k is a constant.\n\n(i) Using your data,\
+    \ calculate two values of k.\n\nfirst value of k =   second value of k =   [1]\n\
+    \n(ii) Justify the number of significant figures that you have given for your\
+    \ values of k [1]\n\n(e) It is suggested that the percentage uncertainty in the\
+    \ values of k is 20%.\n\nUsing this uncertainty, explain whether your results\
+    \ support the relationship in (d) [1]\n,\t,\n\n(f)\n(i) Describe four sources\
+    \ of uncertainty or limitations of the procedure for this experiment.\n\n For\
+    \ any uncertainties in measurement that you describe, you should state the quantity\n\
+    being measured and a reason for the uncertainty.\n1   2   3   4   [4]\n\n(ii)\
+    \ Describe four improvements that could be made to this experiment. You may suggest\n\
+    the use of other apparatus or different procedures.\n1   2   3   4   [4]\n\n[Total:\
+    \ 20]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a

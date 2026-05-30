@@ -2,7 +2,14 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA train travels with a constant velocity of 56 m / s on a horizontal track.\
+    \ The mass of the train\nis 440 000 kg.\n\n(a) State the difference between the\
+    \ velocity of the train and its speed [1]\n\n(b) Calculate the kinetic energy\
+    \ stored in the moving train.\n\nkinetic energy =   [2]\n\n(c) (i) The train has\
+    \ a uniform deceleration of 1.2 m / s2.\n\n Calculate the constant braking force\
+    \ which brings the train to rest.\n\nforce =   [2]\n\n(ii) Calculate the distance\
+    \ travelled by the train as it comes to rest.\n\ndistance =   [3]\n\n[Total: 8]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +45,20 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nTable 2.1 contains information about the planet Mars.\nTable 2.1\nmass\n\
+    6.4 × 1023 kg\ngravitational field strength\nat surface\n3.7 N / kg\naverage density\n\
+    3900 kg / m3\n\n(a) Define gravitational field strength [1]\n\n(b) (i) An object\
+    \ has a weight of 42 N at the surface of the Earth.\n\n Calculate the weight of\
+    \ the object at the surface of Mars.\n\nweight =   [2]\n\n(ii) Calculate the volume\
+    \ of Mars.\n\nvolume =   [2]\n,\t,\n\n(c) Fig. 2.1 shows a space buggy that is\
+    \ tested on Earth. The buggy is travelling at a constant\nspeed in a straight\
+    \ line. The driving force on the buggy is 30 N.\n30N\nFig. 2.1\n\n(i) Draw and\
+    \ label one arrow on Fig. 2.1 to show the size and direction of the resistive\n\
+    forces on the buggy.\n[2]\n\n(ii) Air resistance on Mars is less than air resistance\
+    \ on Earth.\n\n The same driving force, 30 N, is exerted on the buggy on Mars.\n\
+    \n 1. State the effect this has on the resultant force on the buggy on Mars 2.\
+    \ State the relationship between resistive forces, driving force and resultant\
+    \ force [1]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -86,7 +106,18 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nFig. 3.1 shows a simplified diagram of a solar cell.\nconducting material\n\
+    in solar cell\nlight\nblack coating\npositive contact\nnegative contact\nV\nFig.\
+    \ 3.1\n\n(a) Describe the energy transfer in the solar cell [2]\n\n(b) Suggest\
+    \ how the black coating allows the solar cell to transfer more energy [1]\n\n\
+    (c) 0.72 kW of light is incident on the solar cell in Fig. 3.1. The cell has an\
+    \ efficiency of 75%.\n\n(i) Calculate the output power of the cell.\n\noutput\
+    \ power =   [2]\n\n(ii) State the meaning of the term kilowatt-hour (kWh) [1]\n\
+    ,\t,\n\n(iii) Energy is produced by each solar cell for an average of 6 hours\
+    \ per day. A household\nuses approximately 7400 kWh of electrical energy per year.\n\
+    \n Calculate the number of solar cells needed to produce energy for one household.\
+    \ Give\nyour answer as a whole number of solar cells.\n\nnumber of solar cells\
+    \ =   [3]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -128,7 +159,17 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) A 12 V, 50 W immersion heater is used to heat 0.15 kg of water in\
+    \ a beaker. The water is\ninitially at a room temperature of 20 °C. The specific\
+    \ heat capacity of water is 4200 J / (kg °C).\n\nCalculate the energy supplied\
+    \ to raise the temperature of the water from 20 °C to 58 °C.\n\nenergy =   [3]\n\
+    \n(b) The immersion heater is removed from the beaker.\n\nOne metal rod and one\
+    \ plastic rod are placed in the beaker of hot water as shown in Fig. 4.1.\nThe\
+    \ rods are at room temperature (20 °C) before they are placed into the beaker.\n\
+    X\nX\nmetal rod\nbeaker\nplastic rod\npoint X is\n2 cm from\nthe end of\nthe rod\n\
+    hot water\nFig. 4.1\n\nDescribe how the temperature of point X on each rod changes\
+    \ after the rods are placed in the\nbeaker. Explain your answer [4]\n\n[Total:\
+    \ 7]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -146,7 +187,18 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA dolphin communicates with other dolphins underwater by emitting sounds\
+    \ in the range 7–15 kHz.\n\n(a) State the value of the speed of sound in air and\
+    \ state how the speed of sound in water differs\nfrom the speed of sound in air.\n\
+    \nspeed of sound in air   m / s\n\nspeed of sound in water   [1]\n\n(b) State\
+    \ and explain if humans with normal hearing can hear all the sounds emitted by\n\
+    the dolphin.\nstatement   explanation   [2]\n\n(c) Complete Table 5.1 to describe\
+    \ differences in loudness and pitch of two different\ndolphin sounds.\nTable 5.1\n\
+    Frequency\n/ kHz\namplitude\nloudness\npitch\n14\nlarge\n  8\nsmall\n\n[2]\n\n\
+    (d) Complete the sentences to describe how sound is transmitted through water.\n\
+    \nSound waves are made of vibrating  which produce\n\ncompressions and rarefactions.\
+    \ A compression is a region of  and a rarefaction is a region of  The sound waves\
+    \ travel\n\n to the direction of the vibrations.\n\n[3]\n\n[Total: 8]\n,\n,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -176,7 +228,14 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nFig. 6.1 shows part of an optical fibre used in high-speed broadband communication.\n\
+    ray of light\noptical fibre\nFig. 6.1\n\n(a) State two advantages of using optical\
+    \ fibres in high-speed data transmission compared to\nelectrical signals sent\
+    \ on copper wires [2]\n\n(b) (i) The optical fibre is made of glass with a refractive\
+    \ index of 1.4.\n\n Calculate the critical angle c.\n\nc =   [3]\n\n(ii) State\
+    \ the meaning of critical angle [1]\n\n(iii) On Fig. 6.1, label the angle of incidence\
+    \ of the ray of light as it hits the wall of the glass\nfibre. Draw the continuation\
+    \ of the ray until it leaves the glass fibre.\n[2]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -212,7 +271,13 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nFig. 7.1 shows a circuit containing a 6.0 V battery of cells and three\
+    \ identical resistors.\nA\nR1\n6.0 V\nR3\nR2\nS1\nS2\nFig. 7.1\n\n(a) S1 is closed\
+    \ and S2 is open. The current in the ammeter is 0.080 A.\n\nCalculate the resistance\
+    \ of R1.\n\nresistance =   [2]\n\n(b) S1 and S2 are both closed.\n\n(i) Determine\
+    \ the reading on the ammeter. Show your working.\n\nammeter reading =   [3]\n\n\
+    (ii) Explain in terms of work done and potential difference why there is a larger\
+    \ heating effect\nin R3 than in R1 [2]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -242,7 +307,18 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nFig. 8.1 shows a solenoid.\nFig. 8.1\n\n(a) (i) Draw on Fig. 8.1 four\
+    \ complete magnetic field lines that show the pattern and direction\nof the magnetic\
+    \ field inside and outside the solenoid.\n[4]\n\n(ii) Mark a point inside the\
+    \ box in Fig. 8.1 where the magnetic field is strong. Label this\npoint B.\n\n\
+    \ Explain how the diagram shows that the magnetic field is strong at B.\nexplanation\
+    \   [1]\n,\t,\n\n(b) Fig. 8.2 shows a solenoid in an electric circuit for a bell.\n\
+    solenoid\nsoft iron arm\ncontacts\nspringy metal\nbell\nstriker\nFig. 8.2\n\n\
+    (i) Complete the circuit in Fig. 8.2 with the symbol for a direct current (d.c.)\
+    \ power supply.\n\n[1]\n\n(ii) Explain why the soft iron arm pivots, making the\
+    \ striker hit the bell when the switch\nis closed [2]\n\n(iii) Explain why the\
+    \ arm pivots back to its original position after the striker hits the bell [2]\n\
+    \n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -290,7 +366,13 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\n(a) Describe the structure of an atom of helium-4, 2\n4He [3]\n\n(b) The\
+    \ Sun is a medium-sized star powered by nuclear fusion reactions which release\
+    \ energy.\n\n(i) State what happens during nuclear fusion reactions which form\
+    \ helium [2]\n\n(ii) State two regions of the electromagnetic spectrum by which\
+    \ the Sun radiates most of\nits energy [2]\n\n(c) Describe what happens to a star\
+    \ when most of the fuel in its centre has been converted\nto helium [2]\n\n[Total:\
+    \ 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -326,7 +408,14 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 Fig. 10.1 shows the orbit of the Earth and the orbit of a comet around\
+    \ the Sun.\nA\nB\nSun\nFig. 10.1\n\n(a) State which orbit, A or B, is the orbit\
+    \ of the comet.\n\nExplain your answer.\n\norbit of comet is  explanation   [1]\n\
+    \n(b) Describe and explain how the motion of the comet changes as it orbits the\
+    \ Sun [2]\n\n(c) At one position in its orbit, the comet is 6.6 × 10–6 light-years\
+    \ away from the Earth.\n\n(i) State the meaning of light-year [1]\n\n(ii) Determine\
+    \ the distance in metres between the comet and the Earth.\n\ndistance =   m [2]\n\
+    \n[Total: 6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a

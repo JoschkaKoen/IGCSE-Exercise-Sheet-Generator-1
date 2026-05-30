@@ -2,7 +2,34 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates the cooling of a liquid in a beaker.\n\nThe temperature\
+    \ θR of the laboratory is measured using a thermometer.\n\nHot water is added\
+    \ to an insulated beaker, as shown in Fig. 2.1.\nstand\nthermometer\nbeaker\n\
+    bench\ninsulation\nheat-proof mat\nwater\nFig. 2.1\n\nThe thermometer measures\
+    \ the temperature of the water. At time t the temperature of the water\nis θ.\n\
+    \nA series of readings of t and θ are taken.\n\nIt is suggested that θ and t are\
+    \ related by the equation\nθ = θR + (θ0 – θR) e–( t\nK)\n\nwhere θ0 is the temperature\
+    \ at t = 0 and K is a constant.\n\n(a) A graph is plotted of ln (θ – θR) on the\
+    \ y‑axis against t on the x‑axis.\n\nDetermine expressions for the gradient and\
+    \ y‑intercept.\n\ngradient =   y‑intercept =   [1]\n,\t,\n`\n(b) Values of t and\
+    \ θ are given in Table 2.1.\nTable 2.1\nt / min\nθ / °C\n(θ – θR) / °C\nln ((θ\
+    \ – θR) / °C)\n 6.0\n75.0 ± 0.5\n12.0\n64.5 ± 0.5\n18.0\n57.0 ± 0.5\n24.0\n50.0\
+    \ ± 0.5\n30.0\n44.5 ± 0.5\n36.0\n41.0 ± 0.5\n\nThe value of θR is (18.5 ± 0.5)\
+    \ °C.\n\nCalculate and record values of (θ – θR) / °C and ln ((θ – θR) / °C) in\
+    \ Table 2.1.\n\nInclude the absolute uncertainties in (θ – θR) and ln ((θ – θR)\
+    \ / °C).\n[2]\n\n(c) (i) Plot a graph of ln ((θ – θR) / °C) against t / min. Include\
+    \ error bars for ln ((θ – θR) / °C).\n[2]\n\n(ii) Draw the straight line of best\
+    \ fit and a worst acceptable straight line on your graph. Label\nboth lines.\n\
+    [2]\n\n(iii) Determine the gradient of the line of best fit. Include the absolute\
+    \ uncertainty in\nyour answer.\n\ngradient =   [2]\n,\t,\nln ((  –  R) / °C)\n\
+    θ θ\n4.1\n4.0\n3.9\n3.8\n3.7\n3.6\n3.5\n3.4\n3.3\n3.2\n3.1\n3.0\n5.0\n10.0\n15.0\n\
+    20.0\n25.0\n30.0\n35.0\n40.0\nt / min\n,\t,\n\n(iv) Determine the y‑intercept\
+    \ of the line of best fit. Include the absolute uncertainty in\nyour answer.\n\
+    \ny‑intercept =   [2]\n\n(d) (i) Using your answers to (a), (c)(iii) and (c)(iv),\
+    \ determine the values of K and θ0. Include\nappropriate units.\n\nK =   θ0 =\
+    \   [2]\n\n(ii) Determine the absolute uncertainty in your value of θ0.\n\nabsolute\
+    \ uncertainty =   [1]\n\n(e) Determine the time t for the temperature to reach\
+    \ 25.0 °C.\n\nt =   min [1]\n[Total: 15]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -74,6 +101,21 @@ questions:
 - number: '1'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "1\nFig. 1.1 shows two identical cylindrical metal conductors P and Q, each\
+    \ of length L and\ncross‑sectional area A.\nL\nX\nQ\nP\nq\np\nFig. 1.1\n\nThe\
+    \ conductors are placed parallel to each other. The perpendicular distance from\
+    \ the midpoint of\nP to point X is p. The perpendicular distance from the midpoint\
+    \ of Q to point X is q.\n\nThe two conductors are electrically connected in parallel.\
+    \ This parallel combination is connected\nin series to a power supply and a resistor.\
+    \ The potential difference V between the ends of P is the\nsame as the potential\
+    \ difference between the ends of Q.\n\nThe magnetic flux density at X due to the\
+    \ currents in the conductors is B.\n\nIt is suggested that B is related to p by\
+    \ the relationship\nB = YAV\nLp  + YZAV\nLq\n\nwhere Y and Z are constants.\n\n\
+    Plan a laboratory experiment to test the relationship between B and p.\n\nDraw\
+    \ a diagram showing the arrangement of your equipment.\n\nExplain how the results\
+    \ could be used to determine values for Y and Z.\n\nIn your plan you should include:\n\
+    •\nthe procedure to be followed\n•\nthe measurements to be taken\n•\nthe control\
+    \ of variables\n•\nthe analysis of the data\n•\nany safety precautions to be taken.\n\
+    ,\t,\n\nDiagram\n  ,\t,\n  [15]\n,\t,"
   answer_options: []
   subquestions: []

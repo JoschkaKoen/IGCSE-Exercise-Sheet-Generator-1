@@ -2,7 +2,27 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student prepares some crystals of pure potassium sulfate by reacting\
+    \ aqueous potassium\ncarbonate with dilute sulfuric acid. The equation for the\
+    \ reaction is shown.\nK2CO3(aq) + H2SO4(aq)\n K2SO4(aq) + H2O(l) + CO2(g)\n\n\
+    The student:\n•\nplaces 25.0 cm3 of aqueous potassium carbonate in a conical flask\n\
+    •\nadds a few drops of a suitable indicator to the conical flask\n•\nuses a burette\
+    \ to add dilute sulfuric acid to the conical flask until the end-point is reached\
+    \ and\nthe indicator changes colour.\n\nTable 1.1 shows the burette readings the\
+    \ student obtains.\nTable 1.1\nfinal burette reading / cm3\n18.8\ninitial burette\
+    \ reading / cm3\n 4.2\nvolume of dilute sulfuric acid added / cm3\n\n(a) Complete\
+    \ Table 1.1 by calculating the volume of dilute sulfuric acid added to the conical\
+    \ flask.\n\n[1]\n\n(b) State which solution, aqueous potassium carbonate or dilute\
+    \ sulfuric acid, is the least\nconcentrated. Give a reason for your answer.\n\
+    least concentrated solution   reason   [1]\n\n(c) Name a piece of apparatus suitable\
+    \ for measuring the 25.0 cm3 of aqueous potassium\ncarbonate [1]\n\n(d) Name a\
+    \ suitable indicator and give the colour change of this indicator at the end-point.\n\
+    indicator   colour change at end-point  to  [2]\n\n(e) As the student added the\
+    \ dilute sulfuric acid to the aqueous potassium carbonate they looked\nfor a colour\
+    \ change.\n\nState what the student should do as they add the dilute sulfuric\
+    \ acid to the aqueous potassium\ncarbonate in the conical flask. Do not include\
+    \ observations in your answer [1]\n,\t,\n\n(f) Describe what the student should\
+    \ now do to obtain crystals of pure potassium sulfate [3]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +64,55 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates how the rate of reaction of magnesium ribbon with\
+    \ dilute acid changes as\nthe concentration of the acid is changed. The student\
+    \ uses five solutions of the same acid, A, B,\nC, D, and E. Each solution has\
+    \ a different concentration. The acid is in excess in all experiments.\n\nThe\
+    \ student does five experiments.\n\nExperiment 1\n•\nUse a 50 cm3 measuring cylinder\
+    \ to pour 30 cm3 of acid A into a 100 cm3 conical flask.\n•\nAdd a coil of magnesium\
+    \ ribbon to the acid in the conical flask and immediately start a stop-\nwatch.\n\
+    •\nContinually swirl the mixture in the conical flask until the magnesium ribbon\
+    \ disappears\ncompletely. Immediately stop the stop-watch and record the time\
+    \ in seconds to the nearest\nsecond.\n•\nEmpty and rinse the conical flask with\
+    \ distilled water.\n\nExperiment 2\n•\nRepeat Experiment 1 using 30 cm3 of acid\
+    \ B instead of acid A.\n\nExperiment 3\n•\nRepeat Experiment 1 using 30 cm3 of\
+    \ acid C instead of acid A.\n\nExperiment 4\n•\nRepeat Experiment 1 using 30 cm3\
+    \ of acid D instead of acid A.\n\nExperiment 5\n•\nRepeat Experiment 1 using 30\
+    \ cm3 of acid E instead of acid A.\n,\t,\n\n(a) Use the stop-watch diagrams to\
+    \ complete Table 2.1\nTable 2.1\nexperiment\nacid\nconcentration of\nacid in mol\
+    \ / dm3\nstop-watch diagram\ntime for\nmagnesium to\ndisappear in s\n1\nA\n2.0\n\
+    0\n0\n10\n30\n15\n5\n15\nseconds\nminutes\n45\n2\nB\n1.5\n0\n0\n10\n30\n15\n5\n\
+    15\nseconds\nminutes\n45\n3\nC\n1.0\n0\n0\n10\n30\n15\n5\n15\nseconds\nminutes\n\
+    45\n4\nD\n0.8\n0\n0\n10\n30\n15\n5\n15\nseconds\nminutes\n45\n5\nE\n0.5\n0\n0\n\
+    10\n30\n15\n5\n15\nseconds\nminutes\n45\n\n[2]\n,\t,\n\n(b) Write a suitable scale\
+    \ on the y-axis and plot the results from Experiments 1 to 5 on Fig. 2.1.\n\n\
+    Draw a line of best fit.\n0.4\n0.6\n0.8\n1.0\n1.2\nconcentration of acid in mol\
+    \ / dm3\ntime for\nmagnesium\nto disappear\nin s\n1.4\n1.6\n1.8\n2.0\nFig. 2.1\n\
+    \n[4]\n\n(c) From your graph in Fig. 2.1, deduce the time for the magnesium to\
+    \ disappear when the\nconcentration of the acid is 1.3 mol / dm3.\n\nShow clearly\
+    \ on Fig. 2.1 how you worked out your answer.\n\ntime for magnesium to disappear\
+    \ =  s [2]\n\n(d) The mean rate of reaction is calculated using the equation shown.\n\
+    mean rate of reaction =\nlength of magnesium ribbon in cm\ntime for magnesium\
+    \ to disappear in s\n\nThe length of each coil of magnesium ribbon used in all\
+    \ five experiments was 5 cm.\n\n(i) Calculate the mean rate of reaction in Experiment\
+    \ 1. Give units for the rate you have\ncalculated.\n\nmean rate of reaction =\
+    \  units  [2]\n\n(ii) Deduce in which Experiment, 1, 2, 3, 4 or 5, the mean rate\
+    \ of reaction is the slowest [1]\n,\t,\n\n(e) Explain why repeating each experiment\
+    \ is an improvement [1]\n\n(f) The student does another experiment to find the\
+    \ temperature change when magnesium\nreacts with acid A.\n•\nUse the measuring\
+    \ cylinder to pour 30 cm3 of acid A into the 100 cm3 conical flask.\n•\nMeasure\
+    \ the initial temperature of the acid in the conical flask.\n•\nAdd a coil of\
+    \ magnesium ribbon to the acid in the conical flask.\n•\nContinually swirl the\
+    \ conical flask until the magnesium ribbon disappears completely.\n•\nMeasure\
+    \ the final temperature of the acid in the conical flask.\n\n(i) Use the thermometer\
+    \ diagrams to complete Table 2.2.\nTable 2.2\nthermometer\ndiagram for\ninitial\n\
+    temperature\ninitial\ntemperature\n/ °C\n30\n20\nthermometer\ndiagram for\nfinal\n\
+    temperature\nfinal\ntemperature\n/ °C\ntemperature\nchange / °C\n50\n40\n\n[2]\n\
+    \n(ii) Explain why controlling the temperature of the acid so that it remains\
+    \ constant is an\nimprovement [1]\n\n(iii) Explain why using a polystyrene cup\
+    \ instead of the 100 cm3 conical flask does not control\nthe temperature of the\
+    \ acid [1]\n\n(iv) Describe how the temperature of the acid can be controlled\
+    \ and kept constant [1]\n\n[Total: 17]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -122,7 +190,28 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student tests two solids: solid F and solid G.\n\nTests on solid F\n\
+    \nSolid F is calcium carbonate.\n\n(a) The student adds about 15 cm3 of dilute\
+    \ hydrochloric acid to the sample of solid F in a boiling\ntube and tests any\
+    \ gas produced.\nobservations   [2]\n\n(b) The student filters the product from\
+    \ (a) to obtain solution H as the filtrate.\n\nThe student divides solution H\
+    \ into three approximately equal portions in three test-tubes.\n\n(i) To the first\
+    \ portion of solution H, the student adds about 1 cm depth of dilute nitric acid\n\
+    followed by a few drops of aqueous barium nitrate.\nobservations   [1]\n\n(ii)\
+    \ To the second portion of solution H, the student adds aqueous sodium hydroxide\n\
+    dropwise and then in excess.\nobservations when added dropwise   observations\
+    \ in excess   [2]\n\n(iii) To the third portion of solution H, the student adds\
+    \ about 1 cm depth of dilute nitric acid\nfollowed by a few drops of aqueous silver\
+    \ nitrate.\nobservations   [1]\n,\n,\n\nTests on solid G\n\nTable 3.1 shows the\
+    \ tests and the student’s observations for solid G.\nTable 3.1\ntests\nobservations\n\
+    test 1\nDo a flame test on solid G.\nlilac coloured flame\ntest 2\nDissolve the\
+    \ remaining solid G in water to form\nsolution G. Divide solution G into three\
+    \ portions.\nTo the first portion of solution G, add about 1 cm3\nof aqueous chlorine.\n\
+    orange solution forms\ntest 3\nTo the second portion of solution G, add about\n\
+    1 cm3 of aqueous sodium hydroxide.\nremains colourless\ntest 4\nTo the third portion\
+    \ of solution G, add about\n1 cm3 of dilute nitric acid followed by a few drops\n\
+    of aqueous silver nitrate.\ncream precipitate forms\n\n(c) Identify solid G [2]\n\
+    \n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a

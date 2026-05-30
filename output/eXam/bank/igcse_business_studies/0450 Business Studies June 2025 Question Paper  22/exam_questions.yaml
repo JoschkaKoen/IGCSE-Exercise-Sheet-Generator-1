@@ -2,7 +2,13 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Explain one way each of the following problems might affect TSE when\
+    \ entering a new market\nin another country.\nCultural differences:   Explanation:\
+    \   Lack of knowledge:   Explanation:   [8]\n,\t,\n\n(b) Consider the following\
+    \ two benefits for TSE of having a well-motivated workforce. Which\nbenefit is\
+    \ likely to be the most important to TSE? Justify your answer.\n•\nReduced absenteeism\n\
+    •\nLower labour turnover\nReduced absenteeism:   Lower labour turnover:   Conclusion:\
+    \   [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +26,12 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Explain one objective each of the following TSE stakeholder groups\
+    \ might have.\nShareholders:   Suppliers:   Employees:   Customers:   [8]\n,\t\
+    ,\n\n(b) Consider the following two ways TSE could use to increase efficiency.\
+    \ Which way should\nTSE use? Justify your answer.\n•\nImproving labour skills\n\
+    •\nIncreasing automation and technology\nImproving labour skills:   Increasing\
+    \ automation and technology:   Recommendation:   [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -38,7 +49,14 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Explain four ways market research information can help a business.\n\
+    Way 1:   Way 2:   Way 3:   Way 4:   [8]\n,\t,\n\n(b) Consider the following two\
+    \ ways TSE could purchase the raw materials for its factories.\nWhich way should\
+    \ TSE use? Justify your answer.\n•\nHead office in country P continues to purchase\
+    \ the raw materials for all TSE factories\n•\nTSE’s factory managers in each country\
+    \ purchase raw materials locally\nHead office in country P continues to purchase\
+    \ the raw materials for all TSE factories:   TSE’s factory managers in each country\
+    \ purchase raw materials locally:   Recommendation:   [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -56,7 +74,12 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Explain two possible effects on TSE of the business cycle in country\
+    \ P moving into the\nrecession stage.\nEffect 1:   Explanation:   Effect 2:  \
+    \ Explanation:   [8]\n,\t\t,\n\n(b) Using Appendix 3 and other information, consider\
+    \ the extracts from the income statements\nfor the two companies in country P.\
+    \ Which company should TSE take over? Justify your\nanswer using suitable calculations.\n\
+    Company A:   Company B:   Recommendation:   [12]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a

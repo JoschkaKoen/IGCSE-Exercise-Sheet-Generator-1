@@ -2,7 +2,19 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Define gravitational field [1]\n\n(b) The gravitational field strength\
+    \ g at a distance x from the centre of a uniform spherical planet\nof mass M is\
+    \ given by the expression\ng  =  GM\nx2\n\nwhere G is the gravitational constant\
+    \ and distance x is greater than the radius of the planet.\n\n(i) Describe the\
+    \ pattern of the field lines outside the planet that represent the gravitational\n\
+    field due to the planet [2]\n\n(ii) Explain why, for small changes in vertical\
+    \ height near the surface of the planet, g may be\nassumed to be constant [2]\n\
+    \n(c) Assume that the Earth is a uniform sphere. For the Earth, the product GM\
+    \ is equal to\n3.99 × 1014 m3 s–2.\n\n(i) Determine a value, to three significant\
+    \ figures, for the radius R of the Earth.\n\nR =   m [2]\n,\t,\n\n(ii) Calculate\
+    \ the gravitational potential at the Earth’s surface. Give a unit with your answer.\n\
+    \ngravitational potential =  unit  [2]\n\n(d) Explain why the gravitational potential\
+    \ energy of two point masses is always negative [2]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -56,7 +68,20 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) State what is meant by two objects being in thermal equilibrium [2]\n\
+    \n(b) A mass X of ice at 0 °C is placed in a beaker containing a mass M of water\
+    \ at Celsius\ntemperature t. The beaker is perfectly insulated and has negligible\
+    \ heat capacity. After some\ntime, the ice that was added reaches thermal equilibrium\
+    \ with the original water in the beaker.\n\nThe specific latent heat of fusion\
+    \ of water is L. The specific heat capacity of water is c.\n\nThe final Celsius\
+    \ temperature of the system is θ.\n\nGive expressions, in terms of some or all\
+    \ of X, M, t, θ, L and c, for the thermal energy:\n\n(i) E1, gained by the ice\
+    \ as it melts to become water at 0 °C\n\nE1 =   [1]\n\n(ii) E2, lost by the water\
+    \ as its Celsius temperature decreases from t to θ\n\nE2 =   [1]\n\n(iii) E3,\
+    \ gained by the melted ice as its Celsius temperature increases from 0 °C to θ.\n\
+    \nE3 =   [1]\n\n(c) Use your answers in (b) to show that the final Celsius temperature\
+    \ θ of the system is given by\nθ  =  Mct – XL\nc(M + X) .\n\n[2]\n\n[Total: 7]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -98,7 +123,13 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) State what is meant by an ideal gas [2]\n\n(b) An ideal gas at a pressure\
+    \ of 1.6 × 105 Pa has a density of 1.9 kg m–3.\n\n(i) Show that the root-mean-square\
+    \ (r.m.s.) speed of molecules of this gas is approximately\n500 m s–1.\n\n[3]\n\
+    \n(ii) One molecule of the gas has a mass of 4.7 × 10–26 kg.\n\n Determine the\
+    \ thermodynamic temperature of the gas.\n\ntemperature =   K [2]\n\n(c) Calculate\
+    \ the internal energy U of 6.0 mol of the gas in (b). Explain your reasoning.\n\
+    \nU =   J [3]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -134,7 +165,19 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) State what is meant by simple harmonic motion [2]\n\n(b) A small sphere\
+    \ is suspended from a fixed point P by a string of negligible mass, as shown in\n\
+    Fig. 4.1.\nsphere\nstring\nP\nFig. 4.1\n\nThe sphere is given a small horizontal\
+    \ displacement and is then released.\n\nThe variation with time of the horizontal\
+    \ velocity v of the sphere is shown in Fig. 4.2.\n–0.12\n–0.08\n–0.04\n0\n0.04\n\
+    0.08\n0.12\nv / m s–1\nt1\nt2\nt3\nt4\nt5\nt6\nt7\ntime\nFig. 4.2\n,\t\t,\n\n\
+    (i)  State two times at which the sphere is passing in the same direction through\
+    \ the\nequilibrium position.\n\ntime  and time  [1]\n\n(ii) The time interval\
+    \ between t1 and t6 is 2.2 s.\n\n Calculate the frequency of oscillation of the\
+    \ sphere.\n\nfrequency =   Hz [2]\n\n(c) The sphere in (b) is undergoing simple\
+    \ harmonic motion.\n\nUse your answer in (b)(ii) and data from Fig. 4.2 to determine\
+    \ the maximum displacement of\nthe sphere from its equilibrium position.\n\nmaximum\
+    \ displacement =   m [3]\n\n[Total: 8]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -170,7 +213,15 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) Define electric potential at a point [2]\n\n(b) An isolated solid\
+    \ metal sphere of radius r is given a positive charge.\n\nThe potential at the\
+    \ surface of the sphere is 9.0 × 104 V. At a distance of 3r from the centre of\n\
+    the sphere, the electric field strength is 2.0 × 105 N C–1.\n\n(i) Determine the\
+    \ electric field strength at the surface of the sphere.\n\nelectric field strength\
+    \ =   N C–1 [2]\n\n(ii) Show that the radius of the sphere is 5.0 cm.\n\n [2]\n\
+    \n(iii) Calculate the charge on the sphere.\n\ncharge =   C [2]\n,\t,\n\n(iv)\
+    \ Use your answer in (b)(iii) to determine the capacitance of the sphere.\n\n\
+    capacitance =   F [2]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -212,7 +263,22 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nA rectangular coil PQRS of wire is free to rotate about its axis XY, as\
+    \ shown in Fig. 6.1.\nθ\nθ\nθ\n1.2 A\nQ\nQ\nR\nY\nS\nP\nP\nX\nmagnetic\nfield\n\
+    magnetic\nfield\nEND VIEW\nforce\non PS\nforce\non QR\nFig. 6.1 (not to scale)\n\
+    \nThe coil has length QR of 5.4 cm, width PQ of 2.5 cm and has 190 turns of wire.\n\
+    \nThe plane of the coil is at an angle θ to a uniform magnetic field of flux density\
+    \ 5.2 × 10–3 T.\n\nThe axis XY of the coil is normal to the field.\n\nThe current\
+    \ in the coil is 1.2 A.\n\n(a) (i) Calculate the magnitude of the force on side\
+    \ QR of the coil.\n\nforce =   N [3]\n,\t,\n\n(ii) Use your answer in (a)(i) to\
+    \ show that the torque τ on the coil is given by\nτ = 1.6 × 10–3 cos θ N m.\n\n\
+    [2]\n\n(iii) Using the expression in (a)(ii) sketch, on the axes of Fig. 6.2,\
+    \ a graph to show the\nvariation of the torque τ with angle θ for values of θ\
+    \ between 0 and 360°. Label the τ axis\nwith an appropriate scale.\n0\n0\n90\n\
+    180\n270\n360\nθ/ °\n / 10–3 N m\nτ\nFig. 6.2\n\n[3]\n\n(b) The coil is now replaced\
+    \ by an identical coil wound on a ferrous core.\n\nSuggest, with a reason, how\
+    \ the torque on this coil compares with the torque on the original\ncoil [2]\n\
+    \n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -248,7 +314,16 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nA bar magnet is suspended from a spring. One pole of the magnet oscillates\
+    \ freely in a coil of wire,\nas shown in Fig. 7.1.\nbar magnet\nspring\ncoil of\n\
+    wire\nresistor\nS\nFig. 7.1\n\nThe switch S is initially open.\n\n(a) The switch\
+    \ S is now closed. As a result, the oscillations of the magnet are lightly damped.\n\
+    \n(i) State what is meant by damping [2]\n\n(ii) Describe what is observed to\
+    \ indicate that the damping is light [1]\n\n(iii) By reference to electromagnetic\
+    \ induction and to conservation of energy, explain why the\noscillations are damped\
+    \ [3]\n,\t,\n\n(b) The procedure in (a) is repeated after replacing the resistor\
+    \ with one of greater resistance.\n\nSuggest, with a reason, the effect of this\
+    \ change on the oscillations [2]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -284,7 +359,22 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nAn incomplete circuit diagram of a bridge rectifier is shown in Fig. 8.1.\n\
+    C\nD\nA\nload\nresistor\nB\nFig. 8.1\n\n(a) Complete Fig. 8.1 for the bridge rectifier\
+    \ such that the point A is at a positive potential with\nrespect to point B.\n\
+    \ [2]\n\n(b) The variation with time t of the potential difference (p.d.) V across\
+    \ the load resistor is shown\nin Fig. 8.2.\n0\n0\nV0\nV\n0.5T\n1.0T\n1.5T\n2.0T\n\
+    t\nFig. 8.2\n\nA capacitor is now connected between points C and D of the bridge\
+    \ rectifier. This results in\nsmoothing of the p.d. across the load resistor.\
+    \ The difference between the maximum and\nminimum values of the smoothed p.d.\
+    \ is 33% of the peak p.d. V0.\n\n(i) On Fig. 8.2, draw a line to show the variation\
+    \ of the potential difference V across the load\nresistor with time t. Your line\
+    \ should extend from t = 0.5T to t = 2.0T.\n[3]\n,\t,\n\n(ii) Use your line in\
+    \ (b)(i) to determine, in terms of T, the time constant of the smoothing\ncircuit.\n\
+    \ntime constant =   T [3]\n\n(iii) The resistance of the load resistor is now\
+    \ increased. The capacitance of the capacitor is\nunchanged.\n\n State and explain\
+    \ the effect of this change on the smoothed output p.d [2]\n\n[Total: 10]\n,\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -320,7 +410,17 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\n(a) (i) Describe what is meant by wave–particle duality [2]\n\n(ii) State\
+    \ the relationship between the de Broglie wavelength λ of a particle and its\n\
+    momentum p. State the meaning of any other symbols that you use [2]\n\n(b) A narrow\
+    \ beam of electrons, all with the same speed, is incident normally on a carbon\
+    \ film.\nThe electrons then move on to a fluorescent screen, as illustrated in\
+    \ Fig. 9.1.\nelectron\nbeam\ncarbon film\nscreen\nFig. 9.1\n\nThe apparatus is\
+    \ in a vacuum.\n\nThe pattern produced on the screen is shown in Fig. 9.2.\n,\t\
+    \t,\nFig. 9.2 (not to scale)\n\n(i) Explain why the pattern in Fig. 9.2 provides\
+    \ experimental evidence to indicate a wave\nnature for the electrons [2]\n\n(ii)\
+    \ The speed of the electrons is increased.\n\n Suggest, with a reason, how this\
+    \ change affects the pattern observed on the screen [2]\n\n[Total: 8]\n,\n,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -362,7 +462,19 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 (a) Describe how the piezoelectric crystal in a transducer generates ultrasound\
+    \ waves for use in\nmedical diagnosis [3]\n\n(b) A parallel ultrasound beam is\
+    \ incident on the boundary between two media, as illustrated\nin Fig. 10.1.\n\
+    ultrasound\nbeam\nspecific acoustic\nimpedance Z1\nspecific acoustic\nimpedance\
+    \ Z2\nFig. 10.1\n\nThe media have specific acoustic impedances Z1 and Z2.\n\n\
+    At the boundary, a fraction α of the incident intensity of the ultrasound beam\
+    \ is reflected. The\nremainder is transmitted.\n\n(i) State what is meant by specific\
+    \ acoustic impedance [2]\n\n(ii) Describe how α depends on the relative values\
+    \ of Z1 and Z2 [2]\n,\t,\n\n(c) A parallel ultrasound beam of intensity I0 enters\
+    \ a region of soft tissue. After passing a\ndistance of 2.1 cm through this tissue,\
+    \ the intensity of the ultrasound is 0.62 I0.\n\nCalculate the linear attenuation\
+    \ coefficient μ of ultrasound in the soft tissue. Give a unit with\nyour answer.\n\
+    \nμ =  unit  [2]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -398,7 +510,18 @@ questions:
 - number: '11'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "11 The deuterium nucleus (2\n1H) has a mass defect of 0.002 388 u. The helium-4\
+    \ nucleus (4\n2He) has a\nmass defect of 0.030 377 u. Helium-4 is formed from\
+    \ deuterium in a nuclear reaction that can be\nrepresented by the equation\n3\
+    \ 2\n1H\n   4\n2He  +  1\n1p  +  1\n0n.\n\n(a) (i) State the name of this type\
+    \ of nuclear reaction [1]\n\n(ii) Show that the energy released when one nucleus\
+    \ of helium-4 is formed from deuterium\nis 3.47 × 10–12 J.\n\n[3]\n\n(b) A star\
+    \ has a radius of 6.96 × 108 m. Helium-4 is produced in this star, from deuterium,\
+    \ at a\nmass rate of 7.34 × 1011 kg s–1. All the energy released from this process\
+    \ is radiated away\nfrom the star. All the energy that is radiated from the star\
+    \ is released by this process.\n\n(i) Calculate the luminosity of the star.\n\n\
+    luminosity =   W [3]\n\n(ii) Use your answer in (b)(i) to determine the surface\
+    \ temperature of the star.\n\ntemperature =   K [2]\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 11a

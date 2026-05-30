@@ -2,7 +2,20 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nOrganisms need a source of energy for many cellular processes. Respiration\
+    \ involves the release\nof energy from energy-rich molecules for the synthesis\
+    \ of ATP molecules. ATP is described as the\nenergy currency of cells.\n\n(a)\
+    \ Name two energy-rich molecules that enter the respiration pathway to synthesise\
+    \ ATP [2]\n\n(b) Fig. 1.1 shows a molecule of ATP.\nHO\nP\nO\nO\nO–\nO\nO–\nO\n\
+    O–\nP\nO\nP\nO\nOH\nOH\nO\nN\nNH2\nN\nN\nN\nFig. 1.1\n\nExplain the features of\
+    \ ATP that make it suitable to be the universal energy currency of cells [4]\n\
+    ,\t,\n\n(c) Identify the type of phosphorylation reaction to synthesise ATP that\
+    \ occurs during glycolysis\nand the Krebs cycle [1]\n\n(d) (i) Pyruvate moves\
+    \ into the matrix of the mitochondrion only when a particular inorganic\nmolecule\
+    \ is present.\n\n Name the inorganic molecule that must be present in the cell\
+    \ for pyruvate to enter the\nmatrix of the mitochondrion [1]\n\n(ii) Explain how\
+    \ the presence of the inorganic molecule named in (d)(i) affects the ATP yield\n\
+    from respiration [3]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +57,16 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA respirometer can be used to investigate how temperature affects the\
+    \ rate of respiration\nof woodlice.\n\nWoodlice are small invertebrate animals.\
+    \ Fig. 2.1 shows a single woodlouse.\nFig. 2.1\n\nFig. 2.2 shows a simple respirometer.\n\
+    sodium\nhydroxide\npellets\nboiling tube\ndrop of\nliquid\nwire mesh\nwoodlouse\n\
+    graduated\ncapillary tube\nFig. 2.2\n\n(a) Explain how the experimental set-up\
+    \ in Fig. 2.2 allows the rate of respiration of woodlice to be\ndetermined [4]\n\
+    ,\t,\n\n(b) A student determined the rate of respiration of woodlice at a temperature\
+    \ of 5 °C and at a\ntemperature of 20 °C.\n\nPredict and explain how the rate\
+    \ of respiration of woodlice differs at 5 °C compared to 20 °C [1]\n\n[Total:\
+    \ 5]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -62,7 +84,44 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nPorphyria is a group of rare genetic diseases in which molecules called\
+    \ porphyrins accumulate in\nthe body.\n\nThree examples of porphyria are:\n•\n\
+    X-linked protoporphyria\n•\nvariegate porphyria\n•\ncongenital erythropoietic\
+    \ porphyria (CEP).\n\n(a) X-linked protoporphyria is caused by a mutant allele\
+    \ located on the X chromosome.\n\nFig. 3.1 shows the pattern of inheritance of\
+    \ X-linked protoporphyria in one family.\nkey\nfemale without the disease\nmale\
+    \ without the disease\nfemale with the disease\nmale with the disease\n1\n2\n\
+    3\n4\n5\n6\nFig. 3.1\n\nX-linked protoporphyria is described as a sex-linked disease.\n\
+    \nUse the information in Fig. 3.1 to make one other conclusion about the pattern\
+    \ of inheritance\nof X-linked protoporphyria.\n\nGive evidence to support your\
+    \ conclusion.\nconclusion   evidence   [2]\n,\t,\n\n(b) Variegate porphyria occurs\
+    \ in 1 in 100 000 people in Europe.\n\nIn the 1600s, approximately 100 Dutch people\
+    \ migrated from Europe to South Africa.\n\nThe population of people of Dutch descent\
+    \ in South Africa is now 2.5 million. Variegate\nporphyria occurs in 1 in 1000\
+    \ people in this population.\n\nSuggest and explain why variegate porphyria is\
+    \ more common among people of Dutch\ndescent in South Africa than among people\
+    \ in Europe [3]\n\n(c) Microarrays can be used to detect various forms of porphyria\
+    \ caused by mutant alleles.\n\nDescribe how microarrays can be used to detect\
+    \ a disease by analysing gene expression [4]\n,\t,\n\n(d) The nucleotide sequences\
+    \ of alleles that cause rare genetic diseases, such as the various\nforms of porphyria,\
+    \ are stored in a database.\n\nState one benefit of having a database of nucleotide\
+    \ sequences for alleles that cause\nrare diseases [1]\n\n(e) Congenital erythropoietic\
+    \ porphyria (CEP) is caused by a substitution mutation in a gene\ncoding for an\
+    \ enzyme.\n\nThe mutant CEP allele codes for an enzyme with little or no function.\n\
+    \nScientists used gene editing in the laboratory to correct the nucleotide sequence\
+    \ of the mutant\nallele in cultured human cells.\n\nThe scientists introduced\
+    \ three molecules to the cells:\n•\nan enzyme called Cas9 that causes breaks in\
+    \ DNA strands\n•\nguide RNA (gRNA), attached to Cas9, that is complementary to\
+    \ the mutant CEP allele\n•\na short length of DNA, known as template DNA, that\
+    \ can replace the section of the allele\nwhere the substitution mutation has occurred.\n\
+    \nThe repair mechanism within the cell allows the template DNA to be inserted\
+    \ so that the\nmutation is corrected.\n\nFig. 3.2 shows part of the nucleotide\
+    \ sequence in the mutated CEP allele before and after the\ngene editing procedure.\n\
+    \ngene editing\nT  A  T  G  G  C  T  C  G\n  T  A  C  G  G  C  T  C  G\nFig. 3.2\n\
+    \nIn the future, this gene editing procedure may be used in a person with CEP\
+    \ to prevent the\naccumulation of porphyrins in the body.\n\nSuggest and explain\
+    \ how this gene editing procedure will prevent the accumulation of\nporphyrins\
+    \ in a person with CEP without damaging other genes [3]\n[Total: 13]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -98,7 +157,31 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nScientists have invented a way of producing food by artificial photosynthesis.\n\
+    •\nSolar panels convert sunlight energy into electricity.\n•\nThe electricity\
+    \ powers an electrolysis reaction between carbon dioxide gas and water to form\n\
+    the organic product acetate.\n•\nThe single-celled alga Chlamydomonas, a protoctist,\
+    \ can use acetate to grow and reproduce\nin the dark, instead of photosynthesising\
+    \ in the light.\n•\nThe algae can be processed to make a food product.\n\nFig.\
+    \ 4.1 shows an outline of the artificial photosynthesis process.\nalgae\nfood\n\
+    solar panel\nacetate\nelectrolyser\nelectron\nflow\nH2O\nCO2\nO2\nFig. 4.1\n\n\
+    (a) Identify three similarities between the artificial photosynthesis process\
+    \ shown in Fig. 4.1 and\nthe normal process of photosynthesis [3]\n,\n,\n\n(b)\
+    \ Fig. 4.2 shows the single-celled alga Chlamydomonas. It contains a large, cup-shaped\n\
+    chloroplast for photosynthesis.\nB\nA\nFig. 4.2\n\nStructures A and B in Fig.\
+    \ 4.2 are found within the chloroplast.\n\nName structures A and B.\nA  B  [2]\n\
+    \n(c) Thylakoid membranes are the site of the light-dependent stage of photosynthesis.\n\
+    \n(i) Name the products of the light-dependent stage of photosynthesis [1]\n,\t\
+    ,\n\n(ii) Some of the protein components of the thylakoid membrane have a role\
+    \ in the\nlight-dependent stage of photosynthesis.\n\n Explain the roles of the\
+    \ different proteins that function in the light-dependent stage\nof photosynthesis\
+    \ [4]\n\n(d) The products of the light-dependent stage of photosynthesis are used\
+    \ in the Calvin cycle.\nCalvin cycle intermediates are used to produce amino acids,\
+    \ carbohydrates and lipids.\n\nName the Calvin cycle intermediate that can be\
+    \ used to produce starch [1]\n\n(e) Scientists claim that the artificial photosynthesis\
+    \ process shown in Fig. 4.1 is more efficient at\nconverting light energy into\
+    \ food than normal photosynthesis by crop plants.\n\nGive reasons why this claim\
+    \ may or may not be true.\ntrue   not true   [3]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -146,13 +229,59 @@ questions:
 - number: '8'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "8\nThe presence of gibberellins in a plant cell leads to the expression of\
+    \ genes involved in\nstem elongation.\n\nDescribe how gibberellin causes stem\
+    \ elongation in plants [Total: 6]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nThe Galápagos is a group of islands with a high biodiversity.\n\n(a) Geospiza\
+    \ fortis is one of the many species of finch that live on the Galápagos islands.\
+    \ On one\nof the Galápagos islands, Daphne Major, scientists measured the bill\
+    \ size (length, width and\ndepth) of individuals in a population of G. fortis\
+    \ over several years.\n\nFig. 5.1 shows a G. fortis female.\nbill\nFig. 5.1\n\n\
+    G. fortis feed on seeds. Seed size and bill size vary. It is easier for G. fortis\
+    \ with smaller bills\nto eat small seeds and for G. fortis with larger bills to\
+    \ eat large seeds.\n\nIn 1977, a drought occurred on Daphne Major, which resulted\
+    \ in a large decrease in the\navailability of seeds, particularly small seeds.\n\
+    \nScientists observed an increase in the mean bill size in the G. fortis population\
+    \ on\nDaphne Major after the drought.\n\n(i) State the type of natural selection\
+    \ that occurred in the G. fortis population on\nDaphne Major as a result of the\
+    \ drought [1]\n\n(ii) Fig. 5.2 shows the distribution of bill size in the G. fortis\
+    \ population before the drought\nin 1977.\nnumber of\nG. fortis\nbill size\nFig.\
+    \ 5.2\n\n Sketch a new curve on Fig. 5.2 to show the distribution of bill size\
+    \ in the G. fortis\npopulation after the drought.\n\n[1]\n,\t,\n\n(b) G. fortis\
+    \ also lives on Santa Cruz, another island in the Galápagos.\n\nMost of the seeds\
+    \ available for G. fortis to eat on Santa Cruz are either small or large. There\n\
+    are few intermediate sizes of seed.\n\nFig. 5.3 shows the distribution of bill\
+    \ size in the G. fortis population on Santa Cruz.\nnumber of\nG. fortis\nbill\
+    \ size\nFig. 5.3\n\nExplain how natural selection in the G. fortis population\
+    \ on Santa Cruz has resulted in the\ndistribution in bill size shown in Fig. 5.3\
+    \ [4]\n,\t,\n\n(c) Scientists studied the effect of an increase in the number\
+    \ of tourists each year on the number\nof invasive alien species present in the\
+    \ Galápagos islands.\n\nThe scientists recorded the number of invasive alien species\
+    \ present each year in the\nGalápagos islands over many years. The scientists\
+    \ also recorded the number of tourists\nvisiting the islands each year.\n\nFig.\
+    \ 5.4 shows a graph of the data for five different years during the study.\nnumber\
+    \ of tourists visiting Galápagos\neach year / thousands\n0\n0\n500\n1000\n1500\n\
+    50\n100\n150\n200\n250\nnumber of\nrecorded\ninvasive alien\nspecies\nFig. 5.4\n\
+    \n(i) The scientists carried out a Pearson’s linear correlation calculation for\
+    \ the data in Fig. 5.4.\n\n The scientists calculated an r value of 0.930.\n\n\
+    \ The scientists concluded that there is a significant correlation between the\
+    \ number\nof tourists visiting the Galápagos islands each year and the number\
+    \ of invasive alien\nspecies present.\n,\t,\n\n Table 5.1 shows a probability\
+    \ table of critical values for Pearson’s linear correlation.\nTable 5.1\nnumber\
+    \ of\nobservations\nprobability level (p)\n0.05\n0.01\n3\n0.997\n1.000\n4\n0.950\n\
+    0.990\n5\n0.878\n0.959\n6\n0.811\n0.917\n7\n0.754\n0.875\n\n With reference to\
+    \ Table 5.1, explain why the r value of 0.930 indicates that there is a\nsignificant\
+    \ correlation between the number of tourists and the number of invasive alien\n\
+    species [2]\n\n(ii) Invasive alien species are thought to have contributed to\
+    \ extinctions recorded in the\nGalápagos islands.\n\n Discuss the negative effects\
+    \ of introducing invasive alien species to an ecosystem [4]\n\n(iii) State two\
+    \ factors, other than competition and the introduction of invasive alien species,\n\
+    that can cause extinction.\n1   2   [2]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -206,7 +335,22 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) In the kidney, various molecules move between the blood and the kidney\
+    \ nephron.\n\nTable 6.1 describes the movements of molecules at three regions\
+    \ of the nephron, P, Q and R.\nTable 6.1\nregion of\nnephron\nmolecule(s)\ndirection\
+    \ of movement\nP\namino acids, glucose\nand water\nfrom nephron to blood\nQ\n\
+    water\nfrom nephron to blood in the\npresence of antidiuretic hormone\n(ADH)\n\
+    R\nwater and molecules\nwith a molecular mass\nof less than 68,000\nfrom blood\
+    \ to nephron\n\n(i) Name the processes, other than diffusion, osmosis and active\
+    \ transport, that are\noccurring at P, Q and R.\n\n P  Q  R  [3]\n\n(ii) Identify\
+    \ the regions of the nephron represented by P, Q and R.\n\n P  Q  R  [3]\n,\t\
+    ,\n\n(b) A student cut a fresh kidney lengthways and placed one half in the freezer.\
+    \ After 24 hours,\nthe student examined the kidney section and tested its firmness\
+    \ with a mounted needle.\n\nSodium chloride concentration affects the freezing\
+    \ point of a solution.\n\nThe student drew the diagram in Fig. 6.1 to show an\
+    \ area that had frozen hard and an area\nthat was softer and less frozen.\nB:\
+    \ softer and\n     less frozen\nA: frozen hard\nFig. 6.1\n\nSuggest an explanation\
+    \ for the observations in Fig. 6.1 made by the student [2]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -236,7 +380,21 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nInsulin is an example of a cell-signalling molecule of the endocrine system.\n\
+    \n(a) Outline why insulin can be described as an example of a cell-signalling\
+    \ molecule of the\nendocrine system [4]\n\n(b) Researchers compared the effect\
+    \ of two types of meal on the mean blood glucose concentration\nand the mean blood\
+    \ insulin concentration of twelve volunteers. The measurements were\nmade for\
+    \ three hours after the meal.\n\nMeal A contained 55% carbohydrate, 27% fat and\
+    \ 18% protein.\n\nMeal B contained 3% carbohydrate, 90% fat and 7% protein.\n\n\
+    Fig. 7.1 shows the results.\ntime / min\n0\n0\n90\n110\n120\n80\n100\n30\n60\n\
+    90\n120\n150\n180\nan blood\ncose\nncentration\ng 100 cm–3\ntime / min\n0\n0\n\
+    200\n400\n600\n30\n60\n90\n120\n150\n180\nmean blood\ninsulin\nconcentration\n\
+    / pmol dm–3\nkey\nmeal A\nmeal B\nFig. 7.1\n,\t\t,\n\n(i) With reference to Fig.\
+    \ 7.1, explain how negative feedback operates to control mean\nblood glucose concentration\
+    \ in the volunteers who ate meal A [4]\n\n(ii) Suggest explanations for the changes\
+    \ in mean blood glucose concentration of the\nvolunteers who ate meal B [3]\n\n\
+    [Total: 11]\n,\n,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -266,7 +424,14 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nA species is classified into one of three domains.\n\n(a) Two of the domains\
+    \ contain only prokaryotic species.\n\nWith reference to the two prokaryotic domains,\
+    \ describe the features used to classify\nprokaryotic species into two different\
+    \ domains [3]\n\n(b) Tigers are large mammals that live in many parts of Asia.\n\
+    \nFig. 9.1 shows a tiger, Panthera tigris.\nFig. 9.1\n\nComplete Table 9.1 by\
+    \ writing the domain, kingdom and genus in which tigers are classified.\nTable\
+    \ 9.1\ntaxon\nname\ndomain\nkingdom\nphylum\nChordata\nclass\nMammalia\norder\n\
+    Carnivora\nfamily\nFelidae\ngenus\n\n[3]\n\n[Total: 6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -284,7 +449,17 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 During the course of an action potential, the potential difference across\
+    \ a neurone\nmembrane changes.\n\nTable 10.1 shows the potential difference across\
+    \ the neurone membrane at three sequential time\npoints, X, Y and Z, just before\
+    \ and during an action potential.\nTable 10.1\ntime\npoint\npotential difference\n\
+    / mV\nX\n–70\nY\n+40\nZ\n–90\n\n(a) Describe the events that cause each of the\
+    \ potential differences at points X, Y and Z [7]\n,\t,\n\n(b) Suggest how one\
+    \ action potential causes an action potential in an adjacent section of the\n\
+    axon of an unmyelinated neurone [2]\n\n(c) Vertebrate animals generally have a\
+    \ myelin sheath around the axons of motor neurones.\n\nExplain why the presence\
+    \ of a myelin sheath around a motor neurone axon is an advantage [3]\n\n[Total:\
+    \ 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a

@@ -2,7 +2,51 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nThe plantain lily, Hosta plantaginea, as shown in Fig. 1.1, is a flowering\
+    \ plant found in Asia.\nleaf with\nstomata on\nthe lower\nepidermis\nFig. 1.1\n\
+    \nThe hydrostatic pressure increases inside guard cells when water enters the\
+    \ guard cells down a\nwater potential gradient. This affects the width of the\
+    \ stomata.\n\nFig. 1.2 shows 1 open stoma from the plantain lily surrounded by\
+    \ 2 guard cells.\nstoma\nguard cells\nFig. 1.2\n,\t,\n\nA student investigated\
+    \ the effect of different sucrose solutions on the width of stomata in the leaves\n\
+    of plantain lily.\n\nThe student:\n•\nprepared 5 microscope slides as shown in\
+    \ Table 1.1\nTable 1.1\nmicroscope slide number\nliquid added to microscope slide\n\
+    1\nlarge drop of distilled water\n2\nlarge drop of 2.5% sucrose solution\n3\n\
+    large drop of 5.0% sucrose solution\n4\nlarge drop of 10.0% sucrose solution\n\
+    5\nlarge drop of 20.0% sucrose solution\n•\nremoved the lower epidermis from a\
+    \ leaf of plantain lily\n•\nimmersed 1 small piece of lower epidermis in the drop\
+    \ on microscope slide 1\n•\nplaced a cover slip over the piece of lower epidermis\n\
+    •\nobserved the stomata using a light microscope fitted with an eyepiece graticule\n\
+    •\nrepeated the steps for microscope slides 2, 3, 4 and 5.\n\n(a) (i) State the\
+    \ independent and dependent variables in the investigation.\nindependent   dependent\
+    \   [2]\n\n(ii) The student prepared 20 cm3 of 2.5%, 5.0% and 10.0% sucrose solutions\
+    \ from a 20.0%\nw/v stock solution.\n\n Complete the description of the student’s\
+    \ dilution method for the 2.5% and 5.0% sucrose\nsolutions by writing the correct\
+    \ volumes in the following sentences.\n\n The student mixed  cm3 of 20.0% sucrose\
+    \ stock solution with  cm3\nof distilled water to produce a 2.5% sucrose solution.\n\
+    \n The student mixed  cm3 of 20.0% sucrose stock solution with  cm3\nof distilled\
+    \ water to produce a 5.0% sucrose solution.\n[2]\n,\t,\n\n(iii) The student observed\
+    \ stomata on the microscope slides using the high‑power objective\nlens.\n\n Outline\
+    \ a method the student could use to investigate the effect of the sucrose solutions\n\
+    in Table 1.1 on the width of stomata in the leaves of plantain lily.\n\n Your\
+    \ method should be set out in a logical order and be detailed enough to allow\
+    \ another\nperson to follow it.\n\n Details of how to prepare the microscope slides\
+    \ should not be included [5]\n,\t,\n\n(iv) Predict the effect of increasing the\
+    \ sucrose concentration from 0.0% to 20.0% on the\nwidth of stomata in the leaves\
+    \ of plantain lily.\n\n Explain your prediction.\nprediction   explanation   [2]\n\
+    ,\t,\n\n(b) Another piece of lower epidermis from a leaf of plantain lily was\
+    \ immersed in a large drop of\ndistilled water on a microscope slide.\n\nFig.\
+    \ 1.3 shows the lower epidermis viewed using the low‑power objective lens.\n\n\
+    The student determined the stomatal density on the lower epidermis using Fig.\
+    \ 1.3 only.\nstomata\n40 μm\nFig. 1.3\n\n(i) Use Fig. 1.3 to calculate the stomatal\
+    \ density on the lower epidermis.\n\n Use the equation:\n\n area = πr2 and π =\
+    \ 3.14\n\n Give your answer to the nearest whole number and show your working.\n\
+    \nstomatal density =   mm–2\n [4]\n\n(ii) Suggest how this investigation could\
+    \ be improved to increase confidence in your answer\nin (b)(i) [1]\n,\t,\n\n(iii)\
+    \ A different plant species had a lower stomatal density than the value calculated\
+    \ for\nplantain lily in (b)(i).\n\n Suggest how the environmental conditions of\
+    \ the different plant species may vary from\nthose of the plantain lily.\n\n Explain\
+    \ your answer [2]\n[Total: 18]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -62,7 +106,26 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nScientists investigated the effect of abscisic acid (ABA) on reducing\
+    \ water loss in plants. The\nscientists predicted that ABA, as well as stimulating\
+    \ stomatal closure, also reduces water loss in\nplants in other ways.\n\nThe scientists\
+    \ used a mutant variety of thale cress, Arabidopsis thaliana, that has stomata\
+    \ that\ndo not respond to ABA. When ABA is present, the stomata of the mutant\
+    \ variety remain open.\n\nThe scientists sprayed different concentrations of ABA\
+    \ on the leaves of the mutant variety and\nmeasured the transpiration rates of\
+    \ the plants.\n\nThe results are shown in Fig. 2.1.\n0.0\n0\n10\n50\nABA concentration\n\
+    / μmol dm−3\nError bars show ± 1 standard error (SE).\n0 μmol dm−3 ABA = distilled\
+    \ water\n100\n400\n0.5\n1.0\n1.5\nmean\ntranspiration\nrate\n/ mmol m−2 s−1\n\
+    2.0\n2.5\nFig. 2.1\n\n(a) Calculate the percentage decrease in transpiration rate\
+    \ from 0 to 400 µmol dm–3 of ABA for\nthe mutant variety.\n\nShow your working.\n\
+    \npercentage decrease =   [2]\n,\t\t,\n\n(b) With reference to Fig. 2.1, suggest\
+    \ conclusions that can be made about the effect of different\nconcentrations of\
+    \ ABA on the transpiration rates of the mutant variety.\n\n State the evidence\
+    \ that supports your conclusions [2]\n\n(c) The scientists used a mutant variety\
+    \ of thale cress that has stomata that do not respond\nto ABA.\n\nThe scientists\
+    \ concluded that ABA reduces water loss in thale cress by ways other than\nstomatal\
+    \ closure.\n\nSuggest additional information that is required to increase the\
+    \ confidence in this conclusion [3]\n[Total: 7]\n,\n,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -86,7 +149,23 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nSeeds of the common stork’s‑bill, Erodium cicutarium, are shown in Fig.\
+    \ 3.1.\n\nThe awn is an extension on the E. cicutarium seed. The seed uses the\
+    \ awn to push the seed head\ninto the soil to allow the seed to germinate. The\
+    \ awn changes shape when the humidity changes.\n\nHumidity is the concentration\
+    \ of water vapour in the air. The higher the humidity, the higher the\nconcentration\
+    \ of water vapour in the air.\nawn in high humidity\nseed heads\nawn in low humidity\n\
+    Fig. 3.1\n\nA student investigated the effect of humidity on the appearance of\
+    \ the awn.\n\nThe student set up the apparatus as shown in Fig. 3.2.\n\nWater\
+    \ can be added to the filter paper to change the humidity in the beaker surrounding\
+    \ the seed.\nIncreasing the volume of water added to the filter paper increases\
+    \ the humidity.\nawn\nfilter paper\nseed head\n250 cm3 beaker\nmaterial to hold\n\
+    seed in place\nPetri dish\nFig. 3.2\n,\t,\n\n(a) State two variables the student\
+    \ would need to standardise for the investigation using the\napparatus shown in\
+    \ Fig. 3.2 [2]\n\n(b) Outline a method the student could use to measure the effect\
+    \ of different levels of humidity on\nthe appearance of the awn, using the apparatus\
+    \ in Fig. 3.2.\n\nDo not include standardised variables from (a) or a risk assessment\
+    \ [3]\n\n[Total: 5]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a

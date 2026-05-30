@@ -2,7 +2,23 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nFermentation is a process in which yeast is used to convert aqueous glucose\
+    \ to ethanol and\ncarbon dioxide. Fermentation takes place at a temperature of\
+    \ between 25 °C and 35 °C.\nC6H12O6(aq)\n  2C2H5OH(aq)  +  2CO2(g)\n\nA student\
+    \ uses the apparatus shown in Fig. 1.1 to make carbon dioxide by fermentation.\n\
+    B\nA\naqueous glucose\nand yeast\nwater-bath\nFig. 1.1\n\n(a) Name the items of\
+    \ apparatus labelled A and B in Fig. 1.1.\nA   B   [2]\n\n(b) Suggest why a water-bath\
+    \ is used [1]\n,\t,\n\n(c) The student measures the volume of gas that is collected\
+    \ every 10 minutes for 90 minutes.\n\nTheir results are shown in Fig. 1.2.\n0\n\
+    0\n20\n40\n60\n80\n100\n10\n30\n20\ntime / min\nvolume of gas\ncollected / cm3\n\
+    40\n50\n60\n70\n80\n90\nFig. 1.2\n\nDescribe how the results in Fig. 1.2 show\
+    \ that the fermentation is not complete after 90 minutes [1]\n\n(d) The student\
+    \ repeats the experiment using the apparatus shown in Fig. 1.3.\naqueous glucose\n\
+    and yeast\nwater-bath\nlimewater\nFig. 1.3\n\n(i) State what happens to the appearance\
+    \ of the limewater during fermentation [1]\n\n(ii) State one observation the student\
+    \ would make that shows that fermentation is complete [1]\n\n(e) State the method\
+    \ the student should use to obtain ethanol from the fermentation mixture [1]\n\
+    \n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +66,56 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates how the rate of reaction between dilute hydrochloric\
+    \ acid and aqueous\nsodium thiosulfate changes as the concentration of the aqueous\
+    \ sodium thiosulfate decreases.\nDuring the reaction, the solution slowly becomes\
+    \ cloudy. As the solution becomes cloudy, it\nbecomes more difficult to see through\
+    \ the solution.\n\nThe student does five experiments.\n\nExperiment 1\n•\nUse\
+    \ a 50 cm3 measuring cylinder to pour 50 cm3 of aqueous sodium thiosulfate into\
+    \ a 100 cm3\nbeaker.\n•\nUse a 10 cm3 measuring cylinder to pour 5 cm3 of dilute\
+    \ hydrochloric acid into the beaker\ncontaining the aqueous sodium thiosulfate.\n\
+    •\nImmediately start a stop-watch and stir the contents of the beaker.\n•\nStand\
+    \ the beaker on a printed sheet and look down from above the beaker as shown in\n\
+    Fig. 2.1.\neye\n100 cm3 beaker\nprinted sheet\naqueous sodium thiosulfate\nand\
+    \ dilute hydrochloric acid\nmixture\nprinted text\nFig. 2.1\n•\nWhen the text\
+    \ on the printed sheet is not visible, stop the stop-watch and record the time\
+    \ to\nthe nearest whole number of seconds.\n•\nEmpty the contents of the beaker\
+    \ and rinse the beaker with distilled water.\n\nExperiment 2\n•\nRepeat Experiment\
+    \ 1 using 40 cm3 of aqueous sodium thiosulfate instead of 50 cm3. Use the\n50\
+    \ cm3 measuring cylinder to add 10 cm3 of distilled water to the beaker before\
+    \ adding the\ndilute hydrochloric acid.\n\nExperiment 3\n•\nRepeat Experiment\
+    \ 2 using 30 cm3 of aqueous sodium thiosulfate and 20 cm3 of distilled water.\n\
+    \nExperiment 4\n•\nRepeat Experiment 2 using 25 cm3 of aqueous sodium thiosulfate\
+    \ and 25 cm3 of distilled water.\n\nExperiment 5\n•\nRepeat Experiment 2 using\
+    \ 20 cm3 of aqueous sodium thiosulfate and 30 cm3 of distilled water.\n,\t,\n\n\
+    (a) Use the information in the description of the experiments and the stop-watch\
+    \ diagrams to\ncomplete Table 2.1.\nTable 2.1\nexperiment\nvolume of\naqueous\n\
+    sodium\nthiosulfate\n/ cm3\nvolume of\ndistilled\nwater / cm3\nvolume of\ndilute\n\
+    hydrochloric\nacid / cm3\nstop-watch diagram\ntime taken\nfor text\nto not be\n\
+    visible\n/ s\n1\n50\n0\n5\n0\n30\n15\nseconds\nminutes\n45\n2\n0\n30\n15\n45\n\
+    3\n0\n30\n15\n45\n4\n0\n30\n15\n45\n5\n0\n30\n15\n45\n\n[3]\n,\t,\n\n(b) Write\
+    \ a suitable scale on the y-axis and plot the results from Experiments 1 to 5\
+    \ on Fig. 2.2.\n\nDraw a curve of best fit.\n20\n25\n30\n35\nvolume of aqueous\
+    \ sodium thiosulfate / cm3\ntime taken\nfor text to not\nbe visible / s\n40\n\
+    45\n50\nFig. 2.2\n\n[4]\n\n(c) The relative rate of reaction in each experiment\
+    \ is calculated using the equation shown.\nrelative rate of reaction =\n1\ntime\
+    \ taken\n\n(i) Calculate the relative rate of reaction in Experiment 1.\n\n Do\
+    \ not give units for your answer.\n\nrelative rate of reaction =  [1]\n\n(ii)\
+    \ State in which Experiment, 1, 2, 3, 4 or 5, the relative rate of reaction was\
+    \ greatest [1]\n,\t,\n\n(d) In each experiment the total volume of aqueous sodium\
+    \ thiosulfate and distilled water is\nconstant.\n\n(i) Calculate the volume of\
+    \ distilled water needed when the volume of aqueous sodium\nthiosulfate is 37\
+    \ cm3.\n\nvolume =  [2]\n\n(ii) From your graph in Fig. 2.2, deduce the time for\
+    \ the text to not be visible when the\nvolume of aqueous sodium thiosulfate is\
+    \ 37 cm3.\n\n Show clearly on Fig. 2.2 how you worked out your answer.\n\ntime\
+    \ =  s [2]\n\n(iii) Explain why the total volume of aqueous sodium thiosulfate\
+    \ and distilled water is kept\nconstant [1]\n\n(e) (i) State why measuring the\
+    \ volume of the dilute hydrochloric acid with a burette instead of\na measuring\
+    \ cylinder would be an improvement [1]\n\n(ii) Explain why it is not possible\
+    \ to use a volumetric pipette to measure the volume of\naqueous sodium thiosulfate\
+    \ in each experiment [1]\n\n(f) Explain why it is important not to change the\
+    \ size of the beaker to a larger beaker during the\ninvestigation [2]\n\n[Total:\
+    \ 18]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -134,7 +199,29 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student tests two solids: solid L and solid M.\n\nTests on solid L\n\
+    \nSolid L is hydrated aluminium chloride.\n\nThe student dissolves solid L in\
+    \ distilled water to form solution L. Solution L is divided into four\napproximately\
+    \ equal portions.\n\n(a) To the first portion of solution L, the student adds\
+    \ aqueous sodium hydroxide dropwise and\nthen in excess.\nobservations when added\
+    \ dropwise   observations in excess   [2]\n\n(b) To the second portion of solution\
+    \ L, the student adds aqueous ammonia dropwise and then in\nexcess.\nobservations\
+    \ when added dropwise   observations in excess   [2]\n\n(c) To the third portion\
+    \ of solution L, the student adds about 1 cm3 of dilute nitric acid followed by\n\
+    a few drops of aqueous silver nitrate.\nobservations   [1]\n\n(d) To the fourth\
+    \ portion of solution L, the student adds about 1 cm3 of dilute nitric acid followed\n\
+    by a few drops of aqueous barium nitrate.\nobservations   [1]\n,\t,\n\nTests on\
+    \ solid M\n\nTable 3.1 shows the tests and the student’s observations for solid\
+    \ M.\nTable 3.1\ntests\nobservations\ntest 1\nDo a flame test on solid M.\nlight\
+    \ green coloured flame\ntest 2\nDissolve the remaining solid M in water to\nform\
+    \ solution M. Divide solution M into three\nportions.\nTo the first portion of\
+    \ solution M, add about\n1 cm3 of aqueous sodium hydroxide.\nno visible change\n\
+    test 3\nTo the second portion of solution M, add\nabout 1 cm3 of aqueous sodium\
+    \ hydroxide\nand a piece of aluminium foil. Warm the\nmixture and test any gas\
+    \ given off.\neffervescence is seen;\ndamp red litmus paper turns blue\ntest 4\n\
+    To the third portion of solution M, add about\n1 cm3 of dilute sulfuric acid.\n\
+    white precipitate forms\n\n(e) Identify the gas given off in test 3 [1]\n\n(f)\
+    \ Identify solid M [2]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a

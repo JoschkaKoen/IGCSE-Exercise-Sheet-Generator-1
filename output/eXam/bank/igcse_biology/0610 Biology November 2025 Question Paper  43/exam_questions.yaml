@@ -2,7 +2,21 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nScientists use classification systems to study relationships between different\
+    \ groups of organisms.\n\n(a) State the two parts of a scientific name used in\
+    \ the binomial system [1]\n\n(b) Scientists discover a new species. It is multicellular,\
+    \ and has cell walls that are not made of\ncellulose. This new species feeds by\
+    \ releasing digestive enzymes into its surroundings and\nthen absorbing the digested\
+    \ nutrients.\n\nIdentify the kingdom that the new species belongs to [1]\n\n(c)\
+    \ Fig. 1.1 shows photographs of two different species, X and Y.\nspecies X\nspecies\
+    \ Y\nFig. 1.1\n,\t,\n\n(i) Species X and Y belong to the plant kingdom.\n\n State\
+    \ two structures found in cells from species X and Y that are not found in animal\
+    \ cells.\n1   2   [2]\n\n(ii) Using features visible in Fig. 1.1, identify the\
+    \ group in the plant kingdom that species X\nand Y belong to.\n\n Explain your\
+    \ answer.\nspecies X   species Y  [4]\n\n(iii) Understanding evolutionary relationships\
+    \ between crop plants can help scientists and\nfarmers improve agriculture.\n\n\
+    \ Explain how a scientist could determine if different crop plant species share\
+    \ a recent\nancestor (are closely related) [2]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +58,23 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nChickens are birds that are bred by farmers to produce eggs and meat.\
+    \ Modern farmed chickens\nare very different from the red junglefowl that is their\
+    \ wild ancestor.\n\nTable 2.1 describes some of the characteristics of red junglefowl\
+    \ and farmed chickens.\nTable 2.1\ntype of bird\nmean body\nmass / g\nmean number\n\
+    of eggs per year\nmean mass of\npectoral muscle / g\nmean age at\nmaturity / days\n\
+    red junglefowl\n 775\n 12\n 91\n142\nchicken\n4090\n160\n437\n 59\n\n(a) (i) Using\
+    \ Table 2.1, calculate the percentage change in the mean body mass from the red\n\
+    junglefowl to the chicken.\n\n Give your answer to three significant figures.\n\
+    \n Space for working % [3]\n\n(ii) Suggest reasons why farmers have selectively\
+    \ bred chickens to reach maturity faster\nthan red junglefowl [2]\n\n(iii) Describe\
+    \ how a farmer could breed chickens with a larger body mass [3]\n,\t,\n\n(b) Chicken\
+    \ faeces can be used as a fertiliser.\n\nChicken faeces spread on agricultural\
+    \ land near lakes can act as a pollutant, and cause the\ndestruction of the freshwater\
+    \ habitat.\n\nExplain how the use of chicken faeces near freshwater lakes can\
+    \ lead to habitat destruction [6]\n\n(c) Chicken waste contains a substance that\
+    \ is similar to urea.\n\nExplain how urea is made in humans [3]\n\n[Total: 17]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -86,7 +116,31 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Describe the pathway a water molecule takes from the soil to reach\
+    \ the xylem [2]\n\n(b) A student investigated the effect of temperature on transpiration.\n\
+    \nThe student collected four small plants and placed them in beakers filled with\
+    \ water.\n\nFig. 3.1 shows the apparatus used.\n114.22\nlayer of oil\nwater\n\
+    beaker\nFig. 3.1\n\nFor each plant, the student measured the initial masses of\
+    \ the equipment, water and plant.\n\nEach plant was placed in a different temperature-controlled\
+    \ room for three hours.\n\nAfter three hours, the student measured the final masses\
+    \ of the equipment, water and plants.\n,\t,\n\nThe results are shown in Table\
+    \ 3.1.\nTable 3.1\ntemperature / °C\ninitial mass / g\nfinal mass / g\ntranspiration\
+    \ rate\n/ g per hour\n15\n138.2\n135.5\n0.9\n20\n136.1\n132.5\n1.2\n25\n137.8\n\
+    128.5\n3.1\n30\n135.7\n118.3\n\n(i) Using the information in Table 3.1, calculate\
+    \ the transpiration rate in the plant kept at\n30 °C g per hour [1]\n\n(ii) Describe\
+    \ and explain the difference in the results for the plants kept at 15 °C and 25\
+    \ °C [4]\n,\t,\n\n(iii) The investigation was repeated with a plant kept at 25\
+    \ °C in a lower humidity environment.\n\n Predict the effect of these conditions\
+    \ on the transpiration rate.\n\n Explain your prediction [2]\n\n(iv) Complete\
+    \ the sentences about water movement through the xylem.\n\n The xylem transports\
+    \ water and  Xylem cells form a long continuous  with thick walls\n\n containing\
+    \ cellulose and  Water moves upwards in the xylem because of transpiration  This\
+    \ draws up a  of water molecules, held together by\n\n  between water molecules.\n\
+    \n[6]\n\n(c) (i) Explain why wilting occurs [3]\n,\t\t,\n\n(ii) Marram grass,\
+    \ Ammophila arenaria, is a xerophyte.\n\n Fig. 3.2 is a photomicrograph of a cross-section\
+    \ of a marram grass leaf.\nFig. 3.2\n\n Explain one way that the marram grass\
+    \ leaf shown in Fig. 3.2 is adapted to\nreduce transpiration [2]\n\n[Total: 20]\n\
+    ,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -146,7 +200,23 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nFig. 4.1 shows a section through a human heart and the main blood vessels.\n\
+    B\nN\nM\nL\nK\nJ\nH\nG\nF\nE\nD\nC\nFig. 4.1\n\n(a) (i) State the letter in Fig.\
+    \ 4.1 that identifies:\n\n the structure that separates oxygenated and deoxygenated\
+    \ blood  an atrioventricular valve [2]\n\n(ii) Explain why the heart wall at H\
+    \ is thicker than the heart wall at D in Fig. 4.1 [2]\n,\t,\n\n(iii) Table 4.1\
+    \ contains eight descriptions of parts of the pathway a red blood cell takes as\
+    \ it\nmoves from the vena cava to the aorta.\n\n Using Fig. 4.1, complete Table\
+    \ 4.1 by numbering the descriptions to show the correct\nsequence.\n\n Two have\
+    \ been done for you.\nTable 4.1\ndescription\nsequence\nblood enters C\nblood\
+    \ enters E and then E contracts\nblood enters M and then M contracts\n1\nblood\
+    \ travels to lungs\nblood moves into G\nblood moves into B\n8\nN opens\nblood\
+    \ moves into K\n\n[2]\n,\t,\n\n(b) Fig. 4.2 shows the effect of exercise on heart\
+    \ rate.\n\nexercise\nstops\nexercise\nstarts\nheart rate\ntime\nFig. 4.2\n\n(i)\
+    \ Explain the effect of exercise on heart rate shown in Fig. 4.2 [5]\n,\t,\n\n\
+    (ii) A lack of exercise can increase the risk of coronary heart disease.\n\n State\
+    \ three other factors that can increase the risk of coronary heart disease.\n\
+    1   2   3   [3]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -194,7 +264,18 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) (i) State the balanced chemical equation for photosynthesis [2]\n\n\
+    (ii) Chlorophyll is needed for photosynthesis.\n\n State the name of the mineral\
+    \ ion needed to make chlorophyll [1]\n\n(iii) State the name of the carbohydrate\
+    \ used for energy storage in a plant [1]\n\n(b) A plant shoot was placed in a\
+    \ light-proof box. A hole was cut in one side of the box and a light\nwas shone\
+    \ into the box.\n\nFig. 5.1 shows the plant shoot at the start of the investigation\
+    \ and after one week.\nlight\nlight proof\nbox\nplant\nshoot\nstart\nafter one\
+    \ week\nFig. 5.1\n\n(i) Identify the tropic response shown by the plant shoot\
+    \ in Fig. 5.1 [1]\n,\t,\n\n(ii) Explain the chemical control of the tropic response\
+    \ shown by the plant shoot in Fig. 5.1 [4]\n\n(iii) Explain how the type of tropic\
+    \ response shown in Fig. 5.1 is an advantage to a plant [2]\n\n[Total: 11]\n,\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -248,7 +329,14 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Fig. 6.1 is a diagram of the human male reproductive system.\nF\n\
+    G\nA\nB\nE\nD\nC\nFig. 6.1\n\nTable 6.1 contains information about the male reproductive\
+    \ system shown in Fig. 6.1.\n\nComplete Table 6.1.\nTable 6.1\nletter in Fig.\
+    \ 6.1\nname of the structure\nfunction\nscrotum\nproduces seminal fluid\ntransports\
+    \ urine and sperm\nE\n\n[4]\n,\t,\n\n(b) State the name of the hormone that causes\
+    \ voices to deepen at puberty [1]\n\n(c) Sperm have adaptive features to carry\
+    \ out their function.\n\nExplain three adaptive features of sperm.\n1   2   3\
+    \   [3]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

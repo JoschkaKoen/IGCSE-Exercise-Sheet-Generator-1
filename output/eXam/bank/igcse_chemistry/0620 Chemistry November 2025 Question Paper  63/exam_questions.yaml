@@ -2,7 +2,24 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student uses the apparatus in Fig. 1.1 to show that water is formed\
+    \ as one of the products when\na fuel is burned. The gases produced when the fuel\
+    \ is burned are passed through the apparatus\nusing a suction pump.\nto suction\n\
+    pump\nsolid X\nU-tube\nburning\nfuel\nice\nW\nFig. 1.1\n\n(a) Identify the item\
+    \ of apparatus labelled W in Fig. 1.1 [1]\n\n(b) When the fuel is burned, the\
+    \ steam produced passes into the U-tube.\n\nSuggest why the U-tube is surrounded\
+    \ by ice [1]\n\n(c) Water causes solid X in the U-tube to change colour.\n\nName\
+    \ solid X and state the colour change seen.\nsolid X   colour change from  to\
+    \   [2]\n.\n,\t,\n\nThe student tries to use the apparatus in Fig. 1.2 to pass\
+    \ the gases produced through acidified\naqueous potassium manganate(VII).\n\n\
+    There is an error in the apparatus in Fig. 1.2 so that the gases produced will\
+    \ not pass through\nthe acidified aqueous potassium manganate(VII).\nto suction\n\
+    pump\nburning\nfuel\nY\nacidified aqueous\npotassium manganate(VII)\nFig. 1.2\n\
+    \n(d) Identify the item of apparatus labelled Y in Fig. 1.2 [1]\n\n(e) On Fig.\
+    \ 1.2, draw a circle around the error in the apparatus.\n[1]\n\n(f) The error\
+    \ in the apparatus in Fig. 1.2 is corrected.\n\nThe student observes that the\
+    \ acidified aqueous potassium manganate(VII) changes colour\nfrom purple to colourless.\n\
+    \nSuggest why this colour change occurs [1]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +61,52 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates the temperature change when a 5 cm length of coiled\
+    \ magnesium ribbon\nreacts with excess dilute sulfuric acid.\n\nThe student does\
+    \ five experiments.\n\nExperiment 1\n•\nRinse a burette with distilled water and\
+    \ then with dilute sulfuric acid.\n•\nFill the burette with dilute sulfuric acid.\
+    \ Run some of the dilute sulfuric acid out of the burette\nso that the level of\
+    \ the dilute sulfuric acid is on the 0.0 cm3 mark.\n•\nUse the burette to add\
+    \ 30.0 cm3 of dilute sulfuric acid to a boiling tube.\n•\nUse a thermometer to\
+    \ measure the initial temperature of the acid.\n•\nRecord the initial temperature.\n\
+    •\nAdd a coil of magnesium ribbon to the boiling tube. At the same time start\
+    \ a stop-watch.\n•\nContinually stir the contents of the boiling tube using the\
+    \ thermometer.\n•\nAfter 1 minute, measure the temperature of the mixture in the\
+    \ boiling tube.\n•\nRecord this temperature.\n\nExperiment 2\n•\nRefill the burette\
+    \ with dilute sulfuric acid. Run some of the dilute sulfuric acid out of the burette\n\
+    so that the level of the dilute sulfuric acid is on the 0.0 cm3 mark.\n•\nUse\
+    \ the burette to add 25.0 cm3 of dilute sulfuric acid to a new boiling tube.\n\
+    •\nUse the thermometer to measure the initial temperature of the acid.\n•\nRecord\
+    \ the initial temperature.\n•\nAdd a coil of magnesium ribbon to the boiling tube.\
+    \ At the same time start the stop-watch.\n•\nContinually stir the contents of\
+    \ the boiling tube using the thermometer.\n•\nAfter 1 minute, measure the temperature\
+    \ of the mixture in the boiling tube.\n•\nRecord this temperature.\n\nExperiment\
+    \ 3\n•\nRepeat Experiment 2, using 20.0 cm3 of dilute sulfuric acid instead of\
+    \ 25.0 cm3.\n\nExperiment 4\n•\nRepeat Experiment 2, using 15.0 cm3 of dilute\
+    \ sulfuric acid instead of 25.0 cm3.\n\nExperiment 5\n•\nRepeat Experiment 2,\
+    \ using 10.0 cm3 of dilute sulfuric acid instead of 25.0 cm3.\n,\t,\n\n(a) Use\
+    \ the thermometer diagrams to complete Table 2.1.\nTable 2.1\nthermometer\ndiagram\
+    \ for\ninitial\ntemperature\n/ °C\nthermometer\ndiagram for\ntemperature\nafter\
+    \ 1 minute\n/ °C\ninitial\ntemperature\n/ °C\nexperiment\n1\n2\n3\n4\n5\nvolume\
+    \ of\ndilute\nsulfuric acid\n/ cm3\n30.0\n25.0\n20.0\n15.0\n10.0\ntemperature\n\
+    after 1\nminute\n/ °C\ntemperature\nincrease\n/ °C\n30\n25\n20\n30\n25\n20\n30\n\
+    25\n20\n30\n25\n20\n30\n25\n20\n30\n25\n20\n40\n35\n30\n40\n35\n30\n40\n35\n30\n\
+    50\n45\n40\n\n[4]\n,\t,\n\n(b) On Fig. 2.1, complete a suitable scale on the y-axis\
+    \ and plot the results from\nExperiments 1 to 5. Draw a line of best fit.\ntemperature\n\
+    increase / °C\nvolume of dilute sulfuric acid / cm3\n10.0\n0.0\n15.0\n20.0\n25.0\n\
+    30.0\n35.0\nFig. 2.1\n\n[4]\n\n(c) Explain why the temperature increase changes\
+    \ as the volume of dilute sulfuric acid changes [2]\n\n(d) Extrapolate the line\
+    \ of best fit on your graph in Fig. 2.1 to deduce the temperature increase if\n\
+    33.0 cm3 of dilute sulfuric acid is used.\n\nShow clearly on Fig. 2.1 how you\
+    \ worked out your answer.\n\ntemperature increase =   [3]\n\n(e) The investigation\
+    \ is repeated using 2.5 cm lengths of coiled magnesium ribbon instead of\n5 cm\
+    \ lengths.\n\nOn Fig. 2.1, sketch a line to show the results you would expect.\
+    \ Label this line E.\n[1]\n,\t,\n\n(f)\n(i) Give one reason why a burette, rather\
+    \ than a measuring cylinder, is used to measure the\nvolume of the dilute sulfuric\
+    \ acid [1]\n\n(ii) Explain why the contents of the boiling tube are stirred during\
+    \ each experiment [1]\n\n(g) Describe one change to the apparatus that will give\
+    \ more accurate results.\n\nExplain your answer.\nchange to apparatus   explanation\
+    \   [2]\n\n[Total: 18]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -104,7 +166,24 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student tests two substances: solution A and solid B.\n\nTests on solution\
+    \ A\n\nSolution A is aqueous iron(III) nitrate.\n\nRecord the expected observations.\n\
+    \nThe student divides solution A into three approximately equal portions.\n\n\
+    (a) To the first portion of solution A, the student adds aqueous ammonia dropwise\
+    \ and then\nin excess.\nobservations when added dropwise   observations in excess\
+    \   [2]\n\n(b) (i) To the second portion of solution A, the student adds excess\
+    \ aqueous sodium hydroxide.\nobservations   [1]\n\n(ii) To the product from (b)(i),\
+    \ the student adds a small piece of aluminium foil. The student\ngently warms\
+    \ the mixture formed and tests any gas produced.\nobservations   [1]\n\n(iii)\
+    \ Identify the gas produced in (b)(ii) [1]\n\n(c) To the third portion of solution\
+    \ A, the student adds about 1 cm3 of dilute nitric acid followed by\na few drops\
+    \ of aqueous barium nitrate.\nobservations   [1]\n,\n,\nTests on solid B\nTable\
+    \ 3.1 shows the tests and the student’s observations for solid B.\nTable 3.1\n\
+    tests\nobservations\ntest 1\nDo a flame test on solid B.\nlight green flame colour\n\
+    test 2\nAdd the remaining solid B to dilute\nhydrochloric acid.\nTest any gas\
+    \ produced.\neffervescence and a colourless solution forms\nlimewater turns milky\n\
+    \n(d) Identify the gas produced in test 2 [1]\n\n(e) Identify solid B [2]\n\n\
+    [Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a

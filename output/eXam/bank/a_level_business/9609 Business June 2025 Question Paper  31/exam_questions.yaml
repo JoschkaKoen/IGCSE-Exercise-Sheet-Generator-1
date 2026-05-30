@@ -2,7 +2,11 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Using the data in Table 1.1, calculate the average monthly labour\
+    \ productivity for January to\nMay 2025 [2]\n\n(b) Using the data in Table 1.1,\
+    \ calculate the percentage of output that failed to meet quality\nstandards for\
+    \ January to May 2025 [2]\n\n(c) Evaluate the best approach for WS to improve\
+    \ the performance of its production employees ,\t,\n  [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -26,19 +30,27 @@ questions:
 - number: '2'
   question_type: long_answer
   marks: 8
-  text: ''
+  text: "2\nAnalyse two ways that enterprise resource planning (ERP) could improve\
+    \ the efficiency of WS [8]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '1'
   question_type: calculation
   marks: 12
-  text: ''
+  text: '1
+
+    Analyse two advantages to WS of using an environmental audit [8]'
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) (i) Using the data in Table 1.2, calculate the average seasonal variation\
+    \ for Quarter 4 [2]\n\n(ii) Jon has calculated the trend for 2025 Quarter 4 as\
+    \ $21.41 million.\n\n Using your answer to (a)(i), calculate forecast sales for\
+    \ 2025 Quarter 4 [2]\n\n(b) Evaluate whether time series analysis is sufficient\
+    \ to allow WS to make decisions to achieve\nits marketing objective ,\t,\n  [12]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 4a

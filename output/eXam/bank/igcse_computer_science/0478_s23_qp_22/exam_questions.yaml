@@ -2,7 +2,14 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nA program needs to make sure the value input for a measurement meets the\
+    \ following rules:\n•\nthe value is a positive number\n•\na value is always input\n\
+    •\nthe value is less than 1000.\n\n(a) Describe the validation checks that the\
+    \ programmer would need to use [3]\n\n(b) The program needs editing to include\
+    \ a double entry check for the value input.\n\n(i) State why this check needs\
+    \ to be included [1]\n\n(ii) The input value needs to be stored in the variable\
+    \ Measurement\n\n Write pseudocode to perform the double entry check until a successful\
+    \ input is made [3]"
   answer_options: []
   subquestions:
   - number: 4a
@@ -32,31 +39,91 @@ questions:
 - number: '3'
   question_type: long_answer
   marks: 4
-  text: ''
+  text: '3
+
+    Identify three different ways that the design of a solution to a problem can be
+    presented.
+
+    1   2   3   [3]'
   answer_options: []
   subquestions: []
 - number: '1'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: '1
+
+    Tick (✓) one box to identify the first stage of the program development life cycle.
+
+
+    A
+
+    Analysis
+
+
+    B
+
+    Coding
+
+
+    C
+
+    Design
+
+
+    D
+
+    Testing
+
+
+    [1]'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: calculation
   marks: 3
-  text: ''
+  text: '5
+
+    Due to an issue with Question 5, the question has been removed from the question
+    paper.'
   answer_options: []
   subquestions: []
 - number: '6'
   question_type: calculation
   marks: 6
-  text: ''
+  text: '6
+
+    State three different features of a high‑level programming language that a programmer
+    could use
+
+    to make sure that their program will be easier to understand by another programmer.
+
+
+    Give an example for each feature.
+
+    Feature 1   Example   Feature 2   Example   Feature 3   Example   [6]'
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nAn algorithm has been written in pseudocode to calculate a check digit\
+    \ for a four‑digit number.\nThe algorithm then outputs the five‑digit number including\
+    \ the check digit.\n\nThe algorithm stops when –1 is input as the fourth digit.\n\
+    \n01 Flag\n FALSE\n\n02 REPEAT\n\n03     Total\n 0\n\n04     FOR Counter\n 1 TO\
+    \ 4\n\n05       OUTPUT \"Enter a digit \", Counter\n\n06       INPUT Number[Counter]\n\
+    \n07       Total\n Total + Number * Counter\n\n08       IF Number[Counter] = 0\n\
+    \n09         THEN\n\n10           Flag\n TRUE\n\n11       ENDIF\n\n12     NEXT\
+    \ Counter\n\n13     IF NOT Flag\n\n14       THEN\n\n15         Number[5]\n MOD(Total,\
+    \ 10)\n\n16         FOR Counter\n 0 TO 5\n\n17             OUTPUT Number[Counter]\n\
+    \n18         NEXT\n\n19     ENDIF\n\n20 UNTIL Flag\n\n(a) Give the line number(s)\
+    \ for the statements showing:\nTotalling   Count‑controlled loop   Post‑condition\
+    \ loop   [3]\n\n(b) Identify the three errors in the pseudocode and suggest a\
+    \ correction for each error.\nError 1   Correction   Error 2   Correction   Error\
+    \ 3   Correction   [3]\n\n(c) The algorithm does not check that each input is\
+    \ a single digit.\n\nIdentify the place in the algorithm where this check should\
+    \ occur.\n\nWrite pseudocode for this check.\n\nYour pseudocode must make sure\
+    \ that the input is a single digit and checks for –1\nPlace in algorithm   Pseudocode\
+    \   [4]"
   answer_options: []
   subquestions:
   - number: 7a
@@ -80,13 +147,179 @@ questions:
 - number: '8'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '8
+
+    Consider this logic expression.
+
+    X = (A OR B) AND (NOT B AND C)
+
+
+    Complete the truth table for this logic expression.
+
+    A
+
+    B
+
+    C
+
+    Working space
+
+    X
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    0
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+
+    [4]'
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    This flowchart represents an algorithm.
+
+    No
+
+    No
+
+    No
+
+    Yes
+
+    Yes
+
+    Yes
+
+    IS X[C] <
+
+    X[C + 1]?
+
+    F   0
+
+    C   1
+
+    T   X[C]
+
+    X[C]   X[C + 1]
+
+    X[C + 1]   T
+
+    F   1
+
+    C   C + 1
+
+    START
+
+    STOP
+
+    IS C = 5?
+
+    IS F = 0?
+
+
+    (a) The array X[1:5] used in the flowchart contains this data:
+
+    X[1]
+
+    X[2]
+
+    X[3]
+
+    X[4]
+
+    X[5]
+
+    10
+
+    1
+
+    5
+
+    7
+
+    11
+
+
+    Complete the trace table by using the data given in the array.
+
+    F
+
+    C
+
+    X[1]
+
+    X[2]
+
+    X[3]
+
+    X[4]
+
+    X[5]
+
+    T
+
+    10
+
+    1
+
+    5
+
+    7
+
+    11
+
+
+    [5]
+
+
+    (b) Describe what the algorithm represented by the flowchart is doing [2]'
   answer_options: []
   subquestions:
   - number: 9a
@@ -104,13 +337,45 @@ questions:
 - number: '2'
   question_type: calculation
   marks: 1
-  text: ''
+  text: '2
+
+    Four logic gates and five standard symbols for logic gates are shown.
+
+
+    Draw one line to link each logic gate to its standard symbol. Not all standard
+    symbols will be used.
+
+    AND
+
+    OR
+
+    NAND
+
+    NOT
+
+    Logic gate
+
+    Standard symbol
+
+
+    [4]'
   answer_options: []
   subquestions: []
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 A music streaming service has a new database table named Songs to store\
+    \ details of songs\navailable for streaming. The table contains the fields:\n\
+    •\nSongNumber – the catalogue number, for example AG123\n•\nTitle – the title\
+    \ of the song\n•\nAuthor – the name of the song writer(s)\n•\nSinger – the name\
+    \ of the singer(s)\n•\nGenre – the type of music, for example rock\n•\nMinutes\
+    \ – the length of the song in minutes, for example 3.75\n•\nRecorded – the date\
+    \ the song was recorded.\n\n(a) Identify the field that will be the most appropriate\
+    \ primary key for this table [1]\n\n(b) Complete the table to identify the most\
+    \ appropriate data type for the fields in Songs\nField\nData type\nSongNumber\n\
+    Title\nRecorded\nMinutes\n\n[2]\n\n(c) Explain the purpose of the structured query\
+    \ language (SQL) statements.\n\nSUM (Minutes) FROM Songs WHERE Genre = \"rock\"\
+    ;\n\nCOUNT (Title) FROM Songs WHERE Genre = \"rock\";\n  [3]"
   answer_options: []
   subquestions:
   - number: 10a
@@ -134,7 +399,14 @@ questions:
 - number: '11'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "11 The variables P and Q are used to store data in a program. P stores a\
+    \ string. Q stores a character.\n\n(a) Write pseudocode statements to declare\
+    \ the variables P and Q, store \"The world\" in P and\nstore 'W' in Q\n  [2]\n\
+    \n(b) Write a pseudocode algorithm to:\n•\nconvert P to upper case\n•\nfind the\
+    \ position of Q in the string P (the first character in this string is in position\
+    \ 1)\n•\nstore the position of Q in the variable Position\n  [4]\n\n(c) Give the\
+    \ value of Position after the algorithm has been executed with the data in\nquestion\
+    \ 11(a) [1]"
   answer_options: []
   subquestions:
   - number: 11a

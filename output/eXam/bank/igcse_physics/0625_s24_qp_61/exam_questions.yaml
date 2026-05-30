@@ -2,7 +2,27 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student investigates the stretching of a spring.\n\nFig. 1.1 shows the\
+    \ set-up.\nclamp stand\nmetre ruler\nbench\nspring\nFig. 1.1\n\n(a) The student\
+    \ measures, and records in Table 1.1, the unstretched length l 0 of the spring.\
+    \ He\ndoes not include the loops at the ends of the spring in the measurement.\
+    \ The value l 0 is the\nlength of the spring when the load L on the spring is\
+    \ 0.00 N.\n\nDescribe one technique you would use to obtain an accurate value\
+    \ for l 0. Draw a diagram to\nillustrate your answer [2]\n\n(b) The student suspends\
+    \ a load L = 1.00 N from the spring. He records the new length l of the\nspring\
+    \ in Table 1.1.\n\nHe calculates the extension e of the spring using the equation\
+    \ e = (l – l 0) and records the\nvalue of e in Table 1.1.\n\nThe student repeats\
+    \ the procedure using loads L = 2.00 N, 3.00 N, 4.00 N and 5.00 N.\n\nThe readings\
+    \ and results are recorded in Table 1.1.\n\nCalculate the extension e of the spring\
+    \ using the equation e = (l – l 0) when L = 5.00 N. Record\nthis value of e in\
+    \ Table 1.1.\n\nTable 1.1\nL / N\nl / cm\ne / cm\n0.00\n 2.1\n 0.0\n1.00\n 6.0\n\
+    \ 3.9\n2.00\n10.6\n 8.5\n3.00\n14.9\n12.8\n4.00\n19.3\n17.2\n5.00\n23.7\n\n[1]\n\
+    \n(c) Plot a graph of L / N (y-axis) against e / cm (x-axis). Start both axes\
+    \ at the origin (0, 0).\n\nDraw the best-fit line.\n00\n\n[4]\n\n(d) Determine\
+    \ the gradient G of the graph. Show all your working and indicate on the graph\
+    \ the\nvalues you use.\n\nG =   [2]\n\n(e) G is numerically equal to the spring\
+    \ constant k.\n\nRecord the value of k to a suitable number of significant figures\
+    \ for this experiment. Include\nthe unit.\n\nk =   [2]\n\n[Total: 11]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +58,27 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates the resistance of a wire.\n\nFig. 2.1 shows the\
+    \ circuit used.\nA\nV\nB\nC\nsliding\ncontact S\nresistance\nwire\nd\nFig. 2.1\n\
+    \n(a) The student measures the current I in the circuit.\n\nShe places the sliding\
+    \ contact S at a distance d = 50.0 cm from B.\n\nShe measures the potential difference\
+    \ (p.d.) V50 across length d of the resistance wire.\n\nFig. 2.2 shows the ammeter\
+    \ and voltmeter.\n\n(i) Record the readings on the ammeter and voltmeter. Include\
+    \ the units.\nV\n6\n7\n9\n8\n10\n4\n5\n2\n1\n3\n0\nA\n0.6\n0.8\n1.0\n0.4\n0.2\n\
+    0\nFig. 2.2\n\nI =   V50 =   [2]\n\n(ii) Calculate the resistance R50 of 50.0\
+    \ cm of the resistance wire using the equation\nR50 = V50\nI .\n\n Include the\
+    \ unit.\n\nR50 =   [2]\n\n(iii) Calculate r1, a value for the resistance per cm\
+    \ of the resistance wire, using the equation\nr1 = R50\nd ,\n\n where d = 50.0\
+    \ cm. Include the unit.\n\nr1 =   [2]\n\n(b) The student repeats the procedure\
+    \ in (a) using d = 75.0 cm and calculates r2 using the\nequation\nr2 = R75\nd\
+    \ .\n\n2.2\n\nV75 =   6.1\n\nR75 =   0.081\n\nr2 =   A student suggests that the\
+    \ resistance per cm of the resistance wire is constant.\n\n(i) State whether your\
+    \ results support this suggestion and justify your statement by\nreference to\
+    \ the results.\nstatement   justification   [2]\n\n(ii) The student plans to plot\
+    \ a graph of resistance R against length d to test the suggestion.\n\n Suggest\
+    \ suitable additional values of length d to use [2]\n\n(c) A variable resistor\
+    \ is a circuit component that can be made using a coil of resistance wire.\n\n\
+    Draw the electrical symbol for a variable resistor.\n\n[1]\n[Total: 11]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -92,7 +132,25 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student investigates the image produced by a lens.\n\nFig. 3.1 shows\
+    \ the set-up.\nilluminated\nobject\nlens\nscreen\nx\ny\nbench\nFig. 3.1\nhO\n\
+    Fig. 3.2\n\n(a) Fig. 3.2 shows the height hO of the illuminated object.\n\nOn\
+    \ Fig. 3.2, measure hO.\n\nhO =   [2]\n\n(b) Fig. 3.1 is drawn to scale. The actual\
+    \ distance u between the illuminated object and the lens\nis 20.0 cm.\n\n(i) On\
+    \ Fig. 3.1, measure the distance x.\n\nx =   [1]\n\n(ii) Calculate the scale ratio\
+    \ r using the equation\nr = u\nx ,\n\n where u = 20.0 cm.\n\nr =   [1]\n\n(c)\
+    \ The student moves the screen until a focused image is formed on the screen.\n\
+    \n(i) On Fig. 3.1, measure the distance y.\n\ny =   cm [1]\n\n(ii) Calculate the\
+    \ actual distance v between the lens and the screen using the equation\nv = r y.\
+    \ Use your value for r from (b)(ii).\n\nv =   cm [1]\n\n(d) Calculate the focal\
+    \ length f of the lens using the equation\nf =\nuv\n(u + v) .\n\nGive your answer\
+    \ to a suitable number of significant figures for this type of experiment.\n\n\
+    f =   cm [2]\n\n(e)  In this type of experiment, it can be difficult to judge\
+    \ the screen position that produces the\nclearest image.\n\nSuggest two precautions\
+    \ or techniques to overcome this difficulty.\n1   2   [2]\n\n(f) Fig. 3.2 shows\
+    \ the shape of the illuminated object. The image of the object is enlarged.\n\n\
+    Draw a diagram to show the image that you would see on the screen.\n\n[1]\n\n\
+    [Total: 11]"
   answer_options: []
   subquestions:
   - number: 3a

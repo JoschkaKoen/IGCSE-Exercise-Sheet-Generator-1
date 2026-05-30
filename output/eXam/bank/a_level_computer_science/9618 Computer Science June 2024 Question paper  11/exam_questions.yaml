@@ -2,7 +2,12 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Tick (✓) one box to identify the correct logic statement for this\
+    \ truth table.\nA\nB\nC\nX\n0\n0\n0\n1\n0\n0\n1\n0\n0\n1\n0\n0\n0\n1\n1\n0\n1\n\
+    0\n0\n0\n1\n0\n1\n0\n1\n1\n0\n1\n1\n1\n1\n0\n\n NOT (A AND B AND C)\n\n (A XOR\
+    \ B) NOR C\n\n (A OR B OR C) NOR C\n\n NOT A AND NOT B AND NOT C\n\n[1]\n\n(b)\
+    \ Draw a logic circuit for the logic expression:\nX = NOT (NOT A AND (NOT B XOR\
+    \ C))\nA\nX\nB\nC\n\n[2]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +25,35 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA video doorbell is attached to the front door of a house. The doorbell\
+    \ uses a motion sensor to\ndetect when a visitor walks in front of the door. When\
+    \ the motion sensor is activated:\n•\nThe digital camera in the doorbell starts\
+    \ recording a video.\n•\nA message is transmitted to a smartphone so that the\
+    \ person who lives in the house can\nwatch the video.\nThe doorbell also has a\
+    \ button that can be pressed. When the button is pressed, a message is\ntransmitted\
+    \ to a smartphone to play the doorbell sound.\nThe videos are stored on the doorbell’s\
+    \ internal secondary storage device and overwritten when\nthe secondary storage\
+    \ device is full.\n\n(a) The video doorbell can be considered an example of an\
+    \ embedded system.\n\nIdentify two characteristics of the doorbell that suggest\
+    \ it is an embedded system.\n1   2   [2]\n\n(b) State whether the video doorbell\
+    \ is a monitoring system or a control system.\n\nJustify your choice.\nMonitoring\
+    \ or control system   Justification   [2]\n\n(c) The video doorbell has both primary\
+    \ memory and secondary storage.\n\n(i) Identify two items of data that the video\
+    \ doorbell will store in primary memory.\n1   2   [2]\n\n(ii) The video doorbell\
+    \ has a solid state (flash) secondary storage device.\n\n Complete the table by\
+    \ writing the answer or answers to each statement about the\nprincipal operation\
+    \ of solid state (flash) memory.\nStatement\nAnswer\nthe two types of logic gate\
+    \ that\ncan be used to create solid state\ndevices\n1  2  the number of transistors\
+    \ contained\nin each cell\n the type of gate that can retain\nelectrons without\
+    \ power\n the type of gate that allows or stops\ncurrent from passing through\n\
+    \ [4]\n\n(iii) The video doorbell uses a buffer.\n\n Describe how the video doorbell\
+    \ will use the buffer [2]\n\n(d) The digital camera has a microphone which is\
+    \ used to record the sound for the video.\n\nThe user changes the sampling rate\
+    \ that the microphone uses from 44.1 kHz to 88.2 kHz.\n\nDescribe how this change\
+    \ in sampling rate will affect the performance of the video doorbell [3]\n\n(e)\
+    \ The video doorbell allows both real-time and on-demand bit streaming.\n\n(i)\
+    \ State what is meant by bit streaming [1]\n\n(ii) Give two differences between\
+    \ real-time and on-demand bit streaming.\n1   2   [2]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -86,7 +119,33 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    A software developer is writing a computer program.
+
+
+    (a) The developer uses an interpreter while writing the program code because it
+    is easier for
+
+    debugging.
+
+
+    Explain one reason why it is easier to debug the program code using an interpreter
+    instead of
+
+    a compiler [2]
+
+
+    (b) The program is ready to be sold to customers.
+
+
+    The developer uses a compiler because it creates an executable file.
+
+
+    Explain the reasons why the need to create an executable file makes the complier
+    the
+
+    appropriate choice when the program is complete [3]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -104,7 +163,314 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    The following table shows part of the instruction set for a processor. The processor
+    has two
+
+    registers: the Accumulator (ACC) and an Index Register (IX).
+
+    Instruction
+
+    Explanation
+
+    Opcode
+
+    Operand
+
+    LDM
+
+    #n
+
+    Immediate addressing. Load the number n to ACC
+
+    LDD
+
+    <address>
+
+    Direct addressing. Load the contents of the location at the given
+
+    address to ACC
+
+    LDI
+
+    <address>
+
+    Indirect addressing. The address to be used is at the given address.
+
+    Load the contents of this second address to ACC
+
+    LDX
+
+    <address>
+
+    Indexed addressing. Form the address from <address> + the contents
+
+    of the Index Register. Copy the contents of this calculated address to
+
+    ACC
+
+    LDR
+
+    #n
+
+    Immediate addressing. Load the number n to IX
+
+    ADD
+
+    #n/Bn/&n
+
+    Add the number n to the ACC
+
+    ADD
+
+    <address>
+
+    Add the contents of the given address to the ACC
+
+    SUB
+
+    #n/Bn/&n
+
+    Subtract the number n from the ACC
+
+    SUB
+
+    <address>
+
+    Subtract the contents of the given address from the ACC
+
+    INC
+
+    <register>
+
+    Add 1 to the contents of the register (ACC or IX)
+
+    <address> can be an absolute or a symbolic address
+
+    # denotes a denary number, e.g. #123
+
+    B denotes a binary number, e.g. B01001010
+
+    & denotes a hexadecimal number, e.g. &4A
+
+
+    (a) The current contents of memory are shown:
+
+    Address
+
+    Data
+
+    19
+
+    24
+
+    20
+
+    2
+
+    21
+
+    1
+
+    22
+
+    3
+
+    23
+
+    5
+
+    24
+
+    4
+
+    25
+
+    22
+
+
+    The current contents of the ACC and IX are shown:
+
+    ACC
+
+    12
+
+    IX
+
+    1
+
+
+    Complete the table by writing the content of the ACC after each program has run.
+
+    Program number
+
+    Code
+
+    ACC content
+
+    1
+
+    LDD 20
+
+    ADD #2
+
+    2
+
+    LDX 22
+
+    3
+
+    LDI 25
+
+    INC ACC
+
+    SUB 22
+
+    4
+
+    LDD 19
+
+    LDM #5
+
+    LDM #25
+
+
+    [4]
+
+
+    (b) The processor includes these bit manipulation instructions:
+
+    Instruction
+
+    Explanation
+
+    Opcode
+
+    Operand
+
+    AND
+
+    #n/Bn/&n
+
+    Bitwise AND operation of the contents of ACC with the operand
+
+    AND
+
+    <address>
+
+    Bitwise AND operation of the contents of ACC with the contents of
+
+    <address>
+
+    XOR
+
+    #n/Bn/&n
+
+    Bitwise XOR operation of the contents of ACC with the operand
+
+    XOR
+
+    <address>
+
+    Bitwise XOR operation of the contents of ACC with the contents of
+
+    <address>
+
+    OR
+
+    #n/Bn/&n
+
+    Bitwise OR operation of the contents of ACC with the operand
+
+    OR
+
+    <address>
+
+    Bitwise OR operation of the contents of ACC with the contents of
+
+    <address>
+
+    <address> can be an absolute or a symbolic address
+
+    # denotes a denary number, e.g. #123
+
+    B denotes a binary number, e.g. B01001010
+
+    & denotes a hexadecimal number, e.g. &4A
+
+
+    The current contents of memory are shown:
+
+    Address
+
+    Data
+
+    30
+
+    01110101
+
+    31
+
+    11111111
+
+    32
+
+    00000000
+
+    33
+
+    11001100
+
+    34
+
+    10101010
+
+
+    The current content of the ACC is shown:
+
+    1
+
+    0
+
+    0
+
+    1
+
+    1
+
+    0
+
+    1
+
+    0
+
+
+    Complete the table by writing the content of the ACC after each program has run.
+
+
+    The binary number 10011010 is reloaded into the ACC before each program is run.
+
+    Program number
+
+    Code
+
+    ACC content
+
+    1
+
+    AND 31
+
+    2
+
+    XOR B01001111
+
+    3
+
+    OR #30
+
+
+    [3]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -122,7 +488,26 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA bank allows customers to access their accounts using an application\
+    \ that they can download\nonto a device such as a smartphone.\n\n(a) The system\
+    \ that allows customers to access their accounts using the application is a\n\
+    client-server model.\n\nDescribe the roles of the different devices in this model\
+    \ [4]\n\n(b) The bank wants to protect the integrity of its data while transferring\
+    \ the data to other banks.\nParity check is one example of data verification.\n\
+    \nComplete the description of parity check when Computer A is transmitting data\
+    \ to Computer B.\n\nComputer A and Computer B agree on whether to use  parity.\
+    \ Computer A divides the data into groups of  The\nnumber of 1s in each group\
+    \ is counted. If the agreed parity is  and the group has an even number of 1s,\
+    \ a parity bit of 1 is appended, otherwise a parity bit\nof 0 is appended.\n\n\
+    In a parity  check the bytes are grouped together, for\nexample in a grid. The\
+    \ number of 1s in each column (bit position) is counted. A bit is assigned\nto\
+    \ each column to make the column match the parity. These parity bits are transmitted\
+    \ with\nthe data as a parity  [5]\n\n(c) The bank also needs to keep its customers’\
+    \ data private and secure.\n\n(i) The bank’s network has a firewall.\n\n Explain\
+    \ how a firewall can help protect the customers’ data [3]\n\n(ii) Customers need\
+    \ to use biometric authentication to access their accounts.\n\n One biometric\
+    \ authentication method is facial recognition.\n\n Facial recognition uses Artificial\
+    \ Intelligence (AI).\n\n Describe how AI is used in facial recognition [4]"
   answer_options: []
   subquestions:
   - number: 5a
@@ -158,7 +543,29 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nA company is developing a website that will allow users to create an account\
+    \ and then play a quiz\nevery day. The data about the users and the quizzes are\
+    \ stored in a database.\n\nA user must select a unique username and enter a valid\
+    \ email address to create an account. All\nusers must be over the age of 16. A\
+    \ new quiz is given to the users every day. Each quiz is stored\nin its own text\
+    \ file.\n\nThe database stores the filename of each quiz and the date it can be\
+    \ played. The user gets a\nscore for each quiz they complete, which is stored\
+    \ in the database. The scores are used to give\neach user a rating, for example\
+    \ Gold.\n\n(a) Create a 3-table design for this database normalised to Third Normal\
+    \ Form (3NF).\n\nGive your table design in the format:\n\nTableName(PrimaryKey,\
+    \ Field1, Field2, …)\n  [6]\n\n(b) The company is using a Database Management\
+    \ System (DBMS) to set up the database.\n\nDescribe what is meant by the following\
+    \ DBMS features:\nData dictionary   Logical schema   [4]\n\n(c) The company has\
+    \ another database, FARMING, for a different game.\n\nThe database FARMING has\
+    \ a table named EVENT which is shown with some sample data.\nPlayerID\nEventID\n\
+    Category\nPoints\n000123\n3\nBuild\n100\n000124\n1\nGrow\n36\n000123\n4\nGrow\n\
+    22\n000123\n7\nCreate\n158\n000125\n3\nGrow\n85\n000125\n4\nBuild\n69\n\n(i) The\
+    \ database FARMING has a second table created named PLAYER that has the primary\n\
+    key PlayerID.\n\n The field PlayerID in EVENT needs to be set up as a foreign\
+    \ key to link to PlayerID in\nPLAYER.\n\n Write a Structured Query Language (SQL)\
+    \ script to change the table definition for EVENT\nto link the foreign key to\
+    \ PLAYER [2]\n\n(ii) Write an SQL script to return the number of events that each\
+    \ player has completed [3]"
   answer_options: []
   subquestions:
   - number: 6a
@@ -194,13 +601,37 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: '7
+
+    Complete the binary addition. Show your working.
+
+
+    1 0 0 1 1 1 1 0
+
+    0 1 1 0 0 0 0 1
+
+    + 0 0 0 1 1 0 0 1
+
+
+    [3]'
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nA business is creating a local area network (LAN) in its office.\n\n(a)\
+    \ The business is deciding which topology to use.\n\nTick (✓) one or more boxes\
+    \ in each row to identify the topology, or topologies, each statement\ndescribes.\n\
+    Statement\nBus\nStar\nMesh\nall devices connect to one central device\nall devices\
+    \ connect to a central cable\nmultiple paths for the packets to travel along\n\
+    robust against damage because if any line fails,\nthe rest of the network retains\
+    \ full functionality\nmost likely to lose data through collisions\n\n[5]\n\n(b)\
+    \ The LAN will connect to the internet through a router. The router has a public\
+    \ IPv6 address.\n\n(i) State why the router has a public IP address [1]\n\n(ii)\
+    \ One difference between an IPv4 and IPv6 address is that the numbers in an IPv4\
+    \ address\nare separated by full stops and in an IPv6 address they are separated\
+    \ by colons.\n\n Identify two other differences between an IPv4 and IPv6 address.\n\
+    1   2   [2]"
   answer_options: []
   subquestions:
   - number: 8a

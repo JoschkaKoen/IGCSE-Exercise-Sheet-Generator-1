@@ -2,7 +2,42 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nPotato cells contain the enzyme catalase. Catalase catalyses the breakdown\
+    \ of hydrogen peroxide\ninto water and oxygen gas. The oxygen gas forms a foam.\
+    \ The height of the foam indicates how\nactive the enzyme is.\n\nA student investigated\
+    \ the effect of temperature on the activity of the enzyme catalase.\n\nThe student\
+    \ used this method:\n\nStep 1\nLabel three test-tubes C, R and H.\n\nStep 2\n\
+    \ Use a syringe to add 4 cm3 of hydrogen peroxide solution to each of the test-tubes\n\
+    labelled C, R and H.\n\nStep 3\nPlace test-tube C into a cold water-bath.\n\n\
+    Step 4\nPlace test-tube R in a test-tube rack to keep it at room temperature.\n\
+    \nStep 5\nPlace test-tube H into a hot water-bath.\n\nStep 6\nLeave the test-tubes\
+    \ for five minutes.\n\nStep 7\n After five minutes, use a clean syringe to add\
+    \ 1 cm3 of potato extract to test-tube C. Start\nthe stop-clock.\n\nStep 8\nRepeat\
+    \ step 7 for test-tube R and test-tube H.\n\nFig. 1.1 shows the test-tubes 30\
+    \ seconds after adding the potato extract.\nC\nR\nH\nfoam\npotato extract and\
+    \ hydrogen\nperoxide solution\nFig. 1.1\n,\t,\n\n(a) (i) Prepare a table for the\
+    \ results of the investigation.\n\n Measure the maximum height of the foam, in\
+    \ mm, in each of test-tubes C, R and H\nshown in Fig. 1.1.\n\n Record these measurements\
+    \ in your table.\n\n[4]\n\n(ii) State a conclusion for these results [1]\n\n(iii)\
+    \ State the independent and dependent variables in the investigation.\nindependent\
+    \ variable   dependent variable   [2]\n,\t,\n\n(iv) Explain why test-tube C and\
+    \ test-tube H were kept in the water-baths for five minutes in\nstep 6 [1]\n\n\
+    (v) The student suggests repeating the investigation twice more.\n\n Explain how\
+    \ this would give you more confidence in these results [1]\n\n(vi) Potato extract\
+    \ can be prepared by cutting a potato into pieces and then grinding it with a\n\
+    mortar and pestle and some water.\n\n Describe a safety precaution that would\
+    \ reduce the hazards in producing potato extract\nusing this method [1]\n\n(b)\
+    \ (i) Another student did the same experiment and measured the height of the foam\
+    \ in one of\nthe test-tubes as 29 mm. The diameter of the test-tube was 25 mm.\n\
+    \n Calculate the volume of foam produced, and give your answer in cm3 to one decimal\n\
+    place.\n\n Use 3.14 as the value for π cm3 [3]\n\n(ii) Suggest a more accurate\
+    \ method of measuring the volume of oxygen gas produced [1]\n,\t,\n\n(c) Potatoes\
+    \ are a source of starch and vitamin C.\n\n(i) Iodine solution was used to test\
+    \ a sample of potato for starch.\n\n State the result of a positive test for starch\
+    \ [1]\n\n(ii) State the name of a reagent that can be used to test for vitamin\
+    \ C [1]\n\n(d) Photosynthesis also produces oxygen gas.\n\nPlan an investigation\
+    \ to determine the effect of light intensity on the rate of photosynthesis in\n\
+    aquatic plants [6]\n\n[Total: 22]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -92,7 +127,39 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Fig. 2.1 is a photograph of an acorn from a Caucasian oak, Quercus\
+    \ macranthera.\nQ\nP\nmagnification ×3.4\nFig. 2.1\n\n(i) Make a large drawing\
+    \ of the acorn in Fig. 2.1.\n[4]\n,\t,\n\n(ii) Line PQ represents the length of\
+    \ the acorn in Fig. 2.1.\n\n Measure the length of line PQ in Fig. 2.1.\n\n length\
+    \ of line PQ  mm\n\n Calculate the actual length of the acorn using the formula\
+    \ and your measurement.\nmagnification = length of line PQ in Fig. 2.1\nactual\
+    \ length of the acorn\n\n Give your answer to two significant figures.\n\n Space\
+    \ for working mm\n\n[3]\n,\t,\n\n(iii) Fig. 2.2 shows photographs of acorns from\
+    \ a Caucasian oak and from a Turkey oak,\nQuercus cerris.\nmagnification ×3.4\n\
+    cupule\nnut\nFig. 2.2\n\n Describe two visible differences between the acorns\
+    \ in Fig. 2.2.\n1   2   [2]\n\n(b) Different species of oak tree have acorns of\
+    \ different masses.\n\nScientists investigated if the mass of acorns affected\
+    \ the proportion of acorns that germinated\nin three different species of oak\
+    \ tree.\n•\nThe scientists took 100 acorns from each of three species of oak tree.\n\
+    •\nThe mass of each acorn was measured and recorded.\n•\nEach acorn was then placed\
+    \ in a pot with the same type of soil in a dark room at 25 °C\nand watered every\
+    \ 48 hours.\n•\nThe scientists recorded the proportion of acorns that had germinated\
+    \ in 60 days.\n\n(i) State two factors that were kept constant in the investigation\
+    \ described in 2(b).\n1   2   [2]\n,\t\t,\n\nThe results are shown in Table 2.1.\n\
+    Table 2.1\nspecies of\noak tree\nmean mass\nof acorns / g\nproportion of\nacorns\
+    \ that\ngerminated\nA\n0.52\n0.44\nB\n1.92\n0.56\nC\n2.30\n0.64\n\n(ii) Plot a\
+    \ bar chart on the grid of all the data in Table 2.1.\n\n Include a key on your\
+    \ bar chart.\n\n[4]\n\n(iii) The study measured 100 acorns for each species.\n\
+    \n Suggest why a large number of acorns was measured [1]\n,\n,\n\n(iv) Water is\
+    \ required for germination.\n\n The scientists measured the mass of one acorn\
+    \ from each species. The acorns were\nthen dried in an oven and the mass of each\
+    \ acorn was measured again. The scientists\nused these data to calculate the percentage\
+    \ water content of the acorns.\n\n The results are shown in Table 2.2.\nTable\
+    \ 2.2\nspecies of oak tree\ninitial mass of the acorn\n/ g\ndried mass of the\
+    \ acorn\n/ g\npercentage water\ncontent of the acorn\nA\n0.49\n0.36\n26.5\nB\n\
+    1.96\n0.74\nC\n2.34\n0.98\n58.1\n\n Calculate the percentage water content of\
+    \ the acorn from species B % [1]\n\n(c) State the name of the reagent used to\
+    \ test for protein [1]\n\n[Total: 18]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a

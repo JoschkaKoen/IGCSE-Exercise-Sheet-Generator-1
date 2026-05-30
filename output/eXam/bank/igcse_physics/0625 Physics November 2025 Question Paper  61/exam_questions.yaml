@@ -2,7 +2,32 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student investigates the balancing of a metre ruler.\n\nFig. 1.1 shows\
+    \ the apparatus.\nload\nobject Q\n50.0 cm mark\n90.0 cm mark\nmetre ruler\nbench\n\
+    pivot\nx\ny\n0\n100\nFig. 1.1\n\n(a) The student places a metre ruler on a pivot\
+    \ at the 50.0 cm mark.\n\nShe places an object Q with its centre on the metre\
+    \ ruler at the 90.0 cm mark.\n\nDetermine the distance y from the 50.0 cm mark\
+    \ to the centre of the object Q.\n\ny =   cm [2]\n\n(b) She places a 2.0 N load\
+    \ on the metre ruler.\n\nShe adjusts the position of the load so that the metre\
+    \ ruler is as near as possible to being\nbalanced.\n\nShe measures the distance\
+    \ x from the centre of the load to the 50.0 cm mark.\n\n21.5\n\nx =   cm\n\n(i)\
+    \ Calculate the weight W of object Q, using the equation W = x\ny × 2.0 N.\n\n\
+    \ Give your answer to a suitable number of significant figures for this experiment.\n\
+    \nW =   N [2]\n\nShe repeats the procedure, using a 3.0 N load. She does not change\
+    \ the position of object Q.\n\n14.8\n\nx =   cm\n\n(ii) Calculate a new value\
+    \ of the weight W of object Q, using the equation W = x\ny × 3.0 N.\n\n Give your\
+    \ answer to a suitable number of significant figures for this experiment.\n\n\
+    W =   N [1]\n,\t,\n\n(c) State and explain whether your two values of W are equal\
+    \ within the limits of experimental\naccuracy. Refer to the values of W in your\
+    \ answer.\nstatement   explanation   [2]\n\n(d) Explain how you ensure that the\
+    \ centre of object Q is directly over the 90.0 cm mark of the\nmetre ruler. You\
+    \ may draw a diagram [1]\n\n(e)  It is difficult to find the position of the load\
+    \ to obtain the exact balance of the metre ruler.\n\nExplain how you try to overcome\
+    \ this difficulty [1]\n,\t,\n\n(f)\nmetre ruler\n49\n50\n51\npivot\nFig. 1.2\n\
+    \nFig. 1.2 shows the metre ruler balanced on the pivot with no loads. The balance\
+    \ point shows\nthe position of the centre of mass of the metre ruler.\n\nDetermine\
+    \ the distance d between the 50.0 cm mark on the metre ruler and the centre of\n\
+    mass.\n\nShow your working.\n\nd =   [2]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -56,7 +81,24 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates the resistance of a wire.\n\nFig. 2.1 shows the\
+    \ circuit he uses.\nB\nC\nresistance\nwire\nsliding\ncontact S\nd\nA\nV\nFig.\
+    \ 2.1\n\n(a) Record the ammeter reading shown in Fig. 2.2.\nA\n0.6\n0.8\n1.0\n\
+    0.4\n0.2\n0\nFig. 2.2\n\nI =   A [1]\n,\t,\n\n(b) The student places the sliding\
+    \ contact 15.0 cm from B.\n\nHe measures the potential difference (p.d.) V across\
+    \ the length d = 15.0 cm of resistance\nwire BC.\n\nHe repeats the procedure using\
+    \ values of d = 40.0 cm, d = 60.0 cm and d = 80.0 cm.\n\nThe values of d, V and\
+    \ R are shown in Table 2.1.\n\nThe voltmeter reading he obtains when d = 100.0\
+    \ cm is shown in Fig. 2.3.\n\n(i) Record, in the last row of Table 2.1, the voltmeter\
+    \ reading shown in Fig. 2.3.\n[1]\nV\n3\n4\n5\n2\n1\n0\nFig. 2.3\n\n(ii) Calculate\
+    \ the resistance R of 100.0 cm of the resistance wire, using the equation\nR =\
+    \ V\nI .\n\n Record R in the last row of Table 2.1.\n\n[1]\n\n(iii) Complete the\
+    \ column headings in Table 2.1.\n[1]\nTable 2.1\nd /\nV /\nR /\n 15.0\n0.4\n1.25\n\
+    \ 40.0\n1.1\n3.44\n 60.0\n1.4\n4.38\n 80.0\n2.1\n6.56\n100.0\n,\t,\n\n(c) Plot\
+    \ a graph of resistance R / Ω (y-axis) against length d /cm (x-axis). Draw a best-fit\
+    \ line.\n\n[4]\n\n(d) Use your graph to determine the resistance R75 of a length\
+    \ d = 75.0 cm of the resistance wire.\nShow clearly on the graph how you obtained\
+    \ the value.\n\nR75 =   [3]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -104,7 +146,33 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student investigates the refraction of light in the material of a transparent\
+    \ block.\n\nFig. 3.1 shows the ray-trace sheet. The student places a transparent\
+    \ block on the sheet and labels\nthe block ABCD.\nA\nB\nD\nC\neye\nP4\nP3\nFig.\
+    \ 3.1\n\n(a)  On Fig. 3.1, draw a normal NL to the side AB of the transparent\
+    \ block at a distance 2.0 cm\nfrom A. Continue the normal so that it passes through\
+    \ side CD of the block.\n\nLabel the point S where NL crosses AB.\n\n[2]\n,\t\t\
+    ,\n\n(b) •\nDraw a line RS at an angle i = 30° to the normal, above AB and to\
+    \ the left of the normal.\n•\nThe student places two pins P1 and P2 on line RS.\
+    \ Mark, with two crosses (X), on line\nRS, positions of the pins at a suitable\
+    \ distance apart for this experiment.\n\n[2]\n\n(c) The student looks from the\
+    \ position of the eye shown in Fig. 3.1, to observe the images of P1\nand P2 through\
+    \ side CD of the block. He adjusts his line of sight until the images of P1 and\
+    \ P2\nappear exactly one behind the other.\n\nHe places two pins P3 and P4 between\
+    \ side CD of the block and his eye so that P3, P4 and\nthe images of P1 and P2\
+    \ seen through the block, appear exactly one behind the other.\n\nThe positions\
+    \ of P3 and P4 are shown on Fig. 3.1.\n•\nDraw a line through the positions of\
+    \ P3 and P4. Continue the line until it meets the normal\nNL and label that point\
+    \ E.\n•\nLabel the other end of the line F.\n•\nMeasure the acute angle θ between\
+    \ EF and the normal. An acute angle is an angle less\nthan 90°.\n\nangle θ = \
+    \  [2]\n\n(d) (i) Tick one box to complete the sentence.\n\n To produce the most\
+    \ accurate ray-trace, a student places the pins P1 and P2\n\n exactly 5.0 cm apart.\n\
+    \n less than 5.0 cm apart.\n\n more than 5.0 cm apart.\n\n[1]\n\n(ii) Suggest\
+    \ two other techniques that the student can use to produce an accurate ray-trace.\n\
+    1 2 [2]\n\n(e)  The student plans to investigate the relationship between angle\
+    \ i and angle θ. The student\ntakes more sets of readings to test the relationship.\
+    \ List suitable values of angle i that the\nstudent can use [2]\n\n [Total: 11]\n\
+    ,\n,"
   answer_options: []
   subquestions:
   - number: 3a

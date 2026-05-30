@@ -18,7 +18,45 @@ questions:
 - number: '2'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: '2
+
+    Part of the base sequence of DNA from four species was determined.
+
+
+    species 1
+
+    T C A G G A T T
+
+    species 2
+
+    T G A G C A A T
+
+    species 3
+
+    T G A G C A A G
+
+    species 4
+
+    T G A G G A T T
+
+
+    Which two species are the least closely related?
+
+    A
+
+    1 and 2
+
+    B
+
+    1 and 3
+
+    C
+
+    2 and 4
+
+    D
+
+    3 and 4'
   answer_options:
   - letter: A
     text: A
@@ -32,7 +70,28 @@ questions:
 - number: '3'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: '3
+
+    A single-celled organism has chloroplasts, a cell wall and a nucleus.
+
+
+    Which kingdom is this organism placed in?
+
+    A
+
+    fungus
+
+    B
+
+    plant
+
+    C
+
+    prokaryote
+
+    D
+
+    protoctist'
   answer_options:
   - letter: A
     text: A

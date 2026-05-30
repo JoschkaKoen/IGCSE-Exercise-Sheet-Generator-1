@@ -2,7 +2,25 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Fig. 1.1 shows part of the human gas exchange system.\nA\nB\nC\ncartilage\n\
+    Fig. 1.1\n\n(i) Identify structures A, B and C shown in Fig. 1.1.\nA   B   C \
+    \  [3]\n\n(ii) State the function of the cartilage shown in Fig. 1.1 [1]\n\n(iii)\
+    \ Explain how inspiration occurs [4]\n,\t,\n\n(b) Cystic fibrosis is a condition\
+    \ that affects the lungs. People with cystic fibrosis have mucus in\nthe airways\
+    \ of their lungs that is thicker and stickier than usual.\n\n(i) Two types of\
+    \ cells that line the airways protect the body against pathogens and particles.\n\
+    \n State the names of these two types of cell and describe how they protect the\
+    \ body [3]\n\n(ii) Suggest how having thicker and stickier mucus in the airways\
+    \ affects the ability of a\nperson to do exercise [4]\n,\t,\n\n(c) Cystic fibrosis\
+    \ is an inherited condition in humans caused by a recessive allele of a gene.\n\
+    \nThere are two alleles for this gene:\n•\nthe allele for no cystic fibrosis is\
+    \ represented by the letter F\n•\nthe allele for cystic fibrosis is represented\
+    \ by the letter f.\n\nTwo heterozygous parents wanted to have a child.\n\nComplete\
+    \ the genetic diagram to predict the probability of these parents having a child\
+    \ with\ncystic fibrosis.\n\nparental phenotypes\nno cystic fibrosis\nx\nno cystic\
+    \ fibrosis\n\nparental genotypes\n x\n gametes\n\n ,   x\n ,   offspring genotypes\n\
+    \ offspring phenotypes\n probability of having a child with cystic fibrosis  [5]\n\
+    \n[Total: 20]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -56,7 +74,15 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nFig. 2.1 is a photomicrograph of human blood.\nE\nF\nG\nJ\nH\nFig. 2.1\n\
+    \n(a) Use the information in Fig. 2.1 to complete Table 2.1.\nTable. 2.1\ncomponent\
+    \ of blood\nletter from\nFig. 2.1\nfunction\nred blood cell\nproduction of antibodies\n\
+    H\nphagocytosis\nplatelet\nJ\n\n[5]\n,\t,\n\n(b) Some diseases are transmissible.\n\
+    \n(i) State the name of a pathogen that is transmitted by direct contact with\
+    \ blood [1]\n\n(ii) State two ways that a pathogen can be transmitted indirectly.\n\
+    1   2   [2]\n\n(c) Describe the role of antibodies in the defence against pathogens\
+    \ [3]\n\n(d) Explain how active immunity differs from passive immunity [3]\n\n\
+    [Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -98,7 +124,24 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nScientists developed genetically modified (GM) maize.\n\nFig. 3.1 shows\
+    \ the mass of GM maize grown in one country from 2000 to 2015.\n0\n2000 2001 2002\
+    \ 2003 2004 2005 2006 2007 2008\nyear\n2009 2010 2011 2012 2013 2014 2015\n50\n\
+    100\n150\n200\n250\n300\n350\nmass\nof GM\nmaize\nmillion\nonnes\nFig. 3.1\n\n\
+    (a) Calculate the percentage increase in the mass of GM maize grown between 2000\
+    \ and 2015.\n\nGive your answer to two significant figures.\n\nSpace for working\
+    \ % [3]\n,\t,\n\n(b) To develop GM maize, a gene for producing a natural insecticide\
+    \ was taken from a bacterium\nand transferred into maize plant cells.\n\n(i) Genes\
+    \ are found at specific positions on a biological molecule.\n\n State the name\
+    \ of this biological molecule [1]\n\n(ii) Scientists who develop GM crop plants\
+    \ breed them for many generations before allowing\nfarmers to grow the crop plants.\n\
+    \n Suggest why scientists breed the GM crop plants for many generations [2]\n\n\
+    (iii) Human proteins can also be made using bacteria that have been genetically\
+    \ modified.\n\n Describe how a gene can be transferred from one organism to another\
+    \ using genetic\nmodification [6]\n,\t\t,\n\n(c) Some people are worried that\
+    \ GM crops could pollinate wild plants.\n\n(i) Suggest how pollination between\
+    \ GM crops and wild plants could be prevented [1]\n\n(ii) State two advantages\
+    \ of GM crops other than insect resistance.\n1   2   [2]\n\n[Total: 15]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -152,7 +195,21 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nXerophytes are plants that show adaptive features for dry habitats.\n\n\
+    (a) Complete the sentence to define the term adaptive feature.\n\nAn adaptive\
+    \ feature is an  feature that helps an organism\n\nto  and  in its environment.\n\
+    \n[2]\n\n(b) Marram grass is a xerophytic plant.\n\nFig. 4.1 is a photomicrograph\
+    \ of a cross-section of a marram grass leaf.\nmagnification ×10\nFig. 4.1\n\n\
+    Using Fig. 4.1, describe the visible features that identify this as a xerophyte\
+    \ leaf [2]\n,\t,\n\n(c) (i) The mean cell wall thickness of an epidermal cell\
+    \ from one species of xerophyte is\n1.276 μm.\n\n Convert 1.276 μm to mm mm [1]\n\
+    \n(ii) State the name of the carbohydrate molecule used to build cell walls in\
+    \ xerophytes [1]\n\n(iii) Suggest one way the stem of a xerophyte is adapted for\
+    \ dry habitats [1]\n\n(d) Fig. 4.2 is a diagram showing the root systems of two\
+    \ different species of xerophyte.\nsoil surface\nspecies 2\nspecies 1\n15 m\n\
+    Fig. 4.2\n\nDescribe the two root systems shown in Fig. 4.2 and suggest how each\
+    \ one is an adaptation\nfor living in a dry environment [3]\n\n[Total: 10]\n,\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -200,7 +257,13 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nFig. 5.1 is a diagram of a plant root hair cell.\nnitrate ion\nwater molecule\n\
+    Key\nFig. 5.1\n\n(a) (i) Using the information in Fig. 5.1, explain how nitrate\
+    \ ions are transported into the root\nhair cell [4]\n\n(ii) State two ways that\
+    \ nitrogen fixation occurs.\n1   2   [1]\n\n(b) State the name of the process\
+    \ that moves water molecules into root hair cells [1]\n,\t,\n\n(c) Describe differences\
+    \ and similarities between the structure of a plant root hair cell and a\nbacterial\
+    \ cell [5]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -236,7 +299,21 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nA scientist investigated the effect of changes in pH on the activity of\
+    \ two different protease\nenzymes.\n\nEach enzyme was placed in a hole in the\
+    \ centre of a jelly layer in a Petri dish. The jelly layer was\nmade of protein.\
+    \ The investigation was carried out at a range of different pH values.\n\nAfter\
+    \ 60 minutes, the area of the jelly layer that had been broken down by enzyme\
+    \ L or enzyme M\nwas recorded at each pH value tested.\n\nFig. 6.1 is a diagram\
+    \ of the apparatus.\nhole in the middle\nof the jelly layer\nfilled with a solution\
+    \ of\nenzyme L or enzyme M\njelly layer\nmade of\nprotein\nPetri dish\nFig. 6.1\n\
+    \nFig. 6.2 shows the results of the investigation.\n0\n1\n2\n3\n4\n5\n6\n7\n8\n\
+    9\npH\n10\n11\n12\n20\n40\n60\n80\n100\n120\n140\n160\n180\narea of the\njelly\
+    \ layer\nbroken down\n/ mm2\nenzyme L\nenzyme M\nKey\nFig. 6.2\n,\t,\n\n(a) Using\
+    \ the information in Fig. 6.2, describe the results of this investigation [5]\n\
+    \n(b) Explain the result for enzyme M at pH 2 shown in Fig. 6.2 [3]\n\n(c) Suggest\
+    \ the name of enzyme L and state its location in the human digestive system.\n\
+    name of enzyme L   location   [2]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

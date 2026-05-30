@@ -2,7 +2,30 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates the relationship between the luminosity of a star\
+    \ and its mass.\n\nThe student obtains data of relative luminosity λ and relative\
+    \ mass µ for six stars, where\nλ = luminosity of star\nluminosity of Sun\n\nand\n\
+    µ = mass of star\nmass of Sun.\n\nIt is suggested that λ and µ are related by\
+    \ the equation\nλ = kµn\n\nwhere k and n are constants.\n\n(a) A graph is plotted\
+    \ of lg λ on the y-axis against lg µ on the x-axis.\n\nDetermine expressions for\
+    \ the gradient and y-intercept.\n\ngradient =   y-intercept =   [1]\n,\t,\n\n\
+    (b) Values of µ and λ are given in Table 2.1.\nTable 2.1\nµ\nλ\nlg µ\nlg λ\n4.6\
+    \ ± 0.4\n  500\n5.4 ± 0.4\n  800\n8.4 ± 0.4\n 3200\n11 ± 1\n 7000\n16 ± 1\n25\
+    \ 000\n18 ± 1\n38 000\n\nCalculate and record values of lg µ and lg λ in Table\
+    \ 2.1.\n\nInclude the absolute uncertainties in lg µ.\n[2]\n\n(c) (i) Plot a graph\
+    \ of lg λ against lg µ.\n\n Include error bars for lg µ.\n[2]\n\n(ii) Draw the\
+    \ straight line of best fit and a worst acceptable straight line on your graph.\
+    \ Label\nboth lines.\n[2]\n\n(iii) Determine the gradient of the line of best\
+    \ fit. Include the absolute uncertainty in your\nanswer.\n\ngradient =   [2]\n\
+    ,\t,\n2.6\n0.6\n0.7\n0.8\n0.9\n1.0\n1.1\n1.2\n1.3\n2.8\n3.0\n3.2\n3.4\n3.6\n3.8\n\
+    4.0\n4.2\n4.4\n4.6\n4.8\nlg λ\nlg μ\n,\t,\n\n(iv) Determine the y-intercept of\
+    \ the line of best fit. Include the absolute uncertainty in your\nanswer.\n\n\
+    y-intercept =   [2]\n\n(d) Using your answers to (a), (c)(iii) and (c)(iv), determine\
+    \ the values of k and n. Include the\nabsolute uncertainties in your values. You\
+    \ need not be concerned with units.\n\nk =   n =   [3]\n\n(e) The mass of the\
+    \ Sun is 2.0 × 1030 kg. The star Alpha Centauri B has a value of λ of 0.46.\n\n\
+    Determine the mass M of Alpha Centauri B.\n\nM =   kg [1]\n\n[Total: 15]\n,\t\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -62,6 +85,19 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "1\nA ball is dropped on to an inclined thin metal sheet, as shown in Fig.\
+    \ 1.1.\nd\nz\nsheet\nball\nbench\nθ\nFig. 1.1 (not to scale)\n\nThe angle between\
+    \ the sheet and the horizontal bench is θ. The height of the point of contact\n\
+    of the ball and the sheet is z. The horizontal distance travelled by the ball\
+    \ between its points of\ncontact with the sheet and the bench is d, as shown in\
+    \ Fig. 1.1.\n\nIt is suggested that d is related to θ by the relationship\nd =\
+    \ Pv 2 sin  4θ\ng\n + Q\nz\n\nwhere v is the speed of the ball as it makes contact\
+    \ with the sheet, g is the acceleration of free fall,\nand P and Q are constants.\n\
+    \nPlan a laboratory experiment to test the relationship between d and θ.\n\nDraw\
+    \ a diagram showing the arrangement of your equipment.\n\nExplain how the results\
+    \ could be used to determine values for P and Q.\n\nIn your plan you should include:\n\
+    \n●\nthe procedure to be followed\n\n●\nthe measurements to be taken\n\n●\nthe\
+    \ control of variables\n\n●\nthe analysis of the data\n\n●\nany safety precautions\
+    \ to be taken.\n,\t,\nDiagram\n ,\t,\n [15]\n,\t,"
   answer_options: []
   subquestions: []

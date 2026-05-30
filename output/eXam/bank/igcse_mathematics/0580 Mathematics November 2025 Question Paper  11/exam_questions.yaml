@@ -2,7 +2,12 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    (a) Write the number four hundred and sixty thousand and five in figures [1]
+
+
+    (b) Write 52 149 correct to the nearest hundred [1]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +25,25 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    O
+
+
+    The diagram shows a circle, centre O.
+
+
+    On the diagram
+
+
+    (a) draw a diameter
+
+    [1]
+
+
+    (b) mark a point on the circumference and label it C.
+
+    [1]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -38,7 +61,14 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    (a) Write down all the factors of 24 [2]
+
+
+    (b) Write down the reciprocal of 7
+
+    3  [1]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -56,7 +86,9 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nThese are the first four terms of a sequence.\n    9   5   1   -3\n\n\
+    (a) Find the next term [1]\n\n(b) Explain how you worked out your answer [1]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -74,7 +106,17 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    (a) Shade 4
+
+    3of this grid.
+
+
+    [1]
+
+
+    (b) Work out 15% of 80 [2]'
   answer_options: []
   subquestions:
   - number: 9a
@@ -92,7 +134,14 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 The bar chart shows the number of books sold in a shop in each of five\
+    \ months.\nMar\nApr\nMay\nJun\nJul\nAug\n0\n1\n2\n3\n4\n5\nNumber\nof books\n\
+    sold\nMonths\n6\n7\n8\n9\n10\n11\n12\n\n(a) 4 books were sold in August.\n\nComplete\
+    \ the bar chart.\n[1]\n\n(b) Calculate the mean number of books sold in the six\
+    \ months [2]\n11 The temperature at midnight is\nC\n2°\n-\n.\n\nThe temperature\
+    \ at noon is 5 °C.\n\n(a) Find the difference between these temperatures °C [1]\n\
+    \n(b) The temperature at 9 am is 8 °C higher than the temperature at midnight.\n\
+    \nWork out the temperature at 9 am °C [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -128,7 +177,12 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "13 The scale drawing shows the positions of town A and town B.\n\nThe scale\
+    \ is 1 centimetre represents 10 kilometres.\n\nNorth\nB\nNorth\nA\nScale: 1 cm\
+    \ to 10 km\n\n(a) Work out the actual distance from town A to town B km [2]\n\n\
+    (b) Measure the bearing of town B from town A [1]\n\n(c) Town C is 45 km from\
+    \ town A on a bearing of 310°.\n\nOn the scale drawing, mark the position of town\
+    \ C.\n[2]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 13a
@@ -152,7 +206,36 @@ questions:
 - number: '14'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '14 These are the ages, in months, of each of 12 children.
+
+    11       27       8       10       26       17       28       12       9       13       22       12
+
+
+    (a) Complete the stem-and-leaf diagram to show this information.
+
+    0
+
+    1
+
+    2
+
+
+    Key: 1 | 7 represents 17 months
+
+    [2]
+
+
+    (b) Find the number of children over 2 years old [1]
+
+
+    (c) Show that the median is 12.5 .
+
+
+    [1]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions:
   - number: 14a
@@ -176,7 +259,12 @@ questions:
 - number: '16'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "16 (a) Complete the table of values for   y\nx\n9\n=\n.\nx\n– 4.5\n–3\n–2\n\
+    –1.5\n–1\n1\n1.5\n2\n3\n4.5\ny\n–2\n–3\n– 6\n–9\n9\n6\n4.5\n2\n\n[2]\n\n(b) On\
+    \ the grid, draw the graph of   y\nx\n9\n=\n   for\n.\nx\n4 5\n1\nG\nG\n-\n- \
+    \ and\n.\nx\n1\n4 5\nG\nG\n .\n– 5\n– 4\n– 3\n– 2\n– 1\n1\n0\n2\n3\n4\n5\n6\n\
+    7\n8\n9\ny\nx\n5\n4\n3\n2\n1\n– 1\n– 2\n– 3\n– 4\n– 5\n– 6\n– 7\n– 8\n– 9\n\n\
+    [4]"
   answer_options: []
   subquestions:
   - number: 16a
@@ -194,7 +282,13 @@ questions:
 - number: '17'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "17 (a) Write down a prime number between 20 and 30 [1]\n\n(b) Simplify\n\
+    9\n2\n`\nj  [1]\n18 Work out      18\n11\n9\n2\n-\n .\n\nGive your answer as a\
+    \ fraction in its simplest form [2]\n19 By writing each number in the calculation\
+    \ correct to 1 significant figure, find an estimate for the value of\n.\n.\n.\n\
+    2 49\n5 3\n19 5\n#\n [2]\n20 Some students take a test.\n\n75 of the students\
+    \ pass the test.\n\nThis is 5\n3 of the students who take the test.\n\nWork out\
+    \ how many students take the test [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 17a
@@ -212,7 +306,10 @@ questions:
 - number: '21'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "21 Shapes A and B  are shown on the grid.\n– 5\n– 4\n– 3\n– 2\n– 1\n1\n0\n\
+    B\nA\n2\n3\n4\n5\ny\nx\n5\n4\n3\n2\n1\n– 1\n– 2\n– 3\n– 4\n– 5\n\n(a) Describe\
+    \ fully the single transformation that maps shape A onto shape B [3]\n\n(b) Draw\
+    \ the image of shape A after a reflection in the line y\n1\n=- .\n[2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 21a
@@ -230,7 +327,12 @@ questions:
 - number: '22'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "22\nChocolate cookies\nMakes 12\n100 g ﬂour\n55 g butter\n55 g sugar\n20\
+    \ g cocoa\n1 egg\n\n(a) Sunita makes 24 chocolate cookies.\n\nWork out how much\
+    \ flour she needs g [1]\n\n(b) Albie has 28 g of cocoa.\n\nDoes he have enough\
+    \ cocoa to make 18 cookies?\n\nExplain how you decide [2]\n23 (a)\na\na\na\nx\n\
+    8\n15\n#\n=\n\nFind the value of x.\n\nx =   [1]\n\n(b)\n(\n)\nb\nb\ny\n7\n21\n\
+    =\n\nFind the value of y.\n\ny =   [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 22a
@@ -266,7 +368,13 @@ questions:
 - number: '24'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "24 % = {students in a year group}\n\nH = {students who study History}\n\n\
+    G = {students who study Geography}\n\n80 students are in the year group.\n\n40\
+    \ students study History.\nH\nG\n10\n15\n%\n\n(a) Complete the Venn diagram.\n\
+    [2]\n\n(b) Find n(G) [1]\n\n(c) A student is chosen at random.\n\nWork out the\
+    \ probability that the student does not study History and does not study Geography\
+    \ [1]\n25 Expand and simplify.\n\n(\n)(\n)\nx\nx\n3\n2\n+\n-\n\n  [2]\n26 Write\
+    \ .1 753\n108\n#\n as an ordinary number [1]"
   answer_options: []
   subquestions:
   - number: 24a

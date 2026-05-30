@@ -2,7 +2,23 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nFig. 1.1 shows the movement of particles through an epithelial cell in\
+    \ the small intestine.\nP\nenergy\nR\nQ\nmembrane of\nepithelial cell\nFig. 1.1\n\
+    \n(a) In Fig. 1.1, arrow P represents the diffusion of oxygen molecules.\n\n(i)\
+    \ Describe what is meant by the term diffusion [2]\n\n(ii) State the type of energy\
+    \ needed for diffusion [1]\n\n(b) Carbon dioxide molecules also move by diffusion.\n\
+    \n(i) State the name of the process in human cells that produces carbon dioxide\
+    \ [1]\n\n(ii) On Fig. 1.1, draw an arrow to show the direction of diffusion of\
+    \ carbon dioxide molecules.\n\n[1]\n,\t,\n\n(c) In Fig. 1.1, arrow Q represents\
+    \ another type of particle movement.\n\nIdentify the type of particle movement\
+    \ represented by arrow Q.\n\nExplain your answer.\ntype of movement   explanation\
+    \   [3]\n\n(d) In Fig. 1.1, particle R moves from the lumen of the small intestine\
+    \ into the epithelial cell.\n\nSuggest why particle R cannot be starch [2]\n,\t\
+    ,\n\n(e) Fig. 1.2 is a photomicrograph of red onion cells.\nFig. 1.2\n\nFig. 1.3\
+    \ is a photomicrograph of the same red onion cells after being immersed in a salt\n\
+    solution.\nFig. 1.3\n,\t,\n\nUsing Fig. 1.2 and Fig. 1.3, describe and explain\
+    \ the difference in appearance of the cells\nbefore and after immersion in salt\
+    \ solution [6]\n\n[Total: 16]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -62,7 +78,20 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) The internal body temperature of a person was recorded.\n\nFig. 2.1\
+    \ shows the results.\n35\n36\n37\n38\n39\ninternal\nbody\ntemperature\n/ °C\n\
+    time\nF\nFig. 2.1\n\n(i) Using the information in Fig. 2.1, calculate the temperature\
+    \ range for the internal body\ntemperature of the person.\n\n State the units\
+    \ [1]\n\n(ii) On Fig. 2.1, draw a line to show the set point for the internal\
+    \ body temperature of the\nperson.\n[1]\n\n(iii) The maintenance of internal body\
+    \ temperature is an example of homeostatic control.\n\n State the name of the\
+    \ mechanism for homeostatic control [1]\n,\t,\n\n(iv) On Fig. 2.1, region F shows\
+    \ a change in body temperature.\n\n Explain how the body causes the change in\
+    \ body temperature shown [5]\n,\t,\n\n(b) Fig. 2.2 shows a cross-section of human\
+    \ skin.\nE\nD\nC\ncapillaries\narteriole\nA\nB\nFig. 2.2\n\n(i) State the letter\
+    \ of the structure shown in Fig. 2.2 that produces sweat [1]\n\n(ii) State the\
+    \ names of structures C and D shown in Fig. 2.2.\nC   D   [2]\n\n[Total: 11]\n\
+    ,\t\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -116,7 +145,24 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Fig. 3.1 shows the percentage of water in different structures of\
+    \ the human body.\nbrain 73%\neye 95%\nheart 75%\nlung 83%\nbones 31%\nblood 94%\n\
+    kidney 79%\nmuscles 75%\nFig. 3.1\n\n(i) The mean mass of a human eye is 28 g.\n\
+    \n Using information from Fig. 3.1, calculate the mass of water in a human eye.\n\
+    \n Give your answer to two significant figures g\n\n[2]\n\n(ii) Describe the importance\
+    \ of water in the human body [3]\n,\n,\n\n(b) Cholera is a disease caused by a\
+    \ pathogen in contaminated water.\n\nFig. 3.2 is a diagram of the cholera pathogen.\n\
+    M\nL\nDNA\nplasmid\nFig. 3.2\n\n(i) State the name of structures L and M shown\
+    \ in Fig. 3.2.\nL   M   [2]\n\n(ii) Identify two features shown in Fig. 3.2 that\
+    \ are typical of prokaryotes.\n1   2   [2]\n\n(iii) State the type of pathogen\
+    \ that causes cholera [1]\n\n(iv) The scientific name for the pathogen that causes\
+    \ cholera is Vibrio cholerae.\n\n State the genus name for this pathogen [1]\n\
+    ,\t,\n\n(v) Explain how the cholera pathogen causes dehydration of the human body\
+    \ [3]\n\n(vi) Complete the sentences about the use of plasmids in genetic modification.\n\
+    During genetic modification, human DNA and plasmid DNA are cut with a\nrestriction\
+    \ enzyme. This creates  which are joined together\nusing an enzyme called  The\
+    \ modified plasmid containing\n\nthe human gene is called a  plasmid.\n\n[3]\n\
+    \n[Total: 17]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -182,7 +228,15 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Fig. 4.1 shows part of a human placenta and umbilical cord. The arrows\
+    \ show the direction of\nblood flow.\nto fetus\nfrom fetus\nFig. 4.1\n\n(i) Describe\
+    \ the functions of the placenta and the umbilical cord shown in Fig. 4.1 [4]\n\
+    ,\t,\n\n(ii) A fetus develops inside an amniotic sac.\n\n Describe the functions\
+    \ of the amniotic sac and amniotic fluid [3]\n\n(b) Syphilis is a sexually transmitted\
+    \ infection (STI) that can be passed from a mother to her\nfetus.\n\n(i) State\
+    \ the name of one other STI that can be passed from mother to fetus [1]\n\n(ii)\
+    \ State two ways to control the spread of STIs.\n1   2   [2]\n\n[Total: 10]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -224,7 +278,18 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) Fig. 5.1 shows a cross-section of a leaf.\nT\nFig. 5.1\n\n(i) On Fig.\
+    \ 5.1, draw a circle around one vascular bundle.\n[1]\n\n(ii) On Fig. 5.1, draw\
+    \ a label line and the letter X to identify the palisade mesophyll tissue.\n\n\
+    [1]\n\n(iii) State the name of the cell structure in palisade mesophyll cells\
+    \ where photosynthesis\noccurs [1]\n\n(iv) Describe the functions of the tissues\
+    \ in a vascular bundle in a leaf [4]\n,\t,\n\n(b) The leaf shown in Fig. 5.1 is\
+    \ from an aquatic plant adapted to live in water. The leaves float\non the surface\
+    \ of the water.\n\n(i) State the term used to describe plants that are adapted\
+    \ to live in water [1]\n\n(ii) Identify feature T shown in Fig. 5.1 and explain\
+    \ how this feature adapts the leaf to float\non the surface of the water.\nfeature\
+    \ T   explanation   [2]\n\n(iii) Explain one other adaptation of this group of\
+    \ aquatic plants [2]\n\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -284,7 +349,22 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Microplastics are pieces of plastic with a diameter less than 0.5\
+    \ cm.\n\nFig. 6.1 shows the mass of microplastics in the oceans between 2000 and\
+    \ 2040. The data\nbetween 2000 and 2020 is an estimate. The data after 2020 is\
+    \ a prediction.\n0\n2000\n2010\n2020\n2030\n2040\n0.5\n1.0\n1.5\n2.0\nmass of\n\
+    microplastics\n/ million tonnes\nyear\nFig. 6.1\n\n(i) Suggest why the mass of\
+    \ microplastics between 2000 and 2020, shown in Fig. 6.1, is an\nestimate [2]\n\
+    \n(ii) Using Fig. 6.1, calculate the predicted percentage increase in the mass\
+    \ of microplastics\nin the oceans between 2000 and 2040.\n\n Space for working\
+    \ %\n[2]\n,\t,\n\n(b) Phytoplankton are producers found in the ocean. Phytoplankton\
+    \ absorb microplastics into\ntheir cells.\n\n(i) Describe what is meant by the\
+    \ term producer [2]\n\n(ii) Fig. 6.2 shows a shearwater bird.\n\n Shearwater birds\
+    \ feed on fish in the ocean.\nFig. 6.2\n\n Suggest how microplastics can end up\
+    \ in consumers such as shearwater birds [2]\n,\t,\n\n(iii) The population of shearwater\
+    \ birds is decreasing.\n\n Describe three ways the population of shearwater birds\
+    \ can be conserved.\n1   2   3   [3]\n\n(iv) Explain the risks to a population\
+    \ if its population size decreases [3]\n\n[Total: 14]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 6a

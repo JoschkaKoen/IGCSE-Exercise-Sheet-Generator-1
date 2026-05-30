@@ -2,7 +2,8 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a)\t Define the term ‘secondary research’.\n[2]\n\n(b)\t Explain one\
+    \ advantage to a business of data collected using primary research methods. [3]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +21,9 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a)\t Define the term ‘sustainability’.\n[2]\n\n(b)\t Explain one reason\
+    \ why a manufacturing business might take measures to improve the\nsustainability\
+    \ of its operations.\n[3]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -38,7 +41,8 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a)\t Define the term ‘zero budgeting’.\n[2]\n\n(b)\t Explain one benefit\
+    \ to a business of using budgets.\n[3]"
   answer_options: []
   subquestions:
   - number: 3a
@@ -56,13 +60,26 @@ questions:
 - number: '4'
   question_type: calculation
   marks: 5
-  text: ''
+  text: '4
+
+    Analyse one way in which ethics may influence the activities of a business.
+
+    [5]
+
+    Section B
+
+    Answer one question only.
+
+    EITHER'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a)\t Analyse two reasons why it is important for a business to set SMART\
+    \ objectives.\n[8]\n\n(b)\t Evaluate the view that a mission statement is only\
+    \ important to a bank if it significantly\ninfluences the strategy and tactics\
+    \ of that business.\n[12]\nOR"
   answer_options: []
   subquestions:
   - number: 5a
@@ -80,7 +97,10 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a)\t Analyse two possible disadvantages to a business of using performance-related\
+    \ pay to\nmotivate its employees.\n[8]\n\n(b)\t ‘The most important role of human\
+    \ resource management (HRM) in a fast food restaurant is\nto maintain a high level\
+    \ of employee morale and welfare.’\n\nEvaluate this view.\n[12]"
   answer_options: []
   subquestions:
   - number: 6a

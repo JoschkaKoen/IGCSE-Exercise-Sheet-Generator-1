@@ -2,7 +2,24 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    Pedro makes cards.
+
+
+    (a) He makes cards at a rate of 9 cards every 20 minutes.
+
+
+    Work out the number of cards he makes in 8 hours [2]
+
+
+    (b)  Each card costs 12 cents to make.
+
+
+    Pedro sells each card for 50 cents.
+
+
+    Work out his percentage profit on each card % [2]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -20,19 +37,72 @@ questions:
 - number: '5'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "5\nNuwa is buying a phone.\n\nOne website sells the phone for 953 Yuan.\n\
+    \nA different website sells the same phone for $141.\n\nThe exchange rate is 1\
+    \ Yuan = $0.152 .\n\nCalculate the difference between these phone prices.\n\n\
+    Give your answer in dollars, correct to the nearest cent.\n\n$   [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '6'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '6
+
+    One morning, a dentist has appointments for 10 patients.
+
+
+    The stem-and-leaf diagram shows the waiting time for 8 of these patients.
+
+    0
+
+    1    4
+
+    1
+
+    0    2    9
+
+    2
+
+    1    5    5
+
+
+    Key: 1 | 0  represents 10 minutes
+
+
+    The times for the two other patients, P and Q, are not shown in the stem-and-leaf
+    diagram.
+
+
+    The mean waiting time of all 10 patients that morning is 16 minutes.
+
+
+    The range of waiting times is 26 minutes.
+
+
+    Patient P waits longer than patient Q.
+
+
+    Find the waiting time for each of patient P and patient Q.
+
+
+    Patient P   min
+
+
+    Patient Q   min
+
+
+    [4]'
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nThe diagram shows a parallelogram.\nNOT TO\nSCALE\nx m\n6.51 m\n\nThe\
+    \ parallelogram has the same perimeter as a circle with radius 4 m.\n\n(a)  Show\
+    \ that\n.\nm\nx\n6 06\n=\n, correct to 2 decimal places.\n\n[4]\n\n(b)\nNOT TO\n\
+    SCALE\n6.51 m\n36°\n6.06 m\n\nThe floor of a room is in the shape of this parallelogram.\n\
+    \nIt costs $18 per square metre to tile the floor.\n\nCalculate the total cost\
+    \ of tiling the floor.\n\n$   [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -50,7 +120,11 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nA\nB\ny\nx\n– 6\n– 5\n– 4\n– 3\n– 2\n– 1\n– 3\n– 2\n– 1\n5\n4\n 7\n6\n\
+    3\n2\n1\n0\n1\n2\n3\n4\n5\n6\n– 4\n– 5\n\n(a) On the diagram, draw the image of\n\
+    \n(i) shape A after a translation by the vector  1\n7\n-\ne\no\n[2]\n\n(ii) shape\
+    \ A after a reflection in the line y\nx\n1\n=\n+ .\n[3]\n\n(b) Describe fully\
+    \ the single transformation that maps shape A onto shape B [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -80,13 +154,17 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "9\nThe diagram shows the speed–time graph for part of a car journey.\n\n\
+    NOT TO\nSCALE\n0\n0\n15\n25\n60\n80\nSpeed\n(km / h)\nTime (minutes)\n\nFind the\
+    \ total distance travelled in the 25 minutes km [3]\n10 Find the nth term of each\
+    \ sequence.\n\n(a) 17,    9,    1,    – 7,    -15,    f\n\n  [2]\n\n(b) 3,   \
+    \ 12,    27,    48,    75,    f\n\n  [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '2'
   question_type: calculation
   marks: 3
-  text: ''
+  text: "2\nSolve.\n\n x\n8\n17\n27\n-\n=\n\nx =   [2]"
   answer_options: []
   subquestions: []
 - number: '10'
@@ -110,7 +188,13 @@ questions:
 - number: '11'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "11 The table shows some values for   y\nx\nx\n2\n3\n3\n=\n-\n+ .\n\nWhere\
+    \ appropriate, values of y are given correct to 2 decimal places.\nx\n-2\n-1.5\n\
+    -1\n-0.5\n0\n0.5\n1\n1.5\n2\ny\n-1\n4\n3.88\n3\n2.13\n2\n7\n\n(a) Complete the\
+    \ table.\n[2]\n\n(b) Draw the graph of  y\nx\nx\n2\n3\n3\n=\n-\n+   for\nx\n2\n\
+    2\nG\nG\n-\n.\ny\nx\n– 2\n– 1\n– 1\n1\n2\n3\n4\n5\n 6\n7\n1\n0\n2\n\n[4]\n\n(c)\
+    \ By drawing a suitable straight line on the grid, solve the equation\n.\nx\n\
+    x\n2 5\n1\n0\n3 -\n+\n=\n.\n\nx =  or x =  or x =  [4]\n,\n,"
   answer_options: []
   subquestions:
   - number: 11a
@@ -134,7 +218,54 @@ questions:
 - number: '12'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '12
+
+    A
+
+    C
+
+    D
+
+    E
+
+    O
+
+    y°
+
+    x°
+
+    65°
+
+    52°
+
+    B
+
+    NOT TO
+
+    SCALE
+
+
+    A, B and C lie on a circle centre O.
+
+
+    DE is a tangent to the circle at C.
+
+
+    Angle ABC = 52° and angle BCE = 65°.
+
+
+    (a) Find the value of x.
+
+
+    Give a geometrical reason for your answer.
+
+    x =  because   [2]
+
+
+    (b) Find the value of y.
+
+
+    y =   [2]'
   answer_options: []
   subquestions:
   - number: 12a
@@ -152,13 +283,21 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "13 Simplify.\n\nm\nm\n2\n7\n8\n3\n+\n\n  [2]\n14 (a) Carlos invests $24 000\
+    \ at a rate of 3.2% per year compound interest.\n\nCalculate the value of his\
+    \ investment at the end of 4 years.\n\n$   [2]\n\n(b) Carlos buys a painting for\
+    \ $x.\n\nHe sells the painting for $40 870.\n\nHe makes a profit of 34%.\n\nCalculate\
+    \ the value of his profit.\n\n$  [3]\n\n(c) Carlos also buys a car with a value\
+    \ of $32 500.\n\nThe value of the car decreases exponentially by 23% each year.\n\
+    \nFind a formula for the value, $V, of the car at the end of n years [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '3
+
+    Write down the order of rotational symmetry of a regular decagon [1]'
   answer_options: []
   subquestions: []
 - number: '14'
@@ -188,13 +327,18 @@ questions:
 - number: '1'
   question_type: calculation
   marks: 3
-  text: ''
+  text: "1\nWrite the ratio  60 grams : 3 kilograms  in the form\nn\n1| .\n\n1 | \
+    \  [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '15'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "15\nA\nD\n140°\nC\nB\n180 m\n300 m\n112 m\nNOT TO\nSCALE\n\nThe diagram shows\
+    \ a field, ABCD, in the shape of a quadrilateral.\n\nBD is a straight path across\
+    \ the field.\n\n(a) Calculate BC.\n\nBC =   m [3]\n\n(b) Calculate angle DBC.\n\
+    \nAngle DBC =   [3]\n\n(c) The total area of the field, ABCD, is 35 900 m2.\n\n\
+    Work out the length of the shortest distance from D to AB m [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 15a
@@ -218,7 +362,13 @@ questions:
 - number: '16'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "16 The histogram shows information about the masses of some coconuts.\n\n\
+    The masses are classified into four categories A, B, C and D.\n0.9\n1.0\n1.1\n\
+    1.2\n1.3\nMass (kg)\nFrequency\ndensity\n1.4\n1.5\n1.6\n50\n0\n100\n150\n200\n\
+    A\nB\nC\nD\n\n(a) Show that there are 10 coconuts in category D.\n\n[1]\n\n(b)\
+    \ Two of the coconuts from those in category C and category D are chosen at random.\n\
+    \nFind the probability that both are from category D [3]\n\n(c) Calculate an estimate\
+    \ of the mean mass of the coconuts kg [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 16a
@@ -242,13 +392,17 @@ questions:
 - number: '17'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: "17 Expand and simplify.\n\n(\n)(\n)(\n)\nx\nx\nx\n2 2\n3\n4\n-\n+\n+\n\n\
+    \  [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '18'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "18\nC\nB\nA\nO\na\nb\nNOT TO\nSCALE\n\nIn the diagram, OA is parallel to\
+    \ CB.\n\nOA | CB = 4 | 3\n\nOA\na\n=\n and OB\nb\n=\n.\n\n(a) Find AB in terms\
+    \ of a and b.\n\nAB =   [1]\n\n(b) M is the midpoint of OC.\n\nFind M\nA\n in\
+    \ terms of a and b.\n\nGive your answer in its simplest form.\n\nM\nA\n =   [3]"
   answer_options: []
   subquestions:
   - number: 18a

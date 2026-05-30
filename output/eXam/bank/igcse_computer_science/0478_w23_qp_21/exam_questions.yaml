@@ -2,7 +2,27 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    The first stage of the program development life cycle is analysis. Two of the
+    tasks in analysis are
+
+    abstraction and decomposition.
+
+
+    (a)  Describe what is meant by abstraction [2]
+
+
+    (b) Identify three of the component parts when a problem has been decomposed at
+    the analysis
+
+    stage.
+
+    1   2   3   [3]
+
+
+    (c)  Identify and describe one other stage of the program development life cycle
+    [2]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -26,19 +46,86 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '2
+
+    Tick (3) one box to show how a value can be passed to a procedure.
+
+    A
+
+    function
+
+    B
+
+    parameter
+
+    C
+
+    return
+
+    D
+
+    subroutine
+
+
+    [1]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: '3
+
+    Four descriptions of data and five data types are shown.
+
+
+    Draw one line to link each description to the most appropriate data type.
+
+
+    Not all data types will be used.
+
+
+    Description
+
+
+    Data type
+
+    a whole number
+
+    a single letter
+
+    a word or phrase
+
+    a number with two decimal places
+
+    BOOLEAN
+
+    CHAR
+
+    INTEGER
+
+    REAL
+
+    STRING
+
+
+    [4]'
   answer_options: []
   subquestions: []
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nAn algorithm has been written in pseudocode.\n\n01 DECLARE A[1:10] : STRING\n\
+    \n02 DECLARE T : STRING\n\n03 DECLARE C, L : INTEGER\n\n04 L\n 10\n\n05 FOR C\n\
+    \ 1 TO L\n\n06     OUTPUT \"Please enter name \"\n\n07     INPUT A[C]\n\n08 NEXT\
+    \ C\n\n09 FOR C\n 1 TO L\n\n10     FOR L\n 1 TO 9\n\n11         IF A[L] > A[L\
+    \ + 1]\n\n12           THEN\n\n13             T\n A[L]\n\n14             A[L]\n\
+    \ A[L + 1]\n\n15             A[L + 1]\n T\n\n16         ENDIF\n\n17     NEXT L\n\
+    \n18 NEXT C\n\n19 FOR C\n 1 TO L\n\n20     OUTPUT \"Name \", C, \" is \", A[C]\n\
+    \n21 NEXT C\n\n(a) State the purpose of this pseudocode algorithm [1]\n\n(b) State\
+    \ four processes in this algorithm.\n1   2   3   4   [4]\n\n(c) Meaningful identifiers\
+    \ have not been used in this algorithm.\n\nSuggest suitable meaningful identifiers\
+    \ for:\n\nThe array:\nA  The variables:\nT  C  L  [3]\n\n(d) State two other ways\
+    \ the algorithm can be made easier to understand and maintain.\n1   2   [2]"
   answer_options: []
   subquestions:
   - number: 6a
@@ -68,19 +155,130 @@ questions:
 - number: '1'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '1
+
+    Tick (3) one box to show which operator means less than or equal to.
+
+    A
+
+    OR
+
+    B
+
+    <
+
+
+    C
+
+    <=
+
+    D
+
+    >=
+
+
+    [1]'
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: long_answer
   marks: 4
-  text: ''
+  text: '4
+
+    Circle the three words representing places where data may be stored.
+
+    array    constant    dimension    input
+
+    output    procedure    variable
+
+
+    [3]'
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '7
+
+    Consider this logic circuit.
+
+    A
+
+    B
+
+    X
+
+    C
+
+
+    (a) Write a logic expression for this logic circuit. Do not attempt to simplify
+    this logic expression.
+
+    X =   [4]
+
+
+    (b) Complete the truth table from the given logic circuit.
+
+    A
+
+    B
+
+    C
+
+    Working space
+
+    X
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    0
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+
+    [4]'
   answer_options: []
   subquestions:
   - number: 7a
@@ -98,7 +296,63 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    A programmer is designing an algorithm to calculate the cost of a length of rope.
+
+
+    The program requirements are:
+
+    •
+
+    input two values: the length of rope in metres Length and the cost of one metre
+    Cost
+
+    •
+
+    perform a validation check on the length to ensure that the value is between 0.5
+    and 6.0
+
+    inclusive
+
+    •
+
+    calculate the price Price
+
+    •
+
+    output the price rounded to two decimal places.
+
+
+    Use the variable names given.
+
+
+    (a) State the name of the validation check [1]
+
+
+    (b) Complete the flowchart for this algorithm.
+
+    START
+
+    STOP
+
+    [6]
+
+
+    (c) Give two different sets of test data for this algorithm and state the purpose
+    of each set.
+
+    Set 1   Purpose   Set 2   Purpose   [4]
+
+
+    (d) Complete the headings for the trace table to show a dry-run for this algorithm.
+
+
+    You do not need to trace the algorithm [3]
+
+
+    (e) Describe an improvement that should be made to the requirements for this algorithm
+    [2]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -134,7 +388,50 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    A model shop wants to set up a database to help with stock control of the model
+    figures available
+
+    for sale. The shop wants to store this information about the model figures:
+
+
+    Field 1 – catalogue number, for example MD1234
+
+
+    Field 2 – description, for example ‘small white dog’
+
+
+    Field 3 – number in stock, for example 5
+
+
+    Field 4 – the price of each model, for example 7.40
+
+
+    Field 5 – if the model has already been painted, yes or no.
+
+
+    (a) The shop needs five fields for each record.
+
+
+    Give a suitable name and data type for each field.
+
+    Field 1 name   Data type   Field 2 name  Data type   Field 3 name   Data type   Field
+    4 name   Data type   Field 5 name   Data type   [5]
+
+
+    (b) (i) Give the name of the field that should be used for the primary key [1]
+
+
+    (ii) State why this field is used as the primary key [1]
+
+
+    (c) Structured query language (SQL) is used to query data stored in this database.
+
+
+    State what these SQL commands are used for.
+
+    SELECT   FROM   WHERE   [3]'
   answer_options: []
   subquestions:
   - number: 9a

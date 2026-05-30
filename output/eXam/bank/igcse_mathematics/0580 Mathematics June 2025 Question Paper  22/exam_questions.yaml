@@ -2,7 +2,23 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    (a)
+
+
+    Shade one more small square so that the diagram has one line of symmetry.
+
+    [1]
+
+
+    (b)
+
+
+    Shade one more small square so that the diagram has rotational symmetry of order
+    2.
+
+    [1]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +36,26 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    The scale drawing shows the positions of two villages, P and Q.
+
+
+    The scale is 1 cm represents 0.5 km.
+
+    North
+
+    P
+
+    North
+
+    Q
+
+
+    (a) Find the actual distance between village P and village Q km [2]
+
+
+    (b) Measure the bearing of village Q from village P [1]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -38,19 +73,57 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "10\nNOT TO\nSCALE\n45°\nO\n18 cm\n\nThe diagram shows a sector of a circle,\
+    \ centre O.\n\nThe length of the arc is r\nn  cm .\n\nFind the value of n.\n\n\
+    n =   [2]\n11 (a) Write 0.007 08 in standard form [1]\n\n(b) Work out\n.\n.\n\
+    (\n)\n(\n)\n3 8\n10\n3 8\n10\n22\n23\n#\n#\n+\n .\n\nGive your answer in standard\
+    \ form [2]\n,\t\t,"
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "3\nNOT TO\nSCALE\n45°\n65°\ny°\nx°\n\nThe diagram shows two straight lines\
+    \ intersecting two parallel lines.\n\nFind the value of x and the value of y.\n\
+    \nx =   y =   [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    1
+
+
+    2
+
+
+    3
+
+
+    4
+
+
+    5
+
+
+    6
+
+
+    7
+
+
+    Samira picks one of these cards at random and replaces it.
+
+
+    (a) Find the probability that she picks an odd number [1]
+
+
+    (b) Samira repeats this 35 times.
+
+
+    Calculate the number of times Samira is expected to pick an odd number [1]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -68,7 +141,10 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\ny\nx\n4\n2\n3\n1\n0\n– 2\n– 3\n– 1\n– 4\n– 2\n– 3\n– 1\n2\n1\n3\n4\n–\
+    \ 4\nT\nU\n\n(a) Translate triangle T by the vector\n0\n2\n-\ne\no.\n[1]\n\n(b)\
+    \ Describe fully the single transformation that maps triangle T onto triangle\
+    \ U [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -86,7 +162,49 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    Solve.
+
+
+    (a)
+
+    x
+
+    8
+
+    7
+
+    39
+
+    +
+
+    =
+
+
+    x =   [2]
+
+
+    (b)
+
+    (
+
+    )
+
+    y
+
+    2 5
+
+    1
+
+    24
+
+    -
+
+    =
+
+
+    y =   [3]'
   answer_options: []
   subquestions:
   - number: 6a
@@ -104,7 +222,9 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nThese are the first 4 terms of a sequence.\n\n      11   8   5   2\n\n\
+    (a) Find the next term of this sequence [1]\n\n(b) Find the nth term of this sequence\
+    \ [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -122,13 +242,18 @@ questions:
 - number: '8'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '8
+
+    Find the highest common factor (HCF) of 36 and 54 [2]'
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nA is the point ( ,\n)\n3\n1\n-\n.\n\nAB\n2\n4\n= -\ne\no\n\n(a) AC\nAB\n\
+    2\n=\n\nFind the coordinates of the point C.\n\n(  ,  ) [2]\n\n(b) The length\
+    \ of AB is  k 5.\n\nFind the value of k.\n\nk =   [2]\n\n(c) P is a point on AB.\n\
+    \nAP\nPB\n1\n3\n|\n|\n=\n\nFind the position vector of P.\n\nf\np   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -170,19 +295,66 @@ questions:
 - number: '12'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '12
+
+    NOT TO
+
+    SCALE
+
+    74°
+
+    P
+
+    Q
+
+    R
+
+
+    P, Q and R  lie on a circle.
+
+
+    QR is a diameter.
+
+
+    Find angle PRQ.
+
+
+    Give geometrical reasons for your answer.
+
+    Angle PRQ =  because   [2]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions: []
 - number: '16'
   question_type: calculation
   marks: 4
-  text: ''
+  text: "16\n6 cm\n5 cm\nNOT TO\nSCALE\n\nThe diagram shows a solid made by joining\
+    \ a hemisphere to a cylinder.\n\nThe radius of both the hemisphere and the cylinder\
+    \ is 6 cm.\n\nThe height of the cylinder is 5 cm.\n\nFind the total surface area\
+    \ of the solid.\n\nGive your answer in terms of  r cm2 [4]\n17 Find the value\
+    \ of\n\n(a) 125 3\n2\n\n  [2]\n\n(b) 4\n2\n5\n-  [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '13'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "13 (a) 100 students solve a puzzle.\n\nThe table shows information about\
+    \ the time taken by each student to solve the puzzle.\nTime (t seconds)\nt\n20\n\
+    40\n1\nG\nt\n40\n60\n1\nG\nt\n60\n100\n1\nG\nFrequency\n30\n40\n30\n\n(i) Work\
+    \ out an estimate of the mean s [4]\n\n(ii) Complete the histogram to show the\
+    \ information in the table.\nt\n3\n4\n2\n1\n0\n40\n30\n50\n70\n90\n20\n60\nTime\
+    \ (seconds)\n80\n100\nFrequency\ndensity\n\n[2]\n,\t,\n\n(b) 80 adults solve the\
+    \ same puzzle as the students.\n\nThe cumulative frequency table shows information\
+    \ about the time taken by each adult to\nsolve the puzzle.\nTime (t seconds)\n\
+    t\n20\nG\nt\n40\nG\nt\n60\nG\nt\n80\nG\nt\n100\nG\nt\n120\nG\nCumulative frequency\n\
+    0\n12\n36\n60\n74\n80\n\n(i) On the grid, draw a cumulative frequency diagram.\n\
+    t\n30\n40\n50\n60\n70\n80\n20\n10\n0\n40\n30\n50\n70\n90\n20\n60\nTime (seconds)\n\
+    80\n100\n110\n120\nCumulative\nfrequency\n\n[3]\n\n(ii) Use your cumulative frequency\
+    \ diagram to find an estimate for\n\n (a) the median\n\n  s [1]\n\n (b) the lower\
+    \ quartile s [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 13a
@@ -218,13 +390,18 @@ questions:
 - number: '14'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "14 Write  .0 25o   as a fraction [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '15'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "15\ny\nx\n4\n5\n3\n2\n1\n0\n– 2\n– 3\n– 5\n– 1\n– 4\n– 2\n– 1\n– 3\n– 5\n\
+    – 7\n2\n4\n1\n3\n5\n7\n6\n8\n– 4\n– 6\n– 8\n\nThe diagram shows the graph of \
+    \  y\nx\n2\n1\n=\n- .\n\n(a) Write down the coordinates of the point where the\
+    \ graph crosses the x-axis.\n\n(  ,  ) [1]\n\n(b) Write down the equation of each\
+    \ asymptote [2]\n\n(c) By drawing a suitable straight line on the grid, solve\
+    \   x\nx\n2\n1\n0\n- -\n=\n.\n\nx =   or x =  [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 15a
@@ -266,7 +443,11 @@ questions:
 - number: '18'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "18 (a)\n\n3\n9\n\nRationalise the denominator.\n\nGive your answer in its\
+    \ simplest form [2]\n\n(b) (\n)(\n)\nc\nk\n5\n2 1\n3 2\n2\n-\n+\n=\n+\n\nFind\
+    \ the value of c and the value of k.\n\nc =   k =   [2]\n19 Write as a single\
+    \ fraction in its simplest form.\n\n(a)\na\na\nb\n6\n5\n3\n#\n\n  [2]\n\n(b) p\n\
+    t\n2\n4\n3\n+\n\n  [2]\n\n(c) x\nx\n2\n2\n1\n3\n-\n-\n+\n\n  [3]"
   answer_options: []
   subquestions:
   - number: 18a
@@ -308,7 +489,56 @@ questions:
 - number: '20'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '20
+
+    y
+
+    x
+
+    1
+
+    \
+
+
+    (a) When
+
+    ,
+
+    x
+
+    y
+
+    9
+
+    2
+
+    =
+
+    =
+
+    .
+
+
+    Find the value of y when x
+
+    36
+
+    =
+
+    .
+
+
+    y =   [3]
+
+
+    (b) When x is increased by a factor of 4, the value of y changes by a factor of
+    p.
+
+
+    Find the value of p.
+
+
+    p =   [1]'
   answer_options: []
   subquestions:
   - number: 20a
@@ -326,7 +556,13 @@ questions:
 - number: '21'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "21\nNOT TO\nSCALE\ny\nx\nA\nB\nO\nP\nQ\n\nThe diagram shows the graph of\
+    \   y\nx\nx\n3\n3\n=\n-\n .\n\nThe graph crosses the x-axis at A, at O and at\
+    \ B.\n\nThe turning points of the graph are at P and at Q.\n\n(a) Find the x-coordinate\
+    \ of A and the x-coordinate of B.\n\nGive your answers as exact values.\n\nx-coordinate\
+    \ of A   x-coordinate of B   [3]\n\n(b) (i) Differentiate   x\nx\n3\n3\n-\n  [2]\n\
+    \n(ii) Find the coordinates of P and Q.\n\nP (   ,  )\n\nQ (   ,  )\n\n[4]\n,\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 21a
@@ -356,7 +592,8 @@ questions:
 - number: '22'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "22 (a) Write down the exact value of   tan 60° [1]\n\n(b) Solve   sinx\n\
+    2\n1\n0\n-\n=\n   for\nx\n0\n3 0\n6\n°\n°\nG\nG\n.\n\nx =  or x =  [3]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 22a

@@ -2,7 +2,18 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "Brendan wants to be a successful entrepreneur. He plans to start up a flower\
+    \ shop using government\nsupport. Brendan’s brother has offered to form a business\
+    \ partnership with him. Brendan knows it\n1\nis important for a new business to\
+    \ use a suitable pricing method. He has already identified ways\nthe business\
+    \ can increase added value. Brendan wants to know how an economic boom might\n\
+    affect his business.\nDefine ‘business partnership’.\n(a)\n [2]\nIdentify two\
+    \ ways a government can support business start-ups.\n(b)\nWay 1:  Way 2:  [2]\n\
+    Outline two ways an economic boom might affect Brendan’s business.\n(c)\nWay 1:\
+    \  Way 2:  [4]\n,\t,\nExplain two ways Brendan could increase added value for\
+    \ his business.\n(d)\nWay 1:  Explanation:  Way 2:  Explanation:  [6]\nExplain\
+    \ two pricing methods a new business might use. Which is likely to be the best\
+    \ method\nto use? Justify your answer.\n(e)\n [6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +49,21 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "NSL is a business based in country X. It manufactures food products including\
+    \ bread and breakfast\ncereals. NSL uses lean production in its factory. Maintaining\
+    \ quality is important. NSL imports 15%\n2\nof its raw materials. Changes in country\
+    \ X’s exchange rate can affect businesses which import raw\nmaterials. NSL’s Marketing\
+    \ Manager knows the business should respond to changes in consumer\nspending patterns.\
+    \ She is aware that market research can be used to help make business decisions.\n\
+    Identify one way each of the following changes in country X’s exchange rate might\
+    \ affect\nbusinesses which import raw materials.\n(a)\nDepreciation:  Appreciation:\
+    \  [2]\nIdentify two reasons why consumer spending patterns might change.\n(b)\n\
+    Reason 1:  Reason 2:  [2]\nOutline two reasons why maintaining quality is important\
+    \ for NSL.\n(c)\nReason 1:  Reason 2:  [4]\n,\t,\nExplain two benefits to NSL\
+    \ of using lean production.\n(d)\nBenefit 1:  Explanation:  Benefit 2:  Explanation:\
+    \  [6]\nExplain two methods of market research a business could use to help make\
+    \ business decisions.\nWhich is likely to be the best method for a manufacturing\
+    \ business to use? Justify your answer.\n(e)\n [6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -74,7 +99,20 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "LFK is a coal-mining business. It has 135 employees who are all provided\
+    \ with training. After the\ndismissal of one of LFK’s employees there is a job\
+    \ vacancy for a new supervisor. External recruitment\n3\nwill be used. The Managing\
+    \ Director is preparing a cash flow forecast for LFK. An extract is shown\nin\
+    \ Table 3.1.\nTable 3.1\nExtract from LFK’s cash flow forecast July - September\
+    \ 2025 $000\nSeptember\nAugust\nJuly\n730\n400\n600\nCash inflow\n590\nX\n720\n\
+    Cash outflow\n140\n(100)\n(120)\nNet cash flow\n(180)\n(80)\n40\nOpening balance\n\
+    Y\n(180)\n(80)\nClosing balance\nDefine ‘dismissal’.\n(a)\n [2]\nCalculate the\
+    \ value of X and Y.\n(b)\nX:  Y:  [2]\n,\t,\nIdentify four reasons why a cash\
+    \ flow forecast might be useful to a business.\n(c)\nReason 1:  Reason 2:  Reason\
+    \ 3:  Reason 4:  [4]\nExplain two advantages of LFK training its employees.\n\
+    (d)\nAdvantage 1:  Explanation:  Advantage 2:  Explanation:  [6]\n,\t,\nDo you\
+    \ think the advantages of external recruitment for a business are greater than\
+    \ the\ndisadvantages? Justify your answer.\n(e)\n [6]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -110,7 +148,20 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "PKN manufactures glass. Contributing to sustainable development is important\
+    \ to the business.\nPKN has factories in 30 countries. It has 27000 employees.\
+    \ The Managing Director knows PKN\n4\nhas benefited from globalisation. She plans\
+    \ to expand the business using external growth. Retained\nprofit is one source\
+    \ of finance a business could use to fund expansion. Some of PKN’s directors\n\
+    are concerned about possible diseconomies of scale as the business grows.\nIdentify\
+    \ two methods of external growth a business might use.\n(a)\nMethod 1:  Method\
+    \ 2:  [2]\nIdentify two reasons for globalisation.\n(b)\nReason 1:  Reason 2:\
+    \  [2]\nOutline two ways PKN could contribute to sustainable development.\n(c)\n\
+    Way 1:  Way 2:  [4]\n,\n,\nExplain two diseconomies of scale which might affect\
+    \ PKN as it grows.\n(d)\nDiseconomy 1:  Explanation:  Diseconomy 2:  Explanation:\
+    \  [6]\nDo you think the advantages of using retained profits to fund business\
+    \ expansion are greater\nthan the disadvantages? Justify your answer.\n(e)\n [6]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 4a

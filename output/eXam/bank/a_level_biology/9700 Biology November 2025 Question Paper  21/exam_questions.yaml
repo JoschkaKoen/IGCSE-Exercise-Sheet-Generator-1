@@ -2,7 +2,16 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nFig. 1.1 shows a diagram of the fluid mosaic model of the structure of\
+    \ the cell surface membrane.\nA\nB\nC\n1\n2\nP\nOH\nFig. 1.1\n\n(a) Name the structures\
+    \ labelled A, B and C in Fig. 1.1.\nA   B   C   [3]\n\n(b) Draw an arrow on Fig.\
+    \ 1.1 to show the movement of a molecule across the membrane into\nthe cell by\
+    \ facilitated diffusion.\n[2]\n\n(c) Explain how the fluidity of the membrane\
+    \ would change if the proportion of unsaturated fatty\nacids in the phospholipid\
+    \ bilayer increased [3]\n,\t,\n\n(d) The R‑groups of amino acids give them different\
+    \ properties.\n\nSuggest how the properties of the R‑groups of the amino acids\
+    \ at position 1 of P may differ\nfrom the R‑groups of the amino acids at position\
+    \ 2 [1]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -32,7 +41,22 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Haemoglobin is a globular protein containing haem groups.\n\nExplain\
+    \ how the presence of haem groups allows the haemoglobin molecule to transport\n\
+    oxygen [2]\n\n(b) In certain situations, such as during intense exercise, a person\
+    \ may breathe very quickly and\ndeeply. This is known as hyperventilation.\n\n\
+    This hyperventilation causes more carbon dioxide to be exhaled. As a result, there\
+    \ is a lower\nconcentration of carbon dioxide in the blood that passes through\
+    \ the capillary network in\nrespiring tissues. This increases the affinity of\
+    \ haemoglobin for oxygen so that there is a\ndecrease in the release of oxygen\
+    \ from red blood cells.\n\nExplain why a decrease in the concentration of carbon\
+    \ dioxide in the blood passing through\nrespiring tissues leads to a decrease\
+    \ in the release of oxygen from red blood cells [3]\n,\t,\n\n(c) Fig. 2.1 is a\
+    \ diagram of a section through the heart.\nX\nPurkyne\nfibre\natrioventricular\
+    \ node (AVN)\nFig. 2.1\n\n(i) Describe and explain how the tunica media (middle\
+    \ layer of the wall) of blood vessel X\nadapts the blood vessel for its function\
+    \ [3]\n\n(ii) Describe the role of the atrioventricular node (AVN) and the Purkyne\
+    \ tissue in the cardiac\ncycle [4]\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -68,7 +92,39 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) The lock‑and‑key hypothesis and the induced‑fit hypothesis are used\
+    \ to describe the\ninteraction of enzymes and their substrates.\n\nDescribe one\
+    \ similarity and one difference between the lock‑and‑key hypothesis and the\n\
+    induced‑fit hypothesis.\nsimilarity   difference   [2]\n\n(b) Phosphorylase enzymes\
+    \ can catalyse the synthesis of starch and the breakdown of starch in\nsome plant\
+    \ tissues. A reaction catalysed by starch phosphorylase is shown in Fig. 3.1.\n\
+    glucose 1-\nphosphate\npart of a starch\nmolecule\nphosphate\nion\nstarch\nphosphorylase\n\
+    +\n+\nP\nP\nFig. 3.1\n\nA student carried out an experiment to study the synthesis\
+    \ of starch by phosphorylase found\nin potato tissue.\n\nThe student was provided\
+    \ with a solution, E, extracted from potato tissue. The extract was\nfiltered\
+    \ to remove all the starch grains.\n\nExtract E contained biological molecules\
+    \ from the potato tissue including phosphorylase but\nno starch.\n\n(i) Iodine\
+    \ solution was used to confirm that starch was not present in extract E.\n\n State\
+    \ the colour observed when iodine solution was added to a sample of extract E\
+    \ [1]\n,\t,\n\nThe student added a small drop of a dilute starch solution and\
+    \ a solution of\nglucose 1‑phosphate to a test‑tube containing extract E.\n\n\
+    Samples of the reaction mixture in the test‑tube were removed every minute and\
+    \ a drop of\niodine solution was added to each.\n\nThe student used a colorimeter\
+    \ to measure the absorbance of the solution in each sample.\n\nThe results are\
+    \ shown in Fig. 3.2.\n0\n0.5\n1.0\nabsorbance\n1.5\n2.0\n2\n4\n6\ntime / min\n\
+    8\n10\n12\nFig. 3.2\n\n(ii) Explain the results shown in Fig. 3.2 [3]\n,\t,\n\n\
+    (iii) After 12 minutes, the student added a solution containing phosphate ions\
+    \ to the reaction\nmixture. The student continued taking samples every minute,\
+    \ adding iodine solution to\neach sample.\n\n The absorbance of the solution in\
+    \ each of these samples was measured. The results\nshowed that the absorbance\
+    \ decreased over time.\n\n Suggest why the absorbance decreased [1]\n,\t\t,\n\n\
+    (c) Muscle cells contain glycogen phosphorylase.\n\nFig. 3.3 shows the effect\
+    \ of caffeine on the activity of glycogen phosphorylase at different\nconcentrations\
+    \ of substrate.\n0\n50\n100\nglycogen\nphosphorylase\nactivity\n/ arbitrary units\n\
+    150\n200\n5\n10\n15\nconcentration of substrate / mmol dm–3\n20\n25\nKey\nwithout\
+    \ caffeine\nwith caffeine\nFig. 3.3\n\nA student concluded that caffeine acts\
+    \ as a non‑competitive inhibitor of glycogen\nphosphorylase.\n\nExplain how the\
+    \ results in Fig. 3.3 support this conclusion [3]\n\n[Total: 10]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -110,7 +166,45 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nFig. 4.1 is a photomicrograph of a copepod. These animals are found living\
+    \ in sea water and in\nfresh water environments.\n1mm\nFig. 4.1\n\n(a) The outer\
+    \ surface of a copepod is covered in a layer of the polysaccharide chitin.\n\n\
+    Fig. 4.2 shows part of a chitin molecule.\nO\nOH\nCH2OH\nCH2OH\nOH\nNH\nC=O\n\
+    O\nO\nO\nO\nCH3\nNH\nC=O\nCH3\n– – –\n– – –\nFig. 4.2\n\n(i) Draw a circle around\
+    \ a glycosidic bond in Fig. 4.2.\n[1]\n,\t,\n\n(ii) In aquatic environments, Vibrio\
+    \ cholerae can live on the surface of copepods. V. cholerae\nsecretes enzymes\
+    \ to hydrolyse chitin to its N‑acetylglucosamine monomers. These can\nbe broken\
+    \ down to provide carbon, nitrogen and a source of energy.\n\n Draw the monomer\
+    \ that is formed when chitin is hydrolysed by V. cholerae.\n\n[2]\n,\t,\n\n(b)\
+    \ V. cholerae is a pathogen that causes cholera.\n\nScientists studied the transmission\
+    \ of V. cholerae in groups of people living in an area where\nthere is a high\
+    \ number of cases of cholera.\n\nSome families living in this area filtered their\
+    \ water through several layers of folded fabric\nfrom old clothing. The folded\
+    \ fabric traps particles and organisms larger than 20 µm.\n\nThe scientists recorded\
+    \ the number of cases of cholera in families that filtered their water\nthrough\
+    \ folded fabric and compared this to the number of cases of cholera recorded in\n\
+    families that did not filter their water through the folded fabric.\n\nThe results\
+    \ are shown in Fig. 4.3.\n0.4\n0.0\n0.8\nnumber of\ncases of\ncholera\nper 1000\n\
+    population\n1.2\nwater\nnot\nfiltered\nwater filtered\nthrough\nfolded fabric\n\
+    water treatment\nFig. 4.3\n\nSuggest possible explanations for the results shown\
+    \ in Fig. 4.3 [4]\n,\t,\n\n(c) The World Health Organization (WHO) recommends\
+    \ the use of an oral cholera vaccine (OCV)\nto protect people living in an area\
+    \ where a cholera outbreak has occurred.\n\nPeople who receive an OCV and make\
+    \ changes in their behaviour are less likely to have a\nserious case of cholera.\n\
+    \n(i) Describe one change in behaviour that a person can make, other than purifying\
+    \ water,\nto help prevent a serious case of cholera [1]\n\n(ii) The antibiotic\
+    \ tetracycline is used to treat cholera. However, some bacteria that cause\ncholera\
+    \ have evolved resistance to this antibiotic.\n\n Scientists have reported that\
+    \ resistant bacteria have an extra protein in their cell surface\nmembrane. This\
+    \ protein has been found to use ATP.\n\n Suggest how the presence of this protein\
+    \ in the cell surface membrane gives V. cholerae\nresistance to tetracycline [2]\n\
+    \n(iii) For some vaccines, there may not be an effective secondary immune response\
+    \ when a\nperson is infected by the specific pathogen. The antibodies that are\
+    \ produced do not act\non the pathogen. This is known as immune evasion.\n\n Evolution\
+    \ of resistance of bacteria to antibiotics occurs more frequently than immune\n\
+    evasion.\n\n Suggest why bacteria evolve resistance to antibiotics more frequently\
+    \ than vaccines that\nlose their effectiveness in protecting against bacterial\
+    \ pathogens [2]\n\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -164,7 +258,34 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) Fig. 5.1 is a photomicrograph of a longitudinal section through part\
+    \ of the stem of a plant.\nT\nFig. 5.1\n\n(i) Name one substance transported in\
+    \ T in Fig. 5.1 [1]\n\n(ii) State the name of the substance that forms the spiral\
+    \ thickening around the structure\nlabelled T in Fig. 5.1 [1]\n,\t,\n\n(b) A scientist\
+    \ studied the effect of leaf temperature on the rate of transpiration from the\
+    \ leaves of\nthe wheat plant, Triticum aestivum.\n\nThe scientist repeated the\
+    \ investigation using the cotton plant, Gossypium hirsutum.\n\nThe results of\
+    \ the investigation are shown in Table 5.1.\nTable 5.1\nleaf temperature\n/ °C\n\
+    rate of transpiration\nof T. aestivum\n/ mmol m–2 s–1\nrate of transpiration\n\
+    of G. hirsutum\n/ mmol m–2 s–1\n25\n 7\n 9\n30\n12\n10\n35\n15\n11\n40\n22\n12\n\
+    45\n31\n14\n\n(i) Suggest explanations for the relationship between leaf temperature\
+    \ and the rate of\ntranspiration of T. aestivum as shown in Table 5.1 [3]\n\n\
+    (ii) Suggest one difference between the structure of the leaves of T. aestivum\
+    \ and the leaves\nof G. hirsutum that could explain the results shown in Table\
+    \ 5.1 [1]\n,\t,\n\n(c) Nematodes are microscopic animals that infect a wide range\
+    \ of economically important plant\ncrops including cotton plants. Nematodes feed\
+    \ on the roots of plants, limiting their growth.\n\nWhen root cells become infected,\
+    \ the nematodes disrupt the plant mitotic cell cycle. This\ncauses the formation\
+    \ of a special type of feeding cell (cell G) in the plant, from which the\nnematodes\
+    \ absorb nutrients. Cell G is formed as a result of multiple cell cycles without\
+    \ any\ncytokinesis.\n\n(i) Suggest how cell G differs from cells produced during\
+    \ a mitotic cell cycle that has not\nbeen disrupted by a nematode [1]\n\n(ii)\
+    \ Nematodes can also stimulate a process called endoreplication. This process\
+    \ causes a\nplant cell to go through multiple S phases during one cell cycle without\
+    \ entering mitosis\nor undergoing cytokinesis.\n\n State how the nucleus of a\
+    \ cell that has been through endoreplication may differ from the\nnucleus of a\
+    \ cell in the same plant that has not been affected by the nematode [1]\n\n[Total:\
+    \ 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -224,7 +345,21 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Alveolar macrophages are phagocytes found in the human gas exchange\
+    \ system. They\nproduce hydrolytic enzymes, such as lysozyme, to digest pathogens\
+    \ entering the alveolus.\n\n(i) State the term used to describe the sequence of\
+    \ nucleotides in the DNA of the alveolar\nmacrophage that codes for a protein,\
+    \ such as lysozyme [1]\n\n(ii) Synthesis of lysozyme occurs in two stages. The\
+    \ first stage occurs in the nucleus using\none strand of DNA to synthesise mRNA.\n\
+    \n State the name of the strand of DNA that is used to synthesise mRNA [1]\n\n\
+    (iii) Name the organelle where the translation of mRNA takes place to produce\
+    \ lysozyme [1]\n\n(iv) Lysozyme destroys bacterial cells by hydrolysing bonds\
+    \ in peptidoglycan.\n\n Explain how the hydrolysis of bonds in peptidoglycan leads\
+    \ to the destruction of bacterial\ncells [2]\n,\t,\n\n(b) (i) Alveolar macrophages\
+    \ are found in contact with squamous epithelial cells in the walls of\nalveoli.\n\
+    \n Explain how the cells lining the alveoli are adapted for gas exchange [2]\n\
+    \n(ii) Describe the role of elastic fibres in the wall of an alveolus [2]\n\n\
+    [Total: 9]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 6a

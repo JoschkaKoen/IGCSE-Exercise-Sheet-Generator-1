@@ -2,7 +2,45 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nSodium carbonate can be manufactured using a two‑step process. The first\
+    \ step involves making\nsodium hydrogencarbonate, NaHCO3, which is then converted\
+    \ into sodium carbonate, Na2CO3, in\nthe second step of the process by the following\
+    \ reaction.\n2NaHCO3(s)\n  Na2CO3(s)  +  H2O(l)  +  CO2(g)\n\nIn this experiment\
+    \ you will determine the enthalpy change, ΔHr, for this reaction. You will do\
+    \ this\nby calculating the enthalpy changes when separate samples of sodium hydrogencarbonate\
+    \ and\nsodium carbonate are added to excess hydrochloric acid, HCl (aq). You will\
+    \ then combine these\nvalues using Hess’s law.\nNaHCO3(s)  +  HCl (aq)\n  NaCl\
+    \ (aq)  +  H2O(l)  +  CO2(g)      ΔH1\nNa2CO3(s)  +  2HCl (aq)\n  2NaCl (aq) \
+    \ +  H2O(l)  +  CO2(g)    ΔH2\n\nFB 1 is 2.0 mol dm–3 hydrochloric acid, HCl.\n\
+    \nFB 2 is sodium hydrogencarbonate, NaHCO3.\n\nFB 3 is sodium carbonate, Na2CO3.\n\
+    \n(a) Method\n\nExperiment 1\n•\nSupport a cup in the 250 cm3 beaker.\n•\nUse\
+    \ the 25 cm3 measuring cylinder to transfer 20.0 cm3 of FB 1 into the cup.\n•\n\
+    Weigh the container with FB 2. Record the mass.\n•\nMeasure the temperature of\
+    \ the acid in the cup. Record this temperature.\n•\nCarefully add all of the FB\
+    \ 2, in small portions to avoid acid spray. Stir to dissolve. Record\nthe lowest\
+    \ temperature.\n•\nReweigh the container with any residual FB 2. Record the mass.\n\
+    •\nCalculate and record the mass of FB 2 used.\n•\nCalculate and record the decrease\
+    \ in temperature.\n\nExperiment 2\n•\nSupport the second cup in the 250 cm3 beaker.\n\
+    •\nUse the 25 cm3 measuring cylinder to transfer 20.0 cm3 of FB 1 into the second\
+    \ cup.\n•\nWeigh the container with FB 3. Record the mass.\n•\nMeasure the temperature\
+    \ of the acid in the cup. Record this temperature.\n•\nCarefully add all of the\
+    \ FB 3, in small portions to avoid acid spray. Stir to dissolve. Record\nthe highest\
+    \ temperature.\n•\nReweigh the container with any residual FB 3. Record the mass.\n\
+    •\nCalculate and record the mass of FB 3 used.\n•\nCalculate and record the increase\
+    \ in temperature.\nKeep FB 1 for use in Question 3.\n\nResults\nI\nII\nIII\nIV\n\
+    \n[4]\n\n(b) Calculations\n\n(i) Calculate the amount, in mol, of FB 2 that reacts\
+    \ with FB 1 and the amount, in mol, of\nFB 3 that reacts with FB 1.\nExperiment\
+    \ 1\nExperiment 2\namount of FB 2 =  mol\namount of FB 3 =  mol\n\n[2]\n\n(ii)\
+    \ Calculate the energy changes, in J, for each reaction.\nExperiment 1\nExperiment\
+    \ 2\nenergy change =  J\nenergy change =  J\n\n[1]\n\n(iii) Calculate the enthalpy\
+    \ change, ΔH, in kJ mol–1 for each reaction.\nExperiment 1\nExperiment 2\nΔH1\
+    \ =  kJ mol–1\n\nsign\nvalue\nΔH2 =  kJ mol–1\n\nsign\nvalue\n\n[2]\n,\t,\n\n\
+    (iv) Construct an enthalpy cycle and use Hess’s law to determine the enthalpy\
+    \ change, ΔHr,\nfor the reaction shown.\n\n Show your working.\n2NaHCO3(s)\n \
+    \ Na2CO3(s)  +  H2O(l)  +  CO2(g)\n\n (If you were unable to calculate values\
+    \ in (b)(iii) then assume that ΔH1 is +27.3 kJ mol–1\nand that ΔH2 is –24.9 kJ\
+    \ mol–1. These may not be the correct values.)\nΔHr =  kJ mol–1\n\nsign\nvalue\n\
+    \n[2]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +82,46 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nIn this experiment you will determine the percentage by mass of a sodium\
+    \ halide impurity present\nin a sample of sodium hydrogencarbonate by titration.\n\
+    NaHCO3(s)  +  HCl (aq)\n  NaCl (aq)  +  H2O(l)  +  CO2(g)\n\nFB 4 is an aqueous\
+    \ solution made by dissolving 17.20 g of the impure sodium hydrogencarbonate\n\
+    in each dm3 of solution.\n\nFB 5 is 0.200 mol dm–3 hydrochloric acid, HCl.\n\n\
+    FB 6 is methyl orange indicator.\n\n(a) Method\n•\nFill the burette with FB 5.\n\
+    •\nPipette 25.0 cm3 of FB 4 into a conical flask.\n•\nAdd several drops of FB\
+    \ 6 to the conical flask.\n•\nPerform a rough titration and record your burette\
+    \ readings in the space below.\n\nThe rough titre is  cm3.\n•\nCarry out as many\
+    \ accurate titrations as you think necessary to obtain consistent results.\n•\n\
+    Make sure any recorded results show the precision of your practical work.\n•\n\
+    Record all your burette readings and the volume of FB 5 added in each accurate\
+    \ titration.\nKeep FB 4 for use in Question 3.\n\nResults\nI\nII\nIII\nIV\nV\n\
+    VI\nVII\n\n[7]\n\n(b) From your accurate titration results, calculate a suitable\
+    \ mean value to be used in your\ncalculations.\n\nShow clearly how you obtained\
+    \ this value.\n\n25.0 cm3 of FB 4 required  cm3 of FB 5. [1]\n,\t,\n\n(c) Calculations\n\
+    \n(i) Give your answers to (c)(ii) and (c)(iii) to an appropriate number of significant\
+    \ figures.\n\n[1]\n\n(ii) Use your answer to (b) to calculate the amount, in mol,\
+    \ of hydrochloric acid in your mean\ntitre.\n\namount of HCl =  mol\n\n Hence\
+    \ determine the amount, in mol, of sodium hydrogencarbonate present in 25.0 cm3\n\
+    of FB 4.\n\namount of NaHCO3 =  mol\n\n[1]\n\n(iii) Calculate the mass of sodium\
+    \ hydrogencarbonate present in each dm3 of solution.\n\nmass of NaHCO3 =  g\n\n\
+    \ Hence calculate the percentage by mass of the sodium halide impurity in FB 4.\n\
+    \n Show your working.\n\npercentage by mass =  %\n\n[2]\n\n(d) A student carries\
+    \ out the experiment in Question 1 using the impure sodium hydrogencarbonate\n\
+    dissolved to make FB 4.\n\nState how this affects the value of ΔH1 determined\
+    \ in 1(b)(iii) compared to the value the\nstudent would get if pure sodium hydrogencarbonate\
+    \ were used State what assumption you have made about the sodium halide impurity\
+    \ [2]\n\n[Total: 14]\n,\t,\nQualitative analysis\nFor each test you should record\
+    \ all your observations in the spaces provided.\nExamples of observations include:\n\
+    •\ncolour changes seen\n•\nthe formation of any precipitate and its solubility\
+    \ (where appropriate) in an excess of the reagent\nadded\n•\nthe formation of\
+    \ any gas and its identification (where appropriate) by a suitable test.\nYou\
+    \ should record clearly at what stage in a test an observation is made.\nWhere\
+    \ no change is observed, you should write ‘no change’.\nWhere reagents are selected\
+    \ for use in a test, the name or correct formula of the element or compound\n\
+    must be given.\nIf any solution is warmed, a boiling tube must be used. If any\
+    \ solid is heated a hard‑glass test‑tube\nmust be used.\nRinse and reuse test‑tubes\
+    \ and boiling tubes where possible.\nNo additional tests should be attempted.\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -92,7 +169,64 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) (i) To a 1 cm depth of FB 4 in a boiling tube, slowly add a 1 cm depth\
+    \ of dilute nitric acid. Stir\ngently until the reaction is complete. Use this\
+    \ solution for your tests.\n\n Select reagents to identify which sodium halide\
+    \ is present.\n\n Record details of the reagents used and your observations.\n\
+    \n Identify the sodium halide that is present as an impurity in FB 4.\n\n The\
+    \ formula of the impurity is  [2]\n\n(ii) Suggest why it is necessary to add the\
+    \ nitric acid to FB 4 before carrying out your tests in\n(a)(i) [1]\n\n(b) FB\
+    \ 7 contains a metal cation which is listed in the Qualitative analysis notes.\n\
+    \n(i) Place half the sample of FB 7 in a hard‑glass test‑tube. Heat gently at\
+    \ first and then\nmore strongly.\n\n Record your observations [2]\n\n(ii) Use\
+    \ the 25 cm3 measuring cylinder to measure 20 cm3 of FB 1.\n\n Place the remaining\
+    \ sample of FB 7 in a boiling tube and add portions of FB 1 from the\nmeasuring\
+    \ cylinder until all the FB 7 has reacted. Stir until the reaction is complete.\n\
+    \n Record your observations.\nKeep this solution for use in (b)(iii) [2]\n\n(iii)\
+    \ Carry out the following tests. For each test use a 1 cm depth of the solution\
+    \ from (b)(ii) in\na test‑tube.\n\n Record your observations in Table 3.1.\n\n\
+    \ Identify the metal ion present in FB 7.\nTable 3.1\ntest\nobservations\nTest\
+    \ 1\nAdd aqueous sodium hydroxide.\nTest 2\nAdd aqueous ammonia.\nTest 3\nAdd\
+    \ a piece of aluminium foil.\n\n The formula of the metal ion in FB 7 is  [4]\n\
+    ,\t\t,\n\n(c) FB 8 is an acidified aqueous solution containing a metal cation\
+    \ which is listed in the Qualitative\nanalysis notes.\n\n(i) Carry out the following\
+    \ tests. For each test use a 1 cm depth of FB 8 in a test‑tube.\n\n Record your\
+    \ observations in Table 3.2.\n\n Identify the metal ion present in FB 8.\nTable\
+    \ 3.2\ntest\nobservations\nTest 1\nAdd aqueous sodium hydroxide.\nTest 2\nAdd\
+    \ a 1 cm depth of\nacidified aqueous potassium\nmanganate(VII).\n\n The formula\
+    \ of the metal ion in FB 8 is  [3]\n\n(ii) State the type of reaction between\
+    \ the metal ion in FB 8 and acidified aqueous potassium\nmanganate(VII).\n\n Explain\
+    \ how your observations support your answer [1]\n\n[Total: 15]\n,\n,\nQualitative\
+    \ analysis notes\n1\nReactions of cations\ncation\nreaction with\nNaOH(aq)\nNH3(aq)\n\
+    aluminium, Al 3+(aq)\nwhite ppt. soluble in excess\nwhite ppt. insoluble in excess\n\
+    ammonium, NH4\n+(aq)\nno ppt.\nammonia produced on warming\n–\nbarium, Ba2+(aq)\n\
+    faint white ppt. is observed unless\n[Ba2+(aq)] is very low\nno ppt.\ncalcium,\
+    \ Ca2+(aq)\nwhite ppt. unless [Ca2+(aq)] is very\nlow\nno ppt.\nchromium(III),\
+    \ Cr3+(aq)\ngrey‑green ppt. soluble in excess\ngiving dark green solution\ngrey‑green\
+    \ ppt. insoluble in excess\ncopper(II), Cu2+(aq)\npale blue ppt. insoluble in\
+    \ excess\npale blue ppt. soluble in excess\ngiving dark blue solution\niron(II),\
+    \ Fe2+(aq)\ngreen ppt. turning brown on\ncontact with air\ninsoluble in excess\n\
+    green ppt. turning brown on\ncontact with air\ninsoluble in excess\niron(III),\
+    \ Fe3+(aq)\nred‑brown ppt. insoluble in excess\nred‑brown ppt. insoluble in excess\n\
+    magnesium, Mg2+(aq)\nwhite ppt. insoluble in excess\nwhite ppt. insoluble in excess\n\
+    manganese(II), Mn2+(aq)\noff‑white ppt. rapidly turning brown\non contact with\
+    \ air\ninsoluble in excess\noff‑white ppt. rapidly turning brown\non contact with\
+    \ air\ninsoluble in excess\nzinc, Zn2+(aq)\nwhite ppt. soluble in excess\nwhite\
+    \ ppt. soluble in excess\n2\nReactions of anions\nanion\nreaction\ncarbonate,\
+    \ CO3\n2–\nCO2 liberated by dilute acids\nchloride, Cl –(aq)\ngives white ppt.\
+    \ with Ag+(aq) (soluble in NH3(aq))\nbromide, Br –(aq)\ngives cream / off‑white\
+    \ ppt. with Ag+(aq) (partially soluble in NH3(aq))\niodide, I–(aq)\ngives pale\
+    \ yellow ppt. with Ag+(aq) (insoluble in NH3(aq))\nnitrate, NO3\n–(aq)\nNH3 liberated\
+    \ on heating with OH–(aq) and Al foil\nnitrite, NO2\n–(aq)\nNH3 liberated on heating\
+    \ with OH–(aq) and Al foil;\ndecolourises acidiﬁed aqueous KMnO4\nsulfate, SO4\n\
+    2–(aq)\ngives white ppt. with Ba2+(aq) (insoluble in excess dilute strong acids);\n\
+    gives white ppt. with high [Ca2+(aq)]\nsulﬁte, SO3\n2–(aq)\ngives white ppt. with\
+    \ Ba2+(aq) (soluble in excess dilute strong acids);\ndecolourises acidiﬁed aqueous\
+    \ KMnO4\nthiosulfate, S2O3\n2–(aq)\ngives off‑white / pale yellow ppt. slowly\
+    \ with H+\n,\t,\n3\nTests for gases\ngas\ntest and test result\nammonia, NH3\n\
+    turns damp red litmus paper blue\ncarbon dioxide, CO2\ngives a white ppt. with\
+    \ limewater\nhydrogen, H2\n‘pops’ with a lighted splint\noxygen, O2\nrelights\
+    \ a glowing splint\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a

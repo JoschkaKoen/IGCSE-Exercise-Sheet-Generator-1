@@ -2,7 +2,92 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA computer game is designed for users to select characters. Each character\
+    \ can take part in a\ngroup of events. Each group has five events. There are four\
+    \ types of event: jump, swim, run, drive.\n\nThe program is written using object-oriented\
+    \ programming.\n\n(a) The class EventItem stores data about the events.\nEventItem\n\
+    EventName : STRING\nstores the name of the event\nType : STRING\nstores the type\
+    \ of event, either: jump, swim, run or drive\nDifficulty : INTEGER\nstores the\
+    \ difficulty of the event from 1 (easiest) to 5\n(hardest)\nConstructor()\ninitialises\
+    \ EventName, Type and Difficulty to its\nparameter values\nGetName()\nreturns\
+    \ the name of the event\nGetDifficulty()\nreturns the difficulty of the event\n\
+    GetEventType()\nreturns the type of event\n\n(i) Write program code to declare\
+    \ the class EventItem and its constructor.\n\n Do not declare the other methods.\n\
+    \n Use your programming language’s appropriate constructor.\n\n All attributes\
+    \ must be private.\n\n If you are writing in Python, include attribute declarations,\
+    \ using comments.\nSave your program as Question1_N24.\nCopy and paste the program\
+    \ code into part 1(a)(i) in the evidence document.\n\n[4]\n\n(ii) The get methods\
+    \ GetName(), GetDifficulty() and GetEventType() each return\nthe relevant attribute.\n\
+    \n Write program code for the three get methods.\nSave your program.\nCopy and\
+    \ paste the program code into part 1(a)(ii) in the evidence document.\n\n[3]\n\
+    \n(b) The array Group stores five objects of type EventItem.\n\n(i) Write program\
+    \ code to declare Group local to the main program.\nSave your program.\nCopy and\
+    \ paste the program code into part 1(b)(i) in the evidence document.\n\n[1]\n\n\
+    (ii) One group has the following events:\nEvent name\nEvent type\nEvent difficulty\n\
+    Bridge\njump\n3\nWater wade\nswim\n4\n100 mile run\nrun\n5\nGridlock\ndrive\n\
+    2\nWall on wall\njump\n4\n\n Write program code to create an instance of EventItem\
+    \ for each of the five events, and\nstore them in Group.\nSave your program.\n\
+    Copy and paste the program code into part 1(b)(ii) in the evidence document.\n\
+    \n[3]\n\n(c) The class Character stores data about the characters in the game.\n\
+    \nEach character has a skill level for each type of event. The skill level is\
+    \ an integer between\n1 and 5 inclusive. Skill level 1 is the lowest skill level,\
+    \ and skill level 5 is the highest skill level.\nCharacter\nCharacterName : STRING\n\
+    stores the name of the character\nJump : INTEGER\nstores the character’s skill\
+    \ level at events of type jump\nSwim : INTEGER\nstores the character’s skill level\
+    \ at events of type swim\nRun : INTEGER\nstores the character’s skill level at\
+    \ events of type run\nDrive : INTEGER\nstores the character’s skill level at events\
+    \ of type drive\nConstructor()\ninitialises CharacterName, Jump, Swim, Run and\n\
+    Drive to its parameter values\nGetName()\nreturns the name of the character\n\
+    CalculateScore()\ntakes the type of event and difficulty as parameters.\nCalculates\
+    \ and returns the chance of the character\ncompleting the event\n\nWrite program\
+    \ code to declare the class Character, its constructor and get method.\n\nUse\
+    \ your programming language’s appropriate constructor.\n\nAll attributes must\
+    \ be private.\n\nIf you are writing in Python, include attribute declarations,\
+    \ using comments.\nSave your program.\nCopy and paste the program code into part\
+    \ 1(c) in the evidence document.\n\n[4]\n\n(d) The method CalculateScore() in\
+    \ the Character class calculates and returns the\npercentage chance of a character\
+    \ completing an event.\n\nWhen a character’s skill level is greater than or equal\
+    \ to the difficulty of that event, the\npercentage chance of completing the event\
+    \ is 100%.\n\nWhen a character’s skill level is less than the difficulty of that\
+    \ event, the character’s skill level\nis subtracted from the difficulty of that\
+    \ event. This difference is used to identify the percentage\nchance of success\
+    \ using this table:\nDifference\nPercentage chance\nof success\n1\n80\n2\n60\n\
+    3\n40\n4\n20\n\nFor example:\n•\nA character has a skill level of 3 for events\
+    \ of type run.\n•\nAn event of type run has a difficulty level of 5\n•\nThe character’s\
+    \ skill level is less than the difficulty, therefore the difference is calculated.\n\
+    •\nThe difference is the character’s skill level subtracted from the event difficulty,\
+    \ 5 – 3 = 2\n•\nThe difference is 2, therefore the percentage chance of succeeding\
+    \ is 60%\n\nWrite program code for the method CalculateScore() to:\n•\ntake the\
+    \ type of event and difficulty as parameters\n•\ncalculate the percentage chance\
+    \ of the character completing the event\n•\nreturn the percentage chance of completing\
+    \ the event as an integer number, for example\n60\nSave your program.\nCopy and\
+    \ paste the program code into part 1(d) in the evidence document.\n\n[4]\n\n(e)\
+    \ Two characters are attempting each event in the group you created in part 1(b).\n\
+    \nOne character has the name Tarz and the skill levels:\n\nJump\n5\n\nSwim\n3\n\
+    \nRun\n5\n\nDrive\n1\n\nThe second character has the name Geni and the skill levels:\n\
+    \nJump\n2\n\nSwim\n2\n\nRun\n3\n\nDrive\n4\n\nEach Character object is stored\
+    \ in a variable.\n\n(i) Amend the main program to declare and create an instance\
+    \ of a Character object for\nTarz and for Geni.\nSave your program.\nCopy and\
+    \ paste the program code into part 1(e)(i) in the evidence document.\n\n[2]\n\n\
+    (ii) Both characters Tarz and Geni take part in each event in the group you created\
+    \ in part\n1(b).\n\n These steps are repeated for all five events:\n•\nThe percentage\
+    \ chance of each character completing the event is calculated and\ncompared.\n\
+    •\nThe character with the highest percentage chance of completing the event gets\
+    \ 1\npoint. Their character name is output together with a message telling them\
+    \ they\nhave won that event.\n•\nIf both characters have the same percentage chance\
+    \ of completing the event, the\nscores do not change, and a message is output\
+    \ stating that the event is a draw.\n\n When the total score for each character\
+    \ has been calculated, the name of the character\nwith the highest score is output\
+    \ stating they have won and the number of points they\nhave. If both characters\
+    \ have the same number of points, a message is output telling\nthem the group\
+    \ is a draw.\n\n Amend the main program to:\n•\ncalculate the score for each character\
+    \ in each event\n•\noutput the name of the character that wins each event or that\
+    \ the event is a draw\n•\noutput the name of the character that has the most points\
+    \ for the group or that the\ngroup is a draw.\nSave your program.\nCopy and paste\
+    \ the program code into part 1(e)(ii) in the evidence document.\n\n[7]\n\n(iii)\
+    \ Test your program.\n\n Take a screenshot of the output.\nSave your program.\n\
+    Copy and paste the screenshot into part 1(e)(iii) in the evidence document.\n\n\
+    [1]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -80,7 +165,61 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA linear queue data structure is designed using a record structure.\n\n\
+    The record structure Queue has the following fields:\n•\nQueueArray, a 1D array\
+    \ of up to 100 integer values\n•\nHeadpointer, a variable that stores the index\
+    \ of the first data item in QueueArray\n•\nTailpointer, a variable that stores\
+    \ the index of the next free location in QueueArray.\n\n(a) Write program code\
+    \ to declare the record structure Queue and its fields.\n\nIf your programming\
+    \ language does not support record structures, a class can be declared\ninstead.\n\
+    \nIf you are writing in Python, use comments to declare the appropriate data types.\n\
+    Save your program as Question2_N24.\nCopy and paste the program code into part\
+    \ 2(a) in the evidence document.\n\n[3]\n\n(b) The main program creates a new\
+    \ Queue record with the identifier TheQueue. The head\npointer is initialised\
+    \ to –1. The tail pointer is initialised to 0. Each element in the array is\n\
+    initialised with –1.\n\nWrite program code for the main program.\nSave your program.\n\
+    Copy and paste the program code into part 2(b) in the evidence document.\n\n[3]\n\
+    \n(c) The pseudocode function Enqueue() inserts an integer value into the queue.\n\
+    \nThe function is incomplete. There are three incomplete statements.\n\nFUNCTION\
+    \ Enqueue(BYREF AQueue : Queue, BYVAL TheData : INTEGER)\n\n                 RETURNS\
+    \ INTEGER\n\n   IF AQueue.Headpointer = -1 THEN\n\n      AQueue.QueueArray[AQueue.Tailpointer]\
+    \ ←  AQueue.Headpointer ← 0\n\n      AQueue.Tailpointer ← AQueue.Tailpointer +\
+    \ 1\n\n      RETURN 1\n\n   ELSE\n\n      IF AQueue.Tailpointer >  THEN\n\n  \
+    \       RETURN -1\n\n      ELSE\n\n         AQueue.QueueArray[AQueue.Tailpointer]\
+    \ ← TheData\n\n         AQueue.Tailpointer ← AQueue.Tailpointer  RETURN 1\n\n\
+    \      ENDIF\n\n   ENDIF\n\nENDFUNCTION\n\nWrite program code for Enqueue().\n\
+    Save your program.\nCopy and paste the program code into part 2(c) in the evidence\
+    \ document.\n\n[5]\n\n(d) The function ReturnAllData() accesses TheQueue. It concatenates\
+    \ all the integer\nvalues that have been inserted into the queue’s array, starting\
+    \ from the value stored at\nHeadPointer, with a space between each integer value.\
+    \ The string of concatenated values\nis returned.\n\nNone of the integer values\
+    \ are removed from the queue.\n\nWrite program code for ReturnAllData().\nSave\
+    \ your program.\nCopy and paste the program code into part 2(d) in the evidence\
+    \ document.\n\n[3]\n\n(e) (i) The main program asks the user to enter 10 integers\
+    \ with values of 0 or greater. It reads\neach input repeatedly until a valid number\
+    \ is entered.\n\n All 10 valid inputs are added to the queue, using Enqueue().\n\
+    \n If the value returned from Enqueue() is –1, a message is output to state that\
+    \ the queue\nis full, otherwise a message is output to state that the item has\
+    \ been added to the queue.\n\n The function ReturnAllData() is called once all\
+    \ 10 integers have been entered and\nthe return value from the function call is\
+    \ output.\n\n Amend the main program to perform these actions.\nSave your program.\n\
+    Copy and paste the program code into part 2(e)(i) in the evidence document.\n\n\
+    [5]\n\n(ii) Test your program with the following inputs in the order given:\n\
+    10  9  –1  8  7  6  5  4  3  2  1\n\n Take a screenshot of the output.\nSave your\
+    \ program.\nCopy and paste the screenshot into part 2(e)(ii) in the evidence document.\n\
+    \n[2]\n\n(f) The function Dequeue() accesses TheQueue. The function returns –1\
+    \ if the queue is empty.\nIf the queue is not empty, the function returns the\
+    \ next item in the queue and updates the\nrelevant pointer(s).\n\nThe data is\
+    \ not replaced or deleted from the queue.\n\nWrite program code for Dequeue().\n\
+    Save your program.\nCopy and paste the program code into part 2(f) in the evidence\
+    \ document.\n\n[4]\n\n(g) (i) The main program calls Dequeue() twice, and each\
+    \ time it either outputs ‘Queue empty’\nif there is no data in the queue or outputs\
+    \ the return value.\n\n The main program then calls ReturnAllData() a second time.\n\
+    \n Amend the main program.\nSave your program.\nCopy and paste the program code\
+    \ into part 2(g)(i) in the evidence document.\n[3]\n\n(ii) Test your program with\
+    \ the following inputs in the order given:\n10  9  8  7  6  5  4  3  2  1\n\n\
+    \ Take a screenshot of the output.\nSave your program.\nCopy and paste the screenshot\
+    \ into part 2(g)(ii) in the evidence document.\n\n[1]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -152,7 +291,46 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nThe text file HighScoreTable.txt stores the top seven player scores for\
+    \ a game.\n\nThe data in the file is stored in the order:\n\nPlayer ID\n\nGame\
+    \ level\n\nScore\n\nEach item of data is stored on a new line. For example, the\
+    \ first set of data in the file is:\n\nPlayer ID:\nGHEH\n\nGame level:\n3\n\n\
+    Score:\n10\n\n(a) The data about the players and their scores is stored in a 2D\
+    \ array of strings with the identifier\nHighScores.\n\nThe first dimension of\
+    \ the array has seven elements: one for each player. The second\ndimension of\
+    \ the array has three elements: one for the player ID, one for the game level\
+    \ and\none for the score. All data is stored in the array as strings.\n\nHighScores\
+    \ is declared local to the main program, and all elements are initialised to an\n\
+    empty string, for example \" \".\n\nWrite program code to declare and initialise\
+    \ HighScores.\nSave your program as Question3_N24.\nCopy and paste the program\
+    \ code into part 3(a) in the evidence document.\n\n[2]\n\n(b) The function ReadData()\
+    \ reads the data from HighScoreTable.txt and stores the data\nin a 2D array. The\
+    \ function returns the 2D array.\n\nThe function uses exception handling when\
+    \ opening and reading data from the file.\n\nWrite program code for ReadData().\n\
+    Save your program.\nCopy and paste the program code into part 3(b) in the evidence\
+    \ document.\n\n[5]\n\n(c) The procedure OutputHighScores() takes a 2D array as\
+    \ a parameter. It outputs each\nplayer’s ID, level and score in the order they\
+    \ are in the array. The outputs are in the format:\n\n GHEH reached level 3 with\
+    \ a score of 10\n\nWrite program code for OutputHighScores().\nSave your program.\n\
+    Copy and paste the program code into part 3(c) in the evidence document.\n\n[2]\n\
+    \n(d)  The scores in HighScoreTable.txt are not in order.\n\nThe player scores\
+    \ are first sorted by the game level they reached. For example, all players\n\
+    that reached level 5 are higher in the high score table than players that reached\
+    \ level 4.\n\nThe players that reached the same level are then sorted in descending\
+    \ order of score.\n\nAn example sorted high score table is:\nPosition\nPlayer\
+    \ ID\nGame level\nScore\n1\nGFED\n5\n25\n2\nHJKM\n4\n21\n3\nRERR\n4\n19\n4\nTTYU\n\
+    4\n15\n5\nWSVG\n3\n20\n6\nPPTR\n3\n15\n7\nSNQT\n2\n10\n\nThe function SortScores()\
+    \ uses a bubble sort to sort the data as described and returns the\nsorted array.\n\
+    \nWrite program code for SortScores().\nSave your program.\nCopy and paste the\
+    \ program code into part 3(d) in the evidence document.\n\n[4]\n\n(e) (i) Amend\
+    \ the main program to implement these steps in the order given:\n•\ncall ReadData()\
+    \ and store the returned array in HighScores\n•\noutput \"Before\"\n•\ncall OutputHighScores()\
+    \ with HighScores as a parameter\n•\ncall SortScores() and store the returned\
+    \ array in HighScores\n•\noutput \"After\"\n•\ncall OutputHighScores() with HighScores\
+    \ as a parameter.\nSave your program.\nCopy and paste the program code into part\
+    \ 3(e)(i) in the evidence document.\n\n[2]\n\n(ii) Test your program\n\n Take\
+    \ a screenshot of the output.\nSave your program.\nCopy and paste the screenshot\
+    \ into part 3(e)(ii) in the evidence document.\n\n[2]"
   answer_options: []
   subquestions:
   - number: 3a

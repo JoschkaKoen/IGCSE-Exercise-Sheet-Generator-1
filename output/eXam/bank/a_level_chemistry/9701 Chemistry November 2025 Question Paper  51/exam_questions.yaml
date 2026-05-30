@@ -2,7 +2,53 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nThe concentration of aqueous chloride ions can be found by titration with\
+    \ aqueous silver nitrate,\nAgNO3(aq).\nAg+(aq) + Cl –(aq)\n AgCl(s)\n\nThe indicator\
+    \ used is aqueous potassium chromate(VI), K2CrO4(aq).\n\nAs AgNO3(aq) is added\
+    \ to aqueous chloride ions, a white precipitate of AgCl(s) is formed.\n\nWhen\
+    \ all the chloride ions have reacted, further addition of AgNO3(aq) leads to the\
+    \ formation of\na red precipitate of silver chromate(VI), Ag2CrO4(s). The first\
+    \ appearance of the red precipitate\nshows the end-point of the titration.\n\n\
+    A student carries out an experiment to determine the number of molecules of water\
+    \ of crystallisation,\nx, in hydrated barium chloride, BaCl 2•xH2O(s).\n\n(a)\
+    \ The student makes 250.0 cm3 of 0.0500 mol dm–3 AgNO3(aq) to use for the titration.\n\
+    \n(i) Calculate the mass of solid silver nitrate, AgNO3(s), needed to make 250.0\
+    \ cm3 of\n0.0500 mol dm–3 AgNO3(aq).\n\n Give your answer to two decimal places.\n\
+    \nmass of AgNO3(s) =  g [1]\n\n(ii) Describe how the student should make 250.0\
+    \ cm3 of 0.0500 mol dm–3 AgNO3(aq) starting\nfrom the mass of AgNO3(s) calculated\
+    \ in (a)(i) in a 50 cm3 beaker.\n\n Give the name and size of any key apparatus\
+    \ used.\n\n Write your answer using a series of numbered steps [3]\n,\t,\n\n(b)\
+    \ The student uses the following method.\nstep 1\nDissolve 1.58 g of BaCl 2•xH2O(s)\
+    \ to form 250 cm3 of aqueous solution. Label this\nsolution A.\nstep 2\nTransfer\
+    \ 20.0 cm3 of solution A into a conical flask.\nstep 3\nAdd aqueous sodium sulfate,\
+    \ Na2SO4(aq), to the flask and swirl the mixture to\nremove barium ions from the\
+    \ solution.\nstep 4\nAdd 2–3 drops of K2CrO4(aq) indicator to the flask.\nstep\
+    \ 5\nTitrate the contents of the flask against 0.0500 mol dm–3 AgNO3(aq).\nstep\
+    \ 6\nRepeat steps 2 to 5 to collect sufficient data for analysis.\n\n(i) Suggest\
+    \ a suitable piece of apparatus for transferring 20.0 cm3 of solution A in step\
+    \ 2 [1]\n\n(ii) Suggest why barium ions are removed in step 3 before performing\
+    \ the titration [1]\n\n(iii) Suggest why chemically resistant gloves should be\
+    \ worn to carry out step 4 [1]\n\n(c) The student’s results are shown in Table\
+    \ 1.1.\nTable 1.1\nrough titration\ntitration 1\ntitration 2\ntitration 3\nburette\
+    \ reading\n(final) / cm3\n20.10\n40.55\n20.75\n20.90\nburette reading\n(initial)\
+    \ / cm3\n0.00\n20.25\n0.05\n0.30\ntitre / cm3\n20.10\n20.30\n20.70\n20.60\n\n\
+    The student uses the titres from titrations 2 and 3 shown in Table 1.1 to calculate\
+    \ a mean titre\nvalue of 20.65 cm3.\n\n(i) Explain why only these two values are\
+    \ used [1]\n,\t,\n\n(ii) Calculate the percentage error in the titre volume for\
+    \ titration 3.\n\n Show your working.\n\npercentage error =  [1]\n\n(d) The equation\
+    \ for the reaction of silver nitrate with barium chloride is shown.\n2AgNO3(aq)\
+    \ + BaCl 2(aq)\n Ba(NO3)2(aq) + 2AgCl(s)\n\n(i) Calculate the amount, in mol,\
+    \ of AgNO3(aq) in the mean titre of 20.65 cm3.\n\namount of AgNO3 =  mol [1]\n\
+    \n(ii) Calculate the amount, in mol, of BaCl 2(aq) in 250 cm3 of solution A.\n\
+    \namount of BaCl 2 =  mol [1]\n\n(iii) Calculate the value of x in the formula\
+    \ BaCl 2•xH2O.\n\nx =  [2]\n,\t,\n\n(e) Another student uses a different experimental\
+    \ method to check the value of x obtained by the\nmethod described in (b).\n\n\
+    Give a brief description of another method, not involving titration, that could\
+    \ be used to\ndetermine the value of x in the formula BaCl 2•xH2O(s). Write your\
+    \ answer using a series of\nnumbered steps.\n\nYour plan should include details\
+    \ of the following:\n•\nthe apparatus and method you would use\n•\nthe measurements\
+    \ you would make.\n\nYou are provided with standard laboratory apparatus [3]\n\
+    \n[Total: 16]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -98,7 +144,94 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nEffusion is the process in which a gas escapes through a small hole.\n\
+    \nA student investigates the relationship between rate of effusion and relative\
+    \ molar mass of a gas\nusing the apparatus shown in Fig. 2.1.\ngas syringe\nside-arm\
+    \ tube\nplunger\ngas being tested\nthree-way tap\naluminium foil with small hole\n\
+    Fig. 2.1\n\nThe following method is used:\nstep 1\nTurn the tap and remove any\
+    \ gas from the syringe through the side-arm tube, by pushing\nin the plunger.\n\
+    step 2\nAdd 50 cm3 of the gas being tested to the syringe through the side-arm\
+    \ tube.\nstep 3\nRemove the gas from the syringe, through the side-arm tube, by\
+    \ pushing in the plunger.\nstep 4\nAdd 70 cm3 of the gas being tested to the syringe\
+    \ through the side-arm tube.\nstep 5\nTurn the tap to connect the syringe to the\
+    \ tube with the aluminium foil and small hole.\nstep 6\nAllow the syringe plunger\
+    \ to fall and start a timer when the volume of gas in the syringe\nreaches 60\
+    \ cm3.\nstep 7\nStop the timer when the volume of gas in the syringe reaches 10\
+    \ cm3. Record the time\ntaken.\nstep 8\nRepeat steps 1 to 7 with different gases.\n\
+    ,\t,\n\n(a) Suggest why the student adds 50 cm3 of the gas being tested to the\
+    \ syringe in step 2 and\nthen removes this gas in step 3 [1]\n\n(b) The student’s\
+    \ results are shown in Table 2.1.\nTable 2.1\ngas\nhydrogen, H2\nhelium, He\n\
+    neon, Ne\nargon, Ar\nkrypton, Kr\nrelative\nmolar\nmass, M\n2.0\n4.0\n20.2\n39.9\n\
+    83.8\nM\n1\ntime taken\n/ s\n10.8\n15.3\n34.5\n39.7\n70.4\nrate of\neffusion\n\
+    / cm3 s–1\nrate of effusion = volume of gas\ntime taken\n\n(i) Complete Table\
+    \ 2.1.\n\n Give the values for\nM\n1  to three significant figures.\n\n Give the\
+    \ values for rate of effusion to two decimal places.\n[2]\n\n(ii) Identify the\
+    \ dependent variable in this experiment [1]\n\n(iii) Identify a variable, other\
+    \ than temperature, that is controlled when carrying out this\nexperiment [1]\n\
+    ,\t\t,\n\n(c) Plot a graph on the grid in Fig. 2.2 to show the relationship between\
+    \ rate of effusion and\nM\n1 .\nUse a cross (×) to plot each data point. Draw\
+    \ a suitable line of best fit.\n0.0\n0.0\n0.1\n0.2\n0.3\n0.4\n0.5\n0.6\n0.7\n\
+    0.8\n0.5\n1.0\n1.5\n2.0\nte of\nfusion\nm3 s–1\n2.5\n3.0\n3.5\n4.0\n4.5\n5.0\n\
+    M\n1\nFig. 2.2\n\n[2]\n,\n,\n\n(d) Circle one point on the graph in Fig. 2.2 which\
+    \ you consider to be most anomalous.\n\nSuggest one reason for this anomaly. Assume\
+    \ there is no error in\nM\n1  [1]\n\n(e) Graham’s law of effusion can be expressed\
+    \ as:\nthe rate of effusion of a gas is proportional to\nM\n1 .\n\nState whether\
+    \ or not the student’s results support Graham’s law of effusion.\n\nExplain your\
+    \ answer, using the graph in Fig. 2.2 [1]\n\n(f) Suggest how the position of the\
+    \ plotted points relative to the line of best fit in Fig. 2.2 is\nrelated to the\
+    \ reliability of the results [1]\n\n(g) The student then repeats this method to\
+    \ determine the value of M of a sample of natural gas.\n\nThe time recorded in\
+    \ step 7 is 31.6 s.\n\n(i) Use the graph in Fig. 2.2 and the student’s result\
+    \ to calculate the value of M for this\nsample.\n\nM =   [2]\n\n(ii) Natural gas\
+    \ is a mixture of mainly methane, CH4, with small amounts of other gases.\n\n\
+    \ Suggest what your calculated value of the M of natural gas in (g)(i) tells you\
+    \ about the\nother gases in the mixture [1]\n,\t,\n\n(h) The experiment described\
+    \ in (g) is repeated at a higher temperature.\n\nSuggest how the rate of effusion\
+    \ for this sample of natural gas would change, if at all.\n\nExplain your answer.\n\
+    effect on the rate of effusion   explanation   [1]\n\n[Total: 14]\nImportant values,\
+    \ constants and standards\nmolar gas constant\nR = 8.31 J K–1 mol–1\nFaraday constant\n\
+    F = 9.65 × 104 C mol–1\nAvogadro constant\nL = 6.02 × 1023 mol–1\nelectronic charge\n\
+    e = –1.60 × 10–19 C\nmolar volume of gas\nVm = 22.4 dm3 mol–1 at s.t.p. (101 kPa\
+    \ and 273 K)\nVm = 24.0 dm3 mol–1 at room conditions\nionic product of water\n\
+    Kw = 1.00 × 10–14 mol2 dm–6 (at 298 K (25 °C))\nspeciﬁc heat capacity of water\n\
+    c = 4.18 kJ kg–1 K–1 (4.18 J g–1 K–1)\n,\t,\nGroup\nThe Periodic Table of Elements\n\
+    1\nH\nhydrogen\n1.0\n2\nHe\nhelium\n4.0\n1\n2\n13\n14\n15\n16\n17\n18\n3\n4\n\
+    5\n6\n7\n8\n9\n10\n11\n12\n3\nLi\nlithium\n6.9\n4\nBe\nberyllium\n9.0\natomic\
+    \ number\natomic symbol\nKey\nname\nrelative atomic mass\n11\nNa\nsodium\n23.0\n\
+    12\nMg\nmagnesium\n24.3\n19\nK\npotassium\n39.1\n20\nCa\ncalcium\n40.1\n37\nRb\n\
+    rubidium\n85.5\n38\nSr\nstrontium\n87.6\n55\nCs\ncaesium\n132.9\n56\nBa\nbarium\n\
+    137.3\n87\nFr\nfrancium\n–\n88\nRa\nradium\n–\n5\nB\nboron\n10.8\n13\nAl\naluminium\n\
+    27.0\n31\nGa\ngallium\n69.7\n49\nIn\nindium\n114.8\n81\nTl\nthallium\n204.4\n\
+    6\nC\ncarbon\n12.0\n14\nSi\nsilicon\n28.1\n32\nGe\ngermanium\n72.6\n50\nSn\ntin\n\
+    118.7\n82\nPb\nlead\n207.2\n22\nTi\ntitanium\n47.9\n40\nZr\nzirconium\n91.2\n\
+    72\nHf\nhafnium\n178.5\n104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n50.9\n41\n\
+    Nb\nniobium\n92.9\n73\nTa\ntantalum\n180.9\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n\
+    52.0\n42\nMo\nmolybdenum\n95.9\n74\nW\ntungsten\n183.8\n106\nSg\nseaborgium\n\
+    –\n25\nMn\nmanganese\n54.9\n43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186.2\n107\n\
+    Bh\nbohrium\n–\n26\nFe\niron\n55.8\n44\nRu\nruthenium\n101.1\n76\nOs\nosmium\n\
+    190.2\n108\nHs\nhassium\n–\n27\nCo\ncobalt\n58.9\n45\nRh\nrhodium\n102.9\n77\n\
+    Ir\niridium\n192.2\n109\nMt\nmeitnerium\n–\n28\nNi\nnickel\n58.7\n46\nPd\npalladium\n\
+    106.4\n78\nPt\nplatinum\n195.1\n110\nDs\ndarmstadtium\n–\n29\nCu\ncopper\n63.5\n\
+    47\nAg\nsilver\n107.9\n79\nAu\ngold\n197.0\n111\nRg\nroentgenium\n–\n30\nZn\n\
+    zinc\n65.4\n48\nCd\ncadmium\n112.4\n80\nHg\nmercury\n200.6\n112\nCn\ncopernicium\n\
+    –\n114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n–\n7\nN\nnitrogen\n14.0\n15\n\
+    P\nphosphorus\n31.0\n33\nAs\narsenic\n74.9\n51\nSb\nantimony\n121.8\n83\nBi\n\
+    bismuth\n209.0\n8\nO\noxygen\n16.0\n16\nS\nsulfur\n32.1\n34\nSe\nselenium\n79.0\n\
+    52\nTe\ntellurium\n127.6\n84\nPo\npolonium\n–\n9\nF\nfluorine\n19.0\n17\nCl\n\
+    chlorine\n35.5\n35\nBr\nbromine\n79.9\n53\nI\niodine\n126.9\n85\nAt\nastatine\n\
+    –\n10\nNe\nneon\n20.2\n18\nAr\nargon\n39.9\n36\nKr\nkrypton\n83.8\n54\nXe\nxenon\n\
+    131.3\n86\nRn\nradon\n–\n113\nNh\nnihonium\n–\n115\nMc\nmoscovium\n–\n117\nTs\n\
+    tennessine\n–\n118\nOg\noganesson\n–\n21\nSc\nscandium\n45.0\n39\nY\nyttrium\n\
+    88.9\n57–71\nlanthanoids\n89–103\nactinoids\n57\nLa\nlanthanum\n138.9\n89\nAc\n\
+    lanthanoids\nactinoids\nactinium\n–\n58\nCe\ncerium\n140.1\n90\nTh\nthorium\n\
+    232.0\n59\nPr\npraseodymium\n140.9\n91\nPa\nprotactinium\n231.0\n60\nNd\nneodymium\n\
+    144.2\n92\nU\nuranium\n238.0\n61\nPm\npromethium\n–\n93\nNp\nneptunium\n–\n62\n\
+    Sm\nsamarium\n150.4\n94\nPu\nplutonium\n–\n63\nEu\neuropium\n152.0\n95\nAm\namericium\n\
+    –\n64\nGd\ngadolinium\n157.3\n96\nCm\ncurium\n–\n65\nTb\nterbium\n158.9\n97\n\
+    Bk\nberkelium\n–\n66\nDy\ndysprosium\n162.5\n98\nCf\ncalifornium\n–\n67\nHo\n\
+    holmium\n164.9\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n167.3\n100\nFm\nfermium\n\
+    –\n69\nTm\nthulium\n168.9\n101\nMd\nmendelevium\n–\n70\nYb\nytterbium\n173.1\n\
+    102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175.0\n103\nLr\nlawrencium\n–\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a

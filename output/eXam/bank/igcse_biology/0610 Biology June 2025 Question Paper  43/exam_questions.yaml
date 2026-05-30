@@ -2,7 +2,16 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Fig. 1.1 is a diagram of the human digestive system.\nG\nH\nK\nA\n\
+    B\nC\nD\nE\nJ\nL\nM\nF\nFig. 1.1\n\nTable 1.1 shows information about some of\
+    \ the structures shown in Fig. 1.1.\n\nComplete Table 1.1, using Fig. 1.1.\nTable\
+    \ 1.1\nname of the structure\nfunction\nletter in\nFig. 1.1\nG\nproduces amylase\n\
+    gall bladder\ntransports food to the stomach\n\n[4]\n,\t,\n\n(b) (i) Describe\
+    \ the role of chemical digestion [3]\n\n(ii) Maltose is digested by maltase.\n\
+    \n State the name of the product of this reaction [1]\n\n(iii) Describe where\
+    \ maltose is digested in the small intestine [1]\n,\t,\n\n(iv) Explain why amylase\
+    \ digests starch in the small intestine but does not digest starch in\nthe stomach\
+    \ [6]\n\n[Total: 15]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +53,16 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Alveoli are the gas exchange surface in humans.\n\nState three features\
+    \ of alveoli that make them an effective gas exchange surface.\n1   2   3   [3]\n\
+    \n(b) Fig. 2.1 is a diagram of the human breathing system.\ncartilage\nrib\nP\n\
+    Q\nS\nFig. 2.1\n\n(i) Three muscles involved in inspiration are labelled P, Q\
+    \ and S in Fig. 2.1.\n\n Identify the letters in Fig. 2.1 that label the muscles\
+    \ which contract during inspiration [1]\n,\t,\n\n(ii) State the function of cartilage\
+    \ in the breathing system [1]\n\n(c) (i) State the balanced chemical equation\
+    \ for aerobic respiration [2]\n\n(ii) During physical activity breathing changes.\n\
+    \n Explain the mechanism that links the increase in physical activity to the changes\
+    \ in\nbreathing [3]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -92,7 +110,21 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Complete the sentences about the control of blood glucose concentration.\n\
+    \n Blood glucose concentration increases after a person eats a meal containing\
+    \ carbohydrates.\nThis causes the  to release insulin. Insulin causes the\n to\
+    \ remove glucose from the blood and convert it into\n The control of blood glucose\
+    \ concentration is an example of  [4]\n\n(b) Outline the treatment of type 1 diabetes\
+    \ [2]\n,\t\t,\n\n(c) A scientist investigated the effect of an injection of glucose\
+    \ solution on blood glucose\nconcentration in healthy people. The injection was\
+    \ given at 0 minutes.\n\nFig. 3.1 shows the results.\n0\n10\n20\n30\n40\n50\n\
+    time after the injection / minutes\nblood glucose\nconcentration\n/ mg per 100\
+    \ cm3\n60\n70\n0\n50\n100\n150\n200\n250\n300\nFig. 3.1\n\nCalculate the percentage\
+    \ change in the blood glucose concentration from 5 minutes after the\ninjection\
+    \ to 30 minutes after the injection.\n\nGive your answer to two significant figures.\n\
+    \nSpace for working % [3]\n\n(d) Adrenaline also affects blood glucose concentration.\n\
+    \nSuggest how this is an advantage for the “fight or flight” response [3]\n\n\
+    [Total: 12]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -122,7 +154,27 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nFig. 4.1 is a photograph of a water lily, Nymphaea alba, in a lake.\n\
+    Fig. 4.1\n\nFig. 4.2 is a photomicrograph of a cross-section of part of a water\
+    \ lily leaf.\nD\nA\nB\nC\nFig. 4.2\n\n(a) (i) Identify tissue B and tissue C labelled\
+    \ in Fig. 4.2.\nB   C   [2]\n,\t,\n\n(ii) Describe two functions in water lilies\
+    \ of the area labelled D in Fig. 4.2.\n1   2   [2]\n\n(iii) A green pigment is\
+    \ found in tissue B in Fig. 4.2.\n\n Describe the function of this pigment [2]\n\
+    \n(iv) Water lilies have a very thin cuticle compared to a plant growing on land.\n\
+    \n Explain how this is an adaptation for water lilies [2]\n,\t,\n\n(b) Table 4.1\
+    \ shows the stomatal density and habitat of two different hydrophytes.\nTable\
+    \ 4.1\ntype of plant\nhabitat\nstomatal density on\nupper leaf surface\n/ stomata\
+    \ per mm2\nstomatal density on\nlower leaf surface\n/ stomata per mm2\npondweed\n\
+    under the water\n  0\n0\nwater lily\nleaves on the\nsurface of the water\n573\n\
+    0\n\n(i) Convert the stomatal density of the upper leaf surface of the water lily\
+    \ to stomata per cm2 stomata per cm2 [1]\n\n(ii) Using the data in Table 4.1,\
+    \ explain the stomatal density found in the two different\nhydrophytes [4]\n,\t\
+    ,\n\n(c) Fig. 4.3 is a photograph of rice, Oryza sativa, a monocotyledonous crop\
+    \ plant grown in flooded\nfields in waterlogged soils.\nFig. 4.3\n\n(i) Identify\
+    \ a characteristic visible in Fig. 4.3 that can be used to classify rice as a\n\
+    monocotyledonous plant [1]\n,\t,\n\n(ii) Waterlogged soil contains very low concentrations\
+    \ of oxygen.\n\n Suggest how this limits the amount of proteins a plant can make\
+    \ [3]\n\n[Total: 17]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -194,7 +246,24 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nPenicillin is an antibiotic.\n\n(a) (i) State the type of organism that\
+    \ antibiotics are used to kill [1]\n\n(ii) It is important to try and limit the\
+    \ development of antibiotic resistance.\n\n Describe ways of limiting the development\
+    \ of antibiotic resistance [2]\n\n(b) Penicillin is produced by an organism called\
+    \ Penicillium chrysogenum.\n\nFig. 5.1 is a diagram of Penicillium chrysogenum.\n\
+    spore\ncell wall\nmade of chitin\nhypha\nFig. 5.1\n\n(i) State what Penicillium\
+    \ in the scientific name of Penicillium chrysogenum represents in\nthe binomial\
+    \ system [1]\n\n(ii) Using the information in Fig. 5.1, identify the kingdom that\
+    \ contains\nPenicillium chrysogenum [1]\n,\t,\n\n(c) Penicillin can be made in\
+    \ a fermenter.\n\n(i) State the name of one other product made in a fermenter\
+    \ [1]\n\n Fig. 5.2 shows a fermenter.\nstirrer\nthermometer\nPenicillium, amino\
+    \ acids\nand carbohydrates\ngas X\nwater\nwater\nFig. 5.2\n\n(ii) Gas X in Fig.\
+    \ 5.2 is needed for the production of penicillin.\n\n State the name of gas X\
+    \ [1]\n,\t,\n\n(iii) The concentration of gas X is one of the conditions that\
+    \ must be controlled to ensure that\npenicillin is produced.\n\n State the other\
+    \ conditions required to produce penicillin and describe how they are\ncontrolled\
+    \ in the fermenter [5]\n\n(d) State the name of the organism that is used in bread-making\
+    \ and in biofuel production [1]\n\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -266,7 +335,17 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n In Fig. 6.1, the diagrams of an island show the land covered by forest\
+    \ in 1982 and 2013.\n2013\n1982\nKey\nland covered by forest\nFig. 6.1\n\n(a)\
+    \ (i) Describe the change in land covered by forest between 1982 and 2013 in Fig.\
+    \ 6.1 [2]\n,\t\t,\n\n(ii) State two possible causes for the change in land covered\
+    \ by forest in Fig. 6.1.\n1   2   [2]\n\n(b) Fig. 6.2 is a diagram of the carbon\
+    \ cycle.\ncarbon dioxide in\nthe atmosphere\nplants\nanimals\nfossil fuels\ndecomposers\n\
+    T\nU\nV\nFig. 6.2\n\nState the names of the processes labelled T, U and V in Fig.\
+    \ 6.2.\nT   U   V   [3]\n,\n,\n\n(c) Deforestation is linked to an increase in\
+    \ global temperatures.\n\n(i) Explain how deforestation can contribute to an increase\
+    \ in global temperatures [3]\n\n(ii) Describe other undesirable effects of deforestation\
+    \ [3]\n\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

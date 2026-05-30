@@ -205,7 +205,30 @@ questions:
 - number: '15'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: 'The only information known about a firm is the price it charges for its product
+    and the quantity it
+
+    sells.
+
+    What else can be concluded from this?
+
+    15
+
+    its average cost and profit
+
+    A
+
+    its average cost and total revenue
+
+    B
+
+    its average revenue and profit
+
+    C
+
+    its average revenue and total revenue
+
+    D'
   answer_options:
   - letter: A
     text: A

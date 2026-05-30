@@ -90,7 +90,30 @@ questions:
 - number: '7'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: 'When the price of meat increased from $5 to $6 per kg, Joe decreased his
+    purchase of meat from
+
+    40kg to 20kg a month.
+
+    What was Joe’s price elasticity of demand for meat?
+
+    7
+
+    20
+
+    D
+
+    2.5
+
+    C
+
+    2.0
+
+    B
+
+    0.4
+
+    A'
   answer_options:
   - letter: A
     text: A

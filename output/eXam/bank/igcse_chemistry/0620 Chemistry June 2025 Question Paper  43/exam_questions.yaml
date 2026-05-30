@@ -2,7 +2,17 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA list of substances is shown.\naluminium oxide   calcium oxide   chlorine\
+    \   ethanol   graphite\nnitrogen   oxygen   propane   propene   silicon(IV) oxide\n\
+    \nAnswer the questions using the list of substances.\n\nEach substance may be\
+    \ used once, more than once, or not at all.\n\nState which of the substances:\n\
+    \n(a) is a compound with a giant covalent structure\n  [1]\n\n(b) is an unsaturated\
+    \ hydrocarbon\n  [1]\n\n(c) is an amphoteric oxide\n  [1]\n\n(d) is a good conductor\
+    \ of electricity when solid\n  [1]\n\n(e) contains simple molecules with 9 atoms\n\
+    \  [1]\n\n(f) react together to form slag in the blast furnace\n and   [2]\n\n\
+    (g) belongs to a homologous series whose general formula is CnH2n+2\n  [1]\n\n\
+    (h) is manufactured by the catalytic addition of steam to ethene\n  [1]\n\n(i)\n\
+    is a gas that is approximately 78% of clean, dry air [1]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -62,7 +72,22 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nAtoms are made of electrons, neutrons and protons.\n\n(a) State which\
+    \ of these particles are found in the nucleus of an atom [1]\n\n(b) Atoms of the\
+    \ same element are known as isotopes.\n\n32\n16S and 34\n16S are isotopes of sulfur.\n\
+    \n(i) Complete Table 2.1 to show the number of electrons, neutrons and protons\
+    \ in one atom\nor ion of these isotopes.\nTable 2.1\nisotope\nelectrons\nneutrons\n\
+    protons\n34\n16S\n32\n16S2–\n\n[3]\n\n(ii) Table 2.2 shows the relative masses\
+    \ and the percentage abundances of the two isotopes\nin a sample of sulfur.\n\
+    Table 2.2\nrelative mass of isotope\npercentage abundance of isotope\n32\n95\n\
+    34\n 5\n\n Calculate the relative atomic mass of this sample of sulfur to one\
+    \ decimal place.\n\nrelative atomic mass =  [2]\n\n(iii) The relative atomic masses\
+    \ of all elements are compared to one atom of an isotope.\n\n Identify this isotope\
+    \ [1]\n,\t,\n\n(c) Ions are atoms or groups of atoms that have gained or lost\
+    \ one or more electrons.\n\nAn oxygen atom has the electronic configuration of\
+    \ 2,6.\n\nGive the formula of one atom and one positive ion that has the same\
+    \ electronic configuration\nas O2–.\n•\natom   •\npositive ion   [2]\n\n[Total:\
+    \ 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -104,7 +129,29 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nThis question is about zinc and compounds of zinc.\n\n(a) Zinc is held\
+    \ together by electrostatic forces of attraction between particles.\n\n(i) Name\
+    \ the type of bonding in zinc [1]\n\n(ii) Name the two types of particles held\
+    \ together by the bonding in (a)(i).\n1   2   [2]\n\n(iii) Name the type of particle\
+    \ whose movement allows zinc to conduct electricity [1]\n\n(b) Zinc is present\
+    \ in alloys such as brass.\n\n(i) State the meaning of the term alloy [1]\n\n\
+    (ii) Name the substance that is present in brass, other than zinc [1]\n\n(c) Zinc\
+    \ sulfate crystals are made by the reaction between zinc carbonate and dilute\
+    \ sulfuric\nacid, using the following steps.\n\nstep 1\nAn excess of powdered\
+    \ zinc carbonate is added to dilute sulfuric acid.\n\nstep 2\nExcess zinc carbonate\
+    \ is separated from aqueous zinc sulfate by filtration.\n\nstep 3\nAqueous zinc\
+    \ sulfate is heated until a saturated solution is formed.\n\nstep 4\nThe saturated\
+    \ solution is allowed to cool and crystallise.\n\nstep 5\nThe crystals are removed\
+    \ and dried.\n\n(i) Give two observations which show that the zinc carbonate is\
+    \ in excess in step 1.\n1   2   [2]\n\n(ii) Name the filtrate in step 2 [1]\n\
+    ,\t,\n\n(iii) Name a compound, other than zinc carbonate, that can be added to\
+    \ dilute sulfuric acid to\nproduce aqueous zinc sulfate in step 1 [1]\n\n(iv)\
+    \ State what is meant by the term saturated solution [2]\n\n(v) Step 1 is repeated\
+    \ using large pieces of zinc carbonate instead of powdered zinc\ncarbonate.\n\n\
+    \ All other conditions are the same.\n\n The rate of reaction decreases.\n\n Explain\
+    \ why the rate of reaction decreases. Give your answer in terms of particles [2]\n\
+    \n(vi) Hydrated crystals form in step 4.\n\n State what is meant by the term hydrated\
+    \ [1]\n\n[Total: 15]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -194,7 +241,30 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nThis question is about compounds of sulfur.\n\n(a) Sulfuric acid is manufactured\
+    \ in a four‑stage process.\n\nstage 1\nSulfur dioxide is produced from ores containing\
+    \ sulfur.\n\nstage 2\nSulfur dioxide reacts with oxygen to form sulfur trioxide.\n\
+    \nstage 3\nSulfur trioxide reacts with concentrated sulfuric acid to form oleum,\
+    \ H2S2O7.\n\nstage 4\nOleum reacts with water to form concentrated sulfuric acid.\n\
+    \n(i) Iron pyrite is an ore containing sulfur. The ore contains a compound with\
+    \ the formula\nFeS2.\n\n FeS2 reacts with oxygen in the air to produce sulfur\
+    \ dioxide.\n\n Balance the symbol equation for this reaction.\n4FeS2  +   O2\n\
+    \   SO2  +   Fe2O3\n\n[1]\n\n(ii) Complete the dot‑and‑cross diagram in Fig. 4.1\
+    \ to show the electronic configuration in\nan oxygen molecule, O2. Show outer‑shell\
+    \ electrons only.\nO\nO\nFig. 4.1\n\n[2]\n\n(b) (i) State three typical conditions\
+    \ for the reaction between sulfur dioxide and oxygen in\nstage 2.\n1   2   3 \
+    \  [3]\n,\t\t,\n\n(ii) Write a symbol equation for the reaction that occurs in\
+    \ stage 2 [1]\n\n(iii) Write the symbol equation for the reaction in stage 3 [1]\n\
+    \n(c) Sulfuric acid reacts with carbon. The equation for the reaction is shown.\n\
+    2H2SO4  +  C\n  CO2  +  2H2O  +  2SO2\n\nGive the oxidation number of carbon in:\n\
+    •\nC\n •\nCO2 [2]\n\n(d) Dilute sulfuric acid reacts with sodium hydrogencarbonate,\
+    \ NaHCO3, to produce carbon\ndioxide gas, CO2.\nH2SO4(aq)  +  2NaHCO3(s)\n  Na2SO4(aq)\
+    \  +  2CO2(g)  +  2H2O(l)\n\n4.20 g of NaHCO3 is added to excess dilute sulfuric\
+    \ acid.\n\nCalculate the volume of CO2(g), measured at r.t.p., produced using\
+    \ the following steps.\n•\nCalculate the number of moles of NaHCO3 in 4.20 g.\n\
+    \n The Mr of NaHCO3 is 84 mol\n•\nDeduce the number of moles of CO2(g) that are\
+    \ produced mol\n•\nCalculate the volume of CO2(g) produced in cm3.\n\n One mole\
+    \ of any gas occupies 24 000 cm3 at r.t.p cm3\n\n[3]\n\n[Total: 13]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -254,7 +324,28 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nEthanoic acid is manufactured in the reaction between methanol and carbon\
+    \ monoxide.\n\nAn equilibrium mixture is produced.\nCH3OH(g)  +  CO(g)\n  CH3COOH(g)\n\
+    \n(a) State two characteristics of an equilibrium.\n1   2   [2]\n\n(b) Both a\
+    \ high yield of ethanoic acid and a high rate of reaction are needed.\n\nThe reaction\
+    \ is carried out at 300 °C.\n\nThe forward reaction is exothermic.\n\n(i) State\
+    \ the disadvantage of using a temperature:\n•\nbelow 300 °C\n  •\nabove 300 °C\
+    \ [2]\n\n(ii) Complete Table 5.1 using only the words increases, decreases or\
+    \ no change.\nTable 5.1\neffect on the equilibrium\nconcentration of CH3COOH(g)\n\
+    effect on the rate of the\nforward reaction\ncatalyst is added\nincreases\npressure\
+    \ is increased\n\n[3]\n\n(iii) Suggest which element from the list is a suitable\
+    \ catalyst for the reaction.\n\n Give a reason for your answer.\naluminium   carbon\
+    \   cobalt   magnesium   sodium\ncatalyst   reason   [2]\n,\t,\n\n(c) Ethanoic\
+    \ acid is a member of the carboxylic acid homologous series.\n\n(i) Name the carboxylic\
+    \ acid that contains only one carbon atom [1]\n\n(ii) State the molecular formula\
+    \ of a carboxylic acid that contains four carbon atoms [1]\n\n(d) Carboxylic acids\
+    \ react with alcohols to form esters.\n\n(i) Draw the displayed formula of the\
+    \ ester which contains two carbon atoms.\n\n[2]\n\n(ii) Propyl butanoate is an\
+    \ ester.\n\n Name the carboxylic acid and alcohol that react to produce propyl\
+    \ butanoate.\ncarboxylic acid   alcohol   [2]\n\n(e) An organic compound has the\
+    \ following composition by mass:\n\nC, 58.82%; H, 9.80%; O, 31.38%.\n\nCalculate\
+    \ the empirical formula of the compound.\n\nempirical formula =  [3]\n\n[Total:\
+    \ 18]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -332,7 +423,66 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nThis question is about the Periodic Table.\n\n(a) State the name given\
+    \ to Group I elements [1]\n\n(b) State which Group I element is least reactive\
+    \ [1]\n\n(c) Lithium is in Group I of the Periodic Table.\n\nWhen lithium is added\
+    \ to water a chemical reaction occurs.\n\n(i) Give two observations when lithium\
+    \ is added to water.\n1   2   [2]\n\n(ii) Write a symbol equation for this reaction\
+    \ [2]\n\n(d) Group I elements have lower melting points and lower boiling points\
+    \ than transition elements.\n\nDescribe two other physical properties of Group\
+    \ I elements that are different from transition\nelements.\n1   2   [2]\n\n(e)\
+    \ The Group VII elements are known as the halogens.\n\n(i) Give the physical state\
+    \ and colour of chlorine at room temperature and pressure.\nstate   colour   [2]\n\
+    \n(ii) When chlorine is passed through aqueous potassium bromide, a displacement\
+    \ reaction\noccurs.\n\n The equation for the reaction is shown.\nCl 2  +  2KBr\n\
+    \  2KCl  +  Br2\n\n Write an ionic equation for the reaction [2]\n,\t,\n\n(iii)\
+    \ Iodine and chlorine react at high temperatures to form iodine monochloride,\
+    \ ICl .\n\n The equation for the reaction is shown.\nI2(g)  +  Cl 2(g)\n  2ICl\
+    \ (g)\n\n The structures of the molecules involved in the reaction are I–I, Cl\
+    \ –Cl and I–Cl .\nTable 6.1\nbond\nbond energy in kJ / mol\nI–I\n150\nCl –Cl\n\
+    242\nI–Cl\n218\n\n Calculate the enthalpy change, ΔH, for the reaction using the\
+    \ bond energies in Table 6.1.\n\n Use the following steps.\n•\nCalculate the total\
+    \ amount of energy required to break the bonds in 1 mol of I2(g)\nand 1 mol of\
+    \ Cl 2(g) kJ\n•\nCalculate the total amount of energy released when the bonds\
+    \ in 2 mol of ICl (g) are\nformed kJ\n•\nCalculate the enthalpy change, ΔH, for\
+    \ the reaction.\n\nYour answer should include a sign kJ / mol\n\n[3]\n\n[Total:\
+    \ 15]\n,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n1\n2\nHe\n\
+    helium\n4\nI\nII\nIII\nIV\nV\nVI\nVII\nVIII\n3\nLi\nlithium\n7\n4\nBe\nberyllium\n\
+    9\natomic number\natomic symbol\nKey\nname\nrelative atomic mass\n11\nNa\nsodium\n\
+    23\n12\nMg\nmagnesium\n24\n19\nK\npotassium\n39\n20\nCa\ncalcium\n40\n37\nRb\n\
+    rubidium\n85\n38\nSr\nstrontium\n88\n55\nCs\ncaesium\n133\n56\nBa\nbarium\n137\n\
+    87\nFr\nfrancium\n–\n88\nRa\nradium\n–\n5\nB\nboron\n11\n13\nAl\naluminium\n27\n\
+    31\nGa\ngallium\n70\n49\nIn\nindium\n115\n81\nTl\nthallium\n204\n113\nNh\nnihonium\n\
+    –\n6\nC\ncarbon\n12\n14\nSi\nsilicon\n28\n32\nGe\ngermanium\n73\n50\nSn\ntin\n\
+    119\n82\nPb\nlead\n207\n22\nTi\ntitanium\n48\n40\nZr\nzirconium\n91\n72\nHf\n\
+    hafnium\n178\n104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n51\n41\nNb\nniobium\n\
+    93\n73\nTa\ntantalum\n181\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n52\n42\nMo\n\
+    molybdenum\n96\n74\nW\ntungsten\n184\n106\nSg\nseaborgium\n–\n25\nMn\nmanganese\n\
+    55\n43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186\n107\nBh\nbohrium\n–\n26\nFe\n\
+    iron\n56\n44\nRu\nruthenium\n101\n76\nOs\nosmium\n190\n108\nHs\nhassium\n–\n27\n\
+    Co\ncobalt\n59\n45\nRh\nrhodium\n103\n77\nIr\niridium\n192\n109\nMt\nmeitnerium\n\
+    –\n28\nNi\nnickel\n59\n46\nPd\npalladium\n106\n78\nPt\nplatinum\n195\n110\nDs\n\
+    darmstadtium\n–\n29\nCu\ncopper\n64\n47\nAg\nsilver\n108\n79\nAu\ngold\n197\n\
+    111\nRg\nroentgenium\n–\n30\nZn\nzinc\n65\n48\nCd\ncadmium\n112\n80\nHg\nmercury\n\
+    201\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n–\n\
+    7\nN\nnitrogen\n14\n15\nP\nphosphorus\n31\n33\nAs\narsenic\n75\n51\nSb\nantimony\n\
+    122\n83\nBi\nbismuth\n209\n115\nMc\nmoscovium\n–\n8\nO\noxygen\n16\n16\nS\nsulfur\n\
+    32\n34\nSe\nselenium\n79\n52\nTe\ntellurium\n128\n84\nPo\npolonium\n–\n9\nF\n\
+    fluorine\n19\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n80\n53\nI\niodine\n127\n\
+    85\nAt\nastatine\n–\n117\nTs\ntennessine\n–\n10\nNe\nneon\n20\n18\nAr\nargon\n\
+    40\n36\nKr\nkrypton\n84\n54\nXe\nxenon\n131\n86\nRn\nradon\n–\n118\nOg\noganesson\n\
+    –\n21\nSc\nscandium\n45\n39\nY\nyttrium\n89\n57–71\nlanthanoids\n89–103\nactinoids\n\
+    57\nLa\nlanthanum\n139\n89\nAc\nlanthanoids\nactinoids\nThe volume of one mole\
+    \ of any gas is 24 dm3 at room temperature and pressure (r.t.p.).\nactinium\n\
+    –\n58\nCe\ncerium\n140\n90\nTh\nthorium\n232\n59\nPr\npraseodymium\n141\n91\n\
+    Pa\nprotactinium\n231\n60\nNd\nneodymium\n144\n92\nU\nuranium\n238\n61\nPm\npromethium\n\
+    –\n93\nNp\nneptunium\n–\n62\nSm\nsamarium\n150\n94\nPu\nplutonium\n–\n63\nEu\n\
+    europium\n152\n95\nAm\namericium\n–\n64\nGd\ngadolinium\n157\n96\nCm\ncurium\n\
+    –\n65\nTb\nterbium\n159\n97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n163\n98\nCf\n\
+    californium\n–\n67\nHo\nholmium\n165\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n\
+    167\n100\nFm\nfermium\n–\n69\nTm\nthulium\n169\n101\nMd\nmendelevium\n–\n70\n\
+    Yb\nytterbium\n173\n102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175\n103\nLr\nlawrencium\n\
+    –\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

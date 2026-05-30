@@ -2,7 +2,20 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "FBM is a boat building business. It has 100 skilled employees. The Operations\
+    \ Director is concerned\nthat FBM holds a high level of inventory. She is also\
+    \ concerned that the business is starting to\n1\nexperience diseconomies of scale.\
+    \ The Finance Director has been asked to analyse FBM’s cost\nand output data.\
+    \ An extract is shown in Table 1.1.\nTable 1.1\nExtract from FBM’s cost and output\
+    \ data\n$5000\nVariable costs per unit\n$600000\nFixed costs per year\n300\nNumber\
+    \ of boats made each year\nDefine ‘diseconomies of scale’.\n(a)\n [2]\nIdentify\
+    \ two ways a business can use cost data to help make decisions.\n(b)\nWay 1: \
+    \ Way 2:  [2]\nIdentify four fixed costs a business might have.\n(c)\nFixed cost\
+    \ 1:  Fixed cost 2:  Fixed cost 3:  Fixed cost 4:  [4]\nExplain one advantage\
+    \ and one disadvantage to FBM of holding a high level of inventory.\n(d)\nAdvantage:\
+    \  Explanation:  Disadvantage:  Explanation:  [6]\nDo you think customers have\
+    \ a more important role in the success of a business than its\nemployees? Justify\
+    \ your answer.\n(e)\n [6]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +51,17 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "ADN is a food retailer. It has 5 shops and 300 full-time employees. All ADN’s\
+    \ employees receive\noff-the-job training. ADN has a tall hierarchical structure.\
+    \ Managers have a narrow span of control\n2\nand all use an autocratic leadership\
+    \ style. ADN’s directors are planning to expand the business\nand cannot decide\
+    \ whether it is better for a business to use internal growth or external growth.\n\
+    Define ‘span of control’.\n(a)\n [2]\nDefine ‘autocratic leadership style’.\n\
+    (b)\n [2]\nOutline two benefits to ADN of having full-time employees.\n(c)\nBenefit\
+    \ 1:  Benefit 2:  [4]\nExplain one benefit and one limitation to ADN of using\
+    \ off-the-job training.\n(d)\nBenefit:  Explanation:  Limitation:  Explanation:\
+    \  [6]\nDo you think it is better for a business to use internal growth or external\
+    \ growth when planning\nto expand? Justify your answer.\n(e)\n [6]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -74,7 +97,20 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "IDT manufactures clothes for the mass market. It is a multinational company\
+    \ with factories in 4\ncountries. IDT has short-term and long-term financial needs.\
+    \ The Finance Director is analysing\n3\nIDT’s statement of financial position.\
+    \ An extract is shown in Table 3.1. He has been asked to\ncalculate working capital\
+    \ and to explain how an increase in non-current liabilities might affect IDT.\n\
+    Table 3.1\nExtract from IDT’s statement of financial position ($ million)\n2023\n\
+    2022\n420\n380\nCurrent assets\n280\n250\nCurrent liabilities\n400\n300\nNon-current\
+    \ liabilities\nDefine ‘mass market’.\n(a)\n [2]\nCalculate IDT’s working capital\
+    \ in 2023.\n(b)\nWorking:  Final answer:  [2]\nOutline one reason why IDT might\
+    \ need the following types of finance:\n(c)\nShort-term finance:  Long-term finance:\
+    \  [4]\nExplain two ways an increase in non-current liabilities might affect IDT.\n\
+    (d)\nWay 1:  Explanation:  Way 2:  Explanation:  [6]\nExplain two advantages to\
+    \ a business of being a multinational company. Which advantage\ndo you think is\
+    \ likely to be the most important? Justify your answer.\n(e)\n [6]"
   answer_options: []
   subquestions:
   - number: 3a
@@ -110,7 +146,19 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "CFG is a social enterprise. It buys cocoa beans from local farmers and then\
+    \ uses the beans to\nmake chocolate. Being ethical is important to the business.\
+    \ CFG has developed a new chocolate\n4\nbar. The Marketing Manager plans to use\
+    \ skimming as its pricing method, and retailers as its\ndistribution channel for\
+    \ the new product. He knows there are many legal controls over marketing\nthat\
+    \ might affect a business.\nDefine ‘social enterprise’.\n(a)\n [2]\nIdentify two\
+    \ ways legal controls over marketing might affect a business.\n(b)\nWay 1:  Way\
+    \ 2:  [2]\nOutline one advantage and one disadvantage to CFG of using skimming\
+    \ as its pricing method.\n(c)\nAdvantage:  Disadvantage:  [4]\nExplain one advantage\
+    \ and one disadvantage to CFG of using retailers as its distribution\nchannel\
+    \ for the new product.\n(d)\nAdvantage:  Explanation:  Disadvantage:  Explanation:\
+    \  [6]\nDo you think being ethical will always lead to lower profit for a business?\
+    \ Justify your answer.\n(e)\n [6]"
   answer_options: []
   subquestions:
   - number: 4a

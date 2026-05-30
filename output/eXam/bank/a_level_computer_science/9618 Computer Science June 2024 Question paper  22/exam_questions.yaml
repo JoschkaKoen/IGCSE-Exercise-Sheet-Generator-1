@@ -2,7 +2,21 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) The following table contains pseudocode examples.\n\nEach example\
+    \ may contain statements that relate to one or more of the following:\n•\nselection\n\
+    •\niteration (repetition)\n•\ninput/output.\n\nComplete the table by placing one\
+    \ or more ticks (3) in each row.\nPseudocode example\nSelection\nIteration\nInput/Output\n\
+    FOR Index\n 1 TO 10\n  Data[Index]\n 0\nNEXT Index\nWRITEFILE ThisFile, \"****\"\
+    \nUNTIL Level > 25\nIF Mark > 74 THEN\n  READFILE OldFile, Data\nENDIF\n\n[4]\n\
+    \n(b) Program variables have data types as follows:\nVariable\nData type\nMyChar\n\
+    CHAR\nMyString\nSTRING\nMyInt\nINTEGER\n\nComplete the table by filling in each\
+    \ gap with a function (from the insert) so that each expression\nis valid.\nExpression\n\
+    MyInt\n  (3.1415926)\nMyChar\n  (\"Elwood\", 3, 1)\nMyString\n  (  (27.509))\n\
+    MyInt\n  (  (\"ABC123\", 3))\n\n[4]\n\n(c) The variables given in part (b) are\
+    \ chosen during the design stage of the program development\nlife cycle.\n\nThe\
+    \ choices are to be documented to simplify program maintenance.\n\nState a suitable\
+    \ way of documenting the variables and give one piece of information that\nshould\
+    \ be recorded, in addition to the data type [2]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -26,13 +40,132 @@ questions:
 - number: '4'
   question_type: long_answer
   marks: 4
-  text: ''
+  text: '4
+
+    A triangle has sides of length A, B and C.
+
+
+    C
+
+    A
+
+    B
+
+
+    In this example, A is the length of the longest side.
+
+
+    This triangle is said to be right‑angled if the following equation is true:
+
+
+    A × A = (B × B) + (C × C)
+
+
+    A procedure will be written to check whether three lengths represent a right‑angled
+    triangle.
+
+
+    The lengths will be input in any sequence.
+
+
+    The procedure IsRA() will:
+
+    •
+
+    prompt and input three integer values representing the three lengths
+
+    •
+
+    test whether the three lengths correspond to the sides of a right‑angled triangle
+
+    •
+
+    output a suitable message.
+
+
+    The length of the longest side may not be the first value input.
+
+
+    Write pseudocode for the procedure IsRA() [5]'
   answer_options: []
   subquestions: []
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    A program is being developed.
+
+
+    (a) An algorithm for part of the program will:
+
+    •
+
+    input three numeric values and assign them to identifiers Num1, Num2 and Num3
+
+    •
+
+    assign the largest value to variable Ans
+
+    •
+
+    output a message giving the largest value and the average of the three numeric
+    values.
+
+
+    Assume the values are all different and are input in no particular order.
+
+
+    Complete the program flowchart on page 5 to represent the algorithm.
+
+    START
+
+    END
+
+    INPUT Numl,  Num2, Num3
+
+    Yes
+
+    No
+
+
+    [5]
+
+
+    (b) A different part of the program contains an algorithm represented by the following
+    program
+
+    flowchart:
+
+
+    START
+
+    END
+
+    Set Flag to GetStat()
+
+    Set Port to 1
+
+    Is Flag =
+
+    TRUE ?
+
+    Is Port = 4 ?
+
+    Yes
+
+    No
+
+    No
+
+    Yes
+
+    CALL  Reset(Port)
+
+    Set  Port to Port + 1
+
+
+    Write pseudocode for the algorithm [5]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -50,7 +183,18 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA factory needs a program to help manage its production of items.\n\n\
+    Data will be stored about each item.\n\nThe data for each item will be held in\
+    \ a record structure of type Component.\n\nThe programmer has started to define\
+    \ the fields that will be needed as shown in the table.\nField\nExample value\n\
+    Comment\nItem_Num\n123478\na numeric value used as an array index\nReject\nFALSE\n\
+    TRUE if this item has been rejected\nStage\n'B'\na letter to indicate the stage\
+    \ of production\nLimit_1\n13.5\nany value in the range 0 to 100 inclusive\nLimit_2\n\
+    26.4\nany value in the range 0 to 100 inclusive\n\n(a) (i) Write pseudocode to\
+    \ declare the record structure for type Component [4]\n\n(ii) A 1D array Item\
+    \ of 2000 elements will store the data for all items.\n\n Write pseudocode to\
+    \ declare the Item array [2]\n\n(b) State three benefits of using an array of\
+    \ records to store the data for all items.\n1   2   3   [3]"
   answer_options: []
   subquestions:
   - number: 3a
@@ -80,7 +224,22 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA program is being designed in pseudocode.\n\nThe program contains a global\
+    \ 1D array Data of type string containing 200 elements.\n\nThe first element has\
+    \ the index value 1.\n\nA procedure Process() is written to initialise the values\
+    \ in the array:\n\nPROCEDURE Process(Label : STRING)\n\n  DECLARE Index : INTEGER\n\
+    \n  Index\n 0\n\n  INPUT Data[Index]\n\n  WHILE Index < 200\n\n    Index\n Index\
+    \ + 1\n\n    CASE OF (Index MOD 2)\n\n      0 : Data[Index]\n TO_UPPER(Label)\n\
+    \n      1 : Data[Index]\n TO_LOWER(Label)\n\n      OTHERWISE : OUTPUT \"Alarm\
+    \ 1201\"\n\n    ENDCASE\n\n  NEXT Index\n\n  OUTPUT \"Completed \" & Index & \"\
+    \ times\"\n\nENDPROCEDURE\n\n(a) (i) The pseudocode contains two syntax errors\
+    \ and one other error.\n\n Identify the errors.\nSyntax error 1   Syntax error\
+    \ 2   Other error   [3]\n\n(ii) The procedure contains a statement that is not\
+    \ needed.\n\n Identify the pseudocode statement and explain why it is not needed.\n\
+    Statement   Explanation   [2]\n\n(b) After correcting all syntax errors, the pseudocode\
+    \ is translated into program code which\ncompiles without generating any errors.\n\
+    \nWhen the program is executed it unexpectedly stops responding.\n\nIdentify the\
+    \ type of error that has occurred [1]"
   answer_options: []
   subquestions:
   - number: 5a
@@ -110,7 +269,310 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    A music player stores music in a digital form and has a display which shows the
+    track being
+
+    played.
+
+
+    (a) Up to 16 characters can be displayed. Track titles longer than 16 characters
+    will need to be
+
+    trimmed as follows:
+
+    •
+
+    Words must be removed from the end of the track title until the resulting title
+    is less than
+
+    14 characters.
+
+    •
+
+    When a word is removed, the space in front of that word is also removed.
+
+    •
+
+    Three dots are added to the end of the last word displayed when one or more words
+
+    have been removed.
+
+
+    The table below shows some examples:
+
+    Original title
+
+    Display string
+
+    1
+
+    2
+
+    3
+
+    4
+
+    5
+
+    6
+
+    7
+
+    8
+
+    9
+
+    10
+
+    11
+
+    12
+
+    13
+
+    14
+
+    15
+
+    16
+
+    Bat out of Hull
+
+    B
+
+    a
+
+    t
+
+    o
+
+    u
+
+    t
+
+    o
+
+    f
+
+    H
+
+    u
+
+    l
+
+    l
+
+    Bohemian Symphony
+
+    B
+
+    o
+
+    h
+
+    e
+
+    m
+
+    i
+
+    a
+
+    n
+
+    .
+
+    .
+
+    .
+
+    Paperbook Writer
+
+    P
+
+    a
+
+    p
+
+    e
+
+    r
+
+    b
+
+    o
+
+    o
+
+    k
+
+    W
+
+    r
+
+    i
+
+    t
+
+    e
+
+    r
+
+    Chris Sings the Blues
+
+    C
+
+    h
+
+    r
+
+    i
+
+    s
+
+    S
+
+    i
+
+    n
+
+    g
+
+    s
+
+    .
+
+    .
+
+    .
+
+    Green Home Alabama
+
+    G
+
+    r
+
+    e
+
+    e
+
+    n
+
+    H
+
+    o
+
+    m
+
+    e
+
+    .
+
+    .
+
+    .
+
+
+    A function Trim() will:
+
+    •
+
+    take a string representing the original title
+
+    •
+
+    return the string to be displayed.
+
+
+    Assume:
+
+    •
+
+    Words in the original title are separated by a single space character.
+
+    •
+
+    There are no spaces before the first word or after the last word of the original
+    title.
+
+    •
+
+    The first word of the original title is less than 14 characters.
+
+
+    Write pseudocode for the function Trim() [7]
+
+
+    (b) Music is stored as a sequence of digital samples.
+
+
+    Each digital sample is a denary value in the range 0 to 99999999 (8 digits).
+
+
+    The samples are to be stored in a text file. Each sample is converted to a numeric
+    string and
+
+    32 samples are concatenated (joined) to form a single line of the text file.
+
+
+    Each numeric string is 8 characters in length; leading ‘0’ characters are added
+    as required.
+
+
+    Example:
+
+
+    Sample
+
+    1
+
+    2
+
+    3
+
+    32
+
+    Denary value
+
+    String
+
+    456
+
+    48
+
+    37652
+
+    "00000456"
+
+    "00000048"
+
+    "00037652"
+
+    673
+
+    "00000673"
+
+
+    The example samples will be stored in the text file as a single line:
+
+
+    "000004560000004800037652...00000673"
+
+
+    (i) Identify one drawback of adding leading ‘0’ characters to each numeric string
+    [1]
+
+
+    (ii) Suggest an alternative method of storing the samples which does not involve
+    adding
+
+    leading ‘0’ characters but which would still allow each individual sample to be
+    extracted [1]
+
+
+    (iii) State one drawback of the alternative method given in part (b)(ii) [1]'
   answer_options: []
   subquestions:
   - number: 6a
@@ -146,7 +608,27 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nA fitness club has a computerised membership system.\n\nThe system stores\
+    \ information for each club member: name, home address, email address, mobile\n\
+    phone number, date of birth and exercise preferences.\n\nMany classes are full,\
+    \ and the club creates a waiting list for each class. The club adds details of\n\
+    members who want to join a class that is full to the waiting list for that class.\n\
+    \nWhen the system identifies that a space is available in one of the classes,\
+    \ a new module will send\na text message to each member who is on the waiting\
+    \ list.\n\n(a) Decomposition will be used to break the new module into sub‑modules\
+    \ (sub‑problems).\n\nIdentify three sub‑modules that could be used in the design\
+    \ and describe their use.\nSub‑module 1   Use   Sub‑module 2   Use   Sub‑module\
+    \ 3   Use   [3]\n\n(b)  A different part of the program is represented by the\
+    \ following state‑transition diagram.\nS1\nSTART\nS4\nS3\nInput-B | Output-W\n\
+    Input-A | Output-X\nInput-B | Output-Y\nInput-A | Output-W\nInput-B\nInput-B\n\
+    Input-A\nInput-A\nS2\nS5\n\n(i) Complete the table to show the inputs, outputs\
+    \ and next states.\n\n Assume that the current state for each row is given by\
+    \ the ‘Next state’ on the previous\nrow. For example, the first Input‑A is made\
+    \ when in state S1.\n\n If there is no output for a given transition, then the\
+    \ output cell should contain ‘none’.\n\n The first two rows have been completed.\n\
+    Input\nOutput\nNext state\nS1\nInput‑A\nnone\nS3\nOutput‑W\nnone\nInput‑B\nInput‑A\n\
+    S4\n\n[5]\n\n(ii) Identify the input sequence that will cause the minimum number\
+    \ of state changes in the\ntransition from S1 to S4 [1]"
   answer_options: []
   subquestions:
   - number: 7a
@@ -176,7 +658,31 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nA teacher is designing a program to process pseudocode projects written\
+    \ by her students.\n\nEach student project is stored in a text file.\n\nThe process\
+    \ is split into a number of stages. Each stage performs a different task and creates\
+    \ a\nnew file.\n\nFor example:\nFile name\nComment\nMichaelAday_src.txt\nStudent\
+    \ project file produced by student Michael Aday\nMichaelAday_S1.txt\nFile produced\
+    \ by stage 1\nMichaelAday_S2.txt\nFile produced by stage 2\n\n(a) Suggest a reason\
+    \ why the teacher’s program has been split into a number of stages and give\n\
+    the benefit of producing a different file from each stage.\nReason   Benefit \
+    \  [2]\n\n(b) The teacher has defined the first program module as follows:\nModule\n\
+    Description\nDeleteSpaces()\n•  called with a parameter of type string representing\
+    \ a line of\npseudocode from a student’s project file\n•  returns the line after\
+    \ removing any leading space characters\nThe following example shows a string\
+    \ before and after the leading\nspaces have been removed:\n Before: \"      IF\
+    \ X2 > 13 THEN\"\n After:     \"IF X2 > 13 THEN\"\n\nComplete the pseudocode for\
+    \ module DeleteSpaces().\n\nFUNCTION DeleteSpaces(Line : STRING) RETURNS STRING\n\
+    \  ENDFUNCTION\n[6]\n\n(c) Two modules are defined:\nModule\nDescription\nDeleteComment()\n\
+    (already written)\n•  called with a parameter of type string representing a line\
+    \ of\npseudocode from a student’s project file\n•  returns the line after removing\
+    \ any comment\nStage_2()\n•  called with two parameters:\n ○ a string representing\
+    \ an input file name\n ○ a string representing an output file name\n•  copies\
+    \ each line from the input file to the existing output file having\nfirst removed\
+    \ all leading spaces and comments from that line\n• does not write blank lines\
+    \ to the output file\n• outputs a final message giving the number of blank lines\
+    \ removed\n\nWrite pseudocode for module Stage_2().\n\nModules DeleteComment()\
+    \ and DeleteSpaces() must be used in your solution [8]"
   answer_options: []
   subquestions:
   - number: 8a

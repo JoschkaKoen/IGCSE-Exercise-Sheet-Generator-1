@@ -2,7 +2,16 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Circle the vector quantities in the list.\nacceleration    mass  \
+    \  speed    time    velocity\n\n[1]\n\n(b) Fig. 1.1 shows the speed–time graph\
+    \ for a train travelling from station A to station B.\n0\n0\n100\n200\n300\n400\n\
+    500\n600\ntime / s\n10\n20\nspeed\nm / s\n30\n40\n50\n60\nFig. 1.1\n\n(i) State\
+    \ the maximum speed of the train.\n\nmaximum speed =   [1]\n\n(ii) Describe the\
+    \ motion of the train between station A and station B [2]\n,\t,\n\n(iii) Calculate\
+    \ the distance between station A and station B.\n\ndistance =   [3]\n\n(iv) On\
+    \ a different day, the train takes 650 s to travel between station A and station\
+    \ B.\n\n Suggest one change to the motion of the train that leads to this longer\
+    \ journey time [1]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +53,13 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) A resultant force is applied to an object moving with a velocity v\
+    \ in a straight line.\n\n(i) State two different changes to the motion that the\
+    \ resultant force may cause.\n1   2   [2]\n\n(ii) State one other way that forces\
+    \ may change a stationary object [1]\n\n(b) Describe how a uniform metre ruler,\
+    \ a pivot and a selection of masses can be used to\ndemonstrate that there is\
+    \ no resultant moment on an object in equilibrium.\n\nYou may include a labelled\
+    \ diagram in your answer [4]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -74,7 +89,17 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nFig. 3.1 shows a side view of part of a concrete track at a skateboard\
+    \ park.\nB\nside view\nC\nA\nFig. 3.1\n\n(a) A skateboarder is initially at rest\
+    \ at point A. The skateboarder then travels through point B and\ncomes to rest\
+    \ at point C.\n\n Describe the transfer of energy as the skateboarder travels\
+    \ from A to B to C along the concrete\ntrack [2]\n\n(b) (i) B is at ground level\
+    \ and C is at 2.8 m above ground level. The mass of the skateboarder\nis 65 kg.\n\
+    \n Calculate the work done on the skateboarder as she travels from B to C.\n\n\
+    work done =   [2]\n\n(ii) The skateboarder falls off the skateboard at B. She\
+    \ hits the track and comes to rest after\na few milliseconds.\n\n State the equation\
+    \ that defines the force F with which the skateboarder hits the track.\nState\
+    \ the meaning of any symbols you use [2]\n\n[Total: 6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -104,7 +129,15 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nFig. 4.1 shows a heater used to warm the air in a room.\nFig. 4.1\n\n\
+    (a) (i) State the main method of thermal energy transfer throughout the air in\
+    \ the room [1]\n\n(ii) Explain how the heater warms all the air in the room [3]\n\
+    \n(b) The power of the heater is 2.0 kW when it is connected to the mains supply\
+    \ with an e.m.f. of 230 V.\n\n(i) Show that the current in the heater is approximately\
+    \ 8.7 A.\n\n[2]\n\n(ii) The plug connecting the heater to the mains supply is\
+    \ fitted with a fuse.\n\n Fuse ratings of 3 A, 5 A, 10 A and 13 A are available.\n\
+    \n State which fuse is used. Explain your answer.\nfuse  explanation   [2]\n[Total:\
+    \ 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -146,7 +179,16 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA ray of light is incident on a soap film. Fig. 5.1 shows a magnified\
+    \ image of a small part of the\nsoap film. The ray of light is refracted as it\
+    \ enters the soap film.\nsoap film\nair\nair\n30°\nFig. 5.1\n\nThe refractive\
+    \ index of the soap film is 1.28.\n\n(a) Define refractive index in terms of the\
+    \ speed of light [1]\n\n(b) (i) Show that the angle of refraction as the light\
+    \ enters the soap film is approximately 43°.\n [2]\n\n(ii) On Fig. 5.1, carefully\
+    \ draw the refracted light ray in the soap film and label the angle of\nrefraction.\n\
+    [2]\n\n(c) The ray of light is monochromatic red light with a wavelength of 680\
+    \ nm in air.\n\n(i) Define monochromatic [1]\n\n(ii) Calculate the frequency of\
+    \ the light.\n\nfrequency =   [3]\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -194,7 +236,16 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nFig. 6.1 shows a person using a magnetic window cleaner. The part on the\
+    \ outside of the window\nis attracted to the inside part through the glass window.\n\
+    Fig. 6.1\nEach part of the window cleaner contains two magnets. Fig. 6.2 shows\
+    \ the magnetic field between\nthe parts of the window cleaner.\ninside\nwindow\n\
+    outside\nwindow\nhandle\nbar magnets\nbar magnets\nFig. 6.2\n,\t\t,\n\n(a) Glass\
+    \ is not a magnetic material.\n\nState the difference between magnetic and non-magnetic\
+    \ materials [1]\n\n(b) Suggest a suitable material for the magnets in the window\
+    \ cleaner. Explain your answer [1]\n\n(c) Label the poles of the magnets in Fig.\
+    \ 6.2.\n[1]\n\n(d) State how the field lines in Fig. 6.2 show different strengths\
+    \ of the magnetic field between the\nmagnets [1]\n\n[Total: 4]\n,\n,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -224,7 +275,17 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\n(a) Fig. 7.1 shows a sketch of the current–voltage graph for an electrical\
+    \ component.\ncurrent\nvoltage\n0\n0\nFig. 7.1\n\n(i) Name the electrical component.\n\
+    \n Explain how you identified the component from the graph in Fig. 7.1.\nname\
+    \   explanation   [2]\n\n(ii) Draw the circuit symbol for this component.\n\n\
+    [1]\n\n(b) Fig. 7.2 shows an electric circuit for two identical electric heaters,\
+    \ A and B, connected to a\nmains supply of 230 V.\nA\nS1\nS2\nA\nB\n230 V\nFig.\
+    \ 7.2\n\nS1 is closed. S2 is open. The reading on the ammeter is 3.9 A.\n,\t,\n\
+    \n(i) Calculate the resistance of heater A.\n\nresistance =   [2]\n\n(ii) Calculate\
+    \ the energy transferred by heater A in 5.0 minutes.\n\nenergy =   [3]\n\n(iii)\
+    \ S1 remains closed and S2 is closed.\n\n Determine the reading on the ammeter.\
+    \ Show your working.\n\nammeter reading =   [2]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -272,7 +333,21 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nFig. 8.1 shows a diagram of part of a simple a.c. generator.\nA\nB\nC\n\
+    axle\nmagnet\ncoil of wire\nexternal circuit\nFig. 8.1\n\n(a) (i) Identify components\
+    \ A and B in Fig. 8.1.\nA   B   [2]\n\n(ii) Component C is made of soft iron.\n\
+    \n Describe the effect of this component on the generator [1]\n,\t,\n\n(b) The\
+    \ coil of the generator rotates at a constant speed of two complete revolutions\
+    \ per second.\nSketch a graph of the e.m.f. generated against time on the axes\
+    \ in Fig. 8.2. The coil is in the\nposition shown in Fig. 8.1 at time = 0.\ne.m.f.\
+    \ / V\ntime / s\n0.00\n0.25\n0.50\n0.75\n1.00\nFig. 8.2\n\n[3]\n\n(c) In power\
+    \ stations, transformers are used to step up the voltage of electricity generated\
+    \ before\nit is transmitted through cables over long distances.\n\n(i) Explain\
+    \ the advantages of transmitting electricity at high voltages [2]\n\n(ii) A power\
+    \ station generates electricity at 25 000 V. A transformer steps up the voltage\
+    \ to\n300 000 V. The primary coil of the step-up transformer has 450 turns.\n\n\
+    \ Calculate the number of turns Ns on the secondary coil of the transformer.\n\
+    \nNs =   [2]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -320,7 +395,24 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nStrontium-90 (90\n38Sr) is a radioactive isotope that contains 38 protons\
+    \ and 52 neutrons. Strontium-90\ndecays to form an isotope of yttrium (Y) by emitting\
+    \ beta (β) particles.\n\n(a) (i) Suggest how the nucleus of a stable isotope of\
+    \ strontium differs from a nucleus of\nstrontium-90. Explain your answer.\nsuggestion\
+    \   explanation   [2]\n\n(ii) Complete the nuclide equation for the decay of strontium-90\
+    \ to yttrium.\n90\n38Sr\n\n Y +\n β\n\n[2]\n\n(iii) Explain why scientists limit\
+    \ the amount of time they are exposed to radioactive strontium [2]\n\n(b) Yttrium\
+    \ is also unstable. A scientist places a sample of yttrium near a radiation detector.\n\
+    \nTable 9.1 shows the count rate recorded by the detector as the sample decays.\n\
+    Table 9.1\ntime / h\nrecorded count rate\ncounts / min\n  0\n68\n 50\n49\n100\n\
+    38\n150\n32\n200\n26\n250\n24\n300\n20\n350\n21\n400\n20\n\nFig. 9.1 shows a graph\
+    \ of the count rate due to yttrium against time.\n0\n4\n8\n12\n16\n20\n24\n28\n\
+    32\n36\n40\n44\n48\n0\n20\n40\n60\n80\n100\n120\n140\n160\n180\n200\n220\n240\n\
+    260\n280\n300\n320\ntime / h\nount rate\ne to yttrium\nounts / min\nFig. 9.1\n\
+    \n(i) Use Fig. 9.1 to determine the half-life of yttrium. Show your working.\n\
+    \nhalf-life =   h [3]\n\n(ii) Explain the difference between the count rate in\
+    \ Table 9.1 and the count rate due to\nyttrium plotted on the graph in Fig. 9.1\
+    \ [1]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -368,7 +460,16 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 Jupiter and the Earth are planets in our Solar System.\n\n(a) Describe\
+    \ the composition of Jupiter and the Earth.\nJupiter   the Earth   [2]\n\n(b)\
+    \ The gravitational field strength at the surface of the Earth is approximately\
+    \ 9.8 N / kg. The\ngravitational field strength at the surface of Jupiter is approximately\
+    \ 23 N / kg.\n\n(i) Define gravitational field strength [2]\n\n(ii) State one\
+    \ factor which causes the difference between the gravitational field strength\
+    \ at\nthe surface of Jupiter and the gravitational field strength at the surface\
+    \ of the Earth [1]\n\n(c) State and explain the difference between the orbital\
+    \ speed of Jupiter and the orbital speed of\nthe Earth.\nstatement   explanation\
+    \   [3]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a

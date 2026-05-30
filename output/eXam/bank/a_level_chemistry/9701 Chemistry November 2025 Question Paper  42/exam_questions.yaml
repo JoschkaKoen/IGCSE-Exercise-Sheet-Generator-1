@@ -2,7 +2,15 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nMagnesium nitrate, Mg(NO3)2, and strontium nitrate, Sr(NO3)2, both decompose\
+    \ when heated to\nform the metal oxide and a mixture of gases.\n\n(a) Write an\
+    \ equation for the thermal decomposition of Mg(NO3)2 [1]\n\n(b) State which of\
+    \ Mg(NO3)2 or Sr(NO3)2 decomposes at a lower temperature.\n\nExplain your answer.\n\
+    compound that decomposes at a lower temperature   explanation   [2]\n\n(c) Magnesium\
+    \ oxide, MgO, and strontium oxide, SrO, both react with dilute sulfuric acid.\n\
+    \nMgO forms a soluble salt, A.\n\nSrO forms an insoluble salt, B.\n\n(i) Identify\
+    \ the products formed when MgO reacts with dilute sulfuric acid [1]\n\n(ii) Explain\
+    \ why A is more soluble than B [3]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +46,31 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nEthanal, CH3CHO, reacts with nitrogen dioxide, NO2. The products of the\
+    \ first step of this reaction\nare a CH3C• =O radical and a molecule of nitrous\
+    \ acid, HNO2.\nCH3CHO + NO2\n CH3C• =O + HNO2\n\n(a) (i) Use two words to complete\
+    \ the sentence.\nThis reaction involves  of the single\ncovalent bond between\
+    \ a hydrogen atom and a carbon atom in CH3CHO.\n\n[1]\n\n(ii) The hydrogen atom\
+    \ mentioned in (a)(i) forms a covalent bond with one of the oxygen\natoms of an\
+    \ NO2 molecule. An NO2 molecule has a single, unpaired electron on the\nnitrogen\
+    \ atom. All electrons are paired in an HNO2 molecule.\n\n Draw dot-and-cross diagrams\
+    \ of NO2 and HNO2 in the boxes. Show outer shell electrons\nonly.\nNO2\n\nHNO2\n\
+    \n[1]\n\n(iii) Use VSEPR theory to predict the bond angle at the nitrogen atom\
+    \ in an HNO2 molecule.\n\nbond angle =  [1]\n\n(b) The rate equation for the reaction\
+    \ between CH3CHO and NO2 is shown.\nrate = k [CH3CHO][NO2]\n\nUnder certain conditions,\
+    \ when the concentrations of both CH3CHO and NO2 are 0.200 mol dm–3,\nthe rate\
+    \ of the reaction is 1.53 × 10–4 mol dm–3 s–1.\n\nCalculate the value of the rate\
+    \ constant, k, under these conditions. Give the units of k.\n\nk =  units  [2]\n\
+    ,\t,\n\n(c) The reaction mixture described in (b) is monitored over a period of\
+    \ time.\n\nPredict whether the graph of [NO2] against time shows a constant half-life.\n\
+    \nExplain your answer.\nprediction   explanation   [1]\n\n(d) NO2 also reacts\
+    \ with ozone, O3.\n\nThe rate equation is shown.\nrate = k1[NO2]\n\nUnder certain\
+    \ conditions, the value of k1 is 0.0848 s–1.\n\nThe reaction has a constant half-life\
+    \ under these conditions.\n\nCalculate the half-life in seconds.\nhalf-life =\
+    \  s [1]\n\n(e) NO2 is present in the exhaust gases of cars. It can react with\
+    \ carbon monoxide, CO, on the\nsurface of a heterogeneous catalyst in the car’s\
+    \ catalytic converter.\n\nDescribe the mode of action of this heterogeneous catalyst\
+    \ [2]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -92,7 +124,34 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) (i) Define conjugate acid–base pair [1]\n\n(ii) Give the formulas\
+    \ of the conjugate acid and the conjugate base of the hydrogen\nphosphate ion,\
+    \ HPO4\n2–.\n\nconjugate acid of HPO4\n2–  conjugate base of HPO4\n2–  [1]\n\n\
+    (b) The Ka of propanoic acid, CH3CH2COOH, is 1.35 × 10–5 mol dm–3 at 298 K.\n\n\
+    Solution C is a solution of CH3CH2COOH with a pH of 3.60 at 298 K.\n\n(i) Calculate\
+    \ the concentration of CH3CH2COOH in solution C.\n\n[CH3CH2COOH] =  mol dm–3 [2]\n\
+    \n(ii) Calculate the concentration of hydroxide ions in solution C.\n\n[OH–] =\
+    \  mol dm–3 [1]\n\n(iii) Calculate the concentration of a solution of hydrochloric\
+    \ acid with the same pH as\nsolution C.\n\nconcentration =  mol dm–3 [1]\n,\t\
+    ,\n\n(iv) Table 3.1 shows three possible values of the Ka of dimethylpropanoic\
+    \ acid, (CH3)3CCOOH.\n\n Place a tick in Table 3.1 to show the correct value.\
+    \ Explain your answer.\nTable 3.1\nvalue of Ka\n/ mol dm–3\nplace one tick (✓)\n\
+    in this column\n9.33 × 10–6\n1.35 × 10–5\n3.35 × 10–5\nexplanation   [3]\n\n(c)\
+    \ Solution D is made by mixing 100 cm3 of 0.100 mol dm–3 CH3CH2COOH and 100 cm3\
+    \ of\n0.100 mol dm–3 NaCl.\n\nThe pH of solution D is measured as small amounts\
+    \ of H2SO4(aq) are added to it, and when\nsmall amounts of NaOH(aq) are added\
+    \ to it.\n\nSolution D only acts as a buffer solution when one of these solutions\
+    \ is added to it.\n\n(i) Complete the sentence and write an equation for the reaction\
+    \ that occurs.\nSolution D acts as a buffer when  is added to it.\nequation  \
+    \ [1]\n\n(ii) Complete the sentence and explain why solution D does not act as\
+    \ a buffer when the\nother solution is added.\nSolution D does not act as a buffer\
+    \ when   is added to it.\nexplanation   [1]\n,\t,\n\n(d) Manganese(II) hydroxide,\
+    \ Mn(OH)2, is only slightly soluble in water.\n\nThe solubility of Mn(OH)2 in\
+    \ water is 3.28 × 10–3 g dm–3 at 298 K.\n\n(i) Calculate the concentration of\
+    \ a saturated solution of Mn(OH)2 at 298 K.\n\n[Mn(OH)2] =  mol dm–3 [1]\n\n(ii)\
+    \ Write an expression for the Ksp of Mn(OH)2. Give the units of Ksp.\n\n Ksp =\n\
+    units =  [2]\n\n(iii) Use your answers to (d)(i) and (d)(ii) to calculate the\
+    \ value of Ksp of Mn(OH)2 at 298 K.\n\nKsp =  [1]\n\n[Total: 15]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -188,7 +247,13 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Define enthalpy change of atomisation, ΔHat [1]\n\n(b) Define first\
+    \ electron affinity, EA [1]\n\n(c) Explain why the first electron affinity of\
+    \ chlorine is more exothermic than the first electron\naffinity of iodine [2]\n\
+    \n(d) The enthalpy change for the reaction Cl 2(g) + 2e–\n 2Cl –(g) is – 486 kJ\
+    \ mol–1.\n\nThe first electron affinity of chlorine is –364 kJ mol–1.\n\nCalculate\
+    \ the enthalpy change of atomisation of chlorine.\n\nΔHat of chlorine =  kJ mol–1\
+    \ [2]\n\n[Total: 6]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -218,7 +283,36 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nCobalt is a transition element which forms compounds containing Co2+ and\
+    \ Co3+ ions. Cobalt(II)\nsulfate dissolves in water to form a solution containing\
+    \ the [Co(H2O)6]2+ complex ion.\n\n(a) (i) Complete the electronic configurations\
+    \ of a Co2+ ion and a Co3+ ion.\n\n Co2+ = [Ar]  Co3+ = [Ar]  [1]\n\n(ii) Explain\
+    \ why transition elements can form complex ions [1]\n\n(iii) An excess of concentrated\
+    \ HCl is added to a solution containing [Co(H2O)6]2+.\n\n Describe the colour\
+    \ change observed and the state of the cobalt-containing product.\n\n The colour\
+    \ changes from  to  The state of the cobalt-containing product is  [2]\n\n(iv)\
+    \ Write an equation for the reaction occurring in (a)(iii) [1]\n\n(v) Name the\
+    \ type of reaction occurring in (a)(iii) [1]\n\n(vi) Write an equation for the\
+    \ reaction that occurs when an excess of NaOH(aq) is added to\na solution containing\
+    \ [Co(H2O)6]2+ [1]\n,\t,\n\n(b) Cobalt metal can be oxidised by acidified K2Cr2O7.\
+    \ The relevant half-equations, and their\nE o–  values, are shown.\n\nCo2+ + 2e–\n\
+    \ Co\nE o–  = –0.28 V\n\nCr2O7\n2– + 14H+ + 6e–\n 2Cr3+ + 7H2O\nE o–  = +1.33\
+    \ V\n\n(i) A Co2+/Co electrode is constructed in which [Co2+] is 0.020 mol dm–3\
+    \ at 298 K.\n\n Use the Nernst equation to show that the E value for this Co2+\
+    \ / Co electrode is –0.33 V.\n\n[2]\n\n(ii) An electrochemical cell is constructed\
+    \ using the Co2+ / Co electrode described in (b)(i)\nand a Cr2O7\n2– / Cr3+ electrode\
+    \ in which all conditions are standard.\n\n Calculate the value of Ecell.\n\n\
+    Ecell =  [1]\n\n(iii) A current is drawn from the electrochemical cell described\
+    \ in (b)(ii).\n\n Write an equation for the reaction taking place in the cell\
+    \ [1]\n\n(iv) Complete the sentences to identify the negative electrode and the\
+    \ direction of electron\nflow when a current is drawn from the cell described\
+    \ in (b)(ii).\nThe  electrode is the negative electrode.\nElectrons flow from\
+    \ the  electrode to the  electrode.\n\n[1]\n\n(c) A molten Co2+ salt is electrolysed\
+    \ using a current of 0.500 A.\n\n0.547 g of cobalt metal forms at the cathode.\
+    \ Under the conditions used no other reduction\nreaction occurs at the cathode.\n\
+    \nCalculate the time in minutes for which the current flows to produce this mass\
+    \ of cobalt.\n\nGive your answer to three significant figures.\n\ntime =  min\
+    \ [3]\n\n[Total: 15]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -302,7 +396,23 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Nickel forms complexes.\n\n(i) Give the formula and charge of the\
+    \ tetrahedral complex formed by Ni atoms with carbon\nmonoxide molecules. Carbon\
+    \ monoxide is a monodentate ligand. This is complex E.\nE =   [1]\n\n(ii) Give\
+    \ the formula and charge of the octahedral complex formed by Ni2+ ions with\n\
+    ethanedioate ions. This is complex F.\nF =   [2]\n\n(iii) Identify which complex,\
+    \ E or F, exists as a mixture of two stereoisomers and the type of\nstereoisomerism\
+    \ involved.\nThe complex which exists as a mixture of two stereoisomers is  The\
+    \ type of stereoisomerism involved is  [1]\n\n(b) Cadmium forms complexes with\
+    \ methylamine, CH3NH2, and 1,2-diaminoethane, en. The\nvalues of the stability\
+    \ constants, Kstab, of these complex ions are given in Table 6.1.\nTable 6.1\n\
+    complex\nKstab\n[Cd(CH3NH2)4]2+\n\n3.5 × 106\n[Cd(en)2]2+\n\n4.0 × 1010\n\n(i)\
+    \ Explain, by reference to its structure, why CH3NH2 acts as a monodentate ligand\
+    \ [1]\n\n(ii) Some Cd2+(aq) is added to a solution containing equal concentrations\
+    \ of CH3NH2\nand en.\n\n Predict which of the two complexes in Table 6.1 forms\
+    \ at the higher concentration.\n\n Explain your answer.\ncomplex that forms at\
+    \ the higher concentration   explanation   [1]\n\n(iii) Complete the expression\
+    \ for the Kstab of [Cd(CH3NH2)4]2+.\n\nKstab =\n\n[1]\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -356,7 +466,30 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nP, Q, R, S, T, U, and V are the seven structural isomers with molecular\
+    \ formula C5H10O that have\na carbonyl group.\n\nP CH3(CH2)3CHO\nQ CH3CH2CH(CH3)CHO\n\
+    R (CH3)2CHCH2CHO\n\nS (CH3)3CCHO\nT CH3CH2CH2COCH3\nU CH3CH2COCH2CH3\n\nV (CH3)2CHCOCH3\n\
+    \n(a) Only one of these seven compounds has stereoisomers.\n\nDraw three-dimensional\
+    \ diagrams of the two stereoisomers of this compound.\n\n[2]\n\n(b) P, Q, R, S,\
+    \ T, U, and V are treated separately with alkaline I2(aq) and the product mixture\
+    \ is\nacidified.\n\n(i) Identify the two compounds that give a positive result\
+    \ with alkaline I2(aq) and  [1]\n\n(ii) Describe the observations when one of\
+    \ the compounds you have identified in (b)(i) is\ntreated with alkaline I2(aq)\
+    \ and give the structural formulae of the two carbon-containing\nproducts of this\
+    \ reaction.\nobservations   two carbon-containing products   and   [2]\n,\t,\n\
+    \nP CH3(CH2)3CHO\nQ CH3CH2CH(CH3)CHO\nR (CH3)2CHCH2CHO\n\nS (CH3)3CCHO\nT CH3CH2CH2COCH3\n\
+    U CH3CH2COCH2CH3\n\nV (CH3)2CHCOCH3\n\n(c) The proton (1H) NMR spectra of P, Q,\
+    \ R, S, T, U, and V are compared.\n\n(i) Identify the only compound that gives\
+    \ a spectrum with two singlets and no other peaks [1]\n\nFig. 7.1 shows the spectrum\
+    \ obtained from one of the compounds.\n11\n10\n9\n8\n7\n6\n5\n4\n3\n2\n1\n0\n\
+    δ / ppm\nFig. 7.1\n\n(ii) Identify the compound that gives this spectrum [1]\n\
+    \n(iii) Name the splitting pattern of the peak at δ = 1.1 in Fig. 7.1.\n\n Give\
+    \ the reason for this splitting.\nname  reason   [1]\n\n(iv) Identify the substance\
+    \ that gives the small peak at δ = 0 in Fig. 7.1 [1]\n,\t,\n\n(d) The carbon-13\
+    \ NMR spectra of R, S, T and U are compared.\n\nComplete Table 7.1 to state the\
+    \ number of peaks in the spectrum of each compound.\nTable 7.1\ncompound\nnumber\
+    \ of peaks\nR\n(CH3)2CHCH2CHO\nS\n(CH3)3CCHO\nT\nCH3CH2CH2COCH3\nU\nCH3CH2COCH2CH3\n\
+    \n[2]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -422,7 +555,32 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nAsparagine and aspartic acid are two naturally occurring amino acids.\
+    \ Their structures and\nisoelectric points are shown in Table 8.1.\nTable 8.1\n\
+    amino acid\nstructure\nisoelectric point\nasparagine\nHOOCCH(NH2)CH2CONH2\n5.41\n\
+    aspartic acid\nHOOCCH(NH2)CH2COOH\n2.77\n\n(a) Define isoelectric point [1]\n\n\
+    (b) Draw the structures of asparagine and aspartic acid at pH 2.\nasparagine at\
+    \ pH 2\n\naspartic acid at pH 2\n\n[2]\n\n(c) Asparagine and aspartic acid are\
+    \ treated separately with an excess of LiAl H4.\n\nDraw the structures of the\
+    \ organic products of these reactions.\nproduct of asparagine treated with an\n\
+    excess of LiAl H4\n\nproduct of aspartic acid treated with\nan excess of LiAl\
+    \ H4\n[2]\n,\t,\n\n(d) Propanedioic acid, HOOCCH2COOH, is treated with an excess\
+    \ of thionyl chloride, SOCl 2.\nPropanedioyl chloride, Cl OCCH2COCl , is formed.\n\
+    \n(i) Write an equation for this reaction [1]\n\n(ii) Propanedioyl chloride reacts\
+    \ with an excess of asparagine to form compound G with\nmolecular formula C11H16N4O8.\n\
+    \n Each molecule of compound G has four amide groups.\n\n Draw the structure of\
+    \ compound G.\nCompound G, C11H16N4O8\n\n[2]\n\n(e) Asparagine is hydrolysed with\
+    \ an excess of hot NaOH(aq).\n\nDraw the structure of the organic product of this\
+    \ reaction.\n\n[2]\n\n(f) A polymer can form from asparagine, HOOCCH(NH2)CH2CONH2,\
+    \ as the only monomer.\n\nDraw a length of the polymer chain containing three\
+    \ monomer residues.\n\nClearly label the repeat unit of the polymer on your diagram.\n\
+    \n[3]\n,\t,\n\n(g) Aspartic acid exists in two optically active forms.\n\n(i)\
+    \ Plane polarised light is passed through pure samples of these two optically\
+    \ active forms\nin solutions of the same concentration.\n\n Describe two similarities\
+    \ and one difference in their effect on the plane polarised light.\nsimilarities\
+    \   difference  [2]\n\n(ii) Give the term used to describe a mixture of equal\
+    \ amounts of the two optically active\nforms [1]\n\n[Total: 16]\n,\t\t,\nQuestion\
+    \ 9 starts on page 20.\n,\n,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -494,7 +652,71 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nCompound X is made from benzene by the route shown in Fig. 9.1.\nstep\
+    \ 1\nCH3\nstep 2\nCH3\nNO2\nNO2\nW\nNH2\nX\nstep 3\nCOOH\nstep 4\nCOOH\nbenzene\n\
+    Fig. 9.1\n\n(a) Describe the bonding in benzene, C6H6.\n\nYour answer should include:\n\
+    •\nthe hybridisation of the six carbon atoms\n•\nthe types of bond between the\
+    \ carbon atoms\n•\nthe orbitals that overlap to produce the bonds between the\
+    \ carbon atoms\n•\nthe type of bond between the carbon atoms and the hydrogen\
+    \ atoms\n•\nthe orbitals that overlap to produce the bonds between the carbon\
+    \ atoms and the\nhydrogen atoms [3]\n\n(b) Describe the reagents and conditions\
+    \ required for step 1 in Fig. 9.1 [1]\n,\t,\n\n(c) In step 1 of Fig. 9.1 benzene\
+    \ reacts with +CH3.\n\nComplete Fig. 9.2 to show the mechanism for this reaction,\
+    \ including:\n•\nthe movement of electron pairs using curly arrows\n•\nthe structure\
+    \ of the intermediate involved.\n+CH3\nCH3\nintermediate\n+\n Fig. 9.2\n\n[3]\n\
+    \n(d) Describe the reagents and conditions required for step 2 of Fig. 9.1 [2]\n\
+    \n(e) Identify the reagents required for step 3 of Fig. 9.1. Compound W is the\
+    \ product of this step [1]\n\n(f) Name compound W [1]\n\n(g) The reagents commonly\
+    \ used for step 4 will not reduce the –COOH group.\n\nIdentify the reagents and\
+    \ conditions required for step 4 of Fig. 9.1 [1]\n,\t,\n\n(h) Benzene can also\
+    \ be used as a starting material to make compound Y.\nCOOH\ncompound Y\nNH2\n\n\
+    Describe how the route described in Fig. 9.1 (repeated below) can be changed to\
+    \ give\ncompound Y instead of compound X.\n\nExplain your answer [2]\nstep 1\n\
+    CH3\nstep 2\nCH3\nNO2\nNO2\nW\nNH2\nX\nstep 3\nCOOH\nstep 4\nCOOH\nbenzene\nFig.\
+    \ 9.1\n\n[Total: 14]\n,\t,\nImportant values, constants and standards\nmolar gas\
+    \ constant\nR = 8.31 J K–1 mol–1\nFaraday constant\nF = 9.65 × 104 C mol–1\nAvogadro\
+    \ constant\nL = 6.02 × 1023 mol–1\nelectronic charge\ne = –1.60 × 10–19 C\nmolar\
+    \ volume of gas\nVm = 22.4 dm3 mol–1 at s.t.p. (101 kPa and 273 K)\nVm = 24.0\
+    \ dm3 mol–1 at room conditions\nionic product of water\nKw = 1.00 × 10–14 mol2\
+    \ dm–6 (at 298 K (25 °C))\nspeciﬁc heat capacity of water\nc = 4.18 kJ kg–1 K–1\
+    \ (4.18 J g–1 K–1)\n,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n\
+    1.0\n2\nHe\nhelium\n4.0\n1\n2\n13\n14\n15\n16\n17\n18\n3\n4\n5\n6\n7\n8\n9\n10\n\
+    11\n12\n3\nLi\nlithium\n6.9\n4\nBe\nberyllium\n9.0\natomic number\natomic symbol\n\
+    Key\nname\nrelative atomic mass\n11\nNa\nsodium\n23.0\n12\nMg\nmagnesium\n24.3\n\
+    19\nK\npotassium\n39.1\n20\nCa\ncalcium\n40.1\n37\nRb\nrubidium\n85.5\n38\nSr\n\
+    strontium\n87.6\n55\nCs\ncaesium\n132.9\n56\nBa\nbarium\n137.3\n87\nFr\nfrancium\n\
+    –\n88\nRa\nradium\n–\n5\nB\nboron\n10.8\n13\nAl\naluminium\n27.0\n31\nGa\ngallium\n\
+    69.7\n49\nIn\nindium\n114.8\n81\nTl\nthallium\n204.4\n6\nC\ncarbon\n12.0\n14\n\
+    Si\nsilicon\n28.1\n32\nGe\ngermanium\n72.6\n50\nSn\ntin\n118.7\n82\nPb\nlead\n\
+    207.2\n22\nTi\ntitanium\n47.9\n40\nZr\nzirconium\n91.2\n72\nHf\nhafnium\n178.5\n\
+    104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n50.9\n41\nNb\nniobium\n92.9\n73\n\
+    Ta\ntantalum\n180.9\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n52.0\n42\nMo\nmolybdenum\n\
+    95.9\n74\nW\ntungsten\n183.8\n106\nSg\nseaborgium\n–\n25\nMn\nmanganese\n54.9\n\
+    43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186.2\n107\nBh\nbohrium\n–\n26\nFe\niron\n\
+    55.8\n44\nRu\nruthenium\n101.1\n76\nOs\nosmium\n190.2\n108\nHs\nhassium\n–\n27\n\
+    Co\ncobalt\n58.9\n45\nRh\nrhodium\n102.9\n77\nIr\niridium\n192.2\n109\nMt\nmeitnerium\n\
+    –\n28\nNi\nnickel\n58.7\n46\nPd\npalladium\n106.4\n78\nPt\nplatinum\n195.1\n110\n\
+    Ds\ndarmstadtium\n–\n29\nCu\ncopper\n63.5\n47\nAg\nsilver\n107.9\n79\nAu\ngold\n\
+    197.0\n111\nRg\nroentgenium\n–\n30\nZn\nzinc\n65.4\n48\nCd\ncadmium\n112.4\n80\n\
+    Hg\nmercury\n200.6\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\n\
+    livermorium\n–\n7\nN\nnitrogen\n14.0\n15\nP\nphosphorus\n31.0\n33\nAs\narsenic\n\
+    74.9\n51\nSb\nantimony\n121.8\n83\nBi\nbismuth\n209.0\n8\nO\noxygen\n16.0\n16\n\
+    S\nsulfur\n32.1\n34\nSe\nselenium\n79.0\n52\nTe\ntellurium\n127.6\n84\nPo\npolonium\n\
+    –\n9\nF\nfluorine\n19.0\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n79.9\n53\nI\n\
+    iodine\n126.9\n85\nAt\nastatine\n–\n10\nNe\nneon\n20.2\n18\nAr\nargon\n39.9\n\
+    36\nKr\nkrypton\n83.8\n54\nXe\nxenon\n131.3\n86\nRn\nradon\n–\n113\nNh\nnihonium\n\
+    –\n115\nMc\nmoscovium\n–\n117\nTs\ntennessine\n–\n118\nOg\noganesson\n–\n21\n\
+    Sc\nscandium\n45.0\n39\nY\nyttrium\n88.9\n57–71\nlanthanoids\n89–103\nactinoids\n\
+    57\nLa\nlanthanum\n138.9\n89\nAc\nlanthanoids\nactinoids\nactinium\n–\n58\nCe\n\
+    cerium\n140.1\n90\nTh\nthorium\n232.0\n59\nPr\npraseodymium\n140.9\n91\nPa\nprotactinium\n\
+    231.0\n60\nNd\nneodymium\n144.2\n92\nU\nuranium\n238.0\n61\nPm\npromethium\n–\n\
+    93\nNp\nneptunium\n–\n62\nSm\nsamarium\n150.4\n94\nPu\nplutonium\n–\n63\nEu\n\
+    europium\n152.0\n95\nAm\namericium\n–\n64\nGd\ngadolinium\n157.3\n96\nCm\ncurium\n\
+    –\n65\nTb\nterbium\n158.9\n97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n162.5\n98\n\
+    Cf\ncalifornium\n–\n67\nHo\nholmium\n164.9\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n\
+    167.3\n100\nFm\nfermium\n–\n69\nTm\nthulium\n168.9\n101\nMd\nmendelevium\n–\n\
+    70\nYb\nytterbium\n173.1\n102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175.0\n103\n\
+    Lr\nlawrencium\n–\n,\t,"
   answer_options: []
   subquestions:
   - number: 9a

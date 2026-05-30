@@ -2,7 +2,17 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nAtoms and ions are made from particles called electrons, neutrons and\
+    \ protons.\n\n(a) Complete Table 1.1.\nTable 1.1\nparticle\nrelative charge\n\
+    relative mass\nelectron\n–1\n1\n1840\nneutron\nproton\n[2]\n\n(b) Table 1.2 shows\
+    \ information about some atoms or ions.\n\nComplete Table 1.2.\nTable 1.2\natom\
+    \ or\nion\nnumber of\nelectrons\nnumber of\nneutrons\nnumber of\nprotons\n4\n\
+    2\n0\n0Ca2+\n20\n20\n19\n9F\n9\n9\n10\n9\n8\n[5]\n\n(c) (i) The relative atomic\
+    \ mass, Ar, of an element is the average mass of its isotopes compared\nto one\
+    \ atom of isotope X.\n\n Identify isotope X [1]\n\n(ii) A sample of magnesium\
+    \ consists of two isotopes with mass numbers 24 and 26.\n[Ar: Mg, 24.3]\n\n Calculate\
+    \ the percentage abundance of the isotope of magnesium with mass number 24.\n\n\
+    percentage abundance =   [1]\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +48,20 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nTable 2.1 shows the melting points, boiling points and electrical conductivities\
+    \ of seven substances,\nA, B, C, D, E, F and G.\nTable 2.1\nsubstance\nmelting\
+    \ point\n/ °C\nboiling point\n/ °C\n electrical conductivity\nwhen solid\nelectrical\
+    \ conductivity\nwhen molten\nA\n1600\n2230\npoor\npoor\nB\n–219\n–183\npoor\n\
+    poor\nC\n770\n1420\npoor\n good\nD\n–39\n357\ngood\n good\nE\n–7\n58\npoor\npoor\n\
+    F\n44\n280\npoor\npoor\nG\n1085\n2562\ngood\ngood\n\n(a) Identify which substance,\
+    \ A, B, C, D, E, F or G, is:\n\n(i) a gas at 25 °C\n  [1]\n\n(ii) a solid consisting\
+    \ of simple molecules at 25 °C\n  [1]\n\n(iii) a metal which is liquid at 25 °C\
+    \ [1]\n\n(b) (i) Identify which substance, A, B, C, D, E, F or G, has a giant\
+    \ covalent structure.\n\n Use the information in Table 2.1 to give two reasons\
+    \ for your choice.\nsubstance   reason 1   reason 2   [3]\n\n(ii) Identify which\
+    \ substance, A, B, C, D, E, F or G, is an ionic compound.\n\n Use the information\
+    \ in Table 2.1 to give one reason for your choice.\nsubstance   reason   [2]\n\
+    \n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -86,7 +109,31 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nThis question is about aluminium and other metallic elements.\n\n(a) Aluminium\
+    \ is extracted from purified bauxite by electrolysis. Fig. 3.1 shows a diagram\
+    \ of the\nelectrolytic cell used.\nwaste gases\nnegative electrode\naluminium\n\
+    electrolyte\npositive electrodes\nFig. 3.1\n\n(i) State the name of the aluminium\
+    \ compound present in bauxite [1]\n\n(ii) Name the substance that purified bauxite\
+    \ is dissolved in before electrolysis is carried out [1]\n\n(iii) Name the substance\
+    \ that is used for the positive electrodes [1]\n\n(iv) Write the ionic half-equation\
+    \ for the production of aluminium at the negative electrode [2]\n\n(b) Aluminium\
+    \ is above zinc in the reactivity series.\n\n(i) When a piece of aluminium foil\
+    \ is added to aqueous zinc sulfate, a reaction is\nnot immediately observed even\
+    \ though aluminium is above zinc in the reactivity series.\n\n Explain why a reaction\
+    \ is not immediately observed [1]\n\n(ii) After a few minutes, a displacement\
+    \ reaction occurs between aluminium and aqueous\nzinc ions.\n\n Complete the ionic\
+    \ equation for this reaction Al  +   Zn2+\n   Al 3+  +   Zn\n[1]\n,\t,\n\n(iii)\
+    \ State the oxidation number of zinc in:\nZn2+  Zn [2]\n\n(iv) Define the term\
+    \ reduction in terms of oxidation number [1]\n\n(c) Aluminium reacts with iron(III)\
+    \ oxide. The equation is shown.\n2Al  +  Fe2O3\n  Al 2O3  +  2Fe         ΔH =\
+    \ – 850 kJ / mol\n\n(i) State the meaning of the symbol ΔH [1]\n\n(ii) State what\
+    \ can be deduced about the reaction from the negative sign in ΔH = – 850 kJ /\
+    \ mol [1]\n\n(d) Gallium has many similarities to aluminium. Gallium(III) oxide\
+    \ is an amphoteric oxide.\n\nState what is meant by the term amphoteric [1]\n\n\
+    (e) The reaction of gallium(III) oxide, Ga2O3, with aqueous sodium hydroxide forms\
+    \ a salt which\ncontains the negative ion GaO2\n–. The only other product is water.\n\
+    \nWrite a symbol equation for this reaction [2]\n\n(f) Deduce the formula of:\n\
+    •   gallium(III) bromide  •   gallium(III) sulfate [2]\n[Total: 17]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -188,7 +235,42 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nThis question is about chlorine and compounds of chlorine.\n\n(a) Gaseous\
+    \ chlorine reacts with gaseous phosphorus(III) chloride to form gaseous\nphosphorus(V)\
+    \ chloride. The reaction is a reversible reaction.\n\nWhen the three gases are\
+    \ in a closed container the system reaches equilibrium.\nCl 2(g)  +  PCl 3(g)\n\
+    \  PCl 5(g)\n\n(i) Describe a reversible reaction at equilibrium in terms of:\n\
+    •\nthe rate of the forward reaction and the rate of the reverse reaction\n  •\n\
+    the concentrations of reactants and products [2]\n\n(ii) Complete Table 4.1 using\
+    \ only the words increases, decreases or no change.\nTable 4.1\nchange to condition\n\
+    effect on the\nrate of the forward reaction\neffect on the\nequilibrium concentration\
+    \ of PCl 5\nthe pressure is decreased\na catalyst is added\nincreases\n\n[3]\n\
+    \n(iii) When the temperature of the equilibrium mixture is increased, the equilibrium\n\
+    concentration of PCl 5 decreases.\n\n State what conclusion about the forward\
+    \ reaction can be made from this information [1]\n,\t,\n\n(b) Ethene, C2H4, reacts\
+    \ with chlorine, Cl 2, to form 1,2-dichloroethane, CH2Cl CH2Cl .\n\nThe equation\
+    \ for this reaction can be represented as shown.\nH\nC\nH\nH\nC\nC\nCl\nCl\nCl\n\
+    Cl\n+\nH\nC\nH\nH\nH\nH\n\nTable 4.2 shows some bond energies.\nTable 4.2\nbond\n\
+    bond energy\nin kJ / mol\nC–C\n350\nC=C\n610\nC–H\n410\nCl –Cl\n240\nC–Cl\n340\n\
+    \nUse the bond energies in Table 4.2 to calculate the enthalpy change, in kJ /\
+    \ mol, of the reaction.\n\nUse the following steps.\n•\nCalculate the total energy\
+    \ needed to break the bonds in C2H4 and Cl 2 kJ\n•\nCalculate the total energy\
+    \ released when the bonds form in CH2Cl CH2Cl  kJ\n,\t\t,\n•\nCalculate the enthalpy\
+    \ change of the reaction.\n\nYour answer should include a sign kJ / mol\n[3]\n\
+    \n(c) Chlorine reacts with nitrogen to form nitrogen trichloride, NCl 3.\n\nComplete\
+    \ the dot-and-cross diagram in Fig. 4.1 of a molecule of NCl 3.\n\nShow outer\
+    \ shell electrons only.\nN\nCl\nCl\nCl\nFig. 4.1\n[3]\n,\n,\n\n(d) When solid\
+    \ magnesium carbonate, MgCO3, is added to dilute hydrochloric acid, HCl , a\n\
+    chemical reaction occurs. The equation for the reaction is shown.\nMgCO3(s)  +\
+    \  2HCl (aq)\n  MgCl 2(aq)  +  CO2(g)  +  H2O(l)\n\n(i) Give two observations\
+    \ when solid magnesium carbonate is added to dilute hydrochloric\nacid.\n1   2\
+    \   [2]\n\n(ii) Calculate the volume, in cm3, of CO2(g) that is produced at room\
+    \ temperature and\npressure (r.t.p.) when 50.0 cm3 of 0.100 mol / dm3 HCl reacts\
+    \ with excess MgCO3.\n\n The volume of 1 mol of any gas is 24 000 cm3 at r.t.p.\n\
+    \n Use the following steps.\n•\nCalculate the number of moles of HCl in 50.0 cm3\
+    \ of 0.100 mol / dm3 HCl  mol\n•\nDeduce the number of moles of CO2(g) produced\
+    \ mol\n•\nCalculate the volume, in cm3, of CO2(g) produced at r.t.p cm3\n[3]\n\
+    [Total: 17]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -248,7 +330,25 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nThis question is about metallic compounds.\n\n(a) Insoluble metal salts,\
+    \ such as lead(II) sulfate, are made by precipitation.\n\nWhen aqueous lead(II)\
+    \ ions react with aqueous sulfate ions, a precipitate of lead(II) sulfate\nforms.\n\
+    \nA sample of pure lead(II) sulfate can be obtained from the precipitate formed.\n\
+    \n(i) Write an ionic equation for this precipitation reaction. Include state symbols\
+    \ [3]\n\n(ii) State the name of an aqueous solution containing lead(II) ions [1]\n\
+    \n(iii) State the name of an aqueous solution containing sulfate ions [1]\n\n\
+    (iv) The lead(II) sulfate precipitate is separated from the rest of the reaction\
+    \ mixture by\nfiltration. The impure lead(II) sulfate remains on the filter paper.\n\
+    \n State the general term given to an insoluble substance that remains on the\
+    \ filter paper\nduring filtration [1]\n\n(v) Describe how the lead(II) sulfate\
+    \ is purified after filtration [2]\n,\t,\n\n(b) Copper is a transition element.\n\
+    \nA list of properties of copper is shown.\n•\nIt has good electrical conductivity.\n\
+    •\nIt has variable oxidation states.\n•\nIt forms soluble salts.\n•\nIt forms\
+    \ coloured compounds.\n•\nIt forms basic oxides.\n•\nIt acts as a catalyst.\n\n\
+    (i) Give two properties from the list that show how copper is similar to metals\
+    \ in Group I of\nthe Periodic Table.\n1   2   [2]\n\n(ii) Give two properties\
+    \ from the list that show how copper is different from metals in\nGroup I of the\
+    \ Periodic Table.\n1   2   [2]\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -308,7 +408,65 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nThis question is about organic compounds.\n\n(a) Organic compound Q has\
+    \ the following composition by mass.\nC, 50.00%;  H, 5.56%;  O, 44.44%\n\nCalculate\
+    \ the empirical formula of compound Q.\n\nempirical formula =  [3]\n\n(b) Organic\
+    \ compound R has the empirical formula CHO and a relative molecular mass of 116.\n\
+    \nDetermine the molecular formula of compound R.\n\nmolecular formula =  [1]\n\
+    \n(c) Carboxylic acids react with alcohols to form esters.\n\n(i) Name the other\
+    \ product that is formed when a carboxylic acid reacts with an alcohol [1]\n\n\
+    (ii) Name the type of catalyst that is used when a carboxylic acid reacts with\
+    \ an alcohol [1]\n\n(iii) Ester S has the structural formula CH3CH2COOCH2CH2CH2CH3.\n\
+    \n Name the carboxylic acid and the alcohol which react together to form ester\
+    \ S.\ncarboxylic acid   alcohol   [2]\n,\t,\n\n(d) Fig. 6.1 shows part of a polymer\
+    \ structure.\nH\nCH3\nC\nH\nCH3\nC\nH\nCH3\nC\nH\nCH3\nC\nH\nCH3\nC\nH\nCH3\n\
+    C\nFig. 6.1\n\n(i) Name the type of polymerisation that is used to produce this\
+    \ polymer [1]\n\n(ii) Suggest why it is not possible to write the molecular formula\
+    \ of this polymer [1]\n\n(iii) State the number of monomer units that are needed\
+    \ to make the part of the polymer\nstructure shown in Fig. 6.1 [1]\n\n(iv) Draw\
+    \ the displayed formula of the monomer used to make this polymer.\n[2]\n,\t,\n\
+    \n(e) Fig. 6.2 shows part of the general structure of an amino acid.\nH\nR\nC\n\
+    Fig. 6.2\n\n(i) Complete Fig. 6.2 to show all the atoms and all the bonds in the\
+    \ two functional groups of\nthe amino acid.\n[2]\n\n(ii) Part of a natural polyamide\
+    \ structure is shown in Fig. 6.3.\nH\nN\nH\nN\nO\nC\nC\nH\nO\nN\nO\nC\nFig. 6.3\n\
+    \n On Fig. 6.3, draw a circle around one amide linkage.\n[1]\n\n(iii) State the\
+    \ name given to natural polyamides made from amino acids [1]\n[Total: 17]\n,\t\
+    ,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n1\n2\nHe\nhelium\n4\n\
+    I\nII\nIII\nIV\nV\nVI\nVII\nVIII\n3\nLi\nlithium\n7\n4\nBe\nberyllium\n9\natomic\
+    \ number\natomic symbol\nKey\nname\nrelative atomic mass\n11\nNa\nsodium\n23\n\
+    12\nMg\nmagnesium\n24\n19\nK\npotassium\n39\n20\nCa\ncalcium\n40\n37\nRb\nrubidium\n\
+    85\n38\nSr\nstrontium\n88\n55\nCs\ncaesium\n133\n56\nBa\nbarium\n137\n87\nFr\n\
+    francium\n–\n88\nRa\nradium\n–\n5\nB\nboron\n11\n13\nAl\naluminium\n27\n31\nGa\n\
+    gallium\n70\n49\nIn\nindium\n115\n81\nTl\nthallium\n204\n113\nNh\nnihonium\n–\n\
+    6\nC\ncarbon\n12\n14\nSi\nsilicon\n28\n32\nGe\ngermanium\n73\n50\nSn\ntin\n119\n\
+    82\nPb\nlead\n207\n22\nTi\ntitanium\n48\n40\nZr\nzirconium\n91\n72\nHf\nhafnium\n\
+    178\n104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n51\n41\nNb\nniobium\n93\n73\n\
+    Ta\ntantalum\n181\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n52\n42\nMo\nmolybdenum\n\
+    96\n74\nW\ntungsten\n184\n106\nSg\nseaborgium\n–\n25\nMn\nmanganese\n55\n43\n\
+    Tc\ntechnetium\n–\n75\nRe\nrhenium\n186\n107\nBh\nbohrium\n–\n26\nFe\niron\n56\n\
+    44\nRu\nruthenium\n101\n76\nOs\nosmium\n190\n108\nHs\nhassium\n–\n27\nCo\ncobalt\n\
+    59\n45\nRh\nrhodium\n103\n77\nIr\niridium\n192\n109\nMt\nmeitnerium\n–\n28\nNi\n\
+    nickel\n59\n46\nPd\npalladium\n106\n78\nPt\nplatinum\n195\n110\nDs\ndarmstadtium\n\
+    –\n29\nCu\ncopper\n64\n47\nAg\nsilver\n108\n79\nAu\ngold\n197\n111\nRg\nroentgenium\n\
+    –\n30\nZn\nzinc\n65\n48\nCd\ncadmium\n112\n80\nHg\nmercury\n201\n112\nCn\ncopernicium\n\
+    –\n114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n–\n7\nN\nnitrogen\n14\n15\nP\n\
+    phosphorus\n31\n33\nAs\narsenic\n75\n51\nSb\nantimony\n122\n83\nBi\nbismuth\n\
+    209\n115\nMc\nmoscovium\n–\n8\nO\noxygen\n16\n16\nS\nsulfur\n32\n34\nSe\nselenium\n\
+    79\n52\nTe\ntellurium\n128\n84\nPo\npolonium\n–\n9\nF\nfluorine\n19\n17\nCl\n\
+    chlorine\n35.5\n35\nBr\nbromine\n80\n53\nI\niodine\n127\n85\nAt\nastatine\n–\n\
+    117\nTs\ntennessine\n–\n10\nNe\nneon\n20\n18\nAr\nargon\n40\n36\nKr\nkrypton\n\
+    84\n54\nXe\nxenon\n131\n86\nRn\nradon\n–\n118\nOg\noganesson\n–\n21\nSc\nscandium\n\
+    45\n39\nY\nyttrium\n89\n57–71\nlanthanoids\n89–103\nactinoids\n57\nLa\nlanthanum\n\
+    139\n89\nAc\nlanthanoids\nactinoids\nThe volume of one mole of any gas is 24 dm3\
+    \ at room temperature and pressure (r.t.p.).\nactinium\n–\n58\nCe\ncerium\n140\n\
+    90\nTh\nthorium\n232\n59\nPr\npraseodymium\n141\n91\nPa\nprotactinium\n231\n60\n\
+    Nd\nneodymium\n144\n92\nU\nuranium\n238\n61\nPm\npromethium\n–\n93\nNp\nneptunium\n\
+    –\n62\nSm\nsamarium\n150\n94\nPu\nplutonium\n–\n63\nEu\neuropium\n152\n95\nAm\n\
+    americium\n–\n64\nGd\ngadolinium\n157\n96\nCm\ncurium\n–\n65\nTb\nterbium\n159\n\
+    97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n163\n98\nCf\ncalifornium\n–\n67\nHo\n\
+    holmium\n165\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n167\n100\nFm\nfermium\n\
+    –\n69\nTm\nthulium\n169\n101\nMd\nmendelevium\n–\n70\nYb\nytterbium\n173\n102\n\
+    No\nnobelium\n–\n71\nLu\nlutetium\n175\n103\nLr\nlawrencium\n–\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

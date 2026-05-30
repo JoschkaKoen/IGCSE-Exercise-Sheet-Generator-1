@@ -204,7 +204,40 @@ questions:
 - number: '15'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: 'A government provides a subsidy for a product with a perfectly price inelastic
+    demand.
+
+    What prevents producers from benefiting from this subsidy?
+
+    15
+
+    A
+
+    B
+
+    C
+
+    The subsidy causes a large reduction in the price of the product, as its price
+    elasticity of demand
+
+    is infinite.
+
+    The subsidy causes a large reduction in the price of the product, as its price
+    elasticity of demand
+
+    is zero.
+
+    The subsidy causes a small reduction in the price of the product, as its price
+    elasticity of demand
+
+    is relatively elastic.
+
+    The subsidy causes a small reduction in the price of the product, as its price
+    elasticity of demand
+
+    is relatively inelastic.
+
+    D'
   answer_options:
   - letter: A
     text: A

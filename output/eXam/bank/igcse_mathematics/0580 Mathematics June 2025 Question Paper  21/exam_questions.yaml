@@ -2,7 +2,10 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\ny\nx\n0\n1\n1\n2\n3\n4\n5\n6\n7\n8\n9\n2\n3\n4\n5\n6\n7\n8\n\nThe line\
+    \   x\ny\n7\n+\n=\n   is drawn on the grid.\n\n(a) On the grid, draw the line\
+    \ y\nx\n2\n1\n=\n+ .\n[2]\n\n(b) Use your graph to solve these simultaneous equations.\n\
+    \n    x\ny\ny\nx\n7\n2\n1\n+\n=\n=\n+\n\nx =   y =   [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -20,19 +23,74 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: '7
+
+    Write the recurring decimal  .0 26o   as a fraction.
+
+
+    Give your answer in its simplest form [3]'
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: calculation
   marks: 3
-  text: ''
+  text: "4\nWork out.\n\n6\n5\n3\n2\n8\n3\n#\n-\n\n  [3]"
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+
+    m
+
+    n
+
+    11
+
+    5
+
+    8
+
+    3
+
+    =
+
+    = -
+
+    e
+
+    e
+
+    o
+
+    o
+
+
+    (a) Find 2m - n.
+
+
+    f
+
+    p   [2]
+
+
+    (b) The vector
+
+    y
+
+    5
+
+    e
+
+    o   has a magnitude of 7.
+
+
+    Find the value of y.
+
+
+    y =   [2]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -50,13 +108,45 @@ questions:
 - number: '9'
   question_type: calculation
   marks: 1
-  text: ''
+  text: '9
+
+    The table shows some information about the marks scored by a group of students
+    in a test.
+
+    Test mark
+
+    4
+
+    5
+
+    8
+
+    Frequency
+
+    2
+
+    4
+
+    n
+
+
+    The mean mark is 6.
+
+
+    Work out the value of n.
+
+
+    n =   [3]'
   answer_options: []
   subquestions: []
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10\nNOT TO\nSCALE\nD\nE\nA\nB\nC\nO\n35°\n40°\n\nA, B and C are three points\
+    \ on a circle, centre O.\n\nDE is a tangent to the circle at A.\n\nAngle\n°\n\
+    ACO\n35\n=\n and angle\n°\nBCO\n40\n=\n.\n\nFind\n\n(a) angle AOC\n\nAngle AOC\
+    \ =   [1]\n\n(b) angle ABC\n\nAngle ABC =   [1]\n\n(c) angle DAC\n\nAngle DAC\
+    \ =   [1]\n\n(d) angle OAB.\n\nAngle OAB =   [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -86,13 +176,19 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "1\nSimplify.\n\nc\nd\nc\nd\n7\n5\n3\n-\n+ +\n\n  [2]"
   answer_options: []
   subquestions: []
 - number: '11'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "11 The diagram shows the graph of\n( )\nf\ny\nx\n=\n  and the point\n(\n\
+    ,\n)\nP\n2 11\n-\n.\n0\n1\n5\n– 5\n– 10\n10\n15\n2\n3\n– 2\n– 1\ny\nP\nx\n\nThe\
+    \ tangent from P touches the graph of\n( )\nf\ny\nx\n=\n at the point (a, b).\n\
+    \nThe values of a and b are integers.\n\n(a) By drawing this tangent, find the\
+    \ value of a and the value of b.\n\na =   ,  b =  [2]\n\n(b) Find the equation\
+    \ of the tangent.\n\nGive your answer in the form y\nmx\nc\n=\n+ .\n\ny =   [3]\n\
+    ,\t\t,"
   answer_options: []
   subquestions:
   - number: 11a
@@ -110,7 +206,60 @@ questions:
 - number: '12'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '12 The time spent on the internet by each of 120 adults is recorded for one
+    day.
+
+
+    The cumulative frequency diagram shows this information.
+
+    0
+
+    0
+
+    Cumulative
+
+    frequency
+
+    Time (hours)
+
+    20
+
+    40
+
+    60
+
+    80
+
+    100
+
+    120
+
+    2
+
+    4
+
+    6
+
+    8
+
+    10
+
+
+    (a) Use the cumulative frequency diagram to find an estimate of the interquartile
+    range h [2]
+
+
+    (b) 70% of the adults spent less than k hours on the internet.
+
+
+    Use the cumulative frequency diagram to find an estimate of the value of k.
+
+
+    k =   [2]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions:
   - number: 12a
@@ -128,7 +277,12 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "13\n10 cm\n6 cm\nSolid A\nSolid B\n4 cm\nh cm\nNOT TO\nSCALE\n\nThe diagram\
+    \ shows solid A and solid B.\n\nSolid A is made from a hemisphere and a cone each\
+    \ with radius 6 cm.\n\nThe cone has sloping edge 10 cm.\n\nSolid B is a cylinder\
+    \ with radius 4 cm and height h cm.\n\nThe total surface area of solid A is equal\
+    \ to the total surface area of solid B.\n\n(a) Work out the value of h.\n\nh =\
+    \   [5]\n\n(b) Work out the height of solid A cm [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 13a
@@ -146,13 +300,40 @@ questions:
 - number: '2'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '2
+
+    158°
+
+    76°
+
+    x°
+
+    y°
+
+    w°
+
+    NOT TO
+
+    SCALE
+
+
+    The diagram shows two parallel lines intersecting two straight lines.
+
+
+    Find the values of w, x and y.
+
+
+    w =   x =   y =   [4]'
   answer_options: []
   subquestions: []
 - number: '14'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "14\n\n ( )\nf x\nx\n3\n4\n=\n-\n( )\ng x\nx\n4\n1\n=\n+\n\n(a)  Find (\n\
+    )\nf\n2\n-\n [1]\n\n(b)  Find\n( )\nf\nx\n1\n-\n.\n\n( )\nf\nx\n1\n=\n-\n   [2]\n\
+    \n(c)\n( )\nfg x\nax\nb\n=\n+\n\nFind the value of a, and the value of b.\n\n\
+    a =   b =  [2]\n\n(d) Simplify.\n\n( )\n( )\nf\ng\nx\nx\n2\n5\n-\n\nGive your\
+    \ answer as a single fraction in terms of x [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 14a
@@ -182,13 +363,17 @@ questions:
 - number: '3'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "3\nSally invests $1500 at 3% per year simple interest.\n\nWork out the total\
+    \ value of her investment at the end of 6 years.\n\n$   [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '15'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "15 (a) Expand and simplify.\n\n(\n)(\n)\n2\n5 1\n3 5\n-\n-\n\n  [2]\n\n(b)\
+    \ Rationalise the denominator.\n\nGive your answer in its simplest form.\n\n10\n\
+    6\n\n  [2]\n16 Expand and simplify.\n\n(\n)(\n)(\n)\nx\nx\nx\n4\n3 3\n2\n+\n-\n\
+    +\n\n [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 15a
@@ -206,7 +391,12 @@ questions:
 - number: '5'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '5
+
+    The interior angle of a regular polygon is 150°.
+
+
+    Find the number of sides of this polygon [2]'
   answer_options: []
   subquestions: []
 - number: '16'
@@ -218,7 +408,14 @@ questions:
 - number: '17'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "17 (a) A bag contains 6 red marbles, 3 green marbles and 1 blue marble.\n\
+    \nTwo marbles are picked at random from the bag with replacement.\n\nFind the\
+    \ probability that both marbles are green [2]\n\n(b) Another bag contains 4 red\
+    \ counters and 2 yellow counters.\n\nTwo counters are picked at random from this\
+    \ bag without replacement.\n\n(i) Complete the tree diagram.\nFirst\ncounter\n\
+    Second\ncounter\n Red\nYellow\nRed\nYellow\nRed\nYellow\n4\n6\n3\n5\n 2\n6\n\n\
+    [2]\n\n(ii) Find the probability that one of the two counters is yellow [3]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 17a
@@ -248,7 +445,14 @@ questions:
 - number: '18'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "18 One day, Anya runs 12 km at a speed of x km/h.\n\nThe next day she walks\
+    \ 10 km at a speed of (\n)\nx\n4\n-\n km/h.\n\n(a) Write down an expression, in\
+    \ terms of x, for the time she spends running h [1]\n\n(b) Write down an expression,\
+    \ in terms of x, for the time she spends walking h [1]\n\n(c) The time Anya spends\
+    \ walking is 1 hour more than the time she spends running.\n\nWrite an equation\
+    \ in terms of x and show that it simplifies to   x\nx\n2\n48\n0\n2 -\n-\n=\n.\n\
+    \n[4]\n\n(d) Use factorisation to solve the equation   x\nx\n2\n48\n0\n2 -\n-\n\
+    =\n.\n\nx =   or x =  [3]\n\n(e) Find the time Anya spends running h [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 18a
@@ -284,19 +488,45 @@ questions:
 - number: '19'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '19 Find the value of   27
+
+    3
+
+    2
+
+    -   [2]'
   answer_options: []
   subquestions: []
 - number: '20'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '20
+
+    6 cm
+
+    x cm
+
+    NOT TO
+
+    SCALE
+
+    30°
+
+
+    Find the exact value of x.
+
+
+    x =   [4]'
   answer_options: []
   subquestions: []
 - number: '21'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "21\nA\nB\nO\nC\nP\nNOT TO\nSCALE\nn\n2m\n\nOABC is a rhombus and O is the\
+    \ origin.\n\nThe diagonals of the rhombus intersect at P.\n\nand\nm\nn\n2\nOP\n\
+    AP\n=\n=\n.\n\n(a) Find, in terms of m and n, in its simplest form\n\n(i)\nOA\n\
+    \nOA =   [1]\n\n(ii)\nOC.\n\nOC =   [1]\n\n(b) D is the point such that\n10\n\
+    3\nAD\nm\nn\n=\n-\n.\n\nShow that OADC is a trapezium.\n\n[3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 21a
@@ -326,7 +556,66 @@ questions:
 - number: '22'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '22 A curve has equation   y
+
+    x
+
+    qx
+
+    x
+
+    9
+
+    n
+
+    2
+
+    =
+
+    +
+
+    +
+
+    .
+
+
+    x
+
+    y
+
+    x
+
+    x
+
+    3
+
+    12
+
+    9
+
+    d
+
+    d
+
+    2
+
+    =
+
+    -
+
+    +
+
+
+    (a) Find the value of n, and the value of q.
+
+
+    n =   q =  [2]
+
+
+    (b) Work out the coordinates of the turning points of the curve.
+
+
+    ( ,  ) and ( ,  ) [4]'
   answer_options: []
   subquestions:
   - number: 22a

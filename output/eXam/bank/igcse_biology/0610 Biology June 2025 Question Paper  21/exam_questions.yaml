@@ -140,7 +140,23 @@ questions:
 - number: '10'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: '10 Which term is used for the uptake and use of nutrients by cells?
+
+    A
+
+    absorption
+
+    B
+
+    assimilation
+
+    C
+
+    egestion
+
+    D
+
+    ingestion'
   answer_options:
   - letter: A
     text: A

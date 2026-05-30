@@ -2,7 +2,27 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Solutions of Group 2 hydrogencarbonates, M(HCO3)2, decompose on heating\
+    \ to give the\ncorresponding metal carbonate, carbon dioxide and water.\n\n(i)\
+    \ Write an equation for the decomposition of strontium hydrogencarbonate, Sr(HCO3)2\
+    \ [1]\n\n(ii) The thermal stability of Group 2 carbonates increases down the group.\n\
+    \n Explain this trend [2]\n\n(b) The hydroxides and fluorides of Group 2 elements\
+    \ show similar trends in solubility.\n\nDescribe the trend in the solubility of\
+    \ the fluorides of calcium, strontium and barium.\n\nExplain your answer least\
+    \ soluble\n\nmost soluble\nexplanation   [4]\n,\t,\n\n(c) (i) Define enthalpy\
+    \ change of hydration, ΔHhyd [1]\n\n(ii) State the main factors that affect the\
+    \ magnitude of enthalpy change of hydration.\n\n Explain your answer [2]\n\n(d)\
+    \ Table 1.1 shows various energy changes.\nTable 1.1\nenergy change\nvalue / kJ\
+    \ mol–1\nlattice energy of MgF2\n–2957\nenthalpy change of hydration, ΔHhyd, of\
+    \ Mg2+\n–1926\nenthalpy change of hydration, ΔHhyd, of F–\n–505\n\nUse data from\
+    \ Table 1.1 to calculate the enthalpy change of solution, ΔHsol, for MgF2(s).\n\
+    \nIt may be helpful to draw a labelled energy cycle. Show your working.\n\nΔHsol\
+    \ of MgF2(s) =  kJ mol–1 [2]\n,\t,\n\n(e) Mercury(I) fluoride, Hg2F2, is sparingly\
+    \ soluble in water.\n\nThe cation in Hg2F2 exists as the diatomic ion Hg2\n2+\
+    \ with a covalent Hg–Hg bond.\n\n(i) Write the expression for the solubility product,\
+    \ Ksp, of Hg2F2. Include the units.\n\n Ksp =\n\nunits  [2]\n\n(ii) The solubility\
+    \ of Hg2F2 is 9.20 × 10–3 mol dm–3 at 298 K.\n\n Calculate the value of Ksp of\
+    \ Hg2F2 at 298 K.\n\nKsp =  [1]\n\n[Total: 15]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -74,7 +94,21 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Iron can form stable ions in the +2 and +3 oxidation states.\n\nExplain\
+    \ why transition elements have variable oxidation states [1]\n\n(b) Aqueous solutions\
+    \ of iron(II) salts contain the complex ion [Fe(H2O)6]2+.\n\nDefine complex ion\
+    \ [1]\n\n(c) [Fe(H2O)6]2+ can be converted into [Fe(H2O)4(OH)2].\n\n(i) Suggest\
+    \ a suitable reagent for this conversion. State the type of reaction.\nreagent\
+    \   type of reaction   [1]\n\n(ii) [Fe(H2O)4(OH)2] is a green precipitate that\
+    \ turns brown on standing in air.\n\n Table 2.1 shows electrode potentials for\
+    \ some electrode reactions.\nTable 2.1\nelectrode reaction\nE o  / V\nFe(H2O)3(OH)3\
+    \  +  H2O  +  e–\n  Fe(H2O)4(OH)2  +  OH–\n–0.56\nO2  +  2H2O  +  4e–\n  4OH–\n\
+    +0.40\n\n Use the information in Table 2.1 to explain why [Fe(H2O)4(OH)2] turns\
+    \ brown on standing\nin air.\n\n Include an equation for this reaction [3]\n,\t\
+    ,\n\n(d) The complex [Co(NH3)6]2+ reacts with hydrogen peroxide as shown.\n\n\
+    reaction 1  2[Co(NH3)6]2+  +  H2O2\n  2[Co(NH3)6]3+  +  2OH–\nE cell\no  = +1.67\
+    \ V\n\nCalculate ΔG o , in kJ mol–1, for reaction 1.\n\nΔG o  =  kJ mol–1 [2]\n\
+    \n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -116,7 +150,28 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Solid manganese(IV) oxide, MnO2, catalyses the decomposition of hydrogen\
+    \ peroxide.\n2H2O2(aq)\n  2H2O(l)  +  O2(g)\n\nState the type of catalysis for\
+    \ this reaction. Explain your answer [1]\n\n(b) Hydrogen peroxide reacts with\
+    \ iodide ions in acidic conditions as shown.\nH2O2  +  2I–  +  2H+\n  2H2O  +\
+    \  I2\n\nThe initial rate of this reaction is investigated with different concentrations\
+    \ of H2O2, I– and H+.\nThe results obtained are shown in Table 3.1.\nTable 3.1\n\
+    experiment\n[H2O2] / mol dm–3\n[I–] / mol dm–3\n[H+] / mol dm–3\ninitial rate\
+    \ / mol dm–3 s–1\n1\n0.0450\n0.0300\n0.0125\n2.42 × 10–3\n2\n0.0225\n0.0600\n\
+    0.0125\n2.42 × 10–3\n3\n0.0225\n0.120\n0.0125\n4.84 × 10–3\n4\n0.0450\n0.120\n\
+    0.0500\n9.68 × 10–3\n\n(i) Use the information in Table 3.1 to deduce the rate\
+    \ equation for this reaction.\n\n Explain your reasoning [4]\n\n(ii) Use your\
+    \ rate equation from (b)(i) and the data from Experiment 1 to calculate the rate\n\
+    constant, k, for this reaction. Include the units of k.\n\nk =  units  [2]\n,\t\
+    \t,\n\n(c) The rate of the thermal decomposition of azomethane, CH3N=NCH3, is\
+    \ investigated.\nCH3N=NCH3\n  N2  +  C2H6\n\nFig. 3.1 shows the results obtained.\
+    \ The reaction is first order with respect to CH3N=NCH3.\n0.06\n0.05\n0.04\n0.03\n\
+    0.02\n0.01\n0\n0\n50\n100\n150\n200\n250\n300\n350\n400\n[CH3N=NCH3] / mol dm–3\n\
+    time / s\nFig. 3.1\n\n(i) Use Fig. 3.1 to calculate two half-lives, t\n2\n1, to\
+    \ show that the reaction is first order [2]\n\n(ii) Use your answer to (c)(i)\
+    \ to calculate the rate constant, k, for the decomposition of\nazomethane.\n\n\
+    k =  s–1 [1]\n\n(d) Describe the effect of increasing temperature on the rate\
+    \ constant and on the rate of a\nreaction [1]\n\n[Total: 11]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -170,7 +225,28 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Define standard cell potential, E cell\no . Include a description\
+    \ of standard conditions [2]\n\n(b) The Daniell cell is an electrochemical cell\
+    \ consisting of a Cu2+(aq) / Cu(s) electrode and a\nZn2+(aq) / Zn(s) electrode.\n\
+    \n(i) Draw a labelled diagram of this electrochemical cell.\n\n Include all necessary\
+    \ substances and relevant pieces of apparatus needed to measure\nthe E cell\n\
+    o .\n\n It is not necessary to state the conditions used.\n\n[3]\n\n(ii) State\
+    \ the charge carriers that transfer current through the solutions and through\
+    \ the wire.\n\n the solutions  the wire  [1]\n\n(iii) The standard electrode potential,\
+    \ E o , for the Zn2+(aq) / Zn(s) electrode is –0.76 V.\n\n Water is added to a\
+    \ standard Zn2+(aq) / Zn(s) electrode.\n\n The new concentration of Zn2+(aq) is\
+    \ 0.25 mol dm–3.\n\n Use the Nernst equation to calculate the electrode potential,\
+    \ E, for this new Zn2+(aq) / Zn(s)\nelectrode.\n\nE (Zn2+(aq) / Zn(s)) =  V [2]\n\
+    \n(c) An electrochemical cell consists of a ZnO / Zn electrode and a MnO2 / Mn2O3\
+    \ electrode in an\nalkaline electrolyte.\n\nThe standard cell potential, E cell\n\
+    o , for this cell is +1.47 V.\n\nThe half-equation at each electrode when this\
+    \ cell is discharging is shown.\nZn  +  2OH–\n  ZnO  +  H2O  +  2e–\n2MnO2  +\
+    \  H2O  +  2e–\n  Mn2O3  +  2OH–\n\n(i) Use this information to determine the\
+    \ change in oxidation state of manganese when this\ncell is discharging.\n\nfrom\
+    \  to  [1]\n\n(ii) Write the equation for the overall reaction that occurs when\
+    \ this cell is discharging [1]\n\n(iii) The E o  for the ZnO / Zn electrode is\
+    \ –1.28 V.\n\n Calculate the standard electrode potential, E o, for the MnO2 /\
+    \ Mn2O3 electrode.\n\nE o  (MnO2 / Mn2O3) =  V [1]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -230,7 +306,32 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) Copper shows typical properties of transition elements, including\
+    \ its behaviour as a catalyst.\n\nComplete Table 5.1 to show the total number\
+    \ of unpaired electrons in the 3d and 4s orbitals\nof an isolated gaseous Cu atom\
+    \ and a Cu2+ ion.\nTable 5.1\nspecies\nnumber of unpaired electrons\n3d\n4s\n\
+    Cu\nCu2+\n\n[1]\n\n(b) The 3d orbitals in an isolated Cu2+ ion are degenerate.\n\
+    \nComplete the diagram to show the relative energies of the 3d orbitals in an\
+    \ isolated Cu2+ ion\nand in Cu2+ in a tetrahedral complex.\nenergy\nisolated Cu2+\
+    \ ion\nCu2+ in a tetrahedral complex\n\n[2]\n\n(c) Explain why transition elements\
+    \ behave as catalysts [2]\n,\t,\n\n(d) CN– is a monodentate ligand.\n\nTable 5.2\
+    \ shows information about two complex ions that contain only CN– ions as ligands.\n\
+    \nComplete Table 5.2.\nTable 5.2\nmetal ion\ncoordination number\nformula of complex\
+    \ ion\ncharge of complex ion\nAg+\n2\nFe2+\n4–\n\n[2]\n\n(e) The complex ion [Au(CN)2Br2]–\
+    \ displays geometrical (cis / trans) isomerism.\n\nDraw the structure of trans-[Au(CN)2Br2]–.\
+    \ State its shape and the Br-Au-Br bond angle.\n\nshape  Br-Au-Br bond angle =\
+    \  [2]\n,\t,\n\n(f) An impure sample of a vanadium(V) compound of mass 0.250 g\
+    \ is dissolved in aqueous acid.\nThis solution contains VO3\n– ions.\n\nAn excess\
+    \ of zinc is added to this solution. All the VO3\n– ions are reduced to V2+ ions\
+    \ and Zn\natoms are oxidised to Zn2+ ions.\n\nThe unreacted zinc is removed and\
+    \ the resulting solution is titrated with acidified MnO4\n–.\n\nThe end-point\
+    \ is reached when 22.5 cm3 of 0.0750 mol dm–3 MnO4\n– is added.\n\nA redox reaction\
+    \ takes place and all the V2+ reacts forming VO3\n–.\n3MnO4\n–  +  5V2+  +  3H2O\n\
+    \  3Mn2+  +  5VO3\n–  +  6H+\n\n(i) Calculate the percentage by mass of vanadium\
+    \ in the 0.250 g of impure sample.\n\n Assume the impurities do not contain any\
+    \ vanadium ions.\n\n Show your working.\n\npercentage of vanadium =  [3]\n\n(ii)\
+    \ Complete the equation for the reaction between acidified VO3\n– ions and Zn\
+    \ metal VO3\n–  +   Zn  +   V2+  +   Zn2+  +   [2]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -284,7 +385,20 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Thin-layer and gas / liquid chromatography can be used to separate\
+    \ mixtures into their\nindividual components.\n\n(i) Define the following terms\
+    \ used in chromatography.\nRf value   retention time   [2]\n\n(ii) Each type of\
+    \ chromatography makes use of a stationary phase and a mobile phase.\n\n Complete\
+    \ Table 6.1 with a description of each of these.\nTable 6.1\nstationary phase\n\
+    mobile phase\nthin-layer chromatography\ngas / liquid chromatography\n\n[1]\n\n\
+    (b) A mixture of two substances A and B is analysed by thin-layer chromatography.\n\
+    \nThe Rf value of substance A is larger than that of substance B.\n\nSuggest why\
+    \ substance A has a larger Rf value [1]\n,\t,\n\n(c) The two isomeric compounds\
+    \ Y and Z are analysed by proton (1H) NMR spectroscopy.\nO\nO\nO\nO\nY\nZ\n\n\
+    (i) Complete Table 6.2 to predict the number of peaks observed in the proton (1H)\
+    \ NMR\nspectra for Y and Z.\nTable 6.2\ncompound\nnumber of peaks observed\nY\n\
+    Z\n\n[1]\n\n(ii) Name all the different splitting patterns observed in the proton\
+    \ (1H) NMR spectra for Y\nand Z.\nY   Z   [2]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -332,7 +446,22 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\n(a) State the relative acidities of bromoethanoic acid, BrCH2COOH, chloroethanoic\
+    \ acid,\nCl CH2COOH, ethanoic acid, CH3COOH and ethanol, CH3CH2OH.\n\nExplain\
+    \ your answer most acidic\nleast acidic\n  [4]\n\n(b) Fig. 7.1 shows the reaction\
+    \ of methylbenzene and ethanedioic acid with KMnO4.\n\nPredict the major carbon-containing\
+    \ product for each of these reactions.\nhot alkaline KMnO4\nhot acidified KMnO4\n\
+    HO\nO\nO\nOH\nmethylbenzene\nethanedioic acid\nFig. 7.1\n\n[2]\n,\t\t,\n\n(c)\
+    \ Polyamide X can be synthesised from ethanedioic acid and benzene-1,4-diamine.\n\
+    benzene-1,4-diamine\nH2N\nNH2\n\n(i) Draw the repeat unit of polyamide X in the\
+    \ box.\n\n The new functional group formed should be shown displayed.\npolyamide\
+    \ X\n\n[2]\n\n(ii) Benzene-1,4-diamine can be formed by reduction of 1,4-dinitrobenzene.\n\
+    \n Complete the equation for this reduction.\n\n [H] represents one atom of hydrogen\
+    \ from a reducing agent.\nH2N\n+   [H]\nNH2  +\n [1]\n,\n,\n\n(d) Fig. 7.2 shows\
+    \ the two-step synthesis of the azo compound W.\nH2N\nNH2\nstep 1\nstep 2\nV C6H4N4Cl2\n\
+    W   C18H14N4O2\nOH\nand NaOH(aq)\nFig. 7.2\n\n(i) Suggest structures for compounds\
+    \ V and W and draw them in the boxes in Fig. 7.2. [2]\n\n(ii) Give the reagents\
+    \ and conditions for step 1 [1]\n\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -386,7 +515,26 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a) In the electrophilic substitution of arenes, different substituents\
+    \ can direct to different ring\npositions.\n\n(i) Describe the directing effect\
+    \ of the –NO2 group. Explain your answer [1]\n\n(ii) The nitration of arenes uses\
+    \ a mixture of concentrated HNO3 and concentrated H2SO4 to\ngenerate the NO2\n\
+    + electrophile.\n\n Write an equation for the formation of the NO2\n+ electrophile\
+    \ [1]\n\n(b) Carbon-carbon bond formation is an important reaction in organic\
+    \ synthesis.\n\nFig. 8.1 shows the synthesis of compound Q from benzene in two\
+    \ reaction steps.\nreaction 1\nreaction 2\ncompound P\ncompound Q\nO\nFig. 8.1\n\
+    \n(i) Draw the structure of compound P in the box in Fig. 8.1.\n[1]\n\n(ii) Suggest\
+    \ reagents and conditions for reactions 1 and 2 in Fig. 8.1.\nreaction 1   reaction\
+    \ 2   [2]\n,\t,\n\n(c) Separate samples of C6H5Br and C6H5CH2Br are added to warm\
+    \ AgNO3(aq).\n\nState the expected observations, if any. Explain your answer.\n\
+    \nC6H5Br with AgNO3(aq)\n C6H5CH2Br with AgNO3(aq)\n explanation   [3]\n\n(d)\
+    \ Acyl bromides, RCOBr, react readily with H2O.\n\nThe mechanism of this reaction\
+    \ is similar to that of the reaction of H2O with acyl chlorides,\nRCOCl.\n\n(i)\
+    \ Name the mechanism of this reaction [1]\n\n(ii) Complete the mechanism in Fig.\
+    \ 8.2 for the reaction of RCOBr with H2O.\n\n Include all relevant lone pairs\
+    \ of electrons, curly arrows, charges and dipoles.\n\n Draw the structure of the\
+    \ intermediate.\nintermediate\nproducts\nO\nC\nR\nBr\nO\nH\nH\nFig. 8.2\n[4]\n\
+    \n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -452,7 +600,66 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\n(a) Explain why amides are much weaker bases than amines [2]\n\n(b) Fig.\
+    \ 9.1 shows the preparation of 2-phenylethylamine, C6H5CH2CH2NH2, by three different\n\
+    routes.\nH2/Ni\nM\nN\nO\nNH2\nNH2\nreaction 1\n2-phenylethylamine\nNH3\nFig. 9.1\n\
+    \n(i) Suggest structures for compounds M and N and draw them in the boxes in Fig.\
+    \ 9.1. [2]\n\n(ii) Give the reagents and conditions for reaction 1 [1]\n,\t,\n\
+    \n(c) Fig. 9.2 shows compound H which is a useful starting material in organic\
+    \ synthesis.\nO\nN\nH\nH\nFig. 9.2\n\nH contains an alkene and an amine functional\
+    \ group.\n\nName the other functional group and give the classification of the\
+    \ amine group in H.\n\nother functional group in H  classification of amine\n\
+    \ [1]\n\n(d) Ozonolysis involves the oxidative cleavage of a C=C bond in alkenes\
+    \ using ozone, O3, as\nshown in Fig. 9.3.\nR1\nR2\nR3\nO3\nR2\nR1\nR3\nR4\nR4\n\
+    O\nO\n+\nFig. 9.3\n\nFig. 9.4 shows the first step in this reaction which involves\
+    \ the formation of an ozonide\nintermediate.\nR1\nR2\nR3\nR4\nR2\nR1\nR4\nR3\n\
+    O\nO\nO\nO\nO\nO\n+\n-\nozonide\nFig. 9.4\n\n(i) On Fig. 9.4, draw three curly\
+    \ arrows to complete the mechanism of this step.\n[2]\n,\t,\n\n(ii)  L is formed\
+    \ from alkene K, C8H14, by a similar reaction to that shown in Fig. 9.3.\nO\n\
+    O\nL\n\n Suggest the structure of K.\nK  C8H14\n\n[1]\n\n[Total: 9]\n,\t,\nImportant\
+    \ values, constants and standards\nmolar gas constant\nR = 8.31 J K–1 mol–1\n\
+    Faraday constant\nF = 9.65 × 104 C mol–1\nAvogadro constant\nL = 6.02 × 1023 mol–1\n\
+    electronic charge\ne = –1.60 × 10–19 C\nmolar volume of gas\nVm = 22.4 dm3 mol–1\
+    \ at s.t.p. (101 kPa and 273 K)\nVm = 24.0 dm3 mol–1 at room conditions\nionic\
+    \ product of water\nKw = 1.00 × 10–14 mol2 dm–6 (at 298 K (25 °C))\nspeciﬁc heat\
+    \ capacity of water\nc = 4.18 kJ kg–1 K–1 (4.18 J g–1 K–1)\n,\t,\nGroup\nThe Periodic\
+    \ Table of Elements\n1\nH\nhydrogen\n1.0\n2\nHe\nhelium\n4.0\n1\n2\n13\n14\n15\n\
+    16\n17\n18\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n3\nLi\nlithium\n6.9\n4\nBe\nberyllium\n\
+    9.0\natomic number\natomic symbol\nKey\nname\nrelative atomic mass\n11\nNa\nsodium\n\
+    23.0\n12\nMg\nmagnesium\n24.3\n19\nK\npotassium\n39.1\n20\nCa\ncalcium\n40.1\n\
+    37\nRb\nrubidium\n85.5\n38\nSr\nstrontium\n87.6\n55\nCs\ncaesium\n132.9\n56\n\
+    Ba\nbarium\n137.3\n87\nFr\nfrancium\n–\n88\nRa\nradium\n–\n5\nB\nboron\n10.8\n\
+    13\nAl\naluminium\n27.0\n31\nGa\ngallium\n69.7\n49\nIn\nindium\n114.8\n81\nTl\n\
+    thallium\n204.4\n6\nC\ncarbon\n12.0\n14\nSi\nsilicon\n28.1\n32\nGe\ngermanium\n\
+    72.6\n50\nSn\ntin\n118.7\n82\nPb\nlead\n207.2\n22\nTi\ntitanium\n47.9\n40\nZr\n\
+    zirconium\n91.2\n72\nHf\nhafnium\n178.5\n104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n\
+    50.9\n41\nNb\nniobium\n92.9\n73\nTa\ntantalum\n180.9\n105\nDb\ndubnium\n–\n24\n\
+    Cr\nchromium\n52.0\n42\nMo\nmolybdenum\n95.9\n74\nW\ntungsten\n183.8\n106\nSg\n\
+    seaborgium\n–\n25\nMn\nmanganese\n54.9\n43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n\
+    186.2\n107\nBh\nbohrium\n–\n26\nFe\niron\n55.8\n44\nRu\nruthenium\n101.1\n76\n\
+    Os\nosmium\n190.2\n108\nHs\nhassium\n–\n27\nCo\ncobalt\n58.9\n45\nRh\nrhodium\n\
+    102.9\n77\nIr\niridium\n192.2\n109\nMt\nmeitnerium\n–\n28\nNi\nnickel\n58.7\n\
+    46\nPd\npalladium\n106.4\n78\nPt\nplatinum\n195.1\n110\nDs\ndarmstadtium\n–\n\
+    29\nCu\ncopper\n63.5\n47\nAg\nsilver\n107.9\n79\nAu\ngold\n197.0\n111\nRg\nroentgenium\n\
+    –\n30\nZn\nzinc\n65.4\n48\nCd\ncadmium\n112.4\n80\nHg\nmercury\n200.6\n112\nCn\n\
+    copernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n–\n7\nN\nnitrogen\n\
+    14.0\n15\nP\nphosphorus\n31.0\n33\nAs\narsenic\n74.9\n51\nSb\nantimony\n121.8\n\
+    83\nBi\nbismuth\n209.0\n8\nO\noxygen\n16.0\n16\nS\nsulfur\n32.1\n34\nSe\nselenium\n\
+    79.0\n52\nTe\ntellurium\n127.6\n84\nPo\npolonium\n–\n9\nF\nfluorine\n19.0\n17\n\
+    Cl\nchlorine\n35.5\n35\nBr\nbromine\n79.9\n53\nI\niodine\n126.9\n85\nAt\nastatine\n\
+    –\n10\nNe\nneon\n20.2\n18\nAr\nargon\n39.9\n36\nKr\nkrypton\n83.8\n54\nXe\nxenon\n\
+    131.3\n86\nRn\nradon\n–\n113\nNh\nnihonium\n–\n115\nMc\nmoscovium\n–\n117\nTs\n\
+    tennessine\n–\n118\nOg\noganesson\n–\n21\nSc\nscandium\n45.0\n39\nY\nyttrium\n\
+    88.9\n57–71\nlanthanoids\n89–103\nactinoids\n57\nLa\nlanthanum\n138.9\n89\nAc\n\
+    lanthanoids\nactinoids\nactinium\n–\n58\nCe\ncerium\n140.1\n90\nTh\nthorium\n\
+    232.0\n59\nPr\npraseodymium\n140.9\n91\nPa\nprotactinium\n231.0\n60\nNd\nneodymium\n\
+    144.2\n92\nU\nuranium\n238.0\n61\nPm\npromethium\n–\n93\nNp\nneptunium\n–\n62\n\
+    Sm\nsamarium\n150.4\n94\nPu\nplutonium\n–\n63\nEu\neuropium\n152.0\n95\nAm\namericium\n\
+    –\n64\nGd\ngadolinium\n157.3\n96\nCm\ncurium\n–\n65\nTb\nterbium\n158.9\n97\n\
+    Bk\nberkelium\n–\n66\nDy\ndysprosium\n162.5\n98\nCf\ncalifornium\n–\n67\nHo\n\
+    holmium\n164.9\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n167.3\n100\nFm\nfermium\n\
+    –\n69\nTm\nthulium\n168.9\n101\nMd\nmendelevium\n–\n70\nYb\nytterbium\n173.1\n\
+    102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175.0\n103\nLr\nlawrencium\n–\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 9a

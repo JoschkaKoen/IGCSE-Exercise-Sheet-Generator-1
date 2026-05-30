@@ -2,7 +2,21 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Fig. 1.1 shows a pyramid of energy for an ecosystem.\n98\n822\n9804\n\
+    11 212\nenergy / J\n4\n3\n2\n1\ntrophic level\nFig. 1.1\n\n(i) State where the\
+    \ organisms in trophic level 1 in Fig. 1.1 get their energy from [1]\n\n(ii) Calculate\
+    \ the percentage of energy transferred between trophic levels 2 and 3 in Fig.\
+    \ 1.1.\n\n Give your answer to one significant figure [2]\n\n(iii) State two reasons\
+    \ why the energy decreases between trophic levels 1 and 4, as shown\nin Fig. 1.1.\n\
+    1   2   [2]\n\n(iv) Describe the advantages of representing food chains using\
+    \ a pyramid of energy\ncompared with a pyramid of biomass [2]\n,\t,\n\n(b) A new\
+    \ species was introduced to an ecosystem.\n\nFig. 1.2 shows the changes in the\
+    \ population as the species established itself in the\necosystem.\npopulation\
+    \ size\nof the new species\ntime\nX\nFig. 1.2\n\n(i) Complete the sentence to\
+    \ describe the term population.\n\n A population is a group of organisms of one\
+    \ species living in the same\n\n at the same  [1]\n\n(ii) Describe and explain\
+    \ the reasons for the shape of the graph at X in Fig. 1.2 [5]\n\n[Total: 13]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -56,7 +70,24 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) The human retina contains receptor cells called rods and cones.\n\n\
+    Fig. 2.1 shows the distribution of receptor cells in a human retina.\n80\n60\n\
+    40\n20\n0\n20\n40\n60\n80\n0\n50 000\n100 000\n150 000\nnumber of\nreceptors\n\
+    per mm2\ndistance from the fovea / arbitrary units\nblind spot\nfovea\nkey\nrods\n\
+    cones\nFig. 2.1\n\nUsing the information in Fig. 2.1, describe the differences\
+    \ in the distribution of rods and cones [4]\n,\t,\n\n(b) Nocturnal animals are\
+    \ active at night.\n\nSuggest how the number of receptor cells in the retina of\
+    \ a nocturnal animal differs from\nthose in the retina of an animal that is active\
+    \ in the day.\n\nExplain your suggestion [2]\n\n(c) In humans, the size of the\
+    \ iris increases in bright light conditions.\n\nDuring this response one effector\
+    \ in the iris contracts and one effector relaxes.\n\n(i) State the name of this\
+    \ response [1]\n\n(ii) State the name of the effector that contracts in this response\
+    \ [1]\n\n(iii) State the name of the type of action shown by the paired effectors\
+    \ during this response [1]\n,\t,\n\n(d) The optic nerve contains many neurones.\n\
+    \nFig. 2.2 shows a synapse between two neurones.\nneurone 1\nneurone 2\nsynaptic\n\
+    gap\nA\nB\ndirection\nof impulse\nC\nFig. 2.2\n\n(i) State the names of the parts\
+    \ labelled A, B and C in Fig. 2.2.\nA   B   C   [3]\n\n(ii) Explain how part C\
+    \ in Fig. 2.2 moves across the synaptic gap [2]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -116,7 +147,17 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Fig. 3.1 shows one stage involved in plant reproduction after pollination.\n\
+    X\nstigma\npollen grain\ncarpel\nFig. 3.1\n\n(i) State the name of the part labelled\
+    \ X in Fig. 3.1 [1]\n\n(ii) Describe the events that occur after the stage shown\
+    \ in Fig. 3.1 that result in fertilisation [3]\n,\t\t,\n\n(b) A species of plant\
+    \ can use self-pollination and cross-pollination.\n\n(i) Suggest reasons for this\
+    \ species of plant to use self-pollination rather than\ncross-pollination [3]\n\
+    \n(ii) Discuss the potential effects of only using self-pollination in a population\
+    \ of plants [3]\n\n(c) Meiosis produces gametes and is a source of genetic variation.\n\
+    \nState two other sources of genetic variation in populations.\n1   2   [2]\n\
+    ,\n,\n\n(d) Describe mitosis and its roles in organisms [4]\n\n(e) State the name\
+    \ of the unspecialised cells that divide by mitosis [1]\n\n[Total: 17]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -176,7 +217,16 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nThe kidney is an organ in the excretory system.\n\n(a) Describe what is\
+    \ meant by the term excretion [2]\n\n(b) State the name of the substance excreted\
+    \ by the lungs [1]\n\n(c) Fig. 4.1 shows a simplified diagram of a cross-section\
+    \ of a kidney.\nP\nQ\nR\nFig. 4.1\n\nState the names of the parts labelled P,\
+    \ Q and R in Fig. 4.1.\nP   Q   R   [3]\n,\t,\n\n(d) Fig. 4.2 shows the structure\
+    \ of a kidney nephron.\nX\nY\nZ\ndirection of flow\nto structure Q in Fig. 4.1\n\
+    Fig. 4.2\n\nDescribe and explain the difference in the composition of the fluids\
+    \ in structures X, Y and Z in\nFig. 4.2 [6]\n,\t,\n\n(e) The liver is also involved\
+    \ in excretion.\n\nDescribe two ways that amino acids are processed in the liver.\n\
+    1   2   [2]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -212,7 +262,19 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) Organisms can be classified by their features and by studying the\
+    \ sequence of bases in their\nDNA.\n\nFig. 5.1 is a diagram showing the evolutionary\
+    \ relationships between some different groups\nof organisms.\n\nEach branch shows\
+    \ the point at which organisms developed new features that classify them\nas a\
+    \ new group.\n\nThe point where the branch starts also indicates a common ancestor\
+    \ shared by the new\ngroups.\nB\nA\nsharks\nbony fish\napes\nrodents\ncrocodiles\n\
+    birds\nmillions of years ago\ntoday\nFig. 5.1\n\n(i) Suggest which visible features\
+    \ have developed at A and B in Fig. 5.1.\nA   B   [2]\n\n(ii) Identify the names\
+    \ of the two groups that share the most recent common ancestor in\nFig. 5.1 and\
+    \   [1]\n\n(iii) Suggest the groups with the most similar and least similar DNA\
+    \ base sequences to\ncrocodiles in Fig. 5.1.\nmost similar   least similar   [2]\n\
+    ,\t,\n\n(b) Describe the structure of a DNA molecule [4]\n\n(c) Outline how the\
+    \ base sequences in DNA control cell function [3]\n\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -254,7 +316,20 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Some maize seeds were pinned on a board and provided with light from\
+    \ all directions.\n\nThe board was placed in a clinostat that rotated the board.\n\
+    \nThe board was rotated continuously as the seeds germinated and the roots grew.\n\
+    \nFig. 6.1 shows the apparatus and results after 5 days.\nclinostat\nboard\nroot\n\
+    maize seed\npinned to the board\nFig. 6.1\n\n(i) Complete the sentences to explain\
+    \ the root growth in Fig. 6.1.\n\n Auxin is produced in shoot and root  The auxin\
+    \ travels\ndown the root by the process of  As the clinostat rotates, the effect\
+    \ of  on all sides of the root\nis equal.\n\n This causes the distribution of\
+    \ auxin in the root to be  Auxin stimulates cell  causing the roots to grow horizontally.\n\
+    \n[5]\n\n(ii) The rotation of the clinostat was stopped.\n\n Predict the change\
+    \ in growth that will occur in the germinating maize seeds in Fig. 6.1 [1]\n\n\
+    (iii) State the name of the tropic response to light [1]\n,\t,\n\n(b) A student\
+    \ observed cells from a plant that had wilted.\n\nState and explain the expected\
+    \ appearance of the cells [3]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

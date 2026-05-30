@@ -2,7 +2,43 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nChromium, Cr, and its compounds are widely used in many chemical reactions.\n\
+    \n(a) Cr exists as four stable isotopes.\n\n(i) The most common isotope of Cr\
+    \ is chromium-52.\n\n Determine the number of protons, neutrons and electrons\
+    \ in an atom of chromium-52.\n\n number of protons  neutrons  electrons  [1]\n\
+    \n(ii) Describe how an atom of chromium-54 differs from an atom of chromium-52.\
+    \ Refer to\nnumbers of particles in your answer [1]\n\n(iii) The relative isotopic\
+    \ masses of the isotopes of Cr can be determined using mass\nspectrometry.\n\n\
+    \ State what other information is needed to calculate the relative atomic mass,\
+    \ Ar , of Cr [1]\n\n(iv) Atoms of 52Cr, 53Cr and 54Cr make up more than 95% of\
+    \ naturally occurring chromium\natoms. The Ar of naturally occurring Cr is 51.996.\n\
+    \n Suggest what these statements imply about the relative isotopic mass of the\
+    \ fourth stable\nisotope of chromium [1]\n\n(b) The shorthand electronic configuration\
+    \ of chromium is [Ar] 3d54s1.\n\n(i) Complete the full electronic configuration\
+    \ of chromium 3d54s1\n[1]\n\n(ii) Deduce the total number of unpaired electrons\
+    \ in an atom of chromium [1]\n,\t,\n\n(c) Acidified dichromate(VI) ions will convert\
+    \ methanal, CH2O, to carbon dioxide. The movement\nof electrons to or from relevant\
+    \ species is shown in the following half-equations.\n\nhalf-equation 1\nCH2O \
+    \ +  H2O\n  CO2  +  4H+  +  4e–\n\nhalf-equation 2\nCr2O7\n2–  +  14H+  +  6e–\n\
+    \  2Cr3+  +  7H2O\n\n(i) Identify the species that is reduced in half-equation\
+    \ 2. Explain your answer [1]\n\n(ii) The oxidation state of the carbon atom in\
+    \ methanal is 0.\n\n Calculate the oxidation state of carbon in carbon dioxide\
+    \ [1]\n\n(iii) Construct the ionic equation for the reaction of dichromate(VI)\
+    \ ions with methanal in\nacidic conditions [2]\n\n(iv) Methanal is a liquid at\
+    \ –30 °C but carbon dioxide is a gas at this temperature. Explain\nwhy [2]\n,\t\
+    ,\n\n(d) In acidic conditions, a dynamic equilibrium is established between CrO4\n\
+    2–(aq) and\nCr2O7\n2–(aq).\n2CrO4\n2–(aq)  +  2H+(aq)\n  Cr2O7\n2–(aq)  +  H2O(l)\
+    \   ΔH > 0\n\n(i) State what is meant by dynamic equilibrium [1]\n\n(ii) Identify\
+    \ the condition necessary to establish dynamic equilibrium [1]\n\n(iii) CrO4\n\
+    2–(aq) ions are yellow and Cr2O7\n2–(aq) ions are orange.\n\n State what is observed\
+    \ when the following changes are made to an equilibrium mixture\nof acidified\
+    \ CrO4\n2–(aq) and Cr2O7\n2–(aq) ions.\n\n Explain your answers.\n•\nThe equilibrium\
+    \ mixture is warmed gently.\nobservation   explanation   •\nDilute HCl (aq) is\
+    \ added to the equilibrium mixture.\nobservation   explanation   [4]\n\n(e) Chromium(IV)\
+    \ fluoride, CrF4, is a covalent molecule that shows similar chemical properties\
+    \ to\nSiCl 4.\n\nSuggest the type of reaction that occurs when CrF4 is placed\
+    \ in water.\n\nConstruct a relevant equation for this reaction.\ntype of reaction\
+    \   equation   [2]\n\n[Total: 20]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -116,7 +152,24 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nThe Period 3 elements show trends in physical and chemical properties\
+    \ across the period.\n\n(a) Fig. 2.1 shows the variation in atomic and ionic radii\
+    \ of the Period 3 elements Na to Cl .\n\nThe ionic radius of Si is not shown.\n\
+    0\nNa\nMg\nAl\nSi\nP\nS\nCl\n50\n100\n150\n250\n200\nradius / pm\natomic radius\n\
+    ionic radius\nKey\nFig. 2.1\n\n(i) Explain the trend shown in the atomic radii\
+    \ of the Period 3 elements Na to Cl  [2]\n\n(ii) Explain why there is a large\
+    \ difference in the ionic radii of Al and P [2]\n,\t,\n\n(b) Table 2.1 gives some\
+    \ information about some of the Period 3 oxides.\n\nRow B gives the pH of the\
+    \ solution that forms when the Period 3 oxide is added to water.\nTable 2.1\n\
+    formula of Period 3 oxide\nNa2O\nMgO\nAl 2O3\nSiO2\nP4O10\nSO3\nA\noxidation number\
+    \ of\nPeriod 3 element\n+3\nB\npH of solution\n—\n—\n\n(i) Complete Table 2.1.\n\
+    [2]\n\n(ii) State why there is no data given in row B for Al 2O3 and SiO2 [1]\n\
+    \n(c) (i) Write an equation for the reaction of Na2O with dilute hydrochloric\
+    \ acid [1]\n\n(ii) Construct an equation for the reaction of Al 2O3 with a base\
+    \ to form NaAl O2 [1]\n\n(d) Group 2 nitrates decompose on heating to form oxides.\n\
+    \n(i) State the trend in thermal stability of the Group 2 nitrates down the group\
+    \ [1]\n\n(ii) Identify the other products of the thermal decomposition of Group\
+    \ 2 nitrates [1]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -194,7 +247,37 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nCycloalkanes show similar chemical properties to alkanes but have the\
+    \ same empirical formula as\nalkenes.\n\n(a) Define empirical formula [1]\n\n\
+    (b) Cyclopentane, C5H10, has four cyclic structural isomers. One of these isomers\
+    \ is C, shown in\nFig. 3.1.\n\nComplete Fig. 3.1 to show two other cyclic structural\
+    \ isomers of C5H10.\ncyclopentane\nC\nFig. 3.1\n\n[2]\n\n(c) Cyclopentane reacts\
+    \ with Cl 2 in the presence of ultraviolet light to form C5H9Cl.\n\n(i) The reaction\
+    \ is initiated by the bond fission of Cl 2.\n\n State the type of bond fission\
+    \ shown in the initiation step [1]\n\n(ii) Complete the equations to show the\
+    \ two propagation steps that follow the initiation step.\n\n propagation 1  C5H10\
+    \ +  C5H9• +  propagation 2  C5H9• +  [2]\n\n(iii) The final step is shown.\n\
+    C5H9•  +  Cl •\n  C5H9Cl\n\n Give the name for this step in the reaction [1]\n\
+    ,\t\t,\n\n(d) Fig. 3.2 shows a reaction cycle involving cyclopentane, cyclopentene\
+    \ and C5H9Cl .\nΔH2\nreaction 2\nCl2\nreaction 1\nH2\nreaction 3\nΔH3 = –53 kJ\
+    \ mol–1\nCl\nFig. 3.2\n\n(i) Identify a suitable reagent for reaction 3 [1]\n\n\
+    (ii) Use the data in Fig. 3.2 and in Table 3.1 to calculate the enthalpy change\
+    \ of reaction 2,\nΔH2.\nTable 3.1\ncompound\nenthalpy change of\ncombustion, ΔHc\
+    \ / kJ mol–1\n–3292\n–3115\nH2\n–286\n\nΔH2 =   kJ mol–1 [2]\n,\n,\n\n(e) Cyclopentene,\
+    \ C5H8, reacts with hot concentrated acidified KMnO4 to form compound W,\nC5H8O4.\n\
+    \n(i) Draw the structure of W.\n\n[1]\n\n(ii) The infrared spectrum of W is shown\
+    \ in Fig. 3.3.\n4000\n0\n50\ntransmittance / %\n100\n3000\n2000\n1500\nwavenumber\
+    \ / cm–1\n1000\n500\nFig. 3.3\n\n Identify two absorptions in the infrared spectrum\
+    \ of W that would not be present in the\ninfrared spectrum of cyclopentene.\n\
+    •\nWrite 1 or 2 on Fig. 3.3 against each of these two absorptions.\n•\nComplete\
+    \ Table 3.2 to show which bond is responsible for each absorption that you\nhave\
+    \ identified in Fig. 3.3.\nTable 3.2\nabsorption\n1\n2\nbond responsible\n\n[2]\n\
+    ,\t,\nTable 3.3\nbond\nfunctional groups containing the bond\ncharacteristic infrared\
+    \ absorption range\n(in wavenumbers) / cm–1\nC–O\nhydroxy, ester\n1040–1300\n\
+    C=C\naromatic compound, alkene\n1500–1680\nC=O\namide\ncarbonyl, carboxyl\nester\n\
+    1640–1690\n1670–1740\n1710–1750\nC N\nnitrile\n2200–2250\nC–H\nalkane\n2850–2950\n\
+    N–H\namine, amide\n3300–3500\nO–H\ncarboxyl\nhydroxy\n2500–3000\n3200–3650\n\n\
+    [Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -272,7 +355,72 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nFig. 4.1 shows a possible synthesis of propene, C3H6.\nC2H5COOH\nC2H5CH2OH\n\
+    reaction 1\nreaction 2\nreaction 3\nNaOH\nC2H5CH2Cl\nC3H6\nFig. 4.1\n\n(a) (i)\
+    \ Identify the type of reaction that occurs in reaction 1 [1]\n\n(ii) Suggest\
+    \ a suitable reagent for reaction 2 [1]\n\n(iii) Reaction 3 is an elimination\
+    \ reaction.\n\n Write an equation for this reaction and identify the solvent and\
+    \ conditions used.\nequation   solvent and conditions   [2]\n\n(iv) C2H5CH2OH\
+    \ can be directly converted to C3H6.\n\n Suggest the reagent and conditions for\
+    \ this conversion [1]\n\n(b) Under suitable conditions, propene polymerises to\
+    \ form poly(propene).\n\nPoly(propene) exhibits stereoisomerism.\n\n(i) Identify\
+    \ the type of polymerisation that forms poly(propene) from propene [1]\n\n(ii)\
+    \ Define stereoisomerism [2]\n,\t,\n\n(iii) Draw a section of poly(propene), showing\
+    \ two repeat units.\n\n Use your diagram to identify the type of stereoisomerism\
+    \ shown by poly(propene).\nExplain your answer.\nsection of poly(propene)\n  [3]\n\
+    \n(iv) State two difficulties associated with the disposal of poly(propene).\n\
+    1   2   [2]\n,\t,\n\n(c) Under different conditions, two molecules of propene\
+    \ can combine to form compounds X and Y.\nX\nY\n\n(i) Name X [1]\n\n(ii) Fig.\
+    \ 4.2 shows the mass spectrum of either compound X or compound Y.\n10\n20\n30\n\
+    40\n50\nm / e\n60\n70\n80\n0\n20\n40\n60\nrelative abundance\n80\n100\nFig. 4.2\n\
+    \n Identify which of X and Y gives this mass spectrum.\n\n Give one reason for\
+    \ your answer, referring to the fragmentation pattern [1]\n\n(iii) The molecular\
+    \ ion peak in the spectrum in Fig. 4.2 has relative abundance 34.7.\n\n Calculate\
+    \ the relative abundance of the [M+1]+ peak in this spectrum.\n\nrelative abundance\
+    \ of [M+1]+ peak =   [1]\n[Total: 16]\n,\t,\nImportant values, constants and standards\n\
+    molar gas constant\nR = 8.31 J K–1 mol–1\nFaraday constant\nF = 9.65 × 104 C mol–1\n\
+    Avogadro constant\nL = 6.02 × 1023 mol–1\nelectronic charge\ne = –1.60 × 10–19\
+    \ C\nmolar volume of gas\nVm = 22.4 dm3 mol–1 at s.t.p. (101 kPa and 273 K)\n\
+    Vm = 24.0 dm3 mol–1 at room conditions\nionic product of water\nKw = 1.00 × 10–14\
+    \ mol2 dm–6 (at 298 K (25 °C))\nspeciﬁc heat capacity of water\nc = 4.18 kJ kg–1\
+    \ K–1 (4.18 J g–1 K–1)\n,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n\
+    1.0\n2\nHe\nhelium\n4.0\n1\n2\n13\n14\n15\n16\n17\n18\n3\n4\n5\n6\n7\n8\n9\n10\n\
+    11\n12\n3\nLi\nlithium\n6.9\n4\nBe\nberyllium\n9.0\natomic number\natomic symbol\n\
+    Key\nname\nrelative atomic mass\n11\nNa\nsodium\n23.0\n12\nMg\nmagnesium\n24.3\n\
+    19\nK\npotassium\n39.1\n20\nCa\ncalcium\n40.1\n37\nRb\nrubidium\n85.5\n38\nSr\n\
+    strontium\n87.6\n55\nCs\ncaesium\n132.9\n56\nBa\nbarium\n137.3\n87\nFr\nfrancium\n\
+    –\n88\nRa\nradium\n–\n5\nB\nboron\n10.8\n13\nAl\naluminium\n27.0\n31\nGa\ngallium\n\
+    69.7\n49\nIn\nindium\n114.8\n81\nTl\nthallium\n204.4\n6\nC\ncarbon\n12.0\n14\n\
+    Si\nsilicon\n28.1\n32\nGe\ngermanium\n72.6\n50\nSn\ntin\n118.7\n82\nPb\nlead\n\
+    207.2\n22\nTi\ntitanium\n47.9\n40\nZr\nzirconium\n91.2\n72\nHf\nhafnium\n178.5\n\
+    104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n50.9\n41\nNb\nniobium\n92.9\n73\n\
+    Ta\ntantalum\n180.9\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n52.0\n42\nMo\nmolybdenum\n\
+    95.9\n74\nW\ntungsten\n183.8\n106\nSg\nseaborgium\n–\n25\nMn\nmanganese\n54.9\n\
+    43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186.2\n107\nBh\nbohrium\n–\n26\nFe\niron\n\
+    55.8\n44\nRu\nruthenium\n101.1\n76\nOs\nosmium\n190.2\n108\nHs\nhassium\n–\n27\n\
+    Co\ncobalt\n58.9\n45\nRh\nrhodium\n102.9\n77\nIr\niridium\n192.2\n109\nMt\nmeitnerium\n\
+    –\n28\nNi\nnickel\n58.7\n46\nPd\npalladium\n106.4\n78\nPt\nplatinum\n195.1\n110\n\
+    Ds\ndarmstadtium\n–\n29\nCu\ncopper\n63.5\n47\nAg\nsilver\n107.9\n79\nAu\ngold\n\
+    197.0\n111\nRg\nroentgenium\n–\n30\nZn\nzinc\n65.4\n48\nCd\ncadmium\n112.4\n80\n\
+    Hg\nmercury\n200.6\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\n\
+    livermorium\n–\n7\nN\nnitrogen\n14.0\n15\nP\nphosphorus\n31.0\n33\nAs\narsenic\n\
+    74.9\n51\nSb\nantimony\n121.8\n83\nBi\nbismuth\n209.0\n8\nO\noxygen\n16.0\n16\n\
+    S\nsulfur\n32.1\n34\nSe\nselenium\n79.0\n52\nTe\ntellurium\n127.6\n84\nPo\npolonium\n\
+    –\n9\nF\nfluorine\n19.0\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n79.9\n53\nI\n\
+    iodine\n126.9\n85\nAt\nastatine\n–\n10\nNe\nneon\n20.2\n18\nAr\nargon\n39.9\n\
+    36\nKr\nkrypton\n83.8\n54\nXe\nxenon\n131.3\n86\nRn\nradon\n–\n113\nNh\nnihonium\n\
+    –\n115\nMc\nmoscovium\n–\n117\nTs\ntennessine\n–\n118\nOg\noganesson\n–\n21\n\
+    Sc\nscandium\n45.0\n39\nY\nyttrium\n88.9\n57–71\nlanthanoids\n89–103\nactinoids\n\
+    57\nLa\nlanthanum\n138.9\n89\nAc\nlanthanoids\nactinoids\nactinium\n–\n58\nCe\n\
+    cerium\n140.1\n90\nTh\nthorium\n232.0\n59\nPr\npraseodymium\n140.9\n91\nPa\nprotactinium\n\
+    231.0\n60\nNd\nneodymium\n144.2\n92\nU\nuranium\n238.0\n61\nPm\npromethium\n–\n\
+    93\nNp\nneptunium\n–\n62\nSm\nsamarium\n150.4\n94\nPu\nplutonium\n–\n63\nEu\n\
+    europium\n152.0\n95\nAm\namericium\n–\n64\nGd\ngadolinium\n157.3\n96\nCm\ncurium\n\
+    –\n65\nTb\nterbium\n158.9\n97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n162.5\n98\n\
+    Cf\ncalifornium\n–\n67\nHo\nholmium\n164.9\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n\
+    167.3\n100\nFm\nfermium\n–\n69\nTm\nthulium\n168.9\n101\nMd\nmendelevium\n–\n\
+    70\nYb\nytterbium\n173.1\n102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175.0\n103\n\
+    Lr\nlawrencium\n–\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a

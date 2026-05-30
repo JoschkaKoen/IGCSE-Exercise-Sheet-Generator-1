@@ -2,7 +2,21 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "BPT manufactures bicycles in country A. It uses batch production. The Operations\
+    \ Director is\npreparing a break-even chart for one of BPT’s bicycles, as shown\
+    \ in Fig. 1.1. The directors are\n1\nconsidering ways to lower BPT’s break-even\
+    \ level of output. BPT imports 60% of its raw materials\nand exports its bicycles\
+    \ to 8 countries. The Managing Director wants to know how a depreciation\nin country\
+    \ A’s exchange rate and the introduction of import tariffs might affect BPT.\n\
+    Partly completed break-even chart for one of BPT’s bicycles\n0\n0\n50\n100\n150\n\
+    output in units\ncosts and\nrevenue $\n200\n250\n300\n50 000\n100 000\n150 000\n\
+    200 000\n250 000\n300 000\nX\nY\nFig. 1.1\nIdentify the lines labelled X and Y\
+    \ in Fig. 1.1.\n(a)\nX:  Y:  [2]\n,\t,\nDefine ‘import tariff’.\n(b)\n [2]\nOutline\
+    \ two ways BPT could lower its break-even level of output.\n(c)\nWay 1:  Way 2:\
+    \  [4]\nExplain two ways a depreciation in country A’s exchange rate might affect\
+    \ BPT.\n(d)\nWay 1:  Explanation:  Way 2:  Explanation:  [6]\n,\t,\nDo you think\
+    \ batch production is the best method of production for a business to use? Justify\n\
+    your answer.\n(e)\n [6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +52,18 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "Ramon is an entrepreneur. He plans to start up a home tutoring service to\
+    \ provide students with\nextra help to learn maths. Ramon is considering buying\
+    \ a franchise. He has prepared a business\n2\nplan but is concerned about how\
+    \ an increase in the rate of inflation might affect his business. Ramon\nwants\
+    \ to know whether crowdfunding is the best source of finance for a start-up business\
+    \ to use.\nDefine ‘inflation’.\n(a)\n [2]\nIdentify two characteristics of a successful\
+    \ entrepreneur.\n(b)\nCharacteristic 1:  Characteristic 2:  [2]\nOutline two ways\
+    \ a business plan might help Ramon.\n(c)\nWay 1:  Way 2:  [4]\n,\t,\nExplain one\
+    \ advantage and one disadvantage to Ramon of buying a franchise.\n(d)\nAdvantage:\
+    \  Explanation:  Disadvantage:  Explanation:  [6]\nDo you think crowdfunding is\
+    \ the best source of finance for a start-up business to use? Justify\nyour answer.\n\
+    (e)\n [6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -74,7 +99,21 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "LRL makes skincare products including face cream. It is a private sector\
+    \ business in country X.\nOne of LRL’s objectives is to contribute to sustainable\
+    \ development. Maintaining customer loyalty\n3\nis important and the Marketing\
+    \ Director knows a business must have an appropriate marketing mix.\nHe is analysing\
+    \ data to calculate the value of LRL’s market share. An extract is shown in Fig.\
+    \ 3.1.\nThe total value of sales of skincare products in country X for 2023 was\
+    \ $120 million.\nMarket share data for skincare products in country X in 2023\
+    \ (%)\nLRL\n30%\nCompetitor A\n20%\nCompetitor B\n15%\nOthers\n35%\nFig. 3.1\n\
+    Define ‘private sector’.\n(a)\n [2]\nCalculate the value of LRL’s market share\
+    \ in 2023.\n(b)\nWorking:  Final answer:  [2]\n,\t,\nOutline two ways LRL could\
+    \ contribute to sustainable development.\n(c)\nWay 1:  Way 2:  [4]\nExplain two\
+    \ advantages to LRL of maintaining customer loyalty.\n(d)\nAdvantage 1:  Explanation:\
+    \  Advantage 2:  Explanation:  [6]\n,\t\t,\nExplain two elements of the marketing\
+    \ mix. Which do you think is the most important element\nfor a business? Justify\
+    \ your answer.\n(e)\n [6]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -110,7 +149,19 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "RHN is a clothing retailer. It has 50 shops and 290 employees. All RHN’s\
+    \ employees are provided\nwith training. Commission is used as one method of financial\
+    \ reward. The business often uses\n4\ninternal recruitment when there is a job\
+    \ vacancy. Last year RHN made a profit of $1.5 million. The\nManaging Director,\
+    \ as an internal user of accounts, has been analysing RHN’s statement of financial\n\
+    position.\nDefine ‘commission’.\n(a)\n [2]\nIdentify two external users of accounts.\n\
+    (b)\nExternal user 1:  External user 2:  [2]\nIdentify four ways the information\
+    \ in a statement of financial position can be used.\n(c)\nWay 1:  Way 2:  Way\
+    \ 3:  Way 4:  [4]\n,\t,\nExplain two possible reasons why providing training for\
+    \ its employees is important to RHN.\n(d)\nReason 1:  Explanation:  Reason 2:\
+    \  Explanation:  [6]\nDo you think the advantages for a business of using internal\
+    \ recruitment are greater than the\ndisadvantages? Justify your answer.\n(e)\n\
+    \ [6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a

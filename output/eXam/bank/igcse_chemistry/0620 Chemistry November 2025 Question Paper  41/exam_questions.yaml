@@ -2,7 +2,19 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nProtons, neutrons and electrons are particles found in atoms.\n\n(a) Complete\
+    \ Table 1.1 to show the relative mass and relative charge of a proton, a neutron\
+    \ and\nan electron.\nTable 1.1\nparticle\nrelative mass\nrelative charge\nproton\n\
+    +1\nneutron\nelectron\n1\n1840\n\n[2]\n\n(b) Some elements have many isotopes.\n\
+    \n(i) Define the term isotopes [2]\n\n(ii) Explain why all isotopes of the same\
+    \ element have the same chemical properties [1]\n\n(c) Complete Table 1.2.\nTable\
+    \ 1.2\natom or ion\nnumber of\nprotons\nnumber of\nneutrons\nnumber of\nelectrons\n\
+    4\n1\n0\n8Ar\n18\n18\n3\n1\n2\n6S2–\n16\n22\n28\n20\n\n[5]\n,\t,\n\n(d) The term\
+    \ mass number is defined as the total number of protons and neutrons in the nucleus\n\
+    of an atom.\n\nState the name of one other term which is defined as the total\
+    \ number of protons and\nneutrons in the nucleus of an atom [1]\n\n(e) Calculate\
+    \ the number of atoms in 2.00 g of argon.\n\nGive your answer in standard form.\n\
+    \nnumber of atoms =  [2]\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +62,24 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nCalcium is an element in Group II of the Periodic Table.\n\n(a) Identify\
+    \ the element in Group II which has only five occupied electron shells [1]\n\n\
+    (b) Name and describe the type of bonding found in elements in Group II.\nname\
+    \   description   [4]\n\n(c) When a piece of calcium is added to some cold water\
+    \ containing universal indicator a reaction\ntakes place.\n\n(i) Give three observations\
+    \ when this reaction takes place.\n1   2   3   [3]\n\n(ii) Name the two products\
+    \ of this reaction and  [2]\n\n(d) Calcium burns in oxygen.\n\n(i) State the colour\
+    \ of the flame [1]\n\n(ii) Write the symbol equation for this reaction [2]\n,\t\
+    ,\n\n(e) Crystals of hydrated calcium nitrate contain water molecules.\n\nThe\
+    \ formula of hydrated calcium nitrate is Ca(NO3)2•xH2O.\n\nx is a whole number.\n\
+    \n(i) State the term given to the water molecules present in hydrated crystals\
+    \ [1]\n\n(ii) When hydrated calcium nitrate is heated gently, the following reaction\
+    \ occurs.\nCa(NO3)2•xH2O\n  Ca(NO3)2  +  xH2O\n\n A sample of hydrated calcium\
+    \ nitrate is heated gently. 3.28 g of Ca(NO3)2 forms and the\nmass of the crystals\
+    \ decreases by 1.44 g.\n\n[M r: Ca(NO3)2, 164; H2O, 18]\n\n Determine the value\
+    \ of x in Ca(NO3)2•xH2O using the following steps.\n•\nCalculate the number of\
+    \ moles of Ca(NO3)2 that remain mol\n•\nCalculate the number of moles of H2O given\
+    \ off mol\n•\nDetermine the value of x.\n\nx =  [3]\n[Total: 17]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -122,7 +151,32 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student makes crystals of the salt sodium sulfate, Na2SO4 . The student\
+    \ reacts 0.200 mol / dm3\ndilute sulfuric acid, H2SO4(aq), with aqueous sodium\
+    \ hydroxide, NaOH(aq).\n\nThe student uses the following steps.\n\nstep 1\n The\
+    \ student places 40.0 cm3 of NaOH(aq) into a conical flask. This volume contains\n\
+    0.0100 moles of NaOH.\n\nstep 2\n The student adds a few drops of methyl orange\
+    \ indicator to the NaOH(aq) in the conical\nflask.\n\nstep 3\nThe student adds\
+    \ 0.200 mol / dm3 H2SO4(aq) to the flask until the end-point is reached.\n\nstep\
+    \ 4\n The student transfers the mixture from the conical flask to an evaporating\
+    \ basin and\nobtains dry crystals.\n\n(a) Complete the symbol equation for the\
+    \ reaction. Include state symbols.\nH2SO4(aq)  +  2NaOH(aq)\n  Na2SO4( )  +  \
+    \ ( )\n\n[2]\n\n(b) State the type of exothermic reaction taking place [1]\n\n\
+    (c) Calculate the concentration of NaOH(aq) used in step 1.\n\nconcentration of\
+    \ NaOH(aq) =  mol / dm3 [1]\n\n(d) Name the item of apparatus the student uses\
+    \ to add H2SO4(aq) in step 3 [1]\n\n(e) Calculate the volume of H2SO4(aq), in\
+    \ cm3, added in step 3.\n\nvolume of H2SO4(aq) =  cm3 [2]\n\n(f) State the colour\
+    \ change observed in step 3.\n\nfrom  to  [2]\n,\t,\n\n(g) The dry crystals formed\
+    \ in step 4 are coloured and not white. This is because the student\nshould do\
+    \ an additional step between step 3 and step 4.\n\nSuggest what the student should\
+    \ do in this additional step to produce white crystals [1]\n\n(h) In step 4, the\
+    \ student gently heats the solution in the evaporating basin until the solution\
+    \ is\nsaturated. The student then stops heating and leaves the hot solution to\
+    \ cool. Crystals start to\nappear.\n\n(i) Explain the term saturated solution\
+    \ [2]\n\n(ii) Explain why crystals start to appear as the hot solution cools [1]\n\
+    \n(iii) Suggest the effect, if any, on the mass of crystals collected in step\
+    \ 4 if the solution in the\nevaporating basin is allowed to dry without gentle\
+    \ heating [1]\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -194,7 +248,28 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nGaseous sulfur tetrafluoride, SF4 , reacts with steam in a reversible\
+    \ reaction.\nSF4(g)  +  2H2O(g)\n  SO2(g)  +  4HF(g)               ΔH = –54 kJ\
+    \ / mol\n\n(a) Complete the reaction pathway diagram in Fig. 4.1 for this reaction.\n\
+    \nInclude in your diagram:\n•\nthe position and the formulae of the products\n\
+    •\nan arrow, labelled Ea , to show the activation energy\n•\nan arrow, labelled\
+    \ ΔH, to show the enthalpy change of the reaction.\nSF4(g) + 2H2O(g)\nenergy\n\
+    progress of reaction\nFig. 4.1\n\n[4]\n,\t\t,\n\n(b) The equation for the reaction\
+    \ can be represented as shown in Fig. 4.2.\nS\nF\nH\nO\nH\nF\nF\nF\nH\nO\nH\n\
+    H\nF\nH\nF\nH\nF\nH\nF\nO\nS\nO\n+\n+\nΔH = –54 kJ / mol\nFig. 4.2\n\nTable 4.1\
+    \ shows some bond energies.\nTable 4.1\nbond\nS – F\nO – H\nH – F\nbond energy\
+    \ in kJ / mol\n330\n460\n570\n\nUse the bond energies in Table 4.1 and the value\
+    \ of ΔH of the reaction to calculate\nthe S=O bond energy in kJ / mol.\n\nUse\
+    \ the following steps.\n•\nCalculate the energy needed to break the bonds in the\
+    \ reactants kJ\n•\nCalculate the energy released when the bonds in the products\
+    \ form kJ\n•\nCalculate the S=O bond energy kJ / mol\n\n[4]\n,\n,\n\n(c) The equation\
+    \ for the reaction is shown.\nSF4(g)  +  2H2O(g)\n  SO2(g)  +  4HF(g)        \
+    \       ΔH = –54 kJ / mol\n\nState the effect, if any, on the position of equilibrium\
+    \ when the following changes are made.\n\nGive a reason for each of your answers.\n\
+    •\nThe temperature is increased •\nThe pressure is increased •\nA catalyst is\
+    \ added [5]\n\n(d) Explain, in terms of collision theory, why reducing the temperature\
+    \ decreases the rate of the\nreverse reaction [3]\n[Total: 16]\n,\t,\nQuestion\
+    \ 5 starts on the next page.\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -224,7 +299,65 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nThis question is about the homologous series of alcohols.\n\n(a) A homologous\
+    \ series is a family of organic compounds whose members have the same\ngeneral\
+    \ formula.\n\n(i) State the general formula for alcohols [1]\n\n(ii) Give one\
+    \ other characteristic that is the same for all members of a homologous series\
+    \ [1]\n\n(b) Ethanol can be manufactured by two methods:\n•\nmethod 1 uses glucose\
+    \ as the starting material\n•\nmethod 2 uses ethene as the starting material.\n\
+    \n(i) Complete Table 5.1.\nTable 5.1\nmethod 1\nglucose as\nstarting material\n\
+    method 2\nethene as\nstarting material\ntypical temperature used / °C\ntwo other\
+    \ essential conditions\n1\n1\n2\n2\n\n[6]\n\n(ii) Write the symbol equation for\
+    \ the reaction in method 1 [2]\n\n(iii) Write the symbol equation for the reaction\
+    \ in method 2 [2]\n\n(c) Butane-1,4-diol has the structural formula HO — CH2 — CH2 — CH2 — CH2 — OH.\n\
+    \n(i) Deduce the molecular formula of butane-1,4-diol [1]\n\n(ii) Butane-1,4-diol\
+    \ reacts with ethanoic acid.\n\n Determine the number of moles of ethanoic acid\
+    \ which react fully with one mole of\nbutane-1,4-diol [1]\n,\t,\n\n(d) Butanedioic\
+    \ acid has the structural formula HOOC — CH2 — CH2 — COOH.\n\n(i) Deduce the empirical\
+    \ formula of butanedioic acid [1]\n\n(ii) Name the gas formed when butanedioic\
+    \ acid reacts with sodium [1]\n\n(e) Butane-1,4-diol can be represented as shown.\n\
+    HO\nOH\n\nButanedioic acid can be represented as shown.\nHOOC\nCOOH\n\nButane-1,4-diol\
+    \ reacts with butanedioic acid to form a polymer.\n\n(i) Draw two repeat units\
+    \ of the polymer formed from the reaction of butane-1,4-diol with\nbutanedioic\
+    \ acid.\n\n Show all the atoms and all the bonds in the ester linkages.\n\n[3]\n\
+    \n(ii) State the type of polymerisation when butane-1,4-diol reacts with butanedioic\
+    \ acid [1]\n[Total: 20]\n,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n\
+    1\n2\nHe\nhelium\n4\nI\nII\nIII\nIV\nV\nVI\nVII\nVIII\n3\nLi\nlithium\n7\n4\n\
+    Be\nberyllium\n9\natomic number\natomic symbol\nKey\nname\nrelative atomic mass\n\
+    11\nNa\nsodium\n23\n12\nMg\nmagnesium\n24\n19\nK\npotassium\n39\n20\nCa\ncalcium\n\
+    40\n37\nRb\nrubidium\n85\n38\nSr\nstrontium\n88\n55\nCs\ncaesium\n133\n56\nBa\n\
+    barium\n137\n87\nFr\nfrancium\n–\n88\nRa\nradium\n–\n5\nB\nboron\n11\n13\nAl\n\
+    aluminium\n27\n31\nGa\ngallium\n70\n49\nIn\nindium\n115\n81\nTl\nthallium\n204\n\
+    113\nNh\nnihonium\n–\n6\nC\ncarbon\n12\n14\nSi\nsilicon\n28\n32\nGe\ngermanium\n\
+    73\n50\nSn\ntin\n119\n82\nPb\nlead\n207\n22\nTi\ntitanium\n48\n40\nZr\nzirconium\n\
+    91\n72\nHf\nhafnium\n178\n104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n51\n41\n\
+    Nb\nniobium\n93\n73\nTa\ntantalum\n181\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n\
+    52\n42\nMo\nmolybdenum\n96\n74\nW\ntungsten\n184\n106\nSg\nseaborgium\n–\n25\n\
+    Mn\nmanganese\n55\n43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186\n107\nBh\nbohrium\n\
+    –\n26\nFe\niron\n56\n44\nRu\nruthenium\n101\n76\nOs\nosmium\n190\n108\nHs\nhassium\n\
+    –\n27\nCo\ncobalt\n59\n45\nRh\nrhodium\n103\n77\nIr\niridium\n192\n109\nMt\nmeitnerium\n\
+    –\n28\nNi\nnickel\n59\n46\nPd\npalladium\n106\n78\nPt\nplatinum\n195\n110\nDs\n\
+    darmstadtium\n–\n29\nCu\ncopper\n64\n47\nAg\nsilver\n108\n79\nAu\ngold\n197\n\
+    111\nRg\nroentgenium\n–\n30\nZn\nzinc\n65\n48\nCd\ncadmium\n112\n80\nHg\nmercury\n\
+    201\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n–\n\
+    7\nN\nnitrogen\n14\n15\nP\nphosphorus\n31\n33\nAs\narsenic\n75\n51\nSb\nantimony\n\
+    122\n83\nBi\nbismuth\n209\n115\nMc\nmoscovium\n–\n8\nO\noxygen\n16\n16\nS\nsulfur\n\
+    32\n34\nSe\nselenium\n79\n52\nTe\ntellurium\n128\n84\nPo\npolonium\n–\n9\nF\n\
+    fluorine\n19\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n80\n53\nI\niodine\n127\n\
+    85\nAt\nastatine\n–\n117\nTs\ntennessine\n–\n10\nNe\nneon\n20\n18\nAr\nargon\n\
+    40\n36\nKr\nkrypton\n84\n54\nXe\nxenon\n131\n86\nRn\nradon\n–\n118\nOg\noganesson\n\
+    –\n21\nSc\nscandium\n45\n39\nY\nyttrium\n89\n57–71\nlanthanoids\n89–103\nactinoids\n\
+    57\nLa\nlanthanum\n139\n89\nAc\nlanthanoids\nactinoids\nThe volume of one mole\
+    \ of any gas is 24 dm3 at room temperature and pressure (r.t.p.).\nactinium\n\
+    –\n58\nCe\ncerium\n140\n90\nTh\nthorium\n232\n59\nPr\npraseodymium\n141\n91\n\
+    Pa\nprotactinium\n231\n60\nNd\nneodymium\n144\n92\nU\nuranium\n238\n61\nPm\npromethium\n\
+    –\n93\nNp\nneptunium\n–\n62\nSm\nsamarium\n150\n94\nPu\nplutonium\n–\n63\nEu\n\
+    europium\n152\n95\nAm\namericium\n–\n64\nGd\ngadolinium\n157\n96\nCm\ncurium\n\
+    –\n65\nTb\nterbium\n159\n97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n163\n98\nCf\n\
+    californium\n–\n67\nHo\nholmium\n165\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n\
+    167\n100\nFm\nfermium\n–\n69\nTm\nthulium\n169\n101\nMd\nmendelevium\n–\n70\n\
+    Yb\nytterbium\n173\n102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175\n103\nLr\nlawrencium\n\
+    –\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a

@@ -2,7 +2,19 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Define gravitational potential at a point [2]\n\n(b) Mars is a planet\
+    \ that may be considered to be an isolated uniform sphere of radius 3.4 × 106\
+    \ m.\n\nA satellite of mass 122 kg is in orbit around Mars at a constant height\
+    \ of 1.7 × 106 m above the\nsurface of the planet.\n\nThe height of the orbit\
+    \ is increased to 6.8 × 106 m above the surface. This increases the\ngravitational\
+    \ potential energy of the satellite by 5.1 × 108 J.\n\n(i) Show that the mass\
+    \ of Mars is 6.4 × 1023 kg.\n\n[3]\n\n(ii) Calculate the gravitational potential\
+    \ φ at the surface of Mars. Give a unit with your answer.\n\nφ =   unit  [2]\n\
+    ,\t,\n\n(c) The satellite in (b) is moved to an orbit in which the satellite remains\
+    \ at the same point above\nthe surface of Mars.\n\n(i) The orbit has a period\
+    \ of 25 hours.\n\n State what can be deduced from this about the rotation of Mars\
+    \ on its axis [1]\n\n(ii) State one other feature of this orbit [1]\n\n[Total:\
+    \ 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +62,21 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA helium atom may be modelled as a nucleus surrounded by two electrons\
+    \ in diametrically\nopposite circular orbits, each of radius 170 pm, as shown\
+    \ in Fig. 2.1.\n170 pm\nelectron\nelectron\norbit of electrons\nnucleus\n\nFig.\
+    \ 2.1\n\n(a) State Coulomb’s law [2]\n\n(b) (i) State the charge on the nucleus,\
+    \ in terms of the elementary charge e.\n\ncharge =   e [1]\n\n(ii) Show that the\
+    \ electric force between the nucleus and one of the electrons is 1.6 × 10–8 N.\n\
+    \n[1]\n,\t,\n\n(c) Assume that the force in (b)(ii) is the only force on the electrons.\n\
+    \n(i) Calculate the speed of the orbiting electrons.\n\nspeed =   m s–1 [2]\n\n\
+    (ii) Calculate the period of the orbit of the electrons.\n\nperiod =   s [2]\n\
+    \n(d) In practice, the orbit of each electron is affected by the presence of the\
+    \ other electron.\n\n(i) For the position of one of the electrons, determine the\
+    \ ratio\nelectric field strength due to the other electron\nelectric field strength\
+    \ due to the nucleus\n .\n\nratio =   [2]\n\n(ii) Use your answer in (d)(i) to\
+    \ suggest and explain how the orbit of the electron is affected\nby the presence\
+    \ of the other electron [1]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -116,7 +142,17 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Define specific latent heat [2]\n\n(b) Explain why, for a substance,\
+    \ the specific latent heat of vaporisation is usually greater than\nthe specific\
+    \ latent heat of fusion [3]\n\n(c) An ice cube of mass 37.0 g at temperature 0.0\
+    \ °C is placed in a beaker containing water of\nmass 208 g at temperature 26.4\
+    \ °C.\n\nWhen all the ice has melted, and all the water in the beaker has reached\
+    \ thermal equilibrium,\nthe final temperature of all the water is 10.3 °C.\n\n\
+    The specific heat capacity of water is 4.18 J g–1 °C–1.\n\nThe beaker has negligible\
+    \ specific heat capacity and is perfectly insulated from the\nsurroundings.\n\n\
+    Determine a value, to three significant figures, for the specific latent heat\
+    \ of fusion of water.\n\nspecific latent heat of fusion =   J g–1 [4]\n\n[Total:\
+    \ 9]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -140,7 +176,66 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    (a) (i) State what is meant by the internal energy of a system [2]
+
+
+    (ii) Explain why the internal energy of an ideal gas is directly proportional
+    to the
+
+    thermodynamic temperature of the gas [2]
+
+
+    (b) A sample of an ideal gas at thermodynamic temperature T has internal energy
+    U.
+
+
+    The gas is compressed so that its temperature increases to 3T.
+
+
+    During this compression, work W is done on the gas.
+
+
+    The gas is then cooled at constant volume so that its temperature decreases to
+    2T.
+
+
+    Complete Table 4.1 to show, in terms of some or all of W, T and U, the work done
+    on the gas,
+
+    the thermal energy supplied to the gas and the increase in internal energy of
+    the gas for each
+
+    of the two processes.
+
+    Table 4.1
+
+    work done on gas
+
+    thermal energy
+
+    supplied to gas
+
+    increase in internal
+
+    energy of gas
+
+    compression
+
+    +W
+
+    cooling
+
+
+    [4]
+
+
+    [Total: 8]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions:
   - number: 4a
@@ -170,7 +265,21 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA cuboidal block floats in a liquid with its base horizontal, as shown\
+    \ in Fig. 5.1.\nblock\nliquid surface\nh\nFig. 5.1\n\nThe base of the block is\
+    \ at a depth h below the surface of the liquid.\n\nThe block is displaced downwards\
+    \ by a small distance and then released so that it oscillates.\n\nFig. 5.2 shows\
+    \ the variation with h of the acceleration a of the block.\n1.0\n0\n–1.0\n0\n\
+    0.4\n0.8\n1.2\n1.6\n2.0\n2.4\nh / m\na / m s–2\nFig. 5.2\n\nFig. 5.3 shows the\
+    \ variation with h of the kinetic energy EK of the block.\n10\n5\n0\n0\n0.4\n\
+    0.8\n1.2\n1.6\n2.0\n2.4\nh / m\nEK / J\nFig. 5.3\n,\t,\n\n(a) (i) Determine the\
+    \ amplitude of the oscillations.\n\namplitude =   m [1]\n\n(ii) State what the\
+    \ line in Fig. 5.2 shows about the nature of the oscillations [1]\n\n(b) State\
+    \ three other quantitative conclusions that can be drawn from Fig. 5.2 and Fig.\
+    \ 5.3 about\nthe block and its oscillations. Use the space for any working.\n\
+    1   2   3   [3]\n\n(c) On Fig. 5.4, sketch the variation with h of the potential\
+    \ energy EP of the oscillations.\n10\n5\n0\n0\n0.4\n0.8\n1.2\n1.6\n2.0\n2.4\n\
+    h / m\nEP / J\nFig. 5.4\n\n[3]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -206,7 +315,24 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nFig. 6.1 shows a circuit that rectifies an alternating input voltage VIN\
+    \ and produces an output\nvoltage VOUT across a resistor R.\nW\nX\nY\nC\nR\nVIN\n\
+    VOUT\nZ\nrectification\ncircuit\nFig. 6.1\n\nThe four terminals of the rectification\
+    \ circuit are labelled W, X, Y and Z.\n\nA capacitor C is connected in parallel\
+    \ with resistor R.\n\n(a) (i) State what is meant by rectification [1]\n\n(ii)\
+    \ State the purpose of capacitor C [1]\n\n(b) Fig. 6.2 shows the variations with\
+    \ time t of the potential differences (p.d.s) VIN and VOUT.\n8\n12\n4\n0\n–8\n\
+    –12\n–4\np.d. / V\n0\n10\n20\n30\n40\nt / ms\nVOUT\nVIN\nFig. 6.2\n,\t,\n\n(i)\
+    \ The variation of VIN with t can be represented by\nVIN = A cos Bt\n\n where\
+    \ A and B are constants.\n\n Determine the values of A and B. Give a unit with\
+    \ your answer for A.\n\nA =   unit  B =   rad s–1\n\n[2]\n\n(ii) Determine the\
+    \ type of rectification produced by the circuit in Fig. 6.1 [1]\n\n(iii) On Fig.\
+    \ 6.3, draw the circuit diagram for the components inside the rectification circuit.\n\
+    Y\nZ\nW\nX\nFig. 6.3\n\n[2]\n\n(iv) Determine a value for the time constant for\
+    \ the discharge of the capacitor C through the\nresistor R in Fig. 6.1.\n\ntime\
+    \ constant =   s [3]\n,\t,\n\n(c) The capacitor C has a capacitance of 570 μF.\n\
+    \nUse your answer in (b)(iv) to determine the resistance of resistor R.\n\nresistance\
+    \ =   Ω [2]\n\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -266,7 +392,20 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\n(a) Define magnetic flux density [2]\n\n(b) A particle of mass m and charge\
+    \ +Q moves at speed v into a region where there is a uniform\nmagnetic field,\
+    \ as shown in Fig. 7.1.\nregion of\nmagnetic field\npath of\nparticle\nY\nZ\n\
+    particle\nFig. 7.1\n\nThe uniform magnetic field is into the page and has flux\
+    \ density B. The particle enters the\nregion of the field at point Y.\n\n(i) State\
+    \ an expression, in terms of some or all of m, Q, B and v, for the magnetic force\
+    \ F\nthat acts on the particle when it is at point Y.\n\nF =   [1]\n\n(ii) On\
+    \ Fig. 7.1, draw an arrow at point Y to indicate the direction of the force in\
+    \ (b)(i).\n[1]\n\n(iii) On Fig. 7.1, draw a line to show a possible path for the\
+    \ particle through the region of the\nmagnetic field.\n[1]\n\n(c) (i) Explain\
+    \ how an electric field can be used with the magnetic field to ensure that the\n\
+    particle in (b) now passes through point Z [3]\n\n(ii) Derive an expression for\
+    \ v in terms of B and the electric field strength E.\n\nv =   [2]\n\n[Total: 10]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -320,7 +459,19 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a) State what is meant by the de Broglie wavelength [1]\n\n(b) Calculate\
+    \ the de Broglie wavelength of an electron moving at a speed of 4.9 × 107 m s–1.\n\
+    \nwavelength =   m [2]\n\n(c) State one similarity and one difference between\
+    \ an electron and a positron.\nsimilarity:   difference:   [2]\n\n(d) An electron\
+    \ moving at a speed of 4.9 × 107 m s–1 collides with a positron that is travelling\
+    \ at\nthe same speed in the opposite direction. As a result of the collision,\
+    \ two gamma-ray photons\nare produced.\n\n(i) State the name of this type of reaction\
+    \ [1]\n\n(ii) State what happens to the electron and to the positron [2]\n,\t\
+    ,\n\n(iii) Explain why two gamma-ray photons are produced, rather than just one\
+    \ [1]\n\n(iv) Show that the kinetic energy of the electron before the collision\
+    \ is 1.1 × 10–15 J.\n\n[1]\n\n(v) Use the information in (d)(iv) to determine,\
+    \ to three significant figures, the wavelength\nassociated with the gamma radiation\
+    \ emitted in the collision.\n\nwavelength =   m [3]\n\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -380,7 +531,17 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\n(a) Define activity of a radioactive sample [1]\n\n(b) Explain why the\
+    \ variation with time of the activity of a radioactive sample is exponential in\n\
+    nature [3]\n\n(c) A sample contains a single radioactive isotope that decays to\
+    \ form a stable isotope.\n\nThe sample has an activity of 180 Bq at time t = 0.\n\
+    \n At a time 8.4 minutes later, the activity is 120 Bq.\n\n(i) Determine the decay\
+    \ constant, in min–1, of the radioactive isotope.\n\ndecay constant =   min–1\
+    \ [2]\n\n(ii) Use your answer in (c)(i) to determine the half-life, in min, of\
+    \ the radioactive isotope.\n\nhalf-life =   min [1]\n,\t\t,\n\n(iii) On Fig. 9.1,\
+    \ sketch the variation of the activity A of the sample with t for values of t\n\
+    between t = 0 and t = 24 min.\n100\n50\n200\n150\n0\n0\n4\n8\n12\n16\n20\n24\n\
+    t / min\nA / Bq\nFig. 9.1\n\n[3]\n\n[Total: 10]\n,\n,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -422,7 +583,19 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 (a) State Hubble’s law [2]\n\n(b) A star in a distant galaxy emits radiation\
+    \ that has a maximum intensity of emission at a\nwavelength of 4.62 × 10–7 m.\n\
+    \nObservations of the galaxy made on the Earth detect the maximum intensity of\
+    \ emission from\nthe star at a wavelength of 4.91 × 10–7 m.\n\n(i) Explain why\
+    \ the observed wavelength and the emitted wavelength have different values [2]\n\
+    \n(ii) Calculate the speed of the star relative to the Earth.\n\nspeed =   m s–1\
+    \ [2]\n\n(iii) The wavelength of maximum intensity of emission is used to determine\
+    \ a value for the\nsurface temperature of the star.\n\n Explain how the temperature\
+    \ determined using the observed wavelength compares with\nthe true value of temperature\
+    \ determined using the emitted wavelength [2]\n,\t,\n\n(c) A value for the Hubble\
+    \ constant is 2.3 × 10–18 s–1.\n\nUse your answer in (b)(ii) to determine the\
+    \ distance of the star in (b) from the Earth.\n\ndistance =   m [2]\n\n[Total:\
+    \ 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a

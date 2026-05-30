@@ -2,7 +2,46 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nThe wall of the small intestine is highly folded to form villi. Between\
+    \ the villi are infoldings known\nas crypts of Lieberkühn.\nFig. 1.1 is a diagram\
+    \ of a section through a single villus and a crypt of Lieberkühn.\nlacteal\ncapillary\
+    \ network\nenterocyte\ngut\nlumen\ngoblet cell\nenteroendocrine cell\nPaneth\n\
+    cell\nvenule\nlymph vessel\nX\nintestinal\nstem cell\ncrypt of\nLieberkühn\nFig.\
+    \ 1.1\nFig. 1.1 shows that the epithelium of the villus contains mainly goblet\
+    \ cells and cells known as\nenterocytes. Both cell types have microvilli on the\
+    \ apical surface (surface facing the gut lumen).\n,\t,\n\nGoblet cells are involved\
+    \ in the production of mucus.\n\nEnterocytes are adapted for the absorption of\
+    \ the soluble products of digestion. These products\nenter the circulatory system.\n\
+    \n(a) A student incorrectly stated that an enterocyte has many cilia on its apical\
+    \ surface.\n\nExplain the difference between a cilium and a microvillus [2]\n\n\
+    (b) Suggest one role of the mucus produced by the goblet cells of the villus [1]\n\
+    \n(c) In Fig. 1.1, blood vessel X delivers blood to the capillary network of the\
+    \ villus, where tissue\nfluid is formed. Some of the fluid passes back into the\
+    \ capillaries and then into the venule.\n\n(i) Blood vessel X receives blood from\
+    \ an artery.\n\n Name the type of blood vessel represented by X [1]\n\n(ii) Describe\
+    \ the formation of tissue fluid in the capillary network of the villus [2]\n,\t\
+    ,\n\n(d) In response to the presence of compounds in the gut lumen, enteroendocrine\
+    \ cells synthesise\nand release peptides (short chains of amino acids) that are\
+    \ cell‑signalling molecules. One of\nthese cell‑signalling molecules is known\
+    \ as GLP‑1.\n\nGLP‑1 initiates a number of responses in different body cells.\
+    \ Some of these responses include:\n•\nthe increase in release of the hormone\
+    \ insulin from cells in the pancreas\n•\nthe decrease in release of acid from\
+    \ cells in the stomach.\n\nOutline, in sequence, the main stages involved in the\
+    \ process of cell signalling by GLP‑1 [3]\n\n(e) Paneth cells, which are secretory\
+    \ cells, are located between intestinal stem cells at the base\nof the crypt of\
+    \ Lieberkühn, as shown in Fig. 1.1.\n\nA Paneth cell has a very different appearance\
+    \ to an intestinal stem cell.\n\nFig. 1.2 is a transmission electron micrograph\
+    \ of a Paneth cell.\nPaneth cell\nnucleus\nnucleus of adjacent\nintestinal stem\
+    \ cell\nFig. 1.2\n,\t,\n\n(i) Paneth cells are formed following the mitotic division\
+    \ of an intestinal stem cell during a\ncell cycle.\n\n Complete the cell cycle\
+    \ shown in Fig. 1.3 by naming, in sequence, the stages of mitosis.\ninterphase\n\
+    mitosis\nnames of stages of mitosis\n cytokinesis\nFig. 1.3\n\n[1]\n\n(ii) One\
+    \ of the functions of a Paneth cell is to synthesise and secrete peptides and\
+    \ proteins\nthat act against pathogens in the gut lumen.\n\n State and explain\
+    \ the evidence, visible in Fig. 1.2, which suggests that a Paneth cell:\n•\nis\
+    \ a secretory cell\n•\nsynthesises many peptides and proteins [3]\n\n(iii) Explain\
+    \ why a Paneth cell has a very different appearance to an intestinal stem cell\
+    \ [1]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -68,7 +107,31 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nCholera is an infectious intestinal disease caused by a bacterial pathogen.\n\
+    \n(a) Name the species of bacterium that causes cholera [1]\n\n(b) The World Health\
+    \ Organization (WHO) recommends a number of different approaches for the\nprevention\
+    \ and control of cholera. Two of these are:\n•\nAuthorities should provide access\
+    \ to safe drinking water.\n•\nIndividuals and communities should practise preventive\
+    \ personal hygiene.\n\nSuggest and explain how these two approaches help in the\
+    \ prevention and control of cholera [4]\n,\t,\n\n(c) Mass vaccination using an\
+    \ oral cholera vaccine (OCV) can be carried out in situations where\nthere is\
+    \ a high risk of people developing the disease.\n\nPassive immunisation involves\
+    \ transferring antibodies into a person for the prevention\nor treatment of an\
+    \ infectious disease. Some of the infectious diseases for which passive\nimmunisation\
+    \ is available use monoclonal antibody. Passive immunisation for cholera using\n\
+    monoclonal antibody could be available in the future.\n\n(i) Complete Table 2.1\
+    \ to compare an OCV and passive immunisation for cholera:\n•\nfill in the empty\
+    \ box in row 1\n•\ncircle the correct answers from the choices given in rows 3,\
+    \ 4 and 5.\nTable 2.1\nrow\nfeature\noral cholera vaccine\npassive immunisation\n\
+    for cholera\n1\ncomponent causing the\ndesired response\nantibody\n2\ntype of\
+    \ immunity gained\nartificial active\nartificial passive\n3\nstimulates production\
+    \ of\nmemory lymphocytes\nyes / no\nyes / no\n4\nlength of time needed to\nhave\
+    \ an effect\nshorter\nsame\nlonger\nlonger\nsame\nshorter\n5\nduration of immunity\n\
+    shorter\nsame\nlonger\nlonger\nsame\nshorter\n\n[4]\n\n(ii) The production of\
+    \ monoclonal antibodies for treatment involves the formation of\nhybridoma cells\
+    \ from two different cell types.\n\n Name the two types of cell that fuse to form\
+    \ a hybridoma cell and explain why this fusion\nis necessary [3]\n\n[Total: 12]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -104,7 +167,53 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nThe gene LCT codes for the enzyme lactase. In babies, lactase synthesis\
+    \ is necessary for\ndigesting lactose, the sugar found in milk.\n\nAnother gene,\
+    \ MCM6, has introns that have a regulatory role in the expression of gene LCT.\n\
+    Gene MCM6 codes for a protein that has no involvement in lactase synthesis.\n\n\
+    As children get older, the MCM6 introns are responsible for a decrease in lactase\
+    \ synthesis.\nThis decrease in lactase synthesis is known as lactase non‑persistence.\n\
+    \n(a) LCT and MCM6 are located on the same chromosome in humans.\n\nSuggest differences\
+    \ between gene LCT and gene MCM6, other than their locations in\ndifferent positions\
+    \ on the same chromosome [3]\n\n(b) With reference to the process of lactase synthesis,\
+    \ explain the relationship between:\n•\na transcribed strand and a primary transcript\n\
+    •\na primary transcript and messenger RNA (mRNA) [2]\n\n(c) A mutation in a regulatory\
+    \ intron of MCM6 allows lactase synthesis to continue. This is known\nas lactase\
+    \ persistence. In this mutation, the number of nucleotides in the intron remains\
+    \ the\nsame, but one of the nucleotides is different to the original nucleotide.\n\
+    \nState the type of mutation that is the cause of lactase persistence [1]\n,\t\
+    \t,\n\n(d) Fig. 3.1 summarises the reaction catalysed by lactase.\nCH2OH\nO\n\
+    O\nH\nH\nH\nH\nH\nlactose\ngalactose\nα-glucose\nOH\nOH\nOH\nCH2OH\nO\nH\nH\n\
+    H\nH\nlactase\nH2O\nOH\nOH\nOH\nCH2OH\nO\nH\nH\nH\nOH\nH\nOH\nH\nOH\nOH\n+\nH\n\
+    Fig. 3.1\n\nDraw the ring structure of α‑glucose in the box provided to complete\
+    \ Fig. 3.1.\n[1]\n\n(e) Some people with lactase non‑persistence may be lactose\
+    \ intolerant. They may have\nsymptoms, such as abdominal pain, if their diet contains\
+    \ lactose.\n\n(i) Lactase supplements (tablets) can be taken before milk or milk‑based\
+    \ products are\nconsumed to avoid symptoms of lactose intolerance.\n\n A student\
+    \ compared the activity of two different concentrations of a lactase supplement\n\
+    using an artificial substrate, ONPG, instead of lactose.\n\n A solution of ONPG\
+    \ is colourless, but the hydrolysis of ONPG by lactase releases a\ncoloured product.\n\
+    \n The student planned to follow the progress of the reaction for each concentration\
+    \ of\nlactase using a colorimeter.\n\n Explain why the student chose to use a\
+    \ colorimeter to follow the progress of the reaction\nfor each concentration of\
+    \ lactase [2]\n,\n,\n\n(ii) The lactose in milk can be hydrolysed using immobilised\
+    \ lactase or using lactase free in\nsolution (free lactase). This results in milk\
+    \ and milk products that do not contain lactose\nand so are suitable for lactose‑intolerant\
+    \ people.\n\n Scientists carried out an investigation to compare the activity\
+    \ of lactase immobilised\nin very small magnetic beads (magnetic microspheres)\
+    \ with free lactase, at different\ntemperatures and at different pH values.\n\n\
+    \ Fig. 3.2 shows the activity of immobilised lactase and the activity of free\
+    \ lactase at 5\ndifferent temperatures.\n\n Fig. 3.3 shows the activity of immobilised\
+    \ lactase and the activity of free lactase at 8\ndifferent pH values.\n35\n40\n\
+    45\ntemperature / °C\npercentage of\nmaximum activity\n50\n55\n0\n20\n40\n60\n\
+    80\n100\nKey\n= immobilised lactase\n= free lactase\nFig. 3.2\n5.5\n6.5\n7.5\n\
+    pH\npercentage of\nmaximum activity\n8.5\n6.0\n7.0\n8.0\n9.0\n0\n20\n40\n60\n\
+    80\n100\nKey\n= immobilised lactase\n= free lactase\nFig. 3.3\n,\t,\n\n One advantage\
+    \ of using magnetic microspheres with immobilised lactase is that they\ncan be\
+    \ easily recovered using an electric field and reused.\n\n With reference to Fig.\
+    \ 3.2 and Fig. 3.3, explain why the results indicate that there are\nother advantages\
+    \ in using immobilised lactase instead of free lactase to produce\nlactose‑free\
+    \ products [4]\n\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -152,7 +261,27 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nBacteria can be classified according to the type of cell wall they have.\n\
+    \nGram‑negative bacteria have a cell wall with an outer layer known as the outer\
+    \ membrane.\n\nGram‑positive bacteria do not have an outer membrane, but have\
+    \ a much thicker peptidoglycan\nlayer than Gram‑negative bacteria.\n\nFig. 4.1\
+    \ is a diagram of a section through the cell wall of a Gram‑negative bacterium.\n\
+    external environment\ncytoplasm\nlipopolysaccharide\nouter membrane\nprotein\n\
+    periplasmic\nproteins\npeptidoglycan\nlayer\nouter\nmembrane\ncell wall\nperiplasm\n\
+    cell surface membrane\nFig. 4.1\n\n(a) With reference to Fig. 4.1, outline the\
+    \ similarities and differences between the outer membrane\nof a Gram‑negative\
+    \ bacterial cell and the cell surface membrane of a eukaryotic cell [3]\n,\t,\n\
+    \n(b) Pathogenic and non‑pathogenic Gram‑negative bacteria can produce extracellular\
+    \ vesicles.\nFig. 4.2 summarises how two types of extracellular vesicle, OMVs\
+    \ and O‑IMVs, are formed.\n\nO‑IMVs are formed from the outer membrane and the\
+    \ cell surface membrane. O‑IMVs can\ncontain ATP and DNA.\nperiplasmic\nproteins\n\
+    different cell\nproducts\nKey\nO-IMV\nplasmids\n(small, circular\nDNA)\ncell surface\
+    \ membrane\nouter\nmembrane\nof cell wall\npeptidoglycan\nlayer\nOMV\nmolecules\
+    \ in\nouter membrane\nand cell surface\nmembrane\nFig. 4.2\n\n(i) With reference\
+    \ to Fig. 4.2, suggest why fewer O‑IMVs are formed than OMVs [1]\n\n(ii) Suggest\
+    \ why ATP is found within O‑IMVs but not in OMVs [1]\n\n(iii) Suggest and explain\
+    \ why the discovery that O‑IMVs contain DNA has implications for\nantibiotic resistance\
+    \ [2]\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -188,7 +317,18 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA plant that is described as a mesophyte has evolved to grow in conditions\
+    \ that do not normally\nexperience water stress (low availability of water).\n\
+    \n(a) Fig. 5.1 is a diagram of a cross section through the leaf of a herbaceous\n\
+    dicotyledonous mesophyte.\n\nComplete Fig. 5.1 by naming structure A and tissue\
+    \ layer B.\nupper epidermis\npalisade mesophyll\nvein\nintercellular air space\n\
+    B\nA\nlower epidermis\n Fig. 5.1\n\n[2]\n\n(b) In xerophytes, some of the structural\
+    \ features shown in Fig. 5.1 are modified as adaptations\nfor surviving conditions\
+    \ of water stress.\n\nComplete Table 5.1 to show how the structural feature listed\
+    \ may be modified in the leaf of\na xerophyte.\n\nEach feature should have a different\
+    \ example of a modification.\nTable 5.1\nstructural feature in Fig. 5.1\none example\
+    \ of a xerophytic adaptation\nstructure A\nupper epidermis\nlower epidermis\n\n\
+    [3]\n\n[Total: 5]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -206,7 +346,25 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nIn the pulmonary circulation of a mammal, deoxygenated blood becomes oxygenated\
+    \ when\nred blood cells pass through alveolar capillaries and haemoglobin within\
+    \ the cells combines\nwith oxygen.\n\nThe blood returns to the heart to be pumped\
+    \ around the systemic circulation.\n\n(a) Describe the sequence of events occurring\
+    \ in the heart that allows blood returning in the\npulmonary circulation to then\
+    \ enter the systemic circulation.\n\nYou should include in your description:\n\
+    •\nthe names of the relevant blood vessels of the pulmonary circulation and systemic\n\
+    circulation that are connected to the heart\n•\nreference to blood pressure changes\
+    \ that cause the opening and closing of valves.\n\nYou do not need to include\
+    \ details of control of the cardiac cycle [5]\n,\t,\n\n(b) Fig. 6.1 is a drawing\
+    \ of a haemoglobin molecule to show its globular structure.\nFig. 6.1\n\n(i) Describe\
+    \ the quaternary structure of a haemoglobin molecule [2]\n\n(ii) Outline how a\
+    \ haemoglobin molecule can become fully saturated with oxygen to\nform oxyhaemoglobin\
+    \ [2]\n\n[Total: 9]\nThe boundaries and names shown, the designations used and\
+    \ the presentation of material on any maps contained in this question paper/insert\
+    \ do not imply\nofficial endorsement or acceptance by Cambridge Assessment International\
+    \ Education concerning the legal status of any country, territory, or area or\
+    \ any of its\nauthorities, or of the delimitation of its frontiers or boundaries.\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 6a

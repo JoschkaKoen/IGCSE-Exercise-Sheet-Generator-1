@@ -2,7 +2,46 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA program sorts string data using different sorting methods.\n\n(a) The\
+    \ text file Data.txt stores string data items. Each data item is on a new line\
+    \ in the text\nfile.\n\nThe function ReadData():\n•\nhas a local array of strings\
+    \ that can store 45 items\n•\nreads each line of data and stores it in the array\n\
+    •\nreturns the array.\n\nWrite program code for the function ReadData().\nSave\
+    \ your program as Question1_N24.\nCopy and paste the program code into part 1(a)\
+    \ in the evidence document.\n\n[6]\n\n(b) The function FormatArray() takes an\
+    \ array of strings as a parameter. It concatenates the\ncontents of the array\
+    \ into one string with a space between each array element. The function\nreturns\
+    \ the concatenated string.\n\n(i) Write program code for FormatArray().\nSave\
+    \ your program.\nCopy and paste the program code into part 1(b)(i) in the evidence\
+    \ document.\n\n[2]\n\n(ii) The main program:\n•\ncalls ReadData() and stores the\
+    \ returned array\n•\ncalls FormatArray() with the returned array and outputs the\
+    \ returned string.\n\n Write program code for the main program.\nSave your program.\n\
+    Copy and paste the program code into part 1(b)(ii) in the evidence document.\n\
+    \n[3]\n\n(iii) Test your program.\n\n Take a screenshot of the output.\nSave your\
+    \ program.\nCopy and paste the screenshot into part 1(b)(iii) in the evidence\
+    \ document.\n\n[1]\n\n(c) The function CompareStrings():\n•\ntakes two strings\
+    \ as parameters\n•\ncompares each string, one character at a time, to identify\
+    \ which string comes first\nalphabetically. If the first two characters are the\
+    \ same, the second character of each\nstring is compared. This continues until\
+    \ the two characters are different.\n\nThe function:\n•\nreturns 1 if the first\
+    \ parameter comes before the second alphabetically\n•\nreturns 2 if the second\
+    \ parameter comes before the first alphabetically.\n\nWrite program code for CompareStrings().\n\
+    \nAssume that all strings are in lower case.\n\nAssume that a difference between\
+    \ two strings will always be identified before the end of one\nstring is reached.\n\
+    \nDo not use an in-built string comparison function.\n\nThe strings must be compared\
+    \ one character at a time.\nSave your program.\nCopy and paste the program code\
+    \ into part 1(c) in the evidence document.\n\n[4]\n\n(d) The function Bubble()\
+    \ takes an array of strings as a parameter and sorts the data into\nascending\
+    \ alphabetical order, using a bubble sort. The bubble sort uses CompareStrings()\n\
+    to compare each string.\n\nThe function returns the sorted list.\n\n(i) Write\
+    \ program code for Bubble().\nSave your program.\nCopy and paste the program code\
+    \ into part 1(d)(i) in the evidence document.\n\n[3]\n\n(ii) Write program code\
+    \ to amend the main program to:\n•\ncall Bubble() with the unsorted array as a\
+    \ parameter\n•\ncall FormatArray() with the sorted array and output the returned\
+    \ string.\nSave your program.\nCopy and paste the program code into part 1(d)(ii)\
+    \ in the evidence document.\n\n[2]\n\n(iii) Test your program.\n\n Take a screenshot\
+    \ of the output.\nSave your program.\nCopy and paste the screenshot into part\
+    \ 1(d)(iii) in the evidence document.\n\n[1]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -68,7 +107,96 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA computer program is designed to simulate horses doing show jumping.\
+    \ In show jumping, horses\njump over obstacles called fences. A horse successfully\
+    \ jumps a fence if it does not knock the\nfence down.\n\nThe program is written\
+    \ using Object-Oriented Programming (OOP).\n\nThe class Horse stores data about\
+    \ the horses.\nHorse\nName : STRING\nMaxFenceHeight : INTEGER\nPercentageSuccess\
+    \ : INTEGER\nstores the name given to the horse\nstores the maximum height in\
+    \ cm that the horse can\njump, for example 132\nstores the percentage chance of\
+    \ a horse not knocking\ndown a fence, for example 70 represents a 70% chance\n\
+    of jumping a fence successfully\nConstructor()\nGetName()\nGetMaxFenceHeight()\n\
+    Success()\ninitialises Name, MaxFenceHeight and\nPercentageSuccess to its parameter\
+    \ values\nreturns the name of the horse\nreturns the maximum height the horse\
+    \ can jump\ncalculates and returns the percentage chance of a horse\nsuccessfully\
+    \ jumping a specific fence\n\n(a) (i) Write program code to declare the class\
+    \ Horse and its constructor.\n\n Do not declare the other methods.\n\n Use your\
+    \ programming language’s appropriate constructor.\n\n All attributes must be private.\
+    \ If you are writing in Python, include attribute declarations\nusing comments.\n\
+    Save your program as Question2_N24.\nCopy and paste the program code into part\
+    \ 2(a)(i) in the evidence document.\n\n[4]\n\n(ii) The get methods GetName() and\
+    \ GetMaxFenceHeight() each return the relevant\nattribute.\n\n Write program code\
+    \ for the get methods.\nSave your program.\nCopy and paste the program code into\
+    \ part 2(a)(ii) in the evidence document.\n\n[3]\n\n(b) The array Horses stores\
+    \ objects of type Horse.\n\n(i) The program has two horses:\n•\nThe horse named\
+    \ ‘Beauty’ can jump a maximum height of 150 cm and has a success\npercentage rate\
+    \ of 72%.\n•\nThe horse named ‘Jet’ can jump a maximum height of 160 cm and has\
+    \ a success\npercentage rate of 65%.\n\n Write program code to:\n•\ndeclare the\
+    \ array, Horses, local to the main program with space for two Horse\nobjects\n\
+    •\nstore the two horses described in the array\n•\noutput the name of both Horse\
+    \ objects from the array.\nSave your program.\nCopy and paste the program code\
+    \ into part 2(b)(i) in the evidence document.\n\n[5]\n\n(ii) Test your program.\n\
+    \n Take a screenshot of the output.\nSave your program.\nCopy and paste the screenshot\
+    \ into part 2(b)(ii) in the evidence document.\n\n[1]\n\n(c) The class Fence stores\
+    \ data about the fences. Each fence has a height in cm and a risk\nnumber.\n\n\
+    The risk is a whole number between 1 and 5 inclusive. A risk of 1 means the fence\
+    \ is the\neasiest type to jump. A risk of 5 means the fence is the hardest type\
+    \ to jump.\nFence\nHeight : INTEGER\nRisk : INTEGER\nstores the height of the\
+    \ fence in cm\nthe height is between 70 and 180 inclusive\nstores the risk as\
+    \ a whole number between 1 and 5\ninclusive\nConstructor()\nGetHeight()\nGetRisk()\n\
+    initialises Height and Risk to its parameter values\nreturns the height of the\
+    \ fence\nreturns the risk of the fence\n\n(i) Write program code to declare the\
+    \ class Fence, its constructor and get methods.\n\n Use your programming language’s\
+    \ appropriate constructor.\n\n All attributes must be private.\n\n If you are\
+    \ writing in Python, include attribute declarations using comments.\nSave your\
+    \ program.\nCopy and paste the program code into part 2(c)(i) in the evidence\
+    \ document.\n\n[4]\n\n(ii) The array Course stores four Fence objects. The user\
+    \ inputs the height and risk for\neach fence, and these are validated before each\
+    \ fence is created.\n\n Amend the main program to:\n•\ndeclare the local array\
+    \ Course\n•\ntake as input the data for four fences from the user\n•\nloop the\
+    \ input until both the height and risk are valid for each fence\n•\ncreate an\
+    \ instance of Fence for each of the four valid fences and store each\ninstance\
+    \ in the array.\nSave your program.\nCopy and paste the program code into part\
+    \ 2(c)(ii) in the evidence document.\n\n[5]\n\n(d) The chance of a horse jumping\
+    \ a fence without knocking it down is calculated as follows.\n\nIf the height\
+    \ of the fence is more than the maximum height a horse can jump, the success\n\
+    percentage is 20% of the horse’s PercentageSuccess. The risk does not affect this\
+    \ value.\n\nIf the height of the fence is less than or equal to the maximum height\
+    \ a horse can jump, the\nrisk gives a modifier value to multiply with the horse’s\
+    \ PercentageSuccess.\n\nThe risk values and their modifiers are given in this\
+    \ table:\nRisk\nModifier\n5\n0.6\n4\n0.7\n3\n0.8\n2\n0.9\n1\n1.0\n\nFor example:\n\
+    •\nThe horse Jet has PercentageSuccess of 65 and MaxFenceHeight of 160.\n•\nA\
+    \ fence has a height of 140 and a risk of 3.\n•\nThe height of the fence is less\
+    \ than the horse’s MaxFenceHeight, therefore the risk is\nused.\n•\nThe risk of\
+    \ 3 gives the modifier 0.8.\n•\nThe modifier 0.8 is multiplied by the horse’s\
+    \ PercentageSuccess of 65, which gives 52.\n•\nThe chance of the horse successfully\
+    \ jumping this fence is 52%.\n\nThe method Success() in the Horse class:\n•\n\
+    takes the height and risk of a fence as parameters\n•\ncalculates the percentage\
+    \ chance of success for that horse jumping the fence without\nknocking it down\n\
+    •\nreturns the calculated percentage chance of success as a real number.\n\nWrite\
+    \ program code for Success().\nSave your program.\nCopy and paste the program\
+    \ code into part 2(d) in the evidence document.\n\n[5]\n\n(e) (i) Write program\
+    \ code to amend the main program to:\n•\ncalculate and output the chance of the\
+    \ first horse jumping each of the four fences without\nknocking each fence down\n\
+    •\ncalculate and output the chance of the second horse jumping each of the four\
+    \ fences\nwithout knocking each fence down.\n\n All outputs must have appropriate\
+    \ messages including the name of the horse and the\nfence number.\n\n An example\
+    \ output for one horse jumping two fences is:\n\n \"The horse Fox at fence 1 has\
+    \ a 68% chance of success\n\n The horse Fox at fence 2 has a 72% chance of success\"\
+    \nSave your program.\nCopy and paste the program code into part 2(e)(i) in the\
+    \ evidence document.\n\n[3]\n\n(ii) Write program code to amend the main program\
+    \ to:\n•\ncalculate and output the average chance of success for each horse jumping\
+    \ over all\nfour fences without knocking each fence down (the average is the total\
+    \ of values\ndivided by the quantity of values). An example output for one horse\
+    \ jumping all of\nthe fences is:\n\n \"The horse Fox has an average 70% chance\
+    \ of jumping over all four\nfences\"\n•\noutput the name of the horse that has\
+    \ the highest average chance of success.\n\n You can assume that each average\
+    \ will be different.\n\n All outputs must have appropriate messages.\nSave your\
+    \ program.\nCopy and paste the program code into part 2(e)(ii) in the evidence\
+    \ document.\n\n[2]\n\n(iii) Test your program with the following input data for\
+    \ four fences:\nHeight\nRisk\n152\n5\n121\n1\n130\n3\n145\n4\n\n Take a screenshot\
+    \ of the output.\nSave your program.\nCopy and paste the screenshot into part\
+    \ 2(e)(iii) in the evidence document.\n\n[2]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -158,7 +286,57 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA linked list stores positive integer data in a 2D array. The first dimension\
+    \ of the array stores the\ninteger data. The second dimension of the array stores\
+    \ the pointer to the next node in the linked\nlist.\n\nA linked list node with\
+    \ no data is initialised with the integer –1. These nodes are linked together\
+    \ as\nan empty list. A pointer of –1 identifies that node as the last node.\n\n\
+    The linked list can store 20 nodes.\n\nThe global 2D array LinkedList stores the\
+    \ linked list.\n\nLinkedList is initialised as an empty list. The data in each\
+    \ node is initialised to –1. Each node’s\npointer stores the index of the next\
+    \ node. The last node stores the pointer value –1, which indicates\nit is the\
+    \ last node.\n\nThe global variable FirstEmpty stores the index of the first element\
+    \ in the empty list. This is the\nfirst node in the empty linked list when it\
+    \ is initialised, which is index 0.\n\nThe global variable FirstNode stores the\
+    \ index of the first element in the linked list. There is no\ndata in the linked\
+    \ list when it is initialised, so FirstNode is initialised to –1.\n\nThis diagram\
+    \ shows the content of the initialised array.\n\nFirstEmpty = 0\n\nFirstNode =\
+    \ –1\nIndex\nData\nPointer\n0\n-1\n1\n1\n-1\n2\n2\n-1\n3\n3\n-1\n4\n4\n-1\n5\n\
+    \n19\n-1\n-1\n\n(a) Write program code for the main program to declare and initialise\
+    \ LinkedList, FirstNode\nand FirstEmpty.\nSave your program as Question3_N24.\n\
+    Copy and paste the program code into part 3(a) in the evidence document.\n\n[2]\n\
+    \n(b) The procedure InsertData() takes five positive integers as input from the\
+    \ user and inserts\nthese into the linked list.\n\nEach data item is inserted\
+    \ at the front of the linked list.\n\nThe table shows the steps to follow depending\
+    \ on the state of the linked list:\nLinked list state\nSteps\nnot full\ninsert\
+    \ the data in the index pointed to by FirstEmpty\nchange the pointer to the index\
+    \ pointed to by FirstNode\nchange the values of FirstNode and FirstEmpty\nfull\n\
+    end the procedure\n\nAny node that is at the end of the linked list has a pointer\
+    \ of –1.\n\nWrite program code for InsertData().\nSave your program.\nCopy and\
+    \ paste the program code into part 3(b) in the evidence document.\n\n[6]\n\n(c)\
+    \ The procedure OutputLinkedList() outputs the data in the linked list in order\
+    \ by following\nthe pointers from FirstNode.\n\n(i) Write program code for OutputLinkedList().\n\
+    Save your program.\nCopy and paste the program code into part 3(c)(i) in the evidence\
+    \ document.\n\n[2]\n\n(ii) Amend the main program to call InsertData() and then\
+    \ OutputLinkedList().\nSave your program.\nCopy and paste the program code into\
+    \ part 3(c)(ii) in the evidence document.\n\n[1]\n\n(iii) Test your program with\
+    \ the test data:\n\n 5   1   2   3   8\n\n Take a screenshot of the output.\n\
+    Save your program.\nCopy and paste the screenshot into part 3(c)(iii) in the evidence\
+    \ document.\n\n[1]\n\n(d) The procedure RemoveData() removes a node from the linked\
+    \ list.\n\nThe procedure takes the data item to be removed from the linked list\
+    \ as a parameter.\n\nThe procedure checks each node in the linked list, starting\
+    \ with the node FirstNode, until it\nfinds the node to be removed. This node is\
+    \ added to the empty list, and pointers are changed\nas appropriate. The procedure\
+    \ only removes the first occurrence of the parameter.\n\nAssume that the data\
+    \ item being removed is in the linked list.\n\n(i) Write program code for RemoveData().\n\
+    Save your program.\nCopy and paste the program code into part 3(d)(i) in the evidence\
+    \ document.\n\n[5]\n\n(ii) Amend the main program to:\n•\ncall RemoveData() with\
+    \ the parameter 5\n•\noutput the word \"After\"\n•\ncall OutputLinkedList().\n\
+    Save your program.\nCopy and paste the program code into part 3(d)(ii) in the\
+    \ evidence document.\n\n[1]\n\n(iii) Test your program with both sets of given\
+    \ test data:\n\n Test data set 1:  5  6 8 9 5\n\n Test data set 2: 10 7 8 5 6\n\
+    \n Take a screenshot of each output.\nSave your program.\nCopy and paste the screenshot(s)\
+    \ into part 3(d)(iii) in the evidence document.\n\n[1]"
   answer_options: []
   subquestions:
   - number: 3a

@@ -2,7 +2,12 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nB\nA\n\n(a) In triangle ABC, AB = 8 cm, AC = 7 cm and BC = 5 cm.\n\nUsing\
+    \ a ruler and compasses only, construct triangle ABC.\n\nThe side AB has been\
+    \ drawn for you.\n[2]\n\n(b) Measure angle ACB [1]\n\n(c) Triangle ABC is a scale\
+    \ drawing of a field.\n\n(i) The scale is   1 : 10 000.\n\n Find the actual distance\
+    \ from A to B.\n\n Give your answer in kilometres km [1]\n\n(ii) B is due east\
+    \ of A.\n\n Find the bearing of A from B [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -38,7 +43,9 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\n(a)\nx\n– 5\n– 4\n– 3\n– 2\n– 1\n1\n0\n2\n3\n\nWrite down the inequality\
+    \ represented in the diagram [2]\n\n(b) Write down the integer values of x that\
+    \ satisfy the inequality\nx\n4\n2\n8\n1\nG\n-\n [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -74,7 +81,10 @@ questions:
 - number: '12'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "12 Some students are asked if they like football (F) or rugby (R).\n\nThe\
+    \ Venn diagram shows the results.\nR\nF\n33\n7\n6\n4\n%\n\n(a) Find the number\
+    \ of students who do not like rugby [1]\n\n(b) Use set notation to describe the\
+    \ region containing students who like rugby but not football [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 12a
@@ -92,7 +102,14 @@ questions:
 - number: '14'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "14 A cube contains a solid metal sphere.\n\nThe sphere touches all the faces\
+    \ of the cube.\n\nThe side length of the cube is 8 cm.\n\n(a) Show that the volume\
+    \ of the sphere is\nrcm\n3\n256\n3.\n\n[1]\n\n(b) Calculate the percentage of\
+    \ the cube that is not occupied by the sphere % [3]\n\n(c) The density of the\
+    \ metal of the sphere is 7.86 g/cm3.\n\nCalculate the mass of the sphere.\n\n\
+    Give your answer in kilograms.\n\n[Density = mass ' volume]\n\n  kg [2]\n,\t\t\
+    ,\n\n(d) The sphere is melted down and made into a solid cylinder with radius\
+    \ 3.1 cm.\n\nCalculate the total surface area of the cylinder cm2 [4]\n,\n,"
   answer_options: []
   subquestions:
   - number: 14a
@@ -122,7 +139,12 @@ questions:
 - number: '18'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "18\n10\n2\n0\n8\nSpeed\n(m/s)\nTime (seconds)\nNOT TO\nSCALE\n0\n\nThe diagram\
+    \ shows part of the speed–time graph for an athlete in a race.\n\n(a) Calculate\
+    \ the distance the athlete runs in the first 10 seconds m [2]\n\n(b) The length\
+    \ of the race is 100 m.\n\nAfter 10 seconds, the athlete continues to run at a\
+    \ speed of 8 m/s until the end of the race.\n\nCalculate the total time the athlete\
+    \ takes to complete the 100 m race s [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 18a
@@ -158,7 +180,15 @@ questions:
 - number: '24'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "24 Martha walks a distance of 10 km at a speed of x km/h.\n\nShe then runs\
+    \ a distance of 5 km at a speed of (\n)\nx\n4\n+\n km/h.\n\nThe total time taken\
+    \ for the whole journey is 3.5 hours.\n\n(a) Write down an expression in terms\
+    \ of x for the time Martha is walking h [1]\n\n(b) Show that   x\nx\n7\n2\n80\n\
+    0\n2 -\n-\n=\n.\n\n[4]\n\n(c) Solve   x\nx\n7\n2\n80\n0\n2 -\n-\n=\n, giving your\
+    \ answers correct to 2 decimal places.\n\nYou must show all your working.\n\n\
+    x =  or x =  [3]\n\n(d) Calculate the difference between the time Martha is walking\
+    \ and the time she is running.\n\nGive your answer in hours and minutes correct\
+    \ to the nearest minute.\nh\nmin [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 24a
@@ -188,7 +218,12 @@ questions:
 - number: '25'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "25 Kai sorts parcels into two types, light and heavy.\nType of parcel\nMass\
+    \ (m kg)\nLight\nm\n0\n2\n1\nG\nHeavy\nm\n2\n5\n1\nG\n\nThe histogram shows some\
+    \ information about the number of parcels Kai sorts in one day.\nm\n5\n0\nFrequency\n\
+    density\nMass (kg)\n0\n20\n40\n10\n30\n1\n2\n3\n4\n\n(a) Find the number of light\
+    \ parcels [1]\n\n(b) There are 102 heavy parcels.\n\nComplete the histogram.\n\
+    [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 25a
@@ -206,7 +241,59 @@ questions:
 - number: '28'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '28
+
+
+    ( )x
+
+    7
+
+    f
+
+    x
+
+    4
+
+    =
+
+    -
+
+
+    Find the value of x when
+
+
+    (a)
+
+    ( )x
+
+    1
+
+    f
+
+    =
+
+
+    x =   [1]
+
+
+    (b)
+
+    ( )x
+
+    1
+
+    f
+
+    1
+
+    =
+
+    -
+
+    .
+
+
+    x =   [2]'
   answer_options: []
   subquestions:
   - number: 28a
@@ -224,7 +311,48 @@ questions:
 - number: '29'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '29
+
+    NOT TO
+
+    SCALE
+
+    D
+
+    C
+
+    B
+
+    A
+
+    y°
+
+    38°
+
+    97°
+
+    14 cm
+
+    13 cm
+
+    10 cm
+
+
+    (a) Calculate the value of y.
+
+
+    y =   [3]
+
+
+    (b) Calculate BD.
+
+    BD =
+
+    cm [5]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions:
   - number: 29a

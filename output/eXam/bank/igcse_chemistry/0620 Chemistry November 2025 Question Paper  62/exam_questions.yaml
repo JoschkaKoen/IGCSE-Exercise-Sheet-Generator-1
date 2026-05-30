@@ -2,7 +2,31 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nEggshells are made from a mixture of calcium carbonate and other insoluble\
+    \ substances.\n\nCalcium carbonate reacts with dilute hydrochloric acid. The equation\
+    \ for the reaction is shown.\nCaCO3(s)  +  2HCl (aq)\n  CaCl 2(aq)  +  H2O(l)\
+    \  +  CO2(g)\n\nThe other substances in eggshells do not react with dilute hydrochloric\
+    \ acid.\n\nA student finds the percentage by mass of calcium carbonate in an eggshell.\n\
+    \nFig. 1.1 shows the first three steps of the method the student uses.\nstep 1\n\
+    Grind the eggshell\ninto small pieces.\nstep 2\nFind the mass of the\nsmall pieces\
+    \ of eggshell.\nstep 3\nAdd the small pieces of eggshell to\nexcess dilute hydrochloric\
+    \ acid and\nwarm the mixture while stirring it\nwith a glass rod.\nsmall pieces\n\
+    of eggshell\nsmall pieces\nof eggshell\nbalance\npestle\nmortar\neggshell\ndilute\n\
+    hydrochloric\nacid\nconical\nflask\nglass rod\nFig. 1.1\n\n(a) (i) Describe what\
+    \ is seen when the calcium carbonate in the eggshell reacts with dilute\nhydrochloric\
+    \ acid [1]\n\n(ii) Describe what the student should do to make sure the acid is\
+    \ in excess and all of the\ncalcium carbonate has reacted [2]\n,\t,\n\n(b) After\
+    \ step 3, the student filters the mixture to obtain the unreacted solid left from\
+    \ the eggshell.\n\n(i) Draw a labelled diagram of the apparatus the student should\
+    \ use to filter the mixture.\n\n[2]\n\n(ii) After the filtration, the student\
+    \ washes the residue.\n\n Identify the two substances removed from the residue\
+    \ by washing.\nsubstance 1   substance 2   [2]\n\n(iii) After washing the residue,\
+    \ the student dries the residue in an oven.\n\n The student then measures the\
+    \ mass of the dry residue.\n\n The masses the student records are shown in Table\
+    \ 1.1.\nTable 1.1\nmass of small pieces of eggshell / g\n2.00\nmass of dry residue\
+    \ after filtration / g\n0.11\n\n Use the data in Table 1.1 to calculate the percentage\
+    \ by mass of calcium carbonate in\nthe eggshell.\n\npercentage of calcium carbonate\
+    \ =   [2]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +74,53 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates the reaction between acidic solution B and two\
+    \ different solutions of\naqueous sodium hydroxide, solution C and solution D,\
+    \ using two different indicators.\n\nThe student does two experiments.\n\nExperiment\
+    \ 1\n•\nRinse a burette with distilled water and then with solution C.\n•\nFill\
+    \ the burette with solution C. Run some of solution C out of the burette so that\
+    \ the level of\nthe solution is on the burette scale.\n•\nRecord the initial burette\
+    \ reading.\n•\nUse a measuring cylinder to pour 25 cm3 of solution B into a conical\
+    \ flask.\n•\nAdd five drops of methyl orange indicator and five drops of thymolphthalein\
+    \ indicator to the\nconical flask.\n•\nStand the conical flask on a white tile.\n\
+    •\nSlowly add solution C from the burette to the conical flask, while swirling\
+    \ the flask, until the\nsolution changes colour from red to orange. This is the\
+    \ first end-point.\n•\nRecord the burette reading at the first end-point.\n•\n\
+    Continue to add solution C from the burette to the conical flask while swirling\
+    \ the flask. The\nsolution changes colour from orange to yellow.\n•\nContinue\
+    \ to add solution C, while swirling the flask, until the solution changes colour\
+    \ from\nyellow to green. This is the second end-point.\n•\nRecord the burette\
+    \ reading at the second end-point.\n\nExperiment 2\n•\nEmpty the conical flask\
+    \ and rinse it with distilled water.\n•\nRepeat Experiment 1 using solution D\
+    \ instead of solution C.\n,\t,\n\n(a) Use the burette diagrams in Fig. 2.1 and\
+    \ Fig. 2.2 to record the readings for Experiment 1 and\nExperiment 2 in Table\
+    \ 2.1. Complete Table 2.1.\n1\n2\ninitial burette reading\nburette reading at\n\
+    first end-point\nburette reading at\nsecond end-point\n3\n20\n21\n22\n40\n41\n\
+    42\nExperiment 1\nFig. 2.1\n0\n1\ninitial burette reading\nburette reading at\n\
+    first end-point\nburette reading at\nsecond end-point\n2\n10\n11\n12\n20\n21\n\
+    22\nExperiment 2\nFig. 2.2\nTable 2.1\nExperiment 1\nusing solution C\nExperiment\
+    \ 2\nusing solution D\nburette reading at first end-point / cm3\nburette reading\
+    \ at second end-point / cm3\ninitial burette reading / cm3\nvolume added from\
+    \ burette to reach\nfirst end-point / cm3\ntotal volume added from burette to\
+    \ reach\nsecond end-point / cm3\n\n[5]\n,\t,\n\n(b) (i) Explain why the conical\
+    \ flask is rinsed with distilled water at the start of Experiment 2 [1]\n\n(ii)\
+    \ At the start of Experiment 1, the burette is rinsed with distilled water and\
+    \ then with\nsolution C.\n\n Explain how the volume added from the burette to\
+    \ reach the first end-point would be\ndifferent if the burette was not rinsed\
+    \ with solution C [2]\n\n(iii) Explain why the conical flask is placed on a white\
+    \ tile during the titration [1]\n\n(c) Compare the concentration of solution C\
+    \ used in Experiment 1 with the concentration of\nsolution D used in Experiment\
+    \ 2.\n\nExplain your answer [3]\n\n(d) (i) Deduce the volume of solution C required\
+    \ to reach the first end-point if Experiment 1 is\nrepeated using 50 cm3 of solution\
+    \ B instead of 25 cm3.\n\nvolume of solution C =  [2]\n\n(ii) State why using\
+    \ 50 cm3 of solution B would cause a problem when finding the volume of\nsolution\
+    \ C needed to reach the second end-point in Experiment 1 [1]\n,\t,\n\n(e) A student\
+    \ repeats Experiment 2.\n\nThe student warms solution B in the conical flask before\
+    \ carrying out the titration.\n\nState the effect, if any, on the volume of solution\
+    \ D required to reach the second end-point in\nExperiment 2.\n\nExplain your answer.\n\
+    effect on volume of solution D   explanation   [2]\n\n(f) State one change to\
+    \ the apparatus that will improve the accuracy of the results [1]\n\n[Total: 18]\n\
+    ,\t\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -122,7 +192,29 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student tests two solids: solid E and solid F.\n\nTests on solid E\n\
+    \nSolid E is ammonium sulfate.\n\nRecord the expected observations.\n\nThe student\
+    \ dissolves solid E in distilled water to form solution E. The student divides\
+    \ solution E\ninto three approximately equal portions.\n\n(a) (i) To the first\
+    \ portion of solution E, the student adds about 2 cm3 of aqueous\nsodium hydroxide.\
+    \ The student warms the mixture gently and tests any gas produced.\nobservations\
+    \   [1]\n\n(ii) Identify the gas given off in (a)(i) [1]\n\n(b) To the second\
+    \ portion of solution E, the student adds about 1 cm3 of dilute nitric acid followed\n\
+    by a few drops of aqueous barium nitrate.\nobservations   [1]\n\n(c) To the third\
+    \ portion of solution E, the student adds a few drops of acidified aqueous\npotassium\
+    \ manganate(VII).\nobservations   [1]\n,\n,\nTests on solid F\nTable 3.1 shows\
+    \ the tests and the student’s observations for solid F.\nTable 3.1\ntests\nobservations\n\
+    test 1\nCarry out a flame test on solid F.\nyellow flame\ntest 2\nDissolve the\
+    \ remaining solid F in distilled water\nto form solution F. Divide solution F\
+    \ into three\nportions.\nTo the first portion of solution F, add about 1 cm3\n\
+    of dilute nitric acid followed by a few drops of\naqueous silver nitrate.\nyellow\
+    \ precipitate forms\ntest 3\nTo the second portion of solution F, add aqueous\n\
+    sodium hydroxide dropwise until in excess.\nwhite precipitate forms\nthe precipitate\
+    \ dissolves in excess\naqueous sodium hydroxide to form a\ncolourless solution\n\
+    test 4\nTo the third portion of solution F, add aqueous\nammonia dropwise until\
+    \ in excess.\nwhite precipitate forms\nthe precipitate dissolves in excess\naqueous\
+    \ ammonia to form a colourless solution\n\n(d) Identify the three ions in solid\
+    \ F [3]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a

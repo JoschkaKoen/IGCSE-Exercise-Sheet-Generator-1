@@ -16,7 +16,30 @@ questions:
 - number: '2'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: 'A firm is deciding whether to produce good X or good Y for the next five
+    years. The predicted
+
+    revenue for good X is $20 000 per year and for good Y is $18 000 per year.
+
+    What is the opportunity cost of producing good X?
+
+    2
+
+    D
+
+    $100 000
+
+    C
+
+    $90 000
+
+    A
+
+    $18 000
+
+    B
+
+    $20 000'
   answer_options:
   - letter: A
     text: A

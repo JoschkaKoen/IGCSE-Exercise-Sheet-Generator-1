@@ -2,7 +2,20 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nAn algorithm is developed in pseudocode before being coded in a programming\
+    \ language.\n\n(a) The following table shows four valid pseudocode assignment\
+    \ statements.\n\nComplete the table by giving an appropriate data type to declare\
+    \ each of the variables A, B, C\nand D.\nAssignment statement\nData type\nA\n\
+    \ LEFT(MyName, 1)\nB\n Total * 2\nC\n INT(ItemCost) / 3\nD\n \"Odd OR Even\"\n\
+    \n[4]\n\n(b) Other variables in the program have example values as shown:\nVariable\n\
+    Value\nSorted\nFalse\nTries\n9\nID\n\"ZGAC001\"\n\nComplete the table by evaluating\
+    \ each expression, using the example values.\nExpression\nEvaluates to\nTries\
+    \ < 10 AND NOT Sorted\nTries MOD 4\nTO_LOWER(MID(ID, 3, 1))\nLENGTH(ID & \"xx\"\
+    ) >= Tries\n\n[4]\n\n(c) The variable names A, B, C and D in part (a) are not\
+    \ good programming practice.\n\n(i) State why these variable names are not suitable\
+    \ [1]\n\n(ii) Identify one problem that these variable names might cause [1]\n\
+    \n(iii) The choice of suitable variable names is one example of good programming\
+    \ practice.\n\n Give one other example [1]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,13 +57,85 @@ questions:
 - number: '4'
   question_type: long_answer
   marks: 4
-  text: ''
+  text: '4
+
+    A global 1D array Data contains 100 elements of type integer.
+
+
+    A function Check() will:
+
+    •
+
+    total the element values in odd index locations (1, 3, 5 ... 97, 99)
+
+    •
+
+    total the element values in even index locations (2, 4, 6 ... 98, 100)
+
+    •
+
+    return one of three strings ‘Odd’, ‘Even’ or ‘Same’ to indicate which total is
+    the greater, or
+
+    whether the totals are the same.
+
+
+    Write pseudocode for the function Check() [6]'
   answer_options: []
   subquestions: []
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    An algorithm has three steps. It will:
+
+
+    1.
+
+    repeatedly input a pair of numeric values A and B
+
+
+    2.
+
+    count the number of pairs that are input until A has been greater than B 10 times
+
+
+    3.
+
+    output the number of pairs that were input.
+
+
+    (a) Complete the program flowchart.
+
+
+    START
+
+    END
+
+    INPUT  A, B
+
+    Yes
+
+    No
+
+    [5]
+
+
+    (b) Step 1 of the algorithm is changed.
+
+
+    A variable ThisSequence is used to enter a sequence of 10 pairs of numeric values,
+    using
+
+    a single input statement.
+
+
+    Following the input of ThisSequence the revised algorithm will extract the pairs
+    of numbers.
+
+
+    Describe the variable ThisSequence and how the numbers are extracted [2]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -68,7 +153,84 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    The diagram shows an Abstract Data Type (ADT) representation of a linked list
+    after data items
+
+    have been added.
+
+    •
+
+    PS is the start pointer.
+
+    •
+
+    PF is the free list pointer.
+
+    •
+
+    Labels Df, Dc, Db and Dy represent the data items of nodes in the list.
+
+    •
+
+    Labels Fg, Fh, Fm and Fw represent the data items of nodes in the free list.
+
+    •
+
+    The symbol Ø represents a null pointer.
+
+
+    Df
+
+    PS
+
+    Dc
+
+    Db
+
+    Dy
+
+    Ø
+
+    Fg
+
+    PF
+
+    Fh
+
+    Fm
+
+    Fw
+
+    Ø
+
+
+    (a) Describe the linked list immediately after initialisation, before any data
+    items are added [3]
+
+
+    (b) A program will be written to include a linked list to store alphanumeric user
+    IDs.
+
+
+    The design uses two variables and two 1D arrays to implement the linked list.
+
+
+    Each array element contains data of a single data type and not a record.
+
+
+    The statements below describe the design.
+
+
+    Complete the statements.
+
+    The two variables will be of type   The two variables will be used as   to the
+    arrays.
+
+    The values stored in the two variables will indicate   The first 1D array will
+    be of type   The first 1D array will be used to   The second 1D array will be
+    of type   The second 1D array will be used to   [5]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -86,7 +248,24 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA global 1D array of strings contains three elements which are assigned\
+    \ values as shown:\n\nData[1]\n \"aaaaaa\"\n\nData[2]\n \"bbbbbb\"\n\nData[3]\n\
+    \ \"cccccc\"\n\nProcedure Process() manipulates the values in the array.\n\nThe\
+    \ procedure is written in pseudocode as follows:\n\nPROCEDURE Process(Format :\
+    \ STRING)\n\n  DECLARE Count, Index, L : INTEGER\n\n  DECLARE Result : STRING\n\
+    \n  DECLARE C : CHAR\n\n  Result\n \"****\"\n\n  FOR Count\n 1 TO LENGTH(Format)\
+    \ STEP 2\n\n    C\n MID(Format, Count, 1)\n\n    L\n STR_TO_NUM(MID(Format, Count\
+    \ + 1, 1))\n\n    Index\n (Count + 1) DIV 2\n\n    CASE OF C\n\n      'X' : Result\n\
+    \ TO_UPPER(Data[Index])\n\n      'Y' : Result\n TO_LOWER(Data[Index])\n\n    \
+    \  'Z' : Result\n \"**\" & Data[Index]\n\n    ENDCASE\n\n    Data[Index]\n LEFT(Result,\
+    \ L)\n\n  NEXT Count\n\nENDPROCEDURE\n\n(a) Complete the trace table by dry running\
+    \ the procedure when it is called as follows:\n\nCALL Process(\"X3Y2W4\")\nCount\n\
+    C\nL\nIndex\nResult\nData[1]\nData[2]\nData[3]\n\n[6]\n\n(b) The procedure is\
+    \ to be modified. If variable C is assigned a value other than 'X', 'Y' or 'Z',\n\
+    then procedure Error() is called and passed the value of variable C as a parameter.\n\
+    \nThis modification can be implemented by adding a single line of pseudocode.\n\
+    \n(i) Write the single line of pseudocode [1]\n\n(ii) State where this new line\
+    \ should be placed [1]"
   answer_options: []
   subquestions:
   - number: 5a
@@ -116,7 +295,37 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nThree points on a grid form a triangle with sides of length A, B and C\
+    \ as shown in the example:\n\n10\ny\nx\n9\n8\n7\n6\n5\n4\n1\n0\n2\n3\n4\n5\n6\n\
+    7\n8\n9 10\nA\nC\nB\n3\n2\n1\n\nA triangle is said to be right-angled if the following\
+    \ test is true (where A is the length of the longest\nside):\n\nA2 = B2 + C2\n\
+    \nA2 means A multiplied by A, for example 32 means 3 × 3 which evaluates to 9\n\
+    \nYou can calculate A2, B2 and C2 by using the coordinates of the endpoints of\
+    \ each line.\n\nFor example, B2 is calculated as follows:\n\n10\ny\nx\n9\n8\n\
+    7\n6\n5\n4\n1\n0\n2\n3\n4\n5\n6\n7\n8\n9 10\nB\nP2\nP2\nP1\nP1\n3\n2\n1\n(x1,\
+    \ y1)\n(x1, y1)\n(x2, y2)\n(x2, y2)\n\nThe endpoints, P1 and P2, have the coordinates\
+    \ (3, 2) and (6, 6).\n\nThe value B2 is given by the formula:\n\nB2 = (x1 − x2)2\
+    \ + (y1 − y2)2\n\nIn this example:\n\nB2 = (3 − 6)2 + (2 − 6)2\n\nB2 = (–3)2 +\
+    \ (–4)2\n\nB2 = 9 + 16\n\nB2 = 25\n\n(a) A function IsRA() will:\n•\ntake three\
+    \ sets of integers as parameters representing the coordinates of the three\nendpoints\
+    \ that form a triangle\n•\nreturn TRUE if the endpoints form a right-angled triangle,\
+    \ otherwise return FALSE.\n\nIn pseudocode, the operator ‘^’ represents an exponent,\
+    \ which is the number of times a value\nis multiplied by itself.  For example,\
+    \ the expression Value2 may be written in pseudocode as\nValue ^ 2\n\nComplete\
+    \ the pseudocode for the function IsRA().\n\nFUNCTION IsRA(x1, y1, x2, y2, x3,\
+    \ y3 : INTEGER) RETURNS BOOLEAN\n  ENDFUNCTION\n\n[6]\n\n(b) The test used to\
+    \ check if a triangle is right-angled can be written in two ways:\n\n A2 = B2\
+    \ + C2\n\nor\n\n A = √(B2 + C2)\n\nThe symbol √ represents the square root operation.\
+    \ For example, √81 = 9\n\nA new function SQRT() is written to perform the square\
+    \ root operation. The function takes an\ninteger number as a parameter and returns\
+    \ a positive real value representing the square root\nof the number.\n\nDuring\
+    \ testing it is found that the SQRT() function returns a value that is only accurate\
+    \ to\n4 decimal places.\n\nFor example, SQRT(25) returns 5.0000125 rather than\
+    \ the correct value of 5.0\n\nThe function IsRA() from part (a) is modified to\
+    \ use the new SQRT() function to test if a\ntriangle is right-angled.\n\nDescribe\
+    \ a problem that might occur when using the modified IsRA() function and suggest\n\
+    a solution that still allows the SQRT() function to be used.\nProblem   Solution\
+    \   [2]"
   answer_options: []
   subquestions:
   - number: 6a
@@ -134,7 +343,27 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nA fitness club has a computerised membership system. The fitness club\
+    \ offers a number of\ndifferent exercise classes.\n\nThe following information\
+    \ is stored for each club member: name, home address, email address,\nmobile phone\
+    \ number, date of birth and the exercise(s) they are interested in.\n\n(a) When\
+    \ an exercise class is planned, a new module will send personalised text messages\
+    \ to\neach member who has expressed an interest in that exercise. Members wishing\
+    \ to join the\nclass send a text message back. Members may decide not to receive\
+    \ future text messages\nby replying with the message ‘STOP’.\n\nThe process of\
+    \ abstraction is used to filter out unnecessary information.\n\n(i) State one\
+    \ advantage of applying abstraction to this problem [1]\n\n(ii) Identify three\
+    \ items of information that will be required by the new module.\n\n Justify your\
+    \ choices with reference to the given scenario.\nItem 1 required   Justification\
+    \   Item 2 required   Justification   Item 3 required   Justification   [3]\n\n\
+    (iii) Identify two operations that would be required to process data when the\
+    \ new module\nreceives a text message back from a member.\nOperation 1   Operation\
+    \ 2   [2]\n\n(b) The structure chart illustrates part of the membership program:\n\
+    Sub-A\nSub-B\nP1\nT1\nP2\nName\nUpdate\nSub-C\nA\n\nData item notes:\n•\nName\
+    \ contains the name of a club member\n•\nP1 and T1 are of type real.\n\n(i) Explain\
+    \ the meaning of the diamond symbol (labelled with the letter A) in the chart\
+    \ [2]\n\n(ii) Write the pseudocode module headers for Sub-A and Sub-B.\n\n Sub-A\n\
+    \  Sub-B\n  [4]"
   answer_options: []
   subquestions:
   - number: 7a
@@ -182,7 +411,27 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nA teacher is designing a program to process pseudocode projects written\
+    \ by her students.\n\nEach student project is stored in a text file.\n\nThe process\
+    \ is split into a number of stages. Each stage performs a different task and creates\
+    \ a\nnew file named as shown:\nFile name\nComment\nMichaelAday_src.txt\nstudent\
+    \ project file produced by student Michael Aday\nMichaelAday_S1.txt\nfile produced\
+    \ by stage 1\nMichaelAday_S2.txt\nfile produced by stage 2\n\nThe teacher has\
+    \ defined the first program module as follows:\nModule\nDescription\nDeleteComment()\n\
+    •  called with a parameter of type string representing a line of\npseudocode from\
+    \ a student’s project file\n• returns the line after removing any comments\nNote\
+    \ on comments:\nA comment starts with two forward slash characters and includes\
+    \ all the\nremaining characters on the line.\nThe following example shows a string\
+    \ before and after the comment has\nbeen removed:\nBefore: IF X2 > 13 THEN   //check\
+    \ if limit exceeded\nAfter:   IF X2 > 13 THEN\n\n(a) Complete the pseudocode for\
+    \ module DeleteComment().\n\nFUNCTION DeleteComment(Line : STRING) RETURNS STRING\n\
+    \  ENDFUNCTION\n\n[8]\n\n(b) A second module is defined:\nModule\nDescription\n\
+    Stage_1()\n• called with a parameter of type string representing a student name\n\
+    • creates a new stage 1 file\n•  copies each line from the student’s project file\
+    \ to the stage 1 file after\nremoving any comment from each line\n• does not write\
+    \ blank lines to the stage 1 file\n• returns the number of lines written to the\
+    \ stage 1 file\n\nWrite pseudocode for module Stage_1().\n\nModule DeleteComment()\
+    \ must be used in your solution [7]"
   answer_options: []
   subquestions:
   - number: 8a

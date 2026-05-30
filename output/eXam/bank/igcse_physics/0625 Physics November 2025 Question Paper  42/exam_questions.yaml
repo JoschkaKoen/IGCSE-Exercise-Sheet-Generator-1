@@ -2,7 +2,15 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) (i) State the difference between a scalar quantity and a vector quantity\
+    \ [1]\n\n(ii) In the list below, draw a line under each of the quantities that\
+    \ is a scalar quantity.\nacceleration   mass   momentum   electric field strength\n\
+    energy   temperature\n\n[2]\n\n(b) A tennis player throws a tennis ball into the\
+    \ air. The mass of the tennis ball is 5.8 × 10–2 kg.\nThe tennis ball leaves the\
+    \ tennis player’s hand and reaches a maximum height of 5.0 m above\nthe point\
+    \ of release.\n\n(i) Show that the initial velocity of the tennis ball is 9.9\
+    \ m / s upwards.\n\n[3]\n\n(ii) Calculate the momentum of the tennis ball as it\
+    \ leaves the tennis player’s hand.\n\nmomentum =   [2]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +52,18 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) A truck moves with a constant acceleration. The speed of the truck\
+    \ increases from 13 m / s to\n22 m / s. The time taken for this increase in speed\
+    \ is 4.5 s. The mass of the truck is 3700 kg.\n\n(i) Calculate the resultant force\
+    \ acting on the truck.\n\nresultant force =   [3]\n\n(ii) The engine of the truck\
+    \ provides the forward force on the truck. State two forces acting\non the truck\
+    \ in the opposite direction to the forward force [2]\n,\t,\n\n(b) Fig. 2.1 shows\
+    \ a car as it travels round a circular racing track.\ncircular\nracing track\n\
+    direction of\nmovement\ncar\nP\nFig. 2.1\n\n(i) The car travels at constant speed.\n\
+    \n On Fig. 2.1, draw an arrow to show the direction of the force acting on the\
+    \ car.\n[1]\n\n(ii) A different car travels around the same track and slides off\
+    \ the track at point P.\n\n State two possible reasons that cause the car to slide\
+    \ off the track [2]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -86,7 +105,18 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nFig. 3.1 shows black solar panels installed on the roof of a house and\
+    \ a large rechargeable battery.\nlarge\nrechargeable\nbattery\nelectric cable\n\
+    solar panels\nFig. 3.1 (not to scale)\n\nThe solar panels produce electricity\
+    \ and give a maximum power output of 3.5 kW. The efficiency of\nthe solar panels\
+    \ is 16%.\n\n(a) State and explain one advantage of using black solar panels [2]\n\
+    \n(b) Calculate the power received by the solar panels from the Sun.\n\npower\
+    \ =   [3]\n,\t,\n\n(c) The solar panels produce direct current (d.c.) and household\
+    \ appliances use alternating\ncurrent (a.c.).\n\nState the difference between\
+    \ alternating current and direct current [1]\n\n(d) Suggest one advantage of storing\
+    \ energy in the large rechargeable battery [1]\n\n(e) Calculate the charge that\
+    \ flows into the battery when there is a current of 4.0 A for 2.0 hours.\n\ncharge\
+    \ =   [3]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -122,7 +152,18 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nFig. 4.1 shows gas trapped in a cylinder by a piston.\npiston\ngas\ncylinder\n\
+    Fig. 4.1\n\n(a) The volume of gas is 240 cm3.\n\nThe piston is pushed to the left\
+    \ and is held in its new position.\n\n(i) The pressure of the gas increases from\
+    \ 1.0 × 105 Pa to 1.4 × 105 Pa.\n\n The temperature of the gas remains constant.\n\
+    \n Calculate the volume of the gas when the piston is in its new position.\n\n\
+    volume =   cm3 [3]\n\n(ii) The area of the piston in contact with the gas is 1.9\
+    \ × 10–3 m2.\n\n Calculate the force exerted on the piston by the gas when the\
+    \ piston is held in its new\nposition.\n\nforce =   [2]\n,\t\t,\n\n(iii) The distance\
+    \ moved by the piston is 0.036 m. The average force exerted by the piston as\n\
+    it moves is 220 N.\n\n Calculate the mechanical work done by the piston. State\
+    \ the equation you use.\n\nwork done =   [2]\n\n(b) Explain, in terms of particles,\
+    \ why gases can be compressed but liquids cannot [1]\n\n[Total: 8]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -158,7 +199,14 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) There is a large puddle of water on a road. The water in the puddle\
+    \ evaporates.\n\n(i) Describe how evaporation from the puddle occurs. Use ideas\
+    \ about particles in your\nanswer [2]\n\n(ii) State and explain one change in\
+    \ the weather that causes a faster rate of evaporation.\nStatement   Explanation\
+    \   [2]\n\n(b) A car travels on a dry road. The driver presses the brakes. The\
+    \ car travels a distance before it\ncomes to rest. This distance is called the\
+    \ braking distance.\n\nState and explain how the braking distance changes when\
+    \ the road is wet [1]\n\n[Total: 5]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -188,7 +236,16 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Fig. 6.1 shows successive crests of a water wave approaching a boundary.\n\
+    direction of\ntravel of wave\nboundary\nregion A\nregion B\nFig. 6.1\n\n(i) The\
+    \ speed of the waves in region B is lower than the speed of the waves in region\
+    \ A.\n\n On Fig. 6.1, draw the crests of the waves in region B.\n[3]\n\n(ii) State\
+    \ the wave effect that occurs as the wave crosses the boundary between region\
+    \ A\nand region B [1]\n\n(b) (i) Light can be totally internally reflected when\
+    \ striking the boundary between two different\nregions.\n\n State two conditions\
+    \ that are necessary for total internal reflection to occur.\n1   2   [2]\n\n\
+    (ii) State two advantages of using optical fibres for transmitting high speed\
+    \ broadband.\n1   2   [2]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -230,7 +287,14 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nA circuit consists of an a.c. supply and two lamps. The lamps are connected\
+    \ in parallel.\n\n(a) Draw the circuit diagram.\n\n[2]\n\n(b) The electromotive\
+    \ force (e.m.f.) of the a.c. supply is 230 V. When connected to the 230 V\nsupply,\
+    \ the resistance of one lamp is 1200 Ω and the resistance of the other lamp is\
+    \ 800 Ω.\n\n(i) Calculate the current in the 800 Ω lamp.\n\ncurrent =   [2]\n\n\
+    (ii) Calculate the energy used by the 800 Ω lamp in 5.0 hours.\n\n Give your answer\
+    \ in kWh.\n\nenergy =   kWh [3]\n,\t,\n\n(iii) Calculate the combined resistance\
+    \ of the two lamps in this circuit.\n\nresistance =   [2]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -266,7 +330,20 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a) State what is meant by a magnetic field [1]\n\n(b) Fig. 8.1 shows\
+    \ an ammeter connected to a coil wound on a thin plastic cylinder. A small\ntrolley\
+    \ is placed on a curved track which passes through the cylinder.\nA\nN\nS\ncylinder\n\
+    trolley\ntrack\nFig. 8.1\n\nThe trolley is released from the position shown in\
+    \ Fig. 8.1. It travels through the coil from right\nto left. The trolley travels\
+    \ back from left to right. It has a lower maximum speed when it travels\nfrom\
+    \ left to right.\n\nThe plastic cylinder does not affect any magnetic field. A\
+    \ magnet is fixed to the trolley.\n\n(i) State why there is a lower maximum speed\
+    \ when the trolley travels back from left to\nright [1]\n,\t,\n\n(ii) Fig. 8.2\
+    \ shows a close‑up view of the ammeter.\n0\nFig. 8.2\n\n As the trolley enters\
+    \ the coil moving from right to left, the ammeter needle deflects to the\nleft\
+    \ and then returns to zero.\n\n State and explain any changes to the deflection\
+    \ on the ammeter as the trolley enters the\ncoil when moving back from left to\
+    \ right [3]\n\n[Total: 5]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -296,7 +373,26 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\n(a) Fig. 9.1 shows a beam of radiation in a vacuum. The beam contains\
+    \ α‑particles, β‑particles\nand γ‑radiation.\nbeam of\nradiation\ncontaining\n\
+    α-particles,\nβ-particles\nand γ-radiation\nregion of uniform\nmagnetic field\
+    \ into the page\nFig. 9.1\n\nThe beam enters a region where there is a strong,\
+    \ uniform magnetic field. The direction of the\nmagnetic field is into the page.\n\
+    \nOn Fig. 9.1 draw and label the paths within the magnetic field of:\n\n(i) α‑particles\
+    \ (label this path α)\n[1]\n\n(ii) β‑particles (label this path β)\n[2]\n\n(iii)\
+    \ γ‑radiation (label this path γ)\n[1]\n\n(b) Table 9.1 shows five radioactive\
+    \ sources, the main type of radiation emitted by each source\nand the half‑life\
+    \ of each source.\nTable 9.1\nradioactive\nsource\ntype of radiation\nemitted\n\
+    half‑life\nP\nalpha\n460 years\nQ\nalpha\n10 days\nR\nbeta\n29 years\nS\nbeta\n\
+    14 days\nT\ngamma\n30 years\n\n(i) Define half‑life of a radioactive isotope [1]\n\
+    ,\t,\n\n(ii) Fig. 9.2 shows a simplified diagram of a machine that produces thin\
+    \ sheets of aluminium\nof constant thickness.\nmachinery\nto control\nroller\n\
+    radiation\ndetector\nradioactive\nsource\naluminium sheet\nrollers\nFig. 9.2\n\
+    \n The radiation detector is used to measure the thickness of the aluminium sheets\
+    \ and\ncontrol the gap between the rollers.\n\n State the most suitable radioactive\
+    \ source in Table 9.1 for the machine in Fig. 9.2.\n\n Explain why this radioactive\
+    \ source is the most suitable and why the other sources are\nunsuitable.\nmost\
+    \ suitable source   explanation   [4]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -344,7 +440,16 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 (a) Fill in the gaps in the description of how an accretion model explains\
+    \ the formation of the\nSolar System.\nThe planets nearest the Sun are small and\
+    \  The planets furthest from the Sun are large and  All the planets were formed\
+    \ when a cloud of gas and dust collapsed due to\n The rotation of material in\
+    \ the cloud forms an  [4]\n\n(b) The time taken for light to travel from the Moon\
+    \ to the Earth is 1.3 s.\n\nCalculate the distance of the Moon from the Earth.\
+    \ Give your answer in m.\n\ndistance =   m [3]\n\n(c) The Whirlpool galaxy is\
+    \ 2.3 × 107 light‑years from the Earth. The current value of the Hubble\nconstant\
+    \ is 2.2 × 10–18 per second.\n\nCalculate the speed at which the Whirlpool galaxy\
+    \ is moving away from the Earth.\n\nspeed =   [3]\n\n[Total: 10]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 10a

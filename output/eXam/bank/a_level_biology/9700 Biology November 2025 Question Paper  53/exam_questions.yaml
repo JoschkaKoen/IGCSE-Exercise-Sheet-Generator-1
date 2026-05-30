@@ -2,7 +2,58 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nJuglone is a chemical produced by plants in the genus Juglans, which includes\
+    \ different species\nof walnut tree.\n\nFig. 1.1 shows a black walnut tree.\n\
+    Fig. 1.1\n\nJuglone produced by a black walnut tree can diffuse into the soil\
+    \ surrounding the tree.\n\nGroups of scientists have observed that juglone affects\
+    \ different species of plant growing close to\nblack walnut trees.\n\nJuglone\
+    \ can reduce the percentage of seeds that germinate, delay the start of germination\
+    \ or\nreduce growth. In some studies, juglone has no effect on germination or\
+    \ growth.\n\nA student planned to investigate the effect of juglone on the cucumber\
+    \ plant, Cucumis sativus.\n\nIn the investigation, the student:\n•\nplaced some\
+    \ damp soil containing juglone in a tray\n•\nadded some cucumber seeds to the\
+    \ soil\n•\nplaced the container in a suitable environment for germination and\
+    \ growth.\n,\t,\n\nFig. 1.2 shows cucumber seedlings (young plants) a few days\
+    \ after germination.\nFig. 1.2\n\nThe student planned to compare the effect of\
+    \ exposing cucumber seeds to:\n•\njuglone solution with a concentration of 1.0\
+    \ × 10–3 mol dm–3, which is a concentration that has\nbeen measured in soils surrounding\
+    \ black walnut trees\n•\na control treatment.\n\nThe student planned to determine:\n\
+    •\nthe percentage of cucumber seeds that germinated in soil\n•\nthe growth of\
+    \ each cucumber seedling 10 days after the appearance of the seedling above\n\
+    the soil.\n\n(a) Identify the independent variable in this investigation [1]\n\
+    ,\t,\n\n(b) Juglone solutions are prepared using a mixture of solvents.\n\nThe\
+    \ student was provided with:\n•\na juglone solution with a concentration of 0.1\
+    \ mol dm–3\n•\nthe mixture of solvents.\n\nUsing the solution provided, the student\
+    \ prepared a juglone solution with a volume of 500 cm3\nand a concentration of\
+    \ 1.0 × 10–3 mol dm–3.\n\nThe student carried out 1 dilution to prepare the 1.0\
+    \ × 10–3 mol dm–3 solution using measuring\ncylinders.\n\n(i) State the volumes\
+    \ that the student used to carry out the dilution to produce 500 cm3 of\n1.0 ×\
+    \ 10–3 mol dm–3 juglone solution [2]\n\n(ii) Outline one improvement the student\
+    \ could make to reduce the percentage error while\ncarrying out the dilution [1]\n\
+    \n(c) (i) State a suitable control that the student could use, and explain why\
+    \ the student decided\nto include a control in the investigation.\ncontrol   explanation\
+    \   [2]\n,\t,\n\n(ii) Describe a method the student could use to investigate the\
+    \ effect of juglone on:\n•\nthe percentage of cucumber seeds that germinate\n\
+    •\nthe growth of each cucumber seedling 10 days after the appearance of the seedling\n\
+    above the soil.\n\n The description of your method should be set out in a logical\
+    \ way and be detailed enough\nfor another person to follow [7]\n,\t,\n\n(d) Another\
+    \ student investigated the effect of juglone on a different species of plant called\
+    \ crimson\nclover, Trifolium incarnatum.\n\nThe student recorded the number of\
+    \ days required for germination of:\n•\n10 seeds treated with a juglone solution\
+    \ with a concentration of 1.0 × 10–3 mol dm–3\n•\n10 seeds not treated with a\
+    \ juglone solution.\n\n(i) The student used the t-test to analyse the results.\
+    \ The t-test is appropriate for the number\nof seeds that were used.\n\n Suggest\
+    \ two other reasons why the t-test is an appropriate statistical test to use for\
+    \ this\ninvestigation [2]\n,\t,\n\n(ii) The null hypothesis for this t-test was:\n\
+    \n There is no difference between the time taken for seeds to germinate when\n\
+    treated with juglone and the time taken for seeds to germinate when not treated\n\
+    with juglone.\n\n The calculated value of t was 2.090.\n\n The student compared\
+    \ 2.090 to the values in Table 1.1.\nTable 1.1\ndegrees of\nfreedom\nprobability\
+    \ level (p)\n0.10\n0.05\n0.01\n0.001\n17\n1.740\n2.110\n2.898\n3.965\n18\n1.734\n\
+    2.101\n2.878\n3.922\n19\n1.729\n2.093\n2.861\n3.883\n20\n1.725\n2.086\n2.845\n\
+    3.850\n21\n1.721\n2.080\n2.831\n3.819\n\n Using Table 1.1 and the calculated value\
+    \ of t of 2.090, state and explain what the student\ncan conclude about the results\
+    \ [3]\n\n[Total: 18]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -68,7 +119,39 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nCompounds containing nitrite ions (NO2\n–) are present in many foods eaten\
+    \ by humans.\n\nScientists tested the effect of different concentrations of nitrite\
+    \ ions on the population growth of\n5 species of bacterium. All 5 species are\
+    \ pathogenic and can infect the human digestive system.\n\nFor each species of\
+    \ bacterium, the scientists placed suspensions of the bacteria in a microwell\n\
+    plate. A microwell plate is a plastic plate containing 96 wells, which are similar\
+    \ to small test-tubes.\n\nIn each well, the scientists added:\n•\na suspension\
+    \ of the bacterial species\n•\na solution containing nitrite ions\n•\nnutrient\
+    \ broth.\n\nThe scientists incubated the microwell plate at 37 °C for 24 hours.\
+    \ After 24 hours, the scientists\nestimated the number of bacteria in each well\
+    \ by measuring optical density, using a microwell\nplate reader.\n\nFor each species\
+    \ of bacterium, the scientists repeated the experiment with several different\n\
+    concentrations of solution containing nitrite ions.\n\nThe scientists determined\
+    \ the lowest nitrite concentration at which no bacterial population growth\nhad\
+    \ occurred after 24 hours.\n\n(a) The scientists standardised temperature, pH\
+    \ (pH 4.8) and time in the investigation.\n\nState two other variables that the\
+    \ scientists should standardise in this investigation.\n1   2   [2]\n,\t\t,\n\n\
+    (b) The results of the investigation are shown in Fig. 2.1.\nlowest nitrite concentration\n\
+    at which no bacterial\npopulation growth occurred\nafter 24 hours\n/ μmol cm–3\n\
+    Yersinia\nenterocolitica\nSalmonella\nenteritidis\nSalmonella\ntyphimurium\nShigella\n\
+    sonnei\nEscherichia\ncoli\n0.0\n1.0\n2.0\n3.0\n4.0\n5.0\n6.0\nspecies of bacterium\n\
+    Fig. 2.1\n\n(i) State the type of data represented by the species of bacterium\
+    \ and the lowest nitrite\nconcentration in Fig. 2.1.\nspecies of bacterium   lowest\
+    \ nitrite concentration   [2]\n\n(ii) The 2 species of Salmonella shown in Fig.\
+    \ 2.1 are closely related.\n\n Calculate the percentage difference between the\
+    \ results shown in Fig. 2.1 for the\n2 species of Salmonella.\n\n Show your working\
+    \ %\n[3]\n\n(iii) Use Fig. 2.1 to state:\n•\nthe species of bacterium that is\
+    \ most affected by nitrite ions\n•\nthe species of bacterium that is least affected\
+    \ by nitrite ions.\nmost affected   least affected   [1]\n,\n,\n\n(c) A student\
+    \ looked at the results and stated:\n\nConsuming a lot of nitrites would improve\
+    \ the health of people because it would help to\nprevent diseases in the digestive\
+    \ system caused by pathogenic bacteria.\n\nSuggest four reasons why this conclusion\
+    \ might not be valid.\n1   2   3   4   [4]\n\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a

@@ -2,7 +2,8 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nWrite three-quarters as\n\n(a) a decimal\n\n  [1]\n\n(b) a percentage\
+    \ % [1]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -20,13 +21,15 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '1
+
+    Write the number sixteen thousand and sixty-two in figures [1]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nWrite down the value of\n\n(a)\n36\n\n  [1]\n\n(b) 103 [1]"
   answer_options: []
   subquestions:
   - number: 3a
@@ -44,13 +47,38 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '6
+
+
+    Shade 5
+
+    2 of the rectangle.
+
+    [1]
+
+    1'
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    The diagram shows a line AB and a point P.
+
+    B
+
+    P
+
+    A
+
+
+    (a) Measure the length of line AB in millimetres mm [1]
+
+
+    (b) Draw a line through point P that is perpendicular to line AB.
+
+    [1]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -68,13 +96,22 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "5\nComplete this statement.\n\n10 weeks is  days.\n[1]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '7
+
+    (a) Find the value of the reciprocal of 3
+
+    1 [1]
+
+
+    (b) Write 2 3
+
+    -  as a fraction [1]'
   answer_options: []
   subquestions:
   - number: 7a
@@ -92,7 +129,54 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    Put one pair of brackets into each calculation to make it correct.
+
+
+    (a)
+
+    12
+
+    4
+
+    2
+
+    3
+
+    16
+
+    ''
+
+    -
+
+    +
+
+    -
+
+    =-
+
+
+    [1]
+
+
+    (b)
+
+    3
+
+    4
+
+    5
+
+    7
+
+    5
+
+    - - + -
+
+    =-
+
+    [1]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -116,13 +200,16 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: "9\nWrite these fractions in order, starting with the smallest.\n8\n5\n12\n\
+    11\n3\n2\n4\n3\n24\n13\n\n 1  1  1  1  [2]\n\nsmallest"
   answer_options: []
   subquestions: []
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 A cuboid has length 5 cm, width 2 cm and height 3 cm.\n\n(a) Draw a net\
+    \ of the cuboid on the 1 cm2 grid.\n\n[3]\n\n(b) Work out the volume of the cuboid.\n\
+    \nGive the units of your answer [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -140,7 +227,12 @@ questions:
 - number: '11'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "11\n0  2  2  3  4  7\n\nFor these six numbers\n\n(a) write down the mode\n\
+    \n  [1]\n\n(b) work out the range\n\n  [1]\n.\n\n(c) work out the median\n\n \
+    \ [1]\n\n(d) work out the mean [2]\n12 Tim has a method for multiplying a number\
+    \ by 99.\n\nHe shows his method for 53\n99\n#\n.\n53\n100\n53\n5300\n53\n5247\n\
+    #\n=\n-\n=\n-\n=\n53\n99\n#\n\nWork out 85\n99\n#\n using Tim’s method [2]\n,\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 11a
@@ -170,7 +262,12 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "13 (a) A quadrilateral has the geometrical properties\n•\n4 equal length\
+    \ sides\n•\n2 lines of symmetry\n•\nrotational symmetry of order 2.\n\nWrite down\
+    \ the mathematical name of this quadrilateral [1]\n\n(b) Write down two geometrical\
+    \ properties of a rectangle.\n1 2 [2]\n\n(c)\n\nThe parallel sides of a trapezium\
+    \ have lengths 6 cm and 4 cm.\n\nThe area of the trapezium is 15 cm2.\n\nOn the\
+    \ 1 cm2 grid, draw a trapezium with these lengths and area.\n\n[3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 13a
@@ -200,7 +297,16 @@ questions:
 - number: '14'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "14 (a) Complete the table of values for\n(\n)(\n)\ny\nx\nx\n3\n2\n=\n+\n\
+    -\n.\nx\n-4\n-3\n-2\n-1\n0\n1\n2\n3\ny\n6\n-4\n-4\n\n[3]\n\n(b) On the grid, draw\
+    \ the graph of\n(\n)(\n)\ny\nx\nx\n3\n2\n=\n+\n-\n   for\nx\n4\n3\nG\nG\n-\n.\n\
+    - 4\n-7\n-6\n-5\n- 4\n-3\n-2\n-1\n1\n2\n3\n4\n5\n6\n-3\n-2\n-1\n0\n1\n2\n3\nx\n\
+    y\n[4]\n,\t\t,\n\n(c) Write down the coordinates of the lowest point of the graph.\n\
+    \n(  ,  ) [1]\n\n(d) Write down the equation of the line of symmetry of the graph\
+    \ [1]\n\n(e) Use your graph to solve the equation   (\n)(\n)\nx\nx\n3\n2\n3\n\
+    +\n-\n= .\n\nx =  or x =  [2]\n15 Beth thinks of a positive number, n.\n\nShe\
+    \ squares n then subtracts 55.\n\nThe answer is 9.\n\nWork out the value of n.\n\
+    \nn =   [2]\n,\n,"
   answer_options: []
   subquestions:
   - number: 14a
@@ -236,7 +342,15 @@ questions:
 - number: '16'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "16 The diagram shows a point P and three triangles, A, B and C, on a 1 cm2\
+    \ grid.\nC\nA\nB\nP\n0\nx\ny\n- 4\n- 4\n- 5\n- 6\n-3\n-2\n-1\n1\n2\n3\n4\n5\n\
+    6\n7\n-3\n-2\n-1\n1\n2\n3\n4\n5\n6\n\n(a) Find the area of triangle B cm2 [1]\n\
+    \n(b) (i) Write down the coordinates of point P.\n\n(  ,  ) [1]\n\n(ii) Work out\
+    \ the coordinates of point P after a translation by the vector\n20\n12\n-\ne\n\
+    o.\n\n(  ,  ) [1]\n\n(c) Draw the image of triangle A after a reflection in the\
+    \ line   y\n1\n=- .\n[2]\n\n(d) Describe fully the single transformation that\
+    \ maps\n\n(i) triangle A onto triangle B\n  [3]\n\n(ii) triangle A onto triangle\
+    \ C [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 16a
@@ -290,13 +404,21 @@ questions:
 - number: '17'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "17 By writing each number in the calculation correct to 1 significant figure,\
+    \ find an estimate\nfor the value of\n.\n.\n.\n17 8\n10 3\n5 5\n+\n  [2]\n18 Find\
+    \ the highest common factor (HCF) of 66 and 110 [2]\n19 (a) P is a prime number.\n\
+    \nWrite down the value of P that satisfies the inequality\nP\n13\n19\n1\n1\n.\n\
+    \nP =   [1]\n\n(b) Write down the inequality represented on the number line.\n\
+    x\n8\n7\n6\n5\n4\n3\n2\n1\n0\n-1\n-2\n-3\n\n  [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '20'
   question_type: calculation
   marks: 2
-  text: ''
+  text: "20\nJ\nK\n%\n\nUse set notation to describe the shaded region [1]\n21 Work\
+    \ out   2 9\n7\n1 1\n5\n#\n.\n\nGive your answer as a mixed number in its simplest\
+    \ form [3]\n22 The mass, m kg, of a stone is 3.2 kg, correct to the nearest 100\
+    \ g.\n\nComplete this statement about the value of m m 1\nG\n  [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '18'
@@ -338,7 +460,10 @@ questions:
 - number: '23'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "23 (a) Factorise.\n\n          x\nxy\n9\n6\n-\n\n  [2]\n\n(b) Expand and\
+    \ simplify.\n\n(\n)(\n)\nx\nx\n2\n3\n4\n+\n-\n\n  [2]\n24 Solve the simultaneous\
+    \ equations.\n\nx\ny\nx\ny\n5\n2\n3\n3\n4\n27\n+\n=\n+\n=\n\nx =   y =   [3]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 23a

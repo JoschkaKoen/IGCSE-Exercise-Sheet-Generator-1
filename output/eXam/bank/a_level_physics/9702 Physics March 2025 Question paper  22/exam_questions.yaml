@@ -2,7 +2,15 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Explain what is meant by the accuracy of a measured value [1]\n\n\
+    (b) Two solid cubes, A and B, are measured to determine the density of their materials.\n\
+    \nTable 1.1 shows the measurements for cube A.\nTable 1.1\nquantity\nmeasurement\n\
+    length of side\n(1.53 ± 0.01) cm\nmass\n(31.3 ± 0.5) g\n\n(i) Show that the calculated\
+    \ density of the material of cube A is 8.7 × 103 kg m–3.\n\n[2]\n\n(ii) Calculate\
+    \ the percentage uncertainty in the density of the material of cube A.\n\npercentage\
+    \ uncertainty =   % [2]\n\n(iii) The density of the material of cube B is determined\
+    \ to be 9.2 × 103 kg m–3 ± 6%.\n\n State and explain whether cube A and cube B\
+    \ could be made from the same material [2]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +46,28 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) State the principle of moments [2]\n\n(b) A solid plastic cylinder\
+    \ floats in water. It is used to support one end of a horizontal uniform\nbeam\
+    \ AB as shown in Fig. 2.1.\nA\nB\nP\ncylinder\nhinge\nground\nwater\nuniform beam,\n\
+    weight 1700 N\n6.0 m\n5.0 m\nx\nFig. 2.1 (not to scale)\n\nThe beam has length\
+    \ 6.0 m and weight 1700 N. The beam is attached to solid ground with a\nhinge\
+    \ at end A.\n\nThe cylinder is floating vertically in the water. The top of the\
+    \ cylinder is attached at its centre\nto the beam at a horizontal distance of\
+    \ 5.0 m from end A. The cylinder applies a vertical force\nof 1300 N to the beam.\n\
+    \nA person of weight 660 N stands on the beam at point P.\n\nThe beam AB is in\
+    \ equilibrium.\n\n(i) By taking moments about end A, determine the distance x\
+    \ from A to P.\n\ndistance =   m [3]\n,\t,\n\n(ii) The bottom of the cylinder\
+    \ is submerged in the water to depth y as shown in Fig. 2.2. The\nbeam is still\
+    \ attached to the cylinder but not shown.\n0.78 m\ny\nforce from beam, 1300 N\n\
+    cylinder, mass 11 kg\nwater\nFig. 2.2 (not to scale)\n\n The cylinder has mass\
+    \ 11 kg and diameter 0.78 m. The beam exerts a vertical force of\n1300 N on the\
+    \ cylinder. The cylinder is in equilibrium.\n\n Show that the upthrust acting\
+    \ on the cylinder is 1400 N.\n\n[1]\n\n(iii) The water has density 990 kg m–3.\n\
+    \n Calculate the depth y.\n\ny =   m [2]\n,\t,\n\n(iv) The person can stand anywhere\
+    \ between A and B.\n\n On Fig. 2.3, sketch the variation of the depth of the bottom\
+    \ of the cylinder with the\ndistance of the person from A, for distances between\
+    \ 0 and 6.0 m. Numerical values are\nnot required.\ndistance from A / m\ndepth\
+    \ / m\n0\n0\n6.0\nFig. 2.3\n\n[2]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -80,7 +109,22 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) A truck R of mass 9400 kg moves with constant acceleration in a straight\
+    \ line down a slope,\nas illustrated in Fig. 3.1.\nA\nR\nB\n180 m\nFig. 3.1\n\n\
+    At point A the speed of the truck is 13 m s–1 and at point B the speed of the\
+    \ truck is 22 m s–1.\nA and B are a distance of 180 m apart.\n\n(i) Calculate\
+    \ the acceleration of the truck between A and B.\n\nacceleration =   m s–2 [2]\n\
+    \n(ii) Determine the gain in kinetic energy of the truck between A and B.\n\n\
+    gain in kinetic energy =   J [3]\n,\t,\n\n(b) A short time after passing point\
+    \ B truck R moves in a straight line on horizontal ground. The\ndriver of the\
+    \ truck applies the brakes. Fig. 3.2 shows the variation with time of the momentum\n\
+    of the truck.\n0\n0\n5\n10\n15\n20\n25\n5\n10\n15\ntime / s\n20\n25\nmomentum\n\
+    / 104 kg m s–1\nFig. 3.2\n\n(i) Define force [1]\n\n(ii) Show that the average\
+    \ resultant force F acting on truck R between time t = 0 and t = 15 s\nis –1.2\
+    \ × 104 N.\n\n[1]\n,\t\t,\n\n(iii) An identical truck S has the same initial momentum\
+    \ as truck R. Truck S experiences a\nconstant force equal to the force F in (b)(ii).\n\
+    \n State and explain whether truck S will take more, less or the same amount of\
+    \ time to\ncome to rest as truck R [3]\n\n[Total: 10]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -128,7 +172,24 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nA device containing a microwave emitter and receiver is placed in front\
+    \ of a large metal sheet in a\nvacuum as shown in Fig. 4.1.\nX\nP\nQ\nY\nmicrowave\
+    \ emitter\nand receiver\nmetal sheet\nFig. 4.1 (not to scale)\n\nThe line XY is\
+    \ perpendicular to the metal sheet. The device emits microwaves of frequency\n\
+    6.3 GHz.\n\n(a) When the device is at position P, a stationary wave is formed\
+    \ between the device and\nthe sheet.\n\nExplain how the stationary wave, including\
+    \ the nodes and the antinodes, is formed [4]\n\n(b) (i) Calculate the wavelength\
+    \ of the microwaves.\n\nwavelength =   m [2]\n,\t,\n\n(ii) At point P the receiver\
+    \ detects a maximum amplitude of the stationary wave.\n\n The device is moved\
+    \ slowly from point P along the line XY and the receiver detects\na series of\
+    \ minimum and maximum amplitudes. The first time a minimum amplitude is\ndetected\
+    \ by the receiver is when the device is at point Q.\n\n Determine the distance\
+    \ between P and Q.\n\ndistance =   m [1]\n\n(iii) The intensity of the microwaves\
+    \ emitted by the device is increased. The frequency of the\nmicrowaves is unchanged.\
+    \ The device is moved slowly along the line XY from point Q\nuntil the next maximum\
+    \ amplitude is detected at point R.\n\n State and explain whether the distance\
+    \ QR is greater than, less than or the same as\ndistance PQ [1]\n\n[Total: 8]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -164,7 +225,15 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nA stationary loudspeaker emits sound of constant frequency. A microphone\
+    \ is placed near to the\nloudspeaker and connected to a cathode-ray oscilloscope\
+    \ (CRO). The trace on the screen of the\nCRO is shown in Fig. 5.1.\n1 cm\n1 cm\n\
+    Fig. 5.1\n\nThe time-base of the CRO is set to 5.0 × 10– 4 s cm–1.\n\n(a) The\
+    \ speed of the sound emitted by the loudspeaker is 330 m s–1.\n\nDetermine the\
+    \ wavelength of the sound.\n\nwavelength =   m [3]\n\n(b) The loudspeaker now\
+    \ moves in a straight line while emitting the same sound of constant\nfrequency.\
+    \ The period of the trace on the CRO increases continuously.\n\nDescribe the motion\
+    \ of the loudspeaker [2]\n\n[Total: 5]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -182,7 +251,23 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nA cylindrical copper wire P of length 0.24 m is shown in Fig. 6.1.\n0.24\
+    \ m\n0.85 A\nFig. 6.1 (not to scale)\n\nThe current in the wire is 0.85 A.\n\n\
+    The resistance of the wire is 3.3 mΩ.\n\nThe total number of charge carriers N\
+    \ in the wire is 2.6 × 1022.\n\nThe resistivity of copper is 1.8 × 10–8 Ω m.\n\
+    \n(a) Calculate the potential difference between the two ends of the wire.\n\n\
+    potential difference =   V [2]\n\n(b) (i) Show that the cross-sectional area of\
+    \ the wire is 1.3 × 10–6 m2.\n\n[2]\n\n(ii) Show that the number density of charge\
+    \ carriers in the wire is 8.3 × 1028 m–3.\n\n[1]\n\n(iii) Calculate the average\
+    \ drift speed of the charge carriers (electrons) in the wire.\n\naverage drift\
+    \ speed =   m s–1 [2]\n,\t,\n\n(c) A different copper wire Q has the same volume\
+    \ as wire P, but non-uniform radius, as shown in\nFig. 6.2.\nX\nr1\nr2\nFig. 6.2\
+    \ (not to scale)\n\nThe radius r1 at end X of wire Q is the same as the radius\
+    \ of wire P. Radius r2 is less than r1.\n\n(i) State and explain how the resistance\
+    \ of wire Q compares with the resistance of wire P [4]\n,\t,\n\n(ii) On Fig. 6.3,\
+    \ sketch a graph of the variation of the average drift speed of the charge\ncarriers\
+    \ with distance from end X of wire Q.\n0\n0\naverage drift speed\ndistance from\
+    \ X\nFig. 6.3\n\n[2]\n\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -236,7 +321,12 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nAn isolated stationary nucleus Q decays into nucleus R and an α-particle.\
+    \ The α-particle has\nspeed 1.5 × 107 m s–1.\n\n(a) Complete the equation for\
+    \ this decay 88 Q\n\n222\n R +\n4\n2 α\n\n[1]\n\n(b) By considering momentum,\
+    \ calculate the speed of nucleus R after the decay.\n\nspeed =   m s–1 [3]\n\n\
+    (c) State three quantities that are conserved during the decay.\n1   2   3   [3]\n\
+    \n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a

@@ -2,7 +2,14 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nUsing numbers only, state the:\n\n(a) percentage of nitrogen in clean,\
+    \ dry air\n  [1]\n\n(b) typical operating temperature of the Contact process in\
+    \ °C\n  [1]\n\n(c) number of metals in Period 3 of the Periodic Table\n  [1]\n\
+    \n(d) number of halogens which are gases at r.t.p [1]\n\n(e) typical temperature\
+    \ for the fermentation of aqueous glucose in °C\n  [1]\n\n(f) number of unbranched\
+    \ structural isomers of C4H8 which decolourise aqueous bromine\n  [1]\n\n(g) number\
+    \ of covalent bonds in one molecule of ethanol\n  [1]\n\n(h) number of carbon\
+    \ atoms in one molecule of propyl butanoate [1]\n\n[Total: 8]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -56,7 +63,22 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nThis question is about covalent compounds.\n\n(a) State what is meant\
+    \ by a covalent bond [2]\n\n(b) Chlorine(I) oxide, Cl 2O, is a simple molecule\
+    \ with covalent bonds.\n\n(i) State what is meant by (I) in the name chlorine(I)\
+    \ oxide [2]\n\n(ii) Complete the dot-and-cross diagram in Fig. 2.1 of a molecule\
+    \ of chlorine(I) oxide.\n\n Show outer electrons only.\nCl\nCl\nO\nFig. 2.1\n\n\
+    [3]\n\n(iii) Explain, in terms of structure and bonding, why Cl 2O boils at a\
+    \ low temperature and\ndoes not thermally decompose into its constituent elements,\
+    \ Cl 2 and O2 [3]\n\n(iv) Give two reasons why liquid Cl 2O is a poor conductor\
+    \ of electricity.\n1   2   [2]\n\n(c) Carbon and silicon(IV) oxide both exist\
+    \ as giant covalent structures.\n\n(i) Name a giant covalent structure of carbon\
+    \ which conducts electricity [1]\n\n(ii) Identify the particles responsible for\
+    \ the conduction of electricity in this covalent structure\nof carbon [1]\n\n\
+    (iii) Silicon(IV) oxide contains silicon atoms, Si, and oxygen atoms, O.\n\n Fig.\
+    \ 2.2 shows part of the giant covalent structure of silicon(IV) oxide.\n\n Complete\
+    \ the diagram in Fig. 2.2 by adding the symbol for each of the 9 atoms shown.\n\
+    Fig. 2.2\n\n[2]\n\n[Total: 16]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -122,7 +144,84 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    This question is about electrolysis.
+
+
+    (a) Complete the definition of electrolysis by filling in the missing words.
+
+
+    The decomposition of  compounds when  or  by the passage of an electric current.
+
+
+    [3]
+
+
+    (b) Electrolysis of aqueous copper(II) sulfate is carried out using the apparatus
+    shown in Fig. 3.1.
+
+    The electrodes are made of platinum.
+
+    power
+
+    supply
+
+    +
+
+    –
+
+    Fig. 3.1
+
+
+    (i) State whether the mass of the cathode increases, decreases or remains the
+    same when
+
+    platinum electrodes are used [1]
+
+
+    (ii) Describe the change in appearance, if any, of the electrolyte when platinum
+    electrodes
+
+    are used [1]
+
+
+    (iii) Describe what is seen at the anode when platinum electrodes are used [1]
+
+
+    (iv) Write the ionic half-equation for the reaction at the anode [3]
+
+
+    (c) The electrolysis is repeated using copper electrodes.
+
+
+    (i) State whether the mass of the cathode increases, decreases or remains the
+    same when
+
+    copper electrodes are used [1]
+
+
+    (ii) Describe the change in appearance, if any, of the electrolyte when copper
+    electrodes are
+
+    used [1]
+
+
+    (d) Aluminium is extracted from its purified ore by electrolysis.
+
+
+    (i) Name this ore of aluminium [1]
+
+
+    (ii) Name the substance added to this process to reduce the operating temperature
+    [1]
+
+
+    (iii) Explain why the anodes need to be continually replaced during this process
+    [2]
+
+
+    [Total: 15]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -206,7 +305,23 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nChromium is the element with atomic number 24 in the Periodic Table.\n\
+    \n(a) The main ore of chromium is chromite. Chromite contains FeCr2O4.\n\nFeCr2O4\
+    \ reacts with carbon.\n\n(i) Complete the equation for this reaction.\n\nFeCr2O4\
+    \ + 4C\n Fe + 2Cr +  [1]\n\n(ii) Suggest one disadvantage of extracting chromium\
+    \ by reacting chromite with carbon [1]\n\n(b) Chromium can be mixed with nickel\
+    \ and other elements to form stainless steel.\n\nName the type of substance formed\
+    \ when a metal is mixed with other elements [1]\n\n(c) (NH4)2Cr2O7 is a compound\
+    \ containing chromium.\n\nThe negative ion in (NH4)2Cr2O7 is Cr2O7\n2–.\n\n(i)\
+    \ State the sum of the oxidation numbers in the Cr2O7\n2– ion [1]\n\n(ii) The\
+    \ oxidation number of each O in Cr2O7\n2– ions is –2.\n\n Determine the oxidation\
+    \ number of each Cr in Cr2O7\n2– ions. Show your working [2]\n\n(iii) When (NH4)2Cr2O7\
+    \ is heated the following reaction occurs.\n(NH4)2Cr2O7\n Cr2O3 + 4H2O + N2\n\n\
+    \ Calculate the volume of nitrogen gas produced at r.t.p., in cm3, when 1.26 g\
+    \ of\n(NH4)2Cr2O7 is heated using the following steps.\n\n The Mr of (NH4)2Cr2O7\
+    \ is 252.\n•\nCalculate the number of moles of (NH4)2Cr2O7 used mol\n•\nDetermine\
+    \ the number of moles of N2 formed mol\n•\nCalculate the volume of N2 formed at\
+    \ r.t.p. in cm3 cm3\n\n[3]\n\n[Total: 9]"
   answer_options: []
   subquestions:
   - number: 4a
@@ -260,7 +375,20 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nAlkali metals are reactive elements.\n\n(a) State the group number of\
+    \ the alkali metals [1]\n\n(b) Identify the alkali metal which:\n\n(i) has the\
+    \ highest melting point\n  [1]\n\n(ii) has the highest density\n  [1]\n\n(iii)\
+    \ has the lowest reactivity\n  [1]\n\n(iv) burns with a lilac flame\n  [1]\n\n\
+    (v) is found in fertilisers to improve plant growth [1]\n\n(c) Sodium sulfide,\
+    \ Na2S, is an ionic compound.\n\nComplete Fig. 5.1 to show the electronic configurations\
+    \ of the ions in sodium sulfide.\n\nShow the charges on the ions.\nNa\nS\nNa\n\
+    \ Fig. 5.1\n\n[3]\n\n(d) Rubidium has only two naturally occurring atoms, 85Rb\
+    \ and 87Rb.\n\n(i) State the term given to these naturally occurring atoms of\
+    \ rubidium [1]\n\n(ii) Complete Table 5.1 to show the number of protons, neutrons\
+    \ and electrons in the atom\nand ion of rubidium shown.\nTable 5.1\n85Rb\n87Rb+\n\
+    protons\nneutrons\nelectrons\n\n[3]\n\n(iii) The relative atomic mass of rubidium\
+    \ to one decimal place is 85.5.\n\n Determine the relative abundance of 85Rb in\
+    \ rubidium. Express your answer as a\npercentage % [1]\n\n[Total: 14]"
   answer_options: []
   subquestions:
   - number: 5a
@@ -338,7 +466,65 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nEthene, C2H4, is the first member of a family of similar compounds which\
+    \ contains the alkene\nfunctional group.\n\n(a) State the term for a family of\
+    \ similar compounds which contain the same functional group [1]\n\n(b) Determine\
+    \ the difference in relative molecular mass between C2H4 and the next member in\n\
+    this family of similar compounds [1]\n\n(c) Write the symbol equation for the\
+    \ complete combustion of C2H4 [2]\n\n(d) C2H4 reacts with steam to form ethanol.\n\
+    \nC2H4(g) + H2O(g)\n C2H5OH(g)\nΔH = – 45 kJ / mol\n\nThe process happens in a\
+    \ closed system and the reaction reaches an equilibrium.\n\nThe conditions for\
+    \ this process are 300 °C and 60 atm pressure. H3PO4 is used as a catalyst.\n\n\
+    (i) Complete Table 6.1 to show the effect, if any, on the concentration of C2H4(g)\
+    \ when the\nfollowing changes to the conditions are applied.\n\n Only use the\
+    \ words increases, decreases or no change.\nTable 6.1\nchange to condition\neffect\
+    \ on the concentration of C2H4(g)\nat equilibrium\ntemperature is decreased\n\
+    some C2H5OH(g) is removed\npressure is increased\na more effective catalyst is\
+    \ used\n\n[4]\n\n(ii) Explain, in terms of collision theory, why the rate of the\
+    \ forward reaction increases if the\ntemperature increases [3]\n\n(e) Compound\
+    \ B has the displayed formula shown in Fig. 6.1.\nC\nC\nC\nC\nO\nO\nH\nH\nC\n\
+    O\nO\nH\nH\nH\nH\nFig. 6.1\n\n(i) Deduce the molecular formula of compound B [1]\n\
+    \n(ii) State why compound B is unsaturated [1]\n\n(iii) Draw the structure of\
+    \ one repeat unit of the polymer formed when compound B\nundergoes addition polymerisation.\n\
+    \n[2]\n\n(iv) Explain why 1 mol of compound B reacts with 2 mol of sodium hydroxide,\
+    \ NaOH [1]\n\n(v) Calculate the volume, in cm3, of 0.250 mol / dm3 NaOH that reacts\
+    \ with 0.100 mol of\ncompound B.\n\nvolume =  cm3 [2]\n\n[Total: 18]\nGroup\n\
+    The Periodic Table of Elements\n1\nH\nhydrogen\n1\n2\nHe\nhelium\n4\nI\nII\nIII\n\
+    IV\nV\nVI\nVII\nVIII\n3\nLi\nlithium\n7\n4\nBe\nberyllium\n9\natomic number\n\
+    atomic symbol\nKey\nname\nrelative atomic mass\n11\nNa\nsodium\n23\n12\nMg\nmagnesium\n\
+    24\n19\nK\npotassium\n39\n20\nCa\ncalcium\n40\n37\nRb\nrubidium\n85\n38\nSr\n\
+    strontium\n88\n55\nCs\ncaesium\n133\n56\nBa\nbarium\n137\n87\nFr\nfrancium\n–\n\
+    88\nRa\nradium\n–\n5\nB\nboron\n11\n13\nAl\naluminium\n27\n31\nGa\ngallium\n70\n\
+    49\nIn\nindium\n115\n81\nTl\nthallium\n204\n113\nNh\nnihonium\n–\n6\nC\ncarbon\n\
+    12\n14\nSi\nsilicon\n28\n32\nGe\ngermanium\n73\n50\nSn\ntin\n119\n82\nPb\nlead\n\
+    207\n22\nTi\ntitanium\n48\n40\nZr\nzirconium\n91\n72\nHf\nhafnium\n178\n104\n\
+    Rf\nrutherfordium\n–\n23\nV\nvanadium\n51\n41\nNb\nniobium\n93\n73\nTa\ntantalum\n\
+    181\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n52\n42\nMo\nmolybdenum\n96\n74\nW\n\
+    tungsten\n184\n106\nSg\nseaborgium\n–\n25\nMn\nmanganese\n55\n43\nTc\ntechnetium\n\
+    –\n75\nRe\nrhenium\n186\n107\nBh\nbohrium\n–\n26\nFe\niron\n56\n44\nRu\nruthenium\n\
+    101\n76\nOs\nosmium\n190\n108\nHs\nhassium\n–\n27\nCo\ncobalt\n59\n45\nRh\nrhodium\n\
+    103\n77\nIr\niridium\n192\n109\nMt\nmeitnerium\n–\n28\nNi\nnickel\n59\n46\nPd\n\
+    palladium\n106\n78\nPt\nplatinum\n195\n110\nDs\ndarmstadtium\n–\n29\nCu\ncopper\n\
+    64\n47\nAg\nsilver\n108\n79\nAu\ngold\n197\n111\nRg\nroentgenium\n–\n30\nZn\n\
+    zinc\n65\n48\nCd\ncadmium\n112\n80\nHg\nmercury\n201\n112\nCn\ncopernicium\n–\n\
+    114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n–\n7\nN\nnitrogen\n14\n15\nP\nphosphorus\n\
+    31\n33\nAs\narsenic\n75\n51\nSb\nantimony\n122\n83\nBi\nbismuth\n209\n115\nMc\n\
+    moscovium\n–\n8\nO\noxygen\n16\n16\nS\nsulfur\n32\n34\nSe\nselenium\n79\n52\n\
+    Te\ntellurium\n128\n84\nPo\npolonium\n–\n9\nF\nfluorine\n19\n17\nCl\nchlorine\n\
+    35.5\n35\nBr\nbromine\n80\n53\nI\niodine\n127\n85\nAt\nastatine\n–\n117\nTs\n\
+    tennessine\n–\n10\nNe\nneon\n20\n18\nAr\nargon\n40\n36\nKr\nkrypton\n84\n54\n\
+    Xe\nxenon\n131\n86\nRn\nradon\n–\n118\nOg\noganesson\n–\n21\nSc\nscandium\n45\n\
+    39\nY\nyttrium\n89\n57–71\nlanthanoids\n89–103\nactinoids\n57\nLa\nlanthanum\n\
+    139\n89\nAc\nanthanoids\nactinoids\nThe volume of one mole of any gas is 24 dm3\
+    \ at room temperature and pressure (r.t.p.).\nactinium\n–\n58\nCe\ncerium\n140\n\
+    90\nTh\nthorium\n232\n59\nPr\npraseodymium\n141\n91\nPa\nprotactinium\n231\n60\n\
+    Nd\nneodymium\n144\n92\nU\nuranium\n238\n61\nPm\npromethium\n–\n93\nNp\nneptunium\n\
+    –\n62\nSm\nsamarium\n150\n94\nPu\nplutonium\n–\n63\nEu\neuropium\n152\n95\nAm\n\
+    americium\n–\n64\nGd\ngadolinium\n157\n96\nCm\ncurium\n–\n65\nTb\nterbium\n159\n\
+    97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n163\n98\nCf\ncalifornium\n–\n67\nHo\n\
+    holmium\n165\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n167\n100\nFm\nfermium\n\
+    –\n69\nTm\nthulium\n169\n101\nMd\nmendelevium\n–\n70\nYb\nytterbium\n173\n102\n\
+    No\nnobelium\n–\n71\nLu\nlutetium\n175\n103\nLr\nlawrencium\n–"
   answer_options: []
   subquestions:
   - number: 6a

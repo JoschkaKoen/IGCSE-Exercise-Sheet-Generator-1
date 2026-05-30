@@ -2,7 +2,10 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Describe the operation of a 2-input XOR gate [1]\n\n(b) Write the\
+    \ logic expression for the following logic circuit.\nC\nX\nB\nA\nX =   [2]\n\n\
+    (c) Draw the logic circuit for the logic expression:\nX = ((NOT A AND (B AND C))\
+    \ OR (B NAND C)) AND NOT A\nX\nC\nB\nA\n\n[2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -26,7 +29,10 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA memory buffer uses Dynamic RAM (DRAM).\n\n(a) Identify two differences\
+    \ between DRAM and Static RAM (SRAM).\nDifference 1   Difference 2   [2]\n\n(b)\
+    \ Explain how a memory buffer is used when a computer is transferring data to\
+    \ its magnetic\nhard disk drive [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -44,13 +50,44 @@ questions:
 - number: '3'
   question_type: calculation
   marks: 3
-  text: ''
+  text: "3\nA car has an automatic braking system.\n\nA sensor is used to measure\
+    \ the distance to objects that are in front of the car.\n\nThe car automatically\
+    \ brakes if an object is too close to the front of the car or the distance between\n\
+    the car and the object is decreasing too quickly. The closer the object is to\
+    \ the front of the car, the\nharder the car brakes so that the car slows down\
+    \ more quickly.\n\nExplain the reasons why the automatic braking system of the\
+    \ car is a control system [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nA company makes ice cream and sells it to shops.\n\nThe ice cream is made\
+    \ in batches: a large quantity of one type and flavour of ice cream that is\n\
+    then split into smaller quantities for sale.\n\nThe company’s owner has designed\
+    \ a relational database, ICECREAM, to store data about their\nice cream and customers.\n\
+    \nSome of the tables in the database are given. The database is not normalised.\n\
+    \nBATCH(BatchID, Type, Flavour, Size, SellingPrice, EndDate)\n\nCUSTOMER(CustomerID,\
+    \ CompanyName, EmailAddress, TelephoneNumber)\n\nSALE(SaleID, BatchID, CustomerID,\
+    \ Quantity, Date)\n\n(a) Identify two foreign keys in the table SALE and the table\
+    \ that each foreign key references.\nForeign key 1   Table name 1   Foreign key\
+    \ 2   Table name 2   [2]\n\n(b) Write an SQL script to return the total quantity\
+    \ of ice cream sold to the customer with the ID of\n0034E in the year 2023 [3]\n\
+    ,\t,\n\n(c) The table definition for BATCH is repeated here:\n\nBATCH(BatchID,\
+    \ Type, Flavour, Size, SellingPrice, EndDate)\n\nSample data for the table BATCH\
+    \ is given:\nBatchID\nType\nFlavour\nSize\nSellingPrice\nEndDate\nKlV12\nPlain\n\
+    Vanilla\n1\n2.20\n12/12/2024\nRlC14\nPlain\nChocolate\n0.5\n1.80\n12/12/2024\n\
+    TYL1\nNon-dairy\nLemon\n0.5\n2.10\n01/02/2025\nFYV2\nNon-dairy\nVanilla\n0.25\n\
+    1.50\n02/02/2025\nBIV13\nPlain\nVanilla\n1\n2.20\n02/02/2024\n\n(i) Write an SQL\
+    \ script to define the table BATCH.\n\n Include constraints (restrictions) on\
+    \ the data that can be entered into each field where\nappropriate [5]\n,\t,\n\n\
+    (ii) The table BATCH is not normalised.\n\n Normalise the database table BATCH.\n\
+    \n Write the table definitions for your new tables.\n\n Identify any primary and\
+    \ foreign keys in your tables.\n\n Do not change or include the tables CUSTOMER\
+    \ and SALE [4]\n\n(d) Complete the following table by defining each database term.\n\
+    Database term\nDefinition\nEntity\n Attribute\n [2]\n,\t,\n\n(e) A Database Management\
+    \ System (DBMS) supports data integrity.\n\nExplain how a DBMS supports data integrity\
+    \ [3]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -98,7 +135,41 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    A computer programmer writes programs that are distributed with a software licence.
+
+
+    (a) Complete the table by writing the type of software licence each statement
+    describes.
+
+    Statement
+
+    Software licence
+
+    A fee is charged for the software. The source
+
+    code cannot be accessed. Users do not get
+
+    a free trial Users can try the software before buying it.
+
+    Users may not be able to access all features
+
+    during the trial Software is usually free of charge. Users can
+
+    access the source code and alter the program
+
+    to their needs [3]
+
+
+    (b) Explain the reasons why it is important for the computer programmer to join
+    a professional
+
+    ethical body [3]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions:
   - number: 5a
@@ -116,7 +187,17 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nA computer system stores text, images and sound.\n\n(a) A character set\
+    \ is used to represent characters in a computer.\n\nIdentify and describe one\
+    \ character set.\nCharacter set   Description   [2]\n\n(b) The colour of each\
+    \ pixel in a bitmapped image is represented by 8 bits.\n\n(i) State the largest\
+    \ number of different colours that can be represented by 8 bits [1]\n\n(ii)  State\
+    \ one drawback of increasing the number of bits that represents each pixel in\
+    \ the\nbitmap image [1]\n\n(iii) A bitmap image can be compressed using lossy\
+    \ compression.\n\n Explain the reasons why lossy compression is often suitable\
+    \ for a bitmap image [2]\n,\t,\n\n(c) (i) Explain how an analogue sound wave is\
+    \ converted into digital data [2]\n\n(ii) Describe one method of compressing a\
+    \ sound file using lossy compression [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -170,7 +251,40 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nThe following table shows part of the instruction set for a processor.\
+    \ The processor has two\nregisters, the Accumulator (ACC) and the Index Register\
+    \ (IX).\nInstruction\nExplanation\nOpcode\nOperand\nLDM\n#n\nImmediate addressing.\
+    \ Load the number n to ACC\nLDD\n<address>\nDirect addressing. Load the contents\
+    \ of the location at the given\naddress to ACC\nLDI\n<address>\nIndirect addressing.\
+    \ The address to be used is at the given\naddress.\nLoad the contents of this\
+    \ second address to ACC\nLDX\n<address>\nIndexed addressing. Form the address\
+    \ from <address> + the\ncontents of the index register. Copy the contents of this\
+    \ calculated\naddress to ACC\nLDR\n#n\nImmediate addressing. Load the number n\
+    \ to IX\nADD\n#n/Bn/&n\nAdd the number n to the ACC\nADD\n<address>\nAdd the contents\
+    \ of the given address to the ACC\nSUB\n#n/Bn/&n\nSubtract the number n from the\
+    \ ACC\nSUB\n<address>\nSubtract the contents of the given address from the ACC\n\
+    INC\n<register>\nAdd 1 to the contents of the register (ACC or IX)\nDEC\n<register>\n\
+    Subtract 1 from the contents of the register (ACC or IX)\n<address> can be an\
+    \ absolute or a symbolic address\n# denotes a denary number, e.g. #123\nB denotes\
+    \ a binary number, e.g. B01001010\n& denotes a hexadecimal number, e.g. &4A\n\
+    ,\t,\n\n(a) The current contents of memory are shown:\nAddress\nData\n50\n54\n\
+    51\n55\n52\n50\n53\n52\n54\n100\n55\n25\n56\n50\n\nThe current contents of the\
+    \ ACC and IX are shown:\nACC\n50\nIX\n45\n\nComplete the table by writing the\
+    \ content of the ACC after each program has run.\nInstructions\nACC content\n\
+    1\nLDD 50\nADD #4\nADD 54\n2\nLDI 53\nDEC ACC\nADD 56\n3\nLDM #55\nSUB #5\n\n\
+    [3]\n,\t,\n\n(b) The instruction set also includes these bit manipulation instructions:\n\
+    Instruction\nExplanation\nOpcode\nOperand\nAND\n#n/Bn/&n\nBitwise AND operation\
+    \ of the contents of ACC with the operand\nAND\n<address>\nBitwise AND operation\
+    \ of the contents of ACC with the contents\nof <address>\nXOR\n#n/Bn/&n\nBitwise\
+    \ XOR operation of the contents of ACC with the operand\nXOR\n<address>\nBitwise\
+    \ XOR operation of the contents of ACC with the contents\nof <address>\nOR\n#n/Bn/&n\n\
+    Bitwise OR operation of the contents of ACC with the operand\nOR\n<address>\n\
+    Bitwise OR operation of the contents of ACC with the contents of\n<address>\n\
+    <address> can be an absolute or a symbolic address\n# denotes a denary number,\
+    \ e.g. #123\nB denotes a binary number, e.g. B01001010\n& denotes a hexadecimal\
+    \ number, e.g. &4A\n\nExplain how bit manipulation can be used to clear the data\
+    \ in an 8-bit register.\n\nWrite the bit manipulation instruction that will be\
+    \ used.\nExplanation   Instruction   [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -188,7 +302,11 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a) Convert the hexadecimal number 1FAB into denary.\nWorking   Denary\
+    \ value   [1]\n\n(b) Explain how to convert the two’s complement integer 10011111\
+    \ into denary. Give the denary\nvalue after conversion.\nExplanation   Denary\
+    \ value   [3]\n\n(c) Describe the difference between a right logical binary shift\
+    \ and a right arithmetic binary shift [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -212,7 +330,18 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nA computer is connected to a Local Area Network (LAN) that connects to\
+    \ a Wide Area Network\n(WAN).\n\n(a) Describe the characteristics of a WAN [2]\n\
+    \n(b) Copper cable can be used to transmit data in a network.\n\nComplete the\
+    \ table by identifying and describing two other transmission media that can be\n\
+    used to transfer data in the WAN.\nTransmission medium\nDescription\n [4]\n,\t\
+    ,\n\n(c) The computer on the LAN is used for real-time video conferences, where\
+    \ people connected\nto the internet communicate in real-time using video and audio.\n\
+    \nExplain how bit streaming is used in a real-time video conference [4]\n\n(d)\
+    \ The LAN has a router. The router has a public IP address and a private IP address.\n\
+    \n(i) State the purpose of a public IP address and a private IP address.\nPublic\
+    \ IP address   Private IP address   [2]\n\n(ii) The LAN uses subnetting.\n\n Describe\
+    \ the purpose of subnetting in a network [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 9a

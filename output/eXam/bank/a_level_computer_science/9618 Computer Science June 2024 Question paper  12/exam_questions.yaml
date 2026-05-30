@@ -2,7 +2,29 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    (a) Describe the operation of each of the following logic gates:
+
+    NAND   NOR   XOR   OR   [4]
+
+
+    (b) Draw a logic circuit for this logic expression:
+
+    X = NOT ((A AND B) OR (C AND D))
+
+    A
+
+    X
+
+    B
+
+    C
+
+    D
+
+
+    [2]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +42,74 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    A computer game is being designed that users will be able to play using a virtual
+    reality (VR)
+
+    headset.
+
+
+    (a) Complete the description of the principal operation of a VR headset.
+
+
+    A headset can have one or two  that output the image to
+
+    the user. The headset has speakers that output surround sound to give a realistic
+    experience.
+
+
+    The user’s head movements are detected using a sensor.
+
+
+    This sensor is a  The data is transmitted to a
+
+    microprocessor that analyses the data to identify the  of
+
+    movement. Some headsets use  that record the user’s
+
+    eye movements for analysis.
+
+
+    [4]
+
+
+    (b) The computer uses a buffer when transmitting data to the VR headset.
+
+
+    Explain how a buffer is used when data is transmitted between the computer and
+    the VR
+
+    headset [3]
+
+
+    (c) The VR headset has Electrically Erasable Programmable Read Only Memory (EEPROM).
+
+
+    Explain the benefits of using EEPROM instead of other types of Read Only Memory
+    (ROM) in
+
+    the VR headset [3]
+
+
+    (d) The computer can transmit a video made from bitmap images and vector graphic
+    animations
+
+    to the VR headset.
+
+
+    (i) Describe how the data for a bitmapped image is encoded [3]
+
+
+    (ii) Describe the contents of a vector graphic drawing list [2]
+
+
+    (iii) The bitmap video is not compressed before transmission to the VR headset.
+
+
+    Give two reasons why the video does not need to be compressed.
+
+    1   2   [2]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -68,7 +157,24 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nAn assessment board scans exam papers and stores the digitised papers\
+    \ on a server. Exam\nmarkers download the digitised papers to mark. The exam markers\
+    \ then upload the mark for each\npaper.\n\n(a) The assessment board needs to make\
+    \ sure the data stored on the server is secure.\n\n(i) Authentication methods\
+    \ can help to protect the server against hackers.\n\n Identify one other security\
+    \ measure that helps to protect the server from hackers.\n\n Describe how the\
+    \ security measure works.\nSecurity measure   Description   [3]\n\n(ii) Identify\
+    \ one security measure that helps to protect the data when it is being transmitted\n\
+    to its destination. Describe how the security measure works.\nSecurity measure\
+    \   Description   [3]\n\n(b) The exam markers use software that operates as a\
+    \ thin-client to mark the exam papers.\n\nComplete the table by identifying two\
+    \ characteristics of a thin-client.\n\nDescribe how each characteristic will be\
+    \ used in this software.\nThin-client characteristic\nDescription of use in this\
+    \ software\n1\n 2\n [4]\n\n(c) Data transmitted on the internet passes through\
+    \ multiple different systems.\n\n(i) Describe the role of routers in the transmission\
+    \ of data through the internet [2]\n\n(ii) Describe the role of the PSTN (Public\
+    \ Switched Telephone Network) in the transmission\nof data through the internet\
+    \ [2]"
   answer_options: []
   subquestions:
   - number: 3a
@@ -116,7 +222,105 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    An assessment board wants to store the marks students achieved in exams in a database
+    named
+
+    RECORDS.
+
+
+    Part of the database design includes these two tables:
+
+
+    EXAM(ExamID, Subject, Level, TotalMarks)
+
+
+    EXAM_QUESTION(ExamQuestionID, ExamID, QuestionNumber, Question, MaxMark)
+
+
+    (a) Identify the relationship between EXAM and EXAM_QUESTION [1]
+
+
+    (b) Sample data for the table EXAM is shown:
+
+    ExamID
+
+    Subject
+
+    Level
+
+    TotalMarks
+
+    00956124
+
+    Computer Science
+
+    2
+
+    75
+
+    00956125
+
+    Computer Science
+
+    3
+
+    120
+
+    00956126
+
+    Mathematics
+
+    2
+
+    100
+
+    00956127
+
+    Mathematics
+
+    3
+
+    150
+
+    00956128
+
+    Physics
+
+    2
+
+    70
+
+    00956129
+
+    Physics
+
+    3
+
+    80
+
+
+    Write a Structured Query Language (SQL) script to define the table EXAM [3]
+
+
+    (c) The table EXAM_QUESTION has been created but the foreign key has not been
+    linked.
+
+
+    Write an SQL script to update EXAM_QUESTION and link the foreign key to EXAM [2]
+
+
+    (d) The database also needs to store data about the students, the exams the students
+    have
+
+    taken and the marks the students achieved in each question of each exam.
+
+
+    Describe the additional tables that will need to be included in the database and
+    explain how
+
+    all the tables in the database will be linked [5]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -146,7 +350,316 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    The following table shows part of the instruction set for a processor. The processor
+    has two
+
+    registers: the Accumulator (ACC) and an Index Register (IX).
+
+    Instruction
+
+    Explanation
+
+    Opcode
+
+    Operand
+
+    LDM
+
+    #n
+
+    Immediate addressing. Load the number n to ACC
+
+    LDD
+
+    <address>
+
+    Direct addressing. Load the contents of the location at the given
+
+    address to ACC
+
+    LDI
+
+    <address>
+
+    Indirect addressing. The address to be used is at the given address.
+
+    Load the contents of this second address to ACC
+
+    LDX
+
+    <address>
+
+    Indexed addressing. Form the address from <address> + the contents
+
+    of the index register. Copy the contents of this calculated address to
+
+    ACC
+
+    LDR
+
+    #n
+
+    Immediate addressing. Load the number n to IX
+
+    ADD
+
+    #n/Bn/&n
+
+    Add the number n to the ACC
+
+    ADD
+
+    <address>
+
+    Add the contents of the given address to the ACC
+
+    SUB
+
+    #n/Bn/&n
+
+    Subtract the number n from the ACC
+
+    SUB
+
+    <address>
+
+    Subtract the contents of the given address from the ACC
+
+    INC
+
+    <register>
+
+    Add 1 to the contents of the register (ACC or IX)
+
+    <address> can be an absolute or a symbolic address
+
+    # denotes a denary number, e.g. #123
+
+    B denotes a binary number, e.g. B01001010
+
+    & denotes a hexadecimal number, e.g. &4A
+
+
+    (a) The current contents of memory are shown:
+
+    Address
+
+    Data
+
+    10
+
+    1
+
+    11
+
+    3
+
+    12
+
+    5
+
+    13
+
+    11
+
+    14
+
+    10
+
+    15
+
+    16
+
+    16
+
+    12
+
+
+    The current contents of the ACC and IX are shown:
+
+    ACC
+
+    10
+
+    IX
+
+    0
+
+
+    Complete the table by writing the content of the ACC after each program has run.
+
+    Program number
+
+    Code
+
+    ACC content
+
+    1
+
+    LDI 15
+
+    SUB #1
+
+    2
+
+    LDD 14
+
+    ADD 11
+
+    3
+
+    LDM #11
+
+    ADD #3
+
+    SUB 16
+
+    4
+
+    LDR #2
+
+    LDX 14
+
+    ADD #2
+
+
+    [4]
+
+
+    (b) The processor includes these bit manipulation instructions:
+
+    Instruction
+
+    Explanation
+
+    Opcode
+
+    Operand
+
+    AND
+
+    #n/Bn/&n
+
+    Bitwise AND operation of the contents of ACC with the operand
+
+    AND
+
+    <address>
+
+    Bitwise AND operation of the contents of ACC with the contents of
+
+    <address>
+
+    XOR
+
+    #n/Bn/&n
+
+    Bitwise XOR operation of the contents of ACC with the operand
+
+    XOR
+
+    <address>
+
+    Bitwise XOR operation of the contents of ACC with the contents of
+
+    <address>
+
+    OR
+
+    #n/Bn/&n
+
+    Bitwise OR operation of the contents of ACC with the operand
+
+    OR
+
+    <address>
+
+    Bitwise OR operation of the contents of ACC with the contents of
+
+    <address>
+
+    <address> can be an absolute or a symbolic address
+
+    # denotes a denary number, e.g. #123
+
+    B denotes a binary number, e.g. B01001010
+
+    & denotes a hexadecimal number, e.g. &4A
+
+
+    The current contents of memory are shown:
+
+    Address
+
+    Data
+
+    25
+
+    11000110
+
+    26
+
+    11100001
+
+    27
+
+    10000001
+
+    28
+
+    11001101
+
+    29
+
+    00001111
+
+
+    The current content of the ACC is shown:
+
+    0
+
+    1
+
+    0
+
+    0
+
+    0
+
+    1
+
+    1
+
+    0
+
+
+    Complete the table by writing the content of the ACC after each program has run.
+
+
+    The binary number 01000110 is reloaded into the ACC before each program is run.
+
+    Program number
+
+    Code
+
+    ACC content
+
+    1
+
+    XOR 29
+
+    2
+
+    AND #29
+
+    3
+
+    OR B11111111
+
+
+    [3]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -164,13 +677,26 @@ questions:
 - number: '6'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '6
+
+    A computer has an Operating System (OS).
+
+
+    Memory management and process management are two OS tasks.
+
+
+    Explain how memory management and process management support multi-tasking [4]'
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nA computer stores binary data.\n\n(a) Tick (3) one box only to identify\
+    \ the largest file size.\n\n 3300 kibibytes\n\n 0.3 megabytes\n\n 3 mebibytes\n\
+    \n 3300 kilobytes\n\n[1]\n\n(b) Subtract the denary number 10 from the denary\
+    \ number 100 using binary subtraction.\n\nShow your working.\nWorking   Answer\
+    \  [3]\n\n(c) Convert the hexadecimal number C0F into denary.\n\nShow your working.\n\
+    Working   Answer  [2]"
   answer_options: []
   subquestions:
   - number: 7a
@@ -194,7 +720,18 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nA programmer uses an Integrated Development Environment (IDE) to write\
+    \ a computer program.\nThe IDE has both a compiler and an interpreter as built-in\
+    \ translators.\n\n(a) The programmer decides to use the compiler when testing\
+    \ the final program.\n\nDescribe the benefits of using the compiler during testing\
+    \ [2]\n\n(b) IDEs have many features other than built-in translators.\n\nComplete\
+    \ the table by identifying one other common IDE feature that can be used for each\n\
+    purpose. Describe how each feature helps the user during program development.\n\
+    \nEach feature must be different. Do not give translator as one of your features.\n\
+    Purpose\nIDE feature\nDescription\nfor\ncoding\n for\npresentation\n for\ndebugging\n\
+    \ [6]\n\n(c) The programmer uses program libraries when developing the program.\n\
+    \nDescribe two benefits to the programmer of using program libraries.\n1   2 \
+    \  [2]"
   answer_options: []
   subquestions:
   - number: 8a

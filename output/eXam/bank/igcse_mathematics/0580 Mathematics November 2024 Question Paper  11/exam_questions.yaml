@@ -2,7 +2,22 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    x
+
+
+    (a) Measure angle x.
+
+
+    x
+
+    Angle
+
+    =   [1]
+
+
+    (b) Write down the mathematical name for this type of angle [1]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -20,25 +35,65 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "1\nJacob is 10 years 8 months old.\n\nAmy is 15 months younger than Jacob.\n\
+    \nFind how old Amy is years  months [1]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: calculation
   marks: 1
-  text: ''
+  text: '4
+
+    A concert starts at 19 50 and finishes 2 hours 42 minutes later.
+
+
+    Work out the time the concert finishes [1]'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "5\nUse one of these symbols\n,\nor\n1 2\n= to make each statement true.\n\
+    \n7\n2  0.2861\n\n900\n99   11%\n\n13  40\n\n[2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    The stem-and-leaf diagram shows the number of cars sold each day by a company.
+
+    1
+
+    0    3    4    5    6    7
+
+    2
+
+    1    2    2    4    7    7    7
+
+    3
+
+    0    0    1    2    2    5    6    8
+
+    4
+
+    0    1    4    6
+
+    5
+
+    1    2    4
+
+
+    Key: 3 | 2  represents 32
+
+
+    (a) Find the range [1]
+
+
+    (b) Find the mode [1]
+
+    1'
   answer_options: []
   subquestions:
   - number: 6a
@@ -56,25 +111,46 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '7
+
+    Find the reciprocal of  1 1
+
+    4 [1]'
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "8\n138°\n28°\n49°\ny°\nNOT TO\nSCALE\n\nThe diagram shows a quadrilateral.\n\
+    \nFind the value of y.\n\ny =   [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '9
+
+    Edith invests $3000 in a savings account.
+
+
+    The account pays simple interest at a rate of 2.6% per year.
+
+
+    Calculate the total interest earned during the 3 years.
+
+
+    $  [2]'
   answer_options: []
   subquestions: []
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 (a) These are the first four terms of a sequence.\n\n10          16  \
+    \        22          28\n\nWrite down the next term in the sequence [1]\n\n(b)\
+    \ The term to term rule for another sequence is   multiply by 3 and subtract 1.\n\
+    \nThe fourth term in the sequence is 68.\n\nFind the third term in the sequence\
+    \ [2]\n11 The circumference of a wheel is 198.55 cm.\n\nCalculate the diameter\
+    \ of the wheel.\n\nGive your answer in millimetres mm [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -98,7 +174,10 @@ questions:
 - number: '12'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: "12 The grid shows half of a shape which has a line of symmetry, L.\n\nComplete\
+    \ the shape.\nL\n\n[2]\n13 (a) Find the value of   c\nd\n6\n7\n+\n   when c\n\
+    3\n=  and d\n4\n=-  [2]\n\n(b) Solve.\n\nx\nx\n6\n8\n11\n4\n+\n=\n+\n\nx =   [2]\n\
+    ,\t,"
   answer_options: []
   subquestions: []
 - number: '13'
@@ -122,7 +201,10 @@ questions:
 - number: '14'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "14 Write 34 as a percentage of 80 % [1]\n15 A bus stops 25 times on a journey.\n\
+    \nThe table shows the number of people who get on the bus at each stop.\nNumber\
+    \ of people\nFrequency\n0\n1\n1\n6\n2\n7\n3\n4\n4\n5\n5\n2\n\nCalculate the mean\
+    \ [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '15'
@@ -134,13 +216,19 @@ questions:
 - number: '16'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: "16\nw cm\n12 cm\n8 cm\nNOT TO\nSCALE\n\nThe diagram shows a trapezium with\
+    \ parallel sides of length 12 cm and w cm.\n\nThe height of the trapezium is 8\
+    \ cm.\n\nThe area of the trapezium is 78 cm2.\n\nFind the value of w.\n\nw = \
+    \  [2]\n17 A distance, d metres, measures 34.6 m, correct to the nearest 0.1 m.\n\
+    \nComplete this statement about the value of d d 1\nG\n  [2]\n,\t\t,"
   answer_options: []
   subquestions: []
 - number: '2'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '2
+
+    Change 6.7 kilometres to metres m [1]'
   answer_options: []
   subquestions: []
 - number: '17'
@@ -152,7 +240,70 @@ questions:
 - number: '18'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '18 The diagram shows a rectangle and two points, P and C, on a 1 cm2 grid.
+
+    P
+
+    C
+
+    9
+
+    8
+
+    7
+
+    6
+
+    5
+
+    4
+
+    3
+
+    2
+
+    1
+
+    0
+
+    1
+
+    2
+
+    3
+
+    4
+
+    5
+
+    6
+
+    7
+
+    8
+
+    x
+
+    y
+
+
+    (a) Write down the coordinates of point C.
+
+
+    (  ,  ) [1]
+
+
+    (b) The rectangle is enlarged by scale factor 2 with centre of enlargement point
+    C.
+
+
+    Find the coordinates of the image of point P.
+
+
+    (  ,  ) [2]
+
+
+    (c) Find the area of the enlarged rectangle cm2 [1]'
   answer_options: []
   subquestions:
   - number: 18a
@@ -176,7 +327,12 @@ questions:
 - number: '19'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "19 Jo asks some people if they own a car (C) and if they own a motorbike\
+    \ (M).\n\n86 people own a car.\n\n39 people own a motorbike.\n\n7 people do not\
+    \ own a car and do not own a motorbike.\nC\n74\nM\n\n(a) Complete the Venn diagram.\n\
+    \n[2]\n\n(b) Find the total number of people that Jo asks [1]\n\n(c) Write down\
+    \  (\n)\nC\nM\nn\n+\n [1]\n20 Josh buys a car for $7800 and sells it for $5265.\n\
+    \nCalculate his percentage loss % [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 19a
@@ -206,7 +362,11 @@ questions:
 - number: '21'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "21 (a) Factorise.\n\nx\n28\n35\n-\n\n  [1]\n\n(b) Make r the subject of the\
+    \ formula   T\nr\np\n4\n=\n-  .\n\nr =   [2]\n22 Solve the simultaneous equations.\n\
+    \nYou must show all your working.\n\nx\ny\n5\n6\n9\n+\n=\n\nx\ny\n3\n2\n17\n=\n\
+    -\n-\n\nx =   y =   [3]\nQuestions 23 and 24 are printed on the next page.\n,\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 21a

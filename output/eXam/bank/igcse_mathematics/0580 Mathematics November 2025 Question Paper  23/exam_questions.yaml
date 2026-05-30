@@ -2,7 +2,16 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nThe scatter diagram shows the value, in thousands of dollars, of ten paintings\
+    \ in 2005 and the value of\nthe same paintings in 2025.\n0\n0\n10\n20\n30\n40\n\
+    50\n60\n70\n80\n90\n100\n20\n40\n60\n80\n100\n120\nValue in 2025\n($ thousands)\n\
+    Value in 2005 ($ thousands)\n140\n160\n180\n200\n\n(a) The value of one of the\
+    \ paintings in 2025 is less than expected.\n\nDraw a circle around the point that\
+    \ represents this painting.\n[1]\n\n(b) Another painting had a value of $75 000\
+    \ in 2005 and $140 000 in 2025.\n\nOn the scatter diagram, plot this point.\n\
+    [1]\n\n(c) Write down the number of paintings with a value of less than $53 000\
+    \ in 2005 [1]\n\n(d) What type of correlation is shown on the scatter diagram?\n\
+    \n  [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -32,19 +41,75 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '1
+
+    x°
+
+    25°
+
+    NOT TO
+
+    SCALE
+
+
+    The diagram shows an isosceles triangle.
+
+
+    Find the value of x.
+
+
+    x =   [2]'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '5
+
+    12º
+
+    xº
+
+    yº
+
+    E
+
+    A
+
+    B
+
+    F
+
+    C
+
+    D
+
+    G
+
+    NOT TO
+
+    SCALE
+
+
+    The diagram shows a rectangle ABCD.
+
+
+    EFG is an equilateral triangle that touches the rectangle at F and G.
+
+
+    Find the value of x and the value of y.
+
+
+    x =   y =   [2]'
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\n(a) The sum of all the prime numbers less than 10 is equal to 17.\n\n\
+    Find the sum of all the prime numbers less than 16 [2]\n\n(b)  x is an integer.\n\
+    \nThe sum of the prime numbers greater than 6 and less than x is equal to 18.\n\
+    \nFind a possible value for x.\n\nx =   [1]\n3\ne\no\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -62,7 +127,38 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    DE
+
+    3
+
+    4
+
+    = -
+
+    e
+
+    o
+
+
+    (a) Find 5DE.
+
+
+    f
+
+    p [1]
+
+
+    (b) Find DE  [2]
+
+
+    (c) D is the point (‒2, ‒3).
+
+
+    Find the coordinates of the point E.
+
+    (  ,  ) [2]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -86,25 +182,88 @@ questions:
 - number: '20'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "20 Work out   .\n.\n0 114\n0 2\n+\no o\n .\n\nGive your answer as a fraction\
+    \ [3]"
   answer_options: []
   subquestions: []
 - number: '2'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '2
+
+    Find the largest odd number that is a common factor of 90 and 120 [1]'
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '9
+
+
+    n
+
+    n
+
+    n
+
+    x
+
+    15
+
+    5
+
+    ''
+
+    =
+
+
+    Find the value of x.
+
+
+    x =   [1]'
   answer_options: []
   subquestions: []
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '10
+
+    C
+
+    A
+
+    B
+
+    11 cm
+
+    8 cm
+
+    NOT TO
+
+    SCALE
+
+    x°
+
+
+    The diagram shows a right-angled triangle ABC.
+
+
+    (a) Work out the exact length of AC cm [3]
+
+
+    (b)
+
+    cos x
+
+    k
+
+    =
+
+
+    Write down the value of k.
+
+
+    k =   [1]'
   answer_options: []
   subquestions:
   - number: 10a
@@ -122,19 +281,26 @@ questions:
 - number: '11'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "11 Sarah rolls a fair 6-sided dice twice.\n\nFind the probability she rolls\
+    \ a number greater than 4 both times [2]\n12 (a) Write down the value of 730 [1]\n\
+    \n(b) Find the value of 3\n7\n2\n-  [2]\n\n(c) Write   27\n812\n#\n   in the form\
+    \ 3n [2]\n,\t\t,"
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "4\nA rectangle measures 5 cm by 19 cm.\n19 cm\n5 cm\nNOT TO\nSCALE\n\nTwo\
+    \ of these rectangles are joined to make a shape.\nNOT TO\nSCALE\n\nWork out the\
+    \ perimeter of the shape cm [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "3\nThe diagram shows a net for a dice.\n\nThe dice has six faces numbered\
+    \ 1 to 6.\n\nThe sum of each pair of opposite faces on the dice is 7.\n\nWrite\
+    \ the missing numbers on the net 1\n4\n5\n [1]"
   answer_options: []
   subquestions: []
 - number: '12'
@@ -164,13 +330,103 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '13
+
+    D
+
+    O
+
+    C
+
+    A
+
+    E
+
+    B
+
+    x°
+
+    44°
+
+    NOT TO SCALE
+
+
+    A, B, C and D are points on the circumference of a circle with centre O.
+
+
+    ED and EB are tangents to the circle.
+
+
+    AC is parallel to EB.
+
+
+    Angle AOD = 44°.
+
+
+    Find the value of x.
+
+
+    x =   [4]
+
+    14 The minimum point on a quadratic curve is (–3, –5).
+
+
+    (a) Find the equation of the line of symmetry of the curve [1]
+
+
+    (b) Write the equation of the curve in the form
+
+    (
+
+    )
+
+    y
+
+    x
+
+    a
+
+    b
+
+    2
+
+    =
+
+    +
+
+    + .
+
+
+    y =   [1]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions: []
 - number: '23'
   question_type: calculation
   marks: 1
-  text: ''
+  text: '23
+
+    30°
+
+    NOT TO
+
+    SCALE
+
+    A
+
+    C
+
+    B
+
+    10 cm
+
+    6 cm
+
+
+    Work out the area of triangle ABC cm2 [3]'
   answer_options: []
   subquestions: []
 - number: '14'
@@ -194,7 +450,11 @@ questions:
 - number: '15'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "15 Factorise.\n\n(a) x\nx\n7\n12\n2 -\n+\n\n  [2]\n\n(b)\nx\ny\nny\nnx\n\
+    5\n10\n6\n3\n+\n+\n+\n\n  [2]\n16 The table shows three sequences.\n1st\nterm\n\
+    2nd\nterm\n3rd\nterm\n4th\nterm\n5th\nterm\nnth term\nSequence\nA\n8\n13\n18\n\
+    23\n28\nSequence\nB\n2\n3\n3\n4\n4\n5\n5\n6\n6\n7\nSequence\nC\n4\n1\n2\n1\n1\n\
+    2\n4\n\nComplete the table to show the nth term of each sequence.\n\n[5]\n,\t,"
   answer_options: []
   subquestions:
   - number: 15a
@@ -218,7 +478,9 @@ questions:
 - number: '17'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "17 (a) Sketch the graph of\n°\n°\ncos\ny\nx\nx\n0\n360\nfor\nG\nG\n=\n.\n\
+    1\n360°\n180°\nx\ny\n–1\n0\n\n[2]\n\n(b)\n°\ncos x\n2\n1\n=\n and x is a reflex\
+    \ angle.\n\nFind the value of x.\n\nx =   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 17a
@@ -236,7 +498,11 @@ questions:
 - number: '19'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "19\n60°\nA\nB\nO\nNOT TO\nSCALE\n\nThe diagram shows a circle, centre O,\
+    \ radius 12 cm.\n\n(a) Work out the area of the minor sector AOB.\n\nGive your\
+    \ answer in terms of r in its simplest form cm2 [2]\n\n(b) Calculate the length\
+    \ of the major arc AB.\n\nGive your answer in terms of r in its simplest form\
+    \ cm [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 19a
@@ -254,19 +520,97 @@ questions:
 - number: '21'
   question_type: calculation
   marks: 3
-  text: ''
+  text: '21
+
+    m
+
+    10 c
+
+    +
+
+    `
+
+    j°
+
+    p°
+
+    y°
+
+    m°
+
+    NOT TO
+
+    SCALE
+
+
+    The diagram shows a cyclic quadrilateral.
+
+
+    The ratio    p
+
+    m
+
+    2
+
+    3
+
+    |
+
+    |
+
+    =
+
+    .
+
+
+    Find the value of y.
+
+
+    y =   [4]'
   answer_options: []
   subquestions: []
 - number: '22'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '22 The equation of line L is   y
+
+    x
+
+    2
+
+    1
+
+    7
+
+    =-
+
+    + .
+
+
+    Find an equation of the line perpendicular to line L that passes through the point
+    (3, 5).
+
+
+    Give your answer in the form y
+
+    mx
+
+    c
+
+    =
+
+    + .
+
+
+    y =   [3]'
   answer_options: []
   subquestions: []
 - number: '24'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "24 (a) Simplify.\n\n125\n20\n-\n\n  [2]\n\n(b)\nNOT TO\nSCALE\ncm\n2 2\n\
+    cm\n3 8\n\nThe area of this rectangle is cm\nk\n2.\n\nWork out the value of k.\n\
+    \nk =   [2]\n\n(c) Rationalise the denominator.\n\n7\n1\n2\n+\n\n  [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 24a
@@ -290,7 +634,14 @@ questions:
 - number: '25'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "25 Mahir picks one number at random from the numbers 5, 10 and 15.\n\nHe\
+    \ then picks one number at random from the numbers 4, 5 and 6.\n\nHe adds the\
+    \ two numbers.\n\nThe sample space diagram shows some of the possible outcomes.\n\
+    4\n+\n5\n5\n6\n14\n10\nFirst number\nSecond\nnumber\n15\n16\n19\n15\n20\n21\n\n\
+    (a) Complete the sample space diagram.\n[1]\n\n(b) Given that the total of the\
+    \ two numbers is odd, find the probability that one of the numbers\nadded is 15\
+    \ [2]\n26 Write as a single fraction in its simplest form.\n\n(a)\ny\nmp\nm\n\
+    25\n15\n#\n\n  [2]\n\n(b)\nx\nx\n2\n5\n3\n3\n4\n-\n+\n-\n [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 25a

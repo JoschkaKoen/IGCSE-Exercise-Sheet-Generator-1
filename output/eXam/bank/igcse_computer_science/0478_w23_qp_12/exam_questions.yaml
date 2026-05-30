@@ -2,7 +2,39 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    Malware can be used to corrupt data stored on a computer.
+
+
+    (a) Tick (3) one box to show which cyber security threat is not a type of malware.
+
+    A
+
+    Phishing
+
+    B
+
+    Ransomware
+
+    C
+
+    Virus
+
+
+    D
+
+    Worm
+
+
+    [1]
+
+
+    (b) Identify one other example of malware than those given in part 1(a) [1]
+
+
+    (c) Identify the type of software that is used to find and remove malware from
+    a computer [1]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -26,7 +58,17 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA register stores the binary number:\n1\n1\n1\n0\n0\n0\n1\n1\n\n(a) Give\
+    \ the denary number for the binary number stored in the register [1]\n\nWorking\
+    \ space\n  (b) Give the hexadecimal number for the binary number stored in the\
+    \ register [2]\n\nWorking space\n  (c) A logical left shift of two places is performed\
+    \ on the binary number stored in the register.\n\nComplete the binary register\
+    \ to show its contents after this logical left shift.\n\n[1]\n\n(d) The negative\
+    \ denary number −99 needs to be stored in the register.\n\nComplete the register\
+    \ to show the binary number that would be stored, using two’s\ncomplement. Show\
+    \ all your working.\nWorking space   Register:\n\n[2]\n\n(e) The number 01001100\
+    \ is added to 11100011\n\nAdd the two 8-bit binary numbers, using binary addition.\n\
+    \nGive your answer in binary. Show all your working [4]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -62,7 +104,31 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    A user’s computer has a central processing unit (CPU) that has a clock speed of
+    2 GHz.
+
+
+    She wants to change it to a CPU that has a clock speed of 3 GHz.
+
+
+    (a) (i) State what is meant by clock speed [1]
+
+
+    (ii) Explain the effect this change will have on the performance of the CPU [2]
+
+
+    (b) The CPU contains a memory address register (MAR).
+
+
+    Describe the role of the MAR in the fetch–decode–execute cycle [2]
+
+
+    (c) The CPU has a list of all the machine code commands it can process.
+
+
+    State the name of this list of commands [1]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -98,7 +164,26 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    A washing machine is an example of an embedded system.
+
+
+    (a) Give two characteristics of an embedded system.
+
+    1   2   [2]
+
+
+    (b) Circle three other examples of an embedded system.
+
+    freezer    laptop
+
+    personal computer (PC)    security light system    smartphone
+
+    vending machine    web server
+
+
+    [3]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -116,7 +201,30 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    A band is recording their new song. They need to consider the sample rate and
+    sample resolution
+
+    of their recording.
+
+
+    (a) Give one benefit of using a higher sample rate to record the song [1]
+
+
+    (b) Give one drawback of using a higher sample rate to record the song [1]
+
+
+    (c) Describe what is meant by sample resolution [2]
+
+
+    (d) The band wants to compress the sound file, but they do not want any data to
+    be permanently
+
+    removed.
+
+
+    Identify the compression method that should be used [1]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -146,13 +254,53 @@ questions:
 - number: '6'
   question_type: long_answer
   marks: 4
-  text: ''
+  text: "6\nThe table contains descriptions about data transmission methods.\n\nComplete\
+    \ the table by identifying which data transmission methods are described.\nData\
+    \ transmission method\nDescription\n Data is transmitted down a single wire, one\
+    \ bit at a time,\nin one direction only Data is transmitted down multiple wires,\
+    \ multiple bits at a\ntime, in both directions, but only one direction at a time\
+    \ Data is transmitted down a single wire, one bit at a time,\nin both directions\
+    \ at the same time Data is transmitted down multiple wires, multiple bits at\n\
+    a time, in one direction only.\n\n[4]"
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '7
+
+    A train station has a ticket inspector who checks each customer’s ticket before
+    they are allowed to
+
+    get on the train.
+
+
+    The train station wants a system that will allow the tickets to be automatically
+    checked.
+
+
+    (a) Identify two suitable input devices that can be used to automatically read
+    the tickets.
+
+    1   2   [2]
+
+
+    (b) The train driver pushes a button to close the train door when all passengers
+    have boarded
+
+    the train. The train door will only close when there are no passengers in the
+    doorway.
+
+
+    The system to check there are no passengers in the doorway uses a sensor and a
+
+    microprocessor.
+
+
+    Explain how the sensor and the microprocessor are used to check whether the train
+    door can
+
+    be closed [6]'
   answer_options: []
   subquestions:
   - number: 7a
@@ -170,7 +318,19 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    (a) Draw and annotate a diagram that demonstrates the cyber security threat of
+    data interception.
+
+
+    [4]
+
+
+    (b) Identify one security solution that will help keep data safe from data interception
+    and state
+
+    why it will help keep the data safe [2]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -188,13 +348,29 @@ questions:
 - number: '9'
   question_type: calculation
   marks: 6
-  text: ''
+  text: "9\nThe table contains terms and descriptions about the internet.\n\nComplete\
+    \ the table with the missing terms and descriptions.\nTerm\nDescription\n the\
+    \ collective name for all the web pages available\n a small text file, stored\
+    \ by the web browser, that can store\na user’s personal data\nuniform resource\
+    \ locator (URL)\n web server\n the language used to create a website. Example\
+    \ tags are\n<head> and <body>\n a protocol that is used to request and send web\
+    \ pages\n\n[6]"
   answer_options: []
   subquestions: []
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '10 A business has a system that is described as having artificial intelligence
+    (AI).
+
+
+    (a) State one of the main characteristics of an AI system [1]
+
+
+    (b) An AI system is an expert system.
+
+
+    Explain how an expert system operates [6]'
   answer_options: []
   subquestions:
   - number: 10a
@@ -212,7 +388,24 @@ questions:
 - number: '11'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '11 A manufacturing company uses an automated system in its manufacturing
+    process.
+
+
+    (a) The automated system uses a flow sensor.
+
+
+    Identify what a flow sensor measures [1]
+
+
+    (b) Explain one advantage to employees of using an automated system in manufacturing
+    [2]
+
+
+    (c) Explain one disadvantage to the company owner of using an automated system
+    in
+
+    manufacturing [2]'
   answer_options: []
   subquestions:
   - number: 11a
@@ -236,7 +429,19 @@ questions:
 - number: '12'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '12 Digital currency can be used to pay for products and services.
+
+
+    Digital currencies are often tracked using digital ledgers.
+
+
+    (a) Give two other features of digital currency.
+
+    1   2   [2]
+
+
+    (b) Identify the process that uses a digital ledger to track the use of digital
+    currency [1]'
   answer_options: []
   subquestions:
   - number: 12a
@@ -254,7 +459,19 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "13 Storage and memory are important components of a computer system.\n\n\
+    (a) Primary storage is one type of storage in a computer system.\n\n(i) Tick (3)\
+    \ one box to show which is an example of primary storage.\nA\ncompact disk (CD)\n\
+    B\nhard disk drive (HDD)\nC\nrandom access memory (RAM)\nD\nsolid-state drive\
+    \ (SSD)\n\n[1]\n\n(ii) Give one characteristic of primary storage [1]\n\n(b) Virtual\
+    \ memory can be created in a computer system.\n\nComplete the description about\
+    \ virtual memory.\n\nUse the terms from the list.\n\nSome of the terms in the\
+    \ list will not be used. Some terms may be used more than once.\nbinary    hard\
+    \ disk drive (HDD)    hexadecimal    operating system\npages    random access\
+    \ memory (RAM)    read only memory (ROM)\nsectors          software    tracks\
+    \    virtual memory\n\nVirtual memory is used when the  is full. It is\n\ncreated\
+    \ by partitioning the  Data is divided into\n\n that can be sent from\n\n to the\n\
+    \n to be temporarily stored until they are required.\n\n[5]"
   answer_options: []
   subquestions:
   - number: 13a

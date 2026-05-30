@@ -2,7 +2,24 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    A
+
+    B
+
+    O
+
+
+    A and B lie on a circle, centre O.
+
+
+    (a) Write down the mathematical name of the line AB [1]
+
+
+    (b) On the diagram, draw a radius.
+
+    [1]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -20,13 +37,25 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '1
+
+    Write down all the factors of 26 [2]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    (a) Write 0.25 as a fraction [1]
+
+
+    (b) Write 2
+
+    1 as a percentage % [1]
+
+
+    (c) Write 7% as a decimal [1]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -50,7 +79,24 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    (a)
+
+
+    Write down the mathematical name of this solid [1]
+
+
+    (b)
+
+    60°
+
+    60°
+
+    60°
+
+
+    Write down the mathematical name of this type of triangle [1]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -68,7 +114,32 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    white
+
+    red
+
+    red
+
+    blue
+
+    white
+
+
+    The diagram shows a fair 5-sided spinner.
+
+
+    The spinner is spun once.
+
+
+    (a) Write down the colour the spinner is least likely to land on [1]
+
+
+    (b) Find the probability that the spinner lands on white [1]
+
+
+    (c) Find the probability that the spinner does not land on red [1]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -92,7 +163,12 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    (a) Write down the reciprocal of 8 [1]
+
+
+    (b) Work out 193 [1]'
   answer_options: []
   subquestions:
   - number: 6a
@@ -110,25 +186,117 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '8
+
+    Work out the number of seconds in six and a half hours seconds [1]'
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '7
+
+    Mar
+
+    Apr
+
+    May
+
+    Number of
+
+    cars sold
+
+    Months
+
+    0
+
+    10
+
+    20
+
+    30
+
+    40
+
+    50
+
+    60
+
+    70
+
+    80
+
+    90
+
+    100
+
+    125
+
+    150
+
+    175
+
+    200
+
+
+    A newspaper prints this bar chart to show the number of cars sold by a garage
+    in March, April and May.
+
+
+    Give two reasons why the bar chart is incorrect.
+
+    1   2   [2]'
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '9
+
+    23 cm
+
+    12 cm
+
+    NOT TO
+
+    SCALE
+
+    15 cm
+
+    5 cm
+
+    7 cm
+
+    8 cm
+
+
+    Find the area of the shape cm2 [2]'
   answer_options: []
   subquestions: []
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '10 (a) Jason records his score in each of 10 games of cricket.
+
+    16    7    21    8    20    9    11    7    14    3
+
+
+    (i) Find the mode [1]
+
+
+    (ii) Work out the range [1]
+
+
+    (b) Ed plays 5 games.
+
+
+    His mean score is 28.
+
+
+    After one more game his mean score is now 26.
+
+
+    Work out his score in the sixth game [2]'
   answer_options: []
   subquestions:
   - number: 10a
@@ -158,7 +326,10 @@ questions:
 - number: '11'
   question_type: calculation
   marks: 2
-  text: ''
+  text: "11 Calculate 19% of $46.25 .\n\nGive your answer correct to the nearest cent.\n\
+    \n$  [2]\n12 (a) Simplify.\n\nb\nc\nb\nc\n5\n8\n2\n3\n-\n+\n-\n\n  [2]\n\n(b)\n\
+    q\nr\nt\n3\n5\n=\n+\n\nFind the value of t when q\n37\n=\n and r\n4\n=\n.\n\n\
+    t =   [2]"
   answer_options: []
   subquestions: []
 - number: '12'
@@ -176,25 +347,89 @@ questions:
 - number: '13'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '13 Divide $136 in the ratio 3 : 5.
+
+
+    $ , $ [2]'
   answer_options: []
   subquestions: []
 - number: '14'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '14 Carl packs pens into boxes.
+
+
+    Each box holds 68 pens.
+
+
+    Carl has 980 pens and 14 boxes.
+
+
+    Does Carl have enough boxes to pack all the pens?
+
+
+    Show how you decide because   [2]'
   answer_options: []
   subquestions: []
 - number: '15'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '15
+
+    NOT TO
+
+    SCALE
+
+    68°
+
+    43°
+
+    135°
+
+    x°
+
+
+    Find the value of x.
+
+
+    x =   [1]'
   answer_options: []
   subquestions: []
 - number: '16'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '16
+
+    NOT TO
+
+    SCALE
+
+    x cm
+
+    4 cm
+
+    5 cm
+
+
+    The diagram shows an isosceles triangle.
+
+
+    (a) Calculate the value of x.
+
+
+    x =   [2]
+
+
+    (b) The triangle is one face of a square-based pyramid.
+
+
+    Each triangular face of the pyramid is the same.
+
+
+    On the 1 cm2 grid, draw a net of this pyramid.
+
+
+    [3]'
   answer_options: []
   subquestions:
   - number: 16a
@@ -212,13 +447,14 @@ questions:
 - number: '17'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: 17 Write 46.179 correct to 4 significant figures [1]
   answer_options: []
   subquestions: []
 - number: '18'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "18 Calculate.\n\n(a)\n.\n.\n.\n26 5\n8 4\n9 3\n2 +\n\n  [1]\n\n(b) 4 3\n\
+    -\n\n  [1]"
   answer_options: []
   subquestions:
   - number: 18a
@@ -236,19 +472,84 @@ questions:
 - number: '19'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "19 Expand and simplify.\n\n(\n)\n(\n)\nx\nx\n3 5\n2\n4\n1\n+\n-\n+\n\n  [2]"
   answer_options: []
   subquestions: []
 - number: '20'
   question_type: calculation
   marks: 2
-  text: ''
+  text: 20 Due to an issue with question 20, the question has been removed from the
+    question paper.
   answer_options: []
   subquestions: []
 - number: '21'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '21 The diagram shows shapes A and B.
+
+    – 5
+
+    – 4
+
+    – 3
+
+    – 2
+
+    – 1
+
+    1
+
+    0
+
+    2
+
+    3
+
+    4
+
+    5
+
+    y
+
+    A
+
+    B
+
+    x
+
+    5
+
+    4
+
+    3
+
+    2
+
+    1
+
+    – 1
+
+    – 2
+
+    – 3
+
+    – 4
+
+    – 5
+
+
+    (a) Describe fully the single transformation that maps shape A onto shape B [3]
+
+
+    (b) On the grid, draw the image of shape A after a reflection in the line y
+
+    0
+
+    =
+
+    .
+
+    [2]'
   answer_options: []
   subquestions:
   - number: 21a
@@ -266,7 +567,11 @@ questions:
 - number: '22'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "22 (a) Complete the table of values for   y\nx\n4\n2\n=\n- .\nx\n–4\n–3\n\
+    –2\n–1\n0\n1\n2\n3\n4\ny\n12\n0\n–3\n–3\n0\n12\n\n[2]\n\n(b) On the grid, draw\
+    \ the graph of   y\nx\n4\n2\n=\n-    for\nx\n4\n4\nG\nG\n-\n .\n– 4\n– 3\n– 2\n\
+    – 1\n1\n0\n2\n3\n4\n6\n7\n8\n9\n10\n11\n12\ny\nx\n5\n4\n3\n2\n1\n– 1\n– 2\n– 3\n\
+    – 4\n– 5\n\n[4]"
   answer_options: []
   subquestions:
   - number: 22a
@@ -284,7 +589,25 @@ questions:
 - number: '23'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '23 (a) Jo buys a candle for $3.20 .
+
+
+    She sells the candle for $4.64 .
+
+
+    Find the percentage profit on the candle % [2]
+
+
+    (b) The candle is in the shape of a cone.
+
+
+    The volume of the candle is 900 cm3.
+
+
+    The height of the candle is 8 cm.
+
+
+    Calculate the radius of the candle cm [3]'
   answer_options: []
   subquestions:
   - number: 23a
@@ -302,37 +625,134 @@ questions:
 - number: '24'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '24 Make p the subject of the formula      m
+
+    p
+
+    9
+
+    32
+
+    =
+
+    +
+
+    .
+
+
+    p =   [2]'
   answer_options: []
   subquestions: []
 - number: '25'
   question_type: calculation
   marks: 2
-  text: ''
+  text: 25 Find the lowest common multiple (LCM) of 20 and 36 [2]
   answer_options: []
   subquestions: []
 - number: '26'
   question_type: calculation
   marks: 3
-  text: ''
+  text: "26 Line L is drawn on the grid.\n– 4\n– 5\n– 3\n– 2\n– 1\n1\n0\n2\n3\n4\n\
+    12\n14\n16\n18\n20\n22\ny\nx\n10\n8\n6\n 4\n2\n– 2\n– 4\n– 6\nL\n\nFind the equation\
+    \ of line L in the form y\nmx\nc\n=\n+ .\n\ny =   [3]"
   answer_options: []
   subquestions: []
 - number: '27'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: 27 Due to an issue with question 27, the question has been removed from the
+    question paper.
   answer_options: []
   subquestions: []
 - number: '28'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '28 The travel graph shows Chi’s journey from home to the station.
+
+    0
+
+    08 00 08 05 08 10 08 15 08 20
+
+    Time
+
+    Distance
+
+    (km)
+
+    08 25 08 30 08 35 08 40
+
+    1
+
+    2
+
+    3
+
+    4
+
+    5
+
+    6
+
+    Home
+
+    Station
+
+
+    Calculate Chi’s average speed for the whole journey.
+
+
+    Give your answer in kilometres per hour km/h [3]
+
+    Question 29 is printed on the next page.'
   answer_options: []
   subquestions: []
 - number: '29'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '29 (a)
+
+    NOT TO
+
+    SCALE
+
+    1.4 cm
+
+    x cm
+
+    9.1 cm
+
+    20.8 cm
+
+    A
+
+    B
+
+
+    The diagram shows two similar triangles, A and B.
+
+
+    Calculate the value of x.
+
+
+    x =   [2]
+
+
+    (b)
+
+    5.4 cm
+
+    y cm
+
+    38°
+
+
+    The diagram shows a right-angled triangle.
+
+
+    Calculate the value of y.
+
+
+    y =   [2]'
   answer_options: []
   subquestions:
   - number: 29a

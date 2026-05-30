@@ -2,7 +2,20 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA girl holds a rubber ball out of a window of a tall building. The mass\
+    \ of the ball is 0.20 kg. The ball\nis at rest 10 m above a concrete path.\n\n\
+    (a) Calculate the gravitational potential energy of the ball relative to the concrete\
+    \ path.\n\ngravitational potential energy =   [2]\n\n(b) The girl releases the\
+    \ ball and it falls towards the path. The ball strikes the path and bounces\n\
+    vertically upwards.\n\nFig. 1.1 shows the ball falling towards the path.\nball\n\
+    concrete path\n10 m\nFig. 1.1\n\nThe speed of the ball immediately before it strikes\
+    \ the path is 14 m / s.\n\nThe speed of the ball immediately after it strikes\
+    \ the path is 12 m / s.\n\n(i) Calculate the kinetic energy of the ball immediately\
+    \ after it strikes the concrete path.\n\nkinetic energy =   [2]\n\n(ii) Show that\
+    \ the change in momentum of the ball when it bounces off the path is 5.2 kg m\
+    \ / s.\n\n [3]\n\n(iii) The ball is in contact with the path for 0.25 s.\n\n Calculate\
+    \ the average resultant force on the ball when it is in contact with the path.\n\
+    \nforce =   [2]\n\n[Total: 9]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +51,38 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    A copper cooking pan contains water. Fig. 2.1 shows the pan on a hotplate of a
+    cooker.
+
+    Fig. 2.1
+
+
+    Copper is a metal.
+
+
+    (a) Thermal energy is conducted through all solids by lattice vibrations.
+
+
+    Describe one other way in which thermal energy is conducted through the copper
+    [3]
+
+
+    (b) The outside surface of the cooking pan is kept clean by regular polishing.
+
+
+    Explain one other advantage of keeping the surface of the pan shiny [2]
+
+
+    (c) The thermal energy passes into the water through the base of the pan.
+
+
+    Identify the main method by which thermal energy is transferred throughout the
+    water [1]
+
+
+    [Total: 6]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -62,7 +106,60 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    Liquids are difficult to compress whereas gases can be compressed easily.
+
+
+    (a) Explain, in terms of particles, why it is difficult to compress liquids [2]
+
+
+    (b) Fig. 3.1 shows a rectangular block floating in water. The density of the water
+    is 1000 kg / m3.
+
+    rectangular block
+
+    atmosphere
+
+    water
+
+    base
+
+    0.087 m
+
+    Fig. 3.1
+
+
+    The area of the base of the block is 0.014 m2. The base of the block is at a depth
+    of 0.087 m
+
+    below the surface of the water.
+
+
+    (i) Show that the pressure due to the water at the base of the block is approximately
+    850 Pa.
+
+
+    [2]
+
+
+    (ii) Calculate the force F on the base of the block caused by the pressure given
+    in (b)(i).
+
+
+    F =   [2]
+
+
+    (iii) Force F is equal to the weight of the block.
+
+
+    Calculate the mass of the block.
+
+
+    mass =   [2]
+
+
+    [Total: 8]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -98,7 +195,20 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nA radio transmitter is a very tall, thin cylinder. It is prevented from\
+    \ falling over by wires which have\none end fixed to the transmitter and the other\
+    \ end fixed in the ground. The ends of the wires in the\nground are a long distance\
+    \ from the transmitter.\n\nFig. 4.1 shows the transmitter and two of the wires.\n\
+    G\ntransmitter\nground\nbase\nwire W\nFig. 4.1\n\n(a) The centre of gravity G\
+    \ is shown on Fig. 4.1.\n\n(i) State what is meant by centre of gravity [1]\n\n\
+    (ii) Explain why the radio transmitter without the wires is a very unstable structure\
+    \ [1]\n\n(b) Wire W is under tension and it exerts a force T on the transmitter.\n\
+    \n(i) On Fig. 4.1, mark an arrow to show the force T exerted by wire W on the\
+    \ transmitter.  [1]\n\n(ii) The force T produces a moment on the transmitter about\
+    \ its base.\n\n Describe how the moment produced by T is calculated and indicate\
+    \ on Fig. 4.1 what is\nmeant by any other terms in the description [3]\n\n(c)\
+    \ The radio transmitter uses radio waves to transmit radio and television programmes.\n\
+    \nState one other use of radio waves [1]\n\n[Total: 7]"
   answer_options: []
   subquestions:
   - number: 4a
@@ -146,7 +256,32 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    Many methods of generating electrical power involve the use of water.
+
+
+    (a) Describe one method of generating electrical power from energy stored in water
+    [3]
+
+
+    (b) For the method you chose in (a), state one advantage and one disadvantage
+    of generating
+
+    electricity this way.
+
+    advantage   disadvantage   [2]
+
+
+    (c) State two methods of generating electrical power for which the main source
+    of energy is not
+
+    the Sun.
+
+    1   2   [2]
+
+
+    [Total: 7]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -170,7 +305,62 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    A page of printed text is placed 18 cm from a converging lens of focal length
+    35 cm.
+
+
+    Fig. 6.1 is a scale diagram of the arrangement with each of the two principal
+    focuses (focal points)
+
+    of the lens labelled F.
+
+    18 cm
+
+    page of printed text
+
+    F
+
+    F
+
+    5.0 cm
+
+    5.0 cm
+
+    lens
+
+    Fig. 6.1
+
+
+    (a) A length of 1.0 cm on the scale diagram represents an actual length of 5.0
+    cm.
+
+
+    (i) By drawing on Fig. 6.1, locate the image of the page produced by the lens
+    and label it I. [3]
+
+
+    (ii) Using Fig. 6.1, determine the actual distance of image I from the lens.
+
+
+    actual distance from lens =   [2]
+
+
+    (b) Converging lenses can be used as magnifying glasses.
+
+
+    State whether the image produced when a lens is used as a magnifying glass is
+    real or
+
+    virtual. Explain why [1]
+
+
+    (c) Suggest how someone who is long-sighted may benefit from using a converging
+    lens [2]
+
+
+    [Total: 8]'
   answer_options: []
   subquestions:
   - number: 6a
@@ -206,7 +396,75 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '7
+
+    (a) A plastic rod is uncharged.
+
+
+    When the rod is rubbed with a woollen cloth, the rod becomes negatively charged.
+
+
+    Explain, in terms of particles, why the rod becomes negatively charged [2]
+
+
+    (b) Fig. 7.1 shows a negatively charged metal sphere S.
+
+    –
+
+    –
+
+    –
+
+    –
+
+    –
+
+    sphere S
+
+    Fig. 7.1
+
+
+    There is an electric field surrounding S.
+
+
+    (i) State what is meant by an electric field [1]
+
+
+    (ii) On Fig. 7.1, draw the pattern of the electric field surrounding sphere S
+    and indicate its
+
+    direction.
+
+    [2]
+
+
+    (c) Fig. 7.2 shows a small negative charge Z placed near to sphere S.
+
+    –
+
+    –
+
+    –
+
+    –
+
+    –
+
+    sphere S
+
+    Z
+
+    Fig. 7.2
+
+
+    Charge Z experiences a force due to the electric field surrounding S.
+
+
+    On Fig. 7.2, draw an arrow to show the direction of this force on Z.
+
+    [1]
+
+    [Total: 6]'
   answer_options: []
   subquestions:
   - number: 7a
@@ -242,7 +500,73 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    A cylinder is made of modelling clay. The modelling clay is an electrical conductor.
+
+
+    Fig. 8.1 shows the cylinder.
+
+    length
+
+    cross-sectional area
+
+    Fig. 8.1
+
+
+    The cylinder is connected into a circuit.
+
+
+    Fig. 8.2 shows that the circuit also includes a battery of electromotive force
+    (e.m.f.) 9.0 V and a
+
+    resistor P.
+
+    P
+
+    9.0 V
+
+    cylinder of modelling clay
+
+    Fig. 8.2
+
+
+    The resistance of P is 4.0 Ω. The current in P is 1.5 A.
+
+
+    (a) Calculate:
+
+
+    (i) the magnitude X of the charge that flows through P in 600 s
+
+
+    X =   [2]
+
+
+    (ii) the resistance of the cylinder of modelling clay.
+
+
+    resistance =   [3]
+
+
+    (b) The cylinder is removed from the circuit and replaced with a new cylinder
+    made of the same
+
+    modelling clay.
+
+
+    The new cylinder is twice the length and has half the cross-sectional area of
+    the first cylinder.
+
+
+    Calculate the time that it now takes for a charge of magnitude X to flow through
+    resistor P.
+
+
+    time =   [4]
+
+
+    [Total: 9]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -272,7 +596,24 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nMany household smoke alarms contain a sample of the radioactive isotope\
+    \ americium-241 (Am).\n\n(a) Americium-241 is the isotope of the element americium\
+    \ that has the nucleon number (mass\nnumber) 241.\n\n(i) State how the composition\
+    \ of a nucleus of americium-241 differs from that of a nucleus\nof americium-242\
+    \ [1]\n\n(ii) An atom of a different element has a nucleon number of 241.\n\n\
+    \ State two differences between the composition of a nucleus of this atom and\
+    \ a nucleus\nof americium-241.\n1   2   [2]\n\n(b) Americium-241 decays to an\
+    \ isotope of neptunium (Np) by alpha-particle (α-particle) emission.\n\n(i) Complete\
+    \ the equation for this decay.\n241\n Am\n\n 93Np    +\n α\n\n[3]\n\n(ii) One\
+    \ reason for using an isotope that emits α-particles in a smoke detector is that\n\
+    α-particles are more strongly ionising than beta-particles (β-particles).\n\n\
+    \ Explain why α-particles are more strongly ionising than β-particles [2]\n\n\
+    (iii) The isotope of neptunium produced by americium-241 is also radioactive.\n\
+    \n The decay of this isotope of neptunium produces an isotope of protactinium\
+    \ which\ndecays by β-emission. β-particles are more penetrating than α-particles.\n\
+    \n The half-life of neptunium is longer than two million years.\n\n Using this\
+    \ information, explain the advantage of this long half-life for the use and safe\n\
+    disposal of a household smoke alarm [2]\n\n[Total: 10]"
   answer_options: []
   subquestions:
   - number: 9a
@@ -320,7 +661,58 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '10 The Milky Way is one of many billions of galaxies. Each galaxy contains
+    many billions of stable stars.
+
+
+    (a) Stable stars transfer energy into space by emitting electromagnetic radiation
+    from their
+
+    surfaces.
+
+
+    Describe what happens in the core of a stable star to release energy that is eventually
+
+    transferred into space [3]
+
+
+    (b) On the Earth, light from a distant galaxy is observed and analysed by astronomers.
+    This
+
+    information is used to determine the speed at which the galaxy is moving away
+    from the
+
+    Earth.
+
+
+    (i) Describe how the observed light is different from when it was emitted [2]
+
+
+    (ii) State the quantity that astronomers use to determine the speed at which the
+    galaxy is
+
+    moving away [1]
+
+
+    (c) The Hubble constant H0 is equal to 2.2 × 10–18 per second.
+
+
+    (i) Calculate the distance from the Earth of a galaxy that is moving away at a
+    speed of
+
+    1.3 × 107 m / s.
+
+
+    distance =   [2]
+
+
+    (ii) Calculate an estimate for the age of the Universe. Give your answer in years.
+
+
+    age of the Universe =   years [2]
+
+
+    [Total: 10]'
   answer_options: []
   subquestions:
   - number: 10a

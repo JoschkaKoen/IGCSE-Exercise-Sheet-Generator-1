@@ -2,7 +2,10 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nThe pictogram shows the number of goals scored by teams A, B and C.\n\
+    Team\nGoals\nA\n\nB\n\nC\n\nD\n\nKey :\n represents 4 goals\n\n(a) Work out the\
+    \ number of goals scored by team B [1]\n\n(b) Teams A, B, C and D scored a total\
+    \ of 43 goals.\n\nComplete the pictogram.\n\n[3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -26,25 +29,37 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '2
+
+    An angle measures 157°.
+
+
+    Write down the mathematical name for this type of angle [1]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '3
+
+    Find the value of
+
+    .1 96  [1]'
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '4
+
+    Calculate the number of months in 5 years [1]'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n\n(a) Write down the order of rotational symmetry for this shape [1]\n\
+    \n(b) Draw all the lines of symmetry on this shape.\n[2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -62,19 +77,37 @@ questions:
 - number: '6'
   question_type: calculation
   marks: 1
-  text: ''
+  text: "6\nIn triangle ABC,\n. cm\nAC\n6 4\n=\n and\n. cm\nBC\n5 3\n=\n.\n\nUsing\
+    \ a ruler and compasses only, construct triangle ABC.\n\nLeave in your construction\
+    \ arcs.\n\nThe line AB has been drawn for you.\nA\nB\n\n[2]"
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '7
+
+    Solve.
+
+
+    y
+
+    3
+
+    18
+
+    =
+
+
+    y =   [1]'
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a)\n\n(\n)\nT\nP\n3 5\n8\n4\n=\n-\n+\n\nFind the value of T when P\n\
+    12\n=\n.\n\nT =   [2]\n\n(b)\n W\nt4\n8\n=\n+\n\nFind the value of t when W\n\
+    369\n=\n.\n\nt =   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -92,13 +125,61 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "9\nRepresent the inequality\nx\n2\n3\n– 1\nG\n   on the number line.\nx\n\
+    5\n4\n3\n2\n1\n0\n-2\n-1\n-3\n-4\n-5\n\n[2]"
   answer_options: []
   subquestions: []
 - number: '10'
   question_type: calculation
   marks: 3
-  text: ''
+  text: '10
+
+    7
+
+    3    0.41
+
+    41
+
+    17    42%
+
+
+    Write these numbers in order, starting with the smallest <  <  <  [2]
+
+
+    smallest
+
+    11 A plane leaves Seattle at 07 30 on Tuesday and arrives in Seoul 10 hours and
+    55 minutes later.
+
+
+    The local time in Seoul is 16 hours ahead of the local time in Seattle.
+
+
+    Work out the day and time in Seoul when the plane arrives.
+
+
+    Day  Time  [3]
+
+    12 The equation of line L is   y
+
+    x
+
+    5
+
+    3
+
+    =
+
+    - .
+
+
+    (a) Write down the gradient of line L [1]
+
+
+    (b) Write down the equation of a line parallel to line L.
+
+
+    y =   [1]'
   answer_options: []
   subquestions: []
 - number: '11'
@@ -128,7 +209,12 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: "13 The scale drawing shows the position of ship A.\n\nThe scale is 1 centimetre\
+    \ represents 50 kilometres.\nA\nNorth\n\nScale: 1 cm to 50 km\n\nShip B is 300\
+    \ km from ship A on a bearing of 105°.\n\nOn the scale drawing mark the position\
+    \ of ship B.\n\n[2]\n14 Tom needs 225 g of flour to make 10 cakes.\n\nA shop sells\
+    \ flour in 500 g bags.\n\nWork out the number of bags of flour Tom needs to make\
+    \ 70 cakes [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '14'
@@ -140,7 +226,9 @@ questions:
 - number: '15'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "15\ny\nx\nA\nB\ny\nx\nx\ny\nD\nx\nx\ny\nx\nC\n3\n3\n3\ny\nF\nE\nx\n3\n3\n\
+    3\nx\ny\nx\nNOT TO\nSCALE\n\nWrite down the letter of the graph that shows these\
+    \ lines.\n\n(a) x\n3\n=\n\n  [1]\n\n(b) y\nx\n3\n=\n\n  [1]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 15a
@@ -158,7 +246,37 @@ questions:
 - number: '16'
   question_type: calculation
   marks: 3
-  text: ''
+  text: '16 The diagram shows a shape made from a square and four congruent isosceles
+    triangles.
+
+    14 cm
+
+    7.8 cm
+
+    NOT TO
+
+    SCALE
+
+
+    Work out the area of this shape cm2 [3]
+
+    17 The volume of a cylinder is
+
+    . cm
+
+    863 5
+
+    3.
+
+
+    The height of the cylinder is 12.3 cm.
+
+
+    Find the radius of the cylinder cm [3]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions: []
 - number: '17'
@@ -170,7 +288,14 @@ questions:
 - number: '18'
   question_type: calculation
   marks: 2
-  text: ''
+  text: "18 Dara changes 5700 Thai baht to dollars.\n\nThe exchange rate is $\n.\n\
+    1\n34 18\n=\n Thai baht.\n\nCalculate the amount that Dara receives.\n\n$   [1]\n\
+    19 A four-sided dice is numbered 1 to 4.\n\nHrishi throws the dice 50 times.\n\
+    \nThe results are shown in the table.\nNumber\nFrequency\n1\n14\n2\n15\n3\n9\n\
+    4\n12\n\nCalculate the mean [2]\n20 A tin contains red, yellow, green and brown\
+    \ sweets.\n\nThe table shows some of the probabilities of picking a sweet of each\
+    \ colour at random.\nColour\nRed\nYellow\nGreen\nBrown\nProbability\n0.68\n0.05\n\
+    0.14\n\nComplete the table.\n\n[2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '20'
@@ -182,7 +307,14 @@ questions:
 - number: '21'
   question_type: calculation
   marks: 3
-  text: ''
+  text: "21 The diagram shows a right-angled triangle ABC.\nNOT TO\nSCALE\n52.5 cm\n\
+    59.5 cm\nB\nC\nA\n\nCalculate BC.\n\nBC =   cm [3]\n22 (a) Anil invests $2000\
+    \ and Baz invests $7500.\n\nWrite the ratio   money invested by Anil : money invested\
+    \ by Baz   in its simplest form :   [1]\n\n(b) Kamil and Lavik share some money\
+    \ in the ratio   Kamil : Lavik = 5 : 9.\n\nLavik receives $72 more than Kamil.\n\
+    \nCalculate the total amount of money they share.\n\n$   [2]\n\n(c) Vanisha invests\
+    \ $4000 for 5 years at a rate of 3.5% per year compound interest.\n\nCalculate\
+    \ the total interest earned during the 5 years.\n\n$   [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '22'
@@ -212,13 +344,18 @@ questions:
 - number: '23'
   question_type: calculation
   marks: 2
-  text: ''
+  text: "23 The population of an island increases from 18 400 to 19 780.\n\nCalculate\
+    \ the percentage increase % [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '24'
   question_type: calculation
   marks: 2
-  text: ''
+  text: "24\nNOT TO\nSCALE\n12 cm\n21 cm\n14 cm\nA\nC\nB\nU\nW\nV\n\nTriangle ABC\
+    \ is mathematically similar to triangle UVW.\n\nCalculate AB.\n\nAB =   cm [2]\n\
+    25 A bar of gold in the shape of a cuboid has dimensions 2 cm by 4 cm by 6.5 cm.\n\
+    \nThe density of gold is\n.\ng/cm\n19 32\n3.\n\nCalculate the mass of this bar\
+    \ of gold.\n\nDensity\nvolume\nmass\n=\n:\nD\n\n  g [3]"
   answer_options: []
   subquestions: []
 - number: '25'
@@ -230,7 +367,13 @@ questions:
 - number: '26'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "26 Li asks 28 students if they speak English (E) and if they speak Spanish\
+    \ (S).\n\n15 students speak English.\n\n12 students speak Spanish.\n\n6 do not\
+    \ speak English and do not speak Spanish.\nE\n%\nS\n\n(a) Complete the Venn diagram.\n\
+    \n[2]\n\n(b) Write down how many students speak English but do not speak Spanish\
+    \ [1]\n\n(c) Find (\n)\nE\nS\nn\n,\n [1]\n27 The height, h metres, of a building\
+    \ is 105 m, correct to the nearest metre.\n\nComplete this statement about the\
+    \ value of h h 1\nG\n   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 26a
@@ -260,7 +403,150 @@ questions:
 - number: '28'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '28 (a) (i) Complete the table of values for   y
+
+    x
+
+    x
+
+    5
+
+    2
+
+    =
+
+    - - .
+
+    x
+
+    −3
+
+    −2
+
+    −1
+
+    0
+
+    1
+
+    2
+
+    3
+
+    4
+
+    y
+
+    1
+
+    −3
+
+
+    −3
+
+    1
+
+
+    [2]
+
+
+    (ii) On the grid, draw the graph of   y
+
+    x
+
+    x
+
+    5
+
+    2
+
+    =
+
+    - -  for
+
+    x
+
+    3
+
+    4
+
+    – G
+
+    G
+
+    .
+
+    – 3
+
+    – 2
+
+    – 1
+
+    1
+
+    2
+
+    3
+
+    4
+
+    6
+
+    7
+
+    8
+
+    y
+
+    x
+
+    5
+
+    4
+
+    3
+
+    2
+
+    1
+
+    – 1
+
+    – 2
+
+    – 3
+
+    – 4
+
+    – 5
+
+    – 6
+
+    0
+
+
+    [4]
+
+
+    (b) Write down the equation of the line of symmetry of the graph [1]
+
+
+    (c) Use the graph to solve the equation x
+
+    x
+
+    5
+
+    0
+
+    2 - -
+
+    =
+
+    .
+
+
+    x =  or x =  [2]'
   answer_options: []
   subquestions:
   - number: 28a

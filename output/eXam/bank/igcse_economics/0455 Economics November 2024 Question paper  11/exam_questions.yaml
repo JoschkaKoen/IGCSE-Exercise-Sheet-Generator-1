@@ -258,7 +258,39 @@ questions:
 - number: '19'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: 'The graph shows the impact of a tax on the supply of petrol (gas).
+
+    19
+
+    D
+
+    quantity
+
+    S2
+
+    S1
+
+    price
+
+    O
+
+    What can be concluded from this graph?
+
+    The government will receive no tax revenue.
+
+    A
+
+    The impact of the tax will be shared between the consumer and the producer.
+
+    B
+
+    The impact of the tax will fall entirely upon the consumer.
+
+    C
+
+    The impact of the tax will fall entirely on the producer.
+
+    D'
   answer_options:
   - letter: A
     text: A

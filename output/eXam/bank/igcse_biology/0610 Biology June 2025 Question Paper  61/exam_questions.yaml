@@ -2,7 +2,39 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student investigated the effect of concentration on diffusion.\n\nThe\
+    \ student used pieces of agar which contained universal indicator. Universal indicator\
+    \ is green\nin substances with a neutral pH and red in substances with an acidic\
+    \ pH.\n\nThe student placed the pieces of agar into different concentrations of\
+    \ hydrochloric acid solution\nand measured the time taken for the acid to diffuse\
+    \ to the centre of each piece of agar. At the start\nof the investigation the\
+    \ agar was green.\n\nThe student used this method:\n\nStep 1\n Label four test-tubes\
+    \ 0.4, 0.6, 0.8, 1.0.\n\nTable 1.1 shows the volumes of 1.0 mol per dm3 hydrochloric\
+    \ acid solution and distilled water used\nto make the different concentrations\
+    \ of hydrochloric acid solution.\nTable 1.1\nconcentration of\nhydrochloric acid\
+    \ solution\n/ mol per dm3\nvolume of 1.0 mol per dm3\nhydrochloric acid\nsolution\
+    \ / cm3\nvolume of distilled water\n/ cm3\n0.4\n4\n6\n0.6\n6\n4\n0.8\n8\n2\n1.0\n\
+    10\n0\n\nStep 2\n Use a 10 cm3 syringe to put the volumes of 1.0 mol per dm3 hydrochloric\
+    \ acid solution\nshown in Table 1.1 into the test-tubes labelled 0.4, 0.6, 0.8,\
+    \ 1.0.\n\nStep 3\n Use the 10 cm3 syringe to put the volumes of distilled water\
+    \ shown in Table 1.1 into the\ntest-tubes labelled 0.4, 0.6, 0.8, 1.0.\n\nStep\
+    \ 4\n A block of agar which measures approximately 1 cm × 2 cm × 2 cm is provided.\
+    \ Use the\nknife to cut the agar block into four pieces.\nagar block\nnot to scale\n\
+    white tile\nFig. 1.1\n,\t,\n\nStep 5\nPlace all the test-tubes into a warm water-bath.\n\
+    \nStep 6\n Put one agar piece into each of the test-tubes and immediately start\
+    \ the stop-clock.\nObserve the colour of the agar pieces as they change from green\
+    \ to red.\n\nThe student recorded the time taken for each piece of agar to become\
+    \ completely red.\n\nThe stop-clocks from step 6 are shown in Fig. 1.2.\nminutes:seconds\n\
+    0.4\nminutes:seconds\n0.6\nminutes:seconds\n0.8\nminutes:seconds\n1.0\nFig. 1.2\n\
+    \n(a) (i) Prepare a table to record the results of the investigation.\n\n Convert\
+    \ the times on the stop-clocks shown in Fig. 1.2 to seconds and record these\n\
+    times in your table.\n\n[4]\n,\t,\n\n(ii) State a conclusion for the results [1]\n\
+    \n(iii) State the independent and dependent variables in this investigation.\n\
+    independent variable   dependent variable   [2]\n\n(iv) Suggest two improvements\
+    \ to the method used for this investigation.\n1   2   [2]\n\n(v) Identify two\
+    \ hazards in this investigation [1]\n,\t,\n\n(b) Plan an investigation to determine\
+    \ the effect of temperature on osmosis in potato plant tissue [6]\n\n[Total: 16]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +82,45 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) A student used DCPIP solution to compare the concentration of vitamin\
+    \ C in five solutions.\n\nThe student used this method:\n•\nPut 1 cm3 of 1% DCPIP\
+    \ solution into a test-tube.\n•\nUse a syringe to add drops of 125 mg per dm3\
+    \ vitamin C solution to the test-tube.\n•\nKeep adding drops of vitamin C solution\
+    \ until the DCPIP solution becomes colourless.\n•\nRecord the total volume of\
+    \ the 125 mg per dm3 vitamin C solution added.\n\nThis method was repeated with\
+    \ four other concentrations of vitamin C solution.\n\n(i) State the expected colour\
+    \ of the DCPIP solution before the vitamin C solution was\nadded [1]\n\n(ii) State\
+    \ two variables that were kept constant by the student in this investigation.\n\
+    1   2   [2]\n\nThe results of the investigation are shown in Table 2.1.\nTable\
+    \ 2.1\nconcentration of vitamin C\n/ mg per dm3\ntotal volume of vitamin C\nsolution\
+    \ added / cm3\n 125\n1.6\n 250\n1.4\n 500\n1.1\n 750\n0.8\n1000\n0.5\n,\t,\n\n\
+    (b) (i) Plot a line graph on the grid of the data in Table 2.1.\n\n[4]\n\n(ii)\
+    \ The student tested a sample of orange juice.\n\n They found that 1.2 cm3 of\
+    \ orange juice was needed to react with 1 cm3 of 1% DCPIP\nsolution.\n\n Use your\
+    \ graph to estimate the vitamin C concentration of the orange juice.\n\n Show\
+    \ on the graph how you obtained your estimate mg per dm3\n[2]\n,\t,\n\n(c) The\
+    \ student wanted to investigate the effect of storage on the vitamin C concentration\
+    \ in\napple juice.\n\nThree samples of fresh apple juice and three samples of\
+    \ stored apple juice were tested.\n\nThe results are shown in Table 2.2.\nTable\
+    \ 2.2\nsample\nconcentration of\nvitamin C in fresh\napple juice\n/ mg per dm3\n\
+    concentration of\nvitamin C in stored\napple juice\n/ mg per dm3\n1\n281\n170\n\
+    2\n276\n 96\n3\n272\n104\n\n(i) State a conclusion for the data shown in Table\
+    \ 2.2 [1]\n\n(ii) The student decided that the result of one sample shown in Table\
+    \ 2.2 was anomalous.\n\n State what is meant by an anomalous result [1]\n\n(iii)\
+    \ Draw a circle around the anomalous result in Table 2.2.\n[1]\n,\t\t,\n\n(iv)\
+    \ Using the data for sample 3 in Table 2.2, calculate the percentage change in\
+    \ the\nvitamin C concentration of the apple juice when it is stored.\n\n Give\
+    \ your answer to one decimal place.\n\n Space for working % [3]\n,\n,\n\n(d) Fig.\
+    \ 2.1 is a photograph of a fruit from a strawberry plant, Fragaria ananassa, that\
+    \ has been\ncut in half.\nP\nQ\nmagnification ×1.8\nFig. 2.1\n\n(i) Draw a large\
+    \ diagram of the strawberry fruit shown in Fig. 2.1.\n\n[4]\n,\t,\n\n(ii) Line\
+    \ PQ in Fig. 2.1 represents the maximum diameter of the strawberry fruit.\n\n\
+    \ Measure the length of line PQ in Fig. 2.1.\nlength of PQ   mm\n\n Calculate\
+    \ the actual diameter of the strawberry fruit using the formula and your\nmeasurement.\n\
+    magnification =\nlength of line PQ in Fig. 2.1\nactual diameter of the strawberry\
+    \ fruit\n\n Give your answer to three significant figures.\n\n Space for working\
+    \ mm\n[3]\n\n(e) Describe a method the student could use to test a strawberry\
+    \ fruit for reducing sugars [2]\n\n[Total: 24]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a

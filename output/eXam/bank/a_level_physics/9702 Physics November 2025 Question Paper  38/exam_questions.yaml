@@ -2,7 +2,27 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nIn this experiment, you will investigate the phase difference between\
+    \ the oscillations of two\nmass–spring systems.\n\n(a) •\nAssemble the apparatus\
+    \ as shown in Fig. 1.1.\nstand\nboss\nrod of clamp\nsprings\nmass B\nmass A\n\
+    springs\nrod of clamp\nboss\nstand\nbench\nmass z\nFig. 1.1\n•\nMass A and mass\
+    \ B are each 200 g.\n•\nAdd a mass z of 40 g to mass B.\n\n Record the value of\
+    \ z.\n\nz =   g\n•\nM is given by M = 200 g + z.\n\n Calculate M.\n\nM =   g\n\
+    •\nPull both A and B down a short distance and release them together. Observe\
+    \ the\noscillations. A and B initially oscillate in phase (both moving up and\
+    \ down together), then\ntheir oscillations go out of phase and then become in\
+    \ phase again.\n•\nThe time from A and B oscillating in phase to the next time\
+    \ they oscillate in phase is P.\n\n Measure and record P.\n\nP =   [2]\n,\t,\n\
+    \n(b) Change z and determine P. Repeat until you have six sets of values of z\
+    \ and P.\n\nRecord your results in a table. Include values of M, 1\nM  and 1\n\
+    P in your table.\n\n[10]\n\n(c) (i) Plot a graph of 1\nP on the y-axis against\
+    \ 1\nM  on the x-axis.\n[3]\n\n(ii)  Draw the straight line of best fit.\n[1]\n\
+    \n(iii) Determine the gradient and y-intercept of this line.\n\ngradient =   y-intercept\
+    \ =   [2]\n,\t,\n,\t,\n\n(d) It is suggested that the quantities P and M are related\
+    \ by the equation\n1\nP =\nM\na  + b\n\nwhere a and b are constants.\n\nUse your\
+    \ answers in (c)(iii) to determine the values of a and b.\n\nGive appropriate\
+    \ units.\n\na =   b =   [2]\n\n[Total: 20]\n,\t,\nYou may not need to use all\
+    \ of the materials provided.\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +70,34 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nIn this experiment, you will investigate the tension in a string.\n\n\
+    (a) •\nSet up the apparatus as shown in Fig. 2.1.\nd\n≈ 52 cm\n≈ 37 cm\n≈ 31 cm\n\
+    bench\nG-clamp\nmass hanger\nand masses\nstring\nnail\nbosses\nnails\nstand\n\
+    boss\nFig. 2.1\n•\nThe mass hanger and masses should have a total mass M of 0.400\
+    \ kg.\n•\nThe distance between the two lower nails is d, as shown in Fig. 2.1.\n\
+    \n Measure and record d.\n\nd =   cm [1]\n\n(b) The tension in the string is T.\n\
+    \nCalculate T using T = Mg, where g = 9.81 N kg–1.\n\nT =   N [1]\n\n(c) (i) •\n\
+    \ Hook the newton meter on the string half-way between the two lower nails and\
+    \ pull\nit horizontally with a force F of 5.0 N, as shown in Fig. 2.2.\nx\nnewton\
+    \ meter\nFig. 2.2\n•\nThe force F causes the string to deflect a distance x, as\
+    \ shown in Fig. 2.2.\nMeasure and record x.\n\nx =   cm [2]\n\n(ii) Estimate the\
+    \ percentage uncertainty in your value of x. Show your working.\n\npercentage\
+    \ uncertainty =   % [1]\n,\t\t,\n\n(iii) Calculate y, where\n4\ny\nx\nd\n2\n2\n\
+    =\n+\ne\no.\n\ny =   cm [1]\n\n(d) •\nAdd slotted masses to the mass hanger so\
+    \ that the total mass M is 0.700 kg.\n•\nRepeat (b), (c)(i) and (c)(iii).\n\n\
+    T =   N\n\nx =   cm\n\ny =   cm\n\n[3]\n,\n,\n\n(e) It is suggested that the relationship\
+    \ between y, T and x is\nky = Tx\n\nwhere k is a constant.\n\n(i) Using your data,\
+    \ calculate two values of k.\n\nfirst value of k =   second value of k =   [1]\n\
+    \n(ii) Justify the number of significant figures that you have given for your\
+    \ values of k [1]\n\n(f) It is suggested that the percentage uncertainty in the\
+    \ values of k is 20%.\n\nUsing this uncertainty, explain whether your results\
+    \ support the relationship in (e) [1]\n,\t,\n\n(g) (i) Describe four sources of\
+    \ uncertainty or limitations of the procedure for this experiment.\n\n For any\
+    \ uncertainties in measurement that you describe, you should state the quantity\n\
+    being measured and a reason for the uncertainty.\n1   2   3   4   [4]\n\n(ii)\
+    \ Describe four improvements that could be made to this experiment. You may suggest\n\
+    the use of other apparatus or different procedures.\n1   2   3   4   [4]\n\n[Total:\
+    \ 20]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a

@@ -2,7 +2,87 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    A student uses a computer and several hardware devices to complete his schoolwork.
+
+
+    The computer has a central processing unit (CPU).
+
+
+    (a) The student uses a keyboard to complete his schoolwork.
+
+
+    Tick (3) one box to show which type of device the keyboard is.
+
+    A
+
+    input
+
+
+    B
+
+    memory
+
+    C
+
+    output
+
+    D
+
+    storage
+
+
+    [1]
+
+
+    (b) The student uses a printer to print his schoolwork.
+
+
+    Tick (3) one box to show which type of device the printer is.
+
+    A
+
+    input
+
+
+    B
+
+    memory
+
+    C
+
+    output
+
+    D
+
+    storage
+
+
+    [1]
+
+
+    (c) A component in the CPU sends signals to manage the fetch-decode-execute cycle.
+
+
+    State the name of this component [1]
+
+
+    (d) The CPU has a clock speed of 2.4 Ghz.
+
+
+    Describe what is meant by a 2.4 Ghz clock speed [2]
+
+
+    (e) The CPU contains registers including the memory data register (MDR).
+
+
+    (i) Describe the role of the MDR in the fetch-decode-execute cycle [2]
+
+
+    (ii) Identify three other registers contained in the CPU.
+
+    1   2   3   [3]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,13 +130,42 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "3\nThe table contains four descriptions about a computer system.\n\nComplete\
+    \ the table by writing the correct term for each description.\nTerm\nDescription\n\
+    \ A collective term for the physical components\nof the computer system A type\
+    \ of software that provides services\nthat the user requires and allows the user\
+    \ to\nperform tasks on the computer A type of software that manages the\nmain\
+    \ functions of the computer, including\nmanaging files and managing memory A type\
+    \ of software that is stored in the\nread only memory (ROM). It includes the\n\
+    basic input output system (BIOS) and the\nbootloader.\n\n[4]"
   answer_options: []
   subquestions: []
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA car park has a payment machine that allows a customer to pay for their\
+    \ parking.\n\nThe cost of parking is displayed as a denary number on a screen\
+    \ on the payment machine.\n\nThe cost of parking is stored in two 8-bit binary\
+    \ registers.\n\nFor the parking cost of $10.50:\n•\nregister 1 stores the denary\
+    \ value 10 as binary\n•\nregister 2 stores the denary value 50 as binary.\n\n\
+    (a) Give the parking cost that would be displayed on the payment machine when\
+    \ the registers\nstore:\n•\nregister 1: 00010001\n•\nregister 2: 01000110\n\n\
+    Parking cost displayed $  [2]\n\nWorking space\n  (b) The parking cost of $14.98\
+    \ is displayed on the payment machine.\n\nGive the 8-bit binary numbers that are\
+    \ stored in the registers to display the parking cost.\nRegister 1   Register\
+    \ 2   [2]\n\nWorking space\n  (c) The payment machine gives the customer a ticket\
+    \ when they have paid their parking cost.\nEach ticket has a 4-digit hexadecimal\
+    \ ticket number that is stored as binary.\n\nThe binary number 1010000000111101\
+    \ is stored for a customer’s ticket number.\n\nGive the hexadecimal ticket number\
+    \ that would be displayed on this customer’s ticket.\nHexadecimal ticket number\
+    \   [4]\n\nWorking space\n  (d) Explain why data input into the payment machine\
+    \ needs to be converted to binary [2]\n\n(e) When a customer is leaving the car\
+    \ park they arrive at a barrier. The customer needs to insert\ntheir ticket into\
+    \ a system at the barrier. This system reads the ticket number then checks\nwhether\
+    \ the parking cost has been paid for the car. The barrier is raised if it has\
+    \ been paid.\n\nThe system uses a microprocessor.\n\nDescribe the role of the\
+    \ microprocessor in the system and how it checks whether the parking\ncost has\
+    \ been paid [4]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -92,7 +201,44 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    Data is transmitted between a computer and a printer.
+
+
+    (a) The data is transmitted one bit at a time down a single wire. The computer
+    can transmit data
+
+    to the printer and the printer can transmit data to the computer, using the same
+    connection.
+
+
+    Circle the two data transmission methods that will transmit data in this way.
+
+    parallel full-duplex    parallel half-duplex    parallel simplex
+
+    serial full-duplex    serial half-duplex    serial simplex
+
+
+    [2]
+
+
+    (b) An odd parity check is used to detect errors in the data transmission.
+
+
+    Explain how the odd parity check detects errors [4]
+
+
+    (c) Another error detection method sends the data from the computer to the printer,
+    then a copy
+
+    of the data received is sent back from the printer to the computer. The two sets
+    of data are
+
+    compared to see if they match.
+
+
+    State the name of this type of error detection method [1]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -116,7 +262,41 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    A musician is recording herself playing the music for a song on the piano.
+
+
+    (a) Explain how the analogue sound is recorded and converted to digital [5]
+
+
+    (b) State two ways that the accuracy of the recording could be increased.
+
+    1   2   [2]
+
+
+    (c) The musician compresses the sound file using lossless compression instead
+    of lossy
+
+    compression.
+
+
+    Explain why the musician would choose to use lossless compression instead of lossy
+
+    compression [3]
+
+
+    (d) The musician types the words for the song into a document.
+
+
+    Two character sets that can be used when converting text to digital are the American
+    standard
+
+    code for information interchange (ASCII) and Unicode.
+
+
+    Explain the differences between the ASCII character set and the Unicode character
+    set [4]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -146,19 +326,48 @@ questions:
 - number: '6'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '6
+
+    Draw and annotate a diagram to demonstrate how a firewall works.
+
+
+    [4]'
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: calculation
   marks: 4
-  text: ''
+  text: "7\nComplete the statements about data packets and packet switching.\n\nUse\
+    \ the terms from the list.\n\nSome of the terms in the list will not be used.\
+    \ You should only use a term once.\ndestination address    first    footer   \
+    \ header\nlast    main data    packets    payload\nrouters     servers    trailer\n\
+    \nData is broken down into packets. A data packet has a packet  that contains\
+    \ the packet number and the  Each packet could take a different path from the\
+    \ sender to the receiver; this is controlled by\n Packets may arrive out of order.\
+    \ Once the  packet has arrived,\nthe packets are reordered.\n\n[4]"
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    Storage can be described as being magnetic, solid-state or optical.
+
+
+    (a) Give two features of magnetic storage.
+
+    1   2   [2]
+
+
+    (b) Give three features of solid-state storage.
+
+    1   2   3   [3]
+
+
+    (c) Give one example of each type of storage.
+
+    Magnetic   Solid-state   Optical   [3]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -182,7 +391,31 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    An interrupt is a type of signal that is used in a computer.
+
+
+    (a) State the name of the type of software that manages interrupts [1]
+
+
+    (b) Describe how interrupts are used when a key is pressed on a keyboard [5]
+
+
+    (c) Interrupts can be hardware based or software based.
+
+
+    A key press is one example of a hardware interrupt.
+
+
+    (i) Give two other examples of a hardware interrupt.
+
+    1   2   [2]
+
+
+    (ii) Give two examples of a software interrupt.
+
+    1   2   [2]'
   answer_options: []
   subquestions:
   - number: 9a

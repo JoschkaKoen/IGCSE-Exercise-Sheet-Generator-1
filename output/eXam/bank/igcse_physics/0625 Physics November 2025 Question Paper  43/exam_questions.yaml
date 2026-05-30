@@ -2,7 +2,23 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) A hard ball is dropped vertically downwards.\n\nFig. 1.1 shows the\
+    \ speed–time graph for the ball from when it is dropped until it hits the\nground.\n\
+    \nAir resistance is ignored.\n0\n0\n0.2\n0.4\n0.6\n0.8\n1.0\n2\n4\n6\nspeed\n\
+    m / s\ntime / s\n8\nFig. 1.1\n\n(i) Describe the motion of the ball in Fig. 1.1\
+    \ [1]\n\n(ii) Show that the distance travelled by the ball is 1.8 m.\n\n[2]\n\n\
+    (iii) The mass of the ball is 0.54 kg. Calculate the gravitational potential energy\
+    \ stored in the\nball immediately before it is dropped.\n\ngravitational potential\
+    \ energy =   [2]\n,\t,\n\n(iv) Determine the kinetic energy of the ball when it\
+    \ has fallen half way to the ground.\n\nkinetic energy =   [1]\n\n(b) The same\
+    \ ball is dropped from an aeroplane. Air resistance acts on the ball.\n\nExplain\
+    \ how the vertical motion of the ball changes, from when it is dropped to just\
+    \ before it\nhits the ground.\n\nUse the idea of forces in your answer [3]\n\n\
+    (c) A soft ball is dropped by a student so that it bounces on the ground.\n\n\
+    Fig. 1.2 shows the height–time graph for the ball. The height is measured from\
+    \ the ground.\n\nThe ball bounces four times.\nheight\nm\ntime / s\nA\nB\nC\n\
+    Fig. 1.2\n\nExplain why the change in height of the ball between B and C is less\
+    \ than the change in\nheight between A and B [2]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -50,7 +66,13 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA cricket ball is travelling at a speed of 25 m / s horizontally through\
+    \ the air. The mass of the ball is\n0.14 kg.\n\nA player catches the ball and\
+    \ the ball comes to rest.\n\n(a) Calculate the change in momentum of the ball\
+    \ during the catch.\n\nchange in momentum =   [2]\n\n(b) The player’s hands are\
+    \ in contact with the moving ball for 9.7 ms.\n\nCalculate the horizontal force\
+    \ exerted by her hands to bring the ball to rest.\n\nforce =   [3]\n\n[Total:\
+    \ 5]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -68,7 +90,14 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Fig. 3.1 shows a Sankey diagram for the power transfer in a coal‑fired\
+    \ power station.\npower input\nfrom fuel\n= 3400 MW\npower wasted\nin power\n\
+    station due to\nthermal\nenergy\ntransfers\n= 2200 MW\npower\nused in\npower\n\
+    station\n= 40 MW\npower used\nin\ntransmission\n= 25 MW\nuseful\npower\noutput\n\
+    Fig. 3.1\n\n(i) Show that the useful power output from the power station is approximately\
+    \ 1100 MW.\n\n [2]\n\n(ii) Calculate the efficiency of the power station.\n\n\
+    efficiency =   [2]\n\n(b) Describe how useful energy may be obtained from geothermal\
+    \ resources [2]\n\n[Total: 6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -98,7 +127,20 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) (i) A rectangular glass tank contains 3.0 m3 of liquid. The mass of\
+    \ the liquid is 2800 kg.\n\n Calculate the density of the liquid.\n\ndensity =\
+    \   [1]\n\n(ii) A metal block is placed in the tank and it sinks to the bottom.\
+    \ The top surface of the block\nis 1.1 m below the surface of the liquid.\n\n\
+    \ Fig. 4.1 shows the block on the bottom of the tank.\nliquid\nmetal block\n0.45\
+    \ m\n0.30 m\n1.1 m\nFig. 4.1\n\n Calculate the force exerted by the liquid on\
+    \ the top of the block.\n\nforce on top of the block =   [4]\n,\t,\n\n(b) Fig.\
+    \ 4.2 shows part of a steel railway track. There are small gaps between sections\
+    \ of the rail.\nsmall gap\nsection of rail\nFig. 4.2\n\nState why gaps are needed\
+    \ between the sections of rail. Explain your answer in terms of\nparticles.\n\
+    statement   explanation   [2]\n\n(c) Fig. 4.3 shows a saucepan of boiling water\
+    \ on the heating ring of an electric cooker.\nplastic handle\nheating ring\nboiling\
+    \ water\nmetal pan\nFig. 4.3\n\nThe handle is made from plastic.\n\nExplain why\
+    \ this material is suitable [2]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -134,7 +176,25 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) (i) Electromagnetic waves have many uses.\n\n On Fig. 5.1 draw one\
+    \ line from each use to the region of the electromagnetic (e‑m)\nspectrum it uses.\n\
+    Use\nRegion of e‑m spectrum\nsecurity marking\ngamma rays\nBluetooth\nultraviolet\n\
+    optical fibres\ninfrared\ndetection of cancer\nradio waves\nFig. 5.1\n\n[2]\n\n\
+    (ii) State one advantage of using microwaves compared with radio waves to transmit\
+    \ mobile\n(cell) phone signals [1]\n\n(b) Describe the difference between transverse\
+    \ waves and longitudinal waves [2]\n,\t\t,\n\n(c) Fig. 5.2 shows a simplified\
+    \ diagram of seismic P‑waves travelling through the Earth. The\npaths of the waves\
+    \ are curved.\n\nSeismic waves are produced by rock movements in earthquakes.\n\
+    P-waves\nliquid outer core\ninner core\n(mostly) solid mantle\nearthquake occurs\
+    \ here\nX\nFig. 5.2 (not to scale)\n\n(i) State the type of wave that P‑waves\
+    \ can be modelled as [1]\n\n(ii) At point X, the P‑wave travels from the solid\
+    \ mantle to the liquid core. There is a sudden\nchange in direction of the path\
+    \ of the wave.\n\n Explain the change in direction of the P‑wave at point X [2]\n\
+    \n(d) The Earth’s surface absorbs incoming radiation from the Sun and also emits\
+    \ thermal radiation\nfrom its surface.\n\nOver the past 50 years, scientists estimate\
+    \ that the average temperature of the Earth’s\nsurface has increased by approximately\
+    \ 0.75 °C.\n\nExplain what is causing this average temperature rise [2]\n\n[Total:\
+    \ 10]\n,\n,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -188,7 +248,19 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Fig. 6.1 shows a circuit which includes an LDR (light‑dependent resistor).\n\
+    +\n+5.0 V\n400 Ω\nı\nV\nFig. 6.1\n\nThe LDR is in a brightly lit room. The voltmeter\
+    \ reads 1.8 V.\n\n(i) Calculate the current in the 400 Ω resistor.\n\ncurrent\
+    \ =   [3]\n\n(ii) The light level in the room changes from bright to dark.\n\n\
+    \ State and explain the effect on the voltmeter reading.\nstatement   explanation\
+    \   [3]\n,\t,\n\n(b) Fig. 6.2 shows two light‑emitting diodes (LEDs) connected\
+    \ in parallel in a circuit. R is a red\nLED and G is a green LED.\n\nThe voltmeter\
+    \ across the LEDs shows a potential difference (p.d.) of 2.0 V.\nA\nR\n+\n+5.0\
+    \ V\n2.0 V\nı\nG\nV\nFig. 6.2\n\n(i) Fig. 6.3 shows a current‑p.d. graph for the\
+    \ LEDs.\n0\n1.0\n 0\n20\n40\ncurrent\nmA\n 60\n 80\n R\n G\n2.0\n3.0\np.d./ V\n\
+    4.0\nFig. 6.3\n\n Use Fig. 6.3 to determine the current in the ammeter.\n\ncurrent\
+    \ =   [2]\n\n(ii) The connections to the power supply are reversed. State the\
+    \ reading on the ammeter.\n\ncurrent =   [1]\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -230,7 +302,21 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nFig. 7.1 shows a simple a.c. generator.\nN\ncoil\nslip rings\nhandle\n\
+    S\ncoil\nbrush\nfront\nFig. 7.1\n\n(a) (i) Explain the function of the slip rings\
+    \ and brushes [1]\n\n(ii) Describe how an alternating current is generated in\
+    \ the lamp [3]\n\n(iii) State two possible changes that cause a larger maximum\
+    \ current in the lamp.\n1   2   [2]\n,\t,\n\n(b) Fig. 7.2 is a graph to show how\
+    \ the electromotive force (e.m.f.) varies with time for the coil.\ne.m.f.\n0\n\
+    A\nB\ntime\nC\nD\nE\n0\nFig. 7.2\n\n(i) Determine how many revolutions the coil\
+    \ has made, from time = 0 to E.\n\nnumber of revolutions =   [1]\n,\t,\n\n(ii)\
+    \ Fig. 7.3 shows the end view of the position of the plane of the coil at time\
+    \ = 0. The coil is\nrotating anti‑clockwise.\nN\nS\ncoil\naxis of rotation\nslip\
+    \ rings\nFig. 7.3\n\n On Fig. 7.4, draw four lines to match the coil position\
+    \ to the times A, B, C and D. The coil\nis viewed from the front.\n\n Each coil\
+    \ position may be used once, more than once or not at all.\ntime label\nfrom graph\n\
+    coil position\nA\nB\nC\nD\nN\nS\nN\nS\nN\nS\nN\nS\nFig. 7.4\n\n[3]\n\n[Total:\
+    \ 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -278,7 +364,22 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a) Alpha (α) particles are directed at a very thin sheet of gold foil.\n\
+    \nThe following observations provide evidence for the nuclear model of the atom.\n\
+    \nState what conclusions may be made about the model of the atom from these observations.\n\
+    \n(i) Observation: most of the particles pass straight through the foil.\nconclusion\
+    \   [1]\n\n(ii) Observation: a few particles bounce back or are deflected through\
+    \ large angles.\nconclusion   [1]\n\n(b) Fig. 8.1 shows three beams of ionising\
+    \ radiation, alpha, beta and gamma, passing between\ntwo parallel plates. The\
+    \ plates are charged and there is a uniform electric field between them.\ncharged\
+    \ plate\ncharged plate\nP\nQ\nR\nFig. 8.1\n\n(i) State and explain which path\
+    \ P, Q or R shows a beam of alpha particles.\npath   explanation   [2]\n,\t,\n\
+    \n(ii) State and explain the direction of the electric field between the plates.\n\
+    direction   explanation   [1]\n\n(c) Curium‑242 is a radioactive isotope. It emits\
+    \ alpha particles. It has a half‑life of 160 days.\n\nAfter 480 days, the mass\
+    \ of curium‑242 in a sample is 2.4 × 10–3 g.\n\nCalculate the initial mass of\
+    \ curium‑242 in the sample.\n\ninitial mass of curium‑242 =   [2]\n\n[Total: 7]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -326,7 +427,18 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\n(a) Cosmic microwave background radiation (CMBR) can be observed in every\
+    \ direction in space\naround us.\n\n(i) State when CMBR was produced [1]\n\n(ii)\
+    \ State and explain how the wavelength of this radiation has changed since it\
+    \ was formed [2]\n\n(b) Table 9.1 shows data about planets in our solar system.\n\
+    Table 9.1\nplanet\naverage radius of\norbit around the Sun /\n106 km\ntime for\
+    \ one orbit /\nEarth years\naverage surface\ntemperature /\n°C\nVenus\n 108\n\
+    \ 0.62\n 460\nEarth\n 150\n 1.00\n  15\nMars\n 228\n 1.90\n  – 65\nJupiter\n 778\n\
+    12.00\n–110\nSaturn\n1430\n29.00\n–140\n\n(i) The orbit of Venus is approximately\
+    \ circular.\n\n Calculate the average orbital speed v of Venus. Give your answer\
+    \ in km / h.\n\norbital speed =   km / h [3]\n\n(ii) State how the average surface\
+    \ temperature of a planet changes as its distance from the\nSun increases [1]\n\
+    \n[Total: 7]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 9a
@@ -368,7 +480,34 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '10 (a) Sketch a diagram to show the orbital path of a comet around the Sun.
+
+
+    Mark the position of the Sun on your diagram using an S.
+
+
+    [2]
+
+
+    (b) Draw a cross on your diagram to show where the comet is travelling with the
+    slowest speed.
+
+    Label the cross L.
+
+    [1]
+
+
+    (c) Explain why the speed of a comet changes as it travels around its orbit.
+
+
+    Use the conservation of energy in your explanation [3]
+
+
+    [Total: 6]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions:
   - number: 10a

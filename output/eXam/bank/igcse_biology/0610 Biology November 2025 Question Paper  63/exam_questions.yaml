@@ -2,7 +2,31 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nYeast cells produce an enzyme called invertase. Invertase catalyses the\
+    \ breakdown of sucrose\ninto reducing sugars. Sucrose is not a reducing sugar.\n\
+    \nA student investigated the effect of two different concentrations of invertase\
+    \ extract on a sucrose\nsolution.\n\nThe student used this method:\n\nStep 1\n\
+    Label three test-tubes A, B and W.\n\nStep 2\nUse a syringe to put 2 cm3 of sucrose\
+    \ solution into all three test-tubes.\n\nStep 3\nUse a clean syringe to put 2\
+    \ cm3 of 100% invertase extract into test-tube A.\n\nStep 4\nUse a clean syringe\
+    \ to put 2 cm3 of 10% invertase extract into test-tube B.\n\nStep 5\nUse a clean\
+    \ syringe to put 2 cm3 of distilled water into test-tube W.\n\nStep 6\nPut all\
+    \ three test-tubes in a warm water-bath at 40 °C for 15 minutes.\n\nStep 7\nMeasure\
+    \ the temperature of the liquid in the test-tubes.\n\n(a) State the name of the\
+    \ piece of equipment that is used to measure temperature [1]\n\nStep 8\nUse a\
+    \ clean syringe to add 4 cm3 of Benedict’s solution to all three test-tubes.\n\
+    \nStep 9\nPlace all three test-tubes into a hot water-bath for five minutes.\n\
+    \nStep 10 After five minutes, record the colour of the liquid in each test-tube.\n\
+    \nFig. 1.1 shows the notes the student made about their observations in step 10.\n\
+    the liquid in test-tube A is brick-red\nthe liquid in test-tube B is green\nW\
+    \ remains blue\nFig. 1.1\n,\t,\n\n(b) Prepare a table and record the results of\
+    \ this investigation using the information in Fig. 1.1.\n\n[3]\n\n(c) State a\
+    \ conclusion for the results shown in test-tube A and test-tube B [1]\n\n(d) Explain\
+    \ the purpose of test-tube W [2]\n\n(e) State the independent variable in this\
+    \ investigation [1]\n\n(f) Explain why the test-tubes were placed in the warm\
+    \ water-bath in step 6 [1]\n,\t,\n\n(g) Explain why a clean syringe was used in\
+    \ steps 3, 4 and 5 [1]\n\n(h) Invertase is a protein.\n\nState the reagent used\
+    \ to test for the presence of protein [1]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -56,7 +80,27 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigated the effect of temperature on the rate of respiration\
+    \ in yeast cells.\n\nThey used the apparatus shown in Fig. 2.1.\nclamp\nmeasuring\n\
+    cylinder\nwater\nwater-bath\nyeast\nsuspension\nFig. 2.1\n\nThe student used this\
+    \ method:\n•\nPut 25 cm3 of yeast suspension into a test-tube.\n•\nPut the test-tube\
+    \ into a water-bath and add water at 10 °C to the water-bath.\n•\nLeave the apparatus\
+    \ for five minutes before moving on to the next step.\n•\nStart a stop-clock and\
+    \ count the number of bubbles produced by the respiring yeast cells in\nthree\
+    \ minutes.\n•\nRepeat the procedure using a water-bath maintained at different\
+    \ temperatures.\n\n(a) (i) State two variables that the student kept constant\
+    \ in this investigation.\n1   2   [2]\n\n(ii) State one possible source of error\
+    \ when measuring the dependent variable and suggest\nan improvement to this method\
+    \ of measuring.\nerror   improvement   [2]\n,\t,\n\n(b) Table 2.1 shows the results\
+    \ of the investigation.\nTable 2.1\nwater-bath temperature\n/ °C\nnumber of bubbles\
+    \ produced in\n3 minutes\nrate of bubble production\n/ bubbles per minute\n10\n\
+    \ 33\n11\n20\n 45\n15\n30\n 79\n40\n112\n37\n50\n124\n41\n60\n 37\n12\n\n(i) Calculate\
+    \ the rate of bubble production at 30 °C.\n\n Give your answer to an appropriate\
+    \ number of significant figures.\n\n Space for working bubbles per minute [2]\n\
+    ,\t,\n\n(ii) Plot the data in Table 2.1 on the grid to show the effect of temperature\
+    \ on the rate of\nbubble production.\n\n[4]\n\n(iii) Describe the results of this\
+    \ investigation [2]\n\n(c) Describe how the student could confirm that the gas\
+    \ produced is carbon dioxide [2]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -110,7 +154,21 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Fig. 3.1 is a photograph of the head of a king penguin.\nA\nB\nmagnification\
+    \ ×0.42\nFig. 3.1\n\n(i) Make a large drawing of the head of the king penguin\
+    \ shown in Fig. 3.1.\n[4]\n,\t\t,\n\n(ii) The length of line AB represents the\
+    \ length of the penguin’s beak.\n\n Measure the length of line AB in Fig. 3.1.\n\
+    \n length of line AB  mm\n\n Use your measurement and the formula to calculate\
+    \ the actual length of the penguin’s\nbeak.\nmagnification =\nlength of line AB\
+    \ in Fig. 3.1\nactual length of the penguin’s beak\n\n Give your answer to one\
+    \ decimal place.\n\n Space for working mm\n\n[3]\n,\n,\n\n(b) Fig. 3.2 shows the\
+    \ heads of a gentoo penguin and a black-footed penguin.\ngentoo\nblack-footed\n\
+    not to scale\nFig. 3.2\n\nOther than size, state two ways the gentoo penguin differs\
+    \ from the black-footed penguin in\nFig. 3.2.\n1   2   [2]\n,\t,\n\n(c) Penguins\
+    \ are covered in feathers. The feathers reduce heat loss by insulating the birds\
+    \ from\nthe cold.\n\nA beaker of hot water can be used to represent a penguin.\n\
+    \nPlan an investigation to determine the effect of the thickness of an insulating\
+    \ material on heat\nloss in a beaker of hot water [6]\n\n[Total: 15]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a

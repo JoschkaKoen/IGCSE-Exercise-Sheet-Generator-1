@@ -2,7 +2,62 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student uses a technique called the Winkler method to determine the\
+    \ mass of oxygen dissolved\nin a sample of water from a lake.\n\nTwo solutions,\
+    \ X and Y, are prepared.\n\nSolution X is 2.30 mol dm–3 aqueous manganese(II)\
+    \ sulfate, MnSO4(aq).\n\nSolution Y is alkaline aqueous potassium iodide, KI(aq).\n\
+    \n(a) Calculate the mass of solid hydrated manganese(II) sulfate, MnSO4•H2O(s),\
+    \ needed to make\n100.0 cm3 of solution X.\n\nGive your answer to two decimal\
+    \ places.\n\nmass of MnSO4•H2O(s) =   g [1]\n\n(b) The student is given a small\
+    \ beaker containing the mass of MnSO4•H2O(s) calculated in (a).\nDescribe how\
+    \ the student should prepare exactly 100.0 cm3 of solution X.\n\nInclude the names\
+    \ and capacities of each piece of key apparatus used.\n\nWrite your answer using\
+    \ a series of numbered steps [3]\n,\t,\n\n(c) Solution Y is prepared as follows.\n\
+    \nstep 1\nPlace 100 cm3 of distilled water in a 250 cm3 beaker.\n\nstep 2\nAdd\
+    \ about 8 g of solid sodium hydroxide, NaOH(s), and stir to dissolve.\n\nstep\
+    \ 3\nCool the solution to room temperature using an ice‑bath.\n\nstep 4\nRepeat\
+    \ steps 2 and 3 until a total of 32 g of NaOH(s) has been dissolved.\n\nstep 5\n\
+    \ Dissolve about 14 g of potassium iodide, KI(s), into the solution formed in\
+    \ step 4.\n\n(i) Solution Y is corrosive.\n\n Other than wearing safety goggles,\
+    \ state one safety precaution that the student should\ntake when preparing solution\
+    \ Y [1]\n\n(ii) Suggest why the solution is cooled in step 3 [1]\n,\t,\n\n(d)\
+    \ The student uses the following procedure to determine the mass of oxygen dissolved\
+    \ in a\nsample of water from the lake.\n\nstep 1\nCollect a 250 cm3 sample of\
+    \ lake water in a bottle.\n\nstep 2\nAdd 1 cm3 of solution X and 1 cm3 of solution\
+    \ Y to the bottle.\n\nstep 3\nImmediately stopper the bottle, ensuring as little\
+    \ air as possible is trapped.\n\nstep 4\nShake the bottle to mix its contents.\n\
+    \nA brown precipitate, manganese(III) hydroxide, Mn(OH)3(s), is formed.\n\nstep\
+    \ 5\nAdd 1.5 cm3 of concentrated sulfuric acid to the contents of the bottle.\n\
+    \nThe precipitate dissolves, and iodine is formed.\n\nstep 6\nDilute this solution\
+    \ to exactly 500.0 cm3 using distilled water to form solution Z.\n\nstep 7\n Transfer\
+    \ 25.0 cm3 of solution Z into a conical flask, and titrate with\n1.00 × 10–3 mol\
+    \ dm–3 aqueous sodium thiosulfate, Na2S2O3(aq). Add 1 cm3 of\nstarch solution\
+    \ near to the end‑point.\n\nstep 8\nRepeat step 7 as many times as necessary.\n\
+    \n(i) Suggest why it is important to avoid trapping air inside the bottle in step\
+    \ 3 [1]\n\n(ii) Identify the piece of apparatus that the student should use to\
+    \ transfer the 25.0 cm3 of\nsolution Z in step 7 [1]\n\n(iii) Suggest why starch\
+    \ solution is added in step 7 [1]\n,\t,\n\n(e) The student records the results\
+    \ shown in Table 1.1.\nTable 1.1\nrough\ntitration\ntitration 1\ntitration 2\n\
+    titration 3\nfinal burette reading / cm3\n13.60\n12.75\n26.20\n14.50\ninitial\
+    \ burette reading  / cm3\n 0.00\n 0.05\n13.15\n 1.35\ntitre / cm3\n13.60\n\n(i)\
+    \ Complete Table 1.1 and calculate the mean titre.\n\nmean titre =   cm3 [2]\n\
+    \n(ii) Explain why the student does not need to carry out any further titrations\
+    \ [1]\n\n(iii) Calculate the percentage error in the measurement of the titre\
+    \ for titration 3.\n\n Show your working.\n\npercentage error =   % [1]\n,\t,\n\
+    \n(f) The following equations show the reactions that take place during the procedure\
+    \ in (d).\n\nsteps 2, 3 and 4\n\n4Mn2+(aq)  +  8OH–(aq)  +  O2(aq)  +  2H2O(l)\n\
+    \  4Mn(OH)3(s)\n\nstep 5\n\n2Mn(OH)3(s)  +  2I–(aq)  +  6H+(aq)\n  I2(aq)  + \
+    \ 6H2O(l)  +  2Mn2+(aq)\n\nstep 7\n\nI2(aq)  +  2S2O3\n2–(aq)\n  2I–(aq)  +  S4O6\n\
+    2–(aq)\n\n(i) Calculate the amount, in mol, of iodine, I2(aq), in 25.0 cm3 of\
+    \ solution Z.\n\namount of I2(aq) =   mol [1]\n\n(ii) Use your answer to (f)(i)\
+    \ and the equations given to calculate the amount, in mol, of\ndissolved oxygen,\
+    \ O2(aq), in 500.0 cm3 of solution Z.\n\namount of O2(aq) in 500.0 cm3 of solution\
+    \ Z =   mol [1]\n\n(iii) Dissolved oxygen content, mg dm–3, is the mass of oxygen\
+    \ dissolved in water.\n\n Use your answer to (f)(ii) to calculate the dissolved\
+    \ oxygen content in the lake water\ncollected in step 1.\n\n [If you were unable\
+    \ to obtain an answer to (f)(ii), then use amount of O2(aq) in 500.0 cm3\nof solution\
+    \ Z = 7.12 × 10–5 mol. This is not the correct answer.]\n\ndissolved oxygen content\
+    \ =   mg dm–3 [1]\n[Total: 16]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -110,7 +165,90 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student uses the following method to investigate the kinetics of the\
+    \ reaction between iodine and\ntin to produce tin(IV) iodide, SnI4.\n\nstep 1\n\
+    Rinse a block of tin with distilled water and then rinse it with propanone.\n\n\
+    step 2\n Place 50 cm3 of a 0.400 mol dm–3 solution of iodine dissolved in methylbenzene\
+    \ in a\n100 cm3 beaker.\n\nstep 3\n Suspend the block of tin from a three decimal\
+    \ place balance as shown in Fig. 2.1. Start a\ntimer.\n\nstep 4\nRecord the balance\
+    \ reading every 100 seconds.\nblock of tin\nwire\niodine dissolved\nin methylbenzene\n\
+    balance\n4.979\nFig. 2.1\n\n(a) (i) Suggest why the student rinses the block of\
+    \ tin with propanone after rinsing it with\ndistilled water in step 1 [1]\n\n\
+    (ii) Suggest why water is not used as the solvent for iodine [1]\n,\t,\n\n(iii)\
+    \ Suggest why a three decimal place balance is more suitable than a two decimal\
+    \ place\nbalance for this experiment [1]\n\n(iv) Suggest a control experiment\
+    \ that could be used to verify that the loss in mass of tin is\ncaused by reaction\
+    \ with iodine and not any other factor [1]\n\n(b) The student’s results are shown\
+    \ in Table 2.1.\n\nComplete Table 2.1.\nTable 2.1\ntime / s\nbalance reading /\
+    \ g\ntotal mass of tin\nreacted / g\n0\n4.979\n0.000\n100\n4.910\n200\n4.859\n\
+    300\n4.761\n400\n4.688\n500\n4.620\n\n[1]\n\n(c) (i) Use the results from Table\
+    \ 2.1 to plot a graph on the grid in Fig. 2.2 to show the\nrelationship between\
+    \ total mass of tin reacted and time.\n\n Use a cross (×) to plot each data point.\
+    \ Draw a straight line of best fit.\n,\t\t,\ntotal mass\nof tin\nreacted / g\n\
+    time / s\n0\n100\n200\n300\n400\n500\n0.00\n0.05\n0.10\n0.15\n0.20\n0.25\n0.30\n\
+    0.35\n0.40\nFig. 2.2\n\n[2]\n\n(ii) Circle the point on the graph in Fig. 2.2\
+    \ that you consider to be most anomalous.\n\n Suggest one reason why this anomaly\
+    \ may have occurred during this experimental\nprocedure.\n\n Assume all measurements\
+    \ of mass are accurate [1]\n,\n,\n\n(d) Use your graph in Fig. 2.2 to determine\
+    \ the gradient of the line of best fit.\n\nState the coordinates of both points\
+    \ you used in your calculation. These must be selected\nfrom your line of best\
+    \ fit.\n\nGive your gradient to three significant figures.\n\ncoordinates 1  coordinates\
+    \ 2  gradient =   [2]\n\n(e) Another student makes various concentrations of solutions\
+    \ of iodine dissolved in\nmethylbenzene by dilution of the 0.400 mol dm–3 I2 solution.\n\
+    \nThe student repeats the experiment at a different temperature using these solutions.\n\
+    Table 2.2\nvolume of\n0.400 mol dm–3\nI2 solution\nused / cm3\nvolume of\nmethylbenzene\n\
+    used / cm3\n[I2]\n/ mol dm–3\nrelative\nrate of\nreaction\n100.0\n0.0\n0.400\n\
+    4.76\n0.300\n3.57\n0.200\n2.35\n0.100\n1.15\n\n(i) Complete Table 2.2 by adding\
+    \ the volumes of solutions that are mixed to make 100.0 cm3\nof a solution of\
+    \ iodine dissolved in methylbenzene for each required concentration.\n\n[1]\n\n\
+    (ii) Identify the independent variable in this experiment [1]\n,\t,\n\n(iii) The\
+    \ student concludes that the rate equation for the reaction between iodine and\
+    \ tin is\nas follows.\n\nrate = k [I2]2\n\n State whether the results support\
+    \ the student’s conclusion.\n\n Explain your answer using values from Table 2.2\
+    \ [2]\n[Total: 14]\n\nImportant values, constants and standards\nmolar gas constant\n\
+    R = 8.31 J K–1 mol–1\nFaraday constant\nF = 9.65 × 104 C mol–1\nAvogadro constant\n\
+    L = 6.02 × 1023 mol–1\nelectronic charge\ne = –1.60 × 10–19 C\nmolar volume of\
+    \ gas\nVm = 22.4 dm3 mol–1 at s.t.p. (101 kPa and 273 K)\nVm = 24.0 dm3 mol–1\
+    \ at room conditions\nionic product of water\nKw = 1.00 × 10–14 mol2 dm–6 (at\
+    \ 298 K (25 °C))\nspeciﬁc heat capacity of water\nc = 4.18 kJ kg–1 K–1 (4.18 J\
+    \ g–1 K–1)\n,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n1.0\n\
+    2\nHe\nhelium\n4.0\n1\n2\n13\n14\n15\n16\n17\n18\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\
+    12\n3\nLi\nlithium\n6.9\n4\nBe\nberyllium\n9.0\natomic number\natomic symbol\n\
+    Key\nname\nrelative atomic mass\n11\nNa\nsodium\n23.0\n12\nMg\nmagnesium\n24.3\n\
+    19\nK\npotassium\n39.1\n20\nCa\ncalcium\n40.1\n37\nRb\nrubidium\n85.5\n38\nSr\n\
+    strontium\n87.6\n55\nCs\ncaesium\n132.9\n56\nBa\nbarium\n137.3\n87\nFr\nfrancium\n\
+    –\n88\nRa\nradium\n–\n5\nB\nboron\n10.8\n13\nAl\naluminium\n27.0\n31\nGa\ngallium\n\
+    69.7\n49\nIn\nindium\n114.8\n81\nTl\nthallium\n204.4\n6\nC\ncarbon\n12.0\n14\n\
+    Si\nsilicon\n28.1\n32\nGe\ngermanium\n72.6\n50\nSn\ntin\n118.7\n82\nPb\nlead\n\
+    207.2\n22\nTi\ntitanium\n47.9\n40\nZr\nzirconium\n91.2\n72\nHf\nhafnium\n178.5\n\
+    104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n50.9\n41\nNb\nniobium\n92.9\n73\n\
+    Ta\ntantalum\n180.9\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n52.0\n42\nMo\nmolybdenum\n\
+    95.9\n74\nW\ntungsten\n183.8\n106\nSg\nseaborgium\n–\n25\nMn\nmanganese\n54.9\n\
+    43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186.2\n107\nBh\nbohrium\n–\n26\nFe\niron\n\
+    55.8\n44\nRu\nruthenium\n101.1\n76\nOs\nosmium\n190.2\n108\nHs\nhassium\n–\n27\n\
+    Co\ncobalt\n58.9\n45\nRh\nrhodium\n102.9\n77\nIr\niridium\n192.2\n109\nMt\nmeitnerium\n\
+    –\n28\nNi\nnickel\n58.7\n46\nPd\npalladium\n106.4\n78\nPt\nplatinum\n195.1\n110\n\
+    Ds\ndarmstadtium\n–\n29\nCu\ncopper\n63.5\n47\nAg\nsilver\n107.9\n79\nAu\ngold\n\
+    197.0\n111\nRg\nroentgenium\n–\n30\nZn\nzinc\n65.4\n48\nCd\ncadmium\n112.4\n80\n\
+    Hg\nmercury\n200.6\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\n\
+    livermorium\n–\n7\nN\nnitrogen\n14.0\n15\nP\nphosphorus\n31.0\n33\nAs\narsenic\n\
+    74.9\n51\nSb\nantimony\n121.8\n83\nBi\nbismuth\n209.0\n8\nO\noxygen\n16.0\n16\n\
+    S\nsulfur\n32.1\n34\nSe\nselenium\n79.0\n52\nTe\ntellurium\n127.6\n84\nPo\npolonium\n\
+    –\n9\nF\nfluorine\n19.0\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n79.9\n53\nI\n\
+    iodine\n126.9\n85\nAt\nastatine\n–\n10\nNe\nneon\n20.2\n18\nAr\nargon\n39.9\n\
+    36\nKr\nkrypton\n83.8\n54\nXe\nxenon\n131.3\n86\nRn\nradon\n–\n113\nNh\nnihonium\n\
+    –\n115\nMc\nmoscovium\n–\n117\nTs\ntennessine\n–\n118\nOg\noganesson\n–\n21\n\
+    Sc\nscandium\n45.0\n39\nY\nyttrium\n88.9\n57–71\nlanthanoids\n89–103\nactinoids\n\
+    57\nLa\nlanthanum\n138.9\n89\nAc\nlanthanoids\nactinoids\nactinium\n–\n58\nCe\n\
+    cerium\n140.1\n90\nTh\nthorium\n232.0\n59\nPr\npraseodymium\n140.9\n91\nPa\nprotactinium\n\
+    231.0\n60\nNd\nneodymium\n144.2\n92\nU\nuranium\n238.0\n61\nPm\npromethium\n–\n\
+    93\nNp\nneptunium\n–\n62\nSm\nsamarium\n150.4\n94\nPu\nplutonium\n–\n63\nEu\n\
+    europium\n152.0\n95\nAm\namericium\n–\n64\nGd\ngadolinium\n157.3\n96\nCm\ncurium\n\
+    –\n65\nTb\nterbium\n158.9\n97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n162.5\n98\n\
+    Cf\ncalifornium\n–\n67\nHo\nholmium\n164.9\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n\
+    167.3\n100\nFm\nfermium\n–\n69\nTm\nthulium\n168.9\n101\nMd\nmendelevium\n–\n\
+    70\nYb\nytterbium\n173.1\n102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175.0\n103\n\
+    Lr\nlawrencium\n–\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a

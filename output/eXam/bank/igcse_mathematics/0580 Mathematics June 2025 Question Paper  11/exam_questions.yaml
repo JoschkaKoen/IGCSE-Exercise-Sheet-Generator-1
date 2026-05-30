@@ -2,7 +2,15 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    (a) Write the number 10 069 in words [1]
+
+
+    (b) Write 10 069 correct to the nearest ten [1]
+
+
+    (c) Convert 10 069 centimetres into metres m [1]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -26,19 +34,37 @@ questions:
 - number: '2'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '2
+
+    A bag of sweets costs $0.34 .
+
+
+    Arun buys 10 bags of sweets.
+
+
+    Work out how much change he receives from $5.
+
+
+    $  [2]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '3
+
+    Two numbers have a sum of -2 and a product of -15.
+
+
+    Work out the two numbers and  [2]'
   answer_options: []
   subquestions: []
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n7  27  39  49  99  112\n\nFrom the list of numbers, write down\n\n(a)\
+    \ an even number\n\n  [1]\n\n(b) a square number\n\n  [1]\n\n(c) a factor of 56\n\
+    \n  [1]\n\n(d) a prime number [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -68,13 +94,61 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '5
+
+    Write down the reciprocal of 5 [1]'
   answer_options: []
   subquestions: []
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    Put one pair of brackets into each calculation to make it correct.
+
+
+    (a)    7
+
+    5
+
+    4
+
+    8
+
+    16
+
+    #
+
+    -
+
+    +
+
+    =
+
+
+    [1]
+
+
+    (b)    7
+
+    5
+
+    4
+
+    8
+
+    21
+
+    #
+
+    -
+
+    +
+
+    = -
+
+
+    [1]'
   answer_options: []
   subquestions:
   - number: 6a
@@ -92,7 +166,10 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\n(a) A ticket costs $18.\n\nWrite down an expression, in dollars, for the\
+    \ cost of t tickets.\n\n$  [1]\n\n(b) A bag contains n red balls and 16 green\
+    \ balls.\n\nWrite down an expression for the total number of balls in the bag\
+    \ [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -110,7 +187,14 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    (a) Write 90% as a fraction in its simplest form [1]
+
+
+    (b) Write 100
+
+    3  as a decimal [1]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -128,7 +212,10 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\n(a) These are the first four terms of a sequence.\n\n    33  26  19  12\n\
+    \n(i) Write down the term-to-term rule for this sequence [1]\n\n(ii) Work out\
+    \ the next two terms in this sequence ,  [2]\n\n(b) These are the first four terms\
+    \ of another sequence.\n\n    19  23  27  31\n\nFind the nth term [2]"
   answer_options: []
   subquestions:
   - number: 9a
@@ -158,7 +245,14 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 Ky cycles from his office to a meeting and back again.\n\nThe travel graph\
+    \ shows his time at the meeting and his journey back.\n1\n009 00\n10 00\n11 00\n\
+    12 00\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nTime\nDistance from\noffice\
+    \ (km)\nOffice\n\n(a) How far is the meeting from his office?\n\n  km [1]\n\n\
+    (b) How long is Ky at the meeting for?\n\n  min [1]\n\n(c) Write down the time\
+    \ Ky arrives back at his office after the meeting [1]\n\n(d) Ky cycles from his\
+    \ office to the meeting at a constant speed of 21 km/h.\n\nComplete the travel\
+    \ graph.\n\n[2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -188,19 +282,44 @@ questions:
 - number: '14'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '14
+
+    3
+
+    3
+
+    3
+
+    p
+
+    4
+
+    10
+
+    #
+
+    =
+
+
+    Find the value of p.
+
+
+    p =   [1]'
   answer_options: []
   subquestions: []
 - number: '21'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "21 Points A, B and C lie on the circle, centre O.\nA\nO\nB\nC\n39°\nNOT TO\n\
+    SCALE\n\nWork out angle BCA.\n\nAngle BCA =   [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '11'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "11 Calculate the volume of a cube with side length 3 cm cm3 [1]\n12 Solve.\n\
+    \nx\nx\n5\n8\n3\n2\n+\n=\n-\n\nx =   [2]\n13 Work out.\n\n(a)\n5\n4\n#\n-\n-\n\
+    \n  [1]\n\n(b)\n(\n)\n8\n3\n- + -\n\n  [1]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '12'
@@ -230,13 +349,17 @@ questions:
 - number: '15'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "15\n6 cm\n3 cm\n4 cm\nNOT TO\nSCALE\n\nComplete a net of this cuboid on the\
+    \ 1 cm2 grid.\n\nOne face has been drawn for you.\n\n[3]\n,\t\t,"
   answer_options: []
   subquestions: []
 - number: '16'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "16 (a) Simplify.\n\na\nb\na\nb\n6\n4\n5\n+\n- -\n\n  [2]\n\n(b) Factorise.\n\
+    \n(i)\nx\ny\n6\n15\n+\n\n  [1]\n\n(ii)\nx y\nxy\n5\n2 -\n\n  [2]\n17 By writing\
+    \ each number in the calculation correct to 1 significant figure, find an estimate\
+    \ for the value\nof\n 1 97\n5 79\n42 8\n17 4\n#\n+\n  [2]\n,\n,"
   answer_options: []
   subquestions:
   - number: 16a
@@ -272,7 +395,11 @@ questions:
 - number: '18'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "18 The diagram shows two straight lines intersecting two parallel lines.\n\
+    y°\nx°\nz°\n110°\n50°\nNOT TO\nSCALE\n\n(a) Find the value of x.\n\nGive a geometrical\
+    \ reason for your answer.\nx =  because   [2]\n\n(b) Find the value of y.\n\n\
+    Give a geometrical reason for your answer.\ny =  because   [2]\n\n(c) Find the\
+    \ value of z.\n\nz =   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 18a
@@ -296,7 +423,12 @@ questions:
 - number: '19'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "19 A box contains 10 counters.\n\nThe counters are either red or green.\n\
+    \nThe ratio     red counters : green counters = 1 : 4.\n\nShareen picks a counter\
+    \ at random, notes its colour and puts it back in the box.\n\nShe then picks a\
+    \ second counter at random.\nFirst counter\nRed\nGreen\n Second counter\nRed\n\
+    Red\nGreen\nGreen\n (a) Complete the tree diagram.\n\n[3]\n\n(b) Find the probability\
+    \ that both counters are green [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 19a
@@ -314,7 +446,15 @@ questions:
 - number: '20'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "20 The scatter diagram shows the price of petrol per litre and the number\
+    \ of litres sold at a petrol station on\neach of ten days.\n300\n400\n500\n200\n\
+    100\n0\n1.50\n1.40\n1.60\n1.70\n1.45\n1.55\nPrice per litre ($)\nNumber of\nlitres\
+    \ sold\n1.65\n\n(a) These are the results for two more days.\nPrice per litre\
+    \ ($)\n1.68\n1.47\nNumber of litres sold\n90\n380\n\nPlot this information on\
+    \ the scatter diagram.\n[1]\n\n(b) What type of correlation is shown in the scatter\
+    \ diagram?\n\n  [1]\n\n(c) (i) On the scatter diagram, draw a line of best fit.\n\
+    [1]\n\n(ii) One day the price of petrol was $1.55 per litre.\n\n Use your line\
+    \ of best fit to estimate the number of litres sold litres [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 20a
@@ -350,7 +490,34 @@ questions:
 - number: '22'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '22
+
+    A
+
+    2
+
+    3
+
+    3 #
+
+    =
+
+
+    B
+
+    3
+
+    5
+
+    2 #
+
+    =
+
+
+    (a) Find the highest common factor (HCF) of A and B [1]
+
+
+    (b) Find the lowest common multiple (LCM) of A and B [2]'
   answer_options: []
   subquestions:
   - number: 22a
@@ -368,7 +535,12 @@ questions:
 - number: '23'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "23\nA\nT\nB\n1\n0\n– 1\n– 1\n1\n2\n3\n4\n5\n6\n7\n8\n9\n– 2\n– 3\n– 4\n–\
+    \ 5\n– 6\n– 2\n– 3\n– 4\n– 5\n– 6\n2\n3\n4\n5\n6\n7\n8\ny\nx\n\n(a) On the grid,\
+    \ draw the image of triangle T after a rotation, 90° clockwise, centre (0, 0).\n\
+    [2]\n\n(b) Describe fully the single transformation that maps triangle T onto\
+    \ triangle A [2]\n\n(c) Describe fully the single transformation that maps triangle\
+    \ T onto triangle B [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 23a
@@ -392,7 +564,10 @@ questions:
 - number: '24'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: "24 Work out 1 3\n1\n1 4\n3\n+\n .\n\nGive your answer as a mixed number in\
+    \ its simplest form [3]\n25 (a) Write 32 500 in standard form [1]\n\n(b) Write\
+    \ .5 6\n10 3\n#\n-  as an ordinary number [1]\nQuestion 26 is printed on the next\
+    \ page."
   answer_options: []
   subquestions: []
 - number: '25'

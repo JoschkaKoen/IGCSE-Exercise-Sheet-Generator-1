@@ -2,7 +2,54 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    (a) Four descriptions of stages in the program development life cycle are shown.
+
+
+    Draw one line to link each description to its most appropriate program development
+    life cycle
+
+    stage.
+
+
+    Not all program development life cycle stages will be used.
+
+    Program development life cycle description
+
+    Program development life cycle stage
+
+    develop an algorithm to solve the problem
+
+    by using structure diagrams, flowcharts or
+
+    pseudocode
+
+    analysis
+
+    coding
+
+    design
+
+    evaluation
+
+    testing
+
+    detect and fix the errors in the program
+
+    identify the problem and its requirements
+
+    write and implement the instructions to
+
+    solve the problem
+
+
+    [4]
+
+
+    (b) Identify three of the component parts after a problem has been decomposed.
+
+    1   2   3   [3]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,19 +67,70 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: '4
+
+    Explain the purpose of the library routines DIV and ROUND
+
+    DIV   ROUND   [4]'
   answer_options: []
   subquestions: []
 - number: '2'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '2
+
+    Tick (ü) one box to show the name of the data structure used to store a collection
+    of data of the
+
+    same data type.
+
+
+    A
+
+    Array
+
+
+    B
+
+    Constant
+
+
+    C
+
+    Function
+
+
+    D
+
+    Variable
+
+
+    [1]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    (a) Describe what is meant by data validation [2]
+
+
+    (b) A validation check is used to make sure that any value that is input is an
+    integer between 30
+
+    and 200 inclusive.
+
+
+    Give one example of each type of test data to check that the validation check
+    is working as
+
+    intended. Each example of test data must be different.
+
+
+    Give a reason for each of your choices of test data.
+
+    Normal test data   Reason   Abnormal test data   Reason   Extreme test data   Reason   [6]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -50,13 +148,85 @@ questions:
 - number: '6'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '6
+
+    State two features that should be included to create a maintainable program.
+
+
+    Give a reason why each feature should be used.
+
+    1   2   [4]'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    An algorithm has been written in pseudocode to allow some numbers to be input.
+    All the positive
+
+    numbers that are input are totalled and this total is output at the end.
+
+
+    An input of 0 stops the algorithm.
+
+
+    01 Exit ← 1
+
+
+    02 WHILE Exit <> 0 DO
+
+
+    03     INPUT Number
+
+
+    04     IF Number < 0
+
+
+    05       THEN
+
+
+    06         Total ← Total + Number
+
+
+    07       ELSE
+
+
+    08         IF Number = 0
+
+
+    09           THEN
+
+
+    10             Exit ← 1
+
+
+    11         ENDIF
+
+
+    12     ENDIF
+
+
+    13 ENDIF
+
+
+    14 OUTPUT "The total value of your numbers is ", Number
+
+
+    (a) Identify the four errors in the pseudocode and suggest a correction for each
+    error.
+
+    Error 1   Correction   Error 2   Correction   Error 3   Correction   Error 4   Correction   [4]
+
+
+    (b) Describe how you could change the corrected algorithm to record and output
+    how many
+
+    positive numbers have been included in the final total.
+
+
+    You do not need to rewrite the algorithm [4]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -74,7 +244,165 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '7
+
+    The flowchart represents an algorithm.
+
+    START
+
+    INPUT
+
+    Letter
+
+    INPUT Choice
+
+    OUTPUT "Another Letter?
+
+    (Y or N)"
+
+    OUTPUT "Letter ", Letter,
+
+    " is represented by ",
+
+    Word[Pointer, 2]
+
+    IS
+
+    Choice =
+
+    ''Y'' ?
+
+    IS
+
+    Word[Pointer, 1]
+
+    = Letter ?
+
+    STOP
+
+    Pointer    1
+
+    Pointer    Pointer  + 1
+
+    Yes
+
+    Yes
+
+    No
+
+    No
+
+
+    The table represents the two-dimensional (2D) array Word[] which stores the first
+    half of the
+
+    phonetic alphabet used for radio transmission. For example, Word[10,1] is ‘J’.
+
+    Index
+
+    1
+
+    2
+
+    1
+
+    A
+
+    Alpha
+
+    2
+
+    B
+
+    Bravo
+
+    3
+
+    C
+
+    Charlie
+
+    4
+
+    D
+
+    Delta
+
+    5
+
+    E
+
+    Echo
+
+    6
+
+    F
+
+    Foxtrot
+
+    7
+
+    G
+
+    Golf
+
+    8
+
+    H
+
+    Hotel
+
+    9
+
+    I
+
+    India
+
+    10
+
+    J
+
+    Juliet
+
+    11
+
+    K
+
+    Kilo
+
+    12
+
+    L
+
+    Lima
+
+    13
+
+    M
+
+    Mike
+
+
+    (a) Complete the trace table for the algorithm by using the input data:  F, Y,
+    D, N
+
+    Pointer
+
+    Letter
+
+    Choice
+
+    OUTPUT
+
+
+    [4]
+
+
+    (b) Identify the type of algorithm used [1]
+
+
+    (c) Describe one problem that could occur with this algorithm if an invalid character
+    was input [2]'
   answer_options: []
   subquestions:
   - number: 7a
@@ -98,7 +426,27 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    The function LENGTH(Phrase) calculates the length of a string Phrase
+
+
+    (a) Write the pseudocode statements to:
+
+    •
+
+    store the string "The beginning is the most important part" in Phrase
+
+    •
+
+    calculate and output the length of the string
+
+    •
+
+    output the string in upper case [3]
+
+
+    (b) Write the output your pseudocode should produce [2]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -116,7 +464,96 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    Consider this logic expression.
+
+    Z = (NOT A OR B) AND (B XOR C)
+
+
+    (a) Draw a logic circuit for this logic expression.
+
+
+    Each logic gate must have a maximum of two inputs.
+
+
+    Do not simplify this logic expression.
+
+
+    A
+
+    B
+
+    C
+
+    Z
+
+
+    [4]
+
+
+    (b) Complete the truth table from the given logic expression.
+
+    A
+
+    B
+
+    C
+
+    Working space
+
+    Z
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    0
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+
+    [4]'
   answer_options: []
   subquestions:
   - number: 9a
@@ -134,7 +571,271 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '10 A database table called TVRange shows the main features and prices of
+    a range of televisions.
+
+    TVCode
+
+    ScreenSize
+
+    Satellite
+
+    SmartTV
+
+    SoundBar
+
+    Price$
+
+    TV90SaSmSd
+
+    90
+
+    YES
+
+    YES
+
+    YES
+
+    9750.00
+
+    TV75SaSmSd
+
+    75
+
+    YES
+
+    YES
+
+    YES
+
+    8500.00
+
+    TV75SaSd
+
+    75
+
+    YES
+
+    NO
+
+    YES
+
+    8000.00
+
+    TV65SaSmSd
+
+    65
+
+    YES
+
+    YES
+
+    YES
+
+    6000.00
+
+    TV65SmSd
+
+    65
+
+    NO
+
+    YES
+
+    YES
+
+    5000.00
+
+    TV65SaSd
+
+    65
+
+    YES
+
+    NO
+
+    YES
+
+    5000.00
+
+    TV55SaSmSd
+
+    55
+
+    YES
+
+    YES
+
+    YES
+
+    4000.00
+
+    TV55SaSd
+
+    55
+
+    YES
+
+    NO
+
+    YES
+
+    3500.00
+
+    TV55SmSd
+
+    55
+
+    NO
+
+    YES
+
+    YES
+
+    3500.00
+
+    TV50SaSmSd
+
+    50
+
+    YES
+
+    YES
+
+    YES
+
+    2500.00
+
+    TV50Sa
+
+    50
+
+    YES
+
+    NO
+
+    NO
+
+    1750.00
+
+    TV50Sm
+
+    50
+
+    NO
+
+    YES
+
+    NO
+
+    1750.00
+
+    TV40Sa
+
+    40
+
+    YES
+
+    NO
+
+    NO
+
+    1200.00
+
+    TV40
+
+    40
+
+    NO
+
+    NO
+
+    NO
+
+    950.00
+
+    TV32
+
+    32
+
+    NO
+
+    NO
+
+    NO
+
+    650.00
+
+
+    (a) Give the name of the field that is most suitable to be the primary key.
+
+
+    State the reason for this choice.
+
+    Field   Reason   [2]
+
+
+    (b) The database uses the data types:
+
+    •
+
+    text
+
+    •
+
+    character
+
+    •
+
+    Boolean
+
+    •
+
+    integer
+
+    •
+
+    real
+
+    •
+
+    date/time.
+
+
+    Complete the table to show the most appropriate data type for each field.
+
+
+    Each data type must be different.
+
+    Field
+
+    Data type
+
+    TVCode
+
+    ScreenSize
+
+    SmartTV
+
+    Price$
+
+
+    [2]
+
+
+    (c) Complete the structured query language (SQL) query to return the television
+    (TV) code,
+
+    screen size and price of all Smart TVs in the database table.
+
+
+    SELECT TVCode,  ,  TVRange
+
+
+    WHERE SmartTV =  ;
+
+
+    [4]'
   answer_options: []
   subquestions:
   - number: 10a

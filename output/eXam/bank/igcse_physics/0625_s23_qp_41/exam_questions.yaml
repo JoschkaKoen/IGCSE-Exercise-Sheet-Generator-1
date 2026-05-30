@@ -2,7 +2,16 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nFig. 1.1 shows a straight section of a river where the water is flowing\
+    \ from right to left at a speed of\n0.54 m / s.\nswimmer\ncurrent\nP\n0.54 m /\
+    \ s\nriver\nFig. 1.1 (not to scale)\n\nA swimmer starts at point P and swims at\
+    \ a constant speed of 0.72 m / s relative to the water and at\nright angles to\
+    \ the current.\n\n(a) (i) Determine, relative to the river bank, both the magnitude\
+    \ and direction of the swimmer’s\nvelocity.\n\nmagnitude of velocity =   direction\
+    \ of velocity   [4]\n\n(ii) After 1.5 minutes, the swimmer reaches point Q.\n\n\
+    \ Calculate the distance between P and Q.\n\ndistance =   [3]\n\n(b) When the\
+    \ swimmer is crossing the river, his actions produce a constant forward force\
+    \ on his\nbody.\n\nExplain why he moves at a constant speed [2]\n\n[Total: 9]"
   answer_options: []
   subquestions:
   - number: 1a
@@ -32,7 +41,21 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nFig. 2.1 shows a motorcyclist accelerating along a straight horizontal\
+    \ section of track.\nFig. 2.1\n\nThe motorcyclist and motorcycle have a combined\
+    \ mass of 240 kg.\n\n(a) On the straight horizontal section of the track, the\
+    \ motorcyclist accelerates from rest at\n7.2 m / s2.\n\n(i) The motorcyclist reaches\
+    \ the end of the straight section of track in 5.3 s.\n\n Calculate the speed of\
+    \ the motorcyclist at the end of the straight section.\n\nspeed =   [2]\n\n(ii)\
+    \ Calculate the resultant force on the motorcyclist and motorcycle on the straight\
+    \ section\nof track.\n\nresultant force =   [2]\n\n(b) At the end of the straight\
+    \ section, the track remains horizontal but bends to the right, as\nshown in Fig.\
+    \ 2.1.\n\nWhen the motorcyclist reaches the bend, she travels around the bend\
+    \ in a circular path at a\nconstant speed.\n\n(i) Velocity is a vector quantity.\n\
+    \n State how a vector quantity differs from a scalar quantity [1]\n\n(ii) Describe\
+    \ what happens to the velocity of the motorcyclist as she travels around the bend\n\
+    at constant speed [1]\n\n(iii) Explain why there must be a resultant force on\
+    \ the motorcyclist as she travels around the\nbend [2]\n\n[Total: 8]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -80,7 +103,18 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA rubber balloon is inflated with helium and sealed so that no helium\
+    \ escapes.\n\nThe balloon is positioned immediately below the ceiling in a room.\n\
+    \nHeaters are switched on and the temperature of the air in the room increases.\n\
+    \n(a) When the heaters are first switched on, the temperature of the air immediately\
+    \ below the\nceiling increases more quickly than the temperature of the air in\
+    \ the rest of the room.\n\nExplain why this happens [2]\n\n(b) The temperature\
+    \ of the helium in the balloon increases and as the rubber stretches, the\nvolume\
+    \ occupied by the helium increases.\n\n(i) State what happens to the motion of\
+    \ the helium particles as the temperature increases [1]\n\n(ii) As the rubber\
+    \ stretches and the volume of the helium increases, the pressure of the\nhelium\
+    \ remains constant.\n\n Explain, in terms of the particles of helium, how the\
+    \ pressure of the helium remains\nconstant [3]\n\n[Total: 6]"
   answer_options: []
   subquestions:
   - number: 3a
@@ -110,7 +144,21 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nA student investigates the efficiency of a filament lamp. Fig. 4.1 shows\
+    \ the filament lamp with its\nglass bulb immersed in water in a beaker.\nfilament\
+    \ lamp\nto power supply\nwater\nbeaker\nthermometer\nFig. 4.1\n\nThe reading on\
+    \ the thermometer in the water is 19.0 °C.\n\nOnly the glass of the lamp is in\
+    \ contact with the water and the electrical connections are completely\ninsulated.\n\
+    \nThe lamp is switched on.\n\nAt the end of the experiment, the temperature of\
+    \ the water is 21.5 °C.\n\n(a) The mass of the water in the beaker is 600 g and\
+    \ the specific heat capacity of water is\n4200 J / (kg °C).\n\n(i) Show that the\
+    \ increase in the internal energy of the water is 6300 J.\n\n[3]\n\n(ii) In the\
+    \ experiment, the lamp is switched on for 500 s. The power supplied to the filament\n\
+    lamp is 13 W. The useful energy from the lamp is transferred as light. The energy\
+    \ that\nincreases the temperature of the water is wasted energy.\n\n Determine\
+    \ the maximum possible efficiency of the filament lamp.\nmaximum possible efficiency\
+    \ =\n[4]\n\n(b) The efficiency of the lamp is less than the value determined in\
+    \ (a)(ii).\n\nSuggest one reason for this [1]\n\n[Total: 8]"
   answer_options: []
   subquestions:
   - number: 4a
@@ -140,7 +188,21 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nFig. 5.1 shows a block ABCD made of glass that has a refractive index\
+    \ of 1.5. The block has one\ncurved side AB and three straight sides, BC, CD and\
+    \ DA.\nglass block\nmonochromatic light\nair\nB\nP\nθ\nC\nD\nA\nFig. 5.1\n\nThere\
+    \ are right angles at C and D. The curved side AB is one quarter of the circumference\
+    \ of a\ncircle that has its centre at point P.\n\nA ray of monochromatic light\
+    \ enters the block through the curved side AB and strikes side BC at P.\nSome\
+    \ light emerges into the air and some is reflected.\n\n(a) State what is meant\
+    \ by monochromatic [1]\n\n(b) Explain why the ray of light does not change direction\
+    \ when it enters the block through side\nAB [2]\n\n(c) Show that the critical\
+    \ angle c for glass of refractive index 1.5 is 42°.\n\n[2]\n\n(d) Fig. 5.1 shows\
+    \ that the angle between the ray of light and line AP is θ, where line AP is at\
+    \ right\nangles to side BC.\n\nAngle θ  increases to 45°.\n\n(i) State and explain\
+    \ what happens to the light that strikes P [2]\n\n(ii) When θ = 45°, the reflected\
+    \ light strikes side CD.\n\n Describe what happens when this reflected light strikes\
+    \ side CD [1]\n\n[Total: 8]"
   answer_options: []
   subquestions:
   - number: 5a
@@ -182,7 +244,42 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '6
+
+    A mobile phone (cell phone) network uses microwaves of frequency 1.9 × 109 Hz
+    to transmit and
+
+    receive signals.
+
+
+    The speed of microwaves in air is 3.0 × 108 m / s.
+
+
+    (a) Calculate the wavelength of these microwaves in air.
+
+
+    wavelength =   [2]
+
+
+    (b) State two reasons why microwaves are used for mobile phone (cell phone) signals.
+
+    1   2   [2]
+
+
+    (c) All mobile phone (cell phone) networks use digital signals to communicate
+    with the phone.
+
+
+    (i) Describe, with the aid of a diagram, how a digital signal differs from an
+    analogue signal [3]
+
+
+    (ii) State two advantages of using digital signals rather than analogue signals.
+
+    1   2   [2]
+
+
+    [Total: 9]'
   answer_options: []
   subquestions:
   - number: 6a
@@ -218,7 +315,14 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nFig. 7.1 shows a circuit that contains a battery, a switch, a voltmeter\
+    \ and three 40 Ω resistors, R1,\nR2 and R3.\nV\nR1\nR3\nR2\nFig. 7.1\n\nThe switch\
+    \ is open and resistors R1 and R2 form a potential divider.\n\n(a) Describe what\
+    \ is meant by a potential divider [2]\n\n(b) The reading on the voltmeter is 7.5\
+    \ V.\n\n(i) Calculate the electromotive force (e.m.f.) of the battery.\n\ne.m.f.\
+    \ =   [1]\n\n(ii) The switch is closed.\n\n Calculate the resistance of the complete\
+    \ circuit.\n\nresistance =   [3]\n\n(c) Calculate the reading on the voltmeter\
+    \ when the switch is closed.\n\nreading =   [2]\n\n[Total: 8]"
   answer_options: []
   subquestions:
   - number: 7a
@@ -254,7 +358,14 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nThe electricity supplied to a town is transmitted using a high-voltage\
+    \ cable. A transformer in the\ntown has a soft-iron core.\n\n(a) Explain the principle\
+    \ of operation of a simple iron-cored transformer [4]\n\n(b) The transformer steps\
+    \ the supply voltage down from 220 000 V to 33 000 V.\n\n(i) There are 450 turns\
+    \ on the secondary coil.\n\n Calculate the number of turns on the primary coil.\n\
+    \nnumber of turns =   [2]\n\n(ii) The electrical power transferred to the transformer\
+    \ by the high-voltage cable is 77 MW.\n\n Calculate the current in the primary\
+    \ coil.\n\ncurrent =   [3]\n\n[Total: 9]"
   answer_options: []
   subquestions:
   - number: 8a
@@ -284,7 +395,15 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nFig. 9.1 represents all the particles in a neutral atom of a radioactive\
+    \ isotope X1.\nFig. 9.1 (not to scale)\n\n(a) Determine the number of neutrons\
+    \ in this atom and explain how the answer is obtained.\n\nnumber of neutrons =\
+    \   explanation\n  [2]\n\n(b) The isotope X1 is a beta emitter that decays to\
+    \ the stable isotope X2.\n\n(i) Describe how a nucleus of X2 differs from a nucleus\
+    \ of X1 [2]\n\n(ii) Suggest why isotope X2 is stable whereas X1 is not stable\
+    \ [1]\n\n(c) The half-life of X1 is approximately 20 ms.\n\n(i) Define the term\
+    \ half-life [2]\n\n(ii) Suggest one reason why isotopes with very short half-lives\
+    \ are especially hazardous [1]\n\n[Total: 8]"
   answer_options: []
   subquestions:
   - number: 9a
@@ -332,7 +451,19 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 Pluto is a dwarf planet. Fig. 10.1 shows the direction of motion of Pluto\
+    \ as it follows its elliptical\norbit around the Sun.\nPluto\nSun\ndirection\n\
+    of motion\norbit\nY\nX\nFig. 10.1 (not to scale)\n\n(a) Point X is the point in\
+    \ the orbit closest to the Sun and point Y is the point furthest away.\n\nThe\
+    \ orbital speed of Pluto varies as it orbits the Sun.\n\n(i) Describe how the\
+    \ speed of Pluto varies as it moves from X to Y and then back to X [1]\n\n(ii)\
+    \ Explain, in terms of energy transfers, why the speed of Pluto varies in this\
+    \ way [3]\n\n(b) The average temperature on the surface of Pluto is 43 K.\n\n\
+    (i) Convert this temperature to a value in degrees Celsius (°C).\n\ntemperature\
+    \ =   °C [1]\n\n(ii) Pluto has a white surface, as shown in Fig. 10.2. As Pluto\
+    \ rotates, the white surface\nalternately faces towards and away from the Sun.\n\
+    white surface\nFig. 10.2\n\n Explain how this affects the temperature of Pluto\
+    \ as it rotates on its own axis [2]\n\n[Total: 7]"
   answer_options: []
   subquestions:
   - number: 10a

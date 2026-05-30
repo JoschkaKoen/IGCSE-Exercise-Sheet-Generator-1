@@ -2,7 +2,10 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Describe how packet switching is used to transmit messages across\
+    \ a network [3]\n\n(b) State two benefits and two drawbacks of packet switching\
+    \ as a method of transmitting\nmessages across a network.\nBenefit 1   Benefit\
+    \ 2   Drawback 1   Drawback 2   [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +23,13 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '2
+
+    (a) Describe serial file organisation as a method of storing data records in a
+    file [2]
+
+
+    (b) State one example of a use for serial file organisation [1]'
   answer_options: []
   subquestions:
   - number: 2a
@@ -38,7 +47,10 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Describe the user‑defined data type record [3]\n\n(b) A programmer\
+    \ defines a record, Order, to store the following data:\n•\naccount number\n•\n\
+    order number\n•\norder price\n•\norder date.\n\nWrite pseudocode statements to\
+    \ define this record [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -56,7 +68,14 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nNumbers are stored in a computer using binary floating‑point representation\
+    \ with:\n•\n12 bits for the mantissa\n•\n4 bits for the exponent\n•\ntwo’s complement\
+    \ form for both the mantissa and the exponent.\n\n(a) Calculate the denary value\
+    \ of the given normalised binary floating‑point number.\n\nShow your working.\n\
+    Mantissa\n0\nExponent\n1\n0\n0\n0\n1\n1\n1\n0\n1\n1\n1\n0\n1\n1\n1\nWorking  \
+    \ Answer   [2]\n\n(b) Calculate the normalised binary floating‑point representation\
+    \ of – 49.1875 in this system.\n\nShow your working.\nMantissa\nExponent\nWorking\
+    \   [4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -74,7 +93,10 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) Name and describe two protocols used by the Application Layer of the\
+    \ TCP/IP protocol suite.\nProtocol 1   Description   Protocol 2   Description\
+    \   [4]\n\n(b) Explain the purpose and function of the Application Layer in the\
+    \ TCP/IP protocol suite [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -92,7 +114,17 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nThe truth table for a logic circuit is shown.\nINPUT\nOUTPUT\nA\nB\nC\n\
+    D\nX\n0\n0\n0\n0\n0\n0\n0\n0\n1\n1\n0\n0\n1\n0\n1\n0\n0\n1\n1\n0\n0\n1\n0\n0\n\
+    0\n0\n1\n0\n1\n1\n0\n1\n1\n0\n1\n0\n1\n1\n1\n0\n1\n0\n0\n0\n0\n1\n0\n0\n1\n1\n\
+    1\n0\n1\n0\n1\n1\n0\n1\n1\n0\n1\n1\n0\n0\n0\n1\n1\n0\n1\n1\n1\n1\n1\n0\n1\n1\n\
+    1\n1\n1\n0\n\n(a) Write the Boolean logic expression that corresponds to the given\
+    \ truth table as the\nsum‑of‑products.\nX =   [3]\n,\t,\n\n(b) Complete the Karnaugh\
+    \ map (K‑map) for the given truth table.\nAB\nCD\n00\n01\n11\n10\n\n00\n01\n11\n\
+    10\n\n[2]\n\n(c) Draw loop(s) around appropriate group(s) in the K‑map to produce\
+    \ an optimal sum‑of‑products.\n\n[2]\n\n(d) Write the Boolean logic expression\
+    \ from your answer to part (c) as the simplified\nsum‑of‑products.\nX =   [2]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -122,7 +154,14 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nSeveral syntax diagrams are shown.\nodd\n1\n3\n5\n7\n9\neven\n0\n2\n4\n\
+    6\n8\nsymbol\n%\n£\n#\n@\n$\nnumber\nodd\nletter\nA\nB\nC\nD\nE\nodd\neven\n,\t\
+    \t,\n\n(a) State why each number is invalid for the given syntax diagrams.\n\n\
+    21\nReason   123\nReason   [2]\n\n(b) Complete the Backus‑Naur Form (BNF) for\
+    \ the given syntax diagrams.\n<symbol> ::=   <number> ::=   [2]\n\n(c) A new syntax\
+    \ rule, code, is required. It must begin with a letter, followed by one or two\n\
+    numbers, and end with a symbol.\n\n(i) Draw a syntax diagram for code.\n\n[3]\n\
+    \n(ii) Write the BNF for code [2]\n,\n,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -158,13 +197,25 @@ questions:
 - number: '8'
   question_type: calculation
   marks: 4
-  text: ''
+  text: "8\nComplex Instruction Set Computer (CISC) is a type of processor.\n\nIdentify\
+    \ four features of a CISC processor.\n1   2   3   4   [4]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    (a) The kernel is the central component of an Operating System (OS).
+
+
+    Outline how the kernel of an OS acts as an interrupt handler [2]
+
+
+    (b) (i) State what is meant by the term multi‑tasking in an Operating System [1]
+
+
+    (ii) Describe how multi‑tasking is implemented in an Operating System [2]'
   answer_options: []
   subquestions:
   - number: 9a
@@ -194,7 +245,9 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 Objects and classes form the basic structure of Object‑Oriented Programming\
+    \ (OOP).\n\n(a) Outline the structure of a class [3]\n\n(b) Give three differences\
+    \ between an object and a class.\n1   2   3   [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -212,7 +265,24 @@ questions:
 - number: '11'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "11 This binary tree shows an ordered list of integers.\n25\n4\n1\n16\n9\n\
+    49\n36\n64\n\n(a) A linked list of nodes is used to store the data. Each node\
+    \ consists of a left pointer, the data\nand a right pointer.\n\n−1 is used to\
+    \ represent a null pointer.\n\nComplete this linked list to represent the given\
+    \ binary tree organisation.\nRootPtr\nLeftPtr    Data   RightPtr\n25\n4\n1\n–1\n\
+    –1\n\n[4]\n,\t,\n\n(b) A 2D array is used to store the nodes of the linked list\
+    \ in part (a).\n\nComplete the diagram using your answer for part (a).\nRootPtr\n\
+    Index\nLeftPtr\nData\nRightPtr\n0\n0\n25\n1\n4\n2\n36\n3\n1\n4\n16\n5\n64\nFreePtr\n\
+    6\n9\n7\n49\n8\n\n[4]\n\n(c) The linked list in part (a) is implemented using\
+    \ a 1D array of records. Each record contains a\nleft pointer, data and a right\
+    \ pointer.\n\nThe following pseudocode represents a function that searches for\
+    \ an element in the array of\nrecords LinkList. It returns the index of the record\
+    \ if the element is found, or it returns a\nnull pointer if the element is not\
+    \ found.\n\nComplete the pseudocode for the function.\nFUNCTION SearchList(Item\
+    \ : INTEGER) NullPtr\n −1\n    RootPtr\n   WHILE NowPtr <> NullPtr\n      IF LinkList[NowPtr].Data\
+    \ < Item THEN\n         NowPtr\n LinkList[NowPtr].RightPtr\n      ELSE\n     \
+    \    IF  THEN\n             NowPtr\n  ELSE\n            RETURN NowPtr\n      \
+    \   ENDIF\n      ENDIF\n   ENDWHILE\n   RETURN NullPtr\nENDFUNCTION\n[4]\n,\t,"
   answer_options: []
   subquestions:
   - number: 11a

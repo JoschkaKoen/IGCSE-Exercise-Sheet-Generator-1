@@ -2,7 +2,27 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nGuinea pigs, Cavia porcellus, vary in the length and colour of their fur.\n\
+    \nFig. 1.1 shows a guinea pig with short black fur.\nFig. 1.1\n\nTwo genes that\
+    \ determine the length and colour of the fur occur at the A/a locus and the B/b\n\
+    locus. These two gene loci are on separate autosomal chromosomes.\n•\nThe allele\
+    \ A results in short fur.\n•\nThe allele a results in long fur.\n•\nA is dominant\
+    \ to a.\n•\nThe allele B results in black fur.\n•\nThe allele b results in chocolate\
+    \ fur.\n•\nB is dominant to b.\n\n(a) (i) List all the possible genotypes of a\
+    \ guinea pig with short black fur [2]\n\n(ii) A test cross could be used to determine\
+    \ the genotype of a female guinea pig with short\nblack fur.\n\n Describe the\
+    \ phenotype of the male guinea pig that could be used to carry out this\ntest\
+    \ cross [1]\n,\t,\n\n(b) A black guinea pig with long fur that was homozygous\
+    \ at both loci was crossed with a\nchocolate guinea pig with short fur that was\
+    \ homozygous at both loci. The F1 offspring of this\ncross had short black fur.\
+    \ F1 offspring were mated together to produce the F2 offspring.\n\nComplete the\
+    \ Punnett square to:\n•\nshow the cross between the F1 offspring\n•\npredict the\
+    \ F2 offspring genotypes.\n\nYou should include the gametes in your answer.\n\n\
+    State the ratio of F2 offspring phenotypes. You should include a key to link phenotypes\
+    \ to\ngenotypes.\n\nratio of F2 offspring phenotypes:\n[4]\n\n(c) Some genes in\
+    \ guinea pigs are structural genes and some are regulatory genes.\n\nDescribe\
+    \ the difference between a structural gene and a regulatory gene [2]\n[Total:\
+    \ 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +58,24 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nExserohilum turcicum is a fungal pathogen. The growth of the mycelium\
+    \ of the fungus damages\nthe leaves of maize plants, Zea mays. Leaf damage reduces\
+    \ crop yield.\n\n(a) (i) Complete Table 2.1 to show one structural difference\
+    \ and one functional difference\nbetween E. turcicum and Z. mays.\nTable 2.1\n\
+    E. turcicum\nZ. mays\nstructural\ndifference\nfunctional\ndifference\n[2]\n\n\
+    (ii) Describe the principles by which organisms such as E. turcicum and Z. mays\
+    \ are\nclassified in the taxonomic hierarchy [4]\n,\t,\n\n(b) Two inbred varieties\
+    \ of maize, SKV50 and CML153, were crossed. The resulting F1 hybrids\nwere self‑crossed\
+    \ to produce F2 offspring. The F2 plants were grown, and the percentage\narea\
+    \ of leaf damage caused by E. turcicum was measured.\n\nFig. 2.1 shows the results\
+    \ for the F2 generation. The arrows show the mean percentage area\nof leaf damage\
+    \ for the two parent varieties.\n20\n0\n10\n20\n30\n40\n50\n30\npercentage area\
+    \ of\nleaf damage\nSKV50\nCML153\nnumber\nof plants\n40\n50\n60\nFig. 2.1\n\n\
+    (i) Explain how Fig. 2.1 can be used to determine which parent maize variety shows\
+    \ the\ngreatest resistance to infection by E. turcicum [2]\n\n(ii) State the name\
+    \ of the type of variation shown by the maize F2 generation in Fig. 2.1 [1]\n\n\
+    (iii) Explain the genetic basis of the type of variation shown by the maize F2\
+    \ generation [4]\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -86,7 +123,36 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nPlants have several different photosynthetic pigments in their chloroplasts.\n\
+    \n(a) A student separated and identified the chloroplast pigments present in a\
+    \ leaf extract from a\nspinach plant using two slightly different methods.\n\n\
+    Method A\n•\nA type of chromatography known as thin layer chromatography (TLC)\
+    \ was used to\nseparate the pigments.\n•\nA mixture of ether and cyclohexane was\
+    \ used as a solvent in TLC.\n\nMethod B\n•\nThe student repeated TLC but treated\
+    \ the spinach leaf extract with a chemical. The\nchemical causes a magnesium ion\
+    \ in a pigment to be replaced by two hydrogen ions.\n•\nThe student used a leaf\
+    \ from the same spinach plant, and used the same solvent as in\nmethod A.\n\n\
+    The student calculated Rf values and compared these to reference values to identify\n\
+    the pigments.\n\nFig. 3.1 shows the results for method A and method B.\nA\nB\n\
+    solvent front\nβ-carotene\nchlorophyll a\nchlorophyll b\nxanthophyll\nline of\
+    \ origin\nsolvent front\nβ-carotene\nphaeophytin a\nphaeophytin b\nchlorophyll\
+    \ b\nxanthophyll\nline of origin\nFig. 3.1\n,\t,\n\n(i) Calculate the Rf value\
+    \ of β‑carotene in Fig. 3.1.\n\nRf =   [2]\n\n(ii) Suggest two explanations for\
+    \ the differences in appearance of chromatograms A and B\nin Fig. 3.1.\n1   2\
+    \   [2]\n\n(iii) The student found some different Rf values for the chloroplast\
+    \ pigments of spinach in a\nscientific paper.\n\n The values in the scientific\
+    \ paper were different from the reference values that the\nstudent originally\
+    \ used to identify the pigments on chromatograms A and B in Fig. 3.1.\n\n Suggest\
+    \ one reason, other than measurement error, for the different Rf values [1]\n\
+    ,\t,\n\n(b) Fig. 3.2 shows the absorption spectra of some chloroplast pigments.\n\
+    400\n0\n30\n60\n90\n500\n600\nwavelength of light / nm\npercentage\nabsorption\n\
+    key\nchlorophyll a\nchlorophyll b\ncarotenoids (β-carotene and xanthophyll)\n\
+    700\nblue\nred\nFig. 3.2\n\nUse Fig. 3.2 to compare the similarities and differences\
+    \ between the absorption spectra of\nchlorophyll a and carotenoids [4]\n,\t\t\
+    ,\n\n(c) In some species of plant, the absorption of light stimulates seed germination.\n\
+    \nThe absorption of light increases the production of gibberellin in the embryo\
+    \ of a seed.\n\nDescribe the role of gibberellin in the germination of a seed\
+    \ [4]\n[Total: 13]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -128,7 +194,32 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nThe wolf, Canis lupus, lives in North America. Wolves may have a grey\
+    \ or a black coat colour. The\ncolour of an individual wolf depends on the DNA\
+    \ it inherits at the CPD103 gene locus.\n•\nWolves inherit two copies of CPD103,\
+    \ one from each parent.\n•\nWolves that inherit one copy of the black form of\
+    \ the CPD103 gene have a black coat.\n\n(a) State the term used to describe:\n\
+    \n•\nan organism that has two copies of each gene\n  •\na form of a gene\n  •\n\
+    \ a form of a gene that gives a phenotypic\n\neffect in a heterozygote [3]\n\n\
+    In addition to producing black coat colour, the protein coded for by the CPD103\
+    \ gene also defends\nagainst infectious lung disease.\n\nCanine distemper virus\
+    \ (CDV) causes serious lung disease in wolves. Wolves that have been\npreviously\
+    \ infected by CDV have antibodies against CDV (anti‑CDV antibodies) in their blood.\n\
+    \n(b) CDV can be passed from domestic dogs to wolves.\n•\nDomestic dogs are more\
+    \ numerous in the southern part of the area occupied by wolves.\n•\nDomestic dogs\
+    \ are less numerous in the northern part of the area occupied by wolves.\n•\n\
+    The relative frequency of black wolves compared to grey wolves increases from\
+    \ the\nnorth to the south of the area they occupy.\n\nExplain how natural selection\
+    \ causes this trend in the distribution of black wolves [4]\n,\t,\n\n(c) Several\
+    \ different populations of wolves were compared.\n\nFig. 4.1 shows the relationship\
+    \ between the percentage of wolves in a population that have\nanti‑CDV antibodies\
+    \ in their blood and the percentage of wolves in that population that are\nblack.\
+    \ The line of best fit was calculated after comparing the different populations\
+    \ of wolves.\n0\n0\n10\n20\n30\n40\n50\n60\n10\n20\npercentage of wolves with\n\
+    anti-CDV antibodies\npercentage of\nblack wolves\nin population\n30\n40\nFig.\
+    \ 4.1\n\nWith reference to Fig. 4.1, state the relationship between the percentage\
+    \ of wolves with\nanti‑CDV antibodies and wolf coat colour, and suggest reasons\
+    \ for this relationship [4]\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -152,7 +243,23 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nThe endocrine system and the nervous system both coordinate responses\
+    \ in mammals.\n\n(a) Complete Table 5.1 to show the features of three cell‑signalling\
+    \ molecules of the endocrine\nsystem: antidiuretic hormone (ADH), glucagon and\
+    \ insulin.\n\nUse a tick (3) if the molecule has the feature and a cross ( 7)\
+    \ if the molecule does not have\nthe feature.\n\nPut a tick (3) or a cross ( 7)\
+    \ in every box.\nTable 5.1\nfeature\nADH\nglucagon\ninsulin\nbinds to receptors\n\
+    on cell surface\nmembranes\nresults in molecules\nmoving from cells\ninto the\
+    \ blood\nis secreted as a\nresult of detection by\nosmoreceptors\n[3]\n\n(b) The\
+    \ endocrine system has a slower transmission speed than the nervous system.\n\n\
+    Describe other ways in which the endocrine system and the nervous system differ\
+    \ [4]\n,\t,\n\n(c) The endocrine system and the nervous system can affect muscle\
+    \ function.\n\nFig. 5.1 shows a transmission electron micrograph of a longitudinal\
+    \ section of striated muscle\ntissue that is in a relaxed state.\nB\nD\nE\nC\n\
+    Fig. 5.1\n\n(i) State the letter on Fig. 5.1 that indicates the length of a sarcomere\
+    \ [1]\n\n(ii) State the letter on Fig. 5.1 that indicates a region where actin\
+    \ and myosin overlap [1]\n\n(iii) Describe and explain how the region labelled\
+    \ D on Fig. 5.1 changes during\nmuscle contraction [4]\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -194,7 +301,26 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nThe distribution of the large blue butterfly, Phengaris arion, extends\
+    \ across Europe and Asia. It is\nassessed by the International Union for Conservation\
+    \ of Nature (IUCN) on the Red List™ as ‘Near\nThreatened’ globally and ‘Endangered’\
+    \ in Europe.\n\nIn Europe, P. arion became extinct in the Netherlands in 1964\
+    \ and in the United Kingdom in 1979.\n\nFig. 6.1 lists the conservation status\
+    \ categories in the IUCN Red List™.\nconservation status\nExtinct (EX)\nExtinct\
+    \ in the Wild (EW)\nCritically Endangered (CR)\nEndangered (EN)\nincreasing risk\
+    \ of extinction\nVulnerable (VU)\nNear Threatened (NT)\nLeast Concern (LC)\nFig.\
+    \ 6.1\n\nFig. 6.2 shows P. arion.\nFig. 6.2\n\n(a) (i) Explain how IUCN Red List™\
+    \ assessments help to conserve biodiversity [3]\n,\t,\n\n(ii) With reference to\
+    \ Fig. 6.1 and the IUCN assessments for P. arion, suggest how the\nabundance of\
+    \ the butterfly differs across its distribution [2]\n\n(b) P. arion has been successfully\
+    \ re‑introduced in the United Kingdom at 12 sites. These sites\nwere restored\
+    \ to flower‑rich grassland.\n\nThe conservation management actions designed for\
+    \ P. arion also resulted in the\nre‑establishment or increase of other species\
+    \ at the restored sites. These included 12 species\nof flowering plant, 8 other\
+    \ butterfly species and 4 species of other insects.\n\n(i) Use the information\
+    \ given to suggest why P. arion went extinct in the United Kingdom\nin 1979 [2]\n\
+    \n(ii) Outline the advantages of restoring habitats for endangered species [4]\n\
+    [Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -236,7 +362,13 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nIn aerobic respiration, most ATP is produced by oxidative phosphorylation.\n\
+    \n(a) Outline the features of ATP that make it suitable as the universal energy\
+    \ currency [3]\n\n(b) Rotenone is a compound that affects oxidative phosphorylation.\n\
+    \nRotenone disrupts the first carrier in the electron transport chain by stopping\
+    \ the transfer of\nelectrons from this carrier.\n\nSuggest and explain how rotenone\
+    \ reduces the production of ATP and water in\naerobic respiration [6]\n[Total:\
+    \ 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -254,7 +386,19 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\nLibertyLink® soybean is a genetically modified crop. It was first grown\
+    \ in 1996 and used in food\nproducts from 1998. It has been grown in 6 countries\
+    \ and used in food products in 21 countries.\n\nTable 8.1 summarises the modifications\
+    \ made to the soybean plant to produce LibertyLink®\nsoybean.\nTable 8.1\nname\
+    \ of introduced\ngene\ngene donor organism\ngene product\nfunction of gene product\n\
+    pat\nStreptomyces\nviridochromogenes\nphosphinothricin\nN‑acetyltransferase\n\
+    stops action of glufosinate,\na herbicide\n\n(a) Explain how the modification\
+    \ made to produce LibertyLink® soybean may help to solve the\nglobal demand for\
+    \ food [4]\n\n(b) (i) Name the type of enzyme that could be used to cut out the\
+    \ pat gene from\nS. viridochromogenes [1]\n\n(ii) Name the enzyme that could be\
+    \ used to join the pat gene to a plasmid by forming\nphosphodiester bonds [1]\n\
+    \n(c) Suggest reasons why LibertyLink® soybean is used in food products in 21\
+    \ countries but only\ngrown in 6 countries [3]\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a
@@ -290,7 +434,11 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\n(a) Fig. 9.1 shows a longitudinal section of a human kidney.\nX\nY\nFig.\
+    \ 9.1\n\nName the regions of the kidney labelled X and Y in Fig. 9.1.\nX   Y \
+    \  [2]\n\n(b) A biosensor can be used to measure the concentration of glucose\
+    \ in urine.\n\nOutline how a biosensor measures the concentration of glucose in\
+    \ urine [4]\n[Total: 6]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 9a

@@ -2,7 +2,29 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nMany substances can move through cell surface membranes between the cytoplasm\
+    \ of animal\ncells and the extracellular environment.\n\n(a) A student made a\
+    \ drawing to summarise the movement of substances across the cell surface\nmembranes\
+    \ of mammalian red blood cells.\n\nFig. 1.1 shows the drawing made by the student:\n\
+    •\nEach arrow indicates the movement of a substance through the membrane.\n•\n\
+    The number of each of the 4 shapes represents the relative concentrations of each\n\
+    substance in the cytoplasm and in the blood plasma.\nA\nB\nATP\nADP + Pi\ncytoplasm\
+    \ of\nred blood cell\nblood plasma\nC\nD\nFig. 1.1\n\nThe student carried out\
+    \ research and made a list of some of the substances found in\nred blood cells\
+    \ as shown in Fig. 1.2.\nsodium ions\noxygen\nhaemoglobin\ncarbon dioxide\npotassium\
+    \ ions\ncalcium ions\nchloride ions\ncarbonic anhydrase\nhydrogencarbonate ions\n\
+    glucose\namino acids\nFig. 1.2\n,\t,\n\nTable 1.1 shows information about the\
+    \ 4 types of movement of substances across the cell\nsurface membranes of red\
+    \ blood cells as shown in Fig. 1.1.\n\nComplete Table 1.1 using the information\
+    \ in Fig. 1.1 and Fig. 1.2.\nTable 1.1\nletter\nfrom\nFig. 1.1\ntype of movement\n\
+    name of part of\nmembrane involved\nexample of a\nsubstance that moves\nacross\
+    \ the membrane\n(from Fig. 1.2)\nA\nsimple diffusion\nphospholipids\nB\nfacilitated\
+    \ diffusion\ncalcium ions\nC\nfacilitated diffusion\nD\n\n[5]\n\n(b) Some viruses\
+    \ infect plants through the surfaces of damaged leaves. These plant viruses\n\
+    can travel from one leaf cell to another without having to pass through any cell\
+    \ surface\nmembranes.\n\nExplain how some plant viruses can travel from one cell\
+    \ to another without passing through\ncell surface membranes [2]\n\n[Total: 7]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +42,40 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nCollagen is a fibrous protein found in many tissues in animals.\nFig.\
+    \ 2.1 shows the composition of a collagen fibre.\n5μm\n50nm\n1.5nm\ncollagen fibre\n\
+    - a bundle of\ncollagen fibrils\ncollagen fibril\ncollagen molecule\n3 polypeptides\n\
+    300nm\nFig. 2.1\n\n(a) (i) Describe the arrangement of the 3 polypeptides in each\
+    \ molecule of collagen [2]\n\n(ii) With reference to Fig. 2.1, explain how the\
+    \ molecules of collagen are arranged and held\ntogether in a collagen fibril [3]\n\
+    ,\t,\n\n(b) Collagen fibres and elastic fibres are found in the structures of\
+    \ the gas exchange system of\nmammals.\n\n(i) Suggest two properties of collagen\
+    \ that contribute to the function of cartilage in the\ntrachea in the gas exchange\
+    \ system [2]\n\n(ii) State the function of elastic fibres in the alveoli in the\
+    \ lungs [1]\n,\t,\n\n(c) Table 2.1 shows the DNA triplets in the two strands of\
+    \ DNA in part of a gene that codes for\none of the polypeptides in collagen.\n\
+    Table 2.1\nnon-\ntranscribed\nstrand\nGGT\nCCA\nATG\nGGT\nCCC\nCGA\nGGT\nCCC\n\
+    CCA\nGGT\ntemplate\nstrand\nCCA\nGGT\nTAC\nCCA\nGGG\nGCT\nCCA\nGGG\nGGT\nCCA\n\
+    amino acid\ngly\n\nTable 2.2 shows the triplets of bases in DNA and the amino\
+    \ acids for which they code.\n\nThe table can be used to determine the sequence\
+    \ of the amino acids in a polypeptide.\nTable 2.2\nsecond base\nfirst base\nthird\
+    \ base\nT\nT\nTTT\nphe\nser\npro\nthr\nala\nleu\ntyr\ncys\nstop\ntrp\narg\nser\n\
+    arg\ngly\nstop\nhis\ngln\nasn\nlys\nasp\nglu\nleu\nile\nmet\nval\nTTC\nTTA\nTTG\n\
+    C\nCTT\nCTC\nCTA\nCTG\nC\nTCT\nTCC\nTCA\nTCG\nA\nATT\nATC\nATA\nATG\nACT\nACC\n\
+    ACA\nACG\nG\nGTT\nGTC\nGTA\nGTG\nGCT\nGCC\nGCA\nGCG\nCCT\nCCC\nCCA\nCCG\nA\nTAT\n\
+    TAC\nTAA\nTAG\nCAT\nCAC\nCAA\nCAG\nG\nTGT\nTGC\nTGA\nTGG\nCGT\nCGC\nCGA\nCGG\n\
+    AAT\nAAC\nAAA\nAAG\nAGT\nAGC\nAGA\nAGG\nGAT\nGAC\nGAA\nGAG\nGGT\nGGC\nGGA\nGGG\n\
+    T\nC\nA\nG\nT\nC\nA\nG\nT\nC\nA\nG\nT\nC\nA\nG\n\n(i) Complete Table 2.1 to show\
+    \ the amino acids coded by the DNA nucleotide sequence in\nTable 2.1.\n[1]\n,\t\
+    ,\n\n(ii) The sequence of amino acids that you have worked out is representative\
+    \ of the whole of\nthe collagen polypeptide.\n\n Explain how the sequence of amino\
+    \ acids makes the polypeptide suitable as a component\nof a collagen molecule\
+    \ [3]\n\n(iii) Two mutations, P and Q, can have an effect on the primary structure\
+    \ of the polypeptide.\n•\nMutation P is a deletion of the first nucleotide pair\
+    \ in the DNA nucleotide sequence\nshown in Table 2.1.\n•\nMutation Q is a substitution\
+    \ of G with T as the first base in the DNA nucleotide\nsequence shown in Table\
+    \ 2.1.\n\n State the effects of the mutations, P and Q, on the primary structure\
+    \ of the polypeptide.\nmutation P   mutation Q   [2]\n\n[Total: 14]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -86,7 +141,41 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Describe the induced-fit hypothesis of enzyme action [3]\n\n(b) Many\
+    \ marine organisms can become attached to hard surfaces such as rocks or the surfaces\n\
+    of ships. These organisms are known as fouling organisms.\n\nThe larva of the\
+    \ acorn barnacle, Amphibalanus amphitrite, is an example of a fouling\norganism.\
+    \ One of these barnacle larvae is shown in Fig. 3.1.\nmagnification ×160\nFig.\
+    \ 3.1\n\nThe larvae of A. amphitrite use a protein to attach themselves to the\
+    \ surfaces of ships.\n\nIt is expensive to remove fouling organisms from ships.\
+    \ Scientists have developed substances\nto prevent the attachment of larvae. However,\
+    \ some of these substances are toxic and have\nbeen responsible for a decrease\
+    \ in marine biodiversity.\n\nScientists investigated the effect of using an immobilised\
+    \ protease, subtilisin A, to prevent the\nattachment of the larvae of A. amphitrite\
+    \ to surfaces.\n\nThe scientists used 4 different concentrations of subtilisin\
+    \ A which had been immobilised onto\nthe surface of a polymer film. As a control\
+    \ they used denatured subtilisin A immobilised onto\nthe surface of the same polymer.\
+    \ Glass slides were also used as a control.\n,\t\t,\n\nThe larvae were released\
+    \ into 6 tanks of artificial sea water:\n•\n4 tanks, each with a polymer surface\
+    \ and a different concentration of immobilised\nsubtilisin A\n•\n1 tank with a\
+    \ polymer surface and denatured immobilised subtilisin A\n•\n1 tank with glass\
+    \ slides instead of a polymer surface.\n\nThe number of larvae that attached to\
+    \ the different surfaces in the tanks was counted after\n24 hours and again after\
+    \ 48 hours.\n\nThe number of larvae attached in each tank was expressed as the\
+    \ percentage of the total\nnumber of larvae released in each tank. The results\
+    \ are shown in Fig. 3.2.\n0\n1\n2\n3\n4\n10\n20\n30\n40\n50\npercentage of\nlarvae\n\
+    attached to\nsurfaces\npolymer surface\nwith denatured\nimmobilised\nsubtilisin\
+    \ A\npolymer surface with\nimmobilised subtilisin A of\nincreasing concentration\n\
+    glass slides\n(no polymer)\n60\n70\nKey\nafter 24 hours\nafter 48 hours\nFig.\
+    \ 3.2\n\n(i) With reference to the data in Fig. 3.2, discuss whether subtilisin\
+    \ A is effective in preventing\nthe attachment of the larvae [4]\n,\n,\n\n(ii)\
+    \ The scientists extended their investigation by applying the polymer with immobilised\n\
+    subtilisin A to the outside of the bottom of small ships.\n\n Two factors that\
+    \ need to be taken into consideration in this type of investigation are the\n\
+    temperature and pH of the sea water.\n\n Outline two other factors that need to\
+    \ be taken into consideration when investigating the\nsuitability of immobilised\
+    \ subtilisin A as an anti-fouling agent for ships [2]\n\n[Total: 9]\n,\t,\nQuestion\
+    \ 4 starts on page 12.\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -116,7 +205,19 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Fig. 4.1 shows a phosphorylated nucleotide which is one of the monomers\
+    \ that is used to\nsynthesise DNA during replication.\nO\nCH2\nNH2\nN\nN\nO\n\
+    OH\nH\nP\nO\nP\nO\nP\nO\n–O\nO\nO\nO–\nO–\nO–\nN\nN\nadenine\nFig. 4.1\n\n(i)\
+    \ State the meaning of monomers of DNA [1]\n\n(ii) State how ATP differs in structure\
+    \ from the phosphorylated nucleotide shown in Fig. 4.1 [1]\n\n(iii) State the\
+    \ process occurring in all cells that results in the production of ATP [1]\n,\t\
+    ,\n\n(b) Fig. 4.2 shows a short length of a DNA molecule. One of the strands of\
+    \ the DNA molecule is\nlabelled Y.\nN\nO\nO\nCH3\nCH2\nCH2\nCH2\n3ʹ\n5ʹ\n5ʹ\n\
+    O\nO\nN\nO\nO\nP\nO\n–O\nP\nO\nH\nH\nH\nH\nH\nO\n–O\nO\nP\nO\n3ʹ\nO\nO–\nO\nP\n\
+    O\nO\nO–\nN\nN\nO\nO\nN\nH\nH\nN\nN\nN\nN\nO\nCH2\nO\nN\nN\nH\nO\nN\nN\nN\nN\n\
+    X\nY\nFig. 4.2\n\n(i) Complete Fig. 4.2 by drawing dotted lines to represent all\
+    \ the hydrogen bonds between\nthe two strands of the DNA molecule.\n[2]\n\n(ii)\
+    \ State the name of the bond X [1]\n\n[Total: 6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -164,7 +265,17 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nInhibitors are substances that prevent biological processes in a variety\
+    \ of different ways.\n\nTable 5.1 shows some antibiotics, their modes of action\
+    \ and the diseases which they are used to\ntreat.\nTable 5.1\nantibiotic\nmode\
+    \ of action\ndisease\nerythromycin\nbinds to ribosomes to inhibit\ntranslation\n\
+    cholera\npenicillin\nenzyme inhibitor\ntetanus\nrifampicin\ninhibits the function\
+    \ of RNA\npolymerase in transcription\ntuberculosis\n\n(a) Suggest why erythromycin\
+    \ can inhibit translation in the bacterium that causes cholera\nand not inhibit\
+    \ translation in humans who are infected with this pathogen [2]\n\n(b) State why\
+    \ penicillin does not act on human cells [1]\n\n(c) Explain one way in which rifampicin\
+    \ may inhibit the action of RNA polymerase in transcription [1]\n\n[Total: 4]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -188,7 +299,24 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) A student studied the structure of a mammalian heart.\n\nThe student\
+    \ took a photograph of the left side of a dissected heart as shown in Fig. 6.1.\n\
+    Fig. 6.1\n\nIdentify two features of the left side of the heart visible in Fig.\
+    \ 6.1 and explain how each\nfeature is adapted to the function of the heart.\n\
+    feature   explanation   feature   explanation   [4]\n,\t,\n\n(b) Cardiac muscle\
+    \ is described as myogenic. This means the electrical activity controlling the\n\
+    rhythm of a regular heartbeat begins within the muscle tissue of the heart.\n\n\
+    Describe how electrical activity within the heart controls each heartbeat [4]\n\
+    \n(c) Tissue fluid is formed from blood plasma as it flows through capillaries.\n\
+    \nFig. 6.2 is a diagram of a capillary and some adjacent tissue cells in a capillary\
+    \ network.\nFig. 6.2\n\n(i) Describe two functions of tissue fluid [2]\n,\t,\n\
+    \n(ii) With reference to Fig. 6.2, describe how tissue fluid is formed [3]\n\n\
+    (d) Measles is a common disease caused by a virus. Vaccination to prevent the\
+    \ disease has\nbeen very successful.\n\n(i) A child receives a vaccine for measles.\n\
+    \n Explain why only some of the T-lymphocytes in the child respond to the measles\
+    \ vaccine [2]\n\n(ii) Describe the events that occur in an immune response to\
+    \ a vaccine that result in\nlymphocytes that provide long-term immunity to measles\
+    \ [5]\n[Total: 20]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

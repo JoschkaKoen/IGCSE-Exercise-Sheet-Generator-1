@@ -2,7 +2,13 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Explain four reasons why new businesses are at a greater risk of failing\
+    \ than existing\nbusinesses.\nReason 1:   Reason 2:   Reason 3:   Reason 4:  \
+    \ [8]\n,\t,\n\n(b) Consider the following two types of business organisation that\
+    \ Charly could choose for her\nnew business. Which type of business organisation\
+    \ should Charly choose? Justify your\nanswer.\n•\nSole trader\n•\nPrivate limited\
+    \ company\nSole trader:   Private limited company:   Recommendation:   [12]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +26,12 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Explain two functions of management for Charly when she is operating\
+    \ her new business.\nFunction 1:   Explanation:   Function 2:   Explanation: \
+    \  [8]\n,\t,\n\n(b) Using Appendix 2 and other information, consider the following\
+    \ two possible locations for\nCR’s new factory. Which location should Charly choose?\
+    \ Justify your answer.\n•\nLocation A\n•\nLocation B\nLocation A:   Location B:\
+    \   Recommendation:   [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -38,7 +49,13 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Explain one advantage and one disadvantage of CR holding inventory.\n\
+    Advantage:   Explanation:   Disadvantage:   Explanation:   [8]\n,\t,\n\n(b) Consider\
+    \ the advantages and disadvantages of the following three ways CR could use to\
+    \ sell\nits products. Which way should Charly choose? Justify your answer.\n•\n\
+    Selling through CR’s own shop\n•\nSelling online\n•\nSelling to a wholesaler\n\
+    Selling through CR’s own shop:   Selling online:   Selling to a wholesaler:  \
+    \ Recommendation:   [12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -56,7 +73,14 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Explain two cash inflows and two cash outflows that are likely to\
+    \ be included in CR’s cash\nflow forecast for its first year of trading.\nCash\
+    \ inflow 1:   Cash inflow 2:   Cash outflow 1:   Cash outflow 2:   [8]\n,\t\t\
+    ,\n\n(b) Using Appendix 3 and other information, consider the effects on CR of\
+    \ the decrease in taxes\nand the increase in interest rates in country P. Which\
+    \ change is likely to have the greatest\neffect on CR’s profit in its first year?\
+    \ Justify your answer.\nDecrease in taxes:   Increase in interest rates:   Conclusion:\
+    \   [12]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a

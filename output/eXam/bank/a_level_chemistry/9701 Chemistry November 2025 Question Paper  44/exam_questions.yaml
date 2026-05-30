@@ -2,7 +2,36 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Define a transition element [1]\n\n(b) The 3d orbitals in an isolated\
+    \ gaseous Cu2+ ion are degenerate.\n\n(i) Define the term degenerate [1]\n\n(ii)\
+    \ Complete the electronic configuration of Cu2+.\n1s2   [1]\n\n(c) (i) State the\
+    \ colours of the aqueous solutions for the two copper(II) complex ions shown.\n\
+    •\n[Cu(NH3)4(H2O)2]2+(aq)   •\n[CuCl 4]2–(aq)   [1]\n\n(ii) Explain why aqueous\
+    \ complex ions of transition elements are usually coloured [3]\n\n(d) (i) When\
+    \ an excess of NH3(aq) is added to a solution of [CuCl 4]2–(aq), [Cu(NH3)4(H2O)2]2+(aq)\n\
+    is formed.\n\n State the type of reaction.\n\n Complete the equation for this\
+    \ reaction. State symbols are not required.\ntype of reaction   equation\n[CuCl 4]2–\
+    \  +   [Cu(NH3)4(H2O)2]2+  +   [2]\n,\t,\n\n(ii) The [Cu(NH3)4(H2O)2]2+ complex\
+    \ ion shows stereoisomerism.\n\n Complete the three‑dimensional diagrams in Fig.\
+    \ 1.1 to show the two different\nstereoisomers of [Cu(NH3)4(H2O)2]2+.\nCu\nCu\n\
+    isomer 1\nisomer 2\n\nFig. 1.1\n\n[2]\n\n(iii) Deduce which stereoisomer in (d)(ii)\
+    \ is polar.\n\n Explain your answer.\npolar isomer   explanation   [1]\n\n(e)\
+    \ The dianion P can act as a tridentate ligand.\nP\nN\nO\nO\nO\nO\nH\n–\n–\n\n\
+    (i) Suggest how P can form three dative covalent bonds [1]\n\n(ii) 2 moles of\
+    \ dianion P, C4H5NO4\n2–, react with 1 mole of aqueous cobalt(III) ions,\n[Co(H2O)6]3+\
+    \ to form 1 mole of complex ion Q.\n\n Deduce the formula and charge of Q [1]\n\
+    ,\t,\n\n(f) Table 1.1 shows values for the stability constants, Kstab, of some\
+    \ silver(I) complexes.\nTable 1.1\ncomplex\nvalue of Kstab\n[Ag(CN)2]–(aq)\n1.1\
+    \ × 1018\n[Ag(NH3)2]+(aq)\n1.2 × 107\n[Ag(S2O3)2]3–(aq)\n2.9 × 1013\n\n(i) Define\
+    \ the stability constant of a complex [1]\n\n(ii) Use the information in Table\
+    \ 1.1 to identify the most stable silver(I) complex.\n\n Explain your answer.\n\
+    most stable   explanation   [1]\n,\t,\n\n(g) Sodium sulfite, Na2SO3, is used as\
+    \ a food preservative.\n\nA 3.75 g sample of impure Na2SO3 is dissolved in distilled\
+    \ water and made up to 250 cm3 in a\nvolumetric flask.\n\n10.0 cm3 of this solution\
+    \ requires 18.70 cm3 of acidified 0.0150 mol dm–3 MnO4\n–(aq) to reach\nthe end‑point.\n\
+    \nThe equation for the reaction is shown.\n2MnO4\n–  +  5SO3\n2–  +  6H+\n  2Mn2+\
+    \  +  5SO4\n2–  +  3H2O\n\nCalculate the percentage by mass of Na2SO3 in the sample.\n\
+    \npercentage by mass of Na2SO3 =   [3]\n[Total: 19]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -116,7 +145,33 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) The Group 2 sulfates and the Group 2 chromates show similar trends\
+    \ in solubility.\n\nSuggest the trend in the solubility of the Group 2 chromates\
+    \ down the group.\n\nExplain your answer [4]\n\n(b) Silver(I) chromate, Ag2CrO4,\
+    \ is sparingly soluble in water.\n\n(i) Write an ionic equation to show the equilibrium\
+    \ between solid Ag2CrO4 and its\naqueous solution.\n\n Include state symbols [1]\n\
+    \n(ii) The value of the solubility product, Ksp, of Ag2CrO4 is 1.12 × 10–12 at\
+    \ 298 K.\n\n Calculate the equilibrium concentration of Ag+, in mol dm–3, in a\
+    \ saturated solution of\nAg2CrO4 at 298 K.\n\nequilibrium concentration of Ag+\
+    \ =   mol dm–3 [3]\n,\t,\n\n(c) The hydrogenchromate ion, HCrO4\n–, is a weak\
+    \ acid. The pKa of HCrO4\n– is 6.49.\n\n(i) Calculate the pH of a 0.0250 mol dm–3\
+    \ HCrO4\n– solution.\n\npH =   [2]\n\n(ii) HCrO4\n– can show amphoteric behaviour.\n\
+    \n State the formula of:\n•\nthe conjugate acid of HCrO4\n–   •\nthe conjugate\
+    \ base of HCrO4\n– [1]\n,\t,\n\n(d) Table 2.1 shows some energy changes.\nTable\
+    \ 2.1\nenergy change\nvalue / kJ mol–1\nfirst ionisation energy of silver\n+731\n\
+    second ionisation energy of silver\n+2074\nfirst ionisation energy of sulfur\n\
+    +1000\nsecond ionisation energy of sulfur\n+2251\nfirst electron affinity of sulfur\n\
+    –200\nsecond electron affinity of sulfur\n+532\nenthalpy change of atomisation\
+    \ of sulfur\n+279\nenthalpy change of formation of silver(I) sulfide, Ag2S(s)\n\
+    –33\nlattice energy of silver(I) sulfide, Ag2S(s)\n–2677\n\n(i) Define the term\
+    \ first electron affinity [1]\n\n(ii) Explain why the value for the second electron\
+    \ affinity of sulfur is positive [1]\n\n(iii) Construct an equation for the lattice\
+    \ energy of Ag2S.\n\n Include state symbols [1]\n,\t\t,\n\n(iv) Calculate the\
+    \ enthalpy change of atomisation, ΔHat, in kJ mol–1, of silver using relevant\n\
+    data from Table 2.1.\n\n It may be helpful to draw a labelled Born–Haber cycle.\n\
+    \n Show your working.\n\nΔHat of silver =   kJ mol–1 [3]\n\n(e) Suggest how the\
+    \ magnitude for the lattice energy of Ag2S(s) differs from the lattice energy\n\
+    of Cu2S(s).\n\nExplain your answer [1]\n[Total: 18]\n,\n,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -200,7 +255,28 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) Define the term entropy [1]\n\n(b) (i) Place one tick (3) in each\
+    \ row of Table 3.1 to show the sign of the entropy change, ΔS,\nfor each process.\n\
+    Table 3.1\nprocess\nΔS is negative\nΔS is positive\nsteam condensing into water\n\
+    solid KCl dissolving in water\n\n[1]\n\n(ii) Chlorine trifluoride, Cl F3, decomposes\
+    \ on heating into its elements, as shown.\n\nreaction 1\n2Cl F3(g)\n  Cl 2(g)\
+    \  +  3F2(g)\n\n Standard entropies are shown in Table 3.2.\nTable 3.2\nsubstance\n\
+    Cl F3(g)\nCl 2(g)\nF2(g)\nS\n⦵ / J K–1 mol–1\n+281.6\n+223.1\n+203.0\n\n Calculate\
+    \ the standard entropy change, ΔS\n⦵, in J K–1 mol–1, for reaction 1.\n\nΔS\n\
+    ⦵ for reaction 1 =   J K–1 mol–1 [2]\n\n(c) Group 2 carbonates decompose on heating.\
+    \ The decomposition for one of the Group 2\ncarbonates, MCO3, is shown in reaction\
+    \ 2.\n\nreaction 2\nMCO3(s)\n  MO(s)  +  CO2(g)\n\n(i) Predict the sign of the\
+    \ entropy change, ΔS, for reaction 2.\n\n Explain your answer [1]\n,\t,\n\n(ii)\
+    \ The Gibbs equation is shown.\nΔG\n⦵ = ΔH \n⦵ – TΔS\n⦵\n\n Fig. 3.1 shows values\
+    \ of the Gibbs free energy change, ΔG\n⦵, in kJ mol–1, at different\ntemperatures,\
+    \ T, in K, for reaction 2.\n\n Assume ΔH \n⦵ and ΔS\n⦵ values for this reaction\
+    \ remain constant over this temperature range.\n–100\n–50\n0\n50\n100\n150\n200\n\
+    0\n200\n400\n600\n800\n1000\n1200\n1400\n1600\nG\n⦵\nJ mol–1\nT / K\nFig. 3.1\n\
+    \n Use the gradient and intercept on the y‑axis in Fig. 3.1 and the Gibbs equation\n\
+    to determine:\n•\nΔS\n⦵, in J K–1 mol–1, for reaction 2\n•\nthe minimum temperature,\
+    \ T, in K, at which the reaction is feasible\n•\nΔH \n⦵, in kJ mol–1, for reaction\
+    \ 2.\n\nΔS\n⦵ for reaction 2 =   J K–1 mol–1\n\nminimum temperature, T =   K\n\
+    \nΔH \n⦵ for reaction 2 =   kJ mol–1\n\n[4]\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -248,7 +324,32 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Nitrogen monoxide, NO, reacts with hydrogen, as shown in reaction\
+    \ 3.\n\nreaction 3\n2NO  +  2H2\n  N2  +  2H2O\n\n(i) The rate equation for reaction\
+    \ 3 is shown.\nrate = k[H2][NO]2\n\n Complete Table 4.1.\nTable 4.1\nthe order\
+    \ of reaction with respect to [H2]\nthe order of reaction with respect to [NO]\n\
+    the overall order of the reaction\n\n[1]\n\n(ii) Predict how the initial rate\
+    \ for reaction 3 changes when the concentration of NO is halved [1]\n\n(iii) Predict\
+    \ how the initial rate for reaction 3 changes when the concentrations of NO and\
+    \ H2\nare both increased three times [1]\n\n(iv) Suggest why reaction 3 is unlikely\
+    \ to proceed by a mechanism involving only a\nsingle step [1]\n\n(v) Suggest equations\
+    \ for the three steps of the reaction mechanism for reaction 3.\n\n Each step\
+    \ involves a reaction between two molecules.\n\n step 1\n step 2\n +   N2O  +\
+    \   step 3\nN2O  +   +  [2]\n\n(vi) Suggest the role of N2O in this mechanism.\n\
+    \n Explain your reasoning [1]\n,\t,\n\n(b) Iodine, I2, reacts with thiosulfate\
+    \ ions, S2O3\n2–, as shown in reaction 4.\n\nreaction 4\n2S2O3\n2–  +  I2\n  S4O6\n\
+    2–  +  2I–\n\nReaction 4 is carried out in the presence of a large excess of I2.\
+    \ Under these conditions, the\nreaction is first order with respect to [S2O3\n\
+    2–] and zero order with respect to [I2].\n\nThe half‑life, t1\n2 , for reaction\
+    \ 4 is 720 s under certain conditions.\n\nCalculate the value of the rate constant,\
+    \ k, for reaction 4. Include the units of k.\n\nk =   units  [1]\n\n(c) The reaction\
+    \ between iodide ions, I–(aq), and peroxydisulfate ions, S2O8\n2–(aq), is catalysed\n\
+    by Co3+(aq). The mechanism is similar to the mechanism of this reaction when Fe3+(aq)\
+    \ is\nused as the catalyst.\n\n(i) State the type of catalysis that occurs in\
+    \ this reaction.\n\n Explain your reasoning [1]\n\n(ii) Write two equations to\
+    \ show how Co3+(aq) catalyses this reaction.\nequation 1   equation 2   [2]\n\n\
+    (iii) Suggest why this reaction is slow in the absence of Co3+(aq) [1]\n[Total:\
+    \ 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -326,7 +427,22 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) Describe and explain the shape of benzene.\n\nIn your answer, include:\n\
+    •\nthe shape and bond angle in the ring\n•\nthe hybridisation of the carbon atoms\n\
+    •\nhow orbital overlap forms σ and π bonds between the carbon atoms in the ring\
+    \ [4]\n\n(b) Fig. 5.1 shows two reactions of benzoic acid.\nO\nCOOH\nCOOH\nCOOH\n\
+    reaction 5\nreaction 6\n\nFig. 5.1\n\n(i) Suggest reagents and conditions for\
+    \ reaction 5 and for reaction 6 in Fig. 5.1.\nreaction 5   reaction 6   [2]\n\n\
+    (ii) State the type of reaction for reaction 5 in Fig. 5.1 [1]\n,\t,\n\n(c) In\
+    \ the electrophilic substitution of arenes, different substituents can direct\
+    \ to different\nring positions.\n\n(i) Describe the directing effect of the –CH2CH3\
+    \ group.\n\n Explain your answer [1]\n\n(ii) The alkylation of arenes uses a mixture\
+    \ of CH3CH2Br and FeBr3 to generate the\nCH3CH2\n+ electrophile.\n\n Write an\
+    \ equation for the formation of the CH3CH2\n+ electrophile [1]\n\n(iii) Complete\
+    \ the mechanism in Fig. 5.2.\n\n Include all relevant curly arrows and charges.\
+    \ Draw the structure of the\norganic intermediate.\nCOOH\nCOOH\n+CH2CH3\n+\n organic\
+    \ intermediate\n\nFig. 5.2\n\n[3]\n\n(iv) Write an equation to show how FeBr3\
+    \ is regenerated after the reaction in Fig. 5.2 [1]\n[Total: 13]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -386,7 +502,26 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Compound Z is used in organic synthesis.\nZ\nO\nNH2\nCN\nH2N\n\nComplete\
+    \ Table 6.1 to show the number of sp, sp2 and sp3 hybridised carbon atoms present\n\
+    in one molecule of Z.\nTable 6.1\ntype of hybridisation\nsp\nsp2\nsp3\nnumber\
+    \ of carbon atoms\n\n[1]\n\n(b) Z can undergo different reactions, as shown in\
+    \ Fig. 6.1.\nZ\nO\nNH2\nCN\nH2N\nexcess HCl (aq)\nheat\nCH3COCl\nexcess LiAl H4\n\
+    reaction 7\nreaction 8\nreaction 9\n\nFig. 6.1\n\n(i) Name the two types of reaction\
+    \ occurring in reaction 7 in Fig. 6.1 and   [1]\n\n(ii) Draw the structures of\
+    \ the organic products of reactions 7, 8 and 9 in Fig. 6.1.\n[4]\n,\t,\n\n(c)\
+    \ Compound Z is dissolved in D2O and analysed by carbon‑13 NMR and proton (1H)\n\
+    NMR spectroscopy.\n\n(i) Predict the number of peaks in the carbon‑13 NMR spectrum\
+    \ of Z [1]\n\n(ii) The proton (1H) NMR spectrum of Z in D2O gives three peaks\
+    \ for the proton environments,\nlabelled a, b and c, as shown on Fig. 6.2.\nZ\n\
+    O\nNH2\nCN\nH2N\nC\nCH\nCH2\nCH2\na\nb\nc\nFig. 6.2\n\n Complete Table 6.2 for\
+    \ the proton (1H) NMR spectrum of Z in D2O.\nTable 6.2\nproton environment\na\n\
+    b\nc\nname of splitting pattern\nchemical shift range,\nδ / ppm\n\n[2]\nTable\
+    \ 6.3\nenvironment of proton\nexample\nchemical shift\nrange, δ / ppm\nalkane\n\
+    –CH3, –CH2–, >CH–\n0.9–1.7\nalkyl next to C=O\nCH3–C=O, –CH2–C=O,\n>CH–C=O\n2.2–3.0\n\
+    alkyl next to nitrile\n–CH2–CN\n2.0–3.0\nalkyl next to electronegative atom\n\
+    CH3–O, –CH2–O, –CH2–N\n3.2– 4.0\nattached to alkene\n=CHR\n4.5–6.0\nalkyl amine\n\
+    R–NH–\n1.0–5.0\namide\nRCONHR\n5.0–12.0\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -434,7 +569,21 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nPhenylmethanol and 4‑methylphenol are isomers.\nCH2OH\nOH\nphenylmethanol\n\
+    4-methylphenol\n\n(a) Complete Table 7.1 to show the relative acidities of benzoic\
+    \ acid (C6H5COOH),\nphenylmethanol, 4‑methylphenol and water.\n\nExplain your\
+    \ answer.\nTable 7.1\nname of compound\nmost acidic\nleast acidic\nexplanation\
+    \   [4]\n\n(b) 4‑methylphenol reacts readily with sodium.\n\nComplete the equation\
+    \ for this reaction.\nOH\n+  [1]\n,\t\t,\n\n(c) Under certain conditions, ethane‑1,2‑diol,\
+    \ HOCH2CH2OH, reacts with propane‑1,3‑dioic acid,\nHOOCCH2COOH, to form different\
+    \ organic products, as shown in Fig. 7.1.\nO\nO\nHO\nHO\nOH\nOH\n  +\nreaction\
+    \ 10\nreaction 11\npolymer Y\nX, C5H6O4\nFig. 7.1\n\n(i) X does not react with\
+    \ Na metal.\n\n Draw the structure of the organic product X, C5H6O4, shown in\
+    \ Fig. 7.1.\n\n[1]\n\n(ii) Reactions 10 and 11 in Fig. 7.1 are different types\
+    \ of reaction.\n\n Name the type of reaction for reaction 10 and for reaction\
+    \ 11.\nreaction 10   reaction 11   [1]\n\n(iii) Draw a section of polymer Y showing\
+    \ only one repeat unit.\n\n The new functional group formed should be displayed.\n\
+    \n[2]\n[Total: 9]\n,\n,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -476,7 +625,69 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a) Describe the difference in reactivity between ethanoyl chloride and\
+    \ chlorobenzene with water.\n\nExplain your answer [2]\n\n(b) The structure of\
+    \ compound V is shown.\nV\nCN\nO\nO\nO\nN\nH\nO\n\n(i) Name all the functional\
+    \ groups in V [2]\n\n(ii) Deduce the number of possible optical isomers for V\
+    \ [1]\n\n(iii) Suggest one reason, other than better biological activity and lower\
+    \ dosage required, why\nit is beneficial to synthesise a single optical isomer\
+    \ of V for use as a drug [1]\n,\t,\n\n(c) A sample of V is hydrolysed with an\
+    \ excess of hot aqueous alkali.\n\nThe products are isolated from the reaction\
+    \ mixture at pH 12.\n\nDraw the structures of the two organic products of the\
+    \ complete alkaline hydrolysis of V\nin Fig. 8.1.\n\nFig. 8.1\n\n[3]\n,\t,\n\n\
+    (d) A polypeptide formed from four amino acids, A, B, C and D, is completely hydrolysed\
+    \ and\nthen analysed by gas–liquid chromatography.\n\nThe chromatogram produced\
+    \ is shown in Fig. 8.2.\nintensity\ntime / minutes\nA\nB\nC\nD\n28\n58\n13\n42\n\
+    Fig. 8.2\n\nThe number above each peak represents the area under the peak.\n\n\
+    The area under each peak is proportional to the mass of the respective amino acid\
+    \ in\nthe mixture.\n\n(i) Calculate the percentage by mass of amino acid A in\
+    \ the original mixture.\n\npercentage by mass of amino acid A =   [1]\n\n(ii)\
+    \ The retention time for amino acid D is the longest.\n\n Explain why D has a\
+    \ longer retention time than the other amino acids A, B and C [1]\n[Total: 11]\n\
+    ,\t,\nImportant values, constants and standards\nmolar gas constant\nR = 8.31\
+    \ J K–1 mol–1\nFaraday constant\nF = 9.65 × 104 C mol–1\nAvogadro constant\nL\
+    \ = 6.02 × 1023 mol–1\nelectronic charge\ne = –1.60 × 10–19 C\nmolar volume of\
+    \ gas\nVm = 22.4 dm3 mol–1 at s.t.p. (101 kPa and 273 K)\nVm = 24.0 dm3 mol–1\
+    \ at room conditions\nionic product of water\nKw = 1.00 × 10–14 mol2 dm–6 (at\
+    \ 298 K (25 °C))\nspecific heat capacity of water\nc = 4.18 kJ kg–1 K–1 (4.18\
+    \ J g–1 K–1)\n,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n1.0\n\
+    2\nHe\nhelium\n4.0\n1\n2\n13\n14\n15\n16\n17\n18\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\
+    12\n3\nLi\nlithium\n6.9\n4\nBe\nberyllium\n9.0\natomic number\natomic symbol\n\
+    Key\nname\nrelative atomic mass\n11\nNa\nsodium\n23.0\n12\nMg\nmagnesium\n24.3\n\
+    19\nK\npotassium\n39.1\n20\nCa\ncalcium\n40.1\n37\nRb\nrubidium\n85.5\n38\nSr\n\
+    strontium\n87.6\n55\nCs\ncaesium\n132.9\n56\nBa\nbarium\n137.3\n87\nFr\nfrancium\n\
+    –\n88\nRa\nradium\n–\n5\nB\nboron\n10.8\n13\nAl\naluminium\n27.0\n31\nGa\ngallium\n\
+    69.7\n49\nIn\nindium\n114.8\n81\nTl\nthallium\n204.4\n6\nC\ncarbon\n12.0\n14\n\
+    Si\nsilicon\n28.1\n32\nGe\ngermanium\n72.6\n50\nSn\ntin\n118.7\n82\nPb\nlead\n\
+    207.2\n22\nTi\ntitanium\n47.9\n40\nZr\nzirconium\n91.2\n72\nHf\nhafnium\n178.5\n\
+    104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n50.9\n41\nNb\nniobium\n92.9\n73\n\
+    Ta\ntantalum\n180.9\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n52.0\n42\nMo\nmolybdenum\n\
+    95.9\n74\nW\ntungsten\n183.8\n106\nSg\nseaborgium\n–\n25\nMn\nmanganese\n54.9\n\
+    43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186.2\n107\nBh\nbohrium\n–\n26\nFe\niron\n\
+    55.8\n44\nRu\nruthenium\n101.1\n76\nOs\nosmium\n190.2\n108\nHs\nhassium\n–\n27\n\
+    Co\ncobalt\n58.9\n45\nRh\nrhodium\n102.9\n77\nIr\niridium\n192.2\n109\nMt\nmeitnerium\n\
+    –\n28\nNi\nnickel\n58.7\n46\nPd\npalladium\n106.4\n78\nPt\nplatinum\n195.1\n110\n\
+    Ds\ndarmstadtium\n–\n29\nCu\ncopper\n63.5\n47\nAg\nsilver\n107.9\n79\nAu\ngold\n\
+    197.0\n111\nRg\nroentgenium\n–\n30\nZn\nzinc\n65.4\n48\nCd\ncadmium\n112.4\n80\n\
+    Hg\nmercury\n200.6\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\n\
+    livermorium\n–\n7\nN\nnitrogen\n14.0\n15\nP\nphosphorus\n31.0\n33\nAs\narsenic\n\
+    74.9\n51\nSb\nantimony\n121.8\n83\nBi\nbismuth\n209.0\n8\nO\noxygen\n16.0\n16\n\
+    S\nsulfur\n32.1\n34\nSe\nselenium\n79.0\n52\nTe\ntellurium\n127.6\n84\nPo\npolonium\n\
+    –\n9\nF\nfluorine\n19.0\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n79.9\n53\nI\n\
+    iodine\n126.9\n85\nAt\nastatine\n–\n10\nNe\nneon\n20.2\n18\nAr\nargon\n39.9\n\
+    36\nKr\nkrypton\n83.8\n54\nXe\nxenon\n131.3\n86\nRn\nradon\n–\n113\nNh\nnihonium\n\
+    –\n115\nMc\nmoscovium\n–\n117\nTs\ntennessine\n–\n118\nOg\noganesson\n–\n21\n\
+    Sc\nscandium\n45.0\n39\nY\nyttrium\n88.9\n57–71\nlanthanoids\n89–103\nactinoids\n\
+    57\nLa\nlanthanum\n138.9\n89\nAc\nlanthanoids\nactinoids\nactinium\n–\n58\nCe\n\
+    cerium\n140.1\n90\nTh\nthorium\n232.0\n59\nPr\npraseodymium\n140.9\n91\nPa\nprotactinium\n\
+    231.0\n60\nNd\nneodymium\n144.2\n92\nU\nuranium\n238.0\n61\nPm\npromethium\n–\n\
+    93\nNp\nneptunium\n–\n62\nSm\nsamarium\n150.4\n94\nPu\nplutonium\n–\n63\nEu\n\
+    europium\n152.0\n95\nAm\namericium\n–\n64\nGd\ngadolinium\n157.3\n96\nCm\ncurium\n\
+    –\n65\nTb\nterbium\n158.9\n97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n162.5\n98\n\
+    Cf\ncalifornium\n–\n67\nHo\nholmium\n164.9\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n\
+    167.3\n100\nFm\nfermium\n–\n69\nTm\nthulium\n168.9\n101\nMd\nmendelevium\n–\n\
+    70\nYb\nytterbium\n173.1\n102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175.0\n103\n\
+    Lr\nlawrencium\n–\n,\t,"
   answer_options: []
   subquestions:
   - number: 8a

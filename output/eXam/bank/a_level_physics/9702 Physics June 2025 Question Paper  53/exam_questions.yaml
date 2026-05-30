@@ -2,7 +2,36 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates an electrical circuit.\n\nThe circuit is set up\
+    \ as shown in Fig. 2.1.\nQ\nZ\nP\nA\nFig. 2.1\n\nA battery of negligible internal\
+    \ resistance is connected to a resistor of resistance Z. Five resistors,\neach\
+    \ of resistance R, are connected in parallel between P and Q.\n\nThe switch is\
+    \ closed. The total current I in the circuit is measured using the ammeter.\n\n\
+    The experiment is then repeated by changing the number n of resistors, each of\
+    \ resistance R,\nconnected in parallel between P and Q.\n\nIt is suggested that\
+    \ I and n are related by the equation\nE = I (\nR\nn\n+ Z)\n\nwhere E is the electromotive\
+    \ force (e.m.f.) of the battery.\n\n(a) A graph is plotted of 1\nI  on the y-axis\
+    \ against 1\nn on the x-axis.\n\nDetermine expressions for the gradient and y-intercept.\n\
+    \ngradient =   y-intercept =   [1]\n,\t,\n\n(b) Values of n, 1\nn  and I are given\
+    \ in Table 2.1.\nTable 2.1\nn\n1\nn\nI / μA\n1\nI  / 103 A–1\n5\n0.200\n455 ±\
+    \ 5\n\n6\n0.167\n525 ± 5\n7\n0.143\n580 ± 5\n8\n0.125\n635 ± 5\n9\n0.111\n685\
+    \ ± 5\n11\n0.0909\n765 ± 5\n\nCalculate and record values of 1\nI  / 103 A–1 in\
+    \ Table 2.1. Include the absolute uncertainties in 1\nI .\n\n[2]\n\n(c) (i) Plot\
+    \ a graph of 1\nI  / 103 A–1 against 1\nn. Include error bars for 1\nI .\n[2]\n\
+    \n (ii) Draw the straight line of best fit and a worst acceptable straight line\
+    \ on your graph. Label\nboth lines.\n[2]\n\n(iii) Determine the gradient of the\
+    \ line of best fit. Include the absolute uncertainty in your\nanswer.\n\ngradient\
+    \ =   [2]\n,\t,\n1.2\n1.3\n1.4\n0.08\n0.10\n0.12\n0.14\n0.16\n0.18\n0.20\n0.22\n\
+    1.5\n1.6\n1.7\n1.8\n1.9\n2.0\n2.1\n2.2\n2.3\n1 / 103A–1\nI\n1\nn\n,\t,\n\n(iv)\
+    \ Determine the y-intercept of the line of best fit. Include the absolute uncertainty\
+    \ in your\nanswer.\n\ny-intercept =   [2]\n\n(d) The e.m.f. E of the battery is\
+    \ determined twice during the experiment. The values obtained\nare 5.6 V and 6.0\
+    \ V.\n\n(i) Using your answers to (a), (c)(iii) and (c)(iv), determine the values\
+    \ of R and Z. Include\nappropriate units.\n\nR =   Z =   [2]\n\n(ii) Determine\
+    \ the percentage uncertainty in your value of R.\n\npercentage uncertainty = \
+    \  % [1]\n\n(e) The experiment is repeated with 20 resistors, each of resistance\
+    \ R, connected in parallel\nbetween P and Q. Determine the total current I in\
+    \ the circuit.\n\nI =   A [1]\n\n[Total: 15]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -74,6 +103,18 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "1\nFig. 1.1 shows a thin coil of cross-sectional area A and length l connected\
+    \ to a resistor of resistance\nS and two terminals.\nS\nl\nFig. 1.1\n\nAn alternating\
+    \ voltage is applied to the terminals. The peak value of the alternating voltage\
+    \ is E and\nthe frequency is f. The peak value of the potential difference V across\
+    \ the resistor is determined\nusing an oscilloscope.\n\nIt is suggested that V\
+    \ is related to f by the relationship\nES\nV  = KAN 2f\nl\n\nwhere N is the number\
+    \ of turns on the coil and K is a constant.\n\nPlan a laboratory experiment to\
+    \ test the relationship between V and f.\n\nDraw a diagram showing the arrangement\
+    \ of your equipment.\n\nExplain how the results could be used to determine a value\
+    \ for K.\n\nIn your plan you should include:\n•\nthe procedure to be followed\n\
+    •\nthe measurements to be taken\n•\nthe control of variables\n•\nthe analysis\
+    \ of the data\n•\nany safety precautions to be taken.\n,\t,\n\nDiagram\n  ,\t\
+    ,\n  [15]\n,\t,"
   answer_options: []
   subquestions: []

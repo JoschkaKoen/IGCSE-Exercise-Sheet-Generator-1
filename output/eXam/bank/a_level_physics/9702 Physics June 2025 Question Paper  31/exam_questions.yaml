@@ -2,7 +2,31 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nIn this experiment, you will investigate the oscillation of masses on\
+    \ springs.\n\nYou have been provided with masses and springs.\n\nSet up the apparatus\
+    \ as shown in Fig. 1.1.\nboss\nwooden rod\nstand\nbench\nmass S\ndouble spring\n\
+    spring\n100 g mass hanger\nand 100 g mass\nFig. 1.1\n\n(a) ●\nEnsure the bottoms\
+    \ of both masses are at the same level.\n\n●\nPull both masses down through a\
+    \ short distance and release them at the same time.\n\n●\n Watch the oscillations\
+    \ of the masses. The masses initially oscillate in phase, then out of\nphase and\
+    \ then back in phase.\n\n●\n The number of oscillations of mass S from release\
+    \ until the masses are back in phase for\nthe first time is n0.\n\nDetermine and\
+    \ record n0.\n\nn0 =   [2]\n\n(b) (i) ●\nAdd a mass of 30 g to mass S. The added\
+    \ mass is M.\n\n ●\nRecord M.\n\nM =   ●\n Repeat (a). The number of oscillations\
+    \ of mass S from release until the masses are\nback in phase for the first time\
+    \ is n.\n\n ●\nDetermine and record n.\n\nn =   [1]\n\n(ii) Calculate N, where\n\
+    N = n0 – n.\n\nN =   [1]\n,\t,\n\n(c) Vary M by changing the number of 10 g masses\
+    \ added to mass S and determine n. Do not\nuse M = 0.\n\nRepeat until you have\
+    \ five sets of values of M and n.\n\nRecord your results in a table. Include values\
+    \ of N. Also include values of N 3 to three\nsignificant figures.\n\n[8]\n\n(d)\
+    \ (i) Plot a graph of N 3 on the y-axis against M on the x-axis.\n[3]\n\n(ii)\
+    \ Draw the straight line of best fit.\n[1]\n\n(iii) Determine the gradient and\
+    \ y-intercept of this line.\n\ngradient =   y-intercept =   [2]\n,\t,\n,\t,\n\n\
+    (e) It is suggested that the quantities N and M are related by the equation\n\
+    N 3 = PM + Q\n\nwhere P and Q are constants.\n\nUsing your answers in (d)(iii),\
+    \ determine the values of P and Q.\n\nGive appropriate units.\n\nP =   Q =   [2]\n\
+    \n[Total: 20]\n,\t,\nYou may not need to use all of the materials provided.\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -68,7 +92,39 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nIn this experiment, you will investigate the behaviour of paper on water.\n\
+    \nYou have been provided with two sheets of tracing paper.\n\n(a) ●\n On one of\
+    \ the sheets of tracing paper, draw two identical rectangles as shown in Fig.\
+    \ 2.1\nwhere c = 4.0 cm and d = 6.0 cm. The orientation of the rectangles must\
+    \ be as shown in\nFig. 2.1.\n\n●\n Add labels A and B to the rectangles, as shown\
+    \ in Fig. 2.1.\nA\nlong side of\ntracing paper\nshort side of tracing paper\n\
+    B\nd\nd\nc\nc\nFig. 2.1\n\n●\nUse the scissors to cut out the rectangles.\n\n\
+    ●\nTake measurements to determine the average value of d.\n\nd =   cm [1]\n\n\
+    (b) (i) ●\n When A is placed flat on the surface of the water in one of the bowls,\
+    \ the shape will\ncurl up as shown in Fig. 2.2. Two edges of the paper will curl\
+    \ and then meet.\nedge\nedge\nFig. 2.2\n\nThe time between placing A on the water\
+    \ and the two edges meeting is TA.\n\n ●\nPlace A flat on the water.\n\n ●\nDetermine\
+    \ TA.\n\nTA =   ●\nRemove A from the water and place it in the empty bowl.\n\n\
+    [2]\n\n(ii) Estimate the percentage uncertainty in your value of TA. Show your\
+    \ working.\n\npercentage uncertainty =   % [1]\n\n(c) (i) ●\n Repeat the procedure\
+    \ in (b)(i) for B. The time between placing B on the water and\nthe two edges\
+    \ meeting is TB.\n\nTB =   ●\nRemove B from the water.\n\n ●\nCompare your values\
+    \ of TA and TB. Record the longer time.\n\nlonger time =   [1]\n,\t\t,\n\n(ii)\
+    \ The quantity W is given by\nW = longer time\nshorter time .\n\n Calculate W.\n\
+    \nW =   [1]\n\n(iii) Justify the number of significant figures that you have given\
+    \ for your value of W [1]\n\n(d) Repeat (a), (b)(i), (c)(i) and (c)(ii) using\
+    \ new rectangles with c = 4.0 cm and d = 9.0 cm.\n\nd =   cm\n\nTA =   TB =  \
+    \ longer time =   W =   [3]\n,\n,\n\n(e) It is suggested that the relationship\
+    \ between W and d is\nW 2 = kd\n\nwhere k is a constant.\n\nUsing your data, calculate\
+    \ two values of k.\n\nfirst value of k =   second value of k =   [1]\n\n(f) It\
+    \ is suggested that the percentage uncertainty in the values of k is 20%.\n\n\
+    Using this uncertainty, explain whether your results support the relationship\
+    \ in (e) [1]\n,\t,\n\n(g) (i) Describe four sources of uncertainty or limitations\
+    \ of the procedure for this experiment.\n\n For any uncertainties in measurement\
+    \ that you describe, you should state the quantity\nbeing measured and a reason\
+    \ for the uncertainty.\n1   2   3   4   [4]\n\n(ii) Describe four improvements\
+    \ that could be made to this experiment. You may suggest\nthe use of other apparatus\
+    \ or different procedures.\n1   2   3   4   [4]\n\n[Total: 20]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a

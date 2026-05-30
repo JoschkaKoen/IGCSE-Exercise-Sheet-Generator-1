@@ -2,7 +2,36 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nThe Group 17 elements are oxidising agents.\n\n(a) (i) Explain how the\
+    \ Group 17 elements act as oxidising agents [1]\n\n(ii) Write an equation to show\
+    \ the reaction in which Cl 2 oxidises aluminium metal [1]\n\n(iii) A student heats\
+    \ equal amounts of I2(g) and H2(g) in a sealed flask. The student leaves\nthe\
+    \ contents to cool.\n\n State what you would observe during the reaction [1]\n\
+    \n(b) Cl 2 and Br2 can each react with NH3 to give N2 and a hydrogen halide, HX.\n\
+    3X2  +  2NH3\n  N2  +  6HX\n\nX = Cl or Br\n\nThe relative bond strengths of X–X\
+    \ and H–X determine the difference in enthalpy change of\nthe two reactions.\n\
+    \n(i) Describe and explain the difference in the X–X bond strengths of Cl 2 and\
+    \ Br2 [2]\n\n(ii) Describe the relative thermal stabilities of HCl and HBr [1]\n\
+    ,\t,\n\n(iii) Define enthalpy change of formation, ΔHf [2]\n\n(iv) Table 1.1 gives\
+    \ data relevant to the reaction of Cl 2(g) with NH3(g).\nTable 1.1\ncompound\n\
+    enthalpy change of\nformation, ΔHf / kJ mol–1\nNH3(g)\n– 46\nHCl (g)\n–92\n\n\
+    \ Use the data in Table 1.1 to calculate the enthalpy change of the reaction of\
+    \ Cl 2(g)\nwith NH3(g).\n\nenthalpy change of reaction =   kJ mol–1 [2]\n\n(v)\
+    \ I2 reacts with NH3 to form NI3.\n\n Predict the shape of a molecule of NI3.\
+    \ Explain your answer.\nshape   explanation   [2]\n,\t,\n\n(c) Table 1.2 shows\
+    \ some information about reactions of NaCl , NaBr and NaI.\nTable 1.2\nNaCl\n\
+    NaBr\nNaI\nobservation\nwith Ag+(aq)\nwhite precipitate\ntype of reaction with\n\
+    concentrated H2SO4\nacid–base\nacid–base, then redox\nacid–base, then redox\n\
+    observations with\nconcentrated H2SO4\n•\nblack solid\n•\nyellow solid\n•\neffervescence\n\
+    \n(i) Complete Table 1.2.\n[4]\n\n(ii) Suggest an identity for the species that\
+    \ produces each observation in the reaction of NaI\nwith concentrated H2SO4.\n\
+    black solid   yellow solid   effervescence   [2]\n\n(d) Table 1.3 gives some information\
+    \ about MgCl 2 and SiCl 4.\nTable 1.3\nMgCl 2\nSiCl 4\nelectrical conductivity\
+    \ when liquid\nconducts\ndoes not conduct\nobservation when added to water\ndissolves\n\
+    vigorous reaction\n\n(i) Explain the difference between the electrical conductivity\
+    \ of liquid MgCl 2 and of liquid\nSiCl 4. Refer to bonding and relevant particles\
+    \ in your answer [2]\n\n(ii) Suggest the pH of the solutions that form when each\
+    \ chloride is added to water.\n\n MgCl 2  SiCl 4  [2]\n[Total: 22]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -104,7 +133,24 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nAluminium oxide, Al 2O3, and phosphorus(V) oxide, P4O10, are both used\
+    \ as reagents\nand catalysts.\n\n(a) The melting point of Al 2O3 is 2072 °C. The\
+    \ melting point of P4O10 is 340 °C.\n\nExplain the difference in the melting points\
+    \ of these two compounds [3]\n\n(b) A 5.00 dm3 sealed flask contains 0.400 mol\
+    \ of CO(g) and 0.800 mol of H2(g) and an Al 2O3\ncatalyst. The flask is heated\
+    \ to a temperature of 290 °C and allowed to reach equilibrium.\nEquation 1 shows\
+    \ the reaction.\n\nequation 1\nCO(g)  +  2H2(g)\n  CH3OH(g)\n\nThe equilibrium\
+    \ constant, Kc, of equation 1 is given.\nKc =\n[CH3OH]\n[CO][H2]2\n\n(i) State\
+    \ the units of Kc [1]\n\n(ii) The equilibrium mixture contains 0.280 mol of CH3OH(g).\n\
+    \n Calculate the value of Kc.\n\n Give your answer to three significant figures.\n\
+    \nvalue of Kc =   [3]\n\n(iii) State and explain the effect, if any, on the value\
+    \ of Kc when the overall pressure in the\nsealed flask is increased [1]\n,\t,\n\
+    \n(c) P4O10 catalyses the reversible reaction of CO with H2 to form CH3OH.\n\n\
+    equation 1\nCO(g)  +  2H2(g)\n  CH3OH(g)\n\nP4O10 then acts as a dehydrating agent,\
+    \ causing CH3OH to form CH3OCH3.\n\n(i) Explain how the presence of a catalyst\
+    \ affects a chemical reaction [1]\n\n(ii) Construct an equation for the dehydration\
+    \ reaction of CH3OH to form CH3OCH3 [1]\n\n(iii) Write an equation to show the\
+    \ reaction of P4O10 with an excess of water [1]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -164,7 +210,25 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nPropan-2-ol, (CH3)2CHOH, is sometimes added to fuel to help it burn.\n\
+    \nFig. 3.1 shows some reactions of propan-2-ol.\nOH\nCH3CO2\n– and CHI3\nreaction\
+    \ 3\nconcentrated\nH2SO4\nreaction 1\nacidified K2Cr2O7\nreaction 2\nalkaline\n\
+    I2(aq)\npropan-2-ol\nL\nK\nFig. 3.1\n\n(a) (i) Draw the structure of organic compound\
+    \ K.\n\n[1]\n\n(ii) State an observation you would make in reaction 2 [1]\n\n\
+    (iii) State the type of reaction that is shown in reaction 3 [1]\n\n(iv) Complete\
+    \ Fig. 3.2 to show the pi (π) bond in L that is formed from orbital overlap.\n\
+    H\nH\nC\nC\nH3C\nH\nFig. 3.2\n\n[1]\n,\t\t,\n\n(b) Propan-2-ol reacts with sodium\
+    \ to produce (CH3)2CH–O – anions.\n\nThese anions react with 2-bromopropane to\
+    \ form compound N, as shown in Fig. 3.3.\nBr\n(CH3)2CH–O–\nO\nN\nFig. 3.3\n\n\
+    (i) Write an equation for the reaction of propan-2-ol with sodium [1]\n\n(ii)\
+    \ The reaction of 2-bromopropane with (CH3)2CH–O – anions follows an SN1 mechanism.\n\
+    \n Complete Fig. 3.4 to show this mechanism. Include charges, dipoles, lone pairs\
+    \ of\nelectrons and curly arrows, as appropriate.\n(CH3)2CH–O–\nH3C\nC\nBr\nCH3\n\
+    H\nH3C\nC\nCH3\nCH3\nH\nO\nC\nCH3\nH\nFig. 3.4\n\n[3]\n\n(iii) Suggest how the\
+    \ rate of the SN1 reaction would change, if at all, if 2-chloropropane were\n\
+    used instead of 2-bromopropane.\n\n Explain your answer [2]\n\n(iv) N is also\
+    \ added to petrol to make it burn more smoothly.\n\n Construct an equation for\
+    \ the complete combustion of N, C6H14O.\nC6H14O   [1]\n\n[Total: 11]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -230,7 +294,70 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nCompounds P and Q are structural isomers.\nP\nQ\nFig. 4.1\n\n(a) (i) Define\
+    \ structural isomerism [2]\n\n(ii) P shows geometrical isomerism.\n\n Draw the\
+    \ geometrical isomer of P. Explain why the two isomers are not identical.\ngeometrical\
+    \ isomer of P\nexplanation   [2]\n\n(iii) Both P and Q react with aqueous bromine.\n\
+    \n Name the mechanism of this reaction [1]\n\n(iv) Q is oxidised by hot concentrated\
+    \ acidified KMnO4(aq), forming two different\norganic products.\n\n Construct\
+    \ an equation for this reaction. Use [O] to represent an atom of oxygen from the\n\
+    oxidising agent.\n(CH3)2C=CHCH3   [2]\n,\t,\n\n(v) Q reacts with HBr(g) to produce\
+    \ two structural isomers, R and S, as shown in Fig. 4.2.\nQ\nR\nHBr(g)\nBr\nand\n\
+    S\nBr\nFig. 4.2\n\n State and explain why isomer S is the major product of the\
+    \ reaction [2]\n\n(vi) The mass spectrum of R shows peaks at m / e = 150 and m\
+    \ / e = 152.\n\n Suggest structures for the ions responsible for these peaks.\n\
+    peak at m / e = 150\n\npeak at m / e = 152\n\n[2]\n,\t,\n\n(b) Fig. 4.3 shows\
+    \ a synthesis starting from T, a different isomer of R and S.\nBr\nT\nCN\nreaction\
+    \ 1\nU\nCOOH\nV\nreaction 2\nHCl (aq)\nFig. 4.3\n\n(i) Identify the reagent and\
+    \ conditions for reaction 1 [1]\n\n(ii) Reaction 2 is a hydrolysis reaction.\n\
+    \n Construct an equation for reaction 2.\n(C2H5)2CHCN   [1]\n\n(iii) V reacts\
+    \ with propan-2-ol in the presence of a catalytic amount of H2SO4 to form organic\n\
+    compound W.\n\n Complete Table 4.1 to give details of this reaction.\nTable 4.1\n\
+    reaction of V with propan-2-ol\ntype of reaction\nfunctional group formed\nmolecular\
+    \ formula of organic product W\n\n[3]\n\n[Total: 16]\n,\t,\nImportant values,\
+    \ constants and standards\nmolar gas constant\nR = 8.31 J K–1 mol–1\nFaraday constant\n\
+    F = 9.65 × 104 C mol–1\nAvogadro constant\nL = 6.02 × 1023 mol–1\nelectronic charge\n\
+    e = –1.60 × 10–19 C\nmolar volume of gas\nVm = 22.4 dm3 mol–1 at s.t.p. (101 kPa\
+    \ and 273 K)\nVm = 24.0 dm3 mol–1 at room conditions\nionic product of water\n\
+    Kw = 1.00 × 10–14 mol2 dm–6 (at 298 K (25 °C))\nspeciﬁc heat capacity of water\n\
+    c = 4.18 kJ kg–1 K–1 (4.18 J g–1 K–1)\n,\t,\nGroup\nThe Periodic Table of Elements\n\
+    1\nH\nhydrogen\n1.0\n2\nHe\nhelium\n4.0\n1\n2\n13\n14\n15\n16\n17\n18\n3\n4\n\
+    5\n6\n7\n8\n9\n10\n11\n12\n3\nLi\nlithium\n6.9\n4\nBe\nberyllium\n9.0\natomic\
+    \ number\natomic symbol\nKey\nname\nrelative atomic mass\n11\nNa\nsodium\n23.0\n\
+    12\nMg\nmagnesium\n24.3\n19\nK\npotassium\n39.1\n20\nCa\ncalcium\n40.1\n37\nRb\n\
+    rubidium\n85.5\n38\nSr\nstrontium\n87.6\n55\nCs\ncaesium\n132.9\n56\nBa\nbarium\n\
+    137.3\n87\nFr\nfrancium\n–\n88\nRa\nradium\n–\n5\nB\nboron\n10.8\n13\nAl\naluminium\n\
+    27.0\n31\nGa\ngallium\n69.7\n49\nIn\nindium\n114.8\n81\nTl\nthallium\n204.4\n\
+    6\nC\ncarbon\n12.0\n14\nSi\nsilicon\n28.1\n32\nGe\ngermanium\n72.6\n50\nSn\ntin\n\
+    118.7\n82\nPb\nlead\n207.2\n22\nTi\ntitanium\n47.9\n40\nZr\nzirconium\n91.2\n\
+    72\nHf\nhafnium\n178.5\n104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n50.9\n41\n\
+    Nb\nniobium\n92.9\n73\nTa\ntantalum\n180.9\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n\
+    52.0\n42\nMo\nmolybdenum\n95.9\n74\nW\ntungsten\n183.8\n106\nSg\nseaborgium\n\
+    –\n25\nMn\nmanganese\n54.9\n43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186.2\n107\n\
+    Bh\nbohrium\n–\n26\nFe\niron\n55.8\n44\nRu\nruthenium\n101.1\n76\nOs\nosmium\n\
+    190.2\n108\nHs\nhassium\n–\n27\nCo\ncobalt\n58.9\n45\nRh\nrhodium\n102.9\n77\n\
+    Ir\niridium\n192.2\n109\nMt\nmeitnerium\n–\n28\nNi\nnickel\n58.7\n46\nPd\npalladium\n\
+    106.4\n78\nPt\nplatinum\n195.1\n110\nDs\ndarmstadtium\n–\n29\nCu\ncopper\n63.5\n\
+    47\nAg\nsilver\n107.9\n79\nAu\ngold\n197.0\n111\nRg\nroentgenium\n–\n30\nZn\n\
+    zinc\n65.4\n48\nCd\ncadmium\n112.4\n80\nHg\nmercury\n200.6\n112\nCn\ncopernicium\n\
+    –\n114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n–\n7\nN\nnitrogen\n14.0\n15\n\
+    P\nphosphorus\n31.0\n33\nAs\narsenic\n74.9\n51\nSb\nantimony\n121.8\n83\nBi\n\
+    bismuth\n209.0\n8\nO\noxygen\n16.0\n16\nS\nsulfur\n32.1\n34\nSe\nselenium\n79.0\n\
+    52\nTe\ntellurium\n127.6\n84\nPo\npolonium\n–\n9\nF\nfluorine\n19.0\n17\nCl\n\
+    chlorine\n35.5\n35\nBr\nbromine\n79.9\n53\nI\niodine\n126.9\n85\nAt\nastatine\n\
+    –\n10\nNe\nneon\n20.2\n18\nAr\nargon\n39.9\n36\nKr\nkrypton\n83.8\n54\nXe\nxenon\n\
+    131.3\n86\nRn\nradon\n–\n113\nNh\nnihonium\n–\n115\nMc\nmoscovium\n–\n117\nTs\n\
+    tennessine\n–\n118\nOg\noganesson\n–\n21\nSc\nscandium\n45.0\n39\nY\nyttrium\n\
+    88.9\n57–71\nlanthanoids\n89–103\nactinoids\n57\nLa\nlanthanum\n138.9\n89\nAc\n\
+    lanthanoids\nactinoids\nactinium\n–\n58\nCe\ncerium\n140.1\n90\nTh\nthorium\n\
+    232.0\n59\nPr\npraseodymium\n140.9\n91\nPa\nprotactinium\n231.0\n60\nNd\nneodymium\n\
+    144.2\n92\nU\nuranium\n238.0\n61\nPm\npromethium\n–\n93\nNp\nneptunium\n–\n62\n\
+    Sm\nsamarium\n150.4\n94\nPu\nplutonium\n–\n63\nEu\neuropium\n152.0\n95\nAm\namericium\n\
+    –\n64\nGd\ngadolinium\n157.3\n96\nCm\ncurium\n–\n65\nTb\nterbium\n158.9\n97\n\
+    Bk\nberkelium\n–\n66\nDy\ndysprosium\n162.5\n98\nCf\ncalifornium\n–\n67\nHo\n\
+    holmium\n164.9\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n167.3\n100\nFm\nfermium\n\
+    –\n69\nTm\nthulium\n168.9\n101\nMd\nmendelevium\n–\n70\nYb\nytterbium\n173.1\n\
+    102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175.0\n103\nLr\nlawrencium\n–\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a

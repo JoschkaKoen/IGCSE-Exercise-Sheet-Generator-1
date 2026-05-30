@@ -2,7 +2,14 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Four descriptions and five pseudocode statements are shown.\n\nDraw\
+    \ one line to link each description to its most appropriate pseudocode statement.\n\
+    Not all pseudocode statements will be used.\n\nDescription\nPseudocode statement\n\
+    \na statement to count\na statement to total\na statement to start a\npre-condition\
+    \ loop\na statement to start a\npost-condition loop\nFOR Count\n 1 TO 10\nValue\n\
+    \ Value + NewValue\nWHILE Value > 10 DO\nValue\n Value + 1\nREPEAT\n\n[4]\n\n\
+    (b) Write an algorithm in pseudocode, using a single loop, to output the average\
+    \ of 50 numbers\nthat have been stored in the array Number[]\n  [5]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -20,25 +27,68 @@ questions:
 - number: '4'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '4
+
+    Describe how variables and constants are used in programming [3]'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 3
-  text: ''
+  text: '5
+
+    A food ordering system is an example of a computer system that is made up of sub-systems.
+
+
+    The food ordering system:
+
+    •
+
+    allows the user to enter the details of the food they want to order and to pay
+    for the order
+
+    •
+
+    displays food available as pictures or as a list.
+
+
+    Complete the structure diagram for the given parts of the food ordering system.
+
+    Food ordering system
+
+
+    [4]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: calculation
   marks: 3
-  text: ''
+  text: '3
+
+    Describe the purpose of test data. Include an example of a type of test data in
+    your answer.
+
+    Description   Example   [3]'
   answer_options: []
   subquestions: []
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nThe energy efficiency of an electrical appliance is the percentage of\
+    \ useful energy out compared with\nthe total energy in.\n\nAn algorithm has been\
+    \ written in pseudocode to calculate the energy efficiency of an appliance.\n\
+    Values for total energy in and useful energy out are input. The efficiency is\
+    \ calculated and output\nas a percentage.\n\nThe entry of the number –1 for either\
+    \ value stops the algorithm.\n\n01 REPEAT\n\n02     OUTPUT \"Enter total energy\
+    \ in \"\n\n03     INPUT TotalEnergyIn\n\n04     OUTPUT \"Enter useful energy out\
+    \ \"\n\n05     OUTPUT UsefulEnergyOut\n\n06     IF TotalEnergyIn <> -1 AND UsefulEnergy\
+    \ <> -1\n\n07       THEN\n\n08         Efficiency\n (UsefulEnergyOut / TotalEnergyIn)\
+    \ * 100\n\n09         OUTPUT \"Efficiency is \", Efficiency, \"%\"\n\n10     ENDIF\n\
+    \n11 UNTIL TotalEnergyIn <> -1 OR UsefulEnergyOut <> -1\n\n(a) Identify the three\
+    \ errors in the pseudocode and suggest corrections.\nError 1   Correction   Error\
+    \ 2   Correction   Error 3   Correction   [3]\n\n(b) Write pseudocode to check\
+    \ for an efficiency of 92% or over for this appliance and to output\n“A-rated”\
+    \ if the efficiency is 92% or over [2]"
   answer_options: []
   subquestions:
   - number: 6a
@@ -56,7 +106,92 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '7
+
+    Consider this logic expression.
+
+    X = (A OR NOT B) AND (B AND NOT C)
+
+
+    (a) Draw a logic circuit for this logic expression. Each logic gate must have
+    a maximum of two
+
+    inputs. Do not simplify this logic expression.
+
+    A
+
+    B
+
+    X
+
+    C
+
+
+    [5]
+
+
+    (b) Complete the truth table from the given logic expression.
+
+    A
+
+    B
+
+    C
+
+    Working space
+
+    X
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    0
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    0
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+    0
+
+    1
+
+    1
+
+    1
+
+
+    [4]'
   answer_options: []
   subquestions:
   - number: 7a
@@ -74,13 +209,102 @@ questions:
 - number: '1'
   question_type: calculation
   marks: 4
-  text: ''
+  text: '1
+
+    Tick (3) one box to show which word accurately describes the scope of a variable
+    declared in a
+
+    procedure.
+
+
+    A
+
+    Function
+
+
+    B
+
+    Global
+
+
+    C
+
+    Local
+
+
+    D
+
+    Subroutine
+
+
+    [1]'
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    This flowchart represents an algorithm to find the average value of a number of
+    sales.
+
+    NumberSales   NumberSales + 1
+
+    NumberSales   0
+
+    Total   0
+
+    Average   Total / NumberSales
+
+    Total   Total + SaleValue
+
+    IS
+
+    SaleValue
+
+    = 0?
+
+    INPUT
+
+    SaleValue
+
+    OUTPUT
+
+    "Average sale
+
+    value ", Average
+
+    No
+
+    Yes
+
+    START
+
+    STOP
+
+
+    (a) Complete the trace table using this data:
+
+
+    5.50, 3.40, 6.25, 3.85, –11.00, 0
+
+    NumberSales
+
+    Total
+
+    SaleValue
+
+    Average
+
+    OUTPUT
+
+
+    [4]
+
+
+    (b) Identify the error in the algorithm and describe how to correct it.
+
+    Error   Correction   [3]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -98,7 +322,31 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nA shop that sells books has set up a new database table called BookList\
+    \ to store book details.\nPart of this table is given.\nCatNo\nTitle\nFiction\n\
+    Author\nPaperBack\nPrice\nStockLevel\nBK01\nThe Princes’ Story\nYes\nB Penn\n\
+    Yes\n4.50\n500\nBK02\nThe Princesses’ Story\nYes\nB Penn\nYes\n4.50\n350\nBK03\n\
+    Computer Science\nNo\nWay Yu\nYes\n19.99\n20\nBK04\nThe Modern World\nNo\nP Patel\n\
+    No\n25.00\n5\nBK05\nThe Ancient World\nYes\nP Patel\nNo\n25.00\n5\nBK06\nComputer\
+    \ Science\nNo\nR Dale\nYes\n27.35\n8\nBK07\nThe Princes’ Story\nYes\nB Penn\n\
+    No\n12.50\n3\nBK08\nThe Princesses’ Story\nYes\nB Penn\nNo\n12.50\n0\nBK12\nFamous\
+    \ Five\nYes\nE Bly\nYes\n2.75\n45\nBK15\nSecret Seven\nYes\nE Bly\nYes\n2.75\n\
+    25\nBK16\nThe Last Knight\nYes\nP Mann\nYes\n5.99\n7\nBK17\nThe Dark Tower\nYes\n\
+    P Mann\nYes\n5.99\n5\nBK19\nThe Final Chase\nYes\nP Mann\nYes\n5.99\n5\nBK21\n\
+    Maths Today Part 1\nNo\nB Ward\nYes\n6.75\n25\nBK22\nMaths Today Part 2\nNo\n\
+    B Ward\nYes\n6.75\n15\nBK23\nMaths Today Part 3\nNo\nB Ward\nYes\n6.75\n10\nBK26\n\
+    Maths Today Workbook\nNo\nB Ward\nYes\n6.75\n30\nBK27\nKnitting for Beginners\n\
+    No\nA Smith\nYes\n6.99\n3\nBK30\nWoodwork for Beginners\nNo\nA Smith\nYes\n6.99\n\
+    4\nBK31\nNetworking for Beginners\nNo\nA Smith\nYes\n6.99\n0\n\n(a) State the\
+    \ number of records in this part of the database table [1]\n\n(b) (i) Give the\
+    \ name of the field that would be used for the primary key [1]\n\n(ii) State the\
+    \ reason for choosing this field for the primary key [1]\n\n(c) Complete the table\
+    \ to identify the most appropriate data type for each field based on the data\n\
+    shown in the table BookList\nField\nData type\nCatNo\nTitle\nFiction\nPrice\n\n\
+    [2]\n\n(d) Write the output from this structured query language (SQL) statement.\n\
+    \nSELECT CatNo, Title, Author\n\nFROM BookList\n\nWHERE StockLevel = 0;\n  [2]\n\
+    \n(e) Complete this SQL statement to display all the titles by the author B Penn.\n\
+    SELECT   FROM   WHERE   ;\n\n[2]"
   answer_options: []
   subquestions:
   - number: 9a
@@ -146,7 +394,15 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10 The variables X, Y and Z are used in a program: X stores a whole number,\
+    \ Y stores a decimal\nnumber and Z stores a flag that can be set to TRUE or FALSE\n\
+    \n(a) Write pseudocode statements to declare the variables X, Y and Z\n  [3]\n\
+    \n(b) The function Same(A,B) returns TRUE if the value of A is the same as the\
+    \ value of B when B\nis rounded to the nearest whole number and FALSE otherwise.\n\
+    \nWrite pseudocode statements to:\n•\ndefine the function\n•\ncall the function\
+    \ with X and Y and store the return value in Z\nFunction definition   Function\
+    \ call   [6]\n\n(c) State the difference between defining and calling a function\
+    \ [1]"
   answer_options: []
   subquestions:
   - number: 10a

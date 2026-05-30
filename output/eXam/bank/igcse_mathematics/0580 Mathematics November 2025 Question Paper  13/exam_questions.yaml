@@ -2,7 +2,19 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '1
+
+    A
+
+    B
+
+
+    (a) Measure the length of line AB in centimetres cm [1]
+
+
+    (b) Draw a line that is parallel to line AB.
+
+    [1]'
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,7 +32,9 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Write the number 83 042 in words [1]\n\n(b) Write down the value of\
+    \ the 7 in the number 346 709 [1]\n\n(c) Write 8453 correct to\n\n(i) the nearest\
+    \ hundred\n\n  [1]\n\n(ii) the nearest ten [1]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -56,7 +70,8 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\na\n\n(a) Measure angle a [1]\n\n(b) Write down the mathematical name of\
+    \ this type of angle [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -74,13 +89,123 @@ questions:
 - number: '4'
   question_type: calculation
   marks: 2
-  text: ''
+  text: '4
+
+    Ben records the favourite sport of each of 20 students.
+
+
+    Football Cricket Hockey Rugby Football Tennis Rugby Football Football Rugby
+
+
+    Tennis Football Rugby Football Cricket Football Rugby Football Cricket Cricket
+
+
+    Complete the frequency table.
+
+
+    You may use the tally column to help you.
+
+    Sport
+
+    Tally
+
+    Frequency
+
+    Cricket
+
+    Football
+
+    Hockey
+
+    Rugby
+
+    Tennis
+
+
+    [2]'
   answer_options: []
   subquestions: []
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    The diagram shows quadrilateral ABCD on a cm
+
+    1
+
+    2 grid.
+
+    – 4
+
+    – 3
+
+    – 2
+
+    – 1
+
+    1
+
+    0
+
+    2
+
+    A
+
+    D
+
+    C
+
+    B
+
+    3
+
+    4
+
+    y
+
+    x
+
+    4
+
+    3
+
+    2
+
+    1
+
+    – 1
+
+    – 2
+
+    – 3
+
+    – 4
+
+
+    (a) Write down the coordinates of point B.
+
+
+    ( ,  ) [1]
+
+
+    (b) Write down the mathematical name of quadrilateral ABCD [1]
+
+
+    (c) Find the area of quadrilateral ABCD cm2 [1]
+
+
+    (d) On the grid, plot the point E at (
+
+    , )
+
+    3 2
+
+    –
+
+    .
+
+    [1]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -116,19 +241,42 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "6\nAnna thinks of a number, she multiplies it by 2 and then finds the square\
+    \ root.\n\nThe answer is 12.\n\nWhat number did Anna think of?\n\n  [2]"
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "7\nA journey starts at 10 55 and ends at 16 10.\n\nFind how long the journey\
+    \ takes.\n\nGive your answer in hours and minutes h   min [1]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    These are the masses, in kg, of each of 11 bags.
+
+    23  16  8  10  27  19  4  17  13  4  14
+
+
+    (a) Complete the stem-and-leaf diagram to show this information.
+
+    0
+
+    1
+
+    2
+
+
+    Key: 2 | 7 represents 27 kg
+
+    [2]
+
+
+    (b) Find the median kg [1]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -146,13 +294,62 @@ questions:
 - number: '14'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '14 Victoria invests $2000 at a rate of 5% per year simple interest.
+
+
+    Calculate the value of her investment after 4 years.
+
+
+    $   [3]
+
+    15 Complete each statement.
+
+
+    (a)
+
+    .
+
+    m
+
+    0 0000047
+
+    2 =  cm2.
+
+
+    [1]
+
+
+    (b)
+
+    cm
+
+    8500
+
+    3 =  litres.
+
+
+    [1]
+
+    16 Kai, Jo and Liz share some money in the ratio   Kai : Jo : Liz  = 4 : 7 : 13.
+
+
+    Jo receives $1400.
+
+
+    Find the total amount of money they share.
+
+
+    $   [3]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "9\nFind the value of\n\n(a) 25\n\n  [1]\n\n(b) 60 [1]"
   answer_options: []
   subquestions:
   - number: 9a
@@ -170,7 +367,13 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10\nx°\ny°\n40°\nNOT TO\nSCALE\n\nThe diagram shows an isosceles triangle\
+    \ between a pair of parallel lines.\n\n(a) Find the value of x.\n\nx =   [2]\n\
+    \n(b) Find the value of y.\n\nGive a geometrical reason for your answer.\ny =\
+    \   because   [2]\n11 (a) Sam buys 3 apples at 40 cents each.\n\nHe also buys\
+    \ 5 peaches.\n\nThe total cost is $3.45 .\n\nFind the cost of 1 peach cents [3]\n\
+    \n(b) Pears cost 55 cents each.\n\nBananas cost 36 cents each.\n\nWrite an expression,\
+    \ in cents, for the cost of x pears and y bananas [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 10a
@@ -206,7 +409,9 @@ questions:
 - number: '12'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "12\n\n(a) Simplify.\n\ny\ny\ny\n3\n4\n2\n-\n+\n\n  [1]\n\n(b) Solve.\n\n\
+    (i)\nx\n5\n19\n+\n=\n\nx =   [1]\n\n(ii)\nx\n6\n5\n7\n-\n=\n\nx =   [2]\n,\t\t\
+    ,"
   answer_options: []
   subquestions:
   - number: 12a
@@ -236,7 +441,32 @@ questions:
 - number: '13'
   question_type: calculation
   marks: 1
-  text: ''
+  text: '13
+
+    2
+
+    3
+
+    0
+
+    1
+
+    – 2
+
+    – 1
+
+    – 4
+
+    – 3
+
+    – 6
+
+    – 5
+
+    x
+
+
+    Write down the inequality represented on the number line [2]'
   answer_options: []
   subquestions: []
 - number: '15'
@@ -260,7 +490,11 @@ questions:
 - number: '17'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "17 (a)\nk\nk\nk\nx\n5\n20\n#\n=\n\nFind the value of x.\n\nx =   [1]\n\n\
+    (b) Expand and simplify.\n\n(\n)(\n)\nx\nx\n5\n4\n+\n-\n\n  [2]\n\n(c) Factorise.\n\
+    \nr\nr\n21\n7\n3 -\n\n  [2]\n18 The diameter of a circle is 16 cm.\n\nFind the\
+    \ area of the circle.\n\nLeave your answer in terms of r cm2 [2]\n19 Find the\
+    \ number of sides of a regular polygon with interior angle 160° [2]"
   answer_options: []
   subquestions:
   - number: 17a
@@ -296,7 +530,12 @@ questions:
 - number: '20'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "20 The height, h cm, of a door is 180 cm, correct to the nearest centimetre.\n\
+    \nComplete this statement about the value of h h 1\nG\n  [2]\n21 These are the\
+    \ first four terms of a sequence.\n\n6\n–    1    8   15\n\n(a) Write down the\
+    \ next term [1]\n\n(b) Write down the term-to-term rule [1]\n\n(c) (i) Find the\
+    \ nth term [2]\n\n(ii) Is 688 a term in this sequence?\n\n Explain how you decide\
+    \ because  [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '21'
@@ -338,13 +577,19 @@ questions:
 - number: '22'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "22 The diagram shows triangles A and B.\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n\
+    10\n9\ny\nx\n8\n7\nB\nA\n6\n5\n1\n2\n3\n4\n\nDescribe fully the single transformation\
+    \ that maps triangle A onto triangle B [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '23'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "23 (a)\nA\nB\n%\n\nUse set notation to describe the shaded region [1]\n\n\
+    (b)\n\n% = {people in a club}\n\nT = {people who play tennis}\n\nS = {people who\
+    \ go swimming}\n\nThere are 60 people in the club.\n\n36 people go swimming.\n\
+    T\nS\n30\n10\n%\n\n(i) Complete the Venn diagram.\n[2]\n\n(ii) Find (\n)\nn Tl\
+    \  [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 23a
@@ -374,7 +619,10 @@ questions:
 - number: '24'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "24 (a) The scale on a map is 1 cm represents 12 km.\n\nWrite this in the\
+    \ ratio 1 : n .\n\n1 :   [1]\n\n(b) The bearing of B from A is 070°.\n\nFind the\
+    \ bearing of A from B [2]\n25 Work out.\n\n4\n3\n1 3\n2\n#\n\nGive your answer\
+    \ as a mixed number in its simplest form [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 24a
@@ -398,7 +646,13 @@ questions:
 - number: '26'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "26 There are 2 sets of traffic lights on Li’s journey to work.\n\nThe probability\
+    \ he stops at the first set of traffic lights is 0.4 .\n\nThe probability he stops\
+    \ at the second set of traffic lights is 0.7 .\nSecond set of traffic lights\n\
+    First set of traffic lights\n Stops\nDoes not stop\nStops\nDoes not stop\nStops\n\
+    0.4\nDoes not stop\n\n(a) Complete the tree diagram.\n[2]\n\n(b) Work out the\
+    \ probability that Li does not stop at both sets of traffic lights [2]\nQuestion\
+    \ 27 is printed on the next page.\n,\t,"
   answer_options: []
   subquestions:
   - number: 26a

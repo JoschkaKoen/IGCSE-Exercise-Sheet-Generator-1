@@ -2,7 +2,16 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Define density [1]\n\n(b) Fig. 1.1 shows a cuboidal glass block.\n\
+    z\nx\ny\nFig. 1.1 (not to scale)\n\nA student measures the mass m of the block\
+    \ and the side lengths x, y and z. The\nmeasurements are shown in Table 1.1.\n\
+    Table 1.1\nquantity\nmeasurement\nm\n(0.243 ± 0.001) kg\nx\n(5.41 ± 0.01) cm\n\
+    y\n(11.09 ± 0.01) cm\nz\n(1.62 ± 0.01) cm\n,\t,\n\n(i) Determine the density of\
+    \ the glass.\n\ndensity =   kg m–3 [2]\n\n(ii) Calculate the percentage uncertainty\
+    \ in the density.\n\npercentage uncertainty =   % [3]\n\n(c) The true value of\
+    \ the density of the glass is different from the answer in (b)(i) because of a\n\
+    systematic error in the measurements.\n\nSuggest one possible cause of this systematic\
+    \ error [1]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +47,17 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Define linear momentum [1]\n\n(b) A car of mass 1800 kg is moving\
+    \ in a straight line. Fig. 2.1 shows the variation with time t of\nthe momentum\
+    \ p of the car.\n0\n0\n2\n4\n6\n8\n2\n4\n6\n8\n10\nt / s\np / 104 N s\n12\nFig.\
+    \ 2.1\n\n(i) Calculate the maximum speed reached by the car.\n\nmaximum speed\
+    \ =   m s–1 [1]\n\n(ii) Calculate the maximum kinetic energy of the car.\n\nmaximum\
+    \ kinetic energy =   J [2]\n,\t,\n\n(iii) Show that the acceleration of the car\
+    \ at time t = 4.0 s is 5.0 m s–2.\n\n[2]\n\n(iv) Determine the distance travelled\
+    \ by the car between times t = 0 and t = 12.0 s.\n\ndistance =   m [2]\n\n(c)\
+    \ On Fig. 2.2, sketch the variation with time t of the acceleration a of the car\
+    \ in (b) from t = 0 to\nt = 12.0 s.\n−10\n−5\n0\n5\n10\na / m s−2\n0\n2\n4\n6\n\
+    8\n10\nt / s\n12\nFig. 2.2\n\n[3]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -86,7 +105,22 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\n(a) State what is meant by the work done by a force [1]\n\n(b) A block\
+    \ of mass m is raised vertically at constant speed. The vertical height gained\
+    \ by the\nblock is Δh, as shown in Fig. 3.1.\nΔh\nblock,\nmass m\nFig. 3.1\n\n\
+    Derive an expression, in terms of m and Δh, for the change in gravitational potential\
+    \ energy\nΔEP of the block. State the meaning of any other symbols you use.\n\n\
+    [2]\n\n(c) An electric motor has an input power of 900 W. The motor takes 1.0\
+    \ minute to lift a load\nof weight 240 N at constant speed through a vertical\
+    \ height of 150 m. Resistive forces are\nnegligible.\n\n(i) Show that the work\
+    \ done by the motor on the load in 1.0 minute is 36 kJ.\n\n[1]\n,\t\t,\n\n(ii)\
+    \ Determine the useful output power of the motor.\n\npower =   W [2]\n\n(iii)\
+    \ Use your answer in (c)(ii) to determine the efficiency of the motor.\n\nefficiency\
+    \ =   [2]\n\n(iv) Some of the power wasted in the motor is dissipated by the resistance\
+    \ of its coil. This\ndissipated power is 280 W.\n\n The coil of the motor is made\
+    \ from wire of total length 23 m. The wire has a cross-\nsectional area of 2.6\
+    \ × 10–8 m2 and is made from metal of resistivity 1.7 × 10–8 Ω m.\n\n Calculate\
+    \ the current in the coil.\n\ncurrent =   A [3]\n\n[Total: 11]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -134,7 +168,17 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) Define the Young modulus of a material [1]\n\n(b) A metal wire P that\
+    \ obeys Hooke’s law is stretched within its limit of proportionality.\n\n(i) On\
+    \ Fig. 4.1, sketch the variation of tensile force F in the wire with its extension\
+    \ x.\n0\n0\nF\nx\nFig. 4.1\n\n[1]\n\n(ii) State the name of the quantity represented\
+    \ by the gradient of the line in Fig. 4.1 [1]\n\n(iii) State the name of the quantity\
+    \ represented by the area under the line in Fig. 4.1 [1]\n\n(c) Another wire Q\
+    \ is made from a metal that has twice the Young modulus of the metal of wire P\n\
+    in (b). Wire Q has the same volume as wire P but has double the cross-sectional\
+    \ area of\nwire P.\n\nThe two wires are extended by equal tensile forces within\
+    \ their limits of proportionality.\n\nState and explain how the extension of wire\
+    \ Q compares with the extension of wire P [3]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -176,7 +220,13 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) Potassium-40 (40\n19K) undergoes β– decay to form a nuclide of element\
+    \ X. Particle Z is emitted\nduring the decay. The equation for the decay is shown.\n\
+    40\n19K\n P\nQ X + R\nS β– + Z\n\n(i) State the values of P, Q, R and S.\n\nP\
+    \ =  R =  Q =  S =  [2]\n\n(ii) State the name of particle Z [1]\n\n(iii) State\
+    \ the name of the class of fundamental particle to which both the β– particle\
+    \ and\nparticle Z belong [1]\n\n(b) Determine the quark composition of an alpha-particle.\n\
+    \nquark composition   [3]\n\n[Total: 7]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -212,7 +262,22 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nTwo coherent sources X and Y of microwaves of frequency 2.5 × 1010 Hz\
+    \ are a distance of 0.18 m\napart in a vacuum, as shown in Fig. 6.1.\nP\nQ\n2.3\
+    \ m\n0.18 m\nA\nO\nX\nY\nFig. 6.1 (not to scale)\n\nThere is a phase difference\
+    \ of 90° between the waves emitted at the two sources.\n\nA microwave detector\
+    \ moves along the line PQ, which is parallel to the line joining the two sources\n\
+    and 2.3 m away from it.\n\nPoint O is on the line PQ at a position that is equidistant\
+    \ from the two sources.\n\nPoint A is the position on line PQ where the intensity\
+    \ of the microwaves is the greatest.\n\n(a) (i) Explain why the position of greatest\
+    \ intensity is not at point O [2]\n\n(ii) On Fig. 6.1, draw a cross (×) to show\
+    \ the position of the point on line PQ where the\nintensity minimum that is the\
+    \ closest to point O occurs. Label this point B.\n[2]\n,\t,\n\n(b) (i) Show that\
+    \ the wavelength of the microwaves is 0.012 m.\n\n[2]\n\n(ii) For point A on line\
+    \ PQ, determine the difference in the distances Δx travelled by the\nmicrowaves\
+    \ from X and the microwaves from Y.\n\nΔx =   m [1]\n\n(iii) Use the formula for\
+    \ the double-slit interference of light to calculate the distance between\nadjacent\
+    \ intensity maxima on line PQ.\n\ndistance =   m [2]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -260,7 +325,19 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\n(a) Fig. 7.1 shows two resistors connected in series with a cell of electromotive\
+    \ force (e.m.f.)\n1.50 V and internal resistance 0.28 Ω.\n1.0 Ω\n1.50 V\nI\n0.28\
+    \ Ω\nR\nFig. 7.1\n\nOne of the resistors has resistance 1.0 Ω. The other resistor\
+    \ has resistance R.\n\nThe terminal potential difference (p.d.) across the cell\
+    \ is 1.36 V.\n\n(i) Show that the current I in the circuit is 0.50 A.\n\n[2]\n\
+    \n(ii) Calculate the combined resistance of the two resistors.\n\nresistance =\
+    \   Ω [2]\n\n(iii) Use your answer in (a)(ii) to determine resistance R.\n\nR\
+    \ =   Ω [1]\n,\t,\n\n(b) The circuit in Fig. 7.1 is disconnected and the two resistors\
+    \ are reconnected to the cell, now\nin parallel with each other.\n\n(i) On Fig.\
+    \ 7.2, complete the circuit diagram to show this arrangement.\n1.50 V\n0.28 Ω\n\
+    Fig. 7.2\n\n[1]\n\n(ii) Explain, without calculation, whether the terminal p.d.\
+    \ across the cell is now less than,\nequal to or greater than 1.36 V [2]\n\n[Total:\
+    \ 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a

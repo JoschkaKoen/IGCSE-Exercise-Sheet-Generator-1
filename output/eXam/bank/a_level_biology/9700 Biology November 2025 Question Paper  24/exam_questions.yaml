@@ -2,7 +2,29 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nThere are similarities and differences between the structure of a typical\
+    \ plant cell and a typical\nanimal cell.\n\n(a) The nucleus of plant cells and\
+    \ animal cells contains chromosomes. In interphase of the cell\ncycle, individual\
+    \ chromosomes are present but cannot be seen. The chromosome material is\nknown\
+    \ as chromatin.\n\n(i) Changes occur in interphase, which result in a difference\
+    \ between the chromatin in the\nG1 phase compared with the chromatin in the G2\
+    \ phase.\n\n State and explain the difference in chromatin in the G1 phase compared\
+    \ with chromatin\nin the G2 phase [2]\n\n(ii) Describe the features of a nucleus,\
+    \ other than containing chromatin.\n\n You may use the space below the lines for\
+    \ a diagram [3]\n,\t,\n\n(b) Starch, cellulose and pectins are polysaccharides\
+    \ found in plant cells but not in animal cells.\n\nPectins are complex polysaccharides\
+    \ that are found in the cell wall.\n\n(i) Describe the structural features of\
+    \ starch that are different from the structural features\nof cellulose [4]\n\n\
+    (ii) Cell wall pectins can vary in different plant cell types and in different\
+    \ stages of cell\ndevelopment. Pectin molecules are released from cells as basic\
+    \ structures and then\nmodified within the cell wall by adding side chains.\n\n\
+    \ RG‑I is a pectin molecule with a variable structure. The basic structure is\
+    \ a repeated\ndisaccharide made from two different monosaccharides. RG‑I has three\
+    \ different side\nchains that can be added in different positions.\n\n Monoclonal\
+    \ antibodies (mAbs) are used to investigate the structure, location and role of\n\
+    cell wall pectins.\n\n Suggest and explain why scientists need to use a number\
+    \ of different monoclonal\nantibodies when investigating a pectin such as RG‑I\
+    \ [3]\n[Total: 12]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -44,7 +66,58 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nCholera, malaria and tuberculosis (TB) are infectious diseases caused\
+    \ by unicellular organisms.\n\n(a) For each of the diseases listed, state whether\
+    \ the disease is caused by a eukaryotic or\nprokaryotic organism.\n\ncholera \
+    \  malaria   TB   [1]\n\n(b) State the term given to an organism that causes diseases\
+    \ such as cholera, malaria and TB [1]\n\n(c) Malaria is caused by species from\
+    \ the genus Plasmodium.\n\nRing cells are one stage in the complex life cycle\
+    \ of Plasmodium that are found within red\nblood cells. Fig. 2.1 is a scanning\
+    \ electron micrograph showing two ring cells, surrounded by\nthe membrane of a\
+    \ red blood cell, which has just lysed (burst).\nX\nY\nFig. 2.1\n\n(i) The actual\
+    \ diameter of the ring cell along the length X–Y is 2 µm.\n\n Calculate the magnification\
+    \ of the image shown in Fig. 2.1.\n\n Give your answer to 3 significant figures.\n\
+    \nmagnification = ×  [2]\n,\t,\n\n(ii) Describe how Plasmodium is transmitted\
+    \ from a person with malaria into the blood\nstream of an uninfected person [3]\n\
+    \n(d) In a person with malaria, phagocytes destroy infected red blood cells. The\
+    \ phagocytes\nrespond to the presence of particular molecules in the outer phospholipid\
+    \ bilayer of the cell\nsurface membrane.\n\nThe cell surface membrane of a healthy,\
+    \ uninfected red blood cell shows an uneven distribution\nof types of phospholipid\
+    \ making up the bilayer (membrane asymmetry). For example, most of\nthe phospholipid\
+    \ phosphatidylserine (PS) is located in the inner layer, facing the cytoplasm.\n\
+    \n(i) After a red blood cell is infected, a much higher proportion of PS is found\
+    \ in the outer\nlayer of the cell surface membrane, facing blood plasma.\n\n Suggest\
+    \ how the presence of PS in the outer layer can cause a response in a\nphagocytic\
+    \ cell [2]\n\n(ii) Suggest why some uninfected red blood cells in a person with\
+    \ malaria can also be\ndestroyed by phagocytic cells [1]\n,\t,\n\n(e) Research\
+    \ has shown that Plasmodium uses cholesterol from the cell surface membrane of\n\
+    the red blood cell it has infected.\n\n(i) Suggest why cholesterol is needed by\
+    \ Plasmodium [1]\n\n(ii) The use of cholesterol by Plasmodium causes a decrease\
+    \ in the quantity of cholesterol\nin the cell surface membrane of the red blood\
+    \ cell.\n\n Outline how a decrease in cholesterol could affect the cell surface\
+    \ membrane of the red\nblood cell [2]\n\n(f) To achieve membrane asymmetry, which\
+    \ is an essential feature of a healthy cell, the red\nblood cell needs a supply\
+    \ of ATP and must maintain a very low concentration of calcium ions\n(Ca2+) within\
+    \ the cytoplasm.\n\nTable 2.1 shows details of three membrane enzymes that are\
+    \ involved in the movement of\nphospholipids between the inner and outer layers.\n\
+    \nTable 2.1\n\nkey\n\nPS = phosphatidylserine\n\nPE = phosphatidylethanolamine\n\
+    \nPC = phosphatidylcholine\nenzyme\nenzyme action\nflippase\nhydrolyses ATP and\
+    \ moves PS and PE from the outer to the inner layer\nfloppase\nhydrolyses ATP\
+    \ and moves PC from the inner to the outer layer\nscramblase\nafter binding Ca2+,\
+    \ randomly moves PS, PE and PC between layers\ntype of phospholipid\n,\t,\n\n\
+    A healthy red blood cell has most PS and PE located in the inner layer and most\
+    \ PC located\nin the outer layer.\n\n(i) Phospholipids can occasionally move between\
+    \ layers without the action of an enzyme,\nso the continued activity of flippase\
+    \ and floppase is needed.\n\n With reference to Table 2.1, explain why the action\
+    \ of the enzymes flippase and floppase\ninvolves the hydrolysis of ATP [1]\n\n\
+    (ii) Blood plasma has a higher concentration of Ca2+ than the cytoplasm of red\
+    \ blood cells.\n\n Suggest one way in which a red blood cell can have a very low\
+    \ concentration of Ca2+\nwhen blood plasma has a higher concentration of Ca2+\
+    \ [1]\n\n(iii) The concentration of Ca2+ within the red blood cell increases when\
+    \ the cell is infected\nwith the malarial parasite. This leads to the loss of\
+    \ membrane asymmetry.\n\n With reference to Table 2.1, suggest and explain how\
+    \ membrane asymmetry is lost when\nthe concentration of Ca2+ within the red blood\
+    \ cell increases [3]\n[Total: 18]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -140,7 +213,45 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nSmall interfering RNA (siRNA) is a short length of double‑stranded RNA\
+    \ (dsRNA), approximately\n21 to 25 nucleotides long. siRNA helps to regulate protein\
+    \ synthesis in cells.\n\n(a) Fig. 3.1 is an outline summary of one way in which\
+    \ a primary transcript can be processed to\nproduce a molecule of siRNA. The transcript\
+    \ does not code for a sequence of amino acids.\nprimary\ntranscript\nsection with\
+    \ paired\nnucleotides\nloop with\nunpaired\nnucleotides\n5'\n3'\nDrosha\n5'\n\
+    3'\nDicer\n5'\n3'\n5'\n3'\n3'\n5'\n21 nucleotides\nsiRNA\nstep 1: a primary transcript\
+    \ is\nsynthesised from one strand of DNA\nstep 2: the primary transcript loops\
+    \ and\na section of the RNA becomes\ndouble stranded\nstep 3: the enzyme Drosha\
+    \ attaches\nand cleaves (cuts) the RNA to produce a\nshorter length\nstep 4: in\
+    \ the cytoplasm, the enzyme\nDicer attaches and cleaves the RNA\nstep 5: siRNA,\
+    \ which is double stranded\nand has 2 unpaired nucleotides at each\n3' end, is\
+    \ produced\n\nFig. 3.1\n,\t\t,\n\n(i) In step 2 in Fig. 3.1, the single‑stranded\
+    \ primary transcript loops and forms a section\nwhere dsRNA is present.\n\n Explain\
+    \ how it is possible for the double‑stranded section of RNA to be held together\
+    \ in\nstep 2 and maintained this way in steps 3, 4 and 5 [2]\n\n(ii) After step\
+    \ 3, the shorter dsRNA produced by the action of Drosha is transported to the\n\
+    cytoplasm, where it is cleaved further by Dicer to produce ds siRNA.\n\n Suggest\
+    \ why two different enzymes, Drosha and Dicer, are needed to cut dsRNA into\n\
+    shorter lengths [2]\n\n(b) From 2018, siRNA has been used as a therapeutic drug\
+    \ to treat a number of diseases.\n\nThe presence of molecules of siRNA in the\
+    \ cytoplasm can result in the cleavage of messenger\nRNA (mRNA) molecules coding\
+    \ for a protein involved in the disease. This prevents the\nsynthesis of the protein.\n\
+    \nDescribe the differences between a molecule of mRNA and a molecule of siRNA,\
+    \ such as the\nsiRNA shown in step 5 in Fig. 3.1 [2]\n,\n,\n\n(c) Fig. 3.2 summarises\
+    \ how mRNA coding for a protein involved in disease can be targeted and\ncleaved\
+    \ by siRNA.\npassenger strand (not required)\nsiRNA\nguide strand\n(required)\n\
+    guide strand\nAGO2\nproteins\npresence of siRNA\nactivates a protein,\nAGO2, which\
+    \ binds\nsiRNA and other proteins\nto form a complex known\nas RISC\nRISC uses\
+    \ guide strand to\ntarget and bind mRNA\nfor cleavage\npassenger strand is\nseparated\
+    \ from RISC\nRISC\npassenger strand\nreleased into cytoplasm\nsite of cleavage\n\
+    mRNA\n\nFig. 3.2\n,\t,\n\n(i) With reference to Fig. 3.2, state why the passenger\
+    \ strand needs to be separated and\nreleased from the RISC [1]\n\n(ii) The aim\
+    \ of siRNA therapy is to prevent or decrease the synthesis of a protein involved\
+    \ in\nthe disease being treated.\n\n A target mRNA molecule can be cleaved in\
+    \ a different location by a RISC with a\ndifferent siRNA.\n\n Suggest how cleaving\
+    \ mRNA in different locations will have different effects on protein\nsynthesis\
+    \ and explain how these different effects can result in a lack of functioning\
+    \ protein [3]\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -188,7 +299,21 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nIn mammals, the gas exchange system includes a set of branching airways\
+    \ that carry air to and\nfrom the gas exchange surface.\n\nAir from the external\
+    \ atmosphere passes through different types of airway to reach the gas\nexchange\
+    \ surface.\n\n(a) Name the type of airway of the gas exchange system that branches\
+    \ into airways known\nas bronchioles [1]\n\n(b) Fig. 4.1 is a photomicrograph\
+    \ of a section through a bronchiole.\nT\n\nFig. 4.1\n,\t,\n\n(i) The bronchiole\
+    \ shown in Fig. 4.1 is not part of the gas exchange surface.\n\n Name one structure\
+    \ in the gas exchange system, visible in Fig. 4.1, where gas\nexchange is carried\
+    \ out [1]\n\n(ii) Name the type of cell found in the tissue labelled T in Fig.\
+    \ 4.1 [1]\n\n(iii) State the features that help to identify the type of airway\
+    \ shown in Fig. 4.1 as a bronchiole\nand not the other types of airway present\
+    \ in the gas exchange system [3]\n\n(c) Blood is pumped to the lungs in the pulmonary\
+    \ circulation.\n\nThe lungs also receive a supply of blood from the systemic circulation.\n\
+    \nExplain why the pulmonary circulation and the systemic circulation need to supply\
+    \ blood to\nthe lungs [2]\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -230,7 +355,16 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nVeins transport blood towards the heart. The structure of a vein is adapted\
+    \ to its function.\n\n(a) The inner layer of a vein is the tunica intima, composed\
+    \ of a single layer of endothelial cells\nthat form a protective barrier.\n\n\
+    When the tunica intima of a blood vessel is damaged, endothelial cells can carry\
+    \ out mitosis\nto allow tissue repair to occur.\n\n(i) The spindle that is formed\
+    \ during mitosis is composed of spindle fibres.\n\n Name the cell structures that\
+    \ are organised to form spindle fibres during mitosis [1]\n\n(ii) Describe the\
+    \ telophase stage of mitosis [2]\n\n(b) Explain how the structure of a vein is\
+    \ related to its function.\n\nYou do not need to include details of the structure\
+    \ of the tunica intima and its function [3]\n[Total: 6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -260,7 +394,18 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) State and explain why the same leaf of a plant can be described as\
+    \ a source or as a sink,\ndepending on the stage of maturity (age) of the leaf\
+    \ [2]\n\n(b) Fig. 6.1 lists seven types of plant cell found in leaves.\n1\nepidermal\
+    \ cell\n2\nguard cell\n3\npalisade mesophyll cell\n4\nphloem sieve tube element\n\
+    5\nsclerenchyma cell\n6\nspongy mesophyll cell\n7\nxylem vessel element\nFig.\
+    \ 6.1\n\nMatch the correct type of cell from the list in Fig. 6.1 with each statement,\
+    \ A to E.\n\nEach cell type can be used once, more than once, or not at all.\n\
+    \nThe first match has been done for you.\n\nA This is a thick‑walled cell that\
+    \ provides support B This cell is one of a pair of cells that form a stoma C This\
+    \ cell receives water to build up hydrostatic pressure for mass flow D This cell\
+    \ needs water for photosynthesis and is columnar‑shaped E This cell secretes a\
+    \ waxy substance to help prevent water loss [4]\n[Total: 6]\n5\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

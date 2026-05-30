@@ -2,7 +2,35 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA student investigates the reflection of light by a plane mirror.\n\n\
+    The student’s ray-trace is shown full-size in Fig. 1.1.\nL\nN\nM\n  1\nP\nR\n\
+    \  2\nFig. 1.1\n\n(a) The student:\n•\ndraws line LN\n•\nlabels the mid-point\
+    \ of LN with the letter M\n•\ndraws a line PR parallel to LN and 10.0 cm below\
+    \ it\n\nOn Fig. 1.1, draw a normal to LN at the point M. Extend the normal downwards\
+    \ until it crosses\nthe line PR. Label the point at which the normal crosses PR\
+    \ with the letter Q.\n[1]\n,\t,\n\n(b) On Fig. 1.1, draw a line 14.0 cm long from\
+    \ point M at an angle θ = 10°, as shown in Fig. 1.2.\n\nLabel the other end of\
+    \ the line O.\n[2]\nL\nN\nO\nM\nθ\nFig. 1.2\n\n(c) The student:\n•\nplaces the\
+    \ reflecting surface of a mirror along the line LN, with its reflecting surface\n\
+    facing the bottom of the page, and with the centre of the mirror at M\n•\npositions\
+    \ a light source and slit so that a ray of light passes along the line OM towards\
+    \ M\n•\nmarks two small crosses X1 and X2, a suitable distance apart on the ray\
+    \ reflected from\nthe mirror\n•\nremoves the mirror and the illuminated slit.\n\
+    \n(i) On Fig. 1.1, draw a line joining M to X1 and X2.\n\n Continue the line until\
+    \ it crosses the line PR and label the point where it crosses PR with\nthe letter\
+    \ T.\n[1]\n\n(ii) Measure the length a of the line QT in centimetres to the nearest\
+    \ millimetre and the length\nb of the line MT in centimetres to the nearest millimetre.\
+    \ Record your measurements\nbelow and in Table 1.1.\n\na =   cm\n\nb =   cm\n\n\
+    [1]\n,\t,\n\n(d) Calculate the ratio r = a\nb . Record your answer in Table 1.1.\n\
+    \nGive your answer to 2 significant figures.\n\nTable 1.1\nθ / °\na / cm\nb /\
+    \ cm\nr =\na\nb\n10\n20\n4.2\n12.8\n0.33\n30\n6.8\n13.7\n0.50\n\n[2]\n\n(e) The\
+    \ student repeats the procedure in (b) and (c) for values of θ = 20° and θ = 30°.\n\
+    \nThe student’s results are recorded in Table 1.1.\n\nThe student states that\
+    \ r is directly proportional to θ.\n\nState if you agree with the student.\n\n\
+    Use values from Table 1.1 to justify your answer.\nstatement   justification \
+    \  [2]\n\n(f) Suggest what the student can do to have more confidence in their\
+    \ answer to part (e) [1]\n\n(g) Suggest one source of inaccuracy in this experiment,\
+    \ even if it is carried out very carefully [1]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -62,7 +90,29 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nA student investigates an electric circuit to find the resistance of an\
+    \ unknown resistor Z.\n\nThe student sets up the incomplete circuit shown in Fig.\
+    \ 2.1. There is a gap between the points\nlabelled X and Y.\nV\nX\nZ\nY\n+\n–\n\
+    Fig. 2.1\n\n(a) The student:\n•\ncloses the switch\n•\nrecords the voltmeter reading\
+    \ V0\n•\nopens the switch.\n\nThe reading on the voltmeter is shown in Fig. 2.2.\n\
+    \nRecord the voltmeter reading V0.\n\nV\n3\n4\n5\n2\n1\n0\nFig. 2.2\n\nV0 =  \
+    \ V [1]\n,\t,\n\n(b) The student:\n•\nconnects a 10 Ω resistor between points\
+    \ X and Y\n•\ncloses the switch\n•\nrecords, in Table 2.1, the reading V on the\
+    \ voltmeter\n•\nopens the switch\n•\nrepeats this procedure for resistors of resistances\
+    \ R = 22 Ω, 39 Ω, 47 Ω and 68 Ω.\nTable 2.1\nresistance R / Ω\nvoltmeter reading\
+    \ V / V\ncurrent I / A\n10\n1.35\n22\n2.20\n\n0.10\n39\n2.85\n\n0.073\n47\n\n\
+    0.064\n68\n3.37\n\n0.050\n\n(i) Use the voltmeter reading in Table 2.1 when the\
+    \ 10 Ω resistor is connected between X\nand Y to calculate the current I in the\
+    \ circuit. Use the equation:\nI = V\nR\n\n Record your value of I in Table 2.1\
+    \ to 2 significant figures.\n[2]\n\n(ii) The voltmeter reading V for the 47 Ω\
+    \ resistor is missing. Calculate V.\n\nV =   V\n\n Add your answer to Table 2.1.\n\
+    [1]\n,\t,\n\n(c) Plot a graph of V / V (y-axis) against I / A (x-axis). Start\
+    \ your axes at the origin (0,0).\n\nDraw a best-fit straight line.\n\n[4]\n\n\
+    (d) Determine the gradient G of your line. Show all working and indicate on the\
+    \ graph the values\nyou use.\n\nG =   [2]\n\n(e) The gradient of your line is\
+    \ numerically equal to the resistance RZ of the unknown resistor Z.\n\nWrite down\
+    \ the value of the resistance RZ.\n\nRecord your answer to the nearest ohm.\n\n\
+    RZ =   Ω [1]\n\n[Total: 11]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -110,7 +160,31 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA student investigates the cooling of water.\n\nThe student sets up the\
+    \ apparatus shown in Fig. 3.1.\nbeaker\nthermometer\nstand\nFig. 3.1\n\n(a) The\
+    \ student records the room temperature θR.\nθR =  21.5 °C\n  The student:\n•\n\
+    pours 60 cm3 of hot water into the beaker\n•\nwaits for 30 s\n•\nmeasures, and\
+    \ records in Table 3.1 at time t = 0, the temperature θ of the water\n•\nimmediately\
+    \ starts a stop-watch and measures the temperature of the water at one-minute\n\
+    intervals for 5 minutes.\n\nThe reading on the thermometer for time t = 0 is shown\
+    \ in Fig. 3.2.\n°C\n90\n80\nFig. 3.2\n,\n,\n\n(i) Record the temperature in Table\
+    \ 3.1 to the nearest 0.5 °C.\n[1]\n\n(ii) Complete the time t column.\n[1]\nTable\
+    \ 3.1\ntime t /  temperature θ / °C\n0\n80.5\n75.5\n71.0\n67.5\n64.0\n\n(b) (i)\
+    \ Suggest why the student waits for 30 s before measuring the initial temperature\
+    \ of the\nhot water [1]\n\n(ii) State how the student ensures that the temperature\
+    \ readings are as accurate as possible [1]\n\n(c) (i) Calculate the decrease in\
+    \ temperature Δθ  of the hot water during the first two minutes\nof cooling.\n\
+     \nΔθ  =   °C [1]\n\n(ii) Calculate the average rate of cooling R1 of the hot\
+    \ water during the first two minutes of\ncooling.\n\n Use the equation:\nR1 =\
+    \ decrease in temperature\ntime\n\n Include the unit in your answer.\n\nR1 = \
+    \ unit =  [2]\n\n(iii) Calculate the average rate of cooling R2 of the hot water\
+    \ during the final two minutes of\ncooling.\n\nR2 =   [1]\n,\t,\n\n(d) Use your\
+    \ answers in (c)(ii) and (c)(iii) to write a conclusion about the way in which\
+    \ hot water\nin a beaker cools [1]\n\n(e) The water in the beaker is left to continue\
+    \ cooling.\n\n(i) Estimate the temperature of the water θ5 after a further 5 minutes\
+    \ of cooling.\n\nθ5 =   °C [1]\n\n(ii) Estimate the temperature of the water θ50\
+    \ after a further 50 minutes of cooling.\n\n \nθ50 =   °C [1]\n\n[Total: 11]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 3a

@@ -2,7 +2,9 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nThe nth term of a sequence is\nn\n5\n2\n-\n.\n\n(a) Find the 6th term\
+    \ of this sequence [1]\n\n(b) Find the greatest number in this sequence [1]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -20,13 +22,36 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '3
+
+
+    G
+
+    m n
+
+    5
+
+    4
+
+    2
+
+    =
+
+
+    Find the value of G when m = 6 and n = 15.
+
+
+    G =   [1]'
   answer_options: []
   subquestions: []
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nThe stem-and-leaf diagram shows the age of each of 16 adults.\n3\n 2 \
+    \    3     3     5     6     7\n4\n 0     1     5     5     6     8     9\n5\n\
+    \ 1     1     1\n\nKey: 3 | 2 represents age 32 years\n\n(a) Find the mode years\
+    \ [1]\n\n(b) Find the median years [1]\n\n(c) Find the percentage of the 16 adults\
+    \ with an age of less than 38 years % [2]"
   answer_options: []
   subquestions:
   - number: 2a
@@ -50,7 +75,33 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    (a) The scale diagram shows the position of town A on a map.
+
+
+    Town B is 12 km from town A on a bearing of 080°.
+
+
+    Using a scale of 1 cm represents 2 km, mark the position of town B on the diagram.
+
+    North
+
+    A
+
+
+    Scale: 1 cm to 2 km
+
+
+    [2]
+
+
+    (b) The bearing of C from D is 130°.
+
+
+    Work out the bearing of D from C.
+
+    [2]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -68,7 +119,10 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) The diagram shows a regular decagon.\n\nAB is a line of symmetry of\
+    \ the decagon.\nA\nB\nd °\nNOT TO\nSCALE\n\nWork out the value of d.\n\nd =  \
+    \ [3]\n\n(b) The exterior angle of a regular polygon with n sides is 45°.\n\n\
+    Work out the value of n.\n\nn =   [1]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -92,13 +146,16 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: "8\nm is a positive integer.\n\nWrite these values in order of size, starting\
+    \ with the smallest.\nm     33% of m     3\n1 of m     320% of m\n10\n ,  ,  ,\
+    \  [2]\n\nsmallest\n3\n,\t,"
   answer_options: []
   subquestions: []
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nSimplify.\n\n(a) y\ny\n2\n5\n\n  [1]\n\n(b)\nx\nx\n3\n5\n3\n5\n#\n\n \
+    \ [2]"
   answer_options: []
   subquestions:
   - number: 6a
@@ -116,7 +173,11 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nD\nE\nF\ny\nx\n– 6\n– 7\n– 8\n– 5 – 4 – 3 – 2 – 1\n1\n2\n3\n4\n5\n7\n\
+    8\n9\n10 11 12 13 14 15\n– 3\n– 2\n– 1\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n\
+    0\n– 4\n– 5\n– 6\n– 7\n– 8\n6\n\n(a) Describe fully the single transformation\
+    \ that maps triangle D onto triangle E [2]\n\n(b) Describe fully the single transformation\
+    \ that maps triangle D onto triangle F [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -134,13 +195,25 @@ questions:
 - number: '9'
   question_type: calculation
   marks: 2
-  text: ''
+  text: "9\nDraw a ring around the calculation that is equivalent to   n\n2 5\n3\n\
+    '\n .\nn\n2 3\n5\n#\n\nn\n3\n5\n1\n#\n\nn\n5\n13\n#\n\nn\n1\n5\n13\n#\n\nn\n1\n\
+    13\n5\n#\n\n[1]\n10 Solve the simultaneous equations.\n\nYou must show all your\
+    \ working.\n\nx\ny\nx\ny\n3\n5\n5\n2\n5\n45\n+\n=\n-\n=\n\nx =   y =   [2]"
   answer_options: []
   subquestions: []
 - number: '11'
   question_type: calculation
   marks: 2
-  text: ''
+  text: "11\n.2 89\n10 1\n#\n-\n.\n10\n1 3\n12\n#\n\n.\n10\n8 3\n1\n#\n\n10\n9\n1\n\
+    1\n#\n\n.2\n10\n03\n5\n#\n-\n.3\n10\n0\n2\n#\n-\n\nUse a number from the box to\
+    \ complete each statement.\n\nThe number that is not written in standard form\
+    \ is  The largest number is  The smallest number is  [2]\n12 A vase contains flowers\
+    \ that are red or pink or white.\n\nRuth picks a flower at random from the vase.\n\
+    \nThe probability that the flower is not red is 0.9 .\n\nThe probability that\
+    \ the flower is not pink is 0.65 .\n\nFind the probability that the flower is\
+    \ white [2]\n13 The point (5, 1024) lies on the curve y\ncx\n=\n, where c is a\
+    \ whole number.\n\nFind the y-coordinate of the point on the curve with x-coordinate\
+    \ -2 [3]\n,\t\t,"
   answer_options: []
   subquestions: []
 - number: '12'
@@ -158,7 +231,50 @@ questions:
 - number: '14'
   question_type: calculation
   marks: 5
-  text: ''
+  text: '14 These expressions are all equal in value.
+
+
+    x
+
+    3
+
+    5
+
+    2
+
+    -
+
+    x
+
+    10-
+
+    y
+
+    11
+
+    +
+
+
+    Find the value of y.
+
+
+    y =   [5]
+
+    15 The population of a town is 54 000.
+
+
+    The population is decreasing exponentially at a rate of 2% per year.
+
+
+    (a) Calculate the decrease in the population at the end of 4 years [3]
+
+
+    (b) Find the number of complete years it takes for the population of 54 000 to
+    first fall below 44 000 years [2]
+
+    ,
+
+    ,'
   answer_options: []
   subquestions: []
 - number: '15'
@@ -182,7 +298,9 @@ questions:
 - number: '16'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "16 Expand and simplify.\n\n(a)\n(\n)\n(\n)\nx\nx\n7\n2\n4 3\n5\n+\n+\n-\n\
+    \n  [2]\n\n(b) (\n)(\n)\nx\ny\nx\ny\n3\n5\n2\n-\n+\n\n  [2]\n17 Make t the subject\
+    \ of the formula.\n\nx\nt\nt\n5\n7\n=\n-\n\nt =   [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 16a
@@ -206,7 +324,9 @@ questions:
 - number: '18'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "18\n102°\n41.3 cm\nNOT TO\nSCALE\n64.5 cm\n70.2 cm\n52.1 cm\nx°\ny°\n\n(a)\
+    \ Calculate the value of x.\n\nx =   [3]\n\n(b) Calculate the value of y.\n\n\
+    y =   [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 18a
@@ -224,7 +344,10 @@ questions:
 - number: '19'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "19\n\n( )x\n5\nf\nx\n=\n\n( )x\nx\n3\n2\ng\n=\n-\n( )x\nx\n1\nh\n2\n=\n+\n\
+    \n(a) Find ( )\n5\nf\n [1]\n\n(b) Find (\n)x\n8\ng\n [1]\n\n(c) Find\n.\n( )x\n\
+    g 1\n-\n\n( )x\ng 1\n=\n-\n   [2]\n\n(d) Find the positive solution of\n( )x\n\
+    364\ngh\n=\n.\n\nx =   [3]\n\n(e) Find\n.)\n12\n(\nff\n1\n-\n\n  [1]"
   answer_options: []
   subquestions:
   - number: 19a
@@ -260,7 +383,13 @@ questions:
 - number: '20'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "20\ny\nx\nx\nx\n3\n13\n3\n2\n=\n+\n-\n\n(a) Find x\ny\nd\nd  [2]\n\n(b) Find\
+    \ the gradient of the curve   y\nx\nx\nx\n3\n13\n3\n2\n=\n+\n-\n   at the point\
+    \ where x\n3\n=  [2]\n21 A dressmaker takes 75 hours to make 31 dresses.\n\nIn\
+    \ week 1, she takes a total of 12 hours 30 minutes to make the first 4 dresses.\n\
+    \nIn week 2, she makes the remaining 27 dresses at a constant hourly rate.\n\n\
+    Work out the percentage increase in her hourly rate of making dresses from week\
+    \ 1 to week 2 % [4]"
   answer_options: []
   subquestions:
   - number: 20a
@@ -284,7 +413,11 @@ questions:
 - number: '22'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "22 (a)\n45 mm\nx mm\nNOT TO\nSCALE\n10 mm\n14 mm\n\nThe diagram shows two\
+    \ mathematically similar triangles.\n\nFind the value of x.\n\nx =   [2]\n\n(b)\
+    \ The surface areas of two mathematically similar containers are 124 cm2 and 279\
+    \ cm2.\n\nThe capacity of the smaller container is 56 ml.\n\nFind the capacity\
+    \ of the larger container ml [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 22a
@@ -302,7 +435,14 @@ questions:
 - number: '23'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "23 The table shows some information about the mass of each of 200 oranges.\n\
+    Mass (m grams)\nm\n2 0\n180\n0\n1\nG\nm\n2\n2 0\n00\n1\n1\nG\nm\n21\n2\n0\n15\n\
+    1\nG\nm\n215\n230\n1\nG\nFrequency\n32\n64\n74\n30\n\n(a) Calculate an estimate\
+    \ of the mean mass of an orange g [4]\n\n(b) Sarah draws a histogram to show this\
+    \ information.\n\nThe table shows the height of one of the bars for this histogram.\n\
+    \nComplete the table.\nMass (m grams)\nm\n2 0\n180\n0\n1\nG\nm\n2\n2 0\n00\n1\n\
+    1\nG\nm\n21\n2\n0\n15\n1\nG\nm\n215\n230\n1\nG\nHeight of bar (cm)\n7.4\n\n[3]\n\
+    ,\t,"
   answer_options: []
   subquestions:
   - number: 23a
@@ -320,7 +460,10 @@ questions:
 - number: '24'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "24\n13 cm\n6.4 cm\n5.1 cm\nNOT TO\nSCALE\nC\nD\nG\nH\nE\nF\nA\nB\n\nThe diagram\
+    \ shows a cuboid ABCDEFGH.\n\nAE = 6.4 cm, EH = 5.1 cm and AG = 13 cm.\n\n(a)\
+    \ Calculate EF.\n\nEF =   cm [3]\n\n(b) Calculate the angle between the line AG\
+    \ and the base EFGH of the cuboid [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 24a
@@ -338,13 +481,21 @@ questions:
 - number: '25'
   question_type: calculation
   marks: 3
-  text: ''
+  text: "25 Jenna has a length of wire measuring 68 cm, correct to the nearest cm.\n\
+    \nFrom this wire she cuts off two smaller pieces\n•\na piece of length 4.7 cm,\
+    \ correct to the nearest mm\n•\na piece of length 10.0 cm, correct to the nearest\
+    \ mm.\n\nWork out the lower bound and the upper bound for the length of the wire\
+    \ remaining.\n\nLower bound =   cm\n\nUpper bound =   cm\n\n[3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '26'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "26\nm\np\nB\nC\nF\nD\nA\nE\nNOT TO\nSCALE\n\nABCD is a parallelogram.\n\n\
+    m\nAB =\n and\np\nAD =\n.\n\nF is a point on BC and BF = 4FC.\n\nE is a point\
+    \ on AD and AE : ED = 1 : 2.\n\n(a) Find EF , in terms of m and p, in its simplest\
+    \ form [3]\n\n(b) EF and DC are extended to meet at the point G.\n\nFind CG, in\
+    \ terms of m and/or p, in its simplest form.\n[2]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 26a

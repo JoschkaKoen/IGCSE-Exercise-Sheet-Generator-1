@@ -2,7 +2,16 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nBinary numbers can be converted to hexadecimal.\n\n(a) Convert the two\
+    \ binary numbers to hexadecimal.\n10010011   00001101   [4]\nWorking space\n \
+    \ (b) A value is stored as a binary number in a register.\n0\n1\n1\n1\n1\n0\n\
+    1\n0\n\nA logical right shift of three places is performed on the binary number.\n\
+    \n(i) Complete the binary register to show its contents after this logical right\
+    \ shift.\n\n[1]\n\n(ii) State one effect this logical shift has on the binary\
+    \ number [1]\n\n(c) Give two reasons why a programmer may use hexadecimal to represent\
+    \ binary numbers.\n1   2   [2]\n\n(d) Denary numbers can also be converted to\
+    \ hexadecimal.\n\nConvert the denary number to hexadecimal.\n301   [2]\nWorking\
+    \ space"
   answer_options: []
   subquestions:
   - number: 2a
@@ -44,13 +53,56 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '1
+
+    Output devices are used to output data from a computer.
+
+
+    Circle three devices that are output devices.
+
+
+    actuator      digital versatile disk (DVD)       keyboard
+
+
+    microphone         mouse         printer         scanner
+
+
+    sensor      solid‑state drive (SSD)      speaker
+
+
+    [3]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '3
+
+    When keys are pressed on a keyboard, the text is converted to binary to be processed
+    by the
+
+    computer.
+
+
+    (a) Describe how the text is converted to binary to be processed by the computer
+    [3]
+
+
+    (b) Text that is input into a computer can be stored in a text file.
+
+
+    A text file can be compressed using lossless compression.
+
+
+    (i) State what effect this has on the file size [1]
+
+
+    (ii) Describe how lossless compression compresses the text file [4]
+
+
+    (iii) Give two reasons why the text file may have been compressed.
+
+    1   2   [2]'
   answer_options: []
   subquestions:
   - number: 3a
@@ -86,7 +138,48 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '4
+
+    A student uses a mobile phone to take photographs for a school project.
+
+
+    The student needs to transmit the photographs to their computer. They could use
+    serial data
+
+    transmission or parallel data transmission to transmit the photographs.
+
+
+    (a) (i) Describe how the photographs would be transmitted using serial data transmission
+    [2]
+
+
+    (ii) Give two benefits of transmitting the photographs using serial data transmission.
+
+    1   2   [2]
+
+
+    (iii) State one benefit of the student using parallel data transmission instead
+    of serial data
+
+    transmission [1]
+
+
+    (b) The photographs are also transmitted across a network to cloud storage. A
+    device on the
+
+    network forwards the data towards its correct destination.
+
+
+    (i) State the name of this device [1]
+
+
+    (ii) Describe what is meant by cloud storage [2]
+
+
+    (iii) Give one disadvantage of storing the photographs in cloud storage instead
+    of storing
+
+    them locally [1]'
   answer_options: []
   subquestions:
   - number: 4a
@@ -140,7 +233,61 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '5
+
+    A programmer writes a computer program using a high‑level language.
+
+
+    (a) Tick (3) one box to show which statement is correct about writing computer
+    programs in a
+
+    high‑level language.
+
+
+    A
+
+    Mnemonics are used to create instructions.
+
+
+    B
+
+    The computer program is harder to debug than a low‑level language program.
+
+
+    C
+
+    The computer program is machine independent.
+
+
+    D
+
+    The hardware of the computer can be directly manipulated.
+
+
+    [1]
+
+
+    (b) The programmer uses a compiler to translate the computer program.
+
+
+    (i) Describe how the compiler translates the computer program [3]
+
+
+    (ii) Describe how the compiler reports errors [2]
+
+
+    (c) The programmer uses an integrated development environment (IDE) to create
+    the computer
+
+    program.
+
+
+    One function of the IDE is that it has the built‑in compiler.
+
+
+    Give three other common functions of an IDE.
+
+    1   2   3   [3]'
   answer_options: []
   subquestions:
   - number: 5a
@@ -176,7 +323,16 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) Complete the statements about cookies.\n\nUse the terms from the list.\n\
+    \nSome of the terms in the list will not be used. Some terms may be used more\
+    \ than once.\n\ncompression       executable       hypertext markup language (HTML)\n\
+    \nhypertext transfer protocol (HTTP)     image     internet protocol (IP) address\n\
+    \npersistent       session       sound       text\n\nuniform resource locater\
+    \ (URL)       web browser       web server\n\nCookies are small  files that are\
+    \ sent between a\n and a  cookies are stored in memory and not in the user’s\n\
+    secondary storage.\n\nWhen the web browser is closed a  cookie is lost,\nwhereas\
+    \ a  cookie is not lost.\n\n[6]\n\n(b) Give three functions of a cookie.\n1  \
+    \ 2   3   [3]"
   answer_options: []
   subquestions:
   - number: 6a
@@ -194,7 +350,26 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '7
+
+    A distributed denial of service attack (DDoS) is a cyber security threat.
+
+
+    (a) Draw and annotate a diagram to represent the process of a DDoS.
+
+
+    [6]
+
+
+    (b) State two aims of carrying out a DDoS attack.
+
+    1   2   [2]
+
+
+    (c) Give two security solutions that can be used to help prevent a DDoS attack
+    being successful.
+
+    1   2   [2]'
   answer_options: []
   subquestions:
   - number: 7a
@@ -218,7 +393,39 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '8
+
+    A computer is connected to a network and assigned an IPv4 address.
+
+
+    (a) Tick (3) one box to show which device would assign the IPv4 address to the
+    computer.
+
+
+    A
+
+    Domain name server (DNS)
+
+
+    B
+
+    Network interface card (NIC)
+
+
+    C
+
+    Router
+
+
+    D
+
+    Web server
+
+
+    [1]
+
+
+    (b) Describe the characteristics of an IPv4 address [4]'
   answer_options: []
   subquestions:
   - number: 8a
@@ -236,7 +443,17 @@ questions:
 - number: '9'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '9
+
+    One component of an expert system is the inference engine.
+
+
+    (a) Identify the three other components in an expert system.
+
+    1   2   3   [3]
+
+
+    (b) Describe the role of the inference engine in an expert system [2]'
   answer_options: []
   subquestions:
   - number: 9a
@@ -254,7 +471,20 @@ questions:
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '10 A user has both system software and application software installed on
+    their computer.
+
+
+    (a) Describe the difference between system software and application software.
+
+
+    Give an example of each software in your answer [4]
+
+
+    (b) State which component in the computer would store both types of software when
+    the power is
+
+    turned off [1]'
   answer_options: []
   subquestions:
   - number: 10a

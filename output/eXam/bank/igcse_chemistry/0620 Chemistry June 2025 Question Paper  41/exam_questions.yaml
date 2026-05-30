@@ -2,7 +2,17 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\nA list of substances is shown.\nbauxite   calcium oxide   ethanol   graphite\
+    \   methane\nnitrogen   oxygen   propane   propene   sulfur dioxide\n\nAnswer\
+    \ the questions using the list of substances.\n\nEach substance may be used once,\
+    \ more than once, or not at all.\n\nState which of the substances:\n\n(a) is a\
+    \ basic oxide\n  [1]\n\n(b) contains carbon atoms only\n  [1]\n\n(c) is manufactured\
+    \ by fermentation\n  [1]\n\n(d) is produced by the decomposition of vegetation\n\
+    \  [1]\n\n(e) contains aluminium oxide\n  [1]\n\n(f) causes acid rain\n  [1]\n\
+    \n(g) is a simple molecule with 11 atoms\n  [1]\n\n(h) is produced when limestone\
+    \ thermally decomposes in the blast furnace\n  [1]\n\n(i)\nis a gas that is approximately\
+    \ 21% of clean, dry air\n  [1]\n\n(j)\nis a monomer in addition polymerisation\
+    \ [1]\n\n[Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -68,7 +78,22 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\nAtoms are made of electrons, neutrons and protons.\n\n(a) Complete Table\
+    \ 2.1.\nTable 2.1\nparticle\nrelative charge\nrelative mass\nelectron\n1\n1840\n\
+    neutron\n0\nproton\n\n[2]\n\n(b) Atoms of the same element are known as isotopes.\n\
+    \n39\n19K and\n41\n19K are isotopes of potassium.\n\n(i) Complete Table 2.2 to\
+    \ show the number of electrons, neutrons and protons in one atom\nor ion of these\
+    \ isotopes.\nTable 2.2\nisotope\nelectrons\nneutrons\nprotons\n39\n19K\n41\n19K+\n\
+    \n[3]\n\n(ii) Table 2.3 shows the relative masses and the percentage abundances\
+    \ of the two isotopes\nin a sample of potassium.\nTable 2.3\nrelative mass of\
+    \ isotope\npercentage abundance of isotope\n39\n90\n41\n10\n\n Calculate the relative\
+    \ atomic mass of this sample of potassium to one decimal place.\nrelative atomic\
+    \ mass =\n[2]\n,\t,\n\n(iii) An isotope of aluminium has a nucleon number of 27.\n\
+    \n Aluminium has a relative atomic mass of 27.\n\n State what conclusion can be\
+    \ made from this information [1]\n\n(c) A calcium atom has the electronic configuration\
+    \ of 2,8,8,2.\n\nGive the formula of one atom and one negative ion that has the\
+    \ same electronic configuration\nas Ca2+.\n•\natom   •\nnegative ion   [2]\n\n\
+    [Total: 10]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -110,7 +135,32 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nThis question is about copper and compounds of copper.\n\n(a) (i) Describe\
+    \ the bonding in a metallic element such as copper [3]\n\n(ii) Explain how solid\
+    \ copper conducts electricity [1]\n\n(b) Copper is in alloys such as brass.\n\n\
+    (i) State one reason why alloys are more useful than pure metals [1]\n\n(ii) Name\
+    \ the substance that is present in brass, other than copper [1]\n\n(c) Copper(II)\
+    \ sulfate crystals are made by the reaction between copper(II) carbonate and dilute\n\
+    sulfuric acid, using the following steps.\n\nThe sulfuric acid has a concentration\
+    \ of 0.100 mol / dm3.\n\nstep 1\n Powdered copper(II) carbonate is added to dilute\
+    \ sulfuric acid. The mixture is\nstirred. A reaction occurs.\n\nstep 2\nMore copper(II)\
+    \ carbonate is added, with stirring, until the reaction stops.\n\nstep 3\n Unreacted\
+    \ copper(II) carbonate is separated from aqueous copper(II) sulfate by\nfiltration.\n\
+    \nstep 4\nAqueous copper(II) sulfate is heated until some of the water evaporates.\n\
+    \nstep 5\nThe remaining solution is allowed to cool and crystallise.\n\nstep 6\n\
+    The crystals are removed and dried.\n\n(i) Give two observations in step 1.\n\
+    1   2   [2]\n,\t,\n\n(ii) State why the reaction stops in step 2 [1]\n\n(iii)\
+    \ Name the residue in step 3 [1]\n\n(iv) Name a substance, other than copper(II)\
+    \ carbonate, that can be added to dilute sulfuric\nacid to produce aqueous copper(II)\
+    \ sulfate [1]\n\n(v) The solution at the end of step 4 contains the maximum amount\
+    \ of copper(II) sulfate\nthat will dissolve at that temperature.\n\n State the\
+    \ term used to describe this type of solution [1]\n\n(vi) Step 1 is repeated using\
+    \ sulfuric acid of concentration 0.200 mol / dm3 instead of\n0.100 mol / dm3.\n\
+    \n All other conditions are the same.\n\n The rate of reaction increases.\n\n\
+    \ Explain why the rate of reaction increases. Give your answer in terms of particles\
+    \ [2]\n\n(vii) Copper(II) sulfate crystals have the formula CuSO4•5H2O.\n\n State\
+    \ the term used to describe a substance that is chemically combined with water\
+    \ [1]\n\n[Total: 15]\n,\t,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -200,7 +250,27 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\nThis question is about nitrogen and its compounds.\n\nNitrogen contains\
+    \ molecules with the formula N2.\n\n(a) Complete the dot-and-cross diagram in\
+    \ Fig. 4.1 to show the electronic configuration in a\nnitrogen molecule. Show\
+    \ outer-shell electrons only.\nN\nN\nFig. 4.1\n\n[2]\n\n(b) Ammonia, NH3, is manufactured\
+    \ by reacting nitrogen with hydrogen, H2, in the Haber process.\n\n(i) State three\
+    \ typical conditions for the reaction between nitrogen and hydrogen in the\nHaber\
+    \ process.\n1   2   3   [3]\n\n(ii) Write the symbol equation for the chemical\
+    \ reaction in the Haber process [1]\n\n(c) Ammonia is converted into nitric acid\
+    \ in a two-step process.\n\nIn step 1, ammonia and oxygen are passed over a catalyst.\n\
+    \n(i) Balance the symbol equation for this reaction.\n4NH3 + …..O2\n …..NO + .….H2O\n\
+    \n[1]\n\n(ii) Give the oxidation number of nitrogen in:\n•\nNH3  •\nNO [2]\n,\t\
+    \t,\n\n(iii) Define oxidation in terms of oxidation number [1]\n\n(iv) In step\
+    \ 2, oxygen and water react with NO to produce nitric acid as the only product.\n\
+    \n Write a symbol equation for this chemical reaction [2]\n\n(d) Ammonia is converted\
+    \ into ammonium sulfate, (NH4)2SO4.\n2NH3(g) + H2SO4(aq)\n (NH4)2SO4(s)\n\n360\
+    \ dm3 of ammonia gas, measured at r.t.p., reacts with excess sulfuric acid.\n\n\
+    Calculate the mass of ammonium sulfate produced, using the following steps.\n\
+    •\nCalculate the number of moles of NH3(g) in 360 dm3.\n\nOne mole of any gas\
+    \ occupies 24 dm3 at r.t.p mol\n•\nCalculate the number of moles of (NH4)2SO4\
+    \ produced mol\n•\nCalculate the mass of (NH4)2SO4 produced.\n\nThe Mr of (NH4)2SO4\
+    \ is 132 g\n\n[3]\n\n[Total: 15]\n,\n,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -266,7 +336,29 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nMethanol, CH3OH, is manufactured by the reaction between hydrogen and\
+    \ carbon monoxide.\n\nAn equilibrium mixture is produced.\n2H2(g) + CO(g)\n CH3OH(g)\n\
+    \n(a) State what happens to the concentration of CH3OH when the reaction is at\
+    \ equilibrium.\n\nExplain your answer in terms of rate of forward and reverse\
+    \ reactions [2]\n\n(b) The reaction is carried out at a pressure of 75 atmospheres\
+    \ and a temperature of 250 °C.\n\n(i) State two disadvantages of using a pressure\
+    \ below 75 atmospheres.\n1   2   [2]\n\n(ii) Complete Table 5.1 using only the\
+    \ words increases, decreases or no change.\nTable 5.1\neffect on the concentration\
+    \ of\nCH3OH(g) at equilibrium\neffect on the rate of the reverse\nreaction\ncatalyst\
+    \ is added\n\n[2]\n\n(iii) If a temperature of more than 250 °C is used, the yield\
+    \ of methanol decreases.\n\n State what can be deduced about the forward reaction\
+    \ [1]\n\n(iv) Suggest which of the elements from the list is a suitable catalyst\
+    \ for the reaction. Give a\nreason for your answer.\nbarium   carbon   copper\
+    \   potassium   sulfur\ncatalyst   reason   [2]\n,\t,\n\n(c) Methanol is a member\
+    \ of the homologous series of alcohols.\n\n(i) State two characteristics of all\
+    \ members of a homologous series.\n1   2   [2]\n\n(ii) State the molecular formula\
+    \ of an alcohol that contains five carbon atoms [1]\n\n(d) Carboxylic acids react\
+    \ with alcohols to form esters.\n\n(i) Draw the displayed formula of an ester\
+    \ which contains three carbon atoms.\n\n[2]\n\n(ii) Butyl ethanoate is an ester.\n\
+    \n Name the alcohol and the carboxylic acid that react to produce butyl ethanoate.\n\
+    alcohol   carboxylic acid   [2]\n\n(e) An organic compound has the following composition\
+    \ by mass:\n\nC, 64.87%; H, 13.51%; O, 21.62%.\n\nCalculate the empirical formula\
+    \ of the compound.\n\nempirical formula =  [2]\n\n[Total: 18]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -350,7 +442,63 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nThis question is about the Periodic Table.\n\n(a) State the name given\
+    \ to Group VII elements [1]\n\n(b) State which Group VII element is most reactive\
+    \ [1]\n\n(c) Give the physical state and colour of iodine at room temperature\
+    \ and pressure.\nstate   colour   [2]\n\n(d) When bromine is added to aqueous\
+    \ potassium iodide a displacement reaction occurs.\n\nThe equation for the reaction\
+    \ is shown.\nBr2 + 2KI\n 2KBr + I2\n\n(i) Write an ionic equation for the reaction\
+    \ [2]\n,\t,\n\n(ii) Iodine and bromine react at high temperatures to form iodine\
+    \ monobromide, IBr.\n\n The equation is shown.\nI2(g) + Br2(g)\n 2IBr(g)\n\n The\
+    \ structures of the molecules involved in the reaction are I–I, Br–Br and I–Br.\n\
+    Table 6.1\nbond\nbond energy in kJ / mol\nI–I\n150\nBr–Br\n193\nI–Br\n175\n\n\
+    \ Calculate the enthalpy change, ΔH, for the reaction using the bond energies\
+    \ in Table 6.1.\n\n Use the following steps.\n•\nCalculate the total amount of\
+    \ energy required to break the bonds in 1 mol of I2(g)\nand 1 mol of Br2(g) kJ\n\
+    •\nCalculate the total amount of energy released when the bonds in 2 mol of IBr(g)\
+    \ are\nformed kJ\n•\nCalculate the enthalpy change, ΔH, for the reaction.\n\n\
+    Your answer should include a sign kJ / mol\n\n[3]\n,\t,\n\n(e) Sodium is in Group\
+    \ I of the Periodic Table.\n\nWhen sodium is added to water a chemical reaction\
+    \ occurs.\n\n(i) Give two observations when sodium is added to water.\n1   2 \
+    \  [2]\n\n(ii) Thymolphthalein is added to the solution when the reaction has\
+    \ finished.\n\n State the final colour of the thymolphthalein in the solution\
+    \ [1]\n\n[Total: 12]\n,\t,\nGroup\nThe Periodic Table of Elements\n1\nH\nhydrogen\n\
+    1\n2\nHe\nhelium\n4\nI\nII\nIII\nIV\nV\nVI\nVII\nVIII\n3\nLi\nlithium\n7\n4\n\
+    Be\nberyllium\n9\natomic number\natomic symbol\nKey\nname\nrelative atomic mass\n\
+    11\nNa\nsodium\n23\n12\nMg\nmagnesium\n24\n19\nK\npotassium\n39\n20\nCa\ncalcium\n\
+    40\n37\nRb\nrubidium\n85\n38\nSr\nstrontium\n88\n55\nCs\ncaesium\n133\n56\nBa\n\
+    barium\n137\n87\nFr\nfrancium\n–\n88\nRa\nradium\n–\n5\nB\nboron\n11\n13\nAl\n\
+    aluminium\n27\n31\nGa\ngallium\n70\n49\nIn\nindium\n115\n81\nTl\nthallium\n204\n\
+    113\nNh\nnihonium\n–\n6\nC\ncarbon\n12\n14\nSi\nsilicon\n28\n32\nGe\ngermanium\n\
+    73\n50\nSn\ntin\n119\n82\nPb\nlead\n207\n22\nTi\ntitanium\n48\n40\nZr\nzirconium\n\
+    91\n72\nHf\nhafnium\n178\n104\nRf\nrutherfordium\n–\n23\nV\nvanadium\n51\n41\n\
+    Nb\nniobium\n93\n73\nTa\ntantalum\n181\n105\nDb\ndubnium\n–\n24\nCr\nchromium\n\
+    52\n42\nMo\nmolybdenum\n96\n74\nW\ntungsten\n184\n106\nSg\nseaborgium\n–\n25\n\
+    Mn\nmanganese\n55\n43\nTc\ntechnetium\n–\n75\nRe\nrhenium\n186\n107\nBh\nbohrium\n\
+    –\n26\nFe\niron\n56\n44\nRu\nruthenium\n101\n76\nOs\nosmium\n190\n108\nHs\nhassium\n\
+    –\n27\nCo\ncobalt\n59\n45\nRh\nrhodium\n103\n77\nIr\niridium\n192\n109\nMt\nmeitnerium\n\
+    –\n28\nNi\nnickel\n59\n46\nPd\npalladium\n106\n78\nPt\nplatinum\n195\n110\nDs\n\
+    darmstadtium\n–\n29\nCu\ncopper\n64\n47\nAg\nsilver\n108\n79\nAu\ngold\n197\n\
+    111\nRg\nroentgenium\n–\n30\nZn\nzinc\n65\n48\nCd\ncadmium\n112\n80\nHg\nmercury\n\
+    201\n112\nCn\ncopernicium\n–\n114\nFl\nflerovium\n–\n116\nLv\nlivermorium\n–\n\
+    7\nN\nnitrogen\n14\n15\nP\nphosphorus\n31\n33\nAs\narsenic\n75\n51\nSb\nantimony\n\
+    122\n83\nBi\nbismuth\n209\n115\nMc\nmoscovium\n–\n8\nO\noxygen\n16\n16\nS\nsulfur\n\
+    32\n34\nSe\nselenium\n79\n52\nTe\ntellurium\n128\n84\nPo\npolonium\n–\n9\nF\n\
+    fluorine\n19\n17\nCl\nchlorine\n35.5\n35\nBr\nbromine\n80\n53\nI\niodine\n127\n\
+    85\nAt\nastatine\n–\n117\nTs\ntennessine\n–\n10\nNe\nneon\n20\n18\nAr\nargon\n\
+    40\n36\nKr\nkrypton\n84\n54\nXe\nxenon\n131\n86\nRn\nradon\n–\n118\nOg\noganesson\n\
+    –\n21\nSc\nscandium\n45\n39\nY\nyttrium\n89\n57–71\nlanthanoids\n89–103\nactinoids\n\
+    57\nLa\nlanthanum\n139\n89\nAc\nlanthanoids\nactinoids\nThe volume of one mole\
+    \ of any gas is 24 dm3 at room temperature and pressure (r.t.p.).\nactinium\n\
+    –\n58\nCe\ncerium\n140\n90\nTh\nthorium\n232\n59\nPr\npraseodymium\n141\n91\n\
+    Pa\nprotactinium\n231\n60\nNd\nneodymium\n144\n92\nU\nuranium\n238\n61\nPm\npromethium\n\
+    –\n93\nNp\nneptunium\n–\n62\nSm\nsamarium\n150\n94\nPu\nplutonium\n–\n63\nEu\n\
+    europium\n152\n95\nAm\namericium\n–\n64\nGd\ngadolinium\n157\n96\nCm\ncurium\n\
+    –\n65\nTb\nterbium\n159\n97\nBk\nberkelium\n–\n66\nDy\ndysprosium\n163\n98\nCf\n\
+    californium\n–\n67\nHo\nholmium\n165\n99\nEs\neinsteinium\n–\n68\nEr\nerbium\n\
+    167\n100\nFm\nfermium\n–\n69\nTm\nthulium\n169\n101\nMd\nmendelevium\n–\n70\n\
+    Yb\nytterbium\n173\n102\nNo\nnobelium\n–\n71\nLu\nlutetium\n175\n103\nLr\nlawrencium\n\
+    –\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a

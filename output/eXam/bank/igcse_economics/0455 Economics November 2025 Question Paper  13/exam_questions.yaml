@@ -101,7 +101,53 @@ questions:
 - number: '8'
   question_type: multiple_choice
   marks: 1
-  text: ''
+  text: 'Which combination shows features of the mixed economic system?
+
+    8
+
+    public
+
+    sector
+
+    private
+
+    sector
+
+    price
+
+    mechanism
+
+    yes
+
+    no
+
+    no
+
+    A
+
+    no
+
+    yes
+
+    no
+
+    B
+
+    no
+
+    yes
+
+    yes
+
+    C
+
+    yes
+
+    yes
+
+    yes
+
+    D'
   answer_options:
   - letter: A
     text: A

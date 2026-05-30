@@ -2,7 +2,10 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\nThe pie chart shows some information about the way 600 students travel\
+    \ to school.\nWalk\nBicycle\n60°\n\n(a) Work out the number of students that walk\
+    \ to school [2]\n\n(b) 120 of the students travel to school by car.\n\nThe remaining\
+    \ students travel by bus.\n\nComplete the pie chart.\n\n[3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -20,7 +23,10 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\nNOT TO\nSCALE\nC\nE\nD\nB\nA\n80°\n75°\n\nABCD is a quadrilateral.\n\n\
+    E lies on CD and AE is parallel to BC.\n\nEA = ED.\n\nFind\n\n(a) angle ABC\n\n\
+    Angle ABC =   [1]\n\n(b) angle AED\n\nAngle AED =   [1]\n\n(c) angle DAB.\n\n\
+    Angle DAB =   [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -44,43 +50,79 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '1
+
+    The temperature at 4 am is -12 °C.
+
+
+    The temperature at 4 pm is 21 °C.
+
+
+    Find the increase in temperature from 4 am to 4 pm °C [1]'
   answer_options: []
   subquestions: []
 - number: '2'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: '2
+
+    Find all the common factors of 8 and 12 [1]'
   answer_options: []
   subquestions: []
 - number: '7'
   question_type: short_answer
   marks: 1
-  text: ''
+  text: "7\nRepresent the inequality\nx\n4\n3\n1\nG\n-\n   on the number line.\nx\n\
+    – 6\n– 5\n– 4\n– 3\n– 2\n– 1\n1\n0\n2\n3\n4\n5\n6\n\n[2]"
   answer_options: []
   subquestions: []
 - number: '8'
   question_type: calculation
   marks: 2
-  text: ''
+  text: "8\nKemi buys p pens that each cost 40 cents.\n\nShe pays with $20.\n\nWrite\
+    \ an expression, in terms of p, for the change, in cents, Kemi receives from the\
+    \ $20 cents [2]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '9'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '9
+
+    Rajid has a full bottle of juice.
+
+
+    He drinks 3
+
+    1 of the full bottle on Monday.
+
+
+    He drinks 7
+
+    3 of the full bottle on Tuesday.
+
+
+    Find the fraction of the bottle of juice remaining [3]'
   answer_options: []
   subquestions: []
 - number: '3'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '3
+
+    A cuboid has length 6 cm, width 5 cm and height 2.5 cm.
+
+
+    Work out the volume of the cuboid cm3 [2]'
   answer_options: []
   subquestions: []
 - number: '10'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "10\n\nb\ndm\nmk\n2\n=\n+\n\n(a)\n.\nd\n3 14\n=\n,\n.\nm\n7 92\n=\n and\n\
+    .\nk\n1\n10 6\n=\n .\n\nBy rounding each value correct to 1 significant figure,\
+    \ work out an estimate for b [3]\n\n(b) Rearrange the formula to make m the subject.\n\
+    \nm =   [2]"
   answer_options: []
   subquestions:
   - number: 10a
@@ -98,7 +140,12 @@ questions:
 - number: '11'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "11\nNOT TO\nSCALE\nS\nP\nQ\nT\nR\n\nIn the diagram, S lies on PQ and T lies\
+    \ on PR.\n\nST is parallel to QR.\n\n(a) Explain why triangle PQR is mathematically\
+    \ similar to triangle PST.\n\nGive a geometrical reason for each statement you\
+    \ make [3]\n\n(b) ST = 3 cm, QR = 9 cm and PS = 5 cm.\n\nWork out PQ.\n\nPQ =\
+    \   cm [2]\n\n(c) The area of triangle PST is 2k cm2.\n\nFind, in terms of k,\
+    \ the area of quadrilateral QRTS cm2 [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 11a
@@ -122,7 +169,11 @@ questions:
 - number: '12'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "12 A fitness club has 100 members.\n\n60 swim (S ).\n\n70 cycle (C ).\n\n\
+    25 do not swim or cycle.\nC\nS\n%\n\n(a) Complete the Venn diagram.\n\n[3]\n\n\
+    (b) One member of the fitness club is chosen at random.\n\nFor this member, find\n\
+    \n(i) P(C )\n\n  [1]\n\n(ii) P(S\nC\n+\n)\n\n  [1]\n\n(iii) P(S\nC\n,\nl) [1]\n\
+    ,\t\t,"
   answer_options: []
   subquestions:
   - number: 12a
@@ -158,7 +209,10 @@ questions:
 - number: '13'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "13\n\nM\n2\n3\n5\n7\n3\n2\n#\n#\n=\n\n(a) Write 14M as a product of its prime\
+    \ factors.\n\nGive your answer in index form [2]\n\n(b) R is an integer.\n\nR\n\
+    M  is a cube number.\n\nFind the smallest possible value of R.\n\nR =   [2]\n\
+    14 Find the value of\n\n(a) 3\n3\n2\n2\n'\n-\n\n  [2]\n\n(b) 16\n2\n3\n-  [2]"
   answer_options: []
   subquestions:
   - number: 13a
@@ -194,7 +248,8 @@ questions:
 - number: '15'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "15 Factorise.\n\n(a) x\n64\n2 -\n\n  [1]\n\n(b)\n(\n)\n(\n)\nx x\ny\nx\n\
+    y\n5\n2\n6\n2\n2\n-\n+\n-\n\n  [2]\n,\t,"
   answer_options: []
   subquestions:
   - number: 15a
@@ -212,13 +267,80 @@ questions:
 - number: '16'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '16
+
+    NOT TO
+
+    SCALE
+
+    D
+
+    C
+
+    B
+
+    A
+
+    14°
+
+
+    AB and BD are two sides of a regular 15-sided polygon.
+
+
+    AB and BC are two sides of a regular n-sided polygon.
+
+
+    Angle DBC = 14°.
+
+
+    Work out the value of n.
+
+
+    n =   [4]'
   answer_options: []
   subquestions: []
 - number: '17'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: '17 B is the point (-3, 1) and D is the point (-5, 9).
+
+
+    BD is a diagonal of the kite ABCD.
+
+
+    (a) The ratio of the lengths of the diagonals BD : AC = 2 : 3.
+
+
+    Work out the length of AC.
+
+
+    Give your answer as a surd in its simplest form [5]
+
+
+    (b) Find the coordinates of the midpoint of BD.
+
+
+    (  ,  ) [2]
+
+
+    (c) The diagonal AC of the kite passes through the midpoint of BD.
+
+
+    Find an equation of AC.
+
+
+    Give your answer in the form   y
+
+    mx
+
+    c
+
+    =
+
+    + .
+
+
+    y =   [4]'
   answer_options: []
   subquestions:
   - number: 17a
@@ -242,19 +364,44 @@ questions:
 - number: '18'
   question_type: long_answer
   marks: 4
-  text: ''
+  text: "18 Rationalise the denominator and simplify.\n4\n6\n20\n+\n\n  [3]\n,\t,"
   answer_options: []
   subquestions: []
 - number: '19'
   question_type: calculation
   marks: 3
-  text: ''
+  text: '19
+
+    NOT TO
+
+    SCALE
+
+    7 cm
+
+    5 cm
+
+    5 cm
+
+
+    The diagram shows a box in the shape of a cuboid.
+
+
+    Mala has a straight rod of length 10 cm.
+
+
+    Show that this rod does not fit completely inside the box.
+
+
+    [3]'
   answer_options: []
   subquestions: []
 - number: '20'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "20\n\n( )x\nx\n2\n1\n21\nf\n=\n-  , x\n2\n1\n!\n\n( )x\nx\n3\n4\ng\n=\n+\n\
+    \n(a) Find\n\n(i) g(2)\n\n  [1]\n\n(ii) gf(-1)\n\n  [2]\n\n(iii)\n( )x\nf\n1\n\
+    -\n.\n\n( )x\nf\n1\n=\n-\n   [3]\n\n(b) Solve    ( )\n( )\nx\nx\nf\ng\n=\n.\n\n\
+    x =  or x =  [5]"
   answer_options: []
   subquestions:
   - number: 20a
@@ -290,13 +437,28 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 2
-  text: ''
+  text: '4
+
+    A computer costs $560.
+
+
+    In a sale, this cost is reduced by 20%.
+
+
+    Find the cost of the computer in the sale.
+
+
+    $  [2]'
   answer_options: []
   subquestions: []
 - number: '21'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "21 (a)\ny\nx\n1\n– 1\n360°\nO\n180°\n\nOn the diagram, sketch the graph of\n\
+    cos\ny\nx\n=\n   for  °\n°\nx\n0\n360\nG\nG\n.\n[2]\n\n(b) Solve the equation\
+    \   cosx\n2\n3\n0\n+\n=\n  for  °\n°\nx\n0\n360\nG\nG\n.\n\nx =  or x =  [3]\n\
+    22 A graph with equation   y\nx\nbx\nc\n2\n=\n+\n+    has a minimum point at (-5,\
+    \ 12).\n\nFind the value of b and the value of c.\n\nb =   c =   [3]\n,\t,"
   answer_options: []
   subquestions:
   - number: 21a
@@ -320,7 +482,12 @@ questions:
 - number: '23'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "23\nNOT TO\nSCALE\nB\nA\n240°\n12 cm\nO\n\nThe diagram shows a major sector,\
+    \ AOB, of a circle.\n\nThe sector angle is 240° and the radius is 12 cm.\n\n(a)\
+    \ Show that the length of the major arc AB is\nrcm\n16\n.\n\n[1]\n\n(b) OA is\
+    \ joined to OB to form a cone.\n\nWork out the volume of the cone.\n\nGive your\
+    \ answer in the form\nr\na b\n3\n`\nj\n   where a is an integer and b is a prime\
+    \ number cm3 [6]\nQuestion 24 is printed on the next page.\n,\t,"
   answer_options: []
   subquestions:
   - number: 23a

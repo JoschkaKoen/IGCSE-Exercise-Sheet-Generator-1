@@ -2,7 +2,21 @@ questions:
 - number: '1'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "1\n(a) Define velocity [1]\n\n(b) In an experiment, two objects A and B are\
+    \ released from the side of a building, as shown in\nFig. 1.1.\n3.0 m s–1\n10.0\
+    \ m\nh\nA\nB\nbuilding\nground\nFig. 1.1 (not to scale)\n\nObject A is released\
+    \ from rest at a height of 10.0 m above horizontal ground.\n\nObject B is released\
+    \ with an initial upward velocity of 3.0 m s−1 at a height h above the ground.\n\
+    \nBoth objects take the same time to reach the ground and they do not collide\
+    \ with each other.\n\nAir resistance is negligible.\n\nCalculate h.\n\nh =   m\
+    \ [3]\n,\t,\n\n(c) In a second experiment, object B is released from the same\
+    \ height as in (b) but with a speed\nof 6.0 m s−1 at an angle of 60° to the vertical,\
+    \ as shown in Fig. 1.2.\n6.0 m s–1\nB\nbuilding\n60°\nFig. 1.2\n\n(i) State and\
+    \ explain whether the time taken for object B to reach the ground is less than,\n\
+    the same as, or greater than the time taken in the first experiment [2]\n\n(ii)\
+    \ By considering energy, state and explain whether the speed at which object B\
+    \ reaches\nthe ground is less than, the same as, or greater than in the first\
+    \ experiment [2]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 1a
@@ -38,7 +52,23 @@ questions:
 - number: '2'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "2\n(a) Define the moment of a force about a pivot [1]\n\n(b) Three objects\
+    \ A, B and C are placed on a horizontal beam. The beam is in equilibrium, as\n\
+    shown in Fig. 2.1.\nC\nbeam\npivot\n9.0 m\n3.0 m\nB\nA\nFig. 2.1 (not to scale)\n\
+    \nThe beam is uniform and has length 9.0 m.\n\nA pivot is at the midpoint of the\
+    \ beam.\n\nObject A has mass 90 kg and is at one end of the beam.\n\nObject B\
+    \ has mass m and is a distance of 3.0 m from the pivot.\n\nObject C has mass 150\
+    \ kg and is at the other end of the beam.\n\n(i) Calculate m.\n\nm =   kg [3]\n\
+    ,\t,\n\n(ii) Object A is removed and replaced by a wire fixed to the end of the\
+    \ beam and to the\nground, as shown in Fig. 2.2.\nC\nbeam\nwire\npivot\nB\nground\n\
+    Fig. 2.2\n\n After the change, the beam is again horizontal and in equilibrium.\
+    \ The positions of\nB and C are unchanged.\n\n The wire has a diameter of 1.8\
+    \ × 10−3 m and has a strain of 1.2 × 10−3.\n\n The wire is not extended beyond\
+    \ its limit of proportionality.\n\n Calculate the Young modulus of the wire.\n\
+    \nYoung modulus =   Pa [3]\n\n(iii) Object B is now moved to a new position closer\
+    \ to the pivot without passing it. The beam\nis again horizontal and in equilibrium.\n\
+    \n State and explain the effect, if any, that this has on the strain in the wire\
+    \ [2]\n\n[Total: 9]\n,\t,"
   answer_options: []
   subquestions:
   - number: 2a
@@ -74,7 +104,21 @@ questions:
 - number: '3'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "3\nA car of mass 1500 kg is travelling along a straight horizontal road at\
+    \ constant velocity v. The car is\nsubject to a total resistive force F, as shown\
+    \ in Fig. 3.1.\nF\nv\nhorizontal road\ncar, mass 1500 kg\nFig. 3.1\n\n(a) Show\
+    \ that the power P developed by the engine in overcoming the total resistive force\
+    \ is\ngiven by the equation\nP = Fv .\n\n[2]\n\n(b) The car now moves up a slope\
+    \ at a constant speed of 30 m s−1.\n\nThe slope is at an angle to the horizontal\
+    \ of 6.0°, as shown in Fig. 3.2.\n30 m s–1\nroad\ncar\n6.0°\nFig. 3.2\n\nThe total\
+    \ resistive force acting on the car is 1600 N.\n,\t\t,\n\n(i) Show that the increase\
+    \ in gravitational potential energy of the car in a time of 1.0 s is\n46 000 J.\n\
+    \n[2]\n\n(ii) Use the information in (b)(i) to determine the power developed by\
+    \ the engine to move\nthe car up the slope.\n\npower =   W [2]\n\n(c) The car\
+    \ picks up a passenger and then continues up the slope at the same speed as in\
+    \ (b).\n\nState and explain the effect, if any, that the passenger has on:\n\n\
+    (i) the air resistance acting on the car\n  [1]\n\n(ii) the power developed by\
+    \ the engine [1]\n\n[Total: 8]\n,\n,"
   answer_options: []
   subquestions:
   - number: 3a
@@ -122,7 +166,16 @@ questions:
 - number: '4'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "4\n(a) State the principle of conservation of momentum [2]\n\n(b) An object\
+    \ A of mass 4.0 kg travels at a velocity of 6.0 m s−1 to the right on a horizontal\n\
+    frictionless surface. It moves towards a second object B of mass 2.0 kg that is\
+    \ moving at a\nvelocity of 3.0 m s−1 in the same direction as A, as shown in Fig.\
+    \ 4.1.\nobject A, mass 4.0 kg\nobject B, mass 2.0 kg\nsurface\n6.0 m s–1\n3.0\
+    \ m s–1\nFig. 4.1\n\nObject A collides with object B. The two objects join and\
+    \ move off together with velocity v.\n\nCalculate:\n\n(i) velocity v\n\nv =  \
+    \ m s−1 [2]\n\n(ii) the percentage of the total initial kinetic energy of the\
+    \ two objects that is transferred to\nother forms of energy during the collision.\n\
+    \npercentage =   % [2]\n\n[Total: 6]\n,\t,"
   answer_options: []
   subquestions:
   - number: 4a
@@ -152,7 +205,19 @@ questions:
 - number: '5'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "5\n(a) State why sound waves cannot be polarised [1]\n\n(b) A plane-polarised\
+    \ light wave is incident on a polarising filter as shown in Fig. 5.1.\nlight wave,\n\
+    intensity I0\npolarising filter\nFig. 5.1\n\nThe intensity of the light incident\
+    \ on the filter is I0.\n\nThe light is incident normally on the filter and the\
+    \ transmission axis of the filter is initially\nperpendicular to the plane of\
+    \ polarisation of the light.\n\nThe filter is now rotated through 360° about the\
+    \ direction of travel of the light wave.\n\n(i) On Fig. 5.2, sketch the variation\
+    \ of the intensity I of the transmitted light with the angle of\nrotation α as\
+    \ the filter is rotated through 360° from its initial position.\nI0\nI\n0\n0\n\
+    90\n180\n270\n360\n/ °\nα\nI0\n2\nFig. 5.2\n\n[3]\n,\t,\n\n(ii) The amplitude\
+    \ of the incident light wave is A0 when the intensity of the wave is I0.\n\n Use\
+    \ Malus’s law to determine, in terms of A0, the amplitude of the transmitted wave\n\
+    when α = 20°.\n\namplitude =   A0 [4]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 5a
@@ -182,7 +247,18 @@ questions:
 - number: '6'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "6\n(a) State what is meant by diffraction [1]\n\n(b) Light of wavelength\
+    \ 720 nm in a vacuum is incident normally on a diffraction grating as shown\n\
+    in Fig. 6.1.\nsecond-order\nmaxima\n52°\ndiffraction grating\nlight, wavelength\
+    \ 720 nm\nscreen\nFig. 6.1 (not to scale)\n\nA screen is parallel to the grating.\
+    \ An interference pattern is seen on the screen and the angle\nbetween the second-order\
+    \ maxima is 52°.\n\n(i) Calculate the frequency of the light.\n\nfrequency = \
+    \  Hz [2]\n,\t,\n\n(ii) Calculate the number of lines per unit length in the diffraction\
+    \ grating.\n\nnumber per unit length =   m−1 [3]\n\n(iii) The light in Fig. 6.1\
+    \ is now replaced with light of a different wavelength λ. It is observed\nthat\
+    \ the third-order maxima of this light are at the same positions as the second-order\n\
+    maxima of the light in Fig. 6.1.\n\n Calculate, in nm, the wavelength λ.\n\nλ\
+    \ =   nm [2]\n\n[Total: 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 6a
@@ -218,7 +294,20 @@ questions:
 - number: '7'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "7\nA nichrome resistance wire has length 150 cm, cross-sectional area 2.45\
+    \ × 10−7 m2 and resistivity\n1.12 × 10−6 Ω m.\n\n(a) Calculate, to three significant\
+    \ figures, the resistance of the wire.\n\nresistance =   Ω [3]\n\n(b) The nichrome\
+    \ wire forms part of a potentiometer circuit together with a cell of electromotive\n\
+    force (e.m.f.) 1.2 V and negligible internal resistance, as shown in Fig. 7.1.\n\
+    1.2 V\n150 cm\n64 cm\ncell X\nnichrome wire\nFig. 7.1 (not to scale)\n\nThe circuit\
+    \ is used to determine the e.m.f. of cell X.\n\nThe galvanometer is used in a\
+    \ null method to find the null point 64 cm from the left-hand end\nof the nichrome\
+    \ wire.\n\n(i) Explain what is meant by a null method [1]\n,\t,\n\n(ii) Calculate\
+    \ the e.m.f. of cell X.\n\ne.m.f. =   V [2]\n\n(iii) The cell of e.m.f. 1.2 V\
+    \ is replaced by a new cell with the same e.m.f. but with an internal\nresistance\
+    \ that is not negligible.\n\n State and explain the effect, if any, of the internal\
+    \ resistance of the new cell on the\nposition of the null point [2]\n\n[Total:\
+    \ 8]\n,\t,"
   answer_options: []
   subquestions:
   - number: 7a
@@ -254,7 +343,14 @@ questions:
 - number: '8'
   question_type: short_answer
   marks: 0
-  text: ''
+  text: "8\n(a) An antiparticle equivalent of the neutron is called the antineutron.\
+    \ The quarks in the\nantineutron are the antiparticles of the quarks in a neutron.\n\
+    \nThe elementary charge is e.\n\nIn Table 8.1, state the flavour and charge of\
+    \ the three antiquarks that comprise the antineutron.\nTable 8.1\nflavour\ncharge\
+    \ / e\n\n[3]\n\n(b) In β− decay, a neutron decays to form a proton.\n\nTheory\
+    \ predicts that an antineutron should decay to form an antiproton. A particle\
+    \ and an\nantiparticle should also be observed.\n\nSuggest the names of the particle\
+    \ and the antiparticle.\nparticle:   antiparticle:   [2]\n\n[Total: 5]\n,\t\t,"
   answer_options: []
   subquestions:
   - number: 8a
