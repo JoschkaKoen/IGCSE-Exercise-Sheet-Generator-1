@@ -1,7 +1,9 @@
 # Requires Docker Compose v2.24+ for the `path` / `required` env_file syntax.
 services:
   web:
-    build: .
+    build:
+      context: .
+      target: app
     image: exercise-app
     restart: unless-stopped
     ports:

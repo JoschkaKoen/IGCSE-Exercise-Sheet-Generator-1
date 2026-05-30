@@ -12,7 +12,10 @@ openpyxl>=3.1.0
 rich>=13.0.0
 # xScore scan pipeline
 numpy>=1.26.0
-opencv-python>=4.9.0
+# opencv is intentionally not pinned here: rapidocr-onnxruntime pulls in full
+# opencv-python transitively, and the Docker image swaps it for opencv-python-headless
+# (see Dockerfile). Local installs keep the full build via rapidocr — identical
+# behavior, since this app makes no GUI cv2 calls.
 pdf2image>=1.17.0
 pikepdf>=8.0.0
 pytesseract>=0.3.10
