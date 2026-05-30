@@ -7,6 +7,25 @@
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/static/favicon.svg" />
   <title>{% block title %}eXercise{% endblock %}</title>
+  {# SEO + social-share preview. Used when a teacher shares a practice/library
+     link — bare URLs otherwise preview with no title or description. Site-wide
+     defaults; og:url + og:image are absolute (built from the request origin). #}
+  {% set _meta_desc = (t('meta.description') if t else 'Cambridge IGCSE & A-Level exercises, grading, practice and code.') %}
+  {% set _og_title = (t('meta.og_title') if t else 'IGCSE & A-Level') %}
+  <meta name="description" content="{{ _meta_desc }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IGCSE &amp; A-Level" />
+  <meta property="og:title" content="{{ _og_title }}" />
+  <meta property="og:description" content="{{ _meta_desc }}" />
+  <meta property="og:locale" content="{{ 'zh_CN' if lang == 'zh' else 'en_GB' }}" />
+  <meta property="og:url" content="{{ request.url }}" />
+  <meta property="og:image" content="{{ request.base_url }}static/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ _og_title }}" />
+  <meta name="twitter:description" content="{{ _meta_desc }}" />
+  <meta name="twitter:image" content="{{ request.base_url }}static/og-image.png" />
   <link rel="stylesheet" href="/static/vendor/google-fonts/fonts.css" />
   {# Twemoji flag webfont — fixes the Windows gap where regional-indicator
      emoji render as country-code letters instead of flag glyphs. #}
@@ -141,6 +160,10 @@
     });
   </script>
   <div class="z-content flex min-h-screen flex-col"{% if needs_site_login | default(false) %} inert="" aria-hidden="true"{% endif %}>
+
+    {# Keyboard / screen-reader skip link — first focusable element, hidden
+       until focused, jumps past the sticky nav to the page content. #}
+    <a href="#site-main" class="skip-to-content">{{ t('a11y.skip_to_content') if t else 'Skip to content' }}</a>
 
     <header class="site-header sticky top-0 z-20">
       <div class="site-header-inner mx-auto flex w-full max-w-5xl items-center px-4 py-3.5 sm:px-6">
@@ -277,7 +300,7 @@
       </div>
     </header>
 
-    <main id="site-main" class="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:py-12 sm:px-6">
+    <main id="site-main" tabindex="-1" class="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:py-12 sm:px-6">
       {% block content %}{% endblock %}
     </main>
 

@@ -91,6 +91,10 @@
 }
 .code-btn:hover:not(:disabled) { background: rgba(255, 255, 255, .12); color: #fff; }
 .code-btn:disabled { opacity: .4; cursor: not-allowed; }
+/* Keyboard focus ring — matches .code-continue / .code-example-run so every
+   control in the playground shares one focus style (these pills otherwise fell
+   back to the UA default outline). */
+.code-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(34, 211, 238, .6); }
 .code-btn-primary { background: rgba(34, 211, 238, .16); color: #67e8f9; border-color: rgba(34, 211, 238, .3); }
 .code-btn-primary:hover:not(:disabled) { background: rgba(34, 211, 238, .26); color: #a5f3fc; }
 .code-btn-check { background: rgba(99, 102, 241, .16); color: #c7d2fe; border-color: rgba(99, 102, 241, .3); }

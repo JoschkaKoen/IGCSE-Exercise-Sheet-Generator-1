@@ -15,6 +15,8 @@ from eXercise.env_load import load_project_env
 
 load_project_env()
 
+import http
+import logging
 import mimetypes
 import os
 import sys
@@ -24,6 +26,8 @@ from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .analytics import AnalyticsMiddleware, init_db as init_analytics_db
 from .auth_gate import (
@@ -32,6 +36,7 @@ from .auth_gate import (
     request_is_authenticated,
 )
 from .handouts_collect import HANDOUTS_ROOT
+from .i18n import detect_language, translate
 from .routes.account import router as account_router
 from .routes.admin_stats import router as admin_stats_router
 from .routes.code import router as code_router
@@ -45,6 +50,7 @@ from .routes.learn import router as learn_router
 from .routes.nl_jobs import router as nl_jobs_router
 from .routes.site import router as site_router
 from .service import list_library_pdfs
+from .template_ctx import template_ctx
 
 PACKAGE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = PACKAGE_DIR / "static"
@@ -169,6 +175,108 @@ async def apple_touch_icon() -> Response:
     if not Path(_favicon_svg).exists():
         return Response(status_code=404)
     return FileResponse(_favicon_svg, media_type="image/svg+xml")
+
+
+# ---------------------------------------------------------------------------
+# Themed error pages
+# ---------------------------------------------------------------------------
+# FastAPI's default exception handlers return raw JSON (``{"detail": "Not
+# Found"}``) which renders as black-on-white text — a jarring break from the
+# space-themed UI when a *browser* hits a missing/forbidden page. These handlers
+# content-negotiate: a themed HTML page for navigations (Accept: text/html),
+# JSON preserved for ``/api/*`` and non-HTML clients (fetch, curl, <img>).
+#
+# Middleware ordering keeps analytics intact:
+#   - HTTPException (404/403/401) is handled by Starlette's inner
+#     ExceptionMiddleware, so AnalyticsMiddleware still sees a normal response
+#     and records the status code (unchanged from before).
+#   - The catch-all ``Exception`` handler is invoked by the *outer*
+#     ServerErrorMiddleware, AFTER AnalyticsMiddleware's ``except`` block has
+#     already recorded the error event and re-raised — so error tracking works.
+
+_ERROR_TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
+_ERROR_NO_CACHE = {
+    "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+    "Pragma": "no-cache",
+}
+
+
+def _client_wants_html(request: Request) -> bool:
+    """True for browser navigations — they send ``Accept: text/html``. API
+    routes and non-HTML clients (fetch with JSON Accept, curl, asset tags) keep
+    the JSON response so nothing programmatic breaks."""
+    if request.url.path.startswith("/api/"):
+        return False
+    return "text/html" in request.headers.get("accept", "")
+
+
+def _error_view_strings(request: Request, status_code: int, detail: object) -> dict:
+    """Localized title/body/labels for the error page, with a generic fallback
+    for status codes that have no dedicated string."""
+    lang = detect_language(request)
+
+    def with_fallback(key: str, generic_key: str) -> str:
+        val = translate(lang, key)
+        return val if val != key else translate(lang, generic_key)
+
+    title = with_fallback(f"error.{status_code}.title", "error.generic.title")
+    body = with_fallback(f"error.{status_code}.body", "error.generic.body")
+
+    # Surface a helpful custom detail on 4xx pages (e.g. "Lesson not found", the
+    # teacher-gate hint) but hide the redundant standard reason phrase ("Not
+    # Found") and never leak 5xx internals to the user.
+    shown_detail = ""
+    if 400 <= status_code < 500 and isinstance(detail, str):
+        d = detail.strip()
+        try:
+            standard = http.HTTPStatus(status_code).phrase
+        except ValueError:
+            standard = ""
+        if d and d != standard and d.lower() != body.lower():
+            shown_detail = d
+
+    return {
+        "status_code": status_code,
+        "error_title": title,
+        "error_body": body,
+        "detail": shown_detail,
+        "home_label": translate(lang, "error.home"),
+        "page_title": translate(lang, "title.error"),
+    }
+
+
+def _render_error_page(request: Request, status_code: int, detail: object) -> Response:
+    """Render the themed HTML error page. Falls back to JSON if rendering itself
+    fails (e.g. a DB-backed 500 where the user lookup would also throw) so the
+    handler can never raise."""
+    try:
+        ctx = template_ctx(request, **_error_view_strings(request, status_code, detail))
+        return _ERROR_TEMPLATES.TemplateResponse(
+            request, "error.html", ctx,
+            status_code=status_code, headers=_ERROR_NO_CACHE,
+        )
+    except Exception:
+        logging.getLogger(__name__).exception("themed error page render failed")
+        msg = detail if isinstance(detail, str) else "Error"
+        return JSONResponse(status_code=status_code, content={"detail": msg})
+
+
+@app.exception_handler(StarletteHTTPException)
+async def _on_http_exception(request: Request, exc: StarletteHTTPException) -> Response:
+    if _client_wants_html(request):
+        return _render_error_page(request, exc.status_code, exc.detail)
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail},
+        headers=getattr(exc, "headers", None),
+    )
+
+
+@app.exception_handler(Exception)
+async def _on_unhandled_exception(request: Request, exc: Exception) -> Response:
+    if _client_wants_html(request):
+        return _render_error_page(request, 500, None)
+    return JSONResponse(status_code=500, content={"detail": "Internal Server Error"})
 
 
 @app.middleware("http")
