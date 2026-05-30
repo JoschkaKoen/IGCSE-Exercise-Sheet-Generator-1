@@ -103,7 +103,7 @@ export async function destroyPdfTab(id) {
     s.doc = null;
   }
   s.zoom = 1;
-  s.baseFit = 1;
+  s.fitBox = null;
   s.pages = [];
   const stack = pagesStackEl(id);
   if (stack) stack.innerHTML = '';
@@ -155,9 +155,18 @@ export async function resetActivePdfZoom() {
 
 // ─── Core rendering ───────────────────────────────────────────────────────────
 
-function _computeBaseFit(s, id) {
+/** Per-page fit: "contain" within the box with a 2% overscan, but never wider
+ *  than the box — so a landscape page can't overflow the width and force a
+ *  horizontal scrollbar / right-edge clip.  Portrait (height-limited) pages keep
+ *  the 2% overscan, which lands harmlessly on the vertically-scrolled axis. */
+function _pageFit(box, w, h) {
+  const fitW = box.cw / w;
+  return Math.min(Math.min(fitW, box.ch / h) * 1.02, fitW);
+}
+
+function _computeFitBox(s, id) {
   const scroll = scrollEl(id);
-  if (!scroll) return s.baseFit || 1;
+  if (!scroll) return { cw: 400, ch: 520 };
   const cs = getComputedStyle(scroll);
   const padL = parseFloat(cs.paddingLeft) || 0;
   const padR = parseFloat(cs.paddingRight) || 0;
@@ -171,10 +180,10 @@ function _computeBaseFit(s, id) {
   };
 }
 
-// reuseBaseFit: when true, keep s.baseFit as-is instead of re-measuring from
-// the scroll container.  Pass true for zoom-triggered re-renders so that
-// scrollbar appearance/disappearance at low zoom levels cannot produce a
-// visible page-size jump.
+// reuseBaseFit: when true, reuse the cached fit box (s.fitBox) instead of
+// re-measuring from the scroll container.  Pass true for zoom-triggered
+// re-renders so that scrollbar appearance/disappearance at low zoom levels
+// cannot produce a visible page-size jump.
 async function _renderSinglePage(id, pageIdx) {
   const s = getPdfState(id);
   const pg = s.pages[pageIdx];
@@ -183,7 +192,7 @@ async function _renderSinglePage(id, pageIdx) {
   const pdfjs = await ensurePdfJs();
   try {
     const page = await s.doc.getPage(pg.pageNum);
-    const userScale = s.baseFit * s.zoom;
+    const userScale = pg.fit * s.zoom;
     const cssVp = page.getViewport({ scale: userScale });
     const scaledVp = page.getViewport({ scale: userScale * s.dpr });
     if (!pg.canvasRendered) {
@@ -311,22 +320,17 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   s.dpr = dpr;
   const n = s.doc.numPages;
-  let baseFit;
-  if (reuseBaseFit && s.baseFit && s.baseFit !== 1) {
-    baseFit = s.baseFit;
-  } else {
-    const fit = _computeBaseFit(s, id);
-    const page1 = await s.doc.getPage(1);
-    const vp1 = page1.getViewport({ scale: 1 });
-    const scaleW = fit.cw / vp1.width;
-    const scaleH = fit.ch / vp1.height;
-    baseFit = (vp1.width > vp1.height ? scaleH : Math.min(scaleW, scaleH)) * 1.02;
-    s.baseFit = baseFit;
-  }
+  // Fit each page to the viewport independently ("contain") so no page can be
+  // wider than the viewport: the stack then equals the content width and every
+  // page — portrait or landscape — stays centered and fully visible.  Reuse the
+  // cached fit box on zoom-settle re-renders so a scrollbar toggle can't jump sizes.
+  const box = (reuseBaseFit && s.fitBox) ? s.fitBox : (s.fitBox = _computeFitBox(s, id));
   let maxDispW = 0;
   for (let p = 1; p <= n; p++) {
     const page = await s.doc.getPage(p);
-    const userScale = baseFit * s.zoom;
+    const natVp = page.getViewport({ scale: 1 });
+    const pageFit = _pageFit(box, natVp.width, natVp.height);
+    const userScale = pageFit * s.zoom;
     const cssVp = page.getViewport({ scale: userScale });
     const scaledVp = page.getViewport({ scale: userScale * dpr });
     const pageWrap = document.createElement('div');
@@ -352,7 +356,7 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
     newPages.push({
-      wrap: pageWrap, canvas: canvas, pageNum: p,
+      wrap: pageWrap, canvas: canvas, pageNum: p, fit: pageFit,
       vpW: cssVp.width / userScale, vpH: cssVp.height / userScale,
       rendered: false, rendering: false, canvasRendered: false,
     });
@@ -397,11 +401,12 @@ export async function rerenderPdfZoomBuffered(id) {
   const targetZoom = s.zoom;
   const pagesSnapshot = s.pages.slice();  // capture for stale-after-settle guard
   const dpr = s.dpr || Math.min(window.devicePixelRatio || 1, 2);
-  const renderScale = s.baseFit * targetZoom * dpr;
+  const zr = targetZoom * dpr;
 
   const dims = [];
   for (let i = 0; i < pagesSnapshot.length; i++) {
     const pg = pagesSnapshot[i];
+    const renderScale = pg.fit * zr;
     dims.push({
       w: Math.floor(pg.vpW * renderScale),
       h: Math.floor(pg.vpH * renderScale),
@@ -420,7 +425,7 @@ export async function rerenderPdfZoomBuffered(id) {
     (function (idx, dim) {
       renderPromises.push(
         s.doc.getPage(pagesSnapshot[idx].pageNum).then(function (page) {
-          const vp = page.getViewport({ scale: renderScale });
+          const vp = page.getViewport({ scale: pagesSnapshot[idx].fit * zr });
           const offCanvas = document.createElement('canvas');
           offCanvas.className = 'pdf-canvas pdf-canvas-page';
           offCanvas.width = dim.w;

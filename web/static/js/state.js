@@ -108,7 +108,7 @@ export function getPdfState(id) {
   if (!state.pdfTabState[id]) {
     state.pdfTabState[id] = {
       doc: null, zoom: 1, loadingTask: null,
-      baseFit: 1, dpr: 1,
+      fitBox: null, dpr: 1,
       pages: [],   // [{wrap, canvas, pageNum, vpW, vpH, rendered, rendering, canvasRendered}]
       observer: null,
     };

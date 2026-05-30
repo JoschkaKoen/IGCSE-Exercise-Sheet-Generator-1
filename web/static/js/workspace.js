@@ -411,15 +411,14 @@ if (pdfPane) {
     const contentW = scroll.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
 
     // --- Compute phase (no DOM access) ---
-    const bf = s.baseFit;
     let oldMaxW = 0, newMaxW = 0;
     const newDims = [];
     for (let i = 0; i < s.pages.length; i++) {
       const pg = s.pages[i];
-      const ow = Math.floor(pg.vpW * bf * oldZoom);
+      const ow = Math.floor(pg.vpW * pg.fit * oldZoom);
       if (ow > oldMaxW) oldMaxW = ow;
-      const nw = Math.floor(pg.vpW * bf * s.zoom);
-      const nh = Math.floor(pg.vpH * bf * s.zoom);
+      const nw = Math.floor(pg.vpW * pg.fit * s.zoom);
+      const nh = Math.floor(pg.vpH * pg.fit * s.zoom);
       newDims.push({ w: nw, h: nh });
       if (nw > newMaxW) newMaxW = nw;
     }

@@ -617,7 +617,7 @@ async function loadLibPdf(url, sidebarBtn) {
     hideSpinner('lib');
     hideEmpty('lib');   // removes hidden from pdf-scroll-lib
     // Wait two animation frames so the browser finishes layout on the
-    // newly-visible scroll element before _computeBaseFit reads clientWidth.
+    // newly-visible scroll element before _computeFitBox reads clientWidth.
     await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
     _libPdfLoaded = true;
     await renderPdfContinuous('lib');
