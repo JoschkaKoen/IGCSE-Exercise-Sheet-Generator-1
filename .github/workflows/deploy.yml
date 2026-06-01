@@ -5,6 +5,7 @@
 #   DEPLOY_HOST    — server hostname or IP (e.g. 43.160.216.10)
 #   DEPLOY_USER    — SSH login (e.g. root)
 #   DEPLOY_SSH_KEY — private key PEM (full file, incl. -----BEGIN ... END-----)
+#   DEPLOY_SSH_PASSPHRASE — passphrase for the private key (if encrypted)
 # Optional DEPLOY_PORT (default 22).
 #
 # ONE-TIME server setup for the pull path: `docker login ghcr.io` with a PAT scoped
@@ -64,6 +65,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
+          passphrase: ${{ secrets.DEPLOY_SSH_PASSPHRASE }}
           port: ${{ secrets.DEPLOY_PORT || '22' }}
           command_timeout: 15m        # pull, not build
           script: |
