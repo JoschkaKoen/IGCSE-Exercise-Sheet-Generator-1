@@ -70,5 +70,15 @@ jobs:
           command_timeout: 15m        # pull, not build
           script: |
             set -euo pipefail
+            mkdir -p /root/esg
             cd /root/esg
+
+            # Clone the repo if this is the first time
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/JoschkaKoen/eXercise.git .
+            fi
+
+            # Pull latest changes
+            git pull origin main
+
             IMAGE_TAG=${{ github.sha }} ./scripts/pull-and-deploy.sh
