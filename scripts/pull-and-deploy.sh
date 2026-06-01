@@ -49,6 +49,8 @@ OLD_HEAD="$(git rev-parse HEAD)"
 # the pulled image; BUILD mode follows the branch tip.
 if [[ -n "${IMAGE_TAG:-}" ]]; then
   TARGET="$IMAGE_TAG"
+  # Shallow VPS checkouts (first deploy) need an explicit deepen fetch for the SHA.
+  git fetch --depth 1 origin "$TARGET"
 else
   TARGET="origin/$BRANCH"
 fi
@@ -56,7 +58,7 @@ echo "$(date -Is) OLD_HEAD=$OLD_HEAD target=$TARGET  (rollback: git reset --hard
 git merge --ff-only "$TARGET"
 NEW_HEAD="$(git rev-parse HEAD)"
 
-if [[ "$OLD_HEAD" == "$NEW_HEAD" && -z "${FORCE_DEPLOY:-}" ]]; then
+if [[ "$OLD_HEAD" == "$NEW_HEAD" && -z "${FORCE_DEPLOY:-}" && -z "${IMAGE_TAG:-}" ]]; then
   echo "$(date -Is) no new commits (HEAD already $NEW_HEAD); set FORCE_DEPLOY=1 to redeploy"
   exit 0
 fi

@@ -6,13 +6,13 @@
 #   DEPLOY_USER    — SSH login (e.g. root)
 #   DEPLOY_SSH_KEY — private key PEM (full file, incl. -----BEGIN ... END-----)
 #   DEPLOY_SSH_PASSPHRASE — passphrase for the private key (if encrypted)
-# Optional DEPLOY_PORT (default 22).
+#   GHCR_PULL_TOKEN  — PAT with read:packages; used to `docker login ghcr.io` on the VPS
+#                      during deploy (so you don't need a one-time manual login)
+# Optional DEPLOY_PORT (default 22), DEPLOY_PATH (default /root/esg).
 #
-# ONE-TIME server setup for the pull path: `docker login ghcr.io` with a PAT scoped
-# read:packages (the GHCR package is private), persisted in /root/.docker/config.json.
-# Without it the pull 404s and the deploy fails — the old container keeps running.
-#
-# The build job authenticates to GHCR with the per-run GITHUB_TOKEN (packages: write).
+# ONE-TIME server setup (only if GHCR_PULL_TOKEN is not set): `docker login ghcr.io`
+# with a PAT scoped read:packages, persisted in /root/.docker/config.json.
+# Without login the pull 404s and the deploy fails — the old container keeps running.
 
 name: Deploy
 
@@ -70,15 +70,20 @@ jobs:
           command_timeout: 15m        # pull, not build
           script: |
             set -euo pipefail
-            mkdir -p /root/esg
-            cd /root/esg
+            DEPLOY_PATH="${{ secrets.DEPLOY_PATH || '/root/esg' }}"
+            mkdir -p "$DEPLOY_PATH"
+            cd "$DEPLOY_PATH"
 
-            # Clone the repo if this is the first time
+            # First deploy: shallow clone (repo is large; full history not needed on the VPS).
             if [ ! -d ".git" ]; then
-              git clone https://github.com/JoschkaKoen/eXercise.git .
+              git clone --depth 1 --branch main https://github.com/JoschkaKoen/eXercise.git .
             fi
 
-            # Pull latest changes
-            git pull origin main
+            # Log in to GHCR so `docker compose pull` can fetch the private image.
+            if [ -n "${{ secrets.GHCR_PULL_TOKEN }}" ]; then
+              echo "${{ secrets.GHCR_PULL_TOKEN }}" | docker login ghcr.io -u joschkakoen --password-stdin
+            fi
 
+            # Pull pre-built image from GHCR and start/restart the stack.
+            chmod +x scripts/pull-and-deploy.sh
             IMAGE_TAG=${{ github.sha }} ./scripts/pull-and-deploy.sh
